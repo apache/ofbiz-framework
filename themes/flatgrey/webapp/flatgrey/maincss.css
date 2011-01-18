@@ -113,11 +113,12 @@ width:expression(document.body.clientWidth < 782? "780px" : "auto");
 }
 
 hr {
-border-bottom: #fafafa 0.2em solid;
+background-color: #ccc;
+color: #ccc;
+border-bottom: #fafafa 0.1em solid;
 border-right: #fafafa 0.2em solid;
 border-left: #d9d9d9 0.2em solid;
-border-top: #d9d9d9 0.2em solid;
-line-height: 0.2em;
+border-top: #d9d9d9 0.1em solid;
 margin: 0.5em 0 0.5em 0;
 }
 
@@ -204,16 +205,13 @@ vertical-align: middle;
 
 .required, input.required {
 /* required style for <input> elements */
-background-color: #f9f9f9;
+background-color: #ffffdd;
 }
 
 .tooltip {
-background-color: #ffffbb;
-border: 0.1em solid #999999;
-color: #000000;
+color: #557996;
 font-style: italic;
 margin: 0.4em;
-padding: 0.1em;
 }
 
 .visible {
@@ -670,10 +668,9 @@ width: 100%;
 display: inline; /* IE Fix */
 }
 
-.button-bar ul li {
+.button-bar ul li ul li {
 float: left;
 font-weight: bold;
-padding: 0.1em 0.4em 0.1em 0.4em;
 }
 
 .button-bar ul .opposed {
@@ -694,8 +691,22 @@ float: right;
 /*      Button Bar Decorators      */
 /* ------------------------------- */
 
+.button-style-1 {
+display: table;
+}
+
+.button-style-1 ul li ul li {
+margin-right: 0.5em;
+margin-bottom: 0.5em;
+}
+
 .button-style-2 {
 display: table;
+}
+
+.button-style-2 ul li ul li {
+margin-right: 0.5em;
+margin-bottom: 0.5em;
 }
 
 .button-style-2 {
@@ -716,6 +727,7 @@ margin: 0.5em 0.5em 0 0.5em;
 
 .tab-bar ul li ul li {
 margin-right: 0.5em;
+margin-bottom: 0.5em;
 background: #fff;
 border-top: 0.1em solid #ccc;
 border-right: 0.2em solid #ccc;
@@ -757,8 +769,10 @@ margin-bottom: 1em;
 width: 100%;
 }
 
+form table,
 form .basic-table,
 .screenlet-body .basic-table {
+background: transparent;
 margin-bottom: 0;
 }
 
@@ -1018,7 +1032,7 @@ width: 100%;
 }
 
 .basic-form table .header-row:hover {
-background-color: #ffffff;
+/*background-color: #ffffff;*/
 color: #000000;
 }
 
@@ -1049,7 +1063,7 @@ text-align: left;
 
 .basic-form table .header-row:hover,
 .basic-form table tr th:hover{
-background-color: #ffffff;
+/*background-color: #ffffff;*/
 color: #000000;
 }
 
@@ -1057,16 +1071,13 @@ color: #000000;
 border-bottom: 0.1em solid #999999;
 }
 
-.basic-form table .viewManyTR1,
 .basic-form table .alternate-row {
 /* Alternating row style */
-/* .viewManyTR1 deprecated - use .alternate-row */
-background-color: #eeeeee;
+/*background-color: #eeeeee;*/
 }
 
-
 .basic-form table tr td .disabled {
-background-color: #cccccc;
+/*background-color: #cccccc;*/
 color: #333366;
 text-decoration: none;
 }
@@ -1123,7 +1134,7 @@ text-decoration: none;
 }
 
 .nav-pager ul a:hover {
-background-color: #0366b0;
+background-color: #999;
 }
 
 .nav-pager ul .nav-pagesize,
@@ -1383,6 +1394,7 @@ textarea {
 a.buttontext,
 a.buttontextbig,
 .smallSubmit,
+.smallSubmit:hover,
 .mediumSubmit, 
 .largeSubmit, 
 .loginButton,
