@@ -95,19 +95,19 @@ public class BlogRssServices {
         feed.setDescription(content.getString("description"));
         feed.setEntries(generateEntryList(dispatcher, delegator, contentId, entryLink, locale, userLogin));
 
-        Map resp = ServiceUtil.returnSuccess();
+        Map<String, Object> resp = ServiceUtil.returnSuccess();
         resp.put("wireFeed", feed.createWireFeed());
         return resp;
     }
 
-    public static List generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
-        List entries = FastList.newInstance();
-        List exprs = FastList.newInstance();
+    public static List<SyndEntry> generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
+        List<SyndEntry> entries = FastList.newInstance();
+        List<EntityCondition> exprs = FastList.newInstance();
         exprs.add(EntityCondition.makeCondition("contentIdStart", contentId));
         exprs.add(EntityCondition.makeCondition("caContentAssocTypeId", "PUBLISH_LINK"));
         exprs.add(EntityCondition.makeCondition("statusId", "CTNT_PUBLISHED"));
 
-        List contentRecs = null;
+        List<GenericValue> contentRecs = null;
         try {
             contentRecs = delegator.findList("ContentAssocViewTo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("-caFromDate"), null, false);
         } catch (GenericEntityException e) {
@@ -115,7 +115,7 @@ public class BlogRssServices {
         }
 
         if (contentRecs != null) {
-            Iterator i = contentRecs.iterator();
+            Iterator<GenericValue> i = contentRecs.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 String sub = null;
