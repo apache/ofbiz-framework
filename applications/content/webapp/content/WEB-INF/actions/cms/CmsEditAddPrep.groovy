@@ -22,6 +22,7 @@ import org.ofbiz.minilang.SimpleMapProcessor
 import org.ofbiz.content.ContentManagementWorker
 import org.ofbiz.content.content.ContentWorker
 import org.ofbiz.content.data.DataResourceWorker
+import org.ofbiz.webapp.ftl.FreeMarkerViewHandler
 
 userLogin = session.getAttribute("userLogin");
 contentAssocDataResourceViewFrom = delegator.makeValue("ContentAssocDataResourceViewFrom");
@@ -71,8 +72,8 @@ if (dataResourceId) {
     SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
     templateRoot = [:];
     FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);
-    txt = DataResourceWorker.getDataResourceTextCache(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator);
-    
+    txt = DataResourceWorker.getDataResourceText(dataResource, "text/html", Locale.getDefault(), templateRoot, delegator, true);
+
     if (txt) {
         textData = UtilFormatOut.encodeXmlValue(txt);
     }

@@ -121,7 +121,7 @@ under the License.
                 <set field="MASTER_caContentIdTo" from-field="parameters.MASTER_caContentIdTo" default-value="${parameters.caContentIdTo}"/>
                 <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId" default-value="${parameters.caContentIdFrom}"/>
                 <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId" default-value="${parameters.caContentAssocTypeId}"/>
-                <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" default-value="${parameters.caFromDate}"/>
+                <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" default-value="${parameters.caFromDate}" type="Timestamp"/>
 
                 <set field="contentId" from-field="MASTER_contentId"/>
                 <set field="drDataResourceId" from-field="MASTER_drDataResourceId"/>
@@ -162,7 +162,7 @@ under the License.
                 <set field="MASTER_caContentIdTo" from-field="parameters.MASTER_caContentIdTo"/>
                 <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId"/>
                 <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId"/>
-                <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate"/>
+                <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" type="Timestamp"/>
 
                 <set field="caContentIdTo" from-field="parameters.contentId"/>
                 <set field="caMapKey" from-field="parameters.mapKey"/>
