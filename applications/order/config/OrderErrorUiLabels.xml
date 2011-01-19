@@ -2111,6 +2111,10 @@
         <value xml:lang="zh"> 读取订单头信息时出现问题。</value>
         <value xml:lang="zh_TW"> 讀取訂單頭資訊時出現問題。</value>
     </property>
+    <property key="OrderProblemsReadingOrderItemInformation">
+        <value xml:lang="en">Error reading the OrderItem: ${errorString}</value>
+        <value xml:lang="it">Errore durante la lettura informazioni della riga ordine: ${errorString}</value>
+    </property>
     <property key="OrderProblemsStoringOrderEmailContactInformation">
         <value xml:lang="en">Problems storing order email contact information</value>
         <value xml:lang="es">Problemas almacenando la información del contacto de email</value>

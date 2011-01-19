@@ -68,6 +68,7 @@ public class BOMServices {
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
+        Locale locale = (Locale) context.get("locale");
 
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -88,7 +89,7 @@ public class BOMServices {
                     bomTypes.add(((GenericValue)bomTypesValuesIt.next()).getString("productAssocTypeId"));
                 }
             } catch (GenericEntityException gee) {
-                return ServiceUtil.returnError("Error running max depth algorithm: " + gee.getMessage());
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
             }
         } else {
             bomTypes.add(bomType);
@@ -106,7 +107,7 @@ public class BOMServices {
                 }
             }
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error running max depth algorithm: " + gee.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         result.put("depth", Long.valueOf(maxDepth));
 
@@ -127,6 +128,7 @@ public class BOMServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productIdTo");
         Boolean alsoComponents = (Boolean) context.get("alsoComponents");
+        Locale locale = (Locale) context.get("locale");
         if (alsoComponents == null) {
             alsoComponents = Boolean.TRUE;
         }
@@ -197,7 +199,7 @@ public class BOMServices {
                 }
             }
         } catch (Exception e) {
-            return ServiceUtil.returnError("Error running updateLowLevelCode: " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningUpdateLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         result.put("lowLevelCode", llc);
         return result;
@@ -213,6 +215,7 @@ public class BOMServices {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
 
         try {
             List<GenericValue> products = delegator.findList("Product", null, null, 
@@ -240,7 +243,7 @@ public class BOMServices {
             }
             // FIXME: also all the variants llc should be updated?
         } catch (Exception e) {
-            return ServiceUtil.returnError("Error running initLowLevelCode: " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningInitLowLevelCode", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
     }
@@ -258,7 +261,7 @@ public class BOMServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
-
+        Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         String productIdKey = (String) context.get("productIdTo");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
@@ -270,7 +273,7 @@ public class BOMServices {
         try {
             duplicatedProductAssoc = BOMHelper.searchDuplicatedAncestor(productId, productIdKey, bomType, fromDate, delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error running duplicated ancestor search: " + gee.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningDuplicatedAncestorSearch", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         result.put("duplicatedProductAssoc", duplicatedProductAssoc);
         return result;
@@ -297,6 +300,7 @@ public class BOMServices {
         Integer type = (Integer) context.get("type");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal amount = (BigDecimal) context.get("amount");
+        Locale locale = (Locale) context.get("locale");
         if (type == null) {
             type = Integer.valueOf(0);
         }
@@ -316,7 +320,7 @@ public class BOMServices {
         try {
             tree = new BOMTree(productId, bomType, fromDate, type.intValue(), delegator, dispatcher, userLogin);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         if (tree != null && quantity != null) {
             tree.setRootQuantity(quantity);
@@ -346,6 +350,7 @@ public class BOMServices {
         BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
         Boolean excludeWIPs = (Boolean) context.get("excludeWIPs");
+        Locale locale = (Locale) context.get("locale");
 
         if (quantity == null) {
             quantity = BigDecimal.ONE;
@@ -380,7 +385,7 @@ public class BOMServices {
             tree.print(components, excludeWIPs.booleanValue());
             if (components.size() > 0) components.remove(0);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         //
         // Product routing
@@ -430,6 +435,7 @@ public class BOMServices {
         BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
 
         if (quantity == null) {
             quantity = BigDecimal.ONE;
@@ -458,7 +464,7 @@ public class BOMServices {
             tree.setRootAmount(amount);
             tree.print(components);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
         Iterator<BOMNode> componentsIt = components.iterator();
         while (componentsIt.hasNext()) {
@@ -485,17 +491,17 @@ public class BOMServices {
         try {
             List<GenericValue> packages = delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId));
             if (!UtilValidate.isEmpty(packages)) {
-                return ServiceUtil.returnError("Packages already found.");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomPackageAlreadyFound", locale));
             }
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error loading the ShipmentPackages");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorLoadingShipmentPackages", locale));
         }
         // ShipmentItems are loaded
         List<GenericValue> shipmentItems = null;
         try {
             shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId));
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error loading the ShipmentItems");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorLoadingShipmentItems", locale));
         }
         Iterator<GenericValue> shipmentItemsIt = shipmentItems.iterator();
         Map<String, Object> orderReadHelpers = FastMap.newInstance();
@@ -507,8 +513,7 @@ public class BOMServices {
             try {
                 orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.getString("shipmentItemSeqId")));
             } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                        "ManufacturingPackageConfiguratorError", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
             }
             GenericValue orderShipment = org.ofbiz.entity.util.EntityUtil.getFirst(orderShipments);
             if (orderShipment != null && !orderReadHelpers.containsKey(orderShipment.getString("orderId"))) {
@@ -722,8 +727,7 @@ public class BOMServices {
                             }
                             dispatcher.runSync("createShipmentPackageContent", inputMap);
                         } catch (GenericServiceException e) {
-                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                                    "ManufacturingPackageConfiguratorError", locale));
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                         }
                         totalWidth = totalWidth.add(qty.multiply(productDepth));
                         if (qty.compareTo(maxQuantity) == 0) shipmentPackageSeqId = null;
@@ -747,7 +751,7 @@ public class BOMServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
-
+        Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         String fromDateStr = (String) context.get("fromDate");
@@ -776,7 +780,7 @@ public class BOMServices {
             tree.setRootQuantity(quantity);
             tree.getProductsInPackages(components);
         } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
 
         result.put("productsInPackages", components);

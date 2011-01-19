@@ -799,6 +799,38 @@
         <value xml:lang="zh">物料清单</value>
         <value xml:lang="zh_TW">物料清單</value>
     </property>
+    <property key="ManufacturingBomErrorCreatingBillOfMaterialsTree">
+        <value xml:lang="en">Error creating bill of materials tree: ${errorString}</value>
+        <value xml:lang="it">Errore durante la creazione dell'albero dei materiali: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomErrorLoadingShipmentItems">
+        <value xml:lang="en">Error loading the ShipmentItems</value>
+        <value xml:lang="it">Errore durante il caricamento di ShipmentItems</value>
+    </property>
+    <property key="ManufacturingBomErrorLoadingShipmentPackages">
+        <value xml:lang="en">Error loading the ShipmentPackages</value>
+        <value xml:lang="it">Errore durante il caricamento di ShipmentPackages</value>
+    </property>
+    <property key="ManufacturingBomErrorRunningDuplicatedAncestorSearch">
+        <value xml:lang="en">Error running duplicated ancestor search: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esecuzione della ricerca duplicati antenato: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomErrorRunningInitLowLevelCode">
+        <value xml:lang="en">Error running initLowLevelCode: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esecuzione di initLowLevelCode: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomErrorRunningMaxDethAlgorithm">
+        <value xml:lang="en">Error running max depth algorithm: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esecuzione dell'algoritmo massima profondità: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomErrorRunningUpdateLowLevelCode">
+        <value xml:lang="en">Error running updateLowLevelCode: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esecuzione di updateLowLevelCode: ${errorString}</value>
+    </property>
+    <property key="ManufacturingBomPackageAlreadyFound">
+        <value xml:lang="en">Packages already found.</value>
+        <value xml:lang="it">Pacchi già trovati.</value>
+    </property>
     <property key="ManufacturingBomSimulation">
         <value xml:lang="de">Stücklistensimulation</value>
         <value xml:lang="en">Bom Simulation</value>
@@ -2282,6 +2314,78 @@
         <value xml:lang="zh">生产资源计划</value>
         <value xml:lang="zh_TW">生產資源計劃</value>
     </property>
+    <property key="ManufacturingMrpCannotCountRecords">
+        <value xml:lang="en">Unable to count MrpEvent records.</value>
+        <value xml:lang="it">Non è possibile contare i records da  i records da MrpEvent.</value>
+    </property>
+    <property key="ManufacturingMrpCannotFindCustomTimePeriod">
+        <value xml:lang="en">Problem, we can not find CustomTimePeriod, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non è possibile trovare CustomTimePeriod, più dettagli possono essere trovati nel log</value>
+    </property>
+    <property key="ManufacturingMrpCannotFindProductFacility">
+        <value xml:lang="en">Unable to retrieve ProductFacility records.</value>
+        <value xml:lang="it">Non è possibile ricavare i records da ProductFacility.</value>
+    </property>
+    <property key="ManufacturingMrpCannotFindSalesForecasts">
+        <value xml:lang="en">Problem, we can not find SalesForecasts, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non è possibile trovare SalesForecasts, più dettagli possono essere trovati nel log</value>
+    </property>
+    <property key="ManufacturingMrpCannotFindSalesForecastDetails">
+        <value xml:lang="en">Problem, we can not find SalesForecastDetails, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non è possibile trovare SalesForecastDetails, più dettagli possono essere trovati nel log</value>
+    </property>
+    <property key="ManufacturingMrpCannotFindProductForEvent">
+        <value xml:lang="en">Problem, can not find the product for a event, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non è possibile trovare il prodotto per un'evento, più dettagli possono essere trovati nel log</value>
+    </property>
+    <property key="ManufacturingMrpCreateOrUpdateEvent">
+        <value xml:lang="en">Error during creation or update MrpEvent, parameters: ${parameters}</value>
+        <value xml:lang="it">Errore durante la creazione o aggiornamento MrpEvent, parametri: ${parameters}</value>
+    </property>
+    <property key="ManufacturingMrpErrorForBomLevel">
+        <value xml:lang="en">MRP Error retieving MRP event for the bom level: ${bomLevel}. Error: ${errorString}</value>
+        <value xml:lang="it">Errore MRP ricavando l'evento MRP per il livello di distinta base: ${bomLevel}. Errore: ${errorString}</value>
+    </property>
+    <property key="ManufacturingMrpErrorExplodingProduct">
+        <value xml:lang="en">An error occurred exploding the product ${productId}</value>
+        <value xml:lang="it">E' successo un'errore durante l'espolosizione del prodotto ${productId}</value>
+    </property>
+    <property key="ManufacturingMrpErrorRunningInitMrpEvents">
+        <value xml:lang="en">Error running the initMrpEvents service: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esecuzione del servizio initMrpEvents: ${errorString}</value>
+    </property>
+    <property key="ManufacturingMrpEventFindError">
+        <value xml:lang="en">Problem, we can not find all the items of MrpEvent, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non possaimo trovare tutte le righe di MrpEvent, per più dettagli controllare il log</value>
+    </property>
+    <property key="ManufacturingMrpEventProblemInitializing">
+        <value xml:lang="en">Problem initializing the MrpEvent entity (${mrpEventTypeId})</value>
+        <value xml:lang="it">Problema di inizializzazione entità MrpEvent (${mrpEventTypeId})</value>
+    </property>
+    <property key="ManufacturingMrpEventRemoveError">
+        <value xml:lang="en">Problem, we can not remove the MrpEvent items, for more detail look at the log</value>
+        <value xml:lang="it">Problema, non possaimo rimuovere le righe di MrpEvent, per più dettagli controllare il log</value>
+    </property>
+    <property key="ManufacturingMrpFacilityGroupCannotBeLoad">
+        <value xml:lang="en">Problem loading facility group information: ${errorString}</value>
+        <value xml:lang="it">Problema durante il caricamento delle informazioni relative al gruppo stabilimento: ${errorString}</value>
+    </property>
+    <property key="ManufacturingMrpFacilityGroupIsNotAssociatedToFacility">
+        <value xml:lang="en">No facility associated to facilityGroupId ${facilityGroupId}</value>
+        <value xml:lang="it">Nessuna stabilimento associato al gruppo stabilimento ${facilityGroupId}</value>
+    </property>
+    <property key="ManufacturingMrpFacilityGroupIsNotValid">
+        <value xml:lang="en">facilityGroupId ${facilityGroupId} is not valid</value>
+        <value xml:lang="it">Gruppo stabilimento ${facilityGroupId} non è valido</value>
+    </property>
+    <property key="ManufacturingMrpFacilityNotAvailable">
+        <value xml:lang="en">facilityId and facilityGroupId cannot be both null</value>
+        <value xml:lang="it">Stabilimento e gruppo stabilimento non possono essere entrambi nulli</value>
+    </property>
+    <property key="ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable">
+        <value xml:lang="en">facilityId and manufacturingFacilityId cannot be null</value>
+        <value xml:lang="it">Stabilimento e stabilimento di produzione non possono essere nulli</value>
+    </property>
     <property key="ManufacturingMrpInitialisation">
         <value xml:lang="de">MRP-Initialisierung</value>
         <value xml:lang="en">IEP init.</value>
@@ -2766,6 +2870,22 @@
         <value xml:lang="zh">关联</value>
         <value xml:lang="zh_TW">關聯</value>
     </property>
+    <property key="ManufacturingProductionRunCannotBeCancelled">
+        <value xml:lang="en">Cannot cancel productionRun, not in a valid status</value>
+        <value xml:lang="it">Non è possibile cancellare l'ordin di produzione, non è in uno stato valido</value>
+    </property>
+     <property key="ManufacturingProductionRunCannotDecomposingInventoryItem">
+        <value xml:lang="en">Error decomposing inventory item: inventory item with id ${inventoryItemId} not found.</value>
+        <value xml:lang="it">Errore duranta la decomposizione della riga inventario: riga inventario ${inventoryItemId} non trovata.</value>
+    </property>
+    <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound">
+        <value xml:lang="en">Error decomposing inventory item: no components found for marketing package ${productId}.</value>
+        <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun componente trovato per il pacco di vendita ${productId}.</value>
+    </property>
+    <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoMarketingPackagesFound">
+        <value xml:lang="en">Error decomposing inventory item: no marketing packages found in inventory item ${inventoryItemId}.</value>
+        <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun pacco di vendita trovato nella riga di inventario ${inventoryItemId}.</value>
+    </property>
     <property key="ManufacturingProductionRunClose">
         <value xml:lang="de">Produktionsauftrag abschließen</value>
         <value xml:lang="en">Close Production Run</value>
@@ -2823,6 +2943,10 @@
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
         <value xml:lang="zh">生产运行组件</value>
         <value xml:lang="zh_TW">生產運行元件</value>
+    </property>
+    <property key="ManufacturingProductionRunErrorRunningSetEstimatedDeliveryDates">
+        <value xml:lang="en">Problem running the setEstimatedDeliveryDates service</value>
+        <value xml:lang="it">Problema di esecuzione del servizio setEstimatedDeliveryDates</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
@@ -2900,6 +3024,22 @@
         <value xml:lang="zh">生产运行固定资产</value>
         <value xml:lang="zh_TW">生產運行固定資產</value>
     </property>
+    <property key="ManufacturingProductionRunForMarketingPackagesCreationError">
+        <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: ${errorString}</value>
+        <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: ${errorString}</value>
+    </property>
+    <property key="ManufacturingProductionRunForMarketingPackagesOrderItemNotFound">
+        <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: order item not found.</value>
+        <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: riga ordine non trovata.</value>
+    </property>
+    <property key="ManufacturingProductionRunFromConfigurationNotYetImplemented">
+        <value xml:lang="en">Operation not yet implemented</value>
+        <value xml:lang="it">Operazione non è ancora implementata</value>
+    </property>
+    <property key="ManufacturingProductionRunFromConfigurationNotValid">
+        <value xml:lang="en">Product Configuration Not Valid</value>
+        <value xml:lang="it">Configurazione non valida</value>
+    </property>
     <property key="ManufacturingProductionRunId">
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
         <value xml:lang="en">Production Run ID</value>
@@ -2911,6 +3051,10 @@
         <value xml:lang="th">รหัสการผลิต</value>
         <value xml:lang="zh">生产运行标识</value>
         <value xml:lang="zh_TW">生產執行ID</value>
+    </property>
+    <property key="ManufacturingProductionRunIsNotRequiredForProductId">
+        <value xml:lang="en">No production run is required for product with id ${productId} in date ${startDate}; please verify the validity dates of the bill of materials and routing.</value>
+        <value xml:lang="it">Nessun ordine di produzione è richiesto per il prodotto ${productId} in data ${startDate}; verificare le date di validità dei materiali.</value>
     </property>
     <property key="ManufacturingProductionRunName">
         <value xml:lang="de">Produktionsauftrags-Name</value>
@@ -3081,6 +3225,10 @@
         <value xml:lang="zh">生产运行状态没有改变，没有完成必要的生产运行</value>
         <value xml:lang="zh_TW">生產運行狀態沒有改變，沒有完成必要的生產運行</value>
     </property>
+    <property key="ManufacturingProductionRunTaskCannotReturnMoreItems">
+        <value xml:lang="en">Production Run Task with id ${productionRunTaskId} cannot return more items ${quantity} than the ones currently allocated ${quantityAllocated}</value>
+        <value xml:lang="it">Compito ordine di produzione ${productionRunTaskId} non può restituire più righe ${quantity} di quelle allocate attualmente ${quantityAllocated}</value>
+    </property>
     <property key="ManufacturingProductionRunTaskCannotStartDocsNotPrinted">
         <value xml:lang="en">Production Run Task Cannot Start Docs Not Printed</value>
         <value xml:lang="it">Compito ordine di produzione non può iniziare con documento non stampato</value>
@@ -3095,6 +3243,10 @@
         <value xml:lang="zh">生产运行任务无法启动，之前的任务没有完成</value>
         <value xml:lang="zh_TW">生產運行任務無法啟動，之前的任務沒有完成</value>
     </property>
+    <property key="ManufacturingProductionRunTaskNotFound">
+        <value xml:lang="en">Cannot find the production run task with id: ${productionRunTaskId}</value>
+        <value xml:lang="it">Non è possibile trovare il compito dell'ordine di produzione: ${productionRunTaskId}</value>
+    </property>
     <property key="ManufacturingProductionRunTaskNotExists">
         <value xml:lang="en">Production Run Task Not Exists</value>
         <value xml:lang="it">Compito ordine di produzione non esiste</value>
@@ -3108,6 +3260,10 @@
         <value xml:lang="pt_BR">Tarefa de execução de produção não está sendo executada</value>
         <value xml:lang="zh">生产运行任务没有执行</value>
         <value xml:lang="zh_TW">生產運行任務沒有執行</value>
+    </property>
+    <property key="ManufacturingProductionRunTaskProduceError">
+        <value xml:lang="en">Error calling productionRunTaskProduce: </value>
+        <value xml:lang="it">Errore durante l'esecuzione di productionRunTaskProduce: </value>
     </property>
     <property key="ManufacturingProductionRunTaskStatusChanged">
         <value xml:lang="en">Production Run Task Status Changed</value>
@@ -3126,6 +3282,38 @@
         <value xml:lang="th">งานการผลิต</value>
         <value xml:lang="zh">生产运行任务</value>
         <value xml:lang="zh_TW">生產運行任務</value>
+    </property>
+    <property key="ManufacturingProductionRunTryToCreateWorkEffortAssoc">
+        <value xml:lang="en">Error try to create workeffort assoc</value>
+        <value xml:lang="it">Errore durante il tentativo di creazione associazione impegno di lavoro</value>
+    </property>
+    <property key="ManufacturingProductionRunTryToGetBomListError">
+        <value xml:lang="en">Error try to get BOM list from productAssoc</value>
+        <value xml:lang="it">Errore durante il tentativo di ottenere la lista della distinta base da productAssoc</value>
+    </property>
+    <property key="ManufacturingProductionRunUnableToCreateMaterialsCosts">
+        <value xml:lang="en">Unable to create materials costs for the production run task ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="it">Non è possibile create i costi dei materiali per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+    </property>
+    <property key="ManufacturingProductionRunUnableToCreateRoutingCosts">
+        <value xml:lang="en">Unable to create routing costs for the production run task ${productionRunTaskId}: ${errorString}</value>
+        <value xml:lang="it">Non è possibile create i costi per il compito dell'ordine di produzione ${productionRunTaskId}: ${errorString}</value>
+    </property>
+    <property key="ManufacturingProductionRunUnableToFindCosts">
+        <value xml:lang="en">Unable to find a currency for production run costs</value>
+        <value xml:lang="it">Non è possibile trovare una valuta per i costi dell'ordine di produzione</value>
+    </property>
+    <property key="ManufacturingProductionRunUnableToFindCostsForWorkEffort">
+        <value xml:lang="en">Cannot retrieve costs for work effort ${workEffortId}: ${errorString}</value>
+        <value xml:lang="it">Non è possibile ricavare i costi per l'impegno di lavoro ${workEffortId}: ${errorString}</value>
+    </property>
+    <property key="ManufacturingProductionRunUnableToFindOverheadCosts">
+        <value xml:lang="en">Unable to compute overhead costs for production run: ${errorString}</value>
+        <value xml:lang="it">Non è possibile elaborare gli ulteriori costo dell'ordine di produzione: ${errorString}</value>
+    </property>
+    <property key="ManufacturingProductionRunUnableToProgressTaskStatus">
+        <value xml:lang="en">Unable to progress from status ${prevStatusId} for task ${taskId}</value>
+        <value xml:lang="it">Non è possibile cambiare lo stato da 'in corso' ${prevStatusId} per il compito ${taskId}</value>
     </property>
     <property key="ManufacturingProposedOrder">
         <value xml:lang="en">Proposed Order</value>
@@ -3392,6 +3580,10 @@
         <value xml:lang="th">Routing</value>
         <value xml:lang="zh">规程</value>
         <value xml:lang="zh_TW">規程</value>
+    </property>
+    <property key="ManufacturingRoutingErrorFindingTask">
+        <value xml:lang="en">Error finding routing task with id: ${taskId}</value>
+        <value xml:lang="it">Errore durante la ricerca del ciclo per il compito: ${taskId}</value>
     </property>
     <property key="ManufacturingRoutingHasNoRoutingTask">
         <value xml:lang="de">Arbeitsplan besitzt keinen Arbeitsgang</value>
@@ -3898,6 +4090,14 @@
         <value xml:lang="zh">不存在技术数据日历周</value>
         <value xml:lang="zh_TW">不存在技術資料日曆週</value>
     </property>
+    <property key="ManufacturingTechDataWorkEffortNotExist">
+        <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
+        <value xml:lang="it">Errore durante la ricerca dei records di WorkEffort: ${errorString}</value>
+    </property>
+    <property key="ManufacturingTechDataWorkEffortAssocNotExist">
+        <value xml:lang="en">Error finding desired WorkEffortAssoc records: ${errorString}</value>
+        <value xml:lang="it">Errore durante la ricerca dei records di WorkEffortAssoc: ${errorString}</value>
+    </property>
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
         <value xml:lang="en">Time Period</value>
@@ -4096,6 +4296,10 @@
         <value xml:lang="th">ไม่มีงานอยู่</value>
         <value xml:lang="zh">人工服务不存在</value>
         <value xml:lang="zh_TW">工項不存在</value>
+    </property>
+    <property key="ManufacturinWorkOrderItemFulfillmentError">
+        <value xml:lang="en">Error reading the WorkOrderItemFulfillment: ${errorString}</value>
+        <value xml:lang="it">Errore durante la letture di WorkOrderItemFulfillment: ${errorString}</value>
     </property>
     <property key="ManufacturingWorkWithShipmentPlans">
         <value xml:lang="de">Versandpläne</value>

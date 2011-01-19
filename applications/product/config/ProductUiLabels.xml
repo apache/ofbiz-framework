@@ -14545,6 +14545,10 @@
         <value xml:lang="en">Inventory Item/Transfer lookup problem: ${errorString}</value>
         <value xml:lang="it">Problema nella ricerca della riga di inventario/trasferimento: ${errorString}</value>
     </property>
+    <property key="ProductInventoryItemNotFound">
+        <value xml:lang="en">Error: inventory item with id ${inventoryItemId} not found.</value>
+        <value xml:lang="it">Errore: riga inventario ${inventoryItemId} non trovata.</value>
+    </property>
     <property key="ProductInventoryItemRefreshProblem">
         <value xml:lang="en">Inventory refresh problem: ${errorString}</value>
         <value xml:lang="it">Problema durante l'aggiornamento dell'inventario: ${errorString}</value>
