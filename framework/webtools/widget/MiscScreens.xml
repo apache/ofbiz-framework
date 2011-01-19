@@ -164,6 +164,10 @@ under the License.
                                         <screenlet>
                                             <label text="${demoText}"/>
                                         </screenlet>
+                                        <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
+                                            <!-- For aligning screenlet body h3 elements with screenlet title h3 elements -->
+                                            <label style="h3" text="${demoText}"/>
+                                        </screenlet>
                                         <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" id="screenlet-demo" collapsible="true">
                                             <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
                                         </screenlet>
