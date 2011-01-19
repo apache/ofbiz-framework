@@ -483,10 +483,9 @@ under the License.
                 </section>
                 <decorator-section-include name="menu-bar"/>
                 <container style="clear"/>
-                <screenlet id="searchOptions" name="findScreenlet" collapsible="true">
-                    <label style="h2" text="${uiLabelMap.CommonSearchOptions}"/>
+                <screenlet id="searchOptions" name="findScreenlet" collapsible="true" title="${uiLabelMap.CommonSearchOptions}">
                     <container id="search-options">
-                        <decorator-section-include name="search-options"/>
+                        <decorator-section-include name="search-options" />
                     </container>
                 </screenlet>
                 <screenlet padded="false">
