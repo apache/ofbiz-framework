@@ -114,7 +114,7 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="paymentMethodId" type="String" mode="INOUT" optional="false"/>
-        <attribute name="cardNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="cardNumber" type="String" mode="IN" optional="false"/>
         <attribute name="pinNumber" type="String" mode="IN" optional="true"/>
         <attribute name="expireDate" type="String" mode="IN" optional="true"/>
         <attribute name="expMonth" type="String" mode="IN" optional="true"/>
