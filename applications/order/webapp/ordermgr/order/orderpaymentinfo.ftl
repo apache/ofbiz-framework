@@ -49,7 +49,7 @@ under the License.
          <th>${uiLabelMap.CommonStatus}</th>
        </tr>
        <#list orderPaymentPreferences as orderPaymentPreference>
-         <#assign payments = delegator.findByAnd("Payment", {"paymentPreferenceId" : orderPaymentPreference.orderPaymentPreferenceId})>
+         <#assign payments = orderPaymentPreference.getRelated("Payment")>
          <#list payments as payment>
            <#assign statusItem = payment.getRelatedOne("StatusItem")>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true)>
