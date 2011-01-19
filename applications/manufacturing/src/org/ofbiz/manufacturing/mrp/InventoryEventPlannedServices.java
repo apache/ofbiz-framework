@@ -19,10 +19,12 @@
 package org.ofbiz.manufacturing.mrp;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -30,10 +32,10 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-
 public class InventoryEventPlannedServices {
 
     public static final String module = InventoryEventPlannedServices.class.getName();
+    public static final String resource = "ManufacturingUiLabels";
 
     /**
      *
@@ -46,6 +48,7 @@ public class InventoryEventPlannedServices {
      */
     public static Map<String, Object> createMrpEvent(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> parameters = UtilMisc.<String, Object>toMap("mrpId", context.get("mrpId"),
                                         "productId", context.get("productId"),
                                         "eventDate", context.get("eventDate"),
@@ -55,7 +58,7 @@ public class InventoryEventPlannedServices {
             createOrUpdateMrpEvent(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
             Debug.logError(e,"Error : findByPrimaryKey(\"MrpEvent\", parameters =)"+parameters, module);
-            return ServiceUtil.returnError("Problem, on database access, for more detail look at the log");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCreateOrUpdateEvent", UtilMisc.toMap("parameters", parameters), locale));
         }
         return ServiceUtil.returnSuccess();
     }

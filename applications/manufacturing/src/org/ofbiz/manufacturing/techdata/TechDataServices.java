@@ -22,6 +22,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -30,6 +31,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -51,6 +53,7 @@ import com.ibm.icu.util.Calendar;
 public class TechDataServices {
 
     public static final String module = TechDataServices.class.getName();
+    public static final String resource = "ManufacturingUiLabels";
 
     /**
      *
@@ -63,7 +66,7 @@ public class TechDataServices {
     public static Map<String, Object> lookupRoutingTask(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> result = FastMap.newInstance();
-
+        Locale locale = (Locale) context.get("locale");
         String workEffortName = (String) context.get("workEffortName");
         String fixedAssetId = (String) context.get("fixedAssetId");
 
@@ -84,7 +87,7 @@ public class TechDataServices {
             listRoutingTask = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("workEffortName"), null, false);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError("Error finding desired WorkEffort records: " + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
         }
         if (listRoutingTask == null) {
             listRoutingTask = FastList.newInstance();
@@ -109,7 +112,7 @@ public class TechDataServices {
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> result = FastMap.newInstance();
         String sequenceNumNotOk = "N";
-
+        Locale locale = (Locale) context.get("locale");
         String workEffortIdFrom = (String) context.get("workEffortIdFrom");
         String workEffortIdTo = (String) context.get("workEffortIdTo");
         String workEffortAssocTypeId = (String) context.get("workEffortAssocTypeId");
@@ -125,7 +128,7 @@ public class TechDataServices {
             listRoutingTaskAssoc = delegator.findByAnd("WorkEffortAssoc",UtilMisc.toMap("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum), UtilMisc.toList("fromDate"));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError("Error finding desired WorkEffortAssoc records: " + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (listRoutingTaskAssoc != null) {
@@ -295,7 +298,7 @@ public class TechDataServices {
      * @param dateFrom                        the date
      * @return a map with Timestamp dateTo, Double nextCapacity
      */
-    public static Map<String, Object> startNextDay(GenericValue techDataCalendar,  Timestamp  dateFrom) {
+    public static Map<String, Object> startNextDay(GenericValue techDataCalendar, Timestamp  dateFrom) {
         Map<String, Object> result = FastMap.newInstance();
         Timestamp dateTo = null;
         GenericValue techDataCalendarWeek = null;
@@ -494,7 +497,7 @@ public class TechDataServices {
      * @param amount                           the amount of millisecond to move backward
      * @return the dateTo
      */
-    public static Timestamp addBackward(GenericValue techDataCalendar,  Timestamp  dateFrom, long amount) {
+    public static Timestamp addBackward(GenericValue techDataCalendar, Timestamp  dateFrom, long amount) {
         Timestamp dateTo = (Timestamp) dateFrom.clone();
         long previousCapacity = capacityRemainingBackward(techDataCalendar, dateFrom);
         if (amount <= previousCapacity) {
