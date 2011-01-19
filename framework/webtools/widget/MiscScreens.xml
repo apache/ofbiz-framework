@@ -164,7 +164,7 @@ under the License.
                                         <screenlet>
                                             <label text="${demoText}"/>
                                         </screenlet>
-                                        <screenlet title="${uiLabelMap.ExampleLayoutDemo}" id="screenlet-demo" collapsible="true">
+                                        <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" id="screenlet-demo" collapsible="true">
                                             <include-form name="LayoutDemoForm" location="component://webtools/widget/MiscForms.xml"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.WebtoolsLayoutDemo}" padded="false">
