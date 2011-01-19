@@ -597,7 +597,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
                 }
                 if (!javaScriptEnabled) {
-                    requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
+                    requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", collapsed ? "false" : "true");
                     String queryString = UtilHttp.urlEncodeArgs(requestParameters);
                     fullUrlString = request.getRequestURI() + "?" + queryString;
                 }
