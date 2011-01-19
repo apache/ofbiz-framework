@@ -158,9 +158,7 @@ public class SagePayPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         
         if (orderPaymentPreference == null) {
-            response = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingSagePayOrderPaymenPreferenceIsNull",
-                    UtilMisc.toMap("orderId", orderId, "orderPaymentPreference", orderPaymentPreference), locale));
+            response = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayOrderPaymenPreferenceIsNull", UtilMisc.toMap("orderId", orderId, "orderPaymentPreference", orderPaymentPreference), locale));
         } else {
             response = processCardAuthorisationPayment(dctx, context);
         }
@@ -232,9 +230,7 @@ public class SagePayPaymentServices {
             }
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentAuthentication", module);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingSagePayPaymentAuthorisationException", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
     }
@@ -289,9 +285,7 @@ public class SagePayPaymentServices {
             }
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentAuthorisation", module);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingSagePayPaymentAuthorisationException", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentAuthorisationException", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
     }
@@ -304,8 +298,7 @@ public class SagePayPaymentServices {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue captureTransaction = PaymentGatewayServices.getCaptureTransaction(orderPaymentPreference);
         if (captureTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPaymentTransactionAuthorizationNotFoundCannotRefund", locale));
         }
         Debug.logInfo("SagePay ccRefund captureTransaction : " + captureTransaction, module);
         GenericValue creditCard = null;
@@ -313,8 +306,7 @@ public class SagePayPaymentServices {
             creditCard = delegator.getRelatedOne("CreditCard", orderPaymentPreference);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting CreditCard for OrderPaymentPreference : " + orderPaymentPreference, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingPaymentUnableToGetCCInfo", locale) + " " + orderPaymentPreference);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPaymentUnableToGetCCInfo", locale) + " " + orderPaymentPreference);
         }
         context.put("creditCard",creditCard);
         context.put("captureTransaction", captureTransaction);
@@ -404,9 +396,7 @@ public class SagePayPaymentServices {
 
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentRefund", module);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingSagePayPaymentRefundException", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentRefundException", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         return result;
@@ -453,9 +443,7 @@ public class SagePayPaymentServices {
 
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentVoid", module);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingSagePayPaymentVoidException", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentVoidException", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         return result;
     }
@@ -468,8 +456,7 @@ public class SagePayPaymentServices {
 
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
         context.put("authTransaction", authTransaction);
 
@@ -517,9 +504,7 @@ public class SagePayPaymentServices {
 
         } catch(GenericServiceException e) {
             Debug.logError(e, "Error in calling SagePayPaymentRelease", module);
-            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                    "AccountingSagePayPaymentReleaseException", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingSagePayPaymentReleaseException", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         return result;
