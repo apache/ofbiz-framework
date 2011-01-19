@@ -509,9 +509,13 @@ padding: 0;
 border: none;
 }
 
+.no-padding .h1,
+.no-padding .h2,
+.no-padding .h3,
+.no-paddingr h1,
 .no-padding h2,
-.no-padding .h2 {
-padding: 0.4em;
+.no-padding h3 {
+padding: 0.7em;
 }
 
 /* ----------------------------------- */
@@ -569,8 +573,7 @@ font-size: 1.3em;
 }
 
 .screenlet-title-bar h3,
-.screenlet-title-bar .h3,
-.screenlet-title-bar .head4 {
+.screenlet-title-bar .h3 {
 font-size: 1.1em;
 }
 

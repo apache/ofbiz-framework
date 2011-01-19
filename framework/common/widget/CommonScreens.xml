@@ -489,7 +489,7 @@ under the License.
                     </container>
                 </screenlet>
                 <screenlet padded="false">
-                    <label style="h2" text="${uiLabelMap.CommonSearchResults}"/>
+                    <label style="h3" text="${uiLabelMap.CommonSearchResults}"/>
                     <container id="search-results">
                         <decorator-section-include name="search-results"/>
                     </container>
