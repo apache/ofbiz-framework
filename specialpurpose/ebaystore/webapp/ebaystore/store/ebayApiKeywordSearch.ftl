@@ -47,7 +47,7 @@ under the License.
     <h3>${uiLabelMap.ProductAdvancedSearchInCategory}</h3>
   </div>
   <div class="screenlet-body">
-    <form id="productSearchform" method="post" action="<@ofbizUrl>productsearch</@ofbizUrl>" style="margin: 0;">
+    <form id="productSearchform" method="post" action="<@ofbizUrl>productsearch</@ofbizUrl>" style="margin: 0;" name="productSearchform">
     <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
       <fieldset>
         <input type="hidden" name="VIEW_SIZE" value="25"/>
@@ -92,7 +92,7 @@ under the License.
                       </#list>
                     </select>
                   <#else>
-                    <@htmlTemplate.lookupField="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
                   </#if>
                 </div>
               </td>
