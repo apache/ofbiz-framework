@@ -20,30 +20,23 @@ package org.ofbiz.ebaystore;
 
 import java.util.Locale;
 import java.util.Map;
+
 import javolution.util.FastMap;
 
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 import com.ebay.sdk.ApiContext;
-import com.ebay.sdk.call.*;
+import com.ebay.sdk.call.GetUserCall;
 import com.ebay.soap.eBLBaseComponents.AddressType;
 import com.ebay.soap.eBLBaseComponents.DetailLevelCodeType;
 import com.ebay.soap.eBLBaseComponents.UserType;
 
 public class EbayAccount {
-    private static final String resource = "EbayUiLabels";
-    private static final String configFileName = "ebayExport.properties";
-    private static final String module = EbayAccount.class.getName();
-
+    
     public static Map<String, Object> getEbayUser(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object>result = FastMap.newInstance();
-        String errorMsg = null;
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
@@ -66,7 +59,6 @@ public class EbayAccount {
         Map<String, Object>registrationAddress = FastMap.newInstance();
 
         try {
-            Map<String, Object> infoMap = FastMap.newInstance();
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             GetUserCall getUserCall  = new GetUserCall(apiContext);
             DetailLevelCodeType[] detailLevel = {DetailLevelCodeType.RETURN_ALL};

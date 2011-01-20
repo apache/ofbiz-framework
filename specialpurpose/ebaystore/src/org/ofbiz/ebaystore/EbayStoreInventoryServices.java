@@ -56,7 +56,6 @@ import com.ebay.soap.eBLBaseComponents.SellingManagerProductInventoryStatusType;
 import com.ebay.soap.eBLBaseComponents.SellingManagerProductType;
 
 public class EbayStoreInventoryServices {
-    private static final String resource = "EbayUiLabels";
     private static final String module = EbayStoreInventoryServices.class.getName();
     private static final String defaultFolderName = "OFBizProducts";
     private static String folderId = null;

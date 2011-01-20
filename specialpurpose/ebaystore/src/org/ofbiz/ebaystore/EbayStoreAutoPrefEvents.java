@@ -102,7 +102,7 @@ public class EbayStoreAutoPrefEvents{
         bestOfferCondition.put("condition10", condition10);
         bestOfferCondition.put("condition11", condition11);
         try {
-            Map result = dispatcher.runSync("ebayBestOfferPrefCond", bestOfferCondition);
+            dispatcher.runSync("ebayBestOfferPrefCond", bestOfferCondition);
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             return "error";
