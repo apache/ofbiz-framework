@@ -117,15 +117,15 @@ public class UtilAccounting {
         return balance;
     }
 
-    public static List getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
-        List glAccountClassIds = FastList.newInstance();
+    public static List<String> getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
+        List<String> glAccountClassIds = FastList.newInstance();
         getGlAccountClassChildren(glAccountClass, glAccountClassIds);
         return glAccountClassIds;
     }
-    private static void getGlAccountClassChildren(GenericValue glAccountClass, List glAccountClassIds) throws GenericEntityException {
+    private static void getGlAccountClassChildren(GenericValue glAccountClass, List<String> glAccountClassIds) throws GenericEntityException {
         glAccountClassIds.add(glAccountClass.getString("glAccountClassId"));
-        List glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
-        Iterator glAccountClassChildrenIt = glAccountClassChildren.iterator();
+        List<GenericValue> glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
+        Iterator<GenericValue> glAccountClassChildrenIt = glAccountClassChildren.iterator();
         while (glAccountClassChildrenIt.hasNext()) {
             GenericValue glAccountClassChild = (GenericValue) glAccountClassChildrenIt.next();
             getGlAccountClassChildren(glAccountClassChild, glAccountClassIds);
