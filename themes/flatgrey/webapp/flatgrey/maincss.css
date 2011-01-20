@@ -1444,11 +1444,13 @@ button {
 	*padding-bottom: 0.1em;
 }
 
+a.disabled,
 button[disabled],
 input[type="reset"][disabled],
 input[type="submit"][disabled],
 input[type="button"][disabled] {
 	color: #888;
+	border-color: #ddd #ddd #ccc;
 }
 
 textarea,
