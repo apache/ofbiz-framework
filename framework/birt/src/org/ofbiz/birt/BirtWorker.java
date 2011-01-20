@@ -56,6 +56,7 @@ public class BirtWorker {
     public final static String BIRT_LOCALE = "birtLocale";
     public final static String BIRT_IMAGE_DIRECTORY = "birtImageDirectory";
     public final static String BIRT_CONTENT_TYPE = "birtContentType";
+    public final static String BIRT_OUTPUT_FILE_NAME = "birtOutputFileName";
 
     private static HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
 
