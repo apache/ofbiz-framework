@@ -106,9 +106,9 @@ public final class UtilIO {
         try {
             CharBuffer buffer = CharBuffer.allocate(4096);
             while (reader.read(buffer) > 0) {
+                buffer.flip();
                 buffer.rewind();
                 out.append(buffer);
-                buffer.flip();
             }
         } finally {
             if (closeIn) IOUtils.closeQuietly(reader);
