@@ -155,6 +155,43 @@ public class ProductPromoWorker {
         return productPromos;
     }
 
+    public static Set<String> getStoreProductPromoCodes(ShoppingCart cart) {
+        Set<String> promoCodes = new HashSet();
+        Delegator delegator = cart.getDelegator();
+
+        String productStoreId = cart.getProductStoreId();
+        GenericValue productStore = null;
+        try {
+            productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", productStoreId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error looking up store with id " + productStoreId, module);
+        }
+        if (productStore == null) {
+            Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderNoStoreFoundWithIdNotDoingPromotions", UtilMisc.toMap("productStoreId",productStoreId), cart.getLocale()), module);
+            return promoCodes;
+        }
+        try {
+            Iterator<GenericValue> productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelatedCache("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum")), true));
+            while (productStorePromoAppls != null && productStorePromoAppls.hasNext()) {
+                GenericValue productStorePromoAppl = (GenericValue) productStorePromoAppls.next();
+                if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
+                    // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
+                    if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
+                        continue;
+                }
+                GenericValue productPromo = productStorePromoAppl.getRelatedOneCache("ProductPromo");
+                Iterator<GenericValue> productPromoCodesIter = UtilMisc.toIterator(productPromo.getRelatedCache("ProductPromoCode", null, null));
+                while (productPromoCodesIter != null && productPromoCodesIter.hasNext()) {
+                    GenericValue productPromoCode = (GenericValue) productPromoCodesIter.next();
+                    promoCodes.add(productPromoCode.getString("productPromoCodeId"));
+                }
+            } 
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+        return promoCodes;
+    }
+
     public static List getProductStorePromotions(ShoppingCart cart, Timestamp nowTimestamp, LocalDispatcher dispatcher) {
         List productPromoList = FastList.newInstance();
 
@@ -537,10 +574,20 @@ public class ProductPromoWorker {
     }
 
     public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator, Locale locale) {
+        return checkCanUsePromoCode(productPromoCodeId, partyId, delegator, null, locale);
+    }
+
+    public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator, ShoppingCart cart, Locale locale) {
         try {
             GenericValue productPromoCode = delegator.findByPrimaryKey("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId));
             if (productPromoCode == null) {
                 return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
+            }
+            if (cart != null) {
+                Set<String> promoCodes = ProductPromoWorker.getStoreProductPromoCodes(cart);
+                if (UtilValidate.isEmpty(promoCodes) || !promoCodes.contains(productPromoCodeId)) {
+                    return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
+                }
             }
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
             Timestamp thruDate = productPromoCode.getTimestamp("thruDate");
