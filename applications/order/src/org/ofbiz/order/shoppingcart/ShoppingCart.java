@@ -3246,16 +3246,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public String addProductPromoCode(String productPromoCodeId, LocalDispatcher dispatcher) {
-        return this.addProductPromoCode(productPromoCodeId, null, dispatcher);
-    }
-
     /** Adds a promotion code to the cart, checking if it is valid. If it is valid this will return null, otherwise it will return a message stating why it was not valid
      * @param productPromoCodeId The promotion code to check and add
-     * @param cart Shopping Cart Object
      * @return String that is null if valid, and added to cart, or an error message of the code was not valid and not added to the cart.
      */
-    public String addProductPromoCode(String productPromoCodeId, ShoppingCart cart, LocalDispatcher dispatcher) {
+    public String addProductPromoCode(String productPromoCodeId, LocalDispatcher dispatcher) {
         if (this.productPromoCodes.contains(productPromoCodeId)) {
             return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_already_been_entered", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
         }
@@ -3264,7 +3259,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return null;
         }
         // if the promo code requires it make sure the code is valid
-        String checkResult = ProductPromoWorker.checkCanUsePromoCode(productPromoCodeId, this.getPartyId(), this.getDelegator(), cart, locale);
+        String checkResult = ProductPromoWorker.checkCanUsePromoCode(productPromoCodeId, this.getPartyId(), this.getDelegator(), this, locale);
         if (checkResult == null) {
             this.productPromoCodes.add(productPromoCodeId);
             // new promo code, re-evaluate promos

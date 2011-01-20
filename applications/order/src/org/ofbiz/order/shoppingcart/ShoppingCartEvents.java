@@ -85,7 +85,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         String productPromoCodeId = request.getParameter("productPromoCodeId");
         if (UtilValidate.isNotEmpty(productPromoCodeId)) {
-            String checkResult = cart.addProductPromoCode(productPromoCodeId, cart, dispatcher);
+            String checkResult = cart.addProductPromoCode(productPromoCodeId, dispatcher);
             if (UtilValidate.isNotEmpty(checkResult)) {
                 request.setAttribute("_ERROR_MESSAGE_", checkResult);
                 return "error";
