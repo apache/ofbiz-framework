@@ -202,7 +202,7 @@ public class ControlServlet extends HttpServlet {
         request.setAttribute("security", security);
 
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
-
+        
         ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, BeansWrapper.getDefaultInstance());
         request.setAttribute("ftlServletContext", ftlServletContext);
 
