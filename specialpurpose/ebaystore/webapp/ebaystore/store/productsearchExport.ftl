@@ -81,18 +81,20 @@ under the License.
             },
             success: function(data) {
                 document.getElementById('loading').innerHTML = '';
-                if(data != null){
-                    removeOptions(document.getElementById(id));
-                    var resp = eval("("+data+")");
-                    var leng = resp.size();
-                    for (i=0;i<leng;i++) {
-                        if (i == 0) {
-                            document.getElementById(id).options[0] = new Option("${uiLabelMap.CommonPleaseSelect}","");
+                if (data) {
+                    removeOptions(id);
+                    var resp = eval(data);
+                    var leng = resp.length;
+                     if (leng) {
+                        for (i=0;i<leng;i++) {
+                            if (i == 0) {
+                                document.getElementById(id).options[0] = new Option("${uiLabelMap.CommonPleaseSelect}","");
+                            }
+                            var optVal = resp[i].CategoryCode;
+                            var optName = resp[i].CategoryName;
+                            var isLeaf = resp[i].IsLeafCategory;
+                            document.getElementById(id).options[i+1] = new Option(optName,optVal+":"+isLeaf);
                         }
-                        var optVal = resp[i].CategoryCode;
-                        var optName = resp[i].CategoryName;
-                        var isLeaf = resp[i].IsLeafCategory;
-                        document.getElementById(id).options[i+1] = new Option(optName,optVal+":"+isLeaf);
                     }
                 }
             }
@@ -111,10 +113,10 @@ under the License.
                 removeOptions('theme');
                 previewPic(":http://pics.ebay.com/aw/pics/vit/None2_sample_100x120.gif");
                 if(data!=null){
-                    var resp = eval("("+data+")");
-                    var leng = resp.size();
+                    var resp = eval(data);
+                    var leng = resp.length;
                     var j = 0;
-                    for (i=0;i<leng+1;i++) {
+                    for (i=0;i<leng;i++) {
                         if (i == 0) {
                             document.getElementById('theme').options[0] = new Option("${uiLabelMap.CommonPleaseSelect}","_NA_");
                         } else {
@@ -130,10 +132,7 @@ under the License.
 
      function removeOptions(id){
        var elSel = jQuery("#" + id);
-       var i;
-       for (i = elSel.length - 1; i>=0; i--) {
-               elSel.remove(i);
-       }
+       elSel.find('option').remove();
      }
      function enabledItemTemplate(val){
         var field = "enabledTheme";
