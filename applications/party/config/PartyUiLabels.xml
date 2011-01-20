@@ -6386,6 +6386,7 @@
     </property>
     <property key="PartyLinkExplanation">
         <value xml:lang="en">This will set the status of 'partyId' to disabled however will link it to 'partyTo' in the party Attributes</value>
+        <value xml:lang="en">Désactive l'acteur sélectionné (gauche), et lie ses données vers l'acteur sélectionné à droite</value>
     </property>
     <property key="PartyLinkMessage1">
         <value xml:lang="de">WARNUNG: Dies kann nicht rückgängig gemacht werden. Bestätigen Sie bitte, dass Sie die beiden unten aufgeführten Akteure verknüpfen möchten. </value>
