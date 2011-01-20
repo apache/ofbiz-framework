@@ -39,6 +39,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.birt.BirtWorker;
 import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.entity.GenericEntityException;
@@ -97,6 +98,13 @@ public class BirtViewHandler implements ViewHandler {
             if (locale == null) {
                 locale = UtilHttp.getLocale(request);
             }
+            
+            // set output file name
+            String outputFileName = (String) request.getAttribute(BirtWorker.BIRT_OUTPUT_FILE_NAME);
+            if (UtilValidate.isNotEmpty(outputFileName)) {
+                response.setHeader("Content-Disposition", "attachment; filename=" + outputFileName);
+            }
+            
             context.put(BirtWorker.BIRT_LOCALE, locale);
             String birtImageDirectory = UtilProperties.getPropertyValue("birt", "birt.html.image.directory");
             context.put(BirtWorker.BIRT_IMAGE_DIRECTORY, birtImageDirectory);
