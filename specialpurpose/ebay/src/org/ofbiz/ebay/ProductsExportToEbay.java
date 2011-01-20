@@ -292,8 +292,10 @@ public class ProductsExportToEbay {
                 if (categoryCode != null) {
                     if (categoryCode.indexOf("_") != -1) {
                         String[] params = categoryCode.split("_");
-                        if (params == null || params.length != 3) {
+                        if (UtilValidate.isEmpty(params) || params[1].length() == 0) {
                             ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToEbay.parametersNotCorrectInGetEbayCategories", locale));
+                        } else {
+                            primaryCategoryId = params[1];
                         }
                     }else{
                         primaryCategoryId = categoryCode;
