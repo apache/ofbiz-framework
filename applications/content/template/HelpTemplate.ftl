@@ -38,18 +38,19 @@ under the License.
   </#list>
 </#macro>
 
-<#macro section inSection first="no">
+<#macro section inSection level first="no">
   <#list inSection.* as subSection>
     <#if subSection?node_name = "title">
       <#if first = "yes"> 
         <h1>${subSection}</h1>
       <#else>
-        <br /><h2>${subSection}</h2>
+        <br /><h${level}>${subSection}</h${level}>
       </#if>
     <#elseif subSection?node_name = "para">
         <p><@para para=subSection/></p>
     <#elseif subSection?node_name = "section">
-        <@section inSection=subSection/>
+        <#assign levelPlus=level?number +1/>
+        <@section inSection=subSection level="${levelPlus}"/>
     <#elseif subSection?node_name = "orderedlist">
         <@orderedlist node=subSection/>
     <#elseif subSection?node_name  = "itemizedlist">
@@ -99,7 +100,7 @@ under the License.
 <div class="contentarea">
   <div id="column-container">
     <div id="content-main-section">
-    <@section inSection=doc.section first="yes"/>
+    <@section inSection=doc.section first="yes" level=1/>
     </div>
   </div>
 </div>
