@@ -516,7 +516,7 @@ under the License.
                             <#list orderItemShipGrpInvResList as orderItemShipGrpInvRes>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
-                                        <span class="label">${uiLabelMap.FacilityInventory}</span>&nbsp;
+                                        <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
                                         <a href="/facility/control/EditInventoryItem?inventoryItemId=${orderItemShipGrpInvRes.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}"
                                            class="buttontext">${orderItemShipGrpInvRes.inventoryItemId}</a>
                                         <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${orderItemShipGrpInvRes.shipGroupSeqId}
@@ -584,7 +584,7 @@ under the License.
                                     <td align="right" colspan="2">
                                         <#if itemIssuance.inventoryItemId?has_content>
                                             <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem")/>
-                                            <span class="label">${uiLabelMap.FacilityInventory}</span>
+                                            <span class="label">${uiLabelMap.CommonInventory}</span>
                                             <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}"
                                                class="buttontext">${itemIssuance.inventoryItemId}</a>
                                             <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
@@ -614,7 +614,7 @@ under the License.
                                                class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
                                         </#if>
                                         &nbsp;${shipmentReceipt.datetimeReceived}&nbsp;
-                                        <span class="label">${uiLabelMap.FacilityInventory}</span>&nbsp;
+                                        <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
                                         <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}"
                                            class="buttontext">${shipmentReceipt.inventoryItemId}</a>
                                     </td>

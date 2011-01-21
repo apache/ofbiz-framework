@@ -3968,13 +3968,19 @@
         <value xml:lang="zh_TW">導入日</value>
     </property>
     <property key="CommonInventory">
+        <value xml:lang="de">Inventar</value>
         <value xml:lang="en">Inventory</value>
-        <value xml:lang="fr">Stockage</value>
+        <value xml:lang="es">Inventario</value>
+        <value xml:lang="fr">Stock</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory)</value>
         <value xml:lang="it">Inventario</value>
         <value xml:lang="nl">Voorraad</value>
         <value xml:lang="pt_BR">Inventário</value>
+        <value xml:lang="ro">Inventar</value>
+        <value xml:lang="ru">Реестр</value>
+        <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存</value>
+        <value xml:lang="zh_CN">库存</value>
         <value xml:lang="zh_TW">庫存</value>
     </property>
     <property key="CommonIsA">
