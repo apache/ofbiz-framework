@@ -951,7 +951,7 @@
         <value xml:lang="de">Akteur Klassifizierungsgruppe ID</value>
         <value xml:lang="en">Party Classification Group Id</value>
         <value xml:lang="es">Código Grupo de clasificación</value>
-        <value xml:lang="fr">Groupe de classification d'acteur</value>
+        <value xml:lang="fr">Classification d'acteur</value>
         <value xml:lang="hi_IN">पार्टी वर्गीकरण समूह क्रमांक</value>
         <value xml:lang="it">Codice gruppo classificazione soggetto</value>
         <value xml:lang="nl">Relatie klassegroep ID</value>
@@ -1859,7 +1859,7 @@
         <value xml:lang="de">Akteur Klassifizierung bearbeiten</value>
         <value xml:lang="en">Edit Party Classification Group</value>
         <value xml:lang="es">Editar grupo de clasificación</value>
-        <value xml:lang="fr">Modifier le groupe de classification de l'acteur</value>
+        <value xml:lang="fr">Modifier la classification de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी वर्गीकरण समूह को संपादित करें</value>
         <value xml:lang="it">Aggiorna Classificazione Gruppo Soggetto</value>
         <value xml:lang="nl">Klassificatiegroep relatie wijzigen</value>
@@ -1874,7 +1874,7 @@
         <value xml:lang="de">Klassifizierungsgruppen für Akteure bearbeiten</value>
         <value xml:lang="en">Edit Classification Group Parties</value>
         <value xml:lang="es">Editar grupos de clasificación</value>
-        <value xml:lang="fr">Modifier les groupes de classifications de l'acteurs</value>
+        <value xml:lang="fr">Modifier les classifications de l'acteurs</value>
         <value xml:lang="hi_IN">वर्गीकरण समूह पार्टियों को संपादित करें</value>
         <value xml:lang="it">Aggiorna Classificazione Gruppo Soggetto</value>
         <value xml:lang="nl">Klassificatiegroepen relaties wijzigen</value>
@@ -2035,7 +2035,7 @@
         <value xml:lang="de">Akteur Klassifizierungsgruppen suchen</value>
         <value xml:lang="en">Find Party Classification Groups</value>
         <value xml:lang="es">Buscar grupos de clasificación</value>
-        <value xml:lang="fr">Rechercher les groupes de classification de l'acteur</value>
+        <value xml:lang="fr">Rechercher les classification de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी वर्गीकरण समूह खोजें</value>
         <value xml:lang="it">Ricerca Gruppi Classificazione Soggetti</value>
         <value xml:lang="nl">Klassificatiegroepen relatie(s) zoeken</value>
@@ -2276,7 +2276,7 @@
         <value xml:lang="de">Akteur Klassifizierungsgruppe des Akteurs anzeigen</value>
         <value xml:lang="en">View Party Classification Group Parties</value>
         <value xml:lang="es">Ver grupo de clasificación del participante</value>
-        <value xml:lang="fr">Afficher les groupes de classification de l'acteur de vue</value>
+        <value xml:lang="fr">Afficher les classification de l'acteur</value>
         <value xml:lang="hi_IN">पार्टी वर्गीकरण समूह दलों को देखें</value>
         <value xml:lang="it">Mostra Gruppo Classificazioni Soggetto</value>
         <value xml:lang="nl">Klassificatiegroepen relaties tonen</value>
@@ -3418,7 +3418,7 @@
         <value xml:lang="de">Klassifizierungsgruppe</value>
         <value xml:lang="en">Classification Group</value>
         <value xml:lang="es">Grupo de clasificación</value>
-        <value xml:lang="fr">Groupe classification</value>
+        <value xml:lang="fr">Classification</value>
         <value xml:lang="hi_IN">वर्गीकरण समूह</value>
         <value xml:lang="it">Gruppo classificazione</value>
         <value xml:lang="nl">Classificatiegroep</value>
@@ -3433,7 +3433,7 @@
         <value xml:lang="de">Klassifizierungsgruppe ID</value>
         <value xml:lang="en">Classification Group Id</value>
         <value xml:lang="es">Grupo de clasificación</value>
-        <value xml:lang="fr">Groupe de classification</value>
+        <value xml:lang="fr">Classification</value>
         <value xml:lang="hi_IN">वर्गीकरण समूह क्रमांक</value>
         <value xml:lang="it">Codice gruppo classificazione</value>
         <value xml:lang="nl">Classificatien Groep Id</value>
@@ -3448,7 +3448,7 @@
         <value xml:lang="de">Klassifizierungsgruppe Akteure</value>
         <value xml:lang="en">Classification Group Parties</value>
         <value xml:lang="es">Participantes del grupo</value>
-        <value xml:lang="fr">Groupe de classification d'acteurs</value>
+        <value xml:lang="fr">Classification d'acteurs</value>
         <value xml:lang="hi_IN">वर्गीकरण समूह पार्टियाँ</value>
         <value xml:lang="it">Gruppo Classificazione Soggetti</value>
         <value xml:lang="nl">Classificatie Groepen</value>
@@ -3463,7 +3463,7 @@
         <value xml:lang="de">Klassifizierungsgruppen</value>
         <value xml:lang="en">Classification Groups</value>
         <value xml:lang="es">Grupo de clasificación</value>
-        <value xml:lang="fr">Groupes de classification</value>
+        <value xml:lang="fr">Classification</value>
         <value xml:lang="hi_IN">वर्गीकरण समूह</value>
         <value xml:lang="it">Gruppi classificazione</value>
         <value xml:lang="nl">Classificatie Groepen</value>
@@ -4629,7 +4629,7 @@
         <value xml:lang="de">Neue Akteur Klassifizierungsgruppe erstellen</value>
         <value xml:lang="en">Create New Party Classification Group</value>
         <value xml:lang="es">Crear nuevo grupo de clasificación</value>
-        <value xml:lang="fr">Créer un nouveau groupe de classification</value>
+        <value xml:lang="fr">Créer une nouvelle classification</value>
         <value xml:lang="hi_IN">पार्टी का नया वर्गीकरण समूह बनाएँ</value>
         <value xml:lang="it">Nuovo gruppo classificazione soggetti</value>
         <value xml:lang="nl">Nieuw kenmerkgroep voor relatie</value>
@@ -4722,7 +4722,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createPartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyClassificationGroup you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter un groupe de classification d'acteur, il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour ajouter une classification d'acteur, il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="hi_IN">सुरक्षा त्रुटि: createPartyClassificationGroup चलाने के लिए आप को PARTYMGR_CREATE या PARTYMGR_ADMIN की अनुमति होना चाहिए</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPartyClassificationGroup tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Toegangfout: om OFBiz-service 'createPartyClassificationGroup' te draaien heb je 'PARTYMGR_CREATE' of 'PARTYMGR_ADMIN'-permissie nodig</value>
@@ -6641,7 +6641,7 @@
         <value xml:lang="de">Akteur Klassifizierungsgruppe suchen</value>
         <value xml:lang="en">Lookup Party Classification Group</value>
         <value xml:lang="es">Buscar grupo de clasificación de participante</value>
-        <value xml:lang="fr">Rechercher un ou des  groupes de classification de l'acteur</value>
+        <value xml:lang="fr">Rechercher un ou des classification(s) d'acteur</value>
         <value xml:lang="hi_IN">पार्टी वर्गीकरण समूह लुकअप</value>
         <value xml:lang="it">Ricerca Gruppi Classificazione Soggetti</value>
         <value xml:lang="nl">Classificatiegroepen zoeken</value>
