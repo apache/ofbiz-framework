@@ -90,19 +90,29 @@ under the License.
             <text size="10" maxlength="10"/>
         </field>
         <field name="authenticationTransType" title="${uiLabelMap.AccountingSagePayAuthenticationTransType}">
-            <text size="100" maxlength="100"/>
+            <drop-down>
+                <option key="PAYMENT" description="${uiLabelMap.CommonPayment}"/>
+                <option key="AUTHENTICATE" description="${uiLabelMap.CommonAuthenticate}"/>
+                <option key="DEFERRED" description="${uiLabelMap.CommonDeferred}"/>
+            </drop-down>
         </field>
         <field name="authenticationUrl" title="${uiLabelMap.AccountingSagePayAuthenticationUrl}">
             <text size="100" maxlength="100"/>
         </field>        
         <field name="authoriseTransType" title="${uiLabelMap.AccountingSagePayAuthorisationTransType}">
-            <text size="100" maxlength="100"/>
+            <drop-down>
+                <option key="AUTHORISE" description="${uiLabelMap.CommonAuthorise}"/>
+                <option key="RELEASE" description="${uiLabelMap.CommonRelease}"/>
+            </drop-down>
         </field>
         <field name="authoriseUrl" title="${uiLabelMap.AccountingSagePayAuthorisationUrl}">
             <text size="100" maxlength="100"/>
         </field>
         <field name="releaseTransType" title="${uiLabelMap.AccountingSagePayReleaseTransType}">
-            <text size="100" maxlength="100"/>
+            <drop-down>
+                <option key="CANCEL" description="${uiLabelMap.CommonCancel}"/>
+                <option key="ABORT" description="${uiLabelMap.CommonAbort}"/>
+            </drop-down>
         </field>
         <field name="releaseUrl" title="${uiLabelMap.AccountingSagePayReleaseUrl}">
             <text size="100" maxlength="100"/>
