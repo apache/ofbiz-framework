@@ -141,20 +141,6 @@
         <value xml:lang="en">Hold Shipment</value>
         <value xml:lang="it">Congela spedizione</value>
     </property>
-    <property key="FacilityInventory">
-        <value xml:lang="de">Inventar</value>
-        <value xml:lang="en">Inventory</value>
-        <value xml:lang="es">Inventario</value>
-        <value xml:lang="fr">Stock</value>
-        <value xml:lang="it">Inventario</value>
-        <value xml:lang="nl">Voorraad</value>
-        <value xml:lang="ro">Inventar</value>
-        <value xml:lang="ru">Реестр</value>
-        <value xml:lang="th">สินค้าคงเหลือ</value>
-        <value xml:lang="zh">库存</value>
-        <value xml:lang="zh_CN">库存</value>
-        <value xml:lang="zh_TW">庫存</value>
-    </property>
     <property key="FacilityInventoryItemsMissingCurrencyId">
         <value xml:lang="en">Error: you cannot create inventory items with no currencyUomId; you can set a default currency in the PartyAcctgPreference for the party ${inventoryItem.ownerPartyId}, or in the general.properties file under the key currency.uom.id.default.</value>
         <value xml:lang="it">Errore: tu non puoi creare una riga di inventario senza indicare la valuta; puoi imposta la valuta di default attraverso le preferenze del soggetto proprietario ${inventoryItem.ownerPartyId}, o nel file general.properties alla chiave currency.uom.id.default.</value>
