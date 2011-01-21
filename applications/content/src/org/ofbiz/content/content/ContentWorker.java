@@ -1050,15 +1050,15 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         return permissionStatus;
     }
 
-    public static Map callContentPermissionCheckResult(Delegator delegator, LocalDispatcher dispatcher, Map context) {
+    public static Map<String, Object> callContentPermissionCheckResult(Delegator delegator, LocalDispatcher dispatcher, Map context) {
 
-        Map permResults = FastMap.newInstance();
+        Map<String, Object> permResults = FastMap.newInstance();
         String skipPermissionCheck = (String) context.get("skipPermissionCheck");
 
         if (UtilValidate.isEmpty(skipPermissionCheck)
             || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
-            Map serviceInMap = FastMap.newInstance();
+            Map<String, Object> serviceInMap = FastMap.newInstance();
             serviceInMap.put("userLogin", userLogin);
             serviceInMap.put("targetOperationList", context.get("targetOperationList"));
             serviceInMap.put("contentPurposeList", context.get("contentPurposeList"));
@@ -1321,9 +1321,8 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
 
-    public static List prepTargetOperationList(Map context, String md) {
-
-        List targetOperationList = (List)context.get("targetOperationList");
+    public static List<String> prepTargetOperationList(Map<String, ? extends Object> context, String md) {
+        List<String> targetOperationList = (List)context.get("targetOperationList");
         String targetOperationString = (String)context.get("targetOperationString");
         if (Debug.infoOn()) Debug.logInfo("in prepTargetOperationList, targetOperationString(0):" + targetOperationString, "");
         if (UtilValidate.isNotEmpty(targetOperationString)) {
@@ -1349,13 +1348,12 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
      * @param context
      * @return
      */
-    public static List prepContentPurposeList(Map context) {
-
+    public static List<String> prepContentPurposeList(Map context) {
         List contentPurposeList = (List)context.get("contentPurposeList");
         String contentPurposeString = (String)context.get("contentPurposeString");
         if (Debug.infoOn()) Debug.logInfo("in prepContentPurposeList, contentPurposeString(0):" + contentPurposeString, "");
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
-            List purposesFromString = StringUtil.split(contentPurposeString, "|");
+            List<String> purposesFromString = StringUtil.split(contentPurposeString, "|");
             if (UtilValidate.isEmpty(contentPurposeList)) {
                 contentPurposeList = FastList.newInstance();
             }
