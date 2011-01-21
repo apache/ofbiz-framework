@@ -36,6 +36,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -66,7 +67,7 @@ public class ContentServices {
      */
     public static Map<String, Object> findRelatedContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map results = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
 
         GenericValue currentContent = (GenericValue) context.get("currentContent");
         String fromDate = (String) context.get("fromDate");
@@ -79,17 +80,15 @@ public class ContentServices {
             toFrom = toFrom.toUpperCase();
         }
 
-        List assocTypes = (List) context.get("contentAssocTypeList");
-        List targetOperations = (List) context.get("targetOperationList");
-        List contentList = null;
-        List contentTypes = (List) context.get("contentTypeList");
+        List<GenericValue> assocTypes = UtilGenerics.checkList(context.get("contentAssocTypeList"));
+        List<String> targetOperations = UtilGenerics.checkList(context.get("targetOperationList"));
+        List<GenericValue> contentList = null;
+        List<GenericValue> contentTypes = UtilGenerics.checkList(context.get("contentTypeList"));
 
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentAssocRetrievingError", 
-                    UtilMisc.toMap("errorString", e.toString()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (targetOperations == null || targetOperations.isEmpty()) {
@@ -97,14 +96,14 @@ public class ContentServices {
             return results;
         }
 
-        Map serviceInMap = FastMap.newInstance();
+        Map<String, Object> serviceInMap = FastMap.newInstance();
         serviceInMap.put("userLogin", context.get("userLogin"));
         serviceInMap.put("targetOperationList", targetOperations);
         serviceInMap.put("entityOperation", context.get("entityOperation"));
 
-        List permittedList = FastList.newInstance();
-        Iterator it = contentList.iterator();
-        Map permResults = null;
+        List<GenericValue> permittedList = FastList.newInstance();
+        Iterator<GenericValue> it = contentList.iterator();
+        Map<String, Object> permResults = null;
         while (it.hasNext()) {
             GenericValue content = (GenericValue) it.next();
             serviceInMap.put("currentContent", content);
@@ -112,8 +111,7 @@ public class ContentServices {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                        "ContentPermissionNotGranted", locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
             }
 
             String permissionStatus = (String) permResults.get("permissionStatus");
@@ -130,41 +128,43 @@ public class ContentServices {
      * This is a generic service for traversing a Content tree, typical of a blog response tree. It calls the ContentWorker.traverse method.
      */
     public static Map<String, Object> findContentParents(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map results = FastMap.newInstance();
-        List parentList = FastList.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
+        List<Object> parentList = FastList.newInstance();
         results.put("parentList", parentList);
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String)context.get("contentId");
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
         String direction = (String)context.get("direction");
-        if (UtilValidate.isEmpty(direction)) direction="To";
-        Map traversMap = FastMap.newInstance();
-            traversMap.put("contentId", contentId);
-            traversMap.put("direction", direction);
-            traversMap.put("contentAssocTypeId", contentAssocTypeId);
-            try {
-                Map thisResults = dispatcher.runSync("traverseContent", traversMap);
+        if (UtilValidate.isEmpty(direction)) {
+            direction="To";
+        }
+        Map<String, Object> traversMap = FastMap.newInstance();
+        traversMap.put("contentId", contentId);
+        traversMap.put("direction", direction);
+        traversMap.put("contentAssocTypeId", contentAssocTypeId);
+        try {
+            Map<String, Object> thisResults = dispatcher.runSync("traverseContent", traversMap);
             String errorMsg = ServiceUtil.getErrorMessage(thisResults);
             if (UtilValidate.isNotEmpty(errorMsg)) {
                 Debug.logError("Problem in traverseContent. " + errorMsg, module);
                 return ServiceUtil.returnError(errorMsg);
             }
-            Map nodeMap = (Map)thisResults.get("nodeMap");
+            Map<String, Object> nodeMap = UtilGenerics.checkMap(thisResults.get("nodeMap"));
             walkParentTree(nodeMap, parentList);
-            } catch (GenericServiceException e) {
+        } catch (GenericServiceException e) {
             return ServiceUtil.returnFailure(e.getMessage());
-            }
+        }
         return results;
     }
 
-    private static void walkParentTree(Map nodeMap, List parentList) {
-        List kids = (List)nodeMap.get("kids");
+    private static void walkParentTree(Map<String, Object> nodeMap, List<Object> parentList) {
+        List<Map<String, Object>> kids = UtilGenerics.checkList(nodeMap.get("kids"));
         if (UtilValidate.isEmpty(kids)) {
             parentList.add(nodeMap.get("contentId"));
         } else {
-            Iterator iter = kids.iterator();
+            Iterator<Map<String, Object>> iter = kids.iterator();
             while (iter.hasNext()) {
-                Map node = (Map) iter.next();
+                Map<String, Object> node = iter.next();
                 walkParentTree(node, parentList);
             }
         }
@@ -174,7 +174,7 @@ public class ContentServices {
      */
     public static Map<String, Object> traverseContent(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
-        Map results = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
         Locale locale = (Locale) context.get("locale");
 
         String contentId = (String) context.get("contentId");
@@ -194,8 +194,7 @@ public class ContentServices {
             content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
         }
 
         String fromDateStr = (String) context.get("fromDateStr");
@@ -210,7 +209,7 @@ public class ContentServices {
             thruDate = UtilDateTime.toTimestamp(thruDateStr);
         }
 
-        Map whenMap = FastMap.newInstance();
+        Map<String, Object> whenMap = FastMap.newInstance();
         whenMap.put("followWhen", context.get("followWhen"));
         whenMap.put("pickWhen", context.get("pickWhen"));
         whenMap.put("returnBeforePickWhen", context.get("returnBeforePickWhen"));
@@ -221,8 +220,8 @@ public class ContentServices {
             startContentAssocTypeId = "PUBLISH";
         }
 
-        Map nodeMap = FastMap.newInstance();
-        List pickList = FastList.newInstance();
+        Map<String, Object> nodeMap = FastMap.newInstance();
+        List<GenericValue> pickList = FastList.newInstance();
         ContentWorker.traverse(delegator, content, fromDate, thruDate, whenMap, 0, nodeMap, startContentAssocTypeId, pickList, direction);
 
         results.put("nodeMap", nodeMap);
