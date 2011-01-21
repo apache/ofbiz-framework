@@ -19,7 +19,7 @@ under the License.
 
 <#if requestParameters.product_id?exists>
   <form id="reviewProduct" method="post" action="<@ofbizUrl>createProductReview</@ofbizUrl>">
-    <fieldset>
+    <fieldset class="inline">
       <input type="hidden" name="productStoreId" value="${productStore.productStoreId}" />
       <input type="hidden" name="productId" value="${requestParameters.product_id}" />
       <input type="hidden" name="product_id" value="${requestParameters.product_id}" />
