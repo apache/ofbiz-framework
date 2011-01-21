@@ -256,10 +256,10 @@ public class ContentServices {
     public static Map<String, Object> createContentMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_CREATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
         if (Debug.infoOn()) Debug.logInfo("in createContentMethod, targetOperationList: " + targetOperationList, null);
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
 
@@ -329,14 +329,14 @@ public class ContentServices {
     public static Map<String, Object> createContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_CREATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
         context.put("skipPermissionCheck", null);
 
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             result = createContentAssocMethod(dctx, context);
         } catch (GenericServiceException e) {
@@ -355,15 +355,15 @@ public class ContentServices {
      */
     public static Map<String, Object> createContentAssocMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) throws GenericServiceException, GenericEntityException {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_CREATE");
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
         Locale locale = (Locale) context.get("locale");
 
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
 
         // This section guesses how contentId should be used (From or To) if
         // only a contentIdFrom o contentIdTo is passed in
@@ -379,8 +379,7 @@ public class ContentServices {
             contentIdCount++;
         if (contentIdCount < 2) {
             Debug.logError("Not 2 out of ContentId/To/From.", "ContentServices");
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentCreateContentAssocMethodError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentCreateContentAssocMethodError", locale));
         }
 
         if (UtilValidate.isNotEmpty(contentIdFrom)) {
@@ -468,7 +467,7 @@ public class ContentServices {
         contentAssoc.put("createdDate", createdDate);
         contentAssoc.put("lastModifiedDate", lastModifiedDate);
 
-        Map serviceInMap = FastMap.newInstance();
+        Map<String, Object> serviceInMap = FastMap.newInstance();
         String permissionStatus = null;
         serviceInMap.put("userLogin", context.get("userLogin"));
         serviceInMap.put("targetOperationList", targetOperationList);
@@ -482,7 +481,7 @@ public class ContentServices {
         serviceInMap.put("roleTypeList", context.get("roleTypeList"));
         serviceInMap.put("displayFailCond", context.get("displayFailCond"));
 
-        Map permResults = null;
+        Map<String, Object> permResults = null;
         permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
         permissionStatus = (String) permResults.get("permissionStatus");
 
@@ -510,14 +509,14 @@ public class ContentServices {
     public static Map<String, Object> updateContent(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_UPDATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
         context.put("skipPermissionCheck", null);
 
-        Map result = updateContentMethod(dctx, context);
+        Map<String, Object> result = updateContentMethod(dctx, context);
         return result;
     }
 
@@ -530,12 +529,12 @@ public class ContentServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         
         context.put("entityOperation", "_UPDATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
 
@@ -546,12 +545,11 @@ public class ContentServices {
             content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFound", UtilMisc.toMap("contentId", contentId), locale));
         }
         context.put("currentContent", content);
 
-        Map permResults = ContentWorker.callContentPermissionCheckResult(delegator, dispatcher, context);
+        Map<String, Object> permResults = ContentWorker.callContentPermissionCheckResult(delegator, dispatcher, context);
         String permissionStatus = (String) permResults.get("permissionStatus");
         if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -561,13 +559,12 @@ public class ContentServices {
 
             // update status first to see if allowed
             if (UtilValidate.isNotEmpty(context.get("statusId"))) {
-                Map statusInMap = UtilMisc.toMap("contentId", context.get("contentId"), "statusId", context.get("statusId"),"userLogin", userLogin);
+                Map<String, Object> statusInMap = UtilMisc.<String, Object>toMap("contentId", context.get("contentId"), "statusId", context.get("statusId"), "userLogin", userLogin);
                 try {
                    dispatcher.runSync("setContentStatus", statusInMap);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Problem updating content Status", "ContentServices");
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "ContentStatusUpdateError", UtilMisc.toMap("errorString", e), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentStatusUpdateError", UtilMisc.toMap("errorString", e), locale));
                 }
             }
 
@@ -594,14 +591,14 @@ public class ContentServices {
     public static Map<String, Object> updateContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_UPDATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
         context.put("skipPermissionCheck", null);
 
-        Map result = updateContentAssocMethod(dctx, context);
+        Map<String, Object> result = updateContentAssocMethod(dctx, context);
         return result;
     }
 
@@ -614,12 +611,12 @@ public class ContentServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
 
         context.put("entityOperation", "_UPDATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
 
@@ -636,13 +633,10 @@ public class ContentServices {
             contentAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentAssocRetrievingError", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
         if (contentAssoc == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentAssocUpdateError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocUpdateError", locale));
         }
 
         contentAssoc.put("contentAssocPredicateId", context.get("contentAssocPredicateId"));
@@ -673,7 +667,7 @@ public class ContentServices {
         contentAssoc.put("lastModifiedDate", lastModifiedDate);
 
         String permissionStatus = null;
-        Map serviceInMap = FastMap.newInstance();
+        Map<String, Object> serviceInMap = FastMap.newInstance();
         serviceInMap.put("userLogin", context.get("userLogin"));
         serviceInMap.put("targetOperationList", targetOperationList);
         serviceInMap.put("contentPurposeList", contentPurposeList);
@@ -681,13 +675,12 @@ public class ContentServices {
         serviceInMap.put("contentIdTo", contentIdTo);
         serviceInMap.put("contentIdFrom", contentIdFrom);
 
-        Map permResults = null;
+        Map<String, Object> permResults = null;
         try {
             permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentPermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
@@ -712,14 +705,14 @@ public class ContentServices {
     public static Map<String, Object> deactivateContentAssoc(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         context.put("entityOperation", "_UPDATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
         context.put("skipPermissionCheck", null);
 
-        Map result = deactivateContentAssocMethod(dctx, context);
+        Map<String, Object> result = deactivateContentAssocMethod(dctx, context);
         return result;
     }
 
@@ -731,12 +724,12 @@ public class ContentServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Locale locale = (Locale) context.get("locale");
         context.put("entityOperation", "_UPDATE");
-        List targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
+        List<String> targetOperationList = ContentWorker.prepTargetOperationList(context, "_UPDATE");
 
-        List contentPurposeList = ContentWorker.prepContentPurposeList(context);
+        List<String> contentPurposeList = ContentWorker.prepContentPurposeList(context);
         context.put("targetOperationList", targetOperationList);
         context.put("contentPurposeList", contentPurposeList);
 
@@ -755,14 +748,11 @@ public class ContentServices {
             contentAssoc = delegator.findByPrimaryKey("ContentAssoc", pk);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity Error:" + e.getMessage(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentAssocRetrievingError", 
-                    UtilMisc.toMap("errorString", e.getMessage()), locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         if (contentAssoc == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentAssocDeactivatingError", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocDeactivatingError", locale));
         }
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -774,7 +764,7 @@ public class ContentServices {
         contentAssoc.put("thruDate", UtilDateTime.nowTimestamp());
 
         String permissionStatus = null;
-        Map serviceInMap = FastMap.newInstance();
+        Map<String, Object> serviceInMap = FastMap.newInstance();
         serviceInMap.put("userLogin", context.get("userLogin"));
         serviceInMap.put("targetOperationList", targetOperationList);
         serviceInMap.put("contentPurposeList", contentPurposeList);
@@ -782,13 +772,12 @@ public class ContentServices {
         serviceInMap.put("contentIdTo", contentAssoc.get("contentIdTo"));
         serviceInMap.put("contentIdFrom", contentAssoc.get("contentId"));
 
-        Map permResults = null;
+        Map<String, Object> permResults = null;
         try {
             permResults = dispatcher.runSync("checkAssocPermission", serviceInMap);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problem checking permissions", "ContentServices");
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "ContentPermissionNotGranted", locale));
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPermissionNotGranted", locale));
         }
         permissionStatus = (String) permResults.get("permissionStatus");
 
@@ -820,22 +809,19 @@ public class ContentServices {
         Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String sequenceNum = null;
-        Map results = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
 
         try {
             GenericValue activeAssoc = null;
             if (fromDate != null) {
                 activeAssoc = delegator.findByPrimaryKey("ContentAssoc", UtilMisc.toMap("contentId", activeContentId, "contentIdTo", contentIdTo, "fromDate", fromDate, "contentAssocTypeId", contentAssocTypeId));
                 if (activeAssoc == null) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "ContentAssocNotFound", 
-                            UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo,
-                                    "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocNotFound", UtilMisc.toMap("activeContentId", activeContentId, "contentIdTo", contentIdTo, "contentAssocTypeId", contentAssocTypeId, "fromDate", fromDate), locale));
                 }
                 sequenceNum = (String) activeAssoc.get("sequenceNum");
             }
 
-            List exprList = FastList.newInstance();
+            List<EntityCondition> exprList = FastList.newInstance();
             exprList.add(EntityCondition.makeCondition("mapKey", EntityOperator.EQUALS, mapKey));
             if (sequenceNum != null) {
                 exprList.add(EntityCondition.makeCondition("sequenceNum", EntityOperator.EQUALS, sequenceNum));
@@ -852,13 +838,13 @@ public class ContentServices {
                 exprList.add(EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId));
             }
 
-            EntityConditionList assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-            List relatedAssocs = delegator.findList("ContentAssoc", assocExprList, null, UtilMisc.toList("fromDate"), null, false);
+            EntityConditionList<EntityCondition> assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+            List<GenericValue> relatedAssocs = delegator.findList("ContentAssoc", assocExprList, null, UtilMisc.toList("fromDate"), null, false);
             //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, relatedAssocs:" + relatedAssocs, module);
-            List filteredAssocs = EntityUtil.filterByDate(relatedAssocs);
+            List<GenericValue> filteredAssocs = EntityUtil.filterByDate(relatedAssocs);
             //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, filteredAssocs:" + filteredAssocs, module);
 
-            Iterator it = filteredAssocs.iterator();
+            Iterator<GenericValue> it = filteredAssocs.iterator();
             while (it.hasNext()) {
                 GenericValue val = (GenericValue) it.next();
                 val.set("thruDate", nowTimestamp);

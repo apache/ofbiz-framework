@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -36,10 +37,10 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 
 
 /**
@@ -96,8 +97,10 @@ public class ContentPermissionServices {
 
         Security security = dctx.getSecurity();
         Delegator delegator = dctx.getDelegator();
-        String statusId = (String) context.get("statusId");
-        String privilegeEnumId = (String) context.get("privilegeEnumId");
+        //TODO this parameters is still not used but this service need to be replaced by genericContentPermission
+        // String statusId = (String) context.get("statusId");
+        //TODO this parameters is still not used but this service need to be replaced by genericContentPermission
+        // String privilegeEnumId = (String) context.get("privilegeEnumId");
         GenericValue content = (GenericValue) context.get("currentContent");
         Boolean bDisplayFailCond = (Boolean)context.get("displayFailCond");
         boolean displayFailCond = false;
@@ -110,11 +113,8 @@ public class ContentPermissionServices {
         if (bDisplayPassCond != null && bDisplayPassCond.booleanValue()) {
              displayPassCond = true;
         }
-                Debug.logInfo("displayPassCond(0):" + displayPassCond, "");
-        Map results  = FastMap.newInstance();
-        String contentId = null;
-        if (content != null)
-            contentId = content.getString("contentId");
+        Debug.logInfo("displayPassCond(0):" + displayPassCond, "");
+        Map<String, Object> results  = FastMap.newInstance();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -140,11 +140,11 @@ public class ContentPermissionServices {
         // I realized, belatedly, that I wanted to be able to pass parameters in as
         // strings so this service could be used in an action event directly,
         // so I had to write this code to handle both list and strings
-        List passedPurposes = (List) context.get("contentPurposeList");
+        List<String> passedPurposes = UtilGenerics.checkList(context.get("contentPurposeList"));
         String contentPurposeString = (String) context.get("contentPurposeString");
         //Debug.logInfo("contentPurposeString(b):" + contentPurposeString, "");
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
-            List purposesFromString = StringUtil.split(contentPurposeString, "|");
+            List<String> purposesFromString = StringUtil.split(contentPurposeString, "|");
             if (passedPurposes == null) {
                 passedPurposes = FastList.newInstance();
             }
@@ -156,12 +156,12 @@ public class ContentPermissionServices {
         // there needs to be a method for setting a purpose list
         auxGetter.setList(passedPurposes);
         //Debug.logInfo("passedPurposes(b):" + passedPurposes, "");
-        List targetOperations = (List) context.get("targetOperationList");
+        List<String> targetOperations = UtilGenerics.checkList(context.get("targetOperationList"));
         //Debug.logInfo("targetOperations(b):" + targetOperations, "");
         String targetOperationString = (String) context.get("targetOperationString");
         //Debug.logInfo("targetOperationString(b):" + targetOperationString, "");
         if (UtilValidate.isNotEmpty(targetOperationString)) {
-            List operationsFromString = StringUtil.split(targetOperationString, "|");
+            List<String> operationsFromString = StringUtil.split(targetOperationString, "|");
             if (targetOperations == null) {
                 targetOperations = FastList.newInstance();
             }
@@ -173,11 +173,11 @@ public class ContentPermissionServices {
 
         EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         //Debug.logInfo("targetOperations(b):" + targetOperations, "");
-        List passedRoles = (List) context.get("roleTypeList");
+        List<String> passedRoles = UtilGenerics.checkList(context.get("roleTypeList"));
         if (passedRoles == null) passedRoles = FastList.newInstance();
         String roleTypeString = (String) context.get("roleTypeString");
         if (UtilValidate.isNotEmpty(roleTypeString)) {
-            List rolesFromString = StringUtil.split(roleTypeString, "|");
+            List<String> rolesFromString = StringUtil.split(roleTypeString, "|");
             passedRoles.addAll(rolesFromString);
         }
         roleGetter.setList(passedRoles);
@@ -190,7 +190,7 @@ public class ContentPermissionServices {
 
         StringBuilder errBuf = new StringBuilder();
         String permissionStatus = null;
-        List entityIds = FastList.newInstance();
+        List<Object> entityIds = FastList.newInstance();
         if (passed) {
             results.put("permissionStatus", "granted");
             permissionStatus = "granted";
@@ -207,7 +207,7 @@ public class ContentPermissionServices {
                 entityIds.add(content);
             String quickCheckContentId = (String) context.get("quickCheckContentId");
             if (UtilValidate.isNotEmpty(quickCheckContentId)) {
-               List quickList = StringUtil.split(quickCheckContentId, "|");
+               List<String> quickList = StringUtil.split(quickCheckContentId, "|");
                if (UtilValidate.isNotEmpty(quickList)) entityIds.addAll(quickList);
             }
             try {
@@ -259,9 +259,10 @@ public class ContentPermissionServices {
         return results;
     }
 
+    @SuppressWarnings("null")
     public static Map<String, Object> checkAssocPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map results = FastMap.newInstance();
-        Security security = dctx.getSecurity();
+        Map<String, Object> results = FastMap.newInstance();
+        // Security security = dctx.getSecurity();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Boolean bDisplayFailCond = (Boolean)context.get("displayFailCond");
@@ -271,7 +272,6 @@ public class ContentPermissionServices {
         String entityAction = (String) context.get("entityOperation");
         Locale locale = (Locale) context.get("locale");
         if (entityAction == null) entityAction = "_ADMIN";
-        List roleIds = null;
         String permissionStatus = null;
 
         GenericValue contentTo = null;
@@ -288,20 +288,18 @@ public class ContentPermissionServices {
                     "ContentContentToOrFromIsNull", 
                     UtilMisc.toMap("contentTo", contentTo, "contentFrom", contentFrom), locale));
         }
-        Map resultsMap = null;
-        boolean isMatch = false;
-
-        boolean isMatchTo = false;
-        boolean isMatchFrom = false;
-        Map permResults = FastMap.newInstance();
+        // boolean isMatch = false;
+        // boolean isMatchTo = false;
+        // boolean isMatchFrom = false;
+        Map<String, Object> permResults = FastMap.newInstance();
         String skipPermissionCheck = null;
 
         if (UtilValidate.isEmpty(skipPermissionCheck)
             || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
             // Use the purposes from the from entity for both cases.
-            List relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
-            List relatedPurposesTo = EntityPermissionChecker.getRelatedPurposes(contentTo, relatedPurposes);
-            Map serviceInMap = FastMap.newInstance();
+            List<String> relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
+            List<String> relatedPurposesTo = EntityPermissionChecker.getRelatedPurposes(contentTo, relatedPurposes);
+            Map<String, Object> serviceInMap = FastMap.newInstance();
             serviceInMap.put("userLogin", userLogin);
             serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_TO"));
             serviceInMap.put("contentPurposeList", relatedPurposesTo);
@@ -316,8 +314,8 @@ public class ContentPermissionServices {
             permissionStatus = (String)permResults.get("permissionStatus");
             if (permissionStatus == null || !permissionStatus.equals("granted")) {
                 if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
-                     String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
-                     results.put(ModelService.ERROR_MESSAGE, errMsg);
+                    String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
+                    results.put(ModelService.ERROR_MESSAGE, errMsg);
                 }
                 return results;
             }
@@ -334,8 +332,8 @@ public class ContentPermissionServices {
                 results.put("permissionStatus", "granted");
             } else {
                 if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
-                     String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
-                     results.put(ModelService.ERROR_MESSAGE, errMsg);
+                    String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
+                    results.put(ModelService.ERROR_MESSAGE, errMsg);
                 }
             }
         } else {
