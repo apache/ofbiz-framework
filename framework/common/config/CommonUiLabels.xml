@@ -9641,6 +9641,24 @@
         <value xml:lang="zh_CN">数据源类型</value>
         <value xml:lang="zh_TW">資料源類型</value>
     </property>
+    <property key="CommonPayment">
+        <value xml:lang="en">Payment</value>
+    </property>
+    <property key="CommonAuthenticate">
+        <value xml:lang="en">Authenticate</value>
+    </property>
+    <property key="CommonDeferred">
+        <value xml:lang="en">Deferred</value>
+    </property>
+    <property key="CommonAuthorise">
+        <value xml:lang="en">Authorise</value>
+    </property>
+    <property key="CommonRelease">
+        <value xml:lang="en">Release</value>
+    </property>
+    <property key="CommonAbort">
+        <value xml:lang="en">Abort</value>
+    </property>
     <property key="DataSourceTypeCreate">
         <value xml:lang="ar">استحداث نوع مصدر معلومات</value>
         <value xml:lang="de">Datenquelle Typ erstellen</value>
