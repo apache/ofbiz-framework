@@ -18,7 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.entity.model;
 
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
@@ -65,7 +70,7 @@ public class ModelInfo {
         @Override
         public String getAuthor()               { return "None"; }
         @Override
-        public String getCopyright()            { return "Copyright 2001-2009 The Apache Software Foundation"; }
+        public String getCopyright()            { int year = UtilDateTime.getYear(UtilDateTime.nowTimestamp(), TimeZone.getDefault(), Locale.getDefault()); return "Copyright 2001-" + year + " The Apache Software Foundation"; }
         @Override
         public String getVersion()              { return "1.0"; }
         @Override
