@@ -208,6 +208,16 @@ under the License.
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
+    <service name="getProductInventoryAvailableBySupplier" engine="simple"
+                location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="getProductInventoryAvailable" auth="false" use-transaction="false">
+        <description>Get Inventory Availability for a Product by a Supplier</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
+        <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
+    </service>
     <service name="countProductInventoryOnHand" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="countProductInventoryOnHand" auth="true" use-transaction="false">
         <description>Count Inventory On Hand for a Product constrained by a facilityId at a given date.</description>
