@@ -244,7 +244,7 @@ public class ContentServices {
         //context.put("skipPermissionCheck", null);
         */
 
-        Map result = createContentMethod(dctx, context);
+        Map<String, Object> result = createContentMethod(dctx, context);
         return result;
     }
 
@@ -263,7 +263,7 @@ public class ContentServices {
         context.put("contentPurposeList", contentPurposeList);
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String contentId = (String) context.get("contentId");
@@ -282,7 +282,7 @@ public class ContentServices {
         // get first statusId  for content out of the statusItem table if not provided
         if (UtilValidate.isEmpty(context.get("statusId"))) {
             try {
-                List statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
+                List<GenericValue> statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
                 if (!UtilValidate.isEmpty(statusItems)) {
                     content.put("statusId",  ((GenericValue) statusItems.get(0)).getString("statusId"));
                 }
@@ -299,7 +299,7 @@ public class ContentServices {
         context.put("currentContent", content);
         if (Debug.infoOn()) Debug.logInfo("in createContentMethod, context: " + context, null);
 
-        Map permResults = ContentWorker.callContentPermissionCheckResult(delegator, dispatcher, context);
+        Map<String, Object> permResults = ContentWorker.callContentPermissionCheckResult(delegator, dispatcher, context);
         String permissionStatus = (String) permResults.get("permissionStatus");
         if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
             try {
