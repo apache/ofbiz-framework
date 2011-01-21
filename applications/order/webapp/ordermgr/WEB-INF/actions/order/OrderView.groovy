@@ -345,13 +345,18 @@ if (orderHeader) {
     }
     context.productionProductQuantityMap = productionMap;
 
-    // INVENTORY: find the number of products in outstanding sales orders for the same product store
-    requiredMap = InventoryWorker.getOutstandingProductQuantitiesForSalesOrders(productIds, delegator);
-    context.requiredProductQuantityMap = requiredMap;
-
-    // INVENTORY: find the quantity of each product in outstanding purchase orders
-    onOrderMap = InventoryWorker.getOutstandingProductQuantitiesForPurchaseOrders(productIds, delegator);
-    context.onOrderProductQuantityMap = onOrderMap;
+    if (productIds.size() > 0) {
+        // INVENTORY: find the number of products in outstanding sales orders for the same product store    
+        requiredMap = InventoryWorker.getOutstandingProductQuantitiesForSalesOrders(productIds, delegator);
+        context.requiredProductQuantityMap = requiredMap;
+    
+        // INVENTORY: find the quantity of each product in outstanding purchase orders
+        onOrderMap = InventoryWorker.getOutstandingProductQuantitiesForPurchaseOrders(productIds, delegator);
+        context.onOrderProductQuantityMap = onOrderMap;
+    } else {
+        context.requiredProductQuantityMap = FastMap.newInstance();
+        context.onOrderProductQuantityMap = FastMap.newInstance();
+    }
 }
 
 paramString = "";
