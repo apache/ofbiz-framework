@@ -1708,9 +1708,11 @@ public class OrderReadHelper {
     /** Get a set of productIds in the order. */
     public Collection<String> getOrderProductIds() {
         Set<String> productIds = FastSet.newInstance();
-        for (Iterator<GenericValue> iter = getOrderItems().iterator(); iter.hasNext();) {
-            productIds.add(iter.next().getString("productId"));
-        }
+        for (GenericValue orderItem : getOrderItems()) {
+            if (orderItem.get("productId") != null) {
+                productIds.add(orderItem.getString("productId"));
+            }
+        }        
         return productIds;
     }
 
