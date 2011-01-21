@@ -254,7 +254,7 @@ under the License.
                                         <a href="#" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>updateProductExportDetail</@ofbizUrl>';document.ProductsExportToEbay.submit();" class="buttontext">${uiLabelMap.CommonSave}</a>
                                     <#-- request.setAttribute("isSaved")-->
                                     <#if isSaved?exists && isSaved=="Y">
-                                        <a href="#" class="buttontext" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>verifyItem</@ofbizUrl>';document.ProductsExportToEbay.submit();">Verifly Item</a>
+                                        <a href="#" class="buttontext" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>verifyItemBeforeAddAndExportToEbay</@ofbizUrl>';document.ProductsExportToEbay.submit();">Verifly Item</a>
                                     </#if>
                                         <a href="#" class="buttontext" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>removeProductFromListing</@ofbizUrl>';document.ProductsExportToEbay.submit();">Remove</a>
                                         <#--a href="#" class="buttontext">Save and ${uiLabelMap.EbayExportToEbay}</a-->
