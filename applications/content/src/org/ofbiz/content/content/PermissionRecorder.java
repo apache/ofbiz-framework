@@ -25,6 +25,7 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
@@ -42,10 +43,10 @@ public class PermissionRecorder {
 
     protected boolean isOn = false;
     protected GenericValue userLogin;
-    protected List permCheckResults = FastList.newInstance();
+    protected List<Map<String, Object>> permCheckResults = FastList.newInstance();
     protected boolean entityPermCheckResult = false;
     protected String currentContentId = "";
-    protected Map currentContentMap;
+    protected Map<String, Object> currentContentMap;
     protected String privilegeEnumId;
     protected int currentCheckMode;
     protected GenericValue [] contentPurposeOperations;
@@ -97,7 +98,7 @@ public class PermissionRecorder {
        return contentPurposeOperations;
     }
 
-    public void setContentPurposeOperations(List opList) {
+    public void setContentPurposeOperations(List<GenericValue> opList) {
        contentPurposeOperations = (GenericValue [])opList.toArray();
     }
 
@@ -113,7 +114,7 @@ public class PermissionRecorder {
        return statusTargets;
     }
 
-    public void setStatusTargets(List opList) {
+    public void setStatusTargets(List<String> opList) {
        statusTargets = (String [])opList.toArray();
     }
 
@@ -121,7 +122,7 @@ public class PermissionRecorder {
        return targetOperations;
     }
 
-    public void setTargetOperations(List opList) {
+    public void setTargetOperations(List<String> opList) {
        targetOperations = (String [])opList.toArray();
     }
 
@@ -139,7 +140,7 @@ public class PermissionRecorder {
         return currentContentId;
     }
 
-    public void setRoles(List roles) {
+    public void setRoles(List<String> roles) {
         if (currentContentMap != null) {
             if (roles != null)
                 currentContentMap.put("roles", roles.toArray());
@@ -148,7 +149,7 @@ public class PermissionRecorder {
         }
     }
 
-    public void setPurposes(List purposes) {
+    public void setPurposes(List<String> purposes) {
         if (currentContentMap != null) {
             if (purposes != null)
                 currentContentMap.put("purposes", purposes.toArray());
@@ -157,8 +158,7 @@ public class PermissionRecorder {
         }
     }
 
-    public void startMatchGroup(List targetOperations, List purposes, List roles, List targStatusList, String targPrivilegeEnumId, String contentId) {
-
+    public void startMatchGroup(List<String> targetOperations, List<String> purposes, List<String> roles, List<String> targStatusList, String targPrivilegeEnumId, String contentId) {
         currentContentMap = FastMap.newInstance();
         permCheckResults.add(currentContentMap);
         String s = null;
@@ -186,25 +186,26 @@ public class PermissionRecorder {
             //if (Debug.infoOn()) Debug.logInfo("startMatchGroup, targStatusList(string):" + s, module);
             currentContentMap.put("statusId", s);
         }
+        List<Map<String, Object>> checkResultList = FastList.newInstance();
         currentContentMap.put("privilegeEnumId", privilegeEnumId);
         currentContentMap.put("contentId", contentId);
-        currentContentMap.put("checkResultList", FastList.newInstance());
+        currentContentMap.put("checkResultList", checkResultList);
         currentContentMap.put("matches", null);
         currentContentId = contentId;
-            //if (Debug.infoOn()) Debug.logInfo("startMatchGroup, currentContentMap:" + currentContentMap, module);
+        //if (Debug.infoOn()) Debug.logInfo("startMatchGroup, currentContentMap:" + currentContentMap, module);
     }
 
     public void record(GenericValue purposeOp, boolean targetOpCond, boolean purposeCond, boolean statusCond, boolean privilegeCond, boolean roleCond) {
-
-        Map map = UtilMisc.makeMapWritable(purposeOp);
+        Map<String, Object> map = UtilMisc.makeMapWritable(purposeOp);
         map.put("contentOperationIdCond", Boolean.valueOf(targetOpCond));
         map.put("contentPurposeTypeIdCond", Boolean.valueOf(purposeCond));
         map.put("statusIdCond", Boolean.valueOf(statusCond));
         map.put("privilegeEnumIdCond", Boolean.valueOf(privilegeCond));
         map.put("roleTypeIdCond", Boolean.valueOf(roleCond));
         map.put("contentId", currentContentId);
-        ((List)currentContentMap.get("checkResultList")).add(map);
-            //if (Debug.infoOn()) Debug.logInfo("record, map:" + map, module);
+        List<Map<String, Object>> checkResultList = UtilGenerics.checkList(currentContentMap.get("checkResultList"));
+        checkResultList.add(map);
+        //if (Debug.infoOn()) Debug.logInfo("record, map:" + map, module);
     }
 
     public String toHtml() {
@@ -226,8 +227,6 @@ public class PermissionRecorder {
         sb.append("</td>");
 
         //if (Debug.infoOn()) Debug.logInfo("renderResultRowHtml, (1):" + sb.toString(), module);
-        String str = null;
-        String s = null;
         for (int i=0; i < fieldTitles.length; i++) {
             String opField = fieldTitles[i];
             sb.append("<td class=\"headr\">");
@@ -237,21 +236,21 @@ public class PermissionRecorder {
         sb.append("<td class=\"headr\" >Pass/Fail</td>");
         sb.append("</tr>");
 
-        Iterator iter = permCheckResults.iterator();
+        Iterator<Map<String, Object>> iter = permCheckResults.iterator();
         while (iter.hasNext()) {
-            Map cMap = (Map)iter.next();
+            Map<String, Object> cMap = iter.next();
             sb.append(renderCurrentContentMapHtml(cMap));
         }
         sb.append("</table>");
         return sb.toString();
     }
 
-    public String renderCurrentContentMapHtml(Map cMap) {
+    public String renderCurrentContentMapHtml(Map<String, Object> cMap) {
         StringBuilder sb = new StringBuilder();
-        List resultList = (List)cMap.get("checkResultList");
-        Iterator iter = resultList.iterator();
+        List<Map<String, Object>> resultList = UtilGenerics.checkList(cMap.get("checkResultList"));
+        Iterator<Map<String, Object>> iter = resultList.iterator();
         while (iter.hasNext()) {
-            Map rMap = (Map)iter.next();
+            Map<String, Object> rMap = iter.next();
             //if (Debug.infoOn()) Debug.logInfo("renderCCMapHtml, (1):" + rMap, module);
             sb.append(renderResultRowHtml(rMap, cMap));
         }
@@ -261,7 +260,7 @@ public class PermissionRecorder {
 
     //public static final String [] opFields = { "contentPurposeTypeId", "contentOperationId", "roleTypeId", "statusId", "privilegeEnumId"};
 
-    public String renderResultRowHtml(Map rMap, Map currentContentResultMap) {
+    public String renderResultRowHtml(Map<String, Object> rMap, Map<String, Object> currentContentResultMap) {
         StringBuilder sb = new StringBuilder();
 
         // Do target row
