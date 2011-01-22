@@ -596,6 +596,7 @@ under the License.
         <attribute name="ebayUserIdBuyer" mode="IN" type="String" optional="true"></attribute>
         <attribute name="eiasTokenBuyer" mode="IN" type="String" optional="true"></attribute>
         <attribute name="checkoutStatus" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="importStatus" mode="IN" type="String" optional="true"></attribute>
         <attribute name="productId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="quantityPurchased" mode="IN" type="String" optional="true"></attribute>
         <attribute name="transactionPrice" mode="IN" type="String" optional="true"></attribute>
@@ -630,6 +631,7 @@ under the License.
         <attribute name="ebayUserIdBuyer" mode="IN" type="String" optional="true"></attribute>
         <attribute name="eiasTokenBuyer" mode="IN" type="String" optional="true"></attribute>
         <attribute name="checkoutStatus" mode="IN" type="String" optional="true"></attribute>
+        <attribute name="importStatus" mode="IN" type="String" optional="true"></attribute>
         <attribute name="productId" mode="IN" type="String" optional="true"></attribute>
         <attribute name="quantityPurchased" mode="IN" type="String" optional="true"></attribute>
         <attribute name="transactionPrice" mode="IN" type="String" optional="true"></attribute>
