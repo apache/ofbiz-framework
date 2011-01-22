@@ -863,14 +863,14 @@ public class ContentServices {
      * matching content.
      */
     public static Map<String, Object> renderSubContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map results = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
-        Map templateContext = (Map) context.get("templateContext");
+        Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
         String contentId = (String) context.get("contentId");
-        Timestamp fromDate = (Timestamp) context.get("fromDate");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        // Timestamp fromDate = (Timestamp) context.get("fromDate");
+        // GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
             contentId = (String) templateContext.get("contentId");
@@ -924,12 +924,12 @@ public class ContentServices {
      * matching content.
      */
     public static Map<String, Object> renderContentAsText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map results = FastMap.newInstance();
+        Map<String,Object> results = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Writer out = (Writer) context.get("outWriter");
 
-        Map templateContext = (Map) context.get("templateContext");
+        Map<String,Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
         //GenericValue userLogin = (GenericValue)context.get("userLogin");
         String contentId = (String) context.get("contentId");
         if (templateContext != null && UtilValidate.isEmpty(contentId)) {
