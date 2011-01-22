@@ -34,6 +34,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -64,17 +65,17 @@ public class LayoutEvents {
             Delegator delegator = (Delegator)request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
-            Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
+            Map<String, Object> uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
             //Debug.logVerbose("in createLayoutImage(java), uploadResults:" + uploadResults, "");
-            Map formInput = (Map) uploadResults.get("formInput");
-            Map context = FastMap.newInstance();
+            Map<String, Object> formInput = UtilGenerics.checkMap(uploadResults.get("formInput"));
+            Map<String, Object> context = FastMap.newInstance();
             ByteBuffer byteWrap = (ByteBuffer) uploadResults.get("imageData");
             if (byteWrap == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-        //Debug.logVerbose("in createLayoutImage, byteWrap(0):" + byteWrap, module);
+            //Debug.logVerbose("in createLayoutImage, byteWrap(0):" + byteWrap, module);
             String imageFileName = (String)uploadResults.get("imageFileName");
             //Debug.logVerbose("in createLayoutImage(java), context:" + context, "");
             String imageFileNameExt = null;
@@ -84,21 +85,15 @@ public class LayoutEvents {
                     imageFileNameExt = imageFileName.substring(pos + 1);
             }
             String mimeTypeId = "image/" + imageFileNameExt;
-            List errorMessages = FastList.newInstance();
+            List<Object> errorMessages = FastList.newInstance();
             if (locale == null)
                 locale = Locale.getDefault();
             context.put("locale", locale);
 
             try {
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn",
-                      formInput, context, errorMessages, locale);
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn",
-                      formInput, context, errorMessages, locale);
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
-                      formInput, context, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", formInput, context, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", formInput, context, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", formInput, context, errorMessages, locale);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -116,13 +111,13 @@ public class LayoutEvents {
                 context.put("contentPurposeList", UtilMisc.toList(contentPurposeTypeId));
             }
 
-            Map result = dispatcher.runSync("persistContentAndAssoc", context);
-        //Debug.logVerbose("in createLayoutImage, result:" + result, module);
+            Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
+            //Debug.logVerbose("in createLayoutImage, result:" + result, module);
 
             String dataResourceId = (String)result.get("dataResourceId");
             String activeContentId = (String)result.get("contentId");
             if (UtilValidate.isNotEmpty(activeContentId)) {
-                Map context2 = FastMap.newInstance();
+                Map<String, Object> context2 = FastMap.newInstance();
                 context2.put("activeContentId", activeContentId);
                 //context2.put("dataResourceId", dataResourceId);
                 context2.put("contentAssocTypeId", result.get("contentAssocTypeId"));
@@ -135,13 +130,12 @@ public class LayoutEvents {
                 context2.put("contentIdTo", formInput.get("contentIdTo"));
                 context2.put("mapKey", formInput.get("mapKey"));
 
-            //Debug.logVerbose("in createLayoutImage, context2:" + context2, module);
-                Map result2 = dispatcher.runSync("deactivateAssocs", context2);
+                //Debug.logVerbose("in createLayoutImage, context2:" + context2, module);
+                dispatcher.runSync("deactivateAssocs", context2);
             }
 
-            GenericValue dataResource = delegator.findByPrimaryKey("DataResource",
-                          UtilMisc.toMap("dataResourceId", dataResourceId));
-        //Debug.logVerbose("in createLayoutImage, dataResource:" + dataResource, module);
+            GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            //Debug.logVerbose("in createLayoutImage, dataResource:" + dataResource, module);
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
             if (dataResource != null) {
@@ -151,9 +145,8 @@ public class LayoutEvents {
             }
 
             // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource",
-                          UtilMisc.toMap("dataResourceId", dataResourceId));
-        //Debug.logVerbose("in createLayoutImage, imageDataResource(0):" + imageDataResource, module);
+            GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
+            //Debug.logVerbose("in createLayoutImage, imageDataResource(0):" + imageDataResource, module);
             if (imageDataResource == null) {
                 imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                 imageDataResource.set("imageData", byteWrap.array());
@@ -177,8 +170,8 @@ public class LayoutEvents {
         try {
             Delegator delegator = (Delegator)request.getAttribute("delegator");
             HttpSession session = request.getSession();
-            Map uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
-            Map context = (Map)uploadResults.get("formInput");
+            Map<String, Object> uploadResults = LayoutWorker.uploadImageAndParameters(request, "imageData");
+            Map<String, Object> context = UtilGenerics.checkMap(uploadResults.get("formInput"));
             ByteBuffer byteWrap = (ByteBuffer)uploadResults.get("imageData");
             if (byteWrap == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.image_data_null", locale);
@@ -200,8 +193,7 @@ public class LayoutEvents {
             String dataResourceId = (String)context.get("drDataResourceId");
             Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
 
-            GenericValue dataResource = delegator.findByPrimaryKey("DataResource",
-                          UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
             Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
@@ -213,11 +205,9 @@ public class LayoutEvents {
             }
 
             // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource",
-                          UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
             if (imageDataResource == null) {
-                imageDataResource = delegator.makeValue("ImageDataResource",
-                          UtilMisc.toMap("dataResourceId", dataResourceId));
+                imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                 imageDataResource.set("imageData", byteWrap.array());
                 imageDataResource.create();
             } else {
@@ -232,12 +222,11 @@ public class LayoutEvents {
     }
 
     public static String replaceSubContent(HttpServletRequest request, HttpServletResponse response) {
-
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-        Map context = FastMap.newInstance();
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         Debug.logVerbose("in replaceSubContent, paramMap:" + paramMap, module);
         String dataResourceId = (String)paramMap.get("dataResourceId");
         if (UtilValidate.isEmpty(dataResourceId)) {
@@ -283,10 +272,10 @@ public class LayoutEvents {
             context.put("contentAssocTypeId", "SUB_CONTENT");
 
             try {
-                Map result = dispatcher.runSync("persistContentAndAssoc", context);
-        //Debug.logVerbose("in replaceSubContent, result:" + result, module);
+                Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
+                //Debug.logVerbose("in replaceSubContent, result:" + result, module);
                 request.setAttribute("contentId", contentIdTo);
-                Map context2 = FastMap.newInstance();
+                Map<String, Object> context2 = FastMap.newInstance();
                 context2.put("activeContentId", contentId);
                 //context2.put("dataResourceId", dataResourceId);
                 context2.put("contentAssocTypeId", "SUB_CONTENT");
@@ -299,7 +288,7 @@ public class LayoutEvents {
                 context2.put("mapKey", mapKey);
 
                 //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
-                Map result2 = dispatcher.runSync("deactivateAssocs", context2);
+                dispatcher.runSync("deactivateAssocs", context2);
             } catch (GenericServiceException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -310,12 +299,11 @@ public class LayoutEvents {
     }
 
     public static String cloneLayout(HttpServletRequest request, HttpServletResponse response) {
-
         Delegator delegator = (Delegator)request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         Locale locale = UtilHttp.getLocale(request);
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String contentId = (String)paramMap.get("contentId");
         Debug.logVerbose("in cloneLayout, contentId:" + contentId, "");
         if (UtilValidate.isEmpty(contentId)) {
@@ -329,12 +317,11 @@ public class LayoutEvents {
         GenericValue newContent = null;
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
         String userLoginId = (String) userLogin.get("userLoginId");
-        List entityList = null;
+        List<GenericValue> entityList = null;
         String newId = null;
         String newDataResourceId = null;
         try {
-            content = delegator.findByPrimaryKey("Content",
-                       UtilMisc.toMap("contentId", contentId));
+            content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
             Debug.logVerbose("in cloneLayout, content:" + content, "");
             if (content == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_empty", locale);
@@ -347,8 +334,7 @@ public class LayoutEvents {
             newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
             String dataResourceId = (String)content.get("dataResourceId");
-            GenericValue dataResource = delegator.findByPrimaryKey("DataResource",
-                       UtilMisc.toMap("dataResourceId", dataResourceId));
+            GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
             if (dataResource != null) {
                 GenericValue newDataResource = delegator.makeValue("DataResource", dataResource);
                 Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");
@@ -378,11 +364,11 @@ public class LayoutEvents {
             newContentAssoc.create();
             Debug.logVerbose("in cloneLayout, newContentAssoc:" + newContentAssoc, "");
         } catch (GenericEntityException e) {
-                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
         }
-        Map serviceIn = FastMap.newInstance();
-        Map results = null;
+        Map<String, Object> serviceIn = FastMap.newInstance();
+        Map<String, Object> results = null;
         serviceIn.put("fromDate", UtilDateTime.nowTimestamp());
         serviceIn.put("contentId", contentId);
         serviceIn.put("userLogin", session.getAttribute("userLogin"));
@@ -391,31 +377,29 @@ public class LayoutEvents {
         serviceIn.put("assocTypes", UtilMisc.toList("SUB_CONTENT"));
         try {
             results = dispatcher.runSync("getAssocAndContentAndDataResource", serviceIn);
-            entityList = (List)results.get("entityList");
+            entityList = UtilGenerics.checkList(results.get("entityList"));
             if (UtilValidate.isEmpty(entityList)) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.no_subcontent", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
             }
         } catch (GenericServiceException e) {
-                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                return "error";
+            request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+            return "error";
         }
 
         serviceIn = FastMap.newInstance();
         serviceIn.put("userLogin", session.getAttribute("userLogin"));
 
         // Can't count on records being unique
-        Map beenThere = FastMap.newInstance();
+        Map<String, GenericValue> beenThere = FastMap.newInstance();
         for (int i=0; i<entityList.size(); i++) {
-            GenericValue view = (GenericValue)entityList.get(i);
-            List errorMessages = FastList.newInstance();
+            GenericValue view = entityList.get(i);
+            List<Object> errorMessages = FastList.newInstance();
             if (locale == null) {
                 locale = Locale.getDefault();
             }
             try {
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
-                      view, serviceIn, errorMessages, locale);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", view, serviceIn, errorMessages, locale);
             } catch (IllegalArgumentException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -457,15 +441,15 @@ public class LayoutEvents {
         try {
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
-            Map paramMap = UtilHttp.getParameterMap(request);
+            Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
             String contentIdTo = (String)paramMap.get("contentIdTo");
             String mapKey = (String)paramMap.get("mapKey");
             if (Debug.verboseOn()) {
                 Debug.logVerbose("in createSubContent, contentIdTo:" + contentIdTo, module);
                 Debug.logVerbose("in createSubContent, mapKey:" + mapKey, module);
             }
-            Map context = FastMap.newInstance();
-            List errorMessages = null;
+            Map<String, Object> context = FastMap.newInstance();
+            List<Object> errorMessages = null;
             Locale loc = (Locale)request.getSession().getServletContext().getAttribute("locale");
             if (loc == null) {
                 loc = Locale.getDefault();
@@ -476,15 +460,9 @@ public class LayoutEvents {
             String rootDir = request.getSession().getServletContext().getRealPath("/");
             context.put("rootDir", rootDir);
             try {
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn",
-                      paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn",
-                      paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
-                      paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
@@ -492,27 +470,32 @@ public class LayoutEvents {
 
             context.put("dataResourceName", context.get("contentName"));
             String contentPurposeTypeId = (String)paramMap.get("contentPurposeTypeId");
-            if (UtilValidate.isNotEmpty(contentPurposeTypeId))
+            if (UtilValidate.isNotEmpty(contentPurposeTypeId)) {
                 context.put("contentPurposeList", UtilMisc.toList(contentPurposeTypeId));
+            }
             context.put("contentIdTo", paramMap.get("contentIdTo"));
             context.put("mapKey", paramMap.get("mapKey"));
             context.put("textData", paramMap.get("textData"));
             context.put("contentAssocTypeId", "SUB_CONTENT");
-            if (Debug.verboseOn()) Debug.logVerbose("in createSubContent, context:" + context, module);
-            Map result = dispatcher.runSync("persistContentAndAssoc", context);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createSubContent, context:" + context, module);
+            }
+            Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
             boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
             if (isError) {
                 request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
                 return "error";
             }
 
-            if (Debug.verboseOn()) Debug.logVerbose("in createLayoutFile, result:" + result, module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("in createLayoutFile, result:" + result, module);
+            }
             String contentId = (String)result.get("contentId");
             String dataResourceId = (String)result.get("dataResourceId");
             request.setAttribute("contentId", contentId);
             request.setAttribute("drDataResourceId", dataResourceId);
             request.setAttribute("currentEntityName", "SubContentDataResourceId");
-            Map context2 = FastMap.newInstance();
+            Map<String, Object> context2 = FastMap.newInstance();
             context2.put("activeContentId", contentId);
             //context2.put("dataResourceId", dataResourceId);
             context2.put("contentAssocTypeId", "SUB_CONTENT");
@@ -522,7 +505,7 @@ public class LayoutEvents {
             context2.put("userLogin", userLogin);
 
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
-            Map result2 = dispatcher.runSync("deactivateAssocs", context2);
+            dispatcher.runSync("deactivateAssocs", context2);
         } catch (GenericServiceException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
             return "error";
@@ -530,19 +513,19 @@ public class LayoutEvents {
         return "success";
     }
 
-
     public static String updateLayoutSubContent(HttpServletRequest request, HttpServletResponse response) {
         try {
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
             HttpSession session = request.getSession();
-            Map paramMap = UtilHttp.getParameterMap(request);
-            String contentIdTo = (String)paramMap.get("contentIdTo");
-            String mapKey = (String)paramMap.get("mapKey");
-            Map context = FastMap.newInstance();
-            List errorMessages = null;
+            Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+            // String contentIdTo = (String)paramMap.get("contentIdTo");
+            // String mapKey = (String)paramMap.get("mapKey");
+            Map<String, Object> context = FastMap.newInstance();
+            List<Object> errorMessages = null;
             Locale loc = (Locale)request.getSession().getServletContext().getAttribute("locale");
-            if (loc == null)
+            if (loc == null) {
                 loc = Locale.getDefault();
+            }   
             context.put("locale", loc);
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
             context.put("userLogin", userLogin);
@@ -550,29 +533,23 @@ public class LayoutEvents {
             String rootDir = request.getSession().getServletContext().getRealPath("/");
             context.put("rootDir", rootDir);
             try {
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn",
-                      paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn",
-                      paramMap, context, errorMessages, loc);
-                SimpleMapProcessor.runSimpleMapProcessor(
-                      "component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn",
-                      paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceIn", paramMap, context, errorMessages, loc);
+                SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "contentAssocIn", paramMap, context, errorMessages, loc);
             } catch (MiniLangException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
             }
 
-
             context.put("dataResourceName", context.get("contentName"));
             String contentPurposeTypeId = (String)paramMap.get("contentPurposeTypeId");
-            if (UtilValidate.isNotEmpty(contentPurposeTypeId))
+            if (UtilValidate.isNotEmpty(contentPurposeTypeId)) {
                 context.put("contentPurposeList", UtilMisc.toList(contentPurposeTypeId));
+            }   
             context.put("contentIdTo", paramMap.get("contentIdTo"));
             context.put("textData", paramMap.get("textData"));
             context.put("contentAssocTypeId", null);
-            Map result = dispatcher.runSync("persistContentAndAssoc", context);
+            Map<String, Object> result = dispatcher.runSync("persistContentAndAssoc", context);
             boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
             if (isError) {
                 request.setAttribute("_ERROR_MESSAGE_", result.get(ModelService.ERROR_MESSAGE));
@@ -604,7 +581,7 @@ public class LayoutEvents {
 
     public static String copyToClip(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator)request.getAttribute("delegator");
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String entityName = (String)paramMap.get("entityName");
         Locale locale = UtilHttp.getLocale(request);
 
@@ -615,16 +592,16 @@ public class LayoutEvents {
         }
         GenericValue v = delegator.makeValue(entityName);
         GenericPK passedPK = v.getPrimaryKey();
-        Collection keyColl = passedPK.getAllKeys();
-        Iterator keyIt = keyColl.iterator();
+        Collection<String> keyColl = passedPK.getAllKeys();
+        Iterator<String> keyIt = keyColl.iterator();
         while (keyIt.hasNext()) {
             String attrName = (String)keyIt.next();
             String attrVal = (String)request.getAttribute(attrName);
             if (attrVal == null) {
                 attrVal = (String)paramMap.get(attrName);
             }
-        Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
-        Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
+            Debug.logVerbose("in copyToClip, attrName:" + attrName,"");
+            Debug.logVerbose("in copyToClip, attrVal:" + attrVal,"");
             if (UtilValidate.isNotEmpty(attrVal)) {
                 passedPK.put(attrName,attrVal);
             } else {
