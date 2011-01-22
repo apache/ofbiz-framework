@@ -969,7 +969,7 @@ public class ContentServices {
     }
 
     public static Map<String, Object> linkContentToPubPt(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map results = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
@@ -983,7 +983,7 @@ public class ContentServices {
         if (Debug.infoOn()) Debug.logInfo("in publishContent, statusId:" + statusId, module);
         if (Debug.infoOn()) Debug.logInfo("in publishContent, userLogin:" + userLogin, module);
 
-        Map mapIn = FastMap.newInstance();
+        Map<String, Object> mapIn = FastMap.newInstance();
         mapIn.put("contentId", contentId);
         mapIn.put("contentIdTo", contentIdTo);
         mapIn.put("contentAssocTypeId", contentAssocTypeId);
@@ -1028,7 +1028,7 @@ public class ContentServices {
             } else {
                 // Only deactive if currently published
                 if (isPublished) {
-                    Map thisResults = dispatcher.runSync("deactivateAssocs", mapIn);
+                    Map<String, Object> thisResults = dispatcher.runSync("deactivateAssocs", mapIn);
                     String errorMsg = ServiceUtil.getErrorMessage(thisResults);
                     if (UtilValidate.isNotEmpty(errorMsg)) {
                         Debug.logError("Problem running deactivateAssocs. " + errorMsg, "ContentServices");
@@ -1048,11 +1048,9 @@ public class ContentServices {
     }
 
     public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         GenericValue content = (GenericValue)context.get("content");
-        GenericValue userLogin = (GenericValue)context.get("userLogin");
-
+        
         try {
             content.put("statusId", "CTNT_PUBLISHED");
             content.store();
@@ -1064,20 +1062,17 @@ public class ContentServices {
     }
 
     public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-
-        Map result = FastMap.newInstance();
-        Map mapIn = (Map)context.get("mapIn");
+        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> mapIn = UtilGenerics.checkMap(context.get("mapIn"));
         String prefix = (String)context.get("prefix");
-        Map mapOut = FastMap.newInstance();
+        Map<String, Object> mapOut = FastMap.newInstance();
         result.put("mapOut", mapOut);
         if (mapIn != null) {
-            Set entrySet = mapIn.entrySet();
-            Iterator iter = entrySet.iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry)iter.next();
+            Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
+            for (Map.Entry<String, Object> entry : entrySet) {
                 String key = (String)entry.getKey();
                 if (key.startsWith(prefix)) {
-                    String keyBase = key.substring(prefix.length());
+                    // String keyBase = key.substring(prefix.length());
                     Object value = entry.getValue();
                     mapOut.put(key, value);
                 }
@@ -1087,8 +1082,8 @@ public class ContentServices {
     }
 
     public static Map<String, Object> splitString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-        Map result = FastMap.newInstance();
-        List outputList = FastList.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
+        List<String> outputList = FastList.newInstance();
         String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
         String inputString = (String)context.get("inputString");
         if (UtilValidate.isNotEmpty(inputString)) {
@@ -1099,10 +1094,10 @@ public class ContentServices {
     }
 
     public static Map<String, Object> joinString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         String outputString = null;
         String delimiter = UtilFormatOut.checkEmpty((String)context.get("delimiter"), "|");
-        List inputList = (List)context.get("inputList");
+        List<String> inputList = UtilGenerics.checkList(context.get("inputList"));
         if (inputList != null) {
             outputString = StringUtil.join(inputList, delimiter);
         }
@@ -1111,15 +1106,12 @@ public class ContentServices {
     }
 
     public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
-
-        Map result = FastMap.newInstance();
-        Map mapFiltered = FastMap.newInstance();
-        Map mapIn = (Map)context.get("mapIn");
+        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> mapFiltered = FastMap.newInstance();
+        Map<String, Object> mapIn = UtilGenerics.checkMap(context.get("mapIn"));
         if (mapIn != null) {
-            Set entrySet = mapIn.entrySet();
-            Iterator iter = entrySet.iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry)iter.next();
+            Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
+            for (Map.Entry<String, Object> entry : entrySet) {
                 String key = (String)entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {
