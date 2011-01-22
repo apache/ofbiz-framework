@@ -22,297 +22,355 @@
     <property key="AccountingDeleteRateAmount">
         <value xml:lang="en">Could not find RateAmount record to be deleted</value>
         <value xml:lang="it">Non è possibile trovare un record di RateAmount che deve essere cancellato</value>
+        <value xml:lang="pt">Não foi possível localizar o registro a ser excluído RateAmount</value>
     </property>
     <property key="AccountingEftAccountCannotBeCreated">
         <value xml:lang="en">ERROR: Could not create payment method Id (id generation failure)</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il metodo pagamento (fallimento generazione id)</value>
+        <value xml:lang="pt">ERRO: Não foi possível criar Id de étodo de pagamento (falha ao gerar ID)</value>
     </property>
     <property key="AccountingEftAccountCannotBeCreatedWriteFailure">
         <value xml:lang="en">ERROR: Could not create EFT account (write failure): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare il conto EFT (fallita scrittura): ${errorString}</value>
+        <value xml:lang="pt">ERRO: Não foi possível criar conta de EFT (falha de escrita): ${errorString}</value>
     </property>
     <property key="AccountingEftAccountCannotBeUpdated">
         <value xml:lang="en">ERROR: Could not update EFT Account (write failure): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (scrittura fallita): ${errorString}</value>
+        <value xml:lang="pt">ERRO: Não foi possível atualizar Conta EFT (falha de escrita): ${errorString}</value>
     </property>
     <property key="AccountingEftAccountCannotBeUpdatedReadFailure">
         <value xml:lang="en">ERROR: Could not update EFT Account (read error): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il conto EFT (fallita lettura): ${errorString}</value>
+        <value xml:lang="pt">ERRO: Não foi possível atualizar Conta EFT (erro de leitura): ${errorString}</value>
     </property>
     <property key="AccountingEftPartyNotAuthorized">
         <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
+        <value xml:lang="pt">Participante com ID ${partyId} não é o proprietário do método de pagamento de US ${paymentMethodId} e não têm permissão para alterá-lo.</value>
     </property>
     <property key="AccountingFinAccountAuthorizationExpired">
         <value xml:lang="en">Authorization transaction ${paymentGatewayResponseId} has expired as of ${authExpiration}</value>
         <value xml:lang="it">Autorizzazione transazione ${paymentGatewayResponseId} ha una scadenza del ${authExpiration}</value>
+        <value xml:lang="pt">Autorização de transação de ${paymentGatewayResponseId} expirou como de ${authExpiration}</value>
     </property>
     <property key="AccountingFinAccountCancelled">
         <value xml:lang="en">Account has been cancelled</value>
         <value xml:lang="it">Il conto è stato cancellato</value>
+        <value xml:lang="pt">Conta foi cancelada</value>
     </property>
     <property key="AccountingFinAccountCannotBeAuthorized">
         <value xml:lang="en">Cannot authorize financial account due to: ${errorString}</value>
         <value xml:lang="it">Non è possibile autorizzare il conto finanziario per: ${errorString}</value>
+        <value xml:lang="pt">Não é possível autorizar a conta financeira decorrente de: ${errorString}</value>
     </property>
     <property key="AccountingFinAccountCannotBeExpired">
         <value xml:lang="en">Unable to expire financial account authorization: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario: </value>
+        <value xml:lang="pt">Incapaz de expirar a autorização da conta financeira:</value>
     </property>
     <property key="AccountingFinAccountCannotBeRefunded">
         <value xml:lang="en">Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.</value>
         <value xml:lang="it">Bilancio disponibilie non corrisponde all'attuale bilancio; autorizzazioni in attesa; non è possibile rimborsare il conto finanziario in questo momento.</value>
+        <value xml:lang="pt">Saldo disponível não corresponde ao saldo real, autorizações pendentes; não é possível reembolsar FinAccount neste momento.</value>
     </property>
     <property key="AccountingFinAccountCannotBeReplenish">
         <value xml:lang="en">Cannot locate product store from previous deposits; product store cannot be empty</value>
         <value xml:lang="it">Non è possibile localizzare il negozio dei precedenti depositi; il negozio non può essere vuoto</value>
+        <value xml:lang="pt">Não é possível localizar loja de produtos de depósitos anteriores; loja de produtos não pode estar vazia</value>
     </property>
     <property key="AccountingFinAccountCannotCapture">
         <value xml:lang="en">No authorization transaction found for the OrderPaymentPreference; cannot capture</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata per le preferenze pagamento ordine; non è possibile catturare</value>
+        <value xml:lang="pt">Nenhuma autorização de transação encontrado para a OrderPaymentPreference; não é possível capturar</value>
     </property>
     <property key="AccountingFinAccountCannotCreate">
         <value xml:lang="en">Unable to create financial accout; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile creare conto finanziario; nessun negozio impostato sulla testata ordine: ${orderId}</value>
+        <value xml:lang="pt">Não é possível criar accout financeira; sem productStoreId em OrderHeader: ${orderId}</value>
     </property>
     <property key="AccountingFinAccountCannotCreateTransaction">
         <value xml:lang="en">Unable to create financial account transaction!</value>
         <value xml:lang="it">Non è possibile creare un transazione di un conto finanziario!</value>
+        <value xml:lang="pt">Não é possível criar transação na conta de financeiras!</value>
     </property>
     <property key="AccountingFinAccountCannotCreditAccount">
         <value xml:lang="en">Could not find or create a service credit account</value>
         <value xml:lang="it">Non è possibile trovare o creare un servizio di accredito conto</value>
+        <value xml:lang="pt">Não foi possível encontrar ou criar um serviço de conta de crédito</value>
     </property>
     <property key="AccountingFinAccountCannotFindAuthorization">
         <value xml:lang="en"> Could not find authorization transaction.</value>
         <value xml:lang="it"> Non è possibile trovare la transazione di autorizzazione.</value>
+        <value xml:lang="pt">Não foi possível encontrar autorização para a transação.</value>
     </property>
     <property key="AccountingFinAccountCannotLocateItFromAccountCode">
         <value xml:lang="en">Unable to locate financial account from account code</value>
         <value xml:lang="it">Non è possibile localizzare il conto finanziario dal codice conto</value>
+        <value xml:lang="pt">Não foi possível localizar a conta financeira do código de conta</value>
     </property>
     <property key="AccountingFinAccountCannotPost">
         <value xml:lang="en">Cannot post FinAccountTrans with ID ${parameters.finAccountTransId} to GL, could not find ${creditDebit} ${requiredField}</value>
         <value xml:lang="it">Non post FinAccountTrans con ID ${parameters.finAccountTransId} in GL, could not find ${creditDebit} ${requiredField}</value>
+        <value xml:lang="pt">Não é possível enviar FinAccountTrans com ID ${parameters.finAccountTransId} para conntabilidade, não foi possível encontrar ${creditDebit} ${requiredField}</value>
     </property>
     <property key="AccountingFinAccountExpired">
         <value xml:lang="en">Account has expired as of ${thruDate}</value>
         <value xml:lang="it">Conto scaduto dal ${thruDate}</value>
+        <value xml:lang="pt">Conta expirou a partir de ${thruDate}</value>
     </property>
     <property key="AccountingFinAccountFrozen">
         <value xml:lang="en">Account is currently frozen</value>
         <value xml:lang="it">Il conto è attualmente congelato</value>
+        <value xml:lang="pt">Conta está congelada</value>
     </property>
     <property key="AccountingFinAccountIdAndFinAccountCodeAreNull">
         <value xml:lang="en">Both finAccountId and finAccountCode cannot be null; at least one is required</value>
         <value xml:lang="it">Entrambi finAccountId e finAccountCode non possono essere nulli; al minimo uno è richiesto</value>
+        <value xml:lang="pt">Ambos finAccountId e finAccountCode não podem ser nulos, pelo menos um é necessário</value>
     </property>
     <property key="AccountingFinAccountIdInvalid">
         <value xml:lang="en">Invalid financial account; cannot locate account</value>
         <value xml:lang="it">Conto finanziario invalido; non è possibile localizzare il conto</value>
+        <value xml:lang="pt">Conta financeira Inválida, não é possível localizar a conta</value>
     </property>
     <property key="AccountingFinAccountInactiveStatusError">
         <value xml:lang="en">FinAccount must be in active status</value>
         <value xml:lang="fr">Le compte financier doit être dans un état actif</value>
+        <value xml:lang="pt">FinAccount deve estar no estado ativo</value>
     </property>
     <property key="AccountingFinAccountIsNotRefundable">
         <value xml:lang="en">Account is not refunable</value>
         <value xml:lang="it">Il conto non è rimborsabile</value>
-    </property>
-    <property key="AccountingFinAccountNegative">
-        <value xml:lang="en">Account is currently negative and pending replenishment</value>
-        <value xml:lang="it">Il conto è attualmente negativo e in attesa di rifornimento</value>
-    </property>
-    <property key="AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount">
-        <value xml:lang="en">No payment method associated with replenish account</value>
-        <value xml:lang="it">Nessun metodo pagamento associtao con il conto di rifornimento</value>
-    </property>
-    <property key="AccountingFinAccountNotFound">
-        <value xml:lang="en">No finAccountId found ${finAccountId}</value>
-        <value xml:lang="it">Conto finanziario non trovato ${finAccountId}</value>
-    </property>
-    <property key="AccountingFinAccountPartiallyRefunded">
-        <value xml:lang="en">FinAccount partially refunded; not enough replenish deposits to refund!</value>
-        <value xml:lang="it">Conto finanziario parzialmente rimborsato; non ci sono abbastanza depositi per il rifornimento da rimborsare!</value>
-    </property>
-    <property key="AccountingFinAccountPinCodeCombinatorNotFound">
-        <value xml:lang="en">Financial account PIN/CODE combination not found</value>
-        <value xml:lang="it">Conto finanziario combinazione PIN/CODE non trovata</value>
+        <value xml:lang="pt">Conta não é reembolsável</value>
     </property>
     <property key="AccountingFinAccountMustBePositive">
         <value xml:lang="en">Amount should be a positive number.</value>
         <value xml:lang="it">L'importo dovrebbe essere un numero positivo.</value>
+        <value xml:lang="pt">Quantia deve ser um número positivo.</value>
+    </property>
+    <property key="AccountingFinAccountNegative">
+        <value xml:lang="en">Account is currently negative and pending replenishment</value>
+        <value xml:lang="it">Il conto è attualmente negativo e in attesa di rifornimento</value>
+        <value xml:lang="pt">Conta está negativa e com reposição pendente</value>
+    </property>
+    <property key="AccountingFinAccountNoPaymentMethodAssociatedWithReplenishAccount">
+        <value xml:lang="en">No payment method associated with replenish account</value>
+        <value xml:lang="it">Nessun metodo pagamento associtao con il conto di rifornimento</value>
+        <value xml:lang="pt">Nenhum método de pagamento associado à reposição de conta</value>
+    </property>
+    <property key="AccountingFinAccountNotFound">
+        <value xml:lang="en">No finAccountId found ${finAccountId}</value>
+        <value xml:lang="it">Conto finanziario non trovato ${finAccountId}</value>
+        <value xml:lang="pt">Não foi possível encontrar finAccountId ${finAccountId}</value>
+    </property>
+    <property key="AccountingFinAccountPartiallyRefunded">
+        <value xml:lang="en">FinAccount partially refunded; not enough replenish deposits to refund!</value>
+        <value xml:lang="it">Conto finanziario parzialmente rimborsato; non ci sono abbastanza depositi per il rifornimento da rimborsare!</value>
+        <value xml:lang="pt">FinAccount parcialmente reembolsada, não há depósitos de reposição suficiente para reembolsar!</value>
+    </property>
+    <property key="AccountingFinAccountPinCodeCombinatorNotFound">
+        <value xml:lang="en">Financial account PIN/CODE combination not found</value>
+        <value xml:lang="it">Conto finanziario combinazione PIN/CODE non trovata</value>
+        <value xml:lang="pt">Conta financeira PIN/Código não encontrada</value>
     </property>
     <property key="AccountingFinAccountSetting">
         <value xml:lang="en">No settings found for store ${productStoreId} for fin account type ${finAccountTypeId}</value>
         <value xml:lang="it">Nessuna configurazione trovata per il negozio ${productStoreId} per il tipo conto finanziario ${finAccountTypeId}</value>
+        <value xml:lang="pt">Nenhuma configuração encontrada para a loja ${productStoreId} para conta financeira de tipo ${finAccountTypeId}</value>
     </property>
     <property key="AccountingFinAccountStatusNotValidError">
         <value xml:lang="en">FinAccount not in valid status</value>
         <value xml:lang="fr">Le compte financier n'est pas dans un état valide</value>
+        <value xml:lang="pt">FinAccount não tem estado válido</value>
     </property>
     <property key="AccountingFinAccountUnknownReplenishMethod">
         <value xml:lang="en">Unknown replenish method found</value>
         <value xml:lang="it">Metodo rifornimento sconosciuto</value>
+        <value xml:lang="pt">Método desconhecido para reabastecer encontrados</value>
     </property>
     <property key="AccountingGiftCardCannotBeCreated">
         <value xml:lang="en">ERROR: Could not create GiftCard (id generation failure)</value>
         <value xml:lang="it">ERRORE: Non è possibile creare la carta regalo (fallita generazione id)</value>
+        <value xml:lang="pt">ERRO: Não foi possível criar vale presente (falha ao gerar ID)</value>
     </property>
     <property key="AccountingGiftCardCannotBeCreatedWriteFailure">
         <value xml:lang="en">ERROR: Could not create GiftCard (write failure): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare la carta regalo (fallita scrittura): ${errorString}</value>
+        <value xml:lang="pt">ERRO: Não foi possível criar vale presente (falha de escrita): ${errorString}</value>
     </property>
     <property key="AccountingGiftCardCannotBeUpdated">
         <value xml:lang="en">ERROR: Could not get GiftCard to update (read error): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare la carta regalo (fallita lettura): ${errorString}</value>
+        <value xml:lang="pt">ERRO: Não foi possível obter vale presente para atualizar (erro de leitura): ${errorString}</value>
     </property>
     <property key="AccountingGiftCardPartyNotAuthorized">
         <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotBeExpired">
-        <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
-        <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario per il certificato regalo: </value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference">
-        <value xml:lang="en">Unable to get GiftCard from OrderPaymentPreference</value>
-        <value xml:lang="it">Non è possibile localizzare il certificato regalo dalla preferenze pagamento dell'ordine</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotFulfill">
-        <value xml:lang="en">No product associated with OrderItem, cannot fulfill gift card</value>
-        <value xml:lang="it">Nessun prodotto associato alla riga ordine, non è possibile processare l'acquisto con carta regalo</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotProcess">
-        <value xml:lang="en">Unable to process gift card purchase; no productStoreId on OrderHeader: ${orderId}</value>
-        <value xml:lang="it">Non è possibile processare l'acquisto con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotReload">
-        <value xml:lang="en">Unable to process gift card reload; no productStoreId on OrderHeader: ${orderId}</value>
-        <value xml:lang="it">Non è possibile processare la ricarica con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotSendEmailNotice">
-        <value xml:lang="en">Error sending Gift Card notice email:  ${errorString}</value>
-        <value xml:lang="it">Non è possibile inviaria email di notifica carta regalo: ${errorString}</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotStoreFulfillmentInfo">
-        <value xml:lang="en">Unable to store fulfillment info:  ${errorString}</value>
-        <value xml:lang="it">Non è possibile registrazione le informazioni di ricarica: ${errorString}</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCreationError">
-        <value xml:lang="en">Unable to create gift certificate number.</value>
-        <value xml:lang="it">Non è possibile creare un numero certificato regalo.</value>
+        <value xml:lang="pt">ID de Participante ${partyId} não é o proprietário do método de pagamento de ${paymentMethodId} e não têm permissão para alterá-lo.</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotAuthorize">
         <value xml:lang="en">Cannot authorize gift certificate due to: ${errorString}</value>
         <value xml:lang="it">Non è possibile autorizzare la carta regalo: ${errorString}</value>
+        <value xml:lang="pt">Não é possível autorizar o certificado de presente devido a:  ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotBeExpired">
+        <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
+        <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario per il certificato regalo: </value>
+        <value xml:lang="pt">Incapaz de expirar a autorização para a conta financeira para vale presente:</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotFulfill">
-        <value xml:lang="en">Unable to get survey response information; cannot fulfill gift card</value>
-        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio; non è possibile caricare la carta regalo</value>
+        <value xml:lang="en">No product associated with OrderItem, cannot fulfill gift card</value>
+        <value xml:lang="it">Nessun prodotto associato alla riga ordine, non è possibile processare l'acquisto con carta regalo</value>
+        <value xml:lang="pt">Nenhum produto associado OrderItem, não é possível honrar o cartão de presente</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotFulfillFromSurveyAnswers">
         <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card</value>
         <value xml:lang="it">Non è possibile ottenere la risposta sondaggio dalle domande; non è possibile caricare la carta regalo</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotProcess">
-        <value xml:lang="en">Cannot process gift card: ${errorString}</value>
-        <value xml:lang="it">Non è possibile processare la carta regalo: ${errorString}</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotRelease">
-        <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
-        <value xml:lang="it">Tentivo di rilasciare il pagamento carta regalo fallito; non c'è un record valido</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotReload">
-        <value xml:lang="en">Unable to get survey response information; cannot fulfill gift card reload</value>
-        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio; non è possibile ricaricare la carta regalo</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberCannotReloadFromSurveyAnswers">
-        <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card reload</value>
-        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio dalle domande; non è possibile ricaricare la carta regalo</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberExpired">
-        <value xml:lang="en">Gift certificate has expired as of  ${thruDate}</value>
-        <value xml:lang="it">Certificato regalo scaduto dal ${thruDate}</value>
-    </property>
-    <property key="AccountingGiftCerticateNumberNotFound">
-        <value xml:lang="en">Gift certificate not found ${finAccountId}</value>
-        <value xml:lang="it">Certificato regalo non trovato ${finAccountId}</value>
+        <value xml:lang="pt">Não foi possível obter respostas da pesquisa, não pode atender ao cartão de presente</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotGetPaymentConfiguration">
         <value xml:lang="en">Unable to get payment configuration file</value>
         <value xml:lang="it">Non è possibile ottenere il file configurazione pagamento</value>
+        <value xml:lang="pt">Impossível obter arquivo de configuração de pagamento</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotLocateItFromOrderPaymentPreference">
+        <value xml:lang="en">Unable to get GiftCard from OrderPaymentPreference</value>
+        <value xml:lang="it">Non è possibile localizzare il certificato regalo dalla preferenze pagamento dell'ordine</value>
+        <value xml:lang="pt">Não foi possível obter vale presente de OrderPaymentPreference</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotProcess">
+        <value xml:lang="en">Unable to process gift card purchase; no productStoreId on OrderHeader: ${orderId}</value>
+        <value xml:lang="it">Non è possibile processare l'acquisto con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
+        <value xml:lang="pt">Não é possível processar de compra com o cartão do presente, sem productStoreId em OrderHeader: ${orderId}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotRelease">
+        <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
+        <value xml:lang="it">Tentivo di rilasciare il pagamento carta regalo fallito; non c'è un record valido</value>
+        <value xml:lang="pt">Tentativa de liberar o pagamento GiftCard falhou; não é registro válido GiftCard</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotReload">
+        <value xml:lang="en">Unable to process gift card reload; no productStoreId on OrderHeader: ${orderId}</value>
+        <value xml:lang="it">Non è possibile processare la ricarica con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
+        <value xml:lang="pt">Não foi possível processar a recarga do cartão de presente, sem productStoreId em OrderHeader: ${orderId}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotReloadFromSurveyAnswers">
+        <value xml:lang="en">Unable to get survey response answers from survey response; cannot fulfill gift card reload</value>
+        <value xml:lang="it">Non è possibile ottenere l'informazione relativa alla risposta sondaggio dalle domande; non è possibile ricaricare la carta regalo</value>
+        <value xml:lang="pt">Não foi possível obter respostas da pesquisa, não é possível realizar recarga do cartão do presente</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotSendEmailNotice">
+        <value xml:lang="en">Error sending Gift Card notice email:  ${errorString}</value>
+        <value xml:lang="it">Non è possibile inviaria email di notifica carta regalo: ${errorString}</value>
+        <value xml:lang="pt">Erro ao enviar e-mail de aviso do cartão de presente: ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCannotStoreFulfillmentInfo">
+        <value xml:lang="en">Unable to store fulfillment info:  ${errorString}</value>
+        <value xml:lang="it">Non è possibile registrazione le informazioni di ricarica: ${errorString}</value>
+        <value xml:lang="pt">Não é possível armazenar informações de cumprimento: ${errorString}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberCreationError">
+        <value xml:lang="en">Unable to create gift certificate number.</value>
+        <value xml:lang="it">Non è possibile creare un numero certificato regalo.</value>
+        <value xml:lang="pt">Não é possível criar o número do vale presente.</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberExpired">
+        <value xml:lang="en">Gift certificate has expired as of  ${thruDate}</value>
+        <value xml:lang="it">Certificato regalo scaduto dal ${thruDate}</value>
+        <value xml:lang="pt">O cartão de presente expirou a partir de ${thruDate}</value>
+    </property>
+    <property key="AccountingGiftCerticateNumberNotFound">
+        <value xml:lang="en">Gift certificate not found ${finAccountId}</value>
+        <value xml:lang="it">Certificato regalo non trovato ${finAccountId}</value>
+        <value xml:lang="pt">Cartão de presente não encontrado ${finAccountId}</value>
     </property>
     <property key="AccountingGiftCerticateNumberPinNotValid">
         <value xml:lang="en">PIN number is not valid</value>
         <value xml:lang="it">Numero PIN non è valido</value>
+        <value xml:lang="pt">Número do PIN não é válido</value>
     </property>
     <property key="AccountingGiftCerticateNumberRefundCallError">
         <value xml:lang="en">Unable to call refund service!</value>
         <value xml:lang="it">Non è possibile eseguire il servizio refund!</value>
-    </property>
-    <property key="AccountingPaymentAmountIsNegative">
-        <value xml:lang="en">Amount entered ${overrideAmount} is negative.</value>
-        <value xml:lang="it">Importo inserito ${overrideAmount} è negativo.</value>
-    </property>
-    <property key="AccountingPaymentAmountIsZero">
-        <value xml:lang="en">Amount entered ${overrideAmount} is zero.</value>
-        <value xml:lang="it">Importo inserito ${overrideAmount} è zero.</value>
-    </property>
-    <property key="AccountingPaymentCannotBeAuthorized">
-        <value xml:lang="en">Error processing payment authorization: ${errorString}</value>
-        <value xml:lang="it">Errore esecuione autorizzazione pagamento: ${errorString}</value>
-    </property>
-    <property key="AccountingPartyAcctgPreferenceNotDefine">
-        <value xml:lang="en">Acctg preference not define</value>
-        <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>
-    </property>
-    <property key="AccountingPaymentMethodCannotBeDeleted">
-        <value xml:lang="en">ERROR: Could not find Payment Method to delete (read failure ${errorString})</value>
-        <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (lettura fallita ${errorString})</value>
-    </property>
-    <property key="AccountingPaymentMethodCannotBeDeletedWriteFailure">
-        <value xml:lang="en">ERROR: Could not find Payment Method to delete (write failure ${errorString})</value>
-        <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (scrittura fallita ${errorString})</value>
-    </property>
-    <property key="AccountingPaymentMethodNoPermissionToDelete">
-        <value xml:lang="en">You do not have permission to delete Payment Method for this partyId</value>
-        <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
+        <value xml:lang="pt">Não foi possível invocar serviço de reembolso!</value>
     </property>
     <property key="AccountingOrbital">
         <value xml:lang="en">An error occurred while retreiving cart details</value>
         <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
+        <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes carrinho</value>
+    </property>
+    <property key="AccountingPartyAcctgPreferenceNotDefine">
+        <value xml:lang="en">Acctg preference not define</value>
+        <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>
+        <value xml:lang="pt">Acctg não definir preferência</value>
     </property>
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>
         <value xml:lang="hi_IN">Paypal से संचार में समस्या, कृपया पुन: प्रयास करें या एक अलग Checkout पद्धति का चयन करें</value>
         <value xml:lang="it">Si è verificato un problema durante la comunicazione con PayPal, per favore provare di nuovo o selezionare un altro metodo di checkout</value>
+        <value xml:lang="pt">Ocorreu um problema durante a comunicação com o PayPal, por favor tente novamente, ou selecione um método de pagamento diferente</value>
     </property>
     <property key="AccountingPayPalErrorDuringRetrievingCartDetails">
         <value xml:lang="en">An error occurred while retreiving cart details</value>
         <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
+        <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes do carrinho</value>
     </property>
     <property key="AccountingPayPalPaymentGatewayConfigCannotFind">
         <value xml:lang="en">Couldn't retrieve a PaymentGatewayConfigPayPal record for Express Checkout, cannot continue.</value>
         <value xml:lang="it">Non è possibile ricavare un record PaymentGatewayConfigPayPal per Express Checkout, non è possibile continuare.</value>
+        <value xml:lang="pt">Não foi possível recuperar um registro PaymentGatewayConfigPayPal para Checkout Express, não é possível continuar.</value>
     </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
         <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
         <value xml:lang="hi_IN">शॉपिंग कार्ट खाली है, एक्सप्रेस चेकआउट के साथ आगे नहीं बढ़ सकते</value>
         <value xml:lang="it">Il carrello è vuoto, non posso procedere con il checkout Express</value>
+        <value xml:lang="pt">Carrinho de Compras está vazio, não é possível prosseguir com o Pagamento expresso</value>
     </property>
     <property key="AccountingPayPalTokenNotFound">
         <value xml:lang="en">Express Checkout token not present in cart, cannot get checkout details</value>
         <value xml:lang="it">Il token per Express Checkout non è presente nel carrello, non è possibile ottenere i dettagli di checkout</value>
+        <value xml:lang="pt">Token de pagamento expreso não presentes no carrinho, não é possível obter detalhes de checkout</value>
     </property>
     <property key="AccountingPayPalUnknownError">
         <value xml:lang="en">An unknown error occurred while contacting PayPal</value>
         <value xml:lang="it">Un'errore sconosciuto è accaduto mentre contattavi PayPal</value>
+        <value xml:lang="pt">Um erro desconhecido ocorreu ao entrar em contato com PayPal</value>
+    </property>
+    <property key="AccountingPaymentAmountIsNegative">
+        <value xml:lang="en">Amount entered ${overrideAmount} is negative.</value>
+        <value xml:lang="it">Importo inserito ${overrideAmount} è negativo.</value>
+        <value xml:lang="pt">Quantia preenchida ${overrideAmount} é negativa.</value>
+    </property>
+    <property key="AccountingPaymentAmountIsZero">
+        <value xml:lang="en">Amount entered ${overrideAmount} is zero.</value>
+        <value xml:lang="it">Importo inserito ${overrideAmount} è zero.</value>
+        <value xml:lang="pt">Quantia preenchida ${overrideAmount} é zero.</value>
+    </property>
+    <property key="AccountingPaymentCannotBeAuthorized">
+        <value xml:lang="en">Error processing payment authorization: ${errorString}</value>
+        <value xml:lang="it">Errore esecuione autorizzazione pagamento: ${errorString}</value>
+        <value xml:lang="pt">Erro ao processar a autorização de pagamento: ${errorString}</value>
+    </property>
+    <property key="AccountingPaymentMethodCannotBeDeleted">
+        <value xml:lang="en">ERROR: Could not find Payment Method to delete (read failure ${errorString})</value>
+        <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (lettura fallita ${errorString})</value>
+        <value xml:lang="pt">ERRO: Não foi possível encontrar o método de pagamento para excluir (erro de leitura ${errorString})</value>
+    </property>
+    <property key="AccountingPaymentMethodCannotBeDeletedWriteFailure">
+        <value xml:lang="en">ERROR: Could not find Payment Method to delete (write failure ${errorString})</value>
+        <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (scrittura fallita ${errorString})</value>
+        <value xml:lang="pt">ERRO: Não foi possível encontrar o método de pagamento para excluir (erro de escrita ${errorString})</value>
+    </property>
+    <property key="AccountingPaymentMethodNoPermissionToDelete">
+        <value xml:lang="en">You do not have permission to delete Payment Method for this partyId</value>
+        <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
+        <value xml:lang="pt">Você não tem permissão para excluir este método de pagamento para partyId</value>
     </property>
     <property key="AccountingTaxIdInvalidFormat">
         <value xml:lang="en">The tax ID ${parameters.partyTaxId} was not in a valid format for the selected tax authority ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="it">Id tasse ${parameters.partyTaxId} non è nel formato valido per l'autorità tasse selezionata ${taxAuthority.taxIdFormatPattern}</value>
+        <value xml:lang="pt">O número de ID fiscal ${parameters.partyTaxId} não estava em um formato válido para a autoridade fiscal selecionada ${taxAuthority.taxIdFormatPattern}</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
@@ -320,6 +378,7 @@
         <value xml:lang="hi_IN">सर्विस createPaymentFromPreference पर अमल(execute) करने में असफल</value>
         <value xml:lang="it">Fallita esecuzione del servizio createPaymentFromPreference</value>
         <value xml:lang="nl">OFBiz-service 'createPaymentFromPreference' is niet uitgevoerd.</value>
+        <value xml:lang="pt">Falha ao executar o serviço createPaymentFromPreference</value>
         <value xml:lang="th">การดำเนินการผิดพลาด createPaymentFromPreference</value>
         <value xml:lang="zh">执行服务createPaymentFromPreference时失败</value>
         <value xml:lang="zh_TW">執行服務createPaymentFromPreference時失敗</value>
@@ -330,6 +389,7 @@
         <value xml:lang="hi_IN">मान्य orderId Paypal Callback के साथ नहीं लौटा</value>
         <value xml:lang="it">Nessun ordine valido restituito da PayPal.</value>
         <value xml:lang="nl">Geen valide order-ID teruggegeven door PayPal Callback.</value>
+        <value xml:lang="pt">Nenhuma OrderId válida devolvida pelo Callback do PayPal.</value>
         <value xml:lang="th">ไม่มีค่ารหัสรายการสั่งซื้อคืนกลับมาด้วยการเรียกกลับของ paypal</value>
         <value xml:lang="zh">贝宝返回的信息中没有有效的orderId（订单编号）。</value>
         <value xml:lang="zh_TW">貝寶返回的資訊中沒有有效的orderId（訂單編號）。</value>
@@ -340,6 +400,7 @@
         <value xml:lang="hi_IN">पिछला Paypal आदेश रद्द कर दिया गया है</value>
         <value xml:lang="it">Ordine PayPal precedente è stato annullato.</value>
         <value xml:lang="nl">Vorige PayPal-opdracht is geannuleerd.</value>
+        <value xml:lang="pt">Pedido do PayPal anterior foi cancelado.</value>
         <value xml:lang="th">กลับไปยังรายการpaypalที่ถูกยกเลิก</value>
         <value xml:lang="zh">之前的贝宝订单已经被取消了。</value>
         <value xml:lang="zh_TW">之前的貝寶訂單已經被取消了。</value>
@@ -350,6 +411,7 @@
         <value xml:lang="hi_IN">Paypal के साथ जोड़ने में समस्या, कृपया ग्राहक सेवा से संपर्क करें</value>
         <value xml:lang="it">Problemi nella connessione a PayPal, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen met de PayPal-verbinding. Neem contact op met de customer service van PayPal.</value>
+        <value xml:lang="pt">Problemas de conexão com o PayPal, por favor entre em contato com serviço de atendimento ao cliente.</value>
         <value xml:lang="th">ปัญหาในการเชิ่อมต่อด้วย paypal , กรุณาติดต่อบริการลูกค้า</value>
         <value xml:lang="zh">连接贝宝失败，请与客户服务联系。</value>
         <value xml:lang="zh_TW">連接貝寶失敗，請與客戶服務聯系。</value>
@@ -360,6 +422,7 @@
         <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problemi durante autenticazione utente</value>
         <value xml:lang="nl">Problemen met authenticatie gebruiker.</value>
+        <value xml:lang="pt">Problemas ao obter usuário autenticado.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้สัญลักษณ์ผู้ใช้</value>
         <value xml:lang="zh">获得认证用户时出现问题。</value>
         <value xml:lang="zh_TW">獲得認証用戶時出現問題。</value>
@@ -370,6 +433,7 @@
         <value xml:lang="hi_IN">व्यापारी विन्यास में समस्याएँ हो रही, कृपया ग्राहक सेवा से संपर्क करें</value>
         <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Problemen verkrijgen Handelaarsconfiguratie. Neem contact op met de customer service.</value>
+        <value xml:lang="pt">Problemas ao obter configuração de comerciante, entre em contato com o serviço de atendimento ao cliente.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
         <value xml:lang="zh">获得商家配置时出错，请与客户服务联系。</value>
         <value xml:lang="zh_TW">獲得商家配置時出錯，請與客戶服務聯系。</value>
@@ -380,6 +444,7 @@
         <value xml:lang="hi_IN">order header में समस्याएँ हो रही</value>
         <value xml:lang="it">Problemi nel ricavare la testata ordine.</value>
         <value xml:lang="nl">Problemen verkrijgen orderkop.</value>
+        <value xml:lang="pt">Problemas ao obter o cabeçalho do pedido.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้หัวข้อรายการสั่งซื้อ</value>
         <value xml:lang="zh">获得订单头时出错。</value>
         <value xml:lang="zh_TW">獲得訂單頭時出錯。</value>
@@ -389,47 +454,55 @@
         <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
         <value xml:lang="hi_IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
         <value xml:lang="it">Fallita esecuzione servizio CreatePaymentFromPreference</value>
+        <value xml:lang="pt">Falha ao executar o serviço CreatePaymentFromPreference</value>
     </property>
     <property key="worldPayEvents.noValidOrderIdReturned">
         <value xml:lang="en">No Valid OrderId Returned</value>
         <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
         <value xml:lang="hi_IN">मान्य OrderId वापस नहीं लौटा</value>
         <value xml:lang="it">Nessun numero ordine restituito</value>
+        <value xml:lang="pt">Nenhuma OrderId válida retornada</value>
     </property>
     <property key="worldPayEvents.problemsConnectingWithWorldPay">
         <value xml:lang="en">Problems Connecting With WorldPay</value>
         <value xml:lang="fr">Problème rencontré dans la connexion avec WorldPay</value>
         <value xml:lang="hi_IN">WorldPay के साथ जोड़ने में समस्या</value>
         <value xml:lang="it">Problema nella connessione con WorldPay</value>
+        <value xml:lang="pt">Problemas de conexão com WorldPay</value>
     </property>
     <property key="worldPayEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems Getting Authentication User</value>
         <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema durante l'autenticazione utente</value>
+        <value xml:lang="pt">Problemas Obtendo Autenticação de Usuário</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstId">
         <value xml:lang="en">Problems Getting Inst Id</value>
         <value xml:lang="fr">Problème de récupération de l'Inst Id</value>
         <value xml:lang="hi_IN">Inst Id में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare il parametro Inst Id</value>
+        <value xml:lang="pt">Problemas ao obter ID de inst</value>
     </property>
     <property key="worldPayEvents.problemsGettingInstIdToInteger">
         <value xml:lang="en">Problems Getting Inst Id To Integer</value>
         <value xml:lang="fr">Problème de récupération de l'Inst Id vers un nombre</value>
         <value xml:lang="hi_IN">Inst Id से Integer में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel convertire il parametro Inst Id ad intero</value>
+        <value xml:lang="pt">Problemas Obtendo Id Inst para Integer</value>
     </property>
     <property key="worldPayEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems Getting Merchant Configuration</value>
         <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
         <value xml:lang="hi_IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la configurazione del negoziante</value>
+        <value xml:lang="pt">Problemas Obtendo Configuração de comerciante</value>
     </property>
     <property key="worldPayEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems Getting OrderHeader</value>
         <value xml:lang="fr">Problème de récupération de la commande</value>
         <value xml:lang="hi_IN">OrderHeader में समस्याएँ हो रही</value>
         <value xml:lang="it">Problema nel ricavare la testata ordine</value>
+        <value xml:lang="pt">Problemas Obtendo OrderHeader</value>
     </property>
 </resource>
