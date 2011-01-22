@@ -213,6 +213,9 @@ public class DataServices {
 
         // obtain a reference to the file
         File file = null;
+        if (UtilValidate.isEmpty(objectInfo)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentUnableObtainReferenceToFile", UtilMisc.toMap("objectInfo", ""), locale));
+        }
         if (UtilValidate.isEmpty(dataResourceTypeId) || dataResourceTypeId.equals("LOCAL_FILE") || dataResourceTypeId.equals("LOCAL_FILE_BIN")) {
             file = new File(objectInfo);
             if (!file.isAbsolute()) {
@@ -264,7 +267,7 @@ public class DataServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentNoContentFilePassed", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         return result;
     }
 
