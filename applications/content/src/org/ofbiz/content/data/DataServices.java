@@ -37,6 +37,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -74,9 +75,9 @@ public class DataServices {
      */
     public static Map<String, Object> createDataResourceAndText(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
 
-        Map thisResult = createDataResourceMethod(dctx, context);
+        Map<String, Object> thisResult = createDataResourceMethod(dctx, context);
         if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
             return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
         }
@@ -99,13 +100,13 @@ public class DataServices {
      * A service wrapper for the createDataResourceMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> createDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = createDataResourceMethod(dctx, context);
+        Map<String, Object> result = createDataResourceMethod(dctx, context);
         return result;
     }
 
     public static Map<String, Object> createDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String userLoginId = (String) userLogin.get("userLoginId");
@@ -121,9 +122,12 @@ public class DataServices {
 
         // If textData exists, then create DataResource and return dataResourceId
         String dataResourceId = (String) context.get("dataResourceId");
-        if (UtilValidate.isEmpty(dataResourceId))
+        if (UtilValidate.isEmpty(dataResourceId)) {
             dataResourceId = delegator.getNextSeqId("DataResource");
-        if (Debug.infoOn()) Debug.logInfo("in createDataResourceMethod, dataResourceId:" + dataResourceId, module);
+        }   
+        if (Debug.infoOn()) {
+            Debug.logInfo("in createDataResourceMethod, dataResourceId:" + dataResourceId, module);
+        }
         GenericValue dataResource = delegator.makeValue("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
         dataResource.setNonPKFields(context);
         dataResource.put("createdByUserLogin", createdByUserLogin);
@@ -133,9 +137,9 @@ public class DataServices {
         // get first statusId  for content out of the statusItem table if not provided
         if (UtilValidate.isEmpty(dataResource.get("statusId"))) {
             try {
-                List statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
+                List<GenericValue> statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
                 if (!UtilValidate.isEmpty(statusItems)) {
-                    dataResource.put("statusId",  ((GenericValue) statusItems.get(0)).getString("statusId"));
+                    dataResource.put("statusId",  statusItems.get(0).getString("statusId"));
                 }
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -158,12 +162,12 @@ public class DataServices {
      * A service wrapper for the createElectronicTextMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> createElectronicText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = createElectronicTextMethod(dctx, context);
+        Map<String, Object> result = createElectronicTextMethod(dctx, context);
         return result;
     }
 
     public static Map<String, Object> createElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
         String textData = (String) context.get("textData");
@@ -175,8 +179,6 @@ public class DataServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-
-
         return result;
     }
 
@@ -184,7 +186,6 @@ public class DataServices {
      * A service wrapper for the createFileMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> createFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-
         return createFileMethod(dctx, context);
     }
 
@@ -275,7 +276,7 @@ public class DataServices {
      * A top-level service for updating a DataResource and ElectronicText together.
      */
     public static Map<String, Object> updateDataResourceAndText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map thisResult = updateDataResourceMethod(dctx, context);
+        Map<String, Object> thisResult = updateDataResourceMethod(dctx, context);
         if (thisResult.get(ModelService.RESPONSE_MESSAGE) != null) {
             return ServiceUtil.returnError((String) thisResult.get(ModelService.ERROR_MESSAGE));
         }
@@ -289,19 +290,17 @@ public class DataServices {
         return ServiceUtil.returnSuccess();
     }
 
-
-
     /**
      * A service wrapper for the updateDataResourceMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> updateDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
         //context.put("skipPermissionCheck", null);
-        Map result = updateDataResourceMethod(dctx, context);
+        Map<String, Object> result = updateDataResourceMethod(dctx, context);
         return result;
     }
 
     public static Map<String, Object> updateDataResourceMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         GenericValue dataResource = null;
         Locale locale = (Locale) context.get("locale");
@@ -338,7 +337,7 @@ public class DataServices {
      * A service wrapper for the updateElectronicTextMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> updateElectronicText(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = updateElectronicTextMethod(dctx, context);
+        Map<String, Object> result = updateElectronicTextMethod(dctx, context);
         return result;
     }
 
@@ -350,32 +349,33 @@ public class DataServices {
      * @return
      */
     public static Map<String, Object> updateElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         GenericValue electronicText = null;
         Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
-        result.put("dataResourceId",dataResourceId);
+        result.put("dataResourceId", dataResourceId);
         String contentId = (String) context.get("contentId");
-        result.put("contentId",contentId);
+        result.put("contentId", contentId);
         if (UtilValidate.isEmpty(dataResourceId)) {
-                String errMsg = "dataResourceId is null.";
-                Debug.logError(errMsg, module);
-                return ServiceUtil.returnError(errMsg);
-
+            String errMsg = "dataResourceId is null.";
+            Debug.logError(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
         String textData = (String) context.get("textData");
-        if (Debug.verboseOn()) Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
+        }
         try {
             electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId));
             if (electronicText != null) {
                 electronicText.put("textData", textData);
                 electronicText.store();
             } else {
-                    electronicText = delegator.makeValue("ElectronicText");
-                    electronicText.put("dataResourceId", dataResourceId);
-                    electronicText.put("textData", textData);
-                    electronicText.create();
+                electronicText = delegator.makeValue("ElectronicText");
+                electronicText.put("dataResourceId", dataResourceId);
+                electronicText.put("textData", textData);
+                electronicText.create();
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
@@ -389,7 +389,7 @@ public class DataServices {
      * A service wrapper for the updateFileMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> updateFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             result = updateFileMethod(dctx, context);
         } catch (GenericServiceException e) {
@@ -399,7 +399,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         //GenericValue fileText = null;
         Locale locale = (Locale) context.get("locale");
         //String dataResourceId = (String) dataResource.get("dataResourceId");
@@ -473,11 +473,11 @@ public class DataServices {
     }
 
     public static Map<String, Object> renderDataResourceAsText(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException, IOException {
-        Map results = FastMap.newInstance();
+        Map<String, Object> results = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Writer out = (Writer) context.get("outWriter");
-        Map templateContext = (Map) context.get("templateContext");
+        Map<String, Object> templateContext = UtilGenerics.checkMap(context.get("templateContext"));
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
         String dataResourceId = (String) context.get("dataResourceId");
         if (templateContext != null && UtilValidate.isEmpty(dataResourceId)) {
@@ -494,7 +494,7 @@ public class DataServices {
             templateContext = FastMap.newInstance();
         }
 
-        GenericValue view = (GenericValue) context.get("subContentDataResourceView");
+        // GenericValue view = (GenericValue) context.get("subContentDataResourceView");
         Writer outWriter = new StringWriter();
         DataResourceWorker.renderDataResourceAsText(delegator, dataResourceId, outWriter, templateContext, locale, mimeTypeId, true);
         try {
@@ -511,12 +511,12 @@ public class DataServices {
      * A service wrapper for the updateImageMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> updateImage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = updateImageMethod(dctx, context);
+        Map<String, Object> result = updateImageMethod(dctx, context);
         return result;
     }
 
     public static Map<String, Object> updateImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         //Locale locale = (Locale) context.get("locale");
         String dataResourceId = (String) context.get("dataResourceId");
@@ -525,8 +525,10 @@ public class DataServices {
             byte[] imageBytes = byteBuffer.array();
             try {
                 GenericValue imageDataResource = delegator.findByPrimaryKey("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
-                if (Debug.infoOn()) Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
-                if (Debug.infoOn()) Debug.logInfo("imageBytes(U):" + imageBytes, module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
+                    Debug.logInfo("imageBytes(U):" + imageBytes, module);
+                }
                 if (imageDataResource == null) {
                     return createImageMethod(dctx, context);
                 } else {
@@ -537,7 +539,6 @@ public class DataServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-
         return result;
     }
 
@@ -545,12 +546,12 @@ public class DataServices {
      * A service wrapper for the createImageMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> createImage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = createImageMethod(dctx, context);
+        Map<String, Object> result = createImageMethod(dctx, context);
         return result;
     }
 
     public static Map<String, Object> createImageMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
         String dataResourceId = (String) context.get("dataResourceId");
         ByteBuffer byteBuffer = (ByteBuffer)context.get("imageData");
@@ -560,7 +561,9 @@ public class DataServices {
                 GenericValue imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                 //imageDataResource.set("imageData", imageBytes);
                 imageDataResource.setBytes("imageData", imageBytes);
-                if (Debug.infoOn()) Debug.logInfo("imageDataResource(C):" + imageDataResource, module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("imageDataResource(C):" + imageDataResource, module);
+                }
                 imageDataResource.create();
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -574,7 +577,7 @@ public class DataServices {
      * A service wrapper for the createBinaryFileMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> createBinaryFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             result = createBinaryFileMethod(dctx, context);
         } catch (GenericServiceException e) {
@@ -584,7 +587,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> createBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         //String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
@@ -592,9 +595,11 @@ public class DataServices {
         byte [] imageData = (byte []) context.get("imageData");
         String rootDir = (String)context.get("rootDir");
         File file = null;
-        if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
-        if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, objectInfo:" + objectInfo, module);
-        if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, rootDir:" + rootDir, module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in createBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
+            Debug.logInfo("in createBinaryFileMethod, objectInfo:" + objectInfo, module);
+            Debug.logInfo("in createBinaryFileMethod, rootDir:" + rootDir, module);
+        }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
         } catch (FileNotFoundException e) {
@@ -604,20 +609,23 @@ public class DataServices {
             Debug.logWarning(e2, module);
             throw new GenericServiceException(e2.getMessage());
         }
-        if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, file:" + file, module);
-        if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in createBinaryFileMethod, file:" + file, module);
+            Debug.logInfo("in createBinaryFileMethod, imageData:" + imageData.length, module);
+        }
         if (imageData != null && imageData.length > 0) {
             try {
                 FileOutputStream out = new FileOutputStream(file);
                 out.write(imageData);
-                if (Debug.infoOn()) Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in createBinaryFileMethod, length:" + file.length(), module);
+                }
                 out.close();
             } catch (IOException e) {
                 Debug.logWarning(e, module);
                 throw new GenericServiceException(e.getMessage());
             }
         }
-
         return result;
     }
 
@@ -626,7 +634,7 @@ public class DataServices {
      * A service wrapper for the createBinaryFileMethod method. Forces permissions to be checked.
      */
     public static Map<String, Object> updateBinaryFile(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             result = updateBinaryFileMethod(dctx, context);
         } catch (GenericServiceException e) {
@@ -636,7 +644,7 @@ public class DataServices {
     }
 
     public static Map<String, Object> updateBinaryFileMethod(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException {
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         GenericValue dataResource = (GenericValue) context.get("dataResource");
         //String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
@@ -644,9 +652,11 @@ public class DataServices {
         byte [] imageData = (byte []) context.get("imageData");
         String rootDir = (String)context.get("rootDir");
         File file = null;
-        if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
-        if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, objectInfo:" + objectInfo, module);
-        if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, rootDir:" + rootDir, module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in updateBinaryFileMethod, dataResourceTypeId:" + dataResourceTypeId, module);
+            Debug.logInfo("in updateBinaryFileMethod, objectInfo:" + objectInfo, module);
+            Debug.logInfo("in updateBinaryFileMethod, rootDir:" + rootDir, module);
+        }
         try {
             file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, rootDir);
         } catch (FileNotFoundException e) {
@@ -656,20 +666,23 @@ public class DataServices {
             Debug.logWarning(e2, module);
             throw new GenericServiceException(e2.getMessage());
         }
-        if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, file:" + file, module);
-        if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, imageData:" + imageData, module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in updateBinaryFileMethod, file:" + file, module);
+            Debug.logInfo("in updateBinaryFileMethod, imageData:" + imageData, module);
+        }
         if (imageData != null && imageData.length > 0) {
             try {
                 FileOutputStream out = new FileOutputStream(file);
                 out.write(imageData);
-                if (Debug.infoOn()) Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in updateBinaryFileMethod, length:" + file.length(), module);
+                }
                 out.close();
             } catch (IOException e) {
                 Debug.logWarning(e, module);
                 throw new GenericServiceException(e.getMessage());
             }
         }
-
         return result;
     }
 }
