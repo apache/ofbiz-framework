@@ -175,6 +175,14 @@ public class EbayHelper {
             if (UtilValidate.isNotEmpty(ebayShippingMethod)) {
                 partyId = ebayShippingMethod.getString("carrierPartyId");
                 shipmentMethodTypeId = ebayShippingMethod.getString("shipmentMethodTypeId");
+            } else {
+                //Find ebay shipping method on the basis of shipmentMethodName so that we can create new record with productStorId, EbayShippingMethod data is required for atleast one productStore
+                List<GenericValue> ebayShippingMethods = delegator.findByAnd("EbayShippingMethod", UtilMisc.toMap("shipmentMethodName", shippingService));
+                ebayShippingMethod = EntityUtil.getFirst(ebayShippingMethods);
+                ebayShippingMethod.put("productStoreId", productStoreId);
+                delegator.create(ebayShippingMethod);
+                partyId = ebayShippingMethod.getString("carrierPartyId");
+                shipmentMethodTypeId = ebayShippingMethod.getString("shipmentMethodTypeId");
             }
         } catch (GenericEntityException e) {
             Debug.logInfo("Unable to find EbayShippingMethod", module);
