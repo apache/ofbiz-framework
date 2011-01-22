@@ -673,7 +673,9 @@ public class ContentManagementServices {
           if (hasData) {
               fileContext.put("rootDir", context.get("rootDir"));
               fileContext.put("dataResourceTypeId", dataResourceTypeId);
-              fileContext.put("objectInfo", dataResource.get("objectInfo"));
+              if (UtilValidate.isNotEmpty(dataResource) && UtilValidate.isNotEmpty(dataResource.get("objectInfo"))) {
+                  fileContext.put("objectInfo", dataResource.get("objectInfo"));
+              }
               thisResult = dispatcher.runSync("createFile", fileContext);
               errorMsg = ServiceUtil.getErrorMessage(thisResult);
               if (UtilValidate.isNotEmpty(errorMsg)) {
