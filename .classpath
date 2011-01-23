@@ -96,6 +96,8 @@
     <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-all-1.7.4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jakarta-oro-2.0.8.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/scripting/jansi-1.2.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/scripting/jline-0.9.94.jar"/>
     <classpathentry kind="lib" path="framework/birt/lib/chartengineapi.jar"/>
     <classpathentry kind="lib" path="framework/birt/lib/chartitemapi.jar"/>
     <classpathentry kind="lib" path="framework/birt/lib/coreapi.jar"/>
