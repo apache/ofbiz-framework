@@ -80,11 +80,11 @@ public class ContentServices {
             toFrom = toFrom.toUpperCase();
         }
 
-        List<GenericValue> assocTypes = UtilGenerics.checkList(context.get("contentAssocTypeList"));
+        List<String> assocTypes = UtilGenerics.checkList(context.get("contentAssocTypeList"));
         List<String> targetOperations = UtilGenerics.checkList(context.get("targetOperationList"));
+        List<String> contentTypes = UtilGenerics.checkList(context.get("contentTypeList"));
         List<GenericValue> contentList = null;
-        List<GenericValue> contentTypes = UtilGenerics.checkList(context.get("contentTypeList"));
-
+        
         try {
             contentList = ContentWorker.getAssociatedContent(currentContent, toFrom, assocTypes, contentTypes, fromDate, thruDate);
         } catch (GenericEntityException e) {
