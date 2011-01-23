@@ -268,4 +268,9 @@ under the License.
         <property name="telnet-port" value="9990"/>
         <property name="app-name" value="OFBiz"/>
     </container>
+    
+    <!-- load Groovy remote telnet server -->
+    <container name="groovyshell-container" class="org.ofbiz.base.container.GroovyShellContainer">
+        <property name="telnet-port" value="9991"/>
+    </container>    
 </ofbiz-containers>
