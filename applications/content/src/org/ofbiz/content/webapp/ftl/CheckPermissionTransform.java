@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
@@ -69,7 +70,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
      * @deprecated use FreeMarkerWorker.getArg()
      */
     @Deprecated
-    public static String getArg(Map args, String key, Environment env) {
+    public static String getArg(Map<String, ? extends Object> args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
@@ -77,7 +78,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
      * @deprecated use FreeMarkerWorker.getArg()
      */
     @Deprecated
-    public static String getArg(Map args, String key, Map ctx) {
+    public static String getArg(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
@@ -85,7 +86,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        final Map templateCtx = FreeMarkerWorker.createEnvironmentMap(env);
+        final Map<String, Object> templateCtx = FreeMarkerWorker.createEnvironmentMap(env);
         //FreeMarkerWorker.convertContext(templateCtx);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
@@ -94,9 +95,9 @@ public class CheckPermissionTransform implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final String mode = (String)templateCtx.get("mode");
         final String quickCheckContentId = (String)templateCtx.get("quickCheckContentId");
-        final Map savedValues = FastMap.newInstance();
-                    //Debug.logInfo("in CheckPermission, contentId(1):" + templateCtx.get("contentId"),"");
-                    //Debug.logInfo("in CheckPermission, subContentId(1):" + templateCtx.get("subContentId"),"");
+        final Map<String, Object> savedValues = FastMap.newInstance();
+        //Debug.logInfo("in CheckPermission, contentId(1):" + templateCtx.get("contentId"),"");
+        //Debug.logInfo("in CheckPermission, subContentId(1):" + templateCtx.get("subContentId"),"");
 
         return new LoopWriter(out) {
 
@@ -112,14 +113,14 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
             @Override
             public int onStart() throws TemplateModelException, IOException {
-                List trail = (List)templateCtx.get("globalNodeTrail");
-                String trailCsv = ContentWorker.nodeTrailToCsv(trail);
-                    //Debug.logInfo("in CheckPermission, trailCsv(2):" + trailCsv,"");
-                    //Debug.logInfo("in CheckPermission, contentId(2):" + templateCtx.get("contentId"),"");
-                    //Debug.logInfo("in CheckPermission, subContentId(2):" + templateCtx.get("subContentId"),"");
+                List<Map<String, ? extends Object>> trail = UtilGenerics.checkList(templateCtx.get("globalNodeTrail"));
+                //String trailCsv = ContentWorker.nodeTrailToCsv(trail);
+                //Debug.logInfo("in CheckPermission, trailCsv(2):" + trailCsv,"");
+                //Debug.logInfo("in CheckPermission, contentId(2):" + templateCtx.get("contentId"),"");
+                //Debug.logInfo("in CheckPermission, subContentId(2):" + templateCtx.get("subContentId"),"");
 
                 GenericValue currentContent = null;
-        String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
+                String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
                 Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
                 GenericValue val = null;
@@ -128,7 +129,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 } catch (GeneralException e) {
                     throw new RuntimeException("Error getting current content. " + e.toString());
                 }
-                final GenericValue view = val;
+                // final GenericValue view = val;
                 currentContent = val;
                 if (currentContent != null) {
                     //Debug.logInfo("in CheckPermission, currentContent(0):" + currentContent.get("contentId"),"");
@@ -138,7 +139,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     currentContent = delegator.makeValue("Content");
                     currentContent.put("ownerContentId", templateCtx.get("ownerContentId"));
                 }
-                    //Debug.logInfo("in CheckPermission, currentContent(1):" + currentContent.get("contentId"),"");
+                //Debug.logInfo("in CheckPermission, currentContent(1):" + currentContent.get("contentId"),"");
 
                 Security security = null;
                 if (request != null) {
@@ -147,30 +148,32 @@ public class CheckPermissionTransform implements TemplateTransformModel {
 
                 String statusId = (String)currentContent.get("statusId");
                 String passedStatusId = (String)templateCtx.get("statusId");
-                List statusList = StringUtil.split(passedStatusId, "|");
-                if (statusList == null)
+                List<String> statusList = StringUtil.split(passedStatusId, "|");
+                if (statusList == null) {
                     statusList = FastList.newInstance();
+                }
                 if (UtilValidate.isNotEmpty(statusId) && !statusList.contains(statusId)) {
                     statusList.add(statusId);
                 }
                 String targetPurpose = (String)templateCtx.get("contentPurposeList");
-                List purposeList = StringUtil.split(targetPurpose, "|");
+                List<String> purposeList = StringUtil.split(targetPurpose, "|");
                 String entityOperation = (String)templateCtx.get("entityOperation");
                 String targetOperation = (String)templateCtx.get("targetOperation");
                 if (UtilValidate.isEmpty(targetOperation)) {
-                    if (UtilValidate.isNotEmpty(entityOperation))
+                    if (UtilValidate.isNotEmpty(entityOperation)) {
                         targetOperation = "CONTENT" + entityOperation;
+                    }
                 }
-                List targetOperationList = StringUtil.split(targetOperation, "|");
+                List<String> targetOperationList = StringUtil.split(targetOperation, "|");
                 if (targetOperationList.size() == 0) {
                     //Debug.logInfo("in CheckPermission, entityOperation:" + entityOperation,"");
                     //Debug.logInfo("in CheckPermission, templateCtx:" + templateCtx,"");
                     throw new IOException("targetOperationList has zero size.");
                 }
-                List roleList = FastList.newInstance();
+                List<String> roleList = FastList.newInstance();
 
                 String privilegeEnumId = (String)currentContent.get("privilegeEnumId");
-                Map results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
+                Map<String, Object> results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
 
                 boolean isError = ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
                 if (isError) {
@@ -180,7 +183,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 String permissionStatus = (String) results.get("permissionStatus");
 
                 if (UtilValidate.isEmpty(permissionStatus) || !permissionStatus.equals("granted")) {
-
                     String errorMessage = "Permission to add response is denied (2)";
                     PermissionRecorder recorder = (PermissionRecorder)results.get("permissionRecorder");
                         //Debug.logInfo("recorder(0):" + recorder, "");
@@ -191,7 +193,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     }
                     templateCtx.put("permissionErrorMsg", errorMessage);
                 }
-
 
                 if (permissionStatus != null && permissionStatus.equalsIgnoreCase("granted")) {
                     FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
@@ -206,7 +207,6 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                         return TransformControl.EVALUATE_BODY;
                 }
             }
-
 
             @Override
             public void close() throws IOException {

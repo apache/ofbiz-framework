@@ -1445,17 +1445,17 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         return thisNode;
     }
 
-    public static String nodeTrailToCsv(List<Map<String, Object>> nodeTrail) {
+    public static String nodeTrailToCsv(List<Map<String, ? extends Object>> nodeTrail) {
         if (nodeTrail == null) {
             return "";
         }
         StringBuilder csv = new StringBuilder();
-        Iterator<Map<String, Object>> it = nodeTrail.iterator();
+        Iterator<Map<String, ? extends Object>> it = nodeTrail.iterator();
         while (it.hasNext()) {
             if (csv.length() > 0) {
                 csv.append(",");
             }
-            Map<String, Object> node = it.next();
+            Map<String, ? extends Object> node = it.next();
             if (node == null) {
                 break;
             }
