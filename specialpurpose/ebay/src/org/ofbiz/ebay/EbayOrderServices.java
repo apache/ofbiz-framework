@@ -1115,9 +1115,19 @@ public class EbayOrderServices {
                     String city = (String) shippingAddressCtx.get("shippingAddressCityName");
                     EbayHelper.correctCityStateCountry(dispatcher, shippingAddressCtx, city, state, country);
 
-                    List<GenericValue> shipInfo = PartyWorker.findMatchingPersonPostalAddresses(delegator, shippingAddressCtx.get("shippingAddressStreet1").toString(),
-                            (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), shippingAddressCtx.get("city").toString(), shippingAddressCtx.get("stateProvinceGeoId").toString(),
-                            shippingAddressCtx.get("shippingAddressPostalCode").toString(), null, shippingAddressCtx.get("countryGeoId").toString(), firstName, null, lastName);
+                    List<GenericValue> shipInfo = 
+                    	PartyWorker.findMatchingPersonPostalAddresses
+                    		(delegator, 
+                    		 shippingAddressCtx.get("shippingAddressStreet1").toString(),
+                            (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), 
+                             shippingAddressCtx.get("city").toString(), 
+                            (UtilValidate.isEmpty(shippingAddressCtx.get("stateProvinceGeoId")) ? null : shippingAddressCtx.get("stateProvinceGeoId").toString()),
+                             shippingAddressCtx.get("shippingAddressPostalCode").toString(), 
+                             null, 
+                             shippingAddressCtx.get("countryGeoId").toString(), 
+                             firstName, 
+                             null, 
+                             lastName);
                     if (UtilValidate.isNotEmpty(shipInfo)) {
                         GenericValue first = EntityUtil.getFirst(shipInfo);
                         partyId = first.getString("partyId");
