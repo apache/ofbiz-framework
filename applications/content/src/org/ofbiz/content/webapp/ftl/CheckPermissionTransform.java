@@ -83,6 +83,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
     }
 
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
