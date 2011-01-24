@@ -516,7 +516,21 @@ jQuery(document).ready(function(){
     </#if>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}');
+            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}'<#rt/>
+    <#if targetParameterIter?has_content>
+      <#assign isFirst = true>
+      <#lt/>, [<#rt/>
+      <#list targetParameterIter as item>
+        <#if isFirst>
+          <#lt/>document.${formName}.${item}<#rt/>
+        <#else>
+          <#lt/> ,document.${formName}.${item}<#rt/>
+          <#assign isFirst = false>
+        </#if>
+      </#list>
+      <#lt/>]<#rt/>
+    </#if>
+            <#lt/>);
         });
     </script>
 </#if>
