@@ -180,7 +180,7 @@ function initiallyCollapseDelayed() {
 /*************************************
 * Fieldlookup Class & Methods
 *************************************/
-function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation) {
+function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation, args) {
     
     // add the presentation attribute to the request url to let the request know which decorator should be loaded
     if(!presentation) {
@@ -244,7 +244,13 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
         draggable: true,
         resizeable: true,
         open: function() {
-            jQuery("#" + lookupId).load(requestUrl, function(data){ 
+            var requestUrlAndArgs = requestUrl;
+            if (typeof args == "object" && jQuery.isArray(args)) {
+                for (var i = 0; i < args.length; i++) {
+                        requestUrlAndArgs += "&parm" + i + "=" + jQuery(args[i]).val();
+                }
+            }
+            jQuery("#" + lookupId).load(requestUrlAndArgs, function(data){ 
                 modifySubmitButton(lookupId);
                 // set up the window chaining
                 // if the ACTIVATED_LOOKUP var is set there have to be more than one lookup,
