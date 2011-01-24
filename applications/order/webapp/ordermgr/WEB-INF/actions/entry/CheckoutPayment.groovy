@@ -23,7 +23,6 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.accounting.payment.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.store.*;
-import org.ofbiz.accounting.thirdparty.ideal.IdealEvents;
 
 cart = session.getAttribute("shoppingCart");
 currencyUomId = cart.getCurrency();
@@ -58,7 +57,21 @@ if (billingAccountList) {
     context.billingAccountList = billingAccountList;
 }
 
-issuerList = IdealEvents.getIssuerList();
-if (issuerList) {
-    context.issuerList = issuerList;
+checkIdealPayment = false;
+productStore = ProductStoreWorker.getProductStore(request);
+productStorePaymentSettingList = productStore.getRelatedCache("ProductStorePaymentSetting");
+productStorePaymentSettingIter = productStorePaymentSettingList.iterator();
+while (productStorePaymentSettingIter.hasNext()) {
+    productStorePaymentSetting = productStorePaymentSettingIter.next();
+    if (productStorePaymentSetting.get("paymentMethodTypeId") == "EXT_IDEAL") {
+        checkIdealPayment = true;
+    }
+    
+}
+
+if (checkIdealPayment) {
+    issuerList = org.ofbiz.accounting.thirdparty.ideal.IdealEvents.IdealEvents.getIssuerList();
+    if (issuerList) {
+        context.issuerList = issuerList;
+    }
 }
