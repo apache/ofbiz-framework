@@ -61,4 +61,22 @@ under the License.
       </relation>
     </view-entity>
     
+    <view-entity entity-name="ProductCategoryMemberAndPrice" package-name="org.ofbiz.product.category" title="ProductCategoryMember And ProductPrice View Entiry">
+        <member-entity entity-alias="PCM" entity-name="ProductCategoryMember"/>
+        <member-entity entity-alias="PD" entity-name="Product"/>
+        <member-entity entity-alias="PP" entity-name="ProductPrice"/>
+        <alias-all entity-alias="PCM"/>
+        <alias-all entity-alias="PD" prefix="product">
+            <exclude field="productId"/>
+        </alias-all>
+        <alias-all entity-alias="PP" prefix="price">
+            <exclude field="productId"/>
+        </alias-all>
+        <view-link entity-alias="PCM" rel-entity-alias="PD">
+            <key-map field-name="productId"/>
+        </view-link>
+        <view-link entity-alias="PD" rel-entity-alias="PP">
+            <key-map field-name="productId"/>
+        </view-link>
+    </view-entity>
 </entitymodel>
