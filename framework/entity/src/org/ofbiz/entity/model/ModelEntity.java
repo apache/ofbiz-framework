@@ -304,6 +304,33 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
 
     public void addExtendEntity(ModelReader reader, Element extendEntityElement) {
+        if ( extendEntityElement.hasAttribute( "enable-lock")) {
+            this.doLock = UtilXml.checkBoolean(extendEntityElement.getAttribute("enable-lock"), false);
+        }
+        
+        if ( extendEntityElement.hasAttribute( "no-auto-stamp")) {
+            this.noAutoStamp = UtilXml.checkBoolean(extendEntityElement.getAttribute("no-auto-stamp"), false);
+        }
+        
+        if ( extendEntityElement.hasAttribute( "auto-clear-cache")) {
+            this.autoClearCache = UtilXml.checkBoolean(extendEntityElement.getAttribute("auto-clear-cache"), false);
+        }
+        
+        if ( extendEntityElement.hasAttribute( "never-cache")) {
+            this.neverCache = UtilXml.checkBoolean(extendEntityElement.getAttribute("never-cache"), false);
+        }
+        
+        if ( extendEntityElement.hasAttribute( "sequence-bank-size")) {
+            String sequenceBankSizeStr = UtilXml.checkEmpty(extendEntityElement.getAttribute("sequence-bank-size"));
+            if (UtilValidate.isNotEmpty(sequenceBankSizeStr)) {
+                try {
+                    this.sequenceBankSize = Integer.valueOf(sequenceBankSizeStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Error parsing sequence-bank-size value [" + sequenceBankSizeStr + "] for entity [" + this.entityName + "]", module);
+                }
+            }
+        }
+        
         for (Element fieldElement: UtilXml.childElementList(extendEntityElement, "field")) {
             ModelField field = reader.createModelField(fieldElement);
             if (field != null) {

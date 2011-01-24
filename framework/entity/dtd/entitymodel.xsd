@@ -463,5 +463,10 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required"/>
         <xs:attribute name="default-resource-name" type="xs:string"/>
         <xs:attribute name="dependent-on" type="xs:string"/>
+        <xs:attribute name="sequence-bank-size" type="xs:string"/>
+        <xs:attribute name="enable-lock" type="boolean"/>
+        <xs:attribute name="no-auto-stamp" type="boolean"/>
+        <xs:attribute name="never-cache" type="boolean"/>
+        <xs:attribute name="auto-clear-cache" type="boolean"/>
     </xs:attributeGroup>
 </xs:schema>
