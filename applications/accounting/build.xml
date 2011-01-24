@@ -63,6 +63,7 @@ under the License.
             <exclude name="org/ofbiz/accounting/thirdparty/paypal/PayPalServices.java"/>
             <exclude name="org/ofbiz/accounting/thirdparty/orbital/**"/>
             <exclude name="org/ofbiz/accounting/thirdparty/securepay/**"/>
+            <exclude name="org/ofbiz/accounting/thirdparty/ideal/**"/>
         </patternset>
     </target>
 
