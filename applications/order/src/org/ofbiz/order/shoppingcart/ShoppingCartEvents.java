@@ -264,6 +264,7 @@ public class ShoppingCartEvents {
 
                 // check if features are selected
                 if (UtilValidate.isEmpty(selectedFeatures)) {
+                    request.setAttribute("paramMap", paramMap);
                     request.setAttribute("product_id", productId);
                     request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
                     return "product";
@@ -273,12 +274,14 @@ public class ShoppingCartEvents {
                 if (UtilValidate.isNotEmpty(variantProductId)) {
                     productId = variantProductId;
                 } else {
+                    request.setAttribute("paramMap", paramMap);
                     request.setAttribute("product_id", productId);
                     request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.incompatibilityVariantFeature", locale));
                     return "product";
                 }
 
             } else {
+                request.setAttribute("paramMap", paramMap);
                 request.setAttribute("product_id", productId);
                 request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resource_error, "cart.addToCart.chooseVariationBeforeAddingToCart", locale));
                 return "product";
