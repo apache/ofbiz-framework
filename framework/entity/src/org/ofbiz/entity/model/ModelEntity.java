@@ -304,23 +304,23 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
 
     public void addExtendEntity(ModelReader reader, Element extendEntityElement) {
-        if ( extendEntityElement.hasAttribute( "enable-lock")) {
+        if (extendEntityElement.hasAttribute("enable-lock")) {
             this.doLock = UtilXml.checkBoolean(extendEntityElement.getAttribute("enable-lock"), false);
         }
         
-        if ( extendEntityElement.hasAttribute( "no-auto-stamp")) {
+        if (extendEntityElement.hasAttribute("no-auto-stamp")) {
             this.noAutoStamp = UtilXml.checkBoolean(extendEntityElement.getAttribute("no-auto-stamp"), false);
         }
         
-        if ( extendEntityElement.hasAttribute( "auto-clear-cache")) {
+        if (extendEntityElement.hasAttribute("auto-clear-cache")) {
             this.autoClearCache = UtilXml.checkBoolean(extendEntityElement.getAttribute("auto-clear-cache"), false);
         }
         
-        if ( extendEntityElement.hasAttribute( "never-cache")) {
+        if (extendEntityElement.hasAttribute("never-cache")) {
             this.neverCache = UtilXml.checkBoolean(extendEntityElement.getAttribute("never-cache"), false);
         }
         
-        if ( extendEntityElement.hasAttribute( "sequence-bank-size")) {
+        if (extendEntityElement.hasAttribute("sequence-bank-size")) {
             String sequenceBankSizeStr = UtilXml.checkEmpty(extendEntityElement.getAttribute("sequence-bank-size"));
             if (UtilValidate.isNotEmpty(sequenceBankSizeStr)) {
                 try {
