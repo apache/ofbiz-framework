@@ -8,6 +8,8 @@
 first of all, add the following jars to the /applications/accounting/lib directory:
 ing-iac-2.0.3.jar
 jibx-run.jar
+remove the line : <exclude name="org/ofbiz/accounting/thirdparty/ideal/**"/> from /accounting/build.xml
+run ./ant 
 
 1. go to Accounting component
 2. go to Payment Gateway Config, then click find
