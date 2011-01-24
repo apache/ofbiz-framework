@@ -51,6 +51,9 @@ under the License.
           <#if (requestParameters.checkoutpage)?has_content>
             <input type="hidden" name="checkoutpage" value="${requestParameters.checkoutpage}" />
           </#if>
+          <#if (requestAttributes.issuerId)?has_content>
+            <input type="hidden" name="issuerId" value="${requestAttributes.issuerId}" />
+          </#if>
           <input type="button" name="processButton" value="${uiLabelMap.OrderSubmitOrder}" onclick="processOrder();" class="mediumSubmit" />
         </form>
         <#-- doesn't work with Safari, seems to work with IE, Mozilla <a href="#" onclick="processOrder();" class="buttontextbig">[${uiLabelMap.OrderSubmitOrder}]&nbsp;</a> -->

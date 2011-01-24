@@ -17182,4 +17182,32 @@
         <value xml:lang="zh">浏览交易记录</value>
         <value xml:lang="zh_TW">瀏覽交易記錄</value>
     </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigiDEAL">
+        <value xml:lang="en">Update Payment Gateway Config iDEAL</value>
+        <value xml:lang="hi_IN">भुगतान गेटवे विन्यास iDEAL उन्नत करे</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento iDEAL</value>
+    </property>
+    <property key="AccountingPayWithiDEAL">
+        <value xml:lang="cs">Platba prostřednictvím iDEAL</value>
+        <value xml:lang="de">Bezahlung mit iDEAL</value>
+        <value xml:lang="en">Pay With iDEAL</value>
+        <value xml:lang="es">Pagar con iDEAL</value>
+        <value xml:lang="fr">Paiement avec iDEAL</value>
+        <value xml:lang="it">Paga con iDEAL</value>
+        <value xml:lang="ja">Pay With iDEAL</value>
+        <value xml:lang="nl">Betaal met iDEAL</value>
+        <value xml:lang="pt_PT">Pagar Com iDEAL</value>
+        <value xml:lang="ro">Plateste cu iDEAL</value>
+        <value xml:lang="ru">Платить через iDEAL</value>
+        <value xml:lang="th">ชำระเงินผ่าน iDEAL</value>
+    </property>
+    <property key="AccountingPaymentReceiveViaiDEAL">
+        <value xml:lang="de">Zahlung über iDEAL erhalten</value>
+        <value xml:lang="en">Payment receive via iDEAL</value>
+        <value xml:lang="hi_IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
+        <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
+    </property>
+    <property key="IdealSuccessFull">
+        <value xml:lang="en">The transaction has been successfully.</value>
+    </property>
 </resource>
