@@ -294,6 +294,11 @@ public class CheckOutEvents {
         //Locale locale = UtilHttp.getLocale(request);
         Map selectedPaymentMethods = new HashMap();
         String[] paymentMethods = request.getParameterValues("checkOutPaymentId");
+
+        if (UtilValidate.isNotEmpty(request.getParameter("issuerId"))) {
+            request.setAttribute("issuerId", request.getParameter("issuerId"));
+        }
+
         String errMsg = null;
 
         if (paymentMethods != null) {
@@ -456,6 +461,12 @@ public class CheckOutEvents {
                 request.setAttribute("orderAdditionalEmails", cart.getOrderAdditionalEmails());
             }
         }
+        
+        String issuerId = request.getParameter("issuerId");
+        if (UtilValidate.isNotEmpty(issuerId)) {
+            request.setAttribute("issuerId", issuerId);
+        }
+        
 
         return cart.getOrderType().toLowerCase();
     }

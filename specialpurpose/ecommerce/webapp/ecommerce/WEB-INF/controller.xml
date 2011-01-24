@@ -756,6 +756,7 @@ under the License.
         <response name="paypal" type="request" value="callPayPal"/>
         <response name="billact" type="request" value="emailorder"/>
         <response name="cod" type="request" value="emailorder"/>
+        <response name="ideal" type="request" value="callIdeal"/>
         <response name="error" type="view" value="checkoutreview"/>
     </request-map>
 
@@ -796,6 +797,18 @@ under the License.
         <event type="java" path="org.ofbiz.accounting.thirdparty.paypal.PayPalEvents" invoke="cancelPayPalOrder"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
+    </request-map>
+    <request-map uri="callIdeal">
+        <security https="true" direct-request="false"/>
+        <event type="java" path="org.ofbiz.accounting.thirdparty.ideal.IdealEvents" invoke="callIdeal"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="checkoutreview"/>
+    </request-map>
+    <request-map uri="idealNotify">
+        <security https="false"/>
+        <event type="java" path="org.ofbiz.accounting.thirdparty.ideal.IdealEvents" invoke="idealNotify"/>
+        <response name="success" type="view" value="ordercomplete"/>
+        <response name="error" type="view" value="checkoutreview"/>
     </request-map>
 
     <!-- PayPal Express Checkout Requests -->

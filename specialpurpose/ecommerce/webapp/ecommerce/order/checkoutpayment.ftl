@@ -56,14 +56,41 @@ function submitForm(form, mode, value) {
         form.submit();
 }
 //]]>
+$(document).ready(function(){
+var issuerId = "";
+    if ($('#checkOutPaymentId_IDEAL').attr('checked') == true) {
+        $('#issuers').show();
+        issuerId = $('#issuer').val();
+        $('#issuerId').val(issuerId);
+    } else {
+        $('#issuers').hide();
+        $('#issuerId').val('');
+    }
+    $('input:radio').click(function(){
+        if ($(this).val() == "EXT_IDEAL") {
+            $('#issuers').show();
+            issuerId = $('#issuer').val();
+            $('#issuerId').val(issuerId);
+        } else {
+            $('#issuers').hide();
+            $('#issuerId').val('');
+        }
+    });
+    $('#issuer').change(function(){
+        issuerId = $(this).val();
+        $('#issuerId').val(issuerId);
+    });
+});
 </script>
 
+ 
 <#assign cart = shoppingCart?if_exists />
 
 <form method="post" id="checkoutInfoForm" action="">
   <fieldset>
     <input type="hidden" name="checkoutpage" value="payment" />
     <input type="hidden" name="BACK_PAGE" value="checkoutoptions" />
+    <input type="hidden" name="issuerId" id="issuerId" value="" />
 
     <div class="screenlet">
         <div class="screenlet-title-bar">
@@ -102,6 +129,23 @@ function submitForm(form, mode, value) {
               <div>
                   <input type="radio" id="checkOutPaymentId_PAYPAL" name="checkOutPaymentId" value="EXT_PAYPAL" <#if "EXT_PAYPAL" == checkOutPaymentId>checked="checked"</#if> />
                   <label for="checkOutPaymentId_PAYPAL">${uiLabelMap.AccountingPayWithPayPal}</label>
+              </div>
+              </#if>
+              <#if productStorePaymentMethodTypeIdMap.EXT_IDEAL?exists>
+              <div>
+                  <input type="radio" id="checkOutPaymentId_IDEAL" name="checkOutPaymentId" value="EXT_IDEAL" <#if "EXT_IDEAL" == checkOutPaymentId>checked="checked"</#if> />
+                  <label for="checkOutPaymentId_IDEAL">${uiLabelMap.AccountingPayWithiDEAL}</label>
+              </div>
+              
+              <div id="issuers">
+              <div><label >${uiLabelMap.AccountingBank}</label></div>
+                <select name="issuer" id="issuer">
+                <#if issuerList?has_content>
+                    <#list issuerList as issuer>
+                        <option value="${issuer.getIssuerID()}" >${issuer.getIssuerName()}</option>
+                    </#list>
+                </#if>
+              </select>
               </div>
               </#if>
               <#if !paymentMethodList?has_content>

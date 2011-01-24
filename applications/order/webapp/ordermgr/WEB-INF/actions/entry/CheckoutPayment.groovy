@@ -23,6 +23,7 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.accounting.payment.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.store.*;
+import org.ofbiz.accounting.thirdparty.ideal.IdealEvents;
 
 cart = session.getAttribute("shoppingCart");
 currencyUomId = cart.getCurrency();
@@ -55,4 +56,9 @@ billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin,
 if (billingAccountList) {
     context.selectedBillingAccountId = cart.getBillingAccountId();
     context.billingAccountList = billingAccountList;
+}
+
+issuerList = IdealEvents.getIssuerList();
+if (issuerList) {
+    context.issuerList = issuerList;
 }

@@ -56,8 +56,12 @@ under the License.
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="ORBITAL" hasTable="N" description="Orbital Payment Gateway"/>
     <PaymentGatewayConfig paymentGatewayConfigId="ORBITAL_CONFIG" paymentGatewayConfigTypeId="ORBITAL" description="Orbital Config"/>
     <PaymentGatewayOrbital paymentGatewayConfigId="ORBITAL_CONFIG" username="ofbizuser" connectionPassword="ofbizpwd" merchantId="785240009879" engineClass="com.paymentech.orbital.sdk.engine.https.HttpsEngine" hostName="orbitalvar1.paymentech.net" port="443" hostNameFailover="orbitalvar2.paymentech.net" portFailover="443" connectionTimeoutSeconds="90" readTimeoutSeconds="90" authorizationURI="/authorize" sdkVersion="PaymentechSDK_6.3.0" sslSocketFactory="default" responseType="gateway"/>
-    
+
      <PaymentGatewayConfigType paymentGatewayConfigTypeId="SECUREPAY" hasTable="N" description="SecurePay Payment Gateway"/>
      <PaymentGatewayConfig paymentGatewayConfigId="SECUREPAY_CONFIG" paymentGatewayConfigTypeId="SECUREPAY" description="SecurePay Config"/>
-     <PaymentGatewaySecurePay paymentGatewayConfigId="SECUREPAY_CONFIG" merchantId="[SecurePay MerchantID]" pwd="[SecurePay Password]" serverURL="[SecurePay serverURL]" processTimeout="80" enableAmountRound="N"/>    
+     <PaymentGatewaySecurePay paymentGatewayConfigId="SECUREPAY_CONFIG" merchantId="[SecurePay MerchantID]" pwd="[SecurePay Password]" serverURL="[SecurePay serverURL]" processTimeout="80" enableAmountRound="N"/>
+
+     <PaymentGatewayConfigType paymentGatewayConfigTypeId="IDEAL" hasTable="N" description="iDEAL Payment Gateway"/>
+     <PaymentGatewayConfig paymentGatewayConfigId="IDEAL_CONFIG" paymentGatewayConfigTypeId="IDEAL" description="iDEAL Config"/>
+     <PaymentGatewayiDEAL paymentGatewayConfigId="IDEAL_CONFIG" merchantId="[iDEAL MerchantID]" merchantSubId="[iDEAL MerchantSubID]" merchantReturnURL="[iDEAL MerchantReturnURL]" acquirerURL="[iDEAL AcquirerURL]" acquirerTimeout="10" privateCert="[iDEAL PrivateCert]" acquirerKeyStoreFilename="[iDEAL AcquirerKeyStoreFilename]" acquirerKeyStorePassword="[iDEAL AcquirerKeyStorePassword]" merchantKeyStoreFilename="[iDEAL MerchantKeyStoreFilename]" merchantKeyStorePassword="[iDEAL MerchantKeyStorePassword]" expirationPeriod="[iDEAL ExpirationPeriod]"/>
 </entity-engine-xml>
