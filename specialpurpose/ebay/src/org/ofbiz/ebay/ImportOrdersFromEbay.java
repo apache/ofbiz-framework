@@ -129,6 +129,7 @@ public class ImportOrdersFromEbay {
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         String externalId = (String) context.get("externalId");
+        String transactionId = "";
         Map<String, Object> result = FastMap.newInstance();
         try {
             if (orderId == null && externalId == null) {
@@ -153,6 +154,7 @@ public class ImportOrdersFromEbay {
 
                 // get externalId from OrderHeader
                 externalId = (String)orderHeader.get("externalId");
+                transactionId = orderHeader.getString("transactionId");
                 String productStoreId = (String) orderHeader.get("productStoreId");
                 if (UtilValidate.isNotEmpty(productStoreId)) {
                     context.put("productStoreId", productStoreId);
@@ -163,8 +165,9 @@ public class ImportOrdersFromEbay {
 
             StringBuffer completeSaleXml = new StringBuffer();
 
-            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
+            if (!ServiceUtil.isFailure(buildCompleteSaleRequest(delegator, locale, externalId, transactionId, context, completeSaleXml, eBayConfigResult.get("token").toString()))) {
                 result = EbayHelper.postItem(eBayConfigResult.get("xmlGatewayUri").toString(), completeSaleXml, eBayConfigResult.get("devID").toString(), eBayConfigResult.get("appID").toString(), eBayConfigResult.get("certID").toString(), "CompleteSale", eBayConfigResult.get("compatibilityLevel").toString(), eBayConfigResult.get("siteID").toString());
+
                 String successMessage = (String)result.get("successMessage");
                 if (successMessage != null) {
                     return readCompleteSaleResponse(successMessage, locale);
@@ -247,12 +250,12 @@ public class ImportOrdersFromEbay {
          return ServiceUtil.returnSuccess();
     }
 
-    public static Map<String, Object> buildCompleteSaleRequest(Delegator delegator, Locale locale, String transactionId, Map<String, Object> context, StringBuffer dataItemsXml, String token) {
+    public static Map<String, Object> buildCompleteSaleRequest(Delegator delegator, Locale locale, String externalId, String transactionId, Map<String, Object> context, StringBuffer dataItemsXml, String token) {
         String paid = (String)context.get("paid");
         String shipped = (String)context.get("shipped");
 
         try {
-            if (transactionId == null) {
+            if (externalId == null) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorDuringBuildItemAndTransactionIdFromExternalId", locale));
             }
 
@@ -261,22 +264,26 @@ public class ImportOrdersFromEbay {
             transElem.setAttribute("xmlns", "urn:ebay:apis:eBLBaseComponents");
 
             EbayHelper.appendRequesterCredentials(transElem, transDoc, token);
-
-            if (transactionId.startsWith("EBT_")) {
-                UtilXml.addChildElementValue(transElem, "TransactionID", transactionId.substring(4), transDoc);
-                UtilXml.addChildElementValue(transElem, "ItemID", "0", transDoc);
-            } else if (transactionId.startsWith("EBO_")) {
-                UtilXml.addChildElementValue(transElem, "OrderID", transactionId.substring(4), transDoc);
-                UtilXml.addChildElementValue(transElem, "TransactionID", "0", transDoc);
-                UtilXml.addChildElementValue(transElem, "ItemID", "0", transDoc);
-            } else if (transactionId.startsWith("EBI_")) {
+            if (externalId.startsWith("EBT_")) {
+                UtilXml.addChildElementValue(transElem, "TransactionID", externalId.substring(4), transDoc);
                 UtilXml.addChildElementValue(transElem, "ItemID", transactionId.substring(4), transDoc);
+            } else if (externalId.startsWith("EBO_")) {
+                UtilXml.addChildElementValue(transElem, "OrderID", externalId.substring(4), transDoc);
                 UtilXml.addChildElementValue(transElem, "TransactionID", "0", transDoc);
+                UtilXml.addChildElementValue(transElem, "ItemID", "0", transDoc);
+            } else if (externalId.startsWith("EBI_")) {
+                UtilXml.addChildElementValue(transElem, "ItemID", externalId.substring(4), transDoc);
+                UtilXml.addChildElementValue(transElem, "TransactionID", "0", transDoc);
+            } else if (externalId.startsWith("EBS_")) {
+                //UtilXml.addChildElementValue(transElem, "OrderID", externalId.substring(4), transDoc);
+                UtilXml.addChildElementValue(transElem, "TransactionID", "0", transDoc);
+                UtilXml.addChildElementValue(transElem, "ItemID", externalId.substring(4), transDoc);
             }
 
             // default shipped = Y (call from eca during order completed)
             if (paid == null && shipped == null) {
                 shipped = "Y";
+                paid = "Y";
             }
 
             // Set item id to paid or not paid
@@ -499,6 +506,7 @@ public class ImportOrdersFromEbay {
                             } else {
                                 order.put("externalId", "EBT_" + transactionId);
                             }
+                            order.put("transactionId", "EBI_" + itemId);
 
                             GenericValue orderExist = externalOrderExists(delegator, (String)order.get("externalId"));
                             if (orderExist != null) {
@@ -799,7 +807,7 @@ public class ImportOrdersFromEbay {
                     // create the payment from the preference
                     if (approved) {
                         Debug.logInfo("Creating payment for approved order.", module);
-                        EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                        EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), amountPaid, partyId);
                         Debug.logInfo("Payment created.", module);
                     }
                 }

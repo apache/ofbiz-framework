@@ -300,7 +300,7 @@ public class EbayStoreOrder {
                     // create the payment from the preference
                     if (approved) {
                         Debug.logInfo("Creating payment for approved order.", module);
-                        EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                        EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), amountPaid, partyId);
                         Debug.logInfo("Payment created.", module);
                     }
                 }
@@ -542,7 +542,7 @@ public class EbayStoreOrder {
                 // create the payment from the preference
                 if (approved) {
                     Debug.logInfo("Creating payment for approved order.", module);
-                    EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                    EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), amountPaid, partyId);
                     Debug.logInfo("Payment created.", module);
                 }
             }
