@@ -192,7 +192,7 @@ public class EbayHelper {
     }
 
     public static boolean createPaymentFromPaymentPreferences(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin,
-            String orderId, String externalId, Timestamp orderDate, String partyIdFrom) {
+        String orderId, String externalId, Timestamp orderDate, BigDecimal amount, String partyIdFrom) {
         List<GenericValue> paymentPreferences = null;
         try {
             Map<String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_RECEIVED",
@@ -207,7 +207,25 @@ public class EbayHelper {
                     if (!okay)
                         return false;
                 }
-            }
+            } else {
+                paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED",
+                    "paymentMethodTypeId", "EXT_EBAY");
+                paymentPreferences = delegator.findByAnd("OrderPaymentPreference", paymentFields);
+                if (UtilValidate.isNotEmpty(paymentPreferences)) {
+                    Iterator<GenericValue> i = paymentPreferences.iterator();
+                    while (i.hasNext()) {
+                        GenericValue pref = (GenericValue) i.next();
+                        if (UtilValidate.isNotEmpty(amount)) {
+                            pref.set("statusId", "PAYMENT_RECEIVED");
+                            pref.set("maxAmount", amount);
+                            pref.store();
+                        }
+                        boolean okay = createPayment(dispatcher, userLogin, pref, orderId, externalId, orderDate, partyIdFrom);
+                        if (!okay)
+                            return false;
+                    }
+                }
+            } 
         } catch (Exception e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;

@@ -309,6 +309,11 @@ public class ProductsExportToEbay {
 
                 Element primaryCatElem = UtilXml.addChildElement(itemElem, "PrimaryCategory", itemDocument);
                 UtilXml.addChildElementValue(primaryCatElem, "CategoryID", primaryCategoryId, itemDocument);
+                UtilXml.addChildElementValue(itemElem, "ConditionID", "1000", itemDocument);
+                Element itemSpecificsElem = UtilXml.addChildElement(itemElem, "ItemSpecifics", itemDocument);
+                Element nameValueListElem = UtilXml.addChildElement(itemSpecificsElem, "NameValueList", itemDocument);
+                UtilXml.addChildElementValue(nameValueListElem, "Name", "Condition", itemDocument);
+                UtilXml.addChildElementValue(nameValueListElem, "Value", "New: With Tags", itemDocument);
 
                 //Debug.logInfo("The generated string is ======= " + UtilXml.writeXmlDocument(itemDocument), module);
                 dataItemsXml.append(UtilXml.writeXmlDocument(itemDocument));

@@ -871,6 +871,7 @@ public class EbayOrderServices {
                             } else {
                                 orderCtx.put("externalId", "EBT_" + transactionId);
                             }
+                            orderCtx.put("transactionId", "EBI_" + itemId);
 
                             GenericValue orderExist = externalOrderExists(delegator, (String)orderCtx.get("externalId"));
                             if (orderExist != null) {
@@ -1006,12 +1007,14 @@ public class EbayOrderServices {
 
             // set the external id with the eBay Item Id
             String externalId = (String) context.get("externalId");
+            String transactionId = (String) context.get("transactionId");
 
             if (UtilValidate.isNotEmpty(externalId)) {
                 if (externalOrderExists(delegator, externalId) != null && create) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.externalIdAlreadyExist", locale));
                 }
                 cart.setExternalId(externalId);
+                cart.setTransactionId(transactionId);
             } else {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.externalIdNotAvailable", locale));
             }
@@ -1232,7 +1235,7 @@ public class EbayOrderServices {
                     // create the payment from the preference
                     if (approved) {
                         Debug.logInfo("Creating payment for approved order.", module);
-                        EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), partyId);
+                        EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), amountPaid, partyId);
                         Debug.logInfo("Payment created.", module);
                     }
                 }
@@ -1274,20 +1277,36 @@ public class EbayOrderServices {
         HashMap<Object, Object> attrs = new HashMap<Object, Object>();
         attrs.put("shipGroup", groupIdx);
 
-        int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, null, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
-        ShoppingCartItem cartItem = cart.findCartItem(idx);
-        cartItem.setQuantity(qty, dispatcher, cart, true, false);
-        // locate the price verify it matches the expected price
-        BigDecimal cartPrice = cartItem.getBasePrice();
-        cartPrice = cartPrice.setScale(ShoppingCart.scale, ShoppingCart.rounding);
-        if (price.doubleValue() != cartPrice.doubleValue()) {
-            // does not match; honor the price but hold the order for manual review
-            cartItem.setIsModifiedPrice(true);
-            cartItem.setBasePrice(price);
-            cart.setHoldOrder(true);
-            cart.addInternalOrderNote("Price received [" + price + "] (for item # " + productId + ") from eBay Checkout does not match the price in the database [" + cartPrice + "]. Order is held for manual review.");
+        // Checking if previously added same product exists in the cart
+        ShoppingCartItem previouslyAddedItemInCart = null;
+        if (cart.size() != 0) {
+            Iterator cartiter = cart.iterator();
+            while (cartiter != null && cartiter.hasNext()) {
+                ShoppingCartItem cartItem = (ShoppingCartItem) cartiter.next();
+                if (cartItem.getProductId().equals(productId)) {
+                    previouslyAddedItemInCart = cartItem;
+                }
+            }
         }
-        // assign the item to its ship group
-        cart.setItemShipGroupQty(cartItem, qty, groupIdx);
-    }
+        if (previouslyAddedItemInCart != null) {
+            BigDecimal newQuantity = previouslyAddedItemInCart.getQuantity().add(qty);
+            previouslyAddedItemInCart.setQuantity(newQuantity, dispatcher, cart);
+        } else {
+            int idx = cart.addItemToEnd(productId, null, qty, null, null, attrs, null, null, dispatcher, Boolean.FALSE, Boolean.TRUE, Boolean.TRUE, Boolean.TRUE);
+            ShoppingCartItem cartItem = cart.findCartItem(idx);
+            cartItem.setQuantity(qty, dispatcher, cart, true, false);
+            // locate the price verify it matches the expected price
+            BigDecimal cartPrice = cartItem.getBasePrice();
+            cartPrice = cartPrice.setScale(ShoppingCart.scale, ShoppingCart.rounding);
+            if (price.doubleValue() != cartPrice.doubleValue()) {
+                // does not match; honor the price but hold the order for manual review
+                cartItem.setIsModifiedPrice(true);
+                cartItem.setBasePrice(price);
+                cart.setHoldOrder(true);
+                cart.addInternalOrderNote("Price received [" + price + "] (for item # " + productId + ") from eBay Checkout does not match the price in the database [" + cartPrice + "]. Order is held for manual review.");
+            }
+            // assign the item to its ship group
+            cart.setItemShipGroupQty(cartItem, qty, groupIdx);
+        }
+    } 
 }
