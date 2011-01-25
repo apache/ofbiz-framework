@@ -2378,15 +2378,16 @@ public class ShoppingCartItem implements java.io.Serializable {
             return false;
         }
 
-        if ((UtilValidate.isNotEmpty(this.additionalProductFeatureAndAppls) && UtilValidate.isNotEmpty(additionalProductFeatureAndAppls)) &&
-                (this.additionalProductFeatureAndAppls.size() != additionalProductFeatureAndAppls.size()) &&
-                !(this.additionalProductFeatureAndAppls.equals(additionalProductFeatureAndAppls))) {
+        if ((this.additionalProductFeatureAndAppls == null && UtilValidate.isNotEmpty(additionalProductFeatureAndAppls)) ||
+                (UtilValidate.isNotEmpty(this.additionalProductFeatureAndAppls) && additionalProductFeatureAndAppls == null) ||
+                (this.additionalProductFeatureAndAppls != null && additionalProductFeatureAndAppls != null &&
+                (this.additionalProductFeatureAndAppls.size() != additionalProductFeatureAndAppls.size() ||
+                !(this.additionalProductFeatureAndAppls.equals(additionalProductFeatureAndAppls))))) {
             return false;
         }
 
-        if ((UtilValidate.isNotEmpty(this.attributes) && UtilValidate.isNotEmpty(attributes)) &&
-                ((this.attributes.size() != attributes.size()) ||
-                !(this.attributes.equals(attributes)))) {
+        if ((this.attributes == null && UtilValidate.isNotEmpty(attributes)) || (UtilValidate.isNotEmpty(this.attributes) && attributes == null) ||
+                (this.attributes != null && attributes != null && (this.attributes.size() != attributes.size() || !(this.attributes.equals(attributes))))) {
             return false;
         }
 
