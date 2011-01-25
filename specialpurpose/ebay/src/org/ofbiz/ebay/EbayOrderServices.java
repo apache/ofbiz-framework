@@ -1119,9 +1119,9 @@ public class EbayOrderServices {
                     EbayHelper.correctCityStateCountry(dispatcher, shippingAddressCtx, city, state, country);
 
                     List<GenericValue> shipInfo = 
-                    	PartyWorker.findMatchingPersonPostalAddresses
-                    		(delegator, 
-                    		 shippingAddressCtx.get("shippingAddressStreet1").toString(),
+                        PartyWorker.findMatchingPersonPostalAddresses
+                            (delegator, 
+                             shippingAddressCtx.get("shippingAddressStreet1").toString(),
                             (UtilValidate.isEmpty(shippingAddressCtx.get("shippingAddressStreet2")) ? null : shippingAddressCtx.get("shippingAddressStreet2").toString()), 
                              shippingAddressCtx.get("city").toString(), 
                             (UtilValidate.isEmpty(shippingAddressCtx.get("stateProvinceGeoId")) ? null : shippingAddressCtx.get("stateProvinceGeoId").toString()),
@@ -1180,7 +1180,7 @@ public class EbayOrderServices {
                     Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", shippingAddressCtx);
                     if (UtilValidate.isEmpty(contactMechId)) {
-                        return ServiceUtil.returnFailure("Unable to create postalAddress with input map: " + shippingAddressCtx);
+                        return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreUnableToCreatePostalAddress", locale) + shippingAddressCtx);
                     }
                     Debug.logInfo("Created postal address: " + contactMechId, module);
                     Debug.logInfo("Creating new phone number for party: " + partyId, module);
@@ -1280,7 +1280,7 @@ public class EbayOrderServices {
         // Checking if previously added same product exists in the cart
         ShoppingCartItem previouslyAddedItemInCart = null;
         if (cart.size() != 0) {
-            Iterator cartiter = cart.iterator();
+            Iterator<ShoppingCartItem> cartiter = cart.iterator();
             while (cartiter != null && cartiter.hasNext()) {
                 ShoppingCartItem cartItem = (ShoppingCartItem) cartiter.next();
                 if (cartItem.getProductId().equals(productId)) {
