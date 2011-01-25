@@ -89,7 +89,7 @@ public class OagisShipmentServices {
     public static Map<String, Object> oagisReceiveShowShipment(DispatchContext ctx, Map<String, Object> context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
-
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -149,9 +149,8 @@ public class OagisShipmentServices {
                 isErrorRetry = true;
             } else {
                 // message already in the db, but is not in a system error state...
-                String errMsg = "Message received for shipmentId [" + shipmentId + "] message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
-                Debug.logError(errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError("Message received for shipmentId [" + shipmentId + "] message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap, module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorMessageAlreadyProcessed", UtilMisc.toMap("shipmentId", shipmentId, "omiPkMap", omiPkMap), locale));
             }
         }
 
@@ -532,7 +531,7 @@ public class OagisShipmentServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Show Shipment message for shipmentId [" + shipmentId + "] message [" + omiPkMap + "]: " + t.toString();
+                String errMsg = UtilProperties.getMessage(resource, "OagisErrorMessageShowShipment", UtilMisc.toMap("shipmentId", shipmentId, "omiPkMap", omiPkMap), locale);
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
 
                 try {
@@ -551,7 +550,7 @@ public class OagisShipmentServices {
 
                 Debug.logInfo(t, errMsg, module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(errMsg + t.toString());
             }
         }
 
@@ -594,10 +593,8 @@ public class OagisShipmentServices {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
-
-            String errMsg = "Found business level errors in message processing, not saving those changes but saving error messages; first error is: " + errorMapList.get(0);
-
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
+            String errMsg = UtilProperties.getMessage(resource, "OagisErrorBusinessLevel", UtilMisc.toMap("errorString", ""), locale) + errorMapList.get(0).toString();
             result.putAll(ServiceUtil.returnSuccess(errMsg));
 
             // however, we still don't want to save the partial results, so set rollbackOnly
@@ -618,13 +615,13 @@ public class OagisShipmentServices {
             }
         }
 
-        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale)));
         return result;
     }
 
     public static Map<String, Object> oagisSendProcessShipmentsFromBackOrderSet(DispatchContext ctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-
+        Locale locale = (Locale) context.get("locale");
         Set<String> noLongerOnBackOrderIdSet = UtilGenerics.checkSet(context.get("noLongerOnBackOrderIdSet"), String.class);
         Debug.logInfo("Running oagisSendProcessShipmentsFromBackOrderSet with noLongerOnBackOrderIdSet=" + noLongerOnBackOrderIdSet, module);
         if (UtilValidate.isEmpty(noLongerOnBackOrderIdSet)) {
@@ -636,8 +633,7 @@ public class OagisShipmentServices {
                 dispatcher.runAsync("oagisSendProcessShipment", UtilMisc.toMap("orderId", orderId), true);
             }
         } catch (GenericServiceException e) {
-            String errMsg = "Error calling oagisSendProcessShipment service for orders with items no longer on backorder: " + e.toString();
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorOagisSendProcessShipment", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -647,6 +643,7 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
+        Locale locale = (Locale) context.get("locale");
 
         // Check if order is not on back order before processing shipment
         try {
@@ -710,32 +707,30 @@ public class OagisShipmentServices {
                     UtilMisc.toMap("orderId", orderId, "task", task, "component", component));
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
-                String successMsg = "Found existing message info(s) in OAGMP_OGEN_SUCCESS, so not sending Process Shipment message for order [" + orderId + "] existing message(s) are: " + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS"));
-                return ServiceUtil.returnSuccess(successMsg);
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessage", UtilMisc.toMap("orderId", orderId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")));
             }
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
-                String successMsg = "Found existing message info(s) in OAGMP_SENT status, so not sending Process Shipment message for order [" + orderId + "] existing message(s) are: " + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT"));
-                return ServiceUtil.returnSuccess(successMsg);
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageSent", UtilMisc.toMap("orderId", orderId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")));
             }
 
             orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
-                return ServiceUtil.returnError("Could not find OrderHeader with ID [" + orderId + "]");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             List<String> validStores = StringUtil.split(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Order.ValidProductStores"), ",");
             if (UtilValidate.isNotEmpty(validStores)) {
                 if (!validStores.contains(orderHeader.getString("productStoreId"))) {
-                    return ServiceUtil.returnSuccess("Order [" + orderId + "] placed is not for valid Store(s)");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotValidStore", UtilMisc.toMap("orderId", orderId), locale));
                 }
             }
             String orderStatusId = orderHeader.getString("statusId");
             if (!"ORDER_APPROVED".equals(orderStatusId)) {
-                return ServiceUtil.returnSuccess("OrderHeader not in the approved status (ORDER_APPROVED) with ID [" + orderId + "], is in the [" + orderStatusId + "] status");
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisOrderIdNotInApprovedStatus", UtilMisc.toMap("orderId", orderId, "orderStatusId", orderStatusId), locale));
             }
             if (!"SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
-                return ServiceUtil.returnError("OrderHeader not a sales order (SALES_ORDER) with ID [" + orderId + "]");
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisOrderIdNotASalesOrder", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             // first check some things...
@@ -746,7 +741,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnSuccess();
             }
             if (!orderReadHelper.hasShippingAddress()) {
-                return ServiceUtil.returnError("Cannot send Process Shipment for order [" + orderId + "], it has no shipping address.");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdWithoutShippingAddress", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             // check payment authorization
@@ -756,7 +751,7 @@ public class OagisShipmentServices {
             authServiceContext.put("reAuth", true);
             Map<String, Object> authResult = dispatcher.runSync("authOrderPayments", authServiceContext);
             if (!authResult.get("processResult").equals("APPROVED")) {
-                return ServiceUtil.returnError("No authorized payment available, not sending Process Shipment");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdPaymentNotAuthorized", locale));
             }
 
             referenceId = delegator.getNextSeqId("OagisMessageInfo");
@@ -803,7 +798,7 @@ public class OagisShipmentServices {
                 // if picked, packed, shipped, delivered then complain, no reason to process the shipment!
                 String statusId = shipment.getString("statusId");
                 if ("SHIPMENT_PICKED".equals(statusId) || "SHIPMENT_PACKED".equals(statusId) || "SHIPMENT_SHIPPED".equals(statusId) || "SHIPMENT_DELIVERED".equals(statusId)) {
-                    return ServiceUtil.returnError("Not sending Process Shipment message because found Shipment that is already being processed, is in status [" + statusId + "]");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdWithShipment", UtilMisc.toMap("statusId", statusId), locale));
                 }
                 shipmentId = shipment.getString("shipmentId");
             } else {
@@ -824,7 +819,7 @@ public class OagisShipmentServices {
 
             GenericValue telecomNumber = delegator.findByPrimaryKey("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId));
             if (telecomNumber == null) {
-                return ServiceUtil.returnError("In Send ProcessShipment Telecom number not found for orderId [" + orderId + "]");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotTelecomNumberFound", UtilMisc.toMap("orderId", orderId), locale));
             }
             bodyParameters.put("telecomNumber", telecomNumber);
 
@@ -917,7 +912,7 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale);
             if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
                 try {
                     Map<String, Object> uomiCtx = FastMap.newInstance();
@@ -944,7 +939,7 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
         } catch (Throwable t) {
-            String errMsg = "System Error doing Process Shipment message for orderId [" + orderId + "] shipmentId [" + shipmentId + "] message [" + omiPkMap + "]: " + t.toString();
+            String errMsg = UtilProperties.getMessage(resource, "OagisErrorProcessShipment", UtilMisc.toMap("orderId", orderId, "shipmentId", shipmentId, "omiPkMap", omiPkMap), locale) + t.toString();
             Debug.logError(t, errMsg, module);
 
             // if we have a referenceId and the omiPkMap not null, save the error status
@@ -986,7 +981,7 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
-
+        Locale locale = (Locale) context.get("locale");
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
             sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.receiveDelivery");
@@ -1029,22 +1024,20 @@ public class OagisShipmentServices {
                     UtilMisc.toMap("returnId", returnId, "task", task, "component", component));
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
-                String successMsg = "Found existing message info(s) in OAGMP_OGEN_SUCCESS, so not sending Receive Delivery message for return [" + returnId + "] existing message(s) are: " + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS"));
-                return ServiceUtil.returnSuccess(successMsg);
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageForReturn", UtilMisc.toMap("returnId", returnId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")));
             }
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
-                String successMsg = "Found existing message info(s) in OAGMP_SENT status, so not sending Receive Delivery message for return [" + returnId + "] existing message(s) are: " + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT"));
-                return ServiceUtil.returnSuccess(successMsg);
+                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageForReturnSent", UtilMisc.toMap("returnId", returnId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")));
             }
 
             GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
             if (returnHeader == null) {
-                return ServiceUtil.returnError("Could not find Return with ID [" + returnId + "]");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotFound", UtilMisc.toMap("returnId", returnId), locale));
             }
             String statusId = returnHeader.getString("statusId");
             if (!"RETURN_ACCEPTED".equals(statusId)) {
-                return ServiceUtil.returnError("Return with ID [" + returnId + "] no in accepted status (RETURN_ACCEPTED)");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotInAcceptedStatus", UtilMisc.toMap("returnId", returnId), locale));
             }
 
             List<GenericValue> returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
@@ -1088,7 +1081,7 @@ public class OagisShipmentServices {
 
             GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
-                return ServiceUtil.returnError("No valid Order with [" + orderId + "] found, cannot process Return");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotValid", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             String partyId = returnHeader.getString("fromPartyId");
@@ -1163,7 +1156,7 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale);
             if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
                 try {
                     Map<String, Object> uomiCtx = FastMap.newInstance();
@@ -1189,7 +1182,7 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
         } catch (Throwable t) {
-            String errMsg = "System Error doing Receive Delivery message for returnId [" + returnId + "] orderId [" + orderId + "] message [" + omiPkMap + "]: " + t.toString();
+            String errMsg = UtilProperties.getMessage(resource, "OagisErrorReceivingDeliveryMessageReturn", UtilMisc.toMap("returnId", returnId, "orderId", orderId, "omiPkMap", omiPkMap), locale);
             Debug.logError(t, errMsg, module);
 
             // if we have a referenceId and the omiPkMap not null, save the error status
@@ -1221,8 +1214,7 @@ public class OagisShipmentServices {
                     Debug.logError(e, errMsg2, module);
                 }
             }
-
-            return ServiceUtil.returnError(errMsg);
+            return ServiceUtil.returnError(errMsg + t.toString());
         }
         return result;
     }

@@ -158,6 +158,74 @@
         <value xml:lang="th">แก้ไขข้อมูลของข้อความ</value>
         <value xml:lang="zh">编辑消息信息</value>
     </property>
+    <property key="OagisErrorBusinessLevel">
+        <value xml:lang="en">Found business level errors in message processing, not saving those changes but saving error messages; first error is: ${errorString}</value>
+        <value xml:lang="it">Trovato livello di business errori nel messaggio, non salvati questi cambiamenti ma salvando trovati messaggi di errore; prima errore è: ${errorString}</value>
+    </property>
+    <property key="OagisErrorFindOagisMessageInfo">
+        <value xml:lang="en">Could not find OagisMessageInfo record with key ${oagisMessageInfoKey}, not returning message.</value>
+        <value xml:lang="it">Non è possibile trovare il record di OagisMessageInfo con la chiave ${oagisMessageInfoKey}, non restituito messaggio.</value>
+    </property>
+    <property key="OagisErrorMessageAlreadyProcessed">
+        <value xml:lang="en">Message received for shipmentId ${shipmentId} message ID ${omiPkMap} was already partially processed but is not in a system error state, needs manual review; message ID: ${omiPkMap}</value>
+        <value xml:lang="it">Messaggio ricevuto per la spedizione ${shipmentId} messagggio ID ${omiPkMap} era già parzialmente eseguito ma non è in uno stato di errore di sistema, necessaria revisione manuale; messaggio ID: ${omiPkMap}</value>
+    </property>
+    <property key="OagisErrorNotFoundFullMessageXml">
+        <value xml:lang="en">There was no fullMessageXml text in OagisMessageInfo record with key ${oagisMessageInfoKey}, not returning message.</value>
+        <value xml:lang="it">Non c'è nessun testo fullMessageXml nel record di OagisMessageInfo con la chiave ${oagisMessageInfoKey}, non restituito messaggio.</value>
+    </property>
+    <property key="OagisErrorDeliveryMessage">
+        <value xml:lang="en">For Acknowledge Delivery message could not determine if it is for a PO or RMA or Status Change. DOCTYPE from message is ${docType}, DISPOSITN is ${disposition}</value>
+        <value xml:lang="it">Per il messaggio Acknowledge Delivery non è possibile determinare se questo è dovuto ad un PO o RMA o ad un cambio di stato. DOCTYPE dal messaggio è ${docType}, DISPOSITN è ${disposition}</value>
+    </property>
+    <property key="OagisErrorDeliveryMessagePO">
+        <value xml:lang="en">System Error processing Acknowledge Delivery PO message for message ${omiPkMap}: </value>
+        <value xml:lang="it">System Error processing Acknowledge Delivery PO message for message ${omiPkMap}: </value>
+    </property>
+    <property key="OagisErrorParsingMessage">
+        <value xml:lang="en">Unable to parse received message</value>
+        <value xml:lang="it">Non è possibile fare il parsing del messaggio ricevuto</value>
+    </property>
+    <property key="OagisErrorParsingXMLMessage">
+        <value xml:lang="en">Was able to receive and parse the XML message, but BSR->NOUN ${bsrNoun} and/or BSR->VERB ${bsrVerb} are empty</value>
+        <value xml:lang="it">E' possibile ricevere e parsing il messaggio XML, ma BSR->NOUN ${bsrNoun} e/o BSR->VERB ${bsrVerb} sono vuoti</value>
+    </property>
+    <property key="OagisErrorPostingMessage">
+        <value xml:lang="en">Error posting message to server with URL ${sendToUrl}: ${errorString}</value>
+        <value xml:lang="it">Errore durante il post del messaggio al server con URL ${sendToUrl}: ${errorString}</value>
+    </property>
+    <property key="OagisErrorReceivingAgainMessage">
+        <value xml:lang="en">Error trying to re-receive message with ID ${oagisMessageInfoKey}</value>
+        <value xml:lang="it">Errore tentando di ricevere nuovamente il messaggio con ID ${oagisMessageInfoKey}</value>
+    </property>
+    <property key="OagisErrorSavingMessage">
+        <value xml:lang="en">Error saving message to file ${saveToFilename}: ${errorString}</value>
+        <value xml:lang="it">Errore durante il salvataggio del messaggio sul file ${saveToFilename}: ${errorString}</value>
+    </property>
+    <property key="OagisErrorSendingInformations">
+        <value xml:lang="en">No send to information pass (url, file, or out stream)</value>
+        <value xml:lang="it">Nessuna informazione da inviare passa (url, file, o out stream)</value>
+    </property>
+    <property key="OagisErrorOagisSendProcessShipment">
+        <value xml:lang="en">Error calling oagisSendProcessShipment service for orders with items no longer on backorder: ${errorString}</value>
+        <value xml:lang="it">Errore durante l'esecuzione del servizio oagisSendProcessShipment per gli ordini con righe non più in backorder: ${errorString}</value>
+    </property>
+    <property key="OagisErrorMessageShowShipment">
+        <value xml:lang="en">System Error processing Show Shipment message for shipmentId ${shipmentId} message ${omiPkMap}: </value>
+        <value xml:lang="it">Errore di sistema eseguendo il messaggio Show Shipment per la spedizione ${shipmentId} messaggio ${omiPkMap}: </value>
+    </property>
+    <property key="OagisErrorProcessShipment">
+        <value xml:lang="en">System Error doing Process Shipment message for orderId ${orderId} shipmentId ${shipmentId} message ${omiPkMap}: </value>
+        <value xml:lang="it">Errore di sistema eseguendo il messaggio Process Shipment per l'ordine ${orderId} spedizione ${shipmentId} messaggio ${omiPkMap}: </value>
+    </property>
+    <property key="OagisErrorUnknownMessageType">
+        <value xml:lang="en">Unknown Message Type Received, verb/noun combination not supported: verb=${bsrVerb}, noun=${bsrNoun}</value>
+        <value xml:lang="it">Tipo messaggio ricevuto sconosciuto, verb/noun combinazione non supportata: verb=${bsrVerb}, noun=${bsrNoun}</value>
+    </property>
+    <property key="OagisErrorWritingMessage">
+        <value xml:lang="en">Error writing message to output stream: ${errorString}</value>
+        <value xml:lang="it">Errore scrivendo messaggio sullo stream di output: ${errorString}</value>
+    </property>
     <property key="OagisErrorInCreatingDataForOagisMessageInfoEntity">
         <value xml:lang="en">Error in creating data for OagisMessageInfo Entity</value>
         <value xml:lang="fr">Erreur à la création de la date pour l'entité OagisMessageInfo</value>
@@ -171,6 +239,46 @@
         <value xml:lang="it">Errore nell'esportazione del messaggio sullo schermo</value>
         <value xml:lang="th">ผิดพลาดในการส่งออกข้อความจากหน้าจอ</value>
         <value xml:lang="zh">从屏幕导出消息时出错</value>
+    </property>
+    <property key="OagisErrorLookupByReferenceError">
+        <value xml:lang="en">Looked up by referenceId because logicalId, component, or task were not passed in but found more than one ${messageSize} record with referenceId ${referenceId}</value>
+        <value xml:lang="it">Ricerca per referenceId perchè logicalId, componente, o compito non passato ma trovato più di ${messageSize} record con referenceId ${referenceId}</value>
+    </property>
+    <property key="OagisErrorMessage">
+        <value xml:lang="en">Error rendering message: ${errorString}</value>
+        <value xml:lang="it">Errore rendering messaggio: ${errorString}</value>
+    </property>
+    <property key="OagisErrorProcessingConfirmBOD">
+        <value xml:lang="en">System Error processing Confirm BOD message: ${errorString}</value>
+        <value xml:lang="it">Errore di sistema eseguendo la conferma BOD messaggio: ${errorString}</value>
+    </property>
+    <property key="OagisErrorProcessingMessage">
+        <value xml:lang="en">Errors found processing message; information saved and return error sent back</value>
+        <value xml:lang="it">Errori trovati eseguendo il messaggio; informazione salvata ed errore restituito indietro</value>
+    </property>
+    <property key="OagisErrorProcessingSyncInventory">
+        <value xml:lang="en">System Error processing Sync Inventory message: ${errorString}</value>
+        <value xml:lang="it">Errore di sistema processando il messaggio di Sync Inventory message: ${errorString}/value>
+    </property>
+    <property key="OagisErrorReceivingDeliveryMessageReturn">
+        <value xml:lang="en">System Error doing Receive Delivery message for returnId ${returnId} orderId ${orderId} message ${omiPkMap}: </value>
+        <value xml:lang="it">Errore di sistema durante la ricezione messaggio di consegna per il reso ${returnId} ordine ${orderId} messaggio ${omiPkMap}: </value>
+    </property>
+    <property key="OagisFoundExistingMessage">
+        <value xml:lang="en">Found existing message info(s) in OAGMP_OGEN_SUCCESS, so not sending Process Shipment message for order ${orderId} existing message(s) are: </value>
+        <value xml:lang="it">Trovati informazioni messaggi esistenti in OAGMP_OGEN_SUCCESS, così nessun messaggio inviato Process Shipment message per l'ordine ${orderId} messaggi esistenti sono: </value>
+    </property>
+    <property key="OagisFoundExistingMessageSent">
+        <value xml:lang="en">Found existing message info(s) in OAGMP_SENT status, so not sending Process Shipment message for order ${orderId} existing message(s) are: </value>
+        <value xml:lang="it">Trovati informazioni messaggi esistenti in stato OAGMP_SENT, così nessun messaggio inviato Process Shipment message per l'ordine ${orderId} messaggi esistenti sono: </value>
+    </property>
+    <property key="OagisFoundExistingMessageForReturn">
+        <value xml:lang="en">Found existing message info(s) in OAGMP_OGEN_SUCCESS, so not sending Receive Delivery message for return ${returnId} existing message(s) are: </value>
+        <value xml:lang="it">Trovati informazioni messaggi esistenti in stato OAGMP_OGEN_SUCCESS, così nessun invio di messaggio Receive Delivery per il reso ${returnId} messaggi esistenti sono: </value>
+    </property>
+    <property key="OagisFoundExistingMessageForReturnSent">
+        <value xml:lang="en">Found existing message info(s) in OAGMP_SENT, so not sending Receive Delivery message for return ${returnId} existing message(s) are: </value>
+        <value xml:lang="it">Trovati informazioni messaggi esistenti in stato OAGMP_SENT, così nessun invio di messaggio Receive Delivery per il reso ${returnId} messaggi esistenti sono: </value>
     </property>
     <property key="OagisInventoryDescription">
         <value xml:lang="en">Inventory Description</value>
@@ -245,6 +353,54 @@
         <value xml:lang="it">Nuove Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความใหม่</value>
         <value xml:lang="zh">新建消息信息</value>
+    </property>
+    <property key="OagisOrderIdNotASalesOrder">
+        <value xml:lang="en">OrderHeader not a sales order (SALES_ORDER) with ID ${orderId}</value>
+        <value xml:lang="it">Testata ordine non è un'ordine di vendita (SALES_ORDER) ${orderId}</value>
+    </property>
+    <property key="OagisOrderIdNotFound">
+        <value xml:lang="en">Could not find OrderHeader with ID ${orderId}</value>
+        <value xml:lang="it">Non è possibile trovare la testata ordine ${orderId}</value>
+    </property>
+    <property key="OagisOrderIdNotInApprovedStatus">
+        <value xml:lang="en">OrderHeader not in the approved status (ORDER_APPROVED) with ID ${orderId}, is in the ${orderStatusId} status</value>
+        <value xml:lang="it">Testata ordine non in stato approvato (ORDER_APPROVED) ${orderId}, è in stato ${orderStatusId}</value>
+    </property>
+    <property key="OagisOrderIdNotTelecomNumberFound">
+        <value xml:lang="en">In Send ProcessShipment Telecom number not found for orderId ${orderId}</value>
+        <value xml:lang="it">Nell'invio di ProcessShipment il numero di telefono non è stato trovato per l'ordine ${orderId}</value>
+    </property>
+    <property key="OagisOrderIdNotValidStore">
+        <value xml:lang="en">Order ${orderId} placed is not for valid Store(s)</value>
+        <value xml:lang="it">Ordine ${orderId} non è valido per il negozio</value>
+    </property>
+    <property key="OagisOrderIdPaymentNotAuthorized">
+        <value xml:lang="en">No authorized payment available, not sending Process Shipment</value>
+        <value xml:lang="it">Nessun pagamento disponibile autorizzato, non inviato Process Shipment</value>
+    </property>
+    <property key="OagisOrderIdWithShipment">
+        <value xml:lang="en">Not sending Process Shipment message because found Shipment that is already being processed, is in status ${statusId}</value>
+        <value xml:lang="it">Non inviato messaggio Process Shipment perchè trovata spedizione che è già stata eseguita, è in stato ${statusId}</value>
+    </property>
+    <property key="OagisOrderIdWithoutShippingAddress">
+        <value xml:lang="en">Cannot send Process Shipment for order ${orderId}, it has no shipping address.</value>
+        <value xml:lang="it">Non è possibile inviare Process Shipment per l'ordine ${orderId}, questo non ha un'indirizzo di spedizione.</value>
+    </property>
+    <property key="OagisReturnIdNotFound">
+        <value xml:lang="en">Could not find Return with ID ${returnId}</value>
+        <value xml:lang="it">Non è possibile trovare la testata reso ${returnId}</value>
+    </property>
+    <property key="OagisReturnIdNotValid">
+        <value xml:lang="en">No valid Order with ${orderId} found, cannot process Return</value>
+        <value xml:lang="it">Nessun ordine valido ${orderId} trovato, non è possibile eseguire il reso</value>
+    </property>
+    <property key="OagisReturnIdNotInAcceptedStatus">
+        <value xml:lang="en">Return with ID ${returnId} no in accepted status (RETURN_ACCEPTED)</value>
+        <value xml:lang="it">Reso ${returnId} non è in stato accettato (RETURN_ACCEPTED)</value>
+    </property>
+    <property key="OagisServiceCompletedSuccessfully">
+        <value xml:lang="en">Service Completed Successfully</value>
+        <value xml:lang="it">Servizio completato con successo</value>
     </property>
     <property key="OagisQuantityDiff">
         <value xml:lang="en">Qty Difference</value>

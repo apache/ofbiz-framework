@@ -103,7 +103,7 @@ public class OagisServices {
     public static Map<String, Object> oagisSendConfirmBod(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-
+        Locale locale = (Locale) context.get("locale");
         String errorReferenceId = (String) context.get("referenceId");
         List<Map<String, String>> errorMapList = UtilGenerics.checkList(context.get("errorMapList"));
 
@@ -166,9 +166,6 @@ public class OagisServices {
         oagisMsgInfoContext.put("userLogin", userLogin);
         try {
             dispatcher.runSync("createOagisMessageInfo", oagisMsgInfoContext, 60, true);
-            /*
-            if (ServiceUtil.isError(oagisMsgInfoResult)) return ServiceUtil.returnError("Error creating OagisMessageInfo");
-            */
         } catch (GenericServiceException e) {
             Debug.logError(e, "Saving message to database failed", module);
         }
@@ -201,12 +198,13 @@ public class OagisServices {
             writer.close();
             outText = writer.toString();
         } catch (Exception e) {
-            String errMsg = "Error rendering message: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error rendering message: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorMessage", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
-        if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisSendConfirmBod message for errorReferenceId [" + errorReferenceId + "]", module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("Finished rendering oagisSendConfirmBod message for errorReferenceId [" + errorReferenceId + "]", module);
+        }
 
         try {
             oagisMsgInfoContext.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
@@ -219,7 +217,7 @@ public class OagisServices {
             Debug.logError(e, errMsg, module);
         }
 
-        Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename);
+        Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale);
         if (sendMessageReturn != null) {
             return sendMessageReturn;
         }
@@ -232,8 +230,7 @@ public class OagisServices {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "OagisErrorInCreatingDataForOagisMessageInfoEntity", (Locale) context.get("locale"));
             Debug.logError(e, errMsg, module);
         }
-
-        return ServiceUtil.returnSuccess("Service Completed Successfully");
+        return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale));
     }
 
     public static Map<String, Object> oagisReceiveConfirmBod(DispatchContext ctx, Map<String, Object> context) {
@@ -241,7 +238,7 @@ public class OagisServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Document doc = (Document) context.get("document");
         List<Map<String, String>> errorMapList = FastList.newInstance();
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin",UtilMisc.toMap("userLoginId", "system"));
@@ -373,9 +370,8 @@ public class OagisServices {
                 }
             }
         } catch (Throwable t) {
-            String errMsg = "System Error processing Confirm BOD message: " + t.toString();
-            Debug.logError(t, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(t, "System Error processing Confirm BOD message: " + t.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorProcessingConfirmBOD", UtilMisc.toMap("errorString", t.toString()), locale));
         }
 
         Map<String, Object> result = FastMap.newInstance();
@@ -416,7 +412,7 @@ public class OagisServices {
             }
 
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
-            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisErrorProcessingMessage", locale)));
             return result;
         } else {
             oagisMsgInfoCtx.put("processingStatusId", "OAGMP_PROC_SUCCESS");
@@ -428,15 +424,15 @@ public class OagisServices {
                 Debug.logError(e, errMsg, module);
             }
         }
-
-        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale)));
+        
         return result;
     }
 
     public static Map<String, Object> oagisReReceiveMessage(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-
+        Locale locale = (Locale) context.get("locale");
         String logicalId = (String) context.get("logicalId");
         String component = (String) context.get("component");
         String task = (String) context.get("task");
@@ -452,32 +448,32 @@ public class OagisServices {
                 if (oagisMessageInfoList.size() == 1) {
                     oagisMessageInfo = oagisMessageInfoList.get(0);
                 } else if (oagisMessageInfoList.size() > 1) {
-                    return ServiceUtil.returnError("Looked up by referenceId because logicalId, component, or task were not passed in but found more than one [" + oagisMessageInfoList.size() + "] record with referenceId [" + referenceId + "]");
+                    Integer messageSize = new Integer(oagisMessageInfoList.size());
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorLookupByReferenceError", UtilMisc.toMap("messageSize", messageSize.toString(), "referenceId", referenceId), locale));
                 }
             } else {
                 oagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMessageInfoKey);
             }
 
             if (oagisMessageInfo == null) {
-                return ServiceUtil.returnError("Could not find OagisMessageInfo record with key [" + oagisMessageInfoKey + "], not rerunning message.");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorFindOagisMessageInfo", UtilMisc.toMap("oagisMessageInfoKey", oagisMessageInfoKey), locale));
             }
 
             String fullMessageXml = oagisMessageInfo.getString("fullMessageXml");
             if (UtilValidate.isEmpty(fullMessageXml)) {
-                return ServiceUtil.returnError("There was no fullMessageXml text in OagisMessageInfo record with key [" + oagisMessageInfoKey + "], not rerunning message.");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorNotFoundFullMessageXml", UtilMisc.toMap("oagisMessageInfoKey", oagisMessageInfoKey), locale));
             }
 
             // we know we have text now, run it!
             ByteArrayInputStream bis = new ByteArrayInputStream(fullMessageXml.getBytes("UTF-8"));
             Map<String, Object> result = dispatcher.runSync("oagisMessageHandler", UtilMisc.toMap("inputStream", bis, "isErrorRetry", Boolean.TRUE));
             if (ServiceUtil.isError(result)) {
-                return ServiceUtil.returnError("Error trying to re-receive message with ID [" + oagisMessageInfoKey + "]", null, null, result);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorReceivingAgainMessage", UtilMisc.toMap("oagisMessageInfoKey", oagisMessageInfoKey), locale), null, null, result);
             }
             return ServiceUtil.returnSuccess();
         } catch (Exception e) {
-            String errMsg = "Error re-receiving message with ID [" + oagisMessageInfoKey + "]: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error re-receiving message with ID [" + oagisMessageInfoKey + "]: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorReceivingAgainMessage", UtilMisc.toMap("oagisMessageInfoKey", oagisMessageInfoKey), locale) + e.toString());
         }
     }
 
@@ -487,7 +483,7 @@ public class OagisServices {
         InputStream in = (InputStream) context.get("inputStream");
         List<Map<String, String>> errorList = FastList.newInstance();
         Boolean isErrorRetry = (Boolean) context.get("isErrorRetry");
-
+        Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
@@ -528,7 +524,7 @@ public class OagisServices {
         }
 
         if (UtilValidate.isNotEmpty(errorList)) {
-            return ServiceUtil.returnError("Unable to parse received message");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorParsingMessage", locale));
         }
 
         Element rootElement = doc.getDocumentElement();
@@ -545,7 +541,7 @@ public class OagisServices {
         String referenceId = UtilXml.childElementValue(senderElement, "of:REFERENCEID");
 
         if (UtilValidate.isEmpty(bsrVerb) || UtilValidate.isEmpty(bsrNoun)) {
-            return ServiceUtil.returnError("Was able to receive and parse the XML message, but BSR->NOUN [" + bsrNoun + "] and/or BSR->VERB [" + bsrVerb + "] are empty");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorParsingXMLMessage", UtilMisc.toMap("bsrNoun", bsrNoun, "bsrVerb", bsrVerb), locale));
         }
 
         GenericValue oagisMessageInfo = null;
@@ -553,8 +549,7 @@ public class OagisServices {
         try {
             oagisMessageInfo = delegator.findByPrimaryKey("OagisMessageInfo", oagisMessageInfoKey);
         } catch (GenericEntityException e) {
-            String errMsg = "Error Getting Entity OagisMessageInfo: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, "Error Getting Entity OagisMessageInfo: " + e.toString(), module);
         }
 
         Map<String, Object> messageProcessContext = UtilMisc.toMap("document", doc, "userLogin", userLogin);
@@ -582,8 +577,7 @@ public class OagisServices {
                     // run async because this will send a message back to the other server and may take some time, and/or fail
                     dispatcher.runAsync("oagisSendConfirmBod", sendConfirmBodCtx, null, true, 60, true);
                 } catch (GenericServiceException e) {
-                    String errMsg = "Error sending Confirm BOD: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    Debug.logError(e, "Error sending Confirm BOD: " + e.toString(), module);
                 }
                 Map<String, Object> result = ServiceUtil.returnSuccess(responseMsg);
                 result.put("contentType", "text/plain");
@@ -657,12 +651,11 @@ public class OagisServices {
                     Debug.logError(e, errMsg, module);
                 }
             } else {
-                return ServiceUtil.returnError("For Acknowledge Delivery message could not determine if it is for a PO or RMA or Status Change. DOCTYPE from message is [" + docType + "], DISPOSITN is [" + disposition + "]");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorDeliveryMessage", UtilMisc.toMap("docType", docType, "disposition", disposition), locale));
             }
         } else {
-            String errMsg = "Unknown Message Type Received, verb/noun combination not supported: verb=[" + bsrVerb + "], noun=[" + bsrNoun + "]";
-            Debug.logError(errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError("Unknown Message Type Received, verb/noun combination not supported: verb=[" + bsrVerb + "], noun=[" + bsrNoun + "]", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorUnknownMessageType", UtilMisc.toMap("bsrVerb", bsrVerb, "bsrNoun", bsrNoun), locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -684,16 +677,15 @@ public class OagisServices {
         return result;
     }
 
-    public static Map<String, Object> sendMessageText(String outText, OutputStream out, String sendToUrl, String saveToDirectory, String saveToFilename) {
+    public static Map<String, Object> sendMessageText(String outText, OutputStream out, String sendToUrl, String saveToDirectory, String saveToFilename, Locale locale) {
         if (out != null) {
             Writer outWriter = new OutputStreamWriter(out);
             try {
                 outWriter.write(outText);
                 outWriter.close();
             } catch (IOException e) {
-                String errMsg = "Error writing message to output stream: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error writing message to output stream: " + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorWritingMessage", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         } else if (UtilValidate.isNotEmpty(saveToFilename) && UtilValidate.isNotEmpty(saveToDirectory)) {
             try {
@@ -705,9 +697,8 @@ public class OagisServices {
                 outWriter.write(outText);
                 outWriter.close();
             } catch (Exception e) {
-                String errMsg = "Error saving message to file [" + saveToFilename + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error saving message to file [" + saveToFilename + "]: " + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorSavingMessage", UtilMisc.toMap("saveToFilename", saveToFilename, "errorString", e.toString()), locale));
             }
         } else if (UtilValidate.isNotEmpty(sendToUrl)) {
             HttpClient http = new HttpClient(sendToUrl);
@@ -730,13 +721,12 @@ public class OagisServices {
             try {
                 http.post(outText);
             } catch (Exception e) {
-                String errMsg = "Error posting message to server with URL [" + sendToUrl + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error posting message to server with URL [" + sendToUrl + "]: " + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorPostingMessage", UtilMisc.toMap("sendToUrl", sendToUrl, "errorString", e.toString()), locale));
             }
         } else {
             if (Debug.infoOn()) Debug.logInfo("No send to information, so here is the message: " + outText, module);
-            return ServiceUtil.returnError("No send to information pass (url, file, or out stream)");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorSendingInformations", locale));
         }
 
         return null;
