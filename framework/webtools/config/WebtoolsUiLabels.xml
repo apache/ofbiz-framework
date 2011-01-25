@@ -805,7 +805,7 @@
     <property key="WebtoolsCompleteXMLDocument">
         <value xml:lang="de">Vollständiges XML dokument (root tag: entity-engine-xml)</value>
         <value xml:lang="en">Complete XML document (root tag: entity-engine-xml)</value>
-        <value xml:lang="fr">Compléter le document XML (balise racine : entity-engine-xml)(</value>
+        <value xml:lang="fr">Compléter le document XML (balise racine : entity-engine-xml)</value>
         <value xml:lang="it">Documento XML (includere il tag radice: entity-engine-xml)</value>
         <value xml:lang="ro">Completeaza documentul XML (root tag: entity-engine-xml)</value>
         <value xml:lang="th">เอกสาร XML เสร็จเรียบร้อยแล้ว (root tag: entity-engine-xml)</value>
