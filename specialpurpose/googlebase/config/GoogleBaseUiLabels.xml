@@ -122,6 +122,14 @@
         <value xml:lang="th">ใช้การไม่ได้</value>
         <value xml:lang="zh">失效</value>
     </property>
+    <property key="GoogleBaseExportErrorCreatingXmlDocument">
+        <value xml:lang="en">IO Error creating XML document for Google: </value>
+        <value xml:lang="it">Errore I/O durante la creazione del documento XML per Google: </value>
+    </property>
+    <property key="GoogleBaseExportErrorLoadingResource">
+        <value xml:lang="en">IO Error loading resource: </value>
+        <value xml:lang="it">Errore I/O caricando la risorsa: </value>
+    </property>
     <property key="GoogleBaseExportNoTrackingRequested">
         <value xml:lang="en">Not Requested</value>
         <value xml:lang="fr">Non demandé</value>
@@ -156,6 +164,10 @@
         <value xml:lang="it">Esporta Su Google Base</value>
         <value xml:lang="th">การส่งออกถึงฐานข้อมูลสาธารณะ</value>
         <value xml:lang="zh">导出到Google Base</value>
+    </property>
+    <property key="GoogleBaseExportUnableToReadFromProduct">
+        <value xml:lang="en">Unable to read from product entity: </value>
+        <value xml:lang="it">Non è possibile leggere dall'entità product: </value>
     </property>
     <property key="GoogleBaseViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("GOOGLEBASE_VIEW" needed)</value>

@@ -93,7 +93,7 @@ public class ProductsExportToGoogle {
                 return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
             }
         } catch (IOException e) {
-            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result) + "IO Error loading resource :" + e.getMessage());
+            return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result) + UtilProperties.getMessage(resource, "GoogleBaseExportErrorLoadingResource", locale) + e.getMessage());
         }
         return result;
     }
@@ -506,9 +506,9 @@ public class ProductsExportToGoogle {
             //Debug.logInfo("The value of generated String is ========\n" + UtilXml.writeXmlDocument(feedDocument), module);
             dataItemsXml.append(UtilXml.writeXmlDocument(feedDocument));
         } catch (IOException e) {
-            return ServiceUtil.returnError("IO Error creating XML document for Google :" + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "GoogleBaseExportErrorCreatingXmlDocument", locale) + e.getMessage());
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Unable to read from product entity: "  + e.toString());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "GoogleBaseExportUnableToReadFromProduct", locale) + e.toString());
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
