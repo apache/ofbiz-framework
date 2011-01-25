@@ -973,6 +973,10 @@ public class PriceServices {
                         if (productPriceAction.get("amount") != null) {
                             modifyAmount = margin.multiply(productPriceAction.getBigDecimal("amount").movePointLeft(2));
                         }
+                    } else if ("PRICE_POWHS".equals(productPriceAction.getString("productPriceActionTypeId"))) {
+                        if (productPriceAction.get("amount") != null && wholesalePrice != null) {
+                            modifyAmount = wholesalePrice.multiply(productPriceAction.getBigDecimal("amount").movePointLeft(2));
+                        }
                     } else if ("PRICE_FOL".equals(productPriceAction.getString("productPriceActionTypeId"))) {
                         if (productPriceAction.get("amount") != null) {
                             modifyAmount = productPriceAction.getBigDecimal("amount");
