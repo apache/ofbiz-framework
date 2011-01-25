@@ -54,16 +54,14 @@ import org.w3c.dom.Element;
 public class OagisInventoryServices {
 
     public static final String module = OagisInventoryServices.class.getName();
-
+    public static final String resource = "OagisUiLabels";
     public static final Double doubleZero = new Double(0.0);
     public static final Double doubleOne = new Double(1.0);
-
     public static final String syncInventoryFacilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
 
     public static Map<String, Object> oagisReceiveSyncInventory(DispatchContext ctx, Map<String, Object> context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
-
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -285,10 +283,9 @@ public class OagisInventoryServices {
                     Debug.logImportant("No sendTo email address found in process oagisReceiveSyncInventory service: inventoryMapList: " + inventoryMapList, module);
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Sync Inventory message: " + t.toString();
-                Debug.logInfo(t, errMsg, module);
+                Debug.logInfo(t, "System Error processing Sync Inventory message: " + t.toString(), module);
                 // in this case we don't want to return a Confirm BOD, so return an error now
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorProcessingSyncInventory", UtilMisc.toMap("errorString", t.toString()), locale));
             }
         }
 
@@ -337,7 +334,7 @@ public class OagisInventoryServices {
             }
 
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
-            result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
+            result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisErrorProcessingMessage", locale)));
             return result;
         } else {
             try {
@@ -350,14 +347,14 @@ public class OagisInventoryServices {
             }
         }
 
-        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale)));
         return result;
     }
 
     public static Map<String, Object> oagisReceiveAcknowledgeDeliveryPo(DispatchContext ctx, Map<String, Object> context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
-
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         List<Map<String, String>> errorMapList = FastList.newInstance();
@@ -414,9 +411,8 @@ public class OagisInventoryServices {
                 isErrorRetry = true;
             } else {
                 // message already in the db, but is not in a system error state...
-                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
-                Debug.logError(errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError("Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap, module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorMessageAlreadyProcessed", UtilMisc.toMap("shipmentId", "", "omiPkMap", omiPkMap), locale));
             }
         }
 
@@ -551,7 +547,7 @@ public class OagisInventoryServices {
                     }
                 }
             } catch (Throwable t) {
-                String errMsg = "System Error processing Acknowledge Delivery PO message for message [" + omiPkMap + "]: " + t.toString();
+                String errMsg = UtilProperties.getMessage(resource, "OagisErrorDeliveryMessagePO", UtilMisc.toMap("omiPkMap", omiPkMap), locale) + t.toString();
                 errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
 
                 try {
@@ -617,10 +613,9 @@ public class OagisInventoryServices {
                 String errMsg = "Error sending Confirm BOD: " + e.toString();
                 Debug.logError(e, errMsg, module);
             }
-
-            String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
-
+            
             // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
+            String errMsg = UtilProperties.getMessage(resource, "OagisErrorBusinessLevel", UtilMisc.toMap("errorString", ""), locale) + errorMapList.get(0);
             result.putAll(ServiceUtil.returnSuccess(errMsg));
 
             // however, we still don't want to save the partial results, so set rollbackOnly
@@ -642,14 +637,14 @@ public class OagisInventoryServices {
             }
         }
 
-        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale)));
         return result;
     }
 
     public static Map<String, Object> oagisReceiveAcknowledgeDeliveryRma(DispatchContext ctx, Map<String, Object> context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
-
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         List<Map<String, String>> errorMapList = FastList.newInstance();
@@ -658,8 +653,7 @@ public class OagisInventoryServices {
         try {
             userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
         } catch (GenericEntityException e) {
-            String errMsg = "Error Getting UserLogin: " + e.toString();
-            Debug.logError(e, errMsg, module);
+            Debug.logError(e, "Error Getting UserLogin: " + e.toString(), module);
         }
 
         // parse the message
@@ -717,9 +711,8 @@ public class OagisInventoryServices {
                 isErrorRetry = true;
             } else {
                 // message already in the db, but is not in a system error state...
-                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
-                Debug.logError(errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError("Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap, module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorMessageAlreadyProcessed", UtilMisc.toMap("shipmentId", "", "omiPkMap", omiPkMap), locale));
             }
         }
 
@@ -1158,7 +1151,7 @@ public class OagisInventoryServices {
             }
         }
 
-        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale)));
         result.put("inventoryItemIdList", invItemIds);
         return result;
     }
@@ -1166,7 +1159,7 @@ public class OagisInventoryServices {
     public static Map<String, Object> oagisReceiveAcknowledgeDeliveryStatus(DispatchContext ctx, Map<String, Object> context) {
         Document doc = (Document) context.get("document");
         boolean isErrorRetry = Boolean.TRUE.equals(context.get("isErrorRetry"));
-
+        Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         List<Map<String, String>> errorMapList = FastList.newInstance();
@@ -1229,9 +1222,8 @@ public class OagisInventoryServices {
                 isErrorRetry = true;
             } else {
                 // message already in the db, but is not in a system error state...
-                String errMsg = "Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap;
-                Debug.logError(errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError("Message received for message ID [" + omiPkMap + "] was already partially processed but is not in a system error state, needs manual review; message ID: " + omiPkMap, module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorMessageAlreadyProcessed", UtilMisc.toMap("shipmentId", "", "omiPkMap", omiPkMap), locale));
             }
         }
 
@@ -1486,7 +1478,7 @@ public class OagisInventoryServices {
             }
         }
 
-        result.putAll(ServiceUtil.returnSuccess("Service Completed Successfully"));
+        result.putAll(ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisServiceCompletedSuccessfully", locale)));
         result.put("inventoryItemIdList", invItemIds);
         return result;
     }
