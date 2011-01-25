@@ -21,6 +21,7 @@ package org.ofbiz.googlecheckout;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -61,7 +62,7 @@ import com.google.checkout.orderprocessing.lineitem.ReturnItemsRequest;
 import com.google.checkout.orderprocessing.lineitem.ShipItemsRequest;
 
 public class GoogleRequestServices {
-
+    private static final String resource = "GoogleCheckoutUiLabels";
     private static final String module = GoogleRequestServices.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
@@ -70,11 +71,12 @@ public class GoogleRequestServices {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         String productStoreId = cart.getProductStoreId();
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         GenericValue googleCfg = getGoogleConfiguration(delegator, productStoreId);
         MerchantInfo mInfo = getMerchantInfo(delegator, productStoreId);
         if (mInfo == null) {
             Debug.logError("Invalid Google Chechout Merchant settings, check your configuration!", module);
-            return ServiceUtil.returnError("Google checkout configuration error");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "GoogleCheckoutConfigurationError", locale));
         }
 
         // the checkout request object
@@ -166,10 +168,9 @@ public class GoogleRequestServices {
                         shippingCompany = "USPS";
                     }
                     if (shippingCompany == null) {
-                        return ServiceUtil.returnError("Invalid Google Checkout Shipping Configuration! Carriers can only be UPS, FedEx or USPS.");
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "GoogleCheckoutShippingConfigurationInvalid", locale));
                     }
-                    req.addCarrierCalculatedShippingOption(amount.floatValue(), shippingCompany, CarrierPickup.REGULAR_PICKUP,
-                             shippingName, additionalAmount.floatValue(), additionalPercent.floatValue());
+                    req.addCarrierCalculatedShippingOption(amount.floatValue(), shippingCompany, CarrierPickup.REGULAR_PICKUP, shippingName, additionalAmount.floatValue(), additionalPercent.floatValue());
                 }
             }
         }
@@ -211,7 +212,7 @@ public class GoogleRequestServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         if (resp == null) {
-            return ServiceUtil.returnError("Checkout response was null");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "GoogleCheckoutResponseIsNull", locale));
         }
         if (!resp.isValidRequest()) {
             Debug.logError("Error returned from Google: " + resp.getErrorMessage(), module);
@@ -499,11 +500,12 @@ public class GoogleRequestServices {
     // special service to tigger off of events which prevent editing orders
     public static Map<String, Object> catchEditGoogleOrder(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
             Debug.log("Returning FAILURE; this IS an Google Checkout order and cannot be modified as requested!", module);
-            return ServiceUtil.returnFailure("Google Checkout orders cannot be modified. You may cancel orders/items only!");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "GoogleCheckoutOrderCannotBeModified", locale));
         }
         return ServiceUtil.returnSuccess();
     }

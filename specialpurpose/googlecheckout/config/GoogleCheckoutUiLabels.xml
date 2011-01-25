@@ -35,9 +35,25 @@
         <value xml:lang="en">OFBiz: Google Checkout</value>
         <value xml:lang="it">OFBiz: Google Checkout</value>
     </property>
+    <property key="GoogleCheckoutConfigurationError">
+        <value xml:lang="en">Google checkout configuration error</value>
+        <value xml:lang="it">Errore di configurazione di Google checkout</value>
+    </property>
     <property key="GoogleCheckoutGoogleCheckoutConfiguration">
         <value xml:lang="en">Google Checkout Configuration</value>
         <value xml:lang="it">Configurazione di Google Checkout</value>
+    </property>
+    <property key="GoogleCheckoutOrderCannotBeModified">
+        <value xml:lang="en">Google Checkout orders cannot be modified. You may cancel orders/items only!</value>
+        <value xml:lang="it">Ordini di Google Checkout non possono essere modificati. Tu puoi cancellare solo gli ordini/righe!</value>
+    </property>
+    <property key="GoogleCheckoutResponseIsNull">
+        <value xml:lang="en">Google Checkout response was null</value>
+        <value xml:lang="it">Risposta da Google Checkout è nulla</value>
+    </property>
+    <property key="GoogleCheckoutShippingConfigurationInvalid">
+        <value xml:lang="en">Invalid Google Checkout Shipping Configuration! Carriers can only be UPS, FedEx or USPS.</value>
+        <value xml:lang="it">Configurazione spedizioni di Google Checkout invalida! Spedizioniere può essere solo UPS, FedEx o USPS.</value>
     </property>
     <property key="GoogleCheckoutShippingMethods">
         <value xml:lang="en">Shipping Methods Configuration</value>
