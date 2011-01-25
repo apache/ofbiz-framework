@@ -82,6 +82,14 @@
         <value xml:lang="it">Codice parte</value>
         <value xml:lang="zh">零部件标识</value>
     </property>
+    <property key="AssetMaintProblemCallingService">
+        <value xml:lang="en">Problem in calling service issueInventoryItemToFixedAssetMaint</value>
+        <value xml:lang="it">Problema durante la chiamata al servizio issueInventoryItemToFixedAssetMaint</value>
+    </property>
+    <property key="AssetMaintProblemGettingInventoryLevel">
+        <value xml:lang="en">Problem in getting Inventory level for </value>
+        <value xml:lang="it">Problema ad ottenere il livello di inventario per </value>
+    </property>
     <property key="AssetMaintProductMaint">
         <value xml:lang="en">Product Maint</value>
         <value xml:lang="fr">Maintenance</value>

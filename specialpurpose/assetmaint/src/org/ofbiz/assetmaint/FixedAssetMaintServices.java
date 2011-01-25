@@ -1,5 +1,3 @@
-package org.ofbiz.assetmaint;
-
 /**
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -18,6 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 **/
+package org.ofbiz.assetmaint;
 
 import java.util.Iterator;
 import java.util.List;
@@ -45,6 +44,7 @@ import org.ofbiz.service.ServiceUtil;
 public class FixedAssetMaintServices {
 
     public static final String module = FixedAssetMaintServices.class.getName();
+    public static final String resource = "AssetMaintUiLabels";
 
     public static Map<String, Object> addPartFixedAssetMaint(DispatchContext ctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -60,15 +60,14 @@ public class FixedAssetMaintServices {
         try {
             GenericValue product = ProductWorker.findProduct(delegator, productId);
             if (product == null) {
-                return ServiceUtil.returnError
-                (UtilProperties.getMessage("AssetMaintUiLabels","AssetMaintInvalidPartProductIdError", UtilMisc.toMap("productId", productId), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AssetMaintInvalidPartProductIdError", UtilMisc.toMap("productId", productId), locale));
             }
             Map<String, ? extends Object> findCurrInventoryParams =  UtilMisc.toMap("productId", productId, "facilityId", facilityId);
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             // Call issuance service
             Map<String, Object> result = dispatcher.runSync("getInventoryAvailableByFacility", findCurrInventoryParams);
             if (ServiceUtil.isError(result)) {
-                return ServiceUtil.returnError("Problem in getting Inventory level for " + productId , null, null, result);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AssetMaintProblemGettingInventoryLevel", locale) + productId , null, null, result);
             }
             Object atpObj = result.get("availableToPromiseTotal");
             double atp = 0.0;
@@ -76,8 +75,7 @@ public class FixedAssetMaintServices {
                 atp = Double.parseDouble(atpObj.toString());
             }
             if (requestedQty > atp) {
-                return ServiceUtil.returnError
-                (UtilProperties.getMessage("AssetMaintUiLabels","AssetMaintLowPartInventoryError",UtilMisc.toMap("productId", productId , "quantity", Double.toString(atp)), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AssetMaintLowPartInventoryError", UtilMisc.toMap("productId", productId , "quantity", Double.toString(atp)), locale));
             }
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
@@ -106,16 +104,15 @@ public class FixedAssetMaintServices {
                 // Call issuance service
                 result = dispatcher.runSync("issueInventoryItemToFixedAssetMaint",itemIssuanceCtx);
                 if (ServiceUtil.isError(result)) {
-                    return ServiceUtil.returnError("Problem in calling service issueInventoryItemToFixedAssetMaint", null, null, result);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AssetMaintProblemCallingService", locale), null, null, result);
                 }
                 requestedQty = requestedQty - issueQuantity.doubleValue();
             }
         } catch (GenericEntityException e) {
             Debug.logError("Problem in retriving data from database", module);
         } catch (GenericServiceException e) {
-            String msg = "Problem in calling service issueInventoryItemToFixedAssetMaint";
-            Debug.logError(msg, module);
-            return ServiceUtil.returnError(msg);
+            Debug.logError("Problem in calling service issueInventoryItemToFixedAssetMaint", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AssetMaintProblemCallingService", locale));
         }
         return ServiceUtil.returnSuccess();
     }
