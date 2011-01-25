@@ -22,7 +22,6 @@ package org.ofbiz.ebaystore;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,6 +37,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.ebay.EbayHelper;
 import org.ofbiz.entity.Delegator;
@@ -47,7 +47,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -289,7 +288,9 @@ public class EbayStoreHelper {
                 }
             }
             if (UtilValidate.isEmpty(ebayProductPref.getString("autoPrefJobId"))) {
-                if (UtilValidate.isEmpty(serviceName)) return ServiceUtil.returnError("If you add a new job, you have to add serviec name.");
+                if (UtilValidate.isEmpty(serviceName)) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EbayStoreAutoPrefJobEmpty", locale));
+                }
                 /*** RuntimeData ***/
                 String runtimeDataId = null;
                 GenericValue runtimeData = delegator.makeValue("RuntimeData");

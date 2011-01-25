@@ -44,6 +44,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -117,6 +118,7 @@ import com.ebay.soap.eBLBaseComponents.UserType;
 
 public class EbayStoreAutoPreferences {
     public static String module = EbayStoreAutoPreferences.class.getName();
+    private static final String resource = "EbayStoreUiLabels";
 
     public EbayStoreAutoPreferences() {
 
@@ -129,7 +131,7 @@ public class EbayStoreAutoPreferences {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isEmpty(context.get("productStoreId")) && UtilValidate.isEmpty(context.get("jobId"))) {
-            return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredProductStoreId", locale));
         }
         String jobId = (String) context.get("jobId");
         String productStoreId = (String) context.get("productStoreId");
@@ -210,7 +212,7 @@ public class EbayStoreAutoPreferences {
                 }
             }
         } catch (Exception e) {
-            return ServiceUtil.returnFailure("Problems to connect with ebay site message:" + e);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreProblemConnectingToEbaySite", locale) + e);
         }
 
         return ServiceUtil.returnSuccess();
@@ -302,7 +304,7 @@ public class EbayStoreAutoPreferences {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
         if (UtilValidate.isEmpty(context.get("productStoreId")) && UtilValidate.isEmpty(context.get("jobId"))) {
-            return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredProductStoreId", locale));
         }
         String jobId = (String) context.get("jobId");
         String productStoreId = (String) context.get("productStoreId");
@@ -382,7 +384,7 @@ public class EbayStoreAutoPreferences {
                 }
             }
         } catch (Exception e) {
-            return ServiceUtil.returnFailure("Problems to connect with ebay site message:" + e);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreProblemConnectingToEbaySite", locale) + e);
         }
 
         return ServiceUtil.returnSuccess();
@@ -664,7 +666,7 @@ public class EbayStoreAutoPreferences {
         GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
 
         if (UtilValidate.isEmpty(context.get("productStoreId")) && UtilValidate.isEmpty(context.get("jobId"))) {
-            return ServiceUtil.returnFailure("Required productStoreId for get api context to connect with ebay site.");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredProductStoreId", locale));
         }
 
         String jobId = (String) context.get("jobId");
@@ -733,7 +735,7 @@ public class EbayStoreAutoPreferences {
                 }
             }
         } catch (Exception e) {
-            return ServiceUtil.returnFailure("Problems to connect with ebay site message:" + e);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreProblemConnectingToEbaySite", locale) + e);
         }
 
         return ServiceUtil.returnSuccess();
@@ -1072,7 +1074,6 @@ public class EbayStoreAutoPreferences {
                 resp = (GetSellingManagerInventoryResponseType)call.execute(req);
                 if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
                     returnedSellingManagerProductType  = resp.getSellingManagerProduct();
-                    //result = ServiceUtil.returnSuccess("load store data success..");
                     for (int i = 0; i < returnedSellingManagerProductType.length; i++) {
                        SellingManagerProductDetailsType prodDetailType = returnedSellingManagerProductType[i].getSellingManagerProductDetails();
                        int qty = prodDetailType.getQuantityAvailable();
@@ -1261,11 +1262,11 @@ public class EbayStoreAutoPreferences {
                         //Get base price from kindOfPrice parameter
                         Double doBasePrice = null;
                         if (priceType.equals("BUY_IT_NOW_PRICE")) {
-                        	doBasePrice = buyItNowPrice;
+                            doBasePrice = buyItNowPrice;
                         } else if (priceType.equals("START_PRICE")) {
-                        	doBasePrice = itemBestOffer.getStartPrice().getValue();
+                            doBasePrice = itemBestOffer.getStartPrice().getValue();
                         } else if (priceType.equals("RESERVE_PRICE")) {
-                        	doBasePrice = itemBestOffer.getReservePrice().getValue();
+                            doBasePrice = itemBestOffer.getReservePrice().getValue();
                         } else if (priceType.equals("RETAIL_PRICE")) {
                             //ignore
                         } else if (priceType.equals("SELLER_COST")) {

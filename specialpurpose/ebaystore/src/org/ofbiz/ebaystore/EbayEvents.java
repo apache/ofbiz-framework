@@ -669,7 +669,7 @@ public class EbayEvents {
                 }
             }
         }
-        	
+            
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);

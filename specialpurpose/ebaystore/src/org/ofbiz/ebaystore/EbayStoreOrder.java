@@ -253,7 +253,7 @@ public class EbayStoreOrder {
                     Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", context);
                     if (UtilValidate.isEmpty(contactMechId)) {
-                        return ServiceUtil.returnFailure("Unable to create postalAddress with input map: " + context);
+                        return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreUnableToCreatePostalAddress", locale) + context);
                     }
                     Debug.logInfo("Created postal address: " + contactMechId, module);
                     Debug.logInfo("Creating new phone number for party: " + partyId, module);
@@ -487,7 +487,7 @@ public class EbayStoreOrder {
                 Debug.logInfo("Creating new postal address for party: " + partyId, module);
                 contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", shippingAddressCtx);
                 if (UtilValidate.isEmpty(contactMechId)) {
-                    return ServiceUtil.returnFailure("Unable to create postalAddress with input map: " + shippingAddressCtx);
+                    return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreUnableToCreatePostalAddress", locale) + shippingAddressCtx);
                 }
                 Debug.logInfo("Created postal address: " + contactMechId, module);
                 Debug.logInfo("Creating new phone number for party: " + partyId, module);
