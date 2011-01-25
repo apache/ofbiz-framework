@@ -58,12 +58,12 @@ under the License.
             </drop-down>
         </field>
     </form>
-    <form name="OrderPurchaseProductOptions" type="single" target="OrderPurchaseReportProduct.pdf" title="" extends="OrderPurchaseReportOptions">
+    <form name="OrderPurchaseProductOptions" type="single" target="OrderPurchaseReportProduct.pdf" title="" extends="OrderPurchaseReportOptions" target-window="_BLANK">
         <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
         <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="OrderPurchasePaymentOptions" type="single" target="OrderPurchaseReportPayment.pdf" title="" extends="OrderPurchaseReportOptions">
+    <form name="OrderPurchasePaymentOptions" type="single" target="OrderPurchaseReportPayment.pdf" title="" extends="OrderPurchaseReportOptions" target-window="_BLANK">
         <field name="fromOrderDate" title="${uiLabelMap.OrderReportFromDate}"><date-time type="timestamp"/></field>
         <field name="thruOrderDate" title="${uiLabelMap.OrderReportThruDate}"><date-time type="timestamp"/></field>
 
@@ -72,7 +72,7 @@ under the License.
 
     <!-- form for generating a report of total product sales (quantity and value) -->
     <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title=""
-        header-row-style="header-row" default-table-style="basic-table">
+        header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="productStoreId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
@@ -167,7 +167,7 @@ under the License.
 
     <!-- form for generating a report of total product purchases (quantity and value) -->
     <form name="PurchasesByOrganizationReport" type="single" target="PurchasesByOrganizationReport.pdf" title=""
-        header-row-style="header-row" default-table-style="basic-table">
+        header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
         <field name="fromPartyId" title="${uiLabelMap.AccountingFromParty}">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
