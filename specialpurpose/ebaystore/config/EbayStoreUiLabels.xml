@@ -44,12 +44,40 @@
         <value xml:lang="en">Export To eBay Store</value>
         <value xml:lang="th">การส่งออกไปยังคลังสินค้าอีเบย์</value>
     </property>
+    <property key="EbayExportToEbayStoreFailed">
+        <value xml:lang="en">Fail to export categories to an eBay store ${errorString}</value>
+        <value xml:lang="it">Fallita esportazione delle categorie al negozio eBay ${errorString}</value>
+    </property>
+    <property key="EbayExportToEbayStoreSuccess">
+        <value xml:lang="en">Export categories to ebay store success.</value>
+        <value xml:lang="it">Esportazione delle categorie al negozio eBay avvenuta con successo.</value>
+    </property>
      <property key="EbaySellingManager">
         <value xml:lang="en">Selling Manager</value>
     </property>
     <property key="EbayStore">
         <value xml:lang="en">Ebay Store</value>
         <value xml:lang="th">คลังสินค้าอีเบย์</value>
+    </property>
+    <property key="EbayStoreAddSecondChanceOfferSuccessful">
+        <value xml:lang="en">Add Second Chance Offer Successful.</value>
+        <value xml:lang="it">Aggiunto secondo tentativo offerta con successo.</value>
+    </property>
+    <property key="EbayStoreAutoPrefJobEmpty">
+        <value xml:lang="en">If you add a new job, you have to add service name.</value>
+        <value xml:lang="it">Se tu aggiungi un nuovo job, tu devi aggiungere un nuovo servizio.</value>
+    </property>
+    <property key="EbayStoreErrorFromDeleteContactStatus">
+        <value xml:lang="en">Error from deleteContactAlert service </value>
+        <value xml:lang="it">Errore dal servizio deleteContactAlert </value>
+    </property>
+    <property key="EbayStoreErrorFromListBestOfferIncludeMessage">
+        <value xml:lang="en">Error from listBestOfferIncludeMessage service: </value>
+        <value xml:lang="it">Errore dal servizio listBestOfferIncludeMessage: </value>
+    </property>
+    <property key="EbayStoreErrorFromUpdateContactStatus">
+        <value xml:lang="en">Error from updateContactStatus service </value>
+        <value xml:lang="it">Errore dal servizio updateContactStatus </value>
     </property>
     <property key="EbayStores">
         <value xml:lang="en">Ebay Stores</value>
@@ -59,13 +87,81 @@
         <value xml:lang="en">Ebay Store Setting</value>
         <value xml:lang="th">รายชื่อคลังสินค้าอีเบย์</value>
     </property>
+    <property key="EbayStoreInventoryStatusUpdated">
+        <value xml:lang="en">Updated inventory status of product ${productId}</value>
+        <value xml:lang="it">Aggiornato stato inventario del prodotto ${productId}</value>
+    </property>
+    <property key="EbayStoreInventoryFolderIdLoaded">
+        <value xml:lang="en">load eBay store folderId ${folderId} success..</value>
+        <value xml:lang="it">Caricamento folderId ${folderId} per il negozio eBay avvenuto con successo..</value>
+    </property>
+    <property key="EbayStoreInventoryFolderIdRequired">
+        <value xml:lang="en">The process was required productStoreId, productId and eBay inventory folderId.</value>
+        <value xml:lang="it">Questo processo richiedere il productStoreId, productId e il folderId inventario eBay.</value>
+    </property>
+    <property key="EbayStoreInventoryFolderIdUpdated">
+        <value xml:lang="en">Updated eBay store inventory in folder ${folderId} success..</value>
+        <value xml:lang="it">Aggiornato inventario negozio eBay del ${folderId} con successo..</value>
+    </property>
+    <property key="EbayStoreInventoryFolderIdUpdatedFailed">
+        <value xml:lang="en">Fail to update eBay store inventory.</value>
+        <value xml:lang="it">Fallito aggiornato dell'inventario negozio eBay.</value>
+    </property>
     <property key="EbayStoreLoadSuccess">
         <value xml:lang="en">Load Ebay Store success.</value>
         <value xml:lang="th">โหลดข้อมูลคลังสินค้าอีเบย์เรียบร้อย</value>
     </property>
+    <property key="EbayStoreLoadAdvancedThemeSuccess">
+        <value xml:lang="en">load store advanced Theme option data success..</value>
+        <value xml:lang="it">Caricamento opzioni avanzate temi negozio avvenuto con successo..</value>
+    </property>
+    <property key="EbayStoreLoadBasicThemeSuccess">
+        <value xml:lang="en">load store Basic Theme option data success..</value>
+        <value xml:lang="it">Caricamento opzioni base temi negozio avvenuto con successo..</value>
+    </property>
+    <property key="EbayStoreLoadLogoSuccess">
+        <value xml:lang="en">load store logo data success..</value>
+        <value xml:lang="it">Caricamento logo negozio avvenuto con successo..</value>
+    </property>
+    <property key="EbayStorePartyWithoutRoleEbayAccount">
+        <value xml:lang="en">Party ${partyId} no roleTypeId EBAY_ACCOUNT for export categories to ebay store.</value>
+        <value xml:lang="it">Soggetto ${partyId} non ha il ruolo EBAY_ACCOUNT per esportaor export categories to ebay store.</value>
+    </property>
+    <property key="EbayStoreProblemConnectingToEbaySite">
+        <value xml:lang="en">Problems to connect with eBay site message: </value>
+        <value xml:lang="it">Problema durante la connesione con il sito eBay messaggio: </value>
+    </property>
+    <property key="EbayStoreRequiredContactStatusSetting">
+        <value xml:lang="en">Required contactStatus setting.</value>
+        <value xml:lang="it">Richiesto impostazioni stato contatto.</value>
+    </property>
+    <property key="EbayStoreRequiredProductStoreId">
+        <value xml:lang="en">Required productStoreId for get api context to connect with eBay site.</value>
+        <value xml:lang="it">Richiesto productStoreId per ottente il contesto api con il sito eBay.</value>
+    </property>
+    <property key="EbayStoreRequiredUserIdAndItemId">
+        <value xml:lang="en">Required userId and itemId.</value>
+        <value xml:lang="it">Richiesto userId e itemId.</value>
+    </property>
+    <property key="EbayStoreRequiredUserIdAndItemIdAndProductStoreIdAndOfferIdAndContactStatus">
+        <value xml:lang="en">Required userId, itemId, productStoreId, OfferId and contactStatus.</value>
+        <value xml:lang="it">Richiesto userId, itemId, productStoreId, OfferId e contactStatus.</value>
+    </property>
+    <property key="EbayStoreRequiredShippingAddressParameter">
+        <value xml:lang="en">Required shippingAddress parameter.</value>
+        <value xml:lang="it">Richiesto parametro indirizzo di spedizione.</value>
+    </property>
+    <property key="EbayStoreRootCategoryNotFound">
+        <value xml:lang="en">Not found product Category type EBAY_ROOT in catalog ${prodCatalogId}</value>
+        <value xml:lang="it">Tipo categoria EBAY_ROOT non trovata nel catalogo ${prodCatalogId}</value>
+    </property>
     <property key="EbayStoreSaveSuccess">
         <value xml:lang="en">Save ebay setting success.</value>
         <value xml:lang="th">บันทึกข้อมูลคลังสินค้าอีเบย์เรียบร้อย</value>
+    </property>
+    <property key="EbayStoreSetCatalogIdAndProductStoreId">
+        <value xml:lang="en">Please set catalogId and  productStoreId.</value>
+        <value xml:lang="it">Per favore impostare il catalogId e il productStoreId.</value>
     </property>
     <property key="EbayStoreStoreName">
         <value xml:lang="en">Store Name</value>
@@ -148,6 +244,14 @@
     <property key="EbayStoreStoreSubscriptionLevel">
         <value xml:lang="en">Store Subscription Level</value>
         <value xml:lang="th"></value>
+    </property>
+    <property key="EbayStoreUpdateItemSuccessfully">
+        <value xml:lang="en">Update Item Successfully.</value>
+        <value xml:lang="it">Aggiornamento asta con successo.</value>
+    </property>
+    <property key="EbayStoreUnableToCreatePostalAddress">
+        <value xml:lang="en">Unable to create postalAddress with input map: </value>
+        <value xml:lang="it">Non è possibile create l'indirizzo postal con l'input: </value>
     </property>
     <property key="EbayPersonalInformation">
         <value xml:lang="en">Personal Information</value>

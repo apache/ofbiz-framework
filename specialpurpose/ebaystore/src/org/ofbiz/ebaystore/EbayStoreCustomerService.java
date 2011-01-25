@@ -24,6 +24,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
@@ -45,13 +46,14 @@ import com.ebay.soap.eBLBaseComponents.UserType;
 public class EbayStoreCustomerService {
 
     public static String module = EbayStoreCustomerService.class.getName();
+    private static final String resource = "EbayStoreUiLabels";
 
     public static Map<String, Object> listBestOfferIncludeMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(context.get("userId")) || UtilValidate.isEmpty(context.get("itemId"))) {
-            return ServiceUtil.returnFailure("Required userId and itemId.");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredUserIdAndItemId", locale));
         }
         Map <String, Object> result = FastMap.newInstance();
         try {
@@ -99,7 +101,7 @@ public class EbayStoreCustomerService {
             result.put("offerStatus", offerStatus);
             result.put("itemName", itemName);
         } catch (Exception e) {
-            return ServiceUtil.returnFailure("Error from listBestOfferIncludeMessage service "+ e);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreErrorFromListBestOfferIncludeMessage", locale) + e);
         }
         return result;
     }
@@ -108,7 +110,7 @@ public class EbayStoreCustomerService {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(context.get("productStoreId")) || UtilValidate.isEmpty(context.get("userId")) || UtilValidate.isEmpty(context.get("itemId")) || UtilValidate.isEmpty(context.get("offerId")) || UtilValidate.isEmpty(context.get("contactSetting"))) {
-            return ServiceUtil.returnFailure("Required userId, itemId, productStoreId, OfferId and contactStatus.");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredUserIdAndItemIdAndProductStoreIdAndOfferIdAndContactStatus", locale));
         }
         String userId = (String) context.get("userId");
         String itemId = (String) context.get("itemId");
@@ -141,7 +143,7 @@ public class EbayStoreCustomerService {
                 respondToBestOfferCall.respondToBestOffer();
                 contactStatus = "FINISHED";
             } else {
-                return ServiceUtil.returnFailure("Required contactStatus setting.");
+                return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredContactStatusSetting", locale));
             }
             GenericValue  ebayUserBestOffer = delegator.findByPrimaryKey("EbayUserBestOffer", UtilMisc.toMap("userId", userId, "itemId", itemId));
             ebayUserBestOffer.set("contactStatus", contactStatus);
@@ -157,16 +159,17 @@ public class EbayStoreCustomerService {
             result.put("itemName", itemName);
             result.put("quantity", quantity);
         } catch (Exception e) {
-            return ServiceUtil.returnFailure("Error from updateContactStatus service "+ e);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreErrorFromUpdateContactStatus", locale) + e);
         }
         return result;
     }
     public static Map<String, Object> deleteContactAlert(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
+        Locale locale = (Locale) context.get("locale");
         Map <String, Object> result = FastMap.newInstance();
         if (UtilValidate.isEmpty(context.get("itemId")) || UtilValidate.isEmpty(context.get("userId"))) {
-            return ServiceUtil.returnFailure("Required userId and itemId");
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredUserIdAndItemId", locale));
         }
         String itemId = (String) context.get("itemId");
         String userId = (String) context.get("userId");
@@ -175,7 +178,7 @@ public class EbayStoreCustomerService {
             ebayUserBestOffer.remove();
             result.put("productStoreId", productStoreId);
         } catch (Exception e) {
-            return ServiceUtil.returnFailure("Error from deleteContactAlert service "+ e);
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreErrorFromDeleteContactStatus", locale) + e);
         }
         return result;
     }
