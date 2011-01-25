@@ -22,6 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
+    
 
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
@@ -38,14 +39,14 @@ under the License.
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
         <property name="host" value="0.0.0.0"/>
-        <property name="port" value="1099"/>
+        <property name="port" value="20099"/>
     </container>
 
     <!-- RMI Service Dispatcher -->
     <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
         <property name="bound-host" value="127.0.0.1"/>
-        <property name="bound-port" value="1099"/>
+        <property name="bound-port" value="20099"/>
         <property name="delegator-name" value="default"/>
         <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
         <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
@@ -194,7 +195,7 @@ under the License.
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
-            <property name="port" value="8080"/>
+            <property name="port" value="28080"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
             <property name="socketBuffer" value="9000"/>
@@ -232,7 +233,7 @@ under the License.
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
-            <property name="port" value="8443"/>
+            <property name="port" value="28443"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
             <property name="socketBuffer" value="9000"/>
@@ -263,14 +264,17 @@ under the License.
     </container>
 
     <!-- load BeanShell remote telnet server -->
-    <container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
-        <!-- the port below and port-1 will be opened by beanshell -->
-        <property name="telnet-port" value="9990"/>
+    <!-- Uncommented by default for security reasons -->
+    <!-- the port below and port-1 will be opened by Beanshell -->
+    <!--container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
+        <property name="telnet-port" value="29990"/>
         <property name="app-name" value="OFBiz"/>
-    </container>
+    </container-->
     
     <!-- load Groovy remote telnet server -->
-    <container name="groovyshell-container" class="org.ofbiz.base.container.GroovyShellContainer">
+    <!-- Uncommented by default for security reasons -->
+    <!-- the port below 1 will be opened by Groovy -->
+    <!--container name="groovyshell-container" class="org.ofbiz.base.container.GroovyShellContainer">
         <property name="telnet-port" value="9991"/>
-    </container>    
+    </container-->    
 </ofbiz-containers>
