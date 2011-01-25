@@ -97,6 +97,10 @@
         <value xml:lang="en">Shipping Method Configurations</value>
         <value xml:lang="it">Configurazioni metodi di spedizione</value>
     </property>
+    <property key="EbayUnableToCreatePostalAddress">
+        <value xml:lang="en">Unable to create postalAddress with input map: </value>
+        <value xml:lang="it">Non è possibile create l'indirizzo postal con l'input: </value>
+    </property>
     <property key="EbayViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("EBAY_VIEW" needed)</value>
         <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. (Il faut l'autorisation "EBAY_VIEW")</value>

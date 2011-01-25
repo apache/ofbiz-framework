@@ -760,7 +760,7 @@ public class ImportOrdersFromEbay {
                     Debug.logInfo("Creating new postal address for party: " + partyId, module);
                     contactMechId = EbayHelper.createAddress(dispatcher, partyId, userLogin, "SHIPPING_LOCATION", parameters);
                     if (UtilValidate.isEmpty(contactMechId)) {
-                        return ServiceUtil.returnFailure("Unable to create postalAddress with input map: " + parameters);
+                        return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayUnableToCreatePostalAddress", locale) + parameters);
                     }
                     Debug.logInfo("Created postal address: " + contactMechId, module);
                     Debug.logInfo("Creating new phone number for party: " + partyId, module);
