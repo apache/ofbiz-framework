@@ -722,7 +722,7 @@ public class OagisShipmentServices {
             List<String> validStores = StringUtil.split(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Order.ValidProductStores"), ",");
             if (UtilValidate.isNotEmpty(validStores)) {
                 if (!validStores.contains(orderHeader.getString("productStoreId"))) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotValidStore", UtilMisc.toMap("orderId", orderId), locale));
+                    return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisOrderIdNotValidStore", UtilMisc.toMap("orderId", orderId), locale));
                 }
             }
             String orderStatusId = orderHeader.getString("statusId");
@@ -730,7 +730,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisOrderIdNotInApprovedStatus", UtilMisc.toMap("orderId", orderId, "orderStatusId", orderStatusId), locale));
             }
             if (!"SALES_ORDER".equals(orderHeader.getString("orderTypeId"))) {
-                return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisOrderIdNotASalesOrder", UtilMisc.toMap("orderId", orderId), locale));
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotASalesOrder", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             // first check some things...
