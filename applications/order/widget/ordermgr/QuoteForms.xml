@@ -448,7 +448,7 @@ under the License.
         <field name="percProfit" title="${uiLabelMap.OrderOrderQuotePercProfit}"><display/></field>
     </form>
     <form name="EditQuoteReportMail" type="single" target="sendQuoteReportMail" title=""
-        header-row-style="header-row" default-table-style="basic-table" target-window="_BLANK">
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="quoteId"><hidden/></field>
         <field name="emailType"><hidden/></field>
         <field name="sendTo"><text/></field>
