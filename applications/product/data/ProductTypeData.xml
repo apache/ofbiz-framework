@@ -457,6 +457,7 @@ under the License.
     <ProductPriceActionType description="Percent Of Default Price" productPriceActionTypeId="PRICE_POD"/>
     <ProductPriceActionType description="Percent Of Average Cost" productPriceActionTypeId="PRICE_POAC"/>
     <ProductPriceActionType description="Percent Of Margin" productPriceActionTypeId="PRICE_POM"/>
+    <ProductPriceActionType description="Percent Of Wholesale" productPriceActionTypeId="PRICE_POWHS"/>
     <ProductPriceActionType description="Flat Amount Modify" productPriceActionTypeId="PRICE_FOL"/>
     <ProductPriceActionType description="Flat Amount Override" productPriceActionTypeId="PRICE_FLAT"/>
     <ProductPriceActionType description="Promo Amount Override" productPriceActionTypeId="PRICE_PFLAT"/>
