@@ -523,9 +523,9 @@ jQuery(document).ready(function(){
       <#list targetParameterIter as item>
         <#if isFirst>
           <#lt/>document.${formName}.${item}<#rt/>
+          <#assign isFirst = false>
         <#else>
           <#lt/> ,document.${formName}.${item}<#rt/>
-          <#assign isFirst = false>
         </#if>
       </#list>
       <#lt/>]<#rt/>
