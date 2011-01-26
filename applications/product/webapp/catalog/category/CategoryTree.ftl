@@ -37,12 +37,15 @@ var rawdata = [
           <#if (prodCatalogs?has_content)>
             <#list prodCatalogs as catalog>
                 <#assign catalogId = catalog.prodCatalogId/>
-                <#assign catalogName = catalog.catalogName/>
+                <#if !catalogName?has_content>
+                    
+                </#if>
                 <#assign categoryList = catalog.rootCategoryList/>
                 {
                 <#if catalogId?has_content>
-                    "data": {"title" : unescapeHtmlText("${catalogName!catalogId}"), "attr": {"href": "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>');"}},
-                    "attr": {"id" : "${catalogId}", "contentId" : "${catalogId}", "AssocType" : "${catalogId}", "fromDate" : "${catalogId}"},
+                    "data": {"title" : unescapeHtmlText("<#if catalog.catalogName?has_content>${catalog.catalogName}<#else>${catalogId}</#if> <#if catalog.catalogName?has_content>[${catalogId}]</#if>"), "attr": {"href": "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>');"}},
+                    "attr": {"id" : "${catalogId}", "rel" : "root"},
+                    
                 </#if>
                 <#if categoryList?has_content>
                     "children": [
@@ -63,16 +66,10 @@ var rawdata = [
                 <#list childCategoryList as childCategory>
                     {
                     <#local productCategoryId = childCategory.productCategoryId/>
-                    <#if childCategory.categoryName?has_content>
-                        <#local categoryName = childCategory.categoryName>
-                    <#elseif childCategory.description?has_content >
-                        <#local categoryName = childCategory.description>
-                    <#else>
-                        <#local categoryName = childCategory.productCategoryId>
-                    </#if>
                     <#local childCategorys = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "childCategoryList", productCategoryId, true)>
-                    "data": {"title" : unescapeHtmlText("${categoryName}"), "attr": {"href": "<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>');"}},
-                    "attr": {"id" : "${productCategoryId}", "contentId" : "${productCategoryId}", "AssocType" : "${productCategoryId}", "fromDate" : "${productCategoryId}"},
+                    "data": {"title" : unescapeHtmlText("<#if childCategory.categoryName?has_content>${childCategory.categoryName}<#else>${productCategoryId}</#if> <#if childCategory.categoryName?has_content>[${productCategoryId}]</#if>"), "attr": {"href": "<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>');"}},
+                    "attr": {"id" : "${productCategoryId}", "rel" : "CATEGORY"},
+                    
                     <#if childCategoryList?has_content>
                         "children": [
                             <@fillCategoryTree childCategoryList = childCategorys/>
@@ -99,7 +96,7 @@ var rawdata = [
             $.cookie("jstree_select", "${productCategoryId}");
         </#if>
         jQuery("#tree").jstree({
-        "plugins" : [ "themes", "json_data", "cookies", "ui"],
+        "plugins" : [ "themes", "json_data", "cookies", "ui", "types"],
             "json_data" : {
                 "data" : rawdata
             },
@@ -108,7 +105,18 @@ var rawdata = [
             },
             "cookies" : {
                 "save_opened" : false
+            },
+        "types" : {
+            "valid_children" : [ "root" ],
+            "types" : {
+                "CATEGORY" : {
+                    "icon" : { 
+                        "image" : "/images/jquery/plugins/jsTree/themes/apple/d.png",
+                        "position" : "10px40px"
+                    }
+                }
             }
+        }
         });
         
     });
@@ -122,3 +130,15 @@ var rawdata = [
 </script>
 
 <div id="tree"></div>
+<style type="text/css">
+    .jstree-default a 
+        {
+            white-space:normal !important;
+            height: auto;
+        }
+    .jstree-default .jstree-leaf > ins
+        {
+            background-position:-36px 0;
+            vertical-align: top;
+        }
+</style> 
