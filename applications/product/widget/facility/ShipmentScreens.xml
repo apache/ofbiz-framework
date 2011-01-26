@@ -65,7 +65,7 @@ under the License.
                                     <widgets>
                                         <label style="h1" text="${uiLabelMap.ProductShipmentId}: ${shipment.shipmentId}"/>
                                         <container>
-                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf">
+                                            <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf" target-window="_BLANK">
                                                 <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
                                             </link>
                                         </container>
