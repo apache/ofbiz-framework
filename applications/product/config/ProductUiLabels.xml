@@ -12314,6 +12314,18 @@
         <value xml:lang="zh">整个目录</value>
         <value xml:lang="zh_TW">整個目錄</value>
     </property>
+    <property key="ProductErrorCreatePhysicalInventoryAndVariance">
+        <value xml:lang="en">fixProductNegativeQOH failed on createPhysicalInventoryAndVariance invItemId: ${inventoryItemId}</value>
+        <value xml:lang="it">fixProductNegativeQOH fallito su createPhysicalInventoryAndVariance invItemId: ${inventoryItemId}</value>
+    </property>
+    <property key="ProductErrorFailedProductStockTake">
+        <value xml:lang="en">updateProductStocktake failed getting inventory items</value>
+        <value xml:lang="it">updateProductStocktake fallito per ottenere riga inventario</value>
+    </property>
+    <property key="ProductErrorUpdateProductStockTake">
+        <value xml:lang="en">updateProductStocktake failed getting inventory counts</value>
+        <value xml:lang="it">updateProductStocktake fallito per ottenere contatori inventario</value>
+    </property>
     <property key="ProductErrorFacility">
         <value xml:lang="de">Fehler: Einrichtung</value>
         <value xml:lang="en">Error: facility</value>
@@ -14072,6 +14084,10 @@
         <value xml:lang="th">รหัสโค๊ด</value>
         <value xml:lang="zh">标识代码</value>
         <value xml:lang="zh_TW">ID代碼</value>
+    </property>
+    <property key="ProductIdOrFacilityIdNotFound">
+        <value xml:lang="en">productId or facilityId not found</value>
+        <value xml:lang="it">productId o facilityId non trovato</value>
     </property>
     <property key="ProductIdSeqNum">
         <value xml:lang="de">ID Sequenznummer</value>
