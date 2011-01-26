@@ -95,7 +95,7 @@ under the License.
                         <link text="${uiLabelMap.AccountingExportAsCsv}" style="button" target="ListGlAccountOrgCsv.csv">
                             <parameter param-name="organizationPartyId"/>
                         </link>
-                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ListGlAccountOrgPdf.pdf">
+                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ListGlAccountOrgPdf.pdf" target-window="_BLANK">
                             <parameter param-name="organizationPartyId"/>
                         </link>
                         <include-form name="ListGlAccountOrganization" location="component://accounting/widget/GlSetupForms.xml"/>

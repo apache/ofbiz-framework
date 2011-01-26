@@ -468,7 +468,7 @@ under the License.
                     <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                 </and>
             </condition>
-            <link target="printChecks.pdf">
+            <link target="printChecks.pdf" target-window="_BLANK">
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
@@ -538,7 +538,7 @@ under the License.
                     <not><if-empty field="paymentGroupMembers"/></not>
                 </and>
             </condition>
-            <link target="DepositSlip.pdf">
+            <link target="DepositSlip.pdf" target-window="_BLANK">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
@@ -550,7 +550,7 @@ under the License.
                     <not><if-empty field="paymentGroupMembers"/></not>
                 </and>
             </condition>
-            <link target="printChecks.pdf">
+            <link target="printChecks.pdf" target-window="_BLANK">
                 <parameter param-name="paymentGroupId" from-field="paymentGroup.paymentGroupId"/>
             </link>
         </menu-item>
@@ -723,7 +723,7 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="acctgTransDetailReportPdf">
-            <link text="${uiLabelMap.CommonPdf}" style="buttontext" target="acctgTransDetailReportPdf.pdf">
+            <link text="${uiLabelMap.CommonPdf}" style="buttontext" target="acctgTransDetailReportPdf.pdf" target-window="_BLANK">
                 <parameter param-name="acctgTransId"/>
             </link>
         </menu-item>

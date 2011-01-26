@@ -358,7 +358,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="DepositSlip.pdf" text="${uiLabelMap.AccountingPrintDepositSlip}" style="buttontext">
+                                    <link target="DepositSlip.pdf" target-window="_BLANK" text="${uiLabelMap.AccountingPrintDepositSlip}" style="buttontext">
                                         <parameter param-name="paymentGroupId"/>
                                     </link>
                                 </container>

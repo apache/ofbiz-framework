@@ -114,7 +114,7 @@ under the License.
                                         <parameter param-name="fromDate" from-field="parameters.fromDate"/>
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                     </link>
-                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransSearchResultPdf.pdf">
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransSearchResultPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
                                         <parameter param-name="acctgTransId" from-field="parameters.acctgTransId"/>
                                         <parameter param-name="produtId" from-field="parameters.produtId"/>
@@ -178,7 +178,7 @@ under the License.
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         <parameter param-name="paymentId" from-field="parameters.paymentId"/>
                                     </link>
-                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPdf.pdf">
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
                                         <parameter param-name="produtId" from-field="parameters.produtId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
@@ -195,7 +195,7 @@ under the License.
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         <parameter param-name="paymentId" from-field="parameters.paymentId"/>
                                     </link>
-                                    <link text="${uiLabelMap.AccountingExportWithInvoiceAndPaymentAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf.pdf">
+                                    <link text="${uiLabelMap.AccountingExportWithInvoiceAndPaymentAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsInvoiceAndPaymentPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
                                         <parameter param-name="produtId" from-field="parameters.produtId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
@@ -242,7 +242,7 @@ under the License.
                                         <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                                         <parameter param-name="paymentId" from-field="parameters.paymentId"/>
                                     </link>
-                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPDF.pdf">
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="AcctgTransEntriesSearchResultsPDF.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId"/>
                                         <parameter param-name="produtId" from-field="parameters.produtId"/>
                                         <parameter param-name="isPosted" from-field="parameters.isPosted"/>
