@@ -140,7 +140,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="createTransactionDetailReportPDF" title="${uiLabelMap.CommonEmptyHeader}" use-when="${isPosted=='Y'}" widget-style="buttontext">
-            <hyperlink target="acctgTransDetailReportPdf.pdf" description="${uiLabelMap.AccountingInvoicePDF}">
+            <hyperlink target="acctgTransDetailReportPdf.pdf" target-window="_BLANK" description="${uiLabelMap.AccountingInvoicePDF}">
                 <parameter param-name="acctgTransId"/>
             </hyperlink>
         </field>

@@ -254,7 +254,7 @@ under the License.
                                         <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                         <parameter param-name="customTimePeriodId" from-field="parameters.customTimePeriodId"/>
                                     </link>
-                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf">
+                                    <link text="${uiLabelMap.AccountingExportAsPdf}" style="buttontext" target="TrialBalanceSearchResultsPdf.pdf" target-window="_BLANK">
                                         <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                         <parameter param-name="customTimePeriodId" from-field="parameters.customTimePeriodId"/>
                                     </link>
@@ -387,7 +387,7 @@ under the License.
                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                             <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                         </link>
-                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="BalanceSheet.pdf">
+                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="BalanceSheet.pdf" target-window="_BLANK">
                             <parameter param-name="organizationPartyId"/>
                             <parameter param-name="thruDate" from-field="parameters.thruDate"/>
                             <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
@@ -532,7 +532,7 @@ under the License.
                             <parameter param-name="period2ThruDate"/>
                             <parameter param-name="period2GlFiscalTypeId"/>
                         </link>
-                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeBalanceSheet.pdf">
+                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeBalanceSheet.pdf" target-window="_BLANK">
                             <parameter param-name="organizationPartyId"/>
                             <parameter param-name="period1ThruDate"/>
                             <parameter param-name="period1GlFiscalTypeId"/>
@@ -737,7 +737,7 @@ under the License.
                                     <parameter param-name="glFiscalTypeId"/>
                                     <parameter param-name="organizationPartyId"/>
                                 </link>
-                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="TransactionTotalsPdf.pdf">
+                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="TransactionTotalsPdf.pdf" target-window="_BLANK">
                                     <parameter param-name="fromDate"/>
                                     <parameter param-name="thruDate"/>
                                     <parameter param-name="glFiscalTypeId"/>
@@ -865,7 +865,7 @@ under the License.
                                 <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
-                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf">
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="IncomeStatementListPdf.pdf" target-window="_BLANK">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
                                 <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
@@ -1019,7 +1019,7 @@ under the License.
                                 <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="currencyUomId"/>
                             </link>
-                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeIncomeStatements.pdf">
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeIncomeStatements.pdf" target-window="_BLANK">
                                 <parameter param-name="period1FromDate" from-field="period1FromDate"/>
                                 <parameter param-name="period1ThruDate" from-field="period1ThruDate"/>
                                 <parameter param-name="period1GlFiscalTypeId" from-field="period1GlFiscalTypeId"/>
@@ -1299,7 +1299,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="GlAccountBalanceByCostCenter.pdf">
+                                <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="GlAccountBalanceByCostCenter.pdf" target-window="_BLANK">
                                     <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
                                     <parameter param-name="fromDate" from-field="parameters.fromDate"/>
                                     <parameter param-name="thruDate" from-field="parameters.thruDate"/>
@@ -1368,7 +1368,7 @@ under the License.
                                         <if-compare field="parameters.showSearchResults" operator="equals" value="Y"/>
                                     </condition>
                                     <widgets>
-                                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="InventoryValuation.pdf">
+                                        <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="InventoryValuation.pdf" target-window="_BLANK">
                                             <parameter param-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
                                             <parameter param-name="facilityId" from-field="parameters.facilityId"/>
                                             <parameter param-name="productId" from-field="parameters.productId"/>
@@ -1464,7 +1464,7 @@ under the License.
                                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                 <parameter param-name="glFiscalTypeId" from-field="glFiscalTypeId"/>
                             </link>
-                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="CashFlowStatementListPdf.pdf">
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="CashFlowStatementListPdf.pdf" target-window="_BLANK">
                                 <parameter param-name="fromDate" from-field="fromDate"/>
                                 <parameter param-name="thruDate" from-field="thruDate"/>
                                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
@@ -1599,7 +1599,7 @@ under the License.
                                 <parameter param-name="organizationPartyId"/>
                                 <parameter param-name="currencyUomId"/>
                             </link>
-                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeCashFlowStatement.pdf">
+                            <link text="${uiLabelMap.AccountingExportAsPdf}" style="button" target="ComparativeCashFlowStatement.pdf" target-window="_BLANK">
                                 <parameter param-name="period1FromDate" from-field="period1FromDate"/>
                                 <parameter param-name="period1ThruDate" from-field="period1ThruDate"/>
                                 <parameter param-name="period1GlFiscalTypeId" from-field="period1GlFiscalTypeId"/>
