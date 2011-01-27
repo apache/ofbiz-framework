@@ -2822,10 +2822,12 @@ public class MacroFormRenderer implements FormStringRenderer {
                     ajaxParams = "";
                 }
                 for (String key : parameters.keySet()) {
-                    if (ajaxParams.length()>0){
+                    if (ajaxParams.length() > 0 && ajaxParams.indexOf(key) < 0) {
                         ajaxParams += "&";
                     }
-                    ajaxParams += key + "=" + parameters.get(key);
+                    if (ajaxParams.indexOf(key) < 0) {
+                        ajaxParams += key + "=" + parameters.get(key);
+                    }
                 }
             }
             ajaxUrl += updateArea.getAreaId() + ",";
