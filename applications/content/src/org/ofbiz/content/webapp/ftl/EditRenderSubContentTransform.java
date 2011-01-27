@@ -62,7 +62,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
      * @deprecated use FreeMarkerWorker.getArg()
      */
     @Deprecated
-    public static String getArg(Map args, String key, Environment env) {
+    public static String getArg(Map<String, ? extends Object> args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
@@ -70,14 +70,14 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
      * @deprecated use FreeMarkerWorker.getArg()
      */
     @Deprecated
-    public static String getArg(Map args, String key, Map ctx) {
+    public static String getArg(Map<String, ? extends Object> args, String key, Map<String, ? extends Object> ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
-        Map ctx = FreeMarkerWorker.getWrappedObject("context", env);
+        Map<String, Object> ctx = FreeMarkerWorker.getWrappedObject("context", env);
         final String editTemplate = FreeMarkerWorker.getArg(args, "editTemplate", ctx);
         final String wrapTemplateId = FreeMarkerWorker.getArg(args, "wrapTemplateId", ctx);
         final String mapKey = FreeMarkerWorker.getArg(args, "mapKey", ctx);
@@ -85,8 +85,6 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final String subContentId = FreeMarkerWorker.getArg(args, "subContentId", ctx);
         String subDataResourceTypeIdTemp = FreeMarkerWorker.getArg(args, "subDataResourceTypeId", ctx);
         final String contentId = FreeMarkerWorker.getArg(args, "contentId", ctx);
-
-
         final Locale locale = FreeMarkerWorker.getWrappedObject("locale", env);
         String mimeTypeIdTemp = FreeMarkerWorker.getArg(args, "mimeTypeId", ctx);
         final String rootDir = FreeMarkerWorker.getArg(args, "rootDir", ctx);
@@ -97,7 +95,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue subContentDataResourceViewTemp = FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
         //final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
-
+        
         ctx.put("mapKey", mapKey);
         ctx.put("subDataResourceTypeIdTemp", subDataResourceTypeIdTemp);
         ctx.put("contentId", contentId);
@@ -111,7 +109,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         // processing time.
         GenericValue parentContent = null;
         //ctx.put("userLogin", userLogin);
-        List assocTypes = UtilMisc.toList("SUB_CONTENT");
+        List<String> assocTypes = UtilMisc.toList("SUB_CONTENT");
         Timestamp fromDate = UtilDateTime.nowTimestamp();
         if (subContentDataResourceViewTemp == null) {
             try {
@@ -127,8 +125,6 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         String dataResourceIdTemp = null;
         String subContentIdSubTemp = null;
         if (subContentDataResourceView != null && subContentDataResourceView.get("contentId") != null) {
-
-
             dataResourceIdTemp = (String) subContentDataResourceView.get("drDataResourceId");
             subContentIdSubTemp = (String) subContentDataResourceView.get("contentId");
             if (UtilValidate.isEmpty(subDataResourceTypeIdTemp)) {
@@ -146,7 +142,6 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                         throw new RuntimeException(e.getMessage());
                     }
                 }
-
             }
             ctx.put("subContentId", subContentIdSubTemp);
             ctx.put("drDataResourceId", dataResourceIdTemp);
@@ -165,7 +160,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         final String subContentIdSub = subContentIdSubTemp;
         //final GenericValue finalSubContentView = subContentDataResourceView;
         //final GenericValue content = parentContent;
-        final Map templateContext = ctx;
+        final Map<String, Object> templateContext = ctx;
         final String mimeTypeId = mimeTypeIdTemp;
         final String subDataResourceTypeId = subDataResourceTypeIdTemp;
 
@@ -193,8 +188,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                         templateContext.put("https", https);
                         templateContext.put("rootDir", rootDir);
 
-                        Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-
+                        Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
                         templateRoot.put("wrapDataResourceId", dataResourceId);
                         templateRoot.put("wrapDataResourceTypeId", subDataResourceTypeId);
                         templateRoot.put("wrapContentIdTo", contentId);
@@ -213,7 +207,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                             throw new IOException("Error rendering content" + e2.toString());
                         }
 
-                        Map ctx = FreeMarkerWorker.getWrappedObject("context", env);
+                        FreeMarkerWorker.getWrappedObject("context", env);
                         templateContext.put("contentId", contentId);
                         templateContext.put("locale", locale);
                         templateContext.put("mapKey", null);
