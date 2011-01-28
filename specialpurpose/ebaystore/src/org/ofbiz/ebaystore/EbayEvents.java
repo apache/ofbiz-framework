@@ -138,6 +138,7 @@ public class EbayEvents {
                     Map result = dispatcher.runSync("leaveFeedback", leavefeedback);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
+                    request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
                     return "error";
                 }
             }
@@ -254,12 +255,13 @@ public class EbayEvents {
                         itemListing = FastMap.newInstance();
                         itemListing.put("addItemCall", addItemCall);
                         itemListing.put("productId", productId);
-                        itemObjs.add(itemListing);
                     }
+                    itemObjs.add(itemListing);
                 }
                 addItemObject.put("itemListing", itemObjs);
             } catch (Exception e) {
                 Debug.logError(e.getMessage(), module);
+                request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
                 return "error";
             }
         }
@@ -704,7 +706,7 @@ public class EbayEvents {
                         attributeMapList.put("CategoryParentID", item.getPrimaryCategory().getCategoryParentID(0).toString());
                         attributeMapList.put("LeafCategory", "true");
                         attributeMapList.put("LSD", "true");
-                        
+
                         // set Item Specifics.
                         int itemSpecificsSize = nameSpecificList.size();
                         int valueSpecificsSize = valueSpecificList.size();
@@ -725,7 +727,7 @@ public class EbayEvents {
                             nameValueListArray.setNameValueList(nameValueListTypes);
                             item.setItemSpecifics(nameValueListArray);
                         }
-                        
+
                         item.setUseTaxTable(false);
                         item.setDispatchTimeMax(3);
                         ReturnPolicyType policy = new ReturnPolicyType();
@@ -867,6 +869,7 @@ public class EbayEvents {
                                         dispatcher.runSync("updateEbayProductStoreInventory", inMap);
                                     } catch (GenericServiceException ex) {
                                         Debug.logError(ex.getMessage(), module);
+                                        request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(ex.getMessage()));
                                         return "error";
                                     }
                                     itemObj.put("requireEbayInventory", "Y");
@@ -897,6 +900,7 @@ public class EbayEvents {
                             }
                         } catch (GenericEntityException ex) {
                             Debug.logError(ex.getMessage(), module);
+                            request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(ex.getMessage()));
                             return "error";
                         }
                         String productListingId = null;
@@ -909,6 +913,7 @@ public class EbayEvents {
                                 itemObj.put("isSaved", "Y");
                             } catch (GenericServiceException ex) {
                                 Debug.logError(ex.getMessage(), module);
+                                request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(ex.getMessage()));
                                 return "error";
                             }
                         } else {
@@ -918,6 +923,7 @@ public class EbayEvents {
                                 dispatcher.runSync("updateEbayProductListing", prodMap);
                             } catch (GenericServiceException ex) {
                                 Debug.logError(ex.getMessage(), module);
+                                request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(ex.getMessage()));
                                 return "error";
                             }
                         }
@@ -933,6 +939,7 @@ public class EbayEvents {
                                 dispatcher.runSync("setEbayProductListingAttribute", ebayProdAttrMap);
                             } catch (GenericServiceException ex) {
                                 Debug.logError(ex.getMessage(), module);
+                                request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(ex.getMessage()));
                                 return "error";
                             }
                         }
@@ -942,6 +949,7 @@ public class EbayEvents {
             request.setAttribute("productStoreId", requestParams.get("productStoreId"));
         } catch(Exception e) {
             Debug.logError(e.getMessage(), module);
+            request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
             return "error";
         }
         return "success";
@@ -993,16 +1001,20 @@ public class EbayEvents {
                             AddItemRequestType addItemReq = new AddItemRequestType();
                             addItemReq.setItem(item);
                             addItemResp = (AddItemResponseType) addItemCall.execute(addItemReq);
+                            if (addItemResp != null && "SUCCESS".equals(addItemResp.getAck().toString())) {
+                                removeProductFromListing(request, response);
+                            }
                         } else {
                             EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, resp.getAck().toString(), "Verify Item : verifyItemBeforeAdd", resp.getErrors(0).getLongMessage());
                         }
                     }
                 }
             }
-            request.setAttribute("itemFee", feesummary);
+            //request.setAttribute("itemFee", feesummary);
             request.setAttribute("productStoreId", requestParams.get("productStoreId"));
         } catch (Exception e) {
             Debug.logError(e.getMessage(), module);
+            request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
             return "error";
         }
         return "success";
@@ -1035,9 +1047,13 @@ public class EbayEvents {
                 }
                 i++;
             }
+            if (listAddItem.size() <=0) {
+                removeItemListingObject(request, apiContext);
+            }
             request.setAttribute("productStoreId", requestParams.get("productStoreId"));
         } catch (Exception e) {
             Debug.logError(e.getMessage(), module);
+            request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
             return "error";
         }
         return "success";
@@ -1066,6 +1082,7 @@ public class EbayEvents {
             }
         } catch (Exception e) {
             Debug.logError(e.getMessage(), module);
+            request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
             return "error";
         }
         return "success";
