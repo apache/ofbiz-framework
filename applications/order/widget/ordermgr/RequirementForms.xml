@@ -314,9 +314,13 @@ under the License.
         </field>
         <field name="facilityId"><display/></field>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
-            <display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false);}"/>
+            <display-entity entity-name="PartyNameView" description="${LastName} ${firstName} ${middleName} ${groupName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="[${partyId}]" target-type="inter-app"/>
+            </display-entity>
         </field>
-        <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}"><display/></field>
+        <field name="supplierProductId" title="${uiLabelMap.ProductSupplierProductId}">
+            <hyperlink target="/catalog/control/EditProductSuppliers?productId=${productId}" description="${supplierProductId}" target-type="inter-app"/>
+        </field>
         <field name="idValue" title="${uiLabelMap.ProductUPCA}"><display/></field>
         <field name="minimumOrderQuantity" widget-area-style="align-text"><display/></field>
         <field name="lastPrice" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
