@@ -197,16 +197,19 @@ under the License.
             location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnAcceptNotification">
         <description>Send a notification that a return has been accepted</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="sendReturnCompleteNotification" engine="java" max-retry="3"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCompleteNotification">
         <description>Send a notification that a return has been completed</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
      <service name="sendReturnCancelNotification" engine="java" max-retry="3"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="sendReturnCancelNotification">
         <description>Send a notification that a return has been cancelled</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="autoCancelReplacementOrders" engine="java" max-retry="3" transaction-timeout="36000"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="autoCancelReplacementOrders">
