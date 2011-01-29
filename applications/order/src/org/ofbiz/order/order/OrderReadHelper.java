@@ -1743,8 +1743,10 @@ public class OrderReadHelper {
        Map<String, BigDecimal> returnMap = FastMap.newInstance();
        for (Iterator<GenericValue> iter = this.getValidOrderItems().iterator(); iter.hasNext();) {
            GenericValue orderItem = iter.next();
-           List<GenericValue> group = EntityUtil.filterByAnd(returnItems,
-                   UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId")));
+           List<GenericValue> group = EntityUtil.filterByAnd(returnItems, UtilMisc.toList(
+                                              EntityCondition.makeCondition("orderId", orderItem.get("orderId")),
+                                              EntityCondition.makeCondition("orderItemSeqId", orderItem.get("orderItemSeqId")),
+                                              EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED")));
 
            // add up the returned quantities for this group TODO: received quantity should be used eventually
            BigDecimal returned = BigDecimal.ZERO;
