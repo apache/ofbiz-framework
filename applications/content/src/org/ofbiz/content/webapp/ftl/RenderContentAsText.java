@@ -57,6 +57,7 @@ public class RenderContentAsText implements TemplateTransformModel {
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);

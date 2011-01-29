@@ -146,6 +146,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
