@@ -69,6 +69,7 @@ under the License.
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
                 <result-to-result result-name="messageWrapper"/>
                 <result-to-result result-name="body"/>
+                <result-to-result result-name="communicationEventId"/>
             </call-service>
             <else>
                 <log level="error" message="sendMailFromTemplateSetting service could not find the emailTemplateSettingId: ${parameters.emailTemplateSettingId}"></log>
