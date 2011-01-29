@@ -56,6 +56,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "globalNodeTrail"};
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         // final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();

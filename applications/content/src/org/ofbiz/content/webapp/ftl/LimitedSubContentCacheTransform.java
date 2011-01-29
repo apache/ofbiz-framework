@@ -85,6 +85,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         //Profiler.begin("Limited");
         final StringBuilder buf = new StringBuilder();

@@ -52,6 +52,7 @@ public class RenderContentTransform implements TemplateTransformModel {
 
     public static final String module = RenderContentTransform.class.getName();
 
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
