@@ -2444,9 +2444,11 @@
     </property>
     <property key="WebtoolsLayoutDemo">
         <value xml:lang="en">Layout Demo</value>
+        <value xml:lang="it">Dimostrazione Layout</value>
     </property>
     <property key="WebtoolsLayoutDemoText">
         <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page.</value>
+        <value xml:lang="it">Dimostrazione di come utilizzare gli stili e pagina per il test dei temi visuali.</value>
     </property>
     <property key="WebtoolsLeaveAllEntriesBlank">
         <value xml:lang="de">alle Einträge leer lassen</value>

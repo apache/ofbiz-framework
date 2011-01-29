@@ -111,6 +111,9 @@ under the License.
                                         <container style="button-bar button-style-1">
                                             <!-- Typically used for intra-app links -->
                                             <link target="${demoTargetUrl}" text="${uiLabelMap.CommonNew}" style="create"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonDelete}" style="delete"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonRefresh}" style="refresh"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSearch}" style="search"/>
                                             <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSelected}" style="selected"/>
                                             <link target="${demoTargetUrl}" text="${uiLabelMap.CommonEnabled}"/>
                                             <link text="${uiLabelMap.CommonDisabled}" style="disabled"/>
@@ -118,6 +121,9 @@ under the License.
                                         <container style="button-bar button-style-2">
                                             <!-- Typically used for inter-app links -->
                                             <link target="${demoTargetUrl}" text="${uiLabelMap.CommonNew}" style="create"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonDelete}" style="delete"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonRefresh}" style="refresh"/>
+                                            <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSearch}" style="search"/>
                                             <link target="${demoTargetUrl}" text="${uiLabelMap.CommonSelected}" style="selected"/>
                                             <link target="${demoTargetUrl}" text="${uiLabelMap.CommonEnabled}"/>
                                             <link text="${uiLabelMap.CommonDisabled}" style="disabled"/>
@@ -127,12 +133,12 @@ under the License.
                                 <section name="h1-h6 Styles">
                                     <widgets>
                                         <horizontal-separator/>
-                                        <label style="h1" text="${demoText}"/>
-                                        <label style="h2" text="${demoText}"/>
-                                        <label style="h3" text="${demoText}"/>
-                                        <label style="h4" text="${demoText}"/>
-                                        <label style="h5" text="${demoText}"/>
-                                        <label style="h6" text="${demoText}"/>
+                                        <label style="h1" text="${demoText} (h1)"/>
+                                        <label style="h2" text="${demoText} (h2)"/>
+                                        <label style="h3" text="${demoText} (h3)"/>
+                                        <label style="h4" text="${demoText} (h4)"/>
+                                        <label style="h5" text="${demoText} (h5)"/>
+                                        <label style="h6" text="${demoText} (h6)"/>
                                     </widgets>
                                 </section>
                                 <section name="Form/List Styles">
