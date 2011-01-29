@@ -98,6 +98,7 @@ under the License.
         <#if security.hasPermission("PORTALPAGE_ADMIN", session)>
           <li><a href="<@ofbizUrl>FindPortalPage</@ofbizUrl>">${uiLabelMap.WebtoolsAdminPortalPage}</a></li>
           <li><a href="<@ofbizUrl>FindGeo</@ofbizUrl>">${uiLabelMap.WebtoolsGeoManagement}</a></li>
+          <li><a href="<@ofbizUrl>WebtoolsLayoutDemo</@ofbizUrl>">${uiLabelMap.WebtoolsLayoutDemo}</a></li>
         </#if>
         <#if security.hasPermission("ENUM_STATUS_MAINT", session)>
           <#--
