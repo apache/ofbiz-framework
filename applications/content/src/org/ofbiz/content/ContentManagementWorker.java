@@ -78,7 +78,7 @@ public class ContentManagementWorker {
             return;
         }
 
-        Map<String, LifoSet> lookupCaches = UtilGenerics.checkMap(session.getAttribute("lookupCaches"));
+        Map<String, LifoSet<Object>> lookupCaches = UtilGenerics.checkMap(session.getAttribute("lookupCaches"));
         if (lookupCaches == null) {
             lookupCaches = FastMap.newInstance();
             session.setAttribute("lookupCaches", lookupCaches);
@@ -95,26 +95,26 @@ public class ContentManagementWorker {
     * @param lookupCaches
     * @param pk either a GenericValue or GenericPK - populated
     */
-    public static void mruAddByEntityName(String entityName, GenericEntity pk, Map<String, LifoSet> lookupCaches) {
+    public static void mruAddByEntityName(String entityName, GenericEntity pk, Map<String, LifoSet<Object>> lookupCaches) {
         String cacheEntityName = entityName;
-        LifoSet lkupCache = (LifoSet)lookupCaches.get(cacheEntityName);
+        LifoSet<Object> lkupCache = lookupCaches.get(cacheEntityName);
         if (lkupCache == null) {
-            lkupCache = new LifoSet();
+            lkupCache = new LifoSet<Object>();
             lookupCaches.put(cacheEntityName, lkupCache);
         }
         lkupCache.add(pk.getPrimaryKey());
         if (Debug.infoOn()) Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), module);
     }
 
-    public static Iterator<LifoSet> mostRecentlyViewedIterator(String entityName, Map<String, LifoSet> lookupCaches) {
+    public static Iterator<Object> mostRecentlyViewedIterator(String entityName, Map<String, LifoSet<Object>> lookupCaches) {
         String cacheEntityName = entityName;
-        LifoSet lkupCache = (LifoSet)lookupCaches.get(cacheEntityName);
+        LifoSet<Object> lkupCache = lookupCaches.get(cacheEntityName);
         if (lkupCache == null) {
-            lkupCache = new LifoSet();
+            lkupCache = new LifoSet<Object>();
             lookupCaches.put(cacheEntityName, lkupCache);
         }
 
-        Iterator<LifoSet> mrvIterator = lkupCache.iterator();
+        Iterator<Object> mrvIterator = lkupCache.iterator();
         return mrvIterator;
     }
 
