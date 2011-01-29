@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.content.content.ContentWorker;
@@ -66,7 +67,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
      * @deprecated use FreeMarkerWorker.getArg()
      */
     @Deprecated
-    public static String getArg(Map args, String key, Environment env) {
+    public static String getArg(Map<String, Object> args, String key, Environment env) {
         return FreeMarkerWorker.getArg(args, key, env);
     }
 
@@ -74,7 +75,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
      * @deprecated use FreeMarkerWorker.getArg()
      */
     @Deprecated
-    public static String getArg(Map args, String key, Map ctx) {
+    public static String getArg(Map<String, Object> args, String key, Map<String, Object> ctx) {
         return FreeMarkerWorker.getArg(args, key, ctx);
     }
 
@@ -82,41 +83,39 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateRoot = FreeMarkerWorker.getWrappedObject("context", env);
-        final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
+        final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         //FreeMarkerWorker.convertContext(templateRoot);
-        final Map savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
-        final Map savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = FastMap.newInstance();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         String startContentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
-            //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, startContentAssocTypeId:" + startContentAssocTypeId, module);
+        // if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, startContentAssocTypeId:" + startContentAssocTypeId, module);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
         final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
-        Object obj = templateRoot.get("globalNodeTrail");
-        List globalNodeTrail = (List)obj;
-        //List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
-        String csvTrail = ContentWorker.nodeTrailToCsv(globalNodeTrail);
-        //if (Debug.infoOn()) Debug.logInfo("in Traverse(0), csvTrail:"+csvTrail,module);
+        List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+        // List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
+        // String csvTrail = ContentWorker.nodeTrailToCsv(globalNodeTrail);
+        // if (Debug.infoOn()) Debug.logInfo("in Traverse(0), csvTrail:"+csvTrail,module);
         String strNullThruDatesOnly = (String)templateRoot.get("nullThruDatesOnly");
         String contentAssocPredicateId = (String)templateRoot.get("contentAssocPredicateId");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE :Boolean.FALSE;
-        GenericValue val = null;
         try {
             // getCurrentContent puts the "current" node on the end of globalNodeTrail.
             // It may have already been there, but getCurrentContent will compare its contentId
             // to values in templateRoot.
-            val = ContentWorker.getCurrentContent(delegator, globalNodeTrail, userLogin, templateRoot, nullThruDatesOnly, contentAssocPredicateId);
+            ContentWorker.getCurrentContent(delegator, globalNodeTrail, userLogin, templateRoot, nullThruDatesOnly, contentAssocPredicateId);
         } catch (GeneralException e) {
             throw new RuntimeException("Error getting current content. " + e.toString());
         }
-        final GenericValue view = val;
+        // final GenericValue view = val;
 
 
-        final Map traverseContext = FastMap.newInstance();
+        final Map<String, Object> traverseContext = FastMap.newInstance();
         traverseContext.put("delegator", delegator);
-        Map whenMap = FastMap.newInstance();
+        Map<String, Object> whenMap = FastMap.newInstance();
         whenMap.put("followWhen", templateRoot.get("followWhen"));
         whenMap.put("pickWhen", templateRoot.get("pickWhen"));
         whenMap.put("returnBeforePickWhen", templateRoot.get("returnBeforePickWhen"));
@@ -145,7 +144,6 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         }
         traverseContext.put("direction", direction);
 
-
         return new LoopWriter(out) {
 
             @Override
@@ -163,34 +161,34 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
             @Override
             public int onStart() throws TemplateModelException, IOException {
                 //templateContext.put("buf", new StringBuilder());
-                List nodeTrail = null;
-                Map node = null;
-                GenericValue subContentDataResourceView = null;
-                List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
-                String trailCsv = ContentWorker.nodeTrailToCsv(globalNodeTrail);
-                //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, onStart, trailCsv(1):" + trailCsv , module);
+                List<Map<String, ? extends Object>> nodeTrail = null;
+                Map<String, Object> node = null;
+                // GenericValue subContentDataResourceView = null;
+                List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+                // String trailCsv = ContentWorker.nodeTrailToCsv(globalNodeTrail);
+                // if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, onStart, trailCsv(1):" + trailCsv , module);
                 if (globalNodeTrail.size() > 0) {
                     int sz = globalNodeTrail.size() ;
                     nodeTrail = FastList.newInstance();
                     //nodeTrail = passedGlobalNodeTrail.subList(sz - 1, sz);
-                    node = (Map)globalNodeTrail.get(sz - 1);
+                    node = UtilGenerics.checkMap(globalNodeTrail.get(sz - 1));
                     //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, onStart, node(1):" + node , module);
                     Boolean checkedObj = (Boolean)node.get("checked");
-                    Map whenMap = (Map)templateRoot.get("whenMap");
+                    Map<String, Object> whenMap = UtilGenerics.checkMap(templateRoot.get("whenMap"));
                     //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, whenMap(2):" + whenMap , module);
                     if (checkedObj == null || !checkedObj.booleanValue()) {
                         ContentWorker.checkConditions(delegator, node, null, whenMap);
                     }
-                    subContentDataResourceView = (GenericValue)node.get("value");
                 } else {
                     throw new IOException("Empty node trail entries");
                 }
 
                 Boolean isReturnBeforePickBool = (Boolean)node.get("isReturnBeforePick");
-                if (isReturnBeforePickBool != null && isReturnBeforePickBool.booleanValue())
+                if (isReturnBeforePickBool != null && isReturnBeforePickBool.booleanValue()) {
                     return TransformControl.SKIP_BODY;
+                }   
 
-                GenericValue content = null;
+                // GenericValue content = null;
                 ContentWorker.selectKids(node, traverseContext);
                 //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, onStart, node(2):" + node , module);
                 nodeTrail.add(node);
@@ -215,45 +213,41 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
 
             @Override
             public int afterBody() throws TemplateModelException, IOException {
-
-
                 FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);
-                List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
-    //if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(2a):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
-                List nodeTrail = (List)traverseContext.get("nodeTrail");
-                //List savedGlobalNodeTrail = (List)savedValues.get("globalNodeTrail");
-                //templateRoot.put("globalNodeTrail", savedGlobalNodeTrail);
+                // List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
+                // if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(2a):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
+                // List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
+                // List savedGlobalNodeTrail = (List)savedValues.get("globalNodeTrail");
+                // templateRoot.put("globalNodeTrail", savedGlobalNodeTrail);
+                // int sz = nodeTrail.size();
                 boolean inProgress = ContentWorker.traverseSubContent(traverseContext);
-                int sz = nodeTrail.size();
                 if (inProgress) {
                     populateContext(traverseContext, templateRoot);
                     FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                     //globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
                     //globalNodeTrail.addAll(nodeTrail);
                     return TransformControl.REPEAT_EVALUATION;
-                } else
+                } else {
                     return TransformControl.END_EVALUATION;
+                }
             }
 
             @Override
             public void close() throws IOException {
-
                 FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);
                 String wrappedContent = buf.toString();
                 out.write(wrappedContent);
                 //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContent, wrappedContent:" + wrappedContent, module);
             }
 
-
-            public void populateContext(Map traverseContext, Map templateContext) {
-
-                List nodeTrail = (List)traverseContext.get("nodeTrail");
-    //if (Debug.infoOn()) Debug.logInfo("populateContext, nodeTrail csv(a):" + FreeMarkerWorker.nodeTrailToCsv((List)nodeTrail), "");
+            public void populateContext(Map<String, Object> traverseContext, Map<String, Object> templateContext) {
+                List<Map<String, ? extends Object>> nodeTrail = UtilGenerics.checkList(traverseContext.get("nodeTrail"));
+                // if (Debug.infoOn()) Debug.logInfo("populateContext, nodeTrail csv(a):" + FreeMarkerWorker.nodeTrailToCsv((List)nodeTrail), "");
                 int sz = nodeTrail.size();
-                Map node = (Map)nodeTrail.get(sz - 1);
+                Map<String, ? extends Object> node = nodeTrail.get(sz - 1);
                 GenericValue content = (GenericValue)node.get("value");
                 String contentId = (String)node.get("contentId");
-                String subContentId = (String)node.get("subContentId");
+                // String subContentId = (String)node.get("subContentId");
                 String contentAssocTypeId = (String)node.get("contentAssocTypeId");
                 envWrap("contentAssocTypeId", contentAssocTypeId);
                 envWrap("contentId", contentId);
@@ -261,13 +255,13 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 String mapKey = (String)node.get("mapKey");
                 envWrap("mapKey", mapKey);
                 envWrap("subContentDataResourceView", null);
-                List globalNodeTrail = (List)templateContext.get("globalNodeTrail");
+                List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateContext.get("nodeTrail"));
                 String contentIdEnd = null;
                 String contentIdStart = null;
                 if (globalNodeTrail != null) {
-                    Map ndEnd = (Map)globalNodeTrail.get(globalNodeTrail.size() - 1);
+                    Map<String, ? extends Object> ndEnd = globalNodeTrail.get(globalNodeTrail.size() - 1);
                     contentIdEnd = (String)ndEnd.get("contentId");
-                    Map ndStart = (Map)nodeTrail.get(0);
+                    Map<String, ? extends Object> ndStart = nodeTrail.get(0);
                     contentIdStart = (String)ndStart.get("contentId");
                 } else {
                     globalNodeTrail = FastList.newInstance();
@@ -276,15 +270,15 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 boolean bIdEnd = UtilValidate.isNotEmpty(contentIdEnd);
                 boolean bIdStart = UtilValidate.isNotEmpty(contentIdStart);
                 boolean bEquals = contentIdStart.equals(contentIdEnd);
-                //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, populateContext, contentIdEnd(1):" + bIdEnd + " contentIdStart:" + bIdStart + " equals:" + bEquals, module);
-    //if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(1a):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
+                // if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, populateContext, contentIdEnd(1):" + bIdEnd + " contentIdStart:" + bIdStart + " equals:" + bEquals, module);
+                // if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(1a):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
                 if (bIdEnd && bIdStart && bEquals) {
-                    List subList = nodeTrail.subList(1, sz);
+                    List<Map<String, ? extends Object>> subList = nodeTrail.subList(1, sz);
                     globalNodeTrail.addAll(subList);
                 } else {
                     globalNodeTrail.addAll(nodeTrail);
                 }
-    //if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(1b):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
+                // if (Debug.infoOn()) Debug.logInfo("populateContext, globalNodeTrail(1b):" + FreeMarkerWorker.nodeTrailToCsv(globalNodeTrail), "");
                 int indentSz = globalNodeTrail.size();
                 envWrap("indent", Integer.valueOf(indentSz));
                 String trailCsv = ContentWorker.nodeTrailToCsv(globalNodeTrail);
@@ -294,11 +288,9 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
             }
 
             public void envWrap(String varName, Object obj) {
-
                 templateRoot.put(varName, obj);
                 env.setVariable(varName, FreeMarkerWorker.autoWrap(obj, env));
             }
-
         };
     }
 }
