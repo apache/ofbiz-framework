@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Tenant tenantId="@tenantId@" tenantName="@tenantName@"/>
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.ofbiz"
+        jdbcUri="jdbc:postgresql://@db-IP@/ofbiz_@tenantId@" jdbcUsername="@db-User@" jdbcPassword="@db-Password@"/>
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.ofbiz.olap"
+        jdbcUri="jdbc:postgresql://@db-IP@/ofbizolap_@tenantId@" jdbcUsername="@db-User@" jdbcPassword="@db-Password@"/>
+</entity-engine-xml>
