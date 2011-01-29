@@ -159,20 +159,22 @@ under the License.
             </condition>
             <actions>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/FindGeneric.groovy"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues} ${uiLabelMap.WebtoolsForEntity}: ${entityName}"/>
+                <set field="commonDisplaying" value="${uiLabelMap.CommonDisplaying}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
-                                <container style="button-bar">
-                                    <link target="entitymaint" text="${uiLabelMap.WebtoolsBackToEntityList}" style="buttontext"/>
-                                    <link target="ViewRelations" text="${uiLabelMap.WebtoolsViewRelations}" style="buttontext">
+                                <container style="button-bar button-style-1">
+                                    <link target="entitymaint" text="${uiLabelMap.WebtoolsBackToEntityList}"/>
+                                    <link target="ViewRelations" text="${uiLabelMap.WebtoolsViewRelations}">
                                         <parameter param-name="entityName" from-field="entityName"/>
                                     </link>
-                                    <link target="ViewGeneric" text="${uiLabelMap.CommonCreateNew}" style="buttontext create">
+                                    <link target="ViewGeneric" text="${uiLabelMap.CommonCreateNew}" style="create">
                                         <parameter param-name="entityName" from-field="entityName"/>
                                         <parameter param-name="enableEdit" value="true"/>
                                     </link>

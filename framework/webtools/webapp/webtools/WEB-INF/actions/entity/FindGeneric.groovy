@@ -246,3 +246,6 @@ if (resultPartialList != null) {
     }
 }
 context.records = records;
+context.lowCount = lowIndex;
+context.highCount = lowIndex + records.size() - 1;
+context.total = arraySize;
