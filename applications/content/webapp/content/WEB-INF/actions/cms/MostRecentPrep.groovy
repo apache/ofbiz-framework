@@ -35,7 +35,7 @@ if (forumId) {
     exprList.add(thruExpr2);
     statusIdExpr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CTNT_IN_PROGRESS");
     exprList.add(statusIdExpr);
-    contentIdToExpr = EntityCondition.makeCondition("caContentIdTo", EntityOperator.EQUALS, forumId);
+    contentIdToExpr = EntityCondition.makeCondition("caContentId", EntityOperator.EQUALS, forumId);
     exprList.add(contentIdToExpr);
     expr = EntityCondition.makeCondition(exprList, EntityOperator.AND);
     entityList = delegator.findList("ContentAssocViewFrom", expr, null, ['-caFromDate'], null, false);
