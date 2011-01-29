@@ -233,6 +233,14 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
         positioning = ['left', 'top'];
     }
     
+    var lookupFormAction = null;
+    function lookup_onKeyEnter(event) {
+        if (event.which == 13) {
+            lookupFormAjaxRequest(lookupFormAction, "form_" + lookupId);
+            return false;
+        }
+    }
+    
     // Lookup Configuration
     var dialogOpts = {
         modal: (modal == "true") ? true : false,
@@ -251,7 +259,9 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
                 }
             }
             jQuery("#" + lookupId).load(requestUrlAndArgs, function(data){ 
+                lookupFormAction = jQuery("#" + lookupId + " form:first").attr("action");
                 modifySubmitButton(lookupId);
+                jQuery(document).bind("keypress", lookup_onKeyEnter);
                 // set up the window chaining
                 // if the ACTIVATED_LOOKUP var is set there have to be more than one lookup,
                 // before registrating the new lookup we store the id of the old lookup in the
@@ -269,6 +279,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             });
         },
         close: function() {
+            jQuery(document).unbind("keypress", lookup_onKeyEnter);
             //when the window is closed the prev Lookup get the focus (if exists)
             if (ACTIVATED_LOOKUP) {
                 var prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup;
@@ -454,14 +465,6 @@ function modifySubmitButton (lookupDiv) {
         }));
 
         input.remove();
-
-        jQuery(document).bind("keypress", function (event) {
-            if (event.which == 13) {
-                lookupFormAjaxRequest(formAction, lookupForm.attr("id"));
-                return false;
-            }
-        });
-
         //modify nav-pager
         var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
         jQuery.each(navPagers, function(navPager) {
@@ -526,19 +529,17 @@ function modifySubmitButton (lookupDiv) {
                     if (childElements.size() == 1) {
                         continue;
                     }
-                    
                     for (k = 1; k < childElements.size(); k++) {
                         var cell = childElements[k];
                         var cellChild = null;
                         cellChild = cell.childElements();
                         if (cellChild.size() > 0) {
-                            
                             for (l in cellChild) {
                                 var cellElement = cellChild[l];
                                 if (cellElement.tagName == 'A') {
                                     var link = cellElement.href;
                                     var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
-                                    if (liSub.contains("javascript:set_")) {
+                                    if (liSub.indexOf("javascript:set_") != -1) {
                                         cellElement.href = liSub;
                                     } else {
                                         cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
@@ -559,16 +560,17 @@ function modifySubmitButton (lookupDiv) {
             var childElements = jQuery(tableChildren[tableChild]);
             var tableRow = childElements.children();
             jQuery.each(tableRow, function(cell){
-                //to skip the first Entry of the row, because it's the normal id link
-                if (cell == 0) return true;
-
                 var cellChild = null;
                 cellChild = jQuery(tableRow[cell]).children();
                 jQuery.each(cellChild, function (child) {
                     if (cellChild[child].tagName == "A"){
                         var link = cellChild[child].href;
                         var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
-                        cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
+                        if (liSub.indexOf("javascript:set_") != -1) {
+                            cellChild[child].href = liSub;
+                        } else {
+                            cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
+                        }
                     }
                 });
 
