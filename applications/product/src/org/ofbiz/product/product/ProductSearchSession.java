@@ -1197,7 +1197,7 @@ public class ProductSearchSession {
         dynamicViewEntity.addAlias("PFAC", "pfacProductFeatureId", "productFeatureId", null, null, Boolean.TRUE, null);
         dynamicViewEntity.addAlias("PFAC", "pfacFromDate", "fromDate", null, null, null, null);
         dynamicViewEntity.addAlias("PFAC", "pfacThruDate", "thruDate", null, null, null, null);
-        dynamicViewEntity.addAlias("PFAC", "featureCount", "productId", null, null, null, "count");
+        dynamicViewEntity.addAlias("PFAC", "featureCount", "productId", null, null, null, "count-distinct");
         dynamicViewEntity.addViewLink("PROD", "PFAC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         fieldsToSelect.add("pfacProductFeatureId");
         fieldsToSelect.add("featureCount");
@@ -1281,7 +1281,7 @@ public class ProductSearchSession {
         dynamicViewEntity.addAlias("PPC", "ppcFromDate", "fromDate", null, null, null, null);
         dynamicViewEntity.addAlias("PPC", "ppcThruDate", "thruDate", null, null, null, null);
         dynamicViewEntity.addAlias("PPC", "ppcPrice", "price", null, null, null, null);
-        dynamicViewEntity.addAlias("PPC", "priceRangeCount", "productId", null, null, null, "count");
+        dynamicViewEntity.addAlias("PPC", "priceRangeCount", "productId", null, null, null, "count-distinct");
         dynamicViewEntity.addViewLink("PROD", "PPC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         fieldsToSelect.add("priceRangeCount");
         entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("ppcThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("ppcThruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp())));
@@ -1346,7 +1346,7 @@ public class ProductSearchSession {
         dynamicViewEntity.addAlias("PCMC", "pcmcProductCategoryId", "productCategoryId", null, null, null, null);
         dynamicViewEntity.addAlias("PCMC", "pcmcFromDate", "fromDate", null, null, null, null);
         dynamicViewEntity.addAlias("PCMC", "pcmcThruDate", "thruDate", null, null, null, null);
-        dynamicViewEntity.addAlias("PCMC", "categoryCount", "productId", null, null, null, "count");
+        dynamicViewEntity.addAlias("PCMC", "categoryCount", "productId", null, null, null, "count-distinct");
         dynamicViewEntity.addViewLink("PROD", "PCMC", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
         fieldsToSelect.add("categoryCount");
         entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("pcmcThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("pcmcThruDate", EntityOperator.GREATER_THAN, productSearchContext.nowTimestamp)));
