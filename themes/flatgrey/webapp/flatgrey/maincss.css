@@ -475,6 +475,7 @@ border-left: 0.1em solid #ccc;
 height: auto !important;
 height: 1%;
 margin-bottom: 1em;
+overflow: auto;
 }
 
 .screenlet-body {
