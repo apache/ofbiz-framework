@@ -79,6 +79,7 @@ public class ContentServicesComplex {
         return results;
     }
 
+    @SuppressWarnings("unchecked")
     public static Map<String, Object> getAssocAndContentAndDataResourceMethod(Delegator delegator, String contentId, String mapKey, String direction, Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List<String> assocTypes, List<String> contentTypes) {
         List exprList = FastList.newInstance();
         EntityExpr joinExpr = null;
