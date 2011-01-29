@@ -20,20 +20,18 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -58,19 +56,23 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
-        //final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
-        //final Map templateCtx = FastMap.newInstance();
+        // final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
+        // final Map templateCtx = FastMap.newInstance();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
-        final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
-        final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+        // final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
+        final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+        }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
-        if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+        }
         //final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         //List trail = (List)templateRoot.get("globalNodeTrail");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
@@ -80,9 +82,13 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         final String thisContentId =  (String)templateRoot.get("contentId");
         final String thisMapKey =  (String)templateRoot.get("mapKey");
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
-        if (Debug.infoOn()) Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId , module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in Render(0), thisSubContentId ." + thisContentId , module);
+        }
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
-        if (Debug.infoOn()) Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode , module);
+        if (Debug.infoOn()) {
+            Debug.logInfo("in Render(0), directAssocMode ." + directAssocMode , module);
+        }
         /*
         GenericValue val = null;
         try {
@@ -122,7 +128,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
         */
 
-        final Map savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = FastMap.newInstance();
 
         return new Writer(out) {
 
@@ -137,8 +143,10 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
             @Override
             public void close() throws IOException {
-                List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
-                if (Debug.infoOn()) Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
+                List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
+                }
                 renderSubContent();
                  //if (Debug.infoOn()) Debug.logInfo("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
             }
@@ -153,8 +161,8 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                     locale = UtilMisc.ensureLocale(localeObject);
                 }
 
-                //TemplateHashModel dataRoot = env.getDataModel();
-                Timestamp fromDate = UtilDateTime.nowTimestamp();
+                // TemplateHashModel dataRoot = env.getDataModel();
+                // Timestamp fromDate = UtilDateTime.nowTimestamp();
                 // List passedGlobalNodeTrail = (List) templateRoot.get("globalNodeTrail");
                 String editRequestName = (String)templateRoot.get("editRequestName");
                 if (Debug.infoOn()) Debug.logInfo("in Render(3), editRequestName ." + editRequestName , module);

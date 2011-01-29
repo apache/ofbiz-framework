@@ -33,6 +33,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -64,13 +65,17 @@ public class RenderContentAsText implements TemplateTransformModel {
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
-        final Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-        if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+        final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
+        }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = FastMap.newInstance();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
-        if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+        }
         // not used yet: final GenericValue userLogin = FreeMarkerWorker.getWrappedObject("userLogin", env);
         // not used yet: List trail = (List)templateRoot.get("globalNodeTrail");
         //if (Debug.infoOn()) Debug.logInfo("in Render(0), globalNodeTrail ." + trail , module);
@@ -80,7 +85,9 @@ public class RenderContentAsText implements TemplateTransformModel {
         final String thisContentId =  (String)templateRoot.get("contentId");
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
         final boolean directAssocMode = UtilValidate.isNotEmpty(thisContentId) ? true : false;
-        if (Debug.verboseOn()) Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("in Render(0), directAssocMode ." + directAssocMode , module);
+        }
         /*
         if (Debug.infoOn()) Debug.logInfo("in Render(0), thisSubContentId ." + thisSubContentId , module);
         String thisSubContentId =  (String)templateRoot.get("subContentId");
@@ -122,7 +129,7 @@ public class RenderContentAsText implements TemplateTransformModel {
         templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
         */
 
-        final Map savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = FastMap.newInstance();
 
         return new Writer(out) {
 
@@ -137,8 +144,10 @@ public class RenderContentAsText implements TemplateTransformModel {
 
             @Override
             public void close() throws IOException {
-                List globalNodeTrail = (List)templateRoot.get("globalNodeTrail");
-                if (Debug.verboseOn()) Debug.logVerbose("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
+                List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(templateRoot.get("globalNodeTrail"));
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Render close, globalNodeTrail(2a):" + ContentWorker.nodeTrailToCsv(globalNodeTrail), "");
+                }
                 renderSubContent();
                 //if (Debug.verboseOn()) Debug.logVerbose("in Render(2), globalNodeTrail ." + getWrapped(env, "globalNodeTrail") , module);
             }
@@ -157,8 +166,10 @@ public class RenderContentAsText implements TemplateTransformModel {
                 // Timestamp fromDate = UtilDateTime.nowTimestamp();
                 // List passedGlobalNodeTrail = (List)templateRoot.get("globalNodeTrail");
                 String editRequestName = (String)templateRoot.get("editRequestName");
-                 if (Debug.verboseOn()) Debug.logVerbose("in Render(3), editRequestName ." + editRequestName , module);
-                 /*
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("in Render(3), editRequestName ." + editRequestName , module);
+                }
+                /*
                 GenericValue thisView = null;
                 if (view != null) {
                     thisView = view;
@@ -177,8 +188,10 @@ public class RenderContentAsText implements TemplateTransformModel {
                     openEditWrap(out, editStyle);
                 }
 
-                if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
-                if (Debug.verboseOn()) Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
+                    Debug.logVerbose("in RenderSubContent, subContentId(2):" + templateRoot.get("subContentId"), module);
+                }
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 //if (thisView != null) {
                     try {
@@ -211,8 +224,10 @@ public class RenderContentAsText implements TemplateTransformModel {
             }
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(3):" + templateRoot.get("contentId"), module);
-                if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(3):" + templateRoot.get("subContentId"), module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("in RenderSubContent, contentId(3):" + templateRoot.get("contentId"), module);
+                    Debug.logInfo("in RenderSubContent, subContentId(3):" + templateRoot.get("subContentId"), module);
+                }
                 String fullRequest = editRequestName;
                 String contentId = null;
                 contentId = (String)templateRoot.get("subContentId");

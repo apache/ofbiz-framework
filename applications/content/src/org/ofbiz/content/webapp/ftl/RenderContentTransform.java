@@ -59,7 +59,7 @@ public class RenderContentTransform implements TemplateTransformModel {
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = FreeMarkerWorker.getWrappedObject("response", env);
 
-        final Map templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
+        final Map<String, Object> templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
         ((MapStack)templateRoot).push(args);
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
         final String thisContentId = (String)templateRoot.get("contentId");
@@ -129,7 +129,7 @@ public class RenderContentTransform implements TemplateTransformModel {
             }
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
-                StringBuilder sb = new StringBuilder();
+                // StringBuilder sb = new StringBuilder();
                 String fullRequest = editRequestName;
                 String delim = "?";
                 if (UtilValidate.isNotEmpty(thisContentId)) {
