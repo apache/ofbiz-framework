@@ -518,14 +518,13 @@ _margin: 5px 7px 0 7px;
 padding: 0 1em 0 50px;
 }
 .eventMessage {
-background: #105fa8 url(../images/information.png) no-repeat 10px 50%;
+background: #105fa8 url(../images/information.png) no-repeat 5px 50%;
 color: #FFFFFF;
 border: solid 3px #f0f0f0;
 }
 .errorMessage {
 background: #820f05 url(../images/exclamation.png) no-repeat 5px 50%;
 color: #ffffff;
-font-size:11px;
 border: solid 3px #f0f0f0;
 }
 .content-messages p {
@@ -1102,7 +1101,6 @@ font-size: 130%;
 #control-area {
 height:30px;
 float: right;
-bbfont-size: 130%;
 text-align: right;
 padding-right:10px;
 }
@@ -1452,9 +1450,7 @@ display: inline; /* IE Fix */
 .button-bar ul li {
 float: left;
 font-weight: bold;
-
-/*padding: 0.1em 0.4em 0.1em 0.4em; */
-/*background-color: #0099CC; */
+text-transform: uppercase;
 }
 
 .button-bar ul .opposed {
@@ -1509,11 +1505,9 @@ background: url(../images/button_sprite.png) no-repeat 0px -130px;
 .button-bar ul a:hover,.button-bar a:hover {
 color:#25292c;
 background-image:url(../images/ptrn_button_hover.gif);
-background-color:#EDCC12;
+bbbackground-color:#EDCC12;
 text-decoration: none;
 }
-
-
 
 .button-bar .opposed,.button-bar .opposed li,.button-bar ul .opposed {
 float: right;
@@ -1532,7 +1526,7 @@ color: #000099;
 }
 
 .button-style-1 .selected,.button-style-1 ul .selected,.button-style-1 ul .selected a {
-background-color: #000099;
+background-image:url(../images/tab_selected.png);
 color: #ffffff;
 }
 
@@ -1540,6 +1534,16 @@ color: #ffffff;
 background-color: #000099;
 color: #ffffff;
 text-decoration: none;
+}
+
+.button-style-1 a.disabled {
+color: #777777;
+}
+
+.button-style-1 a.disabled:hover {
+background-image:url(../images/tab_normal1.png);
+background-color: #D4D0C8;
+border: solid #000099 0.1em;
 }
 
 /* ===== Button style decorator ===== */
@@ -1555,21 +1559,22 @@ white-space: nowrap;
 }
 
 .button-style-2 ul .selected a,.button-style-2 .selected {
-background-color: #000099;
+background-image:url(../images/tab_selected.png);
 color: #ffffff;
 }
 
 .button-style-2 ul a:hover,.button-style-2 a:hover,a.button-style-2:hover {
-_background-color: #000099;
 color:#25292c;
 text-decoration: none;
 }
 
-.button-style-2 .disabled {
-background-color: #ffffff;
-border: solid #D4D0C8 0.1em;
-color: #D4D0C8;
-padding:0.1em 0.5em;
+.button-style-2 a.disabled {
+color: #777777;
+}
+
+.button-style-2 a.disabled:hover {
+background-image:url(../images/tab_normal1.png);
+background-color: none;
 }
 
 /* ===== Button bar decorators ===== */
