@@ -300,11 +300,11 @@
         <set field="acctgPreferenceCtx.taxFormId" value="US_IRS_1120"/>
         <set field="acctgPreferenceCtx.cogsMethodId" value="COGS_AVG_COST"/>
         <set field="acctgPreferenceCtx.baseCurrencyUomId" value="USD"/>
-        <set field="acctgPreferenceCtx.invoiceSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+        <set field="acctgPreferenceCtx.oldInvoiceSequenceEnumId" value="INVSQ_ENF_SEQ"/>
         <set field="acctgPreferenceCtx.invoiceIdPrefix" from-field="parameters.invoiceIdPrefix"/>
-        <set field="acctgPreferenceCtx.quoteSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+        <set field="acctgPreferenceCtx.oldQuoteSequenceEnumId" value="INVSQ_ENF_SEQ"/>
         <set field="acctgPreferenceCtx.quoteIdPrefix" value="QU"/>
-        <set field="acctgPreferenceCtx.orderSequenceEnumId" value="INVSQ_ENF_SEQ"/>
+        <set field="acctgPreferenceCtx.oldOrderSequenceEnumId" value="INVSQ_ENF_SEQ"/>
         <set field="acctgPreferenceCtx.orderIdPrefix" value="OD"/>
         <call-service service-name="createPartyAcctgPreference" in-map-name="acctgPreferenceCtx"/>
 

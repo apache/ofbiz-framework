@@ -42,15 +42,18 @@ under the License.
             <exclude field-name="taxFormId"/>
             <exclude field-name="cogsMethodId"/>
             <exclude field-name="baseCurrencyUomId"/>
-            <exclude field-name="invoiceSequenceEnumId"/>
+            <exclude field-name="oldInvoiceSequenceEnumId"/>
+            <exclude field-name="invoiceSeqCustMethId"/>
             <exclude field-name="invoiceIdPrefix"/>
             <exclude field-name="lastInvoiceNumber"/>
             <exclude field-name="lastInvoiceRestartDate"/>
             <exclude field-name="useInvoiceIdForReturns"/>
-            <exclude field-name="quoteSequenceEnumId"/>
+            <exclude field-name="oldQuoteSequenceEnumId"/>
+            <exclude field-name="quoteSeqCustMethId"/>
             <exclude field-name="quoteIdPrefix"/>
             <exclude field-name="lastQuoteNumber"/>
-            <exclude field-name="orderSequenceEnumId"/>
+            <exclude field-name="oldOrderSequenceEnumId"/>
+            <exclude field-name="orderSeqCustMethId"/>
             <exclude field-name="orderIdPrefix"/>
             <exclude field-name="lastOrderNumber"/>
         </auto-attributes>
