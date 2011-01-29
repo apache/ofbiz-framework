@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Tenant tenantId="@tenantId@" tenantName="@tenantName@" />
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.ofbiz" 
+        jdbcUri="jdbc:derby:ofbiz_@tenantId@;create=true" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.ofbiz.olap" 
+        jdbcUri="jdbc:derby:ofbizolap_@tenantId@;create=true" jdbcUsername="ofbiz" jdbcPassword="ofbiz"/>
+</entity-engine-xml>

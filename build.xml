@@ -419,6 +419,193 @@ under the License.
             <arg value="file=${data-file}"/>
         </java>
     </target>
+
+    <!-- ================================= 
+          target: run-create-tenant        
+         ================================= -->
+    <target name="run-create-tenant" 
+        depends="create-tenant-on-Derby,create-tenant-on-MySQL,create-tenant-on-Oracle,create-tenant-on-PostgreSQL"
+        description="This build script creates a new tenant in your environment, creates the delegator, and loads initial data (needs multitenant=Y in general.properties)">
+        <tstamp/>
+    </target>
+
+    <target name="get-tenant-data"
+        description="This creates entity Tenant and TenantDataSource in default, installs data in the delegator and creates the admin-user and password for the tenant">
+        <input addproperty="tenantId" message="Enter Id for the tenant: "/>
+        <input addproperty="tenantName" message="Enter name for tenant: "/>
+        <input addproperty="data-readers" message="Enter data to install.
+        Choices are e.g. seed,seed-initial,ext,demo.
+        Multipe datasets must be separated with a comma: "/>
+        <input addproperty="db-Platform" message="Select your default database platform, D = Derby,M = MySQL, O = Oracle, P = PostgreSQL"
+            validargs="D,M,O,P"/>
+        <echo message="Please make sure that the driver of the platform is installed and that the databases have been created (in function of the entityengine.xml datasource-names)"/>
+        <input addproperty="db-IP" message="Enter IP address of the database server (you may add a port number)"/>
+        <input addproperty="db-User" message="Enter userID of database user: "/>
+        <input addproperty="db-Password" message="Enter password of database user: "/>
+        <condition property="isDerby">
+            <equals arg1="${db-Platform}" arg2="D"/>
+        </condition>
+        <condition property="isMySQL">
+            <equals arg1="${db-Platform}" arg2="M"/>
+        </condition>
+        <condition property="isOracle">
+            <equals arg1="${db-Platform}" arg2="O"/>
+        </condition>
+        <condition property="isPostgreSQL">
+            <equals arg1="${db-Platform}" arg2="P"/>
+        </condition>
+        <antcall target="tenant-data-entry"/>
+    </target>
+    <target name="create-tenant-on-Derby" depends="get-tenant-data"
+        description="Creates tenant data and instance" if="isDerby">
+        <echo message="Installing on Derby"/>
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-Derby.xml" tofile="runtime/tmp/tmpTenantData.xml">
+            <filterset>
+                <filter token="tenantId" value="${tenantId}"/>
+                <filter token="tenantName" value="${tenantName}"/>
+            </filterset>
+        </copy>
+        <antcall target="run-install-file">
+            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+        </antcall>
+        <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <antcall target="load-tenant-data-readers"/>
+        <antcall target="load-tenant-admin-user-login">
+            <param name="userLoginId" value="${tenantId}-admin"/>
+            <param name="delegatorId" value="default#${tenantId}"/>
+        </antcall>
+    </target>
+    <target name="create-tenant-on-MySQL" depends="get-tenant-data"
+        description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names" if="isMySQL">
+        <echo message="Installing on MySQL"/>
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-MySQL.xml" tofile="runtime/tmp/tmpTenantData.xml">
+            <filterset>
+                <filter token="tenantId" value="${tenantId}"/>
+                <filter token="tenantName" value="${tenantName}"/>
+                <filter token="db-IP" value="${db-IP}"/>
+                <filter token="db-User" value="${db-User}"/>
+                <filter token="db-Password" value="${db-Password}"/>
+            </filterset>
+        </copy>
+        <antcall target="run-install-file">
+            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+        </antcall>
+        <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <antcall target="load-tenant-data-readers"/>
+        <antcall target="load-tenant-admin-user-login">
+            <param name="userLoginId" value="${tenantId}-admin"/>
+            <param name="delegatorId" value="default#${tenantId}"/>
+        </antcall>
+    </target>
+    <target name="create-tenant-on-Oracle" depends="get-tenant-data"
+        description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names" if="isOracle">
+        <echo message="Installing on Oracle"/>
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-Oracle.xml" tofile="runtime/tmp/tmpTenantData.xml">
+            <filterset>
+                <filter token="tenantId" value="${tenantId}"/>
+                <filter token="tenantName" value="${tenantName}"/>
+                <filter token="db-IP" value="${db-IP}"/>
+                <filter token="db-User" value="${db-User}"/>
+                <filter token="db-Password" value="${db-Password}"/>
+            </filterset>
+        </copy>
+        <antcall target="run-install-file">
+            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+        </antcall>
+        <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <antcall target="load-tenant-data-readers"/>
+        <antcall target="load-tenant-admin-user-login">
+            <param name="userLoginId" value="${tenantId}-admin"/>
+            <param name="delegatorId" value="default#${tenantId}"/>
+        </antcall>
+    </target>
+    <target name="create-tenant-on-PostgreSQL" depends="get-tenant-data"
+        description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names" if="isPostgreSQL">
+        <echo message="Installing on PostgreSQL"/>
+        <copy file="${basedir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml" tofile="runtime/tmp/tmpTenantData.xml">
+            <filterset>
+                <filter token="tenantId" value="${tenantId}"/>
+                <filter token="tenantName" value="${tenantName}"/>
+                <filter token="db-IP" value="${db-IP}"/>
+                <filter token="db-User" value="${db-User}"/>
+                <filter token="db-Password" value="${db-Password}"/>
+            </filterset>
+        </copy>
+        <antcall target="run-install-file">
+            <param name="data-file" value="runtime/tmp/tmpTenantData.xml"/>
+        </antcall>
+        <delete file="runtime/tmp/tmpTenantData.xml"/>
+        <antcall target="load-tenant-data-readers"/>
+        <antcall target="load-tenant-admin-user-login">
+            <param name="userLoginId" value="${tenantId}-admin"/>
+            <param name="delegatorId" value="default#${tenantId}"/>
+        </antcall>
+    </target>
+    <target name="tenant-data-entry"
+        description="displays tenant data">
+        <echo>------------------------------------</echo>
+        <echo message="tenantId = ${tenantId}"/>
+        <echo>tenantName = ${tenantName}</echo>
+        <echo>db-Platform = ${db-Platform}</echo>
+        <echo>db-IP = ${db-IP}</echo>
+        <echo>db-User = ${db-User}</echo>
+        <echo>db-Password = ${db-Password}</echo>
+        <echo>------------------------------------</echo>
+        <echo>database for tenant data will be 'ofbiz_${tenantId}'</echo>
+        <echo>database for tenant olap data will be 'ofbizolap_${tenantId}</echo>
+        <echo message="Please make sure that the driver of the platform is installed and that the databases have been created (Check names just above)"/>
+        <echo>------------------------------------</echo>
+        <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
+        
+    </target>
+    <target name="load-tenant-admin-user-login"
+        description="Creates the admin login for the tenant with admin privileges, and a temporay password equal to 'ofbiz'. Password must be changed on first login">
+        <echo>------------------------------------</echo>
+        <echo message="Installing the admin for the tenant"/>
+        <echo message="Delegator = ${delegatorId}"/>
+        <echo message="Tenant admin = '${userLoginId}'"/>
+        <echo message="Password for tenant admin is 'ofbiz' must change on first login"/>
+        <echo>------------------------------------</echo>
+        <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
+        <copy file="${basedir}/framework/resources/templates/AdminUserLoginData.xml" tofile="runtime/tmp/tmpUserLogin.xml">
+            <filterset>
+                <filter token="userLoginId" value="${userLoginId}"/>
+            </filterset>
+        </copy>
+        <antcall target="run-tenant-install-file">
+            <param name="data-file" value="runtime/tmp/tmpUserLogin.xml"/>
+            <param name="delegatorId" value="${delegatorId}"/>
+        </antcall>
+        <delete file="runtime/tmp/tmpUserLogin.xml"/>
+    </target>
+    <target name="load-tenant-data-readers"
+        description="Loads data of given data-readers in the tenant database">
+        <echo>------------------------------------</echo>
+        <echo message="Loading selected data-readers in tenant databaset"/>
+        <echo message="Delegator = default#${tenantId}"/>
+        <echo message="Data-readers = ${data-readers}"/>
+        <echo>------------------------------------</echo>
+        <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="readers=${data-readers}"/>
+            <arg value="delegator=default#${tenantId}"/>
+        </java>
+    </target>
+    <target name="run-tenant-install-file"
+        description="Loads the data of the tenant using the command line argument 'file' to load data from a given file">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="file=${data-file}"/>
+            <arg value="delegator=${delegatorId}"/>
+        </java>
+    </target>
     <target name="load-admin-user-login"
             description="Creates a user login with admin privileges and a temporary password equal to 'ofbiz'; after a succesful login the user will be prompted for a new password. Example command for the userLogin 'admin': ./ant load-admin-user-login -DuserLoginId=admin">
         <fail message="userLoginId parameter is required. To add the parameter to the command for user admin: -DuserLoginId=admin">
