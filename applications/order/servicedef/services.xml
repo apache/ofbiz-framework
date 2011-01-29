@@ -44,6 +44,7 @@ under the License.
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
         <attribute name="orderId" type="String" mode="OUT" optional="true"/>
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="sendOrderConfirmation" engine="java" require-new-transaction="true" max-retry="3"
             location="org.ofbiz.order.order.OrderServices" invoke="sendOrderConfirmNotification">

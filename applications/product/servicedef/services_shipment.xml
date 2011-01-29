@@ -952,6 +952,7 @@ under the License.
         <attribute name="subject" type="String" mode="OUT" optional="true"/>
         <attribute name="orderId" type="String" mode="OUT" optional="true"/>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="OUT" optional="true"/>
+        <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="updateIssuanceShipmentAndPoOnReceiveInventory" engine="simple"
             location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="updateIssuanceShipmentAndPoOnReceiveInventory">
