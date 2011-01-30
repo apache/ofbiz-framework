@@ -20,6 +20,7 @@ package org.ofbiz.order.shoppingcart;
 
 import org.ofbiz.base.util.GeneralException;
 
+@SuppressWarnings("serial")
 public class ItemNotFoundException extends GeneralException {
 
     public ItemNotFoundException() {
