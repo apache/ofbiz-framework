@@ -942,23 +942,6 @@ vertical-align: top;
 text-align: center;
 }
 
-.tabbar {
-background: url(../images/header_top_bg_btm.gif) repeat-x;
-height: 30px;
-width: 100%;
-}
-
-.tabbar .breadcrumbs-sep {
-color: #262626;
-float: left;
-height: 22px;
-background: url(../images/appbar.png) no-repeat right -90px;
-padding: 8px 20px 0px 10px;
-font-size: 1.5em;
-font-weight: bold;
-}
-
-
 /* ==================================== */
 /* ===== Masthead (Header) Styles ===== */
 /* ==================================== */
@@ -1089,9 +1072,15 @@ color: #aa9f63;
 font-weight:normal;
 }
 
-/* ================================================== */
-/* ===== Main Navigation (App Menu) Styles ========== */
-/* ================================================== */
+/* =========================================== */
+/* ===== Main Navigation Bar Styles ========== */
+/* =========================================== */
+#navigation {
+background: url(../images/header_top_bg_btm.gif) repeat-x;
+height: 30px;
+width: 100%;
+}
+
 #main-navigation,#app-navigation {
 height:30px;
 float: left;
@@ -1198,6 +1187,16 @@ background-color:#403f40;
 #main-navigation ul.main,
 #app-navigation li ul{
 display:none;
+}
+
+#app-nav-selected-item {
+color: #262626;
+float: left;
+height: 22px;
+background: url(../images/appbar.png) no-repeat right -90px;
+padding: 8px 20px 0px 10px;
+font-size: 1.5em;
+font-weight: bold;
 }
 
 /* ============================ */
