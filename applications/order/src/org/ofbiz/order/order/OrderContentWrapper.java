@@ -21,12 +21,13 @@ package org.ofbiz.order.order;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -49,7 +50,7 @@ public class OrderContentWrapper {
     public static final String module = OrderContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
 
-    public static UtilCache orderContentCache;
+    public static UtilCache<String, String> orderContentCache;
 
     public static OrderContentWrapper makeOrderContentWrapper(GenericValue order, HttpServletRequest request) {
         return new OrderContentWrapper(order, request);
@@ -140,12 +141,12 @@ public class OrderContentWrapper {
             mimeTypeId = "text/html";
         }
 
-        List orderContentList = delegator.findByAndCache("OrderContent", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "orderContentTypeId", orderContentTypeId), UtilMisc.toList("-fromDate"));
+        List<GenericValue> orderContentList = delegator.findByAndCache("OrderContent", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "orderContentTypeId", orderContentTypeId), UtilMisc.toList("-fromDate"));
         orderContentList = EntityUtil.filterByDate(orderContentList);
         GenericValue orderContent = EntityUtil.getFirst(orderContentList);
         if (orderContent != null) {
             // when rendering the order content, always include the OrderHeader/OrderItem and OrderContent records that this comes from
-            Map inContext = new HashMap();
+            Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("order", order);
             inContext.put("orderContent", orderContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
