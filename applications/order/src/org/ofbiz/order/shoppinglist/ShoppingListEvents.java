@@ -20,10 +20,7 @@ package org.ofbiz.order.shoppinglist;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -31,6 +28,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -101,7 +101,7 @@ public class ShoppingListEvents {
        
         if (UtilValidate.isEmpty(shoppingListId)) {
             // create a new shopping list
-            Map newListResult = null;
+            Map<String, Object> newListResult = null;
             try {
                 newListResult = dispatcher.runSync("createShoppingList", UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", cart.getProductStoreId(), "partyId", cart.getOrderPartyId(), "shoppingListTypeId", shoppingListTypeId, "currencyUom", cart.getCurrency()));
             } catch (GenericServiceException e) {
@@ -145,9 +145,9 @@ public class ShoppingListEvents {
                 ShoppingCartItem item = cart.findCartItem(cartIdInt.intValue());
                 if (allowPromo || !item.getIsPromo()) {
                     Debug.logInfo("Adding cart item to shopping list [" + shoppingListId + "], allowPromo=" + allowPromo + ", item.getIsPromo()=" + item.getIsPromo() + ", item.getProductId()=" + item.getProductId() + ", item.getQuantity()=" + item.getQuantity(), module);
-                    Map serviceResult = null;
+                    Map<String, Object> serviceResult = null;
                     try {
-                        Map ctx = UtilMisc.toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId", item.getProductId(), "quantity", item.getQuantity());
+                        Map<String, Object> ctx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId", item.getProductId(), "quantity", item.getQuantity());
                         ctx.put("reservStart", item.getReservStart());
                         ctx.put("reservLength", item.getReservLength());
                         ctx.put("reservPersons", item.getReservPersons());
@@ -210,7 +210,7 @@ public class ShoppingListEvents {
 
         // get the shopping list
         GenericValue shoppingList = null;
-        List shoppingListItems = null;
+        List<GenericValue> shoppingListItems = null;
         try {
             shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId));
             if (shoppingList == null) {
@@ -220,16 +220,16 @@ public class ShoppingListEvents {
 
             shoppingListItems = shoppingList.getRelated("ShoppingListItem");
             if (shoppingListItems == null) {
-                shoppingListItems = new LinkedList();
+                shoppingListItems = FastList.newInstance();
             }
 
             // include all items of child lists if flagged to do so
             if (includeChild) {
-                List childShoppingLists = shoppingList.getRelated("ChildShoppingList");
-                Iterator ci = childShoppingLists.iterator();
+                List<GenericValue> childShoppingLists = shoppingList.getRelated("ChildShoppingList");
+                Iterator<GenericValue> ci = childShoppingLists.iterator();
                 while (ci.hasNext()) {
-                    GenericValue v = (GenericValue) ci.next();
-                    List items = v.getRelated("ShoppingListItem");
+                    GenericValue v = ci.next();
+                    List<GenericValue> items = v.getRelated("ShoppingListItem");
                     shoppingListItems.addAll(items);
                 }
             }
@@ -252,13 +252,13 @@ public class ShoppingListEvents {
         }
 
         // get the survey info for all the items
-        Map shoppingListSurveyInfo = getItemSurveyInfos(shoppingListItems);
+        Map<String, List<String>> shoppingListSurveyInfo = getItemSurveyInfos(shoppingListItems);
 
         // add the items
         StringBuilder eventMessage = new StringBuilder();
-        Iterator i = shoppingListItems.iterator();
+        Iterator<GenericValue> i = shoppingListItems.iterator();
         while (i.hasNext()) {
-            GenericValue shoppingListItem = (GenericValue) i.next();
+            GenericValue shoppingListItem = i.next();
             String productId = shoppingListItem.getString("productId");
             BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
             Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
@@ -271,7 +271,7 @@ public class ShoppingListEvents {
                 String listId = shoppingListItem.getString("shoppingListId");
                 String itemId = shoppingListItem.getString("shoppingListItemSeqId");
 
-                Map attributes = new HashMap();
+                Map<String, Object> attributes = FastMap.newInstance();
                 // list items are noted in the shopping cart
                 if (setAsListItem) {
                     attributes.put("shoppingListId", listId);
@@ -295,17 +295,17 @@ public class ShoppingListEvents {
                 } else {
                     cart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
                 }
-                Map messageMap = UtilMisc.toMap("productId", productId);
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.added_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
             } catch (CartItemModifyException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProblemsAddingItemFromListToCart", cart.getLocale()));
-                Map messageMap = UtilMisc.toMap("productId", productId);
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
             } catch (ItemNotFoundException e) {
                 Debug.logWarning(e, UtilProperties.getMessage(resource_error,"OrderProductNotFound", cart.getLocale()));
-                Map messageMap = UtilMisc.toMap("productId", productId);
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.problem_adding_product_to_cart", messageMap, cart.getLocale());
                 eventMessage.append(errMsg).append("\n");
             }
@@ -334,13 +334,13 @@ public class ShoppingListEvents {
             // do nothing, just won't pass to service if it is null
         }
 
-        Map serviceInMap = new HashMap();
+        Map<String, Object> serviceInMap = FastMap.newInstance();
         serviceInMap.put("shoppingListId", request.getParameter("shoppingListId"));
         serviceInMap.put("shoppingListItemSeqId", request.getParameter("shoppingListItemSeqId"));
         serviceInMap.put("productId", request.getParameter("add_product_id"));
         serviceInMap.put("userLogin", userLogin);
         if (quantity != null) serviceInMap.put("quantity", quantity);
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             result = dispatcher.runSync("updateShoppingListItem", serviceInMap);
         } catch (GenericServiceException e) {
@@ -369,8 +369,8 @@ public class ShoppingListEvents {
 
         String autoSaveListId = null;
         // TODO: add sorting, just in case there are multiple...
-        Map findMap = UtilMisc.toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-        List existingLists = delegator.findByAnd("ShoppingList", findMap);
+        Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
+        List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap);
         Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
 
         GenericValue list = null;
@@ -380,8 +380,8 @@ public class ShoppingListEvents {
         }
 
         if (list == null && dispatcher != null && userLogin != null) {
-            Map listFields = UtilMisc.toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-            Map newListResult = dispatcher.runSync("createShoppingList", listFields);
+            Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
+            Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
 
             if (newListResult != null) {
                 autoSaveListId = (String) newListResult.get("shoppingListId");
@@ -522,12 +522,12 @@ public class ShoppingListEvents {
     /**
      * Creates records for survey responses on survey items
      */
-    public static int makeListItemSurveyResp(Delegator delegator, GenericValue item, List surveyResps) throws GenericEntityException {
+    public static int makeListItemSurveyResp(Delegator delegator, GenericValue item, List<String> surveyResps) throws GenericEntityException {
         if (UtilValidate.isNotEmpty(surveyResps)) {
-            Iterator i = surveyResps.iterator();
+            Iterator<String> i = surveyResps.iterator();
             int count = 0;
             while (i.hasNext()) {
-                String responseId = (String) i.next();
+                String responseId = i.next();
                 GenericValue listResp = delegator.makeValue("ShoppingListItemSurvey");
                 listResp.set("shoppingListId", item.getString("shoppingListId"));
                 listResp.set("shoppingListItemSeqId", item.getString("shoppingListItemSeqId"));
@@ -543,12 +543,12 @@ public class ShoppingListEvents {
     /**
      * Returns Map keyed on item sequence ID containing a list of survey response IDs
      */
-    public static Map getItemSurveyInfos(List items) {
-        Map surveyInfos = new HashMap();
+    public static Map<String, List<String>> getItemSurveyInfos(List<GenericValue> items) {
+        Map<String, List<String>> surveyInfos = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(items)) {
-            Iterator itemIt = items.iterator();
+            Iterator<GenericValue> itemIt = items.iterator();
             while (itemIt.hasNext()) {
-                GenericValue item = (GenericValue) itemIt.next();
+                GenericValue item = itemIt.next();
                 String listId = item.getString("shoppingListId");
                 String itemId = item.getString("shoppingListItemSeqId");
                 surveyInfos.put(listId + "." + itemId, getItemSurveyInfo(item));
@@ -561,9 +561,9 @@ public class ShoppingListEvents {
     /**
      * Returns a list of survey response IDs for a shopping list item
      */
-    public static List getItemSurveyInfo(GenericValue item) {
-        List responseIds = new ArrayList();
-        List surveyResp = null;
+    public static List<String> getItemSurveyInfo(GenericValue item) {
+        List<String> responseIds = FastList.newInstance();
+        List<GenericValue> surveyResp = null;
         try {
             surveyResp = item.getRelated("ShoppingListItemSurvey");
         } catch (GenericEntityException e) {
@@ -571,9 +571,9 @@ public class ShoppingListEvents {
         }
 
         if (UtilValidate.isNotEmpty(surveyResp)) {
-            Iterator respIt = surveyResp.iterator();
+            Iterator<GenericValue> respIt = surveyResp.iterator();
             while (respIt.hasNext()) {
-                GenericValue resp = (GenericValue) respIt.next();
+                GenericValue resp = respIt.next();
                 responseIds.add(resp.getString("surveyResponseId"));
             }
         }

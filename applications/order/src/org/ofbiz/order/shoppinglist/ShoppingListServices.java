@@ -20,11 +20,12 @@ package org.ofbiz.order.shoppinglist;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -36,6 +37,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
@@ -64,7 +66,7 @@ public class ShoppingListServices {
     public static final String module = ShoppingListServices.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
 
-    public static Map setShoppingListRecurrence(DispatchContext dctx, Map context) {
+    public static Map<String, Object> setShoppingListRecurrence(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Timestamp startDate = (Timestamp) context.get("startDateTime");
         Timestamp endDate = (Timestamp) context.get("endDateTime");
@@ -108,13 +110,13 @@ public class ShoppingListServices {
         }
 
         Debug.log("Next Recurrence - " + UtilDateTime.getTimestamp(recInfo.next()), module);
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("recurrenceInfoId", recInfo.getID());
 
         return result;
     }
 
-    public static Map createListReorders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createListReorders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -125,10 +127,10 @@ public class ShoppingListServices {
         try {
             beganTransaction = TransactionUtil.begin();
 
-            List exprs = UtilMisc.toList(EntityCondition.makeCondition("shoppingListTypeId", EntityOperator.EQUALS, "SLT_AUTO_REODR"),
+            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("shoppingListTypeId", EntityOperator.EQUALS, "SLT_AUTO_REODR"),
                     EntityCondition.makeCondition("isActive", EntityOperator.EQUALS, "Y"));
             EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.AND);
-            List order = UtilMisc.toList("-lastOrderedDate");
+            List<String> order = UtilMisc.toList("-lastOrderedDate");
 
             EntityListIterator eli = null;
             eli = delegator.find("ShoppingList", cond, null, null, order, null);
@@ -167,14 +169,14 @@ public class ShoppingListServices {
                     CheckOutHelper helper = new CheckOutHelper(dispatcher, delegator, listCart);
 
                     // store the order
-                    Map createResp = helper.createOrder(userLogin);
+                    Map<String, Object> createResp = helper.createOrder(userLogin);
                     if (createResp != null && ServiceUtil.isError(createResp)) {
                         Debug.logError("Cannot create order for shopping list - " + shoppingList, module);
                     } else {
                         String orderId = (String) createResp.get("orderId");
 
                         // authorize the payments
-                        Map payRes = null;
+                        Map<String, Object> payRes = null;
                         try {
                             payRes = helper.processPayment(ProductStoreWorker.getProductStore(listCart.getProductStoreId(), delegator), userLogin);
                         } catch (GeneralException e) {
@@ -225,9 +227,9 @@ public class ShoppingListServices {
         }
     }
 
-    public static Map splitShipmentMethodString(DispatchContext dctx, Map context) {
+    public static Map<String, Object> splitShipmentMethodString(DispatchContext dctx, Map<String, ? extends Object> context) {
         String shipmentMethodString = (String) context.get("shippingMethodString");
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         if (UtilValidate.isNotEmpty(shipmentMethodString)) {
             int delimiterPos = shipmentMethodString.indexOf('@');
@@ -244,7 +246,7 @@ public class ShoppingListServices {
         return result;
     }
 
-    public static Map makeListFromOrder(DispatchContext dctx, Map context) {
+    public static Map<String, Object> makeListFromOrder(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -279,14 +281,14 @@ public class ShoppingListServices {
                     partyId = userLogin.getString("partyId");
                 }
 
-                Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "partyId", partyId,
+                Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyId", partyId,
                         "productStoreId", productStoreId, "listName", "List Created From Order #" + orderId);
 
                 if (UtilValidate.isNotEmpty(shoppingListTypeId)) {
                     serviceCtx.put("shoppingListTypeId", shoppingListTypeId);
                 }
 
-                Map newListResult = null;
+                Map<String, Object> newListResult = null;
                 try {
 
                     newListResult = dispatcher.runSync("createShoppingList", serviceCtx);
@@ -319,14 +321,14 @@ public class ShoppingListServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToLoadOrderReadHelper", UtilMisc.toMap("orderId",orderId), locale));
             }
 
-            List orderItems = orh.getOrderItems();
-            Iterator i = orderItems.iterator();
+            List<GenericValue> orderItems = orh.getOrderItems();
+            Iterator<GenericValue> i = orderItems.iterator();
             String productId = null;
             while (i.hasNext()) {
-                GenericValue orderItem = (GenericValue) i.next();
+                GenericValue orderItem = i.next();
                 productId = orderItem.getString("productId");
                 if (UtilValidate.isNotEmpty(productId)) {
-                    Map ctx = UtilMisc.toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId",
+                    Map<String, Object> ctx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId",
                             orderItem.get("productId"), "quantity", orderItem.get("quantity"));
                     if ("AGGREGATED_CONF".equals(ProductWorker.getProductTypeId(delegator, productId))) {
                         try {
@@ -340,7 +342,7 @@ public class ShoppingListServices {
                             Debug.logError(e, module);
                         }
                     }
-                    Map serviceResult = null;
+                    Map<String, Object> serviceResult = null;
                     try {
                         serviceResult = dispatcher.runSync("createShoppingListItem", ctx);
                     } catch (GenericServiceException e) {
@@ -356,7 +358,7 @@ public class ShoppingListServices {
                 GenericValue paymentPref = EntityUtil.getFirst(orh.getPaymentPreferences());
                 GenericValue shipGroup = EntityUtil.getFirst(orh.getOrderItemShipGroups());
 
-                Map slCtx = new HashMap();
+                Map<String, Object> slCtx = FastMap.newInstance();
                 slCtx.put("shipmentMethodTypeId", shipGroup.get("shipmentMethodTypeId"));
                 slCtx.put("carrierRoleTypeId", shipGroup.get("carrierRoleTypeId"));
                 slCtx.put("carrierPartyId", shipGroup.get("carrierPartyId"));
@@ -371,7 +373,7 @@ public class ShoppingListServices {
                 slCtx.put("shoppingListId", shoppingListId);
                 slCtx.put("userLogin", userLogin);
 
-                Map slUpResp = null;
+                Map<String, Object> slUpResp = null;
                 try {
                     slUpResp = dispatcher.runSync("updateShoppingList", slCtx);
                 } catch (GenericServiceException e) {
@@ -383,7 +385,7 @@ public class ShoppingListServices {
                 }
             }
 
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("shoppingListId", shoppingListId);
             return result;
 
@@ -442,7 +444,7 @@ public class ShoppingListServices {
                 locale = Locale.getDefault();
             }
 
-            List items = null;
+            List<GenericValue> items = null;
             try {
                 items = shoppingList.getRelated("ShoppingListItem", UtilMisc.toList("shoppingListItemSeqId"));
             } catch (GenericEntityException e) {
@@ -465,10 +467,10 @@ public class ShoppingListServices {
                 }
 
 
-                Iterator i = items.iterator();
+                Iterator<GenericValue> i = items.iterator();
                 ProductConfigWrapper configWrapper = null;
                 while (i.hasNext()) {
-                    GenericValue shoppingListItem = (GenericValue) i.next();
+                    GenericValue shoppingListItem = i.next();
                     String productId = shoppingListItem.getString("productId");
                     BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
@@ -498,7 +500,7 @@ public class ShoppingListServices {
                         // list items are noted in the shopping cart
                         String listId = shoppingListItem.getString("shoppingListId");
                         String itemId = shoppingListItem.getString("shoppingListItemSeqId");
-                        Map attributes = UtilMisc.toMap("shoppingListId", listId, "shoppingListItemSeqId", itemId);
+                        Map<String, Object> attributes = UtilMisc.<String, Object>toMap("shoppingListId", listId, "shoppingListItemSeqId", itemId);
 
                         try {
                             listCart.addOrIncreaseItem(productId, null, quantity, reservStart, reservLength, reservPersons, null, null, null, null, null, attributes, null, configWrapper, null, null, null, dispatcher);
@@ -553,15 +555,15 @@ public class ShoppingListServices {
      * @param context - Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map updateShoppingListQuantitiesFromOrder(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updateShoppingListQuantitiesFromOrder(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         try {
-            List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
-            Iterator iter = orderItems.iterator();
+            List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+            Iterator<GenericValue> iter = orderItems.iterator();
             while (iter.hasNext()) {
-                GenericValue orderItem = (GenericValue) iter.next();
+                GenericValue orderItem = iter.next();
                 String shoppingListId = orderItem.getString("shoppingListId");
                 String shoppingListItemSeqId = orderItem.getString("shoppingListItemSeqId");
                 if (UtilValidate.isNotEmpty(shoppingListId)) {
