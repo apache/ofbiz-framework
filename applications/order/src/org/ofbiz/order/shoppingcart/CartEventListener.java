@@ -76,10 +76,10 @@ public class CartEventListener implements HttpSessionListener {
             }
 
             Debug.logInfo("Saving abandoned cart", module);
-            Iterator cartItems = cart.iterator();
+            Iterator<ShoppingCartItem> cartItems = cart.iterator();
             int seqId = 1;
             while (cartItems.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartItems.next();
+                ShoppingCartItem cartItem = cartItems.next();
                 GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine");
 
                 cartAbandonedLine.set("visitId", visit.get("visitId"));
