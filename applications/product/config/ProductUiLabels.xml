@@ -8195,6 +8195,10 @@
         <value xml:lang="zh">浏览运输包装信息</value>
         <value xml:lang="zh_TW">瀏覽運輸包裝資訊</value>
     </property>
+    <property key="PageTitleViewShipmentReceipts">
+        <value xml:lang="en">View Shipment Receipts</value>
+        <value xml:lang="it">Mostra ricevute spedizione</value>
+    </property>
     <property key="PageTitleViewShipmentRouteInfo">
         <value xml:lang="de">Lieferweg Informationen anzeigen</value>
         <value xml:lang="en">View Shipment Route Info</value>
