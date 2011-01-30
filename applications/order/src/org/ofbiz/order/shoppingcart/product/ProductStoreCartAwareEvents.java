@@ -42,7 +42,7 @@ public class ProductStoreCartAwareEvents {
     public static final String module = ProductStoreCartAwareEvents.class.getName();
 
     public static String setSessionProductStore(HttpServletRequest request, HttpServletResponse response) {
-        Map parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
         String productStoreId = (String) parameters.get("productStoreId");
 
         try {
