@@ -59,7 +59,7 @@ public class OrderEvents {
 
         try {
             // has the userLogin.partyId ordered a product with DIGITAL_DOWNLOAD content associated for the given dataResourceId?
-            List orderRoleAndProductContentInfoList = delegator.findByAnd("OrderRoleAndProductContentInfo",
+            List<GenericValue> orderRoleAndProductContentInfoList = delegator.findByAnd("OrderRoleAndProductContentInfo",
                     UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId, "productContentTypeId", "DIGITAL_DOWNLOAD", "statusId", "ITEM_COMPLETED"));
 
             if (orderRoleAndProductContentInfoList.size() == 0) {
@@ -103,7 +103,7 @@ public class OrderEvents {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
-        Map resultMap = FastMap.newInstance();
+        Map<String, Object> resultMap = FastMap.newInstance();
         String  orderId = request.getParameter("orderId");
         String[] orderItemSeqIds = request.getParameterValues("selectedItem");
 
@@ -116,7 +116,7 @@ public class OrderEvents {
                         GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
                         String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");
 
-                        Map contextMap = FastMap.newInstance();
+                        Map<String, Object> contextMap = FastMap.newInstance();
                         contextMap.put("orderId", orderId);
                         contextMap.put("orderItemSeqId", orderItemSeqId);
                         contextMap.put("shipGroupSeqId", shipGroupSeqId);
