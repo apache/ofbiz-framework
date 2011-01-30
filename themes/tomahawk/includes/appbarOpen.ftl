@@ -35,8 +35,7 @@ under the License.
   <#assign show_last_menu = true>
 </#if>
 
-<div class="tabbar">
-  <div class="breadcrumbs<#if show_last_menu?exists> menu_selected</#if>">
+<div id="navigation" <#if show_last_menu?exists>class="menu_selected"</#if>>
     <#if userLogin?has_content>
       <div id="main-navigation">
         <h2>${uiLabelMap.CommonApplications}</h2>

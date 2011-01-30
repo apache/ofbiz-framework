@@ -34,7 +34,7 @@ under the License.
 
 <#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
   <#if headerItem!="main">
-    <div class="breadcrumbs-sep">
+    <div id="app-nav-selected-item">
       ${appModelMenu.getModelMenuItemByName(headerItem).getTitle(context)}
     </div>
   </#if>
@@ -44,7 +44,7 @@ under the License.
     <#assign findMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("portalPageId", parameters.portalPageId)>
     <#assign portalPage = delegator.findByPrimaryKeyCache("PortalPage", findMap)>
     <#if portalPage?has_content>
-      <div class="breadcrumbs-sep">
+      <div id="app-nav-selected-item">
         ${portalPage.portalPageName?if_exists}
       </div>
     </#if>
@@ -93,7 +93,6 @@ under the License.
       </#if>
     </#if>
   </ul>
-</div>
 </div>
 </div>
 <div class="clear">
