@@ -2448,9 +2448,9 @@
         <value xml:lang="it">Dimostrazione Layout</value>
     </property>
     <property key="WebtoolsLayoutDemoText">
-        <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page (it's recommended to use HTML source).</value>
+        <value xml:lang="en">Demonstrate layout best practices and provide a visual theme test page (it's recommended to use HTML source code).</value>
         <value xml:lang="fr">Démontre les bonnes pratiques de mise en page et fournit un page de test pour les thèmes (il est recommandé d'utiliser le code source HTML).</value>
-        <value xml:lang="it">Dimostrazione di come utilizzare gli stili e pagina per il test dei temi visuali.</value>
+        <value xml:lang="it">Dimostrazione di come utilizzare gli stili e pagina per il test dei temi visuali (si raccomanda di utilizzare il codice sorgente HTML).</value>
     </property>
     <property key="WebtoolsLeaveAllEntriesBlank">
         <value xml:lang="de">alle Einträge leer lassen</value>
