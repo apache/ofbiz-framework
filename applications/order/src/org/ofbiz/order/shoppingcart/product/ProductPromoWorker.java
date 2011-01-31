@@ -779,12 +779,9 @@ public class ProductPromoWorker {
                     // perform all actions, either apply or unapply
 
                     List productPromoActions = productPromoRule.getRelatedCache("ProductPromoAction", null, UtilMisc.toList("productPromoActionSeqId"));
-                    if (Debug.verboseOn()) Debug.logVerbose("Performing " + productPromoActions.size() + " actions for rule " + productPromoRule, module);
                     Iterator productPromoActionIter = UtilMisc.toIterator(productPromoActions);
                     while (productPromoActionIter != null && productPromoActionIter.hasNext()) {
                         GenericValue productPromoAction = (GenericValue) productPromoActionIter.next();
-
-                        // Debug.logInfo("Doing action: " + productPromoAction, module);
                         try {
                             ActionResultInfo actionResultInfo = performAction(productPromoAction, cart, delegator, dispatcher, nowTimestamp);
                             totalDiscountAmount = totalDiscountAmount.add(actionResultInfo.totalDiscountAmount);
@@ -1759,9 +1756,17 @@ public class ProductPromoWorker {
             BigDecimal percentage = (productPromoAction.get("amount") == null ? BigDecimal.ZERO : (productPromoAction.getBigDecimal("amount").movePointLeft(2))).negate();
             BigDecimal amount = cart.getTotalShipping().multiply(percentage);
             if (amount.compareTo(BigDecimal.ZERO) != 0) {
-                doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator);
-                actionResultInfo.ranAction = true;
-                actionResultInfo.totalDiscountAmount = amount;
+            	int existingOrderPromoIndex = cart.getAdjustmentPromoIndex(productPromoAction.getString("productPromoId"));
+            	if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal("amount").compareTo(amount) == 0) {
+                		actionResultInfo.ranAction = false;  // already ran, no need to repeat
+            	} else {
+            		if (existingOrderPromoIndex != -1 && cart.getAdjustment(existingOrderPromoIndex).getBigDecimal("amount").compareTo(amount) != 0) {
+            			cart.removeAdjustment(existingOrderPromoIndex);
+            		}
+        			doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator);
+            		actionResultInfo.ranAction = true;
+            		actionResultInfo.totalDiscountAmount = amount;
+            	}
             }
         } else {
             Debug.logError("An un-supported productPromoActionType was used: " + productPromoActionEnumId + ", not performing any action", module);
