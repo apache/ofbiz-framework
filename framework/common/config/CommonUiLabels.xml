@@ -2528,6 +2528,10 @@
         <value xml:lang="zh">下级固定资产</value>
         <value xml:lang="zh_TW">下級固定資產</value>
     </property>
+    <property key="CommonEntityTestFailure">
+        <value xml:lang="en">Unable to create test entity</value>
+        <value xml:lang="it">Non è possibile creare un test entità</value>
+    </property>
     <property key="CommonEntries">
         <value xml:lang="ar">مداخيل</value>
         <value xml:lang="de">Einträge</value>
@@ -5336,6 +5340,10 @@
         <value xml:lang="zh_CN">当前没有任务，需要你的关注。</value>
         <value xml:lang="zh_TW">現在沒有任務需要處理。</value>
     </property>
+    <property key="CommonNoteCannotBeUpdated">
+        <value xml:lang="en">Could update note data (write failure): ${errorString}</value>
+        <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
+    </property>
     <property key="CommonNoUomConversionFound">
         <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
         <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
@@ -6124,6 +6132,14 @@
         <value xml:lang="zh">人员</value>
         <value xml:lang="zh_CN">人</value>
         <value xml:lang="zh_TW">人員</value>
+    </property>
+    <property key="CommonPingDatasourceCannotConnect">
+        <value xml:lang="en">Unable to connect to datasource!</value>
+        <value xml:lang="it">Non è possibile connettersi al datasource!</value>
+    </property>
+    <property key="CommonPingDatasourceInvalidCount">
+        <value xml:lang="en">Invalid count returned from database</value>
+        <value xml:lang="it">Contantore invalido restituito dal database</value>
     </property>
     <property key="CommonPleaseEnterValidNumberInThisField">
         <value xml:lang="en">Please enter a valid number in this field.</value>
@@ -7514,6 +7530,10 @@
         <value xml:lang="zh_CN">序列编号</value>
         <value xml:lang="zh_TW">序號數</value>
     </property>
+    <property key="CommonServiceReturnError">
+        <value xml:lang="en">Return Error Service : Returning Error</value>
+        <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
+    </property>
     <property key="CommonSet">
         <value xml:lang="ar">وضع</value>
         <value xml:lang="de">Setzen</value>
@@ -8163,6 +8183,10 @@
         <value xml:lang="zh">测试</value>
         <value xml:lang="zh_CN">测试</value>
         <value xml:lang="zh_TW">測試</value>
+    </property>
+    <property key="CommonTestRollingBack">
+        <value xml:lang="en">Rolling back!</value>
+        <value xml:lang="it">Rolling back!</value>
     </property>
     <property key="CommonText">
         <value xml:lang="ar">نص</value>
