@@ -1268,7 +1268,7 @@
         <value xml:lang="de">Rolle Typ ID</value>
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="es">Codigo Tipo de rol</value>
-        <value xml:lang="fr">Type de rôle</value>
+        <value xml:lang="fr">Rôle</value>
         <value xml:lang="hi_IN">भूमिका प्रकार क्रमांक</value>
         <value xml:lang="it">Tipo Ruolo</value>
         <value xml:lang="nl">Roltype</value>
@@ -1311,7 +1311,7 @@
     </property>
     <property key="FormFieldTitle_roleTypeList">
         <value xml:lang="en">Role Type List</value>
-        <value xml:lang="fr">Liste de type de rôle</value>
+        <value xml:lang="fr">Liste de rôles</value>
         <value xml:lang="hi_IN">भूमिका प्रकार की सूची</value>
         <value xml:lang="it">Lista tipo ruolo</value>
         <value xml:lang="pt_BR">Lista de tipos de papéis</value>
@@ -9546,7 +9546,7 @@
         <value xml:lang="de">Rolle Typ</value>
         <value xml:lang="en">Role Type</value>
         <value xml:lang="es">Tipo de rol</value>
-        <value xml:lang="fr">Type de rôle</value>
+        <value xml:lang="fr">Rôle</value>
         <value xml:lang="hi_IN">भूमिका प्रकार</value>
         <value xml:lang="it">Tipo Ruolo</value>
         <value xml:lang="nl">Soort rol</value>
@@ -9577,7 +9577,7 @@
         <value xml:lang="de">Rolle Typ ID</value>
         <value xml:lang="en">RoleType ID</value>
         <value xml:lang="es">Tipo de rol</value>
-        <value xml:lang="fr">Référence Type de rôle</value>
+        <value xml:lang="fr">Rôle</value>
         <value xml:lang="hi_IN">भूमिकाप्रकार क्रमांक</value>
         <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="nl">ID soort rol</value>
@@ -9606,7 +9606,7 @@
     </property>
     <property key="PartyRoleTypeIdMissing">
         <value xml:lang="en">Role Type ID is missing.</value>
-        <value xml:lang="fr">Type de rôle manquant</value>
+        <value xml:lang="fr">Rôle manquant</value>
         <value xml:lang="hi_IN">भूमिका प्रकार क्रमांक गायब है|</value>
         <value xml:lang="it">Tipo ruolo è mancante.</value>
         <value xml:lang="pt_BR">ID do tipo de papel está faltando</value>
