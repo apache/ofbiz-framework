@@ -2009,7 +2009,7 @@
     <property key="RoleType.description.CLIENT_ANALYST">
         <value xml:lang="en">Client Analyst</value>
         <value xml:lang="es">Analista de clientes</value>
-        <value xml:lang="fr">Analyste client</value>
+        <value xml:lang="fr">Utilisateur clé</value>
         <value xml:lang="hi_IN">ग्राहक विश्लेषक</value>
         <value xml:lang="it">Analista della clientela</value>
         <value xml:lang="pt_BR">Analista de clientes</value>
@@ -2019,7 +2019,7 @@
     <property key="RoleType.description.CLIENT_BILLING">
         <value xml:lang="en">Client Billing</value>
         <value xml:lang="es">Facturación clientes</value>
-        <value xml:lang="fr">Facturation client</value>
+        <value xml:lang="fr">Acteur facturé</value>
         <value xml:lang="hi_IN">ग्राहक बिलिंग</value>
         <value xml:lang="it">Fatturazione clientela</value>
         <value xml:lang="pt_BR">Cobrança de clientes</value>
@@ -2030,7 +2030,7 @@
         <value xml:lang="de">Kundenmanager</value>
         <value xml:lang="en">Client Manager</value>
         <value xml:lang="es">Gestor de clientes</value>
-        <value xml:lang="fr">Responsable client</value>
+        <value xml:lang="fr">Chef de projet client</value>
         <value xml:lang="hi_IN">ग्राहक प्रबंधक</value>
         <value xml:lang="it">Responsabile della clientela</value>
         <value xml:lang="pt_BR">Gerente de clientes</value>
@@ -2669,7 +2669,7 @@
     <property key="RoleType.description.PROVIDER_ACCOUNTING">
         <value xml:lang="en">Provider Accounting</value>
         <value xml:lang="es">Contabilidad de proveedores</value>
-        <value xml:lang="fr">Comptabilité fournisseur</value>
+        <value xml:lang="fr">Comptable (prestataire)</value>
         <value xml:lang="hi_IN">प्रदाता लेखांकन</value>
         <value xml:lang="it">Utenza del provider</value>
         <value xml:lang="pt_BR">Contabilidade de fornecedores</value>
@@ -2679,7 +2679,7 @@
     <property key="RoleType.description.PROVIDER_ANALYST">
         <value xml:lang="en">Provider Analyst</value>
         <value xml:lang="es">Analista de proveedores</value>
-        <value xml:lang="fr">Analyste fournisseur</value>
+        <value xml:lang="fr">Analyste (prestataire)</value>
         <value xml:lang="hi_IN">प्रदाता विश्लेषक</value>
         <value xml:lang="it">Analista del provider</value>
         <value xml:lang="pt_BR">Analista de fornecedores</value>
@@ -2689,7 +2689,7 @@
     <property key="RoleType.description.PROVIDER_FUNCTIONAL">
         <value xml:lang="en">Provider Functional</value>
         <value xml:lang="es">Funcional de proveedores</value>
-        <value xml:lang="fr">Conseiller fournisseur</value>
+        <value xml:lang="fr">Consultant fonctionel</value>
         <value xml:lang="hi_IN">प्रदाता कार्यात्मक</value>
         <value xml:lang="it">Funzionario del provider</value>
         <value xml:lang="pt_BR">Funcionário do fornecedor</value>
@@ -2699,7 +2699,7 @@
     <property key="RoleType.description.PROVIDER_MANAGER">
         <value xml:lang="en">Provider Manager</value>
         <value xml:lang="es">Gestor de proveedores</value>
-        <value xml:lang="fr">Responsable fournisseur</value>
+        <value xml:lang="fr">Chef de projet</value>
         <value xml:lang="hi_IN">प्रदाता प्रबंधक</value>
         <value xml:lang="it">Responsabile del provider</value>
         <value xml:lang="pt_BR">Gerente de fornecedores</value>
@@ -2709,7 +2709,7 @@
     <property key="RoleType.description.PROVIDER_TESTER">
         <value xml:lang="en">Provider Tester</value>
         <value xml:lang="es">Probador de proveedores</value>
-        <value xml:lang="fr">Testeur fournisseur</value>
+        <value xml:lang="fr">Testeur (prestataire)</value>
         <value xml:lang="hi_IN">प्रदाता परीक्षक</value>
         <value xml:lang="it">Tester del provider</value>
         <value xml:lang="pt_BR">Avaliador de fornecedores</value>
@@ -2719,7 +2719,7 @@
     <property key="RoleType.description.PROVIDER_VALIDATOR">
         <value xml:lang="en">Provider Validator</value>
         <value xml:lang="es">Validador de proveedores</value>
-        <value xml:lang="fr">Approbateur fournisseur</value>
+        <value xml:lang="fr">Approbateur (prestataire)</value>
         <value xml:lang="hi_IN">प्रदाता वेलिडेटर(Validator)</value>
         <value xml:lang="it">Validatore del provider</value>
         <value xml:lang="pt_BR">Responsável pelo fornecedor</value>
