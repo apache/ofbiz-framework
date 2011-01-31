@@ -38,7 +38,7 @@
     <property key="FormFieldTitle_clientBillingPartyId">
         <value xml:lang="de">Kunden Rechnungsadresse</value>
         <value xml:lang="en">Client Billing Party Id</value>
-        <value xml:lang="fr">Réf. de facturation client</value>
+        <value xml:lang="fr">Client facturé</value>
         <value xml:lang="it">Soggetto fatturazione</value>
         <value xml:lang="nl">Klant ID</value>
         <value xml:lang="zh">客户账单会员标识</value>
@@ -58,6 +58,10 @@
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="nl">Datum aanmaken</value>
         <value xml:lang="zh">创建时间</value>
+    </property>
+    <property key="FormFieldTitle_firstResource">
+        <value xml:lang="en">First Resource</value>
+        <value xml:lang="fr">1ère ressource</value>
     </property>
     <property key="FormFieldTitle_mailingListEmail">
         <value xml:lang="de">Mailing List E-Mail</value>
@@ -1238,7 +1242,7 @@
     <property key="ProjectMgrPartyRoleTypeId">
         <value xml:lang="de">Funktionstyp ID</value>
         <value xml:lang="en">Role Type Id</value>
-        <value xml:lang="fr">Réf. de type de rôle</value>
+        <value xml:lang="fr">Rôle</value>
         <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="nl">ID roltype</value>
         <value xml:lang="th">รหัสสถานะประเภท</value>
@@ -1399,7 +1403,7 @@
     <property key="ProjectMgrProviders">
         <value xml:lang="de">Verantwortliche</value>
         <value xml:lang="en">Providers</value>
-        <value xml:lang="fr">Fournisseurs</value>
+        <value xml:lang="fr">Prestataires</value>
         <value xml:lang="it">Providers</value>
         <value xml:lang="nl">Deelnemers</value>
         <value xml:lang="zh">提供者</value>
