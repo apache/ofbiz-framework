@@ -17206,8 +17206,10 @@
         <value xml:lang="en">Payment receive via iDEAL</value>
         <value xml:lang="hi_IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
         <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
+        <value xml:lang="nl">Betalingsontvangst via iDEAL</value>		
     </property>
     <property key="IdealSuccessFull">
-        <value xml:lang="en">The transaction has been successfully.</value>
+        <value xml:lang="en">The transaction has been successfull.</value>
+        <value xml:lang="nl">De betaling is met succes ontvangen.</value>		
     </property>
 </resource>
