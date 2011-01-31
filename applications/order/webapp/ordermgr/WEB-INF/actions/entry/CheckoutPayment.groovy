@@ -70,7 +70,7 @@ while (productStorePaymentSettingIter.hasNext()) {
 }
 
 if (checkIdealPayment) {
-    issuerList = org.ofbiz.accounting.thirdparty.ideal.IdealEvents.IdealEvents.getIssuerList();
+    issuerList = org.ofbiz.accounting.thirdparty.ideal.IdealEvents.getIssuerList();
     if (issuerList) {
         context.issuerList = issuerList;
     }
