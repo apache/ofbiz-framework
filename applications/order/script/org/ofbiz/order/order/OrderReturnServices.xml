@@ -983,13 +983,13 @@ under the License.
                                 <set field="orderItemAssocMap.toOrderItemSeqId" from-field="orderItem.orderItemSeqId"/>
                             </then>
                         <else-if>
-                                <condition>
-                                    <if-compare-field field="returnItemCounter" operator="greater" to-field="orderItemSize" type="Long"/>
-                                </condition>
-                                <then>
-                                    <set field="orderItemAssocMap.toOrderId" from-field="parameters.orderId"/>
-                                    <set field="orderItemAssocMap.toOrderItemSeqId" from-field="orderItem.orderItemSeqId"/>
-                                </then>
+                            <condition>
+                                <if-compare-field field="returnItemCounter" operator="greater" to-field="orderItemSize" type="Long"/>
+                            </condition>
+                            <then>
+                                <set field="orderItemAssocMap.toOrderId" from-field="parameters.orderId"/>
+                                <set field="orderItemAssocMap.toOrderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                            </then>
                         </else-if>
                         </if>
                         <set field="orderItemCounter" value="${orderItemCounter+1}" type="Long"/>
@@ -1001,8 +1001,8 @@ under the License.
                     <set-pk-fields map="orderItemAssocMap" value-field="orderItemAssoc"/>
                     <find-by-primary-key entity-name="OrderItemAssoc" map="orderItemAssoc" value-field="orderItemAssocValue"/>
                     <if-empty field="orderItemAssocValue">
-                    <create-value value-field="orderItemAssoc"/>
-                    <clear-field field="orderItemAssoc"/>
+                        <create-value value-field="orderItemAssoc"/>
+                        <clear-field field="orderItemAssoc"/>
                     </if-empty>
                     <set field="returnItemCounter" value="${returnItemCounter+1}" type="Long"/>
                 </iterate>
@@ -1023,13 +1023,13 @@ under the License.
                                 <set field="orderItemAssocMap.orderItemSeqId" from-field="returnItem.orderItemSeqId"/>
                             </then>
                         <else-if>
-                                <condition>
-                                    <if-compare-field field="orderItemCounter" operator="greater" to-field="returnItemSize" type="Long"/>
-                                </condition>
-                                <then>
-                                    <set field="orderItemAssocMap.orderId" from-field="parameters.originOrderId"/>
-                                    <set field="orderItemAssocMap.orderItemSeqId" from-field="returnItem.orderItemSeqId"/>
-                                </then>
+                            <condition>
+                                <if-compare-field field="orderItemCounter" operator="greater" to-field="returnItemSize" type="Long"/>
+                            </condition>
+                            <then>
+                                <set field="orderItemAssocMap.orderId" from-field="parameters.originOrderId"/>
+                                <set field="orderItemAssocMap.orderItemSeqId" from-field="returnItem.orderItemSeqId"/>
+                            </then>
                         </else-if>
                         </if>
                         <set field="returnItemCounter" value="${returnItemCounter+1}" type="Long"/>
@@ -1041,8 +1041,8 @@ under the License.
                     <set-pk-fields map="orderItemAssocMap" value-field="orderItemAssoc"/>
                     <find-by-primary-key entity-name="OrderItemAssoc" map="orderItemAssoc" value-field="orderItemAssocValue"/>
                     <if-empty field="orderItemAssocValue">
-                    <create-value value-field="orderItemAssoc"/>
-                    <clear-field field="orderItemAssocMap"/>
+                        <create-value value-field="orderItemAssoc"/>
+                        <clear-field field="orderItemAssocMap"/>
                     </if-empty>
                     <set field="orderItemCounter" value="${orderItemCounter+1}" type="Long"/>
                 </iterate>
