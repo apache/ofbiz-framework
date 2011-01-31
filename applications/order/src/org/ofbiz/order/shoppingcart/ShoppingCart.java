@@ -2740,6 +2740,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return adjustments;
     }
 
+    public int getAdjustmentPromoIndex(String productPromoId) {
+    	int index = adjustments.size();
+    	while (index > 0) {
+    		if (adjustments.get(index).getString("productPromoId").equals(productPromoId)) {
+    			return(index);
+    		}
+    		index++;
+    	}
+        return -1;
+    }
+
     /** Add an adjustment to the order; don't worry about setting the orderId, orderItemSeqId or orderAdjustmentId; they will be set when the order is created */
     public int addAdjustment(GenericValue adjustment) {
         adjustments.add(adjustment);
@@ -2748,6 +2759,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void removeAdjustment(int index) {
         adjustments.remove(index);
+    }
+
+    public GenericValue getAdjustment(int index) {
+        return adjustments.get(index);
     }
 
     /** Get a List of orderTerms on the order (ie cart) */
