@@ -999,7 +999,11 @@ under the License.
                     <set field="orderItemAssocMap.orderItemAssocTypeId" value="EXCHANGE"/>
                     <make-value entity-name="OrderItemAssoc" value-field="orderItemAssoc"/>
                     <set-pk-fields map="orderItemAssocMap" value-field="orderItemAssoc"/>
+                    <find-by-primary-key entity-name="OrderItemAssoc" map="orderItemAssoc" value-field="orderItemAssocValue"/>
+                    <if-empty field="orderItemAssocValue">
                     <create-value value-field="orderItemAssoc"/>
+                    <clear-field field="orderItemAssoc"/>
+                    </if-empty>
                     <set field="returnItemCounter" value="${returnItemCounter+1}" type="Long"/>
                 </iterate>
             </then>
@@ -1035,8 +1039,11 @@ under the License.
                     <set field="orderItemAssocMap.orderItemAssocTypeId" value="EXCHANGE"/>
                     <make-value entity-name="OrderItemAssoc" value-field="orderItemAssoc"/>
                     <set-pk-fields map="orderItemAssocMap" value-field="orderItemAssoc"/>
+                    <find-by-primary-key entity-name="OrderItemAssoc" map="orderItemAssoc" value-field="orderItemAssocValue"/>
+                    <if-empty field="orderItemAssocValue">
                     <create-value value-field="orderItemAssoc"/>
                     <clear-field field="orderItemAssocMap"/>
+                    </if-empty>
                     <set field="orderItemCounter" value="${orderItemCounter+1}" type="Long"/>
                 </iterate>
             </else>
