@@ -5016,20 +5016,20 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         if (itemBasePrice == null) {
             List<GenericValue> productPriceList = EntityUtil.filterByDate(delegator.findList("ProductPrice", EntityCondition.makeCondition("productId", itemProductId), null, null, null, false));
-            Iterator it = productPriceList.iterator();
-            Map productPriceMap = FastMap.newInstance();
+            Iterator<GenericValue> it = productPriceList.iterator();
+            Map<String, BigDecimal> productPriceMap = FastMap.newInstance();
             while (it.hasNext()) {
-                GenericValue productPrice = (GenericValue) it.next();
+                GenericValue productPrice = it.next();
                 productPriceMap.put(productPrice.getString("productPriceTypeId"), productPrice.getBigDecimal("price"));
             }
             if (UtilValidate.isNotEmpty(productPriceMap.get("SPECIAL_PROMO_PRICE"))) {
-                itemBasePrice= (BigDecimal) productPriceMap.get("SPECIAL_PROMO_PRICE");
+                itemBasePrice = productPriceMap.get("SPECIAL_PROMO_PRICE");
             } else if (UtilValidate.isNotEmpty(productPriceMap.get("PROMO_PRICE"))) {
-                itemBasePrice= (BigDecimal) productPriceMap.get("PROMO_PRICE");
+                itemBasePrice = productPriceMap.get("PROMO_PRICE");
             } else if (UtilValidate.isNotEmpty(productPriceMap.get("DEFAULT_PRICE"))) {
-                itemBasePrice= (BigDecimal) productPriceMap.get("DEFAULT_PRICE");
+                itemBasePrice = productPriceMap.get("DEFAULT_PRICE");
             } else if (UtilValidate.isNotEmpty(productPriceMap.get("LIST_PRICE"))) {
-                itemBasePrice= (BigDecimal) productPriceMap.get("LIST_PRICE");
+                itemBasePrice = productPriceMap.get("LIST_PRICE");
             }
         }
         if (UtilValidate.isNotEmpty(minimumOrderPriceList)) {
