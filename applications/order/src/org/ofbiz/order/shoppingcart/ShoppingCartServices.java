@@ -348,7 +348,7 @@ public class ShoppingCartServices {
                 String productId = item.getString("productId");
                 GenericValue product = null;
                 // creates survey responses for Gift cards same as last Order created
-                Map surveyResponseResult = null;
+                Map<String, Object> surveyResponseResult = null;
                 try {
                     long seq = Long.parseLong(orderItemSeqId);
                     if (seq > nextItemSeq) {
@@ -586,7 +586,7 @@ public class ShoppingCartServices {
                             if (cartShipItemInfo == null) {
                                 Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
                             } else {
-                                List itemTaxAdj = cartShipItemInfo.itemTaxAdj;
+                                List<GenericValue> itemTaxAdj = cartShipItemInfo.itemTaxAdj;
                                 for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
                                     if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
                                         itemTaxAdj.add(shipGroupItemAdjustment);
@@ -620,7 +620,7 @@ public class ShoppingCartServices {
             }
         }
 
-        List adjustments = orh.getOrderHeaderAdjustments();
+        List<GenericValue> adjustments = orh.getOrderHeaderAdjustments();
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
         if (!adjustments.isEmpty()) {
             // The cart adjustments are added to the cart
@@ -858,9 +858,9 @@ public class ShoppingCartServices {
             }
             // The cart item adjustments, derived from quote item adjustments, are added to the cart
             if (quoteItems != null) {
-                Iterator i = cart.iterator();
+                Iterator<ShoppingCartItem> i = cart.iterator();
                 while (i.hasNext()) {
-                    ShoppingCartItem item = (ShoppingCartItem) i.next();
+                    ShoppingCartItem item = i.next();
                     String orderItemSeqId = item.getOrderItemSeqId();
                     if (orderItemSeqId != null) {
                         adjs = orderAdjsMap.get(orderItemSeqId);
@@ -1037,10 +1037,10 @@ public class ShoppingCartServices {
             result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
             BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
-            Iterator i = shoppingCart.iterator();
+            Iterator<ShoppingCartItem> i = shoppingCart.iterator();
             Map<String, Object> cartItemData = FastMap.newInstance();
             while (i.hasNext()) {
-                ShoppingCartItem cartLine = (ShoppingCartItem) i.next();
+                ShoppingCartItem cartLine = i.next();
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
                 cartItemData.put("displayItemPrice_" + cartLineIndex, org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
@@ -1071,9 +1071,9 @@ public class ShoppingCartServices {
     public static Map<String, Object>resetShipGroupItems(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
-        Iterator sciIter = cart.iterator();
+        Iterator<ShoppingCartItem> sciIter = cart.iterator();
         while (sciIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) sciIter.next();
+            ShoppingCartItem item = sciIter.next();
             cart.clearItemShipInfo(item);
             cart.setItemShipGroupQty(item, item.getQuantity(), 0);
         }
@@ -1095,9 +1095,9 @@ public class ShoppingCartServices {
             return ServiceUtil.returnError(e.toString());
         }
         Map<String, Object> vendorMap = FastMap.newInstance();
-        Iterator sciIter = cart.iterator();
+        Iterator<ShoppingCartItem> sciIter = cart.iterator();
         while (sciIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) sciIter.next();
+            ShoppingCartItem item = sciIter.next();
             GenericValue vendorProduct = null;
             String productId = item.getParentProductId();
             if (productId == null) {
