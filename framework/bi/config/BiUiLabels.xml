@@ -84,6 +84,10 @@
         <value xml:lang="th">หน้าหลัก</value>
         <value xml:lang="zh">首页</value>
     </property>
+    <property key="BusinessIntelligenceNaturalKeyWithourDimension">
+        <value xml:lang="en">The natural key: ${naturalKeyFields} is empty in value: ${dimensionValue}</value>
+        <value xml:lang="it">La chiave naturale: ${naturalKeyFields} è vuota nel valore: ${dimensionValue}</value>
+    </property>
     <property key="BusinessIntelligenceNote10">
         <value xml:lang="en">The best practices for datawarehouses are mainly taken from the great book "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
         <value xml:lang="fr">Les bonnes pratiques pour datawarehouses sont principalement tirées du fameux livre "The Data Warehouse Toolkit - Second Edition" by Ralph Kimball.</value>
@@ -356,5 +360,9 @@
         <value xml:lang="it">Seleziona lo start schema (report)</value>
         <value xml:lang="th">เลือกแผนผัง (รายงาน)</value>
         <value xml:lang="zh">选择星型模型(报告)</value>
+    </property>
+    <property key="BusinessIntelligenceUpdateModeStillNotSupported">
+        <value xml:lang="en">The update mode: ${updateMode} is still not supported.</value>
+        <value xml:lang="it">Il metodo di aggiornamento: ${updateMode} non è ancora supportato.</value>
     </property>
 </resource>
