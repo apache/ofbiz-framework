@@ -19,13 +19,14 @@
 package org.ofbiz.order.shoppingcart.shipping;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -66,7 +67,7 @@ public class ShippingEvents {
             if (UtilValidate.isEmpty(shipmentMethodTypeId)) {
                 continue;
             }
-            Map result = getShipGroupEstimate(dispatcher, delegator, cart, i);
+            Map<String, Object> result = getShipGroupEstimate(dispatcher, delegator, cart, i);
             ServiceUtil.getMessages(request, result, null, "", "", "", "", null, null);
             if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                 return "error";
@@ -101,10 +102,10 @@ public class ShippingEvents {
                 cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId(), productStoreShipMethId);
     }
 
-    public static Map getShipEstimate(LocalDispatcher dispatcher, Delegator delegator, OrderReadHelper orh, String shipGroupSeqId) {
+    public static Map<String, Object> getShipEstimate(LocalDispatcher dispatcher, Delegator delegator, OrderReadHelper orh, String shipGroupSeqId) {
         // check for shippable items
         if (!orh.shippingApplies()) {
-            Map responseResult = ServiceUtil.returnSuccess();
+            Map<String, Object> responseResult = ServiceUtil.returnSuccess();
             responseResult.put("shippingTotal", BigDecimal.ZERO);
             return responseResult;
         }
@@ -117,7 +118,7 @@ public class ShippingEvents {
 
         GenericValue shipAddr = orh.getShippingAddress(shipGroupSeqId);
         if (shipAddr == null) {
-            return UtilMisc.toMap("shippingTotal", BigDecimal.ZERO);
+            return UtilMisc.<String, Object>toMap("shippingTotal", BigDecimal.ZERO);
         }
 
         String contactMechId = shipAddr.getString("contactMechId");
@@ -132,21 +133,21 @@ public class ShippingEvents {
     }
 
     // version with no support for using the supplier's address as the origin
-    public static Map getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
+    public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, List itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
+            String productStoreId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
             BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         return getShipGroupEstimate(dispatcher, delegator, orderTypeId, shipmentMethodTypeId, carrierPartyId,
                 carrierRoleTypeId, shippingContactMechId, productStoreId, null, itemInfo,
                 shippableWeight, shippableQuantity, shippableTotal, partyId,productStoreShipMethId);
     }
 
-    public static Map getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
+    public static Map<String, Object> getShipGroupEstimate(LocalDispatcher dispatcher, Delegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
-            String productStoreId, String supplierPartyId, List itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
+            String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
             BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
-        List errorMessageList = new ArrayList();
+        List<String> errorMessageList = FastList.newInstance();
 
         if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
             return ServiceUtil.returnSuccess();
@@ -188,7 +189,7 @@ public class ShippingEvents {
 
         // no shippable items; we won't change any shipping at all
         if (shippableQuantity.compareTo(BigDecimal.ZERO) == 0) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("shippingTotal", BigDecimal.ZERO);
             return result;
         }
@@ -206,7 +207,7 @@ public class ShippingEvents {
         BigDecimal shippingTotal = BigDecimal.ZERO;
 
         // prepare the service invocation fields
-        Map serviceFields = new HashMap();
+        Map<String, Object> serviceFields = FastMap.newInstance();
         serviceFields.put("initialEstimateAmt", shippingTotal);
         serviceFields.put("shippableTotal", shippableTotal);
         serviceFields.put("shippableQuantity", shippableQuantity);
@@ -248,14 +249,14 @@ public class ShippingEvents {
         }
 
         // return the totals
-        Map responseResult = ServiceUtil.returnSuccess();
+        Map<String, Object> responseResult = ServiceUtil.returnSuccess();
         responseResult.put("shippingTotal", shippingTotal);
         return responseResult;
     }
 
-    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map context) throws GeneralException {
+    public static BigDecimal getGenericShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map <String, ? extends Object>context) throws GeneralException {
         // invoke the generic estimate service next -- append to estimate amount
-        Map genericEstimate = null;
+        Map<String, Object> genericEstimate = null;
         BigDecimal genericShipAmt = null;
         try {
             genericEstimate = dispatcher.runSync("calcShipmentCostEstimate", context);

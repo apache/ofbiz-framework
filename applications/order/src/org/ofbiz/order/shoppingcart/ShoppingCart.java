@@ -2939,9 +2939,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns a List of shippable item's size for a specific ship group. */
-    public List getShippableSizes(int idx) {
+    public List<BigDecimal> getShippableSizes(int idx) {
         CartShipInfo info = this.getShipInfo(idx);
-        List shippableSizes = new LinkedList();
+        List<BigDecimal> shippableSizes = FastList.newInstance();
 
         for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
             CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
@@ -2956,15 +2956,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns a List of shippable item info (quantity, size, weight) for a specific ship group */
-    public List getShippableItemInfo(int idx) {
+    public List<Map<String, Object>> getShippableItemInfo(int idx) {
         CartShipInfo info = this.getShipInfo(idx);
-        List itemInfos = new LinkedList();
+        List<Map<String, Object>> itemInfos = FastList.newInstance();
 
         for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
             CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
-                    Map itemInfo = item.getItemProductInfo();
+                    Map<String, Object> itemInfo = item.getItemProductInfo();
                     itemInfo.put("quantity", csii.quantity);
                     itemInfos.add(itemInfo);
                 }
@@ -3003,9 +3003,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns a Map of all features applied to products in the cart with quantities for a specific ship group. */
-    public Map getFeatureIdQtyMap(int idx) {
+    public Map<String, BigDecimal> getFeatureIdQtyMap(int idx) {
         CartShipInfo info = this.getShipInfo(idx);
-        Map featureMap = new HashMap();
+        Map<String, BigDecimal> featureMap = FastMap.newInstance();
 
         for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
             CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
