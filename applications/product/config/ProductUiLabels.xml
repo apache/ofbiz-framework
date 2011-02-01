@@ -2047,11 +2047,11 @@
         <value xml:lang="zh_TW">自動保存購物車</value>
     </property>
     <property key="FormFieldTitle_automaticExtend">
-        <value xml:lang="en">Automatic Extend</value>
-        <value xml:lang="fr">Extension automatique</value>
-        <value xml:lang="it">Estendi automaticamente</value>
-        <value xml:lang="zh">自动扩展</value>
-        <value xml:lang="zh_TW">自動擴展</value>
+        <value xml:lang="en">The subscription will be extended at the end of the subscription period with a new order</value>
+        <value xml:lang="fr">Une nouvelle commande étendra l'abonnement à la fin de la période de souscription</value>
+        <value xml:lang="it">L'abbonamento sarà esteso alla fine del periodo con un nuovo ordine</value>
+        <value xml:lang="zh">在订阅结束时通过新建订单来延期的订阅</value>
+        <value xml:lang="zh_TW">在訂閱結束時通過新建訂單來延期的訂閱</value>
     </property>
     <property key="FormFieldTitle_availableFromDate">
         <value xml:lang="de">Verfügbar von Datum</value>
@@ -2194,15 +2194,14 @@
     </property>
     <property key="FormFieldTitle_canclAutmExtTime">
         <value xml:lang="en">The time period (before the end of the thruedate) after which the automatic extension of the subscription will be executed.</value>
+        <value xml:lang="fr">Durée (avant la date de fin) après laquelle l'abonn. sera automatiquement étendu</value>        
         <value xml:lang="it">Il periodo di tempo (prima della data di termine) dopo che l'estensione automatica dell'abbonamento verrà eseguita.</value>
         <value xml:lang="zh">在要执行的订阅自动延期后的时间段(在结束日期结束前)</value>
         <value xml:lang="zh_TW">在要執行的訂閱自動延期後的時間段(在結束日期結束前)</value>
     </property>
     <property key="FormFieldTitle_canclAutmExtTimeUomId">
-        <value xml:lang="en">The subscription will be extended at the end of the subscription period with a new order</value>
-        <value xml:lang="it">L'abbonamento sarà esteso alla fine del periodo con un nuovo ordine</value>
-        <value xml:lang="zh">在订阅结束时通过新建订单来延期的订阅</value>
-        <value xml:lang="zh_TW">在訂閱結束時通過新建訂單來延期的訂閱</value>
+        <value xml:lang="en">Unit Of Measure used for the automatic extension of the subscription.</value>
+        <value xml:lang="fr">Unité de temps utilisée pour l'extension automatique de l'abonnement</value>        
     </property>
     <property key="FormFieldTitle_carrierId">
         <value xml:lang="de">Transportunternehmen ID</value>
