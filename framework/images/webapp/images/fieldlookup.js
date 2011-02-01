@@ -655,7 +655,7 @@ function set_duration_value (value) {
     if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
         obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
     }
-    else{
+    else {
         obj_caller.target = jQuery(obj_caller.targetW);
     }    
     var target = obj_caller.target;
@@ -668,14 +668,13 @@ function set_value (value) {
     if(GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP)){
         obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
     }
-    else{
+    else {
         obj_caller.target = jQuery(obj_caller.targetW);
-    }    
-    var target = obj_caller.target;
-
-    write_value(value, target);
-    field = jQuery("#" + target.attr('id'));    
+    }
     
+    var target = obj_caller.target;
+    write_value(value, target);
+
     closeLookup();
 }
 // function passing selected value to calling window
@@ -684,7 +683,7 @@ function set_values (value, value2) {
         obj_caller.target = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target;
         obj_caller.target2 = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).target2;
     }
-    else{
+    else {
         obj_caller.target = jQuery(obj_caller.targetW);        
     }
     var target = obj_caller.target;
