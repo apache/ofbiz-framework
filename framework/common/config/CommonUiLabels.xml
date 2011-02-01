@@ -1152,6 +1152,22 @@
         <value xml:lang="en">Captcha Code</value>
         <value xml:lang="pt_BR">Código Captcha</value>
     </property>
+    <property key="CommonCDyneAddressError">
+        <value xml:lang="en">Got AddressError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
+        <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
+    </property>
+    <property key="CommonCDyneCallingError">
+        <value xml:lang="en">Error calling CDyne service at URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
+    </property>
+    <property key="CommonCDyneParsingError">
+        <value xml:lang="en">Error parsing XML result from CDyne service at URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
+    </property>
+    <property key="CommonCDyneServiceError">
+        <value xml:lang="en">Got ServiceError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
+        <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
+    </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
         <value xml:lang="de">Verändern</value>
@@ -2397,6 +2413,58 @@
         <value xml:lang="zh_CN">电子邮件密码</value>
         <value xml:lang="zh_TW">電子郵件密碼</value>
     </property>
+    <property key="CommonEmailSendAddressError">
+        <value xml:lang="en">[ADDRERR] Address error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="it">[ADDRERR] Errore indirizzo durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+    </property>
+    <property key="CommonEmailSendConnectionError">
+        <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+    </property>
+    <property key="CommonEmailDeliveryFailed">
+        <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
+        <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
+    </property>
+    <property key="CommonEmailDeliveryOriginalMessage">
+        <value xml:lang="en">----- Original message -----</value>
+        <value xml:lang="it">----- messaggio originale -----</value>
+    </property>
+    <property key="CommonEmailSendError">
+        <value xml:lang="en">Error send email: ${errorString}</value>
+        <value xml:lang="it">Errore invio email: ${errorString}</value>
+    </property>
+    <property key="CommonEmailSendGettingError">
+        <value xml:lang="en">Error getting content: ${errorString}</value>
+        <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
+    </property>
+    <property key="CommonEmailSendMalformedUrl">
+        <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
+        <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
+    </property>
+    <property key="CommonEmailSendMissingParameterSendVia">
+        <value xml:lang="en">Parameter sendVia is required when sendType is not mail.smtp.host</value>
+        <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
+    </property>
+    <property key="CommonEmailSendIOException">
+        <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="it">IOException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+    </property>
+    <property key="CommonEmailSendMessagingException">
+        <value xml:lang="en">MessagingException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="it">MessagingException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+    </property>
+    <property key="CommonEmailSendRenderingScreenEmailError">
+        <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
+        <value xml:lang="it">Errore di visualizzazione videata per email: ${errorString}</value>
+    </property>
+    <property key="CommonEmailSendRenderingScreenPdfError">
+        <value xml:lang="en">Error rendering PDF attachment for email: ${errorString}</value>
+        <value xml:lang="it">Errore di visualizzazione allegato PDF per email: ${errorString}</value>
+    </property>
+    <property key="CommonEmailSendUndeliveredMail">
+        <value xml:lang="en">Undelivered Mail Returned to Sender</value>
+        <value xml:lang="it">Mail non consegnabile restituita a colui che l'ha inviata</value>
+    </property>
     <property key="CommonEmailShouldBeSpecified">
         <value xml:lang="en">PartyId or Email Address (sendTo) should be specified!</value>
         <value xml:lang="it">Id soggetto o indirizzo e-mail (inviare a) deve essere specificato!</value>
@@ -3000,6 +3068,18 @@
         <value xml:lang="zh_CN">查找所有</value>
         <value xml:lang="zh_TW">查詢全部</value>
     </property>
+    <property key="CommonFindErrorPreparingConditions">
+        <value xml:lang="en">Error preparing conditions: ${errorString}</value>
+        <value xml:lang="it">Errore duranta la preparazione delle condizioni di ricerca: ${errorString}</value>
+    </property>
+    <property key="CommonFindErrorRetrieveIterator">
+        <value xml:lang="en">Error finding iterator: ${errorString}</value>
+        <value xml:lang="it">Errore duranta la ricerca, iterator non restituito: ${errorString}</value>
+    </property>
+    <property key="CommonFindErrorRunning">
+        <value xml:lang="en">Error running Find on the ${entityName} entity: ${errorString}</value>
+        <value xml:lang="it">Errore duranta la ricerca sull'entità ${entityName}: ${errorString}</value>
+    </property>
     <property key="CommonFinishDate">
         <value xml:lang="ar">تاريخ/وقت النهاية</value>
         <value xml:lang="de">Abschluss Datum/Uhrzeit</value>
@@ -3359,6 +3439,30 @@
         <value xml:lang="zh">开始日期  时间</value>
         <value xml:lang="zh_CN">起始日期和时间</value>
         <value xml:lang="zh_TW">開始日期 時間</value>
+    </property>
+    <property key="CommonFtpConnectionRefused">
+        <value xml:lang="en">connection refused</value>
+        <value xml:lang="it">connessione rifiutata</value>
+    </property>
+    <property key="CommonFtpFileCannotBeOpen">
+        <value xml:lang="en">ERROR: Could not open local file</value>
+        <value xml:lang="it">ERRORE: Non è possibile aprire il file locale</value>
+    </property>
+    <property key="CommonFtpFileNotSentSuccesfully">
+        <value xml:lang="en">File not sent succesfully: ${replyString}</value>
+        <value xml:lang="it">File non inviato con successo: ${replyString}</value>
+    </property>
+    <property key="CommonFtpLoginFailure">
+        <value xml:lang="en">Login failed (${username}, ${password})</value>
+        <value xml:lang="it">Login fallito (${username}, ${password})</value>
+    </property>
+    <property key="CommonFtpProblemWithTransfer">
+        <value xml:lang="en">Problem with FTP transfer: ${errorString}</value>
+        <value xml:lang="it">Problema durante il trasferimento FTP: ${errorString}</value>
+    </property>
+    <property key="CommonFtpSiteCommandFailed">
+        <value xml:lang="en">SITE command ${command} failed: ${replyString}</value>
+        <value xml:lang="it">Comando sito ${command} fallito: ${replyString}</value>
     </property>
     <property key="CommonGenericPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen, müssen Sie eine der folgenden Berechtigungen besitzen: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -5412,6 +5516,30 @@
         <value xml:lang="fr">Non attribué</value>
         <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
         <value xml:lang="pt_BR">Não Atribuído</value>
+    </property>
+    <property key="CommonNotifyEmailDeliveryError">
+        <value xml:lang="en">Email delivery error, see error log</value>
+        <value xml:lang="it">Email delivery error, see error log</value>
+    </property>
+    <property key="CommonNotifyEmailInvalidBody">
+        <value xml:lang="en">Invalid email body; null is not allowed</value>
+        <value xml:lang="it">Corpo email invalido; null non è consentito</value>
+    </property>
+    <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
+        <value xml:lang="en">Message body generated successfully</value>
+        <value xml:lang="it">Corpo messaggio generato con successo</value>
+    </property>
+    <property key="CommonNotifyEmailProblemFindingTemplate">
+        <value xml:lang="en">Problem finding template; see logs</value>
+        <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
+    </property>
+    <property key="CommonNotifyEmailProblemProcessingTemplate">
+        <value xml:lang="en">Template processing problem, see error logs</value>
+        <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
+    </property>
+    <property key="CommonNotifyEmailProblemReadingTemplate">
+        <value xml:lang="en">Template reading problem, see error logs</value>
+        <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
     </property>
     <property key="CommonNotModifRecreat">
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>
@@ -7914,6 +8042,10 @@
         <value xml:lang="zh">状态历史记录</value>
         <value xml:lang="zh_CN">状态历史</value>
         <value xml:lang="zh_TW">狀態歷史記錄</value>
+    </property>
+    <property key="CommonStatusMandatory">
+        <value xml:lang="en">Parameter statusTypeIds can not be null and must contain at least one element</value>
+        <value xml:lang="it">Parametro statusTypeIds non può essere nullo e deve contenere almeno un'elemento</value>
     </property>
     <property key="CommonStatustoComplete">
         <value xml:lang="en">Status to 'complete'</value>

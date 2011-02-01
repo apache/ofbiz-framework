@@ -24,6 +24,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -65,7 +66,7 @@ import org.ofbiz.service.ServiceUtil;
 public class FindServices {
 
     public static final String module = FindServices.class.getName();
-
+    public static final String resource = "CommonUiLabels";
     public static Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
@@ -457,6 +458,7 @@ public class FindServices {
         String distinct = (String) context.get("distinct");
         List<String> fieldList =  UtilGenerics.<String>checkList(context.get("fieldList"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
             noConditionFind = (String) inputFields.get("noConditionFind");
@@ -488,7 +490,7 @@ public class FindServices {
                                                "filterByDateValue", filterByDateValue, "userLogin", userLogin,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError("Error preparing conditions: " + gse.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
         EntityConditionList exprList = (EntityConditionList)prepareResult.get("entityConditionList");
         List<String> orderByList = checkList(prepareResult.get("orderByList"), String.class);
@@ -501,7 +503,7 @@ public class FindServices {
                                                                              "locale", context.get("locale"), "timeZone", context.get("timeZone"),
                                                                              "maxRows", maxRows));
         } catch (GenericServiceException gse) {
-            return ServiceUtil.returnError("Error finding iterator: " + gse.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorRetrieveIterator", UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
 
         if (executeResult.get("listIt") == null) {
@@ -597,6 +599,7 @@ public class FindServices {
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
         boolean distinct = "Y".equals(context.get("distinct"));
         List<String> fieldList =  UtilGenerics.checkList(context.get("fieldList"));
+        Locale locale = (Locale) context.get("locale");
         Set<String> fieldSet = null;
         if (fieldList != null) {
             fieldSet = UtilMisc.makeSetWritable(fieldList);
@@ -614,7 +617,7 @@ public class FindServices {
                 listSize = listIt.getResultsSizeAfterPartialList();
             }
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError("Error running Find on the [" + entityName + "] entity: " + e.getMessage());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorRunning", UtilMisc.toMap("entityName", entityName, "errorString", e.getMessage()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
