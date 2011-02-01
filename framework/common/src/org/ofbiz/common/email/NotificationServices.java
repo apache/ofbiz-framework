@@ -24,6 +24,7 @@ import java.io.Writer;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -100,6 +101,7 @@ import freemarker.template.TemplateException;
 public class NotificationServices {
 
     public static final String module = NotificationServices.class.getName();
+    public static final String resource = "CommonUiLabels";
 
     /**
      * This will use the {@link #prepareNotification(DispatchContext, Map) prepareNotification(DispatchContext, Map)}
@@ -119,6 +121,7 @@ public class NotificationServices {
      */
     public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
 
         try {
@@ -158,11 +161,11 @@ public class NotificationServices {
                 result = dispatcher.runSync("sendMail", emailContext);
             } else {
                 Debug.logError("Invalid email body; null is not allowed", module);
-                result = ServiceUtil.returnError("Invalid email body; null is not allowed");
+                result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailInvalidBody", locale));
             }
         } catch (GenericServiceException serviceException) {
             Debug.logError(serviceException, "Error sending email", module);
-            result = ServiceUtil.returnError("Email delivery error, see error log");
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailDeliveryError", locale));
         }
 
         return result;
@@ -188,7 +191,7 @@ public class NotificationServices {
         String templateName = (String) context.get("templateName");
         Map<String, Object> templateData = UtilGenerics.checkMap(context.get("templateData"));
         String webSiteId = (String) context.get("webSiteId");
-
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
         if (templateData == null) {
             templateData = FastMap.newInstance();
@@ -203,7 +206,7 @@ public class NotificationServices {
 
             if (templateUrl == null) {
                 Debug.logError("Problem getting the template URL: " + templateName + " not found", module);
-                return ServiceUtil.returnError("Problem finding template; see logs");
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemFindingTemplate", locale));
             }
 
             // process the template with the given data and write
@@ -215,14 +218,14 @@ public class NotificationServices {
             String notificationBody = writer.toString();
 
             // generate the successfull reponse
-            result = ServiceUtil.returnSuccess("Message body generated successfully");
+            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "CommonNotifyEmailMessageBodyGeneratedSuccessfully", locale));
             result.put("body", notificationBody);
         } catch (IOException ie) {
             Debug.logError(ie, "Problems reading template", module);
-            result = ServiceUtil.returnError("Template reading problem, see error logs");
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemReadingTemplate", locale));
         } catch (TemplateException te) {
             Debug.logError(te, "Problems processing template", module);
-            result = ServiceUtil.returnError("Template processing problem, see error log");
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonNotifyEmailProblemProcessingTemplate", locale));
         }
 
         return result;

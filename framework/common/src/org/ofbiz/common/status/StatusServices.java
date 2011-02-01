@@ -19,12 +19,14 @@
 package org.ofbiz.common.status;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
 import static org.ofbiz.base.util.UtilGenerics.checkList;
@@ -41,12 +43,14 @@ import org.ofbiz.service.ServiceUtil;
 public class StatusServices {
 
     public static final String module = StatusServices.class.getName();
+    public static final String resource = "CommonUiLabels";
 
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
         Delegator delegator = ctx.getDelegator();
         List<String> statusTypes = checkList(context.get("statusTypeIds"), String.class);
+        Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(statusTypes)) {
-            return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonStatusMandatory", locale));
         }
 
         List<GenericValue> statusItems = FastList.newInstance();
