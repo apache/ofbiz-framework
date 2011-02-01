@@ -49,6 +49,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -1912,8 +1913,8 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
 
-    public Map getItemProductInfo() {
-        Map itemInfo = FastMap.newInstance();
+    public Map<String, Object> getItemProductInfo() {
+        Map<String, Object> itemInfo = FastMap.newInstance();
         itemInfo.put("productId", this.getProductId());
         itemInfo.put("weight", this.getWeight());
         itemInfo.put("weightUomId", this.getProduct().getString("weightUomId"));
@@ -2146,24 +2147,24 @@ public class ShoppingCartItem implements java.io.Serializable {
         return this.additionalProductFeatureAndAppls;
     }
 
-    public Map getFeatureIdQtyMap(BigDecimal quantity) {
-        Map featureMap = FastMap.newInstance();
+    public Map<String, BigDecimal> getFeatureIdQtyMap(BigDecimal quantity) {
+        Map<String, BigDecimal> featureMap = FastMap.newInstance();
         GenericValue product = this.getProduct();
         if (product != null) {
-            List featureAppls = null;
+            List<GenericValue> featureAppls = null;
             try {
                 featureAppls = product.getRelated("ProductFeatureAppl");
-                List filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
+                List<EntityExpr> filterExprs = UtilMisc.toList(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "STANDARD_FEATURE"));
                 filterExprs.add(EntityCondition.makeCondition("productFeatureApplTypeId", EntityOperator.EQUALS, "REQUIRED_FEATURE"));
                 featureAppls = EntityUtil.filterByOr(featureAppls, filterExprs);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), module);
             }
             if (featureAppls != null) {
-                Iterator fai = featureAppls.iterator();
+                Iterator<GenericValue> fai = featureAppls.iterator();
                 while (fai.hasNext()) {
-                    GenericValue appl = (GenericValue) fai.next();
-                    BigDecimal lastQuantity = (BigDecimal) featureMap.get(appl.getString("productFeatureId"));
+                    GenericValue appl = fai.next();
+                    BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                     if (lastQuantity == null) {
                         lastQuantity = BigDecimal.ZERO;
                     }
@@ -2173,10 +2174,10 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         if (this.additionalProductFeatureAndAppls != null) {
-            Iterator aapi = this.additionalProductFeatureAndAppls.values().iterator();
+            Iterator<GenericValue> aapi = this.additionalProductFeatureAndAppls.values().iterator();
             while (aapi.hasNext()) {
-                GenericValue appl = (GenericValue) aapi.next();
-                BigDecimal lastQuantity = (BigDecimal) featureMap.get(appl.getString("productFeatureId"));
+                GenericValue appl = aapi.next();
+                BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                 if (lastQuantity == null) {
                     lastQuantity = BigDecimal.ZERO;
                 }
