@@ -661,14 +661,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Get all ShoppingCartItems from the cart object with the given productId. */
-    public List findAllCartItems(String productId) {
+    public List<ShoppingCartItem> findAllCartItems(String productId) {
         return this.findAllCartItems(productId, null);
     }
     /** Get all ShoppingCartItems from the cart object with the given productId and optional groupNumber to limit it to a specific item group */
-    public List findAllCartItems(String productId, String groupNumber) {
+    public List<ShoppingCartItem> findAllCartItems(String productId, String groupNumber) {
         if (productId == null) return this.items();
 
-        List itemsToReturn = FastList.newInstance();
+        List<ShoppingCartItem> itemsToReturn = FastList.newInstance();
         // Check for existing cart item.
         for (ShoppingCartItem cartItem : cartLines) {
             if (UtilValidate.isNotEmpty(groupNumber) && !cartItem.isInItemGroup(groupNumber)) {
@@ -4100,8 +4100,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return result;
     }
 
-    public List getLineListOrderedByBasePrice(boolean ascending) {
-        List result = new ArrayList(this.cartLines);
+    public List<ShoppingCartItem> getLineListOrderedByBasePrice(boolean ascending) {
+        List<ShoppingCartItem> result = new ArrayList<ShoppingCartItem>(this.cartLines);
         Collections.sort(result, new BasePriceOrderComparator(ascending));
         return result;
     }

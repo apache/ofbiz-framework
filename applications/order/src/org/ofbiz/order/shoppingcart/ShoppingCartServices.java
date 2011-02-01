@@ -1058,8 +1058,7 @@ public class ShoppingCartServices {
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
         String productId = (String) context.get("productId");
         if (shoppingCart != null && UtilValidate.isNotEmpty(shoppingCart.items())) {
-            List allItems = shoppingCart.items();
-            List items = shoppingCart.findAllCartItems(productId);
+            List<ShoppingCartItem> items = shoppingCart.findAllCartItems(productId);
             if (items.size() > 0) {
                 ShoppingCartItem item = (ShoppingCartItem)items.get(0);
                 int itemIndex = shoppingCart.getItemIndex(item);
