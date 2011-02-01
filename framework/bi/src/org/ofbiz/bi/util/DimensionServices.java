@@ -19,12 +19,14 @@ under the License.
 package org.ofbiz.bi.util;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -36,6 +38,7 @@ import org.ofbiz.service.ServiceUtil;
 public class DimensionServices {
 
     public static final String module = DimensionServices.class.getName();
+    public static final String resource = "BiUiLabels";
 
     public static Map<String, Object> getDimensionIdFromNaturalKey(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
@@ -60,6 +63,7 @@ public class DimensionServices {
         GenericValue dimensionValue = (GenericValue) context.get("dimensionValue");
         List<String> naturalKeyFields = UtilGenerics.checkList(context.get("naturalKeyFields"), String.class);
         String updateMode = (String) context.get("updateMode");
+        Locale locale = (Locale) context.get("locale");
 
         try {
             Map<String, Object> andCondition = FastMap.newInstance();
@@ -67,7 +71,7 @@ public class DimensionServices {
                 andCondition.put(naturalKeyField, dimensionValue.get(naturalKeyField));
             }
             if (andCondition.isEmpty()) {
-                return ServiceUtil.returnError("The natural key: " + naturalKeyFields + " is empty in value: " + dimensionValue);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource, "BusinessIntelligenceNaturalKeyWithourDimension", UtilMisc.toMap("naturalKeyFields", naturalKeyFields, "dimensionValue", dimensionValue), locale));
             }
             List<GenericValue> existingDimensionValues = null;
             try {
@@ -91,7 +95,7 @@ public class DimensionServices {
                     dimensionValue.set("dimensionId", delegator.getNextSeqId(dimensionValue.getEntityName()));
                     dimensionValue.create();
                 } else {
-                    return ServiceUtil.returnError("The update mode: " + updateMode + " is still not supported.");
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "BusinessIntelligenceUpdateModeStillNotSupported", UtilMisc.toMap("updateMode", updateMode), locale));
                 }
             }
         } catch (GenericEntityException gee) {
