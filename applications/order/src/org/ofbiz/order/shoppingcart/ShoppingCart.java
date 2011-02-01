@@ -4679,7 +4679,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         public static class CartShipItemInfo implements Serializable {
-            public List itemTaxAdj = new LinkedList();
+            public List<GenericValue> itemTaxAdj = new LinkedList<GenericValue>();
             public ShoppingCartItem item = null;
             public BigDecimal quantity = BigDecimal.ZERO;
 
@@ -4687,7 +4687,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 BigDecimal itemTax = ZERO;
 
                 for (int i = 0; i < itemTaxAdj.size(); i++) {
-                    GenericValue v = (GenericValue) itemTaxAdj.get(i);
+                    GenericValue v = itemTaxAdj.get(i);
                     itemTax = itemTax.add(OrderReadHelper.calcItemAdjustment(v, quantity, item.getBasePrice()));
                 }
 
