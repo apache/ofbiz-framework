@@ -682,11 +682,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Get all ShoppingCartItems from the cart object with the given productCategoryId and optional groupNumber to limit it to a specific item group */
-    public List findAllCartItemsInCategory(String productCategoryId, String groupNumber) {
+    public List<ShoppingCartItem> findAllCartItemsInCategory(String productCategoryId, String groupNumber) {
         if (productCategoryId == null) return this.items();
 
         Delegator delegator = this.getDelegator();
-        List itemsToReturn = FastList.newInstance();
+        List<ShoppingCartItem> itemsToReturn = FastList.newInstance();
         try {
             // Check for existing cart item
             for (ShoppingCartItem cartItem : cartLines) {
@@ -725,37 +725,37 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     // =============== some misc utility methods, mostly for dealing with lists of items =================
-    public void removeExtraItems(List multipleItems, LocalDispatcher dispatcher, int maxItems) throws CartItemModifyException {
+    public void removeExtraItems(List<ShoppingCartItem> multipleItems, LocalDispatcher dispatcher, int maxItems) throws CartItemModifyException {
         // if 1 or 0 items, do nothing
         if (multipleItems.size() <= maxItems) return;
 
         // remove all except first <maxItems> in list from the cart, first because new cart items are added to the beginning...
-        List localList = FastList.newInstance();
+        List<ShoppingCartItem> localList = FastList.newInstance();
         localList.addAll(multipleItems);
         // the ones to keep...
         for (int i=0; i<maxItems; i++) localList.remove(0);
-        Iterator localIter = localList.iterator();
+        Iterator<ShoppingCartItem> localIter = localList.iterator();
         while (localIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) localIter.next();
+            ShoppingCartItem item = localIter.next();
             this.removeCartItem(item, dispatcher);
         }
     }
 
-    public static BigDecimal getItemsTotalQuantity(List cartItems) {
+    public static BigDecimal getItemsTotalQuantity(List<ShoppingCartItem> cartItems) {
         BigDecimal totalQuantity = BigDecimal.ZERO;
-        Iterator localIter = cartItems.iterator();
+        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
         while (localIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) localIter.next();
+            ShoppingCartItem item = localIter.next();
             totalQuantity = totalQuantity.add(item.getQuantity());
         }
         return totalQuantity;
     }
 
-    public static List getItemsProducts(List cartItems) {
-        List productList = FastList.newInstance();
-        Iterator localIter = cartItems.iterator();
+    public static List<GenericValue> getItemsProducts(List<ShoppingCartItem> cartItems) {
+        List<GenericValue> productList = FastList.newInstance();
+        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
         while (localIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) localIter.next();
+            ShoppingCartItem item = localIter.next();
             GenericValue product = item.getProduct();
             if (product != null) {
                 productList.add(product);
@@ -764,23 +764,23 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return productList;
     }
 
-    public void ensureItemsQuantity(List cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
-        Iterator localIter = cartItems.iterator();
+    public void ensureItemsQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
+        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
         while (localIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) localIter.next();
+            ShoppingCartItem item = localIter.next();
             if (item.getQuantity() != quantity) {
                 item.setQuantity(quantity, dispatcher, this);
             }
         }
     }
 
-    public BigDecimal ensureItemsTotalQuantity(List cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
+    public BigDecimal ensureItemsTotalQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
         BigDecimal quantityRemoved = BigDecimal.ZERO;
         // go through the items and reduce quantityToKeep by the item quantities until it is 0, then remove the remaining...
         BigDecimal quantityToKeep = quantity;
-        Iterator localIter = cartItems.iterator();
+        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
         while (localIter.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) localIter.next();
+            ShoppingCartItem item = localIter.next();
 
             if (quantityToKeep.compareTo(item.getQuantity()) >= 0) {
                 // quantityToKeep sufficient to keep it all... just reduce quantityToKeep and move on
@@ -972,8 +972,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return itemGroup;
     }
 
-    public List getCartItemsInNoGroup() {
-        List cartItemList = FastList.newInstance();
+    public List<ShoppingCartItem> getCartItemsInNoGroup() {
+        List<ShoppingCartItem> cartItemList = FastList.newInstance();
         for (ShoppingCartItem cartItem : cartLines) {
             if (cartItem.getItemGroup() == null) {
                 cartItemList.add(cartItem);
@@ -982,8 +982,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return cartItemList;
     }
 
-    public List getCartItemsInGroup(String groupNumber) {
-        List cartItemList = FastList.newInstance();
+    public List<ShoppingCartItem> getCartItemsInGroup(String groupNumber) {
+        List<ShoppingCartItem> cartItemList = FastList.newInstance();
         ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(groupNumber);
         if (itemGroup != null) {
             for (ShoppingCartItem cartItem : cartLines) {
@@ -999,17 +999,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(groupNumber);
         if (itemGroup != null) {
             // go through all cart items and remove from group if they are in it
-            List cartItemList = this.getCartItemsInGroup(groupNumber);
-            Iterator cartItemIter = cartItemList.iterator();
+            List<ShoppingCartItem> cartItemList = this.getCartItemsInGroup(groupNumber);
+            Iterator<ShoppingCartItem> cartItemIter = cartItemList.iterator();
             while (cartItemIter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartItemIter.next();
+                ShoppingCartItem cartItem = cartItemIter.next();
                 cartItem.setItemGroup(null);
             }
 
             // if this is a parent of any set them to this group's parent (or null)
-            Iterator itemGroupIter = this.itemGroupByNumberMap.values().iterator();
+            Iterator<ShoppingCartItemGroup> itemGroupIter = this.itemGroupByNumberMap.values().iterator();
             while (itemGroupIter.hasNext()) {
-                ShoppingCartItemGroup otherItemGroup = (ShoppingCartItemGroup) itemGroupIter.next();
+                ShoppingCartItemGroup otherItemGroup = itemGroupIter.next();
                 if (itemGroup.equals(otherItemGroup.getParentGroup())) {
                     otherItemGroup.inheritParentsParent();
                 }
@@ -1065,16 +1065,16 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String partyId = this.getPartyId();
         if (UtilValidate.isNotEmpty(partyId)) {
             // recalculate all prices
-            Iterator cartItemIter = this.iterator();
+            Iterator<ShoppingCartItem> cartItemIter = this.iterator();
             while (cartItemIter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartItemIter.next();
+                ShoppingCartItem cartItem = cartItemIter.next();
                 cartItem.updatePrice(dispatcher, this);
             }
 
             // check all promo codes, remove on failed check
-            Iterator promoCodeIter = this.productPromoCodes.iterator();
+            Iterator<String> promoCodeIter = this.productPromoCodes.iterator();
             while (promoCodeIter.hasNext()) {
-                String promoCode = (String) promoCodeIter.next();
+                String promoCode = promoCodeIter.next();
                 String checkResult = ProductPromoWorker.checkCanUsePromoCode(promoCode, partyId, this.getDelegator(), locale);
                 if (checkResult != null) {
                     promoCodeIter.remove();
@@ -1616,9 +1616,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 // this payment method will set the billing address for the order;
                 // before it is set we have to verify if the billing address is
                 // compatible with the ProductGeos
-                Iterator products = (ShoppingCart.getItemsProducts(this.cartLines)).iterator();
+                Iterator<GenericValue> products = (ShoppingCart.getItemsProducts(this.cartLines)).iterator();
                 while (products.hasNext()) {
-                    GenericValue product = (GenericValue)products.next();
+                    GenericValue product = products.next();
                     if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
                         throw new IllegalArgumentException("The billing address is not compatible with ProductGeos rules.");
                     }
