@@ -3497,11 +3497,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
-    public List makeOrderItems() {
+    public List<GenericValue> makeOrderItems() {
         return makeOrderItems(false, false, null);
     }
 
-    public List makeOrderItems(boolean explodeItems, boolean replaceAggregatedId, LocalDispatcher dispatcher) {
+    public List<GenericValue> makeOrderItems(boolean explodeItems, boolean replaceAggregatedId, LocalDispatcher dispatcher) {
         // do the explosion
         if (explodeItems && dispatcher != null) {
             explodeItems(dispatcher);
@@ -3509,7 +3509,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         // now build the lines
         synchronized (cartLines) {
-            List result = FastList.newInstance();
+            List<GenericValue> result = FastList.newInstance();
 
             for (ShoppingCartItem item : cartLines) {
                 if (UtilValidate.isEmpty(item.getOrderItemSeqId())) {
@@ -3616,10 +3616,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             allAdjs.add(orderAdjustment);
 
             if ("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
-                Iterator fsppas = this.freeShippingProductPromoActions.iterator();
+                Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
 
                 while (fsppas.hasNext()) {
-                    GenericValue productPromoAction = (GenericValue) fsppas.next();
+                    GenericValue productPromoAction = fsppas.next();
 
                     // TODO - we need to change the way free shipping promotions work
                     /*
@@ -3656,10 +3656,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     allAdjs.add(orderAdjustment);
 
                     if ("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
-                        Iterator fsppas = this.freeShippingProductPromoActions.iterator();
+                        Iterator<GenericValue> fsppas = this.freeShippingProductPromoActions.iterator();
 
                         while (fsppas.hasNext()) {
-                            GenericValue productPromoAction = (GenericValue) fsppas.next();
+                            GenericValue productPromoAction = fsppas.next();
 
                             // TODO - fix the free shipping promotions!!
                             /*
@@ -3729,9 +3729,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** make a list of all OrderPaymentPreferences and Billing info including all payment methods and types */
-    public List makeAllOrderPaymentInfos(LocalDispatcher dispatcher) {
+    public List<GenericValue> makeAllOrderPaymentInfos(LocalDispatcher dispatcher) {
         Delegator delegator = this.getDelegator();
-        List allOpPrefs = new LinkedList();
+        List<GenericValue> allOpPrefs = new LinkedList<GenericValue>();
         BigDecimal remainingAmount = this.getGrandTotal().subtract(this.getPaymentTotal());
         remainingAmount = remainingAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
         if (getBillingAccountId() != null && this.billingAccountAmt.compareTo(BigDecimal.ZERO) <= 0) {
@@ -3746,7 +3746,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 this.billingAccountAmt = billingAccountAvailableAmount;
             }
             BigDecimal billingAccountAmountSelected = getBillingAccountAmount();
-            GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap());
+            GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap<String, Object>());
             opp.set("paymentMethodTypeId", "EXT_BILLACT");
             opp.set("presentFlag", "N");
             opp.set("overflowFlag", "N");
@@ -3758,9 +3758,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 remainingAmount = BigDecimal.ZERO;
             }
         }
-        Iterator i = paymentInfo.iterator();
+        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
         while (i.hasNext()) {
-            CartPaymentInfo inf = (CartPaymentInfo) i.next();
+            CartPaymentInfo inf = i.next();
             if (inf.amount == null) {
                 inf.amount = remainingAmount;
                 remainingAmount = BigDecimal.ZERO;
@@ -3893,12 +3893,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return allOrderContactMechs;
     }
 
-    public List makeAllShipGroupInfos() {
-        List groups = new LinkedList();
-        Iterator grpIterator = this.shipInfo.iterator();
+    public List<GenericValue> makeAllShipGroupInfos() {
+        List<GenericValue> groups = new LinkedList<GenericValue>();
+        Iterator<CartShipInfo> grpIterator = this.shipInfo.iterator();
         long seqId = 1;
         while (grpIterator.hasNext()) {
-            CartShipInfo csi = (CartShipInfo) grpIterator.next();
+            CartShipInfo csi = grpIterator.next();
             groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, seqId));
             seqId++;
         }
@@ -3909,22 +3909,22 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return this.shipInfo.size();
     }
 
-    public List makeAllOrderItemAttributes() {
+    public List<GenericValue> makeAllOrderItemAttributes() {
         return makeAllOrderItemAttributes(null, ALL);
     }
 
-    public List makeAllOrderItemAttributes(String orderId, int mode) {
+    public List<GenericValue> makeAllOrderItemAttributes(String orderId, int mode) {
 
         // now build order item attributes
         synchronized (cartLines) {
-            List result = FastList.newInstance();
+            List<GenericValue> result = FastList.newInstance();
 
             for (ShoppingCartItem item : cartLines) {
-                Map orderItemAttributes = item.getOrderItemAttributes();
-                Iterator attributesIter = orderItemAttributes.keySet().iterator();
+                Map<String, String> orderItemAttributes = item.getOrderItemAttributes();
+                Iterator<String> attributesIter = orderItemAttributes.keySet().iterator();
                 while (attributesIter.hasNext()) {
-                    String key = (String) attributesIter.next();
-                    String value = (String) orderItemAttributes.get(key);
+                    String key = attributesIter.next();
+                    String value = orderItemAttributes.get(key);
 
                     GenericValue orderItemAttribute = getDelegator().makeValue("OrderItemAttribute");
                     if (UtilValidate.isNotEmpty(orderId)) {
@@ -4465,9 +4465,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
-        public List makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
+        public List<GenericValue> makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
-            List values = new LinkedList();
+            List<GenericValue> values = new LinkedList<GenericValue>();
 
             // create order contact mech for shipping address
             if (this.internalContactMechId != null) {
@@ -4508,7 +4508,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             values.add(shipGroup);
 
             //set estimated ship dates
-            FastList estimatedShipDates = FastList.newInstance();
+            FastList<Timestamp> estimatedShipDates = FastList.newInstance();
             for (ShoppingCartItem item : shipItemInfo.keySet()) {
                 Timestamp estimatedShipDate = item.getEstimatedShipDate();
                 if (estimatedShipDate != null) {
@@ -4522,7 +4522,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
 
             //set estimated delivery dates
-            FastList estimatedDeliveryDates = FastList.newInstance();
+            FastList<Timestamp> estimatedDeliveryDates = FastList.newInstance();
             for (ShoppingCartItem item : shipItemInfo.keySet()) {
                 Timestamp estimatedDeliveryDate = item.getDesiredDeliveryDate();
                 if (estimatedDeliveryDate != null) {
@@ -4545,17 +4545,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
 
             // create the top level tax adjustments
-            Iterator ti = shipTaxAdj.iterator();
+            Iterator<GenericValue> ti = shipTaxAdj.iterator();
             while (ti.hasNext()) {
-                GenericValue taxAdj = (GenericValue) ti.next();
+                GenericValue taxAdj = ti.next();
                 taxAdj.set("shipGroupSeqId", shipGroupSeqId);
                 values.add(taxAdj);
             }
 
             // create the ship group item associations
-            Iterator i = shipItemInfo.keySet().iterator();
+            Iterator<ShoppingCartItem> i = shipItemInfo.keySet().iterator();
             while (i.hasNext()) {
-                ShoppingCartItem item = (ShoppingCartItem) i.next();
+                ShoppingCartItem item = i.next();
                 CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
 
                 GenericValue assoc = delegator.makeValue("OrderItemShipGroupAssoc");
@@ -4565,9 +4565,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 values.add(assoc);
 
                 // create the item tax adjustment
-                Iterator iti = itemInfo.itemTaxAdj.iterator();
+                Iterator<GenericValue> iti = itemInfo.itemTaxAdj.iterator();
                 while (iti.hasNext()) {
-                    GenericValue taxAdj = (GenericValue) iti.next();
+                    GenericValue taxAdj = iti.next();
                     taxAdj.set("orderItemSeqId", item.getOrderItemSeqId());
                     taxAdj.set("shipGroupSeqId", shipGroupSeqId);
                     values.add(taxAdj);
