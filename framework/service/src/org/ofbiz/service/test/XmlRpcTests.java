@@ -19,10 +19,12 @@
 
 package org.ofbiz.service.test;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -34,6 +36,7 @@ import org.ofbiz.service.ServiceUtil;
 public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     public static final String module = XmlRpcTests.class.getName();
+    public static final String resource = "ServiceErrorUiLabels";
     public static final String url = "http://localhost:8080/webtools/control/xmlrpc";
 
     public XmlRpcTests(String name) {
@@ -55,11 +58,12 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
      * Service to receive information from xml-rpc call
      */
     public static Map<String, Object> testXmlRpcAdd(DispatchContext dctx, Map<String, ?> context) {
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> response = ServiceUtil.returnSuccess();
         Integer num1 = (Integer) context.get("num1");
         Integer num2 = (Integer) context.get("num2");
         if (UtilValidate.isEmpty(num1) || UtilValidate.isEmpty(num2)) {
-            return ServiceUtil.returnError("missing parameters");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceTestXmlRpcMissingParameters", locale));
         }
         Integer res = num1 + num2;
         response.put("resulting", res);
@@ -70,6 +74,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
      * Service to send information to xml-rpc service
      */    
     public static Map<String, Object> testXmlRpcClientAdd(DispatchContext dctx, Map<String, ?> context) {
+        Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
         Integer num1 = 125;
         Integer num2 = 365;
@@ -85,9 +90,9 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
         if (ServiceUtil.isError(result)) return result;
         Integer res = (Integer) result.get("resulting");
         if (res == (num1 + num2)) { 
-            result = ServiceUtil.returnSuccess("adding integer 125 to 365 yields " + res);
+            result = ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "ServiceTestXmlRpcCalculationOK", locale) + res);
         } else {
-            result = ServiceUtil.returnError("calcul is wrong ! Why ?");
+            result = ServiceUtil.returnError(UtilProperties.getMessage(resource, "ServiceTestXmlRpcCalculationKO", locale));
         }
         return result;
     }
