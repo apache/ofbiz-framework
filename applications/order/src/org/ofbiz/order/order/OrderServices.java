@@ -3317,7 +3317,7 @@ public class OrderServices {
     }
 
     /** Service to invoice service items from order*/
-    public static Map invoiceServiceItems(DispatchContext dctx, Map context) {
+    public static Map<String, Object> invoiceServiceItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3401,7 +3401,7 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map addItemToApprovedOrder(DispatchContext dctx, Map context) {
+    public static Map<String, Object> addItemToApprovedOrder(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -3415,7 +3415,6 @@ public class OrderServices {
         BigDecimal amount = (BigDecimal) context.get("amount");
         Timestamp itemDesiredDeliveryDate = (Timestamp) context.get("itemDesiredDeliveryDate");
         String overridePrice = (String) context.get("overridePrice");
-        Map itemAttributesMap = (Map) context.get("itemAttributesMap");
         String reasonEnumId = (String) context.get("reasonEnumId");
         String changeComments = (String) context.get("changeComments");
         Boolean calcTax = (Boolean) context.get("calcTax");
@@ -3494,8 +3493,8 @@ public class OrderServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        Map changeMap = UtilMisc.toMap("itemReasonMap", UtilMisc.toMap("reasonEnumId", reasonEnumId),
-                                        "itemCommentMap", UtilMisc.toMap("changeComments", changeComments));
+        Map<String, Object> changeMap = UtilMisc.<String, Object>toMap("itemReasonMap", UtilMisc.<String, Object>toMap("reasonEnumId", reasonEnumId),
+                                        "itemCommentMap", UtilMisc.<String, Object>toMap("changeComments", changeComments));
         // save all the updated information
         try {
             saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax);
@@ -3512,27 +3511,27 @@ public class OrderServices {
             Debug.logError(e, module);
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
         result.put("orderId", orderId);
         return result;
     }
 
-    public static Map updateApprovedOrderItems(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateApprovedOrderItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         String orderId = (String) context.get("orderId");
-        Map overridePriceMap = (Map) context.get("overridePriceMap");
-        Map itemDescriptionMap = (Map) context.get("itemDescriptionMap");
-        Map itemPriceMap = (Map) context.get("itemPriceMap");
-        Map itemQtyMap = (Map) context.get("itemQtyMap");
-        Map itemReasonMap = (Map) context.get("itemReasonMap");
-        Map itemCommentMap = (Map) context.get("itemCommentMap");
-        Map itemAttributesMap = (Map) context.get("itemAttributesMap");
-        Map<String,String> itemEstimatedShipDateMap  = (Map) context.get("itemShipDateMap");
-        Map<String, String> itemEstimatedDeliveryDateMap = (Map) context.get("itemDeliveryDateMap");
+        Map<String, String> overridePriceMap = UtilGenerics.checkMap(context.get("overridePriceMap"));
+        Map<String, String> itemDescriptionMap = UtilGenerics.checkMap(context.get("itemDescriptionMap"));
+        Map<String, String> itemPriceMap = UtilGenerics.checkMap(context.get("itemPriceMap"));
+        Map<String, String> itemQtyMap = UtilGenerics.checkMap(context.get("itemQtyMap"));
+        Map<String, String> itemReasonMap = UtilGenerics.checkMap(context.get("itemReasonMap"));
+        Map<String, String> itemCommentMap = UtilGenerics.checkMap(context.get("itemCommentMap"));
+        Map<String, String> itemAttributesMap = UtilGenerics.checkMap(context.get("itemAttributesMap"));
+        Map<String, String> itemEstimatedShipDateMap = UtilGenerics.checkMap(context.get("itemShipDateMap"));
+        Map<String, String> itemEstimatedDeliveryDateMap = UtilGenerics.checkMap(context.get("itemDeliveryDateMap"));
         Boolean calcTax = (Boolean) context.get("calcTax");
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
@@ -3559,10 +3558,10 @@ public class OrderServices {
         }
 
         // go through the item map and obtain the totals per item
-        Map itemTotals = new HashMap();
-        Iterator i = itemQtyMap.keySet().iterator();
+        Map<String, BigDecimal> itemTotals = new HashMap<String, BigDecimal>();
+        Iterator<String> i = itemQtyMap.keySet().iterator();
         while (i.hasNext()) {
-            String key = (String) i.next();
+            String key = i.next();
             String quantityStr = (String) itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
@@ -3588,9 +3587,9 @@ public class OrderServices {
         }
 
         // set the items amount/price
-        Iterator iai = itemTotals.keySet().iterator();
+        Iterator<String> iai = itemTotals.keySet().iterator();
         while (iai.hasNext()) {
-            String itemSeqId = (String) iai.next();
+            String itemSeqId = iai.next();
             ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
 
             if (cartItem != null) {
@@ -3673,9 +3672,9 @@ public class OrderServices {
         }
 
         // update the group amounts
-        Iterator gai = itemQtyMap.keySet().iterator();
+        Iterator<String> gai = itemQtyMap.keySet().iterator();
         while (gai.hasNext()) {
-            String key = (String) gai.next();
+            String key = gai.next();
             String quantityStr = (String) itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
@@ -3706,7 +3705,7 @@ public class OrderServices {
 
         // save all the updated information
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap), calcTax);
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.<String, Object>toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap), calcTax);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -3721,13 +3720,13 @@ public class OrderServices {
             Debug.logError(e, module);
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
         result.put("orderId", orderId);
         return result;
     }
 
-    public static Map loadCartForUpdate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> loadCartForUpdate(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
 
@@ -3735,7 +3734,7 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         ShoppingCart cart = null;
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             cart = loadCartForUpdate(dispatcher, delegator, userLogin, orderId);
             result = ServiceUtil.returnSuccess();
@@ -3759,7 +3758,7 @@ public class OrderServices {
      */
     private static ShoppingCart loadCartForUpdate(LocalDispatcher dispatcher, Delegator delegator, GenericValue userLogin, String orderId) throws GeneralException {
         // load the order into a shopping cart
-        Map loadCartResp = null;
+        Map<String, Object> loadCartResp = null;
         try {
             loadCartResp = dispatcher.runSync("loadCartFromOrder", UtilMisc.<String, Object>toMap("orderId", orderId,
                                                                                   "skipInventoryChecks", Boolean.TRUE, // the items are already reserved, no need to check again
@@ -3791,7 +3790,7 @@ public class OrderServices {
 
         // Inventory reservations
         // find ship group associations
-        List shipGroupAssocs = null;
+        List<GenericValue> shipGroupAssocs = null;
         try {
             shipGroupAssocs = delegator.findByAnd("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
@@ -3800,17 +3799,17 @@ public class OrderServices {
         }
         // cancel existing inventory reservations
         if (shipGroupAssocs != null) {
-            Iterator iri = shipGroupAssocs.iterator();
+            Iterator<GenericValue> iri = shipGroupAssocs.iterator();
             while (iri.hasNext()) {
-                GenericValue shipGroupAssoc = (GenericValue) iri.next();
+                GenericValue shipGroupAssoc = iri.next();
                 String orderItemSeqId = shipGroupAssoc.getString("orderItemSeqId");
                 String shipGroupSeqId = shipGroupAssoc.getString("shipGroupSeqId");
 
-                Map cancelCtx = UtilMisc.toMap("userLogin", userLogin, "orderId", orderId);
+                Map<String, Object> cancelCtx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderId", orderId);
                 cancelCtx.put("orderItemSeqId", orderItemSeqId);
                 cancelCtx.put("shipGroupSeqId", shipGroupSeqId);
 
-                Map cancelResp = null;
+                Map<String, Object> cancelResp = null;
                 try {
                     cancelResp = dispatcher.runSync("cancelOrderInventoryReservation", cancelCtx);
                 } catch (GenericServiceException e) {
@@ -3824,7 +3823,7 @@ public class OrderServices {
         }
 
         // cancel promo items -- if the promo still qualifies it will be added by the cart
-        List promoItems = null;
+        List<GenericValue> promoItems = null;
         try {
             promoItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "isPromo", "Y"));
         } catch (GenericEntityException e) {
@@ -3832,17 +3831,17 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
         if (promoItems != null) {
-            Iterator pii = promoItems.iterator();
+            Iterator<GenericValue> pii = promoItems.iterator();
             while (pii.hasNext()) {
-                GenericValue promoItem = (GenericValue) pii.next();
+                GenericValue promoItem = pii.next();
                 // Skip if the promo is already cancelled
                 if ("ITEM_CANCELLED".equals(promoItem.get("statusId"))) {
                     continue;
                 }
-                Map cancelPromoCtx = UtilMisc.toMap("orderId", orderId);
+                Map<String, Object> cancelPromoCtx = UtilMisc.<String, Object>toMap("orderId", orderId);
                 cancelPromoCtx.put("orderItemSeqId", promoItem.getString("orderItemSeqId"));
                 cancelPromoCtx.put("userLogin", userLogin);
-                Map cancelResp = null;
+                Map<String, Object> cancelResp = null;
                 try {
                     cancelResp = dispatcher.runSync("cancelOrderItemNoActions", cancelPromoCtx);
                 } catch (GenericServiceException e) {
@@ -3856,7 +3855,7 @@ public class OrderServices {
         }
 
         // cancel exiting authorizations
-        Map releaseResp = null;
+        Map<String, Object> releaseResp = null;
         try {
             releaseResp = dispatcher.runSync("releaseOrderPayments", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
         } catch (GenericServiceException e) {
@@ -3868,9 +3867,9 @@ public class OrderServices {
         }
 
         // cancel other (non-completed and non-cancelled) payments
-        List paymentPrefsToCancel = null;
+        List<GenericValue> paymentPrefsToCancel = null;
         try {
-            List exprs = UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
+            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_RECEIVED"));
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_DECLINED"));
@@ -3883,9 +3882,9 @@ public class OrderServices {
             throw new GeneralException(e.getMessage());
         }
         if (paymentPrefsToCancel != null) {
-            Iterator oppi = paymentPrefsToCancel.iterator();
+            Iterator<GenericValue> oppi = paymentPrefsToCancel.iterator();
             while (oppi.hasNext()) {
-                GenericValue opp = (GenericValue) oppi.next();
+                GenericValue opp = oppi.next();
                 try {
                     opp.set("statusId", "PAYMENT_CANCELLED");
                     opp.store();
@@ -3898,9 +3897,9 @@ public class OrderServices {
 
         // remove the adjustments
         try {
-            List adjExprs = new LinkedList();
+            List<EntityCondition> adjExprs = new LinkedList<EntityCondition>();
             adjExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
-            List exprs = new LinkedList();
+            List<EntityCondition> exprs = new LinkedList<EntityCondition>();
             exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "PROMOTION_ADJUSTMENT"));
             exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
             exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SALES_TAX"));
@@ -3917,7 +3916,7 @@ public class OrderServices {
         return cart;
     }
 
-    public static Map saveUpdatedCartToOrder(DispatchContext dctx, Map context) throws GeneralException {
+    public static Map<String, Object> saveUpdatedCartToOrder(DispatchContext dctx, Map<String, ? extends Object> context) throws GeneralException {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
@@ -3925,14 +3924,14 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
-        Map changeMap = (Map) context.get("changeMap");
+        Map<String, Object> changeMap = UtilGenerics.checkMap(context.get("changeMap"));
         Locale locale = (Locale) context.get("locale");
         Boolean calcTax = (Boolean) context.get("calcTax");
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
         }
 
-        Map result = null;
+        Map<String, Object> result = null;
         try {
             saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax);
             result = ServiceUtil.returnSuccess();
@@ -3946,14 +3945,14 @@ public class OrderServices {
         return result;
     }
 
-    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map changeMap, boolean calcTax) throws GeneralException {
+    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax) throws GeneralException {
         // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroups = cart.getShipGroupSize();
         for (int gi = 0; gi < shipGroups; gi++) {
             String shipmentMethodTypeId = cart.getShipmentMethodTypeId(gi);
             String carrierPartyId = cart.getCarrierPartyId(gi);
             Debug.log("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
-            Map result = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, gi);
+            Map<String, Object> result = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, gi);
             if (("SALES_ORDER".equals(cart.getOrderType())) && (ServiceUtil.isError(result))) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
                 throw new GeneralException(ServiceUtil.getErrorMessage(result));
@@ -3978,15 +3977,15 @@ public class OrderServices {
         }
 
         // get the new orderItems, adjustments, shipping info, payments and order item attributes from the cart
-        List<Map> modifiedItems = FastList.newInstance();
-        List toStore = new LinkedList();
+        List<Map<String, Object>> modifiedItems = FastList.newInstance();
+        List<GenericValue> toStore = new LinkedList<GenericValue>();
         List<GenericValue> toAddList = new ArrayList<GenericValue>();
         toAddList.addAll(cart.makeAllAdjustments());
         cart.clearAllPromotionAdjustments();
         ProductPromoWorker.doPromotions(cart, dispatcher);
 
         // validate the payment methods
-        Map validateResp = coh.validatePaymentMethods();
+        Map<String, Object> validateResp = coh.validatePaymentMethods();
         if (ServiceUtil.isError(validateResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
         }
@@ -3996,7 +3995,6 @@ public class OrderServices {
 
         String shipGroupSeqId = null;
         long groupIndex = cart.getShipInfoSize();
-        List orderAdjustments = new ArrayList();
         for (long itr = 1; itr <= groupIndex; itr++) {
             shipGroupSeqId = UtilFormatOut.formatPaddedNumber(1, 5);
             List<GenericValue> removeList = new ArrayList<GenericValue>();
@@ -4031,7 +4029,7 @@ public class OrderServices {
         toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));        
 
         // get the empty order item atrributes from the cart and remove them
-        List toRemove = FastList.newInstance();
+        List<GenericValue> toRemove = FastList.newInstance();
         toRemove.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.EMPTY_ONLY));
 
         // get the promo uses and codes
@@ -4058,10 +4056,10 @@ public class OrderServices {
         toRemove.addAll(existingPromoUses);
         
         // set the orderId & other information on all new value objects
-        List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
-        Iterator tsi = toStore.iterator();
+        List<String> dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
+        Iterator<GenericValue> tsi = toStore.iterator();
         while (tsi.hasNext()) {
-            GenericValue valueObj = (GenericValue) tsi.next();
+            GenericValue valueObj = tsi.next();
             valueObj.set("orderId", orderId);
             if ("OrderItemShipGroup".equals(valueObj.getEntityName())) {
                 // ship group
@@ -4112,7 +4110,7 @@ public class OrderServices {
                     BigDecimal oldUnitPrice = oldOrderItem.getBigDecimal("unitPrice") != null ? oldOrderItem.getBigDecimal("unitPrice") : BigDecimal.ZERO;
 
                     boolean changeFound = false;
-                    Map modifiedItem = FastMap.newInstance();
+                    Map<String, Object> modifiedItem = FastMap.newInstance();
                     if (!oldItemDescription.equals(valueObj.getString("itemDescription"))) {
                         modifiedItem.put("itemDescription", oldItemDescription);
                         changeFound = true;
@@ -4131,14 +4129,14 @@ public class OrderServices {
                     if (changeFound) {
 
                         //  found changes to store
-                        Map itemReasonMap = (Map) changeMap.get("itemReasonMap");
-                        Map itemCommentMap = (Map) changeMap.get("itemCommentMap");
+                        Map<String, String> itemReasonMap = UtilGenerics.checkMap(changeMap.get("itemReasonMap"));
+                        Map<String, String> itemCommentMap = UtilGenerics.checkMap(changeMap.get("itemCommentMap"));
                         if (UtilValidate.isNotEmpty(itemReasonMap)) {
-                            String changeReasonId = (String) itemReasonMap.get(valueObj.getString("orderItemSeqId"));
+                            String changeReasonId = itemReasonMap.get(valueObj.getString("orderItemSeqId"));
                             modifiedItem.put("reasonEnumId", changeReasonId);
                         }
                         if (UtilValidate.isNotEmpty(itemCommentMap)) {
-                            String changeComments = (String) itemCommentMap.get(valueObj.getString("orderItemSeqId"));
+                            String changeComments = itemCommentMap.get(valueObj.getString("orderItemSeqId"));
                             modifiedItem.put("changeComments", changeComments);
                         }
 
@@ -4150,15 +4148,15 @@ public class OrderServices {
                 } else {
 
                     //  this is a new item appended to the order
-                    Map itemReasonMap = (Map) changeMap.get("itemReasonMap");
-                    Map itemCommentMap = (Map) changeMap.get("itemCommentMap");
-                    Map appendedItem = FastMap.newInstance();
+                    Map<String, String> itemReasonMap = UtilGenerics.checkMap(changeMap.get("itemReasonMap"));
+                    Map<String, String> itemCommentMap = UtilGenerics.checkMap(changeMap.get("itemCommentMap"));
+                    Map<String, Object> appendedItem = FastMap.newInstance();
                     if (UtilValidate.isNotEmpty(itemReasonMap)) {
-                        String changeReasonId = (String) itemReasonMap.get("reasonEnumId");
+                        String changeReasonId = itemReasonMap.get("reasonEnumId");
                         appendedItem.put("reasonEnumId", changeReasonId);
                     }
                     if (UtilValidate.isNotEmpty(itemCommentMap)) {
-                        String changeComments = (String) itemCommentMap.get("changeComments");
+                        String changeComments = itemCommentMap.get("changeComments");
                         appendedItem.put("changeComments", changeComments);
                     }
 
@@ -4190,8 +4188,8 @@ public class OrderServices {
 
         //  store the OrderItemChange
         if (UtilValidate.isNotEmpty(modifiedItems)) {
-            for (Map modifiendItem: modifiedItems) {
-                Map serviceCtx = FastMap.newInstance();
+            for (Map<String, Object> modifiendItem: modifiedItems) {
+                Map<String, Object> serviceCtx = FastMap.newInstance();
                 serviceCtx.put("orderId", modifiendItem.get("orderId"));
                 serviceCtx.put("orderItemSeqId", modifiendItem.get("orderItemSeqId"));
                 serviceCtx.put("itemDescription", modifiendItem.get("itemDescription"));
@@ -4201,7 +4199,7 @@ public class OrderServices {
                 serviceCtx.put("reasonEnumId", modifiendItem.get("reasonEnumId"));
                 serviceCtx.put("changeComments", modifiendItem.get("changeComments"));
                 serviceCtx.put("userLogin", userLogin);
-                Map resp = null;
+                Map<String, Object> resp = null;
                 try {
                     resp = dispatcher.runSync("createOrderItemChange", serviceCtx);
                 } catch (GenericServiceException e) {
@@ -4215,11 +4213,11 @@ public class OrderServices {
         }
 
         // make the order item object map & the ship group assoc list
-        List orderItemShipGroupAssoc = new LinkedList();
-        Map itemValuesBySeqId = new HashMap();
-        Iterator oii = toStore.iterator();
+        List<GenericValue> orderItemShipGroupAssoc = new LinkedList<GenericValue>();
+        Map<String, GenericValue> itemValuesBySeqId = new HashMap<String, GenericValue>();
+        Iterator<GenericValue> oii = toStore.iterator();
         while (oii.hasNext()) {
-            GenericValue v = (GenericValue) oii.next();
+            GenericValue v = oii.next();
             if ("OrderItem".equals(v.getEntityName())) {
                 itemValuesBySeqId.put(v.getString("orderItemSeqId"), v);
             } else if ("OrderItemShipGroupAssoc".equals(v.getEntityName())) {
@@ -4230,7 +4228,7 @@ public class OrderServices {
         // reserve the inventory
         String productStoreId = cart.getProductStoreId();
         String orderTypeId = cart.getOrderType();
-        List resErrorMessages = new LinkedList();
+        List<String> resErrorMessages = new LinkedList<String>();
         try {
             Debug.log("Calling reserve inventory...", module);
             reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupAssoc, dropShipGroupIds, itemValuesBySeqId,
@@ -4245,7 +4243,7 @@ public class OrderServices {
         }
     }
 
-    public static Map processOrderPayments(DispatchContext dctx, Map context) {
+    public static Map<String, Object> processOrderPayments(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -4266,7 +4264,7 @@ public class OrderServices {
         // process the payments
         if (!"PURCHASE_ORDER".equals(orh.getOrderTypeId())) {
             GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
-            Map paymentResp = null;
+            Map<String, Object> paymentResp = null;
             try {
                 Debug.log("Calling process payments...", module);
                 //Debug.set(Debug.VERBOSE, true);
@@ -4289,7 +4287,7 @@ public class OrderServices {
     }
 
     // sample test services
-    public static Map shoppingCartTest(DispatchContext dctx, Map context) {
+    public static Map<String, Object> shoppingCartTest(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
         ShoppingCart cart = new ShoppingCart(dctx.getDelegator(), "9000", "webStore", locale, "USD");
         try {
@@ -4319,7 +4317,7 @@ public class OrderServices {
      * Service to create a payment using an order payment preference.
      * @return Map
      */
-    public static Map createPaymentFromPreference(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createPaymentFromPreference(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -4374,7 +4372,7 @@ public class OrderServices {
             }
 
             // create the payment
-            Map paymentParams = new HashMap();
+            Map<String, Object> paymentParams = new HashMap<String, Object>();
             BigDecimal maxAmount = orderPaymentPreference.getBigDecimal("maxAmount");
             //if (maxAmount > 0.0) {
                 paymentParams.put("paymentTypeId", "CUSTOMER_PAYMENT");
