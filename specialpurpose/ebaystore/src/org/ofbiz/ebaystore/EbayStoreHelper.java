@@ -319,7 +319,7 @@ public class EbayStoreHelper {
                 jFields.put("poolId", ServiceConfigUtil.getSendPool());
 
                 // set the loader name
-                jFields.put("loaderName", JobManager.dispatcherName);
+                jFields.put("loaderName", delegator.getDelegatorName());
                 // create the value and store
                 GenericValue jobV;
                 jobV = delegator.makeValue("JobSandbox", jFields);
