@@ -136,14 +136,14 @@ public class TransactionUtil implements Status {
      * If and on only if it begins a transaction it will return true. In other words, if
      * a transaction is already in place it will return false and do nothing.
      */
-    public static synchronized boolean begin(int timeout) throws GenericTransactionException {
+    public static boolean begin(int timeout) throws GenericTransactionException {
         UserTransaction ut = TransactionFactory.getUserTransaction();
         if (ut != null) {
             try {
                 int currentStatus = ut.getStatus();
-                Debug.logVerbose("[TransactionUtil.begin] current status : " + getTransactionStateString(currentStatus), module);
+                if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] current status : " + getTransactionStateString(currentStatus), module);
                 if (currentStatus == Status.STATUS_ACTIVE) {
-                    Debug.logVerbose("[TransactionUtil.begin] active transaction in place, so no transaction begun", module);
+                    if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] active transaction in place, so no transaction begun", module);
                     return false;
                 } else if (currentStatus == Status.STATUS_MARKED_ROLLBACK) {
                     Exception e = getTransactionBeginStack();
@@ -162,20 +162,7 @@ public class TransactionUtil implements Status {
                     }
                 }
 
-                // set the timeout for THIS transaction
-                if (timeout > 0) {
-                    ut.setTransactionTimeout(timeout);
-                    Debug.logVerbose("[TransactionUtil.begin] set transaction timeout to : " + timeout + " seconds", module);
-                }
-
-                // begin the transaction
-                ut.begin();
-                Debug.logVerbose("[TransactionUtil.begin] transaction begun", module);
-
-                // reset the timeout to the default
-                if (timeout > 0) {
-                    ut.setTransactionTimeout(0);
-                }
+                internalBegin(ut, timeout);
 
                 // reset the transaction stamps, just in case...
                 clearTransactionStamps();
@@ -203,8 +190,25 @@ public class TransactionUtil implements Status {
                 throw new GenericTransactionException("System error, could not begin transaction", e);
             }
         } else {
-            Debug.logInfo("[TransactionUtil.begin] no user transaction, so no transaction begun", module);
+            if (Debug.infoOn()) Debug.logInfo("[TransactionUtil.begin] no user transaction, so no transaction begun", module);
             return false;
+        }
+    }
+
+    protected static synchronized void internalBegin(UserTransaction ut, int timeout) throws SystemException, NotSupportedException {
+        // set the timeout for THIS transaction
+        if (timeout > 0) {
+            ut.setTransactionTimeout(timeout);
+            if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] set transaction timeout to : " + timeout + " seconds", module);
+        }
+
+        // begin the transaction
+        ut.begin();
+        if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] transaction begun", module);
+
+        // reset the timeout to the default
+        if (timeout > 0) {
+            ut.setTransactionTimeout(0);
         }
     }
 
