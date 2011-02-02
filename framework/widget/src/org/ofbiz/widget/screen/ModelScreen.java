@@ -52,6 +52,7 @@ public class ModelScreen extends ModelWidget {
     protected String sourceLocation;
     protected FlexibleStringExpander transactionTimeoutExdr;
     protected Map<String, ModelScreen> modelScreenMap;
+    protected boolean useTransaction;
     protected boolean useCache;
 
     protected ModelScreenWidget.Section section;
@@ -66,6 +67,7 @@ public class ModelScreen extends ModelWidget {
         this.sourceLocation = sourceLocation;
         this.transactionTimeoutExdr = FlexibleStringExpander.getInstance(screenElement.getAttribute("transaction-timeout"));
         this.modelScreenMap = modelScreenMap;
+        this.useTransaction = "true".equals(screenElement.getAttribute("use-transaction"));
         this.useCache = "true".equals(screenElement.getAttribute("use-cache"));
 
         // read in the section, which will read all sub-widgets too
@@ -381,11 +383,13 @@ public class ModelScreen extends ModelWidget {
             // If transaction timeout is not present (i.e. is equal to -1), the default transaction timeout is used
             // If transaction timeout is present, use it to start the transaction
             // If transaction timeout is set to zero, no transaction is started
-            if (transactionTimeout < 0) {
-                beganTransaction = TransactionUtil.begin();
-            }
-            if (transactionTimeout > 0) {
-                beganTransaction = TransactionUtil.begin(transactionTimeout);
+            if (useTransaction) {
+                if (transactionTimeout < 0) {
+                    beganTransaction = TransactionUtil.begin();
+                }
+                if (transactionTimeout > 0) {
+                    beganTransaction = TransactionUtil.begin(transactionTimeout);
+                }
             }
 
             // render the screen, starting with the top-level section

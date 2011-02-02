@@ -40,6 +40,14 @@ under the License.
                 <xs:documentation>Transaction timeout in seconds</xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="use-transaction" default="true">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="use-cache" default="false">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
