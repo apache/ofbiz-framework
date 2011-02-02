@@ -59,7 +59,6 @@ public class JobManager {
     public static final String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
     public static final Map<String, Object> updateFields = UtilMisc.<String, Object>toMap("runByInstanceId", instanceId, "statusId", "SERVICE_QUEUED");
     public static final String module = JobManager.class.getName();
-    public static final String dispatcherName = "JobDispatcher";
     public static Map<String, JobManager> registeredManagers = FastMap.newInstance();
 
     protected Delegator delegator;
@@ -101,7 +100,7 @@ public class JobManager {
 
     /** Returns the ServiceDispatcher. */
     public LocalDispatcher getDispatcher() {
-        LocalDispatcher thisDispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
+        LocalDispatcher thisDispatcher = GenericDispatcher.getLocalDispatcher(delegator.getDelegatorName(), delegator);
         return thisDispatcher;
     }
 
@@ -407,7 +406,7 @@ public class JobManager {
         }
 
         // set the loader name
-        jFields.put("loaderName", dispatcherName);
+        jFields.put("loaderName", delegator.getDelegatorName());
 
         // set the max retry
         jFields.put("maxRetry", Long.valueOf(maxRetry));

@@ -49,7 +49,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
 
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, Delegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (dispatcherName == null) {
-            dispatcherName = "default";
+            dispatcherName = delegator.getDelegatorName();
             Debug.logWarning("Got a getGenericDispatcher call with a null dispatcherName, assuming default for the name.", module);
         }
         
