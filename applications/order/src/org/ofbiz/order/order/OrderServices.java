@@ -43,6 +43,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
@@ -4308,7 +4309,7 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map shoppingCartRemoteTest(DispatchContext dctx, Map context) {
+    public static Map<String, Object> shoppingCartRemoteTest(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Debug.log("Product ID : " + cart.findCartItem(0).getProductId(), module);
         return ServiceUtil.returnSuccess();
@@ -4416,35 +4417,35 @@ public class OrderServices {
         }
     }
 
-    public static Map massChangeApproved(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massChangeApproved(DispatchContext dctx, Map<String, ? extends Object> context) {
         return massChangeOrderStatus(dctx, context, "ORDER_APPROVED");
     }
 
-    public static Map massCancelOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massCancelOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         return massChangeItemStatus(dctx, context, "ITEM_CANCELLED");
     }
 
-    public static Map massRejectOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massRejectOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         return massChangeItemStatus(dctx, context, "ITEM_REJECTED");
     }
 
-    public static Map massHoldOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massHoldOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         return massChangeOrderStatus(dctx, context, "ORDER_HOLD");
     }
 
-    public static Map massProcessOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massProcessOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         return massChangeOrderStatus(dctx, context, "ORDER_PROCESSING");
     }
 
-    public static Map massChangeOrderStatus(DispatchContext dctx, Map context, String statusId) {
+    public static Map<String, Object> massChangeOrderStatus(DispatchContext dctx, Map<String, ? extends Object> context, String statusId) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List orderIds = (List) context.get("orderIdList");
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
-        Iterator i = orderIds.iterator();
+        Iterator<String> i = orderIds.iterator();
         while (i.hasNext()) {
-            String orderId = (String) i.next();
+            String orderId = i.next();
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4460,12 +4461,12 @@ public class OrderServices {
                         "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
 
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("statusId", statusId);
             ctx.put("orderId", orderId);
             ctx.put("setItemStatus", "Y");
             ctx.put("userLogin", userLogin);
-            Map resp = null;
+            Map<String, Object> resp = null;
             try {
                 resp = dispatcher.runSync("changeOrderStatus", ctx);
             } catch (GenericServiceException e) {
@@ -4480,15 +4481,15 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map massChangeItemStatus(DispatchContext dctx, Map context, String statusId) {
+    public static Map<String, Object> massChangeItemStatus(DispatchContext dctx, Map<String, ? extends Object> context, String statusId) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List orderIds = (List) context.get("orderIdList");
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
-        Iterator i = orderIds.iterator();
+        Iterator<String> i = orderIds.iterator();
         while (i.hasNext()) {
-            String orderId = (String) i.next();
+            String orderId = i.next();
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
@@ -4504,11 +4505,11 @@ public class OrderServices {
                         "OrderOrderNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
 
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("statusId", statusId);
             ctx.put("orderId", orderId);
             ctx.put("userLogin", userLogin);
-            Map resp = null;
+            Map<String, Object> resp = null;
             try {
                 resp = dispatcher.runSync("changeOrderItemStatus", ctx);
             } catch (GenericServiceException e) {
@@ -4523,20 +4524,20 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map massQuickShipOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massQuickShipOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List orderIds = (List) context.get("orderIdList");
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
         for (Object orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("userLogin", userLogin);
             ctx.put("orderId", orderId);
 
-            Map resp = null;
+            Map<String, Object> resp = null;
             try {
                 resp = dispatcher.runSync("quickShipEntireOrder", ctx);
             } catch (GenericServiceException e) {
@@ -4551,23 +4552,23 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map massPickOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massPickOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         // grouped by facility
-        Map facilityOrdersMap = FastMap.newInstance();
+        Map<String, List<String>> facilityOrdersMap = FastMap.newInstance();
 
         // make the list per facility
-        List orderIds = (List) context.get("orderIdList");
-        Iterator i = orderIds.iterator();
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        Iterator<String> i = orderIds.iterator();
         while (i.hasNext()) {
-            String orderId = (String) i.next();
+            String orderId = i.next();
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
-            List invInfo = null;
+            List<GenericValue> invInfo = null;
             try {
                 invInfo = delegator.findByAnd("OrderItemAndShipGrpInvResAndItem",
                         UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"));
@@ -4576,13 +4577,13 @@ public class OrderServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             if (invInfo != null) {
-                Iterator ii = invInfo.iterator();
+                Iterator<GenericValue> ii = invInfo.iterator();
                 while (ii.hasNext()) {
-                    GenericValue inv = (GenericValue) ii.next();
+                    GenericValue inv = ii.next();
                     String facilityId = inv.getString("facilityId");
-                    List orderIdsByFacility = (List) facilityOrdersMap.get(facilityId);
+                    List<String> orderIdsByFacility = facilityOrdersMap.get(facilityId);
                     if (orderIdsByFacility == null) {
-                        orderIdsByFacility = new ArrayList();
+                        orderIdsByFacility = new ArrayList<String>();
                     }
                     orderIdsByFacility.add(orderId);
                     facilityOrdersMap.put(facilityId, orderIdsByFacility);
@@ -4591,17 +4592,17 @@ public class OrderServices {
         }
 
         // now create the pick lists for each facility
-        Iterator fi = facilityOrdersMap.keySet().iterator();
+        Iterator<String> fi = facilityOrdersMap.keySet().iterator();
         while (fi.hasNext()) {
-            String facilityId = (String) fi.next();
-            List orderIdList = (List) facilityOrdersMap.get(facilityId);
+            String facilityId = fi.next();
+            List<String> orderIdList = facilityOrdersMap.get(facilityId);
 
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("userLogin", userLogin);
             ctx.put("orderIdList", orderIdList);
             ctx.put("facilityId", facilityId);
 
-            Map resp = null;
+            Map<String, Object> resp = null;
             try {
                 resp = dispatcher.runSync("createPicklistFromOrders", ctx);
             } catch (GenericServiceException e) {
@@ -4617,21 +4618,21 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map massPrintOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massPrintOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String screenLocation = (String) context.get("screenLocation");
         String printerName = (String) context.get("printerName");
 
         // make the list per facility
-        List orderIds = (List) context.get("orderIdList");
-        Iterator i = orderIds.iterator();
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        Iterator<String> i = orderIds.iterator();
         while (i.hasNext()) {
-            String orderId = (String) i.next();
+            String orderId = i.next();
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("userLogin", userLogin);
             ctx.put("screenLocation", screenLocation);
             //ctx.put("contentType", "application/postscript");
@@ -4649,20 +4650,20 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map massCreateFileForOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massCreateFileForOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String screenLocation = (String) context.get("screenLocation");
 
         // make the list per facility
-        List orderIds = (List) context.get("orderIdList");
-        Iterator i = orderIds.iterator();
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
+        Iterator<String> i = orderIds.iterator();
         while (i.hasNext()) {
-            String orderId = (String) i.next();
+            String orderId = i.next();
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("userLogin", userLogin);
             ctx.put("screenLocation", screenLocation);
             //ctx.put("contentType", "application/postscript");
@@ -4678,21 +4679,21 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map massCancelRemainingPurchaseOrderItems(DispatchContext dctx, Map context) {
+    public static Map<String, Object> massCancelRemainingPurchaseOrderItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        List orderIds = (List) context.get("orderIdList");
+        List<String> orderIds = UtilGenerics.checkList(context.get("orderIdList"));
         Locale locale = (Locale) context.get("locale");
 
         for (Object orderId : orderIds) {
             if (UtilValidate.isEmpty(orderId)) {
                 continue;
             }
-            Map ctx = FastMap.newInstance();
+            Map<String, Object> ctx = FastMap.newInstance();
             ctx.put("orderId", orderId);
             ctx.put("userLogin", userLogin);
 
-            Map resp = null;
+            Map<String, Object> resp = null;
             try {
                 resp = dispatcher.runSync("cancelRemainingPurchaseOrderItems", ctx);
             } catch (GenericServiceException e) {
