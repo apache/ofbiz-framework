@@ -36,11 +36,13 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
 import javolution.util.FastList;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,26 +60,29 @@ import java.net.URISyntaxException;
 public class EntityDataServices {
 
     public static final String module = EntityDataServices.class.getName();
+    public static final String resource = "EntityExtUiLabels";
 
     public static Map<String, Object> exportDelimitedToDirectory(DispatchContext dctx, Map<String, Object> context) {
-        return ServiceUtil.returnError("This service is not implemented yet.");
+        Locale locale = (Locale) context.get("locale");
+        return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtThisServiceIsNotYetImplemented", locale));
     }
 
     public static Map<String, Object> importDelimitedFromDirectory(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Security security = dctx.getSecurity();
+        Locale locale = (Locale) context.get("locale");
 
         // check permission
          GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError("You do not have permission to run this service.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
         }
 
         // get the directory & delimiter
         String rootDirectory = (String) context.get("rootDirectory");
         URL rootDirectoryUrl = UtilURL.fromResource(rootDirectory);
         if (rootDirectoryUrl == null) {
-            return ServiceUtil.returnError("Unable to locate root directory : " + rootDirectory);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtUnableToLocateRootDirectory", UtilMisc.toMap("rootDirectory", rootDirectory), locale));
         }
 
         String delimiter = (String) context.get("delimiter");
@@ -90,11 +95,11 @@ public class EntityDataServices {
         try {
             root = new File(new URI(rootDirectoryUrl.toExternalForm()));
         } catch (URISyntaxException e) {
-            return ServiceUtil.returnError("Unable to get root directory URI");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtUnableToLocateRootDirectoryURI", locale));
         }
 
         if (!root.exists() || !root.isDirectory() || !root.canRead()) {
-            return ServiceUtil.returnError("Root directory does not exist or is not readable.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtRootDirectoryDoesNotExists", locale));
         }
 
         // get the file list
@@ -109,7 +114,7 @@ public class EntityDataServices {
                 }
             }
         } else {
-            return ServiceUtil.returnError("No files available for reading in this root directory : " + rootDirectory);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtNoFileAvailableInTheRootDirectory", UtilMisc.toMap("rootDirectory", rootDirectory), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -118,11 +123,12 @@ public class EntityDataServices {
     public static Map<String, Object> importDelimitedFile(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
+        Locale locale = (Locale) context.get("locale");
 
         // check permission
          GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError("You do not have permission to run this service.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
         }
 
         String delimiter = (String) context.get("delimiter");
@@ -140,10 +146,10 @@ public class EntityDataServices {
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         } catch (FileNotFoundException e) {
-            return ServiceUtil.returnError("File not found : " + file.getName());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtFileNotFound", UtilMisc.toMap("fileName", file.getName()), locale));
         } catch (IOException e) {
             Debug.logError(e, module);
-            return ServiceUtil.returnError("Problem reading file : " + file.getName());
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtProblemReadingFile", UtilMisc.toMap("fileName", file.getName()), locale));
         }
 
         long endTime = System.currentTimeMillis();
@@ -333,11 +339,12 @@ public class EntityDataServices {
     public static Map<String, Object> rebuildAllIndexesAndKeys(DispatchContext dctx, Map<String, Object> context) {
         Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
+        Locale locale = (Locale) context.get("locale");
 
         // check permission
          GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
-            return ServiceUtil.returnError("You do not have permission to run this service.");
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
         }
 
         String groupName = (String) context.get("groupName");
@@ -351,9 +358,8 @@ public class EntityDataServices {
         try {
             modelEntities = delegator.getModelEntityMapByGroup(groupName);
         } catch (GenericEntityException e) {
-            String errorMessage = "Error getting list of entities in group: " + e.toString();
-            Debug.logError(e, errorMessage, module);
-            return ServiceUtil.returnError(errorMessage);
+            Debug.logError(e, "Error getting list of entities in group: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         // step 1 - remove FK indices
@@ -431,7 +437,7 @@ public class EntityDataServices {
         Delegator delegator = dctx.getDelegator();
         String entityName = (String) context.get("entityName");
         String fieldName = (String) context.get("fieldName");
-
+        Locale locale = (Locale) context.get("locale");
         EntityListIterator eli = null;
         try {
             eli = delegator.find(entityName, null, null, null, null, null);
@@ -444,9 +450,8 @@ public class EntityDataServices {
                 }
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Error unwrapping ByteWrapper records: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error unwrapping ByteWrapper records: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorUnwrappingRecords", UtilMisc.toMap("errorString", e.toString()), locale));
         } finally {
             if (eli != null) {
                 try {

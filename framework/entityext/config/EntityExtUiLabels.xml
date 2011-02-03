@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EntityExtCannotDoEntitySyncPush">
+        <value xml:lang="en">Cannot do Entity Sync Push because entitySyncId [] is set for Pull Only.</value>
+        <value xml:lang="it">Non è possibile fare Entity Sync Push perchè entitySyncId [] è impostato in Pull Only.</value>
+    </property>
+    <property key="EntityExtCannotFindDelegator">
+        <value xml:lang="en">Could not find delegator with specified name ${overrideDelegatorName}</value>
+        <value xml:lang="it">Could not find delegator with specified name ${overrideDelegatorName}</value>
+    </property>
+    <property key="EntityExtEntitySyncXMLDocumentIsNotValid">
+        <value xml:lang="en">EntitySync XML document ${fileName} is not valid!</value>
+        <value xml:lang="it">EntitySync XML documento ${fileName} non è valido!</value>
+    </property>
+    <property key="EntityExtErrorCallingRemotePull">
+        <value xml:lang="en">Error calling remote pull and report EntitySync service with name: ${remotePullAndReportEntitySyncDataName}</value>
+        <value xml:lang="it">Errore durante la chiamata del pull remoto e report EntitySync servizio con il nome: ${remotePullAndReportEntitySyncDataName}</value>
+    </property>
+    <property key="EntityExtErrorCallingService">
+        <value xml:lang="en">Error calling service to store data locally</value>
+        <value xml:lang="it">Errore durante la chiamata del servizio di registrazione locale dei dati</value>
+    </property>
+    <property key="EntityExtErrorCleaningEntitySyncRemove">
+        <value xml:lang="en">Error cleaning out EntitySyncRemove info: ${errorString}</value>
+        <value xml:lang="it">Error cleaning out EntitySyncRemove info: ${errorString}</value>
+    </property>
+    <property key="EntityExtErrorGettingListOfEntityInGroup">
+        <value xml:lang="en">Error getting list of entities in group: ${errorString}</value>
+        <value xml:lang="it">Errore ad ottenere la lista delle entità nel gruppo: ${errorString}</value>
+    </property>
+    <property key="EntityExtErrorUnwrappingRecords">
+        <value xml:lang="en">Error unwrapping ByteWrapper records: ${errorString}</value>
+        <value xml:lang="it">Errore unwrapping ByteWrapper records: ${errorString}</value>
+    </property>
+    <property key="EntityExtErrorSavingEntitySyncData">
+        <value xml:lang="en">Error saving Entity Sync Data for entitySyncId ${entitySyncId}: ${errorString}</value>
+        <value xml:lang="it">Errore durante il salvataggio Entity Sync Data per entitySyncId ${entitySyncId}: ${errorString}</value>
+    </property>
+    <property key="EntityExtExceptionSavingEntitySyncData">
+        <value xml:lang="en">Exception saving Entity Sync Data for entitySyncId ${entitySyncId}: ${errorString}</value>
+        <value xml:lang="it">Eccezione durante il salvataggio Entity Sync Data per entitySyncId ${entitySyncId}: ${errorString}</value>
+    </property>
+    <property key="EntityExtFileNotFound">
+        <value xml:lang="en">File not found: ${fileName}</value>
+        <value xml:lang="it">File non trovato: ${fileName}</value>
+    </property>
+    <property key="EntityExtNoFileAvailableInTheRootDirectory">
+        <value xml:lang="en">No files available for reading in this root directory: ${rootDirectory}</value>
+        <value xml:lang="it">Nessun file disponibile da leggere nella directory principale: ${rootDirectory}</value>
+    </property>
+    <property key="EntityExtOfflineXMLFileNotFound">
+        <value xml:lang="en">Offline EntitySync XML file not found (${fileName})</value>
+        <value xml:lang="it">File Offline EntitySync XML non trovato (${fileName})</value>
+    </property>
+    <property key="EntityExtProblemReadingFile">
+        <value xml:lang="en">Problem reading file: ${fileName}</value>
+        <value xml:lang="it">Problema durante la lettura del file: ${fileName}</value>
+    </property>
+    <property key="EntityExtRootDirectoryDoesNotExists">
+        <value xml:lang="en">Root directory does not exist or is not readable.</value>
+        <value xml:lang="it">Directory principale non esiste o non è leggibile.</value>
+    </property>
+    <property key="EntityExtServicePermissionNotGranted">
+        <value xml:lang="en">You do not have permission to run this service.</value>
+        <value xml:lang="it">Tu non hai il permesso di eseguire questo servizio.</value>
+    </property>
+    <property key="EntityExtThisServiceIsNotYetImplemented">
+        <value xml:lang="en">This service is not implemented yet.</value>
+        <value xml:lang="it">Questo servizio non è ancora implementato.</value>
+    </property>
+    <property key="EntityExtUnableToLoadXMLDocument">
+        <value xml:lang="en">Unable to load EntitySync XML ${entitySyncId} - Problem at '${startTime}' Error: ${errorString}</value>
+        <value xml:lang="it">Non è possibile caricare il EntitySync XML ${entitySyncId} - Problema alle '${startTime}' Errore: ${errorString}</value>
+    </property>
+    <property key="EntityExtUnableToLocateRootDirectory">
+        <value xml:lang="en">Unable to locate root directory ${rootDirectory}</value>
+        <value xml:lang="it">Non è possibile localizzare la directory principale ${rootDirectory}</value>
+    </property>
+    <property key="EntityExtUnableToLocateRootDirectoryURI">
+        <value xml:lang="en">Unable to get root directory URI</value>
+        <value xml:lang="it">Non è possibile localizzare la directory principale URI</value>
+    </property>
+</resource>
