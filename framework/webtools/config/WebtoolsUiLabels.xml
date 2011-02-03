@@ -1372,6 +1372,66 @@
         <value xml:lang="zh">实体引擎工具</value>
         <value xml:lang="zh_TW">實體引擎工具</value>
     </property>
+    <property key="EntityImportDeletFile">
+        <value xml:lang="en">Deleting ${fileName}</value>
+        <value xml:lang="it">Stò cancellando il file ${fileName}</value>
+    </property>
+    <property key="EntityImportErrorRetrievingEntityNames">
+        <value xml:lang="en">Error retrieving entity names.</value>
+        <value xml:lang="it">Errore nell'ottenere i nome delle entità.</value>
+    </property>
+    <property key="EntityImportFailedNumberFile">
+        <value xml:lang="en">Failed: ${failed} of ${total}</value>
+        <value xml:lang="it">Failed: ${failed} di ${total}</value>
+    </property>
+    <property key="EntityImportFailedFile">
+        <value xml:lang="en">Failed ${fileName} adding to retry list for next pass</value>
+        <value xml:lang="it">Fallita ${fileName} aggiunta alla lista di riprova al successivo passaggio</value>
+    </property>
+    <property key="EntityImportFailedFileList">
+        <value xml:lang="en">Failed Files:</value>
+        <value xml:lang="it">Lista file che hanno avuto fallimento:</value>
+    </property>
+    <property key="EntityImportNoDataSourceSpecified">
+        <value xml:lang="en">Unable to locate the datasource helper for the group ${groupNameToUse}</value>
+        <value xml:lang="it">Non è possibile localizzare la sorgente dati per il gruppo ${groupNameToUse}</value>
+    </property>
+    <property key="EntityImportNoXmlFileOrTextSpecified">
+        <value xml:lang="en">No entity xml file or text specified</value>
+        <value xml:lang="it">Nessun file xml entità o testo specificato</value>
+    </property>
+    <property key="EntityImportNoXmlFileSpecified">
+        <value xml:lang="en">No filename/URL or complete XML document specified, doing nothing.</value>
+        <value xml:lang="it">Nessun nome file/URL o documento XML completo specificato, nientre verrà fatto.</value>
+    </property>
+    <property key="EntityImportNumberOfEntityToBeProcessed">
+        <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
+        <value xml:lang="it">Ottenute ${numberRead} entità da ${fileName}</value>
+    </property>
+    <property key="EntityImportParsingError">
+        <value xml:lang="en">ERROR parsing Entity Xml file: ${errorString}</value>
+        <value xml:lang="it">ERRORE di parsing file entità XML: ${errorString}</value>
+    </property>
+    <property key="EntityImportPathNotFound">
+        <value xml:lang="en">path not found or can't be read</value>
+        <value xml:lang="it">path non trovato o non può essere letto</value>
+    </property>
+    <property key="EntityImportPathNotSpecified">
+        <value xml:lang="en">No path specified, doing nothing.</value>
+        <value xml:lang="it">Nessun path specificato, non verrà fatto niente.</value>
+    </property>
+    <property key="EntityImportPassedFile">
+        <value xml:lang="en">Pass ${passes} complete</value>
+        <value xml:lang="it">Passati ${passes} completati</value>
+    </property>
+    <property key="EntityImportRowProcessed">
+        <value xml:lang="en">Got ${numberRead} entities to write to the datasource.</value>
+        <value xml:lang="it">Ottenute ${numberRead} entità da scrivere sulla sorgente dati.</value>
+    </property>
+    <property key="EntityImportSucceededNumberFile">
+        <value xml:lang="en">Succeeded: ${succeeded} of ${total}</value>
+        <value xml:lang="it">Successo: ${succeeded} di ${total}</value>
+    </property>
     <property key="WebtoolsEntityName">
         <value xml:lang="de">Entität</value>
         <value xml:lang="en">Entity Name</value>
@@ -1515,6 +1575,30 @@
         <value xml:lang="it">Nome var. amb.</value>
         <value xml:lang="pt">Nome de Env</value>
     </property>
+    <property key="WebtoolsEomodelErrorGettingEntityNames">
+        <value xml:lang="en">ERROR: getting entity names: ${errorString}</value>
+        <value xml:lang="it">ERRORE: ottenendo i nomi delle entità: ${errorString}</value>
+    </property>
+    <property key="WebtoolsEomodelExported">
+        <value xml:lang="en">Exported eomodeld file for ${entityNamesSize} entities to: ${eomodeldFullPath}</value>
+        <value xml:lang="it">Esportato file eomodeld per ${entityNamesSize} entità in: ${eomodeldFullPath}</value>
+    </property>
+    <property key="WebtoolsEomodelFileOrDirectoryNotFound">
+        <value xml:lang="en">ERROR: file/directory not found: ${errorString}</value>
+        <value xml:lang="it">ERRORE: file/directory non trovata: ${errorString}</value>
+    </property>
+    <property key="WebtoolsEomodelFullPathIsNotADirectory">
+        <value xml:lang="en">eomodel Full Path is not a directory: ${eomodeldFullPath}</value>
+        <value xml:lang="it">eomodel path completo non è una directory: ${eomodeldFullPath}</value>
+    </property>
+    <property key="WebtoolsEomodelFullPathIsNotWriteable">
+        <value xml:lang="en">eomodel Full Path is not write-able: ${eomodeldFullPath}</value>
+        <value xml:lang="it">eomodel path completo non è scrivibile: ${eomodeldFullPath}</value>
+    </property>
+    <property key="WebtoolsEomodelSavingFileError">
+        <value xml:lang="en">ERROR saving file: ${errorString}</value>
+        <value xml:lang="it">ERRORE durante il salvataggio del file: ${errorString}</value>
+    </property>
     <property key="WebtoolsErrorLogLevel">
         <value xml:lang="de">Fehler</value>
         <value xml:lang="en">Error</value>
@@ -1536,6 +1620,22 @@
         <value xml:lang="th">เกิดข้อผิดพลาดในการระบุข้อมูลกรุณากดยอมรับเพื่อดำเนินการต่อไป</value>
         <value xml:lang="zh">错误级别会指出那些仍然允许应用程序继续执行的错误事件。</value>
         <value xml:lang="zh_TW">錯誤級別會指出那些仍然允許應用程式繼續執行的錯誤事件。</value>
+    </property>
+    <property key="WebtoolsErrrorParsingFile">
+        <value xml:lang="en">ERROR: parsing file: ${errorString}</value>
+        <value xml:lang="it">ERRORE: errore di parsing file: ${errorString}</value>
+    </property>
+    <property key="WebtoolsErrrorProcessingTemplateFile">
+        <value xml:lang="en">ERROR: processing template file ${filename}: ${errorString}</value>
+        <value xml:lang="it">ERRORE: errore di esecuzione template file ${filename}: ${errorString}</value>
+    </property>
+    <property key="WebtoolsErrrorReadingFileName">
+        <value xml:lang="en">ERROR: reading file name ${filename}: ${errorString}</value>
+        <value xml:lang="it">ERRORE: errore di lettura file ${filename}: ${errorString}</value>
+    </property>
+    <property key="WebtoolsErrrorReadingTemplateFile">
+        <value xml:lang="en">ERROR: reading template file ${filename}: ${errorString}</value>
+        <value xml:lang="it">ERRORE: errore di lettura template file ${filename}: ${errorString}</value>
     </property>
     <property key="WebtoolsEventName">
         <value xml:lang="de">Ereignisname</value>
@@ -2036,6 +2136,10 @@
         <value xml:lang="th">ช่วงเวลา</value>
         <value xml:lang="zh">间隔</value>
         <value xml:lang="zh_TW">間隔</value>
+    </property>
+    <property key="WebtoolsInvalidFileName">
+        <value xml:lang="en">ERROR: invalid file name ${filename}: ${errorString}</value>
+        <value xml:lang="it">ERRORE: nome file invalido ${filename}: ${errorString}</value>
     </property>
     <property key="WebtoolsInvoke">
         <value xml:lang="de">Aufrufen</value>
