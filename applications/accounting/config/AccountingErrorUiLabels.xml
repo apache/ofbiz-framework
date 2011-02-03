@@ -367,10 +367,22 @@
         <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
         <value xml:lang="pt">Você não tem permissão para excluir este método de pagamento para partyId</value>
     </property>
+    <property key="AccountingPaymentReauthorizingError">
+        <value xml:lang="en">You do not have permission to delete Payment Method for this partyId</value>
+        <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
+    </property>
+    <property key="AccountingPaymentStatusUpdatingError">
+        <value xml:lang="en">Error updating payment status information: ${errorString}</value>
+        <value xml:lang="it">Errore aggiornando lo stato del pagamento: ${errorString}</value>
+    </property>
     <property key="AccountingTaxIdInvalidFormat">
         <value xml:lang="en">The tax ID ${parameters.partyTaxId} was not in a valid format for the selected tax authority ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="it">Id tasse ${parameters.partyTaxId} non è nel formato valido per l'autorità tasse selezionata ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="pt">O número de ID fiscal ${parameters.partyTaxId} não estava em um formato válido para a autoridade fiscal selecionada ${taxAuthority.taxIdFormatPattern}</value>
+    </property>
+    <property key="AccountingTaxSettingError">
+        <value xml:lang="en">Data error getting tax settings: ${errorString}</value>
+        <value xml:lang="it">Errore di lettura impostazioni tasse: ${errorString}</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>

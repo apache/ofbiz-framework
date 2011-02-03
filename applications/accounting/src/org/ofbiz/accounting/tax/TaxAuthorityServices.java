@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +35,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.Delegator;
@@ -69,6 +71,7 @@ public class TaxAuthorityServices {
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         BigDecimal basePrice = (BigDecimal) context.get("basePrice");
         BigDecimal shippingPrice = (BigDecimal) context.get("shippingPrice");
+        Locale locale = (Locale) context.get("locale");
 
         if (quantity == null) quantity = ONE_BASE;
         BigDecimal amount = basePrice.multiply(quantity);
@@ -119,9 +122,8 @@ public class TaxAuthorityServices {
                 }
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Data error getting tax settings: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingTaxSettingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         // round to 2 decimal places for display/etc
@@ -149,7 +151,7 @@ public class TaxAuthorityServices {
         BigDecimal orderShippingAmount = (BigDecimal) context.get("orderShippingAmount");
         BigDecimal orderPromotionsAmount = (BigDecimal) context.get("orderPromotionsAmount");
         GenericValue shippingAddress = (GenericValue) context.get("shippingAddress");
-        
+        Locale locale = (Locale) context.get("locale");
         GenericValue productStore = null;
         GenericValue facility = null;
         try {
@@ -160,9 +162,8 @@ public class TaxAuthorityServices {
                 facility = delegator.findByPrimaryKey("Facility", UtilMisc.toMap("facilityId", facilityId));
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Data error getting tax settings: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingTaxSettingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         if (productStore == null && payToPartyId == null) {
@@ -178,9 +179,8 @@ public class TaxAuthorityServices {
                             UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")));
                 }
             } catch (GenericEntityException e) {
-                String errMsg = "Data error getting tax settings: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingTaxSettingError", UtilMisc.toMap("errorString", e.toString()), locale));
             }
         }
         if (shippingAddress == null || (shippingAddress.get("countryGeoId") == null && shippingAddress.get("stateProvinceGeoId") == null && shippingAddress.get("postalCodeGeoId") == null)) {
@@ -197,9 +197,8 @@ public class TaxAuthorityServices {
         try {
             getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
         } catch (GenericEntityException e) {
-            String errMsg = "Data error getting tax settings: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingTaxSettingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         // Setup the return lists.
