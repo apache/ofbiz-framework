@@ -1712,9 +1712,8 @@ public class PaymentGatewayServices {
                 // get the new auth transaction
                 authTrans = getAuthTransaction(paymentPref);
             } catch (GeneralException e) {
-                String errMsg = "Error re-authorizing payment: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                return ServiceUtil.returnError(errMsg);
+                Debug.logError(e, "Error re-authorizing payment: " + e.toString(), module);
+                return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentReauthorizingError", locale));
             }
         }
 
@@ -1893,6 +1892,7 @@ public class PaymentGatewayServices {
         String authType = (String) context.get("serviceTypeEnum");
         String currencyUomId = (String) context.get("currencyUomId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+        Locale locale = (Locale) context.get("locale");
 
         // refresh the payment preference
         try {
@@ -2025,9 +2025,8 @@ public class PaymentGatewayServices {
                 }
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Error updating payment status information: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error updating payment status information: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingPaymentStatusUpdatingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         return ServiceUtil.returnSuccess();
@@ -3307,8 +3306,7 @@ public class PaymentGatewayServices {
                 }
 
                 if (ServiceUtil.isError(results)) {
-                    String errMsg = UtilProperties.getMessage("AccountingUiLabels", "AccountingCreditCardManualAuthFailedError", locale);
-                    return ServiceUtil.returnError(errMsg);
+                    return ServiceUtil.returnError(UtilProperties.getMessage("AccountingUiLabels", "AccountingCreditCardManualAuthFailedError", locale));
                 }
             }
         }
