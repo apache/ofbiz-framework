@@ -131,7 +131,7 @@ public class OrderServices {
         if (!hasPermission) {
             GenericValue placingCustomer = null;
             try {
-                Map placingCustomerFields = UtilMisc.toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
+                Map<String, Object> placingCustomerFields = UtilMisc.<String, Object>toMap("orderId", orderId, "partyId", userLogin.getString("partyId"), "roleTypeId", "PLACING_CUSTOMER");
                 placingCustomer = delegator.findByPrimaryKey("OrderRole", placingCustomerFields);
             } catch (GenericEntityException e) {
                 Debug.logError("Could not select OrderRoles for order " + orderId + " due to " + e.getMessage(), module);
@@ -1150,7 +1150,7 @@ public class OrderServices {
         return successResult;
     }
 
-    public static void reserveInventory(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List orderItemShipGroupInfo, List dropShipGroupIds, Map itemValuesBySeqId, String orderTypeId, String productStoreId, List resErrorMessages) throws GeneralException {
+    public static void reserveInventory(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List<GenericValue> orderItemShipGroupInfo, List<String> dropShipGroupIds, Map<String, GenericValue> itemValuesBySeqId, String orderTypeId, String productStoreId, List resErrorMessages) throws GeneralException {
         boolean isImmediatelyFulfilled = false;
         GenericValue productStore = null;
         if (UtilValidate.isNotEmpty(productStoreId)) {
@@ -1175,15 +1175,15 @@ public class OrderServices {
         // START inventory reservation
         // decrement inventory available for each OrderItemShipGroupAssoc, within the same transaction
         if (UtilValidate.isNotEmpty(orderItemShipGroupInfo)) {
-            Iterator osiInfos = orderItemShipGroupInfo.iterator();
+            Iterator<GenericValue> osiInfos = orderItemShipGroupInfo.iterator();
             while (osiInfos.hasNext()) {
-                GenericValue orderItemShipGroupAssoc = (GenericValue) osiInfos.next();
+                GenericValue orderItemShipGroupAssoc = osiInfos.next();
                 if ("OrderItemShipGroupAssoc".equals(orderItemShipGroupAssoc.getEntityName())) {
                     if (dropShipGroupIds != null && dropShipGroupIds.contains(orderItemShipGroupAssoc.getString("shipGroupSeqId"))) {
                         // the items in the drop ship groups are not reserved
                         continue;
                     }
-                    GenericValue orderItem = (GenericValue) itemValuesBySeqId.get(orderItemShipGroupAssoc.get("orderItemSeqId"));
+                    GenericValue orderItem = itemValuesBySeqId.get(orderItemShipGroupAssoc.get("orderItemSeqId"));
                     GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
                     String shipGroupFacilityId = orderItemShipGroup.getString("facilityId");
                     String itemStatus = orderItem.getString("statusId");
@@ -1204,19 +1204,19 @@ public class OrderServices {
                             if (reserveInventory) {
                                 // for MARKETING_PKG_PICK reserve the components
                                 if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG_PICK")) {
-                                    Map componentsRes = dispatcher.runSync("getAssociatedProducts", UtilMisc.toMap("productId", orderItem.getString("productId"), "type", "PRODUCT_COMPONENT"));
+                                    Map<String, Object> componentsRes = dispatcher.runSync("getAssociatedProducts", UtilMisc.toMap("productId", orderItem.getString("productId"), "type", "PRODUCT_COMPONENT"));
                                     if (ServiceUtil.isError(componentsRes)) {
                                         resErrorMessages.add(componentsRes.get(ModelService.ERROR_MESSAGE));
                                         continue;
                                     } else {
-                                        List assocProducts = (List) componentsRes.get("assocProducts");
-                                        Iterator assocProductsIter = assocProducts.iterator();
+                                        List<GenericValue> assocProducts = UtilGenerics.checkList(componentsRes.get("assocProducts"));
+                                        Iterator<GenericValue> assocProductsIter = assocProducts.iterator();
                                         while (assocProductsIter.hasNext()) {
-                                            GenericValue productAssoc = (GenericValue) assocProductsIter.next();
+                                            GenericValue productAssoc = assocProductsIter.next();
                                             BigDecimal quantityOrd = productAssoc.getBigDecimal("quantity");
                                             BigDecimal quantityKit = orderItemShipGroupAssoc.getBigDecimal("quantity");
                                             BigDecimal quantity = quantityOrd.multiply(quantityKit);
-                                            Map reserveInput = new HashMap();
+                                            Map<String, Object> reserveInput = new HashMap<String, Object>();
                                             reserveInput.put("productStoreId", productStoreId);
                                             reserveInput.put("productId", productAssoc.getString("productIdTo"));
                                             reserveInput.put("orderId", orderItem.getString("orderId"));
@@ -1225,7 +1225,7 @@ public class OrderServices {
                                             reserveInput.put("quantity", quantity);
                                             reserveInput.put("userLogin", userLogin);
                                             reserveInput.put("facilityId", shipGroupFacilityId);
-                                            Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
+                                            Map<String, Object> reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
 
                                             if (ServiceUtil.isError(reserveResult)) {
                                                 String invErrMsg = "The product ";
@@ -1239,7 +1239,7 @@ public class OrderServices {
                                     }
                                 } else {
                                     // reserve the product
-                                    Map reserveInput = new HashMap();
+                                    Map<String, Object> reserveInput = new HashMap<String, Object>();
                                     reserveInput.put("productStoreId", productStoreId);
                                     reserveInput.put("productId", orderItem.getString("productId"));
                                     reserveInput.put("orderId", orderItem.getString("orderId"));
@@ -1249,7 +1249,7 @@ public class OrderServices {
                                     // use the quantity from the orderItemShipGroupAssoc, NOT the orderItem, these are reserved by item-group assoc
                                     reserveInput.put("quantity", orderItemShipGroupAssoc.getBigDecimal("quantity"));
                                     reserveInput.put("userLogin", userLogin);
-                                    Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
+                                    Map<String, Object> reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
 
                                     if (ServiceUtil.isError(reserveResult)) {
                                         String invErrMsg = "The product ";
@@ -1267,7 +1267,7 @@ public class OrderServices {
                                 // do something tricky here: run as the "system" user
                                 // that can actually create and run a production run
                                 GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-                                Map inputMap = new HashMap();
+                                Map<String, Object> inputMap = new HashMap<String, Object>();
                                 if (UtilValidate.isNotEmpty(shipGroupFacilityId)) {
                                     inputMap.put("facilityId", shipGroupFacilityId);
                                 } else {
@@ -1276,7 +1276,7 @@ public class OrderServices {
                                 inputMap.put("orderId", orderItem.getString("orderId"));
                                 inputMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                                 inputMap.put("userLogin", permUserLogin);
-                                Map prunResult = dispatcher.runSync("createProductionRunForMktgPkg", inputMap);
+                                Map<String, Object> prunResult = dispatcher.runSync("createProductionRunForMktgPkg", inputMap);
                                 if (ServiceUtil.isError(prunResult)) {
                                     Debug.logError(ServiceUtil.getErrorMessage(prunResult) + " for input:" + inputMap, module);
                                 }
@@ -1319,7 +1319,7 @@ public class OrderServices {
     }
 
     /** Service for resetting the OrderHeader grandTotal */
-    public static Map resetGrandTotal(DispatchContext ctx, Map context) {
+    public static Map<String, Object> resetGrandTotal(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         //appears to not be used: GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
@@ -1383,7 +1383,7 @@ public class OrderServices {
     }
 
     /** Service for setting the OrderHeader grandTotal for all OrderHeaders with no grandTotal */
-    public static Map setEmptyGrandTotals(DispatchContext ctx, Map context) {
+    public static Map<String, Object> setEmptyGrandTotals(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1395,11 +1395,11 @@ public class OrderServices {
 
         EntityCondition cond = null;
         if (!forceAll.booleanValue()) {
-            List exprs = UtilMisc.toList(EntityCondition.makeCondition("grandTotal", EntityOperator.EQUALS, null),
+            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("grandTotal", EntityOperator.EQUALS, null),
                     EntityCondition.makeCondition("remainingSubTotal", EntityOperator.EQUALS, null));
             cond = EntityCondition.makeCondition(exprs, EntityOperator.OR);
         }
-        Set fields = UtilMisc.toSet("orderId");
+        Set<String> fields = UtilMisc.toSet("orderId");
 
         EntityListIterator eli = null;
         try {
@@ -1414,7 +1414,7 @@ public class OrderServices {
             GenericValue orderHeader = null;
             while ((orderHeader = (GenericValue) eli.next()) != null) {
                 String orderId = orderHeader.getString("orderId");
-                Map resetResult = null;
+                Map<String, Object> resetResult = null;
                 try {
                     resetResult = dispatcher.runSync("resetGrandTotal", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                 } catch (GenericServiceException e) {
@@ -1442,7 +1442,7 @@ public class OrderServices {
     }
 
     /** Service for checking and re-calc the tax amount */
-    public static Map recalcOrderTax(DispatchContext ctx, Map context) {
+    public static Map<String, Object> recalcOrderTax(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
@@ -1477,7 +1477,7 @@ public class OrderServices {
 //        }
 
         // Retrieve the order tax adjustments
-        List orderTaxAdjustments = null;
+        List<GenericValue> orderTaxAdjustments = null;
         try {
             orderTaxAdjustments = delegator.findByAnd("OrderAdjustment", UtilMisc.toMap("orderId", orderId, "orderAdjustmentTypeId", "SALES_TAX"));
         } catch (GenericEntityException e) {
@@ -1488,9 +1488,9 @@ public class OrderServices {
 
         // Accumulate the total existing tax adjustment
         BigDecimal totalExistingOrderTax = ZERO;
-        Iterator otait = UtilMisc.toIterator(orderTaxAdjustments);
+        Iterator<GenericValue> otait = UtilMisc.toIterator(orderTaxAdjustments);
         while (otait != null && otait.hasNext()) {
-            GenericValue orderTaxAdjustment = (GenericValue) otait.next();
+            GenericValue orderTaxAdjustment = otait.next();
             if (orderTaxAdjustment.get("amount") != null) {
                 totalExistingOrderTax = totalExistingOrderTax.add(orderTaxAdjustment.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
             }
@@ -1499,25 +1499,25 @@ public class OrderServices {
         // Recalculate the taxes for the order
         BigDecimal totalNewOrderTax = ZERO;
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        List shipGroups = orh.getOrderItemShipGroups();
+        List<GenericValue> shipGroups = orh.getOrderItemShipGroups();
         if (shipGroups != null) {
-            Iterator itr = shipGroups.iterator();
+            Iterator<GenericValue> itr = shipGroups.iterator();
             while (itr.hasNext()) {
-                GenericValue shipGroup = (GenericValue) itr.next();
+                GenericValue shipGroup = itr.next();
                 String shipGroupSeqId = shipGroup.getString("shipGroupSeqId");
 
-                List validOrderItems = orh.getValidOrderItems(shipGroupSeqId);
+                List<GenericValue> validOrderItems = orh.getValidOrderItems(shipGroupSeqId);
                 if (validOrderItems != null) {
                     // prepare the inital lists
-                    List products = new ArrayList(validOrderItems.size());
-                    List amounts = new ArrayList(validOrderItems.size());
-                    List shipAmts = new ArrayList(validOrderItems.size());
-                    List itPrices = new ArrayList(validOrderItems.size());
-                    List itQuantities = new ArrayList(validOrderItems.size());
+                    List<GenericValue> products = new ArrayList<GenericValue>(validOrderItems.size());
+                    List<BigDecimal> amounts = new ArrayList<BigDecimal>(validOrderItems.size());
+                    List<BigDecimal> shipAmts = new ArrayList<BigDecimal>(validOrderItems.size());
+                    List<BigDecimal> itPrices = new ArrayList<BigDecimal>(validOrderItems.size());
+                    List<BigDecimal> itQuantities = new ArrayList<BigDecimal>(validOrderItems.size());
 
                     // adjustments and total
-                    List allAdjustments = orh.getAdjustments();
-                    List orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(allAdjustments, shipGroupSeqId);
+                    List<GenericValue> allAdjustments = orh.getAdjustments();
+                    List<GenericValue> orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(allAdjustments, shipGroupSeqId);
                     BigDecimal orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(validOrderItems, allAdjustments);
 
                     // shipping amount
@@ -1546,9 +1546,9 @@ public class OrderServices {
                     GenericValue shippingAddress = orh.getShippingAddress(shipGroupSeqId);
                     // no shipping address, try the billing address
                     if (shippingAddress == null) {
-                        List billingAddressList = orh.getBillingLocations();
+                        List<GenericValue> billingAddressList = orh.getBillingLocations();
                         if (billingAddressList.size() > 0) {
-                            shippingAddress = (GenericValue) billingAddressList.get(0);
+                            shippingAddress = billingAddressList.get(0);
                         }
                     }
 
@@ -1577,7 +1577,7 @@ public class OrderServices {
                     }
 
                     // prepare the service context
-                    Map serviceContext = UtilMisc.toMap("productStoreId", orh.getProductStoreId(), "itemProductList", products, "itemAmountList", amounts,
+                    Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("productStoreId", orh.getProductStoreId(), "itemProductList", products, "itemAmountList", amounts,
                         "itemShippingList", shipAmts, "itemPriceList", itPrices, "itemQuantityList", itQuantities, "orderShippingAmount", orderShipping);
                     serviceContext.put("shippingAddress", shippingAddress);
                     serviceContext.put("orderPromotionsAmount", orderPromotions);
@@ -1585,7 +1585,7 @@ public class OrderServices {
                     if (orh.getBillFromParty() != null) serviceContext.put("payToPartyId", orh.getBillFromParty().getString("partyId"));
 
                     // invoke the calcTax service
-                    Map serviceResult = null;
+                    Map<String, Object> serviceResult = null;
                     try {
                         serviceResult = dispatcher.runSync("calcTax", serviceContext);
                     } catch (GenericServiceException e) {
@@ -1599,14 +1599,14 @@ public class OrderServices {
                     }
 
                     // the adjustments (returned in order) from the tax service
-                    List orderAdj = (List) serviceResult.get("orderAdjustments");
-                    List itemAdj = (List) serviceResult.get("itemAdjustments");
+                    List<GenericValue> orderAdj = UtilGenerics.checkList(serviceResult.get("orderAdjustments"));
+                    List<List<GenericValue>> itemAdj = UtilGenerics.checkList(serviceResult.get("itemAdjustments"));
 
                     // Accumulate the new tax total from the recalculated header adjustments
                     if (UtilValidate.isNotEmpty(orderAdj)) {
-                        Iterator oai = orderAdj.iterator();
+                        Iterator<GenericValue> oai = orderAdj.iterator();
                         while (oai.hasNext()) {
-                            GenericValue oa = (GenericValue) oai.next();
+                            GenericValue oa = oai.next();
                             if (oa.get("amount") != null) {
                                 totalNewOrderTax = totalNewOrderTax.add(oa.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                             }
@@ -1618,10 +1618,10 @@ public class OrderServices {
                     // Accumulate the new tax total from the recalculated item adjustments
                     if (UtilValidate.isNotEmpty(itemAdj)) {
                         for (int i = 0; i < itemAdj.size(); i++) {
-                            List itemAdjustments = (List) itemAdj.get(i);
-                            Iterator ida = itemAdjustments.iterator();
+                            List<GenericValue> itemAdjustments = itemAdj.get(i);
+                            Iterator<GenericValue> ida = itemAdjustments.iterator();
                             while (ida.hasNext()) {
-                                GenericValue ia = (GenericValue) ida.next();
+                                GenericValue ia = ida.next();
                                 if (ia.get("amount") != null) {
                                     totalNewOrderTax = totalNewOrderTax.add(ia.getBigDecimal("amount").setScale(taxDecimals, taxRounding));
                                 }
@@ -1636,7 +1636,7 @@ public class OrderServices {
 
             // If the total has changed, create an OrderAdjustment to reflect the fact
             if (orderTaxDifference.signum() != 0) {
-                Map createOrderAdjContext = new HashMap();
+                Map<String, Object> createOrderAdjContext = new HashMap<String, Object>();
                 createOrderAdjContext.put("orderAdjustmentTypeId", "SALES_TAX");
                 createOrderAdjContext.put("orderId", orderId);
                 createOrderAdjContext.put("orderItemSeqId", "_NA_");
@@ -1644,7 +1644,7 @@ public class OrderServices {
                 createOrderAdjContext.put("description", "Tax adjustment due to order change");
                 createOrderAdjContext.put("amount", orderTaxDifference);
                 createOrderAdjContext.put("userLogin", userLogin);
-                Map createOrderAdjResponse = null;
+                Map<String, Object> createOrderAdjResponse = null;
                 try {
                     createOrderAdjResponse = dispatcher.runSync("createOrderAdjustment", createOrderAdjContext);
                 } catch (GenericServiceException e) {
@@ -1664,7 +1664,7 @@ public class OrderServices {
     }
 
     /** Service for checking and re-calc the shipping amount */
-    public static Map recalcOrderShipping(DispatchContext ctx, Map context) {
+    public static Map<String, Object> recalcOrderShipping(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
@@ -1694,11 +1694,11 @@ public class OrderServices {
         }
 
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
-        List shipGroups = orh.getOrderItemShipGroups();
+        List<GenericValue> shipGroups = orh.getOrderItemShipGroups();
         if (shipGroups != null) {
-            Iterator i = shipGroups.iterator();
+            Iterator<GenericValue> i = shipGroups.iterator();
             while (i.hasNext()) {
-                GenericValue shipGroup = (GenericValue) i.next();
+                GenericValue shipGroup = i.next();
                 String shipGroupSeqId = shipGroup.getString("shipGroupSeqId");
 
                 if (shipGroup.get("contactMechId") == null || shipGroup.get("shipmentMethodTypeId") == null) {
@@ -1706,7 +1706,7 @@ public class OrderServices {
                     continue;
                 }
 
-                Map shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
+                Map<String, Object> shippingEstMap = ShippingEvents.getShipEstimate(dispatcher, delegator, orh, shipGroupSeqId);
                 BigDecimal shippingTotal = null;
                 if (UtilValidate.isEmpty(orh.getValidOrderItems(shipGroupSeqId))) {
                     shippingTotal = ZERO;
@@ -1727,7 +1727,7 @@ public class OrderServices {
                     Debug.log("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
                 }
 
-                List errorMessageList = (List) shippingEstMap.get(ModelService.ERROR_MESSAGE_LIST);
+                List<String> errorMessageList = UtilGenerics.checkList(shippingEstMap.get(ModelService.ERROR_MESSAGE_LIST));
                 if (errorMessageList != null) {
                     Debug.logWarning("Problem finding shipping estimates for [" + orderId + "/ " + shipGroupSeqId + "] = " + errorMessageList, module);
                     continue;
@@ -1764,7 +1764,7 @@ public class OrderServices {
     }
 
     /** Service for checking to see if an order is fully completed or canceled */
-    public static Map checkItemStatus(DispatchContext ctx, Map context) {
+    public static Map<String, Object> checkItemStatus(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -1794,7 +1794,7 @@ public class OrderServices {
         }
 
         // get the order items
-        List orderItems = null;
+        List<GenericValue> orderItems = null;
         try {
             orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
         } catch (GenericEntityException e) {
@@ -1810,9 +1810,9 @@ public class OrderServices {
         boolean allComplete = true;
         boolean allApproved = true;
         if (orderItems != null) {
-            Iterator itemIter = orderItems.iterator();
+            Iterator<GenericValue> itemIter = orderItems.iterator();
             while (itemIter.hasNext()) {
-                GenericValue item = (GenericValue) itemIter.next();
+                GenericValue item = itemIter.next();
                 String statusId = item.getString("statusId");
                 //Debug.log("Item Status: " + statusId, module);
                 if (!"ITEM_CANCELLED".equals(statusId)) {
@@ -1851,8 +1851,8 @@ public class OrderServices {
                             String headerApprovedStatus = productStore.getString("headerApprovedStatus");
                             if (UtilValidate.isNotEmpty(headerApprovedStatus)) {
                                 if (headerApprovedStatus.equals(orderHeaderStatusId)) {
-                                    Map orderStatusCheckMap = UtilMisc.toMap("orderId", orderId, "statusId", headerApprovedStatus, "orderItemSeqId", null);
-                                    List orderStatusList = delegator.findByAnd("OrderStatus", orderStatusCheckMap);
+                                    Map<String, Object> orderStatusCheckMap = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", headerApprovedStatus, "orderItemSeqId", null);
+                                    List<GenericValue> orderStatusList = delegator.findByAnd("OrderStatus", orderStatusCheckMap);
                                     // should be 1 in the history, but just in case accept 0 too
                                     if (orderStatusList.size() <= 1) {
                                         changeToApprove = false;
@@ -1882,8 +1882,8 @@ public class OrderServices {
 
             // now set the new order status
             if (newStatus != null && !newStatus.equals(orderHeaderStatusId)) {
-                Map serviceContext = UtilMisc.toMap("orderId", orderId, "statusId", newStatus, "userLogin", userLogin);
-                Map newSttsResult = null;
+                Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newStatus, "userLogin", userLogin);
+                Map<String, Object> newSttsResult = null;
                 try {
                     newSttsResult = dispatcher.runSync("changeOrderStatus", serviceContext);
                 } catch (GenericServiceException e) {
@@ -1902,7 +1902,7 @@ public class OrderServices {
     }
 
     /** Service to cancel an order item quantity */
-    public static Map cancelOrderItem(DispatchContext ctx, Map context) {
+    public static Map<String, Object> cancelOrderItem(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -1912,8 +1912,8 @@ public class OrderServices {
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
-        Map itemReasonMap = (Map) context.get("itemReasonMap");
-        Map itemCommentMap = (Map) context.get("itemCommentMap");
+        Map<String, String> itemReasonMap = UtilGenerics.checkMap(context.get("itemReasonMap"));
+        Map<String, String> itemCommentMap = UtilGenerics.checkMap(context.get("itemCommentMap"));
 
         // debugging message info
         String itemMsgInfo = orderId + " / " + orderItemSeqId + " / " + shipGroupSeqId;
@@ -1927,7 +1927,7 @@ public class OrderServices {
                     "OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
-        Map fields = UtilMisc.toMap("orderId", orderId);
+        Map<String, String> fields = UtilMisc.<String, String>toMap("orderId", orderId);
         if (orderItemSeqId != null) {
             fields.put("orderItemSeqId", orderItemSeqId);
         }
@@ -1935,7 +1935,7 @@ public class OrderServices {
             fields.put("shipGroupSeqId", shipGroupSeqId);
         }
 
-        List orderItemShipGroupAssocs = null;
+        List<GenericValue> orderItemShipGroupAssocs = null;
         try {
             orderItemShipGroupAssocs = delegator.findByAnd("OrderItemShipGroupAssoc", fields);
         } catch (GenericEntityException e) {
@@ -1945,9 +1945,9 @@ public class OrderServices {
         }
 
         if (orderItemShipGroupAssocs != null) {
-            Iterator i = orderItemShipGroupAssocs.iterator();
+            Iterator<GenericValue> i = orderItemShipGroupAssocs.iterator();
             while (i.hasNext()) {
-                GenericValue orderItemShipGroupAssoc = (GenericValue) i.next();
+                GenericValue orderItemShipGroupAssoc = i.next();
                 GenericValue orderItem = null;
                 try {
                     orderItem = orderItemShipGroupAssoc.getRelatedOne("OrderItem");
@@ -1989,7 +1989,7 @@ public class OrderServices {
                     orderItemShipGroupAssoc.set("cancelQuantity", aisgaCancelQuantity.add(thisCancelQty));
 
                     try {
-                        List toStore = UtilMisc.toList(orderItem, orderItemShipGroupAssoc);
+                        List<GenericValue> toStore = UtilMisc.toList(orderItem, orderItemShipGroupAssoc);
                         delegator.storeAll(toStore);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
@@ -2008,7 +2008,7 @@ public class OrderServices {
                             changeComments = (String) itemCommentMap.get(orderItem.getString("orderItemSeqId"));
                         }
 
-                        Map serviceCtx = FastMap.newInstance();
+                        Map<String, Object> serviceCtx = FastMap.newInstance();
                         serviceCtx.put("orderId", orderItem.getString("orderId"));
                         serviceCtx.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                         serviceCtx.put("cancelQuantity", thisCancelQty);
@@ -2016,7 +2016,7 @@ public class OrderServices {
                         serviceCtx.put("reasonEnumId", reasonEnumId);
                         serviceCtx.put("changeComments", changeComments);
                         serviceCtx.put("userLogin", userLogin);
-                        Map resp = null;
+                        Map<String, Object> resp = null;
                         try {
                             resp = dispatcher.runSync("createOrderItemChange", serviceCtx);
                         } catch (GenericServiceException e) {
@@ -2040,7 +2040,7 @@ public class OrderServices {
 
                     if (thisCancelQty.compareTo(itemQuantity) >= 0) {
                         // all items are cancelled -- mark the item as cancelled
-                        Map statusCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
+                        Map<String, Object> statusCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
                         try {
                             dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
                         } catch (GenericServiceException e) {
@@ -2050,7 +2050,7 @@ public class OrderServices {
                         }
                     } else {
                         // reverse the inventory reservation
-                        Map invCtx = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
+                        Map<String, Object> invCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItem.getString("orderItemSeqId"), "shipGroupSeqId",
                                 shipGroupSeqId, "cancelQuantity", thisCancelQty, "userLogin", userLogin);
                         try {
                             dispatcher.runSyncIgnore("cancelOrderItemInvResQty", invCtx);
@@ -2074,7 +2074,7 @@ public class OrderServices {
     }
 
     /** Service for changing the status on order item(s) */
-    public static Map setItemStatus(DispatchContext ctx, Map context) {
+    public static Map<String, Object> setItemStatus(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2093,13 +2093,13 @@ public class OrderServices {
                     "OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
-        Map fields = UtilMisc.toMap("orderId", orderId);
+        Map<String, String> fields = UtilMisc.<String, String>toMap("orderId", orderId);
         if (orderItemSeqId != null)
             fields.put("orderItemSeqId", orderItemSeqId);
         if (fromStatusId != null)
             fields.put("statusId", fromStatusId);
 
-        List orderItems = null;
+        List<GenericValue> orderItems = null;
         try {
             orderItems = delegator.findByAnd("OrderItem", fields);
         } catch (GenericEntityException e) {
@@ -2108,10 +2108,10 @@ public class OrderServices {
         }
 
         if (UtilValidate.isNotEmpty(orderItems)) {
-            List toBeStored = new ArrayList();
-            Iterator itemsIterator = orderItems.iterator();
+            List<GenericValue> toBeStored = new ArrayList<GenericValue>();
+            Iterator<GenericValue> itemsIterator = orderItems.iterator();
             while (itemsIterator.hasNext()) {
-                GenericValue orderItem = (GenericValue) itemsIterator.next();
+                GenericValue orderItem = itemsIterator.next();
                 if (orderItem == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderErrorCannotChangeItemStatusItemNotFound", locale));
@@ -2125,7 +2125,7 @@ public class OrderServices {
                 }
 
                 try {
-                    Map statusFields = UtilMisc.toMap("statusId", orderItem.getString("statusId"), "statusIdTo", statusId);
+                    Map<String, String> statusFields = UtilMisc.<String, String>toMap("statusId", orderItem.getString("statusId"), "statusIdTo", statusId);
                     GenericValue statusChange = delegator.findByPrimaryKeyCache("StatusValidChange", statusFields);
 
                     if (statusChange == null) {
@@ -2144,7 +2144,7 @@ public class OrderServices {
                     statusDateTime = UtilDateTime.nowTimestamp();
                 }
                 // now create a status change
-                Map changeFields = new HashMap();
+                Map<String, Object> changeFields = new HashMap<String, Object>();
                 changeFields.put("orderStatusId", delegator.getNextSeqId("OrderStatus"));
                 changeFields.put("statusId", statusId);
                 changeFields.put("orderId", orderId);
@@ -2171,13 +2171,13 @@ public class OrderServices {
     }
 
     /** Service for changing the status on an order header */
-    public static Map setOrderStatus(DispatchContext ctx, Map context) {
+    public static Map<String, Object> setOrderStatus(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String orderId = (String) context.get("orderId");
         String statusId = (String) context.get("statusId");
-        Map successResult = ServiceUtil.returnSuccess();
+        Map<String, Object> successResult = ServiceUtil.returnSuccess();
         Locale locale = (Locale) context.get("locale");
 
         // check and make sure we have permission to change the order
@@ -2200,7 +2200,7 @@ public class OrderServices {
 
             if (newItemStatusId != null) {
                 try {
-                    Map resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
+                    Map<String, Object> resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
                     if (ServiceUtil.isError(resp)) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                                 "OrderErrorCouldNotChangeItemStatus", locale) + newItemStatusId, null, null, resp);
@@ -2232,7 +2232,7 @@ public class OrderServices {
                 return successResult;
             }
             try {
-                Map statusFields = UtilMisc.toMap("statusId", orderHeader.getString("statusId"), "statusIdTo", statusId);
+                Map<String, String> statusFields = UtilMisc.<String, String>toMap("statusId", orderHeader.getString("statusId"), "statusIdTo", statusId);
                 GenericValue statusChange = delegator.findByPrimaryKeyCache("StatusValidChange", statusFields);
                 if (statusChange == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, 
@@ -2282,8 +2282,8 @@ public class OrderServices {
     }
 
     /** Service to update the order tracking number */
-    public static Map updateTrackingNumber(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> updateTrackingNumber(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
@@ -2310,8 +2310,8 @@ public class OrderServices {
     }
 
     /** Service to add a role type to an order */
-    public static Map addRoleType(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> addRoleType(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
@@ -2329,7 +2329,7 @@ public class OrderServices {
             }
         }
 
-        Map fields = UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId);
+        Map<String, String> fields = UtilMisc.<String, String>toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId);
 
         try {
             // first check and see if we are already there; if so, just return success
@@ -2350,13 +2350,13 @@ public class OrderServices {
     }
 
     /** Service to remove a role type from an order */
-    public static Map removeRoleType(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> removeRoleType(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String partyId = (String) context.get("partyId");
         String roleTypeId = (String) context.get("roleTypeId");
-        Map fields = UtilMisc.toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId);
+        Map<String, String> fields = UtilMisc.<String, String>toMap("orderId", orderId, "partyId", partyId, "roleTypeId", roleTypeId);
         //Locale locale = (Locale) context.get("locale");
 
         GenericValue testValue = null;
@@ -2388,31 +2388,31 @@ public class OrderServices {
     }
 
     /** Service to email a customer with initial order confirmation */
-    public static Map sendOrderConfirmNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendOrderConfirmNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_CONFIRM");
     }
 
     /** Service to email a customer with order changes */
-    public static Map sendOrderCompleteNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendOrderCompleteNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_COMPLETE");
     }
 
     /** Service to email a customer with order changes */
-    public static Map sendOrderBackorderNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendOrderBackorderNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_BACKORDER");
     }
 
     /** Service to email a customer with order changes */
-    public static Map sendOrderChangeNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendOrderChangeNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_CHANGE");
     }
 
     /** Service to email a customer with order payment retry results */
-    public static Map sendOrderPayRetryNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendOrderPayRetryNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         return sendOrderNotificationScreen(ctx, context, "PRDS_ODR_PAYRETRY");
     }
 
-    protected static Map sendOrderNotificationScreen(DispatchContext dctx, Map context, String emailType) {
+    protected static Map<String, Object> sendOrderNotificationScreen(DispatchContext dctx, Map<String, ? extends Object> context, String emailType) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -2430,7 +2430,7 @@ public class OrderServices {
         }
 
         // prepare the order information
-        Map sendMap = FastMap.newInstance();
+        Map<String, Object> sendMap = FastMap.newInstance();
 
         // get the order header and store
         GenericValue orderHeader = null;
@@ -2513,7 +2513,7 @@ public class OrderServices {
             locale = Locale.getDefault();
         }
 
-        Map bodyParameters = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", placingUserLogin, "locale", locale);
+        Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", placingUserLogin, "locale", locale);
         if (placingParty!= null) {
             bodyParameters.put("partyId", placingParty.get("partyId"));
         }
@@ -2540,7 +2540,7 @@ public class OrderServices {
         }
 
         // send the notification
-        Map sendResp = null;
+        Map<String, Object> sendResp = null;
         try {
             sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
         } catch (Exception e) {
@@ -2560,7 +2560,7 @@ public class OrderServices {
     }
 
     /** Service to email order notifications for pending actions */
-    public static Map sendProcessNotification(DispatchContext ctx, Map context) {
+    public static Map<String, Object> sendProcessNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         //appears to not be used: Map result = new HashMap();
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
@@ -2587,7 +2587,7 @@ public class OrderServices {
 
         // find the assigned user's email address(s)
         GenericValue party = null;
-        Collection assignedToEmails = null;
+        Collection<GenericValue> assignedToEmails = null;
         try {
             party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", assignedToUser));
         } catch (GenericEntityException e) {
@@ -2598,7 +2598,7 @@ public class OrderServices {
             assignedToEmails = ContactHelper.getContactMechByPurpose(party, "PRIMARY_EMAIL", false);
         }
 
-        Map templateData = new HashMap(context);
+        Map<String, Object> templateData = new HashMap<String, Object>(context);
         templateData.putAll(orderHeader);
         templateData.putAll(workEffort);
 
@@ -2609,7 +2609,7 @@ public class OrderServices {
         templateData.put("omgStatusId", workEffort.getString("currentStatusId"));
 
         // get the assignments
-        List assignments = null;
+        List<GenericValue> assignments = null;
         if (workEffort != null) {
             try {
                 assignments = workEffort.getRelated("WorkEffortPartyAssignment");
@@ -2621,9 +2621,9 @@ public class OrderServices {
 
         StringBuilder emailList = new StringBuilder();
         if (assignedToEmails != null) {
-            Iterator aei = assignedToEmails.iterator();
+            Iterator<GenericValue> aei = assignedToEmails.iterator();
             while (aei.hasNext()) {
-                GenericValue ct = (GenericValue) aei.next();
+                GenericValue ct = aei.next();
                 if (ct != null && ct.get("infoString") != null) {
                     if (emailList.length() > 1)
                         emailList.append(",");
@@ -2641,7 +2641,7 @@ public class OrderServices {
         String ofbizHome = System.getProperty("ofbiz.home");
         String templateName = ofbizHome + "/applications/order/email/default/emailprocessnotify.ftl";
 
-        Map sendMailContext = new HashMap();
+        Map<String, Object> sendMailContext = new HashMap<String, Object>();
         sendMailContext.put("sendTo", emailList.toString());
         sendMailContext.put("sendFrom", "workflow@ofbiz.org"); // fixme
         sendMailContext.put("subject", "Workflow Notification");
@@ -2658,8 +2658,8 @@ public class OrderServices {
     }
 
     /** Service to create an order payment preference */
-    public static Map createPaymentPreference(DispatchContext ctx, Map context) {
-        Map result = new HashMap();
+    public static Map<String, Object> createPaymentPreference(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String statusId = (String) context.get("statusId");
@@ -2678,7 +2678,7 @@ public class OrderServices {
                     "OrderErrorCouldNotCreateOrderPaymentPreferenceIdGenerationFailure", locale));
         }
 
-        Map fields = UtilMisc.toMap("orderPaymentPreferenceId", prefId, "orderId", orderId, "paymentMethodTypeId",
+        Map<String, Object> fields = UtilMisc.<String, Object>toMap("orderPaymentPreferenceId", prefId, "orderId", orderId, "paymentMethodTypeId",
                 paymentMethodTypeId, "paymentMethodId", paymentMethodId, "maxAmount", maxAmount);
 
         if (statusId != null) {
