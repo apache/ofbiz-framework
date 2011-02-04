@@ -406,7 +406,7 @@ under the License.
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
                 <parameter param-name="contentId"/>
-                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="drDataResourceId" from-field="dataResourceId"/>
                 <parameter param-name="contentIdTo"/>
             </hyperlink>
         </field>
