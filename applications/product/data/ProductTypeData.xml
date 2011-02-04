@@ -632,4 +632,9 @@ under the License.
     <ProductFeature productFeatureId="TEXT_BLUE" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Blue" defaultSequenceNum="6"/>
     <ProductFeature productFeatureId="TEXT_YELLOW" productFeatureTypeId="COLOR" productFeatureCategoryId="TEXT" description="Yellow" defaultSequenceNum="7"/>
     
+    <EnumerationType description="Image Reject Reason" enumTypeId="IMAGE_REJECT_REASON" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Re-take Photo" enumCode="RETAKE_PHOTO" enumId="RETAKE_PHOTO" sequenceId="01" enumTypeId="IMAGE_REJECT_REASON"/>
+    <Enumeration description="Remove Logo" enumCode="REMOVE_LOGO" enumId="REMOVE_LOGO" sequenceId="02" enumTypeId="IMAGE_REJECT_REASON"/>
+    <Enumeration description="Other" enumCode="OTHER" enumId="OTHER" sequenceId="03" enumTypeId="IMAGE_REJECT_REASON"/>
+    
 </entity-engine-xml>

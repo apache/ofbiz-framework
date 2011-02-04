@@ -4818,7 +4818,7 @@ under the License.
     <!-- Image Management -->
     <extend-entity entity-name="ProductContent">
         <field name="defaultSequenceNum" type="numeric"/>
-        <field name="enable" type="indicator"/>
+        <field name="exclude" type="indicator"/>
         <field name="thumbnail" type="indicator"/>
     </extend-entity>
     

@@ -29,9 +29,23 @@ under the License.
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ImageManagementApplication}">
-                            <container><label style="label" text="${uiLabelMap.WelcomeMessage}"/></container>
-                        </screenlet>
+                        <section>
+                            <condition>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.ImageManagementApplication}">
+                                    <include-form name="ImageGallery" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.ImageManagementApplication}">
+                                    <container><label style="label" text="${uiLabelMap.WelcomeMessage}"/></container>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -48,7 +62,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.Gallery}">
                                <include-form name="ImageGallery" location="component://product/widget/catalog/ImageManagementForms.xml"/>
-                           </screenlet>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -61,6 +75,7 @@ under the License.
                 <not><if-empty field="parameters.productId"/></not>
             </condition>
             <actions>
+                <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
             </actions>
             <widgets>
@@ -96,6 +111,7 @@ under the License.
                             <widgets>
                                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
                                     <decorator-section name="body">
+                                        <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
                                         <screenlet title="${uiLabelMap.Gallery}">
                                             <platform-specific>
                                                 <html><html-template location="component://product/webapp/catalog/imagemanagement/ImageGallery.ftl"/></html>
@@ -126,7 +142,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="userTabButtonImage" value="ImageGallery"/>
-                        <set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>
+                        <!--<set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>-->
                     </actions>
                     <widgets>
                         <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -406,6 +422,7 @@ under the License.
             </condition>
             <actions>
                 <set field="userTabButtonImage" value="ImageManage"/>
+                <set field="productId" from-field="parameters.productId"/>
                 <entity-one value-field="product" entity-name="Product"/>
             </actions>
             <widgets>
@@ -421,6 +438,7 @@ under the License.
                                         <not><if-empty field="product"/></not>
                                     </condition>
                                     <widgets>
+                                        <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
                                         <screenlet title="${uiLabelMap.Manage}">
                                             <include-form name="ListImageManage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
@@ -441,7 +459,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="userTabButtonImage" value="ImageManage"/>
-                        <set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>
+                        <!--<set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>-->
                     </actions>
                     <widgets>
                         <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -663,6 +681,7 @@ under the License.
                 <set field="userTabButtonImage" value="ImageReplace"/>
                 <set field="currentFormName" value="ListImageReplace"/>
                 <set field="statusForm" value="IM_APPROVED"/>
+                <set field="productId" from-field="parameters.productId"/>
                 <entity-one value-field="product" entity-name="Product"/>
             </actions>
             <widgets>
@@ -678,16 +697,17 @@ under the License.
                                         <not><if-empty field="product"/></not>
                                     </condition>
                                     <widgets>
+                                        <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
                                         <container style="lefthalf">
-                                        <screenlet title="${uiLabelMap.ChooseReplacementImage}">
-                                            <include-form name="ListImageExist" location="component://product/widget/catalog/ImageManagementForms.xml"/>
-                                        </screenlet>
+                                            <screenlet title="${uiLabelMap.ChooseReplacementImage}">
+                                                <include-form name="ListImageExist" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                            </screenlet>
                                         </container>
-                                    <container style="righthalf">
-                                        <screenlet title="${uiLabelMap.ChooseImageToReplace}">
-                                            <include-form name="ListImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
-                                        </screenlet>
-                                    </container>
+                                        <container style="righthalf">
+                                            <screenlet title="${uiLabelMap.ChooseImageToReplace}">
+                                                <include-form name="ListImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                            </screenlet>
+                                        </container>
                                         <container style="clear"/>
                                         <screenlet title="${uiLabelMap.Replace}">
                                             <include-form name="ImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
@@ -709,7 +729,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="userTabButtonImage" value="ImageReplace"/>
-                        <set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>
+                        <!--<set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>-->
                     </actions>
                     <widgets>
                         <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -746,14 +766,6 @@ under the License.
         </section>
     </screen>
     
-    <screen name="ViewImages">
-        <section>
-            <widgets>
-                <image src="${parameters.drObjectInfo}"></image>
-            </widgets>
-        </section>
-    </screen>
-    
     <screen name="ViewPreviewImage">
         <section>
             <widgets>
@@ -785,7 +797,10 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                <or>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
+                                    <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.RecentlyApproved}">
@@ -940,6 +955,104 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ImageRemove">
+        <section>
+            <actions>
+                <set field="userTabButtonImage" value="ImageRemove"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${parameters.productId}">
+                                    <include-form name="ImageRemove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListImageRemove">
+        <section>
+            <condition>
+                <not><if-empty field="parameters.productId"/></not>
+            </condition>
+            <actions>
+                <set field="userTabButtonImage" value="ImageRemove"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one value-field="product" entity-name="Product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="product"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
+                                        <screenlet title="${uiLabelMap.CommonRemove}">
+                                            <include-form name="ListImageRemove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label text="${uiLabelMap.ProductNoExistingProductsFound}"/>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <section>
+                    <actions>
+                        <set field="userTabButtonImage" value="ImageRemove"/>
+                        <!--<set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>-->
+                    </actions>
+                    <widgets>
+                        <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.CommonRemove}">
+                                            <include-form name="ImageManage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                                    </fail-widgets>
+                                </section>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </fail-widgets>
         </section>
     </screen>
 </screens>

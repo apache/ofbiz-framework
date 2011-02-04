@@ -115,8 +115,8 @@ public class RotateImage {
             String imageUrlResource = "/images/products/management/" + productId + "/" + filenameToUse;
             String imageUrlThumb = "/images/products/management/" + productId + "/" + filenameTouseThumb;
             
-            ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlResource, contentId);
-            ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb);
+            ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
+            ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
             
             Map<String, Object> createContentAssocMap = FastMap.newInstance();
             createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");

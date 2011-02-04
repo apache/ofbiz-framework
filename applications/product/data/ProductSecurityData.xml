@@ -108,4 +108,6 @@ under the License.
     <SecurityGroup description="Image Management Upload." groupId="IMAGEUPLOAD"/>
     <SecurityPermission description="Upload photos in the Image Management." permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
     <SecurityGroupPermission groupId="IMAGEUPLOAD" permissionId="IMAGE_MANAGEMENT_UPLOAD"/>
+    
+    <PartyRole partyId="admin" roleTypeId="IMAGEAPPROVER"/>
 </entity-engine-xml>

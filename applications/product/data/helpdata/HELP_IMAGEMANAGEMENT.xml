@@ -27,7 +27,6 @@
             </listitem>
          </orderedlist>
     </para>
-
     <section>
         <title>How To Add Security Group For Image Management User</title>
         <para>There are three security groups related in the Image Management including 'IMAGEADMIN', 'IMAGEAPPROVE' and ' IMAGEUPLOAD'.</para>
@@ -167,31 +166,31 @@
                     </orderedlist>
                 </section>
             </section>
-        </section>
-        <section>
-            <title>- Crop</title>
             <section>
-                <para>You can crop any images in this function.</para>
-                <orderedlist>
-                    <listitem>
-                        <para>Choose 'Crop' then choose your image.</para>
-                        <para>Move your cursor on the image, then drag your mouse to crop image.</para>
-                        <para>You can see the preview image in the right hand side.</para>
-                        <para>Finally, you click 'Crop' button.</para>
-                    </listitem>
-                </orderedlist>
+                <title>- Crop</title>
+                <section>
+                    <para>You can crop any images in this function.</para>
+                    <orderedlist>
+                        <listitem>
+                            <para>Choose 'Crop' then choose your image.</para>
+                            <para>Move your cursor on the image, then drag your mouse to crop image.</para>
+                            <para>You can see the preview image in the right hand side.</para>
+                            <para>Finally, you click 'Crop' button.</para>
+                        </listitem>
+                    </orderedlist>
+                </section>
             </section>
-        </section>
-        <section>
-            <title>- Rotate</title>
             <section>
-                <para>You can rotate images in this function.</para>
-                <orderedlist>
-                    <listitem>
-                        <para>Choose 'Rotate' then click clockwise or counterclockwise button for ratating image.</para>
-                        <para>Click 'Submit' button</para>
-                    </listitem>
-                </orderedlist>
+                <title>- Rotate</title>
+                <section>
+                    <para>You can rotate images in this function.</para>
+                    <orderedlist>
+                        <listitem>
+                            <para>Choose 'Rotate' then click clockwise or counterclockwise button for ratating image.</para>
+                            <para>Click 'Submit' button</para>
+                        </listitem>
+                    </orderedlist>
+                </section>
             </section>
         </section>
     </section>
