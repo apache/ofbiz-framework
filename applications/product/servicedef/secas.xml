@@ -132,7 +132,7 @@ under the License.
     <!-- Remove party content of image  -->
     <eca service="deletePartyRole" event="commit">
         <condition field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
-        <action service="removeImagePartyContent" mode="sync"/>
+        <action service="removeImageContentApproval" mode="sync"/>
     </eca>
 
 </service-eca>

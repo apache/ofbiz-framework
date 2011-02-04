@@ -291,11 +291,11 @@ public class ImageManagementServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
             
-            Map<String, Object> partyContentCtx = FastMap.newInstance();
-            partyContentCtx.put("contentId", contentId);
-            partyContentCtx.put("userLogin", userLogin);
+            Map<String, Object> contentApprovalCtx = FastMap.newInstance();
+            contentApprovalCtx.put("contentId", contentId);
+            contentApprovalCtx.put("userLogin", userLogin);
             try {
-                dispatcher.runSync("createImagePartyContent", partyContentCtx);
+                dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
             } catch (GenericServiceException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

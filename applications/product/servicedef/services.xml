@@ -1428,14 +1428,6 @@ under the License.
         <attribute mode="IN" name="uploadedFile" optional="false" type="java.nio.ByteBuffer"/>
     </service>
     
-    <service name="addImageCaption" engine="simple"
-        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="addImageCaption" auth="true">
-        <description>Replace Image To Exist Image.</description>
-        <attribute mode="IN" name="productId" optional="false" type="String"/>
-        <attribute mode="IN" name="contentId" optional="false" type="String"/>
-        <attribute mode="IN" name="description" optional="true" type="String"/>
-    </service>
-    
     <service name="imageCrop" engine="java"
         location="org.ofbiz.product.imagemanagement.CropImage" invoke="imageCrop" auth="true">
         <description>Crop Image</description>
@@ -1459,8 +1451,8 @@ under the License.
         location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="setImageDetail" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="defaultSequenceNum" mode="IN" type="Integer" optional="true"/>
-        <attribute name="exclude" mode="IN" type="String" optional="true" default-value="N"/>
+        <attribute name="sequenceNum" mode="IN" type="Integer" optional="true"/>
+        <attribute name="drIsPublic" mode="IN" type="String" optional="true" default-value="N"/>
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
     
@@ -1476,13 +1468,13 @@ under the License.
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
     
-    <service name="createImagePartyContent" engine="simple"
-        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="createImagePartyContent" auth="true">
+    <service name="createImageContentApproval" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="createImageContentApproval" auth="true">
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
     </service>
     
-    <service name="removeImagePartyContent" engine="simple"
-        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="removeImagePartyContent" auth="true">
+    <service name="removeImageContentApproval" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="removeImageContentApproval" auth="true">
         <attribute name="partyId" mode="IN" type="String" optional="false"/>
     </service>
     

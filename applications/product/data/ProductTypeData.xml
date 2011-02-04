@@ -593,9 +593,8 @@ under the License.
     <!-- Image Management -->
     <RoleType roleTypeId="IMAGEAPPROVER" hasTable="N" description="Image Approver"/>
     
-    <PartyContentType partyContentTypeId="IMAGEAPPROVER" description="Image Approver"/>
-    
     <ProductContentType description="Image" hasTable="N" parentTypeId="" productContentTypeId="IMAGE"/>
+    <ProductContentType description="Image Thumbnail" hasTable="N" parentTypeId="" productContentTypeId="DEFAULT_IMAGE"/>
     <ProductContentType description="Frame" hasTable="N" parentTypeId="" productContentTypeId="FRAME"/>
     
     <ContentType contentTypeId="IMAGE_FRAME" description="Frame Image"/>
