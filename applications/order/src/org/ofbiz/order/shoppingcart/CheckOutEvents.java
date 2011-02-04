@@ -264,6 +264,8 @@ public class CheckOutEvents {
     }
 
     public static String setPartialCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
+        // FIXME response need to be checked ?
+        // String resp = setCheckOutOptions(request, response);
         setCheckOutOptions(request, response);
         request.setAttribute("_ERROR_MESSAGE_", null);
         return "success";
@@ -700,6 +702,7 @@ public class CheckOutEvents {
         String isGift = null;
         String internalCode = null;
         String methodType = null;
+        //FIXME can be removed ?
         // String singleUsePayment = null;
         // String appendPayment = null;
         String shipBeforeDate = null;
@@ -864,6 +867,7 @@ public class CheckOutEvents {
             Debug.log("Changing mode from->to: " + mode + "->payment", module);
             mode = "payment";
         }
+        //FIXME can be removed ?
         // singleUsePayment = request.getParameter("singleUsePayment");
         // appendPayment = request.getParameter("appendPayment");
         // boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
