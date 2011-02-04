@@ -1407,7 +1407,7 @@ under the License.
         location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="removeImageFileForImageManagement" auth="true">
         <description>Delete Image File</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
-        <attribute mode="IN" name="dataResourceName" optional="false" type="String"/>
+        <attribute mode="IN" name="objectInfo" optional="false" type="String"/>
         <attribute mode="IN" name="productId" optional="false" type="String"/>
     </service>
     
@@ -1460,7 +1460,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="defaultSequenceNum" mode="IN" type="Integer" optional="true"/>
-        <attribute name="enable" mode="IN" type="Boolean" optional="true" default-value="true"/>
+        <attribute name="exclude" mode="IN" type="String" optional="true" default-value="N"/>
         <attribute name="description" mode="IN" type="String" optional="true"/>
     </service>
     

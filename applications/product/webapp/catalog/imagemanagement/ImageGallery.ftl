@@ -23,8 +23,8 @@ under the License.
         <#if product?has_content>
             <h1><b>${product.productId}</b></h1>
         </#if>
-        <#assign productName = productTextData >
-        <#assign seoUrl = productName.replaceAll(" ", "-") >
+        <#-- <#assign productName = productTextData >
+        <#assign seoUrl = productName.replaceAll(" ", "-") > -->
         <#assign alt_row = false>
         <#list productContentAndInfos as productContentAndInfo>
             <#assign contentAssocs  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", productContentAndInfo.contentId?if_exists, "contentAssocTypeId", "IMAGE_THUMBNAIL"))/>
@@ -38,10 +38,12 @@ under the License.
                             <table>
                                 <tbody>
                                     <tr valign="middle">
-                                        <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
+                                        <#-- <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td> -->
+                                        <td align="center"><a href="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
                                     </tr>
                                     <tr valign="middle">
-                                        <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td>
+                                        <#-- <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td> -->
+                                        <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}','' ,500,500);" class="buttontext">Share</a></td>
                                     </tr>
                                     <br/>
                                 </tbody>
@@ -55,10 +57,12 @@ under the License.
                             <table>
                                 <tbody>
                                     <tr valign="middle">
-                                        <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
+                                        <#-- <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td> -->
+                                        <td align="center"><a href="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
                                     </tr>
                                     <tr valign="middle">
-                                        <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td>
+                                        <#-- <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td> -->
+                                        <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}','' ,500,500);" class="buttontext">Share</a></td>
                                     </tr>
                                     <br/>
                                 </tbody>

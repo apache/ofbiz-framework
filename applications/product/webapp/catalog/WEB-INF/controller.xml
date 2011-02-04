@@ -2785,6 +2785,12 @@ under the License.
         <response name="success" type="view" value="ImageUpload"/>
         <response name="error" type="view" value="ImageUpload"/>
     </request-map>
+    <request-map uri="removeImage">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeProductContentAndImageFile"/>
+        <response name="success" type="view" value="ListImageRemove"/>
+        <response name="error" type="view" value="ListImageRemove"/>
+    </request-map>
     <request-map uri="createWatermarkImage">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.imagemanagement.WatermarkImage" invoke="createWatermarkImage"/>
@@ -2816,11 +2822,6 @@ under the License.
         <security https="false" auth="false"/>
         <response name="success" type="view" value="viewImage"/>
         <response name="error" type="view" value="viewImage"/>
-    </request-map>
-    <request-map uri="viewImages">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="viewImages"/>
-        <response name="error" type="view" value="viewImages"/>
     </request-map>
     <request-map uri="viewPreviewImage">
         <security https="true" auth="true"/>
@@ -2969,6 +2970,14 @@ under the License.
         <event type="java" path="org.ofbiz.product.imagemanagement.WatermarkImage" invoke="deletePreviewWatermarkImage"/>
         <response name="success" type="view" value="ListImageManage"/>
         <response name="error" type="view" value="ImageWatermarking"/>
+    </request-map>
+    <request-map uri="ImageRemove">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ImageRemove"/>
+    </request-map>
+    <request-map uri="ListImageRemove">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListImageRemove"/>
     </request-map>
 
    <!-- ================ Lookup Requests ================= -->
@@ -3221,7 +3230,6 @@ under the License.
     <view-map name="ImageShare" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageShare" type="screen"/>
     <view-map name="ImageReplace" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageReplace" type="screen"/>
     <view-map name="viewImage" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewImage" type="screen"/>
-    <view-map name="viewImages" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewImages" type="screen"/>
     <view-map name="viewPreviewImage" page="component://product/widget/catalog/ImageManagementScreens.xml#ViewPreviewImage" type="screen"/>
     <view-map name="LookupImage" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImage" type="screen"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
@@ -3236,5 +3244,7 @@ under the License.
     <view-map name="AutomaticResize" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#AutomaticResize"/>
     <view-map name="ListAutomaticResize" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListAutomaticResize"/>
     <view-map name="LookupImageFrame" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImageFrame"/>
+    <view-map name="ImageRemove" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRemove"/>
+    <view-map name="ListImageRemove" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListImageRemove"/>
     <!-- end of view mappings -->
 </site-conf>

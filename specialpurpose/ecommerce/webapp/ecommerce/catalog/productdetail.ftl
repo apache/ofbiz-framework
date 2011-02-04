@@ -343,88 +343,81 @@ ${virtualVariantJavaScript?if_exists}
 
 <hr />
 <div id="productImageBox">
-  <#-- Product image/name/price -->
-    <div id="detailImageBox">
-      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists />
-      <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
-      <#if firstLargeImage?has_content>
-        <#assign productLargeImageUrl = firstLargeImage />
-      </#if>
-      <#if productLargeImageUrl?string?has_content>
-        <a href="javascript:popupDetail('${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}');"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5"  alt="" /></a>
-        <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" />
-      </#if>
-      <#if !productLargeImageUrl?string?has_content>
-        <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage" alt="" />
-      </#if>
-    </div>
-    <div id="additionalImageBox">
-      <#if productAdditionalImage1?string?has_content>
-        <#assign productAdditionalImage1Small = productContentWrapper.get("XTRA_IMG_1_SMALL")?if_exists />
-        <#assign productAdditionalImage1Large = productContentWrapper.get("XTRA_IMG_1_LARGE")?if_exists />
-        <#assign productAdditionalImage1Detail = productContentWrapper.get("XTRA_IMG_1_DETAIL")?if_exists />
-        <div class="additionalImage">
-          <#if productAdditionalImage1Small?string?has_content && productAdditionalImage1Large?string?has_content>
-            <#if productAdditionalImage1Detail?string?has_content>
-              <a href="javascript:popupDetail('${productAdditionalImage1Detail}');" swapDetail="<@ofbizContentUrl>${productAdditionalImage1Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
-            <#else>
-            <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
+    <#assign userLoginSecurityGroup = delegator.findByAnd("UserLoginSecurityGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("groupId", "IMAGEADMIN"))>
+    <#if userLoginSecurityGroup != null && userLoginSecurityGroup?has_content>
+        <#-- Product image/name/price -->
+        <div id="detailImageBox">
+            <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists />
+            <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
+            <#if firstLargeImage?has_content>
+                <#assign productLargeImageUrl = firstLargeImage />
             </#if>
-          <#else>
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
-          </#if>
+            <#if productLargeImageUrl?string?has_content>
+                <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
+                <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" />
+            </#if>
+            <#if !productLargeImageUrl?string?has_content>
+                <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage" alt="" />
+            </#if>
         </div>
-      </#if>
-      <#if productAdditionalImage2?string?has_content>
-        <#assign productAdditionalImage2Small = productContentWrapper.get("XTRA_IMG_2_SMALL")?if_exists />
-        <#assign productAdditionalImage2Large = productContentWrapper.get("XTRA_IMG_2_LARGE")?if_exists />
-        <#assign productAdditionalImage2Detail = productContentWrapper.get("XTRA_IMG_2_DETAIL")?if_exists />
-        <div class="additionalImage">
-          <#if productAdditionalImage2Small?string?has_content && productAdditionalImage2Large?string?has_content>
-            <#if productAdditionalImage2Detail?string?has_content>
-              <a href="javascript:popupDetail('${productAdditionalImage2Detail}');" swapDetail="<@ofbizContentUrl>${productAdditionalImage2Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
-            <#else>
-            <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
+        <#-- Show Image Approved -->
+        <#assign productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", {"productId", product.productId?if_exists, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "exclude", "N"}, Static["org.ofbiz.base.util.UtilMisc"].toList("defaultSequenceNum"))>
+        <div id="additionalImageBox">
+            <#if productContentAndInfos?has_content>
+                <#list productContentAndInfos as productContentAndInfo>
+                    <#assign contentAssocs  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", productContentAndInfo.contentId?if_exists, "contentAssocTypeId", "IMAGE_THUMBNAIL"))/>
+                    <#if contentAssocs?has_content>
+                        <#list contentAssocs as contentAssoc>
+                            <#assign ImageContent = delegator.findByPrimaryKey("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo))?if_exists>
+                            <#assign contentDataResourceView = delegator.findByPrimaryKey("ContentDataResourceView", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo, "drDataResourceId", ImageContent.dataResourceId))?if_exists>
+                            <div class="additionalImage">
+                                <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productContentAndInfo.drObjectInfo}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${contentDataResourceView.drObjectInfo}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
+                            </div>
+                        </#list>	
+                    </#if>
+                </#list>
             </#if>
-          <#else>
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
-          </#if>
-         </div>
-      </#if>
-      <#if productAdditionalImage3?string?has_content>
-        <#assign productAdditionalImage3Small = productContentWrapper.get("XTRA_IMG_3_SMALL")?if_exists />
-        <#assign productAdditionalImage3Large = productContentWrapper.get("XTRA_IMG_3_LARGE")?if_exists />
-        <#assign productAdditionalImage3Detail = productContentWrapper.get("XTRA_IMG_3_DETAIL")?if_exists />
-        <div class="additionalImage">
-          <#if productAdditionalImage3Small?string?has_content && productAdditionalImage3Large?string?has_content>
-            <#if productAdditionalImage3Detail?string?has_content>
-              <a href="javascript:popupDetail('${productAdditionalImage3Detail}');" swapDetail="<@ofbizContentUrl>${productAdditionalImage3Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
-            <#else>
-            <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage3Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
-            </#if>
-          <#else>
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
-          </#if>
         </div>
-      </#if>
-      <#if productAdditionalImage4?string?has_content>
-        <#assign productAdditionalImage4Small = productContentWrapper.get("XTRA_IMG_4_SMALL")?if_exists />
-        <#assign productAdditionalImage4Large = productContentWrapper.get("XTRA_IMG_4_LARGE")?if_exists />
-        <#assign productAdditionalImage4Detail = productContentWrapper.get("XTRA_IMG_4_DETAIL")?if_exists />
-        <div class="additionalImage">
-          <#if productAdditionalImage4Small?string?has_content && productAdditionalImage4Large?string?has_content>
-            <#if productAdditionalImage4Detail?string?has_content>
-              <a href="javascript:popupDetail('${productAdditionalImage4Detail}');" swapDetail="<@ofbizContentUrl>${productAdditionalImage4Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
-            <#else>
-            <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage4Large?string}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4Small?string}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
+    <#else>
+        <#-- Product image/name/price -->
+        <div id="detailImageBox">
+            <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists />
+            <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
+            <#if firstLargeImage?has_content>
+                <#assign productLargeImageUrl = firstLargeImage />
             </#if>
-          <#else>
-          <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
-          </#if>
+            <#if productLargeImageUrl?string?has_content>
+                <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
+                <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" />
+            </#if>
+            <#if !productLargeImageUrl?string?has_content>
+                <img id="detailImage" src="/images/defaultImage.jpg" name="mainImage" alt="" />
+            </#if>
         </div>
-      </#if>
-    </div>
-    </div>
+        <div id="additionalImageBox">
+            <#if productAdditionalImage1?string?has_content>
+                <div class="additionalImage">
+                    <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage1}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
+                </div>
+            </#if>
+            <#if productAdditionalImage2?string?has_content>
+                <div class="additionalImage">
+                    <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage2}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
+                </div>
+            </#if>
+            <#if productAdditionalImage3?string?has_content>
+                <div class="additionalImage">
+                    <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage3}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
+                </div>
+            </#if>
+            <#if productAdditionalImage4?string?has_content>
+                <div class="additionalImage">
+                    <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productAdditionalImage4}</@ofbizContentUrl>" vspace="5" hspace="5" width="200" alt="" /></a>
+                </div>
+            </#if>
+        </div>
+    </#if>
+    
     <div id="productDetailBox">
       <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>
       <div>${productContentWrapper.get("DESCRIPTION")?if_exists}</div>

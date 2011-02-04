@@ -185,7 +185,7 @@ under the License.
         
         <set field="removeImageFile.productId" from-field="parameters.productId"/>
         <set field="removeImageFile.contentId" from-field="parameters.contentId"/>
-        <set field="removeImageFile.dataResourceName" from-field="dataResource.dataResourceName"/>
+        <set field="removeImageFile.objectInfo" from-field="dataResource.objectInfo"/>
         <set-service-fields service-name="removeImageFileForImageManagement" map="removeImageFile" to-map="removeImageFileMap"/>
         <call-service service-name="removeImageFileForImageManagement" in-map-name="removeImageFileMap"/>
         
@@ -195,7 +195,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="setImageDetail" short-description="Set Image Detail">
-        <!-- set sort order (defaultSequenceNum) and exclude (enable) -->
+        <!-- set sort order (defaultSequenceNum) and exclude -->
         <entity-one value-field="productContent" entity-name="ProductContent"/>
         <set field="productContent.defaultSequenceNum" from-field="parameters.defaultSequenceNum" type="Long"/>
         <store-value value-field="productContent"/>
@@ -204,13 +204,7 @@ under the License.
             <set field="productContent.defaultSequenceNum" from-field="parameters.defaultSequenceNum" type="Long"/>
             <store-value value-field="productContent"/>
         </if-not-empty>
-        <if-compare operator="equals" value="false" field="parameters.enable"> <!-- if ticked checked box = false -->
-            <set field="parameters.enable" value="true"/>
-            <else>
-                <set field="parameters.enable" value="false"/>
-            </else>
-        </if-compare>
-        <set field="productContent.enable" from-field="parameters.enable" type="Boolean"/>
+        <set field="productContent.exclude" from-field="parameters.exclude" type="String"/>
         <store-value value-field="productContent"/>
         
         <!-- set caption -->
@@ -271,7 +265,7 @@ under the License.
                         </entity-and>
                         <first-from-list entry="productContent" list="productContents"/>
                         <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
-                        <set field="productContent.enable" value="N"/>
+                        <set field="productContent.exclude" value="N"/>
                         <set field="productContent.thumbnail" value="N"/>
                         <store-value value-field="productContent"/>
                         <else>
@@ -293,7 +287,7 @@ under the License.
                                 </entity-and>
                                 <first-from-list entry="productContent" list="productContents"/>
                                 <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
-                                <set field="productContent.enable" value="N"/>
+                                <set field="productContent.exclude" value="N"/>
                                 <set field="productContent.thumbnail" value="N"/>
                                 <store-value value-field="productContent"/>
                                 

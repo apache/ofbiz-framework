@@ -191,8 +191,8 @@ public class WatermarkImage{
 
                 String imageUrlThumb = "/images/products/management/" + productId + "/" + filenameTouseThumb;
 
-                createContentAndDataResourceWaterMark(request, userLogin, filenameToUse, imageUrlResource, contentId);
-                createContentAndDataResourceWaterMark(request, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb);
+                createContentAndDataResourceWaterMark(request, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
+                createContentAndDataResourceWaterMark(request, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
 
                 Map<String, Object> createContentAssocMap = FastMap.newInstance();
                 createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
@@ -241,7 +241,7 @@ public class WatermarkImage{
         return "success";
     }
 
-    public static Map<String, Object> createContentAndDataResourceWaterMark(HttpServletRequest request, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId){
+    public static Map<String, Object> createContentAndDataResourceWaterMark(HttpServletRequest request, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String mimeTypeId){
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -251,8 +251,8 @@ public class WatermarkImage{
         dataResourceCtx.put("objectInfo", imageUrl);
         dataResourceCtx.put("dataResourceName", filenameToUse);
         dataResourceCtx.put("userLogin", userLogin);
-        dataResourceCtx.put("dataResourceTypeId", "SHORT_TEXT");
-        dataResourceCtx.put("mimeTypeId", "text/html");
+        dataResourceCtx.put("dataResourceTypeId", "IMAGE_OBJECT");
+        dataResourceCtx.put("mimeTypeId", mimeTypeId);
         dataResourceCtx.put("isPublic", "Y");
 
         Map<String, Object> dataResourceResult = FastMap.newInstance();
