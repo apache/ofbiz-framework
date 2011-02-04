@@ -141,7 +141,7 @@ ${menuWrapper.renderMenuString()}
                     <tr>
                       <td valign="middle">
                         <div class="boxhead">
-                          <@htmlTemplate.lookupField3 formName="updatefeatures" name="fieldValue0_o_${rowCount}" id="fieldValue0_o_${rowCount}" fieldFormName="LookupFeature"/>
+                          <@htmlTemplate.lookupField formName="updatefeatures" name="fieldValue0_o_${rowCount}" id="fieldValue0_o_${rowCount}" fieldFormName="LookupProductFeature"/>
                         </div>
                       </td>
                           <input type="hidden" name="fieldName0_o_${rowCount}" value="productFeatureId"/>
