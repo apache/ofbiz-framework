@@ -220,11 +220,11 @@ public class WatermarkImage{
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());return "error";
                 }
                 
-                Map<String, Object> partyContentCtx = FastMap.newInstance();
-                partyContentCtx.put("contentId", contentId);
-                partyContentCtx.put("userLogin", userLogin);
+                Map<String, Object> contentApprovalCtx = FastMap.newInstance();
+                contentApprovalCtx.put("contentId", contentId);
+                contentApprovalCtx.put("userLogin", userLogin);
                 try {
-                    dispatcher.runSync("createImagePartyContent", partyContentCtx);
+                    dispatcher.runSync("createImageContentApproval", contentApprovalCtx);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());return "error";

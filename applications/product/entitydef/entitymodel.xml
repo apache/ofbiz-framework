@@ -2928,6 +2928,7 @@ under the License.
       <field name="useTime" type="numeric"></field>
       <field name="useTimeUomId" type="id"></field>
       <field name="useRoleTypeId" type="id"></field>
+      <field name="sequenceNum" type="numeric"></field>
       <prim-key field="productId"/>
       <prim-key field="contentId"/>
       <prim-key field="productContentTypeId"/>
@@ -4814,15 +4815,4 @@ under the License.
         <key-map field-name="productPromoContentTypeId" rel-field-name="productContentTypeId"/>
       </relation>
     </entity>
-    
-    <!-- Image Management -->
-    <extend-entity entity-name="ProductContent">
-        <field name="defaultSequenceNum" type="numeric"/>
-        <field name="exclude" type="indicator"/>
-        <field name="thumbnail" type="indicator"/>
-    </extend-entity>
-    
-    <extend-entity entity-name="PartyContent">
-        <field name="statusId" type="id"></field>
-    </extend-entity>
 </entitymodel>

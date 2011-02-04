@@ -361,7 +361,7 @@ ${virtualVariantJavaScript?if_exists}
             </#if>
         </div>
         <#-- Show Image Approved -->
-        <#assign productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", {"productId", product.productId?if_exists, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "exclude", "N"}, Static["org.ofbiz.base.util.UtilMisc"].toList("defaultSequenceNum"))>
+        <#assign productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", {"productId", product.productId?if_exists, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "Y"}, Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"))>
         <div id="additionalImageBox">
             <#if productContentAndInfos?has_content>
                 <#list productContentAndInfos as productContentAndInfo>

@@ -2735,9 +2735,9 @@ under the License.
         <response name="success" type="view" value="ListImageManage"/>
         <response name="error" type="view" value="ListImageManage"/>
     </request-map>
-    <request-map uri="setImageThumbnail">
+    <request-map uri="setDefaultImage">
         <security https="true" auth="true"/>
-        <event type="simple" path="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementEvents.xml" invoke="setImageThumbnail"/>
+        <event type="simple" path="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementEvents.xml" invoke="setDefaultImage"/>
         <response name="success" type="view" value="ListImageManage"/>
         <response name="error" type="view" value="ListImageManage"/>
     </request-map>
@@ -2842,12 +2842,6 @@ under the License.
         <event type="java" path="org.ofbiz.product.imagemanagement.ReplaceImage" invoke="replaceImageToExistImage"/>
         <response name="success" type="view" value="ListImageReplace"/>
         <response name="error" type="view" value="ListImageReplace"/>
-    </request-map>
-    <request-map uri="addImageCaption">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="addImageCaption"/>
-        <response name="success" type="view" value="ListImageCaption"/>
-        <response name="error" type="view" value="ListImageCaption"/>
     </request-map>
     <request-map uri="CropImage">
         <security https="true" auth="true"/>

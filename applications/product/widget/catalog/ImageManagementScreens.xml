@@ -90,9 +90,11 @@ under the License.
                                 <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfos">
                                     <condition-list combine="and">
                                         <condition-expr field-name="productId" from-field="parameters.productId"/>
+                                        <condition-expr field-name="productContentTypeId" value="IMAGE"/>
                                         <condition-expr field-name="statusId" value="IM_APPROVED"/>
+                                        <condition-expr field-name="drIsPublic" value="Y"/>
                                     </condition-list>
-                                    <order-by field-name="defaultSequenceNum"/>
+                                    <order-by field-name="sequenceNum"/>
                                 </entity-condition>
                                 
                                 <entity-and  list="productContents" entity-name="ProductContent">
@@ -203,11 +205,11 @@ under the License.
                 <entity-condition entity-name="PartyRole" list="partyRoles">
                     <condition-expr field-name="roleTypeId" value="IMAGEAPPROVER"/>
                 </entity-condition>
-                <entity-condition entity-name="PartyContentProductContentAndInfo" list="partyContentProductContentAndInfos">
+                <entity-condition entity-name="ContentApprovalProductContentAndInfo" list="contentApprovalProductContentAndInfos">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" from-field="userLogin.partyId"/>
-                        <condition-expr field-name="partyContentTypeId" value="IMAGEAPPROVER"/>
-                        <condition-expr field-name="statusId" value="IM_PENDING"/>
+                        <condition-expr field-name="roleTypeId" value="IMAGEAPPROVER"/>
+                        <condition-expr field-name="approvalStatusId" value="IM_PENDING"/>
                     </condition-list>
                     <order-by field-name="productId"/>
                 </entity-condition>
@@ -254,11 +256,11 @@ under the License.
                 <entity-one entity-name="UserLogin" value-field="userLoginInfo">
                     <field-map field-name="userLoginId" from-field="parameters.createdByUserLogin"/>
                 </entity-one>
-                <entity-condition entity-name="PartyContentProductContentAndInfo" list="partyContentProductContentAndInfos">
+                <entity-condition entity-name="ContentApprovalProductContentAndInfo" list="contentApprovalProductContentAndInfos">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" from-field="userLoginInfo.partyId"/>
-                        <condition-expr field-name="partyContentTypeId" value="IMAGEAPPROVER"/>
-                        <condition-expr field-name="statusId" value="IM_PENDING"/>
+                        <condition-expr field-name="roleTypeId" value="IMAGEAPPROVER"/>
+                        <condition-expr field-name="approvalStatusId" value="IM_PENDING"/>
                     </condition-list>
                     <order-by field-name="productId"/>
                 </entity-condition>
@@ -441,6 +443,9 @@ under the License.
                                         <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
                                         <screenlet title="${uiLabelMap.Manage}">
                                             <include-form name="ListImageManage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                        </screenlet>
+                                        <screenlet title="Default Image">
+                                            <include-form name="showDefaultImage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
@@ -1041,7 +1046,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.CommonRemove}">
-                                            <include-form name="ImageManage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                            <include-form name="ImageRemove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>

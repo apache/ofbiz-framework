@@ -21,28 +21,22 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
-    <simple-method method-name="setImageThumbnail" short-description="Set Image Thumbnail">
-        <!-- change status lastest thumbnail to 'N' -->
-        <entity-and list="lastestThumbnails" entity-name="ProductContent">
+    <simple-method method-name="setDefaultImage" short-description="Set Default Image">
+        <entity-and entity-name="ProductContent" list="lastestDefaults">
             <field-map field-name="productId" from-field="parameters.productId"/>
-            <field-map field-name="productContentTypeId" value="IMAGE"/>
-            <field-map field-name="thumbnail" value="Y"/>
+            <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>
         </entity-and>
-        <first-from-list entry="lastestThumbnail" list="lastestThumbnails"/>
-        <if-not-empty field="lastestThumbnail">
-            <set field="lastestThumbnail.thumbnail" value="N"/>
-            <store-value value-field="lastestThumbnail"/>
-        </if-not-empty>
+        <iterate list="lastestDefaults" entry="lastestDefault">
+            <remove-value value-field="lastestDefault"/>
+        </iterate>
         
-        <!-- set status thumbnail to 'Y' -->
-        <entity-and list="productContents" entity-name="ProductContent">
-            <field-map field-name="productId" from-field="parameters.productId"/>
-            <field-map field-name="contentId" from-field="parameters.contentId"/>
-            <field-map field-name="productContentTypeId" value="IMAGE"/>
-        </entity-and>
-        <first-from-list entry="productContent" list="productContents"/>
-        <set field="productContent.thumbnail" value="Y"/>
-        <store-value value-field="productContent"/>
+        <now-timestamp field="nowTimestamp"/>
+        <make-value entity-name="ProductContent" value-field="productContent"/>
+        <set field="productContent.productId" from-field="parameters.productId"/>
+        <set field="productContent.contentId" from-field="parameters.contentId"/>
+        <set field="productContent.productContentTypeId" value="DEFAULT_IMAGE"/>
+        <set field="productContent.fromDate" from-field="nowTimestamp"/>
+        <create-value value-field="productContent"/>
         
         <!-- set thumbnail to product -->
         <entity-and list="productContentAndInfos" entity-name="ProductContentAndInfo">
