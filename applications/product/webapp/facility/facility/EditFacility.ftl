@@ -90,7 +90,10 @@ under the License.
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductName}</td>
-    <td><input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60" /></td>
+    <td>
+      <input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60" />
+      <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+    </td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilitySize}</td>
