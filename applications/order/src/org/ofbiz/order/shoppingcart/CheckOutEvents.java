@@ -35,6 +35,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -172,7 +173,7 @@ public class CheckOutEvents {
             }
         } else if ("payment".equals(curPage) == true) {
             // Set the payment options
-            Map selectedPaymentMethods = getSelectedPaymentMethods(request);
+            Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
 
             String billingAccountId = request.getParameter("billingAccountId");
             if (UtilValidate.isNotEmpty(billingAccountId)) {
@@ -182,18 +183,18 @@ public class CheckOutEvents {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                     return "error";
                 }
-                selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", billingAccountAmt, "securityCode", null));
+                selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));
             }
 
             if (UtilValidate.isEmpty(selectedPaymentMethods)) {
                 return "error";
             }
 
-            List singleUsePayments = new ArrayList();
+            List<String> singleUsePayments = new ArrayList<String>();
 
             // check for gift card not on file
-            Map params = UtilHttp.getParameterMap(request);
-            Map gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
+            Map<String, Object> params = UtilHttp.getParameterMap(request);
+            Map<String, Object> gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
             ServiceUtil.getMessages(request, gcResult, null);
             if (gcResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                 return "error";
@@ -201,14 +202,14 @@ public class CheckOutEvents {
                 String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
                 BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
                 if (gcPaymentMethodId != null) {
-                    selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.toMap("amount", gcAmount, "securityCode", null));
+                    selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.<String, Object>toMap("amount", gcAmount, "securityCode", null));
                     if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
                         singleUsePayments.add(gcPaymentMethodId);
                     }
                 }
             }
 
-            Map callResult = checkOutHelper.setCheckOutPayment(selectedPaymentMethods, singleUsePayments, billingAccountId);
+            Map<String, Object> callResult = checkOutHelper.setCheckOutPayment(selectedPaymentMethods, singleUsePayments, billingAccountId);
             ServiceUtil.getMessages(request, callResult, null);
 
             if (!(callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
@@ -263,7 +264,7 @@ public class CheckOutEvents {
     }
 
     public static String setPartialCheckOutOptions(HttpServletRequest request, HttpServletResponse response) {
-        String resp = setCheckOutOptions(request, response);
+        setCheckOutOptions(request, response);
         request.setAttribute("_ERROR_MESSAGE_", null);
         return "success";
     }
@@ -281,7 +282,7 @@ public class CheckOutEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
-        Map resp = checkOutHelper.validatePaymentMethods();
+        Map<String, Object> resp = checkOutHelper.validatePaymentMethods();
         if (ServiceUtil.isError(resp)) {
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(resp));
             return "error";
@@ -289,10 +290,10 @@ public class CheckOutEvents {
         return "success";
     }
 
-    public static Map getSelectedPaymentMethods(HttpServletRequest request) {
+    public static Map<String, Map<String, Object>> getSelectedPaymentMethods(HttpServletRequest request) {
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
         //Locale locale = UtilHttp.getLocale(request);
-        Map selectedPaymentMethods = new HashMap();
+        Map<String, Map<String, Object>> selectedPaymentMethods = new HashMap<String, Map<String, Object>>();
         String[] paymentMethods = request.getParameterValues("checkOutPaymentId");
 
         if (UtilValidate.isNotEmpty(request.getParameter("issuerId"))) {
@@ -303,7 +304,7 @@ public class CheckOutEvents {
 
         if (paymentMethods != null) {
             for (int i = 0; i < paymentMethods.length; i++) {
-                Map paymentMethodInfo = FastMap.newInstance();
+                Map<String, Object> paymentMethodInfo = FastMap.newInstance();
 
                 String securityCode = request.getParameter("securityCode_" + paymentMethods[i]);
                 if (UtilValidate.isNotEmpty(securityCode)) {
@@ -336,7 +337,7 @@ public class CheckOutEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         // Set the payment options
-        Map selectedPaymentMethods = getSelectedPaymentMethods(request);
+        Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
@@ -349,7 +350,7 @@ public class CheckOutEvents {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                 return "error";
             }
-            selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", billingAccountAmt, "securityCode", null));
+            selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));
         }
 
         if (selectedPaymentMethods == null) {
@@ -372,15 +373,15 @@ public class CheckOutEvents {
         String shipBeforeDate = request.getParameter("shipBeforeDate");
         String shipAfterDate = request.getParameter("shipAfterDate");
 
-        List singleUsePayments = new ArrayList();
+        List<String> singleUsePayments = new ArrayList<String>();
 
         // get a request map of parameters
-        Map params = UtilHttp.getParameterMap(request);
+        Map<String, Object> params = UtilHttp.getParameterMap(request);
 
         // if taxAuthPartyGeoIds is not empty drop that into the database
         if (UtilValidate.isNotEmpty(taxAuthPartyGeoIds)) {
             try {
-                Map createCustomerTaxAuthInfoResult = dispatcher.runSync("createCustomerTaxAuthInfo",
+                Map<String, Object> createCustomerTaxAuthInfoResult = dispatcher.runSync("createCustomerTaxAuthInfo",
                         UtilMisc.toMap("partyId", cart.getPartyId(), "taxAuthPartyGeoIds", taxAuthPartyGeoIds, "partyTaxId", partyTaxId, "isExempt", isExempt));
                 ServiceUtil.getMessages(request, createCustomerTaxAuthInfoResult, null);
                 if (ServiceUtil.isError(createCustomerTaxAuthInfoResult)) {
@@ -394,7 +395,7 @@ public class CheckOutEvents {
         }
 
         // check for gift card not on file
-        Map gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
+        Map<String, Object> gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
         ServiceUtil.getMessages(request, gcResult, null);
         if (ServiceUtil.isError(gcResult)) {
             return "error";
@@ -403,13 +404,13 @@ public class CheckOutEvents {
         String gcPaymentMethodId = (String) gcResult.get("paymentMethodId");
         BigDecimal gcAmount = (BigDecimal) gcResult.get("amount");
         if (gcPaymentMethodId != null) {
-            selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.toMap("amount", gcAmount, "securityCode", null));
+            selectedPaymentMethods.put(gcPaymentMethodId, UtilMisc.<String, Object>toMap("amount", gcAmount, "securityCode", null));
             if ("Y".equalsIgnoreCase(request.getParameter("singleUseGiftCard"))) {
                 singleUsePayments.add(gcPaymentMethodId);
             }
         }
 
-        Map optResult = checkOutHelper.setCheckOutOptions(shippingMethod, shippingContactMechId, selectedPaymentMethods,
+        Map<String, Object> optResult = checkOutHelper.setCheckOutOptions(shippingMethod, shippingContactMechId, selectedPaymentMethods,
                 singleUsePayments, billingAccountId, shippingInstructions,
                 orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate);
 
@@ -429,7 +430,7 @@ public class CheckOutEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
-        Map callResult;
+        Map<String, Object> callResult;
 
         if (UtilValidate.isEmpty(userLogin)) {
             userLogin = cart.getUserLogin();
@@ -441,7 +442,7 @@ public class CheckOutEvents {
         boolean areOrderItemsExploded = explodeOrderItems(delegator, cart);
 
         //get the TrackingCodeOrder List
-        List trackingCodeOrders = TrackingCodeEvents.makeTrackingCodeOrders(request);
+        List<GenericValue> trackingCodeOrders = TrackingCodeEvents.makeTrackingCodeOrders(request);
         String distributorId = (String) session.getAttribute("_DISTRIBUTOR_ID_");
         String affiliateId = (String) session.getAttribute("_AFFILIATE_ID_");
         String visitId = VisitHandler.getVisitId(session);
@@ -565,7 +566,7 @@ public class CheckOutEvents {
 
         // load the ProductStore settings
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
-        Map callResult = checkOutHelper.processPayment(productStore, userLogin, false, holdOrder);
+        Map<String, Object> callResult = checkOutHelper.processPayment(productStore, userLogin, false, holdOrder);
 
         if (ServiceUtil.isError(callResult)) {
             // clear out the rejected payment methods (if any) from the cart, so they don't get re-authorized
@@ -578,7 +579,7 @@ public class CheckOutEvents {
         ServiceUtil.getMessages(request, callResult, null);
 
         // check for customer message(s)
-        List messages = (List) callResult.get("authResultMsgs");
+        List<String> messages = UtilGenerics.checkList(callResult.get("authResultMsgs"));
         if (UtilValidate.isNotEmpty(messages)) {
             request.setAttribute("_EVENT_MESSAGE_LIST_", messages);
         }
@@ -591,11 +592,10 @@ public class CheckOutEvents {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         CheckOutHelper checkOutHelper = new CheckOutHelper(null, delegator, cart);
         String result;
 
-        Map callResult = checkOutHelper.checkOrderBlackList();
+        Map<String, Object> callResult = checkOutHelper.checkOrderBlackList();
         if (callResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
             request.setAttribute("_ERROR_MESSAGE_", callResult.get(ModelService.ERROR_MESSAGE));
             result = "error";
@@ -622,7 +622,7 @@ public class CheckOutEvents {
         // Load the properties store
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
-        Map callResult = checkOutHelper.failedBlacklistCheck(userLogin, productStore);
+        Map<String, Object> callResult = checkOutHelper.failedBlacklistCheck(userLogin, productStore);
 
         //Generate any messages required
         ServiceUtil.getMessages(request, callResult, null);
@@ -675,7 +675,7 @@ public class CheckOutEvents {
 
         String orderId = (String) request.getAttribute("orderId");
         CheckOutHelper checkOutHelper = new CheckOutHelper(null, delegator, null);
-        Map callResult = checkOutHelper.checkExternalPayment(orderId);
+        Map<String, Object> callResult = checkOutHelper.checkExternalPayment(orderId);
 
         //Generate any messages required
         ServiceUtil.getMessages(request, callResult, null);
@@ -690,8 +690,7 @@ public class CheckOutEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
 
-        Map paramMap = UtilHttp.getParameterMap(request);
-        Boolean offlinePayments;
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String shippingContactMechId = null;
         String shippingMethod = null;
         BigDecimal shipEstimate = null; 
@@ -701,8 +700,8 @@ public class CheckOutEvents {
         String isGift = null;
         String internalCode = null;
         String methodType = null;
-        String singleUsePayment = null;
-        String appendPayment = null;
+        // String singleUsePayment = null;
+        // String appendPayment = null;
         String shipBeforeDate = null;
         String shipAfterDate = null;
         String internalOrderNotes = null;
@@ -865,18 +864,18 @@ public class CheckOutEvents {
             Debug.log("Changing mode from->to: " + mode + "->payment", module);
             mode = "payment";
         }
-        singleUsePayment = request.getParameter("singleUsePayment");
-        appendPayment = request.getParameter("appendPayment");
-        boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
-        boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
+        // singleUsePayment = request.getParameter("singleUsePayment");
+        // appendPayment = request.getParameter("appendPayment");
+        // boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
+        // boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
 
         if (mode != null && mode.equals("payment")) {
-            Map callResult = ServiceUtil.returnSuccess();
-            List errorMessages = new ArrayList();
-            Map errorMaps = new HashMap();
+            Map<String, Object> callResult = ServiceUtil.returnSuccess();
+            List<String> errorMessages = new ArrayList<String>();
+            Map<String, Object> errorMaps = new HashMap<String, Object>();
 
             // Set the payment options
-            Map selectedPaymentMethods = getSelectedPaymentMethods(request);
+            Map<String, Map<String, Object>> selectedPaymentMethods = getSelectedPaymentMethods(request);
 
             // Set the billing account (if any)
             String billingAccountId = request.getParameter("billingAccountId");
@@ -887,7 +886,7 @@ public class CheckOutEvents {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
                     return "error";
                 }
-                selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.toMap("amount", billingAccountAmt, "securityCode", null));
+                selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));
             }
 
             if (UtilValidate.isEmpty(selectedPaymentMethods)) {
@@ -913,7 +912,7 @@ public class CheckOutEvents {
                 String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
                 BigDecimal giftCardAmount = (BigDecimal) callResult.get("amount");
                 // WARNING: if gcPaymentMethodId is not empty, all the previously set payment methods will be removed
-                Map gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
+                Map<String, Object> gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
                 ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
             }
             //See whether we need to return an error or not
@@ -1035,8 +1034,8 @@ public class CheckOutEvents {
                     return "term";
                 }
             } else if (currProcess.equals("payment")) {
-                List paymentMethodIds = cart.getPaymentMethodIds();
-                List paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
+                List<String> paymentMethodIds = cart.getPaymentMethodIds();
+                List<String> paymentMethodTypeIds = cart.getPaymentMethodTypeIds();
                 if (requirePayment && UtilValidate.isEmpty(paymentMethodIds) && UtilValidate.isEmpty(paymentMethodTypeIds)) {
                     return "payment";
                 }
@@ -1129,12 +1128,12 @@ public class CheckOutEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("shoppingCart");
 
-        Map context = cart.makeCartMap(dispatcher, false);
+        Map<String, Object> context = cart.makeCartMap(dispatcher, false);
         String originalOrderId = request.getParameter("orderId");
 
         // create the replacement order adjustment
-        List <GenericValue>orderAdjustments = (List) context.get("orderAdjustments");
-        List <GenericValue>orderItems = (List) context.get("orderItems");
+        List <GenericValue>orderAdjustments = UtilGenerics.checkList(context.get("orderAdjustments"));
+        List <GenericValue>orderItems = UtilGenerics.checkList(context.get("orderItems"));
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderAdjustments, orderItems);
         BigDecimal grandTotal = orderReadHelper.getOrderGrandTotal();
         if (grandTotal.compareTo(new BigDecimal(0)) != 0) {
@@ -1151,7 +1150,7 @@ public class CheckOutEvents {
         for (ShoppingCartItem sci : cartLines) {
             int index = cart.getItemIndex(sci);
             try {
-                Map orderItemMap = FastMap.newInstance();
+                Map<String, Object> orderItemMap = FastMap.newInstance();
                 orderItemMap.put("orderId", originalOrderId);
                 orderItemMap.put("isPromo", sci.getIsPromo() ? "Y" : "N");
                 orderItemMap.put("productId", sci.getProductId());
