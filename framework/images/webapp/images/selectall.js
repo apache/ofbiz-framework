@@ -265,6 +265,7 @@ function ajaxUpdateAreas(areaCsvString) {
         targetParams = targetParams.replace('?','');
         jQuery.ajax({
             url: target,
+            async: false,
             type: "POST",
             data: targetParams,
             success: function(data) {
