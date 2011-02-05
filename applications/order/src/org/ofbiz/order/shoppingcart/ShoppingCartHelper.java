@@ -98,12 +98,12 @@ public class ShoppingCartHelper {
     }
 
     /** Event to add an item to the shopping cart. */
-    public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
+    public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
             java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
-            ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
+            ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
         return addToCart(catalogId,shoppingListId,shoppingListItemSeqId,productId,
                 productCategoryId,itemType,itemDescription,price,amount,quantity,
@@ -112,14 +112,14 @@ public class ShoppingCartHelper {
     }
 
     /** Event to add an item to the shopping cart with accommodation. */
-    public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
+    public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
             java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
-            ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
-        Map result = null;
-        Map attributes = null;
+            ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
+        Map<String, Object> result = null;
+        Map<String, Object> attributes = null;
         String pProductId = null;
         pProductId = parentProductId;
         // price sanity check
@@ -180,7 +180,7 @@ public class ShoppingCartHelper {
         // Create a HashMap of product attributes - From ShoppingCartItem.attributeNames[]
         for (int namesIdx = 0; namesIdx < ShoppingCartItem.attributeNames.length; namesIdx++) {
             if (attributes == null)
-                attributes = new HashMap();
+                attributes = new HashMap<String, Object>();
             if (context.containsKey(ShoppingCartItem.attributeNames[namesIdx])) {
                 attributes.put(ShoppingCartItem.attributeNames[namesIdx], context.get(ShoppingCartItem.attributeNames[namesIdx]));
             }
@@ -205,11 +205,11 @@ public class ShoppingCartHelper {
         }
 
         // Get the additional features selected for the product (if any)
-        Map selectedFeatures = UtilHttp.makeParamMapWithPrefix(context, null, "FT", null);
-        Iterator selectedFeaturesTypes = selectedFeatures.keySet().iterator();
-        Map additionalFeaturesMap = FastMap.newInstance();
+        Map<String, Object> selectedFeatures = UtilHttp.makeParamMapWithPrefix(context, null, "FT", null);
+        Iterator<String> selectedFeaturesTypes = selectedFeatures.keySet().iterator();
+        Map<String, GenericValue> additionalFeaturesMap = FastMap.newInstance();
         while (selectedFeaturesTypes.hasNext()) {
-            String selectedFeatureType = (String)selectedFeaturesTypes.next();
+            String selectedFeatureType = selectedFeaturesTypes.next();
             String selectedFeatureValue = (String)selectedFeatures.get(selectedFeatureType);
             if (UtilValidate.isNotEmpty(selectedFeatureValue)) {
                 GenericValue productFeatureAndAppl = null;
@@ -265,9 +265,9 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    public Map addToCartFromOrder(String catalogId, String orderId, String[] itemIds, boolean addAll, String itemGroupNumber) {
-        ArrayList errorMsgs = new ArrayList();
-        Map result;
+    public Map<String, Object> addToCartFromOrder(String catalogId, String orderId, String[] itemIds, boolean addAll, String itemGroupNumber) {
+        ArrayList<String> errorMsgs = new ArrayList<String>();
+        Map<String, Object> result;
         String errMsg = null;
 
         if (orderId == null || orderId.length() <= 0) {
@@ -277,8 +277,8 @@ public class ShoppingCartHelper {
         }
 
         boolean noItems = true;
-        List itemIdList = null;
-        Iterator itemIter = null;
+        List<? extends Object> itemIdList = null;
+        Iterator<? extends Object> itemIter = null;
         OrderReadHelper orderHelper = new OrderReadHelper(delegator, orderId);
         if (addAll) {
             itemIdList = orderHelper.getOrderItems();
@@ -364,7 +364,7 @@ public class ShoppingCartHelper {
      *  - name="quantity_${productId}" value="${quantity}
      *  - name="product_${whatever}" value="${productId}" (note: quantity is always 1)
      */
-    public Map addToCartBulk(String catalogId, String categoryId, Map context) {
+    public Map<String, Object> addToCartBulk(String catalogId, String categoryId, Map<String, ? extends Object> context) {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // use this prefix for the main structure such as a checkbox or a text input where name="quantity_${productId}" value="${quantity}"
         String keyPrefix = "quantity_";
@@ -375,9 +375,7 @@ public class ShoppingCartHelper {
         String ignSeparator = "_ign_";
 
         // iterate through the context and find all keys that start with "quantity_"
-        Iterator entryIter = context.entrySet().iterator();
-        while (entryIter.hasNext()) {
-            Map.Entry entry = (Map.Entry) entryIter.next();
+        for (Map.Entry<String, ? extends Object> entry : context.entrySet()) {
             String productId = null;
             String quantStr = null;
             String itemGroupNumberToUse = itemGroupNumber;
@@ -450,8 +448,7 @@ public class ShoppingCartHelper {
     /**
      * Adds a set of requirements to the cart.
      */
-    public Map addToCartBulkRequirements(String catalogId, Map context) {
-        NumberFormat nf = NumberFormat.getNumberInstance(this.cart.getLocale());
+    public Map<String, Object> addToCartBulkRequirements(String catalogId, Map<String, ? extends Object> context) {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // check if we are using per row submit
         boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
@@ -508,10 +505,10 @@ public class ShoppingCartHelper {
                         quantity = BigDecimal.ZERO;
                     }
                     if (quantity.compareTo(BigDecimal.ZERO) > 0) {
-                        Iterator items = this.cart.iterator();
+                        Iterator<ShoppingCartItem> items = this.cart.iterator();
                         boolean requirementAlreadyInCart = false;
                         while (items.hasNext() && !requirementAlreadyInCart) {
-                            ShoppingCartItem sci = (ShoppingCartItem)items.next();
+                            ShoppingCartItem sci = items.next();
                             if (sci.getRequirementId() != null && sci.getRequirementId().equals(requirementId)) {
                                 requirementAlreadyInCart = true;
                                 continue;
@@ -544,9 +541,9 @@ public class ShoppingCartHelper {
      * for each; if no default for a certain product in the category, or if
      * quantity is 0, do not add
      */
-    public Map addCategoryDefaults(String catalogId, String categoryId, String itemGroupNumber) {
-        ArrayList errorMsgs = new ArrayList();
-        Map result = null;
+    public Map<String, Object> addCategoryDefaults(String catalogId, String categoryId, String itemGroupNumber) {
+        ArrayList<String> errorMsgs = new ArrayList<String>();
+        Map<String, Object> result = null;
         String errMsg = null;
 
         if (categoryId == null || categoryId.length() <= 0) {
@@ -555,13 +552,13 @@ public class ShoppingCartHelper {
             return result;
         }
 
-        Collection prodCatMemberCol = null;
+        Collection<GenericValue> prodCatMemberCol = null;
 
         try {
             prodCatMemberCol = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productCategoryId", categoryId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
-            Map messageMap = UtilMisc.toMap("categoryId", categoryId);
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
             messageMap.put("message", e.getMessage());
             errMsg = UtilProperties.getMessage(resource_error,"cart.could_not_get_products_in_category_cart", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
@@ -569,17 +566,17 @@ public class ShoppingCartHelper {
         }
 
         if (prodCatMemberCol == null) {
-            Map messageMap = UtilMisc.toMap("categoryId", categoryId);
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
             errMsg = UtilProperties.getMessage(resource_error,"cart.could_not_get_products_in_category", messageMap, this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
         }
 
         BigDecimal totalQuantity = BigDecimal.ZERO;
-        Iterator pcmIter = prodCatMemberCol.iterator();
+        Iterator<GenericValue> pcmIter = prodCatMemberCol.iterator();
 
         while (pcmIter.hasNext()) {
-            GenericValue productCategoryMember = (GenericValue) pcmIter.next();
+            GenericValue productCategoryMember = pcmIter.next();
             BigDecimal quantity = productCategoryMember.getBigDecimal("quantity");
 
             if (quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0) {
@@ -607,14 +604,14 @@ public class ShoppingCartHelper {
     }
 
     /** Delete an item from the shopping cart. */
-    public Map deleteFromCart(Map context) {
-        Map result = null;
-        Set names = context.keySet();
-        Iterator i = names.iterator();
-        ArrayList errorMsgs = new ArrayList();
+    public Map<String, Object> deleteFromCart(Map<String, ? extends Object> context) {
+        Map<String, Object> result = null;
+        Set<String> names = context.keySet();
+        Iterator<String> i = names.iterator();
+        ArrayList<String> errorMsgs = new ArrayList<String>();
 
         while (i.hasNext()) {
-            String o = (String) i.next();
+            String o = i.next();
 
             if (o.toUpperCase().startsWith("DELETE")) {
                 try {
@@ -641,17 +638,17 @@ public class ShoppingCartHelper {
     }
 
     /** Update the items in the shopping cart. */
-    public Map modifyCart(Security security, GenericValue userLogin, Map context, boolean removeSelected, String[] selectedItems, Locale locale) {
-        Map result = null;
+    public Map<String, Object> modifyCart(Security security, GenericValue userLogin, Map<String, ? extends Object> context, boolean removeSelected, String[] selectedItems, Locale locale) {
+        Map<String, Object> result = null;
         if (locale == null) {
             locale = this.cart.getLocale();
         }
 
-        ArrayList deleteList = new ArrayList();
-        ArrayList errorMsgs = new ArrayList();
+        ArrayList<ShoppingCartItem> deleteList = new ArrayList<ShoppingCartItem>();
+        ArrayList<String> errorMsgs = new ArrayList<String>();
 
-        Set parameterNames = context.keySet();
-        Iterator parameterNameIter = parameterNames.iterator();
+        Set<String> parameterNames = context.keySet();
+        Iterator<String> parameterNameIter = parameterNames.iterator();
 
         BigDecimal oldQuantity = BigDecimal.ONE.negate();
         String oldDescription = "";
@@ -666,7 +663,7 @@ public class ShoppingCartHelper {
 
         // TODO: This should be refactored to use UtilHttp.parseMultiFormData(parameters)
         while (parameterNameIter.hasNext()) {
-            String parameterName = (String) parameterNameIter.next();
+            String parameterName = parameterNameIter.next();
             int underscorePos = parameterName.lastIndexOf('_');
 
             if (underscorePos >= 0) {
@@ -862,10 +859,10 @@ public class ShoppingCartHelper {
             }
         }
 
-        Iterator di = deleteList.iterator();
+        Iterator<ShoppingCartItem> di = deleteList.iterator();
 
         while (di.hasNext()) {
-            ShoppingCartItem item = (ShoppingCartItem) di.next();
+            ShoppingCartItem item = di.next();
             int itemIndex = this.cart.getItemIndex(item);
 
             if (Debug.infoOn())
@@ -873,7 +870,7 @@ public class ShoppingCartHelper {
             try {
                 this.cart.removeCartItem(itemIndex, dispatcher);
             } catch (CartItemModifyException e) {
-                result = ServiceUtil.returnError(new ArrayList());
+                result = ServiceUtil.returnError(new ArrayList<String>());
                 errorMsgs.add(e.getMessage());
             }
         }
@@ -912,7 +909,7 @@ public class ShoppingCartHelper {
             throw new IllegalArgumentException("No delegator available to lookup ProductFeature");
         }
 
-        Map fields = UtilMisc.toMap("productId", productId, "productFeatureId", featureId);
+        Map<String, String> fields = UtilMisc.<String, String>toMap("productId", productId, "productFeatureId", featureId);
         if (optionField != null) {
             int featureTypeStartIndex = optionField.indexOf('^') + 1;
             int featureTypeEndIndex = optionField.lastIndexOf('_');
@@ -922,7 +919,7 @@ public class ShoppingCartHelper {
         }
 
         GenericValue productFeatureAppl = null;
-        List features = null;
+        List<GenericValue> features = null;
         try {
             features = delegator.findByAnd("ProductFeatureAndAppl", fields, UtilMisc.toList("-fromDate"));
         } catch (GenericEntityException e) {
@@ -955,8 +952,8 @@ public class ShoppingCartHelper {
      *
      * @param agreementId
      */
-    public Map selectAgreement(String agreementId) {
-        Map result = null;
+    public Map<String, Object> selectAgreement(String agreementId) {
+        Map<String, Object> result = null;
         GenericValue agreement = null;
 
         if ((this.delegator == null) || (this.dispatcher == null) || (this.cart == null)) {
@@ -984,7 +981,7 @@ public class ShoppingCartHelper {
             cart.setAgreementId(agreementId);
             try {
                 // set the currency based on the pricing agreement
-                List agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null);
+                List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null);
                 if (agreementItems.size() > 0) {
                     GenericValue agreementItem = (GenericValue) agreementItems.get(0);
                     String currencyUomId = (String) agreementItem.get("currencyUomId");
@@ -1007,7 +1004,7 @@ public class ShoppingCartHelper {
                  // clear the existing order terms
                  cart.removeOrderTerms();
                  // set order terms based on agreement terms
-                 List agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm"));
+                 List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm"));
                  if (agreementTerms.size() > 0) {
                       for (int i = 0; agreementTerms.size() > i;i++) {
                            GenericValue agreementTerm = (GenericValue) agreementTerms.get(i);
@@ -1027,8 +1024,8 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    public Map setCurrency(String currencyUomId) {
-        Map result = null;
+    public Map<String, Object> setCurrency(String currencyUomId) {
+        Map<String, Object> result = null;
 
         try {
             this.cart.setCurrency(this.dispatcher,currencyUomId);
@@ -1040,19 +1037,19 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    public Map addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays) {
+    public Map<String, Object> addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays) {
         return addOrderTerm(termTypeId, termValue, termDays, null);
     }
 
-    public Map addOrderTerm(String termTypeId, BigDecimal termValue,Long termDays, String textValue) {
-        Map result = null;
+    public Map<String, Object> addOrderTerm(String termTypeId, BigDecimal termValue,Long termDays, String textValue) {
+        Map<String, Object> result = null;
         this.cart.addOrderTerm(termTypeId,termValue,termDays,textValue);
         result = ServiceUtil.returnSuccess();
         return result;
     }
 
-    public Map removeOrderTerm(int index) {
-        Map result = null;
+    public Map<String, Object> removeOrderTerm(int index) {
+        Map<String, Object> result = null;
         this.cart.removeOrderTerm(index);
         result = ServiceUtil.returnSuccess();
         return result;

@@ -106,7 +106,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private List<GenericValue> adjustments = FastList.newInstance();
     // OrderTerms
     private boolean orderTermSet = false;
-    private List orderTerms = new LinkedList();
+    private List<GenericValue> orderTerms = new LinkedList<GenericValue>();
 
     private List<ShoppingCartItem> cartLines = FastList.newInstance();
     private Map itemGroupByNumberMap = FastMap.newInstance();
@@ -2766,7 +2766,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Get a List of orderTerms on the order (ie cart) */
-    public List getOrderTerms() {
+    public List<GenericValue> getOrderTerms() {
         return orderTerms;
     }
 
@@ -2811,9 +2811,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (termTypeId == null) {
             return false;
         }
-        Iterator orderTermsIt = orderTerms.iterator();
+        Iterator<GenericValue> orderTermsIt = orderTerms.iterator();
         while (orderTermsIt.hasNext()) {
-            GenericValue orderTerm = (GenericValue)orderTermsIt.next();
+            GenericValue orderTerm = orderTermsIt.next();
             if (termTypeId.equals(orderTerm.getString("termTypeId"))) {
                 return true;
             }

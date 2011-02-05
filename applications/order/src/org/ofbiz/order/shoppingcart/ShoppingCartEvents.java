@@ -21,8 +21,8 @@ package org.ofbiz.order.shoppingcart;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
-import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +40,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -96,7 +97,7 @@ public class ShoppingCartEvents {
 
     public static String addItemGroup(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
-        Map parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
         String groupName = (String) parameters.get("groupName");
         String parentGroupNumber = (String) parameters.get("parentGroupNumber");
         String groupNumber = cart.addItemGroup(groupName, parentGroupNumber);
@@ -106,7 +107,7 @@ public class ShoppingCartEvents {
 
     public static String addCartItemToGroup(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
-        Map parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
         String itemGroupNumber = (String) parameters.get("itemGroupNumber");
         String indexStr = (String) parameters.get("lineIndex");
         int index = Integer.parseInt(indexStr);
@@ -122,7 +123,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective = null;
-        Map result = null;
+        Map<String, Object> result = null;
         String productId = null;
         String parentProductId = null;
         String itemType = null;
@@ -134,8 +135,8 @@ public class ShoppingCartEvents {
         BigDecimal quantity = BigDecimal.ZERO;
         String reservStartStr = null;
         String reservEndStr = null;
-        java.sql.Timestamp reservStart = null;
-        java.sql.Timestamp reservEnd = null;
+        Timestamp reservStart = null;
+        Timestamp reservEnd = null;
         String reservLengthStr = null;
         BigDecimal reservLength = null;
         String reservPersonsStr = null;
@@ -144,16 +145,15 @@ public class ShoppingCartEvents {
         String accommodationSpotId = null;
         String shipBeforeDateStr = null;
         String shipAfterDateStr = null;
-        java.sql.Timestamp shipBeforeDate = null;
-        java.sql.Timestamp shipAfterDate = null;
+        Timestamp shipBeforeDate = null;
+        Timestamp shipAfterDate = null;
 
         // not used right now: Map attributes = null;
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         Locale locale = UtilHttp.getLocale(request);
-        NumberFormat nf = NumberFormat.getNumberInstance(locale);
-
+       
         // Get the parameters as a MAP, remove the productId and quantity params.
-        Map paramMap = UtilHttp.getCombinedMap(request);
+        Map<String, Object> paramMap = UtilHttp.getCombinedMap(request);
 
         String itemGroupNumber = (String) paramMap.get("itemGroupNumber");
 
@@ -167,7 +167,8 @@ public class ShoppingCartEvents {
             try {
                 productId = (String) object;
             } catch (ClassCastException e) {
-                productId = (String) ((List) object).get(0);
+                List<String> productList = UtilGenerics.checkList(object);
+                productId = productList.get(0);
             }
         }
         if (paramMap.containsKey("PRODUCT_ID")) {
@@ -254,9 +255,9 @@ public class ShoppingCartEvents {
             if ("VV_FEATURETREE".equals(ProductWorker.getProductVirtualVariantMethod(delegator, productId))) {
                 // get the selected features.
                 List<String> selectedFeatures = new LinkedList<String>();
-                java.util.Enumeration paramNames = request.getParameterNames();
+                Enumeration<String> paramNames = UtilGenerics.cast(request.getParameterNames());
                 while (paramNames.hasMoreElements()) {
-                    String paramName = (String) paramNames.nextElement();
+                    String paramName = paramNames.nextElement();
                     if (paramName.startsWith("FT")) {
                         selectedFeatures.add(request.getParameterValues(paramName)[0]);
                     }
@@ -457,10 +458,10 @@ public class ShoppingCartEvents {
         }
 
         // check for an add-to cart survey
-        List surveyResponses = null;
+        List<String> surveyResponses = null;
         if (productId != null) {
             String productStoreId = ProductStoreWorker.getProductStoreId(request);
-            List productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD", parentProductId);
+            List<GenericValue> productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD", parentProductId);
             if (UtilValidate.isNotEmpty(productSurvey)) {
                 // TODO: implement multiple survey per product
                 GenericValue survey = EntityUtil.getFirst(productSurvey);
@@ -497,16 +498,16 @@ public class ShoppingCartEvents {
             String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
             try {
                 if ("Y".equals(addToCartRemoveIncompat)) {
-                    List productAssocs = null;
+                    List<GenericValue> productAssocs = null;
                     EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
                             EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
                     productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
                     productAssocs = EntityUtil.filterByDate(productAssocs);
-                    List productList = FastList.newInstance();
-                    Iterator iter = productAssocs.iterator();
+                    List<String> productList = FastList.newInstance();
+                    Iterator<GenericValue> iter = productAssocs.iterator();
                     while (iter.hasNext()) {
-                        GenericValue productAssoc = (GenericValue) iter.next();
+                        GenericValue productAssoc = iter.next();
                         if (productId.equals(productAssoc.getString("productId"))) {
                             productList.add(productAssoc.getString("productIdTo"));
                             continue;
@@ -516,9 +517,9 @@ public class ShoppingCartEvents {
                             continue;
                         }
                     }
-                    Iterator sciIter = cart.iterator();
+                    Iterator<ShoppingCartItem> sciIter = cart.iterator();
                     while (sciIter.hasNext()) {
-                        ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
+                        ShoppingCartItem sci = sciIter.next();
                         if (productList.contains(sci.getProductId())) {
                             try {
                                 cart.removeCartItem(sci, dispatcher);
@@ -529,15 +530,15 @@ public class ShoppingCartEvents {
                     }
                 }
                 if ("Y".equals(addToCartReplaceUpsell)) {
-                    List productList = null;
+                    List<GenericValue> productList = null;
                     EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId),
                             EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
                     productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
                     if (productList != null) {
-                        Iterator sciIter = cart.iterator();
+                        Iterator<ShoppingCartItem> sciIter = cart.iterator();
                         while (sciIter.hasNext()) {
-                            ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
+                            ShoppingCartItem sci = sciIter.next();
                             if (productList.contains(sci.getProductId())) {
                                 try {
                                     cart.removeCartItem(sci, dispatcher);
@@ -598,7 +599,7 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
-        Map result;
+        Map<String, Object> result;
         String controlDirective;
 
         boolean addAll = ("true".equals(request.getParameter("add_all")));
@@ -624,11 +625,11 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
-        Map result;
+        Map<String, Object> result;
         // not used yet: Locale locale = UtilHttp.getLocale(request);
 
         //Convert the params to a map to pass in
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         result = cartHelper.addToCartBulk(catalogId, categoryId, paramMap);
         controlDirective = processResult(result, request);
@@ -651,7 +652,7 @@ public class ShoppingCartEvents {
         // check the preferred currency of the supplier, if set, use that for the cart, otherwise use system defaults.
         ShoppingCart cart = null;
         try {
-        	GenericValue supplierParty = delegator.findOne("Party", UtilMisc.toMap("partyId", supplierPartyId), false);
+            GenericValue supplierParty = delegator.findOne("Party", UtilMisc.toMap("partyId", supplierPartyId), false);
             if (UtilValidate.isNotEmpty(supplierParty.getString("preferredCurrencyUomId"))) {
                 cart = new WebShoppingCart(request, locale, supplierParty.getString("preferredCurrencyUomId"));
             } else {
@@ -721,11 +722,11 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
-        Map result;
+        Map<String, Object> result;
         // not used yet: Locale locale = UtilHttp.getLocale(request);
 
         //Convert the params to a map to pass in
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
         result = cartHelper.addToCartBulkRequirements(catalogId, paramMap);
         controlDirective = processResult(result, request);
@@ -751,7 +752,7 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective;
-        Map result;
+        Map<String, Object> result;
         BigDecimal totalQuantity;
         Locale locale = UtilHttp.getLocale(request);
 
@@ -763,7 +764,7 @@ public class ShoppingCartEvents {
             return "error";
         } else {
             totalQuantity = (BigDecimal)result.get("totalQuantity");
-            Map messageMap = UtilMisc.toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()));
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("totalQuantity", UtilFormatOut.formatQuantity(totalQuantity.doubleValue()));
 
             request.setAttribute("_EVENT_MESSAGE_",
                                   UtilProperties.getMessage(resource_error, "cart.add_category_defaults",
@@ -779,8 +780,8 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(null, dispatcher, cart);
         String controlDirective;
-        Map result;
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> result;
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         // not used yet: Locale locale = UtilHttp.getLocale(request);
 
         //Delegate the cart helper
@@ -805,10 +806,10 @@ public class ShoppingCartEvents {
         Security security = (Security) request.getAttribute("security");
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(null, dispatcher, cart);
         String controlDirective;
-        Map result;
+        Map<String, Object> result;
         // not used yet: Locale locale = UtilHttp.getLocale(request);
 
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
 
         String removeSelectedFlag = request.getParameter("removeSelected");
         String selectedItems[] = request.getParameterValues("selectedItem");
@@ -903,7 +904,7 @@ public class ShoppingCartEvents {
                 Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
             }
         }
-        List cartList = (List) session.getAttribute("shoppingCartList");
+        List<ShoppingCart> cartList = UtilGenerics.checkList(session.getAttribute("shoppingCartList"));
         if (UtilValidate.isEmpty(cartList)) {
             cartList = FastList.newInstance();
             session.setAttribute("shoppingCartList", cartList);
@@ -940,7 +941,7 @@ public class ShoppingCartEvents {
                 Debug.logWarning("Invalid value for cart index =" + cartIndexStr, module);
             }
         }
-        List cartList = (List) session.getAttribute("shoppingCartList");
+        List<ShoppingCart> cartList = UtilGenerics.checkList(session.getAttribute("shoppingCartList"));
         if (UtilValidate.isNotEmpty(cartList) && cartIndex >= 0 && cartIndex < cartList.size()) {
             cartList.remove(cartIndex);
         }
@@ -1024,9 +1025,9 @@ public class ShoppingCartEvents {
 
         if (cartLine.getIsPromo()) {
             // note that there should just be one promo adjustment, the reversal of the GWP, so use that to get the promo action key
-            Iterator checkOrderAdjustments = UtilMisc.toIterator(cartLine.getAdjustments());
+            Iterator<GenericValue> checkOrderAdjustments = UtilMisc.toIterator(cartLine.getAdjustments());
             while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
-                GenericValue checkOrderAdjustment = (GenericValue) checkOrderAdjustments.next();
+                GenericValue checkOrderAdjustment = checkOrderAdjustments.next();
                 if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
@@ -1049,7 +1050,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         String partyId = request.getParameter("additionalPartyId");
         String roleTypeId[] = request.getParameterValues("additionalRoleTypeId");
-        List eventList = new LinkedList();
+        List<String> eventList = new LinkedList<String>();
         Locale locale = UtilHttp.getLocale(request);
         int i;
 
@@ -1059,7 +1060,8 @@ public class ShoppingCartEvents {
         }
 
         if (request.getAttribute("_EVENT_MESSAGE_LIST_") != null) {
-            eventList.addAll((List) request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            List<String> msg = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            eventList.addAll(msg);
         }
 
         for (i = 0; i < roleTypeId.length; i++) {
@@ -1080,7 +1082,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         String partyId = request.getParameter("additionalPartyId");
         String roleTypeId[] = request.getParameterValues("additionalRoleTypeId");
-        List eventList = new LinkedList();
+        List<String> eventList = new LinkedList<String>();
         Locale locale = UtilHttp.getLocale(request);
         int i;
 
@@ -1090,7 +1092,8 @@ public class ShoppingCartEvents {
         }
 
         if (request.getAttribute("_EVENT_MESSAGE_LIST_") != null) {
-            eventList.addAll((List) request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            List<String> msg = UtilGenerics.checkList(request.getAttribute("_EVENT_MESSAGE_LIST_"));
+            eventList.addAll(msg);
         }
 
         for (i = 0; i < roleTypeId.length; i++) {
@@ -1120,12 +1123,12 @@ public class ShoppingCartEvents {
      * in
      * @return one of NON_CRITICAL_ERROR, ERROR or NO_ERROR.
      */
-    private static String processResult(Map result, HttpServletRequest request) {
+    private static String processResult(Map<String, Object> result, HttpServletRequest request) {
         //Check for errors
         StringBuilder errMsg = new StringBuilder();
         if (result.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
-            List errorMsgs = (List)result.get(ModelService.ERROR_MESSAGE_LIST);
-            Iterator iterator = errorMsgs.iterator();
+            List<String> errorMsgs = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+            Iterator<String> iterator = errorMsgs.iterator();
             errMsg.append("<ul>");
             while (iterator.hasNext()) {
                 errMsg.append("<li>");
@@ -1158,7 +1161,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String agreementId = request.getParameter("agreementId");
-        Map result = cartHelper.selectAgreement(agreementId);
+        Map<String, Object> result = cartHelper.selectAgreement(agreementId);
         if (ServiceUtil.isError(result)) {
            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
            return "error";
@@ -1173,7 +1176,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String currencyUomId = request.getParameter("currencyUomId");
-        Map result = cartHelper.setCurrency(currencyUomId);
+        Map<String, Object> result = cartHelper.setCurrency(currencyUomId);
         if (ServiceUtil.isError(result)) {
            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(result));
            return "error";
@@ -1276,7 +1279,7 @@ public class ShoppingCartEvents {
             try {
                 Integer termIndex = Integer.parseInt(termIndexStr);
                 if (termIndex >= 0) {
-                    List orderTerms = cart.getOrderTerms();
+                    List<GenericValue> orderTerms = cart.getOrderTerms();
                     if (orderTerms != null && orderTerms.size() > termIndex) {
                         cart.removeOrderTerm(termIndex);
                     }
@@ -1299,7 +1302,7 @@ public class ShoppingCartEvents {
 
         ShoppingCart cart = null;
         try {
-            Map outMap = dispatcher.runSync("loadCartFromShoppingList",
+            Map<String, Object> outMap = dispatcher.runSync("loadCartFromShoppingList",
                     UtilMisc.<String, Object>toMap("shoppingListId", shoppingListId,
                     "userLogin", userLogin));
             cart = (ShoppingCart)outMap.get("shoppingCart");
@@ -1326,7 +1329,7 @@ public class ShoppingCartEvents {
 
         ShoppingCart cart = null;
         try {
-            Map outMap = dispatcher.runSync("loadCartFromQuote",
+            Map<String, Object> outMap = dispatcher.runSync("loadCartFromQuote",
                     UtilMisc.<String, Object>toMap("quoteId", quoteId,
                             "applyQuoteAdjustments", "true",
                             "userLogin", userLogin));
@@ -1377,8 +1380,8 @@ public class ShoppingCartEvents {
             cart.removeAdjustmentByType("PROMOTION_ADJUSTMENT");
             String shipGroupSeqId = null;
             long groupIndex = cart.getShipInfoSize();
-            List orderAdjustmentList = new ArrayList();
-            List orderAdjustments = new ArrayList();
+            List<GenericValue> orderAdjustmentList = new ArrayList<GenericValue>();
+            List<GenericValue> orderAdjustments = new ArrayList<GenericValue>();
             orderAdjustments = cart.getAdjustments();
             try {
                 orderAdjustmentList = delegator.findList("OrderAdjustment", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId), null, null, null, false);
@@ -1388,7 +1391,7 @@ public class ShoppingCartEvents {
             for (long itr = 1; itr <= groupIndex; itr++) {
                 shipGroupSeqId = UtilFormatOut.formatPaddedNumber(1, 5);
                 List<GenericValue> duplicateAdjustmentList = new ArrayList<GenericValue>();
-                for (GenericValue adjustment: (List<GenericValue>)orderAdjustmentList) {
+                for (GenericValue adjustment: orderAdjustmentList) {
                     if ("PROMOTION_ADJUSTMENT".equals(adjustment.get("orderAdjustmentTypeId"))) {
                         cart.addAdjustment(adjustment);
                     }
@@ -1403,7 +1406,7 @@ public class ShoppingCartEvents {
                         }
                     }
                 }
-                for (GenericValue orderAdjustment: (List<GenericValue>)orderAdjustments) {
+                for (GenericValue orderAdjustment: orderAdjustments) {
                     if ("OrderAdjustment".equals(orderAdjustment.getEntityName())) {
                         if (("SHIPPING_CHARGES".equals(orderAdjustment.get("orderAdjustmentTypeId"))) &&
                                 orderAdjustment.get("orderId").equals(orderId) &&
@@ -1438,7 +1441,7 @@ public class ShoppingCartEvents {
         String destroyCart = request.getParameter("destroyCart");
 
         ShoppingCart cart = getCartObject(request);
-        Map result = null;
+        Map<String, Object> result = null;
         String quoteId = null;
         try {
             result = dispatcher.runSync("createQuoteFromCart",
@@ -1468,7 +1471,7 @@ public class ShoppingCartEvents {
         String destroyCart = request.getParameter("destroyCart");
 
         ShoppingCart cart = getCartObject(request);
-        Map result = null;
+        Map<String, Object> result = null;
         String custRequestId = null;
         try {
             result = dispatcher.runSync("createCustRequestFromCart",
@@ -1531,7 +1534,7 @@ public class ShoppingCartEvents {
                         hasPermission = true;
                     } else {
                         // if the user is a rep of the store, then he also has permission
-                        List storeReps = null;
+                        List<GenericValue> storeReps = null;
                         try {
                             storeReps = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"),
                                                             "partyId", userLogin.getString("partyId"), "roleTypeId", "SALES_REP"));
@@ -1645,10 +1648,10 @@ public class ShoppingCartEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         ShoppingCart cart = getCartObject(request);
-        List manualPromotions = new LinkedList();
+        List<GenericValue> manualPromotions = new LinkedList<GenericValue>();
 
         // iterate through the context and find all keys that start with "productPromoId_"
-        Map context = UtilHttp.getParameterMap(request);
+        Map<String, Object> context = UtilHttp.getParameterMap(request);
         String keyPrefix = "productPromoId_";
         for (int i = 1; i <= 50; i++) {
             String productPromoId = (String)context.get(keyPrefix + i);
@@ -1677,7 +1680,7 @@ public class ShoppingCartEvents {
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         ShoppingCartHelper cartHelper = new ShoppingCartHelper(delegator, dispatcher, cart);
         String controlDirective = null;
-        Map result = null;
+        Map<String, Object> result = null;
         String productId = null;
         String productCategoryId = null;
         String quantityStr = null;
@@ -1688,7 +1691,7 @@ public class ShoppingCartEvents {
         String itemDescription = "";
 
         // Get the parameters as a MAP, remove the productId and quantity params.
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
 
         String itemGroupNumber = request.getParameter("itemGroupNumber");
 
@@ -1756,7 +1759,7 @@ public class ShoppingCartEvents {
                     itemDescription = (String) paramMap.remove("itemDescription" + thisSuffix);
                 }
 
-                Map itemAttributes = UtilMisc.toMap("itemDesiredDeliveryDate", itemDesiredDeliveryDateStr);
+                Map<String, Object> itemAttributes = UtilMisc.<String, Object>toMap("itemDesiredDeliveryDate", itemDesiredDeliveryDateStr);
 
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
@@ -1795,7 +1798,7 @@ public class ShoppingCartEvents {
         String orderName = request.getParameter("orderName");
         String correspondingPoId = request.getParameter("correspondingPoId");
         Locale locale = UtilHttp.getLocale(request);
-        Map result = null;
+        Map<String, Object> result = null;
 
         // set the agreement if specified otherwise set the currency
         if (UtilValidate.isNotEmpty(agreementId)) {
@@ -1876,7 +1879,6 @@ public class ShoppingCartEvents {
     }
 
     public static String bulkAddProductsInApprovedOrder(HttpServletRequest request, HttpServletResponse response) {
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Locale locale = UtilHttp.getLocale(request);
         String productId = null;
@@ -1889,8 +1891,9 @@ public class ShoppingCartEvents {
         String orderId = null;
         String shipGroupSeqId = null;
 
-        Map paramMap = UtilHttp.getParameterMap(request);
-        String itemGroupNumber = request.getParameter("itemGroupNumber");
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
+        //FIXME can be removed ?
+        // String itemGroupNumber = request.getParameter("itemGroupNumber");
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount < 1) {
             Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
@@ -1957,7 +1960,7 @@ public class ShoppingCartEvents {
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     HttpSession session = request.getSession();
                     GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-                    Map appendOrderItemMap = FastMap.newInstance();
+                    Map<String, Object> appendOrderItemMap = FastMap.newInstance();
                     appendOrderItemMap.put("productId", productId);
                     appendOrderItemMap.put("quantity", quantity);
                     appendOrderItemMap.put("orderId", orderId);
@@ -1966,7 +1969,7 @@ public class ShoppingCartEvents {
                     appendOrderItemMap.put("itemDesiredDeliveryDate", itemDesiredDeliveryDate);
                     appendOrderItemMap.put("shipGroupSeqId", shipGroupSeqId);
                     try {
-                        Map result = dispatcher.runSync("appendOrderItem", appendOrderItemMap);
+                        Map<String, Object> result = dispatcher.runSync("appendOrderItem", appendOrderItemMap);
                         request.setAttribute("shoppingCart", (ShoppingCart) result.get("shoppingCart"));
                         ShoppingCartEvents.destroyCart(request, response);
                     } catch (GenericServiceException e) {
