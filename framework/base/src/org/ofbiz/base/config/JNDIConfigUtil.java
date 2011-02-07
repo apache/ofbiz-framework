@@ -43,6 +43,7 @@ public class JNDIConfigUtil {
         }
     }
 
+    @SuppressWarnings("unused")
     private static Document getXmlDocument() throws GenericConfigException {
         try {
             return ResourceLoader.getXmlDocument(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
