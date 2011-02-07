@@ -61,6 +61,7 @@ under the License.
         <attribute name="copyQuoteCoefficients" type="String" mode="IN" optional="true"/>
         <attribute name="copyQuoteItems" type="String" mode="IN" optional="true"/>
         <attribute name="copyQuoteAdjustments" type="String" mode="IN" optional="true"/>
+        <attribute name="copyQuoteTerms" type="String" mode="IN" optional="true"/>
     </service>
     <service name="checkUpdateQuoteStatus" default-entity-name="Quote" engine="simple"
                 location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="checkUpdateQuoteStatus" auth="true">

@@ -30,6 +30,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.ofbiz.base.conversion.MiscConverters.DecimalFormatToString;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -678,11 +679,13 @@ public class ShoppingCartServices {
         List<GenericValue>quoteAdjs = null;
         List<GenericValue>quoteRoles = null;
         List<GenericValue>quoteAttributes = null;
+        List<GenericValue>quoteTerms = null;
         try {
             quoteItems = quote.getRelated("QuoteItem", UtilMisc.toList("quoteItemSeqId"));
             quoteAdjs = quote.getRelated("QuoteAdjustment");
             quoteRoles = quote.getRelated("QuoteRole");
             quoteAttributes = quote.getRelated("QuoteAttribute");
+            quoteTerms = quote.getRelated("QuoteTerm");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -709,6 +712,23 @@ public class ShoppingCartServices {
             }
         }
 
+        // set the order term
+        if (UtilValidate.isNotEmpty(quoteTerms)) {
+            // create order term from quote term
+            for(GenericValue quoteTerm : quoteTerms) {
+            	BigDecimal termValue = BigDecimal.ZERO;
+                if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))){
+                    termValue = new BigDecimal(quoteTerm.getString("termValue"));
+                }
+                long termDays = 0;
+                if (UtilValidate.isNotEmpty(quoteTerm.getString("termDays"))) {
+                    termDays = Long.parseLong(quoteTerm.getString("termDays").trim());
+                }
+                
+                cart.addOrderTerm(quoteTerm.getString("termTypeId"), termValue, termDays, quoteTerm.getString("textValue"),quoteTerm.getString("description"));
+            }
+        }
+        
         // set the attribute information
         if (UtilValidate.isNotEmpty(quoteAttributes)) {
             for(GenericValue quoteAttribute : quoteAttributes) {

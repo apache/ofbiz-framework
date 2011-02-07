@@ -264,6 +264,83 @@ under the License.
         <event type="service" invoke="quickShipEntireOrder"/>
         <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
         <response name="error" type="view" value="orderview"/>
+    </request-map>    
+    <request-map uri="createQuoteTerm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createQuoteTerm"/>
+        <response name="success" type="request-redirect" value="ListQuoteTerms">
+            <redirect-parameter name="quoteId"/>
+        </response>
+        <response name="error" type="request-redirect" value="EditQuoteTerm">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+    </request-map>
+    <request-map uri="createQuoteTermFromItem">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createQuoteTerm"/>
+        <response name="success" type="request-redirect" value="EditQuoteItem">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+        <response name="error" type="request-redirect" value="EditQuoteTermItem">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+    </request-map>
+    <request-map uri="updateQuoteTermFromItem">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateQuoteTerm"/>
+        <response name="success" type="request-redirect" value="EditQuoteItem">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+        <response name="error" type="request-redirect" value="EditQuoteTermItem">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+            <redirect-parameter name="termTypeId"/>
+            <redirect-parameter name="termDays"/>
+            <redirect-parameter name="textValue"/>
+            <redirect-parameter name="uomId"/>
+            <redirect-parameter name="description"/>
+            <redirect-parameter name="termValue"/>
+        </response>
+    </request-map>    
+    <request-map uri="updateQuoteTerm">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateQuoteTerm"/>
+        <response name="success" type="request-redirect" value="ListQuoteTerms">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+        <response name="error" type="request-redirect" value="EditQuoteTerm">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+            <redirect-parameter name="termTypeId"/>
+            <redirect-parameter name="termDays"/>
+            <redirect-parameter name="textValue"/>
+            <redirect-parameter name="uomId"/>
+            <redirect-parameter name="description"/>
+            <redirect-parameter name="termValue"/>
+        </response>
+    </request-map>
+    <request-map uri="deleteQuoteTermFromItem">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteQuoteTerm"/>
+        <response name="success" type="request-redirect" value="EditQuoteItem">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+        <response name="error" type="view" value="EditQuoteItem"/>
+    </request-map>
+    <request-map uri="deleteQuoteTerm">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteQuoteTerm"/>
+        <response name="success" type="request-redirect" value="ListQuoteTerms">
+            <redirect-parameter name="quoteId"/>
+            <redirect-parameter name="quoteItemSeqId"/>
+        </response>
+        <response name="error" type="view" value="ListQuoteTerms"/>
     </request-map>
     <request-map uri="quickDropShipOrder">
         <security https="true" auth="true"/>
@@ -1403,13 +1480,13 @@ under the License.
     <request-map uri="createQuote">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createQuote"/>
-        <response name="success" type="view" value="EditQuote"/>
+        <response name="success" type="view" value="ViewQuote"/>
         <response name="error" type="view" value="EditQuote"/>
     </request-map>
     <request-map uri="updateQuote">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateQuote"/>
-        <response name="success" type="view" value="EditQuote"/>
+        <response name="success" type="view" value="ViewQuote"/>
         <response name="error" type="view" value="EditQuote"/>
     </request-map>
     <request-map uri="copyQuote">
@@ -1439,12 +1516,15 @@ under the License.
     <request-map uri="createQuoteItem">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createQuoteItem"/>
-        <response name="success" type="view" value="EditQuoteItem"/>
+        <response name="success" type="request-redirect" value="ListQuoteItems">
+            <redirect-parameter name="quoteId"/>
+        </response>
     </request-map>
     <request-map uri="updateQuoteItem">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateQuoteItem"/>
-        <response name="success" type="view" value="EditQuoteItem"/>
+        <response name="success" type="view" value="ListQuoteItems"/>
+        <response name="error" type="view" value="EditQuoteItem"/>
     </request-map>
     <request-map uri="removeQuoteItem">
         <security https="true" auth="true"/>
@@ -1749,6 +1829,18 @@ under the License.
         <response name="success" type="view" value="ProductUomDropDownOnly" save-last-view="true"/>
     </request-map>
     
+    <request-map uri="ListQuoteTerms">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ListQuoteTerms" save-last-view="true"/>
+    </request-map>
+    <request-map uri="EditQuoteTerm">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditQuoteTerm" save-last-view="true"/>
+    </request-map>
+    <request-map uri="EditQuoteTermItem">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditQuoteTermItem" save-last-view="true"/>
+    </request-map>
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the
@@ -1946,5 +2038,8 @@ under the License.
     <view-map name="SendCompletionMail" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#SendOrderCompletion"/>
     <view-map name="ReturnHistory" type="screen" page="component://order/widget/ordermgr/OrderReturnScreens.xml#OrderReturnHistory"/>
     <view-map name="ProductUomDropDownOnly" type="screen" page="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#ProductUomDropDownOnly"/>
+    <view-map name="EditQuoteTerm" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteTerm"/>
+    <view-map name="EditQuoteTermItem" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteTermItem"/>
+    <view-map name="ListQuoteTerms" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ListQuoteTerms"/>
     <!-- end of view mappings -->
 </site-conf>

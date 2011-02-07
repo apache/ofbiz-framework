@@ -1090,4 +1090,27 @@ under the License.
         <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="orderAdjustment " type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
+    <service name="createQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
+        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteTerm">
+        <description>
+            Create a new Quate term.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
+        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteTerm">
+        <description>
+            Edit the Quate term.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
+        location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="deleteQuoteTerm">
+        <description>
+            delete the Quate term.
+        </description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
 </services>

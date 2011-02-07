@@ -247,6 +247,15 @@ under the License.
                 <call-service service-name="createQuoteCoefficient" in-map-name="createQuoteCoefficientInMap"/>
             </iterate>
         </if-compare>
+        <if-compare field="parameters.copyQuoteTerms" value="Y" operator="equals">
+            <get-related value-field="quote" relation-name="QuoteTerm" list="quoteTerms"/>
+            <iterate list="quoteTerms" entry="quoteTerm">
+                <clear-field field="createQuoteTermInMap"/>
+                <set-service-fields service-name="createQuoteTerm" to-map="createQuoteTermInMap" map="quoteTerm"/>
+                <set from-field="quoteIdTo" field="createQuoteTermInMap.quoteId"/>
+                <call-service service-name="createQuoteTerm" in-map-name="createQuoteTermInMap"/>
+            </iterate>
+        </if-compare>
 
         <check-errors/>
     </simple-method>
@@ -933,5 +942,22 @@ under the License.
         <if-not-empty field="quoteWorkEffort.quoteId">
             <remove-value value-field="quoteWorkEffort"/>
         </if-not-empty>
+    </simple-method>
+    <simple-method method-name="createQuoteTerm" short-description="Create a QuoteTerm">
+        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateQuoteTerm" short-description="Update a QuoteTerm">
+        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <store-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteQuoteTerm" short-description="Delete a QuoteTerm">
+        <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <remove-value value-field="newEntity"/>
     </simple-method>
 </simple-methods>
