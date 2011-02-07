@@ -1274,7 +1274,7 @@ public class EbayOrderServices {
         BigDecimal price = new BigDecimal(itemPrice);
         price = price.setScale(ShoppingCart.scale, ShoppingCart.rounding);
 
-        HashMap<Object, Object> attrs = new HashMap<Object, Object>();
+        HashMap<String, Object> attrs = new HashMap<String, Object>();
         attrs.put("shipGroup", groupIdx);
 
         // Checking if previously added same product exists in the cart
