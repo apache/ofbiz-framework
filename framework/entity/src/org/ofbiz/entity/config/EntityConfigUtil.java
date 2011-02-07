@@ -67,6 +67,7 @@ public class EntityConfigUtil {
         }
     }
 
+    @SuppressWarnings("unused")
     private static Document getXmlDocument() throws GenericEntityConfException {
         try {
             return ResourceLoader.getXmlDocument(ENTITY_ENGINE_XML_FILENAME);
