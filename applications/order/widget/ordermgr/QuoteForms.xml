@@ -456,4 +456,89 @@ under the License.
         <field name="note"><textarea/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListQuoteTerms" type="list" list-name="quoteTerms"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteTerms">
+        <auto-fields-entity entity-name="QuoteTerm" default-field-type="display"/>
+        <field name="termTypeId" >
+            <display-entity entity-name="TermType" description="${description}" key-field-name="termTypeId"/>
+        </field>
+        <field name="uomId" title="${uiLabelMap.OrderOrderQuoteUomId}">
+            <display-entity entity-name="Uom" description="${description}" key-field-name="uomId"/>
+        </field>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="EditQuoteTerm" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="termTypeId"/>
+                <parameter param-name="quoteItemSeqId"/>
+                <parameter param-name="quoteId"/>
+                <parameter param-name="target" value="updateQuoteTerm"/>
+                <parameter param-name="tabButtonItems" value="QuoteTerms"/>
+            </hyperlink>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteQuoteTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="termTypeId"/>
+                <parameter param-name="quoteItemSeqId"/>
+                <parameter param-name="quoteId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="ListQuoteTermItem" extends="ListQuoteTerms">
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="EditQuoteTermItem" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="termTypeId"/>
+                <parameter param-name="quoteItemSeqId"/>
+                <parameter param-name="quoteId"/>
+                <parameter param-name="target" value="updateQuoteTermFromItem"/>
+                <parameter param-name="tabButtonItems" value="ListQuoteItems"/>
+            </hyperlink>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteQuoteTermFromItem" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="termTypeId"/>
+                <parameter param-name="quoteItemSeqId"/>
+                <parameter param-name="quoteId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="EditQuoteTerm" type="single" target="updateQuoteTerm" title="" default-map-name="quoteTerm"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="quote.statusId"/>
+            </entity-one>
+            <set field="tabButtonItem" from-field="parameters.tabButtonItems"/>
+        </actions>
+        <alt-target use-when="quoteTerm==null" target="createQuoteTerm"/>
+        <auto-fields-entity entity-name="QuoteTerm" default-field-type="edit"/>
+        <field name="tabButtonItems"><hidden value="${tabButtonItem}"/></field>
+        <field name="quoteItemSeqId" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down>
+                <entity-options description="${quoteItemSeqId} - [${productId}]" entity-name="QuoteItem">
+                    <entity-constraint name="quoteId" operator="equals" value="${quoteId}"/>
+                    <entity-order-by field-name="quoteItemSeqId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="quoteItemSeqId" use-when="quoteItemSeqId!=null" tooltip="${uiLabelMap.CommonRequired}"><display/></field>
+        <field name="termTypeId" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down current-description="">
+                <entity-options description="${description}" entity-name="TermType" key-field-name="termTypeId"/>
+            </drop-down>
+        </field>
+        <field name="termTypeId" use-when="termTypeId!=null" tooltip="${uiLabelMap.CommonRequired}">
+            <display-entity entity-name="TermType" description="${description} [${termTypeId}]" key-field-name="termTypeId"/>
+        </field>
+        <field name="quoteId"><hidden/></field>
+        
+        <field name="uomId">
+            <drop-down current-description="">
+                <entity-options description="${description}" entity-name="Uom" key-field-name="uomId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditQuoteTermItem" type="single" target="updateQuoteTermFromItem" title="" default-map-name="quoteTerm"
+        header-row-style="header-row" default-table-style="basic-table" extends="EditQuoteTerm">
+        <alt-target use-when="quoteTerm==null" target="createQuoteTermFromItem"/>
+    </form>
 </forms>

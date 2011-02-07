@@ -2799,6 +2799,9 @@
         <value xml:lang="zh_CN">新建报价角色</value>
         <value xml:lang="zh_TW">新建報價角色</value>
     </property>
+    <property key="OrderCreateOrderQuoteTerm">
+        <value xml:lang="en">Create New Quote Term</value>
+    </property>
     <property key="OrderCreateOrderQuoteWorkEfforts">
         <value xml:lang="de">Offerte Arbeitseinsatz erstellen</value>
         <value xml:lang="en">Create Quote Work Efforts</value>
@@ -6586,6 +6589,9 @@
         <value xml:lang="zh">编辑询价角色</value>
         <value xml:lang="zh_TW">修改報價角色</value>
     </property>
+        <property key="OrderOrderQuoteEditTerm">
+        <value xml:lang="en">Edit Quote Term</value>
+    </property>
     <property key="OrderOrderQuoteEditWorkEfforts">
         <value xml:lang="de">Offertarbeitseinsatz bearbeiten</value>
         <value xml:lang="en">Edit Quote Work Efforts</value>
@@ -6788,6 +6794,9 @@
         <value xml:lang="zh">询价角色列表</value>
         <value xml:lang="zh_TW">列出報價角色</value>
     </property>
+        <property key="OrderOrderQuoteListTerms">
+        <value xml:lang="en">List Quote Terms</value>
+    </property>
     <property key="OrderOrderQuoteManualUnitPrice">
         <value xml:lang="de">Manueller Stückpreis</value>
         <value xml:lang="en">Manual Unit Price</value>
@@ -6919,6 +6928,12 @@
         <value xml:lang="zh">询价技能类型标识</value>
         <value xml:lang="zh_CN">报价技能类型标识</value>
         <value xml:lang="zh_TW">報價技能類型ID</value>
+    </property>
+    <property key="OrderOrderQuoteTerms">
+        <value xml:lang="en">Quote Term</value>
+    </property>
+    <property key="OrderOrderQuoteTermList">
+        <value xml:lang="en">Quote Term List</value>
     </property>
     <property key="OrderOrderQuoteType">
         <value xml:lang="de">Offerttyp</value>
@@ -12693,5 +12708,8 @@
         <value xml:lang="th">ชื่อโปรเจค</value>
         <value xml:lang="zh">项目名称</value>
         <value xml:lang="zh_TW">專案名稱</value>
+    </property>
+    <property key="QuoteTermDescription">
+        <value xml:lang="en">Term Description</value>
     </property>
 </resource>

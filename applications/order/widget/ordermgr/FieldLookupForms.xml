@@ -423,16 +423,10 @@ under the License.
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo==null}">
-            <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem">
-                <parameter param-name="quoteId"/>
-                <parameter param-name="quoteItemSeqId"/>
-            </hyperlink>
+            <hyperlink also-hidden="false" target-type="plain" description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo!=null&amp;&amp;isPromo.equals(&quot;N&quot;)}">
-            <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem">
-                <parameter param-name="quoteId"/>
-                <parameter param-name="quoteItemSeqId"/>
-            </hyperlink>
+            <hyperlink also-hidden="false" target-type="plain" description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" use-when="${bsh:isPromo!=null&amp;&amp;isPromo.equals(&quot;Y&quot;)}"><display/></field>
         <field name="productId">

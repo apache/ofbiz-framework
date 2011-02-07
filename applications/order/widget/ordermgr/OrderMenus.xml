@@ -135,24 +135,36 @@ under the License.
         </menu-item>
 
         <menu-item name="EditQuote" title="${uiLabelMap.OrderOrderQuote}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
             <link target="EditQuote">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
 
         <menu-item name="ListQuoteRoles" title="${uiLabelMap.OrderOrderQuoteRoles}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
             <link target="ListQuoteRoles">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
 
         <menu-item name="ListQuoteItems" title="${uiLabelMap.OrderOrderQuoteItems}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
             <link target="ListQuoteItems">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
 
         <menu-item name="ListQuoteAttributes" title="${uiLabelMap.OrderOrderQuoteAttributes}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
             <link target="ListQuoteAttributes">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
@@ -160,7 +172,10 @@ under the License.
 
         <menu-item name="ListQuoteCoefficients" title="${uiLabelMap.OrderOrderQuoteCoefficients}">
             <condition>
-                <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                <and>
+                    <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
             </condition>
             <link target="ListQuoteCoefficients">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
@@ -169,7 +184,10 @@ under the License.
 
         <menu-item name="ManageQuotePrices" title="${uiLabelMap.OrderOrderQuotePrices}">
             <condition>
-                <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                <and>
+                    <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
             </condition>
             <link target="ManageQuotePrices">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
@@ -178,7 +196,10 @@ under the License.
 
         <menu-item name="ListQuoteAdjustments" title="${uiLabelMap.OrderOrderQuoteAdjustments}">
             <condition>
-                <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                <and>
+                    <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
             </condition>
             <link target="ListQuoteAdjustments">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
@@ -187,7 +208,10 @@ under the License.
 
         <menu-item name="ViewQuoteProfit" title="${uiLabelMap.OrderViewQuoteProfit}">
             <condition>
-                <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                <and>
+                    <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
+                    <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+                </and>
             </condition>
             <link target="ViewQuoteProfit">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
@@ -195,8 +219,19 @@ under the License.
         </menu-item>
 
         <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.OrderOrderQuoteWorkEfforts}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
             <link target="ListQuoteWorkEfforts">
                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="QuoteTerms" title="${uiLabelMap.OrderOrderQuoteTerms}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
+            <link target="ListQuoteTerms">
+                <parameter param-name="quoteId" from-field="parameters.quoteId"/>
             </link>
         </menu-item>
     </menu>
@@ -335,6 +370,40 @@ under the License.
             <link id="workeffortrequirements" target="requestitemrequirements">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
                 <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="quoteTermSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2">
+        <menu-item name="EditQuoteTerm" title="${uiLabelMap.OrderCreateOrderQuoteTerm}" >
+            <condition>
+                    <and>
+                        <if-empty field="parameters.quoteItemSeqId"/>
+                        <not><if-empty field="quote.quoteId"/></not>
+                    </and>
+            </condition>
+            <link target="EditQuoteTerm" text="" style="buttontext">
+                <parameter param-name="quoteId" from-field="parameters.quoteId"/>
+            </link>
+        </menu-item>
+        <menu-item name="EditQuoteTermItem" title="${uiLabelMap.OrderCreateOrderQuoteTerm}" >
+            <condition>
+                    <and>
+                        <not><if-empty field="parameters.quoteItemSeqId"/></not>
+                        <not><if-empty field="quote.quoteId"/></not>
+                    </and>
+            </condition>
+            <link target="EditQuoteTermItem" text="" style="buttontext">
+                <parameter param-name="quoteId" from-field="parameters.quoteId"/>
+                <parameter param-name="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="quoteItemSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2">
+        <menu-item name="EditQuoteTerm" title="${uiLabelMap.OrderCreateOrderQuoteTerm}" >
+            <link target="EditQuoteItem" text="${uiLabelMap.OrderCreateOrderQuoteItem}" style="buttontext">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
             </link>
         </menu-item>
     </menu>

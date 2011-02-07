@@ -26,6 +26,7 @@ under the License.
         ${uiLabelMap.OrderOrderQuoteRoles}&nbsp;<input type="checkbox" name="copyQuoteRoles" value="Y" checked="checked" />
         ${uiLabelMap.OrderOrderQuoteAttributes}&nbsp;<input type="checkbox" name="copyQuoteAttributes" value="Y" checked="checked" />
         ${uiLabelMap.OrderOrderQuoteCoefficients}&nbsp;<input type="checkbox" name="copyQuoteCoefficients" value="Y" checked="checked" />
+        ${uiLabelMap.OrderOrderQuoteTerms}&nbsp;<input type="checkbox" name="copyQuoteTerms" value="Y" checked="checked" />
     </div>
     <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonCopy}"/>
 </form>
