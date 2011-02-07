@@ -30,7 +30,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.ofbiz.base.conversion.MiscConverters.DecimalFormatToString;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
