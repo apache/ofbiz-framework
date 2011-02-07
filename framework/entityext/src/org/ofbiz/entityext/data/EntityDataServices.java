@@ -317,6 +317,7 @@ public class EntityDataServices {
         return newValue;
     }
 
+    @SuppressWarnings("unused")
     private String[] getEntityFieldNames(Delegator delegator, String entityName) {
         ModelEntity entity = delegator.getModelEntity(entityName);
         if (entity == null) {
