@@ -307,7 +307,8 @@ public class ImageManagementServices {
     public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context){
         String contentId = (String) context.get("contentId");
         String objectInfo = (String) context.get("objectInfo");
-        String productId = (String) context.get("productId");
+        //FIXME can be removed ?
+        // String productId = (String) context.get("productId");
         try {
             if (UtilValidate.isNotEmpty(contentId)) {
                 String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
@@ -425,7 +426,9 @@ public class ImageManagementServices {
                     try {
                         ImageIO.write((RenderedImage) bufNewImg, imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
                         File deleteFile = new File(imageServerPath + "/products/management/" + filenameToUse);
-                        boolean check = deleteFile.delete();
+                        deleteFile.delete();
+                        //FIXME can be removed ?
+                        //  boolean check = deleteFile.delete();
                     } catch (IllegalArgumentException e) {
                         String errMsg = UtilProperties.getMessage(resource, "ScaleImage.one_parameter_is_null", locale) + e.toString();
                         Debug.logError(errMsg, module);
@@ -529,7 +532,8 @@ public class ImageManagementServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
-        String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
+        //FIXME can be removed ?
+        // String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         
         // Create content for thumbnail
