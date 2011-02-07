@@ -409,7 +409,7 @@ public class TaxAuthorityServices {
                     // find a ProductPrice for the productId and taxAuth* valxues, and see if it has a priceWithTax value
                     Map<String, String> priceFindMap = UtilMisc.toMap("productId", product.getString("productId"), 
                             "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
-                            "productPriceTypeId", "DEFAULT_PRICE", "productPricePurposeId", "PURCHASE");
+                            "productPricePurposeId", "PURCHASE");
                     List<GenericValue> productPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"));
                     productPriceList = EntityUtil.filterByDate(productPriceList, true);
                     productPrice = (productPriceList != null && productPriceList.size() > 0) ? productPriceList.get(0): null;
