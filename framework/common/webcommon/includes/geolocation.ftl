@@ -30,6 +30,7 @@ under the License.
             var map = new GMap2(document.getElementById("<#if geoChart.id?has_content>${geoChart.id}<#else>map_canvas</#if>"));
             <#if geoChart.center?has_content>
               map.setCenter(new GLatLng(${geoChart.center.lat?c}, ${geoChart.center.lon?c}), ${geoChart.center.zoom});
+              map.setZoom(15); // 0=World, 19=max zoom in
             <#else>
               <#if geoChart.points?has_content>
                 var latlng = [
@@ -42,9 +43,10 @@ under the License.
                   latlngbounds.extend(latlng[i]);
                 }
                 map.setCenter(latlngbounds.getCenter(), map.getBoundsZoomLevel(latlngbounds) - 1);//reduce bounds zoom level to see all markers
+                map.setZoom(15); // 0=World, 19=max zoom in
               <#else>
-                //map.setCenter(new GLatLng(37.4419, -122.1419), 12);
                 map.setCenter(new GLatLng(0, 0), 1);
+                map.setZoom(15); // 0=World, 19=max zoom in
               </#if>
             </#if>
             <#if geoChart.controlUI?has_content && geoChart.controlUI == "small">
@@ -85,6 +87,7 @@ under the License.
               map.setUIToDefault();
               map.setCenter(point, 13);
               map.addOverlay(new GMarker(point));
+              map.setZoom(15); // 0=World, 19=max zoom in
             });
           }
         --></script>
@@ -111,6 +114,7 @@ under the License.
             </#list>
           </#if>
           map.setCenter(center, zoom);
+          map.setZoom(15); // 0=World, 19=max zoom in
         </script>
       </#if>
     </#if>
