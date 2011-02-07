@@ -108,7 +108,6 @@ under the License.
                 <not><if-empty field="serviceResult.workEffortId"/></not>
             </and>
         </assert>
-        
         <!-- Confirm that a matching WorkEffort was created -->
         <entity-and list="workEfforts" entity-name="WorkEffort">
             <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
@@ -119,108 +118,90 @@ under the License.
         <assert>
             <not><if-empty field="workEfforts"/></not>
         </assert>
-
         <entity-one value-field="quoteWorkEffort" entity-name="QuoteWorkEffort">
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="workEffortId" from-field="serviceResult.workEffortId"/>
         </entity-one>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testCreateQuoteTerm" short-description="update a request" login-required="false">
+    <simple-method method-name="testCreateQuoteTerm" short-description="create a term" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
         <set field="serviceCtx.termTypeId" value="FIN_PAYMENT_DISC"/>
-        <set field="serviceCtx.quoteId" value="CQ10000"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
         <set field="serviceCtx.quoteItemSeqId" value="00001"/>
-        <set field="termValue" value="40" type="Long"/>
-        <set field="serviceCtx.termValue" from-field="termValue"/>
-        <set field="termDays" value="4" type="Long"/>
-        <set field="serviceCtx.termDays" from-field="termDays"/>
+        <set field="serviceCtx.termValue" value="40" type="Long"/>
+        <set field="serviceCtx.termDays" value="4" type="Long"/>
         <set field="serviceCtx.uomId" value="CNY"/>
         <set field="serviceCtx.description" value="create quoteterm"/>
         <call-service service-name="createQuoteTerm" in-map-name="serviceCtx">
             <results-to-map map-name="serviceResult"/>
         </call-service>
-        <assert>
-            <and>
-                <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
-                <if-compare-field field="serviceResult.quoteItemSeqId" operator="equals" to-field="serviceCtx.quoteItemSeqId"/>
-                <if-compare-field field="serviceResult.termTypeId" operator="equals" to-field="serviceCtx.termTypeId"/>
-                <not><if-empty field="serviceResult.termTypeId"/></not>
-                <not><if-empty field="serviceResult.termValue"/></not>
-                <not><if-empty field="serviceResult.termDays"/></not>
-                <not><if-empty field="serviceResult.uomId"/></not>
-                <not><if-empty field="serviceResult.description"/></not>
-            </and>
-        </assert>
-        <!-- Confirm that a matching Quoteterm was created -->
-        <entity-one value-field="quoteTerm" entity-name="QuoteTerm">
+<!--         Confirm that a matching Quoteterm was created -->
+        <entity-and list="quoteTermList" entity-name="QuoteTerm">
             <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
-            <field-map field-name="quoteId" from-field="serviceResult.quoteId"/>
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
-        </entity-one>
+        </entity-and>
+        <first-from-list entry="quoteTerm" list="quoteTermList"/>
         <assert>
-            <not><if-empty field="quoteTerm"/></not>
+           <not><if-empty field="quoteTerm"/></not>
+           <if-compare-field operator="equals" to-field="quoteTerm.termTypeId" field="serviceCtx.termTypeId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.quoteId" field="serviceCtx.quoteId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.quoteItemSeqId" field="serviceCtx.quoteItemSeqId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.termValue" field="serviceCtx.termValue"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.termDays" field="serviceCtx.termDays"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.uomId" field="serviceCtx.uomId"/>
+           <if-compare-field operator="equals" to-field="quoteTerm.description" field="serviceCtx.description"/>
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testUpdateQuoteTerm" short-description="update a request" login-required="false">
+    <simple-method method-name="testUpdateQuoteTerm" short-description="update a term" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
         <set field="serviceCtx.termTypeId" value="FIN_PAYMENT_DISC"/>
-        <set field="serviceCtx.quoteId" value="CQ10000"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
         <set field="serviceCtx.quoteItemSeqId" value="00001"/>
-        <set field="termValue" value="30" type="Long"/>
-        <set field="serviceCtx.termValue" from-field="termValue"/>
-        <set field="termDays" value="3" type="Long"/>
-        <set field="serviceCtx.termDays" from-field="termDays"/>
+        <set field="serviceCtx.termValue" value="30" type="Long"/>
+        <set field="serviceCtx.termDays" value="3" type="Long"/>
         <set field="serviceCtx.uomId" value="CNY"/>
         <set field="serviceCtx.description" value="update quoteterm"/>
         <call-service service-name="updateQuoteTerm" in-map-name="serviceCtx">
             <results-to-map map-name="serviceResult"/>
         </call-service>
-        <assert>
-            <and>
-                <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
-                <if-compare-field field="serviceResult.quoteItemSeqId" operator="equals" to-field="serviceCtx.quoteItemSeqId"/>
-                <if-compare-field field="serviceResult.termTypeId" operator="equals" to-field="serviceCtx.termTypeId"/>
-                <not><if-empty field="serviceResult.termValue"/></not>
-                <not><if-empty field="serviceResult.termDays"/></not>
-                <not><if-empty field="serviceResult.uomId"/></not>
-                <not><if-empty field="serviceResult.description"/></not>
-            </and>
-        </assert>
-        <!-- Confirm that a matching Quoteterm was updated -->
+<!--         Confirm that a matching Quoteterm was updated -->
         <entity-one value-field="quoteTerm" entity-name="QuoteTerm">
             <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
-            <field-map field-name="quoteId" from-field="serviceResult.quoteId"/>
+            <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
             <field-map field-name="quoteItemSeqId" from-field="serviceCtx.quoteItemSeqId"/>
         </entity-one>
         <assert>
             <not><if-empty field="quoteTerm"/></not>
+            <if-compare-field operator="equals" to-field="quoteTerm.termTypeId" field="serviceCtx.termTypeId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.quoteId" field="serviceCtx.quoteId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.quoteItemSeqId" field="serviceCtx.quoteItemSeqId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.termValue" field="serviceCtx.termValue"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.termDays" field="serviceCtx.termDays"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.uomId" field="serviceCtx.uomId"/>
+            <if-compare-field operator="equals" to-field="quoteTerm.description" field="serviceCtx.description"/>
         </assert>
         <check-errors/>
     </simple-method>
-    <simple-method method-name="testDeleteQuoteTerm" short-description="update a request" login-required="false">
+    <simple-method method-name="testDeleteQuoteTerm" short-description="delete a term" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
         <set field="serviceCtx.termTypeId" value="FIN_PAYMENT_DISC"/>
-        <set field="serviceCtx.quoteId" value="CQ10000"/>
+        <set field="serviceCtx.quoteId" value="9000"/>
         <set field="serviceCtx.quoteItemSeqId" value="00001"/>
-        <call-service service-name="deleteQuoteTerm" in-map-name="quoteTermMap">
+        <call-service service-name="deleteQuoteTerm" in-map-name="serviceCtx">
             <results-to-map map-name="serviceResult"/>
         </call-service>
-        <assert>
-            <if-compare-field field="serviceResult.quoteId" operator="equals" to-field="serviceCtx.quoteId"/>
-            <if-compare-field field="serviceResult.quoteItemSeqId" operator="equals" to-field="serviceCtx.quoteItemSeqId"/>
-            <if-compare-field field="serviceResult.termTypeId" operator="equals" to-field="serviceCtx.termTypeId"/>
-        </assert>
         <entity-one value-field="quoteTerm" entity-name="QuoteTerm">
             <field-map field-name="termTypeId" from-field="serviceCtx.termTypeId"/>
             <field-map field-name="quoteId" from-field="serviceCtx.quoteId"/>
