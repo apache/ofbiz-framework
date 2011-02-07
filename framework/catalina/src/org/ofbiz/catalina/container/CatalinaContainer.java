@@ -67,7 +67,6 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerConfig.Container.Property;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
