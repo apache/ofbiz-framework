@@ -270,7 +270,9 @@ public class CategoryWorker {
 
                 if (cindex < (trail.size() - 1)) {
                     for (int i = trail.size() - 1; i > cindex; i--) {
-                        String deadCat = trail.remove(i);
+                        trail.remove(i);
+                        //FIXME can be removed ?
+                        // String deadCat = trail.remove(i);
                         //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i + " catname: " + deadCat, module);
                     }
                 }
@@ -299,7 +301,9 @@ public class CategoryWorker {
             int index = trail.indexOf(previousCategoryId);
             if (index < (trail.size() - 1)) {
                 for (int i = trail.size() - 1; i > index; i--) {
-                    String deadCat = trail.remove(i);
+                    trail.remove(i);
+                    //FIXME can be removed ?
+                    // String deadCat = trail.remove(i);
                     //if (Debug.infoOn()) Debug.logInfo("[CategoryWorker.setTrail] Removed after current category index: " + i + " catname: " + deadCat, module);
                 }
             }
