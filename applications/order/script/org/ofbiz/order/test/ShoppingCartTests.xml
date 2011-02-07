@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testCreateShoppingCart" short-description="Test create shopping cart" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+
+        <!-- Shopping Cart new Instance -->
+        <set field="delegator" from-field="parameters.delegator" type="Object"/>
+        <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
+        <set field="locale" from-field="parameters.locale" type="Object" />
+        <set field="productStoreId" value="9000" type="String"/>
+        <set field="currencyUom" value="USD" type="String"/>
+
+        <call-bsh><![CDATA[
+            shoppingCart = new org.ofbiz.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom);
+            parameters.put("shoppingCart", shoppingCart);
+        ]]></call-bsh>
+
+        <set field="orderTypeId" value="SALES_ORDER" type="String"/>
+        <set field="paymentMethodTypeId" value="CREDIT_CARD" type="String"/>
+        <set field="maxAmount" value="49.26" type="BigDecimal"/>
+        <set field="partyId" value="DemoCustomer" type="String"/>
+        <set field="placingCustomerPartyId" value="DemoCustomer" type="String"/>
+        <set field="endUserCustomerPartyId" value="DemoCustomer" type="String"/>
+        <set field="shipToCustomerPartyId" value="DemoCustomer" type="String"/>
+        <set field="billToCustomerPartyId" value="DemoCustomer" type="String"/>
+        <set field="billFromVendorPartyId" value="Company" type="String"/>
+        <set field="shoppingCart" from-field="parameters.shoppingCart"/>
+
+        <!-- ShoppingCart Set Order Type -->
+        <call-object-method method-name="setOrderType" obj-field="shoppingCart">
+            <field field="orderTypeId" type="String"/>
+        </call-object-method>
+
+        <!-- ShoppingCart Set User Login -->
+        <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
+            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        </call-object-method>
+
+        <!-- ShoppingCart Set ProductStore ID -->
+        <call-object-method method-name="setProductStoreId" obj-field="shoppingCart">
+            <field field="productStoreId" type="String"/>
+        </call-object-method>
+
+        <!-- ShoppingCart Add Payment Amount -->
+        <call-object-method method-name="addPaymentAmount" obj-field="shoppingCart">
+            <field field="paymentMethodTypeId" type="String"/>
+            <field field="maxAmount" type="BigDecimal"/>
+        </call-object-method>
+
+        <!-- ShoppingCart Set Order Party ID -->
+        <call-object-method method-name="setOrderPartyId" obj-field="shoppingCart">
+            <field field="partyId" type="String"/>
+        </call-object-method>
+
+        <!-- Add Product Item to Shopping Cart -->
+        <set field="prodCatalogId" value="DemoCatalog" type="String"/>
+        <set field="index" value="0" type="Integer"/>
+        <set field="productId" value="GZ-2644" type="String"/>
+        <set field="quantity" value="1" type="BigDecimal"/>
+        <set field="selectedAmount" value="0" type="BigDecimal"/>
+        <set field="unitPrice" value="38.4" type="BigDecimal"/>
+        <set field="itemType" value="PRODUCT_ORDER_ITEM" type="String"/>
+        <set field="triggerExternalOpsBool" type="Boolean" value="false"/>
+        <set field="triggerPriceRulesBool" type="Boolean" value="true"/>
+        <set field="skipInventoryChecks" type="Boolean"  value="true"/>
+        <set field="skipProductChecks" type="Boolean"  value="true"/>
+
+        <call-object-method method-name="addItemToEnd" obj-field="shoppingCart" ret-field="itemIdex">
+            <field field="productId" type="String"/>
+            <field field="selectedAmount" type="BigDecimal"/>
+            <field field="quantity" type="BigDecimal"/>
+            <field field="unitPrice" type="BigDecimal"/>
+            <field field="features" type="java.util.HashMap"/>
+            <field field="attributes" type="java.util.HashMap"/>
+            <field field="prodCatalogId" type="String"/>
+            <field field="itemType" type="String"/>
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+            <field field="triggerExternalOpsBool" type="Boolean"/>
+            <field field="triggerPriceRulesBool" type="Boolean"/>
+            <field field="skipInventoryChecks" type="Boolean"/>
+            <field field="skipProductChecks" type="Boolean"/>
+        </call-object-method>
+        
+        <set field="itemIdex" from-field="itemIdex" type="Integer"/>
+        <call-object-method method-name="findCartItem" obj-field="shoppingCart" ret-field="cartItem">
+            <field field="itemIdex" type="int"/>
+        </call-object-method>
+        
+        <set field="groupIdx" value="0" type="Integer"/>
+        <call-object-method method-name="setItemShipGroupQty" obj-field="shoppingCart">
+            <field field="cartItem" type="org.ofbiz.order.shoppingcart.ShoppingCartItem"/>
+            <field field="quantity" type="BigDecimal"/>
+            <field field="groupIdx" type="int"/>
+        </call-object-method>
+
+        <!-- Make OrderAdjustment Promotion to Shopping Cart -->
+        <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentPromotion"/>
+        <set field="orderAdjustmentPromotion.orderAdjustmentTypeId" value="PROMOTION_ADJUSTMENT"/>
+        <set field="orderAdjustmentPromotion.shipGroupSeqId" value="_NA_"/>
+        <set field="orderAdjustmentPromotion.amount" value="-3.84" type="BigDecimal"/>
+        <set field="orderAdjustmentPromotion.productPromoId" value="9011"/>
+        <set field="orderAdjustmentPromotion.productPromoRuleId" value="01"/>
+        <set field="orderAdjustmentPromotion.productPromoActionSeqId" value="01"/>
+
+        <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
+            <field field="orderAdjustmentPromotion" type="org.ofbiz.entity.GenericValue"/>
+        </call-object-method>
+
+        <!-- Make OrderAdjustment Shipping Charges to Shopping Cart -->
+        <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentShipping"/>
+        <set field="orderAdjustmentShipping.orderAdjustmentTypeId" value="SHIPPING_CHARGES"/>
+        <set field="orderAdjustmentShipping.shipGroupSeqId" value="00001"/>
+        <set field="orderAdjustmentShipping.amount" value="12.10" type="BigDecimal"/>
+        
+        <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
+            <field field="orderAdjustmentShipping" type="org.ofbiz.entity.GenericValue"/>
+        </call-object-method>
+
+        <!-- Make OrderAdjustment Sales Tax to Shopping Cart -->
+        <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentSalesTax"/>
+        <set field="orderAdjustmentSalesTax.orderAdjustmentTypeId" value="SALES_TAX"/>
+        <set field="orderAdjustmentSalesTax.orderItemSeqId" value="00001"/>
+        <set field="orderAdjustmentSalesTax.shipGroupSeqId" value="00001"/>
+        <set field="orderAdjustmentSalesTax.amount" value="1.824" type="BigDecimal"/>
+        <set field="orderAdjustmentSalesTax.sourcePercentage" value="0.100000" type="BigDecimal"/>
+        <set field="orderAdjustmentSalesTax.taxAuthorityRateSeqId" value="9004"/>
+        <set field="orderAdjustmentSalesTax.primaryGeoId" value="UT"/>
+        <set field="orderAdjustmentSalesTax.taxAuthGeoId" value="UT"/>
+        <set field="orderAdjustmentSalesTax.taxAuthPartyId" value="UT_TAXMAN"/>
+        <set field="orderAdjustmentSalesTax.overrideGlAccountId" value="224153"/>
+        <set field="orderAdjustmentSalesTax.comments" value="Utah State Sales Tax"/>
+
+        <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
+            <field field="orderAdjustmentSalesTax" type="org.ofbiz.entity.GenericValue"/>
+        </call-object-method>
+
+        <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentSalesTax1"/>
+        <set field="orderAdjustmentSalesTax1.orderAdjustmentTypeId" value="SALES_TAX"/>
+        <set field="orderAdjustmentSalesTax1.orderItemSeqId" value="00001"/>
+        <set field="orderAdjustmentSalesTax1.shipGroupSeqId" value="00001"/>
+        <set field="orderAdjustmentSalesTax1.amount" value="0.039" type="BigDecimal"/>
+        <set field="orderAdjustmentSalesTax1.sourcePercentage" value="0.100000" type="BigDecimal"/>
+        <set field="orderAdjustmentSalesTax1.taxAuthorityRateSeqId" value="9005"/>
+        <set field="orderAdjustmentSalesTax1.primaryGeoId" value="UT-UTAH"/>
+        <set field="orderAdjustmentSalesTax1.taxAuthGeoId" value="UT-UTAH"/>
+        <set field="orderAdjustmentSalesTax1.taxAuthPartyId" value="UT_UTAH_TAXMAN"/>
+        <set field="orderAdjustmentSalesTax1.overrideGlAccountId" value="224153"/>
+        <set field="orderAdjustmentSalesTax1.comments" value="Utah County, Utah Sales Tax"/>
+
+        <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
+            <field field="orderAdjustmentSalesTax1" type="org.ofbiz.entity.GenericValue"/>
+        </call-object-method>
+
+        <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentSalesTax2"/>
+        <set field="orderAdjustmentSalesTax2.orderAdjustmentTypeId" value="SALES_TAX"/>
+        <set field="orderAdjustmentSalesTax2.orderItemSeqId" value="00001"/>
+        <set field="orderAdjustmentSalesTax2.shipGroupSeqId" value="00001"/>
+        <set field="orderAdjustmentSalesTax2.amount" value="0.384" type="BigDecimal"/>
+        <set field="orderAdjustmentSalesTax2.sourcePercentage" value="1" type="BigDecimal"/>
+        <set field="orderAdjustmentSalesTax2.taxAuthorityRateSeqId" value="9000"/>
+        <set field="orderAdjustmentSalesTax2.primaryGeoId" value="_NA_"/>
+        <set field="orderAdjustmentSalesTax2.taxAuthGeoId" value="_NA_"/>
+        <set field="orderAdjustmentSalesTax2.taxAuthPartyId" value="_NA_"/>
+        <set field="orderAdjustmentSalesTax2.overrideGlAccountId" value="224000"/>
+        <set field="orderAdjustmentSalesTax2.comments" value="1% OFB _NA_ Tax"/>
+
+        <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
+            <field field="orderAdjustmentSalesTax2" type="org.ofbiz.entity.GenericValue"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Set ShippingContactMechId-->
+        <set field="contactMechId" value="9015"/>
+        <call-object-method method-name="setShippingContactMechId" obj-field="shoppingCart">
+            <field field="contactMechId" type="String"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Set Method Type ID-->
+        <set field="shipmentMethodTypeId" value="NEXT_DAY" type="String"/>
+        <call-object-method method-name="setShipmentMethodTypeId" obj-field="shoppingCart">
+            <field field="shipmentMethodTypeId" type="String"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Set Carrier Party ID-->
+        <set field="carrierPartyId" value="UPS" type="String"/>
+        <call-object-method method-name="setCarrierPartyId" obj-field="shoppingCart">
+            <field field="carrierPartyId" type="String"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Set Is Gift-->
+        <set field="isGift" value="false" type="Boolean"/>
+        <call-object-method method-name="setIsGift" obj-field="shoppingCart">
+            <field field="isGift" type="Boolean"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Set May Split-->
+        <set field="maySplit" value="false" type="Boolean"/>
+        <call-object-method method-name="setMaySplit" obj-field="shoppingCart">
+            <field field="maySplit" type="Boolean"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Set Billing and Ship to customers -->
+        <call-object-method method-name="setBillFromVendorPartyId" obj-field="shoppingCart">
+            <field field="billFromVendorPartyId" type="String"/>
+        </call-object-method>
+        <call-object-method method-name="setPlacingCustomerPartyId" obj-field="shoppingCart">
+            <field field="placingCustomerPartyId" type="String"/>
+        </call-object-method>
+        <call-object-method method-name="setBillToCustomerPartyId" obj-field="shoppingCart">
+            <field field="billToCustomerPartyId" type="String"/>
+        </call-object-method>
+        <call-object-method method-name="setShipToCustomerPartyId" obj-field="shoppingCart">
+            <field field="shipToCustomerPartyId" type="String"/>
+        </call-object-method>
+        <call-object-method method-name="setEndUserCustomerPartyId" obj-field="shoppingCart">
+            <field field="endUserCustomerPartyId" type="String"/>
+        </call-object-method>
+
+        <!-- Shopping Cart Make all ShipGroupInfos -->
+        <call-object-method method-name="makeAllShipGroupInfos" obj-field="shoppingCart"/>
+
+        <!-- Shopping Cart checkout and create order -->
+        <call-bsh><![CDATA[
+            checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
+            java.util.Map orderCreate = checkOutHelper.createOrder(userLogin);
+            parameters.put("orderMap", orderCreate);
+        ]]></call-bsh>
+
+        <!-- Clear Shopping Cart -->
+        <call-object-method method-name="clear" obj-field="shoppingCart"/>
+
+        <set field="orderMap" from-field="parameters.orderMap"/>
+        <if-not-empty field="orderMap">
+            <log level="info" message="------------ ORDERID : [${orderMap.orderId}] ------------"/>
+        </if-not-empty>
+
+        <assert><not><if-empty field="orderMap.orderId"/></not></assert>
+        <check-errors/>
+    </simple-method>
+</simple-methods>
