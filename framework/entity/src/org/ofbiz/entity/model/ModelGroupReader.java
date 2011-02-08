@@ -49,6 +49,7 @@ import org.w3c.dom.Node;
  * Generic Entity - Entity Group Definition Reader
  *
  */
+@SuppressWarnings("serial")
 public class ModelGroupReader implements Serializable {
 
     public static final String module = ModelGroupReader.class.getName();
