@@ -45,8 +45,6 @@ public abstract class GenericMapCollection<K, V, M extends Map<K, V>, I> impleme
     }
 
     public boolean containsAll(Collection<?> collection) {
-        @SuppressWarnings("unused")
-        int count = 0;
         for (Object item: collection) {
             if (!contains(item)) return false;
         }
