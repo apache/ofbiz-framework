@@ -17,7 +17,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 
-value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -796,8 +795,8 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden value="${productStoreId}"></hidden></field>
         <field name="formSelect"><hidden value="${formSelect}"></hidden></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time type="String"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time type="String"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><date-time type="date"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"><date-time type="date"/></field>
         <field name="selectedDate"><hidden value="true"></hidden></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
