@@ -35,6 +35,7 @@ import org.ofbiz.base.util.collections.IteratorWrapper;
  * Generic Entity - Relation model class
  *
  */
+@SuppressWarnings("serial")
 public class ModelIndex extends ModelChild {
 
     /** the index name, used for the database index name */
