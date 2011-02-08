@@ -72,7 +72,7 @@ public class EbayStoreOptions {
         StoreThemeArrayType returnedBasicThemeArray = null;
 
         try {
-            Map paramMap = UtilHttp.getCombinedMap(request);
+            Map<String, Object> paramMap = UtilHttp.getCombinedMap(request);
             if (paramMap.get("productStoreId") != null) {
                 String themeId = (String)paramMap.get("themeId");
 
@@ -169,7 +169,7 @@ public class EbayStoreOptions {
     }
 
     public static String retrieveItemTemplateByTemplateGroupId(HttpServletRequest request,HttpServletResponse response) {
-        Map paramMap = UtilHttp.getCombinedMap(request);
+        Map<String, Object> paramMap = UtilHttp.getCombinedMap(request);
         try {
             if (paramMap.get("productStoreId") != null) {
                 String temGroupId = (String)paramMap.get("templateGroupId");
@@ -194,7 +194,7 @@ public class EbayStoreOptions {
     public static String retrieveEbayCategoryByParent(HttpServletRequest request, HttpServletResponse response) {
         List<CategoryType> results = FastList.newInstance();
         try {
-            Map paramMap = UtilHttp.getCombinedMap(request);
+            Map<String, Object> paramMap = UtilHttp.getCombinedMap(request);
             if (paramMap.get("productStoreId") != null) {
                 String ebayCategoryId = (String)paramMap.get("ebayCategoryId");
                 // when change category should be remove old category from session

@@ -29,7 +29,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 import com.ebay.sdk.ApiContext;
@@ -49,7 +48,6 @@ public class EbayStoreCustomerService {
     private static final String resource = "EbayStoreUiLabels";
 
     public static Map<String, Object> listBestOfferIncludeMessage(DispatchContext dctx, Map<String, ? extends Object> context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(context.get("userId")) || UtilValidate.isEmpty(context.get("itemId"))) {
@@ -60,12 +58,6 @@ public class EbayStoreCustomerService {
             String itemId = (String) context.get("itemId");
             String bestOfferId = (String) context.get("bestOfferId");
             String productStoreId = (String) context.get("productStoreId");
-            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
-            Map<String, Object> inMap = FastMap.newInstance();
-            inMap.put("productStoreId", productStoreId);
-            inMap.put("userLogin", userLogin);
-            Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
-            String userID = (String) resultUser.get("userLoginId");
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             DetailLevelCodeType[] detailLevel = new DetailLevelCodeType[] {
                     DetailLevelCodeType.RETURN_ALL,
@@ -106,7 +98,6 @@ public class EbayStoreCustomerService {
         return result;
     }
     public static Map<String, Object> updateContactStatus(DispatchContext dctx, Map<String, ? extends Object> context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         if (UtilValidate.isEmpty(context.get("productStoreId")) || UtilValidate.isEmpty(context.get("userId")) || UtilValidate.isEmpty(context.get("itemId")) || UtilValidate.isEmpty(context.get("offerId")) || UtilValidate.isEmpty(context.get("contactSetting"))) {
@@ -123,12 +114,6 @@ public class EbayStoreCustomerService {
         String quantity = (String) context.get("quantity");
         Map <String, Object> result = FastMap.newInstance();
         try {
-            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", "system");
-            Map<String, Object> inMap = FastMap.newInstance();
-            inMap.put("productStoreId", productStoreId);
-            inMap.put("userLogin", userLogin);
-            Map<String, Object> resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
-            String userID = (String) resultUser.get("userLoginId");
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             String[] bestOfferIDs = {offerId};
             RespondToBestOfferCall respondToBestOfferCall = new RespondToBestOfferCall(apiContext);

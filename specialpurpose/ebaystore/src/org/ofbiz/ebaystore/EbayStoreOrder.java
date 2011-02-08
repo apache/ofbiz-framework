@@ -58,10 +58,7 @@ public class EbayStoreOrder {
 
     public static Map<String, Object> EbayStoreImportTransaction(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         try {
             if ("Complete".equals(context.get("checkoutStatus").toString()) && "NOT_IMPORT".equals(context.get("importStatus").toString())) {
                 if (UtilValidate.isEmpty(context.get("shippingAddressStreet1"))) {
@@ -77,11 +74,8 @@ public class EbayStoreOrder {
         return result;
     }
     public static Map<String, Object> EbayStoreImportOrder(DispatchContext dctx, Map<String, Object> context) {
-        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         if (UtilValidate.isEmpty(context.get("orderId"))) {
             try {
                 result = dispatcher.runSync("EbayStoreCreateOrderShoppingCart", context);
@@ -162,10 +156,7 @@ public class EbayStoreOrder {
                 }
             }
 
-            String paidTime = null;
-            if (UtilValidate.isNotEmpty(context.get("paidTime"))) {
-                paidTime = context.get("paidTime").toString();
-            } else {
+            if (UtilValidate.isEmpty(context.get("paidTime"))) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.paymentIsStillNotReceived", locale));
             }
 
@@ -528,11 +519,6 @@ public class EbayStoreOrder {
             String orderId = (String) orderCreate.get("orderId");
             Debug.logInfo("Created order with id: " + orderId, module);
 
-            if (UtilValidate.isNotEmpty(orderId)) {
-                String orderCreatedMsg = "Order created successfully with ID (" + orderId + ") & eBay Order ID associated with this order is (" + externalId + ").";
-                //orderImportSuccessMessageList.add(orderCreatedMsg);
-            }
-
             // approve the order
             if (UtilValidate.isNotEmpty(orderId)) {
                 Debug.logInfo("Approving order with id: " + orderId, module);
@@ -545,6 +531,7 @@ public class EbayStoreOrder {
                     EbayHelper.createPaymentFromPaymentPreferences(delegator, dispatcher, userLogin, orderId, externalId, cart.getOrderDate(), amountPaid, partyId);
                     Debug.logInfo("Payment created.", module);
                 }
+                result = ServiceUtil.returnFailure("Order created successfully with ID (" + orderId + ") & eBay Order ID associated with this order is (" + externalId + ").");
             }
         } catch (Exception e) {
             result = ServiceUtil.returnFailure(e.getMessage());
@@ -556,8 +543,7 @@ public class EbayStoreOrder {
         String productId = orderItem.get("productId").toString();
         GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         if (UtilValidate.isEmpty(product)) {
-            String productMissingMsg = "The product having ID (" + productId + ") is misssing in the system.";
-            //orderImportFailureMessageList.add(productMissingMsg);
+            Debug.log("The product having ID (" + productId + ") is misssing in the system.", module);
         }
         BigDecimal qty = new BigDecimal(orderItem.get("quantity").toString());
         String itemPrice = orderItem.get("transactionPrice").toString();

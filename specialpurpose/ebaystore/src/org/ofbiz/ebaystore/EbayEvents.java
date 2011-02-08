@@ -35,6 +35,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -95,11 +96,10 @@ public class EbayEvents {
     private static final int SHIPPING_SERVICE_ID_LIMIT = 50000;
     public static final String module = EbayEvents.class.getName();
 
-    @SuppressWarnings("unchecked")
     public static String sendLeaveFeedback(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Map requestParams = UtilHttp.getParameterMap(request);
+        Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         int feedbackSize = Integer.parseInt((String)requestParams.get("feedbackSize"));
         String productStoreId = (String)requestParams.get("productStoreId");
@@ -118,7 +118,7 @@ public class EbayEvents {
                 String ratingShipHand = (String)requestParams.get("ratingShipHand"+i);
                 String AqItemAsDescribedId = (String)requestParams.get("AqItemAsDescribedId"+i);
 
-                Map leavefeedback =  FastMap.newInstance();
+                Map<String, Object> leavefeedback =  FastMap.newInstance();
                 leavefeedback.put("productStoreId", productStoreId);
                 leavefeedback.put("userLogin", userLogin);
                 leavefeedback.put("itemId", itemId);
@@ -135,7 +135,7 @@ public class EbayEvents {
                 leavefeedback.put("AqItemAsDescribedId", AqItemAsDescribedId);
                 // Call service
                 try {
-                    Map result = dispatcher.runSync("leaveFeedback", leavefeedback);
+                    dispatcher.runSync("leaveFeedback", leavefeedback);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     request.setAttribute("_ERROR_MESSAGE_","Exception: ".concat(e.getMessage()));
@@ -146,7 +146,6 @@ public class EbayEvents {
         return "success";
     }
     /* event to add products to prepare create & export listing */
-    @SuppressWarnings("unchecked")
     public static String addProductListing(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
@@ -156,12 +155,12 @@ public class EbayEvents {
             request.setAttribute("_ERROR_MESSAGE_","Required productStoreId and selected products.");
             return "error";
         }
-        List<String> productIds = (List<String>) requestParams.get("productIds");
+        List<String> productIds = UtilGenerics.checkList(requestParams.get("productIds"));
         if (UtilValidate.isNotEmpty(requestParams.get("productIds"))) {
-            productIds = (List<String>) requestParams.get("productIds");
+            productIds = UtilGenerics.checkList(requestParams.get("productIds"));
         } else if (UtilValidate.isNotEmpty(requestParams.get("selectResult"))) {
             try {
-                productIds = (List<String>) requestParams.get("selectResult");
+                productIds = UtilGenerics.checkList(requestParams.get("selectResult"));
             } catch (ClassCastException e) {
                 if (UtilValidate.isEmpty(productIds)) productIds = FastList.newInstance();
                 productIds.add((String) requestParams.get("selectResult"));
@@ -178,7 +177,7 @@ public class EbayEvents {
         Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
         List<Map<String,Object>> itemObjs = null;
         if (UtilValidate.isNotEmpty(addItemObject.get("itemListings"))) {
-            itemObjs = (List<Map<String,Object>>) addItemObject.get("itemListings");
+            itemObjs = UtilGenerics.checkList(addItemObject.get("itemListings"));
         } else {
             itemObjs = FastList.newInstance();
         }
@@ -245,7 +244,7 @@ public class EbayEvents {
                     Map<String,Object> itemListing = null;
                     for (Map<String,Object> itemObj : itemObjs) {
                         if (UtilValidate.isNotEmpty(itemObj.get(productId.concat("_Obj")))) {
-                            itemListing = (Map<String,Object> )itemObj.get(productId.concat("_Obj"));
+                            itemListing = UtilGenerics.checkMap(itemObj.get(productId.concat("_Obj")));
                             itemListing.put("addItemCall", addItemCall);
                             itemListing.put("productId", productId);
                             break;
@@ -345,19 +344,18 @@ public class EbayEvents {
     public static void removeItemListingObject(HttpServletRequest request, ApiContext apiContext) {
         HttpSession session = request.getSession(true);
         String siteCode = apiContext.getSite().name();
-        Map<String,Object> addItemObject = (Map<String,Object>) session.getAttribute("itemListings_".concat(siteCode));
+        Map<String,Object> addItemObject = UtilGenerics.checkMap(session.getAttribute("itemListings_".concat(siteCode)));
         if (UtilValidate.isNotEmpty(addItemObject)) {
             session.removeAttribute("itemListings_".concat(siteCode));
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String,Object> getAddItemListingObject(HttpServletRequest request, ApiContext apiContext) {
         String siteCode = apiContext.getSite().name();
-        Map<String,Object> addItemObject = (Map<String,Object>) request.getAttribute("itemListings_".concat(siteCode));
+        Map<String,Object> addItemObject = UtilGenerics.checkMap(request.getAttribute("itemListings_".concat(siteCode)));
         HttpSession session = request.getSession(true);
         if (addItemObject == null) {
-            addItemObject = (Map<String,Object>) session.getAttribute("itemListings_".concat(siteCode));
+            addItemObject = UtilGenerics.checkMap(session.getAttribute("itemListings_".concat(siteCode)));
         } else {
             session.setAttribute("itemListings_".concat(siteCode), addItemObject);
         }
@@ -369,7 +367,6 @@ public class EbayEvents {
     }
 
     // make ebay category list
-    @SuppressWarnings("unchecked")
     public static List<CategoryType> getChildCategories(HttpServletRequest request) throws ApiException, SdkException, Exception{
         List<CategoryType> categories = FastList.newInstance();
         EbayStoreSiteFacade sf = null;
@@ -414,7 +411,7 @@ public class EbayEvents {
                     }
                 }
                 //sort the cats list
-                Collections.sort(categories, new Comparator() {
+                Collections.sort(categories, new Comparator<Object>() {
                     public int compare(Object a, Object b) {
                         CategoryType cat1 = (CategoryType)a;
                         CategoryType cat2 = (CategoryType)b;
@@ -468,7 +465,7 @@ public class EbayEvents {
                     }
                 }
                 //sort the cats list
-                Collections.sort(categories, new Comparator() {
+                Collections.sort(categories, new Comparator<Object>() {
                     public int compare(Object a, Object b) {
                         StoreCustomCategoryType cat1 = (StoreCustomCategoryType) a;
                         StoreCustomCategoryType cat2 = (StoreCustomCategoryType) b;
@@ -550,7 +547,7 @@ public class EbayEvents {
             if (UtilValidate.isNotEmpty(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)))) {
                 ApiContext apiContext = getApiContext(request);
                 Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
-                List<Map<String,Object>> addItemlist = (List<Map<String,Object>>) addItemObject.get("itemListing");
+                List<Map<String,Object>> addItemlist = UtilGenerics.checkList(addItemObject.get("itemListing"));
 
                 if (UtilValidate.isNotEmpty(addItemlist)) {
                     for (Map<String,Object> addItemCall : addItemlist) {
@@ -620,7 +617,7 @@ public class EbayEvents {
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
         Locale locale = UtilHttp.getLocale(request);
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        HashMap attributeMapList = new HashMap();
+        HashMap<String, Object> attributeMapList = new HashMap<String, Object>();
         String id = "";
         if (UtilValidate.isNotEmpty(requestParams.get("listype"))) {
             if ("auction".equals(requestParams.get("listype"))) {
@@ -647,7 +644,7 @@ public class EbayEvents {
         String productStoreId = (String) requestParams.get("productStoreId");
         
         // initialize request parameter.
-        Map paramMap = UtilHttp.getParameterMap(request);
+        Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         List<String> nameSpecificList = FastList.newInstance();
         List<String> valueSpecificList = FastList.newInstance();
         String nameValueListType = null;
@@ -677,7 +674,7 @@ public class EbayEvents {
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
             List<Map<String,Object>> listAddItem = null;
             if (UtilValidate.isNotEmpty(addItemObject.get("itemListing"))) {
-                listAddItem = (List<Map<String,Object>>) addItemObject.get("itemListing");
+                listAddItem = UtilGenerics.checkList(addItemObject.get("itemListing"));
             } else {
                 listAddItem = FastList.newInstance();
             }
@@ -975,7 +972,7 @@ public class EbayEvents {
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
             List<Map<String,Object>> listAddItem = null;
             if (UtilValidate.isNotEmpty(addItemObject.get("itemListing"))) {
-                listAddItem = (List<Map<String,Object>>) addItemObject.get("itemListing");
+                listAddItem = UtilGenerics.checkList(addItemObject.get("itemListing"));
             } else {
                 listAddItem = FastList.newInstance();
             }
@@ -1030,7 +1027,7 @@ public class EbayEvents {
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
             List<Map<String,Object>> listAddItem = null;
             if (UtilValidate.isNotEmpty(addItemObject.get("itemListing"))) {
-                listAddItem = (List<Map<String,Object>>) addItemObject.get("itemListing");
+                listAddItem = UtilGenerics.checkList(addItemObject.get("itemListing"));
             } else {
                 listAddItem = FastList.newInstance();
             }
@@ -1072,7 +1069,7 @@ public class EbayEvents {
             Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
             List<Map<String,Object>> listAddItem = null;
             if (UtilValidate.isNotEmpty(addItemObject.get("itemListing"))) {
-                listAddItem = (List<Map<String,Object>>) addItemObject.get("itemListing");
+                listAddItem = UtilGenerics.checkList(addItemObject.get("itemListing"));
             } else {
                 listAddItem = FastList.newInstance();
             }
@@ -1131,15 +1128,12 @@ public class EbayEvents {
         }
     }
     
-    public static Map<String, Map> categorySpecifics(String categoryId, HttpServletRequest request) {
-        Map<String, Map> recommendationMap = FastMap.newInstance();
+    public static Map<String, Map<String, List<String>>> categorySpecifics(String categoryId, HttpServletRequest request) {
+        Map<String, Map<String, List<String>>> recommendationMap = FastMap.newInstance();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Map<String,Object> requestParams = UtilHttp.getParameterMap(request);
         Locale locale = UtilHttp.getLocale(request);
         String productStoreId = (String) requestParams.get("productStoreId");
-        HttpSession session = request.getSession(true);
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
@@ -1156,7 +1150,7 @@ public class EbayEvents {
             
             for (int i = 0; i < recommend.length; i++) {
                 NameRecommendationType[] nameRecommend = recommend[i].getNameRecommendation();
-                Map<String, List> nameRecommendationMap = FastMap.newInstance();
+                Map<String, List<String>> nameRecommendationMap = FastMap.newInstance();
                 for (int j = 0; j < nameRecommend.length; j++) {
                     String name = nameRecommend[j].getName();
                     List<String> valueList = FastList.newInstance();
