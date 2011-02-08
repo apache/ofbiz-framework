@@ -37,6 +37,7 @@ import org.w3c.dom.NodeList;
  * Generic Entity - Relation model class
  *
  */
+@SuppressWarnings("serial")
 public class ModelRelation extends ModelChild {
 
     /** the title, gives a name/description to the relation */
