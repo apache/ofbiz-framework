@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.model;
 
-import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
