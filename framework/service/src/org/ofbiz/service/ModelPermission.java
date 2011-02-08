@@ -24,7 +24,6 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
@@ -33,6 +32,7 @@ import org.ofbiz.security.authz.Authorization;
 /**
  * Service Permission Model Class
  */
+@SuppressWarnings("serial")
 public class ModelPermission implements Serializable {
 
     public static final String module = ModelPermission.class.getName();
@@ -98,7 +98,6 @@ public class ModelPermission implements Serializable {
             Debug.logWarning("Null role type name passed for evaluation", module);
             return false;
         }
-        Delegator delegator = userLogin.getDelegator();
         List<GenericValue> partyRoles = null;
         /** (jaz) THIS IS NOT SECURE AT ALL
         try {
