@@ -23,6 +23,7 @@ import org.ofbiz.entity.GenericEntityException;
 /**
  * GenericTransactionException
  */
+@SuppressWarnings("serial")
 public class GenericTransactionException extends GenericEntityException {
 
     public GenericTransactionException() {
