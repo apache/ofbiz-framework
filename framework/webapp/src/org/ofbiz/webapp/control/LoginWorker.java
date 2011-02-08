@@ -129,7 +129,10 @@ public class LoginWorker {
         synchronized (session) {
             // if the session has a previous key in place, remove it from the master list
             String sesExtKey = (String) session.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
+
             if (sesExtKey != null) {
+                if (isAjax(request)) return sesExtKey; 
+
                 externalLoginKeys.remove(sesExtKey);
             }
 
@@ -1032,4 +1035,9 @@ public class LoginWorker {
         }
         return userLoginSessionMap;
     }
+    
+    public static boolean isAjax(HttpServletRequest request) {
+       return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+    }
+    
 }
