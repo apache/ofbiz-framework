@@ -1408,7 +1408,6 @@ under the License.
         <description>Delete Image File</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
         <attribute mode="IN" name="objectInfo" optional="false" type="String"/>
-        <attribute mode="IN" name="productId" optional="false" type="String"/>
     </service>
     
     <service name="addImageFrame" engine="java"
