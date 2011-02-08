@@ -21,6 +21,7 @@ package org.ofbiz.base.lang;
 public interface ObjectWrapper<T> {
     T getObject() throws ObjectException;
 
+    @SuppressWarnings("serial")
     public class ObjectException extends Exception {
         protected ObjectException(Throwable cause) {
             this(cause.getMessage(), cause);
@@ -42,12 +43,14 @@ public interface ObjectWrapper<T> {
         }
     }
 
+    @SuppressWarnings("serial")
     public class NestedException extends ObjectException {
         public NestedException(Throwable cause) {
             super(cause);
         }
     }
 
+    @SuppressWarnings("serial")
     public class ConfigurationException extends RuntimeException {
         public ConfigurationException(String msg) {
             super(msg);
