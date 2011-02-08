@@ -415,8 +415,8 @@ public class EmailServices {
         String bodyScreenUri = (String) serviceContext.remove("bodyScreenUri");
         String xslfoAttachScreenLocationParam = (String) serviceContext.remove("xslfoAttachScreenLocation");
         String attachmentNameParam = (String) serviceContext.remove("attachmentName");
-        List<String> xslfoAttachScreenLocationListParam = (List) serviceContext.remove("xslfoAttachScreenLocationList");
-        List<String> attachmentNameListParam = (List) serviceContext.remove("attachmentNameList");
+        List<String> xslfoAttachScreenLocationListParam = UtilGenerics.checkList(serviceContext.remove("xslfoAttachScreenLocationList"));
+        List<String> attachmentNameListParam = UtilGenerics.checkList(serviceContext.remove("attachmentNameList"));
         
         List<String> xslfoAttachScreenLocationList = FastList.newInstance();
         List<String> attachmentNameList = FastList.newInstance();
