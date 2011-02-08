@@ -41,8 +41,7 @@ public class ServiceSOAPTests extends OFBizTestCase {
         Map<String, Object> serviceContext = FastMap.newInstance();
         serviceContext.put("defaultValue", new Double("123.4567"));
         serviceContext.put("message", "Test Message !!!");
-        Map<String, Object> results = dispatcher.runSync("testSoapSimple", serviceContext);
-        String resp = (String) results.get("resp");
+        dispatcher.runSync("testSoapSimple", serviceContext);
     }
 
     public void testSOAPService() throws Exception {

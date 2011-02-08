@@ -110,7 +110,6 @@ public class CommonServices {
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        GenericValue testing = (GenericValue) context.get("testing");
         List<GenericValue> testingNodes = FastList.newInstance();
         for (int i = 0; i < 3; i ++) {
             GenericValue testingNode = delegator.makeValue("TestingNode");
