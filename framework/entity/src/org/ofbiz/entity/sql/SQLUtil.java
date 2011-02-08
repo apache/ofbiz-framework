@@ -20,9 +20,7 @@ package org.ofbiz.entity.sql;
 
 import java.io.StringReader;
 
-import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.sql.OrderByItem;
-import org.ofbiz.sql.Parser;
 import org.ofbiz.sql.ParseException;
 import org.ofbiz.sql.Parser;
 
