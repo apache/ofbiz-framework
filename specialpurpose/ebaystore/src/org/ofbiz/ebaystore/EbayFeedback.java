@@ -54,7 +54,6 @@ import javolution.util.FastMap;
 public class EbayFeedback {
 
     public static final String resource = "EbayUiLabels";
-    private static final String module = EbayFeedback.class.getName();
 
     public static Map<String, Object> loadFeedback(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
@@ -73,8 +72,8 @@ public class EbayFeedback {
             String userID = (String)resultUser.get("userLoginId");
             GetFeedbackCall feedbackCall = new GetFeedbackCall();
             feedbackCall.setApiContext(apiContext);
-            SiteCodeType SiteCodeType = EbayStoreHelper.getSiteCodeType(productStoreId,locale, delegator);
-            feedbackCall.setSite(SiteCodeType.US);
+            SiteCodeType siteCodeType = EbayStoreHelper.getSiteCodeType(productStoreId,locale, delegator);
+            feedbackCall.setSite(siteCodeType);
             feedbackCall.setUserID(userID);
             DetailLevelCodeType[] detailLevelCodeType = {DetailLevelCodeType.RETURN_ALL};
             feedbackCall.setDetailLevel(detailLevelCodeType);
@@ -98,7 +97,7 @@ public class EbayFeedback {
                     partyId = userLoginEx.getString("partyId");
                 }
                 //PartyRole For eBay User
-                List partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
+                List<GenericValue> partyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER"));
                 if (partyRoles.size() == 0) {
                     GenericValue partyRole =  delegator.makeValue("PartyRole");
                     partyRole.put("partyId", partyId);
@@ -117,7 +116,7 @@ public class EbayFeedback {
                     String textData = feedback[i].getCommentText();
                     String commentingUserId= feedback[i].getCommentingUser();
                     String commentingPartyId = null;
-                    List CommentingUserLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("userLoginId", commentingUserId));
+                    List<GenericValue> CommentingUserLogins = delegator.findByAnd("UserLogin", UtilMisc.toMap("userLoginId", commentingUserId));
                     if (CommentingUserLogins.size() == 0) {
                         //Party
                         GenericValue party =  delegator.makeValue("Party");
@@ -159,7 +158,7 @@ public class EbayFeedback {
                     contentPurpose.put("contentPurposeTypeId", "FEEDBACK");
                     contentPurpose.create();
                     //PartyRole For eBay Commentator
-                    List commentingPartyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR"));
+                    List<GenericValue> commentingPartyRoles = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR"));
                     if (commentingPartyRoles.size() == 0) {
                         GenericValue partyRole =  delegator.makeValue("PartyRole");
                         partyRole.put("partyId", commentingPartyId);
@@ -167,7 +166,7 @@ public class EbayFeedback {
                         partyRole.create();
                     }
                     //ContentRole for eBay User
-                    List contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER", "contentId", contentId));
+                    List<GenericValue> contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "OWNER", "contentId", contentId));
                     if (contentRoles.size() == 0) {
                         GenericValue contentRole =  delegator.makeValue("ContentRole");
                         contentRole.put("contentId", contentId);
@@ -177,7 +176,7 @@ public class EbayFeedback {
                         contentRole.create();
                     }
                     //ContentRole for Commentator
-                    List commentingContentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR", "contentId", contentId));
+                    List<GenericValue> commentingContentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("partyId", commentingPartyId, "roleTypeId", "COMMENTATOR", "contentId", contentId));
                     if (commentingContentRoles.size() == 0) {
                         GenericValue contentRole =  delegator.makeValue("ContentRole");
                         contentRole.put("contentId", contentId);
@@ -205,13 +204,11 @@ public class EbayFeedback {
 
     public static Map<String, Object> getItemsAwaitingFeedback(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
         ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
-        List itemsResult = FastList.newInstance();
+        List<Map<String, Object>> itemsResult = FastList.newInstance();
         try {
             GetItemsAwaitingFeedbackCall awaitingFeedbackCall = new GetItemsAwaitingFeedbackCall();
             awaitingFeedbackCall.setApiContext(apiContext);
@@ -274,7 +271,6 @@ public class EbayFeedback {
         String role = (String) context.get("role");
         String commentType = (String) context.get("commentType");
         String commentText = (String) context.get("commentText");
-        String AqItemAsDescribed = null;
         String ratingItem = (String) context.get("ratingItem");
         String ratingComm = (String) context.get("ratingComm");
         String ratingShip = (String) context.get("ratingShip");
@@ -296,6 +292,8 @@ public class EbayFeedback {
                         ratingItemValue = Integer.parseInt(ratingItem);
                     }
                     if (ratingItemValue < 3) {
+                        /*
+                        String AqItemAsDescribed = null;
                         int AqItemAsDescribedId = Integer.parseInt((String) context.get("AqItemAsDescribedId"));
                         switch (AqItemAsDescribedId) {
                         case 5:
@@ -317,6 +315,7 @@ public class EbayFeedback {
                             AqItemAsDescribed = "Other";
                             break;
                         }
+                        */
                     }
                     itemRatingDetailsType1.setRating(ratingItemValue);
                     itemRatingDetailsType1.setRatingDetail(FeedbackRatingDetailCodeType.ITEM_AS_DESCRIBED);

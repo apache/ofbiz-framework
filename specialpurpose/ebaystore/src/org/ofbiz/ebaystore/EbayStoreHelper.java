@@ -24,11 +24,9 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,6 +34,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -54,7 +53,6 @@ import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.calendar.RecurrenceInfoException;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.service.job.JobManager;
 
 import com.ebay.sdk.ApiAccount;
 import com.ebay.sdk.ApiContext;
@@ -95,7 +93,6 @@ import com.ebay.soap.eBLBaseComponents.VATDetailsType;
 import com.ibm.icu.text.SimpleDateFormat;
 
 public class EbayStoreHelper {
-    private static final String configFileName = "ebayStore.properties";
     private static final String module = EbayStoreHelper.class.getName();
     public static final String resource = "EbayStoreUiLabels";
 
@@ -353,7 +350,6 @@ public class EbayStoreHelper {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
         String autoPrefEnumId = (String) context.get("autoPrefEnumId");
         try {
@@ -375,7 +371,7 @@ public class EbayStoreHelper {
         return result;
     }
 
-    public static void mappedPaymentMethods(Map requestParams, String itemPkCateId, Map<String,Object> addItemObject, ItemType item, HashMap attributeMapList) {
+    public static void mappedPaymentMethods(Map<String,Object> requestParams, String itemPkCateId, Map<String,Object> addItemObject, ItemType item, HashMap<String, Object> attributeMapList) {
         String refName = "itemCateFacade_"+itemPkCateId;
         if (UtilValidate.isNotEmpty(addItemObject) && UtilValidate.isNotEmpty(requestParams)) {
             EbayStoreCategoryFacade cf = (EbayStoreCategoryFacade) addItemObject.get(refName);
@@ -403,7 +399,7 @@ public class EbayStoreHelper {
         }
     }
 
-    public static void mappedShippingLocations(Map requestParams, ItemType item, ApiContext apiContext, HttpServletRequest request, HashMap attributeMapList) {
+    public static void mappedShippingLocations(Map<String, Object> requestParams, ItemType item, ApiContext apiContext, HttpServletRequest request, HashMap<String, Object> attributeMapList) {
         try {
             if (UtilValidate.isNotEmpty(requestParams)) {
                 EbayStoreSiteFacade sf = EbayEvents.getSiteFacade(apiContext, request);
@@ -434,7 +430,7 @@ public class EbayStoreHelper {
         Map<String,Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        Map<String, Object> itemObject = (Map<String, Object>) context.get("itemObject");
+        Map<String, Object> itemObject = UtilGenerics.checkMap(context.get("itemObject"));
         String productListingId = itemObject.get("productListingId").toString();
         AddItemCall addItemCall = (AddItemCall) itemObject.get("addItemCall");
         AddItemRequestType req = new AddItemRequestType();
@@ -468,12 +464,8 @@ public class EbayStoreHelper {
     }
 
     public static Map<String, Object> setEbayProductListingAttribute(DispatchContext dctx, Map<String, Object> context) {
-        Map<String, Object>result = FastMap.newInstance();
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Delegator delegator = dctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
-        HashMap attributeMapList = (HashMap) context.get("attributeMapList");
+        HashMap<String, Object> attributeMapList = UtilGenerics.cast(context.get("attributeMapList"));
         String productListingId = (String) context.get("productListingId");
         try {
            List<GenericValue> attributeToClears = delegator.findByAnd("EbayProductListingAttribute", UtilMisc.toMap("productListingId", productListingId));
@@ -483,16 +475,12 @@ public class EbayStoreHelper {
                  valueToClear.remove();
               }
            }
-           Set attributeSet = attributeMapList.entrySet();
-           Iterator itr = attributeSet.iterator();
-           while (itr.hasNext()) {
-             Map.Entry attrMap = (Map.Entry) itr.next();
-
-             if (UtilValidate.isNotEmpty(attrMap.getKey())) {
-                 GenericValue ebayProductListingAttribute = delegator.makeValue("EbayProductListingAttribute");
+           for (Map.Entry<String,Object> entry : attributeMapList.entrySet()) {
+              if (UtilValidate.isNotEmpty(entry.getKey())) {
+                  GenericValue ebayProductListingAttribute = delegator.makeValue("EbayProductListingAttribute");
                   ebayProductListingAttribute.set("productListingId", productListingId);
-                  ebayProductListingAttribute.set("attrName", attrMap.getKey().toString());
-                  ebayProductListingAttribute.set("attrValue", attrMap.getValue().toString());
+                  ebayProductListingAttribute.set("attrName", entry.getKey().toString());
+                  ebayProductListingAttribute.set("attrValue", entry.getValue().toString());
                   ebayProductListingAttribute.create();
               }
            }

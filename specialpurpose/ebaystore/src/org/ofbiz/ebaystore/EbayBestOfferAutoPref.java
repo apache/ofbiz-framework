@@ -19,7 +19,6 @@
 package org.ofbiz.ebaystore;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -44,7 +43,6 @@ public class EbayBestOfferAutoPref {
             LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             Delegator delegator = dctx.getDelegator();
-            Locale locale = (Locale) context.get("locale");
             String productStoreId = (String) context.get("productStoreId");
             String enabled = (String) context.get("enabled");
             String condition1 = (String) context.get("condition1");
@@ -59,37 +57,37 @@ public class EbayBestOfferAutoPref {
             String condition10 = (String) context.get("condition10");
             String condition11 = (String) context.get("condition11");
             try {
-                Map ebayCondition1 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition1 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition1.put("acceptanceCondition", condition1);
 
-                Map ebayCondition2 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition2 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition2.put("acceptanceCondition", condition2);
 
-                Map ebayCondition3 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition3 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition3.put("acceptanceCondition", condition3);
 
-                Map ebayCondition4 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition4 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition4.put("acceptanceCondition", condition4);
 
-                Map ebayCondition5 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition5 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition5.put("acceptanceCondition", condition5);
 
-                Map ebayCondition6 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition6 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition6.put("acceptanceCondition", condition6);
 
-                Map ebayCondition7 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition7 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition7.put("acceptanceCondition", condition7);
 
-                Map ebayCondition8 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition8 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition8.put("acceptanceCondition", condition8);
 
-                Map ebayCondition9 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition9 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition9.put("acceptanceCondition", condition9);
 
-                Map ebayCondition10 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition10 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition10.put("acceptanceCondition", condition10);
 
-                Map ebayCondition11 = UtilMisc.toMap("userLogin", userLogin);
+                Map<String, Object> ebayCondition11 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition11.put("acceptanceCondition", condition11);
 
             GenericValue productStorePref = delegator.findByPrimaryKey("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"));
@@ -162,14 +160,14 @@ public class EbayBestOfferAutoPref {
                 ebayCondition11.put("description", "rejectLessMsg Field");
                 dispatcher.runSync("createEbayProductStorePrefCond", ebayCondition11);
 
-                Map ebayPref = UtilMisc.toMap("userLogin", userLogin, "serviceName", "autoBestOffer");
+                Map<String, Object> ebayPref = UtilMisc.<String, Object>toMap("userLogin", userLogin, "serviceName", "autoBestOffer");
                 ebayPref.put("parentPrefCondId",parentPrefCondId);
                 ebayPref.put("enabled", enabled);
                 ebayPref.put("autoPrefEnumId", "EBAY_AUTO_BEST_OFFER");
                 ebayPref.put("productStoreId",productStoreId);
                 dispatcher.runSync("createEbayProductStorePref",ebayPref);
             } else {
-                Map ebayPref = UtilMisc.toMap("userLogin", userLogin, "serviceName", "autoBestOffer");
+                Map<String, Object> ebayPref = UtilMisc.<String, Object>toMap("userLogin", userLogin, "serviceName", "autoBestOffer");
                 ebayPref.put("enabled", enabled);
                 ebayPref.put("autoPrefEnumId", "EBAY_AUTO_BEST_OFFER");
                 ebayPref.put("productStoreId",productStoreId);
@@ -179,7 +177,7 @@ public class EbayBestOfferAutoPref {
                 List<GenericValue> productPref = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId",parentPrefCondId));
                 if (productPref.size() != 0) {
                     String[] condition = {condition1, condition2, condition3, condition4, condition5, condition6, condition7, condition8, condition9, condition10, condition11};
-                    Map ebayPrefCond = UtilMisc.toMap("userLogin", userLogin);
+                    Map<String, Object> ebayPrefCond = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                     for (int i = 0; i < productPref.size(); i++) {
                         ebayPrefCond.put("prefCondId",productPref.get(i).getString("prefCondId"));
                         ebayPrefCond.put("acceptanceCondition",condition[i]);

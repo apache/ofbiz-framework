@@ -26,6 +26,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
@@ -256,7 +257,7 @@ public class EbayStoreCategoryFacade {
                         temGroupList.add(templateGroup);
                     } else {
                         if (templateGroup.get("Templates") != null) {
-                            templateList = (List<Map<String,Object>>) templateGroup.get("Templates");
+                            templateList = UtilGenerics.checkList(templateGroup.get("Templates"));
                             templateList.add(template);
                         }
                     }
@@ -284,7 +285,7 @@ public class EbayStoreCategoryFacade {
         List<Map<String,Object>> themes = FastList.newInstance();
         for (Map<String,Object> temp : this.adItemTemplates) {
             if (temp.get("TemplateGroupId").equals(temGroupId)) {
-                themes = (List<Map<String,Object>>) temp.get("Templates");
+                themes = UtilGenerics.checkList(temp.get("Templates"));
                 break;
             }
         }
