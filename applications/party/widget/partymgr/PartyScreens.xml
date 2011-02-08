@@ -693,7 +693,7 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <actions>
-                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
                                 <set field="dependentForm" value="NewUser"/>
                                 <set field="paramKey" value="countryGeoId"/>                                        
                                 <set field="mainId" value="USER_COUNTRY"/>
@@ -738,7 +738,7 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <actions>
-                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
                                 <set field="dependentForm" value="NewUser"/>
                                 <set field="paramKey" value="countryGeoId"/>                                        
                                 <set field="mainId" value="USER_COUNTRY"/>
@@ -783,7 +783,7 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <actions>
-                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
                                 <set field="dependentForm" value="NewUser"/>
                                 <set field="paramKey" value="countryGeoId"/>                                        
                                 <set field="mainId" value="USER_COUNTRY"/>
