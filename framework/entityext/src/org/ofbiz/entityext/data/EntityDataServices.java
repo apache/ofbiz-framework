@@ -29,7 +29,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
@@ -315,26 +314,6 @@ public class EntityDataServices {
             newValue.setString(name, value);
         }
         return newValue;
-    }
-
-    @SuppressWarnings("unused")
-    private String[] getEntityFieldNames(Delegator delegator, String entityName) {
-        ModelEntity entity = delegator.getModelEntity(entityName);
-        if (entity == null) {
-            return null;
-        }
-        List<ModelField> modelFields = entity.getFieldsUnmodifiable();
-        if (modelFields == null) {
-            return null;
-        }
-
-        String[] fieldNames = new String[modelFields.size()];
-        for (int i = 0; i < modelFields.size(); i++) {
-            ModelField field = modelFields.get(i);
-            fieldNames[i] = field.getName();
-        }
-
-        return fieldNames;
     }
 
     public static Map<String, Object> rebuildAllIndexesAndKeys(DispatchContext dctx, Map<String, Object> context) {
