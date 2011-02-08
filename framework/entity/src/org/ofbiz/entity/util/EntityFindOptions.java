@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 /**
  * Contains a number of variables used to select certain advanced finding options.
  */
+@SuppressWarnings("serial")
 public class EntityFindOptions implements java.io.Serializable {
 
     /** Type constant from the java.sql.ResultSet object for convenience */
