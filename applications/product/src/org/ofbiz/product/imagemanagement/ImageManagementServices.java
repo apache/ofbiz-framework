@@ -307,8 +307,7 @@ public class ImageManagementServices {
     public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context){
         String contentId = (String) context.get("contentId");
         String objectInfo = (String) context.get("objectInfo");
-        //FIXME can be removed ?
-        // String productId = (String) context.get("productId");
+        
         try {
             if (UtilValidate.isNotEmpty(contentId)) {
                 String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
