@@ -207,6 +207,13 @@ under the License.
                 <option key="month" description="Months"></option>
             </drop-down>
         </field>
+        <field name="exportType" title="Format Type">
+            <drop-down>
+                <option key="pdf" description="PDF"></option>
+                <option key="excel" description="Excel"></option>
+                <option key="html" description="HTML"></option>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonRun}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 

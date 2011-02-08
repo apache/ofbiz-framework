@@ -21,19 +21,48 @@ import javax.servlet.http.HttpServletRequest;
 import org.ofbiz.base.util.UtilValidate;
 
 reportBy = parameters.reportBy;
+exportType = parameters.exportType;
 
 if (UtilValidate.isEmpty(parameters.fromDate)) {
     request.setAttribute("_ERROR_MESSAGE_", "Please select From Date.");
     return "error";
 }
 
-if (reportBy == "day") {
-    return "day";
-} else if (reportBy == "week") {
-    return "week";
-} else if (reportBy == "month") {
-    return "month";
-} else {
-    request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
-    return "error";
+if (exportType == "pdf") {
+    if (reportBy == "day") {
+        return "dayPDF";
+    } else if (reportBy == "week") {
+        return "weekPDF";
+    } else if (reportBy == "month") {
+        return "monthPDF";
+    } else {
+        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
+        return "error";
+    }
+}
+
+if (exportType == "excel") {
+    if (reportBy == "day") {
+        return "dayExcel";
+    } else if (reportBy == "week") {
+        return "weekExcel";
+    } else if (reportBy == "month") {
+        return "monthExcel";
+    } else {
+        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
+        return "error";
+    }
+}
+
+if (exportType == "html") {
+    if (reportBy == "day") {
+        return "dayHTML";
+    } else if (reportBy == "week") {
+        return "weekHTML";
+    } else if (reportBy == "month") {
+        return "monthHTML";
+    } else {
+        request.setAttribute("_ERROR_MESSAGE_", "Please select Report By.");
+        return "error";
+    }
 }

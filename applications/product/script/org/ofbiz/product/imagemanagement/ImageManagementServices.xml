@@ -213,7 +213,6 @@ under the License.
             <entity-one value-field="dataResource" entity-name="DataResource">
                 <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
-            <log level="always" message="===========parameters.drIsPublic========== : ${parameters.drIsPublic}"></log>
             <set field="dataResource.isPublic" from-field="parameters.drIsPublic"/>
             <store-value value-field="dataResource"/>
         </if-compare>

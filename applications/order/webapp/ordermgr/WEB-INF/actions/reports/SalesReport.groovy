@@ -30,8 +30,9 @@ int year = cal.get(Calendar.YEAR);
 birtParameters = [:];
 try {
     birtParameters.reportBy = parameters.reportBy;
-    birtParameters.fromDate = (Date.valueOf(fromDateStr))-3;
+    birtParameters.fromDate = (Date.valueOf(fromDateStr))-2;
     birtParameters.thruDate = Date.valueOf(fromDateStr);
+    birtParameters.lastDate = (Date.valueOf(fromDateStr))-7;
     birtParameters.thruWeek = week;
     birtParameters.thruMonth = month;
     birtParameters.thisYear = year;

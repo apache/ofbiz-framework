@@ -91,6 +91,10 @@ under the License.
         <field name="GP" type="currency-precise">
             <description>Gross Profit: Gross Merchandize Profit less Gross Shipping Profit.</description>
         </field>
+        
+        <field name="countOrder" type="fixed-point">
+            <description>Count of order.</description>
+        </field>
 
         <prim-key field="orderId"/>
         <prim-key field="orderItemSeqId"/>
