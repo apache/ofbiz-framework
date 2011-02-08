@@ -24,6 +24,7 @@ import java.io.Serializable;
  * Generic Entity - Entity model class
  *
  */
+@SuppressWarnings("serial")
 public abstract class ModelChild implements Serializable {
 
     protected ModelEntity parentModelEntity;
