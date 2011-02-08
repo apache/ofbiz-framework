@@ -23,6 +23,7 @@ import java.io.Serializable;
 /**
  * ModelField
  */
+@SuppressWarnings("serial")
 public class ModelField implements Serializable {
     /** The name of the Field */
     public String name = "";

@@ -23,6 +23,7 @@ import org.ofbiz.base.util.GeneralException;
 /**
  * DataFileException
  */
+@SuppressWarnings("serial")
 public class DataFileException extends GeneralException {
 
     public DataFileException() {
