@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilXml;
  * Generic Entity - KeyMap model class
  *
  */
+@SuppressWarnings("serial")
 public class ModelKeyMap implements java.io.Serializable {
 
     /** name of the field in this entity */
