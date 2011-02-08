@@ -28,7 +28,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -64,15 +63,6 @@ public class EntityConfigUtil {
             return ResourceLoader.getXmlRootElement(ENTITY_ENGINE_XML_FILENAME);
         } catch (GenericConfigException e) {
             throw new GenericEntityConfException("Could not get entity engine XML root element", e);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    private static Document getXmlDocument() throws GenericEntityConfException {
-        try {
-            return ResourceLoader.getXmlDocument(ENTITY_ENGINE_XML_FILENAME);
-        } catch (GenericConfigException e) {
-            throw new GenericEntityConfException("Could not get entity engine XML document", e);
         }
     }
 
