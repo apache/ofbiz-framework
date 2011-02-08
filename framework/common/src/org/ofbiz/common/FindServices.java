@@ -357,7 +357,6 @@ public class FindServices {
     public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, Delegator delegator, Map<String, ?> context) {
         Map<String, Map<String, Object>> subMap = null;
         Map<String, Object> subMap2 = null;
-        EntityComparisonOperator<?, ?> fieldOp = null;
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityCondition cond = null;
@@ -492,7 +491,7 @@ public class FindServices {
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
         }
-        EntityConditionList exprList = (EntityConditionList)prepareResult.get("entityConditionList");
+        EntityConditionList<EntityCondition> exprList = UtilGenerics.cast(prepareResult.get("entityConditionList"));
         List<String> orderByList = checkList(prepareResult.get("orderByList"), String.class);
 
         Map<String, Object> executeResult = null;
@@ -524,7 +523,7 @@ public class FindServices {
      * This is a generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
      */
-    public static Map prepareFind(DispatchContext dctx, Map<String, ?> context) {
+    public static Map<String, Object> prepareFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
         String orderBy = (String) context.get("orderBy");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
@@ -567,7 +566,7 @@ public class FindServices {
             }
         }
 
-        EntityConditionList exprList = null;
+        EntityConditionList<EntityCondition> exprList = null;
         if (tmpList.size() > 0) {
             exprList = EntityCondition.makeCondition(tmpList);
         }
@@ -594,7 +593,7 @@ public class FindServices {
      */
     public static Map<String, Object> executeFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
-        EntityConditionList entityConditionList = (EntityConditionList) context.get("entityConditionList");
+        EntityConditionList<EntityCondition> entityConditionList = UtilGenerics.cast(context.get("entityConditionList"));
         List<String> orderByList = checkList(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
         boolean distinct = "Y".equals(context.get("distinct"));
@@ -666,13 +665,11 @@ public class FindServices {
         for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
                                                                  //  it exists, or the whole word, if not.
-            String fieldPair = null; // "fld0" or "fld1" - begin/end of range or just fld0 if no range.
             Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                                         // If it is an "op" field, it will be "equals", "greaterThan", etc.
             int iPos = -1;
             int iPos2 = -1;
-            String fieldMode = null;
-
+            
             fieldValue = inputFields.get(fieldNameRaw);
             if (ObjectType.isEmpty(fieldValue)) {
                 continue;
@@ -695,8 +692,6 @@ public class FindServices {
             // If no field op is present, it will assume "equals".
             if (iPos < 0) {
                 fieldNameRoot = fieldNameRaw;
-                fieldPair = "fld0";
-                fieldMode = "value";
             } else { // Must have at least "fld0/1" or "equals, greaterThan, etc."
                 // Some bogus fields will slip in, like "ENTITY_NAME", but they will be ignored
 
