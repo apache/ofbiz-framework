@@ -24,6 +24,7 @@ import org.ofbiz.base.util.GeneralException;
  * GenericEntityException
  *
  */
+@SuppressWarnings("serial")
 public class GenericEntityException extends GeneralException {
 
     public GenericEntityException() {

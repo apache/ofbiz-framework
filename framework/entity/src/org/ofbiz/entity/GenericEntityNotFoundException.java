@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericEntityNotFoundException
  *
  */
+@SuppressWarnings("serial")
 public class GenericEntityNotFoundException extends GenericEntityException {
 
     public GenericEntityNotFoundException() {
