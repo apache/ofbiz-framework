@@ -124,6 +124,16 @@ under the License.
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="layoutPreference">auto layout</property>
     <parameters>
+        <scalar-parameter name="reportBy" id="2051">
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
         <scalar-parameter name="fromDate" id="310">
             <property name="valueType">static</property>
             <property name="isRequired">false</property>
@@ -146,9 +156,10 @@ under the License.
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="reportBy" id="2051">
+        <scalar-parameter name="lastDate" id="2734">
             <property name="valueType">static</property>
-            <property name="dataType">string</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">date</property>
             <property name="distinct">true</property>
             <property name="paramType">simple</property>
             <property name="controlType">text-box</property>
@@ -228,31 +239,36 @@ under the License.
                 </structure>
                 <structure>
                     <property name="position">7</property>
-                    <property name="name">quantity</property>
+                    <property name="name">countOrder</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">8</property>
-                    <property name="name">GS</property>
+                    <property name="name">quantity</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">9</property>
-                    <property name="name">GMS</property>
+                    <property name="name">GS</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">10</property>
-                    <property name="name">GMP</property>
+                    <property name="name">GMS</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">11</property>
-                    <property name="name">GSP</property>
+                    <property name="name">GMP</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">12</property>
+                    <property name="name">GSP</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
                     <property name="name">GP</property>
                     <property name="dataType">integer</property>
                 </structure>
@@ -281,6 +297,10 @@ under the License.
                 <structure>
                     <property name="columnName">orderDateMonthName</property>
                     <text-property name="displayName">orderDateMonthName</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">countOrder</property>
+                    <text-property name="displayName">countOrder</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">quantity</property>
@@ -341,31 +361,36 @@ under the License.
                     </structure>
                     <structure>
                         <property name="position">7</property>
-                        <property name="name">quantity</property>
+                        <property name="name">countOrder</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">8</property>
-                        <property name="name">GS</property>
+                        <property name="name">quantity</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">9</property>
-                        <property name="name">GMS</property>
+                        <property name="name">GS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">10</property>
-                        <property name="name">GMP</property>
+                        <property name="name">GMS</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">11</property>
-                        <property name="name">GSP</property>
+                        <property name="name">GMP</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">12</property>
+                        <property name="name">GSP</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
                         <property name="name">GP</property>
                         <property name="dataType">integer</property>
                     </structure>
@@ -385,6 +410,7 @@ try
     reportBy = params["reportBy"].value;
     fromDate = params["fromDate"].value;
     thruDate = params["thruDate"].value;
+    lastDate = params["lastDate"].value;
     thruWeek = params["thruWeek"].value;
     thruMonth = params["thruMonth"].value;
     thisYear = params["thisYear"].value;
@@ -392,6 +418,7 @@ try
     methodContext.putEnv("reportBy", reportBy);
     methodContext.putEnv("fromDate", fromDate);
     methodContext.putEnv("thruDate", thruDate);
+    methodContext.putEnv("lastDate", lastDate);
     methodContext.putEnv("thruWeek", thruWeek);
     methodContext.putEnv("thruMonth", thruMonth);
     methodContext.putEnv("thisYear", thisYear);
@@ -427,6 +454,7 @@ if (starschemas)
     account = starschema.getString("account");
     
     quantity = starschema.getString("quantity");
+    quantity = starschema.getString("quantity");
     GS = starschema.getString("GS");
     GMS = starschema.getString("GMS");
     GMP = starschema.getString("GMP");
@@ -439,6 +467,7 @@ if (starschemas)
     row["orderDateYearName"] = orderDateYearName;
     row["orderDateMonthOfYear"] = orderDateMonthOfYear;
     row["orderDateMonthName"] = orderDateMonthName;
+    row["countOrder"] = countOrder;
     row["quantity"] = quantity;
     row["GS"] = GS;
     row["GMS"] = GMS;
@@ -501,6 +530,10 @@ return true;]]></method>
             <property name="measureGroups">
                 <tabular-measure-group name="Summary Field" id="2041">
                     <property name="measures">
+                        <tabular-measure name="countOrder" id="2736">
+                            <expression name="measureExpression">dataSetRow["countOrder"]</expression>
+                            <property name="dataType">integer</property>
+                        </tabular-measure>
                         <tabular-measure name="quantity" id="2042">
                             <expression name="measureExpression">dataSetRow["quantity"]</expression>
                             <property name="dataType">integer</property>
@@ -586,12 +619,14 @@ return true;]]></method>
     </styles>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
-            <property name="type">us-legal</property>
+            <property name="type">custom</property>
+            <property name="height">10in</property>
+            <property name="width">20in</property>
             <property name="orientation">landscape</property>
-            <property name="topMargin">0.25in</property>
-            <property name="leftMargin">0.25in</property>
-            <property name="bottomMargin">0.25in</property>
-            <property name="rightMargin">0.25in</property>
+            <property name="topMargin">0.5in</property>
+            <property name="leftMargin">0.5in</property>
+            <property name="bottomMargin">0.5in</property>
+            <property name="rightMargin">0.5in</property>
             <page-footer>
                 <text id="3">
                     <property name="fontFamily">sans-serif</property>
@@ -613,6 +648,90 @@ return true;]]></method>
         </label>
         <extended-item extensionName="Crosstab" extensionVersion="2.5.0" id="2586">
             <property name="measures">
+                <extended-item extensionName="MeasureView" id="2737">
+                    <property name="measure">countOrder</property>
+                    <property name="detail">
+                        <extended-item extensionName="AggregationCell" id="2738">
+                            <property name="aggregationOnRow">Account/Account</property>
+                            <property name="aggregationOnColumn">Date/orderDateMonthName</property>
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="backgroundColor">#FFEBCD</property>
+                            <property name="textAlign">center</property>
+                            <property name="content">
+                                <data id="2745">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">#,##0</property>
+                                    </structure>
+                                    <property name="resultSetColumn">countOrder_Account/Account_Date/orderDateMonthName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="aggregations">
+                        <extended-item extensionName="AggregationCell" id="2739">
+                            <property name="aggregationOnRow">Account/Brand</property>
+                            <property name="aggregationOnColumn">Date/orderDateMonthName</property>
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="backgroundColor">#87CEFA</property>
+                            <property name="textAlign">center</property>
+                            <property name="content">
+                                <data id="2740">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">#,##0</property>
+                                    </structure>
+                                    <property name="resultSetColumn">countOrder_Account/Brand_Date/orderDateMonthName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="AggregationCell" id="2741">
+                            <property name="aggregationOnRow">Account/Pod</property>
+                            <property name="aggregationOnColumn">Date/orderDateMonthName</property>
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="backgroundColor">#B0C4DE</property>
+                            <property name="textAlign">center</property>
+                            <property name="content">
+                                <data id="2742">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">#,##0</property>
+                                    </structure>
+                                    <property name="resultSetColumn">countOrder_Account/Pod_Date/orderDateMonthName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="AggregationCell" id="2743">
+                            <property name="aggregationOnColumn">Date/orderDateMonthName</property>
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="backgroundColor">#6495ED</property>
+                            <property name="textAlign">center</property>
+                            <property name="content">
+                                <data id="2744">
+                                    <structure name="numberFormat">
+                                        <property name="category">Fixed</property>
+                                        <property name="pattern">#,##0</property>
+                                    </structure>
+                                    <property name="resultSetColumn">countOrder_Date/orderDateMonthName</property>
+                                </data>
+                            </property>
+                        </extended-item>
+                    </property>
+                    <property name="header">
+                        <extended-item extensionName="CrosstabCell" id="2746">
+                            <property name="content">
+                                <label id="2747">
+                                    <text-property name="text">Order</text-property>
+                                </label>
+                            </property>
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="fontSize">small</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="backgroundColor">#ECE9D8</property>
+                            <property name="textAlign">center</property>
+                        </extended-item>
+                    </property>
+                </extended-item>
                 <extended-item extensionName="MeasureView" id="2588">
                     <property name="measure">quantity</property>
                     <property name="detail">
@@ -875,7 +994,7 @@ return true;]]></method>
                             <property name="backgroundColor">#FFEBCD</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2615">
+                                <data id="2730">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
@@ -893,12 +1012,12 @@ return true;]]></method>
                             <property name="backgroundColor">#87CEFA</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2672">
+                                <data id="2732">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Account/Brand_Date/orderDateMonthName</property>
+                                    <property name="resultSetColumn">Brand_GP</property>
                                 </data>
                             </property>
                         </extended-item>
@@ -909,12 +1028,12 @@ return true;]]></method>
                             <property name="backgroundColor">#B0C4DE</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2690">
+                                <data id="2731">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Account/Pod_Date/orderDateMonthName</property>
+                                    <property name="resultSetColumn">Pod_GP</property>
                                 </data>
                             </property>
                         </extended-item>
@@ -924,12 +1043,12 @@ return true;]]></method>
                             <property name="backgroundColor">#6495ED</property>
                             <property name="textAlign">center</property>
                             <property name="content">
-                                <data id="2708">
+                                <data id="2733">
                                     <structure name="numberFormat">
                                         <property name="category">Fixed</property>
                                         <property name="pattern">#,##0</property>
                                     </structure>
-                                    <property name="resultSetColumn">GP_Date/orderDateMonthName</property>
+                                    <property name="resultSetColumn">Grand_GP</property>
                                 </data>
                             </property>
                         </extended-item>
@@ -1983,6 +2102,65 @@ return true;]]></method>
 	data["GP_Date/orderDateMonthName"]/data["quantity_Date/orderDateMonthName"]
 }</expression>
                     <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">Account_GP</property>
+                    <expression name="expression" type="javascript">data["GMP_Account/Account_Date/orderDateMonthName"]+data["GSP_Account/Account_Date/orderDateMonthName"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">Pod_GP</property>
+                    <expression name="expression" type="javascript">data["GMP_Account/Pod_Date/orderDateMonthName"]+data["GSP_Account/Pod_Date/orderDateMonthName"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">Brand_GP</property>
+                    <expression name="expression" type="javascript">data["GMP_Account/Brand_Date/orderDateMonthName"]+data["GSP_Account/Brand_Date/orderDateMonthName"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">Grand_GP</property>
+                    <expression name="expression" type="javascript">data["GMP_Date/orderDateMonthName"]+data["GSP_Date/orderDateMonthName"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">countOrder_Account/Brand_Date/orderDateMonthName</property>
+                    <expression name="expression">measure["countOrder"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Brand</value>
+                        <value>Date/orderDateMonthName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">countOrder_Account/Pod_Date/orderDateMonthName</property>
+                    <expression name="expression">measure["countOrder"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Pod</value>
+                        <value>Date/orderDateMonthName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">countOrder_Date/orderDateMonthName</property>
+                    <expression name="expression">measure["countOrder"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Date/orderDateMonthName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">countOrder_Account/Account_Date/orderDateMonthName</property>
+                    <expression name="expression">measure["countOrder"]</expression>
+                    <property name="dataType">integer</property>
+                    <simple-property-list name="aggregateOn">
+                        <value>Account/Account</value>
+                        <value>Date/orderDateMonthName</value>
+                    </simple-property-list>
+                    <property name="aggregateFunction">SUM</property>
                 </structure>
             </list-property>
         </extended-item>

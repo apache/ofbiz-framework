@@ -889,6 +889,13 @@ under the License.
                     <number value="1"/>
                 </calcop>
             </calculate>
+            <if-compare field="week" operator="equals" value="1">
+                <calculate field="year">
+                    <calcop field="year" operator="subtract">
+                        <number value="1"/>
+                    </calcop>
+                </calculate>
+            </if-compare>
         </else>
         </if-compare>
         
@@ -953,9 +960,7 @@ under the License.
         <if-empty field="productCategoryRollupList">
             <set-service-fields service-name="FindBestSellingProduct" map="parameters" to-map="AddProductMap"/>
             <set field="AddProductMap.productCategoryId" from-field="parameters.productCategoryId"/>
-            <call-service service-name="FindBestSellingProduct" in-map-name="AddProductMap">
-                <result-to-field result-name="productCategoryId"/>
-            </call-service>
+            <call-service service-name="FindBestSellingProduct" in-map-name="AddProductMap"/>
         <else>
             <iterate list="productCategoryRollupList" entry="productCategoryRollup">
                 <set-service-fields service-name="FindCategoryChild" map="parameters" to-map="CategoryChildMap"/>

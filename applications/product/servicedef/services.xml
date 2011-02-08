@@ -1515,7 +1515,6 @@ under the License.
         <attribute name="primaryProductCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="week" mode="IN" type="Long" optional="false"/>
         <attribute name="year" mode="IN" type="Long" optional="false"/>
-        <attribute name="checkCategoryChild" mode="IN" type="List" optional="true"/>
     </service>
     
     <service name="FindBestSellingProduct" engine="simple"

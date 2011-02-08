@@ -40,9 +40,25 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
     </service>
     
+    <service name="loadSalesOrderDataDaily" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="loadSalesOrderDataDaily" transaction-timeout="10000000">
+        <description>Load Sales Order Data Daily.</description>
+    </service>
+    
     <service name="importSalesOrderData" auth="true" engine="simple"
-        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="importSalesOrderData">
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="importSalesOrderData" transaction-timeout="10000000">
         <description>Import Sales Order Data.</description>
+        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="convertUomCurrency" auth="true" engine="simple"
+        location="component://order/script/org/ofbiz/order/olap/FactServices.xml" invoke="convertUomCurrency">
+        <description>Import Sales Order Data.</description>
+        <attribute name="uomId" type="String" mode="IN" optional="false"/>
+        <attribute name="uomIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="nowDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="conversionFactor" type="Double" mode="OUT" optional="true"/>
     </service>
     
 </services>

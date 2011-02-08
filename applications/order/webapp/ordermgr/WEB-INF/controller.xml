@@ -1160,9 +1160,15 @@ under the License.
     <request-map uri="checkReportBy">
         <security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="CheckReportBy.groovy"/>
-        <response name="day" type="request" value="SalesReport.pdf"/>
-        <response name="week" type="request" value="SalesReportWeek.pdf"/>
-        <response name="month" type="request" value="SalesReportMonth.pdf"/>
+        <response name="dayPDF" type="request" value="SalesReport.pdf"/>
+        <response name="weekPDF" type="request" value="SalesReportWeek.pdf"/>
+        <response name="monthPDF" type="request" value="SalesReportMonth.pdf"/>
+        <response name="dayExcel" type="request" value="SalesReport.excel"/>
+        <response name="weekExcel" type="request" value="SalesReportWeek.excel"/>
+        <response name="monthExcel" type="request" value="SalesReportMonth.excel"/>
+        <response name="dayHTML" type="request" value="SalesReport.html"/>
+        <response name="weekHTML" type="request" value="SalesReportWeek.html"/>
+        <response name="monthHTML" type="request" value="SalesReportMonth.html"/>
         <response name="error" type="request-redirect" value="OrderPurchaseReportOptions">
             <redirect-parameter name="fromDate"/>
             <redirect-parameter name="reportBy" from="parameters.reportDate"/>
@@ -1170,15 +1176,39 @@ under the License.
     </request-map>
     <request-map uri="SalesReport.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
-        <response name="success" type="view" value="SalesOrderReport"/>
+        <response name="success" type="view" value="SalesOrderReportPDF"/>
     </request-map>
     <request-map uri="SalesReportWeek.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
-        <response name="success" type="view" value="SalesOrderReportWeek"/>
+        <response name="success" type="view" value="SalesOrderReportWeekPDF"/>
     </request-map>
     <request-map uri="SalesReportMonth.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
-        <response name="success" type="view" value="SalesOrderReportMonth"/>
+        <response name="success" type="view" value="SalesOrderReportMonthPDF"/>
+    </request-map>
+    <request-map uri="SalesReport.excel"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportExcel"/>
+    </request-map>
+    <request-map uri="SalesReportWeek.excel"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportWeekExcel"/>
+    </request-map>
+    <request-map uri="SalesReportMonth.excel"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportMonthExcel"/>
+    </request-map>
+    <request-map uri="SalesReport.html"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportHTML"/>
+    </request-map>
+    <request-map uri="SalesReportWeek.html"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportWeekHTML"/>
+    </request-map>
+    <request-map uri="SalesReportMonth.html"><security https="true" auth="true"/>
+        <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="SalesReport.groovy"/>
+        <response name="success" type="view" value="SalesOrderReportMonthHTML"/>
     </request-map>
     <request-map uri="NetBeforeOverheadReport.pdf"><security https="true" auth="true"/>
         <event type="groovy" path="component://order/webapp/ordermgr/WEB-INF/actions/reports/" invoke="NetBeforeOverheadReport.groovy"/>
@@ -1935,9 +1965,15 @@ under the License.
     <view-map name="OpenOrderItemsReport" type="screen" page="component://order/widget/ordermgr/ReportScreens.xml#OpenOrderItemsReport"/>
     <view-map name="PurchasesByOrganizationReport" type="screenfop" page="component://order/widget/ordermgr/ReportScreens.xml#PurchasesByOrganizationReport" content-type="application/pdf" encoding="none"/>
 
-    <view-map name="SalesOrderReport" type="birt" page="component://order/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="application/pdf"/>
-    <view-map name="SalesOrderReportWeek" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="application/pdf"/>
-    <view-map name="SalesOrderReportMonth" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportPDF" type="birt" page="component://order/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportWeekPDF" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportMonthPDF" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="application/pdf"/>
+    <view-map name="SalesOrderReportExcel" type="birt" page="component://order/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="application/vnd.ms-excel"/>
+    <view-map name="SalesOrderReportWeekExcel" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="application/vnd.ms-excel"/>
+    <view-map name="SalesOrderReportMonthExcel" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="application/vnd.ms-excel"/>
+    <view-map name="SalesOrderReportHTML" type="birt" page="component://order/webapp/ordermgr/reports/SalesReport.rptdesign" content-type="text/html"/>
+    <view-map name="SalesOrderReportWeekHTML" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportWeek.rptdesign" content-type="text/html"/>
+    <view-map name="SalesOrderReportMonthHTML" type="birt" page="component://order/webapp/ordermgr/reports/SalesReportMonth.rptdesign" content-type="text/html"/>
     <view-map name="NetBeforeOverheadOrderReport" type="birt" page="component://order/webapp/ordermgr/reports/NetBeforeOverheadReport.rptdesign" content-type="application/pdf"/>
     <view-map name="ProductDemandOrderReport" type="birt" page="component://order/webapp/ordermgr/reports/ProductDemandReport.rptdesign" content-type="application/pdf"/>
     <view-map name="OrderByReferrerReport" type="birt" page="component://order/webapp/ordermgr/reports/OrderByReferrer.rptdesign" content-type="application/pdf"/>
