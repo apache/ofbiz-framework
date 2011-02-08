@@ -29,7 +29,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 /**
@@ -45,10 +44,9 @@ public class CommonDimensionServices {
      * The DateDimension entity is a nearly constant dimension ("Slowly Changing Dimension" or SCD):
      * the default strategy to handle data change is "Type 1" (i.e. overwrite the values).
      */
-    public static Map loadDateDimension(DispatchContext ctx, Map context) {
+    public static Map<String, Object> loadDateDimension(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
-        LocalDispatcher dispatcher = ctx.getDispatcher();
-
+        
         Date fromDate = (Date) context.get("fromDate");
         Date thruDate = (Date) context.get("thruDate");
 
