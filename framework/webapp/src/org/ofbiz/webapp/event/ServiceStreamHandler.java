@@ -47,14 +47,13 @@ import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 public class ServiceStreamHandler implements EventHandler {
 
     public static final String module = ServiceStreamHandler.class.getName();
-    public static final String dispatcherName = "sstream-dispatcher";
     protected LocalDispatcher dispatcher;
     protected Delegator delegator;
 
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = DelegatorFactory.getDelegator(delegatorName);
-        this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
+        this.dispatcher = GenericDispatcher.getLocalDispatcher(this.delegator.getDelegatorName(), delegator);
     }
 
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
