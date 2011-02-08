@@ -22,7 +22,6 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -40,15 +39,6 @@ public class JNDIConfigUtil {
             return ResourceLoader.getXmlRootElement(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
         } catch (GenericConfigException e) {
             throw new GenericConfigException("Could not get JNDI XML root element", e);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    private static Document getXmlDocument() throws GenericConfigException {
-        try {
-            return ResourceLoader.getXmlDocument(JNDIConfigUtil.JNDI_CONFIG_XML_FILENAME);
-        } catch (GenericConfigException e) {
-            throw new GenericConfigException("Could not get JNDI XML document", e);
         }
     }
 
