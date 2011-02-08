@@ -3196,6 +3196,7 @@ public class DatabaseUtil {
 
     /* ====================================================================== */
     /* ====================================================================== */
+    @SuppressWarnings("serial")
     public static class ColumnCheckInfo implements Serializable {
         public String tableName;
         public String columnName;
@@ -3224,6 +3225,7 @@ public class DatabaseUtil {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class ReferenceCheckInfo implements Serializable {
         public String pkTableName;
 
