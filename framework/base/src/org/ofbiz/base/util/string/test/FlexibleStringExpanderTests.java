@@ -248,6 +248,7 @@ public class FlexibleStringExpanderTests extends TestCase {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class SpecialNumber extends BigDecimal {
         public SpecialNumber(String value) {
             super(value);
