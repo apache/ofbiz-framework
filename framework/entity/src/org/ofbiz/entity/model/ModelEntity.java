@@ -60,7 +60,6 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, Serializable {
 
-    @SuppressWarnings("hiding")
     public static final String module = ModelEntity.class.getName();
 
     /** The name of the time stamp field for locking/synchronization */
