@@ -972,7 +972,6 @@ public class UtilProperties implements Serializable {
     /** Custom Properties class. Extended from Properties to add support
      * for the OFBiz custom XML file format.
      */
-    @SuppressWarnings("serial")
     public static class ExtendedProperties extends Properties {
         public ExtendedProperties() {
             super();
