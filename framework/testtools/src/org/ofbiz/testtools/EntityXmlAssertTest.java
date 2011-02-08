@@ -76,7 +76,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
                 EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);
             } else if ("load".equals(this.action)) {
                 EntitySaxReader reader = new EntitySaxReader(delegator);
-                long numberRead = reader.parse(entityXmlURL);
+                reader.parse(entityXmlURL);
             } else {
                 // uh oh, bad value
                 result.addFailure(this, new AssertionFailedError("Bad value [" + this.action + "] for action attribute of entity-xml element"));
