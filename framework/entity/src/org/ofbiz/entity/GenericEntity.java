@@ -68,6 +68,7 @@ import org.w3c.dom.Element;
  * <code>Observer</code>.
  *
  */
+@SuppressWarnings("serial")
 public class GenericEntity extends Observable implements Map<String, Object>, LocalizedMap<Object>, Serializable, Comparable<GenericEntity>, Cloneable, Reusable {
 
     public static final String module = GenericEntity.class.getName();

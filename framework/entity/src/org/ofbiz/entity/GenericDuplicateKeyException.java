@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericDuplicateKeyException.java
  *
  */
+@SuppressWarnings("serial")
 public class GenericDuplicateKeyException extends GenericEntityException {
 
     public GenericDuplicateKeyException() {

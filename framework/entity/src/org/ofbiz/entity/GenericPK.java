@@ -28,6 +28,7 @@ import org.ofbiz.entity.model.ModelEntity;
  * Generic Entity Primary Key Object
  *
  */
+@SuppressWarnings("serial")
 public class GenericPK extends GenericEntity {
 
     protected static final ObjectFactory<GenericPK> genericPKFactory = new ObjectFactory<GenericPK>() {

@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericNotImplementedException
  *
  */
+@SuppressWarnings("serial")
 public class GenericNotImplementedException extends GenericEntityException {
 
     public GenericNotImplementedException() {

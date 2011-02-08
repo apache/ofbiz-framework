@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericRemoveException
  *
  */
+@SuppressWarnings("serial")
 public class GenericRemoveException extends GenericEntityException {
 
     public GenericRemoveException() {

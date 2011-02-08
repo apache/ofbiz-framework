@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericConfigException
  *
  */
+@SuppressWarnings("serial")
 public class GenericEntityConfException extends GenericEntityException {
 
     public GenericEntityConfException() {

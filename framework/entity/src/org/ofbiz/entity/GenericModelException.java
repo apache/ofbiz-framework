@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericModelException
  *
  */
+@SuppressWarnings("serial")
 public class GenericModelException extends GenericEntityException {
 
     public GenericModelException() {

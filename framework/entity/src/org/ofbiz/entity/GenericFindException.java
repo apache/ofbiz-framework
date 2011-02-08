@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericFindException
  *
  */
+@SuppressWarnings("serial")
 public class GenericFindException extends GenericEntityException {
 
     public GenericFindException() {

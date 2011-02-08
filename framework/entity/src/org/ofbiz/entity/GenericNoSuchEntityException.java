@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericNoSuchEntityException.java
  *
  */
+@SuppressWarnings("serial")
 public class GenericNoSuchEntityException extends GenericEntityException {
 
     public GenericNoSuchEntityException() {

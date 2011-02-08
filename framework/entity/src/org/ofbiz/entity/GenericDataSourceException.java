@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericDataSourceException
  *
  */
+@SuppressWarnings("serial")
 public class GenericDataSourceException extends GenericEntityException {
 
     public GenericDataSourceException() {

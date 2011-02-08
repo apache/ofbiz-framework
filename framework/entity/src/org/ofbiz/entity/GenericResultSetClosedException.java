@@ -22,6 +22,7 @@ package org.ofbiz.entity;
  * GenericResultSetClosedException
  *
  */
+@SuppressWarnings("serial")
 public class GenericResultSetClosedException extends GenericEntityException {
 
     public GenericResultSetClosedException() {
