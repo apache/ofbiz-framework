@@ -217,7 +217,7 @@ public class ServerHitBin {
             try {
                 bin.saveHit(request, startTime, runningTime, userLogin);
             } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Error saving ServerHit: " + e.toString(), module);
+                Debug.logWarning("Error saving ServerHit: " + e.toString(), module);
             }
         }
 
