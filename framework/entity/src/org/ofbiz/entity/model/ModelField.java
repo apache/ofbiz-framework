@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilXml;
  * Generic Entity - Field model class
  *
  */
+@SuppressWarnings("serial")
 public class ModelField extends ModelChild {
 
     /** The name of the Field */
