@@ -22,6 +22,7 @@ package org.ofbiz.entity.serialize;
  * XmlSerializable
  *
  */
+@SuppressWarnings("serial")
 public class SerializeException extends org.ofbiz.base.util.GeneralException {
 
     public SerializeException() {
