@@ -50,7 +50,7 @@
                                         <if-empty field="parties"/>
                                     </condition>
                                     <actions>
-                                        <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization but there are still issues. For instance: what if we have 2 couple of dependent dropdowns in the same form? -->
+                                        <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
                                         <set field="dependentForm" value="NewCustomer"/>
                                         <set field="paramKey" value="countryGeoId"/>                                        
                                         <set field="mainId" value="USER_COUNTRY"/>
@@ -84,9 +84,9 @@
     
     <screen name="viewprofile">
         <section>
-        	<actions>
-        		<set field="parameters.partyId" from-field="partyId"/>
-        	</actions>
+          <actions>
+            <set field="parameters.partyId" from-field="partyId"/>
+          </actions>
             <widgets>
                 <include-screen name="Party" location="applications/party/widget/partymgr/ProfileScreens.xml"/>
                 <include-screen name="Contact" location="applications/party/widget/partymgr/ProfileScreens.xml"/>
