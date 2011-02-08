@@ -40,7 +40,6 @@ import javolution.util.FastSet;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.ofbiz.base.lang.Appender;
-import org.owasp.esapi.Encoder;
 import org.owasp.esapi.ValidationErrorList;
 import org.owasp.esapi.Validator;
 import org.owasp.esapi.codecs.Codec;
