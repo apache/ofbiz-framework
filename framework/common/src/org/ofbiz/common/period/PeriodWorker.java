@@ -26,6 +26,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
+import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
 public class PeriodWorker {
@@ -46,7 +47,7 @@ public class PeriodWorker {
             thruDate = UtilDateTime.toTimestamp(timePeriod.getDate("thruDate"));
         }
 
-        EntityConditionList betweenCondition = EntityCondition.makeCondition(
+        EntityConditionList<EntityExpr> betweenCondition = EntityCondition.makeCondition(
                     EntityCondition.makeCondition(fieldName, EntityOperator.GREATER_THAN, fromDate),
                     EntityCondition.makeCondition(fieldName, EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
         return EntityCondition.makeCondition(EntityCondition.makeCondition(fieldName, EntityOperator.NOT_EQUAL, null), betweenCondition);
