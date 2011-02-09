@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericValue;
 
 import org.w3c.dom.Element;
 
+@SuppressWarnings("serial")
 public class ServiceMcaCondition implements java.io.Serializable {
 
     public static final String module = ServiceMcaCondition.class.getName();
