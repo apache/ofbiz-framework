@@ -1070,13 +1070,14 @@ public class EntitySyncContext {
     /**
      * Static method to obtain a list of entity names which will be synchronized
      */
-    public static Set getEntitySyncModelNamesToUse(LocalDispatcher dispatcher, String entitySyncId) throws SyncDataErrorException, SyncAbortException {
+    public static Set<String> getEntitySyncModelNamesToUse(LocalDispatcher dispatcher, String entitySyncId) throws SyncDataErrorException, SyncAbortException {
         DispatchContext dctx = dispatcher.getDispatchContext();
         EntitySyncContext ctx = new EntitySyncContext(dctx, UtilMisc.toMap("entitySyncId", entitySyncId));
         return ctx.makeEntityNameToUseSet();
     }
 
     /** This class signifies an abort condition, so the state and such of the EntitySync value in the datasource should not be changed */
+    @SuppressWarnings("serial")
     public static class SyncAbortException extends GeneralServiceException {
         public SyncAbortException() {
             super();
@@ -1099,6 +1100,7 @@ public class EntitySyncContext {
         }
     }
 
+    @SuppressWarnings("serial")
     public static abstract class SyncErrorException extends GeneralServiceException {
         public SyncErrorException() { super(); }
         public SyncErrorException(String str) { super(str); }
@@ -1109,6 +1111,7 @@ public class EntitySyncContext {
     }
 
     /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be changed to reflect the error */
+    @SuppressWarnings("serial")
     public static class SyncOtherErrorException extends SyncErrorException {
         public SyncOtherErrorException() { super(); }
         public SyncOtherErrorException(String str) { super(str); }
@@ -1126,6 +1129,7 @@ public class EntitySyncContext {
     }
 
     /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be changed to reflect the error */
+    @SuppressWarnings("serial")
     public static class SyncDataErrorException extends SyncErrorException {
         public SyncDataErrorException() { super(); }
         public SyncDataErrorException(String str) { super(str); }
@@ -1143,6 +1147,7 @@ public class EntitySyncContext {
     }
 
     /** This class signifies an error condition, so the state of the EntitySync value and the EntitySyncHistory value in the datasource should be changed to reflect the error */
+    @SuppressWarnings("serial")
     public static class SyncServiceErrorException extends SyncErrorException {
         public SyncServiceErrorException() { super(); }
         public SyncServiceErrorException(String str) { super(str); }
