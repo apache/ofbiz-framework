@@ -181,7 +181,7 @@ public class SyncTTLObjectTest extends TTLObjectTest {
         Thread.sleep(200);
         loadData = "4";
         sleepTime = 200;
-        Future<Void> future = schedule(new Callable<Void>() {
+        schedule(new Callable<Void>() {
             public Void call() {
                 object.refresh();
                 return null;
