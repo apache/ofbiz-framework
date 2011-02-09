@@ -21,6 +21,7 @@ package org.ofbiz.minilang;
 /**
  * MiniLangException
  */
+@SuppressWarnings("serial")
 public class MiniLangException extends org.ofbiz.base.util.GeneralException {
 
     public MiniLangException() {
