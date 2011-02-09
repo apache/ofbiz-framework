@@ -40,6 +40,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
@@ -72,6 +73,7 @@ import com.lowagie.text.pdf.PdfWriter;
 public class PdfSurveyServices {
 
     public static final String module = PdfSurveyServices.class.getName();
+    public static final String resource = "ContentUiLabels";
 
     /**
      *
@@ -80,6 +82,7 @@ public class PdfSurveyServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Locale locale = (Locale) context.get("locale");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         String surveyId = null;
         try {
@@ -221,16 +224,14 @@ public class PdfSurveyServices {
                 survey.store();
             }
         } catch (GenericEntityException e) {
-            String errMsg = "Error generating PDF: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (GeneralException e) {
-            System.err.println(e.getMessage());
-            return ServiceUtil.returnError(e.getMessage());
+            Debug.logError(e, "Error generating PDF: " + e.getMessage(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         } catch (Exception e) {
-            String errMsg = "Error generating PDF: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -243,6 +244,7 @@ public class PdfSurveyServices {
      */
     public static Map<String, Object> buildSurveyResponseFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String surveyResponseId = null;
+        Locale locale = (Locale) context.get("locale");
         try {
             Delegator delegator = dctx.getDelegator();
             String partyId = (String)context.get("partyId");
@@ -293,16 +295,14 @@ public class PdfSurveyServices {
             }
             s.close();
         } catch (GenericEntityException e) {
-            String errMsg = "Error generating PDF: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         } catch (GeneralException e) {
-            System.err.println(e.getMessage());
-            return ServiceUtil.returnError(e.getMessage());
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         } catch (Exception e) {
-            String errMsg = "Error generating PDF: " + e.toString();
-            Debug.logError(e, errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError(e, "Error generating PDF: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentPDFGeneratingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
         Map<String, Object> results = ServiceUtil.returnSuccess();
@@ -587,9 +587,7 @@ public class PdfSurveyServices {
             ctx.put("contentId", acroFormContentId);
             Map<String, Object> map = dispatcher.runSync("setAcroFields", ctx);
             if (ServiceUtil.isError(map)) {
-                String errMsg = ServiceUtil.makeErrorMessage(map, null, null, null, null);
-                System.err.println(errMsg);
-                return ServiceUtil.returnError(errMsg);
+                return ServiceUtil.returnError(ServiceUtil.makeErrorMessage(map, null, null, null, null));
             }
             String pdfFileNameOut = (String) context.get("pdfFileNameOut");
             ByteBuffer outByteBuffer = (ByteBuffer) map.get("outByteBuffer");
