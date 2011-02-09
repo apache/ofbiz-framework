@@ -28,7 +28,6 @@ import javax.transaction.xa.XAException;
 import org.apache.geronimo.transaction.log.UnrecoverableLog;
 import org.apache.geronimo.transaction.manager.GeronimoTransactionManager;
 import org.apache.geronimo.transaction.manager.TransactionLog;
-import org.apache.geronimo.transaction.manager.XidFactory;
 import org.apache.geronimo.transaction.manager.XidFactoryImpl;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
