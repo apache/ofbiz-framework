@@ -23,6 +23,7 @@ import org.ofbiz.base.util.GeneralException;
 /**
  * <code>SecurityConfigurationException</code>
  */
+@SuppressWarnings("serial")
 public class SecurityConfigurationException extends GeneralException {
 
     public SecurityConfigurationException(String str, Throwable t) {
