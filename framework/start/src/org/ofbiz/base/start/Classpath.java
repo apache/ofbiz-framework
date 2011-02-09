@@ -122,8 +122,6 @@ public class Classpath {
     }
 
     public ClassLoader getClassLoader() {
-        URL[] urls = getUrls();
-
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
         if (parent == null) {
             parent = Classpath.class.getClassLoader();
