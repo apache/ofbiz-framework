@@ -29,6 +29,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Element;
 
+@SuppressWarnings("serial")
 public class ServiceMcaRule implements java.io.Serializable {
 
     public static final String module = ServiceMcaRule.class.getName();
