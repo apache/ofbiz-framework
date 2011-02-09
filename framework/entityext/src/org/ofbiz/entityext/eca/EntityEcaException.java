@@ -23,6 +23,7 @@ import org.ofbiz.entity.GenericEntityException;
 /**
  * EntityEcaException
  */
+@SuppressWarnings("serial")
 public class EntityEcaException extends GenericEntityException {
 
     public EntityEcaException() {
