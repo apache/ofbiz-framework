@@ -21,6 +21,7 @@ package org.ofbiz.service.calendar;
 /**
  * Recurrence Info Exception
  */
+@SuppressWarnings("serial")
 public class RecurrenceInfoException extends org.ofbiz.base.util.GeneralException {
 
     public RecurrenceInfoException() {
