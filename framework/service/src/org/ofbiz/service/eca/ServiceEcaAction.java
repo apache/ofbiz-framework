@@ -40,6 +40,7 @@ import org.w3c.dom.Element;
 /**
  * ServiceEcaAction
  */
+@SuppressWarnings("serial")
 public class ServiceEcaAction implements java.io.Serializable {
 
     public static final String module = ServiceEcaAction.class.getName();
