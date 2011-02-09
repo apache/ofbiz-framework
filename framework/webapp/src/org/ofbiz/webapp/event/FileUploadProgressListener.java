@@ -25,6 +25,7 @@ import java.io.Serializable;
 /**
  * FileUploadProgressListener - Commons FileUpload progress listener
  */
+@SuppressWarnings("serial")
 public class FileUploadProgressListener implements ProgressListener, Serializable {
 
     public static final String module = FileUploadProgressListener.class.getName();
