@@ -28,6 +28,7 @@ import org.ofbiz.minilang.method.*;
 /**
  * Simple class to wrap messages that come either from a straight string or a properties file
  */
+@SuppressWarnings("serial")
 public class FlexibleMessage implements Serializable {
 
     public static final String module = FlexibleMessage.class.getName();
