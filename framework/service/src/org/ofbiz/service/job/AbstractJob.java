@@ -21,6 +21,7 @@ package org.ofbiz.service.job;
 /**
  * Abstract Service Job - Invokes a service
  */
+@SuppressWarnings("serial")
 public abstract class AbstractJob implements Job {
 
     public static final String module = AbstractJob.class.getName();

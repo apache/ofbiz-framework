@@ -21,6 +21,7 @@ package org.ofbiz.service.job;
 /**
  * Job Scheduler Exception
  */
+@SuppressWarnings("serial")
 public class JobManagerException extends org.ofbiz.base.util.GeneralException {
 
     /**
