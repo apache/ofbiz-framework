@@ -358,9 +358,8 @@ public class DataServices {
         String contentId = (String) context.get("contentId");
         result.put("contentId", contentId);
         if (UtilValidate.isEmpty(dataResourceId)) {
-            String errMsg = "dataResourceId is null.";
-            Debug.logError(errMsg, module);
-            return ServiceUtil.returnError(errMsg);
+            Debug.logError("dataResourceId is null.", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentDataResourceIsNull", locale));
         }
         String textData = (String) context.get("textData");
         if (Debug.verboseOn()) {

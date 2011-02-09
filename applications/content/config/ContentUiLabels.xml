@@ -831,6 +831,10 @@
         <value xml:lang="zh">图像</value>
         <value xml:lang="zh_TW">圖像</value>
     </property>
+    <property key="ContentDataResourceIsNull">
+        <value xml:lang="en">dataResourceId is null.</value>
+        <value xml:lang="it">dataResourceId è nullo.</value>
+    </property>
     <property key="ContentDataResourceNotFound">
         <value xml:lang="en">No data resource found for ID: ${parameters.dataResourceId}</value>
         <value xml:lang="it">Nessuna risorsa dati trovata con ID: ${parameters.dataResourceId}</value>
@@ -1497,6 +1501,10 @@
         <value xml:lang="th">หัวข้อ PDF</value>
         <value xml:lang="zh">PDF内容标识</value>
         <value xml:lang="zh_TW">PDF內容ID</value>
+    </property>
+    <property key="ContentPDFGeneratingError">
+        <value xml:lang="en">Error generating PDF: ${errorString}</value>
+        <value xml:lang="it">Errore di generazione PDF: ${errorString}</value>
     </property>
     <property key="ContentPDFFile">
         <value xml:lang="da">PDF fil</value>
