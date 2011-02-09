@@ -21,6 +21,7 @@ package org.ofbiz.webapp.event;
 /**
  * EventHandlerException.java
  */
+@SuppressWarnings("serial")
 public class EventHandlerException extends org.ofbiz.base.util.GeneralException {
 
     public EventHandlerException(String str, Throwable t) {
