@@ -20,7 +20,6 @@ package org.ofbiz.entity.util;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -71,7 +70,6 @@ public class EntityDataAssert {
     public static void checkValueList(List<GenericValue> valueList, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (valueList == null) return;
 
-        Iterator<GenericValue> valueIter = valueList.iterator();
         for (GenericValue checkValue : valueList) {
             checkSingleValue(checkValue, delegator, errorMessages);
         }
