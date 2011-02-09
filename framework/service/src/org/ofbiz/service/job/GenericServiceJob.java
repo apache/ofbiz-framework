@@ -29,6 +29,7 @@ import org.ofbiz.service.ModelService;
 /**
  * Generic Service Job - A generic async-service Job.
  */
+@SuppressWarnings("serial")
 public class GenericServiceJob extends AbstractJob {
 
     public static final String module = GenericServiceJob.class.getName();

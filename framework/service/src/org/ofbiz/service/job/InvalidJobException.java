@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service.job;
 
+@SuppressWarnings("serial")
 public class InvalidJobException extends JobManagerException {
 
     /**
