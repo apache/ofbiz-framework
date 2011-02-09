@@ -20,6 +20,7 @@ package org.ofbiz.sql;
 
 import org.ofbiz.base.util.GeneralException;
 
+@SuppressWarnings("serial")
 public final class ParameterizedConditionException extends GeneralException {
     public ParameterizedConditionException() {
         super();
