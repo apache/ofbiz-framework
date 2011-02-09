@@ -18,11 +18,7 @@
  */
 package org.ofbiz.sql;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.ofbiz.base.lang.SourceMonitored;
-import org.ofbiz.base.util.StringUtil;
 
 @SourceMonitored
 public final class AggregateFunction extends StaticValue {
