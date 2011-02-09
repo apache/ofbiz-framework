@@ -38,7 +38,7 @@ public class EntityWatchServices {
      * @param context
      * @return
      */
-    public static Map watchEntity(DispatchContext dctx, Map context) {
+    public static Map<String, Object> watchEntity(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue newValue = (GenericValue) context.get("newValue");
         String fieldName = (String) context.get("fieldName");
 
