@@ -141,7 +141,6 @@ public class ServiceEcaRule implements java.io.Serializable {
 
         // if all conditions are true
         if (allCondTrue) {
-            boolean allOkay = true;
             for (Object setOrAction: actionsAndSets) {
                 if (setOrAction instanceof ServiceEcaAction) {
                     ServiceEcaAction ea = (ServiceEcaAction) setOrAction;
@@ -151,8 +150,6 @@ public class ServiceEcaRule implements java.io.Serializable {
                         if (Debug.infoOn()) Debug.logInfo("Running Service ECA Service: " + ea.serviceName + ", triggered by rule on Service: " + serviceName, module);
                         if (ea.runAction(serviceName, dctx, context, result)) {
                             actionsRun.add(ea.serviceName);
-                        } else {
-                            allOkay = false;
                         }
                     }
                 } else {
