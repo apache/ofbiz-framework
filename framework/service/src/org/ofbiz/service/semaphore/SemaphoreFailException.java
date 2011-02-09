@@ -23,6 +23,7 @@ import org.ofbiz.service.GenericServiceException;
 /**
  * SemaphoreFailException
  */
+@SuppressWarnings("serial")
 public class SemaphoreFailException extends GenericServiceException {
 
     public SemaphoreFailException() {
