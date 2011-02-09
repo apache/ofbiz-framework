@@ -25,6 +25,7 @@ import java.io.PrintWriter;
  * StartupException
  *
  */
+@SuppressWarnings("serial")
 public class StartupException extends Exception {
 
     Throwable nested = null;
