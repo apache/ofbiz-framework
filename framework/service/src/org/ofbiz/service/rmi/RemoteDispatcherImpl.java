@@ -34,6 +34,7 @@ import org.ofbiz.service.ModelService;
 /**
  * Generic Services Remote Dispatcher Implementation
  */
+@SuppressWarnings("serial")
 public class RemoteDispatcherImpl extends UnicastRemoteObject implements RemoteDispatcher {
 
     public static final String module = RemoteDispatcherImpl.class.getName();
