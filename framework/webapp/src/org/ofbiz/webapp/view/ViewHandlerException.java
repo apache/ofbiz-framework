@@ -21,6 +21,7 @@ package org.ofbiz.webapp.view;
 /**
  * ViewHandlerException - View Handler Exception
  */
+@SuppressWarnings("serial")
 public class ViewHandlerException extends org.ofbiz.base.util.GeneralException {
 
     public ViewHandlerException() {
