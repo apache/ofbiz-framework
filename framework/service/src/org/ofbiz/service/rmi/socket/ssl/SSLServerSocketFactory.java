@@ -39,6 +39,7 @@ import org.ofbiz.base.util.SSLUtil;
 /**
  * RMI SSL Server Socket Factory
  */
+@SuppressWarnings("serial")
 public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializable {
 
     public static final String module =  SSLServerSocketFactory.class.getName();

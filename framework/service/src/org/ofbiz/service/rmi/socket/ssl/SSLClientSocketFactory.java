@@ -33,6 +33,7 @@ import org.ofbiz.base.config.GenericConfigException;
 /**
  * RMI SSL Client Socket Factory
  */
+@SuppressWarnings("serial")
 public class SSLClientSocketFactory implements RMIClientSocketFactory, Serializable {
 
     public static final String module = SSLClientSocketFactory.class.getName();
