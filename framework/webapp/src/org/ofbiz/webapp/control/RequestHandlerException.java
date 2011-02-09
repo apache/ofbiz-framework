@@ -21,6 +21,7 @@ package org.ofbiz.webapp.control;
 /**
  * RequestHandlerException
  */
+@SuppressWarnings("serial")
 public class RequestHandlerException extends org.ofbiz.base.util.GeneralException {
 
     public RequestHandlerException(String str, Throwable t) {
