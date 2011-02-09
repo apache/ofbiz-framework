@@ -21,6 +21,7 @@ package org.ofbiz.service;
 /**
  * Generic Service Exception
  */
+@SuppressWarnings("serial")
 public class GenericServiceException extends org.ofbiz.base.util.GeneralException {
 
     public GenericServiceException() {

@@ -25,6 +25,7 @@ import org.ofbiz.base.util.Debug;
 /**
  * Generic Result Waiter Class
  */
+@SuppressWarnings("serial")
 public class GenericResultWaiter implements GenericRequester {
 
     public static final String module = GenericResultWaiter.class.getName();

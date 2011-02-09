@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilMisc;
 /**
  * General Service Exception - base Exception for in-Service Errors
  */
+@SuppressWarnings("serial")
 public class GeneralServiceException extends org.ofbiz.base.util.GeneralException {
 
     protected List<Object> errorMsgList = null;

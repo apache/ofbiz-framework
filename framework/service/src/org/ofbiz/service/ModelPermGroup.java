@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 /**
  * Service Permission Group Model Class
  */
+@SuppressWarnings("serial")
 public class ModelPermGroup implements Serializable {
 
     public static final String module = ModelPermGroup.class.getName();
