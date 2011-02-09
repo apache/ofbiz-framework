@@ -40,6 +40,7 @@ import org.ofbiz.webapp.view.ViewHandlerException;
  * <p>Note that a section's content can also be a region;if so,
  * Region.render is called from Section.Render().</p>
  */
+@SuppressWarnings("serial")
 public class Section extends Content {
 
     protected final String name;

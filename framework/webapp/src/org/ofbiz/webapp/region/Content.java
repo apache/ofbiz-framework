@@ -28,6 +28,7 @@ import javax.servlet.jsp.PageContext;
  * Abstract base class for Section and Region
  * <br/>Subclasses of Content must implement render(PageContext)
  */
+@SuppressWarnings("serial")
 public abstract class Content implements java.io.Serializable {
     protected final String content;
 

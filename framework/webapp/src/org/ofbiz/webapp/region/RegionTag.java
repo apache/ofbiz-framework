@@ -25,6 +25,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 /**
  * Base tag for other region tags, uses "/WEB-INF/regions.xml" file
  */
+@SuppressWarnings("serial")
 public class RegionTag extends TagSupport {
     protected Region regionObj = null;
     protected String template = null;
