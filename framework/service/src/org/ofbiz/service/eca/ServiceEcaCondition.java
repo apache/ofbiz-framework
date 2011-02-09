@@ -36,6 +36,7 @@ import org.w3c.dom.Element;
 /**
  * ServiceEcaCondition
  */
+@SuppressWarnings("serial")
 public class ServiceEcaCondition implements java.io.Serializable {
 
     public static final String module = ServiceEcaCondition.class.getName();
