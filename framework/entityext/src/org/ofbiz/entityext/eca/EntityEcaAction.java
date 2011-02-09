@@ -37,6 +37,7 @@ import org.w3c.dom.Element;
 /**
  * EntityEcaAction
  */
+@SuppressWarnings("serial")
 public class EntityEcaAction implements java.io.Serializable {
     public static final String module = EntityEcaAction.class.getName();
 
