@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilProperties;
  * I18nBundleTag - JSP tag that the MessageTags will use when retrieving keys
  * for this page.
  */
+@SuppressWarnings("serial")
 public class I18nBundleTag extends TagSupport {
 
     public static final String module = I18nBundleTag.class.getName();

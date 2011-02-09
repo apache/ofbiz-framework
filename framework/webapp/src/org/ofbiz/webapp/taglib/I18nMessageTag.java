@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
  * I18nMessageTag - JSP tag to use a resource bundle to internationalize
  * content in a web page.
  */
+@SuppressWarnings("serial")
 public class I18nMessageTag extends BodyTagSupport {
 
     public static final String module = I18nMessageTag.class.getName();

@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
 /**
  * <p><b>Title:</b> PrintTag - Prints an attribute from the PageContext.
  */
+@SuppressWarnings("serial")
 public class PrintTag extends TagSupport {
 
     public static final String module = PrintTag.class.getName();

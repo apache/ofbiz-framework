@@ -32,6 +32,7 @@ import org.ofbiz.webapp.pseudotag.InputValue;
  *     using the specified field if it does. If the Boolean object referred to by the tryentityattr
  *     attribute is false, always tries to use the request parameter and ignores the entity field.
  */
+@SuppressWarnings("serial")
 public class InputValueTag extends TagSupport {
 
     public static final String module = InputValueTag.class.getName();

@@ -29,6 +29,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * IteratorHasNextTag - Conditional Tag.
  */
+@SuppressWarnings("serial")
 public class IteratorHasNextTag extends BodyTagSupport {
 
     @Override

@@ -33,6 +33,7 @@ import org.ofbiz.webapp.control.RequestHandler;
 /**
  * UrlTag - Creates a URL string prepending the current control path.
  */
+@SuppressWarnings("serial")
 public class UrlTag extends BodyTagSupport {
 
     public static final String module = UrlTag.class.getName();

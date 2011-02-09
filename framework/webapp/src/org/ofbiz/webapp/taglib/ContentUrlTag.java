@@ -35,6 +35,7 @@ import org.ofbiz.entity.GenericValue;
 /**
  * ContentUrlTag - Creates a URL string prepending the content prefix from url.properties
  */
+@SuppressWarnings("serial")
 public class ContentUrlTag extends BodyTagSupport {
 
     public static final String module = UrlTag.class.getName();
