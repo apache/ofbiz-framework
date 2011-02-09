@@ -48,6 +48,7 @@ import org.w3c.dom.Element;
 /**
  * Dispatcher Context
  */
+@SuppressWarnings("serial")
 public class DispatchContext implements Serializable {
 
     public static final String module = DispatchContext.class.getName();

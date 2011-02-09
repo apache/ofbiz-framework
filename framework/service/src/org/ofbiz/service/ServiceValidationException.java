@@ -26,6 +26,7 @@ import org.ofbiz.base.util.UtilValidate;
 /**
  * ServiceValidationException
  */
+@SuppressWarnings("serial")
 public class ServiceValidationException extends GenericServiceException {
 
     protected List<String> messages = new ArrayList<String>();
