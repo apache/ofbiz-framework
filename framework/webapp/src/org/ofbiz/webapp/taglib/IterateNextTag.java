@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilGenerics;
 /**
  * IterateNextTag - JSP Tag to get the next element of the IteratorTag.
  */
+@SuppressWarnings("serial")
 public class IterateNextTag extends BodyTagSupport {
 
     protected String name = null;

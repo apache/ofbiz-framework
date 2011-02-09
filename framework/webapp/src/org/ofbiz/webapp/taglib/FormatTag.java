@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilValidate;
 /**
  * FormatTag - JSP Tag to format numbers and dates.
  */
+@SuppressWarnings("serial")
 public class FormatTag extends BodyTagSupport {
 
     public static final String module = FormatTag.class.getName();

@@ -23,6 +23,7 @@ import javax.servlet.jsp.JspTagException;
 /**
  * UnlessTag - Conditional Tag.
  */
+@SuppressWarnings("serial")
 public class UnlessTag extends IfTag {
 
     @Override

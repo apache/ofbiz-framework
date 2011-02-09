@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 /**
  * ObjectTag - Loads an object from the PageContext.
  */
+@SuppressWarnings("serial")
 public class ObjectTag extends TagSupport {
 
     public static final String module = ObjectTag.class.getName();

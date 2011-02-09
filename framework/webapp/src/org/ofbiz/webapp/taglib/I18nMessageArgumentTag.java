@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
  * I18nMessageArgumentTag - JSP tag that used inside a MessageTag to create an
  * ordered list of arguments to use with java.text.MessageFormat.
  */
+@SuppressWarnings("serial")
 public class I18nMessageArgumentTag extends TagSupport {
 
     public static final String module = I18nMessageArgumentTag.class.getName();

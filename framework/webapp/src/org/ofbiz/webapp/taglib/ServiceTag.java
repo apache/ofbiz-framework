@@ -31,6 +31,7 @@ import org.ofbiz.service.LocalDispatcher;
 /**
  * ServiceTag - Service invocation tag.
  */
+@SuppressWarnings("serial")
 public class ServiceTag extends AbstractParameterTag {
 
     protected String serviceName;

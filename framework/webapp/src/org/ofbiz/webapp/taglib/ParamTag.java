@@ -27,6 +27,7 @@ import org.ofbiz.base.util.UtilGenerics;
 /**
  * ParamTag - Defines a parameter for the service tag.
  */
+@SuppressWarnings("serial")
 public class ParamTag extends TagSupport {
 
     protected String name = null;
