@@ -30,6 +30,7 @@ import org.ofbiz.base.util.collections.GenericMapEntry;
 import org.ofbiz.base.util.collections.IteratorWrapper;
 
 public class GenericMapTest extends GenericTestCaseBase {
+    @SuppressWarnings("serial")
     public static class TestGenericMap<K, V> extends GenericMap<K, V> {
         private static final String[] countNames = {
             "clearInternal",
