@@ -67,7 +67,7 @@ ofbiz/trunk/framework/base/lib/j2eespecs/tomcat-6.0.30-jsp-api.jar
 ofbiz/trunk/framework/base/lib/j2eespecs/tomcat-6.0.30-servlet-api.jar
 ofbiz/trunk/framework/base/lib/scripting/bsf-2.4.0.jar
 ofbiz/trunk/framework/base/lib/scripting/jakarta-oro-2.0.8.jar
-ofbiz/trunk/framework/base/lib/scripting/groovy-all-1.7.4.jar
+ofbiz/trunk/framework/base/lib/scripting/groovy-all-1.7.7.jar
 ofbiz/trunk/framework/base/lib/scripting/jansi-1.2.1.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-client-3.1.2.jar
 ofbiz/trunk/framework/base/lib/xmlrpc-common-3.1.2.jar
