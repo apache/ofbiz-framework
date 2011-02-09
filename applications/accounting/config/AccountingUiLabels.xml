@@ -7619,6 +7619,10 @@
         <value xml:lang="zh">没有找到发票</value>
         <value xml:lang="zh_TW">沒有找到發票</value>
     </property>
+    <property key="AccountingNoInvoiceItemsFoundForInvoice">
+        <value xml:lang="en">No invoice items found for invoice ${invoiceId} to match payment against...</value>
+        <value xml:lang="it">Nessuna riga fattura trovata per la fattura ${invoiceId} che corrisponde al pagamento...</value>
+    </property>
     <property key="AccountingNoInvoicesReadyOrOutstandingAmountZero">
         <value xml:lang="de">Es sind entweder keine der ausgewählten Rechnungen im Status 'erledigt' oder der Betrag beträgt Null.</value>
         <value xml:lang="en">Either no selected invoices in ready state or selected invoices outstanding amount equals to zero.</value>
@@ -8641,6 +8645,14 @@
         <value xml:lang="th">ไม่พบบันทึกโปรแกรมประยุกต์ใช้การชำระเงิน [${paymentApplicationId}]</value>
         <value xml:lang="zh">没有找到支付应用的记录[${paymentApplicationId}]</value>
         <value xml:lang="zh_TW">沒有找到支付應用的記錄[${paymentApplicationId}]</value>
+    </property>
+    <property key="AccountingPaymentApplicationParameterUnsuitable">
+        <value xml:lang="en">??unsuitable parameters passed...?? This message.... should never be shown\n</value>
+        <value xml:lang="it">??parametri passati non corretti...?? Questo messaggio.... non dovrebbe essere mai mostrato\n</value>
+    </property>
+    <property key="AccountingPaymentApplicationParameterListUnsuitable">
+        <value xml:lang="en">--Input parameters...InvoiceId: ${invoiceId} invoiceItemSeqId: ${invoiceItemSeqId} PaymentId: ${paymentId} toPaymentId: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} amountApplied: ${amountApplied}</value>
+        <value xml:lang="it">--Parametri...Fattura: ${invoiceId} riga fattura: ${invoiceItemSeqId} pagamento: ${paymentId} al pagamento: ${toPaymentId} \n  paymentApplicationId: ${paymentApplicationId} importo applicato: ${amountApplied}</value>
     </property>
     <property key="AccountingPaymentApplicationParameterMissing">
         <value xml:lang="de">Zahlungs-Zuweisung benötigt entweder eine Rechnungs-Nr, eine Rechnungskonto-Nr, eine Steuerbehörde oder ein Buchungskonto</value>
@@ -10359,6 +10371,54 @@
         <value xml:lang="en">Authorisation Url</value>
         <value xml:lang="pt">Url de Autorização</value>
     </property>
+    <property key="AccountingSagePayErrorEncodingParameters">
+        <value xml:lang="en">Error occured in encoding parameters for HttpPost (${errorString})</value>
+        <value xml:lang="it">Errore accaduto durante encoding parametri per HttpPost (${errorString})</value>
+    </property>
+    <property key="AccountingSagePayErrorHttpClientExecute">
+        <value xml:lang="en">Error occured in HttpClient execute (${errorString})</value>
+        <value xml:lang="it">Errore accaduto durante esecuzione HttpClient (${errorString})</value>
+    </property>
+    <property key="AccountingSagePayErrorHttpClientExecuteOrGettingResponse">
+        <value xml:lang="en">Error occured in HttpClient execute or getting response (${errorString})</value>
+        <value xml:lang="it">Errore accaduto durante esecuzione HttpClient o ottendendo la risposta (${errorString})</value>
+    </property>
+    <property key="AccountingSagePayPaymentError">
+        <value xml:lang="en">Problem at SagePay</value>
+        <value xml:lang="it">Problemi di SagePay</value>
+    </property>
+    <property key="AccountingSagePayPaymentInvalidInformationPassed">
+        <value xml:lang="en">Invalid information passed in parameters</value>
+        <value xml:lang="it">Informazioni invalide passate nei paramatri</value>
+    </property>
+    <property key="AccountingSagePayPaymentRefundNotAuthorized">
+        <value xml:lang="en">Refund not authorized by the acquiring bank</value>
+        <value xml:lang="it">Rimborso non autorizzato dalla banca</value>
+    </property>
+    <property key="AccountingSagePayPaymentRefundRequestMalformed">
+        <value xml:lang="en">Refund request not formed properly or parameters missing</value>
+        <value xml:lang="it">Richiesta rimborso pagamento non formato correttamente o parametro mancante</value>
+    </property>
+    <property key="AccountingSagePayPaymentRefunded">
+        <value xml:lang="en">Payment Refunded</value>
+        <value xml:lang="it">Pagamento rimborsato</value>
+    </property>
+    <property key="AccountingSagePayPaymentReleaseRequestMalformed">
+        <value xml:lang="en">Released request not formed properly or parameters missing</value>
+        <value xml:lang="it">Richiesta rilascio pagamento non formato correttamente o parametro mancante</value>
+    </property>
+    <property key="AccountingSagePayPaymentReleased">
+        <value xml:lang="en">Payment Released</value>
+        <value xml:lang="it">Pagamento rilasciato</value>
+    </property>
+    <property key="AccountingSagePayPaymentVoidRequestMalformed">
+        <value xml:lang="en">Void request not formed properly or parameters missing</value>
+        <value xml:lang="it">Richiesta annullamento pagamento non formato correttamente o parametro mancante</value>
+    </property>
+    <property key="AccountingSagePayPaymentVoided">
+        <value xml:lang="en">Payment Voided</value>
+        <value xml:lang="it">Pagamento annullato</value>
+    </property>
     <property key="AccountingSagePayMode">
         <value xml:lang="en">Mode</value>
         <value xml:lang="pt">Modo</value>
@@ -10955,6 +11015,14 @@
         <value xml:lang="en">Cannot calculate tax, no shipping or.......</value>
         <value xml:lang="it">Non è possibile calcolare le tasse, nessuna spedizione o.......</value>
         <value xml:lang="pt">Não é possível calcular o imposto, não envio ou .......</value>
+    </property>
+    <property key="AccountingTaxNoAddressSpecified">
+        <value xml:lang="en">The address(es) used for tax calculation did not have State/Province or Country or other tax jurisdiction values set, so we cannot determine the taxes to charge.</value>
+        <value xml:lang="it">L'indirizzo(i) usato per il calcolo delle tasse non ha impostato i valori dello stato/provincia o paese o giurisdizione tasse, così non è possibile determinare le tasse.</value>
+    </property>
+    <property key="AccountingTaxNoAddressSpecifiedDetails">
+        <value xml:lang="en"> [ID: ${contactMechId}, Address 1: ${address1}, Postal Code/ID: ${postalCodeGeoId} / ${postalCodeGeoId}, State/Province: ${stateProvinceGeoId}, Country: ${countryGeoId}}</value>
+        <value xml:lang="it"> [ID: ${contactMechId}, Indirizzo 1: ${address1}, C.A.P.: ${postalCodeGeoId} / ${postalCodeGeoId}, Stato/Provincia: ${stateProvinceGeoId}, Paese: ${countryGeoId}}</value>
     </property>
     <property key="AccountingTaxProductIdCannotCalculate">
         <value xml:lang="en">productId don't have value, cannot call calcTax service.</value>

@@ -3018,7 +3018,7 @@ public class InvoiceServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
                 if (invoiceItems.size() == 0) {
-                    errorMessageList.add("No invoice items found for invoice " + invoiceId + " to match payment against...\n");
+                    errorMessageList.add(UtilProperties.getMessage(resource, "AccountingNoInvoiceItemsFoundForInvoice", UtilMisc.toMap("invoiceId", invoiceId), locale));
                     return ServiceUtil.returnError(errorMessageList);
                 } else { // we found some invoice items, start processing....
                     // check if the user want to apply a smaller amount than the maximum possible on the payment
@@ -3143,8 +3143,8 @@ public class InvoiceServices {
         }
 
         // should never come here...
-        errorMessageList.add("??unsuitable parameters passed...?? This message.... should never be shown\n");
-        errorMessageList.add("--Input parameters...InvoiceId:" + invoiceId + " invoiceItemSeqId:" + invoiceItemSeqId + " PaymentId:" + paymentId + " toPaymentId:" + toPaymentId + "\n  paymentApplicationId:" + paymentApplicationId + " amountApplied:" + amountApplied);
+        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentApplicationParameterUnsuitable", locale));
+        errorMessageList.add(UtilProperties.getMessage(resource, "AccountingPaymentApplicationParameterListUnsuitable", UtilMisc.toMap("invoiceId", invoiceId, "invoiceItemSeqId", invoiceItemSeqId, "paymentId", paymentId, "toPaymentId", toPaymentId, "paymentApplicationId", paymentApplicationId, "amountApplied", amountApplied), locale));
         return ServiceUtil.returnError(errorMessageList);
     }
 
