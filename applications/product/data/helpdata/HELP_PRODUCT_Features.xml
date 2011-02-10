@@ -17,24 +17,24 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<section id="ProductCatalogFeatures" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd" xmlns="http://docbook.org/ns/docbook">
-  <anchor xml:id="ProductCatalogFeatures"/>
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd" xmlns="http://docbook.org/ns/docbook">
     <title>Catalog Features overview </title>
-     <para>To Sell and to Differentiate Products
+    <anchor xml:id="ProductCatalogFeatures"/>
+    <para>To Sell and to Differentiate Products
 Features are characteristics used to sell and to differentiate products. The Open for Business catalog manager allows you to define any feature set you wish for your products. Typical features include size and color. In Open for Business, features are associated, or applied, to products as Standard Features, Selectable Features, or Distinguishing Features.
 </para>
 
 
-    <section id="Standardfeatures">
- <anchor xml:id="Standardfeatures"/>
+    <section>
         <title> Standard features</title>
+        <anchor xml:id="Standardfeatures"/>
         <para>Standard features are features which are associated with every instance of a product. An example might be the brand name of a product -- all instances of the product share the same brand name.
 </para>
 
     </section>
     <section>
- <anchor xml:id="Selectablefeatures"/>
         <title> Selectable features</title>
+        <anchor xml:id="Selectablefeatures"/>
         <para>Selectable features are features which the customer selects one from many available choices. For example, a shirt may be available in White, Blue, Green, Yellow, Pink. These colors would be selectable features of the variant product shirt, and the customer would be prompted to choose a color.
 </para>
         <para>Each color, though, would be a standard feature of the physical product. Thus, White would be a selectable feature of the virtual product 'shirt' but a standard feature of 'white shirt.'
@@ -42,30 +42,27 @@ Features are characteristics used to sell and to differentiate products. The Ope
 
     </section>
     <section>
- <anchor xml:id="Distinguishingfeatures"/>
         <title> Distinguishing features</title>
+        <anchor xml:id="Distinguishingfeatures"/>
         <para>Distinguishing features are features which distinguish one product from another and are used to show the customer which item she chose.
 </para>
 
     </section>
     <section>
- <anchor xml:id="WorkingProductFeatures"/>
         <title> Working with Product Features</title> 
- Click on Features tab
-Defaults to Product Features
-
- 
+        <anchor xml:id="WorkingProductFeatures"/>
+        <para>Click on Features tab. Defaults to Product Features</para>
 </section>
     <section>
- <anchor xml:id="CreateMaintainProductFeatures"/>
         <title> Create and Maintain Product Features</title>
+        <anchor xml:id="CreateMaintainProductFeatures"/>
         <para>These screens are for creating and maintaining product features, which are features or characteristics that are available for products. Here you will define what features can be available for products. Later, when working with the products, you will have a chance to define what features a particular product may have.
 </para>
 
     </section>
     <section>
- <anchor xml:id="FeatureCategoriesandFeatureGroups"/>
         <title> Feature Categories and Feature Groups</title>
+        <anchor xml:id="FeatureCategoriesandFeatureGroups"/>
         <para>Notice the sub-tabs for Feature Categories and Feature Groups. These are both used to help you organize your product features. Each feature can only belong to one category but as many groups as you need. For example, you can have a colors category that has colors White, Blue, Grey, Green, Yellow, Pink, Red, and Orange and a sizes category that has sizes XXS, XS, S, M, L, XL, XXL. Then, you can have one group for shirts that would have colors White, Blue, Grey and sizes S, M, L, XL, XXL, and another group for dresses that have colors Yellow, Pink, Red, Orange and sizes XXS, XS, S, M, and L.
 
  </para>
