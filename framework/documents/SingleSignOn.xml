@@ -21,6 +21,7 @@
     version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../applications/content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
+    <anchor xml:id="CASLDAP"/>
     <title>OFBiz Single Sign On using CAS and LDAP</title>
     <section>
         <title>Setup the Java Key Store</title>
