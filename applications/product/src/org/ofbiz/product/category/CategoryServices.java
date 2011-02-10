@@ -87,8 +87,7 @@ public class CategoryServices {
         Locale locale = (Locale) context.get("locale");
         
         if (index == null && productId == null) {
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "categoryservices.problems_getting_next_products", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.problems_getting_next_products", locale));
         }
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
@@ -102,9 +101,7 @@ public class CategoryServices {
             productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields);
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "categoryservices.error_find_next_products", 
-                    UtilMisc.toMap("errMessage", e.getMessage()), locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.error_find_next_products", UtilMisc.toMap("errMessage", e.getMessage()), locale));
         }
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
@@ -132,8 +129,7 @@ public class CategoryServices {
 
         if (index == null) {
             // this is not going to be an error condition because we don't want it to be so critical, ie rolling back the transaction and such
-            return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                    "categoryservices.product_not_found", locale));
+            return ServiceUtil.returnFailure(UtilProperties.getMessage(resourceError, "categoryservices.product_not_found", locale));
         }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
