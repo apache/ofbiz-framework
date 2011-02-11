@@ -185,6 +185,7 @@ public class FinAccountServices {
         String productStoreId = (String) context.get("productStoreId");
         String finAccountTypeId = (String) context.get("finAccountTypeId");
         Locale locale = (Locale) context.get("locale");
+        GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
 
         try {
             // get the product store id and use it to generate a unique fin account code
@@ -225,6 +226,7 @@ public class FinAccountServices {
             // product store payToPartyId
             String payToPartyId = ProductStoreWorker.getProductStorePayToPartyId(productStoreId, delegator);
             inContext.put("organizationPartyId", payToPartyId);
+            inContext.put("currencyUomId", productStore.get("defaultCurrencyUomId"));
 
             Map<String, Object> createResult = dispatcher.runSync("createFinAccount", inContext);
 
