@@ -2701,7 +2701,9 @@ public class OrderReadHelper {
 
                 boolean includeAdjustment = false;
 
-                if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
+                if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
+                        "VAT_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
+                        "VAT_PRICE_CORRECT".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
                     if (includeTax) includeAdjustment = true;
                 } else if ("SHIPPING_CHARGES".equals(orderAdjustment.getString("orderAdjustmentTypeId"))) {
                     if (includeShipping) includeAdjustment = true;

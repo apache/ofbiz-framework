@@ -539,6 +539,7 @@ public class ShoppingCartServices {
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
 
+                // get all item adjustments EXCEPT tax adjustments
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
                     for(GenericValue itemAdjustment : itemAdjustments) {
@@ -556,6 +557,9 @@ public class ShoppingCartServices {
             if (UtilValidate.isNotEmpty(orderItems)) {
                 int itemIndex = 0;
                 for (GenericValue item : orderItems) {
+                    // if rejected or cancelled ignore, just like above otherwise all indexes will be off by one!
+                    if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) continue;
+
                     List<GenericValue> orderItemAdjustments = orh.getOrderItemAdjustments(item);
                     // set the item's ship group info
                     List<GenericValue> shipGroupAssocs = orh.getOrderItemShipGroupAssocs(item);
@@ -568,17 +572,32 @@ public class ShoppingCartServices {
 
                         String cartShipGroupIndexStr = sgAssoc.getString("shipGroupSeqId");
                         int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
-
                         cartShipGroupIndex = cartShipGroupIndex - 1;
+
                         if (cartShipGroupIndex > 0) {
                             cart.positionItemToGroup(itemIndex, shipGroupQty, 0, cartShipGroupIndex, false);
                         }
 
-                        cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
-
-                        List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
+                        // because the ship groups are setup before loading items, and the ShoppingCart.addItemToEnd
+                        // method is called when loading items above and it calls ShoppingCart.setItemShipGroupQty,
+                        // this may not be necessary here, so check it first as calling it here with 0 quantity and
+                        // such ends up removing cart items from the group, which causes problems later with inventory
+                        // reservation, tax calculation, etc.
                         ShoppingCart.CartShipInfo csi = cart.getShipInfo(cartShipGroupIndex);
                         ShoppingCartItem cartItem = cart.findCartItem(itemIndex);
+                        if (cartItem == null || cartItem.getQuantity() == null ||
+                                BigDecimal.ZERO.equals(cartItem.getQuantity()) ||
+                                shipGroupQty.equals(cartItem.getQuantity())) {
+                            Debug.logInfo("In loadCartFromOrder not adding item [" + item.getString("orderItemSeqId") +
+                                    "] to ship group with index [" + itemIndex + "]; group quantity is [" + shipGroupQty +
+                                    "] item quantity is [" + (cartItem != null ? cartItem.getQuantity() : "no cart item") +
+                                    "] cartShipGroupIndex is [" + cartShipGroupIndex + "], csi.shipItemInfo.size(): " +
+                                    csi.shipItemInfo.size(), module);
+                        } else {
+                            cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
+                        }
+
+                        List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
                         if (cartItem == null) {
                             Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
                         } else {
@@ -587,8 +606,10 @@ public class ShoppingCartServices {
                                 Debug.logWarning("In loadCartFromOrder could not find CartShipItemInfo for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
                             } else {
                                 List<GenericValue> itemTaxAdj = cartShipItemInfo.itemTaxAdj;
-                                for(GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
-                                    if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
+                                for (GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
+                                    if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId")) ||
+                                            "VAT_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId")) ||
+                                            "VAT_PRICE_CORRECT".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
                                         itemTaxAdj.add(shipGroupItemAdjustment);
                                         continue;
                                     }
