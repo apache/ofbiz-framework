@@ -39,10 +39,13 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <and>
-                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
-                                    <not><if-empty field="product"/></not>
-                                </and>
+                                    <and>
+                                        <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                        <or>
+                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
+                                            <not><if-empty field="product"/></not>
+                                        </or>
+                                    </and>
                             </condition>
                             <widgets>
                                 <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
@@ -61,7 +64,10 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="product"/></not>
+                                        <or>
+                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
+                                            <not><if-empty field="product"/></not>
+                                        </or>
                                     </condition>
                                     <widgets>
                                         <container>
@@ -90,12 +96,12 @@ under the License.
                                     <condition>
                                         <or>
                                             <not><if-empty field="product"/></not>
-                                            <if-empty field="productId"/>
+                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
-                                <decorator-section-include name="body"/>
-                            </widgets>
+                                        <decorator-section-include name="body"/>
+                                    </widgets>
                             <fail-widgets>
                                         <label style="h3">${uiLabelMap.ProductNoExistingProductsFound}</label>
                                     </fail-widgets>
@@ -156,6 +162,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
+                <set field="parameters.bypassIfNoProduct" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -166,10 +173,7 @@ under the License.
 
                         <section>
                             <condition>
-                                <and>
-                                    <not><if-empty field="productId"/></not>
-                                    <not><if-empty field="product"/></not>
-                                </and>
+                                <not><if-empty field="product"/></not>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ProductDuplicateProduct}">
@@ -179,10 +183,7 @@ under the License.
                         </section>
                         <section>
                             <condition>
-                                <and>
-                                    <not><if-empty field="productId"/></not>
-                                    <not><if-empty field="product"/></not>
-                                </and>
+                                <not><if-empty field="product"/></not>
                             </condition>
                             <widgets>
                                 <section>
@@ -797,10 +798,7 @@ under the License.
                         <screenlet title="${uiLabelMap.PageTitleEditProductGlAccounts}">
                             <section>
                                 <condition>
-                                    <and>
-                                        <not><if-empty field="productId"/></not>
-                                        <not><if-empty field="product"/></not>
-                                    </and>
+                                    <not><if-empty field="product"/></not>
                                 </condition>
                                 <widgets>
                                     <include-form name="ListProductGlAccounts" location="component://product/widget/catalog/ProductForms.xml"/>
@@ -810,10 +808,7 @@ under the License.
                         <screenlet title="${uiLabelMap.ProductAddGlAccount}">
                             <section>
                                 <condition>
-                                    <and>
-                                        <not><if-empty field="productId"/></not>
-                                        <not><if-empty field="product"/></not>
-                                    </and>
+                                    <not><if-empty field="product"/></not>
                                 </condition>
                                 <widgets>
                                     <include-form name="AddProductGlAccount" location="component://product/widget/catalog/ProductForms.xml"/>
