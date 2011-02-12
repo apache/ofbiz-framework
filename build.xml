@@ -67,9 +67,17 @@ under the License.
         <antcall target="clean-catalina"/>
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
+        <antcall target="clean-downloads"/>
         <antcall target="clean"/>
     </target>
 
+    <target name="clean-downloads"
+          description="Clean all downloaded files">
+        <delete>
+            <fileset dir="framework/base/lib" includes="cobertura-*.jar"/>
+            <fileset dir="framework/entity/lib/jdbc" includes="postgresql-*.jar"/>
+        </delete>
+    </target>
     <target name="clean-data"
           description="Clean all DB data (Derby and HSQL) under runtime/data">
         <subant target="clean-data">
