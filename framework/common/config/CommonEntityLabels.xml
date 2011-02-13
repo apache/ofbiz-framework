@@ -17753,17 +17753,17 @@
     </property>
     <property key="VisualTheme.description.BIZZNESS_TIME">
         <value xml:lang="en">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
-        <value xml:lang="fr">Bizzness, le temps du bizzness. Je ne pourrais mieux dire : parlons affaires !</value>
+        <value xml:lang="fr">Bizzness : menu principal vertical</value>
         <value xml:lang="pt_BR">É Bizzness, é hora Bizzness. Eu não poderia ter dito melhor sozinho. Este tema fica para baixo</value>
     </property>
     <property key="VisualTheme.description.BLUELIGHT">
         <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
-        <value xml:lang="fr">BlueLight Theme: ramasse-miettes, menus déroulants et coins arrondis</value>
+        <value xml:lang="fr">BlueLight Theme: fil d'ariane, menus déroulants et coins arrondis</value>
         <value xml:lang="pt_BR">Bluelight Tema: Breadcrumbs, menus drop-down e cantos arredondados</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
         <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
-        <value xml:lang="fr">Dropping Crumbs: l'évolution de Blue-Light, comprend un menu déroulant intégré dans la barre du ramasse-miettes</value>
+        <value xml:lang="fr">Dropping Crumbs: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
         <value xml:lang="pt_BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
@@ -17778,7 +17778,7 @@
     </property>
     <property key="VisualTheme.description.TOMAHAWK">
         <value xml:lang="en">Tomahawk: the evolution of the Dropping Crumbs theme</value>
-        <value xml:lang="fr">Tomahawk: l'évolution de Dropping Crumbs</value>
+        <value xml:lang="fr">Tomahawk: déclinaison de Dropping Crumbs dans les tons noir et orange</value>
         <value xml:lang="pt_BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
     </property>
 </resource>
