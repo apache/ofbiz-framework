@@ -67,7 +67,6 @@ under the License.
         <antcall target="clean-catalina"/>
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
-        <antcall target="clean-downloads"/>
         <antcall target="clean"/>
     </target>
 
