@@ -746,7 +746,7 @@ public class UtilValidate {
      *  to use 4-digit year numbers everywhere.
      */
     public static boolean isYear(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) return false;
 
         if (!isNonnegativeInteger(s)) return false;
         return ((s.length() == 2) || (s.length() == 4));
@@ -771,13 +771,13 @@ public class UtilValidate {
 
     /** isMonth returns true if string s is a valid month number between 1 and 12. */
     public static boolean isMonth(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) return false;
         return isIntegerInRange(s, 1, 12);
     }
 
     /** isDay returns true if string s is a valid day number between 1 and 31. */
     public static boolean isDay(String s) {
-        if (isEmpty(s)) return defaultEmptyOK;
+        if (isEmpty(s)) return false;
         return isIntegerInRange(s, 1, 31);
     }
 
