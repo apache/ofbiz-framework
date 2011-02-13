@@ -818,9 +818,8 @@ public class PaymentGatewayServices {
         pgCredit.set("gatewayMessage", context.get("creditMessage"));
         pgCredit.set("transactionDate", UtilDateTime.nowTimestamp());
         pgCredit.set("currencyUomId", currencyUomId);
-        // store the gateway response
-        savePgr(dctx, pgCredit);
         // create the internal messages
+        List<GenericValue> messageEntities = FastList.newInstance();
         List<String> messages = UtilGenerics.cast(context.get("internalRespMsgs"));
         if (UtilValidate.isNotEmpty(messages)) {
             Iterator<String> i = messages.iterator();
@@ -832,9 +831,12 @@ public class PaymentGatewayServices {
                 respMsg.set("paymentGatewayResponseId", responseId);
                 respMsg.set("pgrMessage", message);
                 // store the messages
-                savePgr(dctx, respMsg);
+                messageEntities.add(respMsg);
             }
         }
+        // save the response and respective messages
+        savePgrAndMsgs(dctx, pgCredit, messageEntities);
+
         if (creditResponse != null && creditResponse.booleanValue()) {
             paymentPref.set("statusId", "PAYMENT_CANCELLED");
             try {
@@ -1946,10 +1948,8 @@ public class PaymentGatewayServices {
             if (Boolean.TRUE.equals(context.get("resultBadExpire"))) response.set("resultBadExpire", "Y");
             if (Boolean.TRUE.equals(context.get("resultBadCardNumber"))) response.set("resultBadCardNumber", "Y");
 
-            // save the response
-            savePgr(dctx, response);
-
             // create the internal messages
+            List<GenericValue> messageEntities = FastList.newInstance();
             List<String> messages = UtilGenerics.cast(context.get("internalRespMsgs"));
             if (UtilValidate.isNotEmpty(messages)) {
                 Iterator<String> i = messages.iterator();
@@ -1960,9 +1960,12 @@ public class PaymentGatewayServices {
                     respMsg.set("paymentGatewayRespMsgId", respMsgId);
                     respMsg.set("paymentGatewayResponseId", responseId);
                     respMsg.set("pgrMessage", message);
-                    savePgr(dctx, respMsg);
+                    messageEntities.add(respMsg);
                 }
             }
+
+            // save the response and respective messages
+            savePgrAndMsgs(dctx, response, messageEntities);
 
             if (response.getBigDecimal("amount").compareTo((BigDecimal)context.get("processAmount")) != 0) {
                 Debug.logWarning("The authorized amount does not match the max amount : Response - " + response + " : result - " + context, module);
@@ -2927,6 +2930,22 @@ public class PaymentGatewayServices {
         }
     }
 
+    private static void savePgrAndMsgs(DispatchContext dctx, GenericValue pgr, List<GenericValue> messages) {
+        Map<String, GenericValue> context = UtilMisc.<String, GenericValue>toMap("paymentGatewayResponse", pgr, "messages", messages);
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+
+        try {
+            dispatcher.addRollbackService("savePaymentGatewayResponseAndMessages", context, true);
+            delegator.create(pgr);
+            for (GenericValue message : messages) {
+                delegator.create(message);
+            }
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
+    }
+
     public static Map<String, Object> savePaymentGatewayResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
@@ -2939,6 +2958,28 @@ public class PaymentGatewayServices {
 
         try {
             delegator.create(pgr);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> savePaymentGatewayResponseAndMessages(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        GenericValue pgr = (GenericValue) context.get("paymentGatewayResponse");
+        String gatewayMessage = pgr.getString("gatewayMessage");
+        if (UtilValidate.isNotEmpty(gatewayMessage) && gatewayMessage.length() > 255) {
+            pgr.set("gatewayMessage", gatewayMessage.substring(0, 255));
+        }
+        @SuppressWarnings("unchecked")
+        List<GenericValue> messages = (List<GenericValue>) context.get("messages");
+
+        try {
+            delegator.create(pgr);
+            for (GenericValue message : messages) {
+                delegator.create(message);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
