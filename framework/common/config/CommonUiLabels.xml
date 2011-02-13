@@ -9306,6 +9306,10 @@
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh_TW">視覺風格</value>
     </property>
+    <property key="CommonVisualThemeUsage">
+        <value xml:lang="en">Click on an image to have a preview, on a link to select a theme, and then on Done to validate your choice</value>
+        <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
+    </property>
     <property key="CommonVisualThemeIdNotFound">
         <value xml:lang="en">Visual Theme ID not found.</value>
         <value xml:lang="es">Código de tema visual no encontrado.</value>
