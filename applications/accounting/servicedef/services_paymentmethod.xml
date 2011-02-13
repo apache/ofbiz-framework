@@ -462,6 +462,13 @@ under the License.
         <attribute name="paymentGatewayResponse" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 
+    <service name="savePaymentGatewayResponseAndMessages" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="savePaymentGatewayResponseAndMessages" auth="false">
+        <description>Method to make sure PaymentGatewayResponse records get stored (uses XA wrapper on rollback)</description>
+        <attribute name="paymentGatewayResponse" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="messages" type="List" mode="IN" optional="false"/>
+    </service>
+
     <!-- Payment Gateway Interfaces -->
     <service name="paymentProcessInterface" engine="interface" location="" invoke="">
         <description>Generic Payment Processing Interface</description>
