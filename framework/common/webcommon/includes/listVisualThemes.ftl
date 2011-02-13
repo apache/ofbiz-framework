@@ -51,6 +51,7 @@ margin: 1em;
     </ul>
     <br class="clear"/>
   </div>
+  <li class="h2" style="padding-top:1em">${uiLabelMap.CommonVisualThemeUsage}</li>
   <#if visualThemes?has_content>
     <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("visualThemeId")/>
     <table cellspacing="0" class="basic-table">
