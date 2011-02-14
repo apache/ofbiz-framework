@@ -3494,7 +3494,7 @@ public class OrderServices {
                                         "itemCommentMap", UtilMisc.<String, Object>toMap("changeComments", changeComments));
         // save all the updated information
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax);
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax, false);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -3702,7 +3702,7 @@ public class OrderServices {
 
         // save all the updated information
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.<String, Object>toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap), calcTax);
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, UtilMisc.<String, Object>toMap("itemReasonMap", itemReasonMap, "itemCommentMap", itemCommentMap), calcTax, false);
         } catch (GeneralException e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -3923,6 +3923,7 @@ public class OrderServices {
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
         Map<String, Object> changeMap = UtilGenerics.checkMap(context.get("changeMap"));
         Locale locale = (Locale) context.get("locale");
+        Boolean deleteItems = (Boolean) context.get("deleteItems");
         Boolean calcTax = (Boolean) context.get("calcTax");
         if (calcTax == null) {
             calcTax = Boolean.TRUE;
@@ -3930,7 +3931,7 @@ public class OrderServices {
 
         Map<String, Object> result = null;
         try {
-            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax);
+            saveUpdatedCartToOrder(dispatcher, delegator, cart, locale, userLogin, orderId, changeMap, calcTax, deleteItems);
             result = ServiceUtil.returnSuccess();
             //result.put("shoppingCart", cart);
         } catch (GeneralException e) {
@@ -3942,7 +3943,7 @@ public class OrderServices {
         return result;
     }
 
-    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax) throws GeneralException {
+    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax, boolean deleteItems) throws GeneralException {
         // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroups = cart.getShipGroupSize();
         for (int gi = 0; gi < shipGroups; gi++) {
@@ -4051,6 +4052,15 @@ public class OrderServices {
         }
         toRemove.addAll(existingPromoCodes);
         toRemove.addAll(existingPromoUses);
+        
+        if (deleteItems) {
+            // flag to delete existing order items           
+            try {
+                toRemove.addAll(delegator.findByAnd("OrderItem", "orderId", orderId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
         
         // set the orderId & other information on all new value objects
         List<String> dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
