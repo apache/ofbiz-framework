@@ -131,6 +131,14 @@
         <value xml:lang="en">Uses the \${date:dayStart(nowTimestamp, timeZone, locale)} UEL expression to set the default value to the start of today</value>
         <value xml:lang="zh">使用\${date:dayStart(nowTimestamp, timeZone, locale)}表达式来把缺省值设置为今天的开始时间</value>
     </property>
+    <property key="ExampleDateField12Title">
+        <value xml:lang="en">Field12: advanced date time selection with a step value for minutes</value>
+        <value xml:lang="fr">Champ 12 : Sélection avancée date et temps avec la possibilité de choisir un pas pour les minutes</value>
+    </property>
+    <property key="ExampleDateField12Tooltip">
+        <value xml:lang="en">Use step=1 (default), 5, 10, 15, 30</value>
+        <value xml:lang="fr">Utiliser 1 (valeur par défaut), 5, 10, 15, 30 pour la valeur du pas</value>
+    </property>
     <property key="ExampleDateField1Title">
         <value xml:lang="en">Field1: date and time selection field</value>
         <value xml:lang="fr">Champ 1 : sélection de date et temps</value>

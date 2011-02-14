@@ -94,7 +94,7 @@ under the License.
     </#if>
 </#macro>
 
-<#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName event="" action="">
+<#macro renderDateTimeField name className alert title value size maxlength step timeValues id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName event="" action="">
   <span class="view-calendar">
       <input type="text" name="${name}" <#if event?has_content && action?has_content> ${event}="${action}"</#if> <@renderClass className alert /><#rt/>
         <#if title?has_content> title="${title}"</#if>
@@ -136,9 +136,9 @@ under the License.
             </#list>
           </#if>
           </select>:<select name="${timeMinutesName}" <#if classString?has_content>class="${classString}"</#if>><#rt/>
-            <#assign x=59>
-            <#list 0..x as i>
-              <option value="${i}"<#if minutes?has_content><#if i=minutes> selected="selected"</#if></#if>>${i}</option><#rt/>
+            <#assign values = Static["org.ofbiz.base.util.StringUtil"].toList(timeValues)>
+            <#list values as i>
+              <option value="${i}"<#if minutes?has_content><#if i?number== minutes || ((minutes &gt; i?number )&& (minutes &lt; i?number+(step?number/2))) || ((minutes &lt; i?number )&& (minutes &gt; i?number-(step?number/2)))> selected="selected"</#if></#if>>${i}</option><#rt/>
             </#list>
           </select>
         <#rt/>

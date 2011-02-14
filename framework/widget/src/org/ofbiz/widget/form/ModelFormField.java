@@ -3025,6 +3025,7 @@ public class ModelFormField {
         protected FlexibleStringExpander defaultValue;
         protected String inputMethod;
         protected String clock;
+        protected String step;
 
         protected DateTimeField() {
             super();
@@ -3044,6 +3045,12 @@ public class ModelFormField {
             type = element.getAttribute("type");
             inputMethod = element.getAttribute("input-method");
             clock = element.getAttribute("clock");
+            if (UtilValidate.isNotEmpty(element.getAttribute("step"))) {
+                this.setStep(element.getAttribute("step"));
+            }
+            else {
+                this.setStep("1");
+            }
         }
 
         @Override
@@ -3069,6 +3076,13 @@ public class ModelFormField {
 
         public String getClock() {
             return this.clock;
+        }
+
+        public String getStep() {
+            return this.step;
+        }
+        public void setStep(String step) {
+            this.step = step;
         }
 
         /**
