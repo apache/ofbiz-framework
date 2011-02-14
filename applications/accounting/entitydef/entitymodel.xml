@@ -2325,9 +2325,9 @@ under the License.
             </description>
         </field>
         <!-- Deprecated Field-->
-        <field name="oldInvoiceSequenceEnumId" type="id-ne"/>
-        <field name="oldOrderSequenceEnumId" type="id-ne"/>
-        <field name="oldQuoteSequenceEnumId" type="id-ne"/>
+        <field name="oldInvoiceSequenceEnumId" col-name="INVOICE_SEQUENCE_ENUM_ID" type="id-ne"/>
+        <field name="oldOrderSequenceEnumId" col-name="ORDER_SEQUENCE_ENUM_ID" type="id-ne"/>
+        <field name="oldQuoteSequenceEnumId" col-name="QUOTE_SEQUENCE_ENUM_ID" type="id-ne"/>
         <prim-key field="partyId"/>
         <relation type="one" rel-entity-name="Party" fk-name="ACTG_PREF_PTY">
             <key-map field-name="partyId"/>

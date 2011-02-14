@@ -491,7 +491,7 @@ under the License.
         <if-not-empty field="customMethod">
             <set field="customMethodName" from-field="customMethod.customMethodName"/>
             <else><!-- retreive service from deprecated enumeration -->
-                <if-compare operator="equals" value="ORDSQ_ENF_SEQ" field="partyAcctgPreference.oldOrderSequenceEnumId">
+                <if-compare operator="equals" value="ODRSQ_ENF_SEQ" field="partyAcctgPreference.oldOrderSequenceEnumId">
                     <set field="customMethodName" value="orderSequence-enforced"/>
                 </if-compare>
             </else>
