@@ -116,6 +116,14 @@ under the License.
                tooltip="${uiLabelMap.ExampleDateField8Tooltip}">
             <display description="${groovy:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM,dd,yyyy&quot;);}"/>
         </field>
+        <!-- ***************** -->
+        <!-- ***   field12  *** -->
+        <!-- ***************** -->
+        <field name="field12"
+               title="${uiLabelMap.ExampleDateField12Title}"
+               tooltip="${uiLabelMap.ExampleDateField12Tooltip}">
+            <date-time input-method="time-dropdown" clock="24" default-value="${exampleDateField}" step="5"/>
+        </field>
     </form>
 
     <form name="DropDownFieldsExampleForm" type="single" title="">

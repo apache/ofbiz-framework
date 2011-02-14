@@ -482,6 +482,26 @@ public class MacroFormRenderer implements FormStringRenderer {
                 alert = "true";
             }
         }
+        String stepString = dateTimeField.getStep();
+        int step = 1;
+        StringBuilder timeValues = new StringBuilder();
+        if ( "time-dropdown".equals(dateTimeField.getInputMethod()) && UtilValidate.isNotEmpty(step)) {
+            try {
+                step = Integer.valueOf(stepString).intValue();
+            } catch (IllegalArgumentException e) {
+                Debug.logWarning("Inavalid value for step property for field[" + paramName + "] with input-method=\"time-dropdown\" " +
+                        " Found Value ["+ stepString + "]  " + e.getMessage(), module);
+            }
+            timeValues.append("[");
+            for(int i =0; i<=59;) {
+                if(i != 0) {
+                    timeValues.append(", ");
+                }
+                timeValues.append(i);
+                i += step;
+            }
+            timeValues.append("]");
+        }
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
@@ -610,6 +630,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(Integer.toString(maxlength));
         sr.append("\" value=\"");
         sr.append(value);
+        sr.append("\" step=\"");
+        sr.append(Integer.toString(step));
+        sr.append("\" timeValues=\"");
+        sr.append(timeValues.toString());
         sr.append("\" id=\"");
         sr.append(id);
         sr.append("\" event=\"");

@@ -645,6 +645,17 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="step" default="1">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="1"/>
+                    <xs:enumeration value="5"/>
+                    <xs:enumeration value="10"/>
+                    <xs:enumeration value="15"/>
+                    <xs:enumeration value="30"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="display" substitutionGroup="AllFields">
         <xs:complexType>
