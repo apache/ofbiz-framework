@@ -350,6 +350,33 @@ public class TaxAuthorityServices {
                 productCategoryCond = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
             }
 
+            // FIXME handles shipping and promo tax. Simple solution, see https://issues.apache.org/jira/browse/OFBIZ-4160 for a better one 
+            if (product == null && shippingAmount != null) {
+                EntityCondition taxShippingCond = EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("taxShipping", EntityOperator.EQUALS, null),
+                            EntityOperator.OR,
+                            EntityCondition.makeCondition("taxShipping", EntityOperator.EQUALS, "Y"));
+
+                if (productCategoryCond != null) {
+                    productCategoryCond = EntityCondition.makeCondition(productCategoryCond,
+                            EntityOperator.OR,
+                            taxShippingCond);
+                }
+            }
+
+            if (product == null && orderPromotionsAmount != null) {
+                EntityCondition taxOrderPromotionsCond = EntityCondition.makeCondition(
+                            EntityCondition.makeCondition("taxPromotions", EntityOperator.EQUALS, null),
+                            EntityOperator.OR,
+                            EntityCondition.makeCondition("taxPromotions", EntityOperator.EQUALS, "Y"));
+
+                if (productCategoryCond != null) {
+                    productCategoryCond = EntityCondition.makeCondition(productCategoryCond,
+                            EntityOperator.OR,
+                            taxOrderPromotionsCond);
+                }
+            }
+
             // build the main condition clause
             List<EntityCondition> mainExprs = UtilMisc.toList(storeCond, taxAuthoritiesCond, productCategoryCond);
             mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minItemPrice", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minItemPrice", EntityOperator.LESS_THAN_EQUAL_TO, itemPrice)));
