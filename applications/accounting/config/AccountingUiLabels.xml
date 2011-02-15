@@ -10953,6 +10953,10 @@
         <value xml:lang="zh">税务机关</value>
         <value xml:lang="zh_TW">稅務機關</value>
     </property>
+    <property key="AccountingTaxAuthorityCategoryAdvice">
+        <value xml:lang="en">Beware: don't use more than one line with "Tax Shipping" and/or "Tax Promotions" value = "Y"</value>
+        <value xml:lang="fr">Attention: n'utilisez pas plus d'une ligne avec "Taxes sur livraison" et/ou "Taxes sur promotions" = "Y"</value>
+    </property>
     <property key="AccountingTaxAuthorityGeo">
         <value xml:lang="en">Tax Authority Geo</value>
         <value xml:lang="fr">Zone géographique de l'administration fiscale</value>
@@ -15365,6 +15369,7 @@
     </property>
     <property key="FormFieldTitle_taxPromotions">
         <value xml:lang="en">Tax Promotions</value>
+        <value xml:lang="fr">Taxes sur promotions</value>
         <value xml:lang="hi_IN">टैक्स संवर्धन</value>
         <value xml:lang="it">Tassa promozioni</value>
         <value xml:lang="pt">Imposto sobre promoções</value>
@@ -17274,10 +17279,10 @@
         <value xml:lang="en">Payment receive via iDEAL</value>
         <value xml:lang="hi_IN">भुगतान iDEAL के माध्यम से प्राप्त</value>
         <value xml:lang="it">Pagamento ricevuto da iDEAL</value>
-        <value xml:lang="nl">Betalingsontvangst via iDEAL</value>		
+        <value xml:lang="nl">Betalingsontvangst via iDEAL</value>    
     </property>
     <property key="IdealSuccessFull">
         <value xml:lang="en">The transaction has been successfull.</value>
-        <value xml:lang="nl">De betaling is met succes ontvangen.</value>		
+        <value xml:lang="nl">De betaling is met succes ontvangen.</value>    
     </property>
 </resource>
