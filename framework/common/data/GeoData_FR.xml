@@ -268,6 +268,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-17" geoId="FR-POC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-18" geoId="FR-CEN"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-19" geoId="FR-LIM"/>
+    <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-20" geoId="FR-COR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-2A" geoId="FR-COR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-2B" geoId="FR-COR"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoIdTo="FR-21" geoId="FR-BOU"/>
