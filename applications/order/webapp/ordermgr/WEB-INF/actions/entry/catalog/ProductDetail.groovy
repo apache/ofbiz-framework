@@ -474,10 +474,11 @@ if (product) {
                                             }
                                         }
                                         variantPriceList.add(virtualPriceMap);
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
                                     } else {
                                         virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+                                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.price) + "\"; ");
                                     }
-                                    variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
                                 }
                                 
                             }
@@ -530,10 +531,11 @@ if (product) {
                         BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price");
                         // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                         virtualVariantPriceList.add(virtualPriceMap);
+                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
                     } else {
                         virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+                        variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.price) + "\"; ");
                     }
-                    variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
                 }
                 variantPriceJS.append(" } ");
                 
