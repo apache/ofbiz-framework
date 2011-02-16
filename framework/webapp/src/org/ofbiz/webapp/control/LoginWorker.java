@@ -98,7 +98,7 @@ public class LoginWorker {
     }
     public static StringWrapper makeLoginUrl(HttpServletRequest request, String requestName) {
         Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
-        String queryString = UtilHttp.urlEncodeArgs(urlParams, false);
+        String queryString = UtilHttp.urlEncodeArgs(urlParams);
         String currentView = UtilFormatOut.checkNull((String) request.getAttribute("_CURRENT_VIEW_"));
 
         String loginUrl = "/" + requestName;
