@@ -111,8 +111,8 @@ under the License.
                     showSecond: true,
                     timeFormat: 'hh:mm:ss',
                     stepHour: 1,
-                    stepMinute: 5,
-                    stepSecond: 10,
+                    stepMinute: 1,
+                    stepSecond: 1,
               </#if>
                     showOn: 'button',
                     buttonImage: '',
