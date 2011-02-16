@@ -4038,6 +4038,11 @@ public class OrderServices {
             // flag to delete existing order items and adjustments           
             try {
                 toRemove.addAll(delegator.findByAnd("OrderItemShipGroupAssoc", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItemContactMech", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItemPriceInfo", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItemAttribute", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItemBilling", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItemRole", "orderId", orderId));
                 toRemove.addAll(delegator.findByAnd("OrderItemChange", "orderId", orderId));
                 toRemove.addAll(delegator.findByAnd("OrderAdjustment", "orderId", orderId));
                 toRemove.addAll(delegator.findByAnd("OrderItem", "orderId", orderId));
