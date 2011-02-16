@@ -9820,7 +9820,7 @@
         <value xml:lang="en">Pending</value>
         <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
-        <value xml:lang="it">Sospeso</value>
+        <value xml:lang="it">In attesa</value>
         <value xml:lang="pt_BR">Pendente</value>
         <value xml:lang="th">ยังค้างอยู่</value>
         <value xml:lang="zh">等待中</value>
@@ -9829,7 +9829,7 @@
     <property key="StatusItem.description.SERVICE_QUEUED">
         <value xml:lang="en">Queued</value>
         <value xml:lang="fr">Placé dans la file d'attente</value>
-        <value xml:lang="it">In esecuzione</value>
+        <value xml:lang="it">In coda</value>
         <value xml:lang="pt_BR">Enfileirado</value>
         <value xml:lang="zh">正在运行</value>
         <value xml:lang="zh_TW">正在運行</value>
