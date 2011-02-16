@@ -1828,7 +1828,7 @@ public class OrderReadHelper {
             if ((returnedItem.get("returnPrice") != null) && (returnedItem.get("returnQuantity") != null)) {
                 returnedAmount = returnedAmount.add(returnedItem.getBigDecimal("returnPrice").multiply(returnedItem.getBigDecimal("returnQuantity")).setScale(scale, rounding));
             }
-            Map<String, Object> itemAdjustmentCondition = UtilMisc.toMap("returnId", returnedItem.get("returnId"), "returnItemSeqId", returnedItem.get("returnItemSeqId"));
+            Map<String, Object> itemAdjustmentCondition = UtilMisc.toMap("returnId", returnedItem.get("returnId"), "returnItemSeqId", returnedItem.get("returnItemSeqId"), "returnTypeId", returnTypeId);
             returnedAmount = returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), itemAdjustmentCondition));
             if (orderId.equals(returnedItem.getString("orderId")) && (!returnHeaderList.contains(returnedItem.getString("returnId")))) {
                 returnHeaderList.add(returnedItem.getString("returnId"));
@@ -1838,7 +1838,7 @@ public class OrderReadHelper {
         Iterator<String> returnHeaderIterator = returnHeaderList.iterator();
         while (returnHeaderIterator.hasNext()) {
             String returnId = returnHeaderIterator.next();
-            Map<String, Object> returnHeaderAdjFilter = UtilMisc.<String, Object>toMap("returnId", returnId, "returnItemSeqId", "_NA_");
+            Map<String, Object> returnHeaderAdjFilter = UtilMisc.<String, Object>toMap("returnId", returnId, "returnItemSeqId", "_NA_", "returnTypeId", returnTypeId);
             returnedAmount =returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
         }
         return returnedAmount.setScale(scale, rounding);
