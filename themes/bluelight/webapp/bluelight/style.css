@@ -75,7 +75,7 @@ a,a:visited {
 }
 
 a:hover,a:active {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .disabled {
@@ -88,7 +88,7 @@ body,textarea,input,select {
 }
 
 body {
-    background: #D4D0C8;
+    background: #B8DFFC;
     font-size: 62.5%;
     position: relative;
 }
@@ -1140,33 +1140,35 @@ padding-bottom: 1em;
     margin-right: 1em;
     text-decoration: none;
     padding-right: 20px;
-    background: url("/bluelight/arrow-white-rt.gif") no-repeat 100% 50%;
+    padding-bottom: 7px;
+    background: url("/bluelight/arrow-white-rt.gif") no-repeat 100% 0%;
 }
 
 #main-navigation ul li ul,
 #app-navigation ul li ul {
     position:absolute;
-    background-color: #B8DFFC;
+    background-color: #AAD6F6;
     z-index:9999;
     width:200px;
-    border-bottom: solid 5px #AFAFAF;
-    border-right: solid 5px #AFAFAF;
+    border-bottom: solid 3px #aaa;
+    border-right: solid 3px #aaa;
+    border-left: solid 1px #aaa;
 }
 
 #main-navigation ul li ul li a,
 #app-navigation ul li ul li a {
 display:block;
 padding:4px 16px 4px 16px;
-border: solid 1px #AFAFAF;
 border-top: none;
 font-weight:bold;
-color:#555555;
+color: #444;
 } /*Color subcells normal mode*/
 
 #main-navigation ul li ul li a:hover,
 #app-navigation ul li ul li a:hover {
-background-color:#D2D2D2;
-text-decoration:none;
+background: #EAEAEA;
+background: -moz-linear-gradient(left, #F5F5F5, #AAD6F6);
+text-decoration: underline;
 } /*Color subcells hovering mode*/
 
 #main-navigation ul li ul li a.disabled,
@@ -1251,44 +1253,33 @@ left:204px;
     color: #ffff66;
 }
 
-.screenlet-title-bar ul li:hover {
-    background-color: #2626c1;
-    background-image: url(/images/gradient_sub_sel.gif);
-    background-repeat: repeat-x;
-}
-
 .screenlet-title-bar ul a:hover {
-    color: #ffffff;
-    text-decoration: none;
+    color: #FF6;
+    text-decoration: underline;
 }
 
 .screenlet-title-bar ul .disabled {
     color: #CCCCCC;
 }
 
-.screenlet-title-bar ul .collapsed,
-.screenlet-title-bar ul .collapsed:hover {
-background: url(/bluelight/images/bullet_arrow_down.png) no-repeat right;
-width:16px;
+.screenlet-title-bar ul li.collapsed a,
+.screenlet-title-bar ul li.collapsed a:hover {
+background: url(/bluelight/images/bullet_arrow_down.png) no-repeat center;
+width:32px;
+text-decoration: none;
 }
 
-.screenlet-title-bar ul .expanded,
-.screenlet-title-bar ul .expanded:hover {
-background: url(/bluelight/images/bullet_arrow_up.png) no-repeat right;
-width:16px;
+.screenlet-title-bar ul li.expanded a,
+.screenlet-title-bar ul li.expanded a:hover {
+background: url(/bluelight/images/bullet_arrow_up.png) no-repeat center;
+width:32px;
+text-decoration: none;
 }
 
 .screenlet-title-bar ul .collapsed a,
 .screenlet-title-bar ul .expanded a {
     /* IE fix */
     cursor: default;
-}
-
-.screenlet-title-bar ul .h1:hover,
-.screenlet-title-bar ul .h2:hover,
-.screenlet-title-bar ul .h3:hover {
-    background-color: #000099;
-    background-image: url(/images/gradient_sub_uns.gif);
 }
 
 /* login screenlet decorator */
