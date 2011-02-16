@@ -3993,42 +3993,61 @@ public class OrderServices {
 
         String shipGroupSeqId = null;
         long groupIndex = cart.getShipInfoSize();
-        for (long itr = 1; itr <= groupIndex; itr++) {
-            shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
-            List<GenericValue> removeList = new ArrayList<GenericValue>();
-            for (GenericValue stored: (List<GenericValue>)toStore) {
-                if ("OrderAdjustment".equals(stored.getEntityName())) {
-                    if (("SHIPPING_CHARGES".equals(stored.get("orderAdjustmentTypeId")) ||
-                            "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
-                            stored.get("orderId").equals(orderId) &&
-                            stored.get("shipGroupSeqId").equals(shipGroupSeqId)) {
-                        // Removing objects from toStore list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
-                        removeList.add(stored);
+        if (!deleteItems) {
+            for (long itr = 1; itr <= groupIndex; itr++) {
+                shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
+                List<GenericValue> removeList = new ArrayList<GenericValue>();
+                for (GenericValue stored: (List<GenericValue>)toStore) {
+                    if ("OrderAdjustment".equals(stored.getEntityName())) {
+                        if (("SHIPPING_CHARGES".equals(stored.get("orderAdjustmentTypeId")) ||
+                                "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
+                                stored.get("orderId").equals(orderId) &&
+                                stored.get("shipGroupSeqId").equals(shipGroupSeqId)) {
+                            // Removing objects from toStore list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
+                            removeList.add(stored);
+                        }
+                        if (stored.get("comments") != null && ((String)stored.get("comments")).startsWith("Added manually by")) {
+                            // Removing objects from toStore list for Manually added Adjustment.
+                            removeList.add(stored);
+                        }
                     }
-                    if (stored.get("comments") != null && ((String)stored.get("comments")).startsWith("Added manually by")) {
-                        // Removing objects from toStore list for Manually added Adjustment.
-                        removeList.add(stored);
+                }
+                toStore.removeAll(removeList);
+            }
+            for (GenericValue toAdd: (List<GenericValue>)toAddList) {
+                if ("OrderAdjustment".equals(toAdd.getEntityName())) {
+                    if (toAdd.get("comments") != null && ((String)toAdd.get("comments")).startsWith("Added manually by") && (("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId"))) ||
+                            ("SHIPPING_CHARGES".equals(toAdd.get("orderAdjustmentTypeId"))) || ("SALES_TAX".equals(toAdd.get("orderAdjustmentTypeId"))))) {
+                        toStore.add(toAdd);
                     }
                 }
             }
-            toStore.removeAll(removeList);
+        } else {                      
+            // add all the cart adjustments
+            toStore.addAll(toAddList);
         }
-        for (GenericValue toAdd: (List<GenericValue>)toAddList) {
-            if ("OrderAdjustment".equals(toAdd.getEntityName())) {
-                if (toAdd.get("comments") != null && ((String)toAdd.get("comments")).startsWith("Added manually by") && (("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId"))) ||
-                        ("SHIPPING_CHARGES".equals(toAdd.get("orderAdjustmentTypeId"))) || ("SALES_TAX".equals(toAdd.get("orderAdjustmentTypeId"))))) {
-                    toStore.add(toAdd);
-                }
-            }
-        }
+        
         // Creating objects for New Shipping and Handling Charges Adjustment and Sales Tax Adjustment
         toStore.addAll(cart.makeAllShipGroupInfos());
         toStore.addAll(cart.makeAllOrderPaymentInfos(dispatcher));
         toStore.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.FILLED_ONLY));        
 
-        // get the empty order item atrributes from the cart and remove them
+        
         List<GenericValue> toRemove = FastList.newInstance();
-        toRemove.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.EMPTY_ONLY));
+        if (deleteItems) {
+            // flag to delete existing order items and adjustments           
+            try {
+                toRemove.addAll(delegator.findByAnd("OrderItemShipGroupAssoc", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItemChange", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderAdjustment", "orderId", orderId));
+                toRemove.addAll(delegator.findByAnd("OrderItem", "orderId", orderId));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        } else {
+            // get the empty order item atrributes from the cart and remove them
+            toRemove.addAll(cart.makeAllOrderItemAttributes(orderId, ShoppingCart.EMPTY_ONLY));
+        }
 
         // get the promo uses and codes
         for (String promoCodeEntered : cart.getProductPromoCodesEntered()) {
@@ -4052,16 +4071,7 @@ public class OrderServices {
         }
         toRemove.addAll(existingPromoCodes);
         toRemove.addAll(existingPromoUses);
-        
-        if (deleteItems) {
-            // flag to delete existing order items           
-            try {
-                toRemove.addAll(delegator.findByAnd("OrderItem", "orderId", orderId));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-        }
-        
+                        
         // set the orderId & other information on all new value objects
         List<String> dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
         Iterator<GenericValue> tsi = toStore.iterator();
@@ -4096,7 +4106,7 @@ public class OrderServices {
                 if (valueObj.get("statusId") == null) {
                     valueObj.set("statusId", "PAYMENT_NOT_RECEIVED");
                 }
-            } else if ("OrderItem".equals(valueObj.getEntityName())) {
+            } else if ("OrderItem".equals(valueObj.getEntityName()) && !deleteItems) {
 
                 //  ignore promotion items. They are added/canceled automatically
                 if ("Y".equals(valueObj.getString("isPromo"))) {
