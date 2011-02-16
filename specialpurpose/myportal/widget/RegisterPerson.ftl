@@ -102,48 +102,38 @@ under the License.
                         </td>
                     </tr>
                     <script type="text/javascript" language="JavaScript">
-                        <!--
-                            dojo.require("dojo.widget.*");
-                            dojo.require("dojo.event.*");
-                            dojo.require("dojo.io.*");
-                            
                             function reloadCaptcha(){
                                 var submitToUri = "<@ofbizUrl>reloadCaptchaImage</@ofbizUrl>";
-                                dojo.io.bind({url: submitToUri,
-                                    load: function(type, data, evt){
-                                    if(type == "load"){
-                                        document.getElementById("captchaImage").innerHTML = data;
-                                           reloadCaptchaCode();
-                                    }
-                                },mimetype: "text/html"});
+                                $.post(submitToUri, null,
+                                function(data){
+                                    document.getElementById("captchaImage").innerHTML = data;
+                                });
+                                reloadCaptchaCode();
+                            }
+                            function reloadCaptchaCode(){
+                                var submitToUri = "<@ofbizUrl>reloadCaptchaCode</@ofbizUrl>";
+                                $.post(submitToUri, null,
+                                function(data){
+                                    document.getElementById("captchaCode").innerHTML = data;
+                                });
                             }
                             function submitNewCustForm(){
                                 var nform = document.newuserform;
                                 nform.captcha.value = document.captchaform.captcha.value;
                                 nform.submit();
                             }
-                            function reloadCaptchaCode(){
-                                var submitToUri = "<@ofbizUrl>reloadCaptchaCode</@ofbizUrl>";
-                                dojo.io.bind({url: submitToUri,
-                                    load: function(type, data, evt){
-                                    if(type == "load"){
-                                        document.getElementById("captchaCode").innerHTML = data;
-                                    }
-                                },mimetype: "text/html"});
-                            }
-                        //-->
                     </script>
                     <tr>
                         <td class="label"> </td>
                         <td>
-                            <a href="javascript:reloadCaptcha();">reload image</a>    
+                            <a href="javascript:reloadCaptcha();">reload image</a>
                         </td>
                     </tr>
                     <tr>
                         <td class="label">    Verify captcha code    </td>
                         <td>
                             <input type="text" autocomplete="off" id="RegisterPerson_captcha" maxlength="30" size="23" class="required false" name="captcha"/>
-                            <span class="tooltip">Required</span>    
+                            <span class="tooltip">Required</span>
                         </td>
                     </tr>
                     <tr>
