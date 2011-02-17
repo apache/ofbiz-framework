@@ -536,12 +536,17 @@ public class IcsPaymentServices {
 
     private static void processAuthResult(Map<String, Object> reply, Map<String, Object> result) {
         String decision = getDecision(reply);
+        String checkModeStatus = UtilProperties.getPropertyValue("payment.properties", "payment.cybersource.ignoreStatus");
         if ("ACCEPT".equalsIgnoreCase(decision)) {
             result.put("authCode", reply.get("ccAuthReply_authorizationCode"));
             result.put("authResult", Boolean.TRUE);
         } else {
             result.put("authCode", decision);
-            result.put("authResult", Boolean.FALSE);
+            if ("N".equals(checkModeStatus)) {
+                result.put("authResult", Boolean.FALSE);
+            } else {
+                result.put("authResult", Boolean.TRUE);
+            }
             // TODO: based on reasonCode populate the following flags as applicable: resultDeclined, resultNsf, resultBadExpire, resultBadCardNumber
         }
 
