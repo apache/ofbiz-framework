@@ -59,10 +59,10 @@ under the License.
     <request-map uri="createExample">
         <security https="true" auth="true"/>
         <event type="service" invoke="createExample"/>
-        <response name="success" type="request-redirect" value="EditExample">
+        <response name="success" type="request-redirect" value="FindExample">
             <redirect-parameter name="exampleId"/>
         </response>
-        <response name="error" type="view" value="EditExample"/>
+        <response name="error" type="view" value="FindExample"/>
     </request-map>
     <request-map uri="updateExample">
         <security https="true" auth="true"/>
