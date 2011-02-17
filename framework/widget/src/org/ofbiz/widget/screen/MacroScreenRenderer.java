@@ -228,7 +228,15 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String linkUrl = "";
         String actionUrl = "";
         StringBuilder parameters=new StringBuilder();
-        if ("hidden-form".equals(linkType)) {
+        String width = link.getWidth();
+        if (UtilValidate.isEmpty(width)) {
+            width = "300";
+        }
+        String height = link.getHeight();
+        if (UtilValidate.isEmpty(height)) {
+            height = "200";
+        }
+        if ("hidden-form".equals(linkType) || "ajax-window".equals(linkType)) {
             StringBuilder sb = new StringBuilder();
             WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
@@ -287,6 +295,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append(style);
         sr.append("\" name=\"");
         sr.append(name);
+        sr.append("\" width=\"");
+        sr.append(width);
+        sr.append("\" height=\"");
+        sr.append(height);
         sr.append("\" linkUrl=\"");
         sr.append(linkUrl);
         sr.append("\" text=\"");

@@ -1298,6 +1298,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
         protected boolean secure = false;
         protected boolean encode = false;
         protected String linkType;
+        protected String width;
+        protected String height;
         protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
 
@@ -1325,6 +1327,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
             for (Element parameterElement: parameterElementList) {
                 this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
             }
+
+            this.width = linkElement.getAttribute("width");
+            this.height = linkElement.getAttribute("height");
         }
 
         @Override
@@ -1398,6 +1403,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getLinkType() {
             return this.linkType;
+        }
+
+        public String getWidth() {
+            return this.width;
+        }
+
+        public String getHeight() {
+            return this.height;
         }
 
         public Map<String, String> getParameterMap(Map<String, Object> context) {
