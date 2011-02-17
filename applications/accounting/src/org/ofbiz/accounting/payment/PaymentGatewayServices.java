@@ -201,6 +201,7 @@ public class PaymentGatewayServices {
                         results.put("processAmount", thisAmount);
                         results.put("finished", Boolean.TRUE);
                         results.put("errors", Boolean.FALSE);
+                        results.put("authCode", authPaymentResult.get("authCode"));
                         return results;
                     } else {
                         boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, authPaymentResult, delegator);
@@ -398,6 +399,9 @@ public class PaymentGatewayServices {
                 messages.add("Could not authorize OrderPaymentPreference [" + paymentPref.getString("orderPaymentPreferenceId") + "] for order [" + orderId + "]: " + se.toString());
                 continue;
             }
+
+            // add authorization code to the result
+            result.put("authCode", results.get("authCode"));
 
             if (ServiceUtil.isError(results)) {
                 hadError += 1;

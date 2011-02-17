@@ -1067,9 +1067,27 @@ public class CheckOutHelper {
 
                     // set the order and item status to approved
                     if (autoApproveOrder) {
-                        boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
-                        if (!ok) {
-                            throw new GeneralException("Problem with order change; see above error");
+                        List<GenericValue> productStorePaymentSettingList = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD", "paymentService", "cyberSourceCCAuth"));
+                        if (productStorePaymentSettingList.size() > 0) {
+                            String decision = (String) paymentResult.get("authCode");
+                            if (UtilValidate.isNotEmpty(decision)) {
+                                if ("ACCEPT".equalsIgnoreCase(decision)) {
+                                    boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                                    if (!ok) {
+                                        throw new GeneralException("Problem with order change; see above error");
+                                    }
+                                }
+                            } else {
+                                boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                                if (!ok) {
+                                    throw new GeneralException("Problem with order change; see above error");
+                                }
+                            }
+                        } else {
+                            boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
+                            if (!ok) {
+                                throw new GeneralException("Problem with order change; see above error");
+                            }
                         }
                     }
                 } else if (authResp.equals("ERROR")) {

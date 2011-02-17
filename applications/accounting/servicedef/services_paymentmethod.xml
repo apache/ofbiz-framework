@@ -267,6 +267,7 @@ under the License.
         <attribute name="errors" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="messages" type="List" mode="OUT" optional="true"/>
         <attribute name="processAmount" type="BigDecimal" mode="OUT" optional="true"/>
+        <attribute name="authCode" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="authOrderPayments" engine="java"
@@ -276,6 +277,7 @@ under the License.
         <attribute name="processResult" type="String" mode="OUT" optional="false"/>
         <attribute name="authResultMsgs" type="List" mode="OUT" optional="true"/>
         <attribute name="reAuth" type="Boolean" mode="IN" optional="true"/>
+        <attribute name="authCode" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="releaseOrderPayments" engine="java"
