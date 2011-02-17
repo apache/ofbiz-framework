@@ -825,6 +825,7 @@
         <value xml:lang="zh_TW">獨有的明細</value>
     </property>
     <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_ALT">
+        <value xml:lang="de">Kategorie Bild Alternativtext</value>
         <value xml:lang="en">Category Image Alt Text</value>
         <value xml:lang="it">Testo alternativo immagine categoria</value>
         <value xml:lang="zh">分类图片替代文字</value>
@@ -879,12 +880,14 @@
         <value xml:lang="zh_TW">頁腳</value>
     </property>
     <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
+        <value xml:lang="de">Link 1 Alternativtext</value>
         <value xml:lang="en">Link 1 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 1</value>
         <value xml:lang="zh">链接1替代文字</value>
         <value xml:lang="zh_TW">鏈結1替代文字</value>
     </property>
     <property key="ProductCategoryContentType.description.LINK2_ALT_TEXT">
+        <value xml:lang="de">Link 2 Alternativtext</value>
         <value xml:lang="en">Link 2 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 2</value>
         <value xml:lang="zh">链接2替代文字</value>
@@ -1023,106 +1026,129 @@
         <value xml:lang="zh_TW">用途</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_1">
+        <value xml:lang="de">Zusatzbild 1</value>
         <value xml:lang="en">Image - Additional View 1</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
         <value xml:lang="zh">图像 - 额外检查1</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查1</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_SMALL">
+        <value xml:lang="de">Zusatzbild 1 klein</value>
         <value xml:lang="en">Image - Additional View 1 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 piccola</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_MEDIUM">
+        <value xml:lang="de">Zusatzbild 1 mittel</value>
         <value xml:lang="en">Image - Additional View 1 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 media</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_LARGE">
+        <value xml:lang="de">Zusatzbild 1 groß</value>
         <value xml:lang="en">Image - Additional View 1 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 grande</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_DETAIL">
+        <value xml:lang="de">Zusatzbild 1 Detail</value>
         <value xml:lang="en">Image - Additional View 1 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 dettaglio</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
+        <value xml:lang="de">Zusatzbild 2</value>
         <value xml:lang="en">Image - Additional View 2</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
         <value xml:lang="zh">图像 - 额外检查2</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查2</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_SMALL">
+        <value xml:lang="de">Zusatzbild 2 klein</value>
         <value xml:lang="en">Image - Additional View 2 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 piccola</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_MEDIUM">
+        <value xml:lang="de">Zusatzbild 2 mittel</value>
         <value xml:lang="en">Image - Additional View 2 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 media</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_LARGE">
+        <value xml:lang="de">Zusatzbild 2 groß</value>
         <value xml:lang="en">Image - Additional View 2 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 grande</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_DETAIL">
+        <value xml:lang="de">Zusatzbild 2 Detail</value>
         <value xml:lang="en">Image - Additional View 2 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 dettaglio</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
+        <value xml:lang="de">Zusatzbild 3</value>
         <value xml:lang="en">Image - Additional View 3</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
         <value xml:lang="zh">图像 - 额外检查3</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查3</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_SMALL">
+        <value xml:lang="de">Zusatzbild 3 klein</value>
         <value xml:lang="en">Image - Additional View 3 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 piccola</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_MEDIUM">
+        <value xml:lang="de">Zusatzbild 3 mittel</value>
         <value xml:lang="en">Image - Additional View 3 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 media</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_LARGE">
+        <value xml:lang="de">Zusatzbild 3 groß</value>
         <value xml:lang="en">Image - Additional View 3 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 grande</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_DETAIL">
+        <value xml:lang="de">Zusatzbild 3 Detail</value>
         <value xml:lang="en">Image - Additional View 3 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 dettaglio</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
+        <value xml:lang="de">Zusatzbild 4</value>
         <value xml:lang="en">Image - Additional View 4</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
         <value xml:lang="zh">图像 - 额外检查4</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查4</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_SMALL">
+        <value xml:lang="de">Zusatzbild 4 klein</value>
         <value xml:lang="en">Image - Additional View 4 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 piccola</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_MEDIUM">
+        <value xml:lang="de">Zusatzbild 4 mittel</value>
         <value xml:lang="en">Image - Additional View 4 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 media</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_LARGE">
+        <value xml:lang="de">Zusatzbild 4 groß</value>
         <value xml:lang="en">Image - Additional View 4 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 grande</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_DETAIL">
+        <value xml:lang="de">Zusatzbild 4 Detail</value>
         <value xml:lang="en">Image - Additional View 4 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 dettaglio</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_IMAGE">
+        <value xml:lang="de">Zum Warenkorb hinzufügen Bild</value>
         <value xml:lang="en">Add To Cart Image</value>
         <value xml:lang="it">Aggiungi immagine al carrello</value>
         <value xml:lang="zh">添加到购物车图像</value>
         <value xml:lang="zh_TW">添加到購物車圖像</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_LABEL">
+        <value xml:lang="de">Zum Warenkorb hinzufügen Label</value>
         <value xml:lang="en">Add To Cart Label</value>
         <value xml:lang="it">Aggiungi label al carrello</value>
         <value xml:lang="zh">添加到购物车标签</value>
         <value xml:lang="zh_TW">添加到購物車標簽</value>
     </property>
     <property key="ProductContentType.description.DELIVERY_INFO">
+        <value xml:lang="de">Lieferinformation</value>
         <value xml:lang="en">Delivery Info</value>
         <value xml:lang="it">Informazioni sulla consegna</value>
         <value xml:lang="zh">投递信息</value>
@@ -1306,6 +1332,7 @@
         <value xml:lang="zh_TW">在線訪問</value>
     </property>
     <property key="ProductContentType.description.ORIGINAL_IMAGE_URL">
+        <value xml:lang="de">Bild - Original</value>
         <value xml:lang="en">Image - Original</value>
         <value xml:lang="it">Immagine - originale</value>
         <value xml:lang="zh">图像 - 原图</value>
@@ -1486,36 +1513,42 @@
         <value xml:lang="zh_TW">危險品特征</value>
     </property>
     <property key="ProductFeatureCategory.description.1001">
+        <value xml:lang="de">Modelljahr Merkmale</value>
         <value xml:lang="en">Model Year Features</value>
         <value xml:lang="it">Caratteristiche anno modello</value>
         <value xml:lang="zh">年型号特征</value>
         <value xml:lang="zh_TW">年型號特征</value>
     </property>
     <property key="ProductFeatureCategory.description.1002">
+        <value xml:lang="de">Ausrüstungsklasse Merkmale</value>
         <value xml:lang="en">Equipment Class Features</value>
         <value xml:lang="it">Caratteristiche classe attrezzatura</value>
         <value xml:lang="zh">设备分类特征</value>
         <value xml:lang="zh_TW">設備分類特征</value>
     </property>
     <property key="ProductFeatureCategory.description.2000">
+        <value xml:lang="de">Gutschein Merkmale</value>
         <value xml:lang="en">Gift Card Features</value>
         <value xml:lang="it">Caratteristiche carta regalo</value>
         <value xml:lang="zh">礼品卡特征</value>
         <value xml:lang="zh_TW">禮品卡特征</value>
     </property>
     <property key="ProductFeatureCategory.description.2100">
+        <value xml:lang="de">Konto Merkmale</value>
         <value xml:lang="en">Account Features</value>
         <value xml:lang="it">Caratteristiche utenza</value>
         <value xml:lang="zh">账户特征</value>
         <value xml:lang="zh_TW">賬戶特征</value>
     </property>
     <property key="ProductFeatureCategory.description.3000">
+        <value xml:lang="de">Geschmack</value>
         <value xml:lang="en">Taste</value>
         <value xml:lang="it">Caratteristiche gusto</value>
         <value xml:lang="zh">味道</value>
         <value xml:lang="zh_TW">味道</value>
     </property>
     <property key="ProductFeatureCategory.description.8000">
+        <value xml:lang="de">Lizenz Merkmale</value>
         <value xml:lang="en">License Features</value>
         <value xml:lang="it">Caratteristiche licenza</value>
         <value xml:lang="zh">版权特征</value>
@@ -1529,7 +1562,7 @@
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
         <value xml:lang="de">Abhängiges Merkmal</value>
-        <value xml:lang="en">FEATURE_IACTN_DEPEND</value>
+        <value xml:lang="en">Dependent Feature</value>
         <value xml:lang="es">Dependencias</value>
         <value xml:lang="fr">Dépendants</value>
         <value xml:lang="it">Dipendenza</value>
@@ -1539,7 +1572,7 @@
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_INCOMP">
         <value xml:lang="de">Inkompatibles Merkmal</value>
-        <value xml:lang="en">Feature IACTN Incomp</value>
+        <value xml:lang="en">Incompatible Feature</value>
         <value xml:lang="es">Incompatibilidad</value>
         <value xml:lang="fr">Incompatibles</value>
         <value xml:lang="it">Incompatibile</value>
@@ -1899,7 +1932,7 @@
         <value xml:lang="es">Inventario</value>
         <value xml:lang="fr">Stock</value>
         <value xml:lang="it">Inventario</value>
-        <value xml:lang="nl">Voorraad</value>		
+        <value xml:lang="nl">Voorraad</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
         <value xml:lang="zh">库存</value>
         <value xml:lang="zh_TW">庫存</value>
@@ -1921,6 +1954,7 @@
         <value xml:lang="zh_TW">底盤潤滑</value>
     </property>
     <property key="ProductMaintType.description.CHECK_BATTERY">
+        <value xml:lang="de">Batterie prüfen</value>
         <value xml:lang="en">Check Battery</value>
         <value xml:lang="it">Controllo batteria</value>
         <value xml:lang="zh">检查电池</value>
@@ -1933,12 +1967,14 @@
         <value xml:lang="zh_TW">檢查/補充制冷劑</value>
     </property>
     <property key="ProductMaintType.description.HVAC_MAINT">
+        <value xml:lang="de">HVAC Wartung</value>
         <value xml:lang="en">HVAC Maintenance</value>
         <value xml:lang="it">Manutenzione HVAC</value>
         <value xml:lang="zh">中央空调维修保养</value>
         <value xml:lang="zh_TW">中央空調維修保養</value>
     </property>
     <property key="ProductMaintType.description.HVAC_REPLACE_FILTER">
+        <value xml:lang="de">Ersetze Luftfilter</value>
         <value xml:lang="en">Replace Air Filter</value>
         <value xml:lang="it">Sostituzione filtro aria</value>
         <value xml:lang="zh">换空滤</value>
@@ -2065,6 +2101,7 @@
         <value xml:lang="zh_TW">馬達計時器</value>
     </property>
     <property key="ProductMeterType.description.ODOMETER">
+        <value xml:lang="de">Hodometer</value>
         <value xml:lang="en">Odometer</value>
         <value xml:lang="fr">Odomètre</value>
         <value xml:lang="it">Odometro</value>
@@ -2112,18 +2149,22 @@
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
     </property>
     <property key="ProductMeterType.description.TACHOGRAPH">
+        <value xml:lang="de">Tachograph benutzen</value>
         <value xml:lang="en">Use Tacograph</value>
         <value xml:lang="fr">Utiliser le tacographe</value>
     </property>
     <property key="ProductMeterType.description.TAXIMETER">
+        <value xml:lang="de">Taxameter benutzen</value>
         <value xml:lang="en">Use Taximeter</value>
         <value xml:lang="fr">Utiliser le taximètre</value>
     </property>
     <property key="ProductMeterType.description.EVENT_DATA_RECORDER">
+        <value xml:lang="de">Ereignissdatenschreiber</value>
         <value xml:lang="en">Use Event Data Recorder</value>
         <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
     </property>
     <property key="ProductMeterType.description.PEDOMETER">
+        <value xml:lang="de">Pedometer benutzen</value>
         <value xml:lang="en">Use Pedometer</value>
         <value xml:lang="fr">Utiliser le podomètre</value>
     </property>
@@ -2341,6 +2382,10 @@
         <value xml:lang="zh">最高价</value>
         <value xml:lang="zh_TW">最高價</value>
     </property>
+    <property key="ProductPriceType.description.MINIMUM_ORDER_PRICE">
+        <value xml:lang="de">Minimum Bestellpreis</value>
+        <value xml:lang="en">Minimum order Price</value>
+    </property>
     <property key="ProductPriceType.description.MINIMUM_PRICE">
         <value xml:lang="de">Minimum Preis</value>
         <value xml:lang="en">Minimum Price</value>
@@ -2444,6 +2489,7 @@
         <value xml:lang="zh_TW">可配置商品</value>
     </property>
     <property key="ProductType.description.AGGREGATED_CONF">
+        <value xml:lang="de">Konfigurierbare Ware konfigurieren</value>
         <value xml:lang="en">Configurable Good Configuration</value>
         <value xml:lang="it">Configurazione beni configurabili</value>
         <value xml:lang="zh">可配置商品配置</value>
@@ -2510,6 +2556,7 @@
         <value xml:lang="zh_TW">商品</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG">
+        <value xml:lang="de">Marketingpaket</value>
         <value xml:lang="en">Marketing Package</value>
         <value xml:lang="it">Pacco di vendita</value>
     </property>
@@ -3221,5 +3268,5 @@
     <property key="FieldDescription.ProductStore.showOutOfStockProducts">
         <value xml:lang="en">If N then out of stock products will not be displayed on site</value>
     </property>
-    
+
 </resource>
