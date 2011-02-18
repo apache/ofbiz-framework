@@ -85,8 +85,9 @@ public class RotateImage {
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
             String filenameTouseThumb = (String) contentThumbResult.get("contentId") + ".jpg";
             
-            String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-            BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/products/management/" + productId + "/" + imageName));
+            String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+            String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+            BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
             
             int bufImgType;
             if (BufferedImage.TYPE_CUSTOM == bufImg.getType()) {
@@ -104,16 +105,16 @@ public class RotateImage {
             g.dispose();
             
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/products/management/" + productId + "/" + filenameToUse));
+            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
             
             double imgHeight = bufNewImg.getHeight();
             double imgWidth = bufNewImg.getWidth();
             
             Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
-            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/products/management/" + productId + "/" + filenameTouseThumb));
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
             
-            String imageUrlResource = "/images/products/management/" + productId + "/" + filenameToUse;
-            String imageUrlThumb = "/images/products/management/" + productId + "/" + filenameTouseThumb;
+            String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
+            String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
             
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");

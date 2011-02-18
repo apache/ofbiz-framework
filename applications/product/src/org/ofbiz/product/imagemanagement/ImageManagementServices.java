@@ -101,8 +101,9 @@ public class ImageManagementServices {
         
         if (UtilValidate.isNotEmpty(uploadFileName)) {
             String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-            String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-            String rootTargetDirectory = imageServerPath + "/products/management";
+            String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+            String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+            String rootTargetDirectory = imageServerPath;
             File rootTargetDir = new File(rootTargetDirectory);
             if (!rootTargetDir.exists()) {
                 boolean created = rootTargetDir.mkdirs();
@@ -139,7 +140,7 @@ public class ImageManagementServices {
                     sizeType = "1600x1200";
                 }
             }
-        
+            
             Map<String, Object> contentCtx = FastMap.newInstance();
             contentCtx.put("contentTypeId", "DOCUMENT");
             contentCtx.put("userLogin", userLogin);
@@ -170,7 +171,7 @@ public class ImageManagementServices {
             } else if (fileContentType.equals("image/x-png")) {
                 fileContentType = "image/png";
             }
-        
+            
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
                 fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType ));
@@ -178,14 +179,14 @@ public class ImageManagementServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-        
+            
             GenericValue extension = EntityUtil.getFirst(fileExtension);
             if (extension != null) {
                 filenameToUse += "." + extension.getString("fileExtensionId");
             }
             
             // Create folder product id.
-            String targetDirectory = imageServerPath + "/products/management/" + productId;
+            String targetDirectory = imageServerPath + "/" + productId;
             File targetDir = new File(targetDirectory);
             if (!targetDir.exists()) {
                 boolean created = targetDir.mkdirs();
@@ -196,9 +197,9 @@ public class ImageManagementServices {
                 }
             }
             
-            File file = new File(imageServerPath + "/products/management/" + productId + "/" + uploadFileName);
+            File file = new File(imageServerPath + "/" + productId + "/" + uploadFileName);
             String imageName = null;
-            imagePath = imageServerPath + "/products/management/" + productId + "/" + uploadFileName;
+            imagePath = imageServerPath + "/" + productId + "/" + uploadFileName;
             file = checkExistsImage(file);
             if (UtilValidate.isNotEmpty(file)) {
                 imageName = file.getPath();
@@ -223,7 +224,7 @@ public class ImageManagementServices {
             }
             // Scale Image in different sizes 
             if (UtilValidate.isNotEmpty(imageResize)) {
-                File fileOriginal = new File(imageServerPath + "/products/management/" + imageName);
+                File fileOriginal = new File(imageServerPath + "/" + productId + "/" + imageName);
                 fileOriginal = checkExistsImage(fileOriginal);
                 uploadFileName = fileOriginal.getName();
                 
@@ -259,8 +260,8 @@ public class ImageManagementServices {
             String filenameToUseThumb = (String) contentThumbnail.get("filenameToUseThumb");
             String contentIdThumb = (String) contentThumbnail.get("contentIdThumb");
             
-            String imageUrl = "/images/products/management/" + productId + "/" + imageName;
-            String imageUrlThumb = "/images/products/management/" + productId + "/" + filenameToUseThumb;
+            String imageUrl = imageServerUrl + "/" + productId + "/" + imageName;
+            String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameToUseThumb;
             
             createContentAndDataResource(dctx, userLogin, imageName, imageUrl, contentId, fileContentType);
             createContentAndDataResource(dctx, userLogin, filenameToUseThumb, imageUrlThumb, contentIdThumb, fileContentType);
@@ -303,16 +304,17 @@ public class ImageManagementServices {
         }
         return result;
     }
-
+    
     public static Map<String, Object> removeImageFileForImageManagement(DispatchContext dctx, Map<String, ? extends Object> context){
+        String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String objectInfo = (String) context.get("objectInfo");
+        String dataResourceName = (String) context.get("dataResourceName");
         
         try {
             if (UtilValidate.isNotEmpty(contentId)) {
-                String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-                imageServerPath.substring(0, imageServerPath.lastIndexOf("/"));
-                File file = new File(imageServerPath.substring(0, imageServerPath.lastIndexOf("/")) + objectInfo);
+                String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+                File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
                 file.delete();
             }
         } catch (Exception e) {
@@ -323,7 +325,7 @@ public class ImageManagementServices {
     
     public static Map<String, Object> scaleImageMangementInAllSize(Map<String, ? extends Object> context, String filenameToUse, String resizeType, String productId)
         throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
-    
+        
         /* VARIABLES */
         Locale locale = (Locale) context.get("locale");
         List<String> sizeTypeList = null;
@@ -342,7 +344,7 @@ public class ImageManagementServices {
         Map<String, Object> resultBufImgMap = FastMap.newInstance();
         Map<String, Object> resultScaleImgMap = FastMap.newInstance();
         Map<String, Object> result = FastMap.newInstance();
-    
+        
         /* ImageProperties.xml */
         String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
         resultXMLMap.putAll((Map<String, Object>) ImageTransform.getXMLValue(imgPropertyFullPath, locale));
@@ -354,7 +356,7 @@ public class ImageManagementServices {
             result.put("errorMessage", errMsg);
             return result;
         }
-    
+        
         /* IMAGE */
         // get Name and Extension
         index = filenameToUse.lastIndexOf(".");
@@ -362,25 +364,17 @@ public class ImageManagementServices {
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
         String mainFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-        String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-    
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+        
         String id = imgName;
-        String type = "management";
-    
-        FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
-        String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", type, "id", filenameToUse));
-        String filePathPrefix = "";
-        if (fileLocation.lastIndexOf("/") != -1) {
-            filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-        }
         
         /* get original BUFFERED IMAGE */
-        resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));
-    
+        resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + productId + "/" + filenameToUse, locale));
+        
         if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
-    
+            
             // get Dimensions
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
@@ -390,27 +384,20 @@ public class ImageManagementServices {
                 result.put("errorMessage", errMsg);
                 return result;
             }
-    
+            
             /* scale Image for each Size Type */
             Iterator<String> sizeIter = sizeTypeList.iterator();
             while (sizeIter.hasNext()) {
                 String sizeType = sizeIter.next();
-    
+                
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
-    
+                
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {
                     bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
-    
-                    // write the New Scaled Image
-                    String newFileLocation = null;
-                    newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "/management/"+ productId, "id", id));
                     
-                    String newFilePathPrefix = "";
-                    if (newFileLocation.lastIndexOf("/") != -1) {
-                        newFilePathPrefix = newFileLocation.substring(0, newFileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-                    }
-    
-                    String targetDirectory = imageServerPath + "/" + newFilePathPrefix;
+                    // write the New Scaled Image
+                    
+                    String targetDirectory = imageServerPath + "/" + productId;
                     File targetDir = new File(targetDirectory);
                     if (!targetDir.exists()) {
                         boolean created = targetDir.mkdirs();
@@ -423,8 +410,8 @@ public class ImageManagementServices {
                     
                     // write new image
                     try {
-                        ImageIO.write((RenderedImage) bufNewImg, imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
-                        File deleteFile = new File(imageServerPath + "/products/management/" + filenameToUse);
+                        ImageIO.write((RenderedImage) bufNewImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                        File deleteFile = new File(imageServerPath + "/"  + filenameToUse);
                         deleteFile.delete();
                         //FIXME can be removed ?
                         //  boolean check = deleteFile.delete();
@@ -439,19 +426,19 @@ public class ImageManagementServices {
                         result.put("errorMessage", errMsg);
                         return result;
                     }
-    
+                    
                     /* write Return Result */
-                    String imageUrl = imageUrlPrefix + "/" + newFilePathPrefix + filenameToUse;
+                    String imageUrl = imageServerUrl + "/" + productId + "/" + filenameToUse;
                     imgUrlMap.put(sizeType, imageUrl);
-    
+                    
                 } // scaleImgMap
             } // sizeIter
-    
+            
             result.put("responseMessage", "success");
             result.put("imageUrlMap", imgUrlMap);
             result.put("original", resultBufImgMap);
             return result;
-    
+            
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
@@ -473,7 +460,7 @@ public class ImageManagementServices {
         dataResourceCtx.put("dataResourceTypeId", "IMAGE_OBJECT");
         dataResourceCtx.put("mimeTypeId", fileContentType);
         dataResourceCtx.put("isPublic", "Y");
-    
+        
         Map<String, Object> dataResourceResult = FastMap.newInstance();
         try {
             dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
@@ -481,9 +468,9 @@ public class ImageManagementServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-    
+        
         result.put("dataResourceFrameId", dataResourceResult.get("dataResourceId"));
-    
+        
         Map<String, Object> contentUp = FastMap.newInstance();
         contentUp.put("contentId", contentId);
         contentUp.put("dataResourceId", dataResourceResult.get("dataResourceId"));
@@ -495,7 +482,7 @@ public class ImageManagementServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-    
+        
         GenericValue content = null;
         try {
             content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
@@ -503,7 +490,7 @@ public class ImageManagementServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-    
+        
         if (content != null) {
             GenericValue dataResource = null;
             try {
@@ -512,7 +499,7 @@ public class ImageManagementServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-        
+            
             if (dataResource != null) {
                 dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                 try {
@@ -533,7 +520,7 @@ public class ImageManagementServices {
         Locale locale = (Locale) context.get("locale");
         //FIXME can be removed ?
         // String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
         
         // Create content for thumbnail
         Map<String, Object> contentThumb = FastMap.newInstance();
@@ -557,7 +544,7 @@ public class ImageManagementServices {
         if (fileLocationThumb.lastIndexOf("/") != -1) {
             filenameToUseThumb = fileLocationThumb.substring(fileLocationThumb.lastIndexOf("/") + 1);
         }
-    
+    	
         String fileContentType = (String) context.get("_uploadedFile_contentType");
         if (fileContentType.equals("image/pjpeg")) {
             fileContentType = "image/jpeg";
@@ -601,7 +588,7 @@ public class ImageManagementServices {
         }
         result.put("filenameToUseThumb", filenameToUseThumb);
         // Create image file thumbnail to folder product id.
-        File fileOriginalThumb = new File(imageServerPath + "/products/management/" + filenameToUseThumb);
+        File fileOriginalThumb = new File(imageServerPath + "/" + productId + "/" + filenameToUseThumb);
         try {
             RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
             outFileThumb.write(imageData.array());
@@ -620,7 +607,7 @@ public class ImageManagementServices {
         
         Map<String, Object> resultResizeThumb = FastMap.newInstance();
         try {
-            resultResizeThumb.putAll(ImageManagementServices.scaleImageMangementInAllSize(context, filenameToUseThumb, "medium", productId));
+            resultResizeThumb.putAll(ImageManagementServices.scaleImageMangementInAllSize(context, filenameToUseThumb, "thumbnail", productId));
         } catch (IOException e) {
             String errMsg = "Scale additional image in all different sizes is impossible : " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -634,16 +621,16 @@ public class ImageManagementServices {
     }
     
     public static Map<String, Object> resizeImageThumbnail(BufferedImage bufImg, double imgHeight, double imgWidth) {
-
+        
         /* VARIABLES */
         BufferedImage bufNewImg;
         double defaultHeight, defaultWidth, scaleFactor;
         Map<String, Object> result = FastMap.newInstance();
-
+        
         /* DIMENSIONS from ImageProperties */
-        defaultHeight = 100;
-        defaultWidth = 100;
-
+        defaultHeight = 300;
+        defaultWidth = 300;
+        
         /* SCALE FACTOR */
         // find the right Scale Factor related to the Image Dimensions
         if (imgHeight > imgWidth) {
@@ -660,7 +647,7 @@ public class ImageManagementServices {
                 scaleFactor = defaultHeight / imgHeight;
             }
         }
-
+        
         int bufImgType;
         if (BufferedImage.TYPE_CUSTOM == bufImg.getType()) {
             // apply a type for image majority
@@ -668,12 +655,12 @@ public class ImageManagementServices {
         } else {
             bufImgType = bufImg.getType();
         }
-
+        
         // scale original image with new size
         Image newImg = bufImg.getScaledInstance((int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), Image.SCALE_SMOOTH);
-
+        
         bufNewImg = ImageTransform.toBufferedImage(newImg, bufImgType);
-
+        
         result.put("bufferedImage", bufNewImg);
         result.put("scaleFactor", scaleFactor);
         return result;
@@ -813,10 +800,10 @@ public class ImageManagementServices {
         try {
             if (UtilValidate.isNotEmpty(contentIdTo)) {
                 String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-                String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+                String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
                 
                 FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
-                String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "small", "id", productId));
+                String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "medium", "id", productId));
                 String filePathPrefix = "";
                 String filenameToUse = fileLocation;
                 if (fileLocation.lastIndexOf("/") != -1) {
@@ -841,7 +828,7 @@ public class ImageManagementServices {
                 }
                 
                 try {
-                    File f1 = new File(imageServerPath + "/products/management/" + productId + "/" + contentName);
+                    File f1 = new File(imageServerPath + "/" + productId + "/" + contentName);
                     File f2 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
                     InputStream input = new FileInputStream(f1);
                     OutputStream out = new FileOutputStream(f2);
@@ -873,7 +860,7 @@ public class ImageManagementServices {
         }
         return ServiceUtil.returnSuccess();
     }
-
+    
     public static File checkExistsImage(File file) {
         if (!file.exists()) {
             imageCount = 0;

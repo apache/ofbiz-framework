@@ -70,7 +70,8 @@ public class FrameImage {
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
         
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
@@ -106,8 +107,8 @@ public class FrameImage {
         if (UtilValidate.isNotEmpty(imageName)) {
             
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/products/management/" + productId + "/" + imageName));
-            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/products/management/frame/"+frameImageName));
+            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
+            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/"+frameImageName));
             
             int bufImgType;
             if (BufferedImage.TYPE_CUSTOM == bufImg1.getType()) {
@@ -152,16 +153,16 @@ public class FrameImage {
             Image newImg2 = bufImg2.getScaledInstance((int) width , (int) height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/products/management/" + productId + "/" + filenameToUse));
+            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
             
             double imgHeight = bufNewImg.getHeight();
             double imgWidth = bufNewImg.getWidth();
             
             Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
-            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/products/management/" + productId + "/" + filenameTouseThumb));
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
             
-            String imageUrlResource = "/images/products/management/" + productId + "/" + filenameToUse;
-            String imageUrlThumb = "/images/products/management/" + productId + "/" + filenameTouseThumb;
+            String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
+            String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
             
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
@@ -248,7 +249,8 @@ public class FrameImage {
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
         Map<String, Object> tempFile = LayoutWorker.uploadImageAndParameters(request, "uploadedFile");
         String imageName = tempFile.get("imageFileName").toString();
         String mimType = tempFile.get("uploadMimeType").toString();
@@ -269,7 +271,7 @@ public class FrameImage {
         String contentId = null;
         String dataResourceId = null;
         try {
-            String dirPath = "/products/management/frame/";
+            String dirPath = "/frame/";
             File dir = new File(imageServerPath + dirPath);
             if (!dir.exists()) {
                 boolean createDir = dir.mkdir();
@@ -278,7 +280,7 @@ public class FrameImage {
                     return "error";
                 }
             }
-            String imagePath = "/products/management/frame/" + imageName;
+            String imagePath = "/frame/" + imageName;
             File file = new File(imageServerPath + imagePath);
             if (file.exists()) {
                 request.setAttribute("_ERROR_MESSAGE_", "There is an existing frame, please select from the existing frame.");
@@ -290,7 +292,7 @@ public class FrameImage {
 
             //create dataResource
             Map<String, Object> dataResourceCtx = FastMap.newInstance();
-            dataResourceCtx.put("objectInfo", "/images" + imagePath);
+            dataResourceCtx.put("objectInfo", imageServerUrl + imagePath);
             dataResourceCtx.put("dataResourceName", imageName);
             dataResourceCtx.put("userLogin", userLogin);
             dataResourceCtx.put("dataResourceTypeId", "IMAGE_OBJECT");
@@ -320,7 +322,7 @@ public class FrameImage {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         HttpSession session = request.getSession();
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
 
         String productId = request.getParameter("productId");
         String imageName = request.getParameter("imageName");
@@ -349,11 +351,11 @@ public class FrameImage {
             return "error";
         }
         if (UtilValidate.isNotEmpty(imageName)) {
-            File file = new File(imageServerPath + "/products/management/previewImage.jpg");
+            File file = new File(imageServerPath + "/previewImage.jpg");
             file.delete();
             // Image Frame
-            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/products/management/" + productId + "/" + imageName));
-            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/products/management/frame/" + frameImageName));
+            BufferedImage bufImg1 = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + imageName));
+            BufferedImage bufImg2 = ImageIO.read(new File(imageServerPath + "/frame/" + frameImageName));
             
             int bufImgType;
             if (BufferedImage.TYPE_CUSTOM == bufImg1.getType()) {
@@ -369,7 +371,7 @@ public class FrameImage {
             Image newImg2 = bufImg2.getScaledInstance((int) width , (int) height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/products/management/previewImage.jpg"));
+            ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/previewImage.jpg"));
 
         }
          else{
@@ -408,8 +410,8 @@ public class FrameImage {
     }
     public static String deleteFrameImage(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-        File file = new File(imageServerPath + "/products/management/previewImage.jpg");
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        File file = new File(imageServerPath + "/previewImage.jpg");
         if (file.exists()) {
             file.delete();
         }

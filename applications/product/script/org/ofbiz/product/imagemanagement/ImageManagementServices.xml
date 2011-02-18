@@ -183,8 +183,10 @@ under the License.
             <field-map field-name="dataResourceId" from-field="dataResourceId"/>
         </entity-one>
         
+        <set field="removeImageFile.productId" from-field="parameters.productId"/>
         <set field="removeImageFile.contentId" from-field="parameters.contentId"/>
         <set field="removeImageFile.objectInfo" from-field="dataResource.objectInfo"/>
+        <set field="removeImageFile.dataResourceName" from-field="dataResource.dataResourceName"/>
         <set-service-fields service-name="removeImageFileForImageManagement" map="removeImageFile" to-map="removeImageFileMap"/>
         <call-service service-name="removeImageFileForImageManagement" in-map-name="removeImageFileMap"/>
         

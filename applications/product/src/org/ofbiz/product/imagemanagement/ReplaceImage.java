@@ -56,7 +56,7 @@ public class ReplaceImage{
 
     public static String replaceImageToExistImage(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, FileNotFoundException, WatermarkerException, GenericEntityException, GenericServiceException {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
@@ -85,11 +85,11 @@ public class ReplaceImage{
         }
         
         try {
-            File file = new File(imageServerPath + "/products/management/" + productId + "/" + imageName);
+            File file = new File(imageServerPath + "/" + productId + "/" + imageName);
             file.delete();
             
-            URL imageUrl = new URL("file:" + imageServerPath + "/products/management/" + productId + "/" + contentIdReplace + ".jpg");
-            File outputImageFile = new File(imageServerPath + "/products/management/" + productId + "/" + imageName);
+            URL imageUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + contentIdReplace + ".jpg");
+            File outputImageFile = new File(imageServerPath + "/" + productId + "/" + imageName);
             OutputStream outputStream = new FileOutputStream(outputImageFile);
             WatermarkerSettings watermarkerSettings = WatermarkerSettings.DEFAULT;
             new DefaultWatermarker().watermark(imageUrl, " ", outputStream, watermarkerSettings);
@@ -100,8 +100,8 @@ public class ReplaceImage{
             List<GenericValue> contentAssocReplaceList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdReplace, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
             GenericValue contentAssocReplace = EntityUtil.getFirst(contentAssocReplaceList);
             
-            URL imageThumbnailUrl = new URL("file:" + imageServerPath + "/products/management/" + productId + "/" + contentAssocReplace.get("contentIdTo") + ".jpg");
-            File outputImageThumbnailFile = new File(imageServerPath + "/products/management/" + productId + "/" + contentAssocExist.get("contentIdTo") + ".jpg");
+            URL imageThumbnailUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + contentAssocReplace.get("contentIdTo") + ".jpg");
+            File outputImageThumbnailFile = new File(imageServerPath + "/" + productId + "/" + contentAssocExist.get("contentIdTo") + ".jpg");
             OutputStream outputStreamThumbnail = new FileOutputStream(outputImageThumbnailFile);
             new DefaultWatermarker().watermark(imageThumbnailUrl, " ", outputStreamThumbnail, watermarkerSettings);
             

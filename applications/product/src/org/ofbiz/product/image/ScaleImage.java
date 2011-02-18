@@ -131,7 +131,7 @@ public class ScaleImage {
         }
         
         if (context.get("contentId") != null){
-            resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/products/management/" + context.get("productId") + "/" + context.get("clientFileName"), locale));
+            resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + context.get("productId") + "/" + context.get("clientFileName"), locale));
         } else {
             /* get original BUFFERED IMAGE */
             resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));
@@ -288,7 +288,7 @@ public class ScaleImage {
         }
         
         if (context.get("contentId") != null){
-            resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/products/management/" + context.get("productId") + "/" + context.get("clientFileName"), locale));
+            resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + context.get("productId") + "/" + context.get("clientFileName"), locale));
         } else {
             /* get original BUFFERED IMAGE */
             resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));

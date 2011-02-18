@@ -44,7 +44,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name">
             <hyperlink target="${currentFormName}" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
@@ -59,7 +59,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -106,7 +106,7 @@ under the License.
             </radio>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
         <field name="checkStatusId" position="2" title="Status">
             <radio no-current-selected-key="${checkRadio}">
                 <option key="IM_APPROVED/${productId}" description="Approve"/>
@@ -119,7 +119,7 @@ under the License.
         <field name="dataResourceId" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
         <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -153,13 +153,13 @@ under the License.
         <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
         <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -193,7 +193,7 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-       	<field name="drObjectInfo" position="2" title="Image"><image/></field>
+       	<field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
@@ -209,7 +209,7 @@ under the License.
             </drop-down>
         </field>
         <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -247,7 +247,7 @@ under the License.
         <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="drObjectInfo" position="2" title="Image"><image/></field>
+        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
@@ -259,7 +259,7 @@ under the License.
         <field name="rejectedBy" position="2" title="Rejected By"><display/></field>
         <field name="description" position="2" title="Rejected Reason"><display/></field>
         <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -305,8 +305,8 @@ under the License.
         <field name="dataResourceId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="_rowSubmit" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" title="Image"><image/></field>
-        <field name="action" title="Action" event="onChange" action="javascript:
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
+        <field name="action" use-when="${groovy: return context.drMimeTypeId == 'image/jpeg';}" title="Action" event="onChange" action="javascript:
             document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}'; 
             document.ListImageManage.submit();">
             <drop-down allow-empty="true">
@@ -316,10 +316,10 @@ under the License.
                   <option key="rotate" description="Rotate"/>
             </drop-down>
         </field>
-        <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Caption"><text/></field>
-        <field name="sequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Sort Order"><text maxlength="2" size="5"/></field>
-        <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Enable"><check/></field>
-        <field name="thumbnail" use-when="${groovy: return context.statusId == 'IM_APPROVED'; }" title="Default Image" widget-style="buttontext">
+        <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Caption"><text/></field>
+        <field name="sequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Sort Order"><text maxlength="2" size="5"/></field>
+        <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Enable"><check/></field>
+        <field name="defaultImage" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Default Image" widget-style="buttontext">
             <hyperlink target="setDefaultImage" description="Set Default">
                 <parameter param-name="productId"/>
                 <parameter param-name="contentId"/>
@@ -331,7 +331,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
@@ -365,7 +365,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </actions>
-        <field name="drObjectInfo" title=" "><image/></field>
+        <field name="drObjectInfo" title=" "><image width="100"/></field>
     </form>
     
     <form name="ImageFrames" type="single" title="" target="uploadFrame" header-row-style="header-row" default-table-style="basic-table" target-window="_self">
@@ -421,6 +421,7 @@ under the License.
             </entity-one>
             <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
         </actions>
+        <field name="imageServerUrl"><hidden/></field>
         <field name="productId"><hidden/></field>
         <field name="contentId"><hidden/></field>
         <field name="dataResourceId"><hidden/></field>
@@ -605,7 +606,7 @@ under the License.
             <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
         </row-actions>
         <field name="productId"><hidden/></field>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="status"><display description="Uploaded"/></field>
@@ -643,7 +644,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
         </field>
@@ -654,7 +655,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -694,7 +695,7 @@ under the License.
             <set field="ApprovedBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
         </row-actions>
         <field name="productId"><hidden/></field>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name"><display/></field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
@@ -703,7 +704,7 @@ under the License.
         </field>
         <field name="purchaseFromDate" title="Approved Date"><display/></field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -731,7 +732,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name">
             <hyperlink target="ListImageReplace" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
@@ -744,7 +745,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -772,7 +773,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name">
             <hyperlink target="ListImageReplace" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
@@ -787,7 +788,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
-            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="new" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+            <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
@@ -810,7 +811,7 @@ under the License.
         <field name="dataResourceId"><display/></field>
         <field name="createdDate"><display/></field>
         <!--<field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteImageFrame" target-window="new" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="deleteImageFrame" target-window="_blank" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="contentId" from-field="contentId"/>
             </hyperlink>
         </field>-->
@@ -844,7 +845,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image/></field>
+        <field name="drObjectInfo" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" title="Image Name"><display/></field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>

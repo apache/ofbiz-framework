@@ -532,7 +532,9 @@ under the License.
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
                     <field-map field-name="drDataResourceId" from-field="parameters.dataResourceId"/>
                 </entity-one>
-                <set field="imageURL" from-field="contentDataResource.drObjectInfo"/></actions>
+                <set field="imageURL" from-field="contentDataResource.drObjectInfo"/>
+                <property-to-field resource="catalog" property="image.management.url" field="imageServerUrl"/>
+            </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -773,8 +775,11 @@ under the License.
     
     <screen name="ViewPreviewImage">
         <section>
+            <actions>
+                <property-to-field resource="catalog" property="image.management.url" field="imageServerUrl"/>
+            </actions>
             <widgets>
-                <image src="/images/products/management/previewImage.jpg"></image>
+                <image src="${imageServerUrl}/previewImage.jpg"></image>
             </widgets>
         </section>
     </screen>
@@ -977,7 +982,7 @@ under the License.
                                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
                             </condition>
                             <widgets>
-                                <screenlet title="${parameters.productId}">
+                                <screenlet title="${uiLabelMap.CommonRemove}">
                                     <include-form name="ImageRemove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                             </widgets>
