@@ -357,6 +357,7 @@ if (selectedService) {
         engineName = curServiceModel.engineName ?: "NA";
         defaultEntityName = curServiceModel.defaultEntityName ?: "NA";
         export = curServiceModel.export ? uiLabelMap.CommonTrue : uiLabelMap.CommonFalse;
+        exportBool = curServiceModel.export ? "true" : "false";
         permissionGroups = curServiceModel.permissionGroups ?: "NA";
         implServices = curServiceModel.implServices ?: "NA";
         overrideParameters = curServiceModel.overrideParameters;
@@ -380,6 +381,7 @@ if (selectedService) {
         curServiceMap.location = location;
         curServiceMap.requireNewTransaction = requireNewTransaction;
         curServiceMap.export = export;
+        curServiceMap.exportBool = exportBool;
 
         if (permissionGroups && !permissionGroups.equals("NA")) {
             permList = new ArrayList(permissionGroups.size());
