@@ -2813,11 +2813,6 @@ under the License.
             <redirect-parameter name="dataResourceId"/>
         </response>
     </request-map>
-    <request-map uri="img">
-        <security auth="false" https="false"/>
-        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>
-        <response name="success" type="none"/>
-    </request-map>
     <request-map uri="viewImage">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="viewImage"/>

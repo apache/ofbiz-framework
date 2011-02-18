@@ -68,6 +68,7 @@ under the License.
        jQuery('#ImageWatermarking_height').attr('value', height);
     });
     function getPreviewImage(next) {
+       var imageServerUrl = jQuery('#ImageWatermarking_imageServerUrl').val();
        var productId = jQuery('#ImageWatermarking_productId').val();
        var imageName = jQuery('#ImageWatermarking_imageName').val();
        var width = jQuery('#ImageWatermarking_width').val();
@@ -84,7 +85,7 @@ under the License.
        var imageData = {productId : productId, imageName : imageName, text : text, opacity : opacity, x : pointX, y : pointY, 
                            width : width, count : previewCount, fontColor : fontColor, fontSize : fontSize};
        jQuery.post("setPreviewWaterMark", imageData, function() {
-           var path = "/images/products/management/previewImage" + next + ".jpg";
+           var path = imageServerUrl + "/previewImage" + next + ".jpg";
            jQuery('td.img-src img').attr('src', path);
            jQuery('#ImageWatermarking_previewCount').attr('value', next);
        });

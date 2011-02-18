@@ -47,7 +47,7 @@ under the License.
         <if-not-empty field="productContentAndInfos">
             <set field="setThumbnailMap.productId" from-field="parameters.productId"/>
             <set field="setThumbnailMap.contentIdTo" from-field="parameters.contentIdTo"/>
-            <call-service service-name="setThumbnail" in-map-name="setThumbnailMap"/>
+            <!--<call-service service-name="setThumbnail" in-map-name="setThumbnailMap"/>-->
         </if-not-empty>
     </simple-method>
 </simple-methods>

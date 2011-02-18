@@ -27,7 +27,7 @@ context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
 // make the image file formats
 imageFilenameFormat = UtilProperties.getPropertyValue('catalog', 'image.filename.format');
-imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
 imageUrlPrefix = UtilProperties.getPropertyValue('catalog', 'image.url.prefix');
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
@@ -102,7 +102,7 @@ if (fileType) {
                 imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
 
                 try {
-                    f1 = new File(imageServerPath + "/products/management/" + productId + "/" + clientFileName);
+                    f1 = new File(imageServerPath + "/" + productId + "/" + clientFileName);
                     f2 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
                     
                     InputStream input = new FileInputStream(f1);

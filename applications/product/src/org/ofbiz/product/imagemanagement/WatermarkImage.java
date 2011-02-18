@@ -64,7 +64,8 @@ public class WatermarkImage{
     
     public static String createWatermarkImage(HttpServletRequest request, HttpServletResponse response) throws WatermarkerException, IOException {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String watermarkText = null;
@@ -80,11 +81,11 @@ public class WatermarkImage{
         String fontColor = request.getParameter("colorWatermark");
         String fontSize = request.getParameter("sizeWatermark");
         
-        File file = new File(imageServerPath + "/products/management/previewImage" + count  + ".jpg");
+        File file = new File(imageServerPath + "/previewImage" + count  + ".jpg");
         file.delete();
         try {
             if (UtilValidate.isNotEmpty(imageName)) {
-                imageUrl = new URL("file:" + imageServerPath + "/products/management/" + productId + "/" + imageName);
+                imageUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + imageName);
             } else {
                 String errMsg = "Please select Image.";
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -172,24 +173,24 @@ public class WatermarkImage{
                 String contentId = (String) contentResult.get("contentId");
                 String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
                 String filenameTouseThumb = (String) contentThumbResult.get("contentId") + ".jpg";
-                File outputImageFile = new File(imageServerPath + "/products/management/" + productId + "/" + filenameToUse);
+                File outputImageFile = new File(imageServerPath + "/" + productId + "/" + filenameToUse);
                 OutputStream outputStream = new FileOutputStream(outputImageFile);
 
                 // *** Actual call to Watermarker#watermark(...) ***
                 new DefaultWatermarker().watermark(imageUrl, watermarkText, outputStream, watermarkerSettings);
 
-                String imageUrlResource = "/images/products/management/" + productId + "/" + filenameToUse;
+                String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
 
-                BufferedImage bufNewImg = ImageIO.read(new File(imageServerPath + "/products/management/" + productId + "/" + filenameToUse));
+                BufferedImage bufNewImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + filenameToUse));
 
                 double imgHeight = bufNewImg.getHeight();
                 double imgWidth = bufNewImg.getWidth();
                 String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
 
                 Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
-                ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/products/management/" + productId + "/" + filenameTouseThumb));
+                ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
 
-                String imageUrlThumb = "/images/products/management/" + productId + "/" + filenameTouseThumb;
+                String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
 
                 createContentAndDataResourceWaterMark(request, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
                 createContentAndDataResourceWaterMark(request, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
@@ -306,7 +307,7 @@ public class WatermarkImage{
     }
     public static String setPreviewWaterMark(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
         String productId = request.getParameter("productId");
         String imageName = request.getParameter("imageName");
         String text = request.getParameter("text");
@@ -324,7 +325,7 @@ public class WatermarkImage{
         BigDecimal positionX = new BigDecimal(decimalFormat.format(Float.parseFloat(x)));
         BigDecimal positionY = new BigDecimal(decimalFormat.format(Float.parseFloat(y)));
         BigDecimal picWidth = new BigDecimal(decimalFormat.format(Float.parseFloat(width)));
-        File file = new File(imageServerPath + "/products/management/previewImage" + count  + ".jpg");
+        File file = new File(imageServerPath + "/previewImage" + count  + ".jpg");
         file.delete();
         BigDecimal widthBase = new BigDecimal(600.00);
         Integer currentPic = Integer.parseInt(count);
@@ -341,8 +342,8 @@ public class WatermarkImage{
         watermarkerSettings.setWatermarkSettings(position);
         watermarkerSettings.setAlphaComposite(alphaComposite);
         try {
-           URL imageUrl = new URL("file:" + imageServerPath + "/products/management/" + productId + "/" + imageName);
-           File outputImageFile = new File(imageServerPath + "/products/management/previewImage" + nextPic + ".jpg");
+           URL imageUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + imageName);
+           File outputImageFile = new File(imageServerPath + "/previewImage" + nextPic + ".jpg");
            OutputStream outputStream = new FileOutputStream(outputImageFile);
 
            new DefaultWatermarker().watermark(imageUrl, text, outputStream, watermarkerSettings);
@@ -356,9 +357,9 @@ public class WatermarkImage{
     }
     public static String deletePreviewWatermarkImage(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
         String count = request.getParameter("count");
-        File file = new File(imageServerPath + "/products/management/previewImage" + count  + ".jpg");
+        File file = new File(imageServerPath + "/previewImage" + count  + ".jpg");
         file.delete();
 
         return "success";

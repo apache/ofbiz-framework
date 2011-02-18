@@ -33,7 +33,7 @@ under the License.
                     <#assign ImageContent = delegator.findByPrimaryKey("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo))?if_exists>
                     <#assign contentDataResourceView = delegator.findByPrimaryKey("ContentDataResourceView", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo, "drDataResourceId", ImageContent.dataResourceId))?if_exists>
                     <#assign contentName  = productContentAndInfo.contentName>
-                    <#if imageIndex < 7>
+                    <#if imageIndex < 5>
                         <td style="vertical-align:bottom">
                             <table>
                                 <tbody>
@@ -70,7 +70,7 @@ under the License.
                         </td>
                         <#assign imageIndex = imageIndex+1>
                     </#if>
-                </#list>    
+                </#list>
             </#if>
         </#list>
     </#if>

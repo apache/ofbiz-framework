@@ -67,4 +67,8 @@ under the License.
         <dimension name="height" value="1200"/>
         <dimension name="width" value="1600"/>
     </size>
+    <size name="thumbnail">
+        <dimension name="height" value="300"/>
+        <dimension name="width" value="300"/>
+    </size>
 </imageSize>
