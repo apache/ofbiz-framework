@@ -19,3 +19,23 @@ under the License.
 ***********************************************/
 
 html, body {background:#fff}
+
+span.caution{
+    color:yellow;
+}
+
+span.important {
+    color: #ff4500;
+}
+
+span.note {
+    color:#adff2f;
+}
+
+span.tip {
+    color:blue;
+}
+
+span.warning {
+    color:red;
+}

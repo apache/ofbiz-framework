@@ -34,6 +34,16 @@ under the License.
      <@itemizedlist node=child/>
     <#elseif child?node_type = 'element' && child?node_name = "mediaobject">
       <@mediaobject node=child/>
+    <#elseif child?node_type = 'element' && child?node_name = "caution">
+      <span class="caution">${child}</span>
+    <#elseif child?node_type = 'element' && child?node_name = "important">
+      <span class="important">${child}</span>
+    <#elseif child?node_type = 'element' && child?node_name = "note">
+      <span class="note">${child}</span>
+    <#elseif child?node_type = 'element' && child?node_name = "tip">
+      <span class="tip">${child}</span>
+    <#elseif child?node_type = 'element' && child?node_name = "warning">
+      <span class="warning">${child}</span>
     </#if>
   </#list>
 </#macro>
