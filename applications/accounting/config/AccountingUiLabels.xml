@@ -1249,6 +1249,7 @@
     </property>
     <property key="AccountingArPaymentGroupMenu">
         <value xml:lang="en">AR Payment Groups</value>
+        <value xml:lang="fr">Groupes de paiement</value>
         <value xml:lang="pt">Grupos de Pagamento do Contas a receber</value>
         <value xml:lang="zh_TW">應收支付群組</value>
     </property>
@@ -4150,6 +4151,7 @@
     </property>
     <property key="AccountingFindArPaymentGroups">
         <value xml:lang="en">Find AR Payment Groups</value>
+        <value xml:lang="fr">Recherche de groupes de paiement</value>
         <value xml:lang="pt">Buscar os grupos de pagamento do contas a receber</value>
         <value xml:lang="zh_TW">找尋應收支付群組</value>
     </property>
