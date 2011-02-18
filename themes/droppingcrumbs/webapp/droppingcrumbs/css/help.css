@@ -19,7 +19,7 @@ under the License.
 ***********************************************/
 body {
 background:none;
-font-size=105%;
+font-size:105%;
 }
 
 .left-border {
@@ -58,4 +58,24 @@ padding-left: 20px;
 ul.dots {
 list-style: circle; 
 padding-left: 20px;
+}
+
+span.caution{
+    color:yellow;
+}
+
+span.important {
+    color: #ff4500;
+}
+
+span.note {
+    color:#adff2f;
+}
+
+span.tip {
+    color:blue;
+}
+
+span.warning {
+    color:red;
 }
