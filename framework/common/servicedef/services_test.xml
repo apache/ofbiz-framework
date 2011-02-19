@@ -101,14 +101,65 @@ under the License.
         <implements service="testScv"/>
     </service>
 
-    <service name="testRemoteSoap" engine="soap" export="true"
-            location="http://nagoya.apache.org:5049/axis/servlet/AxisServlet" invoke="echoString">
-        <description>Test SOAP service; calls echoString service on Axis server</description>
-        <namespace>http://soapinterop.org/</namespace>
-        <attribute name="message" type="String" mode="IN"/>
-        <attribute name="result" type="String" mode="OUT"/>
-    </service>
+    <service name="testRemoteSoap" engine="soap" export="true" 
+        location="http://demo-trunk.ofbiz.apache.org:8080/webtools/control/SOAPService"
+        invoke="testSoapSimple">
+        <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="resp" type="String" mode="OUT"/>
+    </service>    
 
+    <!-- FIXME For now, not sure why, the 4 remote SOAP services below don't work -->
+    
+    <!-- the location = endpoint = SOAP action -->
+    <!-- invoke parameter is the name of the operation to invoke, for example LatLonListZipCode -->
+    <!-- invoke parameter is needed when there are several possible operations for the SOAP action  -->
+    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    <service name="testRemoteSoap1" engine="soap" export="true"
+        location="http://www.weather.gov/forecasts/xml/SOAP_server/ndfdXMLserver.php"
+        invoke="LatLonListZipCode">
+        <description>A service to invoke the NWS web service</description>
+        <namespace>
+            http://www.weather.gov/forecasts/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode
+        </namespace>
+        <attribute name="ZipCode" type="String" mode="IN"/>
+        <attribute name="invoke" type="String" mode="IN" />
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>    
+    
+    <!-- the location = endpoint = SOAP action -->
+    <!-- invoke parameter is the name of the operation to invoke, for example LatLonListCityNames -->
+    <!-- invoke parameter is needed when there are several possible operations for the SOAP action  -->
+    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    <service name="testRemoteSoap2" engine="soap" export="true"
+        location="http://www.weather.gov/forecasts/xml/SOAP_server/ndfdXMLserver.php"
+        invoke="LatLonListCityNames">
+        <description>A service to invoke the NWS web service</description>
+        <namespace>
+            http://www.weather.gov/forecasts/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListCityNames
+        </namespace>
+        <attribute name="CityName" type="String" mode="IN"/>
+        <attribute name="invoke" type="String" mode="IN" />
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>    
+
+    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    <service name="testRemoteSoap3" engine="soap" export="true"
+        location="http://www.restfulwebservices.net/wcf/EmailValidationService.svc"
+        invoke="EmailValidationService">
+        <attribute name="ZipCode" type="String" mode="IN"/>
+        <attribute name="invoke" type="String" mode="IN" />
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>    
+    
+    <!-- FIXME For now, not sure why, this remote SOAP service does not work -->
+    <service name="testRemoteSoap4" engine="soap" export="true"
+        location="http://www.webservicex.net/geoipservice.asmx"
+        invoke="GetGeoIPContext">
+        <attribute name="invoke" type="String" mode="IN" />
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>    
+    
     <service name="testBsh" engine="bsh" location="component://common/script/org/ofbiz/common/BshServiceTest.bsh" invoke="">
         <description>Test BeanShell Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
