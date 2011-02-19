@@ -54,6 +54,7 @@ under the License.
     <!-- Example Requests -->
     <request-map uri="FindExample"><security https="true" auth="true"/><response name="success" type="view" value="FindExample"/></request-map>
     <request-map uri="EditExample"><security https="true" auth="true"/><response name="success" type="view" value="EditExample"/></request-map>
+    <request-map uri="EditExampleLayer"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleLayer"/></request-map>
     <request-map uri="ExampleReportHtml"><security https="true" auth="true"/><response name="success" type="view" value="ExampleReportHtml"/></request-map>
     <request-map uri="ExampleReportPdf"><security https="true" auth="true"/><response name="success" type="view" value="ExampleReportPdf"/></request-map>
     <request-map uri="createExample">
@@ -240,6 +241,7 @@ under the License.
 
     <view-map name="FindExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#FindExample"/>
     <view-map name="EditExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExample"/>
+    <view-map name="EditExampleLayer" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleLayer"/>
     <view-map name="EditExampleItems" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleItems"/>
     <view-map name="EditExampleFeatureAppls" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleFeatureAppls"/>
     <view-map name="ExampleReportHtml" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
