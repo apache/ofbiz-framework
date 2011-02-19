@@ -33,6 +33,7 @@ under the License.
     <field-type-def type="currency-amount" sql-type="DECIMAL(18,2)" java-type="java.math.BigDecimal"/>
     <field-type-def type="currency-precise" sql-type="DECIMAL(18,3)" java-type="java.math.BigDecimal"/>
     <field-type-def type="fixed-point" sql-type="DECIMAL(18,6)" java-type="java.math.BigDecimal"/>
+    <field-type-def type="precise-point" sql-type="DECIMAL(22,10)" java-type="java.math.BigDecimal"/>
     <field-type-def type="floating-point" sql-type="DOUBLE" java-type="Double"/>
     <field-type-def type="numeric" sql-type="DECIMAL(20,0)" java-type="Long"/>
 

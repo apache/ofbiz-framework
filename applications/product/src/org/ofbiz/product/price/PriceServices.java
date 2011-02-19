@@ -21,9 +21,11 @@ package org.ofbiz.product.price;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeSet;
 
 import javolution.util.FastList;
@@ -1117,6 +1119,31 @@ public class PriceServices {
         return calcResults;
     }
 
+    public static void getAllSubCategoryIdsByPrimaryField(String productCategoryId, Set<String> productCategoryIdSet, Delegator delegator, Timestamp nowTimestamp) {
+        if (nowTimestamp == null) {
+            nowTimestamp = UtilDateTime.nowTimestamp();
+        }
+
+        // first make sure the current category id is in the Set
+        productCategoryIdSet.add(productCategoryId);
+
+        // now find all sub-categories, filtered by effective dates, and call this routine for them
+        try {
+            List<GenericValue> productCategoryList = delegator.findByAndCache("ProductCategory", UtilMisc.toMap("primaryParentCategoryId", productCategoryId));
+            for (GenericValue productCategory: productCategoryList) {
+                String subProductCategoryId = productCategory.getString("productCategoryId");
+                if (productCategoryIdSet.contains(subProductCategoryId)) {
+                    // if this category has already been traversed, no use doing it again; this will also avoid infinite loops
+                    continue;
+                }
+
+                getAllSubCategoryIdsByPrimaryField(subProductCategoryId, productCategoryIdSet, delegator, nowTimestamp);
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error finding sub-categories for product search", module);
+        }
+    }
+    
     public static boolean checkPriceCondition(GenericValue productPriceCond, String productId, String virtualProductId, String prodCatalogId,
             String productStoreGroupId, String webSiteId, String partyId, BigDecimal quantity, BigDecimal listPrice,
             String currencyUomId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
@@ -1128,17 +1155,36 @@ public class PriceServices {
         } else if ("PRIP_PROD_CAT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
             // if a ProductCategoryMember exists for this productId and the specified productCategoryId
             String productCategoryId = productPriceCond.getString("condValue");
+            // get all sub-category IDs
+            Set<String> productCategoryIdSet = new HashSet<String>();
+            getAllSubCategoryIdsByPrimaryField(productCategoryId, productCategoryIdSet, delegator, nowTimestamp);
+            
+            //Debug.logInfo("Checking category condition with category IDs: " + productCategoryIdSet, module);
+            
+            // to better handle large numbers of rules with category conditions checked for each product, get all categories for the product from the cache, then filter it in memory (less queries, less cache entries too)
             List<GenericValue> productCategoryMembers = delegator.findByAndCache("ProductCategoryMember",
-                    UtilMisc.toMap("productId", productId, "productCategoryId", productCategoryId));
+                    UtilMisc.toMap("productId", productId));
             // and from/thru date within range
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, nowTimestamp, null, null, true);
-            // then 0 (equals), otherwise 1 (not equals)
-            if (UtilValidate.isNotEmpty(productCategoryMembers)) {
+            
+            // see if the product is in any of the category with ID in productCategoryIdSet
+            boolean matchFound = false;
+            for (String testProductCategoryId: productCategoryIdSet) {
+                List<GenericValue> testProductCategoryMembers = EntityUtil.filterByAnd(productCategoryMembers, 
+                        UtilMisc.toMap("productCategoryId", testProductCategoryId));
+                // then 0 (equals), otherwise 1 (not equals)
+                if (UtilValidate.isNotEmpty(testProductCategoryMembers)) {
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if (matchFound) {
                 compare = 0;
             } else {
                 compare = 1;
             }
-
+            
             // if there is a virtualProductId, try that given that this one has failed
             // NOTE: this is important becuase of the common scenario where a virtual product is a member of a category but the variants will typically NOT be
             // NOTE: we may want to parameterize this in the future, ie with an indicator on the ProductPriceCond entity
@@ -1194,7 +1240,8 @@ public class PriceServices {
             } else {
                 compare = quantity.compareTo(new BigDecimal(productPriceCond.getString("condValue")));
             }
-        } else if ("PRIP_PARTY_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
+        } else if ("PRIP_PARTY_ID".equals(productPriceCond.getString("inputParamEnumId"))
+                || "PRIP_CUST_ACCOUNT".equals(productPriceCond.getString("inputParamEnumId"))) {
             if (UtilValidate.isNotEmpty(partyId)) {
                 compare = partyId.compareTo(productPriceCond.getString("condValue"));
             } else {
@@ -1222,7 +1269,9 @@ public class PriceServices {
                     }
                 }
             }
-        } else if ("PRIP_PARTY_CLASS".equals(productPriceCond.getString("inputParamEnumId"))) {
+        } else if ("PRIP_PARTY_CLASS".equals(productPriceCond.getString("inputParamEnumId"))
+                || "PRIP_ACCOUNT_TYPE".equals(productPriceCond.getString("inputParamEnumId"))
+                || "PRIP_CLUB_SEGMENT".equals(productPriceCond.getString("inputParamEnumId"))) {
             if (UtilValidate.isEmpty(partyId)) {
                 compare = 1;
             } else {
@@ -1238,27 +1287,69 @@ public class PriceServices {
                     compare = 1;
                 }
             }
-        } else if ("PRIP_ROLE_TYPE".equals(productPriceCond.getString("inputParamEnumId"))) {
-            if (partyId != null) {
-                // if a PartyRole exists for this partyId and the specified roleTypeId
-                GenericValue partyRole = delegator.findByPrimaryKeyCache("PartyRole",
-                        UtilMisc.toMap("partyId", partyId, "roleTypeId", productPriceCond.getString("condValue")));
-
+        } else if ("PRIP_LIST_PRICE".equals(productPriceCond.getString("inputParamEnumId"))) {
+            BigDecimal listPriceValue = listPrice;
+            compare = listPriceValue.compareTo(new BigDecimal(productPriceCond.getString("condValue")));
+        } else if ("PRIP_CURRENCY_UOMID".equals(productPriceCond.getString("inputParamEnumId"))) {
+            compare = currencyUomId.compareTo(productPriceCond.getString("condValue"));
+        } else if ("PRIP_CONTACT".equals(productPriceCond.getString("inputParamEnumId"))) {
+            if (UtilValidate.isEmpty(partyId)) {
+                compare = 1;
+            } else {
+                String partyIdTo = productPriceCond.getString("condValue");
+                // find Contacts
+                List<GenericValue> contactList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyRelationshipTypeId", "CONTACT_REL", "partyIdFrom", partyId, "partyIdTo", partyIdTo));
+                // and from/thru date within range
+                contactList = EntityUtil.filterByDate(contactList, nowTimestamp, null, null, true);
                 // then 0 (equals), otherwise 1 (not equals)
-                if (partyRole != null) {
+                if (UtilValidate.isNotEmpty(contactList)) {
                     compare = 0;
                 } else {
                     compare = 1;
                 }
-            } else {
-                compare = 1;
             }
-        } else if ("PRIP_LIST_PRICE".equals(productPriceCond.getString("inputParamEnumId"))) {
-            BigDecimal listPriceValue = listPrice;
-
-            compare = listPriceValue.compareTo(new BigDecimal(productPriceCond.getString("condValue")));
-        } else if ("PRIP_CURRENCY_UOMID".equals(productPriceCond.getString("inputParamEnumId"))) {
-            compare = currencyUomId.compareTo(productPriceCond.getString("condValue"));
+        } else if ("PRIP_ACCOUNT_STATE".equals(productPriceCond.getString("inputParamEnumId"))) {
+            if (UtilValidate.isEmpty(partyId)) {
+                compare = 1;
+            } else {
+                String statusId = productPriceCond.getString("condValue");
+                List<GenericValue> partyStatusList = delegator.findByAndCache("PartyStatus", UtilMisc.toMap("partyId", partyId, "statusId", statusId));
+                // then 0 (equals), otherwise 1 (not equals)
+                if (UtilValidate.isNotEmpty(partyStatusList)) {
+                    compare = 0;
+                } else {
+                    compare = 1;
+                }
+            }
+        } else if ("PRIP_ROLE_TYPE".equals(productPriceCond.getString("inputParamEnumId"))) {
+            if (UtilValidate.isEmpty(partyId)) {
+                compare = 1;
+            } else {
+                String roleTypeId = productPriceCond.getString("condValue");
+                List<GenericValue> partyRoleList = delegator.findByAndCache("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId));
+                // then 0 (equals), otherwise 1 (not equals)
+                if (UtilValidate.isNotEmpty(partyRoleList)) {
+                    compare = 0;
+                } else {
+                    compare = 1;
+                }
+            }            
+        } else if ("PRIP_CONTACT_TYPE".equals(productPriceCond.getString("inputParamEnumId"))) {
+            if (UtilValidate.isEmpty(partyId)) {
+                compare = 1;
+            } else {
+                String contactTypeId = productPriceCond.getString("condValue");
+                // find Contacts
+                List<GenericValue> contactList = delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyRelationshipTypeId", "CONTACT_REL", "partyIdFrom", partyId));
+                // then 0 (equals), otherwise 1 (not equals)
+                compare = 1;
+                for (GenericValue contact : contactList) {
+                    if (delegator.findByAndCache("Person", UtilMisc.toMap("partyId", contact.get("partyIdTo"), "contactTypeId", contactTypeId)).size() > 0) {
+                        compare = 0;
+                        break;
+            }
+                }
+            }            
         } else {
             Debug.logWarning("An un-supported productPriceCond input parameter (lhs) was used: " + productPriceCond.getString("inputParamEnumId") + ", returning false, ie check failed", module);
             return false;
