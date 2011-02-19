@@ -136,7 +136,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectMultipleRelatedValues.js" global="true"/>
 
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
-                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="VINOPS" global="true"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
                     <field-map field-name="themeResources" from-field="layoutSettings"/>
