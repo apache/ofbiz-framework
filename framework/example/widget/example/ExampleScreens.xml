@@ -39,7 +39,7 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <container style="button-bar"><link target="EditExample" link-type="ajax-window" height="350" width="480" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/></container>
+                                        <container style="button-bar"><link target="EditExampleLayer" link-type="ajax-window" height="350" width="480" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindExamples" location="component://example/widget/example/ExampleForms.xml"/>
@@ -59,7 +59,7 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditExample">
+    <screen name="EditExampleLayer">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditExample"/>
@@ -69,6 +69,24 @@ under the License.
             </actions>
             <widgets>
                 <include-form name="EditExample" location="component://example/widget/example/ExampleForms.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditExample">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditExample"/>
+                <set field="tabButtonItem" value="EditExample"/>
+                <set field="exampleId" from-field="parameters.exampleId"/>
+                <entity-one entity-name="Example" value-field="example"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="EditExample" location="component://example/widget/example/ExampleForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
