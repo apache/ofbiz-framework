@@ -39,9 +39,4 @@ var DropDownMenu = (
   }
 );
 
-jQuery("document").ready(function(){
-    var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
-    var appmenu = new DropDownMenu(jQuery('#app-navigation'));
-});
-
 
