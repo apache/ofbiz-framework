@@ -50,7 +50,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <connection-factory class="org.ofbiz.entity.connection.DBCPConnectionFactory"/>
 
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
-        <group-map group-name="org.ofbiz" datasource-name="localmysql"/>
+        <group-map group-name="org.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
         <group-map group-name="org.ofbiz.tenant" datasource-name="localderbytenant"/>
         <!-- <group-map group-name="org.ofbiz" datasource-name="localmysql"/>
