@@ -38,14 +38,14 @@ under the License.
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
         <property name="host" value="0.0.0.0"/>
-        <property name="port" value="41099"/>
+        <property name="port" value="1099"/>
     </container>
 
     <!-- RMI Service Dispatcher -->
     <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
         <property name="bound-host" value="127.0.0.1"/>
-        <property name="bound-port" value="41099"/>
+        <property name="bound-port" value="1099"/>
         <property name="delegator-name" value="default"/>
         <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
         <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
@@ -159,7 +159,7 @@ under the License.
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="200"/>
             <property name="minSpareThreads" value="4"/>
-            <property name="port" value="48009"/>
+            <property name="port" value="8009"/>
             <property name="tcpNoDelay" value="true"/>
             <property name="soTimeout" value="60000"/>
             <property name="tomcatAuthentication" value="true"/>
@@ -194,7 +194,7 @@ under the License.
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
-            <property name="port" value="48080"/>
+            <property name="port" value="8080"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
             <property name="socketBuffer" value="9000"/>
@@ -232,7 +232,7 @@ under the License.
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
             <property name="noCompressionUserAgents" value=""/>
-            <property name="port" value="48443"/>
+            <property name="port" value="8443"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
             <property name="socketBuffer" value="9000"/>
