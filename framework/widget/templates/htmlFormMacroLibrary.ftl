@@ -60,7 +60,8 @@ under the License.
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
     /><#t/>
     <#if ajaxEnabled?has_content && ajaxEnabled>
-        <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false);</script><#lt/>
+        <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>
+        <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength});</script><#lt/>
     </#if>
 </#macro>
 
@@ -474,13 +475,15 @@ ${item.description}</span>
 </#macro>
 
 <#macro renderLookupField className alert name value size maxlength id event action disabled autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed>
-<script type="text/javascript">
-jQuery(document).ready(function(){
-    if (!jQuery('form[name="${formName}"]').length) {
-        alert("Developer: for lookups to work you must provide a form name!")
-    }
-});
-</script>
+<#if ajaxEnabled?has_content && ajaxEnabled>
+    <script type="text/javascript">
+    jQuery(document).ready(function(){
+        if (!jQuery('form[name="${formName}"]').length) {
+            alert("Developer: for lookups to work you must provide a form name!")
+        }
+    });
+    </script>
+</#if>
 <span class="field-lookup">
 <#if size?has_content && size=="0"><input type="hidden" <#if name?has_content> name="${name}"/></#if><#else><input type="text" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#rt/><#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/><#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/></#if>
 <#if presentation?has_content && descriptionFieldName?has_content && presentation == "window">
@@ -501,6 +504,7 @@ jQuery(document).ready(function(){
     );"></a><#rt>
 <#else>
     <#if ajaxEnabled?has_content && ajaxEnabled>
+      <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>
       <#if parameters?has_content && parameters._LAST_VIEW_NAME_?has_content>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + parameters._LAST_VIEW_NAME_ />
       <#else>
@@ -516,7 +520,7 @@ jQuery(document).ready(function(){
     </#if>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, '${presentation!}'<#rt/>
+            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", "${showDescription}"<#else>"", ""</#if>, "${presentation!}", "${defaultMinLength}"<#rt/>
     <#if targetParameterIter?has_content>
       <#assign isFirst = true>
       <#lt/>, [<#rt/>
@@ -542,7 +546,7 @@ jQuery(document).ready(function(){
       <#elseif ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=main"/>
       </#if>      
-    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription});</script><#t/>
+    <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription}, ${defaultMinLength});</script><#t/>
 </#if>
 </#macro>
 
