@@ -195,7 +195,9 @@ under the License.
     </eca>
     <eca service="updateReturnHeader" event="return">
         <condition field-name="statusId" operator="equals" value="RETURN_ACCEPTED"/>
-        <condition field-name="needsInventoryReceive" operator="equals" value="Y"/>
+        <!-- The quickReceiveReturn service checks this, and some status update calls may not pass it in, so don't
+             check it here or the option may be ignored.
+         <condition field-name="needsInventoryReceive" operator="equals" value="Y"/> -->
         <action service="quickReceiveReturn" mode="sync"/>
     </eca>
     <eca service="updateReturnHeader" event="commit">

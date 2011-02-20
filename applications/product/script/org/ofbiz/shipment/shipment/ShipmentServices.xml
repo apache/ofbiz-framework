@@ -303,7 +303,7 @@ under the License.
         <!-- later different behavior for customer vs. returns would happen here -->
         <if>
             <condition>
-                <if-compare value="CUSTOMER_RETURN" field="returnHeader.returnHeaderTypeId" operator="equals"/>
+                <if-compare field="returnHeader.returnHeaderTypeId" operator="contains" value="CUSTOMER_"/>
             </condition>
             <then>
                 <set field="shipmentCtx.shipmentTypeId" value="SALES_RETURN"/>
@@ -311,7 +311,7 @@ under the License.
             </then>
         <else-if>
             <condition>
-                <if-compare value="VENDOR_RETURN" field="returnHeader.returnHeaderTypeId" operator="equals"/>
+                <if-compare field="returnHeader.returnHeaderTypeId" operator="equals" value="VENDOR_RETURN"/>
             </condition>
             <then>
                 <set field="shipmentCtx.shipmentTypeId" value="PURCHASE_RETURN"/>
