@@ -69,7 +69,7 @@ under the License.
 </#macro>
 
     <#if returnHeader?has_content>
-      <#if returnHeader.destinationFacilityId?has_content && returnHeader.statusId == "RETURN_ACCEPTED" && returnHeader.returnHeaderTypeId == "CUSTOMER_RETURN">
+      <#if returnHeader.destinationFacilityId?has_content && returnHeader.statusId == "RETURN_ACCEPTED" && returnHeader.returnHeaderTypeId?starts_with("CUSTOMER_")>
         <#list returnShipmentIds as returnShipmentId>
           <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
           <a href="/facility/control/ReceiveReturn?facilityId=${returnHeader.destinationFacilityId}&amp;returnId=${returnHeader.returnId?if_exists}&amp;shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.OrderReceiveReturn}</a>
@@ -98,11 +98,7 @@ under the License.
           <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
           <input type="hidden" name="_useRowSubmit" value="Y" />
         <table cellspacing="0" class="basic-table">
-          <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
-            <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED")>
-          <#else>
-            <#assign readOnly = (returnHeader.statusId != "SUP_RETURN_REQUESTED")>
-          </#if>
+          <#assign readOnly = (returnHeader.statusId != "RETURN_REQUESTED" && returnHeader.statusId != "SUP_RETURN_REQUESTED")>
           <tr><td colspan="10"><h3>${uiLabelMap.OrderOrderReturn} #${returnId}</h3></td></tr>
 
           <#-- information about orders and amount refunded/credited on past returns -->
@@ -336,13 +332,14 @@ under the License.
         <#if (returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED") && (rowCount > 0)>
         <br />
         <form name="acceptReturn" method="post" action="<@ofbizUrl>/updateReturn</@ofbizUrl>">
-          <#if "CUSTOMER_RETURN" == returnHeader.returnHeaderTypeId>
+          <#if returnHeader.returnHeaderTypeId?starts_with("CUSTOMER_")>
             <#assign statusId = "RETURN_ACCEPTED">
           <#else>
             <#assign statusId = "SUP_RETURN_ACCEPTED">
           </#if>
           <input type="hidden" name="returnId" value="${returnId}" />
           <input type="hidden" name="statusId" value="${statusId}" />
+          <input type="hidden" name="needsInventoryReceive" value="${returnHeader.needsInventoryReceive!"N"}" />
           <div align="right"><input type="submit" value="${uiLabelMap.OrderReturnAccept}" /></div>
         </form>
         </#if>

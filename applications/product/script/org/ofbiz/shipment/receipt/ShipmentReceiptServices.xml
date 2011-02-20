@@ -330,12 +330,12 @@ under the License.
                 <set field="returnHeader.needsInventoryReceive" value="N"/>
                 <store-value value-field="returnHeader"/>
 
-                <!-- check if we need to manually update the status -->
-                <if-compare-field field="nonProductItems" to-field="returnItemCount" operator="equals" type="Long">
+                <!-- always check/update the ReturnHeader status, even though it might have been from the receiving above, just make sure -->
+                <if-compare field="returnHeader.statusId" operator="not-equals" value="RETURN_RECEIVED">
                     <set field="retStCtx.returnId" from-field="returnHeader.returnId"/>
                     <set field="retStCtx.statusId" value="RETURN_RECEIVED"/>
                     <call-service service-name="updateReturnHeader" in-map-name="retStCtx"/>
-                </if-compare-field>
+                </if-compare>
             <else>
                 <log level="info" message="Not receiving inventory for returnId ${returnHeader.returnId}, no inventory information available."/>
             </else>
