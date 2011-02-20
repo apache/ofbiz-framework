@@ -2134,7 +2134,7 @@ height:22px;
 /* From http://jqueryui.com/demos/autocomplete/maxheight.html */
 /* When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large */
 .ui-autocomplete {
-    max-height: 100px;
+    max-height: 250px;
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
@@ -2145,5 +2145,5 @@ height:22px;
  * we use height instead, but this forces the menu to always be this tall
  */
 * html .ui-autocomplete {
-    height: 100px;
+    height: 250px;
 }
