@@ -180,7 +180,7 @@ function initiallyCollapseDelayed() {
 /*************************************
 * Fieldlookup Class & Methods
 *************************************/
-function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation, args) {
+function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation, defaultMinLength, args) {
     
     // add the presentation attribute to the request url to let the request know which decorator should be loaded
     if(!presentation) {
@@ -213,7 +213,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
          SHOW_DESCRIPTION = showDescription;
         //write the new input box id in the ajaxUrl Array
         ajaxUrl = ajaxUrl.replace(ajaxUrl.substring(0, ajaxUrl.indexOf(",")), newInputBoxId);
-        new ajaxAutoCompleter(ajaxUrl, showDescription, formName);
+        new ajaxAutoCompleter(ajaxUrl, showDescription, defaultMinLength, formName);
     }
     
     var positioning = null;
@@ -763,7 +763,7 @@ lookupDescriptionLoaded.prototype.update = function (){
     data: this.allParams,
     async: false,
     success: function(result){
-      // This would be far more reliable if we would remove the widget boundaries in LookupDecorator using widgetVerbose in context :/
+      // This would be far more reliable if we were removing the widget boundaries in LookupDecorator using widgetVerbose in context :/
       if (result.split("ajaxAutocompleteOptions.ftl -->")[1]) {
         setLookDescription(_fieldId, result.split("ajaxAutocompleteOptions.ftl -->")[1].trim().split("<!--")[0].trim(), "", "");
       }
