@@ -86,6 +86,7 @@ public class LayoutWorker {
             String fieldStr = fi.getString();
             if (fi.isFormField()) {
                 formInput.put(fieldName, fieldStr);
+                request.setAttribute(fieldName, fieldStr);
             //Debug.logVerbose("in uploadAndStoreImage, fieldName:" + fieldName + " fieldStr:" + fieldStr, "");
             }
             if (fieldName.equals(uploadField)) {
