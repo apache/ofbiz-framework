@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
@@ -134,6 +136,130 @@ public class UtilProperties implements Serializable {
 
     public static double getPropertyNumber(String resource, String name) {
         return getPropertyNumber(resource, name, 0.00000);
+    }
+
+    /**
+     * Returns the Number as a Number-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultObject is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Number to return if the property is not found.
+     * @param type A String of the the Object the Number is converted to (like "Integer").
+     * @return A Number-Object of the property as the defined type; or if not found the defaultObject
+     */
+    private static Number getPropertyNumber(String resource, String name, Number defaultNumber, String type) {
+        String str = getPropertyValue(resource, name);
+        if (UtilValidate.isEmpty(str)) {
+            Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", module);
+            return defaultNumber;
+        } else
+            try {
+                return (Number)(ObjectType.simpleTypeConvert(str, type, null, null));
+            } catch (GeneralException e) {
+                Debug.logWarning("Error converting String \"" + str + "\" to " + type + "; using defaultNumber " + defaultNumber + ".", module);
+            }
+            return defaultNumber;
+    }
+
+    /**
+     * Returns a Boolean-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultValue is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultValue Optional: The Value to return if the property is not found or not the correct format.
+     * @return A Boolean-Object of the property; or if not found the defaultValue
+     */
+    public static Boolean getPropertyAsBoolean(String resource, String name, boolean defaultValue) {
+        String str = getPropertyValue(resource, name);
+        if ("true".equalsIgnoreCase(str)) return Boolean.TRUE;
+        else if ("false".equalsIgnoreCase(str)) return Boolean.FALSE;
+        else return defaultValue;
+    }
+
+    /**
+     * Returns an Integer-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultNumber is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Value to return if the property is not found.
+     * @return An Integer-Object of the property; or if not found the defaultNumber
+     */
+    public static Integer getPropertyAsInteger(String resource, String name, int defaultNumber) {
+        return (Integer)getPropertyNumber(resource, name, defaultNumber, "Integer");
+    }
+
+    /**
+     * Returns a Long-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultNumber is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Value to return if the property is not found.
+     * @return A Long-Object of the property; or if not found the defaultNumber
+     */
+    public static Long getPropertyAsLong(String resource, String name, long defaultNumber) {
+        return (Long)getPropertyNumber(resource, name, defaultNumber, "Long");
+    }
+
+    /**
+     * Returns a Float-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultNumber is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Value to return if the property is not found.
+     * @return A Long-Object of the property; or if not found the defaultNumber
+     */
+    public static Float getPropertyAsFloat(String resource, String name, float defaultNumber) {
+        return (Float)getPropertyNumber(resource, name, defaultNumber, "Float");
+    }
+
+    /**
+     * Returns a Double-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultNumber is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Value to return if the property is not found.
+     * @return A Double-Object of the property; or if not found the defaultNumber
+     */
+    public static Double getPropertyAsDouble(String resource, String name, double defaultNumber) {
+        return (Double)getPropertyNumber(resource, name, defaultNumber, "Double");
+    }
+
+    /**
+     * Returns a BigInteger-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultNumber is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Value to return if the property is not found.
+     * @return A BigInteger-Object of the property; or if not found the defaultNumber
+     */
+    public static BigInteger getPropertyAsBigInteger(String resource, String name, BigInteger defaultNumber) {
+        String strValue = getPropertyValue(resource, name);
+        BigInteger result = defaultNumber;
+        try {
+            result = new BigInteger(strValue);
+        } catch (NumberFormatException nfe) {
+            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigInteger; using defaultNumber " + defaultNumber.toString() + ".", module);
+        }
+        return result;
+    }
+
+    /**
+     * Returns a BigDecimal-Object of the specified property name from the specified resource/properties file.
+     * If the specified property name or properties file is not found, the defaultNumber is returned.
+     * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
+     * @param name The name of the property in the properties file
+     * @param defaultNumber Optional: The Value to return if the property is not found.
+     * @return A BigDecimal-Object of the property; or if not found the defaultNumber
+     */
+    public static BigDecimal getPropertyAsBigDecimal(String resource, String name, BigDecimal defaultNumber) {
+        String strValue = getPropertyValue(resource, name);
+        BigDecimal result = defaultNumber;
+        try {
+            result = new BigDecimal(strValue);
+        } catch (NumberFormatException nfe) {
+            Debug.logWarning("Couldnt convert String \"" + strValue + "\" to BigDecimal; using defaultNumber " + defaultNumber.toString() + ".", module);
+        }
+        return result;
     }
 
     /** Returns the value of the specified property name from the specified resource/properties file
