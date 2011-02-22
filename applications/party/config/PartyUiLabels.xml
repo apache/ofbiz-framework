@@ -2112,6 +2112,7 @@
     </property>
     <property key="PageTitleListLoggedInUsers">
         <value xml:lang="en">Logged-in Users List</value>
+        <value xml:lang="fr">Liste des utilisateurs connectés</value>
         <value xml:lang="it">Lista utenti loggati</value>
     </property>
     <property key="PageTitleListPartyIdentifications">
@@ -6545,6 +6546,7 @@
     </property>
     <property key="PartyLoggedInUsers">
         <value xml:lang="en">Logged-in Users</value>
+        <value xml:lang="fr">Utilisateurs connectés</value>
         <value xml:lang="it">Utenti loggati</value>
     </property>
     <property key="PartyLookupAccount">

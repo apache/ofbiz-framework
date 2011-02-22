@@ -105,7 +105,7 @@
     </property>
     <property key="ExampleDashboard">
         <value xml:lang="en">Dashboard</value>
-        <value xml:lang="fr">Tableau de bord</value>
+        <value xml:lang="fr">Personnalisation des pages</value>
         <value xml:lang="it">Cruscotto</value>
         <value xml:lang="zh">个人主页</value>
     </property>
