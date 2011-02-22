@@ -10813,6 +10813,7 @@
     </property>
     <property key="ProductCompareProducts">
         <value xml:lang="en">Compare Products</value>
+        <value xml:lang="fr">Comparaison de produits</value>
         <value xml:lang="it">Confronta prodotti</value>
         <value xml:lang="nl">Vergelijken producten</value>
     </property>
@@ -16975,6 +16976,7 @@
     </property>
     <property key="ProductNoProductsToCompare">
         <value xml:lang="en">You have no products to compare.</value>
+        <value xml:lang="fr">Vous n'avez pas de produit à comparer.</value>
         <value xml:lang="it">Non c'è nessun prodotto da confrontare.</value>
         <value xml:lang="nl">Er zijn geen producten om te vergelijken.</value>
         <value xml:lang="zh_TW">你沒有產品可進行比較。</value>
