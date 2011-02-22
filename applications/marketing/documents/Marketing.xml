@@ -23,7 +23,8 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
 
-    <title>The Marketing Application.</title>
+      
+    <title><anchor xml:id="TheMarketingApplication"/>The Marketing Application.</title>
 
     <para>
         The marketing application is supporting you to create, select and follow sales opportunities
