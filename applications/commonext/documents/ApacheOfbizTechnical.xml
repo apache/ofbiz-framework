@@ -317,7 +317,7 @@ image=/boot/vmlinuzNew
         </section>
     </section>
     <section>
-        <title><anchor id="helpInternationalization"/>Internationalization of the help system</title>
+        <title><anchor xml:id="helpInternationalization"/>Internationalization of the help system</title>
         <para>
             Because the help system is making use of the content component, internationalization of the help files is very easy because 
             it is a basic function of the content component. If you want to make a translation of an existing help file, make a copy in the same directory 
