@@ -1461,6 +1461,7 @@
     </property>
     <property key="OrderAddGiftCertificate">
         <value xml:lang="en">Add Gift Certificate</value>
+        <value xml:lang="fr">Ajouter carte cadeau</value>
         <value xml:lang="nl">Toevoegen cadeaubon</value>
         <value xml:lang="pt_BR">Adicionar certificado de presente</value>
         <value xml:lang="zh_TW">增加禮券</value>
