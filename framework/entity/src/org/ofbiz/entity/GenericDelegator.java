@@ -887,7 +887,7 @@ public class GenericDelegator implements Delegator {
             return value;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in create operation for entity [" + value.getEntityName() + "]: " + e.toString() + ". Rolling back transaction.";
-            Debug.logError(e, errMsg, module);
+            Debug.logError(errMsg, module);
             try {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, errMsg, e);
