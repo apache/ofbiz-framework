@@ -1503,7 +1503,7 @@ under the License.
       <relation type="one" fk-name="PROD_FEAT_TYPE" rel-entity-name="ProductFeatureType">
         <key-map field-name="productFeatureTypeId"/>
       </relation>
-      <relation rel-entity-name="Uom" type="one">
+      <relation type="one" fk-name="PROD_FEAT_UOM" rel-entity-name="Uom">
           <key-map field-name="uomId"/>
       </relation>
     </entity>

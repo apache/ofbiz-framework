@@ -2350,7 +2350,7 @@ under the License.
         <relation type="one" fk-name="ACTGPREF_ODRCM" title="Order" rel-entity-name="CustomMethod">
             <key-map field-name="orderSeqCustMethId" rel-field-name="customMethodId"/>
         </relation>
-        <relation type="one" rel-entity-name="PaymentMethod">
+        <relation type="one" fk-name="ACTGPREF_PAYMTH" rel-entity-name="PaymentMethod">
             <key-map field-name="refundPaymentMethodId" rel-field-name="paymentMethodId"/>
         </relation>
         <relation type="one" fk-name="ACTGPREF_GLJRNL" rel-entity-name="GlJournal">

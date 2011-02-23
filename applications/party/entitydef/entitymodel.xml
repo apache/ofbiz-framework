@@ -139,7 +139,7 @@ under the License.
       <relation type="one" fk-name="AGRMNT_GEOAP_AGR" rel-entity-name="Agreement">
         <key-map field-name="agreementId"/>
       </relation>
-      <relation type="one" rel-entity-name="AgreementItem">
+      <relation type="one" fk-name="AGRMNT_GEOAP_AGRI" rel-entity-name="AgreementItem">
         <key-map field-name="agreementId"/>
         <key-map field-name="agreementItemSeqId"/>
       </relation>
@@ -2041,7 +2041,7 @@ under the License.
         <relation type="one" fk-name="PTYINV_PTY" rel-entity-name="Party">
             <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
         </relation>
-        <relation type="one" rel-entity-name="StatusItem">
+        <relation type="one" fk-name="PTYINV_STTS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
         </relation>
     </entity>
@@ -2052,13 +2052,13 @@ under the License.
         <field name="partyIdTo" type="id-ne"></field>
         <prim-key field="partyInvitationId"/>
         <prim-key field="partyIdTo"/>
-        <relation type="one" title="To" rel-entity-name="PartyGroup">
+        <relation type="one" fk-name="PTYINVGA_PTYGRP" title="To" rel-entity-name="PartyGroup">
             <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         </relation>
-        <relation type="one" title="To" rel-entity-name="Party">
+        <relation type="one" fk-name="PTYINVGA_PTYTO" title="To" rel-entity-name="Party">
             <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         </relation>
-        <relation type="one" rel-entity-name="PartyInvitation">
+        <relation type="one" fk-name="PTYINVGA_PTYINV" rel-entity-name="PartyInvitation">
             <key-map field-name="partyInvitationId"/>
         </relation>
     </entity>
@@ -2069,10 +2069,10 @@ under the License.
         <field name="roleTypeId" type="id-ne"></field>
         <prim-key field="partyInvitationId"/>
         <prim-key field="roleTypeId"/>
-        <relation type="one" rel-entity-name="RoleType">
+        <relation type="one" fk-name="PTYINVROLE_ROLET" rel-entity-name="RoleType">
             <key-map field-name="roleTypeId"/>
         </relation>
-        <relation type="one" rel-entity-name="PartyInvitation" fk-name="PTYINVROLE_PTYINV">
+        <relation type="one" fk-name="PTYINVROLE_PTYINV" rel-entity-name="PartyInvitation">
             <key-map field-name="partyInvitationId"/>
         </relation>
     </entity>

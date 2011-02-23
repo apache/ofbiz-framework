@@ -603,7 +603,7 @@ under the License.
       <relation type="one" fk-name="SHPMNT_PRTNHDR" title="Primary" rel-entity-name="ReturnHeader">
         <key-map field-name="primaryReturnId" rel-field-name="returnId"/>
       </relation>
-      <relation type="one" rel-entity-name="PicklistBin">
+      <relation type="one" fk-name="SHPMNT_PKLSTBIN" rel-entity-name="PicklistBin">
           <key-map field-name="picklistBinId"/>
       </relation>
       <relation type="one-nofk" title="Primary" rel-entity-name="OrderItemShipGroup">
