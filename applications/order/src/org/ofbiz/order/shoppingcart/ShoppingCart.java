@@ -2782,9 +2782,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         return addOrderTerm(orderTerm);
     }
     
-    public int addOrderTerm(String termTypeId, BigDecimal termValue, Long termDays, String textValue, String description) {
+    public int addOrderTerm(String termTypeId, String orderItemSeqId,BigDecimal termValue, Long termDays, String textValue, String description) {
         GenericValue orderTerm = this.getDelegator().makeValue("OrderTerm");
         orderTerm.put("termTypeId", termTypeId);
+        if (UtilValidate.isEmpty(orderItemSeqId)) {
+        	orderItemSeqId = "_NA_";
+        }
+        orderTerm.put("orderItemSeqId", orderItemSeqId);
         orderTerm.put("termValue", termValue);
         orderTerm.put("termDays", termDays);
         orderTerm.put("textValue", textValue);

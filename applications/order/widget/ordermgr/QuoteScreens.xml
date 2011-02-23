@@ -347,12 +347,19 @@ under the License.
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.OrderOrderQuoteEditItems}" >
                                 <include-form name="EditQuoteItem" location="component://order/widget/ordermgr/QuoteForms.xml"/>
-                                </screenlet>
+                            </screenlet>
                         </container>
                         <container style="righthalf">
-                            <screenlet title="${uiLabelMap.OrderOrderQuoteTermList}">
-                                <include-form name="ListQuoteTermItem" location="component://order/widget/ordermgr/QuoteForms.xml"/>
-                            </screenlet>
+                            <section>
+                                <condition>
+                                    <not><if-empty field="quoteItemSeqId"/></not>
+                                </condition>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.OrderOrderQuoteTermList}">
+                                        <include-form name="ListQuoteTermItem" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -637,9 +644,8 @@ under the License.
             <widgets>
                 <label text="${note}" style="tabletext"/>
                 <include-screen name="ViewQuoteInfo"/>
-                <container style="leftclear">
+                <container style="clear"/>
                     <include-screen name="ViewQuoteItemInfo"/>
-                </container>
             </widgets>
             <fail-widgets>
                 <label style="h3">${uiLabelMap.OrderNoQuoteFound}</label>
@@ -648,6 +654,12 @@ under the License.
     </screen>
     <screen name="ViewQuoteInfo">
         <section>
+            <actions>
+                <entity-and entity-name="QuoteTerm" list="quoteTerms">
+                    <field-map field-name="quoteId"  from-field="parameters.quoteId"/>
+                    <field-map field-name="quoteItemSeqId" value="_NA_"/>
+                </entity-and>
+            </actions>
             <widgets>
                 <container style="lefthalf">
                     <include-screen name="quoteInfo"/>
@@ -655,6 +667,7 @@ under the License.
                 <container style="righthalf">
                     <include-screen name="quoteDate"/>
                     <include-screen name="quoteRoles"/>
+                    <include-screen name="ListQuoteInfo"/>
                 </container>
             </widgets>
         </section>
@@ -665,6 +678,18 @@ under the License.
                 <platform-specific>
                     <html><html-template location="component://order/webapp/ordermgr/quote/quoteInfo.ftl"/></html>
                 </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListQuoteInfo">
+        <section>
+            <condition>
+                <not><if-empty field="quoteTerms"/></not>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.OrderOrderQuoteTermList}">
+                    <include-form name="ListQuoteInfo" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
