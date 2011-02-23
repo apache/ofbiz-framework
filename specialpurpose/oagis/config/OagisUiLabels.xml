@@ -258,7 +258,7 @@
     </property>
     <property key="OagisErrorProcessingSyncInventory">
         <value xml:lang="en">System Error processing Sync Inventory message: ${errorString}</value>
-        <value xml:lang="it">Errore di sistema processando il messaggio di Sync Inventory message: ${errorString}/value>
+        <value xml:lang="it">Errore di sistema processando il messaggio di Sync Inventory message: ${errorString}</value>
     </property>
     <property key="OagisErrorReceivingDeliveryMessageReturn">
         <value xml:lang="en">System Error doing Receive Delivery message for returnId ${returnId} orderId ${orderId} message ${omiPkMap}: </value>
