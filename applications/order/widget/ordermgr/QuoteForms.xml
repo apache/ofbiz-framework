@@ -500,6 +500,10 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <form name="ListQuoteInfo" extends="ListQuoteTerms">
+        <field name="editLink"><hidden/></field>
+        <field name="deleteLink"><hidden/></field>
+    </form>
     <form name="EditQuoteTerm" type="single" target="updateQuoteTerm" title="" default-map-name="quoteTerm"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -511,9 +515,9 @@ under the License.
         <alt-target use-when="quoteTerm==null" target="createQuoteTerm"/>
         <auto-fields-entity entity-name="QuoteTerm" default-field-type="edit"/>
         <field name="tabButtonItems"><hidden value="${tabButtonItem}"/></field>
-        <field name="quoteItemSeqId" tooltip="${uiLabelMap.CommonRequired}">
-            <drop-down>
-                <entity-options description="${quoteItemSeqId} - [${productId}]" entity-name="QuoteItem">
+        <field name="quoteItemSeqId" tooltip="${uiLabelMap.QuoteEmpty}">
+            <drop-down allow-empty="true">
+                <entity-options description="${quoteItemSeqId}" entity-name="QuoteItem">
                     <entity-constraint name="quoteId" operator="equals" value="${quoteId}"/>
                     <entity-order-by field-name="quoteItemSeqId"/>
                 </entity-options>

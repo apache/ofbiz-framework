@@ -1098,6 +1098,7 @@ under the License.
         </description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="quoteItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
         location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="updateQuoteTerm">

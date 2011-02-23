@@ -273,7 +273,6 @@ under the License.
         </response>
         <response name="error" type="request-redirect" value="EditQuoteTerm">
             <redirect-parameter name="quoteId"/>
-            <redirect-parameter name="quoteItemSeqId"/>
         </response>
     </request-map>
     <request-map uri="createQuoteTermFromItem">

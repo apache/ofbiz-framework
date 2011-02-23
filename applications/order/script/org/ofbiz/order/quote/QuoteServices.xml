@@ -36,6 +36,7 @@ under the License.
                <property-to-field field="errorPartyPerf" resource="AccountingErrorUiLabels" property="AccountingPartyAcctgPreferenceNotDefine"/>
                <log level="warning" message="errorPartyPerf" />
            </else>
+           
         </if-not-empty>
 
         <if-not-empty field="customMethod">
@@ -402,6 +403,13 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/>
         </check-permission>
         <check-errors/>
+        <entity-and list="quoteTermList" entity-name="QuoteTerm">
+            <field-map field-name="quoteId" from-field="parameters.quoteId"/>
+            <field-map field-name="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
+        </entity-and>
+        <if-not-empty field="quoteTermList">
+            <remove-list list="quoteTermList"/>
+        </if-not-empty>
         <entity-one entity-name="QuoteItem" value-field="quoteItem" auto-field-map="true"/>
         <remove-related value-field="quoteItem" relation-name="QuoteAdjustment"/>
         <check-errors/>
@@ -945,6 +953,9 @@ under the License.
     </simple-method>
     <simple-method method-name="createQuoteTerm" short-description="Create a QuoteTerm">
         <make-value value-field="newEntity" entity-name="QuoteTerm"/>
+        <if-empty field="parameters.quoteItemSeqId">
+            <set field="parameters.quoteItemSeqId" value="_NA_"/>
+        </if-empty>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

@@ -12710,6 +12710,9 @@
         <value xml:lang="zh">项目名称</value>
         <value xml:lang="zh_TW">專案名稱</value>
     </property>
+    <property key="QuoteEmpty">
+        <value xml:lang="en">Empty for total quote</value>
+    </property>
     <property key="QuoteTermDescription">
         <value xml:lang="en">Term Description</value>
     </property>
