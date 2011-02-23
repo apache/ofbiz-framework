@@ -882,13 +882,13 @@ under the License.
       <prim-key field="workEffortId"/>
       <prim-key field="surveyId"/>
       <prim-key field="fromDate"/>
-      <relation type="one" rel-entity-name="Survey">
+      <relation type="one" fk-name="WKEF_SURVAPL_SVY" rel-entity-name="Survey">
         <key-map field-name="surveyId"/>
       </relation>
-      <relation type="one" rel-entity-name="WorkEffort">
+      <relation type="one" fk-name="WKEF_SURVAPL_WKE" rel-entity-name="WorkEffort">
         <key-map field-name="workEffortId"/>
       </relation>
-      <relation type="one" rel-entity-name="ProductStoreSurveyAppl">
+      <relation type="one" fk-name="WKEF_SURVAPL_PSSA" rel-entity-name="ProductStoreSurveyAppl">
         <key-map field-name="surveyId" rel-field-name="productStoreSurveyId"/>
       </relation>
     </entity>
