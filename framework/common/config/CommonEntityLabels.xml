@@ -2023,10 +2023,6 @@
         <value xml:lang="zh">告诉朋友</value>
         <value xml:lang="zh_TW">告訴朋友</value>
     </property>
-    <property key="Enumeration.description.PRDS_ODR_SHIP_COMPLT">
-        <value xml:lang="en">Shipment Complete</value>
-        <value xml:lang="it">Spedizione completata</value>
-    </property>
     <property key="Enumeration.description.PRIP_CURRENCY_UOMID">
         <value xml:lang="de">Währung UomId</value>
         <value xml:lang="en">Currency UomId</value>

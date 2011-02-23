@@ -33,12 +33,18 @@
     </property>
     <property key="CatalogWebAnalytics">
         <value xml:lang="en">Web Analytics</value>
+        <value xml:lang="it">Analisi Web</value>
+        <value xml:lang="zh_TW">網站分析</value>
     </property>
     <property key="CatalogWebAnalyticsConfigs">
         <value xml:lang="en">Web Analytics Configuration</value>
+        <value xml:lang="it">Configurazione analisi Web</value>
+        <value xml:lang="zh_TW">網站分析配置</value>
     </property>
     <property key="CatalogWebAnalyticsTypes">
         <value xml:lang="en">Web Analytics Types</value>
+        <value xml:lang="it">Tipi di analisi Web</value>
+        <value xml:lang="zh_TW">網站分析型態</value>
     </property>
     <property key="ChooseImageToReplace">
         <value xml:lang="en">Choose Image to Replace</value>
@@ -425,10 +431,6 @@
         <value xml:lang="en">Error reading or writing Shipment data for DHL Shipment Confirm: ${errorString}</value>
         <value xml:lang="it">Errore leggendo o scrivendo i dati per la conferma spedizione DHL: ${errorString}</value>
     </property>
-    <property key="FacilityShipmentFedexRateTemplateReadingError">
-        <value xml:lang="en">Error reading or writing Shipment data for DHL Shipment Confirm: ${errorString}</value>
-        <value xml:lang="it">Errore leggendo o scrivendo i dati per la conferma spedizione DHL: ${errorString}</value>
-    </property>
     <property key="FacilityShipmentFedexShipmentConfirmResponse">
         <value xml:lang="en">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
         <value xml:lang="it">A ShipmentConfirmRespose was received: ${shipmentConfirmResponseString}</value>
@@ -753,10 +755,6 @@
         <value xml:lang="en">Can't find location for FDXShipRequest template - should be in ${templateLocation}</value>
         <value xml:lang="it">Non è possibile trovare il template per FDXShipRequest - dovrebbe essere in ${templateLocation}</value>
     </property>
-    <property key="FacilityShipmentFedexShipmentTemplateParsingError">
-        <value xml:lang="en">Error parsing the FDXShipReply</value>
-        <value xml:lang="it">Errore di parsing della risposta FDXShipReply</value>
-    </property>
     <property key="FacilityShipmentFedexShipmentTemplateSendingError">
         <value xml:lang="en">Error sending Fedex request for FDXShipRequest: ${errorString}</value>
         <value xml:lang="it">Errore durante l'invio della richiesta FDXShipRequest a Fedex: ${errorString}</value>
@@ -784,10 +782,6 @@
     <property key="FacilityShipmentFedexSubscriptionTemplateLocation">
         <value xml:lang="en">Subscription Template Location</value>
         <value xml:lang="it">Posizione template sottoscrizione</value>
-    </property>
-    <property key="FacilityShipmentFedexSubscriptionTemplateLocationNotFound">
-        <value xml:lang="en">Can't find location for FDXSubscriptionRequest template - should be in ${templateLocation}</value>
-        <value xml:lang="it">Non è possibile trovare il template per FDXSubscriptionRequest template - dovrebbe essere in ${templateLocation}</value>
     </property>
     <property key="FacilityShipmentFedexWeightOfPackageNotAvailable">
         <value xml:lang="en">Unable to determine weight for package ${shipmentPackageSeqId} of shipmentRouteSegment ${shipmentRouteSegmentId} of shipment ${shipmentId}</value>
@@ -24640,21 +24634,6 @@
         <value xml:lang="th">นี่คือสินค้าเกือบทั้งหมดและโดยทั่วไปควรจะไม่มีกลุ่มรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">这是一个虚拟产品，通常不应该把库存明细与它关联</value>
         <value xml:lang="zh_TW">此虛擬品通常不該有庫存項目的關聯。</value>
-    </property>
-    <property key="CatalogWebAnalytics">
-        <value xml:lang="en">Web Analytics</value>
-        <value xml:lang="it">Analisi Web</value>
-        <value xml:lang="zh_TW">網站分析</value>
-    </property>
-    <property key="CatalogWebAnalyticsConfigs">
-        <value xml:lang="en">Web Analytics Configuration</value>
-        <value xml:lang="it">Configurazione analisi Web</value>
-        <value xml:lang="zh_TW">網站分析配置</value>
-    </property>
-    <property key="CatalogWebAnalyticsTypes">
-        <value xml:lang="en">Web Analytics Types</value>
-        <value xml:lang="it">Tipi di analisi Web</value>
-        <value xml:lang="zh_TW">網站分析型態</value>
     </property>
     <property key="ProductWebSite">
         <value xml:lang="de">Webseite</value>
