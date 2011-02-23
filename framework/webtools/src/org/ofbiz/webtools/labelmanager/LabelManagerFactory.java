@@ -34,6 +34,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentConfig.ClasspathInfo;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
@@ -119,6 +120,7 @@ public class LabelManagerFactory {
             if (UtilValidate.isNotEmpty(fileName) && !fileName.equals(fileInfo.getFileName())) {
                 continue;
             }
+            Debug.logInfo("Current file : " + fileInfo.getFileName(), module);
             Document resourceDocument = UtilXml.readXmlDocument(fileInfo.file.toURI().toURL(), false);
             Element resourceElem = resourceDocument.getDocumentElement();
             String labelKeyComment = "";
