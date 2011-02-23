@@ -764,6 +764,7 @@
     </property>
     <property key="FormFieldTitle_quoteId">
         <value xml:lang="de">Offerte ID</value>
+        <value xml:lang="de_DE">Angebot ID</value>
         <value xml:lang="en">Quote Id</value>
         <value xml:lang="es">Código de presupuesto</value>
         <value xml:lang="fr">Réf. de devis</value>
@@ -2616,6 +2617,7 @@
     </property>
     <property key="OrderCopyQuote">
         <value xml:lang="de">Offerte kopieren</value>
+        <value xml:lang="de_DE">Angebot kopieren</value>
         <value xml:lang="en">Duplicate Quote</value>
         <value xml:lang="es">Duplicar presupuesto</value>
         <value xml:lang="fr">Duplication du devis</value>
@@ -2647,6 +2649,7 @@
     </property>
     <property key="OrderCreateCustRequestFromCart">
         <value xml:lang="de">Anfrage für Offerte erstellen</value>
+        <value xml:lang="de_DE">Angebotsanfrage erstellen</value>
         <value xml:lang="en">Create a Request For Quote</value>
         <value xml:lang="es">Solicitar cotización</value>
         <value xml:lang="fr">Créer une demande de devis</value>
@@ -2662,6 +2665,7 @@
     </property>
     <property key="OrderCreateCustRequestFromShoppingList">
         <value xml:lang="de">Anfrage für Offerte erstellen</value>
+        <value xml:lang="de_DE">Angebotsanfrage aus Einkaufsliste erstellen</value>
         <value xml:lang="en">Create a Request For Quote</value>
         <value xml:lang="es">Solicitar cotización</value>
         <value xml:lang="fr">Créer une demande de devis</value>
@@ -2712,6 +2716,7 @@
     </property>
     <property key="OrderCreateOrderQuote">
         <value xml:lang="de">Neue Offerte erstellen</value>
+        <value xml:lang="de_DE">Neues Angebot erstellen</value>
         <value xml:lang="en">Create New Quote</value>
         <value xml:lang="es">Crear nuevo presupuesto</value>
         <value xml:lang="fr">Créer un nouveau devis</value>
@@ -2742,6 +2747,7 @@
     </property>
     <property key="OrderCreateOrderQuoteAttribute">
         <value xml:lang="de">Neues Offertattribut erstellen</value>
+        <value xml:lang="de_DE">Neues Angebotsattribut erstellen</value>
         <value xml:lang="en">Create New Quote Attribute</value>
         <value xml:lang="es">Crear nuevo atributo</value>
         <value xml:lang="fr">Créer une nouvelle donnée</value>
@@ -2757,6 +2763,7 @@
     </property>
     <property key="OrderCreateOrderQuoteCoefficient">
         <value xml:lang="de">Neuen Offertkoeffizienten erstellen</value>
+        <value xml:lang="de_DE">Neuen Angebotskoeffizienten erstellen</value>
         <value xml:lang="en">Create New Quote Coefficient</value>
         <value xml:lang="es">Crear nuevo coeficiente</value>
         <value xml:lang="fr">Créer un nouveau coefficient</value>
@@ -2772,6 +2779,7 @@
     </property>
     <property key="OrderCreateOrderQuoteItem">
         <value xml:lang="de">Neues Offertelement erstellen</value>
+        <value xml:lang="de_DE">Neues Angebotselement erstellen</value>
         <value xml:lang="en">Create New Quote Item</value>
         <value xml:lang="es">Crear nuevo ítem de presupuesto</value>
         <value xml:lang="fr">Créer une nouvelle ligne de devis</value>
@@ -2787,6 +2795,7 @@
     </property>
     <property key="OrderCreateOrderQuoteRole">
         <value xml:lang="de">Neue Offertrolle erstellen</value>
+        <value xml:lang="de_DE">Neue Angebotsrolle erstellen</value>
         <value xml:lang="en">Create New Quote Role</value>
         <value xml:lang="es">Crear un nuevo rol</value>
         <value xml:lang="fr">Créer un nouveau rôle</value>
@@ -2805,6 +2814,7 @@
     </property>
     <property key="OrderCreateOrderQuoteWorkEfforts">
         <value xml:lang="de">Offerte Arbeitseinsatz erstellen</value>
+        <value xml:lang="de_DE">Angebot für Arbeitsaufwand erstellen</value>
         <value xml:lang="en">Create Quote Work Efforts</value>
         <value xml:lang="es">Crear presupuesto de esfuerzo de trabajo</value>
         <value xml:lang="fr">Créer un devis liés à une tâche</value>
@@ -2819,6 +2829,7 @@
     </property>
     <property key="OrderCreateQuoteFromCart">
         <value xml:lang="de">Neue Offerte aus dem Warenkorb anlegen</value>
+        <value xml:lang="de_DE">Neues Angebot aus dem Warenkorb anlegen</value>
         <value xml:lang="en">Create New Quote From Cart</value>
         <value xml:lang="es">Crear nuevo presupuesto a partir del carro</value>
         <value xml:lang="fr">Créer une nouveau devis depuis le panier</value>
@@ -2834,6 +2845,7 @@
     </property>
     <property key="OrderCreateQuoteFromRequest">
         <value xml:lang="de">Neue Offerte aus der Anfrage erstellen</value>
+        <value xml:lang="de_DE">Neues Angebot aus der Anfrage erstellen</value>
         <value xml:lang="en">Create Quote from request</value>
         <value xml:lang="es">Crear nuevo presupuesto desde petición</value>
         <value xml:lang="fr">Créer un devis depuis la demande</value>
@@ -2845,6 +2857,7 @@
     </property>
     <property key="OrderCreateQuoteFromShoppingList">
         <value xml:lang="de">Neue Offerte erstellen</value>
+        <value xml:lang="de_DE">Neues Angebot erstellen</value>
         <value xml:lang="en">Create New Quote</value>
         <value xml:lang="es">Crear presupuesto desde lista de compras</value>
         <value xml:lang="fr">Créer un nouveau devis</value>
@@ -2860,6 +2873,7 @@
     </property>
     <property key="OrderCreateQuoteWorkEffort">
         <value xml:lang="de">Neuen Offertarbeitseinsatz erstellen</value>
+        <value xml:lang="de_DE">Neues Angebot für Arbeitsaufwand erstellen</value>
         <value xml:lang="en">Create new Quote Workeffort</value>
         <value xml:lang="es">Crear nuevo esfuerzo de trabajo de presupuesto</value>
         <value xml:lang="fr">Créer un nouveau devis lié à une tâche</value>
@@ -2873,6 +2887,7 @@
         <value xml:lang="zh_TW">建立新的工項報價</value>
     </property>
     <property key="OrderCreateReplacementOrder">
+        <value xml:lang="de">Ersatzbestellung erstellen</value>
         <value xml:lang="en">Create Replacement Order</value>
         <value xml:lang="it">Creare ordine per sostituzione</value>
         <value xml:lang="pt_BR">Criar pedido de reposição</value>
@@ -3747,6 +3762,7 @@
     </property>
     <property key="OrderFindQuotes">
         <value xml:lang="de">Offerten suchen</value>
+        <value xml:lang="de_DE">Angebote suchen</value>
         <value xml:lang="en">Find Quotes</value>
         <value xml:lang="es">Buscar presupuestos</value>
         <value xml:lang="fr">Recherche de devis</value>
@@ -4579,6 +4595,7 @@
     </property>
     <property key="OrderLinkedToQuote">
         <value xml:lang="de">Verlinkt mit Offerte</value>
+        <value xml:lang="de_DE">Verlinkt mit Angebot</value>
         <value xml:lang="en">Linked to quote</value>
         <value xml:lang="es">Enlazado al presupuesto</value>
         <value xml:lang="fr">Lien vers un devis</value>
@@ -4918,6 +4935,7 @@
     </property>
     <property key="OrderNewQuote">
         <value xml:lang="de">Neue Offerte</value>
+        <value xml:lang="de_DE">Neues Angebot</value>
         <value xml:lang="en">New quote</value>
         <value xml:lang="es">Nuevo presupesto</value>
         <value xml:lang="fr">Nouveau devis</value>
@@ -4933,6 +4951,7 @@
     </property>
     <property key="OrderNewQuoteAttribute">
         <value xml:lang="de">Neues Offert Attribut</value>
+        <value xml:lang="de_DE">Neues Angebotsattribut</value>
         <value xml:lang="en">New Quote Attribute</value>
         <value xml:lang="es">Nuevo atributo de presupuesto</value>
         <value xml:lang="fr">Nouvelle donnée complémentaire</value>
@@ -4948,6 +4967,7 @@
     </property>
     <property key="OrderNewQuoteItem">
         <value xml:lang="de">Neues Offertelement</value>
+        <value xml:lang="de_DE">Neues Angebotselement</value>
         <value xml:lang="en">New Quote Item</value>
         <value xml:lang="es">Nuevo ítem de presupuesto</value>
         <value xml:lang="fr">Nouvelle ligne de devis</value>
@@ -5304,6 +5324,7 @@
     </property>
     <property key="OrderNoQuoteFound">
         <value xml:lang="de">Keine Angebote gefunden</value>
+        <value xml:lang="de_DE">Keine Angebote gefunden</value>
         <value xml:lang="en">No Quotes Found</value>
         <value xml:lang="es">No se ha enontrado un presupuesto.</value>
         <value xml:lang="fr">Aucun devis trouvé</value>
@@ -6266,6 +6287,7 @@
     </property>
     <property key="OrderOrderQuote">
         <value xml:lang="de">Offerte</value>
+        <value xml:lang="de_DE">Angebot</value>
         <value xml:lang="en">Quote</value>
         <value xml:lang="es">Presupuesto</value>
         <value xml:lang="fr">Devis</value>
@@ -6281,6 +6303,7 @@
     </property>
     <property key="OrderOrderQuoteAdjustmentId">
         <value xml:lang="de">Offertanpassung ID</value>
+        <value xml:lang="de_DE">Angebotsanpassung ID</value>
         <value xml:lang="en">Quote Adjustment Id</value>
         <value xml:lang="es">Código de ajuste</value>
         <value xml:lang="fr">Réf. d'ajustement de devis</value>
@@ -6295,6 +6318,7 @@
     </property>
     <property key="OrderOrderQuoteAdjustmentType">
         <value xml:lang="de">Offertanpassungstyp</value>
+        <value xml:lang="de_DE">Angebotsanpassungstyp</value>
         <value xml:lang="en">Quote Adjustment Type</value>
         <value xml:lang="es">Tipo de Ajuste</value>
         <value xml:lang="fr">Type d'ajustement de devis</value>
@@ -6309,6 +6333,7 @@
     </property>
     <property key="OrderOrderQuoteAdjustmentTypeId">
         <value xml:lang="de">Offertanpassungstyp ID</value>
+        <value xml:lang="de_DE">Angebotsanpassungstyp ID</value>
         <value xml:lang="en">Quote Adjustment Type Id</value>
         <value xml:lang="es">Código del ajuste</value>
         <value xml:lang="fr">Réf. de type d'ajustement de devis</value>
@@ -6366,6 +6391,7 @@
     </property>
     <property key="OrderOrderQuoteAttributes">
         <value xml:lang="de">Offertattribut</value>
+        <value xml:lang="de_DE">Angebotsattribut</value>
         <value xml:lang="en">Quote Attributes</value>
         <value xml:lang="es">Atributos</value>
         <value xml:lang="fr">Données complémentaires</value>
@@ -6434,6 +6460,7 @@
     </property>
     <property key="OrderOrderQuoteCoefficients">
         <value xml:lang="de">Offertkoeffizienten</value>
+        <value xml:lang="de_DE">Angebotskoeffizienten</value>
         <value xml:lang="en">Quote Coefficients</value>
         <value xml:lang="es">Coeficientes</value>
         <value xml:lang="fr">Coefficients du devis</value>
@@ -6494,6 +6521,7 @@
     </property>
     <property key="OrderOrderQuoteEdit">
         <value xml:lang="de">Offerte bearbeiten</value>
+        <value xml:lang="de_DE">Angebot bearbeiten</value>
         <value xml:lang="en">Edit Quote</value>
         <value xml:lang="es">Editar presupuesto</value>
         <value xml:lang="fr">Modifier le devis</value>
@@ -6508,6 +6536,7 @@
     </property>
     <property key="OrderOrderQuoteEditAdjustments">
         <value xml:lang="de">Offertanpassung bearbeiten</value>
+        <value xml:lang="de_DE">Angebotsanpassung bearbeiten</value>
         <value xml:lang="en">Edit Quote Adjustments</value>
         <value xml:lang="es">Editar ajustes de presupuesto</value>
         <value xml:lang="fr">Modifier les ajustements du devis</value>
@@ -6522,6 +6551,7 @@
     </property>
     <property key="OrderOrderQuoteEditAttributes">
         <value xml:lang="de">Offertattribut bearbeiten</value>
+        <value xml:lang="de_DE">Angebotsattribut bearbeiten</value>
         <value xml:lang="en">Edit Quote Attributes</value>
         <value xml:lang="es">Editar atributos de presupuesto</value>
         <value xml:lang="fr">Modifier les attributs du devis</value>
@@ -6536,6 +6566,7 @@
     </property>
     <property key="OrderOrderQuoteEditCoefficients">
         <value xml:lang="de">Offertkoeffizient bearbeiten</value>
+        <value xml:lang="de_DE">Angebotskoeffizient bearbeiten</value>
         <value xml:lang="en">Edit Quote Coefficients</value>
         <value xml:lang="es">Editar coeficientes de presupuesto</value>
         <value xml:lang="fr">Modifier les coefficients du devis</value>
@@ -6550,6 +6581,7 @@
     </property>
     <property key="OrderOrderQuoteEditItems">
         <value xml:lang="de">Offertelement bearbeiten</value>
+        <value xml:lang="de_DE">Angebotselement bearbeiten</value>
         <value xml:lang="en">Edit Quote Items</value>
         <value xml:lang="es">Editar ítems del presupuesto</value>
         <value xml:lang="fr">Modifier les lignes du devis</value>
@@ -6564,6 +6596,7 @@
     </property>
     <property key="OrderOrderQuoteEditReportMail">
         <value xml:lang="de">Offertbericht E-Mail bearbeiten</value>
+        <value xml:lang="de_DE">Angebotsbericht E-Mail bearbeiten</value>
         <value xml:lang="en">Edit Quote Report Mail</value>
         <value xml:lang="es">Editar correo de informe del presupuesto</value>
         <value xml:lang="fr">Modifier le courriel d'état du devis</value>
@@ -6578,6 +6611,7 @@
     </property>
     <property key="OrderOrderQuoteEditRoles">
         <value xml:lang="de">Offertrolle bearbeiten</value>
+        <value xml:lang="de_DE">Angebotsrolle bearbeiten</value>
         <value xml:lang="en">Edit Quote Roles</value>
         <value xml:lang="es">Editar roles del presupuesto</value>
         <value xml:lang="fr">Modifier les rôles du devis</value>
@@ -6595,6 +6629,7 @@
     </property>
     <property key="OrderOrderQuoteEditWorkEfforts">
         <value xml:lang="de">Offertarbeitseinsatz bearbeiten</value>
+        <value xml:lang="de_DE">Angebotene Arbeitsaufwände bearbeiten</value>
         <value xml:lang="en">Edit Quote Work Efforts</value>
         <value xml:lang="es">Editar esfuerzos de trabajo del presupuesto</value>
         <value xml:lang="fr">Modifier les tâches du devis</value>
@@ -6652,6 +6687,7 @@
     </property>
     <property key="OrderOrderQuoteId">
         <value xml:lang="de">Offert ID</value>
+        <value xml:lang="de_DE">Angebots-ID</value>
         <value xml:lang="en">Quote Id</value>
         <value xml:lang="es">Código de presupuesto</value>
         <value xml:lang="fr">Réf. devis</value>
@@ -6667,6 +6703,7 @@
     </property>
     <property key="OrderOrderQuoteIssueDate">
         <value xml:lang="de">Offerte Ausgabedatum</value>
+        <value xml:lang="de_DE">Datum des Angebots</value>
         <value xml:lang="en">Quote Issue Date</value>
         <value xml:lang="es">Fecha de emisión</value>
         <value xml:lang="fr">Date d'émission du devis</value>
@@ -6682,6 +6719,7 @@
     </property>
     <property key="OrderOrderQuoteItem">
         <value xml:lang="de">Offertelement</value>
+        <value xml:lang="de_DE">Angebotsposition</value>
         <value xml:lang="en">Quote Item</value>
         <value xml:lang="es">Ítem</value>
         <value xml:lang="fr">Ligne de devis</value>
@@ -6697,6 +6735,7 @@
     </property>
     <property key="OrderOrderQuoteItemSeqId">
         <value xml:lang="de">Offertelement Seq. ID</value>
+        <value xml:lang="de_DE">Angebotspostion Lfd.Nr.</value>
         <value xml:lang="en">Quote Item Seq Id</value>
         <value xml:lang="es">Nº sec. ítem</value>
         <value xml:lang="fr">Réf. séq. de ligne de devis</value>
@@ -6712,6 +6751,7 @@
     </property>
     <property key="OrderOrderQuoteItems">
         <value xml:lang="de">Offertelemente</value>
+        <value xml:lang="de_DE">Angebotspositionen</value>
         <value xml:lang="en">Quote Items</value>
         <value xml:lang="es">Ítems</value>
         <value xml:lang="fr">Lignes de devis</value>
@@ -6727,6 +6767,7 @@
     </property>
     <property key="OrderOrderQuoteListAdjustments">
         <value xml:lang="de">Liste der Offertanpassungen</value>
+        <value xml:lang="de_DE">Liste der Angebotsanpassungen</value>
         <value xml:lang="en">List Quote Adjustments</value>
         <value xml:lang="es">Lista de ajustes de presupuesto</value>
         <value xml:lang="fr">Voir les ajustements du devis</value>
@@ -6741,6 +6782,7 @@
     </property>
     <property key="OrderOrderQuoteListAttributes">
         <value xml:lang="de">Liste der Offertattribute</value>
+        <value xml:lang="de_DE">Liste der Angebotsattribute</value>
         <value xml:lang="en">List Quote Attributes</value>
         <value xml:lang="es">Lista de atributos de presupuesto</value>
         <value xml:lang="fr">Voir les attributs du devis</value>
@@ -6755,6 +6797,7 @@
     </property>
     <property key="OrderOrderQuoteListCoefficients">
         <value xml:lang="de">Liste der Offertkoeffizienten</value>
+        <value xml:lang="de_DE">Liste der Angebotskoeffizienten</value>
         <value xml:lang="en">List Quote Coefficients</value>
         <value xml:lang="es">Lista de coeficientes de presupuesto</value>
         <value xml:lang="fr">Voir les coefficients du devis</value>
@@ -6769,6 +6812,7 @@
     </property>
     <property key="OrderOrderQuoteListItems">
         <value xml:lang="de">Liste der Offertelemente</value>
+        <value xml:lang="de_DE">Liste der Angebotspositionen</value>
         <value xml:lang="en">List Quote Items</value>
         <value xml:lang="es">Lista de ítems de presupuesto</value>
         <value xml:lang="fr">Voir les articles du devis</value>
@@ -6783,6 +6827,7 @@
     </property>
     <property key="OrderOrderQuoteListRoles">
         <value xml:lang="de">Liste der Offertrollen</value>
+        <value xml:lang="de_DE">Liste der Angebotsrollen</value>
         <value xml:lang="en">List Quote Roles</value>
         <value xml:lang="es">Lista de roles de presupuesto</value>
         <value xml:lang="fr">Liste les rôles du devis</value>
@@ -6815,6 +6860,7 @@
     </property>
     <property key="OrderOrderQuoteName">
         <value xml:lang="de">Offertname</value>
+        <value xml:lang="de_DE">Angebotsbezeichnung</value>
         <value xml:lang="en">Quote Name</value>
         <value xml:lang="es">Nombre del presupuesto</value>
         <value xml:lang="fr">Nom du devis</value>
@@ -6844,6 +6890,7 @@
     </property>
     <property key="OrderOrderQuotePercent">
         <value xml:lang="de">Offerte Prozent</value>
+        <value xml:lang="de_DE">Angebot Prozent</value>
         <value xml:lang="en">Quote Percent</value>
         <value xml:lang="es">Porcentaje del presupuesto</value>
         <value xml:lang="fr">Pourcentage prévisionnel</value>
@@ -6859,6 +6906,7 @@
     </property>
     <property key="OrderOrderQuotePrices">
         <value xml:lang="de">Offertpreise</value>
+        <value xml:lang="de_DE">Angebotspreise</value>
         <value xml:lang="en">Quote Prices</value>
         <value xml:lang="es">Precios del presupuesto</value>
         <value xml:lang="fr">Prix du devis</value>
@@ -6874,6 +6922,7 @@
     </property>
     <property key="OrderOrderQuoteProfit">
         <value xml:lang="de">Offerte Gewinn</value>
+        <value xml:lang="de_DE">Gewinn aus dem Angebot</value>
         <value xml:lang="en">Quote Profit</value>
         <value xml:lang="es">Beneficio del presupuesto</value>
         <value xml:lang="fr">Profit du devis</value>
@@ -6888,6 +6937,7 @@
     </property>
     <property key="OrderOrderQuoteReport">
         <value xml:lang="de">Offertbericht</value>
+        <value xml:lang="de_DE">Angebotsbericht</value>
         <value xml:lang="en">Quote Report</value>
         <value xml:lang="es">Informe del presupuesto</value>
         <value xml:lang="fr">Report du devis</value>
@@ -6902,6 +6952,7 @@
     </property>
     <property key="OrderOrderQuoteRoles">
         <value xml:lang="de">Offertrolle</value>
+        <value xml:lang="de_DE">Angebotsrolle</value>
         <value xml:lang="en">Quote Roles</value>
         <value xml:lang="es">Roles</value>
         <value xml:lang="fr">Rôles</value>
@@ -6917,6 +6968,7 @@
     </property>
     <property key="OrderOrderQuoteSkillTypeId">
         <value xml:lang="de">Offerte Kompetenztyp ID</value>
+        <value xml:lang="de_DE">Angebot Kompetenztyp ID</value>
         <value xml:lang="en">Quote Skill Type Id</value>
         <value xml:lang="es">Tipo de habilidad</value>
         <value xml:lang="fr">Réf. de compétence (devis)</value>
@@ -6938,6 +6990,7 @@
     </property>
     <property key="OrderOrderQuoteType">
         <value xml:lang="de">Offerttyp</value>
+        <value xml:lang="de_DE">Angebotstyp</value>
         <value xml:lang="en">Quote Type</value>
         <value xml:lang="es">Tipo de presupuesto</value>
         <value xml:lang="fr">Type de devis</value>
@@ -6951,6 +7004,7 @@
     </property>
     <property key="OrderOrderQuoteTypeId">
         <value xml:lang="de">Offerttyp ID</value>
+        <value xml:lang="de_DE">Angebotstyp ID</value>
         <value xml:lang="en">Quote Type Id</value>
         <value xml:lang="es">Código Tipo de presupuesto</value>
         <value xml:lang="fr">Réf. de type de devis</value>
@@ -6966,6 +7020,7 @@
     </property>
     <property key="OrderOrderQuoteUnitPrice">
         <value xml:lang="de">Offerte Stückpreis</value>
+        <value xml:lang="de_DE">Angebot Stückpreis</value>
         <value xml:lang="en">Quote Unit Price</value>
         <value xml:lang="es">Precio unitario</value>
         <value xml:lang="fr">Prix Unitaire</value>
@@ -6981,6 +7036,7 @@
     </property>
     <property key="OrderOrderQuoteUomId">
         <value xml:lang="de">Offerte Einheit ID</value>
+        <value xml:lang="de_DE">Angebot Maßeinheit ID</value>
         <value xml:lang="en">Quote Uom Id</value>
         <value xml:lang="es">Unidad de medida</value>
         <value xml:lang="fr">Unité de mesure</value>
@@ -6997,6 +7053,7 @@
     </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="de">Offertgewinn anzeigen</value>
+        <value xml:lang="de">Gewinn aus Angebot anzeigen</value>
         <value xml:lang="en">View Quote Profit</value>
         <value xml:lang="es">Ver beneficio del presupuesto</value>
         <value xml:lang="fr">Voir le profit du devis</value>
@@ -7026,6 +7083,7 @@
     </property>
     <property key="OrderOrderQuoteWorkEffortId">
         <value xml:lang="de">Offertarbeitseinsatz ID</value>
+        <value xml:lang="de_DE">Angebotener Aufwand ID</value>
         <value xml:lang="en">Quote Work Effort Id</value>
         <value xml:lang="es">Código Esfuerzo de trabajo del presupuesto</value>
         <value xml:lang="fr">Réf. d'activité de devis</value>
@@ -7041,6 +7099,7 @@
     </property>
     <property key="OrderOrderQuoteWorkEfforts">
         <value xml:lang="de">Offertarbeitseinsätze</value>
+        <value xml:lang="de_DE">Angebotene Aufwände</value>
         <value xml:lang="en">Quote Work Efforts</value>
         <value xml:lang="es">Esfuerzo de trabajo del presupuesto</value>
         <value xml:lang="fr">Tâches du devis</value>
@@ -7055,6 +7114,7 @@
     </property>
     <property key="OrderOrderQuotes">
         <value xml:lang="de">Offerten</value>
+        <value xml:lang="de_DE">Angebote</value>
         <value xml:lang="en">Quotes</value>
         <value xml:lang="es">Presupuestos</value>
         <value xml:lang="fr">Devis</value>
@@ -8957,6 +9017,7 @@
         <value xml:lang="zh_TW">創建日期</value>
     </property>
     <property key="OrderRequestCreatedFromShoppingCart">
+        <value xml:lang="de">Aus dem Einkaufswagen erstellte Anfrage</value>
         <value xml:lang="en">Request created from shopping cart</value>
         <value xml:lang="fr">Demande de devis créée depuis le panier</value>
     </property>    
@@ -9006,6 +9067,7 @@
     </property>
     <property key="OrderRequestItemQuotes">
         <value xml:lang="de">Offerten</value>
+        <value xml:lang="de_DE">Angebote</value>
         <value xml:lang="en">Quotes</value>
         <value xml:lang="es">Presupuestos</value>
         <value xml:lang="fr">Devis</value>
@@ -11854,6 +11916,7 @@
     </property>
     <property key="OrderViewQuote">
         <value xml:lang="de">Offerte Anzeigen</value>
+        <value xml:lang="de_DE">Angebot Anzeigen</value>
         <value xml:lang="en">View Quote</value>
         <value xml:lang="es">Ver presupuesto</value>
         <value xml:lang="fr">Montrer le devis</value>
@@ -12126,6 +12189,7 @@
     </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="de">Neue Offerte und Offertelement für Kundenanfrage erstellen</value>
+        <value xml:lang="de_DE">Neues Angebot und Angebotspositionen für Kundenanfrage erstellen</value>
         <value xml:lang="en">Create a new Quote and QuoteItem for a CustRequest</value>
         <value xml:lang="es">Crear un nuevo presupuesto e ítem para petición de cliente</value>
         <value xml:lang="fr">Créer une nouveau devis et une ligne de devis à la demande d'un client</value>
@@ -12147,6 +12211,7 @@
     </property>
     <property key="PageTitleEditQuoteItemForCustRequest">
         <value xml:lang="de">Offertelement für Kundenanfrage bearbeiten</value>
+        <value xml:lang="de_DE">Angebotsposition für Kundenanfrage bearbeiten</value>
         <value xml:lang="en">Edit a QuoteItem For a CustRequest</value>
         <value xml:lang="es">Editar un ítem para para petición de cliente</value>
         <value xml:lang="fr">Modifier un ligne de devis à la demande d'un client</value>
@@ -12407,6 +12472,7 @@
     </property>
     <property key="PageTitleLookupQuote">
         <value xml:lang="de">Offerte suchen</value>
+        <value xml:lang="de_DE">Angebot suchen</value>
         <value xml:lang="en">Lookup Quote</value>
         <value xml:lang="es">Buscar presupuesto</value>
         <value xml:lang="fr">Rechercher un ou des devis</value>
@@ -12421,6 +12487,7 @@
     </property>
     <property key="PageTitleLookupQuoteItem">
         <value xml:lang="de">Offertelement suchen</value>
+        <value xml:lang="de_DE">Angebotsposition suchen</value>
         <value xml:lang="en">Lookup Quote Item</value>
         <value xml:lang="es">Buscar ítem de presupuesto</value>
         <value xml:lang="fr">Rechercher une ou des lignes de devis</value>
@@ -12528,6 +12595,7 @@
     </property>
     <property key="PageTitleRequestItemQuotes">
         <value xml:lang="de">Anfrageelemente Offerten</value>
+        <value xml:lang="de_DE">Angebote für Anfragepositionen</value>
         <value xml:lang="en">Request Item Quotes</value>
         <value xml:lang="es">Presupuestar ítem de petición</value>
         <value xml:lang="fr">Demander de devis sur article</value>
@@ -12542,6 +12610,7 @@
     </property>
     <property key="PageTitleRequestItemRequirements">
         <value xml:lang="de">Anfrageelemente Bedarf</value>
+        <value xml:lang="de_DE">Bedarf für Anfrageposition</value>
         <value xml:lang="en">Request Item Requirements</value>
         <value xml:lang="es">Requisitos de ítem de petición</value>
         <value xml:lang="fr">Demande des besoins sur article</value>

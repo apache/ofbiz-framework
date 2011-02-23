@@ -4690,6 +4690,7 @@
     </property>
     <property key="PartyCreateNewQuote">
         <value xml:lang="de">Offerte erstellen</value>
+        <value xml:lang="de_DE">Angebot erstellen</value>
         <value xml:lang="en">Create Quote</value>
         <value xml:lang="es">Crear cotización</value>
         <value xml:lang="fr">Créer un devis</value>
@@ -5709,6 +5710,7 @@
         <value xml:lang="zh_TW">來自電子郵件地址</value>
     </property>
     <property key="PartyFullName">
+        <value xml:lang="de">Vollständiger Name</value>
         <value xml:lang="en">Full Name</value>
         <value xml:lang="fr">Nom complet</value>
         <value xml:lang="it">Nome completo</value>
@@ -9498,7 +9500,7 @@
     </property>
     <property key="PartyRequestNewAccount">
         <value xml:lang="cs">Požádat o nový účet</value>
-        <value xml:lang="de">ein neues Konto anfordern</value>
+        <value xml:lang="de">Ein neues Konto anfordern</value>
         <value xml:lang="en">Request a New Account</value>
         <value xml:lang="es">Solicitar una nueva cuenta</value>
         <value xml:lang="fr">Demander un n° de compte</value>
@@ -9949,6 +9951,7 @@
         <value xml:lang="zh_TW">托運人賬戶</value>
     </property>
     <property key="PartyShippingAddress">
+        <value xml:lang="de">Versandadresse</value>
         <value xml:lang="en">Shipping Address</value>
         <value xml:lang="it">Indirizzo di spedizione</value>
         <value xml:lang="pt_BR">Endereço de envio</value>
