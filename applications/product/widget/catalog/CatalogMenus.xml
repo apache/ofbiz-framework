@@ -476,7 +476,7 @@ under the License.
     </menu>
 
      <menu name="ImageManagementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="userTabButtonImage">
-        <menu-item name="main" title="${uiLabelMap.main}">
+        <menu-item name="main" title="${uiLabelMap.Main}">
             <condition>
                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
             </condition>
@@ -536,6 +536,22 @@ under the License.
                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
             </condition>
             <link target="ListImageReplace">
+                <parameter param-name="productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ImageRename" title="${uiLabelMap.Rename}">
+            <condition>
+                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+            </condition>
+            <link target="ListImageRename">
+                <parameter param-name="productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ImageResize" title="${uiLabelMap.Resize}">
+            <condition>
+                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+            </condition>
+            <link target="ImageResize">
                 <parameter param-name="productId"/>
             </link>
         </menu-item>

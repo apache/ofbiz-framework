@@ -51,11 +51,11 @@ public class RotateImage {
     throws IOException, JDOMException {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String nameOfThumb = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail"), context);
         
         String productId = (String) context.get("productId");
         String imageName = (String) context.get("imageName");
         String angle = (String) context.get("angle");
-
         
         if (UtilValidate.isNotEmpty(imageName)) {
             Map<String, Object> contentCtx = FastMap.newInstance();
@@ -83,7 +83,7 @@ public class RotateImage {
             String contentIdThumb = (String) contentThumbResult.get("contentId");
             String contentId = (String) contentResult.get("contentId");
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
-            String filenameTouseThumb = (String) contentThumbResult.get("contentId") + ".jpg";
+            String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
             
             String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
             String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
@@ -124,6 +124,7 @@ public class RotateImage {
             createContentAssocMap.put("contentId", contentId);
             createContentAssocMap.put("contentIdTo", contentIdThumb);
             createContentAssocMap.put("userLogin", userLogin);
+            createContentAssocMap.put("mapKey", "100");
             try {
                 dispatcher.runSync("createContentAssoc", createContentAssocMap);
             } catch (GenericServiceException e) {

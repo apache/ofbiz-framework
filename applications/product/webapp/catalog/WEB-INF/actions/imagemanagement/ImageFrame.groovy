@@ -18,12 +18,17 @@
  */
 
 import javax.servlet.http.HttpSession;
+import org.ofbiz.base.util.UtilValidate;
 
-frameContentId = parameters.get("frameContentId");
-frameDataResourceId = parameters.get("frameDataResourceId");
-if ((session != null) && (frameContentId == null) && (frameDataResourceId == null)) {
+frameContentId = null;
+frameDataResourceId = null;
+
+if (UtilValidate.isNotEmpty(session.getAttribute("frameContentId")) && UtilValidate.isNotEmpty(session.getAttribute("frameDataResourceId"))) {
     frameContentId = session.getAttribute("frameContentId");
     frameDataResourceId = session.getAttribute("frameDataResourceId");
+} else {
+    frameContentId = parameters.get("frameContentId");
+    frameDataResourceId = parameters.get("frameDataResourceId");
 }
 
 context.frameContentId = frameContentId;

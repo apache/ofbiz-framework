@@ -77,13 +77,13 @@ import org.ofbiz.webapp.event.EventHandlerException;
  * Product Services
  */
 public class ImageManagementServices {
-
+    
     public static final String module = ImageManagementServices.class.getName();
     public static final String resource = "ProductErrorUiLabels";
     private static List<Map<String,Object>> josonMap = null;
     private static int imageCount = 0;
     private static String imagePath;
-
+    
     public static Map<String, Object> addMultipleuploadForProduct(DispatchContext dctx, Map<String, ? extends Object> context)
     throws IOException, JDOMException {
         
@@ -271,6 +271,7 @@ public class ImageManagementServices {
             createContentAssocMap.put("contentId", contentId);
             createContentAssocMap.put("contentIdTo", contentIdThumb);
             createContentAssocMap.put("userLogin", userLogin);
+            createContentAssocMap.put("mapKey", "100");
             try {
                 dispatcher.runSync("createContentAssoc", createContentAssocMap);
             } catch (GenericServiceException e) {
@@ -521,6 +522,7 @@ public class ImageManagementServices {
         //FIXME can be removed ?
         // String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail"), context);
         
         // Create content for thumbnail
         Map<String, Object> contentThumb = FastMap.newInstance();
@@ -565,7 +567,7 @@ public class ImageManagementServices {
             filenameToUseThumb += "." + extensionThumb.getString("fileExtensionId");
         }*/
         //String uploadFileName = (String) context.get("_uploadedFile_fileName");
-        String filenameToUseThumb = imageName.substring(0 , imageName.indexOf(".")) + "_Thumbnail";
+        String filenameToUseThumb = imageName.substring(0 , imageName.indexOf(".")) + nameOfThumb;
         String fileContentType = (String) context.get("_uploadedFile_contentType");
         if (fileContentType.equals("image/pjpeg")) {
             fileContentType = "image/jpeg";
@@ -628,8 +630,8 @@ public class ImageManagementServices {
         Map<String, Object> result = FastMap.newInstance();
         
         /* DIMENSIONS from ImageProperties */
-        defaultHeight = 300;
-        defaultWidth = 300;
+        defaultHeight = 100;
+        defaultWidth = 100;
         
         /* SCALE FACTOR */
         // find the right Scale Factor related to the Image Dimensions
@@ -873,5 +875,247 @@ public class ImageManagementServices {
         file = new File(filePath + "(" + imageCount + ")." + type);
         return checkExistsImage(file);
     }
-
+    
+    public static Map<String, Object> resizeImage(BufferedImage bufImg, double imgHeight, double imgWidth, double resizeHeight, double resizeWidth) {
+        
+        /* VARIABLES */
+        BufferedImage bufNewImg;
+        double defaultHeight, defaultWidth, scaleFactor;
+        Map<String, Object> result = FastMap.newInstance();
+        
+        /* DIMENSIONS from ImageProperties */
+        defaultHeight = resizeHeight;
+        defaultWidth = resizeWidth;
+        
+        /* SCALE FACTOR */
+        // find the right Scale Factor related to the Image Dimensions
+        if (imgHeight > imgWidth) {
+            scaleFactor = defaultHeight / imgHeight;
+            
+            // get scaleFactor from the smallest width
+            if (defaultWidth < (imgWidth * scaleFactor)) {
+                scaleFactor = defaultWidth / imgWidth;
+            }
+        } else {
+            scaleFactor = defaultWidth / imgWidth;
+            // get scaleFactor from the smallest height
+            if (defaultHeight < (imgHeight * scaleFactor)) {
+                scaleFactor = defaultHeight / imgHeight;
+            }
+        }
+        
+        int bufImgType;
+        if (BufferedImage.TYPE_CUSTOM == bufImg.getType()) {
+            // apply a type for image majority
+            bufImgType = BufferedImage.TYPE_INT_ARGB_PRE;
+        } else {
+            bufImgType = bufImg.getType();
+        }
+        
+        // scale original image with new size
+        Image newImg = bufImg.getScaledInstance((int) (imgWidth * scaleFactor), (int) (imgHeight * scaleFactor), Image.SCALE_SMOOTH);
+        
+        bufNewImg = ImageTransform.toBufferedImage(newImg, bufImgType);
+        
+        result.put("bufferedImage", bufNewImg);
+        result.put("scaleFactor", scaleFactor);
+        return result;
+    }
+    
+    public static Map<String, Object> resizeImageOfProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+        String productId = (String) context.get("productId");
+        String contentId = (String) context.get("contentId");
+        String dataResourceName = (String) context.get("dataResourceName");
+        String drObjectInfo = (String) context.get("drObjectInfo");
+        String width = (String) context.get("resizeWidth");
+        int resizeWidth = Integer.parseInt(width);
+        int resizeHeight = resizeWidth;
+        
+        try {
+            BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceName));
+            double imgHeight = bufImg.getHeight();
+            double imgWidth = bufImg.getWidth();
+            String filenameToUse = dataResourceName.substring(0, dataResourceName.length() - 4) + "-" + resizeWidth + ".jpg";
+            
+            if (dataResourceName.length() > 3) {
+                String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
+                if (mimeType.equals("jpg")) {
+                    Map<String, Object> resultResize = ImageManagementServices.resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
+                    ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                    
+                    Map<String, Object> contentThumb = FastMap.newInstance();
+                    contentThumb.put("contentTypeId", "DOCUMENT");
+                    contentThumb.put("userLogin", userLogin);
+                    Map<String, Object> contentThumbResult = FastMap.newInstance();
+                    try {
+                        contentThumbResult = dispatcher.runSync("createContent", contentThumb);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                    
+                    String contentIdThumb = (String) contentThumbResult.get("contentId");
+                    String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameToUse;
+                    ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlThumb, contentIdThumb, "image/jpeg");
+                    
+                    Map<String, Object> createContentAssocMap = FastMap.newInstance();
+                    createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
+                    createContentAssocMap.put("contentId", contentId);
+                    createContentAssocMap.put("contentIdTo", contentIdThumb);
+                    createContentAssocMap.put("userLogin", userLogin);
+                    createContentAssocMap.put("mapKey", width);
+                    try {
+                        dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        String successMsg = "Resize images successful";
+        return ServiceUtil.returnSuccess(successMsg);
+    }
+    
+    public static Map<String, Object> renameImage(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+        String productId = (String) context.get("productId");
+        String contentId = (String) context.get("contentId");
+        String filenameToUse = (String) context.get("drDataResourceName");
+        String mimeType = filenameToUse.substring(filenameToUse.length() - 3, filenameToUse.length());
+        String imageUrl = imageServerUrl + "/" + productId + "/" + filenameToUse;
+        
+        try {
+            if (mimeType.equals("jpg")) {
+                List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE"));
+                GenericValue productContent = EntityUtil.getFirst(productContentList);
+                String dataResourceName = (String) productContent.get("drDataResourceName");
+                
+                BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceName));
+                ImageIO.write((RenderedImage) bufImg, "jpg", new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                
+                File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
+                file.delete();
+                
+                Map<String, Object> contentUp = FastMap.newInstance();
+                contentUp.put("contentId", contentId);
+                contentUp.put("contentName", filenameToUse);
+                contentUp.put("userLogin", userLogin);
+                try {
+                    dispatcher.runSync("updateContent", contentUp);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                GenericValue content = null;
+                try {
+                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+                if (content != null) {
+                    GenericValue dataResource = null;
+                    try {
+                        dataResource = content.getRelatedOne("DataResource");
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                    
+                    if (dataResource != null) {
+                        Map<String, Object> dataResourceCtx = FastMap.newInstance();
+                        dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
+                        dataResourceCtx.put("objectInfo", imageUrl);
+                        dataResourceCtx.put("dataResourceName", filenameToUse);
+                        dataResourceCtx.put("userLogin", userLogin);
+                        try {
+                            dispatcher.runSync("updateDataResource", dataResourceCtx);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                    }
+                }
+                
+                List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
+                if (contentAssocList.size() > 0) {
+                    for (int i = 0; i < contentAssocList.size(); i++) {
+                        GenericValue contentAssoc = (GenericValue) contentAssocList.get(i);
+                        
+                        List<GenericValue> dataResourceAssocList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssoc.get("contentIdTo")));
+                        GenericValue dataResourceAssoc = EntityUtil.getFirst(dataResourceAssocList);
+                        
+                        String drDataResourceNameAssoc = (String) dataResourceAssoc.get("drDataResourceName");
+                        String filenameToUseAssoc = filenameToUse.substring(0, filenameToUse.length() - 4) + "-" + contentAssoc.get("mapKey") + ".jpg";
+                        String imageUrlAssoc = imageServerUrl + "/" + productId + "/" + filenameToUseAssoc;
+                        
+                        BufferedImage bufImgAssoc = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc));
+                        ImageIO.write((RenderedImage) bufImgAssoc, "jpg", new File(imageServerPath + "/" + productId + "/" + filenameToUseAssoc));
+                        
+                        File fileAssoc = new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc);
+                        fileAssoc.delete();
+                        
+                        Map<String, Object> contentAssocMap = FastMap.newInstance();
+                        contentAssocMap.put("contentId", contentAssoc.get("contentIdTo"));
+                        contentAssocMap.put("contentName", filenameToUseAssoc);
+                        contentAssocMap.put("userLogin", userLogin);
+                        try {
+                            dispatcher.runSync("updateContent", contentAssocMap);
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        GenericValue contentAssocUp = null;
+                        try {
+                            contentAssocUp = delegator.findOne("Content", UtilMisc.toMap("contentId", contentAssoc.get("contentIdTo")), false);
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        if (contentAssocUp != null) {
+                            GenericValue dataResourceAssocUp = null;
+                            try {
+                                dataResourceAssocUp = contentAssocUp.getRelatedOne("DataResource");
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, module);
+                                return ServiceUtil.returnError(e.getMessage());
+                            }
+                            
+                            if (dataResourceAssocUp != null) {
+                                Map<String, Object> dataResourceAssocMap = FastMap.newInstance();
+                                dataResourceAssocMap.put("dataResourceId", dataResourceAssocUp.getString("dataResourceId"));
+                                dataResourceAssocMap.put("objectInfo", imageUrlAssoc);
+                                dataResourceAssocMap.put("dataResourceName", filenameToUseAssoc);
+                                dataResourceAssocMap.put("userLogin", userLogin);
+                                try {
+                                    dispatcher.runSync("updateDataResource", dataResourceAssocMap);
+                                } catch (GenericServiceException e) {
+                                    Debug.logError(e, module);
+                                    return ServiceUtil.returnError(e.getMessage());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        String successMsg = "Rename image successfully.";
+        return ServiceUtil.returnSuccess(successMsg);
+    }
 }

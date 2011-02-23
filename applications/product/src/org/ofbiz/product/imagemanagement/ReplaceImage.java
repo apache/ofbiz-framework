@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.product.imagemanagement;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,6 +29,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -42,72 +45,80 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-
-import watermarker.exception.WatermarkerException;
-import watermarker.impl.DefaultWatermarker;
-import watermarker.model.WatermarkerSettings;
+import org.ofbiz.service.ServiceUtil;
 
 public class ReplaceImage{
 
     public static final String module = ReplaceImage.class.getName();
     public static final String resource = "ProductErrorUiLabels";
 
-    public static String replaceImageToExistImage(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, FileNotFoundException, WatermarkerException, GenericEntityException, GenericServiceException {
-        Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
+    public static Map<String, Object> replaceImageToExistImage(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
-        GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-        String productId = request.getParameter("productId");
-        String imageName = request.getParameter("imageName");
-        String contentIdExist = request.getParameter("contentIdExist");
-        String contentIdReplace = request.getParameter("contentIdReplace");
-        if (UtilValidate.isNotEmpty(imageName)) {
+        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+        String productId = (String) context.get("productId");
+        String contentIdExist = (String) context.get("contentIdExist");
+        String contentIdReplace = (String) context.get("contentIdReplace");
+        String dataResourceNameExist = (String) context.get("dataResourceNameExist");
+        String dataResourceNameReplace = (String) context.get("dataResourceNameReplace");
+        
+        if (UtilValidate.isNotEmpty(dataResourceNameExist)) {
             if (UtilValidate.isNotEmpty(contentIdReplace)) {
                 if (contentIdExist.equals(contentIdReplace)) {
                     String errMsg = "Cannot replace because both images are the same image.";
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return "error";
+                    Debug.logError(errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
                 }
             }
             else{
                 String errMsg = "Please choose image to replace.";
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                return "error";
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
             }
         }
         else{
             String errMsg = "Please choose replacement image.";
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
+            Debug.logError(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
         
         try {
-            File file = new File(imageServerPath + "/" + productId + "/" + imageName);
-            file.delete();
-            
-            URL imageUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + contentIdReplace + ".jpg");
-            File outputImageFile = new File(imageServerPath + "/" + productId + "/" + imageName);
-            OutputStream outputStream = new FileOutputStream(outputImageFile);
-            WatermarkerSettings watermarkerSettings = WatermarkerSettings.DEFAULT;
-            new DefaultWatermarker().watermark(imageUrl, " ", outputStream, watermarkerSettings);
-            
-            List<GenericValue> contentAssocExistList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdExist, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
-            GenericValue contentAssocExist = EntityUtil.getFirst(contentAssocExistList);
+            BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceNameReplace));
+            ImageIO.write((RenderedImage) bufImg, "jpg", new File(imageServerPath + "/" + productId + "/" + dataResourceNameExist));
             
             List<GenericValue> contentAssocReplaceList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdReplace, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
-            GenericValue contentAssocReplace = EntityUtil.getFirst(contentAssocReplaceList);
-            
-            URL imageThumbnailUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + contentAssocReplace.get("contentIdTo") + ".jpg");
-            File outputImageThumbnailFile = new File(imageServerPath + "/" + productId + "/" + contentAssocExist.get("contentIdTo") + ".jpg");
-            OutputStream outputStreamThumbnail = new FileOutputStream(outputImageThumbnailFile);
-            new DefaultWatermarker().watermark(imageThumbnailUrl, " ", outputStreamThumbnail, watermarkerSettings);
+            if (contentAssocReplaceList.size() > 0) {
+                for (int i = 0; i < contentAssocReplaceList.size(); i++) {
+                    GenericValue contentAssocReplace = (GenericValue) contentAssocReplaceList.get(i);
+                    
+                    List<GenericValue> dataResourceAssocReplaceList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocReplace.get("contentIdTo")));
+                    GenericValue dataResourceAssocReplace = EntityUtil.getFirst(dataResourceAssocReplaceList);
+                    
+                    List<GenericValue> contentAssocExistList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdExist, "contentAssocTypeId", "IMAGE_THUMBNAIL", "mapKey", contentAssocReplace.get("mapKey")));
+                    GenericValue contentAssocExist = EntityUtil.getFirst(contentAssocExistList);
+                    
+                    List<GenericValue> dataResourceAssocExistList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocExist.get("contentIdTo")));
+                    GenericValue dataResourceAssocExist = EntityUtil.getFirst(dataResourceAssocExistList);
+                    
+                    if (UtilValidate.isNotEmpty(dataResourceAssocExist)) {
+                        BufferedImage bufImgAssocReplace = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceAssocReplace.get("drDataResourceName")));
+                        ImageIO.write((RenderedImage) bufImgAssocReplace, "jpg", new File(imageServerPath + "/" + productId + "/" + dataResourceAssocExist.get("drDataResourceName")));
+                    }
+                    else{
+                        BufferedImage bufImgAssocReplace = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceAssocReplace.get("drDataResourceName")));
+                        ImageIO.write((RenderedImage) bufImgAssocReplace, "jpg", new File(imageServerPath + "/" + productId + "/" + dataResourceNameExist.substring(0, dataResourceNameExist.length() - 4) + "-" + contentAssocReplace.get("mapKey") + ".jpg"));
+                    }
+                }
+            }
             
             List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "contentId", contentIdReplace, "productContentTypeId", "IMAGE"));
             GenericValue productContent = EntityUtil.getFirst(productContentList);
-
+            
             if (productContent != null) {
                 Map<String, Object> productContentCtx = FastMap.newInstance();
                 productContentCtx.put("productId", productId);
@@ -117,15 +128,13 @@ public class ReplaceImage{
                 productContentCtx.put("userLogin", userLogin);
                 dispatcher.runSync("removeProductContentAndImageFile", productContentCtx);
             }
-        } catch (WatermarkerException e) {
+        } catch (Exception e) {
             String errMsg = "Cannot replace image.";
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            Debug.logError(e, errMsg, module);
-            return "error";
+            Debug.logError(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
         }
-        String eventMsg = "Replace image successfully.";
-        request.setAttribute("_EVENT_MESSAGE_", eventMsg);
-        return "success";
+        String successMsg = "Replace image successfully.";
+        return ServiceUtil.returnSuccess(successMsg);
     }
 
 }

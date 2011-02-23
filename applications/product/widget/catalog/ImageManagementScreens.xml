@@ -779,7 +779,7 @@ under the License.
                 <property-to-field resource="catalog" property="image.management.url" field="imageServerUrl"/>
             </actions>
             <widgets>
-                <image src="${imageServerUrl}/previewImage.jpg"></image>
+                <image src="${imageServerUrl}/preview/previewImage.jpg"></image>
             </widgets>
         </section>
     </screen>
@@ -1052,6 +1052,146 @@ under the License.
                                     <widgets>
                                         <screenlet title="${uiLabelMap.CommonRemove}">
                                             <include-form name="ImageRemove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                                    </fail-widgets>
+                                </section>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </fail-widgets>
+        </section>
+    </screen>
+    
+    <screen name="ImageResize">
+        <section>
+            <actions>
+                <set field="userTabButtonImage" value="ImageResize"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one value-field="product" entity-name="Product"/>
+                <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfos">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" from-field="parameters.productId"/>
+                        <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                        <!--<condition-expr field-name="statusId" value="IM_APPROVED"/>-->
+                    </condition-list>
+                </entity-condition>
+                <set field="parameters.contentIdAccos" from-field="productContentAndInfos[0].contentId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                            </condition>
+                            <widgets>
+                                <!--<label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>-->
+                                <screenlet title="Size Existing In Product : ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]">
+                                    <include-form name="sizeListOfProduct" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.Resize}">
+                                    <include-form name="ImageResize" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ImageRename">
+        <section>
+            <actions>
+                <set field="userTabButtonImage" value="ImageRename"/>
+                <set field="productId" from-field="parameters.productId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.Rename}">
+                                    <include-form name="ImageRename" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ListImageRename">
+        <section>
+            <condition>
+                <not><if-empty field="parameters.productId"/></not>
+            </condition>
+            <actions>
+                <set field="userTabButtonImage" value="ImageRename"/>
+                <!--<set field="statusForm" value="IM_PENDING"/>-->
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one value-field="product" entity-name="Product"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="product"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>
+                                        <screenlet title="${uiLabelMap.Rename}">
+                                            <include-form name="ListImageRename" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <label text="${uiLabelMap.ProductNoExistingProductsFound}"/>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <section>
+                    <actions>
+                        <set field="userTabButtonImage" value="ImageRename"/>
+                        <!--<set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>-->
+                    </actions>
+                    <widgets>
+                        <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <section>
+                                    <condition>
+                                        <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.Rename}">
+                                            <include-form name="ImageRename" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>

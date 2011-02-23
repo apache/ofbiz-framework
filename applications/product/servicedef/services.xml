@@ -1486,6 +1486,48 @@ under the License.
         <attribute mode="IN" name="productId" optional="false" type="String"/>
     </service>
     
+    <service name="resizeAllImageOfProduct" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="resizeAllImageOfProduct" auth="true">
+        <description>Resize All Image Of Product.</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="size" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="resizeImageOfProduct" engine="java"
+        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="resizeImageOfProduct" auth="true">
+        <description>Resize Image Of Product.</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+        <attribute name="dataResourceName" mode="IN" type="String" optional="false"/>
+        <attribute name="drObjectInfo" mode="IN" type="String" optional="false"/>
+        <attribute name="resizeWidth" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="removeImageBySize" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="removeImageBySize" auth="true">
+        <description>Remove Image By Size.</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="mapKey" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="replaceImageToExistImage" engine="java"
+        location="org.ofbiz.product.imagemanagement.ReplaceImage" invoke="replaceImageToExistImage" auth="true">
+        <description>Resize Image Of Product.</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="contentIdExist" mode="IN" type="String" optional="false"/>
+        <attribute name="contentIdReplace" mode="IN" type="String" optional="false"/>
+        <attribute name="dataResourceNameExist" mode="IN" type="String" optional="false"/>
+        <attribute name="dataResourceNameReplace" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="renameImage" engine="java"
+        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="renameImage" auth="true">
+        <description>Rename Image.</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="contentId" mode="IN" type="String" optional="false"/>
+        <attribute name="drDataResourceName" mode="IN" type="String" optional="false"/>
+    </service>
+    
     <!-- Best Selling Category Services -->
     <service name="loadBestSellingCategory" engine="simple"
         location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="loadBestSellingCategory" auth="true">
