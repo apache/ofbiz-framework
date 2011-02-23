@@ -34,7 +34,7 @@ under the License.
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-constraint name="statusTypeId" operator="equals" value="HR_DEGREE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -77,7 +77,7 @@ under the License.
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-constraint name="statusTypeId" operator="equals" value="HR_DEGREE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -118,7 +118,7 @@ under the License.
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
-                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-constraint name="statusTypeId" operator="equals" value="HR_DEGREE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
