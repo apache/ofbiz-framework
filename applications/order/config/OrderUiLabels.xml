@@ -7053,7 +7053,7 @@
     </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="de">Offertgewinn anzeigen</value>
-        <value xml:lang="de">Gewinn aus Angebot anzeigen</value>
+        <value xml:lang="de_DE">Gewinn aus Angebot anzeigen</value>
         <value xml:lang="en">View Quote Profit</value>
         <value xml:lang="es">Ver beneficio del presupuesto</value>
         <value xml:lang="fr">Voir le profit du devis</value>
