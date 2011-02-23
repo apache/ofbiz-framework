@@ -132,12 +132,13 @@ under the License.
             <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
         </entity-and>
         <if-not-empty field="contentAssocs">
-            <first-from-list entry="contentAssoc" list="contentAssocs"/>
-            <remove-value value-field="contentAssoc"/>
-            
-            <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
-            <set field="removeContent.productId" from-field="parameters.productId"/>
-            <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+            <iterate entry="contentAssoc" list="contentAssocs">
+                <remove-value value-field="contentAssoc"/>
+                
+                <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
+                <set field="removeContent.productId" from-field="parameters.productId"/>
+                <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+            </iterate>
         </if-not-empty>
         
         <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
@@ -361,6 +362,52 @@ under the License.
         </entity-and>
         <iterate list="contentApprovals" entry="contentApproval">
             <remove-value value-field="contentApproval"/>
+        </iterate>
+    </simple-method>
+    
+    <simple-method method-name="resizeAllImageOfProduct" short-description="Resize All Image Of Product">
+        <set field="removeImageBySizeMap.productId" from-field="parameters.productId"/>
+        <set field="removeImageBySizeMap.mapKey" from-field="parameters.size"/>
+        <call-service service-name="removeImageBySize" in-map-name="removeImageBySizeMap"/>
+        
+        <entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="productContentTypeId" value="IMAGE"/>
+            <!--<field-map field-name="statusId" value="IM_APPROVED"/>-->
+        </entity-and>
+        <iterate list="productContentAndInfos" entry="productContentAndInfo">
+            <set field="resizeImageMap.productId" from-field="productContentAndInfo.productId"/>
+            <set field="resizeImageMap.contentId" from-field="productContentAndInfo.contentId"/>
+            <set field="resizeImageMap.dataResourceName" from-field="productContentAndInfo.drDataResourceName"/>
+            <set field="resizeImageMap.drObjectInfo" from-field="productContentAndInfo.drObjectInfo"/>
+            <set field="resizeImageMap.resizeWidth" from-field="parameters.size"/>
+            <call-service service-name="resizeImageOfProduct" in-map-name="resizeImageMap"/>
+        </iterate>
+    </simple-method>
+    
+    <simple-method method-name="removeImageBySize" short-description="Remove Image By Size">
+        <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfos">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" from-field="parameters.productId"/>
+                <condition-expr field-name="productContentTypeId" value="IMAGE"/>
+                <!--<field-map field-name="statusId" value="IM_APPROVED"/>-->
+            </condition-list>
+        </entity-condition>
+        <iterate entry="productContentAndInfo" list="productContentAndInfos">
+            <entity-and list="contentAssocs" entity-name="ContentAssoc">
+                <field-map field-name="contentId" from-field="productContentAndInfo.contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+                <field-map field-name="mapKey" from-field="parameters.mapKey"/>
+            </entity-and>
+            <if-not-empty field="contentAssocs">
+                <iterate entry="contentAssoc" list="contentAssocs">
+                    <remove-value value-field="contentAssoc"/>
+                    
+                    <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
+                    <set field="removeContent.productId" from-field="parameters.productId"/>
+                    <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+                </iterate>
+            </if-not-empty>
         </iterate>
     </simple-method>
 </simple-methods>

@@ -85,7 +85,7 @@ under the License.
        var imageData = {productId : productId, imageName : imageName, text : text, opacity : opacity, x : pointX, y : pointY, 
                            width : width, count : previewCount, fontColor : fontColor, fontSize : fontSize};
        jQuery.post("setPreviewWaterMark", imageData, function() {
-           var path = imageServerUrl + "/previewImage" + next + ".jpg";
+           var path = imageServerUrl + "/preview/" + "/previewImage" + next + ".jpg";
            jQuery('td.img-src img').attr('src', path);
            jQuery('#ImageWatermarking_previewCount').attr('value', next);
        });

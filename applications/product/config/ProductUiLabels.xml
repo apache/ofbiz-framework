@@ -24849,9 +24849,17 @@
         <value xml:lang="en">Rejected</value>
         <value xml:lang="th">ปฏิเสธ</value>
     </property>
+    <property key="Rename">
+        <value xml:lang="en">Rename</value>
+        <value xml:lang="th">เปลี่ยนชื่อ</value>
+    </property>
     <property key="Replace">
         <value xml:lang="en">Replace</value>
         <value xml:lang="th">แทนที่</value>
+    </property>
+    <property key="Resize">
+        <value xml:lang="en">Resize</value>
+        <value xml:lang="th">เปลี่ยนขนาด</value>
     </property>
     <property key="ShareImage">
         <value xml:lang="en">Share Image</value>

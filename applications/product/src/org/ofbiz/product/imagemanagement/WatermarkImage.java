@@ -66,6 +66,7 @@ public class WatermarkImage{
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
         String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail"), context);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String watermarkText = null;
@@ -81,7 +82,7 @@ public class WatermarkImage{
         String fontColor = request.getParameter("colorWatermark");
         String fontSize = request.getParameter("sizeWatermark");
         
-        File file = new File(imageServerPath + "/previewImage" + count  + ".jpg");
+        File file = new File(imageServerPath + "/preview/" + "/previewImage" + count  + ".jpg");
         file.delete();
         try {
             if (UtilValidate.isNotEmpty(imageName)) {
@@ -91,7 +92,7 @@ public class WatermarkImage{
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-
+            
             if (UtilValidate.isNotEmpty(text)) {
                 watermarkText = text;
             } else {
@@ -99,9 +100,9 @@ public class WatermarkImage{
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-
+            
             WatermarkerSettings watermarkerSettings = WatermarkerSettings.DEFAULT;
-
+            
             if (UtilValidate.isNotEmpty(fontColor)) {
                 Color graphicsColor = setFontColor(fontColor);
                 watermarkerSettings.setGraphicsColor(graphicsColor);
@@ -110,7 +111,7 @@ public class WatermarkImage{
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-
+            
             DecimalFormat decimalFormat = new DecimalFormat();
             decimalFormat.applyPattern("0.00");
             if (UtilValidate.isNotEmpty(fontSize)) {
@@ -123,7 +124,7 @@ public class WatermarkImage{
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-
+            
             WatermarkSettings position = new WatermarkSettings();
             if (UtilValidate.isNotEmpty(x) && UtilValidate.isNotEmpty(y)) {
                 BigDecimal positionX = new BigDecimal(decimalFormat.format(Float.parseFloat(x)));
@@ -136,14 +137,14 @@ public class WatermarkImage{
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
             }
-
+            
             AlphaComposite alphaComposite = null;
             if (UtilValidate.isNotEmpty(opacity)) {
                 BigDecimal opa = new BigDecimal(opacity);
                 alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opa.floatValue());
                 watermarkerSettings.setAlphaComposite(alphaComposite);
             }
-
+            
             if (UtilValidate.isNotEmpty(imageUrl)) {
                 
                 Map<String, Object> contentCtx = FastMap.newInstance();
@@ -157,7 +158,7 @@ public class WatermarkImage{
                     request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
                 }
-
+                
                 Map<String, Object> contentThumb = FastMap.newInstance();
                 contentThumb.put("contentTypeId", "DOCUMENT");
                 contentThumb.put("userLogin", userLogin);
@@ -168,45 +169,46 @@ public class WatermarkImage{
                     Debug.logError(e, module);
                     return e.getMessage();
                 }
-
+                
                 String contentIdThumb = (String) contentThumbResult.get("contentId");
                 String contentId = (String) contentResult.get("contentId");
                 String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
-                String filenameTouseThumb = (String) contentThumbResult.get("contentId") + ".jpg";
+                String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
                 File outputImageFile = new File(imageServerPath + "/" + productId + "/" + filenameToUse);
                 OutputStream outputStream = new FileOutputStream(outputImageFile);
-
+                
                 // *** Actual call to Watermarker#watermark(...) ***
                 new DefaultWatermarker().watermark(imageUrl, watermarkText, outputStream, watermarkerSettings);
-
+                
                 String imageUrlResource = imageServerUrl + "/" + productId + "/" + filenameToUse;
-
+                
                 BufferedImage bufNewImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + filenameToUse));
-
+                
                 double imgHeight = bufNewImg.getHeight();
                 double imgWidth = bufNewImg.getWidth();
                 String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
-
+                
                 Map<String, Object> resultResize = ImageManagementServices.resizeImageThumbnail(bufNewImg, imgHeight, imgWidth);
                 ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameTouseThumb));
-
+                
                 String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameTouseThumb;
-
+                
                 createContentAndDataResourceWaterMark(request, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
                 createContentAndDataResourceWaterMark(request, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
-
+                
                 Map<String, Object> createContentAssocMap = FastMap.newInstance();
                 createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
                 createContentAssocMap.put("contentId", contentId);
                 createContentAssocMap.put("contentIdTo", contentIdThumb);
                 createContentAssocMap.put("userLogin", userLogin);
+                createContentAssocMap.put("mapKey", "100");
                 try {
                     dispatcher.runSync("createContentAssoc", createContentAssocMap);
                 } catch (GenericServiceException e) {
                     Debug.logError(e, module);
                     return e.getMessage();
                 }
-
+                
                 Map<String, Object> productContentCtx = FastMap.newInstance();
                 productContentCtx.put("productId", productId);
                 productContentCtx.put("productContentTypeId", "IMAGE");
@@ -241,21 +243,21 @@ public class WatermarkImage{
         request.setAttribute("_EVENT_MESSAGE_", eventMsg);
         return "success";
     }
-
+    
     public static Map<String, Object> createContentAndDataResourceWaterMark(HttpServletRequest request, GenericValue userLogin, String filenameToUse, String imageUrl, String contentId, String mimeTypeId){
         Map<String, Object> result = FastMap.newInstance();
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-
+        
         Map<String, Object> dataResourceCtx = FastMap.newInstance();
-
+        
         dataResourceCtx.put("objectInfo", imageUrl);
         dataResourceCtx.put("dataResourceName", filenameToUse);
         dataResourceCtx.put("userLogin", userLogin);
         dataResourceCtx.put("dataResourceTypeId", "IMAGE_OBJECT");
         dataResourceCtx.put("mimeTypeId", mimeTypeId);
         dataResourceCtx.put("isPublic", "Y");
-
+        
         Map<String, Object> dataResourceResult = FastMap.newInstance();
         try {
             dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
@@ -263,7 +265,7 @@ public class WatermarkImage{
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-
+        
         Map<String, Object> contentUp = FastMap.newInstance();
         contentUp.put("contentId", contentId);
         contentUp.put("dataResourceId", dataResourceResult.get("dataResourceId"));
@@ -275,7 +277,7 @@ public class WatermarkImage{
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-
+        
         GenericValue content = null;
         try {
             content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
@@ -283,7 +285,7 @@ public class WatermarkImage{
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-
+        
         if (content != null) {
             GenericValue dataResource = null;
             try {
@@ -292,7 +294,7 @@ public class WatermarkImage{
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-
+            
             if (dataResource != null) {
                 dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                 try {
@@ -305,6 +307,7 @@ public class WatermarkImage{
         }
         return result;
     }
+    
     public static String setPreviewWaterMark(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
@@ -319,13 +322,23 @@ public class WatermarkImage{
         String fontColor = request.getParameter("fontColor");
         String fontSize = request.getParameter("fontSize");
         
+        String dirPath = "/preview/";
+        File dir = new File(imageServerPath + dirPath);
+        if (!dir.exists()) {
+            boolean createDir = dir.mkdir();
+            if (!createDir) {
+                request.setAttribute("_ERROR_MESSAGE_", "Cannot create directory.");
+                return "error";
+            }
+        }
+        
         BigDecimal opa = new BigDecimal(opacity);
         DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.applyPattern("0.00");
         BigDecimal positionX = new BigDecimal(decimalFormat.format(Float.parseFloat(x)));
         BigDecimal positionY = new BigDecimal(decimalFormat.format(Float.parseFloat(y)));
         BigDecimal picWidth = new BigDecimal(decimalFormat.format(Float.parseFloat(width)));
-        File file = new File(imageServerPath + "/previewImage" + count  + ".jpg");
+        File file = new File(imageServerPath + "/preview/" + "/previewImage" + count  + ".jpg");
         file.delete();
         BigDecimal widthBase = new BigDecimal(600.00);
         Integer currentPic = Integer.parseInt(count);
@@ -343,11 +356,11 @@ public class WatermarkImage{
         watermarkerSettings.setAlphaComposite(alphaComposite);
         try {
            URL imageUrl = new URL("file:" + imageServerPath + "/" + productId + "/" + imageName);
-           File outputImageFile = new File(imageServerPath + "/previewImage" + nextPic + ".jpg");
+           File outputImageFile = new File(imageServerPath + "/preview/" + "/previewImage" + nextPic + ".jpg");
            OutputStream outputStream = new FileOutputStream(outputImageFile);
-
+           
            new DefaultWatermarker().watermark(imageUrl, text, outputStream, watermarkerSettings);
-
+           
         } catch (Exception e) {
             String errMsg = "Error from setPreviewWaterMark";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -355,16 +368,17 @@ public class WatermarkImage{
         }
         return "success";
     }
+    
     public static String deletePreviewWatermarkImage(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
         String count = request.getParameter("count");
-        File file = new File(imageServerPath + "/previewImage" + count  + ".jpg");
+        File file = new File(imageServerPath + "/preview/" + "/previewImage" + count  + ".jpg");
         file.delete();
-
+        
         return "success";
     }
-
+    
     private static Color setFontColor(String color) {
         Color graphicsColor = null;
         if (color.equals("TEXT_BLACK")) {
@@ -384,7 +398,7 @@ public class WatermarkImage{
         }
         return graphicsColor;
     }
-
+    
     private static Font setFontSize(String fontSize, BigDecimal multiply) {
         Font graphicsFont = null;
         BigDecimal baseSize = null;
