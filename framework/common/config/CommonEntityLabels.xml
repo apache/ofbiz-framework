@@ -1956,6 +1956,7 @@
     </property>
     <property key="Enumeration.description.PRDS_QUO_CONFIRM">
         <value xml:lang="de">Offerte Bestätigung</value>
+        <value xml:lang="de_DE">Angebotsbestätigung</value>
         <value xml:lang="en">Quote Confirmation</value>
         <value xml:lang="fr">Confirmation de devis</value>
         <value xml:lang="it">Conferma preventivo</value>
@@ -2021,6 +2022,10 @@
         <value xml:lang="th">บอกต่อเพื่อน</value>
         <value xml:lang="zh">告诉朋友</value>
         <value xml:lang="zh_TW">告訴朋友</value>
+    </property>
+    <property key="Enumeration.description.PRDS_ODR_SHIP_COMPLT">
+        <value xml:lang="en">Shipment Complete</value>
+        <value xml:lang="it">Spedizione completata</value>
     </property>
     <property key="Enumeration.description.PRIP_CURRENCY_UOMID">
         <value xml:lang="de">Währung UomId</value>
@@ -3348,6 +3353,7 @@
     </property>
     <property key="EnumerationType.description.QUOTE_SEQMD">
         <value xml:lang="de">Offerte Folgenummer Modus</value>
+        <value xml:lang="de_DE">Modus Angebotsnumerierung</value>
         <value xml:lang="en">Quote Sequence Mode</value>
         <value xml:lang="es">Modo de número de secuencia de presupuesto</value>
         <value xml:lang="fr">Mode de numérotation des devis</value>
@@ -9333,6 +9339,7 @@
     </property>
     <property key="StatusItem.description.PRTYASGN_OFFERED">
         <value xml:lang="de">Offeriert</value>
+        <value xml:lang="de_DE">Angeboten</value>
         <value xml:lang="en">Offered</value>
         <value xml:lang="es">Ofertado</value>
         <value xml:lang="fr">Proposée</value>
@@ -10736,6 +10743,7 @@
     </property>
     <property key="StatusType.description.QUOTE_STATUS">
         <value xml:lang="de">Offerte Status</value>
+        <value xml:lang="de_DE">Angebotsstatus</value>
         <value xml:lang="en">Quote Status</value>
         <value xml:lang="es">Estado de presupuesto</value>
         <value xml:lang="fr">Statut de devis</value>
@@ -13051,6 +13059,7 @@
     </property>
     <property key="StatusValidChange.transitionName.QUO_APPROVED.QUO_ORDERED">
         <value xml:lang="de">Offerte in Auftrag geben</value>
+        <value xml:lang="de_DE">Angebot beauftragen</value>
         <value xml:lang="en">Order Quote</value>
         <value xml:lang="es">Pedido desde Presupuesto</value>
         <value xml:lang="fr">Devis de commande</value>
@@ -13065,6 +13074,7 @@
     </property>
     <property key="StatusValidChange.transitionName.QUO_APPROVED.QUO_REJECTED">
         <value xml:lang="de">Offerte ablehnen</value>
+        <value xml:lang="de_DE">Angebot ablehnen</value>
         <value xml:lang="en">Reject Quote</value>
         <value xml:lang="es">Rechazar presupuesto</value>
         <value xml:lang="fr">Rejeter le devis</value>
@@ -13079,6 +13089,7 @@
     </property>
     <property key="StatusValidChange.transitionName.QUO_CREATED.QUO_APPROVED">
         <value xml:lang="de">Offerte genehmigen</value>
+        <value xml:lang="de_DE">Angebot genehmigen</value>
         <value xml:lang="en">Accept Quote</value>
         <value xml:lang="es">Aceptar presupuesto</value>
         <value xml:lang="fr">Accepter le devis</value>
@@ -13093,6 +13104,7 @@
     </property>
     <property key="StatusValidChange.transitionName.QUO_CREATED.QUO_REJECTED">
         <value xml:lang="de">Offerte ablehnen</value>
+        <value xml:lang="de_DE">Angebot ablehnen</value>
         <value xml:lang="en">Reject Quote</value>
         <value xml:lang="es">Rechazar presupuesto</value>
         <value xml:lang="fr">Rejeter le devis</value>
