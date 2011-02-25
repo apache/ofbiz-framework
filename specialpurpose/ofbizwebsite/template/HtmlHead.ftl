@@ -18,10 +18,15 @@ under the License.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<#assign initialLocale = locale.toString()>
+<#if locale?exists>
+    <#assign initialLocale = locale.toString()>
+<#else>
+    <#assign initialLocale = "en">
+</#if>    
+
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <title>${uiLabelMap.OfbizTitle}</title>
+    <title>${(uiLabelMap.OfbizTitle)!"OFBiz, The Apache Open For Business Project"}</title>
     <link rel="shortcut icon" href="/ofbiz/images/favicon.ico">
     <script language="javascript" src="/images/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
     <script language="javascript" src="/images/fieldlookup.js" type="text/javascript"></script>

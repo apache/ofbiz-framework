@@ -18,7 +18,12 @@ under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<#assign initialLocale = locale.toString()>
+<#if locale?exists>
+    <#assign initialLocale = locale.toString()>
+<#else>
+    <#assign initialLocale = "en">
+</#if>    
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${(decoratedContent.subcontent.title.render)!"CMS Site Generic Title (Set subcontent 'title' on your content!)"}</title>
