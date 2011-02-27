@@ -59,4 +59,8 @@ under the License.
     <DataResource dataResourceId="SETUP_profileORG" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_SETUP_profileCompany.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="OFBiz Setup View Organization Profile Help" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="SETUP_profileORG" contentTypeId="DOCUMENT" contentName="View Organization Profile." templateDataResourceId="HELP_TEMPL" dataResourceId="SETUP_profileORG" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_SETUP" contentIdTo="SETUP_profileORG" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="009" mapKey="SETUP_viewprofile"/>
+
+    <DataResource dataResourceId="DOCUMENTATION_SYSTEM" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_OFBizDocumentationSystem.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Documentation system" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="DOCUMENTATION_SYSTEM" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="DOCUMENTATION_SYSTEM" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Documentation system" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_SETUP" contentIdTo="DOCUMENTATION_SYSTEM" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="010" mapKey="DOCUMENTATION_SYSTEM"/>
 </entity-engine-xml>
