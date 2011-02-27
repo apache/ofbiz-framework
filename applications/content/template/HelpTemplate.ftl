@@ -34,6 +34,10 @@ under the License.
      <@itemizedlist node=child/>
     <#elseif child?node_type = 'element' && child?node_name = "mediaobject">
       <@mediaobject node=child/>
+    <#elseif child?node_type = 'element' && child?node_name = "emphasis">
+      <span class="${child["role"]}">${child}</span>
+    <#elseif child?node_type = 'element' && child?node_name = "programlisting">
+      <pre>${child}</pre>
     </#if>
   </#list>
 </#macro>
