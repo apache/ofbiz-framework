@@ -49,10 +49,24 @@ under the License.
 
     <section>
         <title>Examples of text formatting</title>
-        <para><caution>Here is a caution text</caution></para>
-        <para><important>Here is an important text</important></para>
-        <para><note>Here is a note</note></para>
-        <para><tip>Here is a tip</tip></para>
-        <para><warning>Here is a warning</warning></para>
+        <caution>
+            <title>Caution title</title>
+            <para>Here is a caution text</para>
+        </caution>
+        <important>
+            <title>Important title</title>
+            <para>Here is an important text</para>
+        </important>
+        <note>
+            <title>Note title</title>
+            <para>Here is a note</para>
+        </note>
+        <tip>
+            <title>Tip title</title>
+            <para>Here is a tip</para>
+        </tip>
+        <warning>
+            <para>Here is a warning</para>
+        </warning>
     </section>
 </section>

@@ -34,16 +34,6 @@ under the License.
      <@itemizedlist node=child/>
     <#elseif child?node_type = 'element' && child?node_name = "mediaobject">
       <@mediaobject node=child/>
-    <#elseif child?node_type = 'element' && child?node_name = "caution">
-      <span class="caution">${child}</span>
-    <#elseif child?node_type = 'element' && child?node_name = "important">
-      <span class="important">${child}</span>
-    <#elseif child?node_type = 'element' && child?node_name = "note">
-      <span class="note">${child}</span>
-    <#elseif child?node_type = 'element' && child?node_name = "tip">
-      <span class="tip">${child}</span>
-    <#elseif child?node_type = 'element' && child?node_name = "warning">
-      <span class="warning">${child}</span>
     </#if>
   </#list>
 </#macro>
@@ -51,7 +41,7 @@ under the License.
 <#macro section inSection level first="no">
   <#list inSection.* as subSection>
     <#if subSection?node_name = "title">
-      <#if first = "yes"> 
+      <#if first = "yes">
         <h1>${subSection}</h1>
       <#else>
         <br /><h${level}>${subSection}</h${level}>
@@ -65,6 +55,16 @@ under the License.
         <@orderedlist node=subSection/>
     <#elseif subSection?node_name  = "itemizedlist">
         <@itemizedlist node=subSection/>
+    <#elseif subSection?node_name  = "caution">
+        <span class="caution"><@admonition node=subSection/></span>
+    <#elseif subSection?node_name  = "important">
+        <span class="important"><@admonition node=subSection/></span>
+    <#elseif subSection?node_name  = "note">
+        <span class="note"><@admonition node=subSection/></span>
+    <#elseif subSection?node_name  = "tip">
+        <span class="tip"><@admonition node=subSection/></span>
+    <#elseif subSection?node_name  = "warning">
+        <span class="warning"><@admonition node=subSection/></span>
     </#if>
   </#list>
 </#macro>
@@ -105,6 +105,16 @@ under the License.
 
 <#macro para para>
   <@text text=para/>
+</#macro>
+
+<#macro admonition node>
+  <#list node.* as subSection>
+    <#if subSection?node_name = "title">
+      <h3>${subSection}</h3>
+    <#elseif subSection?node_name = "para">
+      <p><@para para=subSection/></p>
+    </#if>
+  </#list>
 </#macro>
 
 <div class="contentarea">
