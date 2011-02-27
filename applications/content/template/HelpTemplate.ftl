@@ -45,11 +45,19 @@ under the License.
 <#macro section inSection level first="no">
   <#list inSection.* as subSection>
     <#if subSection?node_name = "title">
-      <#if first = "yes">
-        <h1>${subSection}</h1>
-      <#else>
-        <br /><h${level}>${subSection}</h${level}>
-      </#if>
+      <#list subSection?children as subTitle>
+        <#if subTitle?node_type = "text">
+          <#if first = "yes">
+            <h1>${subTitle}</h1>
+          <#else>
+            <br /><h${level}>${subTitle}</h${level}>
+          </#if>
+        <#else>
+          <#if subTitle?node_name = "anchor">
+            <a name="${subTitle["@xml:id"]}" />
+          </#if>
+        </#if>
+      </#list>
     <#elseif subSection?node_name = "para">
         <p><@para para=subSection/></p>
     <#elseif subSection?node_name = "section">
