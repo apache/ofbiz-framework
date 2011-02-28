@@ -63,7 +63,6 @@ under the License.
             <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
         </div>
         <div id="language">
-            <a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/ofbiz/images/us.png"/></a>
             <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.png"/></a>
             <a href="<@ofbizUrl>setSessionLocale?newLocale=fr</@ofbizUrl>"><img src="/ofbiz/images/fr.png"/></a>
         </div>
