@@ -53,9 +53,9 @@ var rawdata_subsites = [
                     {
                     "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
                     <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
-                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"},
+                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
                     <#if assocChilds?has_content>
-                        "children": [
+                        ,"children": [
                             <@fillTree assocList = assocChilds/>
                         ]
                     </#if>
@@ -80,9 +80,9 @@ var rawdata_menus = [
                     {
                     "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
                     <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
-                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"},
+                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
                     <#if assocChilds?has_content>
-                        "children": [
+                        ,"children": [
                             <@fillTree assocList = assocChilds/>
                         ]
                     </#if>
@@ -107,9 +107,9 @@ var rawdata_errors = [
                     {
                     "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
                     <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
-                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"},
+                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
                     <#if assocChilds?has_content>
-                        "children": [
+                        ,"children": [
                             <@fillTree assocList = assocChilds/>
                         ]
                     </#if>
@@ -130,7 +130,7 @@ var rawdata_errors = [
         jQuery("#subsites").jstree({
             "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
             "core" : {
-                "html_titles" : true,
+                "html_titles" : true
             },
             "ui" : {
                 "initially_select" : ["${parameters.contentId!}"]
@@ -198,7 +198,7 @@ var rawdata_errors = [
         jQuery("#menus").jstree({
             "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
             "core" : {
-                "html_titles" : true,
+                "html_titles" : true
             },
             "json_data" : {
                 "data" : rawdata_menus,
@@ -263,7 +263,7 @@ var rawdata_errors = [
         jQuery("#errors").jstree({
             "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
             "core" : {
-                "html_titles" : true,
+                "html_titles" : true
             },
             "json_data" : {
                 "data" : rawdata_errors,
