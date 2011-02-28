@@ -104,7 +104,7 @@ public class Iterate extends MethodOperation {
                     return false;
                 }
             }
-        } else if (objList instanceof Collection) {
+        } else if (objList instanceof Collection<?>) {
             Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
 
             if (theCollection.size() == 0) {
@@ -120,7 +120,7 @@ public class Iterate extends MethodOperation {
                     return false;
                 }
             }
-        } else if (objList instanceof Iterator) {
+        } else if (objList instanceof Iterator<?>) {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
                 if (Debug.verboseOn()) Debug.logVerbose("List with name " + listAcsr + " has no more entries, doing nothing: " + rawString(), module);
