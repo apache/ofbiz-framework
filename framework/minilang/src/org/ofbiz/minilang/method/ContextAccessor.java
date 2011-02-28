@@ -104,7 +104,7 @@ public class ContextAccessor<T> {
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ContextAccessor) {
+        if (obj instanceof ContextAccessor<?>) {
             ContextAccessor<?> contextAccessor = (ContextAccessor<?>) obj;
             if (this.name == null) {
                 return contextAccessor.name == null;
