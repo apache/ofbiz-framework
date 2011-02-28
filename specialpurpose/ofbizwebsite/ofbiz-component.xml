@@ -25,6 +25,7 @@
     <classpath type="dir" location="config"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/OfbizData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/OfbizData_NL.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/OfbizData_FR.xml"/>
 
     <webapp name="ofbiz"
         title="OFBiz"
