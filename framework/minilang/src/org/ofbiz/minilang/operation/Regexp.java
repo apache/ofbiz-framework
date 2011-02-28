@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import org.apache.oro.text.regex.*;
-import org.w3c.dom.*;
-
-import org.ofbiz.base.util.*;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.ofbiz.base.util.CompilerMatcher;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.w3c.dom.Element;
 
 /**
  * Validates the current field using a regular expression
@@ -32,19 +36,13 @@ public class Regexp extends SimpleMapOperation {
 
     public static final String module = Regexp.class.getName();
 
-    static PatternMatcher matcher = new Perl5Matcher();
-    static PatternCompiler compiler = new Perl5Compiler();
-    Pattern pattern = null;
+    private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
+
     String expr;
 
     public Regexp(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
         expr = element.getAttribute("expr");
-        try {
-            pattern = compiler.compile(expr);
-        } catch (MalformedPatternException e) {
-            Debug.logError(e, module);
-        }
     }
 
     @Override
@@ -60,12 +58,15 @@ public class Regexp extends SimpleMapOperation {
             return;
         }
 
-        if (pattern == null) {
-            messages.add("Could not compile regular expression \"" + expr + "\" for validation");
+        boolean matches = false;
+        try {
+            matches = compilerMatcher.get().matches(fieldValue, expr);
+        } catch (MalformedPatternException e) {
+            Debug.logError(e, "Regular Expression [" + this.expr + "] is mal-formed: " + e.toString(), module);
             return;
         }
 
-        if (!matcher.matches(fieldValue, pattern)) {
+        if (!matches) {
             addMessage(messages, loader, locale);
         }
     }

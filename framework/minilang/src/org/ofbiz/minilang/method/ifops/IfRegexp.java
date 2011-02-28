@@ -18,17 +18,23 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.apache.oro.text.regex.*;
-import org.w3c.dom.*;
-
-import org.ofbiz.base.util.*;
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.ofbiz.base.util.CompilerMatcher;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Iff the specified field complies with the pattern specified by the regular expression, process sub-operations
@@ -46,8 +52,7 @@ public class IfRegexp extends MethodOperation {
 
     public static final String module = IfRegexp.class.getName();
 
-    static PatternMatcher matcher = new Perl5Matcher();
-    static PatternCompiler compiler = new Perl5Compiler();
+    private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
     List<MethodOperation> subOps = FastList.newInstance();
     List<MethodOperation> elseSubOps = null;
@@ -105,14 +110,14 @@ public class IfRegexp extends MethodOperation {
         // always use an empty string by default
         if (fieldString == null) fieldString = "";
 
-        Pattern pattern = null;
+        boolean matches = false;
         try {
-            pattern = compiler.compile(methodContext.expandString(this.exprExdr));
+            matches = compilerMatcher.get().matches(fieldString, methodContext.expandString(this.exprExdr));
         } catch (MalformedPatternException e) {
             Debug.logError(e, "Regular Expression [" + this.exprExdr + "] is mal-formed: " + e.toString(), module);
         }
 
-        if (matcher.matches(fieldString, pattern)) {
+        if (matches) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
             if (elseSubOps != null) {

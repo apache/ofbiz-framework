@@ -24,11 +24,7 @@ import java.util.Map;
 import javolution.util.FastList;
 
 import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternCompiler;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
+import org.ofbiz.base.util.CompilerMatcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -59,8 +55,7 @@ public class RegexpCondition implements Conditional {
 
     SimpleMethod simpleMethod;
 
-    static PatternMatcher matcher = new Perl5Matcher();
-    static PatternCompiler compiler = new Perl5Compiler();
+    private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
     List<?> subOps = FastList.newInstance();
     List<?> elseSubOps = null;
@@ -87,14 +82,14 @@ public class RegexpCondition implements Conditional {
     public boolean checkCondition(MethodContext methodContext) {
         String fieldString = getFieldString(methodContext);
 
-        Pattern pattern = null;
+        boolean matches = false;
         try {
-            pattern = compiler.compile(methodContext.expandString(this.exprExdr));
+            matches = compilerMatcher.get().matches(fieldString, methodContext.expandString(this.exprExdr));
         } catch (MalformedPatternException e) {
             Debug.logError(e, "Regular Expression [" + this.exprExdr + "] is mal-formed: " + e.toString(), module);
         }
 
-        if (matcher.matches(fieldString, pattern)) {
+        if (matches) {
             //Debug.logInfo("The string [" + fieldString + "] matched the pattern expr [" + pattern.getPattern() + "]", module);
             return true;
         } else {
