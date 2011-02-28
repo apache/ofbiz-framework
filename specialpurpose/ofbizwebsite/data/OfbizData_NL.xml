@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResource dataResourceId="OFBIZ_HOME_NL" localeString="nl" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <Content contentId="OFBIZ_HOME_NL" localeString="nl" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_NL"/>
+    <ContentPurpose contentId="OFBIZ_HOME_NL" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="OFBIZ_HOME_EN" contentIdTo="OFBIZ_HOME_NL" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201"/>
+
+    <ElectronicText dataResourceId="OFBIZ_HOME_NL">
+        <textData><![CDATA[
+<body id="home">
+  <div id="wrap">
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo_nl.gif"/></a>
+             <!-- OFBiz in Nederland. -->
+        </div>
+        <div id="site-header">
+            <h2>OFbiz in Nederland.</h2>
+        </div>
+        <div id="language">
+            Language: EN
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/ofbiz/images/en.jpeg"/></a>
+        </div>
+        <!-- Coming Soon...
+        <div id="controls">
+            <a href="#">Login | </a> <a href="#">Register | </a> <a href="#">Settings</a>
+        </div>
+        -->
+        <div id="nav">
+            <ul>
+                <li id="current"><a href="<@ofbizUrl>main</@ofbizUrl>">Home</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/LYB2">About</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/DAFk">Features</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/">Documentation</a></li>
+                <li><a href="http://build.ofbiz.org">Download</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/L4B2">Community</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="POST" action="http://docs.ofbiz.org/dosearchsite.action" name="searchForm">
+               <input type="hidden" name="quickSearch" value="true" />
+               <input type="hidden" name="searchQuery.spaceKey" value="conf_global" />
+                  <input type="text" id="searchDocs" value="zoeken..." class="class1 class2" accessKey="s" name="searchQuery.queryString" />
+           </form>
+        </div>
+        <div id="slides">
+            <ul class="jcarousel-skin-tango" id="mantleSlides">
+                <li>
+                    <div class="callout">
+                        The best things in life<br />
+                        are FREE.<br />
+                    </div>
+                    <div class="description">
+                        Apache Open For Business (OFBiz) is a community-driven open source project. That means, no licensing fees.
+                        For many, OFBiz is also the best e-commerce and enterprise resource planning (ERP) software available.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle.png" />
+                    </div>
+                </li>
+                <li>
+                    <div class="callout">
+                        Lower Costs,<br />
+                        Higher Margins.<br />
+                    </div>
+                    <div class="description">
+                        Achieve a system that is as good or better than those available
+                        from major proprietary ERPs at a significantly lower total project cost.
+                        You can budget for custom features and added value rather than license and maintenance fees.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle2.png" />
+                    </div>
+                </li>
+                <li>
+                    <div class="callout">
+                        OPEN yourself up to all<br />
+                        of the possibilities<br />
+                    </div>
+                    <div class="description">
+                        Enjoy freedom from indefinite vendor lock; with OFBiz, you can fully leverage internal
+                        resources and/or any of the dozens of organizations offering quality OFBiz
+                        implementation and support services.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle3.png" />
+                    </div>
+                </li>
+                <li>
+                    <div class="callout">
+                        We have<br />
+                        street cred.<br />
+                    </div>
+                    <div class="description">
+                       OFBiz users can rely on the organizational, legal, and financial stability
+                       that comes with OFBiz being a top-level project at the Apache Software Foundation (ASF).
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle4.png" />
+                    </div>
+                </li>
+                <li>
+                    <div class="callout">
+                        Just like muscles,<br />
+                        e-commerce should
+                        be flexible.
+                    </div>
+                    <div class="description">
+                        Because you will have complete access to source code, you will eliminate "proprietary system" limitations.
+                        The entire open source community benefits from making OFBiz as clear, flexible, and reusable as possible.
+                    </div>
+                    <div class="mantle">
+                        <img src="/ofbiz/images/mantle5.png" />
+                    </div>
+                </li>
+            </ul>
+            <div class="controls">
+              <a class="next" id="next" title="Next" href="#">Next</a>
+              <a class="previous" id="previous" title="Previous" href="#">Previous</a>
+              <a class="start" id="start" style="display:none;" title="Start" href="#">Start</a>
+              <a class="stop" id="stop" title="Stop" href="#">Stop</a>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+          function StartSlides() {
+            // casrousel scrolling interval set to 2 sec
+            var carouselScrollInterval = 2;
+
+            jQuery('#mantleSlides').jcarousel({
+                auto: carouselScrollInterval,
+                wrap: "circular",
+                initCallback: mycarousel_initCallback,
+                buttonNextHTML: null,
+                buttonPrevHTML: null
+            });
+
+            // create functions for the controll menu
+            function mycarousel_initCallback(carousel) {
+                jQuery('#stop').bind('click', function() {
+                    carousel.options.auto = 0;
+                    jQuery('#start').css({"display": ""});
+                    jQuery('#stop').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#start').bind('click', function() {
+                    carousel.options.auto = carouselScrollInterval;
+                    carousel.next();
+                    jQuery('#stop').css({"display": ""});
+                    jQuery('#start').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#next').bind('click', function() {
+                    carousel.next();
+                    return false;
+                });
+
+                jQuery('#previous').bind('click', function() {
+                    carousel.prev();
+                    return false;
+                });
+            };
+
+          }
+
+          jQuery(document).ready(StartSlides);
+        </script>
+
+    </div>
+
+    <!-- content-wrap starts -->
+    <div id="content-wrap" class="clearfix">
+        <div id="main">
+
+            <h2>Wat is Apache OFBiz?</h2>
+            <h3>Learn more about the project</h3>
+        <div class="highlights">
+          <h4>Apache OFBiz offers a great deal of functionality, including:</h4>
+          <ul>
+            <li>advanced e-commerce</li>
+            <li>catalog management</li>
+            <li>promotion & pricing management</li>
+            <li>order management (sales & purchase)</li>
+            <li>customer management (part of general party management)</li>
+            <li>warehouse management</li>
+            <li>fulfillment (auto stock moves, batched pick, pack & ship)</li>
+            <li>accounting (invoice, payment & billing accounts, fixed assets)</li>
+            <li>manufacturing management</li>
+            <li>general work effort management (events, tasks, projects, requests, etc)</li>
+            <li>content management (for product content, web sites, general content, blogging, forums, etc)</li>
+            <li>
+            a maturing Point Of Sales (POS) module using
+            <b>
+            </b>
+            as rich client interface
+            </li>
+            <li>and much more all in an open source package!</li>
+           </ul>
+        </div>
+
+        <p>   Het Apache Open For Business Project is een open source bedrijfsinformatie systeem met de Apache Licentie Version 2.0.
+        die het gratis gebruik toelaat in elke vorm. Met een bedrijfsinformatiesysteem bedoelen we Open Source ERP, Open Source CRM,
+        Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, Open Source CMMS/EAM, en zo verder.
+        </p>
+        <h2>Deze site.</h2>
+        <p>Deze site is een initiatief van <a href="http://www.antwebsystems.com">AntWebsystems</a> en is grotendeels een verwijzing naar de Engelstalige site op ofbiz.org
+        maar wil u graag ook Nederlandse infomatie geven die op de engelse hoofdsite niet aanwezig is
+        </p>
+        <h2>Support</h2>
+        <p>
+        De volgende Nederlandstalige bedrijven geven support bij de hosting/installatie, introductie en aanpassingen aan het systeem.
+        Als u wilt dat uw bedrijf hier ook vermeld wordt en u reeds OFBiz klanten van dienst bent geweest stuur dan een email met
+        referenties naar <a href="mailto:support@a-net.nl">support@a-net.nl</a> Ondersteuning gevende bedrijven:
+        </p>
+        <ul>
+         <li><a href="http://www.antwebsystems.com">AntWebsystems Co.Ltd</a></li>
+         <li><a href="http://www.zchokweb.nl">Zchok</a></li>
+         <li><a href="http://www.lbaonline.nl">LBA automatisering</a></li>
+        </ul>
+        <center>
+        <a target="_blank" href="/ofbiz/images/ofbiz_arch.png"><img border="0" alt="" src="/ofbiz/images/ofbiz_arch.png"/></a>
+        </center>
+    </div>
+        <!-- main ends -->
+
+
+        <!-- sidebar starts -->
+        <div id="sidebar">
+
+            <div class="downloadNow"><a href="http://build.ofbiz.org/"><img src="/ofbiz/images/download.jpg" /></a></div>
+            <div class="downloadLinks clearfix"><span class="docs"><a href="http://docs.ofbiz.org">Documentation</a></span><span class="previousVersions"><a href="http://build.ofbiz.org">Previous Versions</a></span></div>
+            <h3>What is Apache OFBiz ?</h3>
+            <ul class="sidemenu">
+                <li><a href="http://docs.ofbiz.org/x/lQM">Project Overview</a></li>
+                <li><a href="http://docs.ofbiz.org/x/hgM">Is OFBiz for Me?</a></li>
+                <li><a href="http://ofbiz.apache.org/feature-list.html">Feature List</a></li>
+                <li><a href="http://ofbiz.apache.org/comingsoon.html">Features Coming Soon</a></li>
+                <li><a href="http://docs.ofbiz.org/x/ZQM">User List</a></li>
+                <li><a href="http://docs.ofbiz.org/x/UwM">User Stories</a></li>
+                <li><a href="http://docs.ofbiz.org/x/jQM">Brochures, etc</a></li>
+                <li><a href="http://docs.ofbiz.org/x/Swg">Documentation</a></li>
+                <li><a href="http://ofbiz.apache.org/VideosConf.html">Conference Videos</a></li>
+                <li><a href="http://docs.ofbiz.org/x/PQM">Framework Intro Videos</a></li>
+            </ul>
+            <h3>Demo Site</h3>
+            <ul class="sidemenu">
+                <li><a target="_blank" href="http://demo.ofbiz.org/ecommerce/control/main">eCommerce Demo</a></li>
+                <li><a target="_blank" href="https://demo.ofbiz.org/catalog/control/login/main?USERNAME=demoadmin&PASSWORD=ofbiz">Management Apps</a></li>
+            </ul>
+            <h3>Download OFBiz</h3>
+            <ul class="sidemenu">
+                <li><a href="http://docs.ofbiz.org/x/rwM">Getting Started (Read this first)</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mgM">Source Access (Recommended)</a></li>
+                <li><a href="http://www.opensourcestrategies.com/ofbiz/downloads.php">Weekly Builds</a></li>
+                <li><a href="http://ofbiz.apache.org/documents.html">Documentation</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mAM">Copyright & License</a></li>
+            </ul>
+            <h3>Resources & Tools</h3>
+            <ul class="sidemenu">
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-dev/">dev Mailing List</a></li>
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-user/">user Mailing List</a></li>
+                <li><a href="http://mail-archives.apache.org/mod_mbox/ofbiz-commits/">commits Mailing List</a></li>
+                <li><a href="https://issues.apache.org/jira/browse/OFBIZ">Issue Tracker (Jira)</a></li>
+                <li><a href="http://docs.ofbiz.org/x/mgM">Source Repository (SVN)</a></li>
+                <li><a href="http://ofbiz.apache.org/documents.html">Main Documentation Page</a></li>
+                <li><a href="http://docs.ofbiz.org/">Documentation (Confluence)</a></li>
+                <li><a href="http://docs.ofbiz.org/display/OFBIZ">Doc Site: Wiki</a></li>
+                <li><a href="http://ofbiz.apache.org/VideosConf.html">Conference Videos</a></li>
+            </ul>
+            <h3>Apache OFBiz Communities</h3>
+                <h4>Locales</h4>
+                <ul class="sidemenu">
+                    <li><a href="http://www.ofbiz.co.uk/">United Kingdom</a></li>
+                    <li><a href="http://www.ofbiz.de/">Germany</a></li>
+                    <li><a href="http://www.nereide.biz/rubrique.php3?id_rubrique=5">France</a></li>
+                    <li><a href="http://www.ofbiz.nl/">Netherlands</a></li>
+                    <li><a href="http://www.ofbizchina.com/">China</a></li>
+                    <li><a href="http://www.ofbiz.in.th/">Thailand</a></li>
+                </ul>
+            <h3>Service Providers</h3>
+            <ul class="sidemenu">
+                <li><a target="_blank" href="http://www.antwebsystems.com">Antwebsystems</a></li>
+                <li><a target="_blank" href="mailto:support@antwebsystems.com">Support</a></li>
+            </ul>
+        </div>
+        <!-- sidebar -->
+      </div>
+      <!-- content-wrap -->
+   </div>
+            ]]></textData>
+    </ElectronicText>
+</entity-engine-xml>
