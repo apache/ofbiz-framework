@@ -5251,6 +5251,10 @@
         <value xml:lang="zh">显示免除的税</value>
         <value xml:lang="zh_TW">顯示免除的稅</value>
     </property>
+    <property key="FormFieldTitle_showOutOfStockProducts">
+        <value xml:lang="en">Show Out Of Stock Products</value>
+        <value xml:lang="fr">Afficher les produits hors stock</value>
+    </property>
     <property key="FormFieldTitle_softIdentifier">
         <value xml:lang="de">Identifikationsnummer</value>
         <value xml:lang="en">Soft Identifier</value>
