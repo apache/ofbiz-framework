@@ -746,7 +746,6 @@ public class ShoppingCartServices {
                 }
                 String orderItemSeqId = quoteTerm.getString("quoteItemSeqId");
                 cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId,termValue, termDays, quoteTerm.getString("textValue"),quoteTerm.getString("description"));
-                List orderTerms = cart.getOrderTerms();
             }
         }
         
