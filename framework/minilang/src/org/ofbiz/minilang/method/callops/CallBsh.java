@@ -102,7 +102,7 @@ public class CallBsh extends MethodOperation {
                         Object resourceResult = bsh.eval(outSb.toString());
 
                         // if map is returned, copy values into env
-                        if ((resourceResult != null) && (resourceResult instanceof Map)) {
+                        if ((resourceResult != null) && (resourceResult instanceof Map<?, ?>)) {
                             methodContext.putAllEnv(UtilGenerics.<String, Object>checkMap(resourceResult));
                         }
                     } catch (IOException e) {
@@ -117,7 +117,7 @@ public class CallBsh extends MethodOperation {
             if (Debug.verboseOn()) Debug.logVerbose("Result of inline BSH script: " + inlineResult, module);
 
             // if map is returned, copy values into env
-            if ((inlineResult != null) && (inlineResult instanceof Map)) {
+            if ((inlineResult != null) && (inlineResult instanceof Map<?, ?>)) {
                 methodContext.putAllEnv(UtilGenerics.<String, Object>checkMap(inlineResult));
             }
         } catch (EvalError e) {
