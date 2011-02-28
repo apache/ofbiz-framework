@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <DataResource dataResourceId="OFBIZ_HOME_FR" localeString="fr" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
+    <Content contentId="OFBIZ_HOME_FR" localeString="fr" contentTypeId="DOCUMENT" decoratorContentId="OFBIZ_DEC" contentName="OFBiz home page" dataResourceId="OFBIZ_HOME_FR"/>
+    <ContentPurpose contentId="OFBIZ_HOME_FR" contentPurposeTypeId="SECTION"/>
+    <ContentAssoc contentId="OFBIZ_HOME_EN" contentIdTo="OFBIZ_HOME_FR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2009-04-13 09:07:30.201"/>
+
+    <ElectronicText dataResourceId="OFBIZ_HOME_FR">
+        <textData><![CDATA[
+<body id="home">
+  <div id="wrap">
+  <!--header -->
+    <div id="header">
+        <div id="logo">
+            <a href="#"><img src="/ofbiz/images/logo.gif"/></a>
+        </div>
+        <div id="language">
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=en</@ofbizUrl>"><img src="/ofbiz/images/us.png"/></a>
+            <a href="<@ofbizUrl>setSessionLocale?newLocale=nl</@ofbizUrl>"><img src="/ofbiz/images/nl.png"/></a>
+        </div>
+        <div id="nav">
+            <ul>
+                <li id="current"><a href="<@ofbizUrl>main</@ofbizUrl>">Accueil</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/LYB2">Aperçu</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/DAFk">Nouveautés</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/">Documents</a></li>
+                <li><a href="http://build.ofbiz.org">Télécharger</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/L4B2">Communauté</a></li>
+            </ul>
+        </div>
+        <div id="search">
+           <form method="post" action="http://cwiki.apache.org/confluence/dosearchsite.action" name="searchForm">
+               <input name="quickSearch" value="true" type="hidden">
+               <input name="searchQuery.spaceKey" value="conf_global" type="hidden">
+               <input id="searchDocs" value="Search..." class="class1 class2 hint" accesskey="s" name="searchQuery.queryString" type="text">
+           </form>
+        </div>
+        <div id="slides">
+            <ul class="jcarousel-skin-tango" id="mantleSlides">
+                <li>
+                    <div class="callout">Les meilleures choses <br/> dans la vie sont GRATUITES</div>
+                    <div class="description">Apache Open For Business (OFBiz) est un projet Open-Source piloté par sa communautÃ©. Ce qui veut dire, entre autres, pas de frais de licence. Pour beaucoup, OFBiz est aussi le meilleur outil e-commerce et ERP disponible.</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle.png"></div>
+                </li>
+                <li>
+                    <div class="callout">Coûts réduits, <br/>Meilleurs marges</div>
+                    <div class="description">Obtenez un système aussi bon voire meilleur que n'importe quel ERP propriétaire pour un coût moins important. Ainsi vous pourrez ajouter vos fonctionnalités plutôt que d'investir dans des licences et des frais de maintenance.</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle2.png"></div>
+                </li>
+                <li>
+                    <div class="callout">OUVREZ vous<br/> à toutes les possibilités</div>
+                    <div class="description">Profitez de la liberté sans aucun verrou, avec OFBiz, vous pouvez utiliser vos ressources internes, ou profiter des douzaines de sociétés offrant des prestations de qualité sur OFBiz.</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle3.png"></div>
+                </li>
+                <li>
+                    <div class="callout">Nous avons<br/> pignon sur rue</div>
+                    <div class="description">Les utilisateurs d'OFBiz peuvent s'appuyer sur les assurances de qualité, organisationnelle, légale qui vient avec tout projet de la fondation Apache (ASF).</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle4.png"></div>
+                </li>
+                <li>
+                    <div class="callout">Tout comme les muscles,<br/> l'e-commerce doit s'adapter</div>
+                    <div class="description">Comme vous avez accès au code source complet, vous pouvez supprimer les limites du système propriétaire. La communauté entière a tout intérêt à garder OFBiz clair, flexible et le plus réutilisable possible.</div>
+                    <div class="mantle"><img src="/ofbiz/images/mantle5.png"></div>
+                </li>
+            </ul>
+            <div class="controls">
+              <a class="next" id="next" title="Suivant" href="#">Suivant</a>
+              <a class="previous" id="previous" title="Précédent" href="#">Précédent</a>
+              <a style="display: none;" class="start" id="start" title="Début" href="#">Début</a>
+              <a class="stop" id="stop" title="Arrêt" href="#">Arrêt</a>
+            </div>
+        </div>
+        <script type="text/javascript">
+          function StartSlides() {
+            // casrousel scrolling interval set to 2 sec
+            var carouselScrollInterval = 2;
+
+            jQuery('#mantleSlides').jcarousel({
+                auto: carouselScrollInterval,
+                wrap: "circular",
+                initCallback: mycarousel_initCallback,
+                buttonNextHTML: null,
+                buttonPrevHTML: null
+            });
+
+            // create functions for the controll menu
+            function mycarousel_initCallback(carousel) {
+                jQuery('#stop').bind('click', function() {
+                    carousel.options.auto = 0;
+                    jQuery('#start').css({"display": ""});
+                    jQuery('#stop').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#start').bind('click', function() {
+                    carousel.options.auto = carouselScrollInterval;
+                    carousel.next();
+                    jQuery('#stop').css({"display": ""});
+                    jQuery('#start').css({"display": "none"});
+                    return false;
+                });
+
+                jQuery('#next').bind('click', function() {
+                    carousel.next();
+                    return false;
+                });
+
+                jQuery('#previous').bind('click', function() {
+                    carousel.prev();
+                    return false;
+                });
+            };
+
+          }
+
+          jQuery(document).ready(StartSlides);
+        </script>
+    </div>
+    <div id="content-wrap" class="clearfix">
+        <div id="main">
+            <h2>Qu'est-ce qu'Apache OFBiz ?</h2>
+            <h3>Apprenez plus sur le projet</h3>
+        <div class="highlights">
+          <h4>Les fonctionnalités offertes par Apache OFBiz sont nombreuses, et l'on pourra citer :</h4>
+          <ul>
+            <li>une plate-forme avancée de e-commerce</li>
+            <li>une gestion de catalogues</li>
+            <li>une gestion des prix et des promotions</li>
+            <li>une gestion des commandes (d'achat et de vente)</li>
+            <li>une gestion des clients (qui fait partie de la gestion des acteurs)</li>
+            <li>uen gestion d'entrepôt</li>
+            <li>une gestion des mouvements de stocks, prélèvements, colisages et expéditions</li>
+            <li>comptabilité (facturation, comptes, titres)</li>
+            <li>une gestion de production</li>
+            <li>une gestion des tÃ¢ches (évènements, tâches, projets, demandes, etc...)</li>
+            <li>une gestion de contenu (pour du contenu lié aux produits, sites Web, blog, forums, etc...)</li>
+            <li>une gestion de point de vente (POS) basée sur XUI pour l'interface</li>
+            <li>et beaucoup d'autres modules, tous inclus dans le même logiciel open-source !</li>
+          </ul>
+        </div>
+
+        <p>Apache OFBiz sert à la fois de fondation et de point de départ pour une solution de gestion d'entreprise. OFBiz peut être utilisé directement après avoir été téléchargé, mais ce n'est pas le but premier du projet.
+        </p>
+
+        <p>En effet, OFBiz est destiné à servir de socle pour créer d'autres applications qui seront, elles, utilisées directement. OFBiz est aussi destiné aux structures qui recherchent une solution pour accompagner leurs projets. Si vous désirez plus que ce qu'un logiciel "en version boîte" va offrir, et que les coûts de déploiement et de maintenance d'un systême informatique traditionnel vous semblent injustifiés, alors Apache OFBiz est la solution qu'il vous faut.
+        </p>
+        <p>Sous licence Apache 2.0, et géré par une communauté de contributeurs et utilisateurs, OFBiz propose à tous une grande flexibilité par l'accès complet au code source et la grande. La communauté autour d'OFBiz permet de ne pas rester seul, mais de travailler avec beaucoup d'autres afin de faire avancer les projets.
+        </p>
+
+        <p>Pour plus de détails et avoir des réponses Ã  vos interrogations, vous pouvez consulter les documents suivants :
+            <a href="http://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Getting+Started">Guide de démarrage Apache OFBiz</a>,
+            <a href="http://cwiki.apache.org/confluence/x/DAFk">Nouvelles fonctionnalités (mis à jour mensuellement)</a>,
+            <a href="http://cwiki.apache.org/confluence/x/UgFk">Est-ce qu'Apache OFBiz est fait pour moi ?</a>,
+        </p>
+
+        <p>Pour plus d'informations techniques, visitez la <a href="http://cwiki.apache.org/confluence/x/GoB2">documentation</a>.</p>
+
+        <h2>Qui utilise Apache OFBiz ?</h2>
+            <p>Il est difficile de dire qui et combien de sociétés utilisent actuellement Apache OFBiz, car rien ne vous oblige à diffuser cette information, mais certains sont connus, et nous les avons listé ci-dessous.</p>
+
+            <p>Une sélection de sites basés sur Apache OFBiz (dont une grande partie sont des sites de e-commerce) :<br>
+                <a name="users"></a>
+                <a href="http://www.1800flowers.com/" target="_blank">1-800-Flowers.com | </a>
+                <a href="http://www.actionenvelope.com/" target="_blank">Action Envelope | </a>
+                <a href="http://checkmark.heart.org/" target="_blank">American Heart Association: Grocery List Builder | </a>
+                <!-- no longer an OFBIz demonstration JLR 2009-04-20 a href="http://www.ameniti.com/" target="_blank">Ameniti Luxury Travel Club</a-->
+                <a href="http://www.citydeals.com/deals/control/main" target="_blank">City Deals | </a>
+                <a href="http://www.complianceonline.com/ecommerce/control/main" target="_blank">Compliance Online Store | </a>
+                <!--a href="http://www.dkny.com/control/main" target="_blank">DKNY | </a-->
+                <a href="http://www.graciousstyle.com/" target="_blank">Gracious Style | </a>
+                <a href="http://www.imaginwood.com" target="_blank">ImagINwood | </a>
+                <a href="http://www.junipermusic.com" target="_blank">Juniper Music + Soundesign | </a>
+                <a href="http://webshop.messergroup.com/control/main" target="_blank">Messer Group (German, French) | </a>
+                <a href="http://www.oldglory.com/lp/main" target="_blank">Old Glory | </a>
+                <a href="http://www.parago.com" target="_blank">Parago | </a>
+                <a href="http://www.partnerhomes.com" target="_blank">Partner Homes | </a>
+                <!--asp ? JLR 2009-04-20 a href="http://www.peacockalley.com/control/main" target="_blank">Peacock Alley</a-->
+                <!--jsp ? JLR 2009-04-20 a href="http://www.ulta.com/control/main" target="_blank">Ulta</a-->
+                <a href="http://www.ulta.com/ulta/index.jsp" target="_blank">Ulta | </a>
+                <a href="http://www.shirtpainter.com/ecommerce/control/main" target="_blank">Shirt Painter (German) | </a>
+                <a href="https://www.silverwingsplus.com/swhome/control/swpHome" target="_blank">Silver Wings Plus Club | </a>
+                <a href="http://www.steinersports.com/ssm/control/home" target="_blank">Steiner Sports | </a>
+                <!--a href="http://www.totes-isotoner-sales.com/ecommerce/control/main" target="_blank">totes &gt;&gt; ISOTONER | </a-->
+                <!--a href="http://www.undersunconsulting.com/control/home.html" target="_blank">Undersun Consulting | </a-->
+                <!-- a href="http://store.xinit.com/ecommerce/control/main" target="_blank">Xinit Systems</a-->
+            </p>
+            <p>Produits basés sur Apache OFBiz :<br>
+                <a href="http://www.codesquare.com/products.html" target="_blank">Codesquare Helix | </a>
+                <a href="http://www.myaffiliateprogram.com/u/mvelopes/t.asp?id=1138" target="_blank">Mvelopes (FREE TRIAL!) (Commercial-Service) | </a>
+                <a href="http://www.atlassian.com/software/jira/default.jsp" target="_blank">Atlassian JIRA (Commercial) | </a>
+                <a href="http://www.opentaps.org/index.php" target="_blank">opentaps Open Source ERP + CRM (GPL/Commercial) | </a>
+                <a href="http://neogia.labs.libre-entreprise.org/index.html" target="_blank">Neogia (GPL) | </a>
+                <a href="http://sourcetapcrm.sourceforge.net" target="_blank">SourceTap CRM (GPL/Commercial) | </a>
+                <a href="http://www.neulion.com" target="_blank">NeuLion SAVANNA | </a>
+                <!--a href="http://www.mietta.info" target="_blank">XtraMind Mietta 2 | </a-->
+                <a href="http://www.c-libre.net/cms/showcontenttree?currentMenuId=Web_Accueil&amp;nodeTrailCsv=Web_Accueil" target="_blank">Entente Oya (French) | </a>
+                <a href="http://www.allinsoftware.com/" target="_blank">ALL-IN Software (Commercial for Jewelry Store)</a>
+            </p>
+            <p>Pour une liste plus complète, voir la <a href="http://cwiki.apache.org/confluence/x/IQFk"> liste des utilisateurs d'Apache OFBiz</a>.</p>
+            <h2>Nouvelles</h2>
+              <ul>
+                  <li><a href="http://opensourceerpguru.com/2009/05/12/apache-ofbiz-revamps-website/" target="_blank">Apache OFBiz Revamps Website</a> on <a href="http://opensourceerpguru.com/" target="_blank">Open Source ERP Guru</a></li>
+                  <li><a href="http://www.hotwaxmedia.com/apache-ofbiz-blog/ofbiz-tutorial-custom-components-in-ofbiz/" target="_blank">OFBiz Tutorial - Custom Components in OFBiz</a> on <a href="http://www.hotwaxmedia.com/apache-ofbiz-blog/" target="_blank">HotWax Media Blog</a></li>                  <li><a href="http://www.hotwaxmedia.com/apache-ofbiz-blog/ofbiz-tutorial-introduction-to-ofbiz-widgets/" target="_blank">OFBiz Tutorial - Introduction to OFBiz Widgets</a> on <a href="http://www.hotwaxmedia.com/apache-ofbiz-blog/" target="_blank">HotWax Media Blog</a></li>
+                  <li><a href="http://www.hotwaxmedia.com/apache-ofbiz-blog/hotwax-media-gold-sponsor-apachecon-us-2009/" target="_blank">ApacheCon US 2009 - The ASF, OFBiz, Collaboration and Sponsorship</a> on <a href="http://www.hotwaxmedia.com/apache-ofbiz-blog/" target="_blank">HotWax Media Blog</a></li>
+                  <li><a href="http://osofbiz.blogspot.com/2009/06/open-source-community-collaboration.html" target="_blank">Open Source Community Collaboration Best Practices</a> on <a href="http://osofbiz.blogspot.com/" target="_blank">Open Source Business and Open For Business (David E. Jones' Blog)</a></li>
+                  <li><a href="http://osofbiz.blogspot.com/2009/05/apache-ofbiz-at-oscon-2009.html" target="_blank">Apache OFBiz at OSCON 2009</a> on <a href="http://osofbiz.blogspot.com/" target="_blank">Open Source Business and Open For Business (David E. Jones' Blog)</a></li>
+                  <li><a href="http://news.prnewswire.com/DisplayReleaseContent.aspx?ACCT=104&amp;STORY=/www/story/04-20-2009/0005008924&amp;EDATE=" target="_blank">Apache OFBiz version 9.04 is out</a> on <a href="http://www.prnewswire.com/" target="_blank">PR Newswire</a></li>
+                  <li><a href="http://osofbiz.blogspot.com/2009/04/apache-ofbiz-community-building-tour.html" target="_blank">Apache OFBiz Community Building Tour - Mid-western USA, April 2009</a> on <a href="http://osofbiz.blogspot.com/" target="_blank">Open Source Business and Open For Business (David E. Jones' Blog)</a></li>
+                  <li><a href="http://agylen.com/2009/02/05/apache-ofbiz-development-book-review/" target="_blank">Apache OFBiz Development (book review)</a> on <a href="http://agylen.com/" target="_blank">Agylen (Ugo Cei's Weblog). Ugo is an ASF member.</a></li>
+                  <li><a href="http://opensourceerpguru.com/2009/03/01/open-source-erp-e-commerce-with-apache-ofbiz" target="_blank">Open Source ERP E-commerce With Apache OfBiz.</a> on <a href="http://opensourceerpguru.com/" target="_blank">Open source ERP Guru</a></li>
+                  <li><a href="http://www.itbusinessedge.com/cm/community/features/articles/blog/what-do-you-want-from-your-erp-supplier-in-2009/?cs=30549" target="_blank">What Do You Want from Your ERP Supplier in 2009?</a> on <a href="http://www.itbusinessedge.com/" target="_blank">IT Business Edge</a></li>
+                  <li><a href="http://www.itbusinessedge.com/cm/community/features/articles/blog/despite-criticism-erp-vendors-satisfying-their-customers/?cs=30524&amp;page=1" target="_blank">Despite Criticism, ERP Vendors Satisfying Their Customers</a> on <a href="http://www.itbusinessedge.com/" target="_blank">IT Business Edge</a></li>
+                  <li><a href="http://wooga.drbacchus.com/apache-ofbiz-development" target="_blank">A review of 'Apache OFBiz Development: The Beginner's Tutorial'.</a> on <a href="http://www.rcbowen.com/" target="_blank">DrBacchus' Journal (aka Richard Bowen, Richard is a member of the Apache Software Foundation)</a></li>
+                  <li><a href="http://www.packtpub.com/apache-ofbiz-development-beginners-tutorial/book" target="_blank">Apache OFBiz Development: The Beginner's Tutorial (a new book from Packt Publishing, covers release 4.0).</a> on <a href="http://www.packtpub.com/" target="_blank">Packt Publishing</a></li>
+                  <li><a href="http://www.ebizq.net/hot_topics/open_source/features/8926.html" target="_blank">Can OSS ERP Projects Meet User Demand? (registration required)</a> on <a href="http://www.ebizq.net" target="_blank">ebizQ</a></li>
+              </ul>
+    </div>
+        <!-- main ends -->
+        <!-- sidebar starts -->
+        <div id="sidebar">
+            <div class="downloadNow"><a href="http://build.ofbiz.org/"><img src="/ofbiz/images/download.jpg"></a></div>
+            <div class="downloadLinks clearfix"><span class="docs"><a href="http://cwiki.apache.org/confluence/x/uABk">Documentation</a></span><span class="previousVersions"><a href="http://build.ofbiz.org">Versions précédentes</a></span></div>
+            <h3>Ressources &amp; outils</h3>
+            <ul class="sidemenu">
+                <li><a href="http://cwiki.apache.org/confluence/x/GoB2">Page principale de documentation</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/DAFk">Quoi de neuf ?</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/L4B2">Mailing Lists</a></li>
+                <li><a href="https://issues.apache.org/jira/browse/OFBIZ">Gestion des bugs (Jira)</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/BYB2">Accès aux sources (SVN)</a></li>
+                <li><a href="http://fisheye6.cenqua.com/browse/ofbiz">Stats et code-source (Fisheye)</a></li>
+                <li><a href="http://api.ofbiz.org/">API Reference (Javadoc)</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/display/OFBIZ">Site de documentation : Wiki</a></li>
+                <li><a href="VideosConf.html">Vidéos</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/FoB2">Livres</a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/vQBk">Projets et standards liés</a></li>
+            </ul>
+
+            <h3>Sites de démonstration</h3>
+            <ul class="sidemenu">
+                <li><a href="http://demo.ofbiz.org/ecommerce/control/main">Site e-commerce<br><span>(basé sur la dernière version)</span></a></li>
+                <li><a href="https://demo.ofbiz.org/catalog/control/login/main?USERNAME=admin&amp;PASSWORD=ofbiz&amp;JavaScriptEnabled=Y">ERP<br><span>(basé sur la dernière version)</span></a></li>
+                <li><a href="http://demo904.ofbiz.org/ecommerce/control/main">e-commerce 9.04 <br><span>(basé sur la 9.04)</span></a></li>
+                <li><a href="https://demo904.ofbiz.org/catalog/control/login/main?USERNAME=admin&amp;PASSWORD=ofbiz&amp;JavaScriptEnabled=Y">ERP 9.04 <br><span>(basé sur la 9.04)</span></a></li>
+                <li><a href="http://cwiki.apache.org/confluence/x/oQBk">Tous les serveurs de démo<br><span> Une liste de tous les serveurs de démonstration connus</span></a></li>
+                <li><a href="http://log.ofbiz.org/">Logs journaliers<br><span>Logs pour la dernière version</span></a></li>
+            </ul>
+
+            <h3>Fournisseurs de services</h3>
+            <ul class="sidemenu">
+                <li><a href="http://cwiki.apache.org/confluence/x/jwBk" target="_blank">Liste complète sur le wiki</a></li>
+                <li><a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">HotWax Media</a></li>
+                <li><a href="http://www.dejc.com/" target="_blank">David E. Jones Consulting</a></li>
+                <li><a href="http://www.antwebsystems.com" target="_blank">Ant Websystems</a></li>
+                <li><a href="http://www.brainfood.com" target="_blank">Brainfood</a></li>
+                <li><a href="http://www.alexanderinteractive.com" target="_blank">Alexander Interactive</a></li>
+                <li><a href="http://www.opensourcestrategies.com/ofbiz/" target="_blank">Open Source Strategies, Inc.</a></li>
+                <li><a href="http://www.go-integral.com" target="_blank">Integral Business Solutions</a></li>
+                <li><a href="http://www.automationgroups.com" target="_blank">Automation Groups International</a></li>
+                <li><a href="http://openplus.co.uk" target="_blank">Open Plus Ltd</a></li>
+                <li><a href="http://www.opentrends.net/web/english/philosophy.html" target="_blank">openTrends</a></li>
+                <li><a href="http://www.nereide.biz" target="_blank">Nereide (French)</a></li>
+                <li><a href="mailto:dirk.osterkamp@agrenon.com" target="_blank">Agrenon GmbH</a></li>
+                <li><a href="http://www.c-libre.net/cms/showcontenttree?currentMenuId=Web_Accueil&amp;nodeTrailCsv=Web_Accueil" target="_blank">C-libre (French)</a></li>
+
+            </ul>
+
+            <h3>OFBiz Infra Sponsorship</h3>
+            <ul class="sidemenu">
+                <li>Demos, Nightly Builds, Nightly Demo Logs, and API Site Provided by <a href="http://www.contegix.com/" target="_blank">Contegix</a> and <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">HotWax Media</a></li>
+                <li>Site Design and Matching Theme Provided by <a href="http://www.brainfood.com/" target="_blank">Brainfood</a> and <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">HotWax Media</a></li>
+                <li>General Apache Software Foundation <a href="http://www.apache.org/foundation/thanks.html" target="_blank">sponsors</a>
+            </li></ul>
+        </div>
+        <!-- sidebar -->
+      </div>
+      <!-- content-wrap -->
+  </div>
+            ]]></textData>
+    </ElectronicText>
+</entity-engine-xml>
