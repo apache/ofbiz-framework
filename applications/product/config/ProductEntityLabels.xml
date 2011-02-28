@@ -607,6 +607,10 @@
         <value xml:lang="zh">同时购买</value>
         <value xml:lang="zh_TW">同時購買</value>
     </property>
+    <property key="ProductAssocType.description.ALTERNATIVE_PACKAGE">
+        <value xml:lang="en">Alternative Packaging</value>
+        <value xml:lang="fr">Conditionnement alternatif</value>
+    </property>
     <property key="ProductAssocType.description.ENGINEER_COMPONENT">
         <value xml:lang="de">Stückliste Engineering</value>
         <value xml:lang="en">Engineering Bill of Materials</value>
