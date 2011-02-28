@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.common.preferences;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -140,10 +140,8 @@ public class PreferenceServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.readFailure", new Object[] { e.getMessage() }, locale));
         }
         // for the 'DEFAULT' values find the related values in general properties and if found use those.
-        Iterator it = userPrefMap.entrySet().iterator();
-        Map generalProperties = UtilProperties.getProperties("general");
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry) it.next();
+        Properties generalProperties = UtilProperties.getProperties("general");
+        for (Map.Entry<String, Object> pairs: userPrefMap.entrySet()) {
             if ("DEFAULT".equals(pairs.getValue())) {
                 if (UtilValidate.isNotEmpty(generalProperties.get(pairs.getKey()))) {
                     userPrefMap.put((String) pairs.getKey(), generalProperties.get(pairs.getKey()));
@@ -241,9 +239,8 @@ public class PreferenceServices {
         }
 
         try {
-            for (Iterator i = userPrefMap.entrySet().iterator(); i.hasNext();) {
-                Map.Entry mapEntry = (Map.Entry) i.next();
-                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, (String) mapEntry.getKey(), userPrefGroupTypeId, (String) mapEntry.getValue()));
+            for (Map.Entry<String, Object> mapEntry: userPrefMap.entrySet()) {
+                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, mapEntry.getKey(), userPrefGroupTypeId, (String) mapEntry.getValue()));
                 delegator.createOrStore(rec);
             }
         } catch (GenericEntityException e) {
