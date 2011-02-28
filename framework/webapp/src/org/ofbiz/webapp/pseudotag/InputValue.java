@@ -117,7 +117,7 @@ public class InputValue {
 
                     if (fieldVal != null)
                         inputValue = fieldVal.toString();
-                } else if (entTemp instanceof Map) {
+                } else if (entTemp instanceof Map<?, ?>) {
                     Map<String, ?> map = UtilGenerics.cast(entTemp);
                     Object fieldVal = map.get(field);
 
