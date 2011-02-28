@@ -149,6 +149,7 @@ public class EntityFinderUtil {
     public static interface Condition extends Serializable {
         public EntityCondition createCondition(Map<String, ? extends Object> context, ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader);
     }
+    @SuppressWarnings("serial")
     public static class ConditionExpr implements Condition {
         protected FlexibleStringExpander fieldNameExdr;
         protected FlexibleStringExpander operatorExdr;
@@ -261,6 +262,7 @@ public class EntityFinderUtil {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class ConditionList implements Condition {
         List<Condition> conditionList = new LinkedList<Condition>();
         FlexibleStringExpander combineExdr;
@@ -308,6 +310,7 @@ public class EntityFinderUtil {
             return EntityCondition.makeCondition(entityConditionList, UtilGenerics.<EntityJoinOperator>cast(operator));
         }
     }
+    @SuppressWarnings("serial")
     public static class ConditionObject implements Condition {
         protected FlexibleMapAccessor<Object> fieldNameAcsr;
 
@@ -329,6 +332,7 @@ public class EntityFinderUtil {
         public void handleOutput(EntityListIterator eli, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
         public void handleOutput(List<GenericValue> results, Map<String, Object> context, FlexibleMapAccessor<Object> listAcsr);
     }
+    @SuppressWarnings("serial")
     public static class LimitRange implements OutputHandler {
         FlexibleStringExpander startExdr;
         FlexibleStringExpander sizeExdr;
@@ -383,6 +387,7 @@ public class EntityFinderUtil {
             listAcsr.put(context, results.subList(start, end));
         }
     }
+    @SuppressWarnings("serial")
     public static class LimitView implements OutputHandler {
         FlexibleStringExpander viewIndexExdr;
         FlexibleStringExpander viewSizeExdr;
@@ -439,6 +444,7 @@ public class EntityFinderUtil {
             listAcsr.put(context, results.subList(begin, end));
         }
     }
+    @SuppressWarnings("serial")
     public static class UseIterator implements OutputHandler {
         public UseIterator(Element useIteratorElement) {
             // no parameters, nothing to do
@@ -452,6 +458,7 @@ public class EntityFinderUtil {
             throw new IllegalArgumentException("Cannot handle output with use-iterator when the query is cached, or the result in general is not an EntityListIterator");
         }
     }
+    @SuppressWarnings("serial")
     public static class GetAll implements OutputHandler {
         public GetAll() {
             // no parameters, nothing to do
