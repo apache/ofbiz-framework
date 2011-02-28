@@ -65,14 +65,14 @@ public class ProtectViewWorker {
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId");
             try {
-                List<GenericValue> protectedViews = delegator.findByAnd("UserLoginAndProtectedView",
+                List<GenericValue> protectedViews = delegator.findByAndCache("UserLoginAndProtectedView",
                         UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
                 // Any views to deal with ?
                 if (UtilValidate.isNotEmpty(protectedViews)) {
                     Long now = System.currentTimeMillis(); // we are not in a margin of some milliseconds
 
                     // Is this login/view couple already tarpitted ? (ie denied access to view for login for a period of time)
-                    List<GenericValue> tarpittedLoginViews = delegator.findByAnd("TarpittedLoginView",
+                    List<GenericValue> tarpittedLoginViews = delegator.findByAndCache("TarpittedLoginView",
                             UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
                     String  viewNameUserLoginId = viewNameId + userLoginId;
                     if (UtilValidate.isNotEmpty(tarpittedLoginViews)) {
