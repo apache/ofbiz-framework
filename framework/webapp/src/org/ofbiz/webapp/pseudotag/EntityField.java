@@ -122,7 +122,7 @@ public class EntityField {
                         fieldObject = defaultStr;
                         fieldObjectType = "comment"; // Default for NULL objects.
                     }
-                } else if (attrObject instanceof Map) {
+                } else if (attrObject instanceof Map<?, ?>) {
                     Map<String, ?> valueMap = UtilGenerics.cast(attrObject);
 
                     fieldObject = valueMap.get(field);
@@ -165,10 +165,9 @@ public class EntityField {
         // Get the Locale from the Request object.
         Locale userLocale = null;
 
-        if (false) {
-            // disable this until we get i18n issues addressed
-            userLocale = pageContext.getRequest().getLocale();
-        }
+        // disable this until we get i18n issues addressed
+        //userLocale = pageContext.getRequest().getLocale();
+        
         if (userLocale == null) {
             userLocale = Locale.getDefault();
         }
