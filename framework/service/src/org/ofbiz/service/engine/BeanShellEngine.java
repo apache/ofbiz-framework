@@ -70,10 +70,10 @@ public final class BeanShellEngine extends GenericAsyncEngine {
         try {
             Object resultObj = BshUtil.runBshAtLocation(location, context);
 
-            if (resultObj != null && resultObj instanceof Map) {
+            if (resultObj != null && resultObj instanceof Map<?, ?>) {
                 Debug.logInfo("Got result Map from script return: " + resultObj, module);
                 return cast(resultObj);
-            } else if (context.get("result") != null && context.get("result") instanceof Map) {
+            } else if (context.get("result") != null && context.get("result") instanceof Map<?, ?>) {
                 Debug.logInfo("Got result Map from context: " + resultObj, module);
                 return cast(context.get("result"));
             }
