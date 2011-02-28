@@ -68,6 +68,7 @@
     </property>
     <property key="FormFieldTitle_cancelBackOrderDate">
         <value xml:lang="en">Cancel Back Order Date</value>
+        <value xml:lang="fr">Date d'annulation de la commande</value>
         <value xml:lang="it">Cancella data back order</value>
         <value xml:lang="pt_BR">Cancelar Data de pedido em espera</value>
         <value xml:lang="zh">取消返回订单日期</value>
@@ -2935,6 +2936,7 @@
     </property>
     <property key="OrderCreateShipGroup">
         <value xml:lang="en">Create New Ship Group</value>
+        <value xml:lang="fr">Créer un nouveau groupe d'expédition</value>
         <value xml:lang="it">Creare Nuovo Gruppo di Spedizione</value>
         <value xml:lang="zh_TW">建立新遞送群組</value>
     </property>
@@ -7363,6 +7365,7 @@
     </property>
     <property key="OrderOrderShipEstimate">
         <value xml:lang="en">Shipping estimate amount</value>
+        <value xml:lang="fr">Montant d'expédition estimé</value>
     </property>
     <property key="OrderOrdersTotals">
         <value xml:lang="de">Aufträge Total</value>
@@ -10840,6 +10843,7 @@
     </property>
     <property key="OrderShippingNotes">
         <value xml:lang="en">Shipping Notes</value>
+        <value xml:lang="fr">Note d'expédition</value>
         <value xml:lang="it">Note di spedizione</value>
         <value xml:lang="pt_BR">Notas de envio</value>
         <value xml:lang="zh_TW">遞送便箋</value>
