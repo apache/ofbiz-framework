@@ -99,7 +99,7 @@ public class EntityFinderUtil {
             for (Map.Entry<FlexibleMapAccessor<Object>, Object> entry: fieldMap.entrySet()) {
                 FlexibleMapAccessor<Object> serviceContextFieldAcsr = entry.getKey();
                 Object valueSrc = entry.getValue();
-                if (valueSrc instanceof FlexibleMapAccessor) {
+                if (valueSrc instanceof FlexibleMapAccessor<?>) {
                     FlexibleMapAccessor<Object> contextEnvAcsr = cast(valueSrc);
                     serviceContextFieldAcsr.put(outContext, contextEnvAcsr.get(context));
                 } else if (valueSrc instanceof FlexibleStringExpander) {
@@ -219,7 +219,7 @@ public class EntityFinderUtil {
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
             if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN) || operator.equals(EntityOperator.NOT_IN))
-                    && value instanceof Collection)) {
+                    && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
                 value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, modelFieldTypeReader, context);
             }
