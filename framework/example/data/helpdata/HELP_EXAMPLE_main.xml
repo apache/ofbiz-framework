@@ -18,6 +18,7 @@ License.
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>The Example Main page.</title>
+    <para><link xl:href="showHelp?helpTopic=EXAMPLE">About the Example application</link></para>
     <para>
         In this page, you can create or search an example
     </para>
