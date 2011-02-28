@@ -31,6 +31,7 @@ import org.ofbiz.base.util.Debug;
 /**
  * IfTag - Conditional Tag.
  */
+@SuppressWarnings("serial")
 public class IfTag extends BodyTagSupport {
 
     public static final String module = IfTag.class.getName();
@@ -95,7 +96,7 @@ public class IfTag extends BodyTagSupport {
             int localSize = size.intValue();
 
             try {
-                if (object instanceof Collection) {
+                if (object instanceof Collection<?>) {
                     // the object is a Collection so compare the size.
                     if (((Collection<?>) object).size() > localSize)
                         return EVAL_BODY_AGAIN;
