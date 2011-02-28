@@ -23,14 +23,16 @@ under the License.
     <DataResource dataResourceId="AFIBC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="SFIBC Logo" objectInfo="sfibc_logo.png"/>
     <DataResource dataResourceId="AGEP_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGEP Logo" objectInfo="agep_logo.png"/>
     <DataResource dataResourceId="AGINC_LOGO" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="AGINC Logo" objectInfo="aginc_logo.png"/>
-    <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl"/>
+    <!--DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ArticleWrap.ftl"/-->
+    <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" />
     <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="LEFT BAR"/>
     <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png"/>
     <DataResource dataResourceId="STDWRAP001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TEMPLATE_IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TEMPLATE_TEXT_ONLY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
-    <DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ViewWrap.ftl"/>
+    <!--DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" objectInfo="/hot-deploy/blog/webapp/blog/ViewWrap.ftl"/-->
+    <DataResource dataResourceId="VIEW_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL"/>
     <DataResource dataResourceId="WRAP_ARTICLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL"/>
     <DataResource dataResourceId="WRAP_ARTICLE_TABLE" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Article wrap with table elements"/>
     <DataResource dataResourceId="WRAP_NEXT_PREV" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Next/Prev wrapper"/>
