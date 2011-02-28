@@ -313,7 +313,6 @@ public class GenericDAO {
 
         StringBuilder sql = new StringBuilder("UPDATE ").append(modelEntity.getTableName(datasourceInfo));
         sql.append(" SET ");
-        List<ModelField> fieldList = new LinkedList<ModelField>();
         List<EntityConditionParam> params = new LinkedList<EntityConditionParam>();
         for (Map.Entry<String, ? extends Object> entry: fieldsToSet.entrySet()) {
             String name = entry.getKey();
