@@ -68,7 +68,7 @@ public class ImportProductHelper {
             tmpProductGV = delegator.findByPrimaryKey("Product", UtilMisc
                 .toMap("productId", productId));
             if (tmpProductGV != null
-                    && tmpProductGV.getString("productId") == productId)
+                    && productId.equals(tmpProductGV.getString("productId")))
                 productExists = true;
         } catch (GenericEntityException e) {
             Debug.logError("Problem in reading data of product", module);
