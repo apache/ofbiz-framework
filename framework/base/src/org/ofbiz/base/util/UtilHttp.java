@@ -30,7 +30,6 @@ import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.ibm.icu.util.Calendar;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Enumeration;
@@ -42,8 +41,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -54,8 +51,11 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.oro.text.regex.MalformedPatternException;
 import org.owasp.esapi.errors.EncodingException;
 import org.owasp.esapi.errors.IntrusionException;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * HttpUtil - Misc HTTP Utility Functions
@@ -1266,20 +1266,26 @@ public class UtilHttp {
             String initialUserAgent = request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "";
             List<String> spiderList = StringUtil.split(UtilProperties.getPropertyValue("url", "link.remove_lsessionid.user_agent_list"), ",");
             if (UtilValidate.isNotEmpty(spiderList)) {
-                for (String spiderNameElement: spiderList) {
-                    Pattern p = Pattern.compile("^.*" + spiderNameElement + ".*$", Pattern.CASE_INSENSITIVE);
-                    Matcher m = p.matcher(initialUserAgent);
-                    if (m.find()) {
-                        request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
-                        result = true;
-                        break;
+
+                CompilerMatcher compilerMatcher = new CompilerMatcher();
+                for (String spiderNameElement : spiderList) {
+                    try {
+                        if (compilerMatcher.matches(initialUserAgent, "^.*" + spiderNameElement + ".*$", false)) {
+                            request.setAttribute("_REQUEST_FROM_SPIDER_", "Y");
+                            result = true;
+                            break;
+                        }
+                    }
+                    catch (MalformedPatternException e) {
+                        Debug.logError(e, module);
                     }
                 }
             }
         }
 
-        if (!result)
+        if (!result) {
             request.setAttribute("_REQUEST_FROM_SPIDER_", "N");
+        }
 
         return result;
     }

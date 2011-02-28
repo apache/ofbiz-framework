@@ -20,8 +20,10 @@ package org.ofbiz.widget.form;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +35,9 @@ import java.util.TimeZone;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.conversion.ConversionException;
+import org.ofbiz.base.conversion.DateTimeConverters;
+import org.ofbiz.base.conversion.DateTimeConverters.StringToTimestamp;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -2150,9 +2155,52 @@ public class ModelFormField {
                     throw new IllegalArgumentException(errMsg);
                 }
             } else if ("date".equals(this.type) && retVal.length() > 10) {
-                retVal = retVal.substring(0,10);
+                Locale locale = (Locale) context.get("locale");
+                if (locale == null) {
+                    locale = Locale.getDefault();
+                }
+
+                StringToTimestamp stringToTimestamp = new DateTimeConverters.StringToTimestamp();
+                Timestamp timestamp = null;
+                try {
+                    timestamp = stringToTimestamp.convert(retVal);
+                    Date date = new Date(timestamp.getTime());
+
+                    DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+                    retVal = dateFormatter.format(date);
+                }
+                catch (ConversionException e) {
+                    String errMsg = "Error formatting date using default instead [" + retVal + "]: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    // create default date value from timestamp string
+                    retVal = retVal.substring(0,10);
+                }
+
             } else if ("date-time".equals(this.type) && retVal.length() > 16) {
-                retVal = retVal.substring(0,16);
+                Locale locale = (Locale) context.get("locale");
+                TimeZone timeZone = (TimeZone) context.get("timeZone");
+                if (locale == null) {
+                    locale = Locale.getDefault();
+                }
+                if (timeZone == null) {
+                    timeZone = TimeZone.getDefault();
+                }
+
+                StringToTimestamp stringToTimestamp = new DateTimeConverters.StringToTimestamp();
+                Timestamp timestamp = null;
+                try {
+                    timestamp = stringToTimestamp.convert(retVal);
+                    Date date = new Date(timestamp.getTime());
+
+                    DateFormat dateFormatter = UtilDateTime.toDateTimeFormat(null, timeZone, locale);
+                    retVal = dateFormatter.format(date);
+                }
+                catch (ConversionException e) {
+                    String errMsg = "Error formatting date/time using default instead [" + retVal + "]: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    // create default date/time value from timestamp string
+                    retVal = retVal.substring(0,16);
+                }
             } else if ("accounting-number".equals(this.type)) {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) {

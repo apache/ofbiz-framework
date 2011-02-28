@@ -28,11 +28,7 @@ import java.util.TimeZone;
 import javolution.util.FastList;
 
 import org.apache.oro.text.regex.MalformedPatternException;
-import org.apache.oro.text.regex.Pattern;
-import org.apache.oro.text.regex.PatternCompiler;
-import org.apache.oro.text.regex.PatternMatcher;
-import org.apache.oro.text.regex.Perl5Compiler;
-import org.apache.oro.text.regex.Perl5Matcher;
+import org.ofbiz.base.util.CompilerMatcher;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -495,8 +491,7 @@ public class ModelScreenCondition implements Serializable {
     }
 
     public static class IfRegexp extends ScreenCondition {
-        static PatternMatcher matcher = new Perl5Matcher();
-        static PatternCompiler compiler = new Perl5Compiler();
+        private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
@@ -511,15 +506,6 @@ public class ModelScreenCondition implements Serializable {
         @Override
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
-            String expr = this.exprExdr.expandString(context);
-            Pattern pattern;
-            try {
-                pattern = compiler.compile(expr);
-            } catch (MalformedPatternException e) {
-                String errMsg = "Error in evaluation in if-regexp in screen: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
-            }
 
             String fieldString = null;
             try {
@@ -530,7 +516,13 @@ public class ModelScreenCondition implements Serializable {
             // always use an empty string by default
             if (fieldString == null) fieldString = "";
 
-            return matcher.matches(fieldString, pattern);
+            try {
+                return compilerMatcher.get().matches(fieldString, this.exprExdr.expandString(context));
+            } catch (MalformedPatternException e) {
+                String errMsg = "Error in evaluation in if-regexp in screen: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new IllegalArgumentException(errMsg);
+            }
         }
     }
 
