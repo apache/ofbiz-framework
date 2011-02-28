@@ -39,6 +39,7 @@ import org.ofbiz.base.util.UtilGenerics;
 /**
  * IterateTag - JSP Tag to iterate over a Collection or any object with an iterator() method.
  */
+@SuppressWarnings("serial")
 public class IteratorTag extends BodyTagSupport {
 
     public static final String module = IteratorTag.class.getName();
@@ -164,7 +165,7 @@ public class IteratorTag extends BodyTagSupport {
             if (Debug.verboseOn()) Debug.logVerbose("Getting iterator from property: " + property, module);
             Object propertyObject = pageContext.findAttribute(property);
 
-            if (propertyObject instanceof Iterator) {
+            if (propertyObject instanceof Iterator<?>) {
                 newIterator = UtilGenerics.cast(propertyObject);
             } else {
                 // if ClassCastException, it should indicate looking for a Collection
