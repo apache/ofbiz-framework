@@ -26,13 +26,16 @@ import org.ofbiz.base.util.Debug;
 /**
  * Tag to render a region
  */
+@SuppressWarnings("serial")
 public class RenderTag extends RegionTag {
 
     public static final String module = RenderTag.class.getName();
 
     private String sectionName = null;
     private String role = null;
+    @SuppressWarnings("unused")
     private String permission = null;
+    @SuppressWarnings("unused")
     private String action = null;
 
     public void setSection(String s) {
