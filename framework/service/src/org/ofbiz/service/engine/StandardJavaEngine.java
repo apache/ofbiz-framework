@@ -56,7 +56,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Object result = serviceInvoker(localName, modelService, context);
 
-        if (result == null || !(result instanceof Map)) {
+        if (result == null || !(result instanceof Map<?, ?>)) {
             throw new GenericServiceException("Service [" + modelService.name + "] did not return a Map object");
         }
         return UtilGenerics.checkMap(result);
