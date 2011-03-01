@@ -221,7 +221,7 @@ public class SOAPEventHandler implements EventHandler {
                         }
 
                     } catch (GenericServiceException e) {
-                        sendError(response, "Problem processing the service");
+                        //sendError(response, "Problem processing the service"); this causes a not a valid XML response. See https://issues.apache.org/jira/browse/OFBIZ-4207
                         throw new EventHandlerException(e.getMessage(), e);
                     }
                 }
