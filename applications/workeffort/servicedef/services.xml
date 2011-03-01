@@ -35,6 +35,8 @@ under the License.
             <exclude field-name="lastModifiedDate"/>
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
+        <override name="workEffortName" allow-html="safe"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="createWorkEffort" default-entity-name="WorkEffort" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffort">
@@ -47,7 +49,7 @@ under the License.
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <override name="workEffortTypeId" optional="false"/>
-        <override name="workEffortName" optional="false" allow-html="safe"/>
+        <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
         <override name="description" allow-html="safe"/>
     </service>
@@ -75,8 +77,6 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="reason" type="String" mode="IN" optional="true"/>
-        <override name="workEffortName" allow-html="safe"/>
-        <override name="description" allow-html="safe"/>
     </service>
     <service name="deleteWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffort">
