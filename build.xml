@@ -74,6 +74,7 @@ under the License.
           description="Clean all downloaded files">
         <delete>
             <fileset dir="framework/base/lib" includes="cobertura-*.jar"/>
+            <fileset dir="framework/base/lib" includes="sonar-*.jar"/>
             <fileset dir="framework/entity/lib/jdbc" includes="postgresql-*.jar"/>
         </delete>
     </target>
@@ -774,6 +775,10 @@ under the License.
 
     <target name="download-PG-JDBC" depends="ivy-init" description="Download postgres jdbc driver">
         <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="postgres"/>
+    </target>
+
+    <target name="download-sonar-ant-task" depends="ivy-init">
+        <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="sonar-ant-task"/>
     </target>
 
     <!-- ================================================================== -->
