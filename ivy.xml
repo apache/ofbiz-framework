@@ -27,10 +27,12 @@
     <configurations>
         <conf name="cobertura" description="downloads cobertura 1.9.3 (GPL2.0) http://cobertura.sourceforge.net/"/>
         <conf name="postgres" description="downloads the postgres JDBC driver"/>
+        <conf name="sonar-ant-task" description="downloads the ant sonar task (need sonar>=2.6)"/>
     </configurations>
     <dependencies>
         <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.3" conf="cobertura->default"/>
         <dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" conf="postgres->default"/>
+        <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.0" conf="sonar-ant-task->default"/>
 
         <!--Exclusions for cobertura-->
         <exclude module="oro" conf="cobertura"/>
