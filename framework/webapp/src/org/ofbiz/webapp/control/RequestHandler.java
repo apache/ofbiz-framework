@@ -693,7 +693,6 @@ public class RequestHandler {
         return nextPage;
     }
 
-    @SuppressWarnings("unchecked")
     private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req) throws RequestHandlerException {
         if (Debug.infoOn()) Debug.logInfo("Sending redirect to: [" + url + "], sessionId=" + UtilHttp.getSessionId(req), module);
         // set the attributes in the session so we can access it.
