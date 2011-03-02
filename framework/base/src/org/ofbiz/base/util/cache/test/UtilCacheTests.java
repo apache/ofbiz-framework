@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.cache.CacheListener;
 import org.ofbiz.base.util.cache.UtilCache;
 
+@SuppressWarnings("serial")
 public class UtilCacheTests extends GenericTestCaseBase implements Serializable {
     public static final String module = UtilCacheTests.class.getName();
 
@@ -55,8 +56,8 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
 
         @Override
         public boolean equals(Object o) {
-            if (o instanceof Removal) {
-                Removal other = (Removal) o;
+            if (o instanceof Removal<?>) {
+                Removal<?> other = (Removal<?>) o;
                 return UtilObject.equalsHelper(oldValue, other.oldValue);
             }
             return false;
@@ -77,8 +78,8 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
 
         @Override
         public boolean equals(Object o) {
-            if (o instanceof Addition) {
-                Addition other = (Addition) o;
+            if (o instanceof Addition<?>) {
+                Addition<?> other = (Addition<?>) o;
                 return UtilObject.equalsHelper(newValue, other.newValue);
             }
             return false;
@@ -101,8 +102,8 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
 
         @Override
         public boolean equals(Object o) {
-            if (o instanceof Update) {
-                Update other = (Update) o;
+            if (o instanceof Update<?>) {
+                Update<?> other = (Update<?>) o;
                 if (!UtilObject.equalsHelper(newValue, other.newValue)) {
                    return false;
                 }
@@ -144,7 +145,7 @@ public class UtilCacheTests extends GenericTestCaseBase implements Serializable 
 
         @Override
         public boolean equals(Object o) {
-            Listener other = (Listener) o;
+            Listener<?, ?> other = (Listener<?, ?>) o;
             return changeMap.equals(other.changeMap);
         }
     }
