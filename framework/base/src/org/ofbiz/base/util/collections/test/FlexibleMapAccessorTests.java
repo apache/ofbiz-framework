@@ -34,7 +34,6 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 @SourceMonitored
 public class FlexibleMapAccessorTests extends GenericTestCaseBase {
     private static final Locale localeToTest = new Locale("en", "US");
-    private static final Locale badLocale = new Locale("fr");
     private static FlexibleMapAccessor<?> fmaEmpty = FlexibleMapAccessor.getInstance("");
     private static FlexibleMapAccessor<?> fmaNull = FlexibleMapAccessor.getInstance(null);
 
@@ -152,6 +151,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         }
     }
 
+    @SuppressWarnings("serial")
     public static class CantRemoveMap<K, V> extends HashMap<K, V> {
         @Override
         public V get(Object key) {
