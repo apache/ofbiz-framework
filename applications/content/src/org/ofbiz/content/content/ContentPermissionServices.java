@@ -292,52 +292,46 @@ public class ContentPermissionServices {
         // boolean isMatchTo = false;
         // boolean isMatchFrom = false;
         Map<String, Object> permResults = FastMap.newInstance();
-        String skipPermissionCheck = null;
 
-        if (UtilValidate.isEmpty(skipPermissionCheck)
-            || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
-            // Use the purposes from the from entity for both cases.
-            List<String> relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
-            List<String> relatedPurposesTo = EntityPermissionChecker.getRelatedPurposes(contentTo, relatedPurposes);
-            Map<String, Object> serviceInMap = FastMap.newInstance();
-            serviceInMap.put("userLogin", userLogin);
-            serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_TO"));
-            serviceInMap.put("contentPurposeList", relatedPurposesTo);
-            serviceInMap.put("currentContent", contentTo);
-            serviceInMap.put("displayFailCond", bDisplayFailCond);
+        // Use the purposes from the from entity for both cases.
+        List<String> relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
+        List<String> relatedPurposesTo = EntityPermissionChecker.getRelatedPurposes(contentTo, relatedPurposes);
+        Map<String, Object> serviceInMap = FastMap.newInstance();
+        serviceInMap.put("userLogin", userLogin);
+        serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_TO"));
+        serviceInMap.put("contentPurposeList", relatedPurposesTo);
+        serviceInMap.put("currentContent", contentTo);
+        serviceInMap.put("displayFailCond", bDisplayFailCond);
 
-            try {
-                permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem checking permissions", "ContentServices");
+        try {
+            permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem checking permissions", "ContentServices");
+        }
+        permissionStatus = (String)permResults.get("permissionStatus");
+        if (permissionStatus == null || !permissionStatus.equals("granted")) {
+            if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
+                String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
+                results.put(ModelService.ERROR_MESSAGE, errMsg);
             }
-            permissionStatus = (String)permResults.get("permissionStatus");
-            if (permissionStatus == null || !permissionStatus.equals("granted")) {
-                if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
-                    String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
-                    results.put(ModelService.ERROR_MESSAGE, errMsg);
-                }
-                return results;
-            }
-            serviceInMap.put("currentContent", contentFrom);
-            serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_FROM"));
-            serviceInMap.put("contentPurposeList", relatedPurposes);
-            try {
-                permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Problem checking permissions", "ContentServices");
-            }
-            permissionStatus = (String)permResults.get("permissionStatus");
-            if (permissionStatus != null && permissionStatus.equals("granted")) {
-                results.put("permissionStatus", "granted");
-            } else {
-                if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
-                    String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
-                    results.put(ModelService.ERROR_MESSAGE, errMsg);
-                }
-            }
-        } else {
+            return results;
+        }
+        serviceInMap.put("currentContent", contentFrom);
+        serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_FROM"));
+        serviceInMap.put("contentPurposeList", relatedPurposes);
+        try {
+            permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
+        } catch (GenericServiceException e) {
+            Debug.logError(e, "Problem checking permissions", "ContentServices");
+        }
+        permissionStatus = (String)permResults.get("permissionStatus");
+        if (permissionStatus != null && permissionStatus.equals("granted")) {
             results.put("permissionStatus", "granted");
+        } else {
+            if (bDisplayFailCond != null && bDisplayFailCond.booleanValue()) {
+                String errMsg = (String)permResults.get(ModelService.ERROR_MESSAGE);
+                results.put(ModelService.ERROR_MESSAGE, errMsg);
+            }
         }
         return results;
     }
