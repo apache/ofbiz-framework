@@ -20,40 +20,24 @@ package org.ofbiz.sql.test;
 
 import java.io.StringReader;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
-
-import junit.framework.TestCase;
-
-import org.ofbiz.sql.ConstantValue;
-import org.ofbiz.sql.CountAllFunction;
-import org.ofbiz.sql.FieldValue;
-import org.ofbiz.sql.FunctionCall;
-import org.ofbiz.sql.MathValue;
-import org.ofbiz.sql.NumberValue;
-import org.ofbiz.sql.ParameterValue;
-import org.ofbiz.sql.StaticValue;
-import org.ofbiz.sql.StringValue;
-import org.ofbiz.sql.Value;
-
-import org.ofbiz.sql.FieldAll;
-import org.ofbiz.sql.FieldDef;
-import org.ofbiz.sql.Parser;
-import org.ofbiz.sql.OrderByItem;
 
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.test.GenericTestCaseBase;
+import org.ofbiz.sql.ConstantValue;
+import org.ofbiz.sql.FieldAll;
+import org.ofbiz.sql.FieldDef;
+import org.ofbiz.sql.FieldValue;
+import org.ofbiz.sql.FunctionCall;
+import org.ofbiz.sql.OrderByItem;
+import org.ofbiz.sql.Parser;
+import org.ofbiz.sql.StaticValue;
+import org.ofbiz.sql.Value;
 
 @SourceMonitored
 public class SelectTest extends GenericTestCaseBase {
     private static final FieldValue fv1 = new FieldValue("partyId");
-    private static final FieldValue fv2 = new FieldValue("a", "partyId");
-    private static final FieldValue fv3 = new FieldValue(null, "partyId");
     private static final FieldValue fv4 = new FieldValue(null, "firstName");
-    private static final NumberValue<Long> nv1 = NumberValue.valueOf(1);
-    private static final NumberValue<Double> nv2 = NumberValue.valueOf(2D);
-    private static final NumberValue<Long> nv3 = NumberValue.valueOf(3);
     private static final FunctionCall fc1 = new FunctionCall("LOWER", GenericTestCaseBase.<Value>list(fv1));
 
     public SelectTest(String name) {
