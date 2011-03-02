@@ -335,7 +335,7 @@ public class UtilMisc {
     public static <T> Set<T> collectionToSet(Collection<T> c) {
         if (c == null) return null;
         Set<T> theSet = null;
-        if (c instanceof Set) {
+        if (c instanceof Set<?>) {
             theSet = (Set<T>) c;
         } else {
             theSet = FastSet.newInstance();
@@ -435,7 +435,7 @@ public class UtilMisc {
 
     public static <T> Set<T> toSet(Collection<T> collection) {
         if (collection == null) return null;
-        if (collection instanceof Set) {
+        if (collection instanceof Set<?>) {
             return (Set<T>) collection;
         } else {
             Set<T> theSet = FastSet.newInstance();
@@ -553,7 +553,7 @@ public class UtilMisc {
 
     public static <T> List<T> toList(Collection<T> collection) {
         if (collection == null) return null;
-        if (collection instanceof List) {
+        if (collection instanceof List<?>) {
             return (List<T>) collection;
         } else {
             List<T> list = FastList.newInstance();
