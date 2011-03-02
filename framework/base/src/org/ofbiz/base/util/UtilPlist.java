@@ -47,11 +47,11 @@ public class UtilPlist {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.print(name);
         writer.print(" = ");
-        if (value instanceof Map) {
+        if (value instanceof Map<?, ?>) {
             writer.println();
             Map<String, Object> map = checkMap(value);
             writePlistPropertyMap(map, indentLevel, writer, false);
-        } else if (value instanceof List) {
+        } else if (value instanceof List<?>) {
             List<Object> list = checkList(value);
             writePlistPropertyValueList(list, indentLevel, writer);
         } else {
@@ -79,7 +79,7 @@ public class UtilPlist {
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
-            if (propertyValue instanceof Map) {
+            if (propertyValue instanceof Map<?, ?>) {
                 Map<String, Object> propertyMap = checkMap(propertyValue);
                 writePlistPropertyMap(propertyMap, indentLevel + 1, writer, propertyValueIter.hasNext());
             } else {
@@ -97,10 +97,10 @@ public class UtilPlist {
         writer.print("<key>");
         writer.print(name);
         writer.println("</key>");
-        if (value instanceof Map) {
+        if (value instanceof Map<?, ?>) {
             Map<String, Object> map = checkMap(value);
             writePlistPropertyMapXml(map, indentLevel, writer);
-        } else if (value instanceof List) {
+        } else if (value instanceof List<?>) {
             List<Object> list = checkList(value);
             writePlistPropertyValueListXml(list, indentLevel, writer);
         } else {
@@ -127,7 +127,7 @@ public class UtilPlist {
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
-            if (propertyValue instanceof Map) {
+            if (propertyValue instanceof Map<?, ?>) {
                 Map<String, Object> propertyMap = checkMap(propertyValue);
                 writePlistPropertyMapXml(propertyMap, indentLevel, writer);
             } else {
