@@ -80,7 +80,7 @@ public class UtilGenerics {
 
     public static <K, V> Map<K, V> checkMap(Object object, Class<K> keyType, Class<V> valueType) {
         if (object != null) {
-            if (!(object instanceof Map)) throw new ClassCastException("Not a map");
+            if (!(object instanceof Map<?, ?>)) throw new ClassCastException("Not a map");
             Map<?, ?> map = (Map<?,?>) object;
             int i = 0;
             for (Map.Entry<?, ?> entry: map.entrySet()) {
