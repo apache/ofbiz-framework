@@ -110,7 +110,7 @@ public class WfsEventHandler implements EventHandler {
             Element simpleElem = simpleDoc.getDocumentElement();
             SimpleMethod meth = new SimpleMethod(simpleElem, null, null);
             MethodContext methodContext = new MethodContext(request, response, null);
-            String retStr = meth.exec(methodContext); //Need to check return string
+            meth.exec(methodContext); //Need to check return string
             List<GenericValue> entityList = UtilGenerics.cast(request.getAttribute("entityList"));
             request.setAttribute("entityList", entityList);
 
@@ -150,28 +150,7 @@ public class WfsEventHandler implements EventHandler {
             throw new EventHandlerException(e.getMessage(), e);
         }
     }
-
-    private String getLocationURI(HttpServletRequest request) {
-        StringBuilder uri = new StringBuilder();
-//        uri.append(request.getScheme());
-//        uri.append("://");
-//        uri.append(request.getServerName());
-//        if (request.getServerPort() != 80 && request.getServerPort() != 443) {
-//            uri.append(":");
-//            uri.append(request.getServerPort());
-//        }
-//        uri.append(request.getContextPath());
-//        uri.append(request.getServletPath());
-//
-//        String reqInfo = RequestHandler.getRequestUri(request.getPathInfo());
-//        if (!reqInfo.startsWith("/")) {
-//            reqInfo = "/" + reqInfo;
-//        }
-//
-//        uri.append(reqInfo);
-        return uri.toString();
-    }
-
+   
     public static String processWfsEntity(String entityName, Node domNode, String templatePath) throws TemplateException, FileNotFoundException, IOException, URISyntaxException {
         String result = null;
         NodeModel nodeModel = NodeModel.wrap(domNode);
