@@ -76,7 +76,6 @@ under the License.
                         <if-empty field="parameters.portalPageId"/>
                     </condition>
                     <actions>
-                        <set field="title" value="${uiLabelMap.CommonExtHelpTitle}"/>
                         <entity-and entity-name="ContentAssoc" list="contentAssocs">
                             <field-map field-name="mapKey" from-field="parameters.helpTopic"/>
                         </entity-and>
