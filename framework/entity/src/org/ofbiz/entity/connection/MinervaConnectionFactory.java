@@ -115,6 +115,10 @@ public class MinervaConnectionFactory implements ConnectionFactoryInterface {
                 pds.setMinSize(2);
             }
 
+            if (jdbcElement.hasAttribute("idle-maxsize")) {
+                Debug.logWarning("idle-maxsize is not supported by MinervaConnectionFactory, ignoring value", module);
+            }
+
             // cache the pool
             dsCache.put(helperInfo.getHelperFullName(), pds);
 
