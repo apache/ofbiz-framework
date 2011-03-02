@@ -94,7 +94,7 @@ under the License.
                             <fail-widgets>
                                 <decorator-screen name="LookupDecorator">
                                     <decorator-section name="body">
-                                        <screenlet title="${uilabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
+                                        <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
                                             <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
                                             <include-screen name="showDocument"/>
                                         </screenlet>
