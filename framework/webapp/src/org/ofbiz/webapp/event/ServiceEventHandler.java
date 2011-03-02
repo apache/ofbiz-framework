@@ -180,7 +180,7 @@ public class ServiceEventHandler implements EventHandler {
                     if (item.isFormField() || item.getName() == null) {
                         if (multiPartMap.containsKey(fieldName)) {
                             Object mapValue = multiPartMap.get(fieldName);
-                            if (mapValue instanceof List) {
+                            if (mapValue instanceof List<?>) {
                                 checkList(mapValue, Object.class).add(item.getString());
                             } else if (mapValue instanceof String) {
                                 List<String> newList = FastList.newInstance();
