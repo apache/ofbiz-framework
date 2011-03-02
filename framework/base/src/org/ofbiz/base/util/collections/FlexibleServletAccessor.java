@@ -171,7 +171,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof FlexibleServletAccessor) {
+        if (obj instanceof FlexibleServletAccessor<?>) {
             FlexibleServletAccessor<?> flexibleServletAccessor = (FlexibleServletAccessor<?>) obj;
             if (this.name == null) {
                 return flexibleServletAccessor.name == null;
