@@ -81,7 +81,7 @@ public abstract class TTLObjectTest extends GenericTestCaseBase {
     protected void assertGetObject(String label, String wantedData, int wantedDoneCount, long minTime, long maxTime) throws Exception {
         long t1 = System.nanoTime();
         assertEquals(label + ": data", wantedData, object.getObject());
-        int serial = object.getSerial();
+        object.getSerial();
         assertEquals(label + ": doneCount", wantedDoneCount, doneCount.get());
         long t2 = System.nanoTime();
         long time = t2 - t1;
