@@ -292,8 +292,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         String skipPermissionCheck = (String) context.get("skipPermissionCheck");
             if (Debug.infoOn()) Debug.logInfo("in callDataResourcePermissionCheckResult, skipPermissionCheck:" + skipPermissionCheck,"");
 
-        if (UtilValidate.isEmpty(skipPermissionCheck)
-            || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
+        if (UtilValidate.isEmpty(skipPermissionCheck) 
+                || (!"true".equalsIgnoreCase(skipPermissionCheck) && !"granted".equalsIgnoreCase(skipPermissionCheck))) {
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             Map<String, Object> serviceInMap = FastMap.newInstance();
             serviceInMap.put("userLogin", userLogin);
