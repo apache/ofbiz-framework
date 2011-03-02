@@ -170,7 +170,7 @@ public class SOAPEventHandler implements EventHandler {
         try {
             // each is a different service call
             SOAPBody reqBody = reqEnv.getBody();
-            Iterator serviceIter = reqBody.getChildElements();
+            Iterator<Object> serviceIter = UtilGenerics.cast(reqBody.getChildElements());
             while (serviceIter.hasNext()) {
                 Object serviceObj = serviceIter.next();
                 if (serviceObj instanceof OMElement) {
