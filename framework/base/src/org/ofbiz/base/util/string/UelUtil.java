@@ -516,7 +516,7 @@ public class UelUtil {
                 createObjectType = "bigDecimal";
             }
         }
-        if (variables instanceof LocalizedMap) {
+        if (variables instanceof LocalizedMap<?>) {
             if (locale == null) {
                 locale = (Locale) variables.get(localizedMapLocaleKey);
                 if (locale == null) {
