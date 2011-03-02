@@ -425,7 +425,7 @@ public final class UtilIO {
     private static <T> boolean encodeObject(Writer writer, T value, boolean allowJsonResolve) throws Exception {
         Converter<T, String> converter = UtilGenerics.cast(Converters.getConverter(value.getClass(), String.class));
         if (converter != null) {
-            Class clz = converter.getSourceClass();
+            Class<?> clz = converter.getSourceClass();
             String str = converter.convert(value);
             if (clz != null) {
                 writer.write(clz.getName());
