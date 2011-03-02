@@ -113,8 +113,8 @@ OUTER:
         public String call() throws Exception {
             int sleepTime = (int) (Math.random() * 100);
             Thread.sleep(sleepTime);
-            if (!subItems.isEmpty()) {
-                pool.addAll(subItems);
+            if (!getSubItems().isEmpty()) {
+                pool.addAll(getSubItems());
             }
             return result;
         }
