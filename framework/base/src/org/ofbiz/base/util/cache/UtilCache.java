@@ -246,15 +246,6 @@ public class UtilCache<K, V> implements Serializable {
         return key == ObjectType.NULL ? null : (K) key;
     }
 
-    private void addAllFileTableValues(List<V> values) throws IOException {
-        FastIterator<V> iter = fileTable.values();
-        V value = iter.next();
-        while (value != null) {
-            values.add(value);
-            value = iter.next();
-        }
-    }
-
     private void addAllFileTableKeys(Set<Object> keys) throws IOException {
         FastIterator<Object> iter = fileTable.keys();
         Object key = null;
@@ -718,8 +709,8 @@ public class UtilCache<K, V> implements Serializable {
         Map<Object, CacheLine<V>> oldmap = this.memoryTable;
 
         if (newInMemory > 0) {
-            if (this.memoryTable instanceof ConcurrentLinkedHashMap) {
-                ((ConcurrentLinkedHashMap) this.memoryTable).setCapacity(newInMemory);
+            if (this.memoryTable instanceof ConcurrentLinkedHashMap<?, ?>) {
+                ((ConcurrentLinkedHashMap<?, ?>) this.memoryTable).setCapacity(newInMemory);
                 return;
             } else {
                 this.memoryTable =new Builder<Object, CacheLine<V>>()
