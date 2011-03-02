@@ -295,7 +295,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 // only one parameter; if its a map use it as the context; otherwise make sure the service takes one param
                 } else if (parameterCount == 1) {
                     Object param = xmlRpcReq.getParameter(0);
-                    if (param instanceof Map) {
+                    if (param instanceof Map<?, ?>) {
                         context = checkMap(param, String.class, Object.class);
                     } else {
                         if (model.getDefinedInCount() == 1) {
