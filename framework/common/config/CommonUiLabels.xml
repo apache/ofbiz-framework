@@ -2896,6 +2896,7 @@
     </property>
     <property key="CommonExtHelpTitle">
         <value xml:lang="en">Help screen.</value>
+        <value xml:lang="fr">Ecran d'aide</value>
         <value xml:lang="it">Videata di aiuto.</value>
         <value xml:lang="pt_BR">Tela de Ajuda.</value>
     </property>
