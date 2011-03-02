@@ -210,7 +210,7 @@ public class UtilHttp {
                     Object curValue = paramMap.get(name);
                     if (curValue != null) {
                         List<String> paramList = null;
-                        if (curValue instanceof List) {
+                        if (curValue instanceof List<?>) {
                             paramList = UtilGenerics.checkList(curValue);
                             paramList.add(value);
                         } else {
@@ -245,7 +245,7 @@ public class UtilHttp {
         for (Map.Entry<String, Object> paramEntry: paramMap.entrySet()) {
             if (paramEntry.getValue() instanceof String) {
                 paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
-            } else if (paramEntry.getValue() instanceof Collection) {
+            } else if (paramEntry.getValue() instanceof Collection<?>) {
                 List<String> newList = FastList.newInstance();
                 for (String listEntry: UtilGenerics.<String>checkCollection(paramEntry.getValue())) {
                     newList.add(canonicalizeParameter(listEntry));
@@ -279,7 +279,7 @@ public class UtilHttp {
             if (val instanceof java.sql.Timestamp) {
                 val = val.toString();
             }
-            if (val instanceof String || val instanceof Number || val instanceof Map || val instanceof List || val instanceof Boolean) {
+            if (val instanceof String || val instanceof Number || val instanceof Map<?, ?> || val instanceof List<?> || val instanceof Boolean) {
                 if (Debug.verboseOn()) Debug.logVerbose("Adding attribute to JSON output: " + key, module);
                 returnMap.put(key, val);
             }
