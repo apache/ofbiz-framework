@@ -474,7 +474,7 @@ public class CoreEvents {
             }
             servicePathMap = null;
 
-            if (servicePathObject instanceof Map) {
+            if (servicePathObject instanceof Map<?, ?>) {
                 servicePathMap = checkMap(servicePathObject);
             } else if (servicePathObject instanceof GenericEntity) {
                 GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
@@ -482,7 +482,7 @@ public class CoreEvents {
                 for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
                     servicePathMap.put(entry.getKey(), entry.getValue());
                 }
-            } else if (servicePathObject instanceof Collection) {
+            } else if (servicePathObject instanceof Collection<?>) {
                 Collection<?> servicePathColl = checkCollection(servicePathObject);
                 int count=0;
                 servicePathMap = FastMap.newInstance();
