@@ -25,11 +25,10 @@ under the License.
         <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}"><link target="FindExampleFeature"/></menu-item>
         <menu-item name="FormWidgetExamples" title="${uiLabelMap.ExampleFormWidgetExamples}"><link target="FormWidgetExamples"/></menu-item>
         <menu-item name="AjaxExample" title="${uiLabelMap.ExampleAjaxExamples}"><link target="authview/findExampleAjax"/></menu-item>
-        <menu-item name="portalPage" parent-portal-page-value="${parameters.parentPortalPageId}"/>
+        <menu-item name="portalPage" parent-portal-page-value="EXAMPLE"/>
         <menu-item name="Dashboard" title="${uiLabelMap.ExampleDashboard}" align-style="opposed">
             <link target="ManagePortalPages">
-                <parameter param-name="portalPageId" from-field="currentPortalPage.portalPageId"/>
-                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+                <parameter param-name="parentPortalPageId" value="EXAMPLE"/>
             </link>
         </menu-item>
         <menu-item name="ExampleGeoLocation" title="${uiLabelMap.CommonGeoLocation}"><link target="ExampleGeoLocationPointSet1"/></menu-item>
