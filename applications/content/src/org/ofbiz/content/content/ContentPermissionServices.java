@@ -259,7 +259,6 @@ public class ContentPermissionServices {
         return results;
     }
 
-    @SuppressWarnings("null")
     public static Map<String, Object> checkAssocPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = FastMap.newInstance();
         // Security security = dctx.getSecurity();
