@@ -43,8 +43,6 @@ under the License.
                 <set field="applicationMenuName" value="ExampleAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/>
                 <!--set field="appheaderTemplate" value="component://example/webapp/appheader.ftl"/-->
-                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="EXAMPLE"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
                 <set field="applicationTitle" value="${uiLabelMap.ExampleApplication}" global="true"/>
             </actions>
             <widgets>
@@ -308,12 +306,6 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="main"/>
-                <set field="parameters.portalPageId" value="EXAMPLE"/>
-                <entity-one entity-name="PortalPage" value-field="portalPage"/>
-                <get-related value-field="portalPage" relation-name="PortalPageColumn" list="portalPageColumns"/>
-                <entity-and entity-name="PortalPagePortletView" list="portalPagePortlets">
-                    <field-map field-name="portalPageId" from-field="portalPage.portalPageId"/>
-                </entity-and>
             </actions>
             <widgets>
                  <include-screen name="FindExample" location="component://example/widget/example/ExampleScreens.xml"/>
