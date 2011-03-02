@@ -22,7 +22,7 @@ under the License.
     <#assign initialLocale = locale.toString()>
 <#else>
     <#assign initialLocale = "en">
-</#if>    
+</#if>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
