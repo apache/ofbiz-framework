@@ -599,7 +599,7 @@ public class ObjectType {
         }
 
         // have converted value 2, now before converting value 1 see if it is a Collection and we are doing a contains comparison
-        if ("contains".equals(operator) && value1 instanceof Collection) {
+        if ("contains".equals(operator) && value1 instanceof Collection<?>) {
             Collection<?> col1 = (Collection<?>) value1;
             return col1.contains(convertedValue2) ? Boolean.TRUE : Boolean.FALSE;
         }
@@ -648,9 +648,9 @@ public class ObjectType {
                 return Boolean.TRUE;
             if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0)
                 return Boolean.TRUE;
-            if (convertedValue1 instanceof List && ((List<?>) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).size() == 0)
                 return Boolean.TRUE;
-            if (convertedValue1 instanceof Map && ((Map<?, ?>) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).size() == 0)
                 return Boolean.TRUE;
             return Boolean.FALSE;
         } else if ("is-not-empty".equals(operator)) {
@@ -658,9 +658,9 @@ public class ObjectType {
                 return Boolean.FALSE;
             if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0)
                 return Boolean.FALSE;
-            if (convertedValue1 instanceof List && ((List<?>) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof List<?> && ((List<?>) convertedValue1).size() == 0)
                 return Boolean.FALSE;
-            if (convertedValue1 instanceof Map && ((Map<?, ?>) convertedValue1).size() == 0)
+            if (convertedValue1 instanceof Map<?, ?> && ((Map<?, ?>) convertedValue1).size() == 0)
                 return Boolean.FALSE;
             return Boolean.TRUE;
         }
@@ -784,6 +784,7 @@ public class ObjectType {
         return false;
     }
 
+    @SuppressWarnings("serial")
     public static final class NullObject implements Serializable {
         public NullObject() { }
 
