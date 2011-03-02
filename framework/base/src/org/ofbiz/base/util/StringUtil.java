@@ -763,7 +763,7 @@ public class StringUtil {
                 } else {
                     return StringUtil.defaultWebEncoder.encodeForHTML((String) theObject);
                 }
-            } else if (theObject instanceof Map) {
+            } else if (theObject instanceof Map<?, ?>) {
                 return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(UtilGenerics.<K, Object>checkMap(theObject), this.encoder);
             }
             return theObject;
