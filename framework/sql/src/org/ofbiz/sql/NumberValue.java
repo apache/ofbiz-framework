@@ -47,8 +47,8 @@ public final class NumberValue<N extends Number> extends ConstantValue {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof NumberValue) {
-            NumberValue other = (NumberValue) o;
+        if (o instanceof NumberValue<?>) {
+            NumberValue<?> other = (NumberValue<?>) o;
             return number.equals(other.number);
         } else {
             return false;
