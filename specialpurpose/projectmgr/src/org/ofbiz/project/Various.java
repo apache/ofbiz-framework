@@ -38,14 +38,14 @@ public class Various {
         try {
             List<GenericValue> assocs = task.getRelated("FromWorkEffortAssoc");
             if (UtilValidate.isNotEmpty(assocs)) {
-            	for (GenericValue assoc : assocs) {
+                for (GenericValue assoc : assocs) {
                     GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
-                      Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
-                      if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate)) {
-                            nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day
-                             nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
-                             nextTask.store();
-                      }
+                    Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
+                    if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate)) {
+                        nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day
+                        nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
+                        nextTask.store();
+                    }
                     setDatesFollowingTasks(nextTask);
                 }
             }
@@ -92,12 +92,12 @@ public class Various {
         double actualHours = 0.00;
         if (timesheetId != null) {
             try {
-            	List<GenericValue> actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
+                List<GenericValue> actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
                 if (actuals.size() > 0) {
-                	for (GenericValue actual : actuals) {
-                         Double hour = (Double) actual.get("hours");
-                         double hours = hour.doubleValue();
-                         actualHours = actualHours + hours;
+                    for (GenericValue actual : actuals) {
+                        Double hour = (Double) actual.get("hours");
+                        double hours = hour.doubleValue();
+                        actualHours = actualHours + hours;
                     }
                 }
             } catch (GenericEntityException e) {
