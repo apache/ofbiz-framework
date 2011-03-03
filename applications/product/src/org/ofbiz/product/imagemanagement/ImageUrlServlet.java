@@ -110,7 +110,7 @@ public class ImageUrlServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/control/viewImage?drObjectInfo=" + imageUrl);
             rd.forward(request, response);
         } else {
-            response.sendError(response.SC_NOT_FOUND, "Image not found with ID [" + contentId + "]");
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Image not found with ID [" + contentId + "]");
         }
     }
 
