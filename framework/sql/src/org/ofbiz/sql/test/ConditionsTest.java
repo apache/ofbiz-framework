@@ -19,7 +19,6 @@
 package org.ofbiz.sql.test;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.sql.BetweenCondition;
@@ -29,7 +28,6 @@ import org.ofbiz.sql.ConditionList;
 import org.ofbiz.sql.Joiner;
 import org.ofbiz.sql.ListCondition;
 import org.ofbiz.sql.NumberValue;
-import org.ofbiz.sql.StringValue;
 import org.ofbiz.sql.Value;
 
 import org.ofbiz.base.lang.SourceMonitored;
@@ -37,9 +35,6 @@ import org.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
 public class ConditionsTest extends GenericTestCaseBase {
-    private static final StringValue s1 = new StringValue("a");
-    private static final StringValue s2 = new StringValue("b");
-    private static final StringValue s3 = new StringValue("c");
     private static final NumberValue<Long> l1 = NumberValue.valueOf(1);
     private static final NumberValue<Long> l2 = NumberValue.valueOf(5);
     private static final NumberValue<Long> l3 = NumberValue.valueOf(10);
@@ -116,7 +111,6 @@ public class ConditionsTest extends GenericTestCaseBase {
     public void testConditionList() {
         BooleanCondition b1 = new BooleanCondition(l1, "=", l2);
         BooleanCondition b2 = new BooleanCondition(l2, "=", l3);
-        BooleanCondition b3 = new BooleanCondition(l1, "=", l3);
         ConditionList c1 = new ConditionList(Joiner.AND, GenericTestCaseBase.<Condition>list(b1));
         conditionListTest("c1", c1, Joiner.AND, list(b1), "( 1 = 5 )", null, false);
         ConditionList c2 = new ConditionList(Joiner.AND, GenericTestCaseBase.<Condition>list(b1, b2));
@@ -134,6 +128,7 @@ public class ConditionsTest extends GenericTestCaseBase {
         basicTest(label, ListCondition.class, c, s, o, matches);
     }
 
+    @SuppressWarnings("unchecked")
     public void testListCondition() {
         ListCondition c1 = new ListCondition(l1, "IN", GenericTestCaseBase.<Value>list(l2));
         listConditionTest("c1", c1, l1, "in", list(l2), "1 in (5)", null, false);
