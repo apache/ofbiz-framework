@@ -108,7 +108,7 @@ under the License.
                                 <screenlet title="${uilabelMap.CommonExtHelpTitle}">
                                     <content content-id="HELP_MYPORTAL"/>
                                 </screenlet>
-                                <screenlet title="Select a portlet you would like to have help on...." navigation-menu-name="lookupMenu">
+                                <screenlet title="${uiLabelMap.CommonSelectPortletToHelp}" navigation-menu-name="lookupMenu">
                                     <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
                                     <include-form name="PortletList" location="component://common/widget/PortalPageForms.xml"/>
                                 </screenlet>

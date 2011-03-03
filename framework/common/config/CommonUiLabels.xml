@@ -7468,6 +7468,10 @@
         <value xml:lang="zh">选择门户页面...</value>
         <value xml:lang="zh_TW">選擇門戶頁面...</value>
     </property>
+    <property key="CommonSelectPortletToHelp">
+        <value xml:lang="en">Select a portlet you would like to have help on....</value>
+        <value xml:lang="fr">Liste des portlets contenues dans cette page, sélectionnez celle pour laquelle vous souhaitez de l'aide</value>
+    </property>
     <property key="CommonSelected">
         <value xml:lang="ar">مختارة</value>
         <value xml:lang="de">ausgewählt</value>
