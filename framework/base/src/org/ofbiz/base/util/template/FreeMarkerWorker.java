@@ -52,7 +52,6 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.StringUtil.SimpleEncoder;
 import org.ofbiz.base.util.cache.UtilCache;
 
 import freemarker.cache.TemplateLoader;
@@ -505,9 +504,9 @@ public class FreeMarkerWorker {
         //Map saveMap = new HashMap();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
-            if (o instanceof Map) {
+            if (o instanceof Map<?, ?>) {
                 o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
-            } else if (o instanceof List) {
+            } else if (o instanceof List<?>) {
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             }
             saveMap.put(key, o);
@@ -518,9 +517,9 @@ public class FreeMarkerWorker {
         Map<String, Object> saveMap = FastMap.newInstance();
         for (String key: saveKeyNames) {
             Object o = context.get(key);
-            if (o instanceof Map) {
+            if (o instanceof Map<?, ?>) {
                 o = UtilMisc.makeMapWritable(UtilGenerics.checkMap(o));
-            } else if (o instanceof List) {
+            } else if (o instanceof List<?>) {
                 o = UtilMisc.makeListWritable(UtilGenerics.checkList(o));
             }
             saveMap.put(key, o);
@@ -533,9 +532,9 @@ public class FreeMarkerWorker {
         for (Map.Entry<String, Object> entry: saveValues.entrySet()) {
             String key = entry.getKey();
             Object o = entry.getValue();
-            if (o instanceof Map) {
+            if (o instanceof Map<?, ?>) {
                 context.put(key, UtilMisc.makeMapWritable(UtilGenerics.checkMap(o)));
-            } else if (o instanceof List) {
+            } else if (o instanceof List<?>) {
                 List<Object> list = new ArrayList<Object>();
                 list.addAll(UtilGenerics.checkList(o));
                 context.put(key, list);
