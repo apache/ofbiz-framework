@@ -40,7 +40,6 @@ PARSER_BEGIN(Parser)
 
 package org.ofbiz.sql;
 
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,6 +48,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+@SuppressWarnings("all")
 public final class Parser {
     private boolean deleteSupportsUsing = true;
     private boolean updateSupportsFrom = true;
