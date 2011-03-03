@@ -24,11 +24,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.owasp.esapi.errors.EncodingException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateScalarModel;
 import freemarker.template.TemplateTransformModel;
 
 /**
@@ -39,8 +44,28 @@ public class OfbizContentTransform implements TemplateTransformModel {
     public final static String module = OfbizUrlTransform.class.getName();
 
     @SuppressWarnings("unchecked")
+    private static String getArg(Map args, String key) {
+        String  result = "";
+        Object obj = args.get(key);
+        if (obj != null) {
+            if (Debug.verboseOn()) Debug.logVerbose("Arg Object : " + obj.getClass().getName(), module);
+            if (obj instanceof TemplateScalarModel) {
+                TemplateScalarModel s = (TemplateScalarModel) obj;
+                try {
+                    result = s.getAsString();
+                } catch (TemplateModelException e) {
+                    Debug.logError(e, "Template Exception", module);
+                }
+            } else {
+              result = obj.toString();
+            }
+        }
+        return result;
+    }
+    
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
+        final String imgSize = OfbizContentTransform.getArg(args, "variant");
         return new Writer(out) {
             @Override
             public void write(char cbuf[], int off, int len) {
@@ -61,12 +86,30 @@ public class OfbizContentTransform implements TemplateTransformModel {
 
                     String requestUrl = buf.toString();
 
+                    try {
+                        requestUrl = StringUtil.defaultWebEncoder.decodeFromURL(requestUrl);
+                    } catch (EncodingException e) {
+                        Debug.logError(e, module);
+                    }
+
                     // make the link
                     StringBuilder newURL = new StringBuilder();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     if (newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/' && requestUrl.charAt(0) != '/') {
                         newURL.append('/');
                     }
+
+                    if(UtilValidate.isNotEmpty(imgSize)){
+                        if(!"/images/defaultImage.jpg".equals(requestUrl)){
+                            int index = requestUrl.lastIndexOf(".");
+                            if (index > 0) {
+                                String suffix = requestUrl.substring(index);
+                                String imgName = requestUrl.substring(0, index);
+                                requestUrl = imgName + "-" + imgSize + suffix;
+                            }
+                        }
+                    }
+
                     newURL.append(requestUrl);
                     out.write(newURL.toString());
                 } catch (TemplateModelException e) {

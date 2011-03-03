@@ -115,7 +115,7 @@ public class ScaleImage {
         String type = null;
         if (viewType.toLowerCase().contains("main")) {
             type = "original";
-            id = imgName;
+            id = (String) context.get("productId");
         } else if (viewType.toLowerCase().contains("additional") && viewNumber != null && !viewNumber.equals("0")) {
             type = "additional";
             id = imgName + "_View_" + viewNumber;
@@ -124,7 +124,7 @@ public class ScaleImage {
                     "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
-        String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", type, "id", filenameToUse));
+        String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", context.get("productId"), "type", type));
         String filePathPrefix = "";
         if (fileLocation.lastIndexOf("/") != -1) {
             filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
@@ -136,7 +136,6 @@ public class ScaleImage {
             /* get original BUFFERED IMAGE */
             resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + filePathPrefix + filenameToUse, locale));
         }
-        
         if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
 
@@ -168,10 +167,11 @@ public class ScaleImage {
 
                     // write the New Scaled Image
                     String newFileLocation = null;
+                    filenameToUse = sizeType + filenameToUse.substring(filenameToUse.lastIndexOf("."));
                     if (viewType.toLowerCase().contains("main")) {
-                        newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", sizeType, "id", id));
+                        newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "type", sizeType));
                     } else if (viewType.toLowerCase().contains("additional")) {
-                        newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products", "viewtype", viewType, "sizetype", sizeType,"id", id));
+                        newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", sizeType));
                     }
                     String newFilePathPrefix = "";
                     if (newFileLocation.lastIndexOf("/") != -1) {
@@ -281,7 +281,7 @@ public class ScaleImage {
                     "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
         FlexibleStringExpander mainFilenameExpander = FlexibleStringExpander.getInstance(mainFilenameFormat);
-        String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", type, "id", filenameToUse));
+        String fileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", context.get("productId"), "type", type));
         String filePathPrefix = "";
         if (fileLocation.lastIndexOf("/") != -1) {
             filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
@@ -326,9 +326,9 @@ public class ScaleImage {
                     // write the New Scaled Image
                     String newFileLocation = null;
                     if (viewType.toLowerCase().contains("main")) {
-                        newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "type", sizeType, "id", id));
+                        newFileLocation = mainFilenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "type", sizeType));
                     } else if (viewType.toLowerCase().contains("additional")) {
-                        newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products", "viewtype", viewType, "sizetype", sizeType,"id", id));
+                        newFileLocation = addFilenameExpander.expandString(UtilMisc.toMap("location", "products","id", id, "viewtype", viewType, "sizetype", sizeType));
                     }
                     String newFilePathPrefix = "";
                     if (newFileLocation.lastIndexOf("/") != -1) {
