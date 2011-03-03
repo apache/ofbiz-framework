@@ -396,7 +396,6 @@ public class JettyContainer implements Container {
             for (Server server : servers.values()) {
                 try {
                     server.start();
-                    server.join();
                 } catch (Exception e) {
                     Debug.logError(e, "Jetty Server Exception", module);
                     throw new ContainerException(e);
