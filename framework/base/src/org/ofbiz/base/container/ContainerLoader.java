@@ -20,7 +20,9 @@ package org.ofbiz.base.container;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URL;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +87,23 @@ public class ContainerLoader implements StartupLoader {
                     throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
                 }
             }
+        }
+        // Get hot-deploy container configuration files
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Enumeration<URL> resources;
+        try {
+            resources = loader.getResources("hot-deploy-containers.xml");
+            while (resources.hasMoreElements()) {
+                URL xmlUrl = resources.nextElement();
+                Debug.logInfo("Loading hot-deploy containers from " + xmlUrl, module);
+                Collection<ContainerConfig.Container> hotDeployContainers = ContainerConfig.getContainers(xmlUrl);
+                for (ContainerConfig.Container containerCfg : hotDeployContainers) {
+                    loadedContainers.add(loadContainer(containerCfg, args));
+                }
+            }
+        } catch (Exception e) {
+            Debug.logError(e, "Could not load hot-deploy-containers.xml", module);
+            throw new StartupException(e);
         }
     }
 
