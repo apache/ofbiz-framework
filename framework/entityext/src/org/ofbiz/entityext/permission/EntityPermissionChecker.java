@@ -20,7 +20,6 @@ package org.ofbiz.entityext.permission;
 
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
@@ -36,7 +35,6 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -235,7 +233,7 @@ public class EntityPermissionChecker {
         if (modelEntity.getField("privilegeEnumId") != null)
             hasPrivilegeField = true;
 
-        List<GenericValue> operationEntities = null;
+        
         ModelEntity modelOperationEntity = delegator.getModelEntity(entityName + "PurposeOperation");
         if (modelOperationEntity == null) {
             modelOperationEntity = delegator.getModelEntity(entityName + "Operation");
@@ -319,7 +317,7 @@ public class EntityPermissionChecker {
         // check permission for each id in passed list until success.
         // Note that "quickCheck" id come first in the list
         // Check with no roles or purposes on the chance that the permission fields contain _NA_ s.
-        List<String> alreadyCheckedIds = FastList.newInstance();
+        
         Map<String, List<String>> purposes = FastMap.newInstance();
         Map<String, List<String>> roles = FastMap.newInstance();
         //List purposeList = null;
@@ -333,10 +331,9 @@ public class EntityPermissionChecker {
                 statusId = entity.getString("statusId");
             }
 
-            int privilegeEnumSeq = -1;
             if (hasPrivilegeOp && hasPrivilegeField) {
                 privilegeEnumId = entity.getString("privilegeEnumId");
-                privilegeEnumSeq = getPrivilegeEnumSeq(delegator, privilegeEnumId);
+                getPrivilegeEnumSeq(delegator, privilegeEnumId);
             }
 
             passed = hasMatch(entityName, targetOperationEntityList, roleList, hasPurposeOp, purposeList, hasStatusOp, statusId);
@@ -532,7 +529,7 @@ public class EntityPermissionChecker {
             //if (Debug.infoOn()) Debug.logInfo(entityIdString, module);
         }
 
-        List<String> alreadyCheckedIds = FastList.newInstance();
+        
         Map<String, GenericValue> entities = FastMap.newInstance();
         //List purposeList = null;
         //List roleList = null;
@@ -673,7 +670,7 @@ public class EntityPermissionChecker {
 
     public static boolean hasMatch(String entityName, List<GenericValue> targetOperations, List<String> roles, boolean hasPurposeOp, List<String> purposes, boolean hasStatusOp, String targStatusId) {
         boolean isMatch = false;
-        int targPrivilegeSeq = 0;
+        
     //    if (UtilValidate.isNotEmpty(targPrivilegeEnumId) && !targPrivilegeEnumId.equals("_NA_") && !targPrivilegeEnumId.equals("_00_")) {
             // need to do a lookup here to find the seq value of targPrivilegeEnumId.
             // The lookup could be a static store or it could be done on Enumeration entity.
@@ -868,33 +865,33 @@ public class EntityPermissionChecker {
         boolean isMember = false;
         String partyIdFrom = (String)partyRelationshipValues.get("partyIdFrom") ;
         String partyIdTo = (String)partyRelationshipValues.get("partyIdTo") ;
-        String roleTypeIdFrom = "PERMISSION_GROUP_MBR";
-        String roleTypeIdTo = "PERMISSION_GROUP";
-        Timestamp fromDate = UtilDateTime.nowTimestamp();
-        Timestamp thruDate = UtilDateTime.getDayStart(UtilDateTime.nowTimestamp(), 1);
+        //String roleTypeIdFrom = "PERMISSION_GROUP_MBR";
+        //String roleTypeIdTo = "PERMISSION_GROUP";
+        //Timestamp fromDate = UtilDateTime.nowTimestamp();
+        //Timestamp thruDate = UtilDateTime.getDayStart(UtilDateTime.nowTimestamp(), 1);
 
-        if (partyRelationshipValues.get("roleTypeIdFrom") != null) {
-            roleTypeIdFrom = (String)partyRelationshipValues.get("roleTypeIdFrom") ;
-        }
-        if (partyRelationshipValues.get("roleTypeIdTo") != null) {
-            roleTypeIdTo = (String)partyRelationshipValues.get("roleTypeIdTo") ;
-        }
-        if (partyRelationshipValues.get("fromDate") != null) {
-            fromDate = (Timestamp)partyRelationshipValues.get("fromDate") ;
-        }
-        if (partyRelationshipValues.get("thruDate") != null) {
-            thruDate = (Timestamp)partyRelationshipValues.get("thruDate") ;
-        }
+        //if (partyRelationshipValues.get("roleTypeIdFrom") != null) {
+        //    roleTypeIdFrom = (String)partyRelationshipValues.get("roleTypeIdFrom") ;
+        //}
+        //if (partyRelationshipValues.get("roleTypeIdTo") != null) {
+        //    roleTypeIdTo = (String)partyRelationshipValues.get("roleTypeIdTo") ;
+        //}
+        //if (partyRelationshipValues.get("fromDate") != null) {
+        //    fromDate = (Timestamp)partyRelationshipValues.get("fromDate") ;
+        //}
+        //if (partyRelationshipValues.get("thruDate") != null) {
+        //    thruDate = (Timestamp)partyRelationshipValues.get("thruDate") ;
+        //}
 
         EntityExpr partyFromExpr = EntityCondition.makeCondition("partyIdFrom", partyIdFrom);
         EntityExpr partyToExpr = EntityCondition.makeCondition("partyIdTo", partyIdTo);
 
-        EntityExpr relationExpr = EntityCondition.makeCondition("partyRelationshipTypeId", "CONTENT_PERMISSION");
+        //EntityExpr relationExpr = EntityCondition.makeCondition("partyRelationshipTypeId", "CONTENT_PERMISSION");
         //EntityExpr roleTypeIdFromExpr = EntityCondition.makeCondition("roleTypeIdFrom", "CONTENT_PERMISSION_GROUP_MEMBER");
         //EntityExpr roleTypeIdToExpr = EntityCondition.makeCondition("roleTypeIdTo", "CONTENT_PERMISSION_GROUP");
-        EntityExpr fromExpr = EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, fromDate);
-        EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("thruDate", null),
-                            EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, thruDate)), EntityOperator.OR);
+        //EntityExpr fromExpr = EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, fromDate);
+        //EntityCondition thruCond = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("thruDate", null),
+        //                    EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, thruDate)), EntityOperator.OR);
 
         // This method is simplified to make it work, these conditions need to be added back in.
         //List joinList = UtilMisc.toList(fromExpr, thruCond, partyFromExpr, partyToExpr, relationExpr);
