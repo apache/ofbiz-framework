@@ -469,7 +469,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             maxFiles = 250;
         }
 
-        return getDataResourceContentUploadPath(initialPath, maxFiles);
+        return getDataResourceContentUploadPath(initialPath, maxFiles, absolute);
     }
 
     public static String getDataResourceContentUploadPath(String initialPath, double maxFiles) {

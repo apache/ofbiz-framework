@@ -813,7 +813,7 @@ under the License.
 
         <set field="absolute" value="false" type="Boolean"/>
         <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath">
-            <field field="absolute"/>
+            <field field="absolute" type="boolean"/>
         </call-class-method>
         <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
 
