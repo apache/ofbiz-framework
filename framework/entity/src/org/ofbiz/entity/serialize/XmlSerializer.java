@@ -162,22 +162,22 @@ public class XmlSerializer {
             }
             return makeElement("std-Date", stringValue, document);
             // return makeElement("std-Date", object, document);
-        } else if (object instanceof Collection) {
+        } else if (object instanceof Collection<?>) {
             // - Collections -
             String elementName = null;
 
             // these ARE order sensitive; for instance Stack extends Vector, so if Vector were first we would lose the stack part
-            if (object instanceof ArrayList) {
+            if (object instanceof ArrayList<?>) {
                 elementName = "col-ArrayList";
-            } else if (object instanceof LinkedList) {
+            } else if (object instanceof LinkedList<?>) {
                 elementName = "col-LinkedList";
-            } else if (object instanceof Stack) {
+            } else if (object instanceof Stack<?>) {
                 elementName = "col-Stack";
-            } else if (object instanceof Vector) {
+            } else if (object instanceof Vector<?>) {
                 elementName = "col-Vector";
-            } else if (object instanceof TreeSet) {
+            } else if (object instanceof TreeSet<?>) {
                 elementName = "col-TreeSet";
-            } else if (object instanceof HashSet) {
+            } else if (object instanceof HashSet<?>) {
                 elementName = "col-HashSet";
             } else {
                 // no specific type found, do general Collection, will deserialize as LinkedList
@@ -203,20 +203,20 @@ public class XmlSerializer {
             GenericValue value = (GenericValue) object;
 
             return value.makeXmlElement(document, "eeval-");
-        } else if (object instanceof Map) {
+        } else if (object instanceof Map<?, ?>) {
             // - Maps -
             String elementName = null;
 
             // these ARE order sensitive; for instance Properties extends Hashtable, so if Hashtable were first we would lose the Properties part
-            if (object instanceof HashMap) {
+            if (object instanceof HashMap<?, ?>) {
                 elementName = "map-HashMap";
             } else if (object instanceof Properties) {
                 elementName = "map-Properties";
-            } else if (object instanceof Hashtable) {
+            } else if (object instanceof Hashtable<?, ?>) {
                 elementName = "map-Hashtable";
-            } else if (object instanceof WeakHashMap) {
+            } else if (object instanceof WeakHashMap<?, ?>) {
                 elementName = "map-WeakHashMap";
-            } else if (object instanceof TreeMap) {
+            } else if (object instanceof TreeMap<?, ?>) {
                 elementName = "map-TreeMap";
             } else {
                 // serialize as a simple Map implementation if nothing else applies, these will deserialize as a HashMap
