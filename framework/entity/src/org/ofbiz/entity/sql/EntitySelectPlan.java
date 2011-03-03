@@ -104,6 +104,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
             getHavingPlan().appendTo(sb);
             sb.append(")");
         }
+        /*TODO death code can be removed ?
         if (offset != -1) {
             if (sb.length() > 0) sb.append(", ");
             sb.append("offset=").append(offset);
@@ -112,6 +113,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
             if (sb.length() > 0) sb.append(", ");
             sb.append("limit=").append(limit);
         }
+        */
         sb.append("]");
         sb.insert(0, "[");
         return sb;
