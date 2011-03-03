@@ -18,11 +18,7 @@
  */
 package org.ofbiz.sql.test;
 
-import java.util.Iterator;
 import java.util.List;
-
-import junit.framework.TestCase;
-
 import org.ofbiz.sql.ConstantValue;
 import org.ofbiz.sql.CountAllFunction;
 import org.ofbiz.sql.AggregateFunction;
@@ -128,6 +124,7 @@ public class ValuesTest extends GenericTestCaseBase {
         basicTest(label, FunctionCall.class, v, name, s, o, matches);
     }
 
+    @SuppressWarnings("unchecked")
     public void testFunctionCall() {
         FunctionCall v1 = new FunctionCall("LENGTH", GenericTestCaseBase.<Value>list(nv1, nv2));
         functionCallTest("v1", v1, "LENGTH", list(nv1, nv2), "LENGTH(1, 2.0)", null, false);
@@ -145,6 +142,7 @@ public class ValuesTest extends GenericTestCaseBase {
         basicTest(label, MathValue.class, v, null, s, o, matches);
     }
 
+    @SuppressWarnings("unchecked")
     public void testMathValue() {
         MathValue v1 = new MathValue("+", GenericTestCaseBase.<ConstantValue>list(nv1, nv2));
         mathValueTest("v1", v1, "+", list(nv1, nv2), "(1 + 2.0)", null, false);
@@ -160,7 +158,7 @@ public class ValuesTest extends GenericTestCaseBase {
         basicTest("null", Value.Null.class, Value.NULL, null, "NULL", null, false);
     }
 
-    private static <N extends Number> void numberValueTest(String label, NumberValue<N> v, N n, String s, NumberValue o, boolean matches) {
+    private static <N extends Number> void numberValueTest(String label, NumberValue<N> v, N n, String s, NumberValue<?> o, boolean matches) {
         assertEquals(label + ":number", n, v.getNumber());
         basicTest(label, NumberValue.class, v, null, s, o, matches);
     }
@@ -222,7 +220,7 @@ public class ValuesTest extends GenericTestCaseBase {
             record(Value.Null.class);
         }
 
-        public void visit(NumberValue value) {
+        public void visit(NumberValue<?> value) {
             record(NumberValue.class);
         }
 
