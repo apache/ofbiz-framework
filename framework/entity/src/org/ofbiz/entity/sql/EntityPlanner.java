@@ -136,7 +136,6 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
     }
 
     private static void addFieldDef(DynamicViewEntity dve, List<String> groupBy, String alias, ConstantValue value) {
-        ComplexAliasMember complexMember;
         if (value instanceof FieldValue) {
             addFieldDef(dve, groupBy, alias, (FieldValue) value, null);
             return;
@@ -176,8 +175,8 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
                         Value f1 = it.next(), f2 = it.next();
                         if (f1 instanceof FieldValue) {
                             FieldValue fv = (FieldValue) f1;
-                            if (f2 instanceof NumberValue) {
-                                return new ComplexAliasField(fv.getTableName(), fv.getFieldName(), ((NumberValue) f2).getNumber().toString(), name);
+                            if (f2 instanceof NumberValue<?>) {
+                                return new ComplexAliasField(fv.getTableName(), fv.getFieldName(), ((NumberValue<?>) f2).getNumber().toString(), name);
                             } else if (f2 instanceof StringValue) {
                                 return new ComplexAliasField(fv.getTableName(), fv.getFieldName(), "'" + ((StringValue) f2).getString() + "'", name);
                            }
@@ -189,8 +188,8 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
                 Value f1 = it.next(), f2 = it.next();
                 if (f1 instanceof FieldValue) {
                     FieldValue fv = (FieldValue) f1;
-                    if (f2 instanceof NumberValue) {
-                        return new ComplexAliasField(fv.getTableName(), fv.getFieldName(), ((NumberValue) f2).getNumber().toString(), null);
+                    if (f2 instanceof NumberValue<?>) {
+                        return new ComplexAliasField(fv.getTableName(), fv.getFieldName(), ((NumberValue<?>) f2).getNumber().toString(), null);
                     } else if (f2 instanceof StringValue) {
                         return new ComplexAliasField(fv.getTableName(), fv.getFieldName(), "'" + ((StringValue) f2).getString() + "'", null);
                    }
