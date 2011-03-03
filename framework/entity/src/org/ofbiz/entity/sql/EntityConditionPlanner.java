@@ -65,16 +65,16 @@ public class EntityConditionPlanner implements ConditionPlanner<EntityCondition>
     }
 
     private static Object buildValue(Object value, Map<String, ? extends Object> params) throws ParameterizedConditionException {
-        if (value instanceof NumberValue) {
-            return ((NumberValue) value).getNumber();
+        if (value instanceof NumberValue<?>) {
+            return ((NumberValue<?>) value).getNumber();
         } else if (value instanceof StringValue) {
             return ((StringValue) value).getString();
         } else if (value instanceof FieldValue) {
             FieldValue fv = (FieldValue) value;
             return EntityFieldValue.makeFieldValue(fv.getFieldName(), fv.getTableName(), null, null);
-        } else if (value instanceof List) {
+        } else if (value instanceof List<?>) {
             List<Object> values = FastList.newInstance();
-            for (Object sqlValue: (List) value) {
+            for (Object sqlValue: (List<?>) value) {
                 values.add(buildValue(sqlValue, params));
             }
             return values;
