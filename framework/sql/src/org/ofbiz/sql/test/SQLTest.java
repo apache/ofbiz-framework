@@ -19,7 +19,6 @@
 package org.ofbiz.sql.test;
 
 import java.io.StringReader;
-import java.net.URL;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +64,7 @@ public class SQLTest extends GenericTestCaseBase {
         super(name);
     }
 
-    private static Parser parser(SQLStatement s) throws Exception {
+    private static Parser parser(SQLStatement<?> s) throws Exception {
         return new Parser(new StringReader(s.toString()));
     }
 
@@ -144,7 +143,7 @@ public class SQLTest extends GenericTestCaseBase {
                 5,
                 10
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("firstSelect", select, stmt);
             assertEquals("firstSelect:parse", parser(select).SelectStatement(), parser(stmt).SelectStatement());
         }
@@ -159,7 +158,7 @@ public class SQLTest extends GenericTestCaseBase {
                 ),
                 list("partyId", "partyTypeId", "statusId")
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("firstInsert", insert, stmt);
             assertEquals("firstInsert:parse", parser(insert).InsertStatement(), parser(stmt).InsertStatement());
         }
@@ -184,7 +183,7 @@ public class SQLTest extends GenericTestCaseBase {
                 ),
                 list("partyId", "firstName")
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("secondInsert", insert, stmt);
             assertEquals("secondInsert:parse", parser(insert).InsertStatement(), parser(stmt).InsertStatement());
         }
@@ -196,7 +195,7 @@ public class SQLTest extends GenericTestCaseBase {
                 ),
                 new ListCondition(new FieldValue(null, "partyId"), "IN", GenericTestCaseBase.<Value>list(new StringValue("a"), new StringValue("b")))
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("firstUpdate", update, stmt);
             assertEquals("firstUpdate:parse", parser(update).UpdateStatement(), parser(stmt).UpdateStatement());
         }
@@ -210,7 +209,7 @@ public class SQLTest extends GenericTestCaseBase {
                 ),
                 new ListCondition(new FieldValue(null, "partyId"), "IN", GenericTestCaseBase.<Value>list(new StringValue("a"), new StringValue("b")))
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("secondUpdate", update, stmt);
             assertEquals("secondUpdate:parse", parser(update).UpdateStatement(), parser(stmt).UpdateStatement());
         }
@@ -225,7 +224,7 @@ public class SQLTest extends GenericTestCaseBase {
                 ),
                 new ListCondition(new FieldValue(null, "partyId"), "IN", GenericTestCaseBase.<Value>list(new StringValue("a"), new StringValue("b")))
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("thirdUpdate", update, stmt);
             assertEquals("thirdUpdate:parse", parser(update).UpdateStatement(), parser(stmt).UpdateStatement());
         }
@@ -234,7 +233,7 @@ public class SQLTest extends GenericTestCaseBase {
                 new Table(new TableName("Person", null), null),
                 new ListCondition(new FieldValue(null, "partyId"), "IN", GenericTestCaseBase.<Value>list(new StringValue("a"), new StringValue("b")))
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("firstDelete", delete, stmt);
             assertEquals("firstDelete:parse", parser(delete).DeleteStatement(), parser(stmt).DeleteStatement());
         }
@@ -243,7 +242,7 @@ public class SQLTest extends GenericTestCaseBase {
                 new Table(new TableName("Party", null), null),
                 new ListCondition(new FieldValue(null, "partyId"), "IN", GenericTestCaseBase.<Value>list(new StringValue("a"), new StringValue("b")))
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("secondDelete", delete, stmt);
             assertEquals("secondDelete:parse", parser(delete).DeleteStatement(), parser(stmt).DeleteStatement());
         }
@@ -264,7 +263,7 @@ public class SQLTest extends GenericTestCaseBase {
                     -1
                 )
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("firstView", view, stmt);
             assertEquals("firstView:parse", parser(view).ViewStatement(), parser(stmt).ViewStatement());
         }
@@ -278,7 +277,7 @@ public class SQLTest extends GenericTestCaseBase {
                     new FieldValue(null, "partyId")
                 )
             );
-            SQLStatement stmt = stmtIt.next();
+            SQLStatement<?> stmt = stmtIt.next();
             assertEquals("firstIndex", index, stmt);
         }
         assertFalse("has no more statements", stmtIt.hasNext());
