@@ -179,9 +179,9 @@ public class JSONWriter {
             return this;
         } else if (o instanceof String) {
             return write((String) o);
-        } else if (o instanceof Map) {
+        } else if (o instanceof Map<?, ?>) {
             return write(UtilGenerics.<Map<?, ?>>cast(o));
-        } else if (o instanceof Collection) {
+        } else if (o instanceof Collection<?>) {
             return write(UtilGenerics.<Collection<?>>cast(o));
         } else if (o instanceof Byte) {
             return write(((Byte) o).byteValue());
