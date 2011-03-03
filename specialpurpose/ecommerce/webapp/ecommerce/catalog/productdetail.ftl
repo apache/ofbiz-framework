@@ -353,7 +353,7 @@ ${virtualVariantJavaScript?if_exists}
                     <#assign productLargeImageUrl = firstLargeImage />
                 </#if>
                 <#if productLargeImageUrl?string?has_content>
-                    <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
+                    <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl variant="200">${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
                     <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" />
                 </#if>
                 <#if !productLargeImageUrl?string?has_content>
@@ -387,7 +387,7 @@ ${virtualVariantJavaScript?if_exists}
                     <#assign productLargeImageUrl = firstLargeImage />
                 </#if>
                 <#if productLargeImageUrl?string?has_content>
-                    <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
+                    <a href="javascript:popupDetail();"><img id="detailImage" src="<@ofbizContentUrl variant="200">${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" name="mainImage" vspace="5" hspace="5" width="200" alt="" /></a>
                     <input type="hidden" id="originalImage" name="originalImage" value="<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>" />
                 </#if>
                 <#if !productLargeImageUrl?string?has_content>
@@ -733,7 +733,7 @@ ${virtualVariantJavaScript?if_exists}
                     <#if !imageUrl?string?has_content>
                       <#assign imageUrl = "/images/defaultImage.jpg" />
                     </#if>
-                      <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" width="60" height="60" alt="" /></a>
+                      <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl variant="60">${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" width="60" height="60" alt="" /></a>
                       <br />
                       <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
                   </#if>

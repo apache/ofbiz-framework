@@ -19,24 +19,24 @@ under the License.
 -->
 
 <entity-engine-xml>
-  <Product productId="GZ-1000" smallImageUrl="/images/products/small/web_browser.png" largeImageUrl="/images/products/large/web_browser.png"/>
-  <Product productId="GZ-1001" smallImageUrl="/images/products/small/computer.png" largeImageUrl="/images/products/large/computer.png"/>
-  <Product productId="GZ-1004" smallImageUrl="/images/products/small/borsa_estiva_architetto.png" largeImageUrl="/images/products/large/borsa_estiva_architetto.png"/>
-  <Product productId="GZ-5005" smallImageUrl="/images/products/small/flatscreen_gino_rivera.png" largeImageUrl="/images/products/large/flatscreen_gino_rivera.png"/>
-  <Product productId="GZ-1005" smallImageUrl="/images/products/small/box_juliane_krug.png" largeImageUrl="/images/products/large/box_juliane_krug.png"/>
-  <Product productId="GZ-1006" smallImageUrl="/images/products/small/handshake_01.png" largeImageUrl="/images/products/large/handshake_01.png"/>
-  <Product productId="GZ-2002" smallImageUrl="/images/products/small/server_mimooh.png" largeImageUrl="/images/products/large/server_mimooh.png"/>
-  <Product productId="GZ-2644" smallImageUrl="/images/products/small/web_browser.png" largeImageUrl="/images/products/large/web_browser.png"/>
-  <Product productId="GZ-7000" smallImageUrl="/images/products/small/anvil_ganson.png" largeImageUrl="/images/products/large/anvil_ganson.png"/>
-  <Product productId="GZ-8544" smallImageUrl="/images/products/small/blazer.png" largeImageUrl="/images/products/large/blazer.png"/>
-  <Product productId="GZ-9290" smallImageUrl="/images/products/small/green_burner.png" largeImageUrl="/images/products/large/green_burner.png"/>
-  <Product productId="WG-1111" smallImageUrl="/images/products/small/calculator.png" largeImageUrl="/images/products/large/calculator.png"/>
-  <Product productId="WG-9943" smallImageUrl="/images/products/small/big_truck.png" largeImageUrl="/images/products/large/big_truck.png"/>
-  <Product productId="WG-9944" smallImageUrl="/images/products/small/big_truck.png" largeImageUrl="/images/products/large/big_truck.png"/>
-  <Product productId="WG-5569" smallImageUrl="/images/products/small/cellphone_shandy.png" largeImageUrl="/images/products/large/cellphone_shandy.png"/>
-  <Product productId="PC001" smallImageUrl="/images/products/small/gis_computer_glen_rolla.png" largeImageUrl="/images/products/large/gis_computer_glen_rolla.png"/>
-  <Product productId="GC-001" smallImageUrl="/images/products/small/certificate.png" largeImageUrl="/images/products/large/certificate.png"/>
-  <Product productId="GC-002" smallImageUrl="/images/products/small/certificate.png" largeImageUrl="/images/products/large/certificate.png"/>
-  <Product productId="ENCHILADAS" smallImageUrl="/images/products/small/borsa_estiva_architetto.png" largeImageUrl="/images/products/large/borsa_estiva_architetto.png"/>
-  <Product productId="PIZZA" smallImageUrl="/images/products/small/pizza.png" largeImageUrl="/images/products/large/pizza.png"/>
+  <Product productId="GZ-1000" smallImageUrl="/images/products/GZ-1000/small.png" largeImageUrl="/images/products/GZ-1000/large.png"/>
+  <Product productId="GZ-1001" smallImageUrl="/images/products/GZ-1001/small.png" largeImageUrl="/images/products/GZ-1001/large.png"/>
+  <Product productId="GZ-1004" smallImageUrl="/images/products/GZ-1004/small.png" largeImageUrl="/images/products/GZ-1004/large.png"/>
+  <Product productId="GZ-5005" smallImageUrl="/images/products/GZ-5005/small.png" largeImageUrl="/images/products/GZ-5005/large.png"/>
+  <Product productId="GZ-1005" smallImageUrl="/images/products/GZ-1005/small.png" largeImageUrl="/images/products/GZ-1005/large.png"/>
+  <Product productId="GZ-1006" smallImageUrl="/images/products/GZ-1006/small.png" largeImageUrl="/images/products/GZ-1006/large.png"/>
+  <Product productId="GZ-2002" smallImageUrl="/images/products/GZ-2002/small.png" largeImageUrl="/images/products/GZ-2002/large.png"/>
+  <Product productId="GZ-2644" smallImageUrl="/images/products/GZ-2644/small.png" largeImageUrl="/images/products/GZ-2644/large.png"/>
+  <Product productId="GZ-7000" smallImageUrl="/images/products/GZ-7000/small.png" largeImageUrl="/images/products/GZ-7000/large.png"/>
+  <Product productId="GZ-8544" smallImageUrl="/images/products/GZ-8544/small.png" largeImageUrl="/images/products/GZ-8544/large.png"/>
+  <Product productId="GZ-9290" smallImageUrl="/images/products/GZ-9290/small.png" largeImageUrl="/images/products/GZ-9290/large.png"/>
+  <Product productId="WG-1111" smallImageUrl="/images/products/WG-1111/small.png" largeImageUrl="/images/products/WG-1111/large.png"/>
+  <Product productId="WG-9943" smallImageUrl="/images/products/WG-9943/small.png" largeImageUrl="/images/products/WG-9943/large.png"/>
+  <Product productId="WG-9944" smallImageUrl="/images/products/WG-9944/small.png" largeImageUrl="/images/products/WG-9944/large.png"/>
+  <Product productId="WG-5569" smallImageUrl="/images/products/WG-5569/small.png" largeImageUrl="/images/products/WG-5569/large.png"/>
+  <Product productId="PC001" smallImageUrl="/images/products/PC001/small.png" largeImageUrl="/images/products/PC001/large.png"/>
+  <Product productId="GC-001" smallImageUrl="/images/products/GC-001/small.png" largeImageUrl="/images/products/GC-001/large.png"/>
+  <Product productId="GC-002" smallImageUrl="/images/products/GC-002/small.png" largeImageUrl="/images/products/GC-002/large.png"/>
+  <Product productId="ENCHILADAS" smallImageUrl="/images/products/ENCHILADAS/small.png" largeImageUrl="/images/products/ENCHILADAS/large.png"/>
+  <Product productId="PIZZA" smallImageUrl="/images/products/PIZZA/small.png" largeImageUrl="/images/products/PIZZA/large.png"/>
 </entity-engine-xml>
