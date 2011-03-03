@@ -233,9 +233,9 @@ public class JSONTests extends GenericTestCaseBase {
                     "nested string",
                     "something",
                 }),
-                "empty-list",   new ArrayList(),
+                "empty-list",   new ArrayList<String>(),
                 "empty-array",  new String[0],
-                "empty-map",    new HashMap(),
+                "empty-map",    new HashMap<String, Object>(),
             }),
             parseJSON("{\"string\": \"this is a string\", \"integer\": 5000, \"double\": 3.1415926, \"array\": [\"string\", 6000], \"list\": [\"nested string\", \"something\"], \"empty-list\": [], \"empty-array\": [], \"empty-map\": {}}", false)
         );
