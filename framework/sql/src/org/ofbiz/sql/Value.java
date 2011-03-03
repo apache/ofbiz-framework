@@ -40,7 +40,7 @@ public abstract class Value extends Atom {
         void visit(FunctionCall value);
         void visit(MathValue value);
         void visit(Null value);
-        void visit(NumberValue value);
+        void visit(NumberValue<?> value);
         void visit(ParameterValue value);
         void visit(StringValue value);
         void visit(CountAllFunction value);
@@ -62,7 +62,7 @@ public abstract class Value extends Atom {
         public void visit(Null value) {
         }
 
-        public void visit(NumberValue value) {
+        public void visit(NumberValue<?> value) {
         }
 
         public void visit(ParameterValue value) {

@@ -30,9 +30,9 @@ public final class Main {
         }
     }
 
-    private static final void run(SQLStatement statement, Planner planner) {
+    private static final void run(SQLStatement<?> statement, Planner<?, ?, ?, ?, ?, ?, ?> planner) {
         System.err.println(statement);
-        SQLPlan plan = planner.plan(statement);
+        SQLPlan<?> plan = planner.plan(statement);
         System.err.println("\tplan=" + plan);
     }
 

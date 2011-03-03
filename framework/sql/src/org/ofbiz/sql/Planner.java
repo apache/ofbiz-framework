@@ -37,7 +37,7 @@ public abstract class Planner<P extends Planner<P, C, D, I, S, U, V>, C, D exten
         }
     }
 
-    public SQLPlan<?> plan(SQLStatement statement) {
+    public SQLPlan<?> plan(SQLStatement<?> statement) {
         if (statement instanceof SQLDelete) return planDelete((SQLDelete) statement);
         if (statement instanceof SQLInsert) return planInsert((SQLInsert) statement);
         if (statement instanceof SQLSelect) return planSelect((SQLSelect) statement);
