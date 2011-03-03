@@ -82,7 +82,10 @@ public class ImageUrlServlet extends HttpServlet {
         
         String lastTagElement = tagElements.get(tagElements.size() - 1);
         String contentId = lastTagElement.substring(0, lastTagElement.lastIndexOf("."));
-        String sizeTagElement = tagElements.get(tagElements.size() - 2);
+        String sizeTagElement = null;
+        if(tagElements.size() > 2){
+            sizeTagElement = tagElements.get(tagElements.size() - 2);
+        }
         
         GenericValue content = null;
         try {
@@ -96,16 +99,19 @@ public class ImageUrlServlet extends HttpServlet {
             Debug.logError(e, module);
         }
     
-        GenericValue dataResource = null;
-        try {
-            dataResource = content.getRelatedOne("DataResource");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
+        if (content != null) {
+            GenericValue dataResource = null;
+            try {
+                dataResource = content.getRelatedOne("DataResource");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            String imageUrl = dataResource.getString("objectInfo");
+            RequestDispatcher rd = request.getRequestDispatcher("/control/viewImage?drObjectInfo=" + imageUrl);
+            rd.forward(request, response);
+        } else {
+            response.sendError(response.SC_NOT_FOUND, "Image not found with ID [" + contentId + "]");
         }
-        
-        String imageUrl = dataResource.getString("objectInfo");
-        RequestDispatcher rd = request.getRequestDispatcher("/control/viewImage?drObjectInfo=" + imageUrl);
-        rd.forward(request, response);
     }
 
     /**
