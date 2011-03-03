@@ -633,6 +633,11 @@ under the License.
             <return/>
         </if-compare>
 
+        <if-compare field="parameters.dataResourceTypeId" value="OFBIZ_FILE" operator="equals">
+            <call-simple-method method-name="saveOfbizFileDataResource"/>
+            <return/>
+        </if-compare>
+
         <if-compare field="parameters.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
             <entity-one entity-name="ImageDataResource" value-field="dataResObj">
                 <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
@@ -739,6 +744,76 @@ under the License.
             <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
         </if-not-empty>
         <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
+        <store-value value-field="dataResource"/>
+
+        <set-service-fields service-name="createAnonFile" map="dataResource" to-map="fileCtx"/>
+        <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
+        <set from-field="dataResource" field="fileCtx.dataResource"/>
+        <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
+
+        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+    </simple-method>
+
+    <!-- save OFBIZ_FILE data -->
+    <simple-method method-name="saveOfbizFileDataResource" short-description="Attach an uploaded file to a data resource as OFBIZ_FILE">
+        <entity-one entity-name="DataResource" value-field="dataResource"/>
+        <if-empty field="dataResource">
+            <add-error>
+                <fail-property resource="ContentUiLabels" property="ContentDataResourceNotFound"/>
+            </add-error>
+            <else>
+                <if-not-empty field="dataResource.objectInfo">
+                    <set field="isUpdate" value="Y"/>
+                </if-not-empty>
+            </else>
+        </if-empty>
+        <if>
+            <condition>
+                <if-empty field="parameters._uploadedFile_fileName"/>
+            </condition>
+            <then>
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field="isUpdate"/>
+                            <if-compare field="isUpdate" value="Y" operator="not-equals"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <add-error>
+                            <fail-property resource="ContentUiLabels" property="ContentNoUploadedContentFound"/>
+                        </add-error>
+                    </then>
+                    <else>
+                        <!-- if not upload is found on an update; its okay, don't do anything just return -->
+                        <field-to-result result-name="dataResourceId" field="dataResource.dataResourceId"/>
+                        <field-to-result result-name="mimeTypeId" field="dataResource.mimeTypeId"/>
+                        <return/>
+                    </else>
+                </if>
+
+            </then>
+        </if>
+        <check-errors/>
+
+        <set field="absolute" value="false" type="Boolean"/>
+        <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath">
+            <field field="absolute"/>
+        </call-class-method>
+        <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
+
+        <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
+        <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
+        <first-from-list entry="extension" list="extensions"/>
+
+        <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
+        <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
+        <set value="${uploadPath}/${dataResource.dataResourceId}" field="dataResource.objectInfo"/>
+        <if-not-empty field="extension">
+            <set value="${uploadPath}/${dataResource.dataResourceId}.${extension.fileExtensionId}" field="dataResource.objectInfo"/>
+        </if-not-empty>
+        <set value="OFBIZ_FILE" field="dataResource.dataResourceTypeId"/>
         <store-value value-field="dataResource"/>
 
         <set-service-fields service-name="createAnonFile" map="dataResource" to-map="fileCtx"/>

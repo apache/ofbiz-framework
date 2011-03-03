@@ -459,6 +459,10 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     }
 
     public static String getDataResourceContentUploadPath() {
+        return getDataResourceContentUploadPath(true);
+    }
+
+    public static String getDataResourceContentUploadPath(boolean absolute) {
         String initialPath = UtilProperties.getPropertyValue("content.properties", "content.upload.path.prefix");
         double maxFiles = UtilProperties.getPropertyNumber("content.properties", "content.upload.max.files");
         if (maxFiles < 1) {
@@ -468,13 +472,17 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         return getDataResourceContentUploadPath(initialPath, maxFiles);
     }
 
+    public static String getDataResourceContentUploadPath(String initialPath, double maxFiles) {
+        return getDataResourceContentUploadPath(initialPath, maxFiles, true);
+    }
+
     /**
      * Handles creating sub-directories for file storage; using a max number of files per directory
      * @param initialPath the top level location where all files should be stored
      * @param maxFiles the max number of files to place in a directory
      * @return the absolute path to the directory where the file should be placed
      */
-    public static String getDataResourceContentUploadPath(String initialPath, double maxFiles) {
+    public static String getDataResourceContentUploadPath(String initialPath, double maxFiles, boolean absolute) {
         String ofbizHome = System.getProperty("ofbiz.home");
 
         if (!initialPath.startsWith("/")) {
@@ -527,7 +535,12 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         }
 
         Debug.log("Directory Name : " + latestDir.getName(), module);
-        return latestDir.getAbsolutePath().replace('\\','/');
+        if (absolute) {
+            return latestDir.getAbsolutePath().replace('\\','/');
+        } else {
+            return initialPath + "/" + latestDir.getName();
+
+        }
     }
 
     private static File makeNewDirectory(File parent) {
