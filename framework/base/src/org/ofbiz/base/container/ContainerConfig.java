@@ -20,6 +20,7 @@ package org.ofbiz.base.container;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ofbiz.base.lang.LockedBy;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -43,43 +45,43 @@ public class ContainerConfig {
 
     public static final String module = ContainerConfig.class.getName();
 
-    protected static Map<String, Container> containers = new LinkedHashMap<String, Container>();
+    @LockedBy("ContainerConfig.class")
+    private static Map<String, Container> containers = new LinkedHashMap<String, Container>();
 
     public static Container getContainer(String containerName, String configFile) throws ContainerException {
         Container container = containers.get(containerName);
         if (container == null) {
-            synchronized (ContainerConfig.class) {
-                container = containers.get(containerName);
-                if (container == null) {
-                    if (configFile == null) {
-                        throw new ContainerException("Container config file cannot be null");
-                    }
-                    new ContainerConfig(configFile);
-                    container = containers.get(containerName);
-                }
-            }
-            if (container == null) {
-                throw new ContainerException("No container found with the name : " + containerName);
-            }
+            getContainers(configFile);
+            container = containers.get(containerName);
+        }
+        if (container == null) {
+            throw new ContainerException("No container found with the name : " + containerName);
         }
         return container;
     }
 
     public static Collection<Container> getContainers(String configFile) throws ContainerException {
-        if (containers.size() == 0) {
-            synchronized (ContainerConfig.class) {
-                if (containers.size() == 0) {
-                    if (configFile == null) {
-                        throw new ContainerException("Container config file cannot be null");
-                    }
-                    new ContainerConfig(configFile);
-                }
-            }
-            if (containers.size() == 0) {
-                throw new ContainerException("No containers loaded; problem with configuration");
+        if (UtilValidate.isEmpty(configFile)) {
+            throw new ContainerException("configFile argument cannot be null or empty");
+        }
+        URL xmlUrl = UtilURL.fromResource(configFile);
+        if (xmlUrl == null) {
+            throw new ContainerException("Could not find container config file " + configFile);
+        }
+        return getContainers(xmlUrl);
+    }
+
+    public static Collection<Container> getContainers(URL xmlUrl) throws ContainerException {
+        if (xmlUrl == null) {
+            throw new ContainerException("xmlUrl argument cannot be null");
+        }
+        Collection<Container> result = getContainerPropsFromXml(xmlUrl);
+        synchronized (ContainerConfig.class) {
+            for (Container container : result) {
+                containers.put(container.name, container);
             }
         }
-        return containers.values();
+        return result;
     }
 
     public static String getPropertyValue(ContainerConfig.Container parentProp, String name, String defaultValue) {
@@ -148,16 +150,9 @@ public class ContainerConfig {
         }
     }
 
-    protected ContainerConfig() {}
+    private ContainerConfig() {}
 
-    protected ContainerConfig(String configFileLocation) throws ContainerException {
-        // load the config file
-        URL xmlUrl = UtilURL.fromResource(configFileLocation);
-        if (xmlUrl == null) {
-            throw new ContainerException("Could not find " + configFileLocation + " master OFBiz container configuration");
-        }
-
-        // read the document
+    private static Collection<Container> getContainerPropsFromXml(URL xmlUrl) throws ContainerException {
         Document containerDocument = null;
         try {
             containerDocument = UtilXml.readXmlDocument(xmlUrl, true);
@@ -168,15 +163,12 @@ public class ContainerConfig {
         } catch (IOException e) {
             throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
         }
-
-        // root element
         Element root = containerDocument.getDocumentElement();
-
-        // containers
+        List<Container> result = new ArrayList<Container>();
         for (Element curElement: UtilXml.childElementList(root, "container")) {
-            Container container = new Container(curElement);
-            containers.put(container.name, container);
+            result.add(new Container(curElement));
         }
+        return result;
     }
 
     public static class Container {

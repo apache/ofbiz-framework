@@ -28,6 +28,7 @@ import org.ofbiz.base.start.Start;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * ContainerLoader - StartupLoader for the container
@@ -52,37 +53,36 @@ public class ContainerLoader implements StartupLoader {
 
         // get the master container configuration file
         this.configFile = config.containerConfig;
-
         Collection<ContainerConfig.Container> containers = null;
         try {
             containers = ContainerConfig.getContainers(configFile);
+            if (UtilValidate.isEmpty(containers)) {
+                throw new StartupException("No containers loaded; problem with configuration");
+            }
         } catch (ContainerException e) {
             throw new StartupException(e);
         }
+        for (ContainerConfig.Container containerCfg : containers) {
+            Container tmpContainer = loadContainer(containerCfg, args);
+            loadedContainers.add(tmpContainer);
 
-        if (containers != null) {
-            for (ContainerConfig.Container containerCfg: containers) {
-                Container tmpContainer = loadContainer(containerCfg, args);
-                loadedContainers.add(tmpContainer);
-
-                // This is only used in case of OFBiz running in Geronimo or WASCE. It allows to use the RMIDispatcher
-                if (containerCfg.name.equals("rmi-dispatcher") && configFile.equals("limited-containers.xml")) {
-                    try {
-                        ContainerConfig.Container.Property initialCtxProp = containerCfg.getProperty("use-initial-context");
-                        String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
-                        if (!useCtx.equalsIgnoreCase("true")) {
-                            //system.setProperty("java.security.policy", "client.policy"); maybe used if needed...
-                            if (System.getSecurityManager() == null) { // needed by WASCE with a client.policy file.
-                                System.setSecurityManager(new java.rmi.RMISecurityManager());
-                            }
-                            tmpContainer.start();
-                            rmiLoadedContainer = tmpContainer; // used in Geronimo/WASCE to allow to deregister
+            // This is only used in case of OFBiz running in Geronimo or WASCE. It allows to use the RMIDispatcher
+            if (containerCfg.name.equals("rmi-dispatcher") && configFile.equals("limited-containers.xml")) {
+                try {
+                    ContainerConfig.Container.Property initialCtxProp = containerCfg.getProperty("use-initial-context");
+                    String useCtx = initialCtxProp == null || initialCtxProp.value == null ? "false" : initialCtxProp.value;
+                    if (!useCtx.equalsIgnoreCase("true")) {
+                        //system.setProperty("java.security.policy", "client.policy"); maybe used if needed...
+                        if (System.getSecurityManager() == null) { // needed by WASCE with a client.policy file.
+                            System.setSecurityManager(new java.rmi.RMISecurityManager());
                         }
-                    } catch (ContainerException e) {
-                        throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
-                    } catch (java.lang.AbstractMethodError e) {
-                        throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
+                        tmpContainer.start();
+                        rmiLoadedContainer = tmpContainer; // used in Geronimo/WASCE to allow to deregister
                     }
+                } catch (ContainerException e) {
+                    throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
+                } catch (java.lang.AbstractMethodError e) {
+                    throw new StartupException("Cannot start() " + tmpContainer.getClass().getName(), e);
                 }
             }
         }
