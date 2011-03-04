@@ -1636,4 +1636,12 @@ under the License.
             <key-map field-name="contentIdTo" rel-field-name="contentId"/>
         </view-link>
     </view-entity>
+
+    <!-- defined as an extend and not directly in common to avoid dependencies between common and content -->
+    <extend-entity entity-name="PortalPage">
+        <field name="helpContentId" type="id"><description>Used to give contentId which will be shown when help on this page will be called</description></field>
+        <relation type="one" fk-name="PORTPAL_HELP_CONT" rel-entity-name="Content">
+            <key-map field-name="helpContentId" rel-field-name="contentId"/>
+        </relation>
+    </extend-entity>
 </entitymodel>
