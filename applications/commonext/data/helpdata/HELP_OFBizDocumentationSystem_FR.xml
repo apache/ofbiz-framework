@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook"
+    xmlns="http://docbook.org/ns/docbook">
+  <title>Principes et organisation de la documentation Apache OFBiz</title>
+    <section>
+      <title>Généralités</title>
+      <para>
+          La documentation OFBiz est constituée d'un certain nombre de fichiers au format docbook.
+          En général, les fichiers sont stockés à l'intérieur de chacun des composants, soit dans le répertoire 'document' soit dans le répertoire data/helpdata.
+      </para>
+      <para>
+          Le document 'racine' est stocké dans le fichier applications/commonext/documents/ApacheOfbiz.xml.
+          La grammaire DocBook est stockée dans le répertoire application/content/dtd et les feuilles de style sont stockées dans le répertoire applications/content/templates/docbook.
+      </para>
+      <para>
+          Le système de la documentation OFBiz utilise le composant gestion de contenu.
+          Un élément de contenu est défini par un 'content' et un 'dataresource'. La définition des types d'enregistrement de ces éléments de contenu 
+          peut être trouvée à la fin du fichier /application/content/data/ContentType.xml. Ils sont dans ce fichier car la documentation et le 
+          fichier d'aide sont considérés comme essentiels pour les opérations d'Apache OFBiz donc des données de base ('seed').
+      </para>
+      <para>
+          Si vous souhaitez avoir des exemples de fichier au format DocBook, regardez les fichiers suivants :
+          <orderedlist>
+            <listitem><para>Le document principal : 
+              applications/commonext/documents/ApacheOfbiz.xml</para></listitem>
+            <listitem><para>Un exemple pour un chapitre d'un composant :
+              applications/accounting/documents/Accounting.xml</para></listitem>
+            <listitem><para>Un exemple pour un écran d'aide :
+              applications/accounting/data/helpdata/HELP_ACCOUNTING_main.xml</para></listitem>
+            <listitem><para>Un exemple de création d'éléments de contenu :
+              applications/accounting/data/AccountingHelpData.xml</para></listitem>
+          </orderedlist>
+      </para>
+    </section>
+
+    <section>
+      <title>Contribuer à la réalistaion d'un nouvel écran d'aide, en quelques étapes.</title>
+      <para>
+          Il y a une différence entre les écrans portlet et 'normaux'. Si une page contient une portlet, l'aide générale du composant 'myportal' 
+          est montrée avec, à la fin, la liste des portlets utilisées dans cette page. L'aide peut être obtenue en cliquant sur la portlet concernée.
+      </para>
+      <section>
+        <title>Pages normales.</title>
+        <para>
+            Si vous voulez créer un nouveau menu d'aide pour un écran, vous aurez besoin de faire ce qui suit :
+          <orderedlist>
+            <listitem>
+                <para>Dans le helplink.ftl dé-commentez la variable ${helpTopic} ce qui la fera apparaître en haut à droite de votre écran.</para>
+            </listitem>
+            <listitem>
+                <para>Dans le composant spécifique data/helpData, créez le fichier HELP_${helpTopic}.xml. Vous pourrez trouver un fichier d'exemple comme  HELP_ACCOUNTING_main.xml</para>
+            </listitem>
+            <listitem>
+                <para>Mettez à jour/créez data/${componentName}HelpData.xml, vous pourrez trouver comme exemple le fichier AccountingHelpData.xml. Si vous le créez, pensez à ajouter une ligne dans le fichier ofbiz-component.xml pour que les données soient chargées.</para>
+            </listitem>
+            <listitem>
+                <para>Charger le fichier de données et le ficher d'aide devrait s'afficher lorsque vous cliquerez sur le bouton d'aide.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Committer les changements dans le référentiel SVN ou créez un fichier diff et joignez-le à un jira.</para>
+            </listitem>
+            <listitem>
+                <para>Si le texte d'aide est utile à la documentation d'OFBiz, incluez-le dans les fichiers du répertoire où se trouve le document.</para>
+            </listitem>
+          </orderedlist>
+        </para>
+      </section>
+      <section>
+        <title>Contribuer à la réalisation d'un nouvel écran d'aide Portlet.</title>
+        <para>
+            Les portlets sont normalement définies et expliquées dans le fichier ${component name}PortletData.xml . Si vous voulez un example 
+            d'une portlet avec un écran d'aide déjà existant, regardez WorkEffortPortletData.xml 
+        </para>
+        <para>
+            Les enregistrements pour les élément de contenu pour le fichier d'aide sont définis avec la définition de la portlet. 
+            Le fichier d'aide est stocké dans le composant concerné (répertoire : data/helpdata) et se nomme HELP_PORTLET_${portletId}.xml. 
+        </para>
+      </section>
+    </section>
+    <section>
+        <title><anchor xml:id="helpInternationalization"/>L'internationalisation du système d'aide</title>
+        <para>
+            Comme le système d'aide utilise le composant gestion de contenus, l'internationalisation des fichiers d'aide est très facile car 
+            c'est une des fonctions basiques des éléments de contenu. Si vous voulez faire une traduction d'un fichier d'aide déjà existant, faites-en 
+            une copie dans le même répertoire et rendez-le unique en y ajoutant le "_languageCode" à la fin. Créez, comme ce fut fait pour la 
+            version anglaise, un enregistrement 'dataresource' et 'content' dans le fichier data/${componentName}HelpData.xml . Puis créez un 
+            enregistrement d'association d'éléments de contenu (ContentAssoc) dans le fichier data/${componentName}HelpData.xml pour lier ce 
+            nouveau fichier et le fichier anglais avec comme type de lien  'ALTERNATE_LOCALE'. Ci-desous un exemple de la déclaration de la 
+            traduction en néerlandais du fichier d'aide racine (provenant de : ContentHelpData.xml)
+            <programlisting>
+    &amp;lt;!-- how to create alternative locales -->
+    &amp;lt;DataResource dataResourceId="HELP_ROOT_NL" localeString="nl" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/content/data/helpdata/HELP_ROOT_NL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
+        dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
+    &amp;lt;Content contentId="HELP_ROOT_NL" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_ROOT_NL" localeString="nl" statusId="CTNT_IN_PROGRESS" 
+        contentName="Help system root in dutch" mimeTypeId="text/html"/>
+    &amp;lt;ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_ROOT_NL" 
+        contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
+            </programlisting> 
+            L'affichage dans la langue de l'utilisateur est donc complétement automatique.
+        </para>
+    </section>
+</section>

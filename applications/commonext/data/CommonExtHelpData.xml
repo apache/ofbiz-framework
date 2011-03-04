@@ -63,4 +63,8 @@ under the License.
     <DataResource dataResourceId="DOCUMENTATION_SYSTEM" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_OFBizDocumentationSystem.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Documentation system" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="DOCUMENTATION_SYSTEM" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="DOCUMENTATION_SYSTEM" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Documentation system" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_SETUP" contentIdTo="DOCUMENTATION_SYSTEM" contentAssocTypeId="TREE_CHILD" fromDate="2009-09-09 01:01:01" sequenceNum="010" mapKey="DOCUMENTATION_SYSTEM"/>
+
+    <DataResource dataResourceId="DOCUMENTAT_SYSTEM_FR" localeString="fr" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/commonext/data/helpdata/HELP_OFBizDocumentationSystem_FR.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Orga. techn. de la documentation" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="DOCUMENTAT_SYSTEM_FR" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" dataResourceId="DOCUMENTAT_SYSTEM_FR" localeString="fr" statusId="CTNT_IN_PROGRESS" contentName="Orga. techn. de la documentation" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="DOCUMENTATION_SYSTEM" contentIdTo="DOCUMENTAT_SYSTEM_FR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-01-12 01:01:01"/>
 </entity-engine-xml>
