@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -158,9 +159,10 @@ public class BirtEmailServices {
                     birtContentType = "application/pdf";
                 }
                 IReportEngine engine = BirtContainer.getReportEngine();
-                engine.getConfig().getAppContext().put("delegator", delegator);
-                engine.getConfig().getAppContext().put("dispatcher", dispatcher);
-                engine.getConfig().getAppContext().put("security", security);
+                HashMap<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
+                appContext.put("delegator", delegator);
+                appContext.put("dispatcher", dispatcher);
+                appContext.put("security", security);
                 
                 InputStream reportInputStream = BirtFactory.getReportInputStreamFromLocation(birtReportLocation);
                 IReportRunnable design = engine.openReportDesign(reportInputStream);
