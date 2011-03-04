@@ -115,7 +115,7 @@
         </para>
         <para>
             The content records for the help file is defined together with the portlet definition and the actual help
-            file is store in the related component /data/helpdata directory wit the nam HELP_PORTLET_${portletId}.xml.
+            file is store in the related component /data/helpdata directory with the name HELP_PORTLET_${portletId}.xml.
         </para>
       </section>
     </section>
