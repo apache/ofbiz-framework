@@ -998,7 +998,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 GenericValue dataResource = null;
                 if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
                     dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId));
-                    this.dataResourceId = FlexibleStringExpander.getInstance(expandedDataResourceId);
                 }
 
                 String mimeTypeId = null;
