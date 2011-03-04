@@ -747,31 +747,54 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             fieldValue = null;
         }
 
-        // In case of view entity try to retrieve the field heading from the real entity linked to the view
+        // In case of view entity first try to retrieve with View field names
         ModelEntity modelEntityToUse = this.getModelEntity();
-        if (modelEntityToUse instanceof ModelViewEntity) {
-            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
-            Iterator<ModelAlias> it = modelViewEntity.getAliasesIterator();
-            while (it.hasNext()) {
-                ModelAlias modelAlias = it.next();
-                if (modelAlias.getName().equalsIgnoreCase(name)) {
-                    modelEntityToUse = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
-                    name = modelAlias.getField();
-                    break;
-                }
-            }
+        Object resourceValue = get(this.getModelEntity(), modelEntityToUse, name, resource, locale);
+        if (resourceValue == null) {
+          if (modelEntityToUse instanceof ModelViewEntity) {
+              //  now try to retrieve with the field heading from the real entity linked to the view
+              ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntityToUse;
+              Iterator<ModelAlias> it = modelViewEntity.getAliasesIterator();
+              while (it.hasNext()) {
+                  ModelAlias modelAlias = it.next();
+                  if (modelAlias.getName().equalsIgnoreCase(name)) {
+                      modelEntityToUse = modelViewEntity.getMemberModelEntity(modelAlias.getEntityAlias());
+                      name = modelAlias.getField();
+                      break;
+                  }
+              }
+              resourceValue = get(this.getModelEntity(), modelEntityToUse, name, resource, locale);
+              if (resourceValue == null) {
+                  return fieldValue;
+              } else {
+                  return resourceValue;
+              }
+          } else {
+              return fieldValue;
+          }
+        } else {
+            return resourceValue;
         }
+    }
+
+    /**
+     * call by the previous method to be able to read with View entityName and entity Field and after for real entity
+     * @param modelEntity the modelEntity, for a view it's the ViewEntity
+     * @param modelEntityToUse, same as before except if it's a second call for a view, and so it's the real modelEntity
+     * @return null or resourceValue
+     */
+    private Object get(ModelEntity modelEntity, ModelEntity modelEntityToUse, String name, String resource, Locale locale) {
         if (UtilValidate.isEmpty(resource)) {
             resource = modelEntityToUse.getDefaultResourceName();
-            // still empty? return the fieldValue
+            // still empty? return null
             if (UtilValidate.isEmpty(resource)) {
                 //Debug.logWarning("Tried to getResource value for field named " + name + " but no resource name was passed to the method or specified in the default-resource-name attribute of the entity definition", module);
-                return fieldValue;
+                return null;
             }
         }
         if (UtilProperties.isPropertiesResourceNotFound(resource, locale, false)) {
             // Properties do not exist for this resource+locale combination
-            return fieldValue;
+            return null;
         }
         ResourceBundle bundle = null;
         try {
@@ -781,7 +804,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         }
         if (bundle == null) {
             //Debug.logWarning("Tried to getResource value for field named " + name + " but no resource was found with the name " + resource + " in the locale " + locale, module);
-            return fieldValue;
+            return null;
         }
 
         StringBuilder keyBuffer = new StringBuilder();
@@ -804,13 +827,9 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         try {
             resourceValue = bundle.getObject(bundleKey);
         } catch (MissingResourceException e) {
-            return fieldValue;
+            return null;
         }
-        if (resourceValue == null) {
-            return fieldValue;
-        } else {
-            return resourceValue;
-        }
+        return resourceValue;
     }
 
     public GenericPK getPrimaryKey() {
