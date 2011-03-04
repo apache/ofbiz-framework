@@ -1371,9 +1371,9 @@ public class ModelForm extends ModelWidget {
         }
         // if list is empty, do not render rows
         Iterator<?> iter = null;
-        if (obj instanceof Iterator) {
+        if (obj instanceof Iterator<?>) {
             iter = (Iterator<?>) obj;
-        } else if (obj instanceof List) {
+        } else if (obj instanceof List<?>) {
             iter = ((List<?>) obj).listIterator();
         }
 
@@ -1434,9 +1434,9 @@ public class ModelForm extends ModelWidget {
         }
         // if list is empty, do not render rows
         Iterator<?> iter = null;
-        if (obj instanceof Iterator) {
+        if (obj instanceof Iterator<?>) {
             iter = (Iterator<?>) obj;
-        } else if (obj instanceof List) {
+        } else if (obj instanceof List<?>) {
             iter = ((List<?>) obj).listIterator();
         }
 
@@ -2624,7 +2624,7 @@ public class ModelForm extends ModelWidget {
                 Debug.logError(e, "Error getting list size", module);
                 listSize = 0;
             }
-        } else if (entryList instanceof List) {
+        } else if (entryList instanceof List<?>) {
             List<?> items = (List<?>) entryList;
             listSize = items.size();
         }
