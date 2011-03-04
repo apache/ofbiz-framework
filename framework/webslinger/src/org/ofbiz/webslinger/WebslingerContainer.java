@@ -42,9 +42,7 @@ public class WebslingerContainer implements Container {
     private static TypeVFSDelegate vfsDelegate;
     private static LanguageManager languageManager;
     private static TemplateManager templateManager;
-    private static final String[] templateParamNames = new String[] {"writer", "context"};
-    private static final Class<?>[] templateParamTypes = new Class<?>[] {Writer.class, Map.class};
-
+    
     public void init(String[] args, String configFile) throws ContainerException {
     }
 
