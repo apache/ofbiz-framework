@@ -406,7 +406,7 @@ public abstract class ModelFormAction {
                 String listName = resultMapListNameExdr.expandString(context);
                 Object listObj = result.get(listName);
                 if (listObj != null) {
-                    if (!(listObj instanceof List) && !(listObj instanceof ListIterator)) {
+                    if (!(listObj instanceof List<?>) && !(listObj instanceof ListIterator<?>)) {
                         throw new IllegalArgumentException("Error in form [" + this.modelForm.getName() + "] calling service with name [" + serviceNameExpanded + "]: the result that is supposed to be a List or ListIterator and is not.");
                     }
                     context.put("listName", listName);
