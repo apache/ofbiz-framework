@@ -681,12 +681,20 @@ under the License.
         <field name="portalPageId" type="id-ne"></field>
         <field name="portalPageName" type="name"></field>
         <field name="description" type="description"></field>
+        <!-- defined in an extend in content component to avoid dependencies between common and content
+        <field name="helpContentId" type="id"><description>Used to give contentId which will be shown when help on this page will be called</description></field>
+         -->
         <field name="ownerUserLoginId" type="id"></field>
         <field name="originalPortalPageId" type="id"><description>The system portal page this page is derived from</description></field>
         <field name="parentPortalPageId" type="id"><description>the parent this page is belonging to, normally the startpage of the portal page group</description></field>
         <field name="sequenceNum" type="numeric"></field>
         <field name="securityGroupId" type="id"></field>
         <prim-key field="portalPageId"/>
+        <!-- defined in an extend in content component to avoid dependencies between common and content
+        <relation type="one" fk-name="PORTPAL_HELP_CONTENT" rel-entity-name="Content">
+          <key-map field-name="helpContentId" rel-field-name="contentId"/>
+        </relation>
+        -->
         <relation type="one" fk-name="PortPage_PARENT" title="Parent" rel-entity-name="PortalPage">
           <key-map field-name="parentPortalPageId" rel-field-name="portalPageId"/>
         </relation>
