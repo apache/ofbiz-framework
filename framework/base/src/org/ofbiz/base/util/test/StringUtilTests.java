@@ -29,6 +29,7 @@ import org.ofbiz.base.lang.Appender;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.test.GenericTestCaseBase;
 
 @SourceMonitored
@@ -168,8 +169,8 @@ public class StringUtilTests extends GenericTestCaseBase {
     }
 
     public void testCreateMap() {
-        List<String>[] badKeys = new List[] {null, list("1"), list("2")};
-        List<String>[] badValues = new List[] {list("one"), null, list("two", "extra")};
+        List<String>[] badKeys = UtilGenerics.cast(new List[] {null, list("1"), list("2")});
+        List<String>[] badValues = UtilGenerics.cast(new List[] {list("one"), null, list("two", "extra")});
         for (int i = 0; i < badKeys.length; i++) {
             IllegalArgumentException caught = null;
             try {
