@@ -484,7 +484,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // if we are not sharing the scope, protect it using the MapStack
             boolean protectScope = !shareScope(context);
             if (protectScope) {
-                if (!(context instanceof MapStack)) {
+                if (!(context instanceof MapStack<?>)) {
                     context = MapStack.create(context);
                 }
 
@@ -726,7 +726,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             boolean protectScope = !shareScope(context);
             if (protectScope) {
-                if (!(context instanceof MapStack)) {
+                if (!(context instanceof MapStack<?>)) {
                     context = MapStack.create(context);
                 }
                 UtilGenerics.<MapStack<String>>cast(context).push();
@@ -814,7 +814,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             boolean protectScope = !shareScope(context);
             if (protectScope) {
-                if (!(context instanceof MapStack)) {
+                if (!(context instanceof MapStack<?>)) {
                     context = MapStack.create(context);
                 }
                 UtilGenerics.<MapStack<String>>cast(context).push();
@@ -968,7 +968,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 GenericValue content = null;
                 String expandedDataResourceId = getDataResourceId(context);
                 String expandedContentId = getContentId(context);
-                if (!(context instanceof MapStack)) {
+                if (!(context instanceof MapStack<?>)) {
                     context = MapStack.create(context);
                 }
 
