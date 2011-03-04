@@ -78,6 +78,7 @@ under the License.
                     <actions>
                         <entity-and entity-name="ContentAssoc" list="contentAssocs">
                             <field-map field-name="mapKey" from-field="parameters.helpTopic"/>
+                            <order-by field-name="sequenceNum"/>
                         </entity-and>
                         <set field="contentId" from-field="contentAssocs[0].contentIdTo"/>
                         <entity-one entity-name="Content" value-field="content"/>
@@ -95,7 +96,16 @@ under the License.
                                     <decorator-section name="body">
                                         <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
                                             <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
-                                            <include-screen name="showDocument"/>
+                                            <iterate-section entry="contentAssoc" list="contentAssocs">
+                                              <section>
+                                                <actions>
+                                                  <set field="contentId" from-field="contentAssoc.contentIdTo"/>
+                                                </actions>
+                                                <widgets>
+                                                  <include-screen name="showDocument"/>
+                                                </widgets>
+                                              </section>
+                                            </iterate-section>
                                         </screenlet>
                                     </decorator-section>
                                 </decorator-screen>
@@ -103,17 +113,30 @@ under the License.
                         </section>
                     </widgets>
                     <fail-widgets>
+                      <section>
+                        <actions>
+                          <!-- Read portalPage to retrieve helpContentId,
+                               if portalPage.originalPortalPageId is not null retrieve originalPortalPage-->
+                          <entity-one value-field="portalPageTmp" entity-name="PortalPage" use-cache="true"/>
+                          <set field="originalPortalPageId" from-field="portalPageTmp.originalPortalPageId" default-value="${parameters.portalPageId}"/>
+                          <entity-one value-field="portalPage" entity-name="PortalPage" use-cache="true">
+                            <field-map field-name="portalPageId" from-field="originalPortalPageId"/>
+                          </entity-one>
+                        </actions>
+                        <widgets>
                         <decorator-screen name="LookupDecorator">
                             <decorator-section name="body">
-                                <screenlet title="${uilabelMap.CommonExtHelpTitle}">
-                                    <content content-id="HELP_MYPORTAL"/>
-                                </screenlet>
-                                <screenlet title="${uiLabelMap.CommonSelectPortletToHelp}" navigation-menu-name="lookupMenu">
+                                <screenlet title="${uiLabelMap.CommonExtHelpTitle}" navigation-menu-name="lookupMenu">
                                     <include-menu name="lookupMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                    <content content-id="${portalPage.helpContentId}"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.CommonSelectPortletToHelp}">
                                     <include-form name="PortletList" location="component://common/widget/PortalPageForms.xml"/>
                                 </screenlet>
                             </decorator-section>
-                        </decorator-screen>
+                          </decorator-screen>
+                        </widgets>
+                      </section>
                     </fail-widgets>
                 </section>
             </fail-widgets>
