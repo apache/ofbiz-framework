@@ -26,7 +26,7 @@ public interface JSONResult {
     JSONWriter getWriter();
     String getResult();
 
-    public static final class Indenting implements JSONResult {
+    public static class Indenting implements JSONResult {
         private final StringWriter sw = new StringWriter();
         private final JSONWriter writer = new JSONWriter(sw);
 
