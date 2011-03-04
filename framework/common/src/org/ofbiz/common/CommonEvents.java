@@ -314,10 +314,10 @@ public class CommonEvents {
                 }
 
                 // Iterate over the uiLabel List
-                Iterator jsonLabelIterator = labels.iterator();
+                Iterator<String> jsonLabelIterator = UtilGenerics.cast(labels.iterator());
                 JSONArray resourceLabelList = new JSONArray();
                 while(jsonLabelIterator.hasNext()) {
-                    String label = (String) jsonLabelIterator.next();
+                    String label = jsonLabelIterator.next();
                     String receivedLabel = UtilProperties.getMessage(resource, label, locale);
                     if (UtilValidate.isNotEmpty(receivedLabel)) {
                         resourceLabelList.add(receivedLabel);
