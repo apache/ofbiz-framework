@@ -116,7 +116,7 @@ public class GenericDelegator implements Delegator {
 
     private boolean testMode = false;
     private boolean testRollbackInProgress = false;
-    private static final AtomicReferenceFieldUpdater<GenericDelegator, LinkedBlockingDeque> testOperationsUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericDelegator.class, LinkedBlockingDeque.class, "testOperations");
+    private static final AtomicReferenceFieldUpdater<GenericDelegator, LinkedBlockingDeque<?>> testOperationsUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericDelegator.class, LinkedBlockingDeque.class, "testOperations"));
     private volatile LinkedBlockingDeque<TestOperation> testOperations = null;
     private enum OperationType {INSERT, UPDATE, DELETE}
 
@@ -2765,7 +2765,7 @@ public class GenericDelegator implements Delegator {
     private void setTestMode(boolean testMode) {
         this.testMode = testMode;
         if (testMode) {
-            testOperationsUpdater.set(this, new LinkedBlockingDeque());
+            testOperationsUpdater.set(this, new LinkedBlockingDeque<TestOperation>());
         } else {
             this.testOperations.clear();
         }
