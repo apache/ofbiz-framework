@@ -41,7 +41,7 @@ public class ModelFieldType implements Serializable {
     protected String javaType = null;
 
     /** The JDBC value handler for this Field */
-    protected JdbcValueHandler jdbcValueHandler = null;
+    protected JdbcValueHandler<?> jdbcValueHandler = null;
 
     /** The sql-type of the Field */
     protected String sqlType = null;
@@ -72,7 +72,7 @@ public class ModelFieldType implements Serializable {
     }
 
     /** Returns the JDBC value handler for this field type */
-    public JdbcValueHandler getJdbcValueHandler() {
+    public JdbcValueHandler<?> getJdbcValueHandler() {
         return this.jdbcValueHandler;
     }
 
