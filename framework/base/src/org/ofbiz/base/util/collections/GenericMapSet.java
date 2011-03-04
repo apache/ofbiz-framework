@@ -28,8 +28,8 @@ public abstract class GenericMapSet<K, V, M extends Map<K, V>, I> extends Generi
 
     @Override
     public final boolean equals(Object o) {
-        if (!(o instanceof Set)) return false;
-        Set other = (Set) o;
+        if (!(o instanceof Set<?>)) return false;
+        Set<?> other = (Set<?>) o;
         if (source.size() != other.size()) return false;
         for (I item: this) {
             if (!other.contains(item)) return false;
