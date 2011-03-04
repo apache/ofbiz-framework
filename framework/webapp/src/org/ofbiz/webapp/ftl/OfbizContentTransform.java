@@ -63,6 +63,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
         return result;
     }
     
+    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final String imgSize = OfbizContentTransform.getArg(args, "variant");
