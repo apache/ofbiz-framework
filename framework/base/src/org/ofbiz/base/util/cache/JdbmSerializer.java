@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilObject;
  * (needed do to the fact that we do dynamic class loading)
  *
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unchecked"})
 public class JdbmSerializer implements Serializer, ISerializationHandler {
 
     public byte[] serialize(Object o) throws IOException {

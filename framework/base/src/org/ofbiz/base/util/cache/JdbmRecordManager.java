@@ -75,6 +75,7 @@ public class JdbmRecordManager implements RecordManager {
         manager.delete(l);
     }
 
+    @SuppressWarnings("unchecked")
     public Object fetch(long l, Serializer s) throws IOException {
         return manager.fetch(l, s);
     }
@@ -91,6 +92,7 @@ public class JdbmRecordManager implements RecordManager {
         return manager.getRootCount();
     }
 
+    @SuppressWarnings("unchecked")
     public long insert(Object o, Serializer s) throws IOException {
         return manager.insert(o, s);
     }
@@ -107,6 +109,7 @@ public class JdbmRecordManager implements RecordManager {
         manager.setRoot(i, l);
     }
 
+    @SuppressWarnings("unchecked")
     public void update(long l, Object o, Serializer s) throws IOException {
         manager.update(l, o, s);
     }
