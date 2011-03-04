@@ -275,7 +275,7 @@ public class HtmlWidget extends ModelScreenWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             // isolate the scope
             MapStack<String> contextMs;
-            if (!(context instanceof MapStack)) {
+            if (!(context instanceof MapStack<?>)) {
                 contextMs = MapStack.create(context);
                 context = contextMs;
             } else {
