@@ -31,11 +31,12 @@ import org.ofbiz.base.lang.Appender;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilObject;
 
+@SuppressWarnings("serial")
 public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K, V>, Serializable {
-    private static final AtomicReferenceFieldUpdater<GenericMap, Set> keySetUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "keySet");
-    private static final AtomicReferenceFieldUpdater<GenericMap, Set> entrySetUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "entrySet");
-    private static final AtomicReferenceFieldUpdater<GenericMap, Collection> valuesUpdater = AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Collection.class, "values");
-    private static final AtomicIntegerFieldUpdater<GenericMap> modCountUpdater = AtomicIntegerFieldUpdater.newUpdater(GenericMap.class, "modCount");
+    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Set<?>> keySetUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "keySet"));
+    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Set<?>> entrySetUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Set.class, "entrySet"));
+    private static final AtomicReferenceFieldUpdater<GenericMap<?, ?>, Collection<?>> valuesUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericMap.class, Collection.class, "values"));
+    private static final AtomicIntegerFieldUpdater<GenericMap<?, ?>> modCountUpdater = UtilGenerics.cast(AtomicIntegerFieldUpdater.newUpdater(GenericMap.class, "modCount"));
 
     private volatile Set<K> keySet;
     private volatile Set<Map.Entry<K, V>> entrySet;
@@ -64,15 +65,15 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Map)) return false;
+        if (!(o instanceof Map<?, ?>)) return false;
         if (this == o) return true;
-        Map map = (Map) o;
+        Map<?, ?> map = (Map<?, ?>) o;
         if (size() != map.size()) return false;
-        if (o instanceof GenericMap) return equalsGenericMap((GenericMap) o);
+        if (o instanceof GenericMap<?, ?>) return equalsGenericMap((GenericMap<?, ?>) o);
         return equalsMap(map);
     }
 
-    protected boolean equalsGenericMap(GenericMap map) {
+    protected boolean equalsGenericMap(GenericMap<?, ?> map) {
         Iterator<Map.Entry<K, V>> it = iterator(false);
         while (it.hasNext()) {
             Map.Entry<K, V> entry = it.next();
@@ -89,7 +90,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         return true;
     }
 
-    protected boolean equalsMap(Map map) {
+    protected boolean equalsMap(Map<?, ?> map) {
         Iterator<Map.Entry<K, V>> it = iterator(false);
         while (it.hasNext()) {
             Map.Entry<K, V> entry = it.next();
@@ -222,7 +223,7 @@ public abstract class GenericMap<K, V> implements Appender<StringBuilder>, Map<K
         if (map.isEmpty()) return;
         incrementModCount();
         Iterator<Map.Entry<KE, VE>> it;
-        if (map instanceof GenericMap) {
+        if (map instanceof GenericMap<?, ?>) {
             GenericMap<KE, VE> otherMap = UtilGenerics.cast(map);
             it = otherMap.iterator(false);
         } else {
