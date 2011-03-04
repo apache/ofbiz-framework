@@ -2832,7 +2832,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else {
                 ajaxUrl += ",";
             }
-            Map<String, String> parameters = updateArea.getParameterMap((Map<String, Object>) context);
+            Map<String, Object> ctx = UtilGenerics.checkMap(context);
+            Map<String, String> parameters = updateArea.getParameterMap(ctx);
             String targetUrl = updateArea.getAreaTarget(context);
             String ajaxParams = getAjaxParamsFromTarget(targetUrl);
             if (UtilValidate.isNotEmpty(extraParams)) {
