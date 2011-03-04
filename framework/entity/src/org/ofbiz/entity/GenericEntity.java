@@ -791,7 +791,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         keyBuffer.append('.');
         keyBuffer.append(name);
         // finish off by adding the values of all PK fields
-        Iterator<ModelField> iter = modelEntityToUse.getPksIterator();
+        Iterator<ModelField> iter = modelEntity.getPksIterator();
         while (iter != null && iter.hasNext()) {
             ModelField curField = iter.next();
             keyBuffer.append('.');
