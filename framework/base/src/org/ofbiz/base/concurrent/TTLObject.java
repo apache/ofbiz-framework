@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import org.ofbiz.base.lang.ObjectWrapper;
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.util.UtilGenerics;
 
 @SourceMonitored
 public abstract class TTLObject<T> implements ObjectWrapper<T> {
@@ -81,9 +82,9 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
     }
 
     public enum State { INVALID, REGEN, REGENERATING, GENERATE, GENERATING, GENERATING_INITIAL, VALID, ERROR, ERROR_INITIAL, SET }
-    private volatile ValueAndState<T> object = new StandardValueAndState<T>(this, null, null, State.INVALID, 0, null, null);
-    private static final AtomicReferenceFieldUpdater<TTLObject, ValueAndState> objectAccessor = AtomicReferenceFieldUpdater.newUpdater(TTLObject.class, ValueAndState.class, "object");
-    private static final AtomicIntegerFieldUpdater<TTLObject> serialAccessor = AtomicIntegerFieldUpdater.newUpdater(TTLObject.class, "serial");
+    @SuppressWarnings("unchecked")
+    private static final AtomicReferenceFieldUpdater<TTLObject<?>, ValueAndState> objectAccessor = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(TTLObject.class, ValueAndState.class, "object"));
+    private static final AtomicIntegerFieldUpdater<TTLObject<?>> serialAccessor = UtilGenerics.cast(AtomicIntegerFieldUpdater.newUpdater(TTLObject.class, "serial"));
     protected volatile int serial;
 
     protected static abstract class ValueAndState<T> {
@@ -138,6 +139,7 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
         return new StandardValueAndState<T>(this, value, future, state, serial, t, pulse);
     }
 
+    @SuppressWarnings("hiding")
     private class StandardValueAndState<T> extends ValueAndState<T> {
         protected final T value;
 
