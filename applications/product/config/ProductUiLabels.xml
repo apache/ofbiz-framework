@@ -9943,6 +9943,7 @@
     <property key="ProductBrowseCatalogeAndCategories">
         <value xml:lang="en">Browse Catalogs/Categories</value>
         <value xml:lang="fr">Catalogues/catégories</value>
+        <value xml:lang="it">Sfoglia cataloghi/categorie</value>
     </property>
     <property key="ProductBrowseCategories">
         <value xml:lang="cs">Výběr skupiny výrobků</value>
@@ -10140,6 +10141,7 @@
     <property key="ProductCatalogEmptyWarning">
         <value xml:lang="en">If you don't populate a Catalog with Categories, it will not shown in the Browse Catalogs/Categories tree</value>
         <value xml:lang="fr">Si vous ne créez pas de catégories pour un catalogue, il n'apparaitra pas dans l'arbre des Catalogues/catégories</value>
+        <value xml:lang="it">Se un catalogo viene valorizzato con categorie, questo non verrà mostrato nell'albero Sfoglia cataloghi/categorie</value>
     </property>
     <property key="ProductCatalogAdministrationMainPage">
         <value xml:lang="de">Katalogverwaltung Hauptseite</value>
