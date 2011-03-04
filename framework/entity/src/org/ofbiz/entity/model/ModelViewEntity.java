@@ -1271,7 +1271,7 @@ public class ModelViewEntity extends ModelEntity {
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
             if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
-                    && value instanceof Collection)) {
+                    && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
                 value = this.viewEntityCondition.modelViewEntity.convertFieldValue(this.viewEntityCondition.modelViewEntity.getField(fieldName), value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
             }
