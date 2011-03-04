@@ -193,11 +193,11 @@ public abstract class ModelTreeAction {
                     BshUtil.runBshAtLocation(location, context);
                     Object obj = context.get("_LIST_ITERATOR_");
                     if (this.modelSubNode != null) {
-                        if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator)) {
+                        if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                             ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
                             this.modelSubNode.setListIterator(listIt);
                         } else {
-                            if (obj instanceof List) {
+                            if (obj instanceof List<?>) {
                                 List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
                                 this.modelSubNode.setListIterator(list.listIterator());
                             }
@@ -299,7 +299,7 @@ public abstract class ModelTreeAction {
                     if (UtilValidate.isNotEmpty(resultMapListName)) {
                         List<? extends Map<String, ? extends Object>> lst = UtilGenerics.checkList(result.get(resultMapListName));
                         if (lst != null) {
-                            if (lst instanceof ListIterator) {
+                            if (lst instanceof ListIterator<?>) {
                                 ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(lst);
                                 this.modelSubNode.setListIterator(listIt);
                             } else {
@@ -374,11 +374,11 @@ public abstract class ModelTreeAction {
                 context.put(this.listName, null);
                 finder.runFind(context, this.modelTree.getDelegator());
                 Object obj = context.get(this.listName);
-                if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator)) {
+                if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
                     this.modelSubNode.setListIterator(listIt);
                 } else {
-                    if (obj instanceof List) {
+                    if (obj instanceof List<?>) {
                         List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
                         this.modelSubNode.setListIterator(list.listIterator());
                     }
@@ -414,11 +414,11 @@ public abstract class ModelTreeAction {
                 context.put(this.listName, null);
                 finder.runFind(context, this.modelTree.getDelegator());
                 Object obj = context.get(this.listName);
-                if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator)) {
+                if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
                     this.modelSubNode.setListIterator(listIt);
                 } else {
-                    if (obj instanceof List) {
+                    if (obj instanceof List<?>) {
                         List<? extends Map<String, ? extends Object>> list = UtilGenerics.cast(obj);
                         this.modelSubNode.setListIterator(list.listIterator());
                     }
