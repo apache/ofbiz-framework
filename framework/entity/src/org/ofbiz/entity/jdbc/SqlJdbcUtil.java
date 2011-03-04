@@ -501,7 +501,7 @@ public class SqlJdbcUtil {
 
         // ----- Try out the new handler code -----
 
-        JdbcValueHandler handler = mft.getJdbcValueHandler();
+        JdbcValueHandler<?> handler = mft.getJdbcValueHandler();
         if (handler != null) {
             try {
                 entity.dangerousSetNoCheckButFast(curField, handler.getValue(rs, ind));
@@ -949,7 +949,7 @@ public class SqlJdbcUtil {
     }
 
     public static void addValue(StringBuilder buffer, ModelField field, Object value, List<EntityConditionParam> params) {
-        if (value instanceof Collection) {
+        if (value instanceof Collection<?>) {
             buffer.append("(");
             Iterator<Object> it = UtilGenerics.checkCollection(value).iterator();
             while (it.hasNext()) {
