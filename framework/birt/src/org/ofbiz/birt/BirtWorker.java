@@ -137,7 +137,7 @@ public class BirtWorker {
             pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, Boolean.TRUE );
         } else if (options.getOutputFormat().equalsIgnoreCase("xls")) {
             // set excel render options
-            EXCELRenderOption excelOptions = new EXCELRenderOption(options);
+            new EXCELRenderOption(options);
         }
         options.setOutputStream(output);
         task.setRenderOption(options);
@@ -153,6 +153,8 @@ public class BirtWorker {
         HttpSession session = request.getSession();
         ServletContext servletContext = session.getServletContext();
         
+        Map<String, Object> appContext = UtilGenerics.checkMap(engine.getConfig().getAppContext());
+        
         // set delegator
         Delegator delegator = (Delegator) session.getAttribute("delegator");
         if (UtilValidate.isEmpty(delegator)) {
@@ -162,7 +164,7 @@ public class BirtWorker {
             delegator = (Delegator) request.getAttribute("delegator");
         }
         if (UtilValidate.isNotEmpty(delegator)) {
-            engine.getConfig().getAppContext().put("delegator", delegator);
+            appContext.put("delegator", delegator);
         }
 
         // set delegator
@@ -174,7 +176,7 @@ public class BirtWorker {
             dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         }
         if (UtilValidate.isNotEmpty(dispatcher)) {
-            engine.getConfig().getAppContext().put("dispatcher", dispatcher);
+            appContext.put("dispatcher", dispatcher);
         }
 
         // set security
@@ -186,7 +188,7 @@ public class BirtWorker {
             security = (Security) request.getAttribute("security");
         }
         if (UtilValidate.isNotEmpty(security)) {
-            engine.getConfig().getAppContext().put("security", security);
+            appContext.put("security", security);
         }
     }
 }
