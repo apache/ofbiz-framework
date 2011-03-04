@@ -41,9 +41,9 @@ public abstract class GenericMapValues<K, V, M extends Map<K, V>> extends Generi
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Collection)) return false;
-        if (o instanceof List || o instanceof Set) return false;
-        Collection other = (Collection) o;
+        if (!(o instanceof Collection<?>)) return false;
+        if (o instanceof List<?> || o instanceof Set<?>) return false;
+        Collection<?> other = (Collection<?>) o;
         if (source.size() != other.size()) return false;
         Iterator<V> it = iterator(false);
         while (it.hasNext()) {
