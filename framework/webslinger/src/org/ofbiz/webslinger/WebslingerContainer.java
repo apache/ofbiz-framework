@@ -46,6 +46,7 @@ public class WebslingerContainer implements Container {
     public void init(String[] args, String configFile) throws ContainerException {
     }
 
+    @SuppressWarnings("unchecked")
     public boolean start() throws ContainerException {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         TypeVFSDelegate.Resolver resolver = new TypeVFSDelegate.Resolver() {
