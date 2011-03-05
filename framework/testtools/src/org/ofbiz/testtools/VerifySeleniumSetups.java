@@ -94,7 +94,7 @@ public class VerifySeleniumSetups {
             if (urlProps == null) {
                 urlProps = new Properties();
                 if (urlProp == null) {
-                    String errMsg = "variable with name " + urlProp.toString() + " is not set, cannot resolve location.";
+                    String errMsg = "Cannot resolve location from url.properties.";
                     throw new MalformedURLException(errMsg);
                 }
                 urlProps = UtilProperties.getProperties(urlProp);
