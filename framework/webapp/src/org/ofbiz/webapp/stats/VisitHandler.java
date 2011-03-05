@@ -156,7 +156,7 @@ public class VisitHandler {
                                     GenericValue checkVisitor = delegator.findOne("Visitor", false, "visitorId", visitorId);
                                     if (checkVisitor == null) {
                                         GenericValue newVisitor = delegator.create("Visitor", "visitorId", visitorId);
-                                        session.setAttribute("visitor", visitor);
+                                        session.setAttribute("visitor", newVisitor);
                                     }
                                     visit.set("visitorId", visitorId);
                                 } catch (GenericEntityException e) {
