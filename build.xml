@@ -276,7 +276,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="build-website" 
-            description="For committers : Update dtds and JavaDoc from OFBiz intance to site">
+            description="For committers : Update dtds and JavaDoc from OFBiz instance to site">
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
         <antcall target="copy-apis"/>
