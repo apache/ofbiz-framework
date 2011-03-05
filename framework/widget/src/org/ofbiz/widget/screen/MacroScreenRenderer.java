@@ -591,7 +591,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         boolean collapsible = screenlet.collapsible();
         ModelScreenWidget.Menu navMenu = screenlet.getNavigationMenu();
         ModelScreenWidget.Form navForm = screenlet.getNavigationForm();
-        String collapsibleAreaId = "";
         String expandToolTip = "";
         String collapseToolTip = "";
         String fullUrlString = "";
@@ -600,7 +599,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || collapsible) {
             showMore = true;
             if (collapsible) {
-                collapsibleAreaId = this.getNextElementId();
+                this.getNextElementId();
                 Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
                 Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
                 Map<String, Object> requestParameters = new HashMap<String, Object>(paramMap);
