@@ -33,13 +33,13 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         super(name);
     }
 
+    @SuppressWarnings("unchecked")
     private static <L extends Comparable<L>, R extends Comparable<R>> void comparableRangeConstructorTest(L left, R right) {
         new ComparableRange<L>(left, left);
         new ComparableRange<R>(right, right);
         IllegalArgumentException caught = null;
         try {
-            @SuppressWarnings({"unchecked", "unused"})
-            ComparableRange<?> range = new ComparableRange(left, right);
+            new ComparableRange(left, right);
         } catch (IllegalArgumentException e) {
             caught = e;
         } finally {
@@ -47,8 +47,7 @@ public class ComparableRangeTests extends GenericTestCaseBase {
         }
         caught = null;
         try {
-            @SuppressWarnings({"unchecked", "unused"})
-            ComparableRange<?> range = new ComparableRange(right, left);
+            new ComparableRange(right, left);
         } catch (IllegalArgumentException e) {
             caught = e;
         } finally {
