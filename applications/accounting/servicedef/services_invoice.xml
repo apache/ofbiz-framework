@@ -117,7 +117,8 @@ under the License.
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="invoiceItemSeqId" mode="INOUT" optional="true"/><!-- will optionally assign by the system -->
+        <override name="invoiceItemSeqId" mode="INOUT" optional="true"/><!-- will optionally be assigned by the system -->
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="updateInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItem">
@@ -125,6 +126,7 @@ under the License.
         <permission-service service-name="acctgInvoicePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="description" allow-html="safe"/>
     </service>
     <service name="removeInvoiceItem" engine="simple" default-entity-name="InvoiceItem"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removeInvoiceItem">
