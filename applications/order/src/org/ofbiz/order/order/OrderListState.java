@@ -203,6 +203,9 @@ public class OrderListState {
     public Map<String, String> getOrderTypeState() { return orderTypeState; }
     public Map<String, String> getorderFilterState() { return orderFilterState; }
 
+    public void setStatus(String param, boolean b) { orderStatusState.put(param, (b ? "Y" : "N")); }
+    public void setType(String param, boolean b) { orderTypeState.put(param, (b ? "Y" : "N")); }
+    
     public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
     public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
     public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
