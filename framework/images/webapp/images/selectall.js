@@ -410,6 +410,9 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, for
                     async: false,
                     data: {term : request.term},
                     success: function(data) {
+                    	// reset the autocomp field
+                    	autocomp = undefined;
+                    	
                         //update the result div
                         jQuery("#" + div + "_auto").html(data);
                         if (typeof autocomp != 'undefined') {
