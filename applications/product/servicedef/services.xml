@@ -451,7 +451,7 @@ under the License.
         <override name="productContentTypeId" optional="false"/>
         <override name="productId" optional="false"/>
     </service>
-    
+
     <service name="uploadProductAdditionalViewImages" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="uploadProductAdditionalViewImages" auth="true">
         <description>Upload Additional View Images For Product</description>
@@ -469,6 +469,15 @@ under the License.
         <attribute name="additionalImageFour" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="_additionalImageFour_fileName" type="String" mode="IN" optional="true"/>
         <attribute name="_additionalImageFour_contentType" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateContentSEOForProduct" engine="simple"
+            location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="updateContentSEOForProduct" auth="true">
+        <description>Update Product SEO</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="title" mode="IN" type="String" optional="true"/>
+        <attribute name="metaKeyword" mode="IN" type="String" optional="true"/>
+        <attribute name="metaDescription" mode="IN" type="String" optional="true"/>
     </service>
 
     <!-- SupplierProduct Services -->
@@ -959,6 +968,15 @@ under the License.
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
+    </service>
+
+    <service name="updateContentSEOForCategory" engine="simple"
+            location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="updateContentSEOForCategory" auth="true">
+        <description>Update Category SEO</description>
+        <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
+        <attribute name="title" mode="IN" type="String" optional="true"/>
+        <attribute name="metaKeyword" mode="IN" type="String" optional="true"/>
+        <attribute name="metaDescription" mode="IN" type="String" optional="true"/>
     </service>
 
     <!-- ProductFeatureDataResource services -->

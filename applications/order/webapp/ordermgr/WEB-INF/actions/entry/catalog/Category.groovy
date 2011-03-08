@@ -34,6 +34,10 @@ catalogName = CatalogWorker.getCatalogName(request);
 productCategoryId = request.getAttribute("productCategoryId") ?: parameters.category_id;
 context.productCategoryId = productCategoryId;
 
+pageTitle = null;
+metaDescription = null;
+metaKeywords = null;
+
 /* NOTE DEJ20070220: this is a weird way to do this and caused unacceptable side effects as described in the related
  * comment in the Main.groovy file
  *
@@ -58,14 +62,44 @@ if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen;
     }
+    categoryPageTitle = delegator.findByAndCache("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "PAGE_TITLE"]);
+    if (categoryPageTitle) {
+        pageTitle = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : categoryPageTitle.get(0).dataResourceId]);
+    }
+    categoryMetaDescription = delegator.findByAndCache("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_DESCRIPTION"]);
+    if (categoryMetaDescription) {
+        metaDescription = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : categoryMetaDescription.get(0).dataResourceId]);
+    }
+    categoryMetaKeywords = delegator.findByAndCache("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_KEYWORD"]);
+    if (categoryMetaKeywords) {
+        metaKeywords = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : categoryMetaKeywords.get(0).dataResourceId]);
+    }
     categoryContentWrapper = new CategoryContentWrapper(category, request);
-    context.title = categoryContentWrapper.CATEGORY_NAME;
+    
     categoryDescription = categoryContentWrapper.DESCRIPTION;
-    if (categoryDescription) {
-        context.metaDescription = categoryDescription;
-        context.metaKeywords = categoryDescription + ", " + catalogName;
+
+    if (pageTitle) {
+        context.title = pageTitle.textData;
     } else {
-        context.metaKeywords = catalogName;
+        context.title = categoryContentWrapper.CATEGORY_NAME;
+    }
+
+    if (metaDescription) {
+        context.metaDescription = metaDescription.textData;
+    } else {
+        if (categoryDescription) {
+            context.metaDescription = categoryDescription;
+        }
+    }
+
+    if (metaKeywords) {
+        context.metaKeywords = metaKeywords.textData;
+    } else {
+        if (categoryDescription) {
+            context.metaKeywords = categoryDescription + ", " + catalogName;
+        } else {
+            context.metaKeywords = catalogName;
+        }
     }
     context.productCategory = category;
 }

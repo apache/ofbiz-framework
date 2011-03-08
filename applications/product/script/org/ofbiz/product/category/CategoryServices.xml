@@ -899,9 +899,8 @@ under the License.
         </else>
         </if-compare>
         
-        <entity-and entity-name="ProductStoreCatalog" list="productStoreCatalogs">
+        <entity-and entity-name="ProductStoreCatalog" list="productStoreCatalogs" filter-by-date="true">
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
-            <field-map field-name="thruDate" from-field="nullField"/>
         </entity-and>
         <if-not-empty field="productStoreCatalogs">
             <first-from-list list="productStoreCatalogs" entry="productStoreCatalog"/>
@@ -973,9 +972,8 @@ under the License.
     
     <simple-method method-name="FindBestSellingProduct" short-description="Find best selling product.">
         <now-timestamp field="nowTimestamp"/>
-        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
+        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers" filter-by-date="true">
             <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
-            <field-map field-name="thruDate" from-field="nullField"/>
         </entity-and>
         <iterate list="productCategoryMembers" entry="productCategoryMember">
             <entity-condition entity-name="SalesOrderItemStarSchema" list="salesOrderItemStarSchemas" distinct="true">

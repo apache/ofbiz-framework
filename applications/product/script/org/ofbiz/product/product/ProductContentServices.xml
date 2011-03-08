@@ -202,4 +202,74 @@ under the License.
         </if-empty>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
+
+    <!-- Product Content SEO -->
+    <simple-method method-name="updateContentSEOForProduct" short-description="Update Product SEO">
+        <if-not-empty field="parameters.title">
+            <entity-and list="productContents" entity-name="ProductContentAndInfo">
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="productContentTypeId" value="PAGE_TITLE"/>
+            </entity-and>
+            <if-not-empty field="productContents">
+                <first-from-list entry="productContent" list="productContents"/>
+                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                    <field-map field-name="dataResourceId" from-field="productContent.dataResourceId"/>
+                </entity-one>
+                <if-not-empty field="electronicText">
+                    <set field="electronicText.textData" from-field="parameters.title"/>
+                    <store-value value-field="electronicText"/>
+                </if-not-empty>
+            <else>
+                <set field="createTextContentMap.productId" from-field="parameters.productId"/>
+                <set field="createTextContentMap.productContentTypeId" value="PAGE_TITLE"/>
+                <set field="createTextContentMap.text" from-field="parameters.title"/>
+                <call-service service-name="createSimpleTextContentForProduct" in-map-name="createTextContentMap"/>
+            </else>
+            </if-not-empty>
+        </if-not-empty>
+        <if-not-empty field="parameters.metaKeyword">
+            <entity-and list="productContents" entity-name="ProductContentAndInfo">
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="productContentTypeId" value="META_KEYWORD"/>
+            </entity-and>
+            <if-not-empty field="productContents">
+                <first-from-list entry="productContent" list="productContents"/>
+                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                    <field-map field-name="dataResourceId" from-field="productContent.dataResourceId"/>
+                </entity-one>
+                <if-not-empty field="electronicText">
+                    <set field="electronicText.textData" from-field="parameters.metaKeyword"/>
+                    <store-value value-field="electronicText"/>
+                </if-not-empty>
+            <else>
+                <set field="createTextContentMap.productId" from-field="parameters.productId"/>
+                <set field="createTextContentMap.productContentTypeId" value="META_KEYWORD"/>
+                <set field="createTextContentMap.text" from-field="parameters.metaKeyword"/>
+                <call-service service-name="createSimpleTextContentForProduct" in-map-name="createTextContentMap"/>
+            </else>
+            </if-not-empty>
+        </if-not-empty>
+        <if-not-empty field="parameters.metaDescription">
+            <entity-and list="productContents" entity-name="ProductContentAndInfo">
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="productContentTypeId" value="META_DESCRIPTION"/>
+            </entity-and>
+            <if-not-empty field="productContents">
+                <first-from-list entry="productContent" list="productContents"/>
+                <entity-one value-field="electronicText" entity-name="ElectronicText">
+                    <field-map field-name="dataResourceId" from-field="productContent.dataResourceId"/>
+                </entity-one>
+                <if-not-empty field="electronicText">
+                    <set field="electronicText.textData" from-field="parameters.metaDescription"/>
+                    <store-value value-field="electronicText"/>
+                </if-not-empty>
+            <else>
+                <set field="createTextContentMap.productId" from-field="parameters.productId"/>
+                <set field="createTextContentMap.productContentTypeId" value="META_DESCRIPTION"/>
+                <set field="createTextContentMap.text" from-field="parameters.metaDescription"/>
+                <call-service service-name="createSimpleTextContentForProduct" in-map-name="createTextContentMap"/>
+            </else>
+            </if-not-empty>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

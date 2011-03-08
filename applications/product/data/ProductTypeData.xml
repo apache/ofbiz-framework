@@ -227,6 +227,9 @@ under the License.
     <ProductCategoryContentType description="Link 1 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK1_ALT_TEXT"/>
     <ProductCategoryContentType description="Link 2 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK2_ALT_TEXT"/>
     <ProductCategoryContentType description="Footer" hasTable="N" parentTypeId="" prodCatContentTypeId="FOOTER"/>
+    <ProductCategoryContentType description="Page Title" hasTable="N" parentTypeId="" prodCatContentTypeId="PAGE_TITLE"/>
+    <ProductCategoryContentType description="Meta Keyword" hasTable="N" parentTypeId="" prodCatContentTypeId="META_KEYWORD"/>
+    <ProductCategoryContentType description="Meta Description" hasTable="N" parentTypeId="" prodCatContentTypeId="META_DESCRIPTION"/>
 
     <ProductContentType description="Online Access" hasTable="N" parentTypeId="" productContentTypeId="ONLINE_ACCESS"/>
     <ProductContentType description="Digital Download" hasTable="N" parentTypeId="" productContentTypeId="DIGITAL_DOWNLOAD"/>
@@ -279,6 +282,9 @@ under the License.
     <ProductContentType description="Installation" hasTable="N" parentTypeId="DIGITAL_DOWNLOAD" productContentTypeId="INSTALLATION"/>
     <ProductContentType description="Specification" hasTable="N" parentTypeId="DIGITAL_DOWNLOAD" productContentTypeId="SPECIFICATION"/>
     <ProductContentType description="Warranty" hasTable="N" parentTypeId="DIGITAL_DOWNLOAD" productContentTypeId="WARRANTY"/>
+    <ProductContentType description="Page Title" hasTable="N" parentTypeId="" productContentTypeId="PAGE_TITLE"/>
+    <ProductContentType description="Meta Keyword" hasTable="N" parentTypeId="" productContentTypeId="META_KEYWORD"/>
+    <ProductContentType description="Meta Description" hasTable="N" parentTypeId="" productContentTypeId="META_DESCRIPTION"/>
 
     <ProdConfItemContentType description="Image" hasTable="N" parentTypeId="" confItemContentTypeId="IMAGE_URL"/>
     <ProdConfItemContentType description="Description" hasTable="N" parentTypeId="" confItemContentTypeId="DESCRIPTION"/>

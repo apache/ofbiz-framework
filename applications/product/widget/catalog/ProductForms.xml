@@ -815,6 +815,16 @@ under the License.
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="EditProductContentSEO" type="single" target="updateContentSEOForProduct" title="${uiLabelMap.PageTitleEditProductContent}"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="title" title="${uiLabelMap.PageTitle}"><text size="40"/></field>
+        <field name="metaKeyword" title="${uiLabelMap.MetaKeywords}"><textarea cols="60" rows="5"/></field>
+        <field name="metaDescription" title="${uiLabelMap.MetaDescription}"><textarea cols="60" rows="5"/></field>
+        <field name="productId"><hidden/></field>
+        <field name="productContentTypeId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
     <!-- SupplierProduct -->
     <form name="AddSupplierProduct" type="single" target="updateSupplierProduct" title="" default-map-name="supplierProduct"
         header-row-style="header-row" default-table-style="basic-table">
