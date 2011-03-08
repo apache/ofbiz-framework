@@ -254,4 +254,14 @@ under the License.
         <field name="categoryName" sort-field="true"><display/></field>
         <field name="description" sort-field="true"><display/></field>
     </form>
+    
+    <form name="EditCategoryContentSEO" type="single" target="updateContentSEOForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="title" title="${uiLabelMap.PageTitle}"><text size="40"/></field>
+        <field name="metaKeyword" title="${uiLabelMap.MetaKeywords}"><textarea cols="60" rows="5"/></field>
+        <field name="metaDescription" title="${uiLabelMap.MetaDescription}"><textarea cols="60" rows="5"/></field>
+        <field name="productCategoryId"><hidden/></field>
+        <field name="prodCatContentTypeId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

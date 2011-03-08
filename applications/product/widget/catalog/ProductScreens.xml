@@ -983,6 +983,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-one entity-name="ProductContent" value-field="productContent"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductContentContent.groovy"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductSEO.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">

@@ -205,6 +205,8 @@ under the License.
                 <set field="textDataMap.text" from-field="electronicText.textData"/>
                 <set field="textDataMap.textDataResourceId" from-field="content.dataResourceId"/>
                 <set field="contentId" from-field="content.contentId"/>
+                
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategorySEO.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCategoryDecorator">
@@ -218,7 +220,21 @@ under the License.
                             </widgets>
                         </section>
                         <screenlet title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}">
-                            <include-form name="EditCategoryContentSimpleText" location="component://product/widget/catalog/CategoryForms.xml"/>
+                            <section>
+                                <condition>
+                                    <or>
+                                        <if-compare operator="equals" value="PAGE_TITLE" field="parameters.prodCatContentTypeId"/>
+                                        <if-compare operator="equals" value="META_KEYWORD" field="parameters.prodCatContentTypeId"/>
+                                        <if-compare operator="equals" value="META_DESCRIPTION" field="parameters.prodCatContentTypeId"/>
+                                    </or>
+                                </condition>
+                                <widgets>
+                                    <include-form name="EditCategoryContentSEO" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-form name="EditCategoryContentSimpleText" location="component://product/widget/catalog/CategoryForms.xml"/>
+                                </fail-widgets>
+                            </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductListAssociatedContentInfos}">
                             <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>

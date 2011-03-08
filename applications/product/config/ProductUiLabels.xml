@@ -5832,7 +5832,17 @@
     <property key="Manage">
         <value xml:lang="en">Manage</value>
         <value xml:lang="th">จัดการ</value>
-    </property>    <property key="PageTitleAddFacilityGroupRollup">
+    </property>
+    <property key="MetaDescription">
+        <value xml:lang="en">Meta Description</value>
+    </property>
+    <property key="MetaKeywords">
+        <value xml:lang="en">Meta Keywords</value>
+    </property>
+    <property key="PageTitle">
+        <value xml:lang="en">Page Title</value>
+    </property>
+    <property key="PageTitleAddFacilityGroupRollup">
         <value xml:lang="de">Einrichtungsgruppe Rollup hinzufügen</value>
         <value xml:lang="en">Add Facility Group Rollup</value>
         <value xml:lang="es">Añadir despliegue de grupo de almacenes</value>

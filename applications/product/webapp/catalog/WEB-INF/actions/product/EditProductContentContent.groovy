@@ -140,6 +140,9 @@ if (productContentTypeId) {
         context.contentFormName = "EditProductContentDownload";
     }
 }
+if (("PAGE_TITLE".equals(productContentTypeId))||("META_KEYWORD".equals(productContentTypeId))||("META_DESCRIPTION".equals(productContentTypeId))) {
+    context.contentFormName = "EditProductContentSEO";
+}
 
 context.productContentData = productContentData;
 context.content = content;

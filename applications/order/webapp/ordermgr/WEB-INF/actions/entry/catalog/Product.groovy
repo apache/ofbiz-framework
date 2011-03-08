@@ -36,6 +36,10 @@ requestParams = UtilHttp.getParameterMap(request);
 detailScreen = "productdetail";
 productId = requestParams.product_id ?: request.getAttribute("product_id");
 
+pageTitle = null;
+metaDescription = null;
+metaKeywords = null;
+
 /*
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
  *
@@ -72,6 +76,19 @@ if (productId) {
         product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
     }
 
+    productPageTitle = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "PAGE_TITLE"]);
+    if (productPageTitle) {
+        pageTitle = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : productPageTitle.get(0).dataResourceId]);
+    }
+    productMetaDescription = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "META_DESCRIPTION"]);
+    if (productMetaDescription) {
+        metaDescription = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : productMetaDescription.get(0).dataResourceId]);
+    }
+    productMetaKeywords = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "META_KEYWORD"]);
+    if (productMetaKeywords) {
+        metaKeywords = delegator.findByPrimaryKeyCache("ElectronicText", [dataResourceId : productMetaKeywords.get(0).dataResourceId]);
+    }
+
     context.productId = productId;
 
     // now check to see if there is a view allow category and if this product is in it...
@@ -88,20 +105,34 @@ if (productId) {
     if (product) {
         context.product = product;
         contentWrapper = new ProductContentWrapper(product, request);
-        context.put("title", contentWrapper.get("PRODUCT_NAME"));
-        context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
 
-        keywords = [];
-        keywords.add(product.productName);
-        keywords.add(catalogName);
-        members = delegator.findByAndCache("ProductCategoryMember", [productId : productId]);
-        members.each { member ->
-            category = member.getRelatedOneCache("ProductCategory");
-            if (category.description) {
-                keywords.add(category.description);
-            }
+        if (pageTitle) {
+            context.title = pageTitle.textData;
+        } else {
+            context.put("title", contentWrapper.get("PRODUCT_NAME"));
         }
-        context.metaKeywords = StringUtil.join(keywords, ", ");
+
+        if (metaDescription) {
+            context.metaDescription = metaDescription.textData;
+        } else {
+            context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
+        }
+
+        if (metaKeywords) {
+            context.metaKeywords = metaKeywords.textData;
+        } else {
+            keywords = [];
+            keywords.add(product.productName);
+            keywords.add(catalogName);
+            members = delegator.findByAndCache("ProductCategoryMember", [productId : productId]);
+            members.each { member ->
+                category = member.getRelatedOneCache("ProductCategory");
+                if (category.description) {
+                    keywords.add(category.description);
+                }
+            }
+            context.metaKeywords = StringUtil.join(keywords, ", ");
+        }
 
         // Set the default template for aggregated product (product component configurator ui)
         if (product.productTypeId && "AGGREGATED".equals(product.productTypeId) && context.configproductdetailScreen) {

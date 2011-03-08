@@ -340,7 +340,7 @@ under the License.
         <response name="error" type="view" value="EditCategoryParties"/>
     </request-map>
 
- <!-- ================ Category Content Requests ================= -->
+    <!-- ================ Category Content Requests ================= -->
     <request-map uri="EditCategoryContent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCategoryContent"/>
@@ -352,7 +352,7 @@ under the License.
         <response name="error" type="view" value="EditCategoryContent"/>
     </request-map>
 
- <!-- ================ Category Content Assoc Requests ================= -->
+    <!-- ================ Category Content Assoc Requests ================= -->
     <request-map uri="EditCategoryContentContent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCategoryContentContent"/>
@@ -508,6 +508,7 @@ under the License.
         <response name="success" type="view" value="EditProductAssetUsage"/>
         <response name="error" type="view" value="EditProductAssetUsage"/>
     </request-map>
+
     <!-- ================ Fixed Asset to Product Requests ================= -->
     <request-map uri="showFixedAssetProduct">
         <security https="true" auth="true"/>
@@ -561,8 +562,8 @@ under the License.
         <response name="success" type="request-redirect" value="EditProductPrices"><redirect-parameter name="productId"/></response>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
-  <!-- ================ Category Content Requests ================= -->
 
+    <!-- ================ Category Content Requests ================= -->
     <request-map uri="EditCategoryContent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCategoryContent"/>
@@ -573,6 +574,7 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContent"/>
     </request-map>
+
      <!-- ================ Category Content Assoc Requests ================= -->
     <request-map uri="EditCategoryContentContent">
         <security https="true" auth="true"/>
@@ -612,6 +614,13 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContentContent"/>
     </request-map>
+    <request-map uri="updateContentSEOForCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateContentSEOForCategory"/>
+        <response name="success" type="view" value="EditCategoryContent"/>
+        <response name="error" type="view" value="EditCategoryContentContent"/>
+    </request-map>
+
     <!-- ================ Product Content Requests ================= -->
     <request-map uri="EditProductContent">
         <security https="true" auth="true"/>
@@ -626,6 +635,12 @@ under the License.
     <request-map uri="UploadProductImage">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductContent"/>
+    </request-map>
+    <request-map uri="updateContentSEOForProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateContentSEOForProduct"/>
+        <response name="success" type="view" value="EditProductContent"/>
+        <response name="error" type="view" value="EditProductContentContent"/>
     </request-map>
 
     <!-- ================ Product Content Assoc Requests ================= -->
