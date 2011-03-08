@@ -32,6 +32,7 @@ def orExprs = [];
 def entityName = context.entityName;
 def searchFields = context.searchFields;
 def displayFields = context.displayFields ?: searchFields;
+def searchDistinct = Boolean.valueOf(context.searchDistinct ?: false);
 
 def searchValueFieldName = parameters.term;
 def fieldValue = null;
@@ -81,7 +82,15 @@ def conditionFields = context.conditionFields;
 if (conditionFields) {
     // these fields are for additonal conditions, this is a Map of name/value pairs
     for (conditionFieldEntry in conditionFields.entrySet()) {
-        mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));    
+        if (conditionFieldEntry.getValue() instanceof java.util.List) {
+            def orCondFields = [];
+            for (entry in conditionFieldEntry.getValue()) {
+                orCondFields.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, entry));                
+            }
+            mainAndConds.add(EntityCondition.makeCondition(orCondFields, EntityOperator.OR));            
+        } else {
+            mainAndConds.add(EntityCondition.makeCondition(EntityFieldValue.makeFieldValue(conditionFieldEntry.getKey()), EntityOperator.EQUALS, conditionFieldEntry.getValue()));
+        }
     }
 }
 
@@ -93,11 +102,13 @@ if (orExprs && entityName && displayFieldsSet) {
         mainAndConds.add(context.andCondition);
     }
     
-    def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND);
-
+    def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND);    
+    
     Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);
     EntityFindOptions findOptions = new EntityFindOptions();
     findOptions.setMaxRows(autocompleterViewSize);
+    findOptions.setDistinct(searchDistinct);
+    
     autocompleteOptions = delegator.findList(entityName, entityConditionList, displayFieldsSet, StringUtil.toList(displayFields), findOptions, false);
     if (autocompleteOptions) {
         context.autocompleteOptions = autocompleteOptions;
