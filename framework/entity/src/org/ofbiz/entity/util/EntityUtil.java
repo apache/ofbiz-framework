@@ -369,6 +369,16 @@ public class EntityUtil {
         return result;
     }
 
+    public static List<GenericValue> getRelatedByAndCache(String relationName, Map<String, ? extends Object> fields, List<GenericValue> values) throws GenericEntityException {
+        if (values == null) return null;
+
+        List<GenericValue> result = FastList.newInstance();
+        for (GenericValue value: values) {
+            result.addAll(value.getRelatedByAndCache(relationName, fields));
+        }
+        return result;
+    }
+
     public static <T extends GenericEntity> List<T> filterByCondition(List<T> values, EntityCondition condition) {
         if (values == null) return null;
 
