@@ -97,12 +97,13 @@ under the License.
                                         <or>
                                             <not><if-empty field="product"/></not>
                                             <not><if-empty field="parameters.bypassIfNoProduct"/></not>
+                                            <if-empty field="productId"/>
                                         </or>
                                     </condition>
                                     <widgets>
                                         <decorator-section-include name="body"/>
                                     </widgets>
-                            <fail-widgets>
+                                    <fail-widgets>
                                         <label style="h3">${uiLabelMap.ProductNoExistingProductsFound}</label>
                                     </fail-widgets>
                                 </section>
