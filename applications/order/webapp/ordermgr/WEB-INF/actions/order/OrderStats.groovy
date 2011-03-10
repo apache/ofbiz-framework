@@ -41,22 +41,10 @@ double calcItemCount(List items) {
     return count;
 }
 
-cal = Calendar.getInstance();
-cal.set(Calendar.AM_PM, Calendar.AM);
-cal.set(Calendar.HOUR, 0);
-cal.set(Calendar.MINUTE, 0);
-cal.set(Calendar.SECOND, 0);
-cal.set(Calendar.MILLISECOND, 0);
-dayBegin = new Timestamp(cal.getTime().getTime());
-
-cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-weekBegin = new Timestamp(cal.getTime().getTime());
-
-cal.set(Calendar.DAY_OF_MONTH, 1);
-monthBegin = new Timestamp(cal.getTime().getTime());
-
-cal.set(Calendar.MONTH, 0);
-yearBegin = new Timestamp(cal.getTime().getTime());
+dayBegin = UtilDateTime.getDayStart(nowTimestamp, timeZone, locale);
+weekBegin = UtilDateTime.getWeekStart(nowTimestamp, timeZone, locale);
+monthBegin = UtilDateTime.getMonthStart(nowTimestamp, timeZone, locale);
+yearBegin = UtilDateTime.getYearStart(nowTimestamp, timeZone, locale);
 
 // order status report
 ecl = EntityCondition.makeCondition([
