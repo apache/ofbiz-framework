@@ -152,20 +152,7 @@ under the License.
                         <result-to-field result-name="dimensionId" field="fact.productDimId"/>
                     </call-service>
                     <if-empty field="fact.productDimId">
-                        <entity-one entity-name="Product" value-field="productDim">
-                            <field-map field-name="productId" from-field="orderItem.productId"/>
-                        </entity-one>
-                        <make-value entity-name="ProductDimension" value-field="newEntity"/>
-                        <sequenced-id sequence-name="ProductDimension" field="newEntity.dimensionId"/>
-                        <set field="newEntity.productId" from-field="productDim.productId"/>
-                        <set field="newEntity.productType" from-field="productDim.productTypeId"/>
-                        <set field="newEntity.brandName" from-field="productDim.brandName"/>
-                        <set field="newEntity.internalName" from-field="productDim.internalName"/>
-                        <create-value value-field="newEntity"/>
-                        <set field="fact.productDimId" from-field="newEntity.dimensionId"/>
-                        <if-empty field="fact.productDimId">
-                            <set field="fact.productDimId" value="_NF_"/>
-                        </if-empty>
+                        <set field="fact.productDimId" value="_NF_"/>
                     </if-empty>
                 <else>
                     <set field="fact.productDimId" value="_NA_"/>
@@ -189,8 +176,9 @@ under the License.
                 </if-not-empty>
                 
                 <!-- productCategoryId -->
-                <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers" filter-by-date="true">
+                <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
+                    <field-map field-name="thruDate" from-field="nullField"/>
                 </entity-and>
                 <if-not-empty field="productCategoryMembers">
                     <first-from-list list="productCategoryMembers" entry="productCategoryMember"/>
@@ -507,10 +495,11 @@ under the License.
             <first-from-list entry="UomConversion" list="UomConversionDatedList"/>
             <field-to-result field="UomConversion.conversionFactor" result-name="conversionFactor"/>
         <else>
-            <entity-condition entity-name="UomConversionDated" list="UomConversionDatedLastestList" filter-by-date="true">
+            <entity-condition entity-name="UomConversionDated" list="UomConversionDatedLastestList">
                 <condition-list combine="and">
                     <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
                     <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
+                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                 </condition-list>
             </entity-condition>
             <if-not-empty field="UomConversionDatedLastestList">
