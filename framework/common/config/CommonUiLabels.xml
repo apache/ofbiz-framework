@@ -2527,7 +2527,6 @@
     </property>
     <property key="CommonEmptyHeader">
         <value xml:lang="en" xml:space="preserve"> </value>
-        <value xml:lang="it" xml:space="preserve"> </value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
