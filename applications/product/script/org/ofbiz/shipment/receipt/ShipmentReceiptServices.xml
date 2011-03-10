@@ -245,7 +245,7 @@ under the License.
                 <!-- if no inventory item type specified, get default from facility -->
                 <if-empty field="parameters.inventoryItemTypeId">
                     <get-related-one value-field="returnHeader" relation-name="Facility" to-value-field="facility"/>
-                    <set from-field="facility.defaultInventoryItemTypeId" field="parameters.inventoryItemTypeId"/>
+                    <set field="parameters.inventoryItemTypeId" from-field="facility.defaultInventoryItemTypeId" default-value="NON_SERIAL_INV_ITEM"/>
                 </if-empty>
 
                 <now-timestamp field="nowTimestamp"/>
@@ -286,10 +286,9 @@ under the License.
                                 <condition-expr field-name="facilityId" operator="equals" from-field="returnHeader.destinationFacilityId"/>
                                 <condition-expr field-name="inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM"/>
                             </condition-list>
-                        </entity-count>
-                        <get-related-one value-field="returnHeader" relation-name="Facility" to-value-field="destinationFacility"/>
+                        </entity-count>                        
                         <set field="setNonSerial" value="false"/>
-                        <if-compare field="destinationFacility.defaultInventoryItemTypeId" value="NON_SERIAL_INV_ITEM" operator="equals">
+                        <if-compare field="parameters.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM" operator="equals">
                             <if-compare field="serializedItemCount" value="0" operator="equals">
                                 <set field="parameters.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
                                 <set field="setNonSerial" value="true"/>
