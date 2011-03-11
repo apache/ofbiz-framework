@@ -145,7 +145,7 @@ public class InventoryServices {
                                     UtilMisc.toMap("errorString", ""), locale), null, null, resultNew);
                         }
                         Map<String, Object> resultUpdate = dctx.getDispatcher().runSync("createInventoryItemDetail", createUpdateDetailMap);
-                        if (ServiceUtil.isError(resultNew)) {
+                        if (ServiceUtil.isError(resultUpdate)) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                                     "ProductInventoryItemDetailCreateProblem", 
                                     UtilMisc.toMap("errorString", ""), locale), null, null, resultUpdate);
