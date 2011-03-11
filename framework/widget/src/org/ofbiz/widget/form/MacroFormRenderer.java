@@ -2214,7 +2214,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         String anchor = "";
         String paginateAnchor = modelForm.getPaginateTargetAnchor();
-        if (paginateAnchor != null) anchor = "#" + paginateAnchor;
+        if (UtilValidate.isNotEmpty(paginateAnchor)) anchor = "#" + paginateAnchor;
 
         // Create separate url path String and request parameters String,
         // add viewIndex/viewSize parameters to request parameter String
