@@ -205,15 +205,15 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
-    <service name="findProductsById" engine="java"  auth="true"
-            location="org.ofbiz.product.ProductServices" invoke="findProductByGoodIdentification">
-        <description>Find the productId corresponding to a reference and a reference type</description>
+    <service name="findProductById" engine="java"  auth="true"
+        location="org.ofbiz.product.product.ProductServices" invoke="findProductById">
+        <description>Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue</description>
         <attribute type="String" mode="IN" name="idToFind" optional="false"/>
         <attribute type="String" mode="IN" name="goodIdentificationTypeId" optional="true"/>
         <attribute type="String" mode="IN" name="searchProductFirst" optional="true"/>
         <attribute type="String" mode="IN" name="searchAllId" optional="true"/>
         <attribute type="org.ofbiz.entity.GenericValue" mode="OUT" name="product" optional="true"/>
-        <attribute type="List" mode="OUT" name="productsFound" optional="true"/>
+        <attribute type="List" mode="OUT" name="productsList" optional="true"/>
     </service>
 
     <!-- Product Association Services -->
