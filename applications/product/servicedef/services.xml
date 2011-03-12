@@ -205,7 +205,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
-    <service name="findProductById" engine="java"  auth="true"
+    <service name="findProductById" engine="java"  auth="true" export="true"
         location="org.ofbiz.product.product.ProductServices" invoke="findProductById">
         <description>Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue</description>
         <attribute type="String" mode="IN" name="idToFind" optional="false"/>
