@@ -144,7 +144,7 @@ public class PreferenceServices {
         for (Map.Entry<String, Object> pairs: userPrefMap.entrySet()) {
             if ("DEFAULT".equals(pairs.getValue())) {
                 if (UtilValidate.isNotEmpty(generalProperties.get(pairs.getKey()))) {
-                    userPrefMap.put((String) pairs.getKey(), generalProperties.get(pairs.getKey()));
+                    userPrefMap.put(pairs.getKey(), generalProperties.get(pairs.getKey()));
                 }
             }
         }
