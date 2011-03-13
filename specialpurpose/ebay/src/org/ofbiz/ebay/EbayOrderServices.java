@@ -1282,7 +1282,7 @@ public class EbayOrderServices {
         if (cart.size() != 0) {
             Iterator<ShoppingCartItem> cartiter = cart.iterator();
             while (cartiter != null && cartiter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) cartiter.next();
+                ShoppingCartItem cartItem = cartiter.next();
                 if (cartItem.getProductId().equals(productId)) {
                     previouslyAddedItemInCart = cartItem;
                 }

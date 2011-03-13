@@ -214,7 +214,7 @@ public class EbayHelper {
                 if (UtilValidate.isNotEmpty(paymentPreferences)) {
                     Iterator<GenericValue> i = paymentPreferences.iterator();
                     while (i.hasNext()) {
-                        GenericValue pref = (GenericValue) i.next();
+                        GenericValue pref = i.next();
                         if (UtilValidate.isNotEmpty(amount)) {
                             pref.set("statusId", "PAYMENT_RECEIVED");
                             pref.set("maxAmount", amount);
