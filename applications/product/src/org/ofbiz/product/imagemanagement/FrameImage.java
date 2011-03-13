@@ -150,8 +150,8 @@ public class FrameImage {
             String filenameToUse = (String) contentResult.get("contentId") + ".jpg";
             String filenameTouseThumb = (String) contentResult.get("contentId") + nameOfThumb + ".jpg";
             
-            Image newImg1 = bufImg1.getScaledInstance((int) width, (int) height , Image.SCALE_SMOOTH);
-            Image newImg2 = bufImg2.getScaledInstance((int) width , (int) height , Image.SCALE_SMOOTH);
+            Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
+            Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
             ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
@@ -344,8 +344,8 @@ public class FrameImage {
             request.setAttribute("_ERROR_MESSAGE_", "Required frame image content ID or dataResource ID parameters. Please upload new frame image or choose the exist frame.");
             return "error";
         }
-        String frameContentId = (String) request.getParameter("frameContentId");
-        String frameDataResourceId = (String) request.getParameter("frameDataResourceId");
+        String frameContentId = request.getParameter("frameContentId");
+        String frameDataResourceId = request.getParameter("frameDataResourceId");
         
         if (UtilValidate.isEmpty(request.getParameter("imageWidth")) || UtilValidate.isEmpty(request.getParameter("imageHeight"))) {
             String errMsg = "Image Width and Image Height are required to preview the image. Please enter in Image Width and Image Height fields.";
@@ -380,8 +380,8 @@ public class FrameImage {
             int width = Integer.parseInt(request.getParameter("imageWidth"));
             int height= Integer.parseInt(request.getParameter("imageHeight"));
             
-            Image newImg1 = bufImg1.getScaledInstance((int) width, (int) height , Image.SCALE_SMOOTH);
-            Image newImg2 = bufImg2.getScaledInstance((int) width , (int) height , Image.SCALE_SMOOTH);
+            Image newImg1 = bufImg1.getScaledInstance(width, height , Image.SCALE_SMOOTH);
+            Image newImg2 = bufImg2.getScaledInstance(width , height , Image.SCALE_SMOOTH);
             BufferedImage bufNewImg = combineBufferedImage(newImg1, newImg2, bufImgType);
             String mimeType = imageName.substring(imageName.lastIndexOf(".") + 1);
             ImageIO.write((RenderedImage) bufNewImg, mimeType, new File(imageServerPath + "/preview/" + "/previewImage.jpg"));
@@ -406,7 +406,7 @@ public class FrameImage {
             return "error";
         }
         
-        String frameContentId = (String) request.getParameter("frameContentId");
+        String frameContentId = request.getParameter("frameContentId");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         
         String frameDataResourceId = null;

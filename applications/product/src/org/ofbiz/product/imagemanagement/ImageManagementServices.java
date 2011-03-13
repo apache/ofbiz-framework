@@ -347,7 +347,7 @@ public class ImageManagementServices {
         
         /* ImageProperties.xml */
         String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
-        resultXMLMap.putAll((Map<String, Object>) ImageTransform.getXMLValue(imgPropertyFullPath, locale));
+        resultXMLMap.putAll(ImageTransform.getXMLValue(imgPropertyFullPath, locale));
         if (resultXMLMap.containsKey("responseMessage") && resultXMLMap.get("responseMessage").equals("success")) {
             imgPropertyMap.putAll(UtilGenerics.<Map<String, Map<String, String>>>cast(resultXMLMap.get("xml")));
         } else {
@@ -682,7 +682,7 @@ public class ImageManagementServices {
         FileItem imageFi = null;
         byte[] imageBytes = {};
         for (int i=0; i < lst.size(); i++) {
-            fi = (FileItem)lst.get(i);
+            fi = lst.get(i);
             String fieldName = fi.getFieldName();
             if (fi.isFormField()) {
                 String fieldStr = fi.getString();
@@ -1047,7 +1047,7 @@ public class ImageManagementServices {
                 List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
                 if (contentAssocList.size() > 0) {
                     for (int i = 0; i < contentAssocList.size(); i++) {
-                        GenericValue contentAssoc = (GenericValue) contentAssocList.get(i);
+                        GenericValue contentAssoc = contentAssocList.get(i);
                         
                         List<GenericValue> dataResourceAssocList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssoc.get("contentIdTo")));
                         GenericValue dataResourceAssoc = EntityUtil.getFirst(dataResourceAssocList);
