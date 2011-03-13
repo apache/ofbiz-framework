@@ -26,12 +26,10 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -115,7 +113,7 @@ public class WebPosSession {
     }
 
     public Locale getLocale() {
-        return (Locale) this.locale;
+        return this.locale;
     }
 
     public void setLocale(Locale locale) {
@@ -249,6 +247,7 @@ public class WebPosSession {
         this.webPosTransaction = webPosTransaction;
     }
 
+    @SuppressWarnings("serial")
     public class UserLoginFailure extends GeneralException {
         public UserLoginFailure() {
             super();
