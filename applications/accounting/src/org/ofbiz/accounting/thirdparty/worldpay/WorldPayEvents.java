@@ -319,7 +319,7 @@ public class WorldPayEvents {
         Set<String> keySet = parametersMap.keySet();
         Iterator<String> i = keySet.iterator();
         while (i.hasNext()) {
-            String name = (String) i.next();
+            String name = i.next();
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, module);
         }
@@ -422,7 +422,7 @@ public class WorldPayEvents {
         if (paymentPrefs.size() > 0) {
             Iterator<GenericValue> i = paymentPrefs.iterator();
             while (i.hasNext()) {
-                GenericValue pref = (GenericValue) i.next();
+                GenericValue pref = i.next();
                 boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
                 if (!okay) {
                     return false;

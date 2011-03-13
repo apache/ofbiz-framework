@@ -127,7 +127,7 @@ public class UtilAccounting {
         List<GenericValue> glAccountClassChildren = glAccountClass.getRelatedCache("ChildGlAccountClass");
         Iterator<GenericValue> glAccountClassChildrenIt = glAccountClassChildren.iterator();
         while (glAccountClassChildrenIt.hasNext()) {
-            GenericValue glAccountClassChild = (GenericValue) glAccountClassChildrenIt.next();
+            GenericValue glAccountClassChild = glAccountClassChildrenIt.next();
             getGlAccountClassChildren(glAccountClassChild, glAccountClassIds);
         }
     }

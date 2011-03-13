@@ -112,7 +112,7 @@ public class TaxAuthorityServices {
                 // add up amounts from adjustments (amount OR exemptAmount, sourcePercentage)
                 Iterator<GenericValue> taxAdustmentIter = taxAdustmentList.iterator();
                 while (taxAdustmentIter.hasNext()) {
-                    GenericValue taxAdjustment = (GenericValue) taxAdustmentIter.next();
+                    GenericValue taxAdjustment = taxAdustmentIter.next();
                     if ("SALES_TAX".equals(taxAdjustment.getString("orderAdjustmentTypeId"))) {
                         taxPercentage = taxPercentage.add(taxAdjustment.getBigDecimal("sourcePercentage"));
                         BigDecimal adjAmount = taxAdjustment.getBigDecimal("amount");
@@ -208,11 +208,11 @@ public class TaxAuthorityServices {
 
         // Loop through the products; get the taxCategory; and lookup each in the cache.
         for (int i = 0; i < itemProductList.size(); i++) {
-            GenericValue product = (GenericValue) itemProductList.get(i);
-            BigDecimal itemAmount = (BigDecimal) itemAmountList.get(i);
-            BigDecimal itemPrice = (BigDecimal) itemPriceList.get(i);
-            BigDecimal itemQuantity = itemQuantityList != null ? (BigDecimal) itemQuantityList.get(i) : null;
-            BigDecimal shippingAmount = (BigDecimal) itemShippingList.get(i);
+            GenericValue product = itemProductList.get(i);
+            BigDecimal itemAmount = itemAmountList.get(i);
+            BigDecimal itemPrice = itemPriceList.get(i);
+            BigDecimal itemQuantity = itemQuantityList != null ? itemQuantityList.get(i) : null;
+            BigDecimal shippingAmount = itemShippingList.get(i);
             List<GenericValue> taxList = null;
             if (shippingAddress != null) {
                 taxList = getTaxAdjustments(delegator, product, productStore, payToPartyId, billToPartyId, taxAuthoritySet, itemPrice, itemQuantity, itemAmount, shippingAmount, ZERO_BASE);
@@ -300,7 +300,7 @@ public class TaxAuthorityServices {
 
         Iterator<GenericValue> taxAuthorityIter = taxAuthoritySet.iterator();
         while (taxAuthorityIter.hasNext()) {
-            GenericValue taxAuthority = (GenericValue) taxAuthorityIter.next();
+            GenericValue taxAuthority = taxAuthorityIter.next();
             EntityCondition taxAuthCond = EntityCondition.makeCondition(
                     EntityCondition.makeCondition("taxAuthPartyId", EntityOperator.EQUALS, taxAuthority.getString("taxAuthPartyId")),
                     EntityOperator.AND,
@@ -334,7 +334,7 @@ public class TaxAuthorityServices {
                 pcmList = EntityUtil.filterByDate(pcmList, true);
                 Iterator<GenericValue> pcmIter = pcmList.iterator();
                 while (pcmIter.hasNext()) {
-                    GenericValue pcm = (GenericValue) pcmIter.next();
+                    GenericValue pcm = pcmIter.next();
                     productCategoryIdSet.add(pcm.getString("productCategoryId"));
                 }
 
@@ -398,7 +398,7 @@ public class TaxAuthorityServices {
             // find the right entry(s) based on purchase amount
             Iterator<GenericValue> flIt = filteredList.iterator();
             while (flIt.hasNext()) {
-                GenericValue taxAuthorityRateProduct = (GenericValue) flIt.next();
+                GenericValue taxAuthorityRateProduct = flIt.next();
                 BigDecimal taxRate = taxAuthorityRateProduct.get("taxPercentage") != null ? taxAuthorityRateProduct.getBigDecimal("taxPercentage") : ZERO_BASE;
                 BigDecimal taxable = ZERO_BASE;
 
@@ -480,7 +480,7 @@ public class TaxAuthorityServices {
                     List<GenericValue> partyRelationshipList = EntityUtil.filterByDate(delegator.findByAndCache("PartyRelationship", UtilMisc.toMap("partyIdTo", billToPartyId, "partyRelationshipTypeId", "GROUP_ROLLUP")), true);
                     Iterator<GenericValue> partyRelationshipIter = partyRelationshipList.iterator();
                     while (partyRelationshipIter.hasNext()) {
-                        GenericValue partyRelationship = (GenericValue) partyRelationshipIter.next();
+                        GenericValue partyRelationship = partyRelationshipIter.next();
                         billToPartyIdSet.add(partyRelationship.getString("partyIdFrom"));
                     }
                     handlePartyTaxExempt(taxAdjValue, billToPartyIdSet, taxAuthGeoId, taxAuthPartyId, taxAmount, nowTimestamp, delegator);
@@ -558,7 +558,7 @@ public class TaxAuthorityServices {
 
         boolean foundExemption = false;
         if (partyTaxInfos.size() > 0) {
-            GenericValue partyTaxInfo = (GenericValue) partyTaxInfos.get(0);
+            GenericValue partyTaxInfo = partyTaxInfos.get(0);
             adjValue.set("customerReferenceId", partyTaxInfo.get("partyTaxId"));
             if ("Y".equals(partyTaxInfo.getString("isExempt"))) {
                 adjValue.set("amount", BigDecimal.ZERO);

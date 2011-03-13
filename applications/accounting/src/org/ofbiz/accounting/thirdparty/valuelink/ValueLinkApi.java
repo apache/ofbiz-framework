@@ -1000,7 +1000,7 @@ public class ValueLinkApi {
         // create a List of Maps for each set of values
         List<Map<String, String>> valueMap = FastList.newInstance();
         for (int i = 0; i < valueList.size(); i++) {
-            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split((String) valueList.get(i), "|")));
+            valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
         }
 
         if (debug) {

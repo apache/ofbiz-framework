@@ -800,7 +800,7 @@ public class GiftCertificateServices {
         if (responseAnswers != null) {
             Iterator<GenericValue> rai = responseAnswers.iterator();
             while (rai.hasNext()) {
-                GenericValue answer = (GenericValue) rai.next();
+                GenericValue answer = rai.next();
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");
@@ -893,7 +893,7 @@ public class GiftCertificateServices {
             if (productStoreEmail == null) {
                 Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
             } else {
-                ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
+                ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
                 uiLabelMap.addBottomResourceBundle("OrderUiLabels");
                 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
                 answerMap.put("uiLabelMap", uiLabelMap);
@@ -1038,7 +1038,7 @@ public class GiftCertificateServices {
         if (responseAnswers != null) {
             Iterator<GenericValue> rai = responseAnswers.iterator();
             while (rai.hasNext()) {
-                GenericValue answer = (GenericValue) rai.next();
+                GenericValue answer = rai.next();
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");
@@ -1140,7 +1140,7 @@ public class GiftCertificateServices {
         if (productStoreEmail == null) {
             Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
         } else {
-            ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
+            ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
             uiLabelMap.addBottomResourceBundle("OrderUiLabels");
             uiLabelMap.addBottomResourceBundle("CommonUiLabels");
             answerMap.put("uiLabelMap", uiLabelMap);
