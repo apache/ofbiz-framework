@@ -134,7 +134,7 @@ public class TechDataServices {
         if (listRoutingTaskAssoc != null) {
             Iterator<GenericValue> i = listRoutingTaskAssoc.iterator();
             while (i.hasNext()) {
-                GenericValue routingTaskAssoc = (GenericValue) i.next();
+                GenericValue routingTaskAssoc = i.next();
                 if (! workEffortIdFrom.equals(routingTaskAssoc.getString("workEffortIdFrom")) ||
                 ! workEffortIdTo.equals(routingTaskAssoc.getString("workEffortIdTo")) ||
                 ! workEffortAssocTypeId.equals(routingTaskAssoc.getString("workEffortAssocTypeId")) ||

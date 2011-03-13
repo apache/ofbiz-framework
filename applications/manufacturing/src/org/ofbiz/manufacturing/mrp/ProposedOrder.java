@@ -151,7 +151,7 @@ public class ProposedOrder {
             }
             if (listRoutingTaskAssoc != null) {
                 for (int i = 1; i <= listRoutingTaskAssoc.size(); i++) {
-                    GenericValue routingTaskAssoc = (GenericValue) listRoutingTaskAssoc.get(listRoutingTaskAssoc.size() - i);
+                    GenericValue routingTaskAssoc = listRoutingTaskAssoc.get(listRoutingTaskAssoc.size() - i);
                     if (EntityUtil.isValueActive(routingTaskAssoc, endDate)) {
                         GenericValue routingTask = null;
                         try {
