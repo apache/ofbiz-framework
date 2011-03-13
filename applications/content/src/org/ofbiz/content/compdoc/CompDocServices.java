@@ -181,7 +181,7 @@ public class CompDocServices {
             Iterator<GenericValue> iter = compDocParts.iterator();
             int pgCnt =0;
             while (iter.hasNext()) {
-                GenericValue contentAssocRevisionItemView = (GenericValue)iter.next();
+                GenericValue contentAssocRevisionItemView = iter.next();
                 //String thisContentId = contentAssocRevisionItemView.getString("contentId");
                 //String thisContentRevisionSeqId = contentAssocRevisionItemView.getString("maxRevisionSeqId");
                 String thisDataResourceId = contentAssocRevisionItemView.getString("dataResourceId");
