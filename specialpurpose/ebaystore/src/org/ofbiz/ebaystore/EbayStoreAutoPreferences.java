@@ -483,7 +483,7 @@ public class EbayStoreAutoPreferences {
                         for (int itemRelist = 0; itemRelist < itemsToRelist.size(); itemRelist++) {
                             RelistItemCall relistItemCall = new RelistItemCall(apiContext);
                             ItemType itemToBeRelisted = new ItemType();
-                            GenericValue product = (GenericValue) itemsToRelist.get(itemRelist);
+                            GenericValue product = itemsToRelist.get(itemRelist);
                             itemToBeRelisted.setItemID(product.getString("productId"));
                             relistItemCall.setItemToBeRelisted(itemToBeRelisted);
                             relistItemCall.relistItem();
@@ -752,7 +752,7 @@ public class EbayStoreAutoPreferences {
                             Enumeration<String> enums = h.keys();
                             String key = "";
                             while (enums.hasMoreElements()) {
-                                key = (String) enums.nextElement();
+                                key = enums.nextElement();
                                 List<Map<String, Object>> tempList = h.get(key);
                                 if (key.equals(buyerId)) {
                                     key = buyerId;
@@ -847,7 +847,7 @@ public class EbayStoreAutoPreferences {
                                     total.setCurrencyID(currencyId);
                                     TransactionType[] transArr = new TransactionType[translist.size()];
                                     for (int counter = 0; counter < translist.size(); counter++) {
-                                        transArr[counter] = (TransactionType) translist.get(counter);
+                                        transArr[counter] = translist.get(counter);
                                     }
                                     transactionArr.setTransaction(transArr);
                                     if (transactionArr.getTransactionLength() > 1) {
