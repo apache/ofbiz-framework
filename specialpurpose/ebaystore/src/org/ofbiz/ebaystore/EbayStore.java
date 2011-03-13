@@ -600,10 +600,10 @@ public class EbayStore {
         try {
             List<GenericValue> productStores = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStoreId, "roleTypeId", "EBAY_ACCOUNT"));
             if (productStores.size() != 0) {
-                String partyId = ((GenericValue) productStores.get(0)).getString("partyId");
+                String partyId = (productStores.get(0)).getString("partyId");
                 List<GenericValue> userLoginStore = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId));
                 if (userLoginStore.size() != 0) {
-                String    userLoginId = ((GenericValue) userLoginStore.get(0)).getString("userLoginId");
+                String    userLoginId = (userLoginStore.get(0)).getString("userLoginId");
                 result.put("userLoginId", userLoginId);
                 }
             }
@@ -1761,7 +1761,7 @@ public class EbayStore {
             Map<String, Object> bidderTest = UtilGenerics.checkMap(getEbayAllBidders(dctx, serviceMap));
             List<Map<String, String>> test = UtilGenerics.checkList(bidderTest.get("allBidders"));
             if (test.size() != 0) {
-                verify.setRecipientBidderUserID((String) test.get(0).get("userId"));
+                verify.setRecipientBidderUserID(test.get(0).get("userId"));
             }
             result.put("checkVerify", true);
         } catch (Exception e) {

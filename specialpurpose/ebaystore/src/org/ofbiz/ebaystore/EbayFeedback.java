@@ -130,7 +130,7 @@ public class EbayFeedback {
                         userLoginEx.put("partyId", commentingPartyId);
                         userLoginEx.create();
                     } else {
-                        userLoginEx = (GenericValue)CommentingUserLogins.get(0);
+                        userLoginEx = CommentingUserLogins.get(0);
                         commentingPartyId = userLoginEx.getString("partyId");
                     }
                     //DataResource
