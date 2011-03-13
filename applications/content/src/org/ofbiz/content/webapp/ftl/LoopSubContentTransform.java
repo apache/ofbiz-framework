@@ -90,7 +90,7 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         } else  if (i >= lst.size()) {
             return false;
         }
-        GenericValue subContentDataResourceView = (GenericValue) lst.get(i);
+        GenericValue subContentDataResourceView = lst.get(i);
         ctx.put("subContentDataResourceView", subContentDataResourceView);
         GenericValue electronicText = null;
         try {

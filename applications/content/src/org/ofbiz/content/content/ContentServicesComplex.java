@@ -142,7 +142,7 @@ public class ContentServicesComplex {
             return ServiceUtil.returnError(e.getMessage());
         }
         for (int i=0; i < relatedAssocs.size(); i++) {
-            GenericValue a = (GenericValue)relatedAssocs.get(i);
+            GenericValue a = relatedAssocs.get(i);
             Debug.logVerbose(" contentId:" + a.get("contentId") + " To:" + a.get("caContentIdTo") + " fromDate:" + a.get("caFromDate") + " thruDate:" + a.get("caThruDate") + " AssocTypeId:" + a.get("caContentAssocTypeId"), null);
         }
         Map<String, Object> results = FastMap.newInstance();
@@ -259,7 +259,7 @@ public class ContentServicesComplex {
         if (assocTypes != null && assocTypes.size() > 1) {
             Iterator<GenericValue> it = contentAssocsDateFiltered.iterator();
             while (it.hasNext()) {
-                contentAssoc = (GenericValue)it.next();
+                contentAssoc = it.next();
                 contentAssocTypeId = (String)contentAssoc.get("contentAssocTypeId");
                 if (assocTypes.contains(contentAssocTypeId)) {
                     contentAssocsTypeFiltered.add(contentAssoc);
@@ -283,7 +283,7 @@ public class ContentServicesComplex {
         Locale locale = Locale.getDefault(); // TODO: this needs to be passed in
         Iterator<GenericValue> it = contentAssocsTypeFiltered.iterator();
         while (it.hasNext()) {
-            contentAssoc = (GenericValue)it.next();
+            contentAssoc = it.next();
             content = contentAssoc.getRelatedOneCache(assocRelationName);
             if (UtilValidate.isNotEmpty(contentTypes)) {
                 String contentTypeId = (String)content.get("contentTypeId");

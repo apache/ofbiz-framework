@@ -216,7 +216,7 @@ public class ContentManagementWorker {
         }
         GenericPK cachedPK = null;
         if (UtilValidate.isNotEmpty(entityName)) {
-            cachedPK = (GenericPK)currentEntityMap.get(entityName);
+            cachedPK = currentEntityMap.get(entityName);
         } 
         getCurrentValueWithCachedPK(request, delegator, cachedPK, entityName);
         GenericPK currentPK = (GenericPK)request.getAttribute("currentPK");
@@ -255,7 +255,7 @@ public class ContentManagementWorker {
                 String sPassed = null;
                 Object oPassed = null;
                 Object oCached = null;
-                String ky = (String)keyIt.next();
+                String ky = keyIt.next();
                 oPassed = passedPK.get(ky);
                 if (oPassed != null) {
                     sPassed = oPassed.toString();
@@ -355,7 +355,7 @@ public class ContentManagementWorker {
         GenericValue contentAssoc = null;
         Iterator<GenericValue> it = relatedPubPts.iterator();
         while (it.hasNext()) {
-           contentAssoc = (GenericValue)it.next();
+           contentAssoc = it.next();
            String pub = (String)contentAssoc.get("contentId");
            //webSitePublishPoint = delegator.findByPrimaryKeyCache("WebSitePublishPoint", UtilMisc.toMap("contentId", pub));
            webSitePublishPoint = getWebSitePublishPoint(delegator, pub, false);
@@ -449,7 +449,7 @@ public class ContentManagementWorker {
     public static GenericValue getWebSitePublishPoint(Delegator delegator, String contentId, boolean ignoreCache) throws GenericEntityException {
         GenericValue webSitePublishPoint = null;
         if (!ignoreCache)
-            webSitePublishPoint = (GenericValue)cachedWebSitePublishPoints.get(contentId);
+            webSitePublishPoint = cachedWebSitePublishPoints.get(contentId);
 
         if (webSitePublishPoint == null) {
             webSitePublishPoint = delegator.findByPrimaryKey("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId));
@@ -717,7 +717,7 @@ public class ContentManagementWorker {
         List<GenericValue> listFiltered = EntityUtil.filterByDate(listAll);
         Iterator<GenericValue> iter = listFiltered.iterator();
         while (iter.hasNext()) {
-            GenericValue contentAssoc = (GenericValue)iter.next();
+            GenericValue contentAssoc = iter.next();
             String subContentId = contentAssoc.getString("contentId");
             subLeafCount += updateStatsTopDown(delegator, subContentId, typeList);
         }
@@ -743,7 +743,7 @@ public class ContentManagementWorker {
         List<GenericValue> listFiltered = EntityUtil.filterByDate(listAll);
         Iterator<GenericValue> iter = listFiltered.iterator();
         while (iter.hasNext()) {
-            GenericValue contentAssoc = (GenericValue)iter.next();
+            GenericValue contentAssoc = iter.next();
             String contentIdTo = contentAssoc.getString("contentIdTo");
             GenericValue contentTo = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentIdTo));
             int intLeafCount = 0;
