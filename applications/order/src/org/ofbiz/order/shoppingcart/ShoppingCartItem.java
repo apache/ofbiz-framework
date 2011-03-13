@@ -1429,7 +1429,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             BigDecimal quantityUsed = entry.getValue();
             if (productPromoId.equals(productPromoCondActionPK.getString("productPromoId")) && productPromoRuleId.equals(productPromoCondActionPK.getString("productPromoRuleId"))) {
                 entryIter.remove();
-                BigDecimal existingValue = (BigDecimal) this.quantityUsedPerPromoActual.get(productPromoCondActionPK);
+                BigDecimal existingValue = this.quantityUsedPerPromoActual.get(productPromoCondActionPK);
                 if (existingValue == null) {
                     this.quantityUsedPerPromoActual.put(productPromoCondActionPK, quantityUsed);
                 } else {

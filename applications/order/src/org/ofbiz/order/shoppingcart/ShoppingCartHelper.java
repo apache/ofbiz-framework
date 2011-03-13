@@ -381,7 +381,7 @@ public class ShoppingCartHelper {
             String itemGroupNumberToUse = itemGroupNumber;
             String originalProductId = null;
             if (entry.getKey() instanceof String) {
-                String key = (String) entry.getKey();
+                String key = entry.getKey();
                 //Debug.logInfo("Bulk Key: " + key, module);
 
                 int ignIndex = key.indexOf(ignSeparator);
@@ -983,7 +983,7 @@ public class ShoppingCartHelper {
                 // set the currency based on the pricing agreement
                 List<GenericValue> agreementItems = agreement.getRelated("AgreementItem", UtilMisc.toMap("agreementItemTypeId", "AGREEMENT_PRICING_PR"), null);
                 if (agreementItems.size() > 0) {
-                    GenericValue agreementItem = (GenericValue) agreementItems.get(0);
+                    GenericValue agreementItem = agreementItems.get(0);
                     String currencyUomId = (String) agreementItem.get("currencyUomId");
                     if (UtilValidate.isNotEmpty(currencyUomId)) {
                         try {
@@ -1007,7 +1007,7 @@ public class ShoppingCartHelper {
                  List<GenericValue> agreementTerms = EntityUtil.filterByDate(agreement.getRelated("AgreementTerm"));
                  if (agreementTerms.size() > 0) {
                       for (int i = 0; agreementTerms.size() > i;i++) {
-                           GenericValue agreementTerm = (GenericValue) agreementTerms.get(i);
+                           GenericValue agreementTerm = agreementTerms.get(i);
                            String termTypeId = (String) agreementTerm.get("termTypeId");
                            BigDecimal termValue = agreementTerm.getBigDecimal("termValue");
                            Long termDays = (Long) agreementTerm.get("termDays");

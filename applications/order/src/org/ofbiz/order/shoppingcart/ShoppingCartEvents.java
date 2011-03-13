@@ -918,7 +918,7 @@ public class ShoppingCartEvents {
         }
         ShoppingCart newCart = null;
         if (cartIndex >= 0 && cartIndex < cartList.size()) {
-            newCart = (ShoppingCart) cartList.remove(cartIndex);
+            newCart = cartList.remove(cartIndex);
         } else {
             String productStoreId = request.getParameter("productStoreId");
             if (UtilValidate.isNotEmpty(productStoreId)) {

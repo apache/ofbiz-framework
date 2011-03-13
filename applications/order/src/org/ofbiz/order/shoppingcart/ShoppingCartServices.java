@@ -1100,7 +1100,7 @@ public class ShoppingCartServices {
         if (shoppingCart != null && UtilValidate.isNotEmpty(shoppingCart.items())) {
             List<ShoppingCartItem> items = shoppingCart.findAllCartItems(productId);
             if (items.size() > 0) {
-                ShoppingCartItem item = (ShoppingCartItem)items.get(0);
+                ShoppingCartItem item = items.get(0);
                 int itemIndex = shoppingCart.getItemIndex(item);
                 result.put("itemIndex", String.valueOf(itemIndex));
             }

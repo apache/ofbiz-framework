@@ -194,7 +194,7 @@ public class QuoteServices {
                 if (UtilValidate.isNotEmpty(quoteItems)) {
                     Iterator<GenericValue> quoteIt = quoteItems.iterator();
                     while (quoteIt.hasNext()) {
-                        GenericValue quoteItem = (GenericValue)quoteIt.next();
+                        GenericValue quoteItem = quoteIt.next();
                         quoteItem.set("quoteId", quoteId);
                         Map<String, Object> quoteItemIn = quoteItem.getAllFields();
                         quoteItemIn.put("userLogin", userLogin);
@@ -207,7 +207,7 @@ public class QuoteServices {
                 if (UtilValidate.isNotEmpty(quoteAttributes)) {
                     Iterator<GenericValue> quoteAttrIt = quoteAttributes.iterator();
                     while (quoteAttrIt.hasNext()) {
-                        GenericValue quoteAttr = (GenericValue)quoteAttrIt.next();
+                        GenericValue quoteAttr = quoteAttrIt.next();
                         quoteAttr.set("quoteId", quoteId);
                         Map<String, Object> quoteAttrIn = quoteAttr.getAllFields();
                         quoteAttrIn.put("userLogin", userLogin);
@@ -220,7 +220,7 @@ public class QuoteServices {
                 if (UtilValidate.isNotEmpty(quoteCoefficients)) {
                     Iterator<GenericValue> quoteCoefficientIt = quoteCoefficients.iterator();
                     while (quoteCoefficientIt.hasNext()) {
-                        GenericValue quoteCoefficient = (GenericValue)quoteCoefficientIt.next();
+                        GenericValue quoteCoefficient = quoteCoefficientIt.next();
                         quoteCoefficient.set("quoteId", quoteId);
                         Map<String, Object> quoteCoefficientIn = quoteCoefficient.getAllFields();
                         quoteCoefficientIn.put("userLogin", userLogin);
@@ -233,7 +233,7 @@ public class QuoteServices {
                 if (UtilValidate.isNotEmpty(quoteRoles)) {
                     Iterator<GenericValue> quoteRoleIt = quoteRoles.iterator();
                     while (quoteRoleIt.hasNext()) {
-                        GenericValue quoteRole = (GenericValue)quoteRoleIt.next();
+                        GenericValue quoteRole = quoteRoleIt.next();
                         quoteRole.set("quoteId", quoteId);
                         Map<String, Object> quoteRoleIn = quoteRole.getAllFields();
                         quoteRoleIn.put("userLogin", userLogin);
@@ -246,7 +246,7 @@ public class QuoteServices {
                 if (UtilValidate.isNotEmpty(quoteWorkEfforts)) {
                     Iterator<GenericValue> quoteWorkEffortIt = quoteWorkEfforts.iterator();
                     while (quoteWorkEffortIt.hasNext()) {
-                        GenericValue quoteWorkEffort = (GenericValue)quoteWorkEffortIt.next();
+                        GenericValue quoteWorkEffort = quoteWorkEffortIt.next();
                         quoteWorkEffort.set("quoteId", quoteId);
                         Map<String, Object> quoteWorkEffortIn = quoteWorkEffort.getAllFields();
                         quoteWorkEffortIn.put("userLogin", userLogin);
@@ -259,7 +259,7 @@ public class QuoteServices {
                 if (UtilValidate.isNotEmpty(quoteAdjustments)) {
                     Iterator<GenericValue> quoteAdjustmentIt = quoteAdjustments.iterator();
                     while (quoteAdjustmentIt.hasNext()) {
-                        GenericValue quoteAdjustment = (GenericValue)quoteAdjustmentIt.next();
+                        GenericValue quoteAdjustment = quoteAdjustmentIt.next();
                         quoteAdjustment.set("quoteId", quoteId);
                         Map<String, Object> quoteAdjustmentIn = quoteAdjustment.getAllFields();
                         quoteAdjustmentIn.put("userLogin", userLogin);

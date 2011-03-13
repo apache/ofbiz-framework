@@ -101,7 +101,7 @@ public class RequirementServices {
             List<Map<String, Object>> requirements = FastList.newInstance();
             for (Iterator<GenericValue> iter = requirementAndRoles.iterator(); iter.hasNext();) {
                 Map<String, Object> union = FastMap.newInstance();
-                GenericValue requirement = (GenericValue) iter.next();
+                GenericValue requirement = iter.next();
                 String productId = requirement.getString("productId");
                 partyId = requirement.getString("partyId");
                 String facilityId = requirement.getString("facilityId");
@@ -132,7 +132,7 @@ public class RequirementServices {
                 }
 
                 // for good identification, get the UPCA type (UPC code)
-                GenericValue gid = (GenericValue) gids.get(productId);
+                GenericValue gid = gids.get(productId);
                 if (gid == null) {
                     gid = delegator.findByPrimaryKey("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "UPCA", "productId", requirement.get("productId")));
                     gids.put(productId, gid);
@@ -157,7 +157,7 @@ public class RequirementServices {
                 }
 
                 // how many of the products were sold (note this is for a fixed time period across all product stores)
-                BigDecimal sold = (BigDecimal) productsSold.get(productId);
+                BigDecimal sold = productsSold.get(productId);
                 if (sold == null) {
                     EntityCondition prodConditions = EntityCondition.makeCondition(UtilMisc.toList(
                                 EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
@@ -214,7 +214,7 @@ public class RequirementServices {
             String facilityId = productStore.getString("inventoryFacilityId");
             List<GenericValue> orderItems = order.getRelated("OrderItem");
             for (Iterator<GenericValue> iter = orderItems.iterator(); iter.hasNext();) {
-                GenericValue item = (GenericValue) iter.next();
+                GenericValue item = iter.next();
                 GenericValue product = item.getRelatedOne("Product");
                 if (product == null) continue;
                 if ((!"PRODRQM_AUTO".equals(product.get("requirementMethodEnumId")) &&
@@ -270,7 +270,7 @@ public class RequirementServices {
             String facilityId = productStore.getString("inventoryFacilityId");
             List<GenericValue> orderItems = order.getRelated("OrderItem");
             for (Iterator<GenericValue> iter = orderItems.iterator(); iter.hasNext();) {
-                GenericValue item = (GenericValue) iter.next();
+                GenericValue item = iter.next();
                 GenericValue product = item.getRelatedOne("Product");
                 if (product == null) continue;
 
@@ -305,7 +305,7 @@ public class RequirementServices {
                         EntityOperator.AND);
                 List<GenericValue> requirements = delegator.findList("Requirement", ecl, null, null, null, false);
                 for (Iterator<GenericValue> riter = requirements.iterator(); riter.hasNext();) {
-                    GenericValue requirement = (GenericValue) riter.next();
+                    GenericValue requirement = riter.next();
                     pendingRequirements = pendingRequirements.add(requirement.get("quantity") == null ? BigDecimal.ZERO : requirement.getBigDecimal("quantity"));
                 }
 
