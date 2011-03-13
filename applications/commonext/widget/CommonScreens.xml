@@ -24,10 +24,6 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonExtUiLabels" map-name="uiLabelMap" global="true"/>
-                <service service-name="getUserPreferenceGroup" result-map="prefResult">
-                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
-                </service>
-                <set field="userPreferences" from-field="prefResult.userPrefMap" global="true"/>
                 <entity-one entity-name="PartyNameView" value-field="partyNameView">
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 </entity-one>
