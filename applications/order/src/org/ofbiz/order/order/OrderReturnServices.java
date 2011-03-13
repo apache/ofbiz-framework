@@ -1323,7 +1323,7 @@ public class OrderReturnServices {
                     // See how much we can refund to the payment method
                     BigDecimal orderPayPrefReceivedTotal = ZERO;
                     if (receivedPaymentTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
-                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add((BigDecimal)receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
+                        orderPayPrefReceivedTotal = orderPayPrefReceivedTotal.add(receivedPaymentTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
 
                     if (receivedPaymentTotalsByBillingAccount != null) {
@@ -1331,7 +1331,7 @@ public class OrderReturnServices {
                     }
                     BigDecimal orderPayPrefRefundedTotal = ZERO;
                     if (refundedTotalsByPaymentMethod.containsKey(orderPayPrefKey)) {
-                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add((BigDecimal)refundedTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
+                        orderPayPrefRefundedTotal = orderPayPrefRefundedTotal.add(refundedTotalsByPaymentMethod.get(orderPayPrefKey)).setScale(decimals, rounding);
                     }
                     BigDecimal orderPayPrefAvailableTotal = orderPayPrefReceivedTotal.subtract(orderPayPrefRefundedTotal);
 
@@ -1680,9 +1680,9 @@ public class OrderReturnServices {
 
             // now allocate responseAmount * invoiceTotal / grandTotal to each invoice
             for (Iterator<GenericValue> iter = returnInvoices.values().iterator(); iter.hasNext();) {
-                GenericValue invoice = (GenericValue) iter.next();
+                GenericValue invoice = iter.next();
                 String invoiceId = invoice.getString("invoiceId");
-                BigDecimal invoiceTotal = (BigDecimal) invoiceTotals.get(invoiceId);
+                BigDecimal invoiceTotal = invoiceTotals.get(invoiceId);
 
                 BigDecimal amountApplied = responseAmount.multiply(invoiceTotal).divide(grandTotal, decimals, rounding).setScale(decimals, rounding);
 
@@ -1832,7 +1832,7 @@ public class OrderReturnServices {
                     Iterator<GenericValue> returnItemIter = returnItemList.iterator();
                     int itemCount = 1;
                     while (returnItemIter.hasNext()) {
-                        GenericValue returnItem = (GenericValue) returnItemIter.next();
+                        GenericValue returnItem = returnItemIter.next();
                         GenericValue orderItem = null;
                         GenericValue product = null;
                         try {
@@ -2409,7 +2409,7 @@ public class OrderReturnServices {
             Iterator<String> orderIterator = returnAmountByOrder.keySet().iterator();
             while (orderIterator.hasNext()) {
                 String orderId = orderIterator.next();
-                BigDecimal returnAmount = (BigDecimal) returnAmountByOrder.get(orderId);
+                BigDecimal returnAmount = returnAmountByOrder.get(orderId);
                 if (returnAmount.abs().compareTo(new BigDecimal("0.000001")) < 0) {
                     Debug.logError("Order [" + orderId + "] refund amount[ " + returnAmount + "] less than zero", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,

@@ -103,7 +103,7 @@ public class OrderContentWrapper {
         String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get("orderId") + SEPARATOR + orderItemSeqId;
         try {
             if (orderContentCache != null && orderContentCache.get(cacheKey) != null) {
-                return (String) orderContentCache.get(cacheKey);
+                return orderContentCache.get(cacheKey);
             }
 
             Writer outWriter = new StringWriter();

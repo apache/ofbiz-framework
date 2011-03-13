@@ -454,7 +454,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Map<String, Object> result = dispatcher.runSync("getSuppliersForProduct", params);
             List<GenericValue> productSuppliers = UtilGenerics.checkList(result.get("supplierProducts"));
             if ((productSuppliers != null) && (productSuppliers.size() > 0)) {
-                supplierProduct = (GenericValue) productSuppliers.get(0);
+                supplierProduct = productSuppliers.get(0);
             }
             //} catch (GenericServiceException e) {
         } catch (Exception e) {
@@ -941,7 +941,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public ShoppingCart.ShoppingCartItemGroup getItemGroupByNumber(String groupNumber) {
         if (UtilValidate.isEmpty(groupNumber)) return null;
-        return (ShoppingCart.ShoppingCartItemGroup) this.itemGroupByNumberMap.get(groupNumber);
+        return this.itemGroupByNumberMap.get(groupNumber);
     }
 
     /** Creates a new Item Group and returns the groupNumber that represents it */
@@ -1577,7 +1577,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         CartPaymentInfo thisInf = this.makePaymentInfo(id, refNum, authCode, amount);
         Iterator<CartPaymentInfo> i = paymentInfo.iterator();
         while (i.hasNext()) {
-            CartPaymentInfo inf = (CartPaymentInfo) i.next();
+            CartPaymentInfo inf = i.next();
             if (inf.compareTo(thisInf) == 0) {
                 // update the info
                 if (update) {
@@ -1711,7 +1711,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public void clearPaymentMethodsById(List<String> paymentMethodIdsToRemove) {
         if (UtilValidate.isEmpty(paymentMethodIdsToRemove)) return;
         for (Iterator<CartPaymentInfo> iter = paymentInfo.iterator(); iter.hasNext();) {
-            CartPaymentInfo info = (CartPaymentInfo) iter.next();
+            CartPaymentInfo info = iter.next();
             if (paymentMethodIdsToRemove.contains(info.paymentMethodId)) {
                 iter.remove();
             }
@@ -2036,7 +2036,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             shipInfo.add(csi);
         }
 
-        return (CartShipInfo) shipInfo.get(idx);
+        return shipInfo.get(idx);
     }
 
     public int getShipGroupSize() {
@@ -2515,7 +2515,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     GenericValue orderParty = this.getDelegator().findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
                     Collection<GenericValue> shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
                     if (UtilValidate.isNotEmpty(shippingContactMechList)) {
-                        GenericValue shippingContactMech = (GenericValue)(shippingContactMechList.iterator()).next();
+                        GenericValue shippingContactMech = (shippingContactMechList.iterator()).next();
                         this.setShippingContactMechId(shippingContactMech.getString("contactMechId"));
                     }
                 } catch (GenericEntityException e) {
@@ -2904,7 +2904,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         BigDecimal itemTotal = BigDecimal.ZERO;
 
         for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
+            CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 if (item.shippingApplies()) {
                     itemTotal = itemTotal.add(item.getItemSubTotal(csii.quantity));
@@ -3019,7 +3019,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         Map<String, BigDecimal> featureMap = FastMap.newInstance();
 
         for (ShoppingCartItem item : info.shipItemInfo.keySet()) {
-            CartShipInfo.CartShipItemInfo csii = (CartShipInfo.CartShipItemInfo) info.shipItemInfo.get(item);
+            CartShipInfo.CartShipItemInfo csii = info.shipItemInfo.get(item);
             if (csii != null && csii.quantity.compareTo(BigDecimal.ZERO) > 0) {
                 featureMap.putAll(item.getFeatureIdQtyMap(csii.quantity));
             }
@@ -4115,7 +4115,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public TreeMap<Integer, CartShipInfo> getShipGroupsBySupplier(String supplierPartyId) {
         TreeMap<Integer, CartShipInfo> shipGroups = new TreeMap<Integer, CartShipInfo>();
         for (int i = 0; i < this.shipInfo.size(); i++) {
-            CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
+            CartShipInfo csi = shipInfo.get(i);
             if ((csi.supplierPartyId == null && supplierPartyId == null) ||
                 (UtilValidate.isNotEmpty(csi.supplierPartyId) && csi.supplierPartyId.equals(supplierPartyId))) {
                     shipGroups.put(Integer.valueOf(i), csi);
@@ -4249,12 +4249,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // Attempt to get the first ship group for the supplierPartyId
             TreeMap<Integer, CartShipInfo> supplierShipGroups = this.getShipGroupsBySupplier(supplierPartyId);
             if (! UtilValidate.isEmpty(supplierShipGroups)) {
-                newShipGroupIndex = ((Integer) supplierShipGroups.firstKey()).intValue();
-                shipInfo = (CartShipInfo) supplierShipGroups.get(supplierShipGroups.firstKey());
+                newShipGroupIndex = (supplierShipGroups.firstKey()).intValue();
+                shipInfo = supplierShipGroups.get(supplierShipGroups.firstKey());
             }
             if (newShipGroupIndex == -1) {
                 newShipGroupIndex = addShipInfo();
-                shipInfo = (CartShipInfo) this.shipInfo.get(newShipGroupIndex);
+                shipInfo = this.shipInfo.get(newShipGroupIndex);
             }
             shipInfo.supplierPartyId = supplierPartyId;
             
@@ -4524,7 +4524,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             if (estimatedShipDates.size() > 0) {
                 Collections.sort(estimatedShipDates);
-                Timestamp estimatedShipDate  = (Timestamp) estimatedShipDates.getLast();
+                Timestamp estimatedShipDate  = estimatedShipDates.getLast();
                 shipGroup.set("estimatedShipDate", estimatedShipDate);
             }
 
@@ -4538,7 +4538,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
             if (UtilValidate.isNotEmpty(estimatedDeliveryDates)) {
                 Collections.sort(estimatedDeliveryDates);
-                Timestamp estimatedDeliveryDate = (Timestamp) estimatedDeliveryDates.getLast();
+                Timestamp estimatedDeliveryDate = estimatedDeliveryDates.getLast();
                 shipGroup.set("estimatedDeliveryDate", estimatedDeliveryDate);
             }
 
@@ -4563,7 +4563,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Iterator<ShoppingCartItem> i = shipItemInfo.keySet().iterator();
             while (i.hasNext()) {
                 ShoppingCartItem item = i.next();
-                CartShipItemInfo itemInfo = (CartShipItemInfo) shipItemInfo.get(item);
+                CartShipItemInfo itemInfo = shipItemInfo.get(item);
 
                 GenericValue assoc = delegator.makeValue("OrderItemShipGroupAssoc");
                 assoc.set("orderItemSeqId", item.getOrderItemSeqId());

@@ -1407,7 +1407,7 @@ public class OrderServices {
         if (eli != null) {
             // reset each order
             GenericValue orderHeader = null;
-            while ((orderHeader = (GenericValue) eli.next()) != null) {
+            while ((orderHeader = eli.next()) != null) {
                 String orderId = orderHeader.getString("orderId");
                 Map<String, Object> resetResult = null;
                 try {
@@ -1523,7 +1523,7 @@ public class OrderServices {
 
                     // build up the list of tax calc service parameters
                     for (int i = 0; i < validOrderItems.size(); i++) {
-                        GenericValue orderItem = (GenericValue) validOrderItems.get(i);
+                        GenericValue orderItem = validOrderItems.get(i);
                         String productId = orderItem.getString("productId");
                         try {
                             products.add(i, delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId)));  // get the product entity
@@ -1997,10 +1997,10 @@ public class OrderServices {
                         String reasonEnumId = null;
                         String changeComments = null;
                         if (UtilValidate.isNotEmpty(itemReasonMap)) {
-                            reasonEnumId = (String) itemReasonMap.get(orderItem.getString("orderItemSeqId"));
+                            reasonEnumId = itemReasonMap.get(orderItem.getString("orderItemSeqId"));
                         }
                         if (UtilValidate.isNotEmpty(itemCommentMap)) {
-                            changeComments = (String) itemCommentMap.get(orderItem.getString("orderItemSeqId"));
+                            changeComments = itemCommentMap.get(orderItem.getString("orderItemSeqId"));
                         }
 
                         Map<String, Object> serviceCtx = FastMap.newInstance();
@@ -3558,7 +3558,7 @@ public class OrderServices {
         Iterator<String> i = itemQtyMap.keySet().iterator();
         while (i.hasNext()) {
             String key = i.next();
-            String quantityStr = (String) itemQtyMap.get(key);
+            String quantityStr = itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
                 groupQty = new BigDecimal(quantityStr);
@@ -3573,7 +3573,7 @@ public class OrderServices {
             }
 
             String[] itemInfo = key.split(":");
-            BigDecimal tally = (BigDecimal) itemTotals.get(itemInfo[0]);
+            BigDecimal tally = itemTotals.get(itemInfo[0]);
             if (tally == null) {
                 tally = groupQty;
             } else {
@@ -3589,7 +3589,7 @@ public class OrderServices {
             ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
 
             if (cartItem != null) {
-                BigDecimal qty = (BigDecimal) itemTotals.get(itemSeqId);
+                BigDecimal qty = itemTotals.get(itemSeqId);
                 BigDecimal priceSave = cartItem.getBasePrice();
 
                 // set quantity
@@ -3605,7 +3605,7 @@ public class OrderServices {
                     cartItem.setBasePrice(priceSave);
 
                 if (overridePriceMap.containsKey(itemSeqId)) {
-                    String priceStr = (String) itemPriceMap.get(itemSeqId);
+                    String priceStr = itemPriceMap.get(itemSeqId);
                     if (UtilValidate.isNotEmpty(priceStr)) {
                         BigDecimal price = new BigDecimal("-1");
                         price = new BigDecimal(priceStr).setScale(orderDecimals, orderRounding);
@@ -3618,7 +3618,7 @@ public class OrderServices {
 
                 // Update the item description
                 if (itemDescriptionMap != null && itemDescriptionMap.containsKey(itemSeqId)) {
-                    String description = (String) itemDescriptionMap.get(itemSeqId);
+                    String description = itemDescriptionMap.get(itemSeqId);
                     if (UtilValidate.isNotEmpty(description)) {
                         cartItem.setName(description);
                         Debug.log("Set item description: [" + itemSeqId + "] " + description, module);
@@ -3632,7 +3632,7 @@ public class OrderServices {
                 if (itemAttributesMap != null) {
                     String attrValue = null;
                     for (String attrName : attributeNames) {
-                        attrValue = (String) itemAttributesMap.get(attrName + ":" + itemSeqId);
+                        attrValue = itemAttributesMap.get(attrName + ":" + itemSeqId);
                         if (UtilValidate.isNotEmpty(attrName)) {
                             cartItem.setOrderItemAttribute(attrName, attrValue);
                             Debug.log("Set item attribute Name: [" + itemSeqId + "] " + attrName + " , Value:" + attrValue, module);
@@ -3671,7 +3671,7 @@ public class OrderServices {
         Iterator<String> gai = itemQtyMap.keySet().iterator();
         while (gai.hasNext()) {
             String key = gai.next();
-            String quantityStr = (String) itemQtyMap.get(key);
+            String quantityStr = itemQtyMap.get(key);
             BigDecimal groupQty = BigDecimal.ZERO;
             try {
                 groupQty = new BigDecimal(quantityStr);
@@ -3996,7 +3996,7 @@ public class OrderServices {
             for (long itr = 1; itr <= groupIndex; itr++) {
                 shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
                 List<GenericValue> removeList = new ArrayList<GenericValue>();
-                for (GenericValue stored: (List<GenericValue>)toStore) {
+                for (GenericValue stored: toStore) {
                     if ("OrderAdjustment".equals(stored.getEntityName())) {
                         if (("SHIPPING_CHARGES".equals(stored.get("orderAdjustmentTypeId")) ||
                                 "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
@@ -4013,7 +4013,7 @@ public class OrderServices {
                 }
                 toStore.removeAll(removeList);
             }
-            for (GenericValue toAdd: (List<GenericValue>)toAddList) {
+            for (GenericValue toAdd: toAddList) {
                 if ("OrderAdjustment".equals(toAdd.getEntityName())) {
                     if (toAdd.get("comments") != null && ((String)toAdd.get("comments")).startsWith("Added manually by") && (("PROMOTION_ADJUSTMENT".equals(toAdd.get("orderAdjustmentTypeId"))) ||
                             ("SHIPPING_CHARGES".equals(toAdd.get("orderAdjustmentTypeId"))) || ("SALES_TAX".equals(toAdd.get("orderAdjustmentTypeId"))))) {
@@ -5394,7 +5394,7 @@ public class OrderServices {
 
             if (eli != null) {
                 GenericValue subscription;
-                while (((subscription = (GenericValue) eli.next()) != null)) {
+                while (((subscription = eli.next()) != null)) {
 
                     Calendar endDate = Calendar.getInstance();
                     endDate.setTime(UtilDateTime.nowTimestamp());

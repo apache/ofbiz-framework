@@ -67,7 +67,7 @@ public class OrderEvents {
                 return "error";
             }
 
-            GenericValue orderRoleAndProductContentInfo = (GenericValue) orderRoleAndProductContentInfoList.get(0);
+            GenericValue orderRoleAndProductContentInfo = orderRoleAndProductContentInfoList.get(0);
 
             // TODO: check validity based on ProductContent fields: useCountLimit, useTime/useTimeUomId
 
