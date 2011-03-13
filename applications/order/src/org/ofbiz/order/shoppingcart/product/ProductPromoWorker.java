@@ -175,7 +175,7 @@ public class ProductPromoWorker {
         try {
             Iterator<GenericValue> productStorePromoAppls = UtilMisc.toIterator(EntityUtil.filterByDate(productStore.getRelatedCache("ProductStorePromoAppl", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum")), true));
             while (productStorePromoAppls != null && productStorePromoAppls.hasNext()) {
-                GenericValue productStorePromoAppl = (GenericValue) productStorePromoAppls.next();
+                GenericValue productStorePromoAppl = productStorePromoAppls.next();
                 if (UtilValidate.isNotEmpty(productStorePromoAppl.getString("manualOnly")) && "Y".equals(productStorePromoAppl.getString("manualOnly"))) {
                     // manual only promotions are not automatically evaluated (they must be explicitly selected by the user)
                     if (Debug.verboseOn()) Debug.logVerbose("Skipping promotion with id [" + productStorePromoAppl.getString("productPromoId") + "] because it is applied to the store with ID " + productStoreId + " as a manual only promotion.", module);
@@ -184,7 +184,7 @@ public class ProductPromoWorker {
                 GenericValue productPromo = productStorePromoAppl.getRelatedOneCache("ProductPromo");
                 Iterator<GenericValue> productPromoCodesIter = UtilMisc.toIterator(productPromo.getRelatedCache("ProductPromoCode", null, null));
                 while (productPromoCodesIter != null && productPromoCodesIter.hasNext()) {
-                    GenericValue productPromoCode = (GenericValue) productPromoCodesIter.next();
+                    GenericValue productPromoCode = productPromoCodesIter.next();
                     promoCodes.add(productPromoCode.getString("productPromoCodeId"));
                 }
             } 
@@ -330,7 +330,7 @@ public class ProductPromoWorker {
             List<Map<Object, Object>> productPromoDiscountMapListOrderTotal = FastList.newInstance();
             Iterator<GenericValue> productPromoIter = productPromoList.iterator();
             while (productPromoIter.hasNext()) {
-                GenericValue productPromo = (GenericValue) productPromoIter.next();
+                GenericValue productPromo = productPromoIter.next();
                 Map<Object, Object> productPromoDiscountMap = UtilGenerics.checkMap(UtilMisc.toMap("productPromo", productPromo, "totalDiscountAmount", cart.getProductPromoUseTotalDiscount(productPromo.getString("productPromoId"))));
                 if (hasOrderTotalCondition(productPromo, delegator)) {
                     productPromoDiscountMapListOrderTotal.add(productPromoDiscountMap);
@@ -426,7 +426,7 @@ public class ProductPromoWorker {
                                 List<GenericValue> orderproductPromoCodes =  delegator.findList("OrderProductPromoCode", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, cart.getOrderId()), null, null, null, false);
                                 Iterator<GenericValue> orderproductPromoCodesItr = UtilMisc.toIterator(orderproductPromoCodes);
                                 while (orderproductPromoCodesItr != null && orderproductPromoCodesItr.hasNext()) {
-                                    GenericValue orderproductPromoCode = (GenericValue) orderproductPromoCodesItr.next();
+                                    GenericValue orderproductPromoCode = orderproductPromoCodesItr.next();
                                     enteredCodes.add(orderproductPromoCode.getString("productPromoCodeId"));
                                 }
                             }
@@ -753,7 +753,7 @@ public class ProductPromoWorker {
 
             Iterator<GenericValue> promoRulesIter = productPromoRules.iterator();
             while (promoRulesIter != null && promoRulesIter.hasNext()) {
-                GenericValue productPromoRule = (GenericValue) promoRulesIter.next();
+                GenericValue productPromoRule = promoRulesIter.next();
 
                 // if apply then performActions when no conditions are false, so default to true
                 boolean performActions = true;
@@ -766,7 +766,7 @@ public class ProductPromoWorker {
 
                 Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
                 while (productPromoCondIter != null && productPromoCondIter.hasNext()) {
-                    GenericValue productPromoCond = (GenericValue) productPromoCondIter.next();
+                    GenericValue productPromoCond = productPromoCondIter.next();
 
                     boolean condResult = checkCondition(productPromoCond, cart, delegator, dispatcher, nowTimestamp);
 
@@ -783,7 +783,7 @@ public class ProductPromoWorker {
                     List<GenericValue> productPromoActions = productPromoRule.getRelatedCache("ProductPromoAction", null, UtilMisc.toList("productPromoActionSeqId"));
                     Iterator<GenericValue> productPromoActionIter = UtilMisc.toIterator(productPromoActions);
                     while (productPromoActionIter != null && productPromoActionIter.hasNext()) {
-                        GenericValue productPromoAction = (GenericValue) productPromoActionIter.next();
+                        GenericValue productPromoAction = productPromoActionIter.next();
                         try {
                             ActionResultInfo actionResultInfo = performAction(productPromoAction, cart, delegator, dispatcher, nowTimestamp);
                             totalDiscountAmount = totalDiscountAmount.add(actionResultInfo.totalDiscountAmount);
@@ -1672,7 +1672,7 @@ public class ProductPromoWorker {
             List<ShoppingCartItem> lineOrderedByBasePriceList = cart.getLineListOrderedByBasePrice(false);
             Iterator<ShoppingCartItem> lineOrderedByBasePriceIter = lineOrderedByBasePriceList.iterator();
             while (quantityDesired.compareTo(BigDecimal.ZERO) > 0 && lineOrderedByBasePriceIter.hasNext()) {
-                ShoppingCartItem cartItem = (ShoppingCartItem) lineOrderedByBasePriceIter.next();
+                ShoppingCartItem cartItem = lineOrderedByBasePriceIter.next();
                 // only include if it is in the productId Set for this check and if it is not a Promo (GWP) item
                 String parentProductId = cartItem.getParentProductId();
                 GenericValue product = cartItem.getProduct();

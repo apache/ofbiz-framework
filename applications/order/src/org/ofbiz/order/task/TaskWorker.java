@@ -53,7 +53,7 @@ public class TaskWorker {
 
     public static String getPrettyStatus(GenericValue orderTaskList) {
         String statusId = orderTaskList.getString("currentStatusId");
-        String prettyStatus = (String) statusMapping.get(statusId);
+        String prettyStatus = statusMapping.get(statusId);
         if (prettyStatus == null)
             prettyStatus = "?";
         return prettyStatus;

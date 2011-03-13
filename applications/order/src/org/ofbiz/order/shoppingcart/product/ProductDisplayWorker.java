@@ -195,7 +195,7 @@ public class ProductDisplayWorker {
 
                                 products.put(product.getString("productId"), product);
 
-                                BigDecimal curQuant = (BigDecimal) productQuantities.get(product.get("productId"));
+                                BigDecimal curQuant = productQuantities.get(product.get("productId"));
 
                                 if (curQuant == null) curQuant = BigDecimal.ZERO;
                                 BigDecimal orderQuant = orderItem.getBigDecimal("quantity");
@@ -203,7 +203,7 @@ public class ProductDisplayWorker {
                                 if (orderQuant == null) orderQuant = BigDecimal.ZERO;
                                 productQuantities.put(product.getString("productId"), curQuant.add(orderQuant));
 
-                                Integer curOcc = (Integer) productOccurances.get(product.get("productId"));
+                                Integer curOcc = productOccurances.get(product.get("productId"));
 
                                 if (curOcc == null) curOcc = Integer.valueOf(0);
                                 productOccurances.put(product.getString("productId"), Integer.valueOf(curOcc.intValue() + 1));
@@ -215,8 +215,8 @@ public class ProductDisplayWorker {
                 // go through each product quantity and divide it by the occurances to get the average
                 for (Map.Entry<String, BigDecimal> entry : productQuantities.entrySet()) {
                     String prodId = entry.getKey();
-                    BigDecimal quantity = (BigDecimal) entry.getValue();
-                    Integer occs = (Integer) productOccurances.get(prodId);
+                    BigDecimal quantity = entry.getValue();
+                    Integer occs = productOccurances.get(prodId);
                     BigDecimal nqint = quantity.divide(new BigDecimal(occs), new MathContext(10));
 
                     if (nqint.compareTo(BigDecimal.ONE) < 0) nqint = BigDecimal.ONE;
@@ -280,8 +280,8 @@ public class ProductDisplayWorker {
             Map<String, Object> newMetric = FastMap.newInstance();
             for (Map.Entry<String, Integer> entry : productOccurances.entrySet()) {
                 String prodId = entry.getKey();
-                Integer quantity = (Integer) entry.getValue();
-                BigDecimal occs = (BigDecimal) productQuantities.get(prodId);
+                Integer quantity = entry.getValue();
+                BigDecimal occs = productQuantities.get(prodId);
                 BigDecimal nqdbl = quantityModifier.multiply(new BigDecimal(quantity)).add(occs.multiply(occurancesModifier));
 
                 newMetric.put(prodId, nqdbl);
