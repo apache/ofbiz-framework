@@ -146,15 +146,15 @@ public class RitaApi {
             throw new IllegalArgumentException("Field [" + name + "] is not a valid OUT parameter");
         }
 
-        return (String) document.get(name);
+        return document.get(name);
     }
 
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
         for (Map.Entry<String, String> entry : document.entrySet()) {
-            String name = (String) entry.getKey();
-            String value = (String) entry.getValue();
+            String name = entry.getKey();
+            String value = entry.getValue();
             buf.append(name);
             buf.append(" ");
             buf.append(value);

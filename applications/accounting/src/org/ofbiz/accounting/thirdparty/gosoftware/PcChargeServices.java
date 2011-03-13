@@ -325,8 +325,8 @@ public class PcChargeServices {
         GenericValue creditCard = (GenericValue) context.get("creditCard");
         if (creditCard != null) {
             List<String> expDateList = StringUtil.split(creditCard.getString("expireDate"), "/");
-            String month = (String) expDateList.get(0);
-            String year = (String) expDateList.get(1);
+            String month = expDateList.get(0);
+            String year = expDateList.get(1);
             String y2d = year.substring(2);
             String expDate = month + y2d;
 
