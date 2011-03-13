@@ -25,6 +25,7 @@
 
 package com.atlassian.crowd.integration.soap;
 
+@SuppressWarnings("serial")
 public class SOAPRole  implements java.io.Serializable {
     private java.lang.Long ID;
 
@@ -430,7 +431,7 @@ public class SOAPRole  implements java.io.Serializable {
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanSerializer(
@@ -442,7 +443,7 @@ public class SOAPRole  implements java.io.Serializable {
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanDeserializer(
