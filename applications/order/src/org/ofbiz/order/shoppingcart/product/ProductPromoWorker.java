@@ -1295,20 +1295,22 @@ public class ProductPromoWorker {
         BigDecimal amountOff = listPrice.subtract(basePrice);
         BigDecimal percentOff = amountOff.divide(listPrice, 2, BigDecimal.ROUND_HALF_UP).multiply(BigDecimal.valueOf(100L));
 
-        BigDecimal condValueBigDecimal = new BigDecimal(condValue);
-
         Integer compareBase = null;
 
         if ("PPIP_LPMUP_AMT".equals(inputParamEnumId)) {
+            // NOTE: only check this after we know it's this type of cond, otherwise condValue may not be a number
+            BigDecimal condValueBigDecimal = new BigDecimal(condValue);
             compareBase = Integer.valueOf(amountOff.compareTo(condValueBigDecimal));
         } else if ("PPIP_LPMUP_PER".equals(inputParamEnumId)) {
+            // NOTE: only check this after we know it's this type of cond, otherwise condValue may not be a number
+            BigDecimal condValueBigDecimal = new BigDecimal(condValue);
             compareBase = Integer.valueOf(percentOff.compareTo(condValueBigDecimal));
         } else {
             // condition doesn't apply to individual item, always passes
             return true;
         }
 
-        Debug.logInfo("Checking condition for item productId=" + cartItem.getProductId() + ", listPrice=" + listPrice + ", basePrice=" + basePrice + ", amountOff=" + amountOff + ", percentOff=" + percentOff + ", condValueBigDecimal=" + condValueBigDecimal + ", compareBase=" + compareBase + ", productPromoCond=" + productPromoCond, module);
+        Debug.logInfo("Checking condition for item productId=" + cartItem.getProductId() + ", listPrice=" + listPrice + ", basePrice=" + basePrice + ", amountOff=" + amountOff + ", percentOff=" + percentOff + ", condValue=" + condValue + ", compareBase=" + compareBase + ", productPromoCond=" + productPromoCond, module);
 
         if (compareBase != null) {
             int compare = compareBase.intValue();
