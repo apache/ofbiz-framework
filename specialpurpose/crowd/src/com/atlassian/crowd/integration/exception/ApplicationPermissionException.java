@@ -25,6 +25,7 @@
 
 package com.atlassian.crowd.integration.exception;
 
+@SuppressWarnings("serial")
 public class ApplicationPermissionException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     public ApplicationPermissionException() {
     }
@@ -32,7 +33,6 @@ public class ApplicationPermissionException  extends org.apache.axis.AxisFault  
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof ApplicationPermissionException)) return false;
-        ApplicationPermissionException other = (ApplicationPermissionException) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -76,7 +76,7 @@ public class ApplicationPermissionException  extends org.apache.axis.AxisFault  
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanSerializer(
@@ -88,7 +88,7 @@ public class ApplicationPermissionException  extends org.apache.axis.AxisFault  
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanDeserializer(

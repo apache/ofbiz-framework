@@ -27,6 +27,7 @@ package org.ofbiz.crowd.security;
 
 import org.ofbiz.base.util.UtilProperties;
 
+@SuppressWarnings("serial")
 public class SecurityServerLocator extends org.apache.axis.client.Service implements org.ofbiz.crowd.security.SecurityServer {
 
     public SecurityServerLocator() {
@@ -90,6 +91,7 @@ public class SecurityServerLocator extends org.apache.axis.client.Service implem
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
+    @SuppressWarnings("unchecked")
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (org.ofbiz.crowd.security.SecurityServerPortType.class.isAssignableFrom(serviceEndpointInterface)) {
@@ -109,6 +111,7 @@ public class SecurityServerLocator extends org.apache.axis.client.Service implem
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
+    @SuppressWarnings("unchecked")
     public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
@@ -128,11 +131,11 @@ public class SecurityServerLocator extends org.apache.axis.client.Service implem
         return new javax.xml.namespace.QName("urn:SecurityServer", "SecurityServer");
     }
 
-    private java.util.HashSet ports = null;
+    private java.util.HashSet<Object> ports = null;
 
-    public java.util.Iterator getPorts() {
+    public java.util.Iterator<Object> getPorts() {
         if (ports == null) {
-            ports = new java.util.HashSet();
+            ports = new java.util.HashSet<Object>();
             ports.add(new javax.xml.namespace.QName("urn:SecurityServer", "SecurityServerHttpPort"));
         }
         return ports.iterator();

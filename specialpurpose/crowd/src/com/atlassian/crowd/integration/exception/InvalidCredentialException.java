@@ -25,6 +25,7 @@
 
 package com.atlassian.crowd.integration.exception;
 
+@SuppressWarnings("serial")
 public class InvalidCredentialException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     public InvalidCredentialException() {
     }
@@ -32,7 +33,6 @@ public class InvalidCredentialException  extends org.apache.axis.AxisFault  impl
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof InvalidCredentialException)) return false;
-        InvalidCredentialException other = (InvalidCredentialException) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -76,7 +76,7 @@ public class InvalidCredentialException  extends org.apache.axis.AxisFault  impl
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanSerializer(
@@ -88,7 +88,7 @@ public class InvalidCredentialException  extends org.apache.axis.AxisFault  impl
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanDeserializer(

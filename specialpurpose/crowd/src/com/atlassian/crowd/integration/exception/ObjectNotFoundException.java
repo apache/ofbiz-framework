@@ -25,6 +25,7 @@
 
 package com.atlassian.crowd.integration.exception;
 
+@SuppressWarnings("serial")
 public class ObjectNotFoundException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     public ObjectNotFoundException() {
     }
@@ -32,7 +33,6 @@ public class ObjectNotFoundException  extends org.apache.axis.AxisFault  impleme
     private java.lang.Object __equalsCalc = null;
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof ObjectNotFoundException)) return false;
-        ObjectNotFoundException other = (ObjectNotFoundException) obj;
         if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
@@ -76,7 +76,7 @@ public class ObjectNotFoundException  extends org.apache.axis.AxisFault  impleme
      */
     public static org.apache.axis.encoding.Serializer getSerializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanSerializer(
@@ -88,7 +88,7 @@ public class ObjectNotFoundException  extends org.apache.axis.AxisFault  impleme
      */
     public static org.apache.axis.encoding.Deserializer getDeserializer(
            java.lang.String mechType,
-           java.lang.Class _javaType,
+           java.lang.Class<?> _javaType,
            javax.xml.namespace.QName _xmlType) {
         return
           new  org.apache.axis.encoding.ser.BeanDeserializer(

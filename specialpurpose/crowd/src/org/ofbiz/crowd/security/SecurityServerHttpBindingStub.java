@@ -26,10 +26,10 @@
 package org.ofbiz.crowd.security;
 
 public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub implements org.ofbiz.crowd.security.SecurityServerPortType {
-    private java.util.Vector cachedSerClasses = new java.util.Vector();
-    private java.util.Vector cachedSerQNames = new java.util.Vector();
-    private java.util.Vector cachedSerFactories = new java.util.Vector();
-    private java.util.Vector cachedDeserFactories = new java.util.Vector();
+    private java.util.Vector<Object> cachedSerClasses = new java.util.Vector<Object>();
+    private java.util.Vector<Object> cachedSerQNames = new java.util.Vector<Object>();
+    private java.util.Vector<Object> cachedSerFactories = new java.util.Vector<Object>();
+    private java.util.Vector<Object> cachedDeserFactories = new java.util.Vector<Object>();
 
     static org.apache.axis.description.OperationDesc [] _operations;
 
@@ -1543,19 +1543,21 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
             super.service = service;
         }
         ((org.apache.axis.client.Service)super.service).setTypeMappingVersion("1.2");
-            java.lang.Class cls;
+            java.lang.Class<?> cls;
             javax.xml.namespace.QName qName;
             javax.xml.namespace.QName qName2;
-            java.lang.Class beansf = org.apache.axis.encoding.ser.BeanSerializerFactory.class;
-            java.lang.Class beandf = org.apache.axis.encoding.ser.BeanDeserializerFactory.class;
-            java.lang.Class enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
-            java.lang.Class enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
-            java.lang.Class arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
-            java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
-            java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
-            java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
-            java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
-            java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
+            java.lang.Class<?> beansf = org.apache.axis.encoding.ser.BeanSerializerFactory.class;
+            java.lang.Class<?> beandf = org.apache.axis.encoding.ser.BeanDeserializerFactory.class;
+            /*
+            java.lang.Class<?> enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
+            java.lang.Class<?> enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
+            java.lang.Class<?> arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
+            java.lang.Class<?> arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
+            java.lang.Class<?> simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
+            java.lang.Class<?> simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
+            java.lang.Class<?> simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
+            java.lang.Class<?> simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
+            */
             qName = new javax.xml.namespace.QName("http://authentication.integration.crowd.atlassian.com", "ApplicationAuthenticationContext");
             cachedSerQNames.add(qName);
             cls = com.atlassian.crowd.integration.authentication.ApplicationAuthenticationContext.class;
@@ -1826,7 +1828,7 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
             if (super.cachedPortName != null) {
                 _call.setPortName(super.cachedPortName);
             }
-            java.util.Enumeration keys = super.cachedProperties.keys();
+            java.util.Enumeration<Object> keys = super.cachedProperties.keys();
             while (keys.hasMoreElements()) {
                 java.lang.String key = (java.lang.String) keys.nextElement();
                 _call.setProperty(key, super.cachedProperties.get(key));
@@ -1841,14 +1843,14 @@ public class SecurityServerHttpBindingStub extends org.apache.axis.client.Stub i
                     // must set encoding style before registering serializers
                     _call.setEncodingStyle(null);
                     for (int i = 0; i < cachedSerFactories.size(); ++i) {
-                        java.lang.Class cls = (java.lang.Class) cachedSerClasses.get(i);
+                        java.lang.Class<?> cls = (java.lang.Class<?>) cachedSerClasses.get(i);
                         javax.xml.namespace.QName qName =
                                 (javax.xml.namespace.QName) cachedSerQNames.get(i);
                         java.lang.Object x = cachedSerFactories.get(i);
-                        if (x instanceof Class) {
-                            java.lang.Class sf = (java.lang.Class)
+                        if (x instanceof Class<?>) {
+                            java.lang.Class<?> sf = (java.lang.Class<?>)
                                  cachedSerFactories.get(i);
-                            java.lang.Class df = (java.lang.Class)
+                            java.lang.Class<?> df = (java.lang.Class<?>)
                                  cachedDeserFactories.get(i);
                             _call.registerTypeMapping(cls, qName, sf, df, false);
                         }
