@@ -81,7 +81,7 @@ public class LayoutWorker {
         FileItem fi = null;
         FileItem imageFi = null;
         for (int i=0; i < lst.size(); i++) {
-            fi = (FileItem)lst.get(i);
+            fi = lst.get(i);
             String fieldName = fi.getFieldName();
             String fieldStr = fi.getString();
             if (fi.isFormField()) {
