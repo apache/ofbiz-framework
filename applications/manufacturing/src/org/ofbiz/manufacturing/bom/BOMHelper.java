@@ -72,7 +72,7 @@ public class BOMHelper {
         Iterator<GenericValue> nodesIterator = productNodesList.iterator();
         int depth = 0;
         while (nodesIterator.hasNext()) {
-            oneNode = (GenericValue)nodesIterator.next();
+            oneNode = nodesIterator.next();
             depth = 0;
             depth = getMaxDepth(oneNode.getString("productId"), bomType, inDate, delegator);
             depth++;
@@ -118,9 +118,9 @@ public class BOMHelper {
         GenericValue duplicatedNode = null;
         Iterator<GenericValue> nodesIterator = productNodesList.iterator();
         while (nodesIterator.hasNext()) {
-            oneNode = (GenericValue)nodesIterator.next();
+            oneNode = nodesIterator.next();
             for (int i = 0; i < productIdKeys.size(); i++) {
-                if (oneNode.getString("productId").equals((String)productIdKeys.get(i))) {
+                if (oneNode.getString("productId").equals(productIdKeys.get(i))) {
                     return oneNode;
                 }
             }
@@ -143,7 +143,7 @@ public class BOMHelper {
         List<GenericValue> shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
         Iterator<GenericValue> shipmentPlansIt = shipmentPlans.iterator();
         while (shipmentPlansIt.hasNext()) {
-            GenericValue shipmentPlan = (GenericValue)shipmentPlansIt.next();
+            GenericValue shipmentPlan = shipmentPlansIt.next();
             GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem");
 
             List<GenericValue> productionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId")));

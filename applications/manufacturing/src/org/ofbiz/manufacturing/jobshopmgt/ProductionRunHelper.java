@@ -89,7 +89,7 @@ public class ProductionRunHelper {
         List<GenericValue> linkedWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", 
                 UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
         for (int i = 0; i < linkedWorkEfforts.size(); i++) {
-            GenericValue link = (GenericValue)linkedWorkEfforts.get(i);
+            GenericValue link = linkedWorkEfforts.get(i);
             getLinkedProductionRuns(delegator, dispatcher, link.getString("workEffortIdFrom"), productionRuns);
         }
     }

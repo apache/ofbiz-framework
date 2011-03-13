@@ -109,7 +109,7 @@ public class ProductionRunServices {
                 List<ProductionRun> mandatoryWorkEfforts = FastList.newInstance();
                 ProductionRunHelper.getLinkedProductionRuns(delegator, dispatcher, productionRunId, mandatoryWorkEfforts);
                 for (int i = 1; i < mandatoryWorkEfforts.size(); i++) {
-                    GenericValue mandatoryWorkEffort = ((ProductionRun)mandatoryWorkEfforts.get(i)).getGenericValue();
+                    GenericValue mandatoryWorkEffort = (mandatoryWorkEfforts.get(i)).getGenericValue();
                     if (!(mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_CANCELLED"))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunStatusNotChangedMandatoryProductionRunFound", locale));
                     }
@@ -127,7 +127,7 @@ public class ProductionRunServices {
                 if (!UtilValidate.isEmpty(products)) {
                     Iterator<GenericValue> productsIt = products.iterator();
                     while (productsIt.hasNext()) {
-                        GenericValue product = (GenericValue)productsIt.next();
+                        GenericValue product = productsIt.next();
                         product.set("statusId", "WEGS_CANCELLED");
                         product.store();
                     }
@@ -138,7 +138,7 @@ public class ProductionRunServices {
                 GenericValue oneTask = null;
                 String taskId = null;
                 for (int i = 0; i < tasks.size(); i++) {
-                    oneTask = (GenericValue)tasks.get(i);
+                    oneTask = tasks.get(i);
                     taskId = oneTask.getString("workEffortId");
                     serviceContext.clear();
                     serviceContext.put("workEffortId", taskId);
@@ -152,7 +152,7 @@ public class ProductionRunServices {
                     if (!UtilValidate.isEmpty(components)) {
                         Iterator<GenericValue> componentsIt = components.iterator();
                         while (componentsIt.hasNext()) {
-                            GenericValue component = (GenericValue)componentsIt.next();
+                            GenericValue component = componentsIt.next();
                             component.set("statusId", "WEGS_CANCELLED");
                             component.store();
                         }
@@ -308,7 +308,7 @@ public class ProductionRunServices {
         Iterator<GenericValue>  rt = routingTaskAssocs.iterator();
         boolean first = true;
         while (rt.hasNext()) {
-            GenericValue routingTaskAssoc = (GenericValue) rt.next();
+            GenericValue routingTaskAssoc = rt.next();
 
             if (EntityUtil.isValueActive(routingTaskAssoc, startDate)) {
                 GenericValue routingTask = null;
@@ -372,7 +372,7 @@ public class ProductionRunServices {
                 while (pb.hasNext()) {
                     // The components variable contains a list of BOMNodes:
                     // each node represents a product (component).
-                    BOMNode node = (BOMNode) pb.next();
+                    BOMNode node = pb.next();
                     GenericValue productBom = node.getProductAssoc();
                     if ((productBom.getString("routingWorkEffortId") == null && first) || (productBom.getString("routingWorkEffortId") != null && productBom.getString("routingWorkEffortId").equals(routingTask.getString("workEffortId")))) {
                         serviceContext.clear();
@@ -435,7 +435,7 @@ public class ProductionRunServices {
         if (workEffortPartyAssignments != null) {
             Iterator<GenericValue> i = workEffortPartyAssignments.iterator();
             while (i.hasNext()) {
-                GenericValue workEffortPartyAssignment = (GenericValue) i.next();
+                GenericValue workEffortPartyAssignment = i.next();
                 Map<String, Object> partyToWorkEffort = UtilMisc.<String, Object>toMap(
                         "workEffortId",  productionRunTaskId,
                         "partyId",  workEffortPartyAssignment.getString("partyId"),
@@ -602,7 +602,7 @@ public class ProductionRunServices {
             // change the production run tasks status to PRUN_SCHEDULED
             Iterator<GenericValue> tasks = productionRun.getProductionRunRoutingTasks().iterator();
             while (tasks.hasNext()) {
-                GenericValue task = (GenericValue)tasks.next();
+                GenericValue task = tasks.next();
                 serviceContext.clear();
                 serviceContext.put("workEffortId", task.getString("workEffortId"));
                 serviceContext.put("currentStatusId", statusId);
@@ -636,7 +636,7 @@ public class ProductionRunServices {
             // change the production run tasks status to PRUN_DOC_PRINTED
             Iterator<GenericValue> tasks = productionRun.getProductionRunRoutingTasks().iterator();
             while (tasks.hasNext()) {
-                GenericValue task = (GenericValue)tasks.next();
+                GenericValue task = tasks.next();
                 serviceContext.clear();
                 serviceContext.put("workEffortId", task.getString("workEffortId"));
                 serviceContext.put("currentStatusId", "PRUN_DOC_PRINTED");
@@ -661,7 +661,7 @@ public class ProductionRunServices {
             try {
                 List<GenericValue> mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")));
                 for (int i = 0; i < mandatoryWorkEfforts.size(); i++) {
-                    GenericValue mandatoryWorkEffortAssoc = (GenericValue)mandatoryWorkEfforts.get(i);
+                    GenericValue mandatoryWorkEffortAssoc = mandatoryWorkEfforts.get(i);
                     GenericValue mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort");
                     if (!(mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_COMPLETED") ||
                          mandatoryWorkEffort.getString("currentStatusId").equals("PRUN_RUNNING") ||
@@ -728,7 +728,7 @@ public class ProductionRunServices {
             // change the production run tasks status to PRUN_CLOSED
             Iterator<GenericValue> tasks = productionRun.getProductionRunRoutingTasks().iterator();
             while (tasks.hasNext()) {
-                GenericValue task = (GenericValue)tasks.next();
+                GenericValue task = tasks.next();
                 serviceContext.clear();
                 serviceContext.put("workEffortId", task.getString("workEffortId"));
                 serviceContext.put("currentStatusId", "PRUN_CLOSED");
@@ -773,7 +773,7 @@ public class ProductionRunServices {
         boolean allTaskCompleted = true;
         boolean allPrecTaskCompletedOrRunning = true;
         for (int i = 0; i < tasks.size(); i++) {
-            oneTask = (GenericValue)tasks.get(i);
+            oneTask = tasks.get(i);
             if (oneTask.getString("workEffortId").equals(taskId)) {
                 theTask = oneTask;
             } else {
@@ -942,7 +942,7 @@ public class ProductionRunServices {
                             UtilMisc.toMap("productId", productionRun.getProductProduced().getString("productId")),
                             UtilMisc.toList("sequenceNum"));
                     for (int i = 0; i < productCostComponentCalcs.size(); i++) {
-                        GenericValue productCostComponentCalc = (GenericValue)productCostComponentCalcs.get(i);
+                        GenericValue productCostComponentCalc = productCostComponentCalcs.get(i);
                         GenericValue costComponentCalc = productCostComponentCalc.getRelatedOne("CostComponentCalc");
                         GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod");
                         if (customMethod == null) {
@@ -1002,7 +1002,7 @@ public class ProductionRunServices {
             BigDecimal totalCost = ZERO;
             BigDecimal totalCostNoMaterials = ZERO;
             while (costComponentsIt.hasNext()) {
-                GenericValue costComponent = (GenericValue)costComponentsIt.next();
+                GenericValue costComponent = costComponentsIt.next();
                 BigDecimal cost = costComponent.getBigDecimal("cost");
                 totalCost = totalCost.add(cost);
                 if (!"ACTUAL_MAT_COST".equals(costComponent.getString("costComponentTypeId"))) {
@@ -1034,7 +1034,7 @@ public class ProductionRunServices {
             BigDecimal productionRunHeaderCost = (BigDecimal)outputMap.get("totalCost");
             totalCost = totalCost.add(productionRunHeaderCost);
             while (tasksIt.hasNext()) {
-                GenericValue task = (GenericValue)tasksIt.next();
+                GenericValue task = tasksIt.next();
                 outputMap = dispatcher.runSync("getWorkEffortCosts", 
                         UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", task.getString("workEffortId")));
                 BigDecimal taskCost = (BigDecimal)outputMap.get("totalCost");
@@ -1087,7 +1087,7 @@ public class ProductionRunServices {
 
             Iterator<GenericValue> workEffortCostCalcsIt = workEffortCostCalcs.iterator();
             while (workEffortCostCalcsIt.hasNext()) {
-                GenericValue workEffortCostCalc = (GenericValue)workEffortCostCalcsIt.next();
+                GenericValue workEffortCostCalc = workEffortCostCalcsIt.next();
                 GenericValue costComponentCalc = workEffortCostCalc.getRelatedOne("CostComponentCalc");
                 GenericValue customMethod = costComponentCalc.getRelatedOne("CustomMethod");
                 if (UtilValidate.isEmpty(customMethod) || UtilValidate.isEmpty(customMethod.getString("customMethodName"))) {
@@ -1168,7 +1168,7 @@ public class ProductionRunServices {
                     UtilMisc.toMap("workEffortId", productionRunTaskId)).iterator();
             Map<String, BigDecimal> materialsCostByCurrency = FastMap.newInstance();
             while (inventoryAssignIt.hasNext()) {
-                GenericValue inventoryConsumed = (GenericValue)inventoryAssignIt.next();
+                GenericValue inventoryConsumed = inventoryAssignIt.next();
                 BigDecimal quantity = inventoryConsumed.getBigDecimal("quantity");
                 BigDecimal unitCost = inventoryConsumed.getBigDecimal("unitCost");
                 if (UtilValidate.isEmpty(unitCost) || UtilValidate.isEmpty(quantity)) {
@@ -1178,14 +1178,14 @@ public class ProductionRunServices {
                 if (!materialsCostByCurrency.containsKey(currencyUomId)) {
                     materialsCostByCurrency.put(currencyUomId, BigDecimal.ZERO);
                 }
-                BigDecimal materialsCost = (BigDecimal)materialsCostByCurrency.get(currencyUomId);
+                BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
                 materialsCost = materialsCost.add(unitCost.multiply(quantity)).setScale(decimals, rounding);
                 materialsCostByCurrency.put(currencyUomId, materialsCost);
             }
             Iterator<String> currencyIt = materialsCostByCurrency.keySet().iterator();
             while (currencyIt.hasNext()) {
-                String currencyUomId = (String)currencyIt.next();
-                BigDecimal materialsCost = (BigDecimal)materialsCostByCurrency.get(currencyUomId);
+                String currencyUomId = currencyIt.next();
+                BigDecimal materialsCost = materialsCostByCurrency.get(currencyUomId);
                 Map<String, Object> inMap = UtilMisc.<String, Object>toMap("userLogin", userLogin,
                         "workEffortId", productionRunTaskId);
                 inMap.put("costComponentTypeId", "ACTUAL_MAT_COST");
@@ -1241,7 +1241,7 @@ public class ProductionRunServices {
                 List<GenericValue> pRRoutingTasks = productionRun.getProductionRunRoutingTasks();
                 boolean first = true;
                 for (Iterator<GenericValue> iter = pRRoutingTasks.iterator(); iter.hasNext();) {
-                    GenericValue routingTask = (GenericValue) iter.next();
+                    GenericValue routingTask = iter.next();
                     if (priority.equals(routingTask.get("priority")) && ! routingTaskId.equals(routingTask.get("workEffortId")))
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingTaskSeqIdAlreadyExist", locale));
                     if (routingTaskId.equals(routingTask.get("workEffortId"))) {
@@ -1309,7 +1309,7 @@ public class ProductionRunServices {
         if (workEffortId != null) {
             boolean found = false;
             for (int i = 0; i < tasks.size(); i++) {
-                GenericValue oneTask = (GenericValue)tasks.get(i);
+                GenericValue oneTask = tasks.get(i);
                 if (oneTask.getString("workEffortId").equals(workEffortId)) {
                     found = true;
                     break;
@@ -1379,7 +1379,7 @@ public class ProductionRunServices {
         boolean found = false;
         GenericValue theComponent = null;
         for (int i = 0; i < components.size(); i++) {
-            theComponent = (GenericValue)components.get(i);
+            theComponent = components.get(i);
             if (theComponent.getString("productId").equals(productId)) {
                 if (workEffortId != null) {
                     if (theComponent.getString("workEffortId").equals(workEffortId)) {
@@ -1541,7 +1541,7 @@ public class ProductionRunServices {
         if (workEffortPartyAssignments != null) {
             Iterator<GenericValue> i = workEffortPartyAssignments.iterator();
             while (i.hasNext()) {
-                GenericValue workEffortPartyAssignment = (GenericValue) i.next();
+                GenericValue workEffortPartyAssignment = i.next();
                 Map<String, Object> partyToWorkEffort = UtilMisc.<String, Object>toMap(
                         "workEffortId",  productionRunTaskId,
                         "partyId",  workEffortPartyAssignment.getString("partyId"),
@@ -1811,7 +1811,7 @@ public class ProductionRunServices {
 
         List<GenericValue> tasks = productionRun.getProductionRunRoutingTasks();
         for (int i = 0; i < tasks.size(); i++) {
-            GenericValue oneTask = (GenericValue)tasks.get(i);
+            GenericValue oneTask = tasks.get(i);
             String taskId = oneTask.getString("workEffortId");
             if ("PRUN_RUNNING".equals(oneTask.getString("currentStatusId"))) {
                 BigDecimal quantityDeclared = oneTask.getBigDecimal("quantityProduced");
@@ -1977,7 +1977,7 @@ public class ProductionRunServices {
                     UtilMisc.toMap("workEffortId", productionRunTaskId, "productId", productId))).iterator();
             BigDecimal totalIssued = BigDecimal.ZERO;
             while (issuances.hasNext()) {
-                GenericValue issuance = (GenericValue)issuances.next();
+                GenericValue issuance = issuances.next();
                 BigDecimal issued = issuance.getBigDecimal("quantity");
                 if (issued != null) {
                     totalIssued = totalIssued.add(issued);
@@ -1987,7 +1987,7 @@ public class ProductionRunServices {
                     UtilMisc.toMap("workEffortId", productionRunTaskId, "productId", productId))).iterator();
             BigDecimal totalReturned = BigDecimal.ZERO;
             while (returns.hasNext()) {
-                GenericValue returned = (GenericValue)returns.next();
+                GenericValue returned = returns.next();
                 GenericValue returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", UtilMisc.toMap("inventoryItemId", returned.getString("inventoryItemId")), UtilMisc.toList("inventoryItemDetailSeqId")));
                 if (returnDetail != null) {
                     BigDecimal qtyReturned = returnDetail.getBigDecimal("quantityOnHandDiff");
@@ -2072,7 +2072,7 @@ public class ProductionRunServices {
         GenericValue theTask = null;
         GenericValue oneTask = null;
         for (int i = 0; i < tasks.size(); i++) {
-            oneTask = (GenericValue)tasks.get(i);
+            oneTask = tasks.get(i);
             if (oneTask.getString("workEffortId").equals(workEffortId)) {
                 theTask = oneTask;
                 break;
@@ -2338,12 +2338,12 @@ public class ProductionRunServices {
         Iterator<ConfigOption> options = config.getSelectedOptions().iterator();
         Map<String, BigDecimal> components = FastMap.newInstance();
         while (options.hasNext()) {
-            ConfigOption co = (ConfigOption)options.next();
+            ConfigOption co = options.next();
             //components.addAll(co.getComponents());
             Iterator<GenericValue> selComponents = co.getComponents().iterator();
             while (selComponents.hasNext()) {
                 BigDecimal componentQuantity = null;
-                GenericValue selComponent = (GenericValue)selComponents.next();
+                GenericValue selComponent = selComponents.next();
                 if (selComponent.get("quantity") != null) {
                     componentQuantity = selComponent.getBigDecimal("quantity");
                 }
@@ -2354,12 +2354,12 @@ public class ProductionRunServices {
                 if (co.isVirtualComponent(selComponent)) {
                     Map<String, String> componentOptions = co.getComponentOptions();
                     if (UtilValidate.isNotEmpty(componentOptions) && UtilValidate.isNotEmpty(componentOptions.get(componentProductId))) {
-                        componentProductId = (String)componentOptions.get(componentProductId);
+                        componentProductId = componentOptions.get(componentProductId);
                     }
                 }
                 componentQuantity = quantity.multiply(componentQuantity);
                 if (components.containsKey(componentProductId)) {
-                    BigDecimal totalQuantity = (BigDecimal)components.get(componentProductId);
+                    BigDecimal totalQuantity = components.get(componentProductId);
                     componentQuantity = totalQuantity.add(componentQuantity);
                 }
 
@@ -2616,7 +2616,7 @@ public class ProductionRunServices {
         }
         List<String> productionRuns = FastList.newInstance();
         for (int i = 0; i < orderItems.size(); i++) {
-            GenericValue orderItemOrShipGroupAssoc = (GenericValue)orderItems.get(i);
+            GenericValue orderItemOrShipGroupAssoc = orderItems.get(i);
             String productId = null;
             BigDecimal amount = null;
             GenericValue orderItem = null;
@@ -2782,7 +2782,7 @@ public class ProductionRunServices {
         GenericValue oneTask = null;
         String taskId = null;
         for (int i = 0; i < tasks.size(); i++) {
-            oneTask = (GenericValue)tasks.get(i);
+            oneTask = tasks.get(i);
             taskId = oneTask.getString("workEffortId");
             try {
                 Map<String, Object> serviceContext = FastMap.newInstance();
@@ -2815,7 +2815,7 @@ public class ProductionRunServices {
         GenericValue oneTask = null;
         String taskId = null;
         for (int i = 0; i < tasks.size(); i++) {
-            oneTask = (GenericValue)tasks.get(i);
+            oneTask = tasks.get(i);
             taskId = oneTask.getString("workEffortId");
             if ("PRUN_CREATED".equals(oneTask.getString("currentStatusId")) ||
                     "PRUN_SCHEDULED".equals(oneTask.getString("currentStatusId")) ||
@@ -2940,7 +2940,7 @@ public class ProductionRunServices {
                     UtilMisc.toList("-estimatedStartDate"), null, false);
             if (outgoingProductionRuns != null) {
                 for (int i = 0; i < outgoingProductionRuns.size(); i++) {
-                    GenericValue outgoingProductionRun = (GenericValue)outgoingProductionRuns.get(i);
+                    GenericValue outgoingProductionRun = outgoingProductionRuns.get(i);
                     BigDecimal qty = outgoingProductionRun.getBigDecimal("estimatedQuantity");
                     qty = qty != null ? qty : BigDecimal.ZERO;
                     totQty = totQty.add(qty);
@@ -3115,7 +3115,7 @@ public class ProductionRunServices {
                             "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER"));
             Iterator<GenericValue> iteratorResult = resultList.iterator();
             while (iteratorResult.hasNext()) {
-                GenericValue genericResult = (GenericValue) iteratorResult.next();
+                GenericValue genericResult = iteratorResult.next();
                 if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_CREATED".equals(genericResult.getString("currentStatusId"))) {
                     continue;
@@ -3160,7 +3160,7 @@ public class ProductionRunServices {
             String orderId = null;
             GenericValue orderDeliverySchedule = null;
             while (iteratorResult.hasNext()) {
-                GenericValue genericResult = (GenericValue) iteratorResult.next();
+                GenericValue genericResult = iteratorResult.next();
                 String newOrderId =  genericResult.getString("orderId");
                 if (!newOrderId.equals(orderId)) {
                     orderDeliverySchedule = null;
@@ -3213,7 +3213,7 @@ public class ProductionRunServices {
                     UtilMisc.toList("shipBeforeDate"), null, false);
             Iterator<GenericValue> backordersIt = backorders.iterator();
             while (backordersIt.hasNext()) {
-                GenericValue genericResult = (GenericValue) backordersIt.next();
+                GenericValue genericResult = backordersIt.next();
                 String productId = genericResult.getString("productId");
                 GenericValue orderItemShipGroup = delegator.findByPrimaryKey("OrderItemShipGroup", UtilMisc.toMap("orderId", genericResult.get("orderId"),
                                                                                                                   "shipGroupSeqId", genericResult.get("shipGroupSeqId")));
@@ -3233,7 +3233,7 @@ public class ProductionRunServices {
                 // iterate and 'reserve'
                 Iterator<Timestamp> subsetMapKeysIt = subsetMap.keySet().iterator();
                 while (subsetMapKeysIt.hasNext()) {
-                    Timestamp currentDate = (Timestamp)subsetMapKeysIt.next();
+                    Timestamp currentDate = subsetMapKeysIt.next();
                     Map<String, Object> currentDateMap = UtilGenerics.checkMap(subsetMap.get(currentDate));
                     //List reservations = (List)currentDateMap.get("reservations");
                     BigDecimal remainingQty = (BigDecimal)currentDateMap.get("remainingQty");

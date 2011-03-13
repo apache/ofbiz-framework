@@ -105,7 +105,7 @@ public class MrpServices {
             try {
                 Iterator<GenericValue> listResultIt = listResult.iterator();
                 while (listResultIt.hasNext()) {
-                    GenericValue tmpRequirement = (GenericValue)listResultIt.next();
+                    GenericValue tmpRequirement = listResultIt.next();
                     listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole"));
                     //int numOfRecordsRemoved = delegator.removeRelated("RequirementRole", tmpRequirement);
                 }
@@ -159,7 +159,7 @@ public class MrpServices {
         }
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
+            genericResult = iteratorResult.next();
             String productId =  genericResult.getString("productId");
             BigDecimal reservedQuantity = genericResult.getBigDecimal("reservedQuantity");
             BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
@@ -221,7 +221,7 @@ public class MrpServices {
         }
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
+            genericResult = iteratorResult.next();
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
             if (productId == null || eventQuantityTmp == null) {

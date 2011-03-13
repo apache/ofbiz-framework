@@ -137,13 +137,13 @@ public class ProductionRun {
                 }
                 if (productionRunRoutingTasks != null) {
                     for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                        GenericValue routingTask = (GenericValue) iter.next();
+                        GenericValue routingTask = iter.next();
                         routingTask.store();
                     }
                 }
                 if (productionRunComponents != null) {
                     for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
-                        GenericValue component = (GenericValue) iter.next();
+                        GenericValue component = iter.next();
                         component.store();
                     }
                 }
@@ -202,7 +202,7 @@ public class ProductionRun {
         this.updateCompletionDate = true;
         if (productionRunComponents == null) getProductionRunComponents();
         for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
-            GenericValue component = (GenericValue) iter.next();
+            GenericValue component = iter.next();
             componentQuantity = component.getBigDecimal("estimatedQuantity");
             component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, BigDecimal.ROUND_HALF_UP).multiply(newQuantity));
         }
@@ -257,7 +257,7 @@ public class ProductionRun {
             if (quantity == null) getQuantity();
             Timestamp endDate=null;
             for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                GenericValue routingTask = (GenericValue) iter.next();
+                GenericValue routingTask = iter.next();
                 if (priority.compareTo(routingTask.getLong("priority")) <= 0) {
                     // Calculate the estimatedCompletionDate
                     long totalTime = ProductionRun.getEstimatedTaskTime(routingTask, quantity, dispatcher);
@@ -332,7 +332,7 @@ public class ProductionRun {
                         productionRunComponents = FastList.newInstance();
                         GenericValue routingTask;
                         for (Iterator<GenericValue> iter = productionRunRoutingTasks.iterator(); iter.hasNext();) {
-                            routingTask = (GenericValue)iter.next();
+                            routingTask = iter.next();
                             productionRunComponents.addAll(routingTask.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null));
                         }
                     } catch (GenericEntityException e) {
@@ -375,7 +375,7 @@ public class ProductionRun {
                     Debug.logWarning(e.getMessage(), module);
                 }
             }
-            return (GenericValue) (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
+            return (UtilValidate.isNotEmpty(productionRunRoutingTasks) ? productionRunRoutingTasks.get(productionRunRoutingTasks.size() - 1): null);
         }
         return null;
     }
