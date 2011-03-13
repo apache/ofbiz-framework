@@ -356,7 +356,7 @@ public class SeleniumXml {
 
         Method m;
         try {
-            m = (Method) this.sel.getClass().getDeclaredMethod(methodName, paramTypes);
+            m = this.sel.getClass().getDeclaredMethod(methodName, paramTypes);
             Object results = m.invoke(this.sel, args);
 
             //Add output parameter to common map

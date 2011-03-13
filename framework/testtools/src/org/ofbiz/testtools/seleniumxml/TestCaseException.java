@@ -24,6 +24,7 @@ import org.ofbiz.base.util.GeneralException;
  * GenericConfigException
  *
  */
+@SuppressWarnings("serial")
 public class TestCaseException extends GeneralException {
 
     public TestCaseException() {
