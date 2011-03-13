@@ -105,7 +105,7 @@ public class ContentServices {
         Iterator<GenericValue> it = contentList.iterator();
         Map<String, Object> permResults = null;
         while (it.hasNext()) {
-            GenericValue content = (GenericValue) it.next();
+            GenericValue content = it.next();
             serviceInMap.put("currentContent", content);
             try {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
@@ -284,7 +284,7 @@ public class ContentServices {
             try {
                 List<GenericValue> statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
                 if (!UtilValidate.isEmpty(statusItems)) {
-                    content.put("statusId",  ((GenericValue) statusItems.get(0)).getString("statusId"));
+                    content.put("statusId",  (statusItems.get(0)).getString("statusId"));
                 }
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -845,7 +845,7 @@ public class ContentServices {
 
             Iterator<GenericValue> it = filteredAssocs.iterator();
             while (it.hasNext()) {
-                GenericValue val = (GenericValue) it.next();
+                GenericValue val = it.next();
                 val.set("thruDate", nowTimestamp);
                 val.store();
                 //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, val:" + val, module);
@@ -1070,7 +1070,7 @@ public class ContentServices {
         if (mapIn != null) {
             Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
             for (Map.Entry<String, Object> entry : entrySet) {
-                String key = (String)entry.getKey();
+                String key = entry.getKey();
                 if (key.startsWith(prefix)) {
                     // String keyBase = key.substring(prefix.length());
                     Object value = entry.getValue();
@@ -1112,7 +1112,7 @@ public class ContentServices {
         if (mapIn != null) {
             Set<Map.Entry<String, Object>> entrySet = mapIn.entrySet();
             for (Map.Entry<String, Object> entry : entrySet) {
-                String key = (String)entry.getKey();
+                String key = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {
                     if (UtilValidate.isNotEmpty(value)) {

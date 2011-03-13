@@ -970,7 +970,7 @@ public class ContentManagementServices {
                             if (i > 0) {
                                 // Swap with previous entry
                                 try {
-                                    GenericValue prevValue = (GenericValue)listFiltered.get(i-1);
+                                    GenericValue prevValue = listFiltered.get(i-1);
                                     Long prevSeqNum = (Long)prevValue.get("sequenceNum");
                                     prevValue.put("sequenceNum", Long.valueOf(seqNum));
                                     prevValue.store();
@@ -983,7 +983,7 @@ public class ContentManagementServices {
                         } else {
                             if (i < listFiltered.size()) {
                                 // Swap with next entry
-                                GenericValue nextValue = (GenericValue)listFiltered.get(i+1);
+                                GenericValue nextValue = listFiltered.get(i+1);
                                 nextValue.put("sequenceNum", Long.valueOf(seqNum));
                                 nextValue.store();
                                 seqNum += seqIncrement;
@@ -1510,7 +1510,7 @@ public class ContentManagementServices {
             List<GenericValue> listFiltered = EntityUtil.filterByDate(contentRoleList, true);
             List<GenericValue> listOrdered = EntityUtil.orderBy(listFiltered, UtilMisc.toList("fromDate DESC"));
             if (listOrdered.size() > 0) {
-                contentRole = (GenericValue) listOrdered.get(0);
+                contentRole = listOrdered.get(0);
                 hasExistingContentRole = true;
             }
         } catch (GenericEntityException e) {
@@ -1592,9 +1592,9 @@ public class ContentManagementServices {
             List<GenericValue> listOrdered = EntityUtil.orderBy(listFiltered, UtilMisc.toList("purchaseFromDate", "purchaseThruDate"));
             List<GenericValue> listThrusOnly = EntityUtil.filterOutByCondition(listOrdered, EntityCondition.makeCondition("purchaseThruDate", EntityOperator.EQUALS, null));
             if (listThrusOnly.size() > 0) {
-                productContent = (GenericValue) listThrusOnly.get(0);
+                productContent = listThrusOnly.get(0);
             } else if (listOrdered.size() > 0) {
-                productContent = (GenericValue) listOrdered.get(0);
+                productContent = listOrdered.get(0);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e.toString(), module);
@@ -1784,7 +1784,7 @@ public class ContentManagementServices {
           contentRevisionMap.put("oldDataResourceId", oldDataResourceId);
           // need committedByPartyId
           for (int i=0; i < parentList.size(); i++) {
-              String thisContentId = (String)parentList.get(i);
+              String thisContentId = parentList.get(i);
               contentRevisionMap.put("contentId", thisContentId);
               result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
               errorMsg = ServiceUtil.getErrorMessage(result);

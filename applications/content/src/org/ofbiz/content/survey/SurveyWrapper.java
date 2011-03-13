@@ -379,7 +379,7 @@ public class SurveyWrapper {
         if (UtilValidate.isNotEmpty(passThru)) {
             Iterator<String> i = passThru.keySet().iterator();
             while (i.hasNext()) {
-                String key = (String) i.next();
+                String key = i.next();
                 if (key.toUpperCase().startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
                     String questionId = key.substring(splitIndex+1);
@@ -486,7 +486,7 @@ public class SurveyWrapper {
                 Iterator<String> i = thisResult.keySet().iterator();
                 while (i.hasNext()) {
                     Map<String, Object> optMap = FastMap.newInstance();
-                    String optId = (String) i.next();
+                    String optId = i.next();
                     Long optTotal = (Long) thisResult.get(optId);
                     if (optTotal == null) {
                         optTotal = Long.valueOf(0);
@@ -553,7 +553,7 @@ public class SurveyWrapper {
 
             if (eli != null) {
                 GenericValue value;
-                while (((value = (GenericValue) eli.next()) != null)) {
+                while (((value = eli.next()) != null)) {
                     if ("Y".equalsIgnoreCase(value.getString("booleanResponse"))) {
                         result[1]++;
                     } else {
@@ -600,7 +600,7 @@ public class SurveyWrapper {
 
             if (eli != null) {
                 GenericValue value;
-                while (((value = (GenericValue) eli.next()) != null)) {
+                while (((value = eli.next()) != null)) {
                     switch (type) {
                         case 1:
                             Long n = value.getLong("numericResponse");
@@ -688,7 +688,7 @@ public class SurveyWrapper {
             EntityListIterator eli = this.getEli(question, -1);
             if (eli != null) {
                 GenericValue value;
-                while (((value = (GenericValue) eli.next()) != null)) {
+                while (((value = eli.next()) != null)) {
                     String optionId = value.getString("surveyOptionSeqId");
                     if (UtilValidate.isNotEmpty(optionId)) {
                         Long optCount = (Long) result.remove(optionId);

@@ -283,7 +283,7 @@ public class PdfSurveyServices {
                     continue;
                 }
 
-                GenericValue surveyQuestionAndAppl = (GenericValue)questions.get(0);
+                GenericValue surveyQuestionAndAppl = questions.get(0);
                 String surveyQuestionId = (String)surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String)surveyQuestionAndAppl.get("surveyQuestionTypeId");
                 GenericValue surveyResponseAnswer = delegator.makeValue("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId, "surveyQuestionId", surveyQuestionId));

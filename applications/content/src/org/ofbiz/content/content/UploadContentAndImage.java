@@ -101,7 +101,7 @@ public class UploadContentAndImage {
             FileItem imageFi = null;
             byte[] imageBytes = {};
             for (int i = 0; i < lst.size(); i++) {
-                fi = (FileItem) lst.get(i);
+                fi = lst.get(i);
                 //String fn = fi.getName();
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
@@ -368,7 +368,7 @@ public class UploadContentAndImage {
             byte[] imageBytes = {};
             passedParams.put("userLogin", userLogin);
             for (int i = 0; i < lst.size(); i++) {
-                fi = (FileItem) lst.get(i);
+                fi = lst.get(i);
                 //String fn = fi.getName();
                 String fieldName = fi.getFieldName();
                 if (fi.isFormField()) {
@@ -467,7 +467,7 @@ public class UploadContentAndImage {
         Map<String, Object> ftlContext2 = FastMap.newInstance();
         Map<String, Object> ftlContext3 = FastMap.newInstance();
         while (iter.hasNext()) {
-            String keyName = (String)iter.next();
+            String keyName = iter.next();
             Object obj = passedParams.get(keyName + suffix);
             ftlContext2.put(keyName, obj);
         }

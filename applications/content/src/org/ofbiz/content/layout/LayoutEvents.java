@@ -595,7 +595,7 @@ public class LayoutEvents {
         Collection<String> keyColl = passedPK.getAllKeys();
         Iterator<String> keyIt = keyColl.iterator();
         while (keyIt.hasNext()) {
-            String attrName = (String)keyIt.next();
+            String attrName = keyIt.next();
             String attrVal = (String)request.getAttribute(attrName);
             if (attrVal == null) {
                 attrVal = (String)paramMap.get(attrName);

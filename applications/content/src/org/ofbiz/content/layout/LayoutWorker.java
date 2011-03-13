@@ -114,7 +114,7 @@ public class LayoutWorker {
     }
 
     public static ByteBuffer returnByteBuffer(Map<String, ByteBuffer> map) {
-        ByteBuffer byteBuff = (ByteBuffer)map.get("imageData");
+        ByteBuffer byteBuff = map.get("imageData");
         return byteBuff;
     }
 }

@@ -237,7 +237,7 @@ public class ContentManagementEvents {
         boolean statusIdUpdated = false;
         Map<String, Object> results = null;
         while (it.hasNext()) {
-            Object [] arr = (Object [])it.next();
+            Object [] arr = it.next();
             //if (Debug.infoOn()) Debug.logInfo("in updatePublishLinks, arr:" + Arrays.asList(arr) , module);
             String contentId = (String)arr[0]; // main (2nd level) site id
             String origSubContentId = null;
@@ -258,7 +258,7 @@ public class ContentManagementEvents {
                 }
             }
 
-            String currentSubContentId = (String)siteIdLookup.get(contentId);
+            String currentSubContentId = siteIdLookup.get(contentId);
             //if (Debug.infoOn()) Debug.logInfo("in updatePublishLinks, currentSubContentId:" + currentSubContentId , module);
             //if (Debug.infoOn()) Debug.logInfo("in updatePublishLinks, origSubContentId:" + origSubContentId , module);
             try {
@@ -332,7 +332,7 @@ public class ContentManagementEvents {
                     oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", contentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null));
                     iterOldActive = oldActiveValues.iterator();
                     while (iterOldActive.hasNext()) {
-                        GenericValue cAssoc = (GenericValue)iterOldActive.next();
+                        GenericValue cAssoc = iterOldActive.next();
                         cAssoc.set("thruDate", nowTimestamp);
                         cAssoc.store();
                     }
