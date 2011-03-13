@@ -700,7 +700,7 @@ public class RequestHandler {
         Enumeration<String> attributeNameEnum = UtilGenerics.cast(req.getAttributeNames());
         Map<String, Object> reqAttrMap = FastMap.newInstance();
         while (attributeNameEnum.hasMoreElements()) {
-            String name = (String) attributeNameEnum.nextElement();
+            String name = attributeNameEnum.nextElement();
             Object obj = req.getAttribute(name);
             if (obj instanceof Serializable) {
                 reqAttrMap.put(name, obj);

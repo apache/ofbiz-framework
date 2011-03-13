@@ -94,7 +94,7 @@ public class ProtectViewWorker {
                         durationByViewAccessed.put(viewNameUserLoginId, now + maxHitsDuration);
                     } else {
                         Long maxDuration = durationByViewAccessed.get(viewNameUserLoginId);
-                        Long newMaxHits = (Long) curMaxHits + one;
+                        Long newMaxHits = curMaxHits + one;
                         hitsByViewAccessed.put(viewNameUserLoginId, newMaxHits);
                         // Are we in a period of time where we need to check if there was too much hits ?
                         if (now < maxDuration) {
