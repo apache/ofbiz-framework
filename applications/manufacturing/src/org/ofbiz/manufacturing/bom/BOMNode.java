@@ -118,7 +118,7 @@ public class BOMNode {
         GenericValue oneChild = null;
         BOMNode oneChildNode = null;
         while (childrenIterator.hasNext()) {
-            oneChild = (GenericValue)childrenIterator.next();
+            oneChild = childrenIterator.next();
             // Configurator
             oneChildNode = configurator(oneChild, productFeatures, getRootNode().getProductForRules(), inDate);
             // If the node is null this means that the node has been discarded by the rules.
@@ -145,7 +145,7 @@ public class BOMNode {
         if (productPartRules != null) {
             GenericValue rule = null;
             for (int i = 0; i < productPartRules.size(); i++) {
-                rule = (GenericValue)productPartRules.get(i);
+                rule = productPartRules.get(i);
                 String ruleCondition = (String)rule.get("productFeature");
                 String ruleOperator = (String)rule.get("ruleOperator");
                 String newPart = (String)rule.get("productIdInSubst");
@@ -163,7 +163,7 @@ public class BOMNode {
                 } else {
                     if (productFeatures != null) {
                         for (int j = 0; j < productFeatures.size(); j++) {
-                            feature = (GenericValue)productFeatures.get(j);
+                            feature = productFeatures.get(j);
                             if (ruleCondition.equals((String)feature.get("productFeatureId"))) {
                                 ruleSatisfied = true;
                                 break;
@@ -277,7 +277,7 @@ public class BOMNode {
                             if (productFeatures != null) {
                                 GenericValue feature = null;
                                 for (int j = 0; j < productFeatures.size(); j++) {
-                                    feature = (GenericValue)productFeatures.get(j);
+                                    feature = productFeatures.get(j);
                                     selectedFeatures.put(feature.getString("productFeatureTypeId"), feature.getString("productFeatureId")); // FIXME
                                 }
                             }
@@ -292,7 +292,7 @@ public class BOMNode {
                                     storeResult = dispatcher.runSync("getProductVariant", context);
                                     List<GenericValue> variantProducts = UtilGenerics.checkList(storeResult.get("products"));
                                     if (variantProducts.size() == 1) {
-                                        variantProduct = (GenericValue)variantProducts.get(0);
+                                        variantProduct = variantProducts.get(0);
                                     }
                                 } catch (GenericServiceException e) {
                                     if (Debug.infoOn()) Debug.logInfo("Error calling getProductVariant service " + e.getMessage(), module);
@@ -346,7 +346,7 @@ public class BOMNode {
         GenericValue oneChild = null;
         BOMNode oneChildNode = null;
         while (childrenIterator.hasNext()) {
-            oneChild = (GenericValue)childrenIterator.next();
+            oneChild = childrenIterator.next();
             oneChildNode = new BOMNode(oneChild.getString("productId"), delegator, dispatcher, userLogin);
             // Configurator
             //oneChildNode = configurator(oneChild, productFeatures, getRootNode().getProductForRules(), delegator);
@@ -392,14 +392,14 @@ public class BOMNode {
         BOMNode oneChildNode = null;
         depth++;
         for (int i = 0; i < children.size(); i++) {
-            oneChild = (GenericValue)children.get(i);
+            oneChild = children.get(i);
             BigDecimal bomQuantity = BigDecimal.ZERO;
             try {
                 bomQuantity = oneChild.getBigDecimal("quantity");
             } catch (Exception exc) {
                 bomQuantity = BigDecimal.ONE;
             }
-            oneChildNode = (BOMNode)childrenNodes.get(i);
+            oneChildNode = childrenNodes.get(i);
             sb.append("<br/>");
             if (oneChildNode != null) {
                 oneChildNode.print(sb, quantity.multiply(bomQuantity), depth);
@@ -451,7 +451,7 @@ public class BOMNode {
         BOMNode oneChildNode = null;
         depth++;
         for (int i = 0; i < children.size(); i++) {
-            oneChildNode = (BOMNode)childrenNodes.get(i);
+            oneChildNode = childrenNodes.get(i);
             if (excludeWIPs && "WIP".equals(oneChildNode.getProduct().getString("productTypeId"))) {
                 continue;
             }
@@ -473,7 +473,7 @@ public class BOMNode {
             BOMNode oneChildNode = null;
             depth++;
             for (int i = 0; i < children.size(); i++) {
-                oneChildNode = (BOMNode)childrenNodes.get(i);
+                oneChildNode = childrenNodes.get(i);
                 if (excludeWIPs && "WIP".equals(oneChildNode.getProduct().getString("productTypeId"))) {
                     continue;
                 }
@@ -486,7 +486,7 @@ public class BOMNode {
 
     public void sumQuantity(Map<String, BOMNode> nodes) {
         // First of all, we try to fetch a node with the same partId
-        BOMNode sameNode = (BOMNode)nodes.get(product.getString("productId"));
+        BOMNode sameNode = nodes.get(product.getString("productId"));
         // If the node is not found we create a new node for the current product
         if (sameNode == null) {
             sameNode = new BOMNode(product, dispatcher, userLogin);
@@ -497,7 +497,7 @@ public class BOMNode {
         // Now (recursively) we visit the children.
         BOMNode oneChildNode = null;
         for (int i = 0; i < childrenNodes.size(); i++) {
-            oneChildNode = (BOMNode)childrenNodes.get(i);
+            oneChildNode = childrenNodes.get(i);
             if (oneChildNode != null) {
                 oneChildNode.sumQuantity(nodes);
             }
@@ -512,7 +512,7 @@ public class BOMNode {
             List<String> childProductionRuns = FastList.newInstance();
             Timestamp maxEndDate = null;
             for (int i = 0; i < childrenNodes.size(); i++) {
-                oneChildNode = (BOMNode)childrenNodes.get(i);
+                oneChildNode = childrenNodes.get(i);
                 if (oneChildNode != null) {
                     Map<String, Object> tmpResult = oneChildNode.createManufacturingOrder(facilityId, date, null, null, null, null, null, shipGroupSeqId, shipmentId, false, false);
                     String childProductionRunId = (String)tmpResult.get("productionRunId");
@@ -576,7 +576,7 @@ public class BOMNode {
                         delegator.create("WorkOrderItemFulfillment", UtilMisc.toMap("workEffortId", productionRunId, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId));
                     }
                     for (int i = 0; i < childProductionRuns.size(); i++) {
-                        delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", (String)childProductionRuns.get(i), "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
+                        delegator.create("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", childProductionRuns.get(i), "workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY", "fromDate", startDate));
                     }
                 }
             } catch (GenericEntityException e) {
@@ -594,7 +594,7 @@ public class BOMNode {
             Timestamp startDate = proposedOrder.getRequirementStartDate();
             minStartDate = startDate;
             for (int i = 0; i < childrenNodes.size(); i++) {
-                BOMNode oneChildNode = (BOMNode)childrenNodes.get(i);
+                BOMNode oneChildNode = childrenNodes.get(i);
                 if (oneChildNode != null) {
                     Timestamp childStartDate = oneChildNode.getStartDate(facilityId, startDate, false);
                     if (childStartDate.compareTo(minStartDate) < 0) {
@@ -633,7 +633,7 @@ public class BOMNode {
             }
             if (UtilValidate.isNotEmpty(pfs)) {
                 for (int i = 0; i < pfs.size(); i++) {
-                    GenericValue pf = (GenericValue)pfs.get(i);
+                    GenericValue pf = pfs.get(i);
                     if (UtilValidate.isNotEmpty(pf.get("minimumStock")) && UtilValidate.isNotEmpty(pf.get("reorderQuantity"))) {
                         isWarehouseManaged = true;
                         break;
@@ -682,7 +682,7 @@ public class BOMNode {
         // Now (recursively) we visit the children.
         BOMNode oneChildNode = null;
         for (int i = 0; i < children.size(); i++) {
-            oneChildNode = (BOMNode)childrenNodes.get(i);
+            oneChildNode = childrenNodes.get(i);
             if (oneChildNode != null) {
                 oneChildNode.isConfigured(arr);
             }

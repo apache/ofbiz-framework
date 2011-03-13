@@ -86,7 +86,7 @@ public class BOMServices {
                 List<GenericValue> bomTypesValues = delegator.findByAnd("ProductAssocType", UtilMisc.toMap("parentTypeId", "PRODUCT_COMPONENT"));
                 Iterator<GenericValue> bomTypesValuesIt = bomTypesValues.iterator();
                 while (bomTypesValuesIt.hasNext()) {
-                    bomTypes.add(((GenericValue)bomTypesValuesIt.next()).getString("productAssocTypeId"));
+                    bomTypes.add((bomTypesValuesIt.next()).getString("productAssocTypeId"));
                 }
             } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
@@ -100,7 +100,7 @@ public class BOMServices {
         Iterator<String> bomTypesIt = bomTypes.iterator();
         try {
             while (bomTypesIt.hasNext()) {
-                String oneBomType = (String)bomTypesIt.next();
+                String oneBomType = bomTypesIt.next();
                 depth = BOMHelper.getMaxDepth(productId, oneBomType, fromDate, delegator);
                 if (depth > maxDepth) {
                     maxDepth = depth;
@@ -152,7 +152,7 @@ public class BOMServices {
             Iterator<GenericValue> virtualProductsIt = virtualProducts.iterator();
             while (virtualProductsIt.hasNext()) {
                 int virtualDepth = 0;
-                GenericValue oneVirtualProductAssoc = (GenericValue)virtualProductsIt.next();
+                GenericValue oneVirtualProductAssoc = virtualProductsIt.next();
                 GenericValue virtualProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVirtualProductAssoc.getString("productId")));
                 if (virtualProduct.get("billOfMaterialLevel") != null) {
                     virtualDepth = virtualProduct.getLong("billOfMaterialLevel").intValue();
@@ -174,7 +174,7 @@ public class BOMServices {
                 List<BOMNode> products = FastList.newInstance();
                 tree.print(products, llc.intValue());
                 for (int i = 0; i < products.size(); i++) {
-                    BOMNode oneNode = (BOMNode)products.get(i);
+                    BOMNode oneNode = products.get(i);
                     GenericValue oneProduct = oneNode.getProduct();
                     int lev = 0;
                     if (oneProduct.get("billOfMaterialLevel") != null) {
@@ -192,7 +192,7 @@ public class BOMServices {
                 variantProducts = EntityUtil.filterByDate(variantProducts, true);
                 Iterator<GenericValue> variantProductsIt = variantProducts.iterator();
                 while (variantProductsIt.hasNext()) {
-                    GenericValue oneVariantProductAssoc = (GenericValue)variantProductsIt.next();
+                    GenericValue oneVariantProductAssoc = variantProductsIt.next();
                     GenericValue variantProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVariantProductAssoc.getString("productId")));
                     variantProduct.set("billOfMaterialLevel", llc);
                     variantProduct.store();
@@ -224,7 +224,7 @@ public class BOMServices {
             Long zero = Long.valueOf(0);
             List<GenericValue> allProducts = FastList.newInstance();
             while (productsIt.hasNext()) {
-                GenericValue product = (GenericValue)productsIt.next();
+                GenericValue product = productsIt.next();
                 product.set("billOfMaterialLevel", zero);
                 allProducts.add(product);
             }
@@ -233,7 +233,7 @@ public class BOMServices {
 
             productsIt = products.iterator();
             while (productsIt.hasNext()) {
-                GenericValue product = (GenericValue)productsIt.next();
+                GenericValue product = productsIt.next();
                 try {
                     Map<String, Object> depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
@@ -417,7 +417,7 @@ public class BOMServices {
         Iterator<BOMNode> componentsIt = components.iterator();
         while (componentsIt.hasNext()) {
             Map<String, Object> componentMap = FastMap.newInstance();
-            BOMNode node = (BOMNode)componentsIt.next();
+            BOMNode node = componentsIt.next();
             componentMap.put("product", node.getProduct());
             componentMap.put("quantity", node.getQuantity());
             componentsMap.add(componentMap);
@@ -468,7 +468,7 @@ public class BOMServices {
         }
         Iterator<BOMNode> componentsIt = components.iterator();
         while (componentsIt.hasNext()) {
-            BOMNode oneComponent = (BOMNode)componentsIt.next();
+            BOMNode oneComponent = componentsIt.next();
             if (!oneComponent.isManufactured()) {
                 notAssembledComponents.add(oneComponent);
             }
@@ -507,7 +507,7 @@ public class BOMServices {
         Map<String, Object> orderReadHelpers = FastMap.newInstance();
         Map<String, Object> partyOrderShipments = FastMap.newInstance();
         while (shipmentItemsIt.hasNext()) {
-            GenericValue shipmentItem = (GenericValue)shipmentItemsIt.next();
+            GenericValue shipmentItem = shipmentItemsIt.next();
             // Get the OrderShipments
             List<GenericValue> orderShipments = null;
             try {
@@ -554,7 +554,7 @@ public class BOMServices {
                 }
                 List<BOMNode> productsInPackages = UtilGenerics.checkList(resultService.get("productsInPackages"));
                 if (productsInPackages.size() == 1) {
-                    BOMNode root = (BOMNode)productsInPackages.get(0);
+                    BOMNode root = productsInPackages.get(0);
                     String rootProductId = (root.getSubstitutedNode() != null? root.getSubstitutedNode().getProduct().getString("productId"): root.getProduct().getString("productId"));
                     if (orderItem.getString("productId").equals(rootProductId)) {
                         productsInPackages = null;
@@ -583,7 +583,7 @@ public class BOMServices {
                     // there are subcomponents:
                     // this is a multi package shipment item
                     for (int j = 0; j < productsInPackages.size(); j++) {
-                        BOMNode component = (BOMNode)productsInPackages.get(j);
+                        BOMNode component = productsInPackages.get(j);
                         Map<String, Object> boxTypeContentMap = FastMap.newInstance();
                         boxTypeContentMap.put("content", orderShipmentReadMap);
                         boxTypeContentMap.put("componentIndex", Integer.valueOf(j));
@@ -638,9 +638,9 @@ public class BOMServices {
             }
             // The packages and package contents are created.
             for (Map.Entry<String, List<Map<String, Object>>> boxTypeContentEntry : boxTypeContent.entrySet()) {
-                String boxTypeId = (String)boxTypeContentEntry.getKey();
+                String boxTypeId = boxTypeContentEntry.getKey();
                 List<Map<String, Object>> contentList = UtilGenerics.checkList(boxTypeContentEntry.getValue());
-                GenericValue boxType = (GenericValue)boxTypes.get(boxTypeId);
+                GenericValue boxType = boxTypes.get(boxTypeId);
                 BigDecimal boxWidth = boxType.getBigDecimal("boxLength");
                 BigDecimal totalWidth = BigDecimal.ZERO;
                 if (boxWidth == null) {
@@ -660,7 +660,7 @@ public class BOMServices {
                     if (subProduct) {
                         // multi package
                         Integer index = (Integer)contentMap.get("componentIndex");
-                        BOMNode component = (BOMNode)productsInPackages.get(index.intValue());
+                        BOMNode component = productsInPackages.get(index.intValue());
                         product = component.getProduct();
                         quantity = component.getQuantity();
                     } else {

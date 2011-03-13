@@ -106,7 +106,7 @@ public class BOMTree {
         List<GenericValue> productFeatures = FastList.newInstance();
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
-            oneProductFeatureAppl = (GenericValue)productFeaturesAppl.get(i);
+            oneProductFeatureAppl = productFeaturesAppl.get(i);
             productFeatures.add(delegator.findByPrimaryKey("ProductFeature",
                     UtilMisc.toMap("productFeatureId", oneProductFeatureAppl.getString("productFeatureId"))));
 
