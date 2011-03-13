@@ -43,7 +43,7 @@ public class WebPosEvents {
             HttpSession session = request.getSession(true);
 
             // get the posTerminalId
-            String posTerminalId = (String) request.getParameter("posTerminalId");
+            String posTerminalId = request.getParameter("posTerminalId");
             session.removeAttribute("shoppingCart");
             session.removeAttribute("webPosSession");
             WebPosEvents.getWebPosSession(request, posTerminalId);
