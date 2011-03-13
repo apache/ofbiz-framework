@@ -261,7 +261,7 @@ public class MrpServices {
         }
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
+            genericResult = iteratorResult.next();
             String newOrderId =  genericResult.getString("orderId");
             if (!newOrderId.equals(orderId)) {
                 orderDeliverySchedule = null;
@@ -328,7 +328,7 @@ public class MrpServices {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
             iteratorResult = resultList.iterator();
             while (iteratorResult.hasNext()) {
-                genericResult = (GenericValue) iteratorResult.next();
+                genericResult = iteratorResult.next();
                 if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
@@ -366,7 +366,7 @@ public class MrpServices {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
             iteratorResult = resultList.iterator();
             while (iteratorResult.hasNext()) {
-                genericResult = (GenericValue) iteratorResult.next();
+                genericResult = iteratorResult.next();
                 if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
@@ -412,7 +412,7 @@ public class MrpServices {
         }
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
+            genericResult = iteratorResult.next();
             String productId = genericResult.getString("productId");
             BigDecimal minimumStock = genericResult.getBigDecimal("minimumStock");
             if (minimumStock == null) {
@@ -459,7 +459,7 @@ public class MrpServices {
         }
         iteratorResult = resultList.iterator();
         while (iteratorResult.hasNext()) {
-            genericResult = (GenericValue) iteratorResult.next();
+            genericResult = iteratorResult.next();
             String customTimePeriodId =  genericResult.getString("customTimePeriodId");
             GenericValue customTimePeriod = null;
             try {
@@ -480,7 +480,7 @@ public class MrpServices {
                     }
                     sfdIter = salesForecastDetails.iterator();
                     while (sfdIter.hasNext()) {
-                        genericResult = (GenericValue) sfdIter.next();
+                        genericResult = sfdIter.next();
                         String productId =  genericResult.getString("productId");
                         BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
                         if (productId == null || eventQuantityTmp == null) {
@@ -566,7 +566,7 @@ public class MrpServices {
         if (UtilValidate.isNotEmpty(listComponent)) {
             Iterator<BOMNode> listComponentIter = listComponent.iterator();
             while (listComponentIter.hasNext()) {
-                BOMNode node = (BOMNode) listComponentIter.next();
+                BOMNode node = listComponentIter.next();
                 GenericValue productComponent = node.getProductAssoc();
                 // read the startDate for the component
                 String routingTask = node.getProductAssoc().getString("routingWorkEffortId");
@@ -631,7 +631,7 @@ public class MrpServices {
                 }
                 Iterator<GenericValue> facilitiesIt = facilities.iterator();
                 while (facilitiesIt.hasNext()) {
-                    GenericValue facilityMember = (GenericValue)facilitiesIt.next();
+                    GenericValue facilityMember = facilitiesIt.next();
                     GenericValue facility = facilityMember.getRelatedOne("Facility");
                     if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
                         facilityId = facility.getString("facilityId");
@@ -707,7 +707,7 @@ public class MrpServices {
 
                 oldProductId = "";
                 while (iteratorListInventoryEventForMRP.hasNext()) {
-                    inventoryEventForMRP = (GenericValue) iteratorListInventoryEventForMRP.next();
+                    inventoryEventForMRP = iteratorListInventoryEventForMRP.next();
                     productId = inventoryEventForMRP.getString("productId");
                     eventQuantity = inventoryEventForMRP.getBigDecimal("quantity");
 
@@ -752,7 +752,7 @@ public class MrpServices {
                         }
                         components = UtilGenerics.checkList(serviceResponse.get("components"));
                         if (UtilValidate.isNotEmpty(components)) {
-                            BOMNode node = ((BOMNode)components.get(0)).getParentNode();
+                            BOMNode node = (components.get(0)).getParentNode();
                             isBuilt = node.isManufactured();
                         } else {
                             isBuilt = false;
@@ -794,7 +794,7 @@ public class MrpServices {
                             routing = null;
                         }
                         if (UtilValidate.isNotEmpty(components)) {
-                            BOMNode node = ((BOMNode)components.get(0)).getParentNode();
+                            BOMNode node = (components.get(0)).getParentNode();
                             isBuilt = node.isManufactured();
                         } else {
                             isBuilt = false;
