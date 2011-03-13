@@ -83,7 +83,7 @@ public class ReplaceImage{
             List<GenericValue> contentAssocReplaceList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentIdReplace, "contentAssocTypeId", "IMAGE_THUMBNAIL"));
             if (contentAssocReplaceList.size() > 0) {
                 for (int i = 0; i < contentAssocReplaceList.size(); i++) {
-                    GenericValue contentAssocReplace = (GenericValue) contentAssocReplaceList.get(i);
+                    GenericValue contentAssocReplace = contentAssocReplaceList.get(i);
                     
                     List<GenericValue> dataResourceAssocReplaceList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssocReplace.get("contentIdTo")));
                     GenericValue dataResourceAssocReplace = EntityUtil.getFirst(dataResourceAssocReplaceList);
