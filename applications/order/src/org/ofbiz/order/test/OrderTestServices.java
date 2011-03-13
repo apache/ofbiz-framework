@@ -98,7 +98,7 @@ public class OrderTestServices {
                     if (productCategoryMembers != null) {
                         Iterator<GenericValue> i = productCategoryMembers.iterator();
                         while (i.hasNext()) {
-                            GenericValue prodCatMemb = (GenericValue) i.next();
+                            GenericValue prodCatMemb = i.next();
                             if (prodCatMemb != null) {
                                 productsList.add(prodCatMemb.getString("productId"));
                             }
@@ -136,11 +136,11 @@ public class OrderTestServices {
             // get a product
             int k = r.nextInt(productsList.size());
             try {
-                cart.addOrIncreaseItem((String) productsList.get(k), null, BigDecimal.ONE, null, null, null,
+                cart.addOrIncreaseItem(productsList.get(k), null, BigDecimal.ONE, null, null, null,
                                        null, null, null, null,
                                        null /*catalogId*/, null, null/*itemType*/, null/*itemGroupNumber*/, null, dispatcher);
             } catch (Exception exc) {
-                Debug.logWarning("Error adding product with id " + (String) productsList.get(k) + " to the cart: " + exc.getMessage(), module);
+                Debug.logWarning("Error adding product with id " + productsList.get(k) + " to the cart: " + exc.getMessage(), module);
             }
         }
         cart.setDefaultCheckoutOptions(dispatcher);

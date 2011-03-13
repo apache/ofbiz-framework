@@ -243,9 +243,9 @@ public class ZipSalesServices {
         try {
             // loop through and get per item tax rates
             for (int i = 0; i < itemProductList.size(); i++) {
-                GenericValue product = (GenericValue) itemProductList.get(i);
-                BigDecimal itemAmount = (BigDecimal) itemAmountList.get(i);
-                BigDecimal shippingAmount = (BigDecimal) itemShippingList.get(i);
+                GenericValue product = itemProductList.get(i);
+                BigDecimal itemAmount = itemAmountList.get(i);
+                BigDecimal shippingAmount = itemShippingList.get(i);
                 itemAdjustments.add(getItemTaxList(delegator, product, postalCode, city, itemAmount, shippingAmount, false));
             }
             if (orderShippingAmount.compareTo(BigDecimal.ZERO) > 0) {
@@ -318,7 +318,7 @@ public class ZipSalesServices {
         // get the first one
         GenericValue taxEntry = null;
         if (UtilValidate.isNotEmpty(taxLookup)) {
-            taxEntry = (GenericValue) taxLookup.iterator().next();
+            taxEntry = taxLookup.iterator().next();
         }
 
         if (taxEntry == null) {
@@ -368,7 +368,7 @@ public class ZipSalesServices {
                     // if we found an rule which passes no need to contine (all rules are ||)
                     break;
                 }
-                GenericValue rule = (GenericValue) ruleIterator.next();
+                GenericValue rule = ruleIterator.next();
                 String idCode = rule.getString("idCode");
                 String taxable = rule.getString("taxable");
                 String condition = rule.getString("shipCond");
