@@ -19,8 +19,18 @@ under the License.
 
 <script language="JavaScript" type="text/javascript">
     function exportToGoogle() {
-        document.products.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
-        document.products.submit();
+        var productIds = document.getElementsByName("selectResult");
+        var count = 0;
+        for(var i=0; i<productIds.length; i++){
+            if(productIds[i].checked)
+                count++;
+        }
+        if(count > 0){
+            document.products.action="<@ofbizUrl>ProductsExportToGoogle</@ofbizUrl>";
+            document.products.submit();
+        } else {
+            alert("You have to choose any product(s).");
+        }
     }
 </script>
 

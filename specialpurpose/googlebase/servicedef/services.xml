@@ -37,6 +37,7 @@ under the License.
         <attribute type="String" mode="IN" name="webSiteMountPoint" optional="false"/>
         <attribute type="String" mode="IN" name="countryCode" optional="false"/>
         <attribute type="String" mode="IN" name="productStoreId" optional="true"/>
+        <attribute type="String" mode="IN" name="allowRecommended" optional="true"/>
     </service>
     <service name="exportProductCategoryToGoogle" engine="java"
              location="org.ofbiz.googlebase.ProductsExportToGoogle" invoke="exportProductCategoryToGoogle" auth="true">
@@ -63,4 +64,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <!-- Auto update to google base **scheduled service -->
+    <service name="autoUpdateToGoogleBase" engine="simple"
+        location="component://googlebase/script/org/ofbiz/googlebase/GooglebaseServices.xml" invoke="autoUpdateToGoogleBase" auth="true" use-transaction="false">
+        <description>Auto update to google base</description>
+        <attribute type="List" mode="OUT" name="allProductExportList" optional="true"/>
+    </service>
 </services>

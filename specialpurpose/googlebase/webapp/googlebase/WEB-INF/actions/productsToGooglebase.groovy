@@ -17,6 +17,9 @@
  * under the License.
  */
 
+import java.util.List;
+
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
@@ -25,17 +28,12 @@ import org.ofbiz.product.store.ProductStoreWorker;
 categoryIds = [];
 prodCatalogList = [];
 categoryList = [];
+categoryIdsTemp = []
 
 if (parameters.productStoreId) {
     productStoreId = parameters.productStoreId;
-} else {
-    productStoreId = ProductStoreWorker.getProductStoreId(request);
 }
-googleBaseConfigList = delegator.findList("GoogleBaseConfig", null, null, null, null, false);
-if (!productStoreId) {
-    googleBaseProductStore = EntityUtil.getFirst(googleBaseConfigList);
-    productStoreId = googleBaseProductStore.productStoreId;
-}
+googleBaseConfigList = delegator.findByAnd("GoogleBaseConfig",["productStoreId":productStoreId]);
 if (productStoreId) {
     productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
     if (productStoreCatalogs) {
@@ -46,27 +44,22 @@ if (productStoreId) {
     }
 }
 currentCatalogId = null;
-if (parameters.SEARCH_CATALOG_ID) {
-    currentCatalogId = parameters.SEARCH_CATALOG_ID;
-} else if (prodCatalogList) {
-    catalog = EntityUtil.getFirst(prodCatalogList);
-    currentCatalogId = catalog.prodCatalogId;
-}
-topCategory = CatalogWorker.getCatalogTopCategoryId(request, currentCatalogId);
-if (topCategory) {
-    CategoryWorker.getRelatedCategories(request, "topLevelList", topCategory, true);
-    if (request.getAttribute("topLevelList")) {
-        categoryList = request.getAttribute("topLevelList");
+prodCatalogList.each { prodCatalogList -> 
+    currentCatalogId = prodCatalogList.prodCatalogId
+    prodCatalogCategoryList = delegator.findByAnd("ProdCatalogCategory",["prodCatalogId":currentCatalogId, "prodCatalogCategoryTypeId":"PCCT_BROWSE_ROOT"]);
+    topCategory = prodCatalogCategoryList.productCategoryId[0];
+    if (topCategory){
+        relatedCategories = dispatcher.runSync("getRelatedCategories", [parentProductCategoryId: topCategory, userLogin: userLogin]);
+        categoryList = relatedCategories.categories
     } else {
-        categoryIds.add(topCategory);
+        categoryIdsTemp.clear()
     }
-}
-if (categoryList) {
-    categoryIds = EntityUtil.getFieldListFromEntityList(categoryList, "productCategoryId", true);
+    if (categoryList) {
+        categoryIdsTemp = EntityUtil.getFieldListFromEntityList(categoryList, "productCategoryId", true);
+    }
+    categoryIds.add(categoryIdsTemp)
 }
 
 context.googleBaseConfigList = googleBaseConfigList;
 context.categoryIds = categoryIds;
 context.productStoreId = productStoreId;
-context.prodCatalogList = prodCatalogList;
-context.searchCatalogId = currentCatalogId;
