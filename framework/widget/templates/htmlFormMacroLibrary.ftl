@@ -102,11 +102,6 @@ under the License.
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="">
   <span class="view-calendar">
-      <#if mask?has_content>
-          <script type="text/javascript">
-            jQuery(function($){jQuery("#${id}").mask("${mask}");});
-          </script>
-      </#if>
       <input type="text" name="${name}" <#if event?has_content && action?has_content> ${event}="${action}"</#if> <@renderClass className alert /><#rt/>
         <#if title?has_content> title="${title}"</#if>
         <#if value?has_content> value="${value}"</#if>
@@ -130,7 +125,9 @@ under the License.
                     buttonText: '',
                     buttonImageOnly: false,
                     dateFormat: 'yy-mm-dd'
-                  });
+                  })
+              <#if mask?has_content>.mask("${mask}")</#if>
+              ;
           </script>
       </#if>
       <#if timeDropdown?has_content && timeDropdown=="time-dropdown">
