@@ -3074,6 +3074,7 @@ public class ModelFormField {
         protected String inputMethod;
         protected String clock;
         protected String step;
+        protected String mask;
 
         protected DateTimeField() {
             super();
@@ -3093,6 +3094,7 @@ public class ModelFormField {
             type = element.getAttribute("type");
             inputMethod = element.getAttribute("input-method");
             clock = element.getAttribute("clock");
+            mask = element.getAttribute("mask");
             if (UtilValidate.isNotEmpty(element.getAttribute("step"))) {
                 this.setStep(element.getAttribute("step"));
             }
@@ -3124,6 +3126,10 @@ public class ModelFormField {
 
         public String getClock() {
             return this.clock;
+        }
+
+        public String getMask() {
+            return this.mask;
         }
 
         public String getStep() {
