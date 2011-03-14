@@ -2833,6 +2833,7 @@ public class ModelFormField {
         protected SubHyperlink subHyperlink;
         protected boolean disabled;
         protected boolean clientAutocompleteField;
+        protected String mask;
 
         protected TextField() {
             super();
@@ -2849,6 +2850,7 @@ public class ModelFormField {
         public TextField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.setDefaultValue(element.getAttribute("default-value"));
+            this.mask = element.getAttribute("mask");
 
             String sizeStr = element.getAttribute("size");
             try {
@@ -2942,6 +2944,10 @@ public class ModelFormField {
         }
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
+        }
+
+        public String getMask() {
+            return this.mask;
         }
     }
 
