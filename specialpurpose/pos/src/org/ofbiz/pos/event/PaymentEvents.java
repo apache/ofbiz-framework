@@ -210,10 +210,8 @@ public class PaymentEvents {
                 switch (allInfo) {
                     case 4:
                         lastName = msrInfoArr[3];
-                        break;
                     case 3:
                         firstName = msrInfoArr[2];
-                        break;
                     case 2: // card number & exp date found
                         BigDecimal amount = BigDecimal.ZERO;
                         try {
