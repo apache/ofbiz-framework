@@ -324,7 +324,7 @@ public class RecurrenceRule {
             if (cal.get(Calendar.YEAR) != checkTimeCal.get(Calendar.YEAR)) {
                 return 0;
             }
-            break;
+
         case MONTHLY:
             if (MONTHLY == getFrequency()) {
                 cal.add(Calendar.MONTH, -getIntervalInt());
@@ -334,7 +334,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.MONTH, checkTimeCal.get(Calendar.MONTH));
             }
-            break;
+
         case WEEKLY:
             if (WEEKLY == getFrequency()) {
                 cal.add(Calendar.WEEK_OF_YEAR, -getIntervalInt());
@@ -344,7 +344,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.WEEK_OF_YEAR, checkTimeCal.get(Calendar.WEEK_OF_YEAR));
             }
-            break;
+
         case DAILY:
             if (DAILY == getFrequency()) {
                 cal.add(Calendar.DAY_OF_MONTH, -getIntervalInt());
@@ -354,7 +354,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.DAY_OF_MONTH, checkTimeCal.get(Calendar.DAY_OF_MONTH));
             }
-            break;
+
         case HOURLY:
             if (HOURLY == getFrequency()) {
                 cal.add(Calendar.HOUR_OF_DAY, -getIntervalInt());
@@ -364,7 +364,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.HOUR_OF_DAY, checkTimeCal.get(Calendar.HOUR_OF_DAY));
             }
-            break;
+
         case MINUTELY:
             if (MINUTELY == getFrequency()) {
                 cal.add(Calendar.MINUTE, -getIntervalInt());
@@ -374,7 +374,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.MINUTE, checkTimeCal.get(Calendar.MINUTE));
             }
-            break;
+
         case SECONDLY:
             if (SECONDLY == getFrequency()) {
                 cal.add(Calendar.SECOND, -getIntervalInt());
@@ -384,7 +384,6 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.SECOND, checkTimeCal.get(Calendar.SECOND));
             }
-            break;
         }
 
         // Check for validity of the current frequency.
