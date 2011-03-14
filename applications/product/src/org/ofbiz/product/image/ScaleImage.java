@@ -104,7 +104,6 @@ public class ScaleImage {
         /* IMAGE */
         // get Name and Extension
         index = filenameToUse.lastIndexOf(".");
-        String imgName = filenameToUse.substring(0, index - 1);
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
@@ -134,9 +133,8 @@ public class ScaleImage {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductImageViewType", UtilMisc.toMap("viewType", type), locale));
         }
 
-        String filePathPrefix = "";
         if (fileLocation.lastIndexOf("/") != -1) {
-            filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
+            fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
         }
         
         /* get original BUFFERED IMAGE */
