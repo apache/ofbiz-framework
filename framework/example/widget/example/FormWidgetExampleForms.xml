@@ -31,7 +31,7 @@ under the License.
         <field name="field1"
                title="${uiLabelMap.ExampleDateField1Title}"
                tooltip="${uiLabelMap.ExampleToDo}">
-            <date-time/>
+            <date-time mask="Y"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field9  *** -->

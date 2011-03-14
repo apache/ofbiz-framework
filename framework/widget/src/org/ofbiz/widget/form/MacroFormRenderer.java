@@ -474,6 +474,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String className = "";
         String alert = "false";
         String name = "";
+        String formattedMask = "";
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -610,6 +611,16 @@ public class MacroFormRenderer implements FormStringRenderer {
                 ampmName = UtilHttp.makeCompositeParam(paramName, "ampm");
             }
         }
+        String mask = dateTimeField.getMask();
+        if ("Y".equals(mask)) {
+            if ("date".equals(dateTimeField.getType())) {
+                formattedMask = "9999-99-99";
+            } else if ("time".equals(dateTimeField.getType())) {
+                formattedMask = "99:99:99";
+            } else if ("timestamp".equals(dateTimeField.getType())) {
+                formattedMask = "9999-99-99 99:99:99.999";
+            }
+        }
         StringWriter sr = new StringWriter();
         sr.append("<@renderDateTimeField ");
         sr.append("name=\"");
@@ -676,6 +687,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(compositeType);
         sr.append("\" formName=\"");
         sr.append(formName);
+        sr.append("\" mask=\"");
+        sr.append(formattedMask);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         this.addAsterisks(writer, context, modelFormField);

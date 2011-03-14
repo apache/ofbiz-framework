@@ -656,6 +656,15 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="mask" default="N">
+            <xs:annotation><xs:documentation>Will use the type value if set to yes, add a masked input</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="Y"/>
+                    <xs:enumeration value="N"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="display" substitutionGroup="AllFields">
         <xs:complexType>
