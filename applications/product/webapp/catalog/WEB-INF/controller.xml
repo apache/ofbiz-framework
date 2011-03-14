@@ -1814,7 +1814,7 @@ under the License.
     <request-map uri="createProductPriceRule">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createProductPriceRule"/>
-        <response name="success" type="view" value="FindPriceRules"/>
+        <response name="success" type="view" value="EditProductPriceRules"/>
         <response name="error" type="view" value="FindPriceRules"/>
     </request-map>
     <request-map uri="updateProductPriceRule">
