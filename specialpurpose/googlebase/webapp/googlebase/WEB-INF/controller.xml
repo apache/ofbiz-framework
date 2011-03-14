@@ -48,6 +48,17 @@ under the License.
         <response name="error" type="view" value="ProductsExportToGoogle"/>
     </request-map>
     
+    <request-map uri="GooglebaseAutoUpdate">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="GooglebaseAutoUpdate"/>
+        <response name="error" type="view" value="GooglebaseAutoUpdate"/>
+    </request-map>
+    <request-map uri="startStopScheduledGbase">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://googlebase/script/org/ofbiz/googlebase/GooglebaseEvents.xml" invoke="startStopScheduledGbase"/>
+        <response name="success" type="view" value="GooglebaseAutoUpdate"/>
+        <response name="error" type="view" value="GooglebaseAutoUpdate"/>
+    </request-map>
     <!-- Request entries for GoogleBaseConfig UI -->
     <request-map uri="EditGoogleBaseConfigs">
         <security https="true" auth="true"/>
@@ -81,5 +92,6 @@ under the License.
     <view-map name="EditProduct" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#EditProduct"/>
     <view-map name="ProductsExportToGoogle" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#ProductsExportToGoogle"/>
     <view-map name="EditGoogleBaseConfigs" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#EditGoogleBaseConfigs"/>
+    <view-map name="GooglebaseAutoUpdate" type="screen" page="component://googlebase/widget/GoogleBaseScreens.xml#GooglebaseAutoUpdate"/>
     <!-- end of view mappings -->
 </site-conf>

@@ -22,16 +22,14 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form id="productsExportToGoogle" name="ProductsExportToGoogle" type="single" target="searchExportProductListToGoogle"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="selectResult" type="List"/>
+        </actions>
         <field name="productStoreId"><hidden/></field>
         <field name="selectResult"><hidden/></field>
-        <field name="countryCode" tooltip="${uiLabelMap.GoogleBaseExportCountryCode}">
-            <drop-down no-current-selected-key="US">
-                <option key="US" description="${uiLabelMap.GoogleBaseExportCountryCodeUS}"/>
-                <option key="GB" description="${uiLabelMap.GoogleBaseExportCountryCodeGB}"/>
-                <option key="DE" description="${uiLabelMap.GoogleBaseExportCountryCodeDE}"/>
-                <option key="IT" description="${uiLabelMap.GoogleBaseExportCountryCodeIT}"/>
-            </drop-down>
-        </field>
+        <field name="dummy" title=" " tooltip="Google Base Application is now available for US, UK(GB) and DE"><display/></field>
+        <field name="countryCode"><hidden/></field>
+        <field name="showText" title="Country Code" tooltip="This product store is ${countryCode}"><display/></field>
         <field name="webSiteId" event="onchange" action="javascript:$('productsExportToGoogle').action='${persistAction}';$('productsExportToGoogle').submit();">
             <drop-down current="selected">
                 <list-options list-name="webSiteList" key-name="webSiteId" description="${siteName}[${webSiteId}]"/>
@@ -69,6 +67,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="allowRecommended" title="${uiLabelMap.GoogleBaseRecommended}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.GoogleBaseExportToGoogle}"><submit button-type="button"/></field>
     </form>
     
@@ -104,4 +103,44 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     
+    <form name="GooglebaseAutoUpdateConfig" type="list" list-name="configList" header-row-style="header-row-2" 
+        default-table-style="basic-table hover-bar" odd-row-style="alternate-row">
+        <actions>
+            <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/autoUpdateConfig.groovy"/>
+        </actions>
+        <field name="productStoreId"><display/></field>
+        <field name="outOfStock" title="Update if product is out of stock"><display/></field>
+        <field name="backInStock" title="Update if product is back into stock"><display/></field>
+        <field name="webSiteUrl"><display/></field>
+        <field name="actionType"><display/></field>
+        <field name="statusId"><display/></field>
+        <field name="outOfStock"><display/></field>
+        <field name="testMode"><display/></field>
+        <field name="webSiteMountPoint"><display/></field>
+        <field name="countryCode"><display/></field>
+        <field name="trackingCodeId"><display/></field>
+        <field name="allowRecommended"><display/></field>
+    </form>
+    <form name="StartStopScheduled" type="single" target="startStopScheduledGbase" title="">
+        <actions>
+            <entity-and entity-name="JobSandbox" list="pendingList">
+                <field-map field-name="serviceName" value="autoUpdateToGoogleBase"/>
+                <field-map field-name="statusId" value="SERVICE_PENDING"/>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-and>
+            <entity-and entity-name="JobSandbox" list="cancelledList">
+                <field-map field-name="serviceName" value="autoUpdateToGoogleBase"/>
+                <field-map field-name="statusId" value="SERVICE_CANCELLED"/>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-and>
+        </actions>
+        <field name="dummy" title=" " tooltip="Don't forget to add the scheduled job to run autoUpdateToGoogleBase service"><display /></field>
+        <field name="pendingJobId"><display description="${pendingList[0].jobId}"/></field>
+        <field name="status" use-when="${groovy: return context.pendingList[0] != null;}"><display description="RUNNING"/></field>
+        <field name="lastUpdatedStamp" use-when="${groovy: return context.pendingList[0] != null;}"><display description="${pendingList[0].lastUpdatedStamp}"/></field>
+        <field name="runTime" use-when="${groovy: return context.pendingList[0] != null;}"><display description="${pendingList[0].runTime}"/></field>
+        <field name="status" use-when="${groovy: return context.pendingList[0] == null;}"><display description="STOP"/></field>
+        <field name="StoppedTime" use-when="${groovy: return context.pendingList[0] == null;}"><display description="${cancelledList[0].cancelDateTime}"/></field>
+        <field name="Start/Stop Scheduled"><submit button-type="button"/></field>
+    </form>
 </forms>

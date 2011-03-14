@@ -150,6 +150,28 @@ under the License.
             </tr>
           </#if>
           <tr>
+             <td class="label" align="right" valign="top">
+                 Filter Product Status:
+             </td>
+             <td>
+                 <div>
+                     <input type="checkbox" name="ACTIVE_PRODUCT" value="Y"/>Active Product
+                     <br/>
+                     <input type="checkbox" name="GOOGLE_SYNCED" value="Y"/>Product not currently synced with Google Base
+                 </div>
+             </td>
+           </tr>
+           <tr>
+             <td class="label" align="right" valign="top">
+               Discontinued:
+             </td>
+             <td>
+                 <div>
+                     <input type="checkbox" name="DISCONTINUED_PRODUCT" value="Y"/>Exclude sending discontinued product and stock is zero.
+                 </div>
+             </td>
+           </tr>
+           <tr>
             <td class="label" align="right" valign="top">
               ${uiLabelMap.ProductProductName}:
             </td>

@@ -81,7 +81,17 @@ public class GoogleBaseSearchEvents {
                     if (selectResult.startsWith("[")) {
                         productExportList = StringUtil.toList(selectResult);
                     } else {
-                        productExportList.add(selectResult);
+                        if(!selectResult.startsWith("{")){
+                            productExportList.add(selectResult);
+                        }else {
+                            List<String> listTemp = FastList.newInstance();
+                            String temp = selectResult.substring(1, selectResult.length()-1);
+                            String arrayTemp[] = temp.split(",");
+                            for(int i=0; i<arrayTemp.length; i++){
+                                listTemp.add(arrayTemp[i].trim());
+                            }
+                            productExportList = listTemp;
+                        }
                     }
                 }
                 String webSiteUrl = request.getParameter("webSiteUrl");
@@ -93,6 +103,7 @@ public class GoogleBaseSearchEvents {
                 String webSiteMountPoint = request.getParameter("webSiteMountPoint");
                 String countryCode = request.getParameter("countryCode");
                 String productStoreId = request.getParameter("productStoreId");
+                String allowRecommended = (String) request.getParameter("allowRecommended");
 
                 // Export all or selected products to Google Base
                 try {
@@ -107,6 +118,7 @@ public class GoogleBaseSearchEvents {
                     inMap.put("trackingCodeId", trackingCodeId);
                     inMap.put("userLogin", userLogin);
                     inMap.put("productStoreId", productStoreId);
+                    inMap.put("allowRecommended", allowRecommended);
                     Map<String, Object> exportResult = dispatcher.runSync("exportToGoogle", inMap);
                     if (ServiceUtil.isError(exportResult)) {
                         List<String> errorMessages = UtilGenerics.checkList(exportResult.get(ModelService.ERROR_MESSAGE_LIST), String.class);
@@ -119,12 +131,13 @@ public class GoogleBaseSearchEvents {
                     } else if (ServiceUtil.isFailure(exportResult)) {
                         List<String> eventMessages = UtilGenerics.checkList(exportResult.get(ModelService.ERROR_MESSAGE_LIST), String.class);
                         if (UtilValidate.isNotEmpty(eventMessages)) {
-                            request.setAttribute("_EVENT_MESSAGE_LIST_", eventMessages);
+                            request.setAttribute("_ERROR_MESSAGE_LIST_", eventMessages);
                         } else {
-                            request.setAttribute("_EVENT_MESSAGE_", ServiceUtil.getErrorMessage(exportResult));
+                            request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(exportResult));
                         }
+                        return "error";
                     } else {
-                        request.setAttribute("_EVENT_MESSAGE_", exportResult.get("successMessage"));
+                        request.setAttribute("_EVENT_MESSAGE_", exportResult.get("responseMessage"));
                     }
                 } catch (GenericServiceException e) {
                     errMsg = UtilProperties.getMessage(resource, "googlebasesearchevents.exceptionCallingExportToGoogle", locale);

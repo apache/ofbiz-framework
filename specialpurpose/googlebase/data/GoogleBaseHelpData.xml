@@ -17,10 +17,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="GoogleBaseAppBar" title="${uiLabelMap.GoogleBaseApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="GoogleBaseConfigs" title="${uiLabelMap.GoogleBaseConfiguration}"><link target="EditGoogleBaseConfigs"/></menu-item>
-        <menu-item name="googlebase" title="${uiLabelMap.GoogleBaseExportToGoogle}"><link target="advancedsearch"/></menu-item>
-        <menu-item name="GooglebaseAutoUpdate" title="${uiLabelMap.GoogleBaseAutoUpdate}"><link target="GooglebaseAutoUpdate"/></menu-item>
-    </menu>
-</menus>
+<entity-engine-xml>
+    <!-- Google Base Help -->
+    <DataResource dataResourceId="GOOGLEBASE_MAIN" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="specialpurpose/googlebase/data/helpdata/HELP_GOOGLEBASE.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Google Base" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="GOOGLEBASE_MAIN" contentTypeId="DOCUMENT" contentName="Google Base" templateDataResourceId="HELP_TEMPL" dataResourceId="GOOGLEBASE_MAIN" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="GOOGLEBASE_MAIN" contentAssocTypeId="TREE_CHILD" fromDate="2010-11-12 01:01:01" sequenceNum="01" mapKey="GOOGLEBASE_main"/>
+</entity-engine-xml>

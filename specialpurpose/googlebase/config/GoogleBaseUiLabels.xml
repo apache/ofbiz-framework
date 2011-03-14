@@ -72,6 +72,10 @@
         <value xml:lang="th">ฐานข้อมูลสาธารณะทั้งหมด</value>
         <value xml:lang="zh">Google Base集成</value>
     </property>
+    <property key="GoogleBaseAutoUpdate">
+        <value xml:lang="en">Auto Update Options</value>
+        <value xml:lang="th">อัพเดทแบบอัตโนมัติ</value>
+    </property>
     <property key="GoogleBaseCompanyName">
         <value xml:lang="en">Ofbiz</value>
         <value xml:lang="fr">Ofbiz</value>
@@ -175,6 +179,10 @@
         <value xml:lang="it">Tu non sei autorizzato per vedere questa pagina. (necessario permesso "GOOGLEBASE_VIEW")</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตให้แสดงหน้านี้. ("GOOGLEBASE_VIEW" ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限(需要GOOGLEBASE_VIEW)。</value>
+    </property>
+    <property key="GoogleBaseRecommended">
+        <value xml:lang="en">Allow Google Base Recommended</value>
+        <value xml:lang="th">อนุญาติให้เพิ่มฟิลด์ที่แนะนำ</value>
     </property>
     <property key="PageTitleGoogleBaseProductsExportToGoogle">
         <value xml:lang="en">Export Products to Google Base</value>
