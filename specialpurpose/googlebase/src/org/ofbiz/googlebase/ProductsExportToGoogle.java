@@ -19,16 +19,10 @@
 package org.ofbiz.googlebase;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -55,7 +49,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -386,7 +379,6 @@ public class ProductsExportToGoogle {
                 String link = webSiteUrl + "/" + webSiteMountPoint + "/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
                 String productName = null;
                 String productDescription = null;
-                String productURL = null;
                 List<GenericValue> productAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", prod.getString("productId"), "localeString", localeString, "thruDate", null));
                 if (productAndInfos.size() > 0) {
                     for (GenericValue productContentAndInfo : productAndInfos ) {
@@ -397,7 +389,7 @@ public class ProductsExportToGoogle {
                         if ("LONG_DESCRIPTION".equals(productContentAndInfo.getString("productContentTypeId")))
                             productDescription = electronicText.getString("textData");
                         if ("PRODUCT_URL".equals(productContentAndInfo.getString("productContentTypeId")))
-                            productURL = electronicText.getString("textData");
+                            electronicText.getString("textData");
                         }
                 } else {
                     productName = prod.getString("internalName");
