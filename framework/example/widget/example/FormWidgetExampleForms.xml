@@ -238,7 +238,7 @@ under the License.
         </field>
         <!-- ****************************** -->
         <!-- *** Autocomplete dropdown *** -->
-        <!-- ****************************** -->        
+        <!-- ****************************** -->
         <!-- TODO : return only the Id, else you need to edit the field to remove the description -->
         <field name="emptyField1" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="geoId" title="${uiLabelMap.ExampleAutocompleteDropdown}"
@@ -253,12 +253,12 @@ under the License.
         </field>
         <!-- ****************************** -->
         <!-- ***   Dependent dropdowns  *** -->
-        <!-- ****************************** -->        
+        <!-- ****************************** -->
         <field name="emptyField2" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="dependendDropDownFields" title="${uiLabelMap.ExampleDependentDropDowns}">
             <display description="${uiLabelMap.ExampleDependentDropDownTooltip}"/>
         </field>
-        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" widget-style="required"><drop-down allow-empty="false"/></field>                       
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" widget-style="required"><drop-down allow-empty="false"/></field>
         <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down no-current-selected-key="USA">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
