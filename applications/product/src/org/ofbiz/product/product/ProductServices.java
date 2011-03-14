@@ -980,13 +980,19 @@ public class ProductServices {
         Locale locale = (Locale) context.get("locale");
 
         if (UtilValidate.isNotEmpty(context.get("_uploadedFile_fileName"))) {
-            String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
+            String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format");
             String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
             String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
 
             FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
-            String id = productId + "_View_" + productContentTypeId.charAt(productContentTypeId.length() - 1);
-            String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "additional", "id", id));
+            String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
+            String viewType = "additional" + viewNumber;
+            String id = productId;
+            if (imageFilenameFormat.endsWith("${id}")) {
+                id = productId + "_View_" + viewNumber;   
+                viewType = "additional";
+            }
+            String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", "original"));
             String filePathPrefix = "";
             String filenameToUse = fileLocation;
             if (fileLocation.lastIndexOf("/") != -1) {
@@ -1007,8 +1013,18 @@ public class ProductServices {
                 filenameToUse += "." + extension.getString("fileExtensionId");
             }
 
-            File file = new File(imageServerPath + "/" + filePathPrefix + filenameToUse);
-
+            /* Write the new image file */
+            String targetDirectory = imageServerPath + "/" + filePathPrefix;
+            File targetDir = new File(targetDirectory);
+            if (!targetDir.exists()) {
+                boolean created = targetDir.mkdirs();
+                if (!created) {
+                    String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
+                    Debug.logFatal(errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+            }
+            File file = new File(imageServerPath + "/" + fileLocation + "." +  extension.getString("fileExtensionId"));
             try {
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(imageData.array());
@@ -1024,7 +1040,6 @@ public class ProductServices {
             }
 
             /* scale Image in different sizes */
-            String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
             Map<String, Object> resultResize = FastMap.newInstance();
             try {
                 resultResize.putAll(ScaleImage.scaleImageInAllSize(context, filenameToUse, "additional", viewNumber));
@@ -1038,7 +1053,7 @@ public class ProductServices {
                         "ProductImageViewParsingError", UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
-            String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
+            String imageUrl = imageUrlPrefix + "/" + fileLocation + "." +  extension.getString("fileExtensionId");
             /* store the imageUrl version of the image, for backwards compatibility with code that does not use scaled versions */
             Map<String, Object> result = addImageResource(dispatcher, delegator, context, imageUrl, productContentTypeId);
 
