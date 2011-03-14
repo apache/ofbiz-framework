@@ -625,7 +625,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else if ("time".equals(dateTimeField.getType())) {
                 formattedMask = "99:99:99";
             } else if ("timestamp".equals(dateTimeField.getType())) {
-                formattedMask = "9999-99-99 99:99:99.999";
+                formattedMask = "9999-99-99 99:99:99";
             }
         }
         StringWriter sr = new StringWriter();
