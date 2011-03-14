@@ -26,6 +26,11 @@ context.condOperEnums = delegator.findList("Enumeration", EntityCondition.makeCo
 context.productPriceActionTypes = delegator.findList("ProductPriceActionType", null, null, ['description'], null, true);
 
 String priceRuleId = request.getParameter("productPriceRuleId");
+
+if (!priceRuleId) {
+    priceRuleId = parameters.get("productPriceRuleId");
+}
+
 if (priceRuleId) {
     productPriceRules = [];
     productPriceRules.add(delegator.findOne("ProductPriceRule", [productPriceRuleId : priceRuleId], false));
