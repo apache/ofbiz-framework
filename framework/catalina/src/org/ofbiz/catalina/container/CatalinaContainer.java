@@ -376,7 +376,7 @@ public class CatalinaContainer implements Container {
     }
 
     protected Cluster createCluster(ContainerConfig.Container.Property clusterProps, Host host) throws ContainerException {
-        String defaultValveFilter = ".*.gif;.*.js;.*.jpg;.*.htm;.*.html;.*.txt;";
+        String defaultValveFilter = ".*\\.gif;.*\\.js;.*\\.jpg;.*\\.htm;.*\\.html;.*\\.txt;.*\\.png;.*\\.css;.*\\.ico;.*\\.htc;";
 
         ReplicationValve clusterValve = new ReplicationValve();
         clusterValve.setFilter(ContainerConfig.getPropertyValue(clusterProps, "rep-valve-filter", defaultValveFilter));

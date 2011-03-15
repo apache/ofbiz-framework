@@ -118,7 +118,7 @@ under the License.
             <!-- uncomment for cluster support
             <property name="default-server-cluster" value="cluster">
                 <property name="rep-valve-filter">
-                    <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;</property-value>
+                <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;.*\.png;.*\.css;.*\.ico;.*\.htc;</property-value>
                 </property>
                 <property name="manager-class" value="org.apache.catalina.ha.session.DeltaManager"/>
                 <property name="debug" value="5"/>
@@ -254,7 +254,7 @@ under the License.
             <property name="ciphers" value=""/>
         </property>
     </container>
-    
+
     <!-- load the BIRT container -->
     <container name="birt-container" class="org.ofbiz.birt.container.BirtContainer">
         <property name="delegator-name" value="default"/>
@@ -269,11 +269,11 @@ under the License.
         <property name="telnet-port" value="9990"/>
         <property name="app-name" value="OFBiz"/>
     </container-->
-    
+
     <!-- load Groovy remote telnet server -->
     <!-- Uncommented by default for security reasons -->
     <!-- the port below will be opened by Groovy -->
     <!--container name="groovyshell-container" class="org.ofbiz.base.container.GroovyShellContainer">
         <property name="telnet-port" value="9991"/>
-    </container-->    
+    </container-->
 </ofbiz-containers>
