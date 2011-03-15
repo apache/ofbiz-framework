@@ -87,7 +87,7 @@ under the License.
             <!-- uncomment for cluster support
             <property name="default-server-cluster" value="cluster">
                 <property name="rep-valve-filter">
-                    <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;</property-value>
+                <property-value>.*\.gif;.*\.js;.*\.jpg;.*\.htm;.*\.html;.*\.txt;.*\.png;.*\.css;.*\.ico;.*\.htc;</property-value>
                 </property>
                 <property name="manager-class" value="org.apache.catalina.cluster.session.DeltaManager"/>
                 <property name="debug" value="5"/>
