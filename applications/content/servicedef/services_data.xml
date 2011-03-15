@@ -36,6 +36,7 @@
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
         <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <override name="objectInfo" allow-html="safe"/>
     </service>
     <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="simple"

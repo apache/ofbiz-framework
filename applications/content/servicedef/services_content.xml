@@ -74,6 +74,7 @@
         <implements service="createContent" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
         <attribute name="contentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
     </service>
 
     <service name="attachUploadToDataResource" engine="simple" transaction-timeout="300"
