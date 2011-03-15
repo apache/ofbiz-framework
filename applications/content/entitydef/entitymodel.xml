@@ -163,7 +163,7 @@ under the License.
       <field name="contentName" type="name"></field>
       <field name="description" type="description"></field>
       <field name="localeString" type="very-short"></field>
-      <field name="mimeTypeId" type="id-long"></field>
+      <field name="mimeTypeId" type="id-vlong"></field>
       <field name="characterSetId" type="id-long"></field>
       <field name="childLeafCount" type="numeric"/>
       <field name="childBranchCount" type="numeric"/>
@@ -763,7 +763,7 @@ under the License.
       <field name="statusId" type="id"></field>
       <field name="dataResourceName" type="name"></field>
       <field name="localeString" type="very-short"></field>
-      <field name="mimeTypeId" type="id-long"></field>
+      <field name="mimeTypeId" type="id-vlong"></field>
       <field name="characterSetId" type="id-long"></field>
       <field name="objectInfo" type="long-varchar"><description>For Short Text the text goes here.</description></field>
       <field name="surveyId" type="id"></field>
@@ -988,7 +988,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             title="File Extension Entity">
       <field name="fileExtensionId" type="id-long-ne"></field>
-      <field name="mimeTypeId" type="id-long-ne"></field>
+      <field name="mimeTypeId" type="id-vlong-ne"></field>
       <prim-key field="fileExtensionId"/>
       <relation type="one" fk-name="FILEEXT_MMTYP" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
@@ -1016,7 +1016,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
             title="Mime Type Entity">
-      <field name="mimeTypeId" type="id-long-ne"></field>
+      <field name="mimeTypeId" type="id-vlong-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="mimeTypeId"/>
     </entity>
@@ -1024,7 +1024,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             default-resource-name="ContentEntityLabels"
             title="Mime Text Template Entity">
-      <field name="mimeTypeId" type="id-long-ne"></field>
+      <field name="mimeTypeId" type="id-vlong-ne"></field>
       <field name="templateLocation" type="long-varchar"></field>
       <prim-key field="mimeTypeId"/>
       <relation type="one" fk-name="MIMETYPE_TPL_MT" rel-entity-name="MimeType">

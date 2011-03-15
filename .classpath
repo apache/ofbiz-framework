@@ -2,8 +2,16 @@
 <classpath>
     <classpathentry kind="con" path="GROOVY_SUPPORT" exported="true"/>
     <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+    <classpathentry kind="lib" path="applications/content/lib/fontbox-1.4.0.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/jempbox-1.4.0.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/lucene-core-3.0.3.jar"/>
-    <classpathentry kind="lib" path="applications/content/lib/poi-3.2-FINAL-20081019.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/metadata-extractor-2.4.0.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/pdfbox-1.4.0.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/poi-3.7.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/poi-ooxml-3.7.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/poi-scratchpad-3.7.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/tika-core-0.9.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/tika-parsers-0.9.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/watermarker-0.0.4.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant-1.7.1.jar"/>

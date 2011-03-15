@@ -50,6 +50,13 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.tika.Tika;
+import org.apache.tika.exception.TikaException;
+import org.apache.tika.io.TikaInputStream;
+import org.apache.tika.metadata.Metadata;
+import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.ParseContext;
+import org.apache.tika.parser.Parser;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
@@ -77,7 +84,9 @@ import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.w3c.dom.Document;
+import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -379,6 +388,13 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             }
         }
         return mimeTypeId;
+    }
+
+    public static String getMimeTypeWithByteBuffer(java.nio.ByteBuffer buffer) throws IOException {
+        byte[] b = buffer.array();
+
+        Tika tika = new Tika();
+        return tika.detect(b);
     }
 
     public static String buildRequestPrefix(Delegator delegator, Locale locale, String webSiteId, String https) {
