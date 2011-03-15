@@ -92,12 +92,14 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
             }
             // idle-maxsize, default to half of pool-maxsize
             int maxIdle = maxSize / 2;
-            try {
-                maxIdle = Integer.parseInt(jdbcElement.getAttribute("idle-maxsize"));
-            } catch (NumberFormatException nfe) {
-                Debug.logError("Problems with pool settings [idle-maxsize=" + jdbcElement.getAttribute("idle-maxsize") + "]; the values MUST be numbers, using calculated default of" + (maxIdle > minSize ? maxIdle : minSize) + ".", module);
-            } catch (Exception e) {
-                Debug.logError("Problems with pool settings [idle-maxsize], using calculated default of" + (maxIdle > minSize ? maxIdle : minSize) + ".", module);
+            if (jdbcElement.hasAttribute("idle-maxsize")) {
+                try {
+                    maxIdle = Integer.parseInt(jdbcElement.getAttribute("idle-maxsize"));
+                } catch (NumberFormatException nfe) {
+                    Debug.logError("Problems with pool settings [idle-maxsize=" + jdbcElement.getAttribute("idle-maxsize") + "]; the values MUST be numbers, using calculated default of" + (maxIdle > minSize ? maxIdle : minSize) + ".", module);
+                } catch (Exception e) {
+                    Debug.logError("Problems with pool settings [idle-maxsize], using calculated default of" + (maxIdle > minSize ? maxIdle : minSize) + ".", module);
+                }
             }
             // Don't allow a maxIdle of less than pool-minsize
             maxIdle = maxIdle > minSize ? maxIdle : minSize;
