@@ -100,6 +100,11 @@ under the License.
             </drop-down>
         </field>
         <field name="accountPassword"><password/></field>
+        <field name="utmSource" title="Campaign Source" tooltip="Use to identify a search engine, newsletter name, or other source. Example: utm_source=google"></field>
+        <field name="utmMedium" title="Campaign Medium" tooltip="Use to identify a medium such as email or cost-per- click. Example: utm_medium=cpc"></field>
+        <field name="utmTerm" title="Campaign Term" tooltip="Used for paid search. Use to note the keywords for this ad. Example: utm_term=running+shoes"></field>
+        <field name="utmContent" title="Campaign Content" tooltip="Used for A/B testing and content-targeted ads. Use to differentiate ads or links that point to the same URL. Examples: utm_content=logolink or utm_content=textlink"></field>
+        <field name="utmCampaign" title="Campaign Name" tooltip="Used for keyword analysis. Use to identify a specific product promotion or strategic campaign. Example: utm_campaign=spring_sale"></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     

@@ -38,6 +38,11 @@ under the License.
         <attribute type="String" mode="IN" name="countryCode" optional="false"/>
         <attribute type="String" mode="IN" name="productStoreId" optional="true"/>
         <attribute type="String" mode="IN" name="allowRecommended" optional="true"/>
+        <attribute type="String" mode="IN" name="utmSource" optional="true"/>
+        <attribute type="String" mode="IN" name="utmMedium" optional="true"/>
+        <attribute type="String" mode="IN" name="utmTerm" optional="true"/>
+        <attribute type="String" mode="IN" name="utmContent" optional="true"/>
+        <attribute type="String" mode="IN" name="utmCampaign" optional="true"/>
     </service>
     <service name="exportProductCategoryToGoogle" engine="java"
              location="org.ofbiz.googlebase.ProductsExportToGoogle" invoke="exportProductCategoryToGoogle" auth="true">

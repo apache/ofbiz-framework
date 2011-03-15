@@ -305,6 +305,8 @@ public class ProductsExportToGoogle {
         List<String> newProductsInGoogle = FastList.newInstance();
         List<String> productsRemovedFromGoogle = FastList.newInstance();
         String localeString = null;
+        String productStoreId = (String) context.get("productStoreId");
+        
         try {
             Delegator delegator = dctx.getDelegator();
             LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -315,7 +317,56 @@ public class ProductsExportToGoogle {
             String trackingCodeId = (String)context.get("trackingCodeId");
             String countryCode = (String)context.get("countryCode");
             String webSiteMountPoint = (String)context.get("webSiteMountPoint");
-
+            //Tagging Links
+            String utmSource = null;
+            String utmMedium = null;
+            String utmTerm = null;
+            String utmContent = null;
+            String utmCampaign = null;
+            
+            if (UtilValidate.isNotEmpty(productStoreId)) {
+                GenericValue googleBaseConfig = null;
+                try {
+                    googleBaseConfig = delegator.findOne("GoogleBaseConfig", false, UtilMisc.toMap("productStoreId", productStoreId));
+                } catch (GenericEntityException e) {
+                    Debug.logError("Unable to find value for GoogleBaseConfig", module);
+                    e.printStackTrace();
+                }
+                if (UtilValidate.isNotEmpty(googleBaseConfig)) {
+                    String source = googleBaseConfig.getString("utmSource");
+                    String medium = googleBaseConfig.getString("utmMedium");
+                    String term = googleBaseConfig.getString("utmTerm");
+                    String content = googleBaseConfig.getString("utmContent");
+                    String campaign = googleBaseConfig.getString("utmCampaign");
+                    
+                    if (UtilValidate.isNotEmpty(source)) {
+                        utmSource = "?utm_source=" + source;
+                    } else {
+                        utmSource = "";
+                    }
+                    if (UtilValidate.isNotEmpty(medium)) {
+                        utmMedium = "&utm_medium=" + medium;
+                    } else {
+                        utmMedium = "";
+                    }
+                    if (UtilValidate.isNotEmpty(term)) {
+                        utmTerm = "&utm_term=" + term;
+                    } else {
+                        utmTerm = "";
+                    }
+                    if (UtilValidate.isNotEmpty(content)) {
+                        utmContent = "&utm_content=" + content;
+                    } else {
+                        utmContent = "";
+                    }
+                    if (UtilValidate.isNotEmpty(campaign)) {
+                        utmCampaign = "&utm_campaign=" + campaign;
+                    } else {
+                        utmCampaign = "";
+                    }
+                }
+            }
+            
             if (!webSiteUrl.startsWith("http://") && !webSiteUrl.startsWith("https://")) {
                 webSiteUrl = "http://" + webSiteUrl;
             }
@@ -376,9 +427,10 @@ public class ProductsExportToGoogle {
                     continue;
                 }
                 // TODO: improve this (i.e. get the relative path from the properties file)
-                String link = webSiteUrl + "/" + webSiteMountPoint + "/control/product/~product_id=" + prod.getString("productId") + trackingCodeId;
+                String link = webSiteUrl + "/" + webSiteMountPoint + "/control/product/~product_id=" + prod.getString("productId") + trackingCodeId + utmSource + utmMedium + utmTerm + utmContent + utmCampaign;
                 String productName = null;
                 String productDescription = null;
+                String productURL = null;
                 List<GenericValue> productAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", prod.getString("productId"), "localeString", localeString, "thruDate", null));
                 if (productAndInfos.size() > 0) {
                     for (GenericValue productContentAndInfo : productAndInfos ) {
@@ -389,7 +441,7 @@ public class ProductsExportToGoogle {
                         if ("LONG_DESCRIPTION".equals(productContentAndInfo.getString("productContentTypeId")))
                             productDescription = electronicText.getString("textData");
                         if ("PRODUCT_URL".equals(productContentAndInfo.getString("productContentTypeId")))
-                            electronicText.getString("textData");
+                            productURL = electronicText.getString("textData") + utmSource + utmMedium + utmTerm + utmContent + utmCampaign;
                         }
                 } else {
                     productName = prod.getString("internalName");

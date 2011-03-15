@@ -48,6 +48,11 @@ under the License.
         <field name="accountPassword" type="name" encrypt="true"></field>
         <field name="postItemsUrl" type="value"><description>All the items should be posted to this url</description></field>
         <field name="webSiteId" type="id-ne"></field>
+        <field name="utmSource" type="id-ne"><description>Campaign Source (referrer: google, citysearch, newsletter4)</description></field>
+        <field name="utmMedium" type="id-ne"><description>Campaign Medium (marketing medium: cpc, banner, email)</description></field>
+        <field name="utmTerm" type="id-ne"><description>Campaign Term (identify the paid keywords)</description></field>
+        <field name="utmContent" type="id-ne"><description>Campaign Content (use to differentiate ads)</description></field>
+        <field name="utmCampaign" type="id-ne"><description>Campaign Name (product, promo code, or slogan)</description></field>
         <prim-key field="productStoreId"/>      
         <relation type="one" fk-name="GBS_PROD_STORE" rel-entity-name="ProductStore">
             <key-map field-name="productStoreId"/>
