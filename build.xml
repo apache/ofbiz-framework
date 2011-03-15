@@ -19,7 +19,8 @@ under the License.
 -->
 
 <project name="OFBiz Main Build" default="build" basedir="."
-    xmlns:ivy="antlib:org.apache.ivy.ant">
+    xmlns:ivy="antlib:org.apache.ivy.ant"
+    xmlns:sonar="antlib:org.sonar.ant">
 
     <import file="macros.xml"/>
     <property name="site.dir" value="../site"/>
@@ -44,6 +45,13 @@ under the License.
             uri="antlib:org.apache.ivy.ant">
             <classpath>
                 <pathelement location="framework/base/lib/ivy-2.2.0.jar" />
+            </classpath>
+        </taskdef>
+    </target>
+    <target name="sonar-init">
+        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            <classpath>
+                <pathelement location="framework/base/lib/sonar-ant-task-1.0.jar" />
             </classpath>
         </taskdef>
     </target>
@@ -763,6 +771,64 @@ under the License.
 
             <include name="**/*.java"/>
         </cobertura-report>
+    </target>
+
+    <target name="sonar" depends="download-sonar-ant-task, sonar-init">
+        <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
+            <arg value="info"/>
+            <arg value="--xml"/>
+        </exec>
+        <xmlproperty file="runtime/svninfo_tmp.xml"/>
+        <sonar:sonar workDir="." key="org.apache:ofbiz" version="${info.entry.commit(revision)}">
+            <sources>
+                <!--framework-->
+                <path location="applications/appserver/src" />
+                <path location="applications/base/src" />
+                <path location="applications/bi/src" />
+                <path location="applications/catalina/src" />
+                <path location="applications/common/src" />
+                <path location="applications/datafile/src" />
+                <path location="applications/entity/src" />
+                <path location="applications/entityext/src" />
+                <path location="applications/example/src" />
+                <path location="applications/geronimo/src" />
+                <path location="applications/guiapp/src" />
+                <path location="applications/jetty/src" />
+                <path location="applications/minilang/src" />
+                <path location="applications/security/src" />
+                <path location="applications/service/src" />
+                <path location="applications/sql/src" />
+                <path location="applications/start/src" />
+                <path location="applications/testtools/src" />
+                <path location="applications/webapp/src" />
+                <path location="applications/webslinger/src" />
+                <path location="applications/webtools/src" />
+                <path location="applications/widget/src" />
+                <!--applications-->
+                <path location="applications/accounting/src" />
+                <path location="applications/commonext/src" />
+                <path location="applications/content/src" />
+                <path location="applications/humanres/src" />
+                <path location="applications/manufacturing/src" />
+                <path location="applications/marketing/src" />
+                <path location="applications/order/src" />
+                <path location="applications/party/src" />
+                <path location="applications/product/src" />
+                <path location="applications/securityext/src" />
+                <path location="applications/workeffort/src" />
+                <!--specialpurpose-->
+                <path location="specialpurpose/assetmaint/src" />
+                <path location="specialpurpose/ebay/src" />
+                <path location="specialpurpose/ebaystore/src" />
+                <path location="specialpurpose/ecommerce/src" />
+                <path location="specialpurpose/googlebase/src" />
+                <path location="specialpurpose/googlecheckout/src" />
+                <path location="specialpurpose/hhfacility/src" />
+                <path location="specialpurpose/oagis/src" />
+                <path location="specialpurpose/pos/src" />
+            </sources>
+            <property key="sonar.dynamicAnalysis" value="false" />
+        </sonar:sonar>
     </target>
 
     <!-- ================================================================== -->
