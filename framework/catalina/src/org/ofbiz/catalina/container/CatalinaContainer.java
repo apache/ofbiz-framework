@@ -632,7 +632,8 @@ public class CatalinaContainer implements Container {
             for (int i = webResourceInfos.size(); i > 0; i--) {
                 ComponentConfig.WebappInfo appInfo = webResourceInfos.get(i - 1);
                 String mount = appInfo.getContextRoot();
-                if (!loadedMounts.contains(mount)) {
+                List<String> virtualHosts = appInfo.getVirtualHosts();
+                if (!loadedMounts.contains(mount) || UtilValidate.isNotEmpty(virtualHosts)) {
                     createContext(appInfo);
                     loadedMounts.add(mount);
                 } else {
