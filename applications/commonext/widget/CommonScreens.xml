@@ -73,36 +73,7 @@ under the License.
                     </actions>
                     <widgets/>
                 </section>
-                <decorator-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="pre-body">
-                        <decorator-section-include name="pre-body"/>
-                    </decorator-section>
-                    <decorator-section name="body">
-                        <container id="column-container">
-                            <section>
-                                <condition>
-                                    <if-empty-section section-name="left-column"/>
-                                </condition>
-                                <widgets>
-                                    <container id="content-main-section">
-                                        <decorator-section-include name="body"/>
-                                    </container>
-                                </widgets>
-                                <fail-widgets>
-                                    <container style="left">
-                                        <decorator-section-include name="left-column"/>
-                                    </container>
-                                    <container id="content-main-section" style="leftonly">
-                                        <container style="no-clear">
-                                            <decorator-section-include name="body"/>
-                                        </container>
-                                    </container>
-                                </fail-widgets>
-                            </section>
-                            <container style="clear"></container>
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
