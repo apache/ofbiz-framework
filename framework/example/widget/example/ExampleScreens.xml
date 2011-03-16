@@ -62,6 +62,8 @@ under the License.
     <screen name="EditExampleLayer">
         <section>
             <actions>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleEditExample"/>
                 <set field="tabButtonItem" value="EditExample"/>
                 <set field="exampleId" from-field="parameters.exampleId"/>
