@@ -34,7 +34,9 @@ under the License.
           <td>- selenium_server.jar </td>
           <td>
                 <#if libcheck == "true">
-                    success
+                    Success
+                <#elseif libcheck == "noInternet">
+                    Download and install selenium-server.jar in framework/testtools/lib (see in VerifySeleniumSetups.java)
                 <#else>
                     <div style="color:red;" id="message">please click download this lib for run the selenium application!</div>
                     <div id="loadpercent"><a id="download" href="javascript:clickDownLoad('<@ofbizUrl>downloadSeleniumlib</@ofbizUrl>');" class="buttontext">download</a></div>
@@ -47,14 +49,14 @@ under the License.
           <td>- Changes ofbiz to use HTTP as the default at file (framework/webapp/config/url.properties)</td>
           <td>
                 <#if  urlcheck == "true">
-                    success
+                    Success
                 <#else>
                     <div style="color:red;">Not success!</div>
                 </#if>
           </td>
         </tr>
         <tr>
-          <td> 
+          <td>
             <ol>
             <li>Edit 'framework/testtools/config/seleniumXml.properties' and  add your firefox path, replace the example in the file</li>
             <li>Then save and restart ofbiz.</li>
