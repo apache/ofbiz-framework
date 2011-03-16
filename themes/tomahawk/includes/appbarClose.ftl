@@ -72,7 +72,7 @@ under the License.
       </#if>
     </#if>
     <#if userLogin?exists>
-      <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists>
+      <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
         <#include "component://common/webcommon/includes/helplink.ftl" />
         <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
       </#if>
