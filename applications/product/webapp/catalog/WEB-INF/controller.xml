@@ -3076,6 +3076,12 @@ under the License.
         <response name="error" type="view" value="EditProductPromoContent"/>
     </request-map>
 
+    <request-map uri="getChild">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.product.category.CategoryServices" invoke="getChildCategoryTree"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://product/widget/catalog/CommonScreens.xml#main"/>
 

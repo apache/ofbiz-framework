@@ -18,13 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.product.category;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -390,5 +398,117 @@ public class CategoryServices {
         if (productCategory != null) result.put("productCategory", productCategory);
         if (productCategoryMembers != null) result.put("productCategoryMembers", productCategoryMembers);
         return result;
+    }
+    
+    // Please note : the structure of map in this function is according to the JSON data map of the jsTree
+    @SuppressWarnings("unchecked")
+    public static void getChildCategoryTree(HttpServletRequest request, HttpServletResponse response){
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String productCategoryId = request.getParameter("productCategoryId");
+        String isCatalog = request.getParameter("isCatalog");
+        String entityName = null;
+        String primaryKeyName = null;
+        
+        if (isCatalog.equals("true")) {
+            entityName = "ProdCatalog";
+            primaryKeyName = "prodCatalogId";
+        } else {
+            entityName = "ProductCategory";
+            primaryKeyName = "productCategoryId";
+        }
+        
+        List categoryList = FastList.newInstance();
+        List<GenericValue> childOfCats;
+        
+        try {
+            GenericValue category = delegator.findByPrimaryKey(entityName ,UtilMisc.toMap(primaryKeyName, productCategoryId));
+            if (UtilValidate.isNotEmpty(category)) {
+                if (isCatalog.equals("true")) {
+                    CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
+                    childOfCats = (List<GenericValue>) request.getAttribute("ChildCatalogList");
+                } else {
+                    childOfCats = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
+                            "parentProductCategoryId", productCategoryId ));
+                }
+                if (UtilValidate.isNotEmpty(childOfCats)) {
+                    for (GenericValue childOfCat : childOfCats ) {
+                        
+                        Object catId = null;
+                        String catNameField = null;
+                        
+                        catId = childOfCat.get("productCategoryId");
+                        catNameField = "CATEGORY_NAME";
+                        
+                        Map josonMap = FastMap.newInstance();
+                        List<GenericValue> childList = null;
+                        
+                        // Get the child list of chosen category
+                        childList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
+                                    "parentProductCategoryId", catId));
+                        
+                        // Get the chosen category information for the categoryContentWrapper
+                        GenericValue cate = delegator.findByPrimaryKey("ProductCategory" ,UtilMisc.toMap("productCategoryId",catId));
+                        
+                        // If chosen category's child exists, then put the arrow before category icon
+                        if (UtilValidate.isNotEmpty(childList)) {
+                            josonMap.put("state", "closed");
+                        }
+                        Map dataMap = FastMap.newInstance();
+                        Map dataAttrMap = FastMap.newInstance();
+                        CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
+                        
+                        if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField))) {
+                            dataMap.put("title", categoryContentWrapper.get(catNameField)+"["+catId+"]");
+                        } else {
+                            dataMap.put("title", catId);
+                        }
+                        dataAttrMap.put("onClick","window.location.href='EditCategory?productCategoryId="+catId+"'; return false;");
+                        
+                        dataMap.put("attr", dataAttrMap);
+                        josonMap.put("data", dataMap);
+                        Map attrMap = FastMap.newInstance();
+                        attrMap.put("id", catId);
+                        attrMap.put("isCatalog", false);
+                        attrMap.put("rel", "CATEGORY");
+                        josonMap.put("attr",attrMap);
+                        
+                        categoryList.add(josonMap);
+                    }
+                    toJsonObjectList(categoryList,response);
+                }
+            }
+        } catch (GenericEntityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void toJsonObjectList(List attrList, HttpServletResponse response){
+        String jsonStr = "[";
+        for (Object attrMap : attrList) {
+            JSONObject json = JSONObject.fromObject(attrMap);
+            jsonStr = jsonStr + json.toString() + ',';
+        }
+        jsonStr = jsonStr + "{ } ]";
+        if (UtilValidate.isEmpty(jsonStr)) {
+            Debug.logError("JSON Object was empty; fatal error!",module);
+        }
+        // set the X-JSON content type
+        response.setContentType("application/json");
+        // jsonStr.length is not reliable for unicode characters
+        try {
+            response.setContentLength(jsonStr.getBytes("UTF8").length);
+        } catch (UnsupportedEncodingException e) {
+            Debug.logError("Problems with Json encoding",module);
+        }
+        // return the JSON String
+        Writer out;
+        try {
+            out = response.getWriter();
+            out.write(jsonStr);
+            out.flush();
+        } catch (IOException e) {
+            Debug.logError("Unable to get response writer",module);
+        }
     }
 }

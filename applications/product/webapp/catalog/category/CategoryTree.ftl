@@ -16,66 +16,31 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/ui/development-bundle/external/jquery.cookie.js</@ofbizContentUrl>"></script>
-<script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 
-<script type="application/javascript">
-<#-- some labels are not unescaped in the JSON object so we have to do this manuely -->
+<script type="text/javascript">
+<#-- some labels are not unescaped in the JSON object so we have to do this manualy -->
 function unescapeHtmlText(text) {
     return jQuery('<div />').html(text).text()
 }
-
-createTree();
+ 
+jQuery(window).load(createTree());
 
 <#-- creating the JSON Data -->
 var rawdata = [
-      <#if (prodCatalogList?has_content)>
-          <@fillCatalogTree prodCatalogs = prodCatalogList/>
-      </#if>
-      
-      <#macro fillCatalogTree prodCatalogs>
-          <#if (prodCatalogs?has_content)>
-            <#list prodCatalogs as catalog>
-                <#assign catalogId = catalog.prodCatalogId/>
-                <#if !catalogName?has_content>
-                    
-                </#if>
-                <#assign categoryList = catalog.rootCategoryList/>
-                {
-                <#if catalogId?has_content>
-                    "data": {"title" : unescapeHtmlText("<#if catalog.catalogName?has_content>${catalog.catalogName}<#else>${catalogId}</#if> <#if catalog.catalogName?has_content>[${catalogId}]</#if>"), "attr": {"href": "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditProdCatalog?prodCatalogId=${catalogId}</@ofbizUrl>');"}},
-                    "attr": {"id" : "${catalogId}", "rel" : "root"},
-                    
-                </#if>
-                <#if categoryList?has_content>
-                    "children": [
-                        <@fillCategoryTree childCategoryList = categoryList/>
-                    ]
-                </#if>
-                <#if catalog_has_next>
-                },
-                <#else>
-                }
-                </#if>
-            </#list>
-          </#if>
-        </#macro>
+        <#if (completedTree?has_content)>
+            <@fillTree rootCat = completedTree/>
+        </#if>
         
-        <#macro fillCategoryTree childCategoryList>
-            <#if childCategoryList?has_content>
-                <#list childCategoryList as childCategory>
+        <#macro fillTree rootCat>
+            <#if (rootCat?has_content)>
+                <#list rootCat as root>
                     {
-                    <#local productCategoryId = childCategory.productCategoryId/>
-                    <#local childCategorys = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "childCategoryList", productCategoryId, true)>
-                    "data": {"title" : unescapeHtmlText("<#if childCategory.categoryName?has_content>${childCategory.categoryName}<#else>${productCategoryId}</#if> <#if childCategory.categoryName?has_content>[${productCategoryId}]</#if>"), "attr": {"href": "<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>", "onClick" : "callDocument('<@ofbizUrl>/EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>');"}},
-                    "attr": {"id" : "${productCategoryId}", "rel" : "CATEGORY"},
-                    
-                    <#if childCategoryList?has_content>
-                        "children": [
-                            <@fillCategoryTree childCategoryList = childCategorys/>
-                        ]
+                    "data": {"title" : unescapeHtmlText("<#if root.categoryName?exists>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"onClick" : "window.location.href='<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>'; return false;"}},
+                    "attr": {"id" : "${root.productCategoryId}", "rel" : "root", "isCatalog" : "${root.isCatalog?string}"}
+                    <#if root.child?exists>
+                    ,"state" : "closed"
                     </#if>
-                    <#if childCategory_has_next>
+                    <#if root_has_next>
                         },
                     <#else>
                         }
@@ -84,33 +49,39 @@ var rawdata = [
             </#if>
         </#macro>
      ];
-     
 
- <#-------------------------------------------------------------------------------------create Tree-->
+ <#-- create Tree-->
   function createTree() {
     jQuery(function () {
-        <#if !openTree>
+        <#-- reset the tree when user browsing out of scope of catalog manager -->
+        <#if stillInCatalogManager>
             $.cookie('jstree_select', null);
             $.cookie('jstree_open', null);
         <#else>
-            $.cookie("jstree_select", "${productCategoryId}");
+        <#-- Coloring the category when type the product categoryId manualy at the url bar -->
+            $.cookie('jstree_select', "<#if productCategoryId?exists>${productCategoryId}<#elseif prodCatalogId?exists>${prodCatalogId}<#elseif showProductCategoryId?exists>${showProductCategoryId}</#if>");
         </#if>
         jQuery("#tree").jstree({
-        "plugins" : [ "themes", "json_data", "cookies", "ui", "types"],
+        "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],
             "json_data" : {
-                "data" : rawdata
+                "data" : rawdata,
+                          "ajax" : { "url" : "<@ofbizUrl>getChild</@ofbizUrl>", "type" : "POST",
+                          "data" : function (n) {
+                            return { 
+                                "isCatalog" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
+                                "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1
+                        }; 
+                    }
+                }
             },
             "themes" : {
                 "icons" : true
-            },
-            "cookies" : {
-                "save_opened" : false
             },
         "types" : {
             "valid_children" : [ "root" ],
             "types" : {
                 "CATEGORY" : {
-                    "icon" : { 
+                    "icon" : {
                         "image" : "/images/jquery/plugins/jsTree/themes/apple/d.png",
                         "position" : "10px40px"
                     }
@@ -118,27 +89,8 @@ var rawdata = [
             }
         }
         });
-        
     });
-    
   }
-  
-  function callDocument(url) {
-    $(location).attr('href', url);
-  }
-
 </script>
 
 <div id="tree"></div>
-<style type="text/css">
-    .jstree-default a 
-        {
-            white-space:normal !important;
-            height: auto;
-        }
-    .jstree-default .jstree-leaf > ins
-        {
-            background-position:-36px 0;
-            vertical-align: top;
-        }
-</style> 

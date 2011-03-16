@@ -17,56 +17,103 @@
  * under the License.
  */
 
+/*
+ * This script is also referenced by the ecommerce's screens and
+ * should not contain order component's specific code.
+ */
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
-import org.ofbiz.entity.GenericValue;
 import javolution.util.FastMap;
 import javolution.util.FastList;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
-import javax.servlet.http.HttpSession;
+import javolution.util.FastList.*;
+import org.ofbiz.entity.*;
+import java.util.List;
 
-prodCatalogList = FastList.newInstance();
+// Put the result of CategoryWorker.getRelatedCategories into the fillTree function as attribute.
+// The fillTree function will return the complete list of category of given catalog.
+// PLEASE NOTE : The structure of the complete list of fillTree function is according to the JSON_DATA plugin of the jsTree.
+
+List fillTree(rootCat) {
+    if (rootCat) {
+        rootCat.sort{ it.productCategoryId }
+        def listTree = FastList.newInstance();
+        for (root in rootCat) {
+            preCatChilds = delegator.findByAnd("ProductCategoryRollup", ["parentProductCategoryId": root.productCategoryId]);
+            catChilds = EntityUtil.getRelated("CurrentProductCategory",preCatChilds);
+            def childList = FastList.newInstance();
+            def rootMap = FastMap.newInstance();
+            category = delegator.findByPrimaryKey("ProductCategory", ["productCategoryId": root.productCategoryId]);
+            categoryContentWrapper = new CategoryContentWrapper(category, request);
+            context.title = categoryContentWrapper.CATEGORY_NAME;
+            categoryDescription = categoryContentWrapper.DESCRIPTION;
+            
+            if (categoryContentWrapper.CATEGORY_NAME) {
+                rootMap["categoryName"] = categoryContentWrapper.CATEGORY_NAME;
+            } else {
+                rootMap["categoryName"] = root.categoryName;
+            }
+            if (categoryContentWrapper.DESCRIPTION) {
+                rootMap["categoryDescription"] = categoryContentWrapper.DESCRIPTION;
+            } else {
+                rootMap["categoryDescription"] = root.description;
+            }
+            rootMap["productCategoryId"] = root.productCategoryId;
+            rootMap["child"] = catChilds;
+            rootMap["isCatalog"] = false;
+            listTree.add(rootMap);
+            
+        }
+        return listTree;
+    }
+}
+
+completedTree =  FastList.newInstance();
+
+// Get the Catalogs
 prodCatalogs = delegator.findByAnd("ProdCatalog");
+
 if (prodCatalogs.size() > 0) {
     for (i = 0; i < prodCatalogs.size(); i++) {
         
         prodCatalogMap = FastMap.newInstance();
         prodCatalog = prodCatalogs[i];
         prodCatalogId = prodCatalog.getString("prodCatalogId");
-        prodCatalogMap.put("prodCatalogId", prodCatalogId);
-        prodCatalogMap.put("catalogName", prodCatalog.getString("catalogName"));
-        prodCatalogMap.put("catalogName", prodCatalog.getString("catalogName"));
-
-        //root category list of the catalog
-        prodCategoryList = CatalogWorker.getProdCatalogCategories(request, prodCatalogId, null);
-        rootCategoryList = FastList.newInstance();
-        if (prodCategoryList.size() > 0) {
-            for (j = 0; j < prodCategoryList.size(); j++) {
-                prodCategory = prodCategoryList[j];
-                rootCategory = delegator.findByPrimaryKey("ProductCategory", ["productCategoryId" : prodCategory.getString("productCategoryId")]);
-                rootCategoryList.add(rootCategory);
-            }
-        }
-
-        if (rootCategoryList) {
-            prodCatalogMap.put("rootCategoryList", rootCategoryList);
-            prodCatalogList.add(prodCatalogMap);
+        prodCatalogMap.put("productCategoryId", prodCatalogId);
+        prodCatalogMap.put("categoryName", prodCatalog.getString("catalogName"));
+        prodCatalogMap.put("isCatalog", true);
+        
+        CategoryWorker.getRelatedCategories(request, "CatalogList_"+i, CatalogWorker.getCatalogTopCategoryId(request, prodCatalogId), true);
+        categoryList = null;
+        categoryList = request.getAttribute("CatalogList_"+i);
+        prodCatalogTree = FastList.newInstance();
+        
+        if (categoryList) {
+            prodCatalogTree = fillTree(categoryList);
+            prodCatalogMap.put("child", prodCatalogTree);
+            completedTree.add(prodCatalogMap);
         }
     }
 }
+// The complete tree list for the category tree
+context.completedTree = completedTree;
 
-context.prodCatalogList = prodCatalogList;
-
-openTree = false;
+stillInCatalogManager = true;
 productCategoryId = null;
-if ((parameters.productCategoryId != null) || (parameters.showProductCategoryId != null)) {
-    openTree = true;
-    productCategoryId = (parameters.productCategoryId != null) ? parameters.productCategoryId : parameters.showProductCategoryId;
-}
+prodCatalogId = null;
+showProductCategoryId = null;
 
-context.openTree = openTree;
+// Reset tree condition check. Are we still in the Catalog Manager ?. If not , then reset the tree.
+if ((parameters.productCategoryId != null) || (parameters.showProductCategoryId != null)) {
+    stillInCatalogManager = false;
+    productCategoryId = parameters.productCategoryId;
+    showProductCategoryId = parameters.showProductCategoryId;
+} else if (parameters.prodCatalogId != null) {
+    stillInCatalogManager = false;
+    prodCatalogId = parameters.prodCatalogId;
+}
+context.stillInCatalogManager = stillInCatalogManager;
 context.productCategoryId = productCategoryId;
+context.prodCatalogId = prodCatalogId;
+context.showProductCategoryId = showProductCategoryId;
