@@ -655,7 +655,7 @@ under the License.
         <field name="datetimeStarted" type="date-time"></field>
         <field name="datetimeEnded" type="date-time"></field>
         <field name="subject" type="long-varchar"></field>
-        <field name="contentMimeTypeId" type="id-long"/>
+        <field name="contentMimeTypeId" type="id-vlong"/>
         <field name="content" type="very-long"></field>
         <field name="note" type="comment"></field>
         <field name="reasonEnumId" type="id"></field>
