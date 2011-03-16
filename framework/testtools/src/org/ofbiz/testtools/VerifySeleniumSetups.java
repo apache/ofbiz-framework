@@ -69,24 +69,41 @@ public class VerifySeleniumSetups {
     public static String verifyConfig(HttpServletRequest request, HttpServletResponse response){
         boolean lib = false;
         boolean urlset = false;
+        boolean internetAccess = false;
         Map<String,Object> msgMap = FastMap.newInstance();
         Properties urlProps = null;
+        Properties testProps = null;
         try{
-            /* Check and down load selenium-server.jar */
+            /* Check and download selenium-server.jar */
+            URL testProp = UtilURL.fromResource("seleniumXml.properties");
+            if (testProps == null) {
+                testProps = new Properties();
+                if (testProp == null) {
+                    String errMsg = "Cannot resolve location from test.properties.";
+                    throw new MalformedURLException(errMsg);
+                }
+            }
+            internetAccess = UtilProperties.getPropertyAsBoolean("seleniumXml", "internet.access", true);
             File file = new File(libPath);
-            URL url = new URL(urlSite);
-            URLConnection connection = url.openConnection();
-            contentLength = connection.getContentLength();
-            if (contentLength == -1) {
-                request.setAttribute("_ERROR_MESSAGE_", "can not conect to the internet");
+            if (internetAccess) {
+                URL url = new URL(urlSite);
+                URLConnection connection = url.openConnection();
+                contentLength = connection.getContentLength();
+                if (contentLength == -1) {
+                    request.setAttribute("_ERROR_MESSAGE_", "can not conect to the internet");
+                }
+                Debug.log("file size. "+contentLength,module);
+                if (file.exists()) {
+                    if (contentLength == file.length()) {
+                        lib = true;
+                    } else lib = false;
+                    msgMap.put("LIBFLAG",lib);
+                }
+            } else {
+                if (file.exists()) {
+                    msgMap.put("LIBFLAG",true);
+                }
             }
-            Debug.log("file size. "+contentLength,module);
-            if (file.exists()) {
-                if (contentLength == file.length()) {
-                    lib = true;
-                } else lib = false;
-            }
-            msgMap.put("LIBFLAG",lib);
 
             /* Check a change use HTTP as the default */
             String httpStatus = null;
