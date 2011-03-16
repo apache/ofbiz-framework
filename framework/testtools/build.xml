@@ -81,9 +81,16 @@ under the License.
     </target>
     
     <target name="install-seleniumxml" depends="init" description="Download the selenium files">
-        <!--mkdir dir="${selenium.lib.dir}"/-->
-        <!-- Note: If the download path changes please also update the urlSite field in VerifySeleniumSteups.java -->
-        <get src="http://downloads.sourceforge.net/seleniumxml/selenium-server-1.0.2-SNAPSHOT-standalone.jar?use_mirror="
-            dest="${selenium.lib.dir}/selenium-server.jar" usetimestamp="true" />
+        <get src="http://selenium.googlecode.com/files/selenium-remote-control-1.0.3.zip"
+             dest="${selenium.lib.dir}/selenium-remote-control-1.0.3.zip" usetimestamp="true" verbose="true"/>
+        <unzip src="${selenium.lib.dir}/selenium-remote-control-1.0.3.zip"
+                dest="${selenium.lib.dir}">
+            <patternset>
+                <include name="selenium-server-1.0.3/selenium-server.jar"/>
+            </patternset>
+        </unzip>
+        <move file="${selenium.lib.dir}/selenium-server-1.0.3/selenium-server.jar" todir="${selenium.lib.dir}"/>
+        <delete dir="${selenium.lib.dir}/selenium-server-1.0.3"/>
+        <delete file="${selenium.lib.dir}/selenium-remote-control-1.0.3.zip"/>
     </target>
 </project>

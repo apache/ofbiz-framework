@@ -138,7 +138,7 @@ under the License.
     </target>
 
     <target name="download-selenium"
-          description="Download the selenium files">
+          description="Download the selenium server v1.0.3 20.8 MB download">
         <subant target="install-seleniumxml">
             <filelist dir="." files="framework/testtools/build.xml"/>
         </subant>
