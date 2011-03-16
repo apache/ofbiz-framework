@@ -44,7 +44,7 @@ under the License.
                 <set field="layoutSettings.middleTopMessage3" value="${groovy:resultNote.lastSystemInfoNote3!=null?resultNote.lastSystemInfoNote3.noteDateTime.toString().substring(0,16) + &quot; &quot; + resultNote.lastSystemInfoNote3.noteInfo:&quot;&quot;}"/>
                 <set field="layoutSettings.middleTopLink3" value="${linkStart}${resultNote.lastSystemInfoNote3.moreInfoPortletId}&amp;amp;id=${resultNote.lastSystemInfoNote3.moreInfoItemId}"/>
                 <!-- Help link actions -->
-                <set field="helpTopic" from-field="webSiteId + '_' + requestAttributes._CURRENT_VIEW_"/>
+                <set field="helpTopic" value="${groovy: webSiteId + '_' + requestAttributes._CURRENT_VIEW_}"/>
                 <entity-and list="pageAvail" entity-name="ContentAssoc">
                     <field-map field-name="mapKey" from-field="helpTopic"/>
                 </entity-and>
