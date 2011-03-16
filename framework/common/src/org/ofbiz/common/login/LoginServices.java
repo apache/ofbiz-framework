@@ -537,8 +537,13 @@ public class LoginServices {
         userLoginToCreate.set("passwordHint", passwordHint);
         userLoginToCreate.set("enabled", enabled);
         userLoginToCreate.set("requirePasswordChange", requirePasswordChange);
-        userLoginToCreate.set("partyId", partyId);
         userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword);
+        try {
+            userLoginToCreate.set("partyId", partyId);
+        } catch (Exception e) {
+            // Will get thrown in framework-only installation
+            Debug.logInfo(e, "Exception thrown while setting UserLogin partyId field: ", module);
+        }
 
         try {
             EntityCondition condition = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.EQUALS, EntityFunction.UPPER(userLoginId));
