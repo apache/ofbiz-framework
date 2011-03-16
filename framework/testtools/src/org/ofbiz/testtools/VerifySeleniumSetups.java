@@ -102,6 +102,8 @@ public class VerifySeleniumSetups {
             } else {
                 if (file.exists()) {
                     msgMap.put("LIBFLAG",true);
+                } else {
+                    msgMap.put("LIBFLAG", "noInternet");
                 }
             }
 
