@@ -310,7 +310,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
     GLOBAL_LOOKUP_REF.setReference(lookupId, this);
     
     // bind click Event to Dialog button
-    jQuery("#" + lookupId + "_button").live('click',   
+    jQuery("#" + lookupId + "_button").click(
         function (){
             jQuery("#" + lookupId).dialog("open");
             jQuery("#" + lookupId).dialog(dialogOpts);
