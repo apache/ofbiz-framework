@@ -315,6 +315,10 @@ public class ModelForm extends ModelWidget {
                     this.fieldList.add(childField);
                     this.fieldMap.put(childField.getName(), childField);
                 }
+
+                this.fieldGroupMap = parent.fieldGroupMap;
+                this.fieldGroupList = parent.fieldGroupList;
+
             }
         }
 
