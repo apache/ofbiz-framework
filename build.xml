@@ -773,7 +773,8 @@ under the License.
         </cobertura-report>
     </target>
 
-    <target name="sonar" depends="download-sonar-ant-task, sonar-init">
+    <target name="sonar" depends="download-sonar-ant-task, sonar-init"
+            description="Sonar code analysis. You need a Sonar instance running to use it. More info on http://www.sonarsource.org/">
         <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
             <arg value="info"/>
             <arg value="--xml"/>
