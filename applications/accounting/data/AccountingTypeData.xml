@@ -483,6 +483,8 @@ under the License.
     <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="CRT_FEE_ADJ" parentTypeId="CRETURN_ADJ"/>
     <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="CRT_MISC_ADJ" parentTypeId="CRETURN_ADJ"/>
     <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="CRT_SALES_TAX_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Tax" hasTable="N" invoiceItemTypeId="CRT_VAT_TAX_ADJ" parentTypeId="CRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Price Correct" hasTable="N" invoiceItemTypeId="CRT_VAT_PC_ADJ" parentTypeId="CRETURN_ADJ"/>
     <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="CRT_SHIPPING_ADJ" parentTypeId="CRETURN_ADJ"/>
     <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="CRT_SURCHARGE_ADJ" parentTypeId="CRETURN_ADJ"/>
     <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="CRT_ADD_FEATURE_ADJ" parentTypeId="CRETURN_ADJ"/>
@@ -507,6 +509,8 @@ under the License.
     <InvoiceItemType description="Return Fee" hasTable="N" invoiceItemTypeId="SRT_FEE_ADJ" parentTypeId="SRETURN_ADJ"/>
     <InvoiceItemType description="Return Miscellaneous Charges" hasTable="N" invoiceItemTypeId="SRT_MISC_ADJ" parentTypeId="SRETURN_ADJ"/>
     <InvoiceItemType description="Return Sales Tax" hasTable="N" invoiceItemTypeId="SRT_SALES_TAX_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Tax" hasTable="N" invoiceItemTypeId="SRT_VAT_TAX_ADJ" parentTypeId="SRETURN_ADJ"/>
+    <InvoiceItemType description="Return VAT Price Correct" hasTable="N" invoiceItemTypeId="SRT_VAT_PC_ADJ" parentTypeId="SRETURN_ADJ"/>
     <InvoiceItemType description="Return Shipping and Handling" hasTable="N" invoiceItemTypeId="SRT_SHIPPING_ADJ" parentTypeId="SRETURN_ADJ"/>
     <InvoiceItemType description="Return Surcharge" hasTable="N" invoiceItemTypeId="SRT_SURCHARGE_ADJ" parentTypeId="SRETURN_ADJ"/>
     <InvoiceItemType description="Return Additional Feature" hasTable="N" invoiceItemTypeId="SRT_ADD_FEATURE_ADJ" parentTypeId="SRETURN_ADJ"/>
@@ -580,6 +584,8 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="CRT_FEE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="CRT_MISC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="CRT_SALES_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="CRT_VAT_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="CRT_VAT_PC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SHIPPING_ADJ" invoiceItemTypeId="CRT_SHIPPING_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_SURCHARGE_ADJ" invoiceItemTypeId="CRT_SURCHARGE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_ADD_FEATURE_ADJ" invoiceItemTypeId="CRT_ADD_FEATURE_ADJ"/>
@@ -596,6 +602,8 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FEE_ADJ" invoiceItemTypeId="SRT_FEE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_MISC_CHARGE_ADJ" invoiceItemTypeId="SRT_MISC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SALES_TAX_ADJ" invoiceItemTypeId="SRT_SALES_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_TAX_ADJ" invoiceItemTypeId="SRT_VAT_TAX_ADJ"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_VAT_PC_ADJ" invoiceItemTypeId="SRT_VAT_PC_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SHIPPING_ADJ" invoiceItemTypeId="SRT_SHIPPING_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_SURCHARGE_ADJ" invoiceItemTypeId="SRT_SURCHARGE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_ADD_FEATURE_ADJ" invoiceItemTypeId="SRT_ADD_FEATURE_ADJ"/>
