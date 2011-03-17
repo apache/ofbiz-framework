@@ -20,9 +20,11 @@
 /* THE CUSTOM CSS FOR AJUST THE CATEGORY TREE */
 .jstree-default a { 
 white-space:normal !important;
-height: auto;
 }
 .jstree-default .jstree-leaf > ins { 
 background-position:-36px 0;
 vertical-align: top;
+}
+body:nth-of-type(1) .jstree-default a {
+height: auto;
 }
