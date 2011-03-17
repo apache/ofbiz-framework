@@ -1828,8 +1828,12 @@ public class InvoiceServices {
             String invoiceTypeId;
             String description;
             // get the return header
-            GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));
-            if ("CUSTOMER_RETURN".equals(returnHeader.getString("returnHeaderTypeId"))) {
+            GenericValue returnHeader = delegator.findByPrimaryKey("ReturnHeader", UtilMisc.toMap("returnId", returnId));                                                  
+            if (returnHeader == null || returnHeader.get("returnHeaderTypeId") == null) {
+                return ServiceUtil.returnError("Return type cannot be null");                                                      
+            }
+            
+            if (returnHeader.getString("returnHeaderTypeId").startsWith("CUSTOMER_")) {
                 invoiceTypeId = "CUST_RTN_INVOICE";
                 description = "Return Invoice for Customer Return #" + returnId;
             } else {
