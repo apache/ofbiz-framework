@@ -1025,7 +1025,7 @@
             <if-empty field="highInfo.estimatedStartDate">
                 <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate"/>
                 <else>
-                    <if-compare-field to-field="lowInfo.estimatedStartDate" field="highInfo.estimatedStartDate" operator="greater">
+                    <if-compare-field to-field="lowInfo.estimatedStartDate" field="highInfo.estimatedStartDate" operator="greater" type="Timestamp">
                         <set field="highInfo.estimatedStartDate" from-field="lowInfo.estimatedStartDate"/>
                     </if-compare-field>
                 </else>
@@ -1035,7 +1035,7 @@
             <if-empty field="highInfo.estimatedCompletionDate">
                 <set field="highInfo.estimatedCompletionDate" from-field="lowInfo.estimatedCompletionDate"/>
                 <else>
-                    <if-compare-field to-field="lowInfo.estimatedCompletionDate" field="highInfo.estimatedCompletionDate" operator="less">
+                    <if-compare-field to-field="lowInfo.estimatedCompletionDate" field="highInfo.estimatedCompletionDate" operator="less" type="Timestamp">
                         <set field="highInfo.estimatedCompletionDate" from-field="lowInfo.estimatedCompletionDate"/>
                     </if-compare-field>
                 </else>
@@ -1045,7 +1045,7 @@
             <if-empty field="highInfo.actualStartDate">
                 <set field="highInfo.actualStartDate" from-field="lowInfo.actualStartDate"/>
                 <else>
-                    <if-compare-field to-field="lowInfo.actualStartDate" field="highInfo.actualStartDate" operator="greater">
+                    <if-compare-field to-field="lowInfo.actualStartDate" field="highInfo.actualStartDate" operator="greater" type="Timestamp">
                         <set field="highInfo.actualStartDate" from-field="lowInfo.actualStartDate"/>
                     </if-compare-field>
                 </else>
@@ -1055,7 +1055,7 @@
             <if-empty field="highInfo.actualCompletionDate">
                 <set field="highInfo.actualCompletionDate" from-field="lowInfo.actualCompletionDate"/>
                 <else>
-                    <if-compare-field to-field="lowInfo.actualCompletionDate" field="highInfo.actualCompletionDate" operator="less">
+                    <if-compare-field to-field="lowInfo.actualCompletionDate" field="highInfo.actualCompletionDate" operator="less" type="Timestamp">
                         <set field="highInfo.actualCompletionDate" from-field="lowInfo.actualCompletionDate"/>
                     </if-compare-field>
                 </else>
