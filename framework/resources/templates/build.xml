@@ -9,8 +9,8 @@
 
     <property environment="env"/>
     <property name="desc" value="@component-resource-name@ Component"/>
-    <property name="name" value="ofbiz-@component-name@"/>
-    <property name="component-name" value="ofbiz-@component-name@"/>
+    <property name="name" value="@component-name@"/>
+    <property name="component-name" value="@component-name@"/>
     <property name="ofbiz.home.dir" value="../.."/>
     <property name="src.dir" value="src"/>
     <property name="dtd.dir" value="dtd"/>
@@ -76,7 +76,7 @@
                 <or>
                     <not><isset property="component-name"/></not>
                     <not>
-                        <resourcecount count="3">
+                        <resourcecount count="3" when="gt">
                             <fileset dir="patches" includes="*.patch"/>
                         </resourcecount>
                     </not>
@@ -94,7 +94,7 @@
                 <or>
                     <not><isset property="component-name"/></not>
                     <not>
-                        <resourcecount count="3">
+                        <resourcecount count="3" when="gt">
                             <fileset dir="patches" includes="*.patch"/>
                         </resourcecount>
                     </not>
