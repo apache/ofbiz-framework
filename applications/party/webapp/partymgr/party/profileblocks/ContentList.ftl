@@ -28,7 +28,7 @@ under the License.
             <#assign pcType = pContent.getRelatedOne("PartyContentType")>
             <tr>
               <td class="button-col"><a href="<@ofbizUrl>EditPartyContents?contentId=${pContent.contentId}&amp;partyId=${pContent.partyId}&amp;partyContentTypeId=${pContent.partyContentTypeId}&amp;fromDate=${pContent.fromDate}</@ofbizUrl>">${content.contentId}</a></td>
-              <td>${pcType.description?if_exists}</td>
+              <td>${(pcType.get("description", locale))?if_exists}</td>
               <td>${content.contentName?if_exists}</td>
               <td>${(contentType.get("description",locale))?if_exists}</td>
               <td>${(mimeType.description)?if_exists}</td>
