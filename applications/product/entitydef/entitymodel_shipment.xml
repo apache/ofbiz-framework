@@ -767,6 +767,9 @@ under the License.
         <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
         <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
       </relation>
+      <relation type="one" fk-name="SHPMNT_PS_SH_METH" rel-entity-name="ProductStoreShipmentMeth">
+          <key-map field-name="productStoreShipMethId"/>
+      </relation>
       <relation type="one" fk-name="SHPMNT_CE_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
