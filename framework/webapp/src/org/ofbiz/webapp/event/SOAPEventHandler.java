@@ -48,14 +48,14 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.service.engine.SoapSerializer;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
-import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.service.engine.SoapSerializer;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
+import org.ofbiz.webapp.control.RequestHandler;
 import org.w3c.dom.Document;
 
 /**
@@ -168,70 +168,98 @@ public class SOAPEventHandler implements EventHandler {
         Debug.logVerbose("[Processing]: SOAP Event", module);
 
         try {
-            // each is a different service call
             SOAPBody reqBody = reqEnv.getBody();
-            Iterator<Object> serviceIter = UtilGenerics.cast(reqBody.getChildElements());
-            while (serviceIter.hasNext()) {
-                Object serviceObj = serviceIter.next();
-                if (serviceObj instanceof OMElement) {
-                    OMElement serviceElement = (OMElement) serviceObj;
-                    String serviceName = serviceElement.getLocalName();
-                    Map<String, Object> parameters = UtilGenerics.cast(SoapSerializer.deserialize(serviceElement.toString(), delegator));
-                    try {
-                        // verify the service is exported for remote execution and invoke it
-                        ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
+            validateSOAPBody(reqBody);
+            OMElement serviceElement = reqBody.getFirstElement();
+            String serviceName = serviceElement.getLocalName();
+            Map<String, Object> parameters = UtilGenerics.cast(SoapSerializer.deserialize(serviceElement.toString(), delegator));
+            try {
+                // verify the service is exported for remote execution and invoke it
+                ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
 
-                        if (model != null && model.export) {
-                            Map<String, Object> results = dispatcher.runSync(serviceName, parameters);
-                            Debug.logVerbose("[EventHandler] : Service invoked", module);
-
-                            // setup the response
-                            Debug.logVerbose("[EventHandler] : Setting up response message", module);
-                            String xmlResults = SoapSerializer.serialize(results);
-                            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
-                            StAXOMBuilder resultsBuilder = new StAXOMBuilder(reader);
-                            OMElement resultSer = resultsBuilder.getDocumentElement();
-
-                            // create the response soap
-                            SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
-                            SOAPEnvelope resEnv = factory.createSOAPEnvelope();
-                            SOAPBody resBody = factory.createSOAPBody();
-                            OMElement resService = factory.createOMElement(new QName(serviceName + "Response"));
-                            resService.addChild(resultSer.getFirstElement());
-                            resBody.addChild(resService);
-                            resEnv.addChild(resBody);
-
-                            // The declareDefaultNamespace method doesn't work see (https://issues.apache.org/jira/browse/AXIS2-3156)
-                            // so the following doesn't work:
-                            // resService.declareDefaultNamespace(ModelService.TNS);
-                            // instead, create the xmlns attribute directly:
-                            OMAttribute defaultNS = factory.createOMAttribute("xmlns", null, ModelService.TNS);
-                            resService.addAttribute(defaultNS);
-
-                            // log the response message
-                            if (Debug.verboseOn()) {
-                                try {
-                                    Debug.log("Response Message:\n" + resEnv + "\n", module);
-                                } catch (Throwable t) {
-                                }
-                            }
-
-                            resEnv.serialize(response.getOutputStream());
-                            response.getOutputStream().flush();
-                        }
-
-                    } catch (GenericServiceException e) {
-                        //sendError(response, "Problem processing the service"); this causes a not a valid XML response. See https://issues.apache.org/jira/browse/OFBIZ-4207
-                        throw new EventHandlerException(e.getMessage(), e);
-                    }
+                if (model == null) {
+                    sendError(response, "Problem processing the service");
+                    Debug.logError("Could not find Service [" + serviceName + "].", module);
+                    return null;
                 }
+
+                if (!model.export) {
+                    sendError(response, "Problem processing the service");
+                    Debug.logError("Trying to call Service [" + serviceName + "] that is not exported.", module);
+                    return null;
+                }
+
+                Map<String, Object> serviceResults = dispatcher.runSync(serviceName, parameters);
+                Debug.logVerbose("[EventHandler] : Service invoked", module);
+
+                createAndSendSOAPResponse(serviceResults, serviceName, response);
+
+            } catch (GenericServiceException e) {
+                sendError(response, "Problem processing the service");
+                Debug.logError(e, module);
+                return null;
             }
         } catch (Exception e) {
             sendError(response, e.getMessage());
-            throw new EventHandlerException(e.getMessage(), e);
+            Debug.logError(e, module);
+            return null;
         }
 
         return null;
+    }
+
+    private void validateSOAPBody(SOAPBody reqBody) throws EventHandlerException {
+        // ensure the SOAPBody contains only one service call request
+        Integer numServiceCallRequests = 0;
+        Iterator<Object> serviceIter = UtilGenerics.cast(reqBody.getChildElements());
+        while (serviceIter.hasNext()) {
+            numServiceCallRequests++;
+            serviceIter.next();
+        }
+        if (numServiceCallRequests != 1) {
+            throw new EventHandlerException("One service call expected, but received: " + numServiceCallRequests.toString());
+        }
+    }
+
+    private void createAndSendSOAPResponse(Map<String, Object> serviceResults, String serviceName, HttpServletResponse response) throws EventHandlerException {
+        try {
+        // setup the response
+            Debug.logVerbose("[EventHandler] : Setting up response message", module);
+            String xmlResults = SoapSerializer.serialize(serviceResults);
+            XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
+            StAXOMBuilder resultsBuilder = new StAXOMBuilder(reader);
+            OMElement resultSer = resultsBuilder.getDocumentElement();
+
+            // create the response soap
+            SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
+            SOAPEnvelope resEnv = factory.createSOAPEnvelope();
+            SOAPBody resBody = factory.createSOAPBody();
+            OMElement resService = factory.createOMElement(new QName(serviceName + "Response"));
+            resService.addChild(resultSer.getFirstElement());
+            resBody.addChild(resService);
+            resEnv.addChild(resBody);
+
+            // The declareDefaultNamespace method doesn't work see (https://issues.apache.org/jira/browse/AXIS2-3156)
+            // so the following doesn't work:
+            // resService.declareDefaultNamespace(ModelService.TNS);
+            // instead, create the xmlns attribute directly:
+            OMAttribute defaultNS = factory.createOMAttribute("xmlns", null, ModelService.TNS);
+            resService.addAttribute(defaultNS);
+            
+            // log the response message
+            if (Debug.verboseOn()) {
+                try {
+                    Debug.log("Response Message:\n" + resEnv + "\n", module);
+                } catch (Throwable t) {
+                }
+            }
+
+            resEnv.serialize(response.getOutputStream());
+            response.getOutputStream().flush();
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            throw new EventHandlerException(e.getMessage(), e);
+        }
     }
 
     private void sendError(HttpServletResponse res, String errorMessage) throws EventHandlerException {
