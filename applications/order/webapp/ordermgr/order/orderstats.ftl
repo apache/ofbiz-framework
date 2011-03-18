@@ -128,7 +128,7 @@ under the License.
           </tr>
           <tr class="alternate-row">
             <td>&nbsp;</td>
-            <td>${uiLabelMap.OrderOrdered}</td>
+            <td>${uiLabelMap.OrderCreated}</td>
             <td align="right">${dayOrder?size?default(0)?string.number}</td>
             <td align="right">${weekOrder?size?default(0)?string.number}</td>
             <td align="right">${monthOrder?size?default(0)?string.number}</td>
