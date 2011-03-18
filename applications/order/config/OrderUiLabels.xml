@@ -2680,6 +2680,18 @@
         <value xml:lang="zh_CN">为报价建立请求</value>
         <value xml:lang="zh_TW">為報價建立要求</value>
     </property>
+    <property key="OrderCreated">
+        <value xml:lang="de">Erstellt</value>
+        <value xml:lang="en">Created</value>
+        <value xml:lang="es">Creado</value>
+        <value xml:lang="fr">Création</value>
+        <value xml:lang="it">Creato</value>
+        <value xml:lang="nl">Aangemaakt op</value>
+        <value xml:lang="ro">Creat</value>
+        <value xml:lang="ru">Создано</value>
+        <value xml:lang="th">สร้าง</value>
+        <value xml:lang="zh">已创建</value>
+    </property>
     <property key="OrderCreateExchangeOrder">
         <value xml:lang="en">Create Exchange Order</value>
         <value xml:lang="it">Creare ordine di cambio</value>
