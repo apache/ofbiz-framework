@@ -20,7 +20,7 @@ under the License.
 <#if parameters.redirect?exists>
 <html>
 <head>
-<meta HTTP-EQUIV="REFRESH" content="0; url=${parameters.redirect}">
+<meta HTTP-EQUIV="REFRESH" content="0; url=${parameters.redirect}"/>
 </head>
 </html>
 

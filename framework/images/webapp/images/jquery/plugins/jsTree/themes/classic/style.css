@@ -41,9 +41,10 @@
 #vakata-dragged.jstree-classic ins { background:transparent !important; }
 #vakata-dragged.jstree-classic .jstree-ok { background:url("d.png") -2px -53px no-repeat !important; }
 #vakata-dragged.jstree-classic .jstree-invalid { background:url("d.png") -18px -53px no-repeat !important; }
-#jstree-marker.jstree-classic { background:url("d.png") -41px -57px no-repeat !important; }
+#jstree-marker.jstree-classic { background:url("d.png") -41px -57px no-repeat !important; text-indent:-100px; }
 
 .jstree-classic a.jstree-search { color:aqua; }
+.jstree-classic .jstree-locked a { color:silver; cursor:default; }
 
 #vakata-contextmenu.jstree-classic-context, 
 #vakata-contextmenu.jstree-classic-context li ul { background:#f0f0f0; border:1px solid #979797; -moz-box-shadow: 1px 1px 2px #999; -webkit-box-shadow: 1px 1px 2px #999; box-shadow: 1px 1px 2px #999; }
@@ -56,4 +57,21 @@
 #vakata-contextmenu.jstree-classic-context li.vakata-separator { background:white; border-top:1px solid #e0e0e0; margin:0; }
 #vakata-contextmenu.jstree-classic-context li ul { margin-left:-4px; }
 
-/* TODO: IE6 support - the `>` selectors */
+/* IE6 BEGIN */
+.jstree-classic li, 
+.jstree-classic ins,
+#vakata-dragged.jstree-classic .jstree-invalid, 
+#vakata-dragged.jstree-classic .jstree-ok, 
+#jstree-marker.jstree-classic { _background-image:url("d.gif"); }
+.jstree-classic .jstree-open ins { _background-position:-72px 0; }
+.jstree-classic .jstree-closed ins { _background-position:-54px 0; }
+.jstree-classic .jstree-leaf ins { _background-position:-36px 0; }
+.jstree-classic .jstree-open a ins.jstree-icon { _background-position:-56px -36px; }
+.jstree-classic .jstree-closed a ins.jstree-icon { _background-position:-56px -19px; }
+.jstree-classic .jstree-leaf a ins.jstree-icon { _background-position:-56px -19px; }
+#vakata-contextmenu.jstree-classic-context ins { _display:none; }
+#vakata-contextmenu.jstree-classic-context li { _zoom:1; }
+.jstree-classic .jstree-undetermined a .jstree-checkbox { _background-position:-20px -19px; }
+.jstree-classic .jstree-checked a .jstree-checkbox { _background-position:-38px -19px; }
+.jstree-classic .jstree-unchecked a .jstree-checkbox { _background-position:-2px -19px; }
+/* IE6 END */

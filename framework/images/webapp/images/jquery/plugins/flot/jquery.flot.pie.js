@@ -403,7 +403,7 @@ More detail and specific examples can be found in the included HTML file.
 					}
 						
 					ctx.beginPath();
-					if (angle!=Math.PI*2)
+					if (Math.abs(angle - Math.PI*2) > 0.000000001)
 						ctx.moveTo(0,0); // Center of the pie
 					else if ($.browser.msie)
 						angle -= 0.0001;
@@ -607,12 +607,9 @@ More detail and specific examples can be found in the included HTML file.
 				}
 			}
 			
-			// if no slice was found, quit
-			if (!item) 
-				return;
-				
 			// highlight the slice
-			highlight(item.series, eventname);
+			if (item) 
+			    highlight(item.series, eventname);
 				
 			// trigger any hover bind events
 			var pos = { pageX: e.pageX, pageY: e.pageY };
@@ -691,7 +688,7 @@ More detail and specific examples can be found in the included HTML file.
 				octx.fillStyle = "rgba(255, 255, 255, "+options.series.pie.highlight.opacity+")"; // this is temporary until we have access to parseColor
 				
 				octx.beginPath();
-				if (series.angle!=Math.PI*2)
+				if (Math.abs(series.angle - Math.PI*2) > 0.000000001)
 					octx.moveTo(0,0); // Center of the pie
 				octx.arc(0,0,radius,series.startAngle,series.startAngle+series.angle,false);
 				octx.closePath();

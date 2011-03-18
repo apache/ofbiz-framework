@@ -378,7 +378,6 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
        type: "POST",
        url: jQuery("#" + form).attr("action"),
        data: jQuery("#" + form).serialize(),
-       dataType: "json",
        success: function(data) {
                updateFunction(data);
        }

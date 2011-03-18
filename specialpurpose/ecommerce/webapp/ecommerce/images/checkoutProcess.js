@@ -254,7 +254,6 @@ function createUpdateCustomerAndShippingAddress() {
     jQuery.ajax({
         url: 'createUpdateShippingAddress',
         type: 'POST',
-        dataType: 'json',
         async: false,
         data: jQuery('#shippingForm').serialize(),
         success: function(json) {
@@ -288,7 +287,6 @@ function getShipOptions() {
         jQuery.ajax({
             url: 'getShipOptions',
             type: 'POST',
-            dataType: 'json',
             async: false,
             success: function(json) {
                 jQuery('#shippingFormServerError').fadeOut('fast');
@@ -327,7 +325,6 @@ function setShippingOption() {
     jQuery.ajax({
         url: 'setShippingOption',
         type: 'POST',
-        dataType: 'json',
         async: false,
         data: jQuery('#shippingOptionForm').serialize(),
         success: function(json) {
@@ -374,7 +371,6 @@ function processBillingAndPayment() {
     jQuery.ajax({
         url: 'createUpdateBillingAndPayment',
         type: 'POST',
-        dataType: 'json',
         data: jQuery('#billingForm').serialize(),
         async: false,
         success: function(json) {
@@ -432,7 +428,6 @@ function addPromoCode() {
     jQuery.ajax({
         url: 'silentAddPromoCode',
         type: 'POST',
-        dataType: 'json',
         data: {"productPromoCodeId" : jQuery('#productPromoCode').val()},
         success: function(json) {
             jQuery('#cartFormServerError').fadeOut('fast');
@@ -454,7 +449,6 @@ function getProductLineItemIndex(event, productId) {
     jQuery.ajax({
         url: 'getShoppingCartItemIndex',
         type: 'POST',
-        dataType: 'json',
         async: false,
         data: formValues,
         success: function(json) {
@@ -495,7 +489,6 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
     jQuery.ajax({
         url: 'cartItemQtyUpdate',
         type: 'POST',
-        dataType: 'json',
         data: formValues,
         success: function(json) {
             if (json.totalQuantity == 0) {
