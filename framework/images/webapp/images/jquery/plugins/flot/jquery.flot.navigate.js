@@ -17,12 +17,13 @@ Options:
   
   pan: {
     interactive: false
+    cursor: "move"      // CSS mouse cursor value used when dragging, e.g. "pointer"
     frameRate: 20
   }
 
   xaxis, yaxis, x2axis, y2axis: {
-    zoomRange: null  // or [number, number] (min range, max range)
-    panRange: null   // or [number, number] (min, max)
+    zoomRange: null  // or [number, number] (min range, max range) or false
+    panRange: null   // or [number, number] (min, max) or false
   }
   
 "interactive" enables the built-in drag/click behaviour. If you enable
@@ -32,6 +33,9 @@ moving around; the same for zoom.
 "amount" specifies the default amount to zoom in (so 1.5 = 150%)
 relative to the current viewport.
 
+"cursor" is a standard CSS mouse cursor string used for visual
+feedback to the user when dragging.
+
 "frameRate" specifies the maximum number of times per second the plot
 will update itself while the user is panning around on it (set to null
 to disable intermediate pans, the plot will then not update until the
@@ -40,11 +44,13 @@ mouse button is released).
 "zoomRange" is the interval in which zooming can happen, e.g. with
 zoomRange: [1, 100] the zoom will never scale the axis so that the
 difference between min and max is smaller than 1 or larger than 100.
-You can set either end to null to ignore, e.g. [1, null].
+You can set either end to null to ignore, e.g. [1, null]. If you set
+zoomRange to false, zooming on that axis will be disabled.
 
 "panRange" confines the panning to stay within a range, e.g. with
 panRange: [-10, 20] panning stops at -10 in one end and at 20 in the
-other. Either can be null, e.g. [-10, null].
+other. Either can be null, e.g. [-10, null]. If you set
+panRange to false, panning on that axis will be disabled.
 
 Example API usage:
 
@@ -114,66 +120,78 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
         },
         pan: {
             interactive: false,
+            cursor: "move",
             frameRate: 20
         }
     };
 
     function init(plot) {
+        function onZoomClick(e, zoomOut) {
+            var c = plot.offset();
+            c.left = e.pageX - c.left;
+            c.top = e.pageY - c.top;
+            if (zoomOut)
+                plot.zoomOut({ center: c });
+            else
+                plot.zoom({ center: c });
+        }
+
+        function onMouseWheel(e, delta) {
+            onZoomClick(e, delta < 0);
+            return false;
+        }
+        
+        var prevCursor = 'default', prevPageX = 0, prevPageY = 0,
+            panTimeout = null;
+
+        function onDragStart(e) {
+            if (e.which != 1)  // only accept left-click
+                return false;
+            var c = plot.getPlaceholder().css('cursor');
+            if (c)
+                prevCursor = c;
+            plot.getPlaceholder().css('cursor', plot.getOptions().pan.cursor);
+            prevPageX = e.pageX;
+            prevPageY = e.pageY;
+        }
+        
+        function onDrag(e) {
+            var frameRate = plot.getOptions().pan.frameRate;
+            if (panTimeout || !frameRate)
+                return;
+
+            panTimeout = setTimeout(function () {
+                plot.pan({ left: prevPageX - e.pageX,
+                           top: prevPageY - e.pageY });
+                prevPageX = e.pageX;
+                prevPageY = e.pageY;
+                                                    
+                panTimeout = null;
+            }, 1 / frameRate * 1000);
+        }
+
+        function onDragEnd(e) {
+            if (panTimeout) {
+                clearTimeout(panTimeout);
+                panTimeout = null;
+            }
+                    
+            plot.getPlaceholder().css('cursor', prevCursor);
+            plot.pan({ left: prevPageX - e.pageX,
+                       top: prevPageY - e.pageY });
+        }
+        
         function bindEvents(plot, eventHolder) {
             var o = plot.getOptions();
             if (o.zoom.interactive) {
-                function clickHandler(e, zoomOut) {
-                    var c = plot.offset();
-                    c.left = e.pageX - c.left;
-                    c.top = e.pageY - c.top;
-                    if (zoomOut)
-                        plot.zoomOut({ center: c });
-                    else
-                        plot.zoom({ center: c });
-                }
-                
-                eventHolder[o.zoom.trigger](clickHandler);
-
-                eventHolder.mousewheel(function (e, delta) {
-                    clickHandler(e, delta < 0);
-                    return false;
-                });
+                eventHolder[o.zoom.trigger](onZoomClick);
+                eventHolder.mousewheel(onMouseWheel);
             }
-            if (o.pan.interactive) {
-                var prevCursor = 'default', pageX = 0, pageY = 0,
-                    panTimeout = null;
-                
-                eventHolder.bind("dragstart", { distance: 10 }, function (e) {
-                    if (e.which != 1)  // only accept left-click
-                        return false;
-                    eventHolderCursor = eventHolder.css('cursor');
-                    eventHolder.css('cursor', 'move');
-                    pageX = e.pageX;
-                    pageY = e.pageY;
-                });
-                eventHolder.bind("drag", function (e) {
-                    if (panTimeout || !o.pan.frameRate)
-                        return;
 
-                    panTimeout = setTimeout(function () {
-                        plot.pan({ left: pageX - e.pageX,
-                                   top: pageY - e.pageY });
-                        pageX = e.pageX;
-                        pageY = e.pageY;
-                                                    
-                        panTimeout = null;
-                    }, 1/o.pan.frameRate * 1000);
-                });
-                eventHolder.bind("dragend", function (e) {
-                    if (panTimeout) {
-                        clearTimeout(panTimeout);
-                        panTimeout = null;
-                    }
-                    
-                    eventHolder.css('cursor', prevCursor);
-                    plot.pan({ left: pageX - e.pageX,
-                               top: pageY - e.pageY });
-                });
+            if (o.pan.interactive) {
+                eventHolder.bind("dragstart", { distance: 10 }, onDragStart);
+                eventHolder.bind("drag", onDrag);
+                eventHolder.bind("dragend", onDragEnd);
             }
         }
 
@@ -212,10 +230,14 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
                     }
                 };
 
-            $.each(plot.getUsedAxes(), function(i, axis) {
+            $.each(plot.getAxes(), function(_, axis) {
                 var opts = axis.options,
                     min = minmax[axis.direction].min,
-                    max = minmax[axis.direction].max
+                    max = minmax[axis.direction].max,
+                    zr = opts.zoomRange;
+
+                if (zr === false) // no zooming on this axis
+                    return;
                     
                 min = axis.c2p(min);
                 max = axis.c2p(max);
@@ -226,7 +248,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
                     max = tmp;
                 }
 
-                var range = max - min, zr = opts.zoomRange;
+                var range = max - min;
                 if (zr &&
                     ((zr[0] != null && range < zr[0]) ||
                      (zr[1] != null && range > zr[1])))
@@ -254,7 +276,7 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             if (isNaN(delta.y))
                 delta.y = 0;
 
-            $.each(plot.getUsedAxes(), function (i, axis) {
+            $.each(plot.getAxes(), function (_, axis) {
                 var opts = axis.options,
                     min, max, d = delta[axis.direction];
 
@@ -262,6 +284,9 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
                 max = axis.c2p(axis.p2c(axis.max) + d);
 
                 var pr = opts.panRange;
+                if (pr === false) // no panning on this axis
+                    return;
+                
                 if (pr) {
                     // check whether we hit the wall
                     if (pr[0] != null && pr[0] > min) {
@@ -287,14 +312,25 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             if (!args.preventEvent)
                 plot.getPlaceholder().trigger("plotpan", [ plot ]);
         }
+
+        function shutdown(plot, eventHolder) {
+            eventHolder.unbind(plot.getOptions().zoom.trigger, onZoomClick);
+            eventHolder.unbind("mousewheel", onMouseWheel);
+            eventHolder.unbind("dragstart", onDragStart);
+            eventHolder.unbind("drag", onDrag);
+            eventHolder.unbind("dragend", onDragEnd);
+            if (panTimeout)
+                clearTimeout(panTimeout);
+        }
         
         plot.hooks.bindEvents.push(bindEvents);
+        plot.hooks.shutdown.push(shutdown);
     }
     
     $.plot.plugins.push({
         init: init,
         options: options,
         name: 'navigate',
-        version: '1.2'
+        version: '1.3'
     });
 })(jQuery);

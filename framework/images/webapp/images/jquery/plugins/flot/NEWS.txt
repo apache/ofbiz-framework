@@ -22,8 +22,11 @@ becomes
 Note that if you're just using one axis, continue to use the
 xaxis/yaxis directly (it now sets the default settings for the
 arrays). Plugins touching the axes must be ported to take the extra
-axes into account, a couple of helper functions have been added for
-that purpose, check the source.
+axes into account, check the source to see some examples.
+
+A related change is that the visibility of axes is now auto-detected.
+So if you were relying on an axis to show up even without any data in
+the chart, you now need to set the axis "show" option explicitly.
 
 "tickColor" on the grid options is now deprecated in favour of a
 corresponding option on the axes, so { grid: { tickColor: "#000" }}
@@ -31,6 +34,15 @@ becomes { xaxis: { tickColor: "#000"}, yaxis: { tickColor: "#000"} },
 but if you just configure a base color Flot will now autogenerate a
 tick color by adding transparency. Backwards-compatibility hooks are
 in place.
+
+Final note: now that IE 9 is coming out with canvas support, you may
+want to adapt the excanvas include to skip loading it in IE 9 (the
+examples have been adapted thanks to Ryley Breiddal). An alternative
+to excanvas using Flash has also surfaced, if your graphs are slow in
+IE, you may want to give it a spin:
+
+  http://code.google.com/p/flashcanvas/
+
 
 Changes:
 
@@ -67,8 +79,31 @@ Changes:
 - Support for customizing the point type through a callback when
   plotting points and new symbol plugin with some predefined point
   types (sponsored by Utility Data Corporation).
+- Resize plugin for automatically redrawing when the placeholder
+  changes size, e.g. on window resizes (sponsored by Novus Partners).
+  A resize() method has been added to plot object facilitate this.
+- Support Infinity/-Infinity for plotting asymptotes by hacking it
+  into +/-Number.MAX_VALUE (reported by rabaea.mircea).
+- Support for restricting navigate plugin to not pan/zoom an axis (based
+  on patch by kkaefer).
+- Support for providing the drag cursor for the navigate plugin as an
+  option (based on patch by Kelly T. Moore).
+- Options for controlling whether an axis is shown or not (suggestion
+  by Timo Tuominen) and whether to reserve space for it even if it
+  isn't shown.
+- New attribute $.plot.version with the Flot version as a string.
+- The version comment is now included in the minified jquery.flot.min.js.
+- New options.grid.minBorderMargin for adjusting the minimum margin
+  provided around the border (based on patch by corani, issue 188).
+- Refactor replot behaviour so Flot tries to reuse the existing
+  canvas, adding shutdown() methods to the plot (based on patch by
+  Ryley Breiddal, issue 269). This prevents a memory leak in Chrome
+  and hopefully makes replotting faster for those who are using $.plot
+  instead of .setData()/.draw(). Also update jQuery to 1.5.1 to
+  prevent IE leaks fixed in jQuery.
+- New real-time line chart example.
 
-- New hooks: drawSeries
+- New hooks: drawSeries, shutdown
 
 Bug fixes:
 
@@ -80,7 +115,8 @@ Bug fixes:
 - Fixed a problem introduced in 0.6 with specifying a gradient with {
   brightness: x, opacity: y }.
 - Don't use $.browser.msie, check for getContext on the created canvas
-  element instead and try to use excanvas if it's not found.
+  element instead and try to use excanvas if it's not found (fixes IE
+  9 compatibility).
 - highlight(s, index) was looking up the point in the original s.data
   instead of in the computed datapoints array, which breaks with
   plugins that modify the datapoints (such as the stacking plugin).
@@ -93,9 +129,42 @@ Bug fixes:
   plugin, to guard against errors when synchronizing plots (fix by Lau
   Bech Lauritzen).
 - Fix bug in crosshair code with mouseout resetting the crosshair even
-  if it is locked (fix by Lau Bech Lauritzen).
+  if it is locked (fix by Lau Bech Lauritzen and Banko Adam).
 - Fix bug with points plotting using line width from lines rather than
   points.
+- Fix bug with passing non-array 0 data (for plugins that don't expect
+  arrays, patch by vpapp1).
+- Fix errors in JSON in examples so they work with jQuery 1.4.2
+  (fix reported by honestbleeps, issue 357).
+- Fix bug with tooltip in interacting.html, this makes the tooltip
+  much smoother (fix by bdkahn). Fix related bug inside highlighting
+  handler in Flot.
+- Use closure trick to make inline colorhelpers plugin respect
+  jQuery.noConflict(true), renaming the global jQuery object (reported
+  by Nick Stielau).
+- Listen for mouseleave events and fire a plothover event with empty
+  item when it occurs to drop highlights when the mouse leaves the
+  plot (reported by by outspirit).
+- Fix bug with using aboveData with a background (reported by
+  amitayd).
+- Fix possible excanvas leak (report and suggested fix by tom9729).
+- Fix bug with backwards compatibility for shadowSize = 0 (report and
+  suggested fix by aspinak).
+- Adapt examples to skip loading excanvas (fix by Ryley Breiddal).
+- Fix bug that prevent a simple f(x) = -x transform from working
+  correctly (fix by Mike, issue 263).
+- Fix bug in restoring cursor in navigate plugin (reported by Matteo
+  Gattanini, issue 395).
+- Fix bug in picking items when transform/inverseTransform is in use
+  (reported by Ofri Raviv, and patches and analysis by Jan and Tom
+  Paton, issue 334 and 467).
+- Fix problem with unaligned ticks and hover/click events caused by
+  padding on the placeholder by hardcoding the placeholder padding to
+  0 (reported by adityadineshsaxena, Matt Sommer, Daniel Atos and some
+  other people, issue 301).
+- Update colorhelpers plugin to avoid dying when trying to parse an
+  invalid string (reported by cadavor, issue 483).
+
 
 Flot 0.6
 --------

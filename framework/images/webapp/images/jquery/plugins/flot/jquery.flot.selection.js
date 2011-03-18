@@ -11,7 +11,9 @@ The plugin defines the following options:
 Selection support is enabled by setting the mode to one of "x", "y" or
 "xy". In "x" mode, the user will only be able to specify the x range,
 similarly for "y" mode. For "xy", the selection becomes a rectangle
-where both ranges can be specified. "color" is color of the selection.
+where both ranges can be specified. "color" is color of the selection
+(if you need to change the color later on, you can get to it with
+plot.getOptions().selection.color).
 
 When selection support is enabled, a "plotselected" event will be
 emitted on the DOM element you passed into the plot function. The
@@ -79,11 +81,13 @@ The plugin allso adds the following methods to the plot object:
         // make this plugin much slimmer.
         var savedhandlers = {};
 
+        var mouseUpHandler = null;
+        
         function onMouseMove(e) {
             if (selection.active) {
-                plot.getPlaceholder().trigger("plotselecting", [ getSelection() ]);
-
                 updateSelection(e);
+                
+                plot.getPlaceholder().trigger("plotselecting", [ getSelection() ]);
             }
         }
 
@@ -107,18 +111,24 @@ The plugin allso adds the following methods to the plot object:
             setSelectionPos(selection.first, e);
 
             selection.active = true;
+
+            // this is a bit silly, but we have to use a closure to be
+            // able to whack the same handler again
+            mouseUpHandler = function (e) { onMouseUp(e); };
             
-            $(document).one("mouseup", onMouseUp);
+            $(document).one("mouseup", mouseUpHandler);
         }
 
         function onMouseUp(e) {
+            mouseUpHandler = null;
+            
             // revert drag stuff for old-school browsers
             if (document.onselectstart !== undefined)
                 document.onselectstart = savedhandlers.onselectstart;
             if (document.ondrag !== undefined)
                 document.ondrag = savedhandlers.ondrag;
 
-            // no more draggy-dee-drag
+            // no more dragging
             selection.active = false;
             updateSelection(e);
 
@@ -197,13 +207,12 @@ The plugin allso adds the following methods to the plot object:
             }
         }
 
-        // taken from markings support
+        // function taken from markings support in Flot
         function extractRange(ranges, coord) {
-            var axis, from, to, axes, key;
+            var axis, from, to, key, axes = plot.getAxes();
 
-            axes = plot.getUsedAxes();
-            for (i = 0; i < axes.length; ++i) {
-                axis = axes[i];
+            for (var k in axes) {
+                axis = axes[k];
                 if (axis.direction == coord) {
                     key = coord + axis.n + "axis";
                     if (!ranges[key] && axis.n == 1)
@@ -232,7 +241,6 @@ The plugin allso adds the following methods to the plot object:
             
             return { from: from, to: to, axis: axis };
         }
-        
         
         function setSelection(ranges, preventEvent) {
             var axis, range, o = plot.getOptions();
@@ -277,11 +285,10 @@ The plugin allso adds the following methods to the plot object:
 
         plot.hooks.bindEvents.push(function(plot, eventHolder) {
             var o = plot.getOptions();
-            if (o.selection.mode != null)
+            if (o.selection.mode != null) {
                 eventHolder.mousemove(onMouseMove);
-
-            if (o.selection.mode != null)
                 eventHolder.mousedown(onMouseDown);
+            }
         });
 
 
@@ -312,6 +319,15 @@ The plugin allso adds the following methods to the plot object:
                 ctx.restore();
             }
         });
+        
+        plot.hooks.shutdown.push(function (plot, eventHolder) {
+            eventHolder.unbind("mousemove", onMouseMove);
+            eventHolder.unbind("mousedown", onMouseDown);
+            
+            if (mouseUpHandler)
+                $(document).unbind("mouseup", mouseUpHandler);
+        });
+
     }
 
     $.plot.plugins.push({
@@ -323,6 +339,6 @@ The plugin allso adds the following methods to the plot object:
             }
         },
         name: 'selection',
-        version: '1.0'
+        version: '1.1'
     });
 })(jQuery);

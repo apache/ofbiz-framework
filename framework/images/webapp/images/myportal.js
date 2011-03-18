@@ -149,7 +149,6 @@ function updatePortletOrder(currentItem, nextObjectToDroppedItem, mode, destinat
     jQuery.ajax({
         url: "/myportal/control/updatePortalPagePortletSeqAjax",
         data: requestData,
-        dataType: "JSON",
         type: "POST",
         success: function(data){
             onCompleteRequest();

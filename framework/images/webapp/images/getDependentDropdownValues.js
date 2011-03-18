@@ -43,7 +43,6 @@ function getDependentDropdownValues(request, paramKey, paramField, targetField, 
             name: paramKey,
             value: jQuery('#' + paramField).val()
         }], // get requested value from parent drop-down field
-        dataType: 'json',
         async: false,
         type: 'POST',
         success: function(result){
@@ -117,7 +116,6 @@ function getServiceResult(request, params){
         data: params,
         async: false,
         cache: false,
-        dataType: 'json',
         success: function(result){
             data = result;
         }
@@ -125,7 +123,7 @@ function getServiceResult(request, params){
     return data;
 }
 
-//*** checkUomConversion returns true if an UomConversion exists 
+//*** checkUomConversion returns true if an UomConversion exists
 function checkUomConversion(request, params){
     data = getServiceResult(request, params);
     return data['exist'];

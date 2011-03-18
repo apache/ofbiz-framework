@@ -172,6 +172,7 @@ Customizing the axes
 ====================
 
   xaxis, yaxis: {
+    show: null or true/false
     position: "bottom" or "top" or "left" or "right"
     mode: null or "time"
 
@@ -193,6 +194,7 @@ Customizing the axes
 
     labelWidth: null or number
     labelHeight: null or number
+    reserveSpace: null or true
     
     tickLength: null or number
 
@@ -202,6 +204,11 @@ Customizing the axes
 All axes have the same kind of options. The following describes how to
 configure one axis, see below for what to do if you've got more than
 one x axis or y axis.
+
+If you don't set the "show" option (i.e. it is null), visibility is
+auto-detected, i.e. the axis will show up if there's data associated
+with it. You can override this by setting the "show" option to true or
+false.
 
 The "position" option specifies where the axis is placed, bottom or
 top for x axes, left or right for y axes. The "mode" option determines
@@ -217,7 +224,10 @@ transparency).
 
 The options "min"/"max" are the precise minimum/maximum value on the
 scale. If you don't specify either of them, a value will automatically
-be chosen based on the minimum/maximum data values.
+be chosen based on the minimum/maximum data values. Note that Flot
+always examines all the data values you feed to it, even if a
+restriction on another axis may make some of them invisible (this
+makes interactive use more stable).
 
 The "autoscaleMargin" is a bit esoteric: it's the fraction of margin
 that the scaling algorithm will add to avoid that the outermost points
@@ -238,6 +248,14 @@ into a natural logarithm axis with the following code:
   xaxis: {
     transform: function (v) { return Math.log(v); },
     inverseTransform: function (v) { return Math.exp(v); }
+  }
+
+Similarly, for reversing the y axis so the values appear in inverse
+order:
+  
+  yaxis: {
+    transform: function (v) { return -v; },
+    inverseTransform: function (v) { return -v; }
   }
 
 Note that for finding extrema, Flot assumes that the transform
@@ -303,7 +321,7 @@ number of decimals to display (default is auto-detected).
 
 Alternatively, for ultimate control over how ticks are formatted you can
 provide a function to "tickFormatter". The function is passed two
-parameters, the tick value and an "axis" object with information, and
+parameters, the tick value and an axis object with information, and
 should return a string. The default formatter looks like this:
 
   function formatter(val, axis) {
@@ -327,7 +345,9 @@ an example of a custom formatter:
 
 "labelWidth" and "labelHeight" specifies a fixed size of the tick
 labels in pixels. They're useful in case you need to align several
-plots.
+plots. "reserveSpace" means that even if an axis isn't shown, Flot
+should reserve space for it - it is useful in combination with
+labelWidth and labelHeight for aligning multi-axis charts.
 
 "tickLength" is the length of the tick lines in pixels. By default, the
 innermost axes will have ticks that extend all across the plot, while
@@ -637,6 +657,7 @@ Customizing the grid
     markings: array of markings or (fn: axes -> array of markings)
     borderWidth: number
     borderColor: color or null
+    minBorderMargin: number or null
     clickable: boolean
     hoverable: boolean
     autoHighlight: boolean
@@ -658,9 +679,14 @@ above the data or below (below is default).
 line, and "axisMargin" is the space in pixels between axes when there
 are two next to each other. Note that you can style the tick labels
 with CSS, e.g. to change the color. They have class "tickLabel".
+
 "borderWidth" is the width of the border around the plot. Set it to 0
 to disable the border. You can also set "borderColor" if you want the
 border to have a different color than the grid lines.
+"minBorderMargin" controls the default minimum margin around the
+border - it's used to make sure that points aren't accidentally
+clipped by the canvas edge so by default the value is computed from
+the point radius.
 
 "markings" is used to draw simple lines and rectangular areas in the
 background of the plot. You can either specify an array of ranges on
@@ -851,7 +877,8 @@ can call:
     interactive things like a selection and point highlights. This
     is mostly useful for writing plugins. The redraw doesn't happen
     immediately, instead a timer is set to catch multiple successive
-    redraws (e.g. from a mousemove).
+    redraws (e.g. from a mousemove). You can get to the overlay by
+    setting up a drawOverlay hook.
 
   - width()/height()
 
@@ -874,7 +901,19 @@ can call:
 
       o = pointOffset({ x: xpos, y: ypos, xaxis: 2, yaxis: 3 })
       // o.left and o.top now contains the offset within the div
-  
+
+  - resize()
+
+    Tells Flot to resize the drawing canvas to the size of the
+    placeholder. You need to run setupGrid() and draw() afterwards as
+    canvas resizing is a destructive operation. This is used
+    internally by the resize plugin.
+
+  - shutdown()
+
+    Cleans up any event handlers Flot has currently registered. This
+    is used internally.
+
 
 There are also some members that let you peek inside the internal
 workings of Flot which is useful in some cases. Note that if you change
@@ -914,7 +953,8 @@ Flot to keep track of its state, so be careful.
 
     With multiple axes, the extra axes are returned as x2axis, x3axis,
     etc., e.g. getAxes().y2axis is the second y axis. You can check
-    y2axis.used to see whether the axis is actually in use or not. 
+    y2axis.used to see whether the axis is associated with any data
+    points and y2axis.show to see if it is currently shown. 
  
   - getPlaceholder()
 
@@ -936,8 +976,11 @@ Flot to keep track of its state, so be careful.
 
   - getOptions()
 
-    Gets the options for the plot, in a normalized format with default
-    values filled in.
+    Gets the options for the plot, normalized, with default values
+    filled in. You get a reference to actual values used by Flot, so
+    if you modify the values in here, Flot will use the new values.
+    If you change something, you probably have to call draw() or
+    setupGrid() or triggerRedrawOverlay() to see the change.
     
 
 Hooks
@@ -966,6 +1009,8 @@ Here's an overview of the phases Flot goes through:
   6. Setting up event handling for interactive features
 
   7. Responding to events, if any
+
+  8. Shutdown: this mostly happens in case a plot is overwritten 
 
 Each hook is simply a function which is put in the appropriate array.
 You can add them through the "hooks" option, and they are also available
@@ -1115,6 +1160,16 @@ hooks in the plugins bundled with Flot.
    crosshair plugin for an example.
 
 
+ - shutdown  [phase 8]
+
+   function (plot, eventHolder)
+
+   Run when plot.shutdown() is called, which usually only happens in
+   case a plot is overwritten by a new plot. If you're writing a
+   plugin that adds extra DOM elements or event handlers, you should
+   add a callback to clean up after you. Take a look at the section in
+   PLUGINS.txt for more info.
+
    
 Plugins
 -------
@@ -1132,9 +1187,15 @@ Here's a brief explanation of how the plugin plumbings work:
 Each plugin registers itself in the global array $.plot.plugins. When
 you make a new plot object with $.plot, Flot goes through this array
 calling the "init" function of each plugin and merging default options
-from its "option" attribute. The init function gets a reference to the
-plot object created and uses this to register hooks and add new public
-methods if needed.
+from the "option" attribute of the plugin. The init function gets a
+reference to the plot object created and uses this to register hooks
+and add new public methods if needed.
 
 See the PLUGINS.txt file for details on how to write a plugin. As the
 above description hints, it's actually pretty easy.
+
+
+Version number
+--------------
+
+The version number of Flot is available in $.plot.version.

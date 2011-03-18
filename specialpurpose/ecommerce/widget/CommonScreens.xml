@@ -42,7 +42,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
 
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.4.4.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.5.1.min.js" global="true"/>
 
                 <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
 
@@ -251,7 +251,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
 
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.4.4.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.5.1.min.js" global="true"/>
 
                 <script location="component://ecommerce/widget/EcommerceSetup.groovy"/>
 
