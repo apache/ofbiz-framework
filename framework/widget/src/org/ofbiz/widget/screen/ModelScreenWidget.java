@@ -1635,7 +1635,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     } else {
                         actualPortalPageId = portalPage.getString("portalPageId");
                         originalPortalPageId = portalPage.getString("originalPortalPageId");
-                        portalPageColumns = delegator.getRelatedCache("PortalPageColumn", portalPage);
+                        portalPageColumns = delegator.findByAndCache("PortalPageColumn", UtilMisc.toMap("portalPageId", actualPortalPageId), UtilMisc.toList("columnSeqId"));
                     }
                 } else {
                     String errMsg = "portalPageId is empty.";
