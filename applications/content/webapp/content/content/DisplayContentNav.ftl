@@ -58,52 +58,17 @@ var rawdata = [
 
  <#-------------------------------------------------------------------------------------define Requests-->
     var treeSelected = false;
-    var editDocumentTreeUrl = '<@ofbizUrl>/views/EditDocumentTree</@ofbizUrl>';
     var listDocument =  '<@ofbizUrl>/views/ShowDocument</@ofbizUrl>';
-    var editDocumentUrl = '<@ofbizUrl>/views/EditDocument</@ofbizUrl>';
-    var deleteDocumentUrl = '<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>';
 
  <#-------------------------------------------------------------------------------------create Tree-->
   function createTree() {
     jQuery(function () {
         jQuery("#tree").jstree({
-            "plugins" : [ "themes", "json_data", "ui", "contextmenu", "crrm"],
+            "plugins" : [ "themes", "json_data", "ui", "crrm"],
             "json_data" : {
                 "data" : rawdata,
                 "progressive_render" : false
             },
-            'contextmenu': {
-                'items': {
-                    'ccp' : false,
-                    'create' : false,
-                    'rename' : false,
-                    'remove' : false,
-                    'create1' : {
-                        'label' : "New Folder",
-                        'action' : function(obj) {
-                            callCreateDocumentTree(obj.attr('id'));
-                        }
-                    },
-                    'create2' : {
-                        'label' : "New Content in Folder",
-                        'action' : function(obj) {
-                            callCreateDocument(obj.attr('id'));
-                        }
-                    },
-                    'rename1' : {
-                        'label' : "Rename Folder",
-                        'action' : function(obj) {
-                            callRenameDocumentTree(obj.attr('id'));
-                        }
-                    },
-                    'delete1' : {
-                        'label' : "Delete Folder",
-                        'action' : function(obj) {
-                            callDeleteDocument(obj.attr('id'), obj.attr('contentId'), obj.attr('AssocType'), obj.attr('fromDate'));
-                        }
-                    },
-                }
-            }
         });
     });
   }
@@ -131,81 +96,6 @@ var rawdata = [
             }
         });
      }
-<#-------------------------------------------------------------------------------------callCreateDocumentTree function-->
-      function callCreateDocumentTree(contentId) {
-        jQuery.ajax({
-            url: editDocumentTreeUrl,
-            type: 'POST',
-            data: {  contentId: contentId,
-                        contentAssocTypeId: 'TREE_CHILD'},
-            error: function(msg) {
-                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
-            },
-            success: function(msg) {
-                jQuery('#Document').html(msg);
-            }
-        });
-    }
-<#-------------------------------------------------------------------------------------callCreateSection function-->
-    function callCreateDocument(contentId) {
-        jQuery.ajax({
-            url: editDocumentUrl,
-            type: 'POST',
-            data: {contentId: contentId},
-            error: function(msg) {
-                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
-            },
-            success: function(msg) {
-                jQuery('#Document').html(msg);
-            }
-        });
-    }
-<#-------------------------------------------------------------------------------------callEditSection function-->
-    function callEditDocument(contentIdTo) {
-        jQuery.ajax({
-            url: editDocumentUrl,
-            type: 'POST',
-            data: {contentIdTo: contentIdTo},
-            error: function(msg) {
-                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
-            },
-            success: function(msg) {
-                jQuery('#Document').html(msg);
-            }
-        });
-
-    }
-<#-------------------------------------------------------------------------------------callDeleteItem function-->
-    function callDeleteDocument(contentId, contentIdTo, contentAssocTypeId, fromDate) {
-        jQuery.ajax({
-            url: deleteDocumentUrl,
-            type: 'POST',
-            data: {contentId : contentId, contentIdTo : contentIdTo, contentAssocTypeId : contentAssocTypeId, fromDate : fromDate},
-            error: function(msg) {
-                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
-            },
-            success: function(msg) {
-                location.reload();
-            }
-        });
-    }
- <#-------------------------------------------------------------------------------------callRename function-->
-    function callRenameDocumentTree(contentId) {
-        jQuery.ajax({
-            url: editDocumentTreeUrl,
-            type: 'POST',
-            data: {  contentId: contentId,
-                     contentAssocTypeId:'TREE_CHILD',
-                     rename: 'Y'
-                     },
-            error: function(msg) {
-                showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${uiLabelMap.ErrorLoadingContent} : " + msg);
-            },
-            success: function(msg) {
-                jQuery('#Document').html(msg);
-            }
-        });
-    }
  <#------------------------------------------------------pagination function -->
     function nextPrevDocumentList(url){
         url= '<@ofbizUrl>'+url+'</@ofbizUrl>';
