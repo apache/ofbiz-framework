@@ -40,11 +40,11 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
+                                        <container>
+                                            <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
+                                        </container>
                                     </widgets>
                                 </section>
-                                <container>
-                                    <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
-                                </container>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
