@@ -77,9 +77,9 @@ public class Start implements Runnable {
         config.readConfig(cfgFile);
 
         // parse the startup arguments
-        if (args.length > 1) {
-            this.loaderArgs = new String[args.length - 1];
-            System.arraycopy(args, 1, this.loaderArgs, 0, this.loaderArgs.length);
+        if (args.length > 0) {
+            this.loaderArgs = new String[args.length];
+            System.arraycopy(args, 0, this.loaderArgs, 0, this.loaderArgs.length);
         }
 
         if (fullInit) {
