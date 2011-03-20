@@ -133,12 +133,36 @@ public class Classpath {
     }
 
     public ClassLoader getClassLoader(ClassLoader parent) {
-        URL[] urls = getUrls();
-
-        return new URLClassLoader(urls, parent);
+        return new NativeLibClassLoader(getUrls(), parent);
     }
 
     public List<File> getElements() {
         return _elements;
+    }
+
+    /*
+     * Native library class loader. This class is necessary because the
+     * bootstrap ClassLoader caches the native library path - so any
+     * changes to the library path are ignored (changes that might have
+     * been made by loading OFBiz components). 
+     */
+    private class NativeLibClassLoader extends URLClassLoader {
+
+        private NativeLibClassLoader(URL[] urls, ClassLoader parent) {
+            super(urls, parent);
+        }
+        
+        @Override
+        protected String findLibrary(String libname) {
+            String[] libPaths = System.getProperty("java.library.path").split(File.pathSeparator);
+            String libFileName = System.mapLibraryName(libname);
+            for (String path : libPaths) {
+                File libFile = new File(path, libFileName);
+                if (libFile.exists()) {
+                    return libFile.getAbsolutePath();
+                }
+            }
+            return null;
+        }
     }
 }

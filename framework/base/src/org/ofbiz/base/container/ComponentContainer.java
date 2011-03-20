@@ -48,6 +48,7 @@ public class ComponentContainer implements Container {
 
     //protected static List loadedComponents2 = null;
     protected Classpath classPath = new Classpath(System.getProperty("java.class.path"));
+    protected Classpath libraryPath = new Classpath(System.getProperty("java.library.path"));
     protected String configFileLocation = null;
     private boolean loaded = false;
     private String instrumenterClassName;
@@ -137,6 +138,7 @@ public class ComponentContainer implements Container {
         if (updateClasspath) {
             classPath.instrument(instrumenterFile, instrumenterClassName);
             System.setProperty("java.class.path", classPath.toString());
+            System.setProperty("java.library.path", libraryPath.toString());
             ClassLoader cl = classPath.getClassLoader();
             Thread.currentThread().setContextClassLoader(cl);
         }
@@ -242,39 +244,47 @@ public class ComponentContainer implements Container {
             configRoot = configRoot + "/";
         }
         if (classpathInfos != null) {
+            String nativeLibExt = System.mapLibraryName("someLib").replace("someLib", "").toLowerCase();
             for (ComponentConfig.ClasspathInfo cp: classpathInfos) {
                 String location = cp.location.replace('\\', '/');
                 // set the location to not have a leading slash
                 if (location.startsWith("/")) {
                     location = location.substring(1);
                 }
-                if ("dir".equals(cp.type)) {
-                    classPath.addComponent(configRoot + location);
-                } else if ("jar".equals(cp.type)) {
-                    String dirLoc = location;
-                    if (dirLoc.endsWith("/*")) {
-                        // strip off the slash splat
-                        dirLoc = location.substring(0, location.length() - 2);
-                    }
-                    File path = FileUtil.getFile(configRoot + dirLoc);
-                    if (path.exists()) {
-                        if (path.isDirectory()) {
-                            // load all .jar and .zip files in this directory
-                            for (File file: path.listFiles()) {
-                                String fileName = file.getName();
-                                if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
-                                    classPath.addComponent(file);
-                                }
-                            }
-                        } else {
-                            // add a single file
+                if (!"jar".equals(cp.type) && !"dir".equals(cp.type)) {
+                    Debug.logError("Classpath type '" + cp.type + "' is not supported; '" + location + "' not loaded", module);
+                    continue;
+                }
+                String dirLoc = location;
+                if (dirLoc.endsWith("/*")) {
+                    // strip off the slash splat
+                    dirLoc = location.substring(0, location.length() - 2);
+                }
+                File path = FileUtil.getFile(configRoot + dirLoc);
+                if (path.exists()) {
+                    if (path.isDirectory()) {
+                        if ("dir".equals(cp.type)) {
                             classPath.addComponent(configRoot + location);
                         }
+                        // load all .jar, .zip files and native libs in this directory
+                        boolean containsNativeLibs = false;
+                        for (File file: path.listFiles()) {
+                            String fileName = file.getName().toLowerCase();
+                            if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
+                                classPath.addComponent(file);
+                            } else if (fileName.endsWith(nativeLibExt)) {
+                                containsNativeLibs = true;
+                            }
+                        }
+                        if (containsNativeLibs) {
+                            libraryPath.addComponent(path);
+                        }
                     } else {
-                        Debug.logWarning("Location '" + configRoot + dirLoc + "' does not exist", module);
+                        // add a single file
+                        classPath.addComponent(configRoot + location);
                     }
                 } else {
-                    Debug.logError("Classpath type '" + cp.type + "' is not supported; '" + location + "' not loaded", module);
+                    Debug.logWarning("Location '" + configRoot + dirLoc + "' does not exist", module);
                 }
             }
         }
