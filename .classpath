@@ -5,7 +5,7 @@
     <classpathentry kind="lib" path="applications/content/lib/fontbox-1.4.0.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/jempbox-1.4.0.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/lucene-core-3.0.3.jar"/>
-    <classpathentry kind="lib" path="applications/content/lib/metadata-extractor-2.4.0.jar"/>
+    <classpathentry kind="lib" path="applications/content/lib/metadata-extractor-2.4.0-beta-1.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/pdfbox-1.4.0.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/poi-3.7.jar"/>
     <classpathentry kind="lib" path="applications/content/lib/poi-ooxml-3.7.jar"/>
