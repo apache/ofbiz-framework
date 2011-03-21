@@ -73,21 +73,7 @@ var rawdata = [
                         }; 
                     }
                 }
-            },
-            "themes" : {
-                "icons" : true
-            },
-        "types" : {
-            "valid_children" : [ "root" ],
-            "types" : {
-                "CATEGORY" : {
-                    "icon" : {
-                        "image" : "/images/jquery/plugins/jsTree/themes/apple/d.png",
-                        "position" : "10px40px"
-                    }
-                }
             }
-        }
         });
     });
   }
