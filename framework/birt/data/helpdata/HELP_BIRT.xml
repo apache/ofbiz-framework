@@ -56,7 +56,7 @@ under the License.
     <section>
         <title>Important file for using BIRT's jsp tags</title>
         <para>
-            If a web applications wants to use the report in a screen, copy birt.tld file to [WEB APP]/WEB-INF/ directory ant assign in in ftl 
+            If a web applications wants to use the report in a screen, copy birt.tld file to [WEB APP]/WEB-INF/ directory and assign in in ftl
             like &lt;#assign birt = JspTaglibs["/WEB-INF/birt.tld"]/&gt;</para>
     </section>
     <section>
