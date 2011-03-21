@@ -154,7 +154,9 @@ under the License.
         <entity-and list="contentRoles" entity-name="ContentRole" >
            <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-and>
-        <remove-value value-field="contentRoles[0]"/>
+        <if-not-empty field="contentRoles">
+            <remove-value value-field="contentRoles[0]"/>
+        </if-not-empty>
         
         <entity-condition entity-name="ContentApproval" list="contentApprovals">
             <condition-list combine="and">
@@ -178,7 +180,9 @@ under the License.
         <entity-and list="dataResourceRoles" entity-name="DataResourceRole" >
             <field-map field-name="dataResourceId" from-field="dataResourceId"/>
         </entity-and>
-        <remove-value value-field="dataResourceRoles[0]"/>
+        <if-not-empty field="dataResourceRoles">
+            <remove-value value-field="dataResourceRoles[0]"/>
+        </if-not-empty>
         
         <entity-one value-field="dataResource" entity-name="DataResource">
             <field-map field-name="dataResourceId" from-field="dataResourceId"/>

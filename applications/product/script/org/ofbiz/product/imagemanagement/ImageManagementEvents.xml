@@ -42,12 +42,19 @@ under the License.
         <entity-and list="productContentAndInfos" entity-name="ProductContentAndInfo">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="contentId" from-field="parameters.contentId"/>
-            <field-map field-name="productContentTypeId" value="IMAGE"/>
+            <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>
         </entity-and>
         <if-not-empty field="productContentAndInfos">
-            <set field="setThumbnailMap.productId" from-field="parameters.productId"/>
+            <first-from-list entry="productContentAndInfo" list="productContentAndInfos"/>
+            <entity-one value-field="product" entity-name="Product">
+                <field-map field-name="productId" from-field="parameters.productId"/>
+            </entity-one>
+            <set field="product.originalImageUrl" from-field="productContentAndInfo.drObjectInfo"/>
+            <store-value value-field="product"/>
+        
+            <!--<set field="setThumbnailMap.productId" from-field="parameters.productId"/>
             <set field="setThumbnailMap.contentIdTo" from-field="parameters.contentIdTo"/>
-            <!--<call-service service-name="setThumbnail" in-map-name="setThumbnailMap"/>-->
+            <call-service service-name="setThumbnail" in-map-name="setThumbnailMap"/>-->
         </if-not-empty>
     </simple-method>
 </simple-methods>

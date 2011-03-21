@@ -77,6 +77,9 @@
         <value xml:lang="zh">无法缩放原始图像</value>
         <value xml:lang="zh_TW">無法縮放原始圖像</value>
     </property>
+    <property key="ImageManagementErrorMessageResizeImage">
+        <value xml:lang="en">Cannot resize image format not jpg.</value>
+    </property>
     <property key="ProductCreateCommunicationEventProductPermissionError">
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
