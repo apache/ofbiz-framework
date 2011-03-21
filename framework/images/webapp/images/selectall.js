@@ -656,9 +656,7 @@ function ajaxInPlaceEditDisplayField(element, url, options) {
 
     jElement.editable(function(value, settings){
         // removes all line breaks from the value param, because the parseJSON Function can't work with line breaks
-        alert(value);
     	value = value.replace(/\n/g, " ");
-    	alert(value);
 
         var resultField = jQuery.parseJSON('{"' + settings.name + '":"' + value + '"}');
         // merge both parameter objects together
