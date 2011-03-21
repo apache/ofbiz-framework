@@ -1729,7 +1729,7 @@
         <value xml:lang="zh_TW">禮品包裝</value>
     </property>
     <property key="ProductFeatureType.description.HARDWARE_FEATURE">
-        <value xml:lang="de">Hardeware-Merkmal</value>
+        <value xml:lang="de">Hardware-Merkmal</value>
         <value xml:lang="en">Hardware Feature</value>
         <value xml:lang="es">Característica de hardware</value>
         <value xml:lang="fr">Matériaux utilisés</value>
@@ -1825,7 +1825,8 @@
         <value xml:lang="zh_TW">產品質量</value>
     </property>
     <property key="ProductFeatureType.description.SIZE">
-        <value xml:lang="de">Grösse</value>
+        <value xml:lang="de">Größe</value>
+        <value xml:lang="de_CH">Grösse</value>
         <value xml:lang="en">Size</value>
         <value xml:lang="es">Tamaño</value>
         <value xml:lang="fr">Taille</value>
