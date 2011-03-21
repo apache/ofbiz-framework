@@ -2137,3 +2137,23 @@ width: 30em;
 * html .ui-autocomplete {
     height: 250px;
 }
+
+/* The custom CSS for adjust the JsTree */
+.jstree-default .jstree-leaf > ins { 
+ background-position:-36px 0;
+ vertical-align: top;
+ }
+html>/**/body .jstree-default a {
+white-space:normal !important;
+ height: auto;
+ }
+/* IE6 and below */  
+* html .jstree-default a { 
+white-space:normal;
+height: auto;
+}
+/* IE7 */  
+*+html .jstree-default a {
+white-space:normal;
+height: auto;
+}
