@@ -27,5 +27,9 @@ under the License.
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="GOOGLEBASE_ADMIN"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="GOOGLEBASE_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="GOOGLEBASE_VIEW"/>
-
+    
+    <SecurityGroup description="Google Base Administrator" groupId="GOOGLEBASEADMIN"/>
+    <SecurityGroupPermission groupId="GOOGLEBASEADMIN" permissionId="GOOGLEBASE_ADMIN"/>
+    <SecurityGroup description="Google Base View" groupId="GOOGLEBASEVIEW"/>
+    <SecurityGroupPermission groupId="GOOGLEBASEVIEW" permissionId="GOOGLEBASE_VIEW"/>
 </entity-engine-xml>
