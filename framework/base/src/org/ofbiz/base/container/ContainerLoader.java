@@ -41,10 +41,23 @@ public class ContainerLoader implements StartupLoader {
     public static final String module = ContainerLoader.class.getName();
     public static final String CONTAINER_CONFIG = "ofbiz-containers.xml";
     private static boolean loaded = false;
-
-    protected List<Container> loadedContainers = new LinkedList<Container>();
-    protected String configFile = null;
     public static Container rmiLoadedContainer = null; // used in Geronimo/WASCE to allow to deregister
+
+    public static synchronized Container loadContainers(String config, String[] args) throws StartupException {
+        if (!loaded) {
+            ContainerLoader loader = new ContainerLoader();
+            Start.Config cfg = new Start.Config();
+            cfg.containerConfig = config == null ? "limited-containers.xml" : config;
+            loader.load(cfg, args);
+            if (rmiLoadedContainer != null) { // used in Geronimo/WASCE to allow to deregister
+                return rmiLoadedContainer;
+            }
+        }
+        return null;
+    }
+
+    protected String configFile = null;
+    protected List<Container> loadedContainers = new LinkedList<Container>();
 
     /**
      * @see org.ofbiz.base.start.StartupLoader#load(Start.Config, String[])
@@ -107,68 +120,6 @@ public class ContainerLoader implements StartupLoader {
         }
     }
 
-    /**
-     * @see org.ofbiz.base.start.StartupLoader#start()
-     */
-    public void start() throws StartupException {
-        Debug.logInfo("[Startup] Starting containers...", module);
-
-        // start each container object
-        for (Container container: loadedContainers) {
-            try {
-                container.start();
-            } catch (ContainerException e) {
-                throw new StartupException("Cannot start() " + container.getClass().getName(), e);
-            } catch (java.lang.AbstractMethodError e) {
-                throw new StartupException("Cannot start() " + container.getClass().getName(), e);
-            }
-        }
-    }
-
-    /**
-     * @see org.ofbiz.base.start.StartupLoader#unload()
-     */
-    public void unload() throws StartupException {
-        Debug.logInfo("Shutting down containers", module);
-        if (Debug.verboseOn())
-            printThreadDump();
-
-        // shutting down in reverse order
-        for (int i = loadedContainers.size(); i > 0; i--) {
-            Container container = loadedContainers.get(i-1);
-            try {
-                container.stop();
-            } catch (ContainerException e) {
-                Debug.logError(e, module);
-            }
-        }
-    }
-
-    private void printThreadDump() {
-        Thread currentThread = Thread.currentThread();
-        ThreadGroup group = currentThread.getThreadGroup();
-        while (group.getParent() != null) {
-            group = group.getParent();
-        }
-        Thread threadArr[] = new Thread[1000];
-        group.enumerate(threadArr);
-
-        StringWriter writer = new StringWriter();
-        PrintWriter out = new PrintWriter(writer);
-        out.println("Thread dump:");
-        for (Thread t: threadArr) {
-            if (t != null) {
-                ThreadGroup g = t.getThreadGroup();
-                out.println("Thread: " + t.getName() + " [" + t.getId() + "] @ " + (g != null ? g.getName() : "[none]") + " : " + t.getPriority() + " [" + t.getState().name() + "]");
-                out.println("--- Alive: " + t.isAlive() + " Daemon: " + t.isDaemon());
-                for (StackTraceElement stack: t.getStackTrace()) {
-                    out.println("### " + stack.toString());
-                }
-            }
-        }
-        Debug.log(writer.toString(), module);
-    }
-
     private Container loadContainer(ContainerConfig.Container containerCfg, String[] args) throws StartupException {
         // load the container class
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -214,16 +165,65 @@ public class ContainerLoader implements StartupLoader {
         return containerObj;
     }
 
-    public static synchronized Container loadContainers(String config, String[] args) throws StartupException {
-        if (!loaded) {
-            ContainerLoader loader = new ContainerLoader();
-            Start.Config cfg = new Start.Config();
-            cfg.containerConfig = config == null ? "limited-containers.xml" : config;
-            loader.load(cfg, args);
-            if (rmiLoadedContainer != null) { // used in Geronimo/WASCE to allow to deregister
-                return rmiLoadedContainer;
+    private void printThreadDump() {
+        Thread currentThread = Thread.currentThread();
+        ThreadGroup group = currentThread.getThreadGroup();
+        while (group.getParent() != null) {
+            group = group.getParent();
+        }
+        Thread threadArr[] = new Thread[1000];
+        group.enumerate(threadArr);
+
+        StringWriter writer = new StringWriter();
+        PrintWriter out = new PrintWriter(writer);
+        out.println("Thread dump:");
+        for (Thread t: threadArr) {
+            if (t != null) {
+                ThreadGroup g = t.getThreadGroup();
+                out.println("Thread: " + t.getName() + " [" + t.getId() + "] @ " + (g != null ? g.getName() : "[none]") + " : " + t.getPriority() + " [" + t.getState().name() + "]");
+                out.println("--- Alive: " + t.isAlive() + " Daemon: " + t.isDaemon());
+                for (StackTraceElement stack: t.getStackTrace()) {
+                    out.println("### " + stack.toString());
+                }
             }
         }
-        return null;
+        Debug.log(writer.toString(), module);
+    }
+
+    /**
+     * @see org.ofbiz.base.start.StartupLoader#start()
+     */
+    public void start() throws StartupException {
+        Debug.logInfo("[Startup] Starting containers...", module);
+
+        // start each container object
+        for (Container container: loadedContainers) {
+            try {
+                container.start();
+            } catch (ContainerException e) {
+                throw new StartupException("Cannot start() " + container.getClass().getName(), e);
+            } catch (java.lang.AbstractMethodError e) {
+                throw new StartupException("Cannot start() " + container.getClass().getName(), e);
+            }
+        }
+    }
+
+    /**
+     * @see org.ofbiz.base.start.StartupLoader#unload()
+     */
+    public void unload() throws StartupException {
+        Debug.logInfo("Shutting down containers", module);
+        if (Debug.verboseOn())
+            printThreadDump();
+
+        // shutting down in reverse order
+        for (int i = loadedContainers.size(); i > 0; i--) {
+            Container container = loadedContainers.get(i-1);
+            try {
+                container.stop();
+            } catch (ContainerException e) {
+                Debug.logError(e, module);
+            }
+        }
     }
 }
