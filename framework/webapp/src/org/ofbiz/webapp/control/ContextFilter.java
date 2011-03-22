@@ -490,14 +490,7 @@ public class ContextFilter implements Filter {
     }
 
     protected Container getContainers() throws ServletException {
-        Container rmiLoadedContainer = null;
-        try {
-            rmiLoadedContainer = ContainerLoader.loadContainers(CONTAINER_CONFIG, null); // used in Geronimo/WASCE to allow to unregister
-        } catch (StartupException e) {
-            Debug.logError(e, module);
-            throw new ServletException("Unable to load containers; cannot start ContextFilter");
-        }
-        return rmiLoadedContainer;
+        return ContainerLoader.getContainer("rmi-dispatcher");
     }
 
     // used in Geronimo/WASCE to allow to deregister
