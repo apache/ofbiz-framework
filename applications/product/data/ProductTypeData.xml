@@ -222,6 +222,7 @@ under the License.
     <ProductCategoryContentType description="Category Name" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_NAME"/>
     <ProductCategoryContentType description="Description" hasTable="N" parentTypeId="" prodCatContentTypeId="DESCRIPTION"/>
     <ProductCategoryContentType description="Description - Long" hasTable="N" parentTypeId="" prodCatContentTypeId="LONG_DESCRIPTION"/>
+    <ProductCategoryContentType description="Alternative URL" hasTable="N" parentTypeId="" prodCatContentTypeId="ALTERNATIVE_URL"/>
     <ProductCategoryContentType description="Category Image URL" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_IMAGE_URL"/>
     <ProductCategoryContentType description="Category Image Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="CATEGORY_IMAGE_ALT"/>
     <ProductCategoryContentType description="Link 1 Alt Text" hasTable="N" parentTypeId="" prodCatContentTypeId="LINK1_ALT_TEXT"/>
@@ -239,6 +240,7 @@ under the License.
     <ProductContentType description="Product Name" hasTable="N" parentTypeId="" productContentTypeId="PRODUCT_NAME"/>
     <ProductContentType description="Description" hasTable="N" parentTypeId="" productContentTypeId="DESCRIPTION"/>
     <ProductContentType description="Description - Long" hasTable="N" parentTypeId="" productContentTypeId="LONG_DESCRIPTION"/>
+    <ProductContentType description="Alternative URL" hasTable="N" parentTypeId="" productContentTypeId="ALTERNATIVE_URL"/>
     <ProductContentType description="Price Detail Text" hasTable="N" parentTypeId="" productContentTypeId="PRICE_DETAIL_TEXT"/>
     <ProductContentType description="Ingredients" hasTable="N" parentTypeId="" productContentTypeId="INGREDIENTS"/>
     <ProductContentType description="Unique Ingredients" hasTable="N" parentTypeId="" productContentTypeId="UNIQUE_INGREDIENTS"/>
