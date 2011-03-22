@@ -38,6 +38,10 @@
     <!-- ================================================================= -->
 
     <target name="create-ofbiz-patches" description="Creates patch for framework, application, specialpurpose components">
+        <exec executable="svn" output="patches/root.patch" dir="${ofbiz.home.dir}">
+            <arg value="diff"/>
+            <arg value="--depth=files"/>
+        </exec>
         <exec executable="svn" output="patches/framework.patch" dir="${ofbiz.home.dir}">
             <arg value="diff"/>
             <arg value="framework"/>
@@ -50,9 +54,16 @@
             <arg value="diff"/>
             <arg value="specialpurpose"/>
         </exec>
+        <!-- this allow to work correctly on Windows machines without issues on Linux machines -->
+        <fixcrlf srcdir="patches" includes="**/*.patch" eol="crlf" />
     </target>
 
     <target name="revert-ofbiz-patches" description="Remove any local change in the files or any previously applied local patch.">
+        <exec executable="svn" dir="${ofbiz.home.dir}">
+            <arg value="revert"/>
+          <arg value="--depth=files"/>
+            <arg value="${ofbiz.home.dir}"/>
+        </exec>
         <exec executable="svn" dir="${ofbiz.home.dir}">
             <arg value="revert"/>
             <arg value="-R"/>
@@ -83,6 +94,7 @@
                 </or>
             </condition>
         </fail>
+        <patch strip="0" patchfile="patches/root.patch" dir="${ofbiz.home.dir}"/>
         <patch strip="0" patchfile="patches/framework.patch" dir="${ofbiz.home.dir}"/>
         <patch strip="0" patchfile="patches/applications.patch" dir="${ofbiz.home.dir}"/>
         <patch strip="0" patchfile="patches/specialpurpose.patch" dir="${ofbiz.home.dir}"/>
