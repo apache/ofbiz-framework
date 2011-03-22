@@ -50,7 +50,7 @@ public class Start implements Runnable {
     private boolean serverStarted = false;
     private boolean serverStopping = false;
     private boolean serverRunning = true;
-    private List<StartupLoader> loaders = null;
+    private List<StartupLoader> loaders = new ArrayList<StartupLoader>();
     private Config config = null;
     private String[] loaderArgs = null;
 
@@ -70,7 +70,6 @@ public class Start implements Runnable {
         String firstArg = args.length > 0 ? args[0] : "";
         String cfgFile = Start.getConfigFileName(firstArg);
 
-        this.loaders = new ArrayList<StartupLoader>();
         this.config = new Config();
 
         // read the default properties first
@@ -92,15 +91,15 @@ public class Start implements Runnable {
             // initialize the listener thread
             initListenerThread();
 
-            // initialize the startup loaders
-            initStartLoaders();
-
             // set the shutdown hook
             if (config.useShutdownHook) {
                 setShutdownHook();
             } else {
                 System.out.println("Shutdown hook disabled");
             }
+
+            // initialize the startup loaders
+            initStartLoaders();
         }
     }
 
@@ -251,31 +250,41 @@ public class Start implements Runnable {
     }
 
     private void initStartLoaders() {
-        // initialize the loaders
-        for (String loaderClassName: config.loaders) {
-            try {
-                Class<?> loaderClass = classloader.loadClass(loaderClassName);
-                StartupLoader loader = (StartupLoader) loaderClass.newInstance();
-                loader.load(config, loaderArgs);
-                loaders.add(loader);
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(99);
+        synchronized (this.loaders) {
+            // initialize the loaders
+            for (String loaderClassName: config.loaders) {
+                if (this.serverStopping) {
+                    return;
+                }
+                try {
+                    Class<?> loaderClass = classloader.loadClass(loaderClassName);
+                    StartupLoader loader = (StartupLoader) loaderClass.newInstance();
+                    loader.load(config, loaderArgs);
+                    this.loaders.add(loader);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.exit(99);
+                }
             }
         }
     }
 
     private void startStartLoaders() {
-        // start the loaders
-        for (StartupLoader loader: loaders) {
-            try {
-                loader.start();
-            } catch (StartupException e) {
-                e.printStackTrace();
-                System.exit(99);
+        synchronized (this.loaders) {
+            // start the loaders
+            for (StartupLoader loader: this.loaders) {
+                if (this.serverStopping) {
+                    return;
+                }
+                try {
+                    loader.start();
+                } catch (StartupException e) {
+                    e.printStackTrace();
+                    System.exit(99);
+                }
             }
+            serverStarted = true;
         }
-        serverStarted = true;
     }
 
     private void setShutdownHook() {
@@ -305,8 +314,10 @@ public class Start implements Runnable {
     private void shutdownServer() {
         if (serverStopping) return;
         serverStopping = true;
-        if (loaders != null && loaders.size() > 0) {
-            for (StartupLoader loader: loaders) {
+        synchronized (this.loaders) {
+            // Unload in reverse order
+            for (int i = this.loaders.size(); i > 0; i--) {
+                StartupLoader loader = this.loaders.get(i - 1);
                 try {
                     loader.unload();
                 } catch (Exception e) {
@@ -334,6 +345,7 @@ public class Start implements Runnable {
         shutdownServer();
     }
 
+    /* This method is a bad idea.
     public void destroy() {
         this.serverSocket = null;
         this.serverThread = null;
@@ -341,6 +353,7 @@ public class Start implements Runnable {
         this.config = null;
         this.loaderArgs = null;
     }
+    */
 
     public String shutdown() throws IOException {
         return sendSocketCommand(Start.SHUTDOWN_COMMAND);
