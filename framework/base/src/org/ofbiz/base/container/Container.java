@@ -32,10 +32,12 @@ package org.ofbiz.base.container;
  * threads.
  * </p>
  * 
+ * <p>Containers might be loaded more than once (have more than one instance).<p>
  */
 public interface Container {
 
-    /** Initialize the container.
+    /** Initialize the container. This method must not block - implementations
+     * should initialize internal structures and then return.
      *
      * @param args Command-line arguments.
      * @param configFile Location of the configuration file used to load this container.
@@ -46,7 +48,8 @@ public interface Container {
     public void init(String[] args, String configFile) throws ContainerException;
 
     /**
-     * Start the container process.
+     * Start the container process. This method must not block - implementations
+     * that require thread blocking must create a separate thread and then return.
      *
      * @return <code>true</code> if the process started.
      * @throws ContainerException If an error was encountered.
@@ -54,7 +57,7 @@ public interface Container {
     public boolean start() throws ContainerException;
 
     /**
-     * Stop the container process.
+     * Stop the container process. This method must not block.
      *
      * @throws ContainerException If an error was encountered.
      */
