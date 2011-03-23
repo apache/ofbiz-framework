@@ -255,7 +255,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             var requestUrlAndArgs = requestUrl;
             if (typeof args == "object" && jQuery.isArray(args)) {
                 for (var i = 0; i < args.length; i++) {
-                        requestUrlAndArgs += "&parm" + i + "=" + jQuery(args[i]).val();
+                        requestUrlAndArgs += "&parm" + (i+1) + "=" + jQuery(args[i]).val();
                 }
             }
             jQuery("#" + lookupId).load(requestUrlAndArgs, function(data){ 
