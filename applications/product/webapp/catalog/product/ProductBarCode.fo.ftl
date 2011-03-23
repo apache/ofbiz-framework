@@ -32,7 +32,7 @@ under the License.
     <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block text-align="center">
-                 ${productName}
+                 ${productName!}
             </fo:block>
             <fo:block text-align="center">
                 <fo:instream-foreign-object>
