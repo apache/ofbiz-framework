@@ -31,8 +31,6 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-field="product"/>
-                <set field="productName" from-field="product.productName"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -367,7 +365,7 @@ under the License.
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditProductAssetUsage}">
-                            <include-form name="EditProductAssetUsage" location="component://product/widget/catalog/ProductForms.xml"/>                        
+                            <include-form name="EditProductAssetUsage" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditProductAssetUsage}">
                             <container>
@@ -1264,7 +1262,8 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="productId" from-field="parameters.productId"/>
-                <set field="productName" from-field="parameters.productName"/>
+                <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
+                <set field="productName" from-field="product.productName" default-value="product.internalName"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -1334,7 +1333,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="BestSellingProducts">
         <section>
             <actions>
