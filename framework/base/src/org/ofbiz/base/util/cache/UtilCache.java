@@ -49,6 +49,7 @@ import org.ofbiz.base.util.UtilObject;
 import org.ofbiz.base.util.UtilValidate;
 
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
+import com.googlecode.concurrentlinkedhashmap.EvictionListener;
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap.Builder;
 
 /**
@@ -63,8 +64,8 @@ import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap.Builder;
  *
  */
 @SuppressWarnings("serial")
-public class UtilCache<K, V> implements Serializable {
-
+public class UtilCache<K, V> implements Serializable, EvictionListener<Object, CacheLine<V>> {
+	
     public static final String module = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
@@ -143,6 +144,7 @@ public class UtilCache<K, V> implements Serializable {
         } else {
             memoryTable = new Builder<Object, CacheLine<V>>()
             .maximumWeightedCapacity(maxMemSize)
+            .listener(this)
             .build();
         }
         if (this.useFileSystemStore) {
@@ -1027,4 +1029,9 @@ public class UtilCache<K, V> implements Serializable {
     public static <K, V> UtilCache<K, V> findCache(String cacheName) {
         return (UtilCache<K, V>) UtilCache.utilCacheTable.get(cacheName);
     }
+
+	@Override
+	public void onEviction(Object key, CacheLine<V> value) {
+		ExecutionPool.removePulse(value);
+	}
 }
