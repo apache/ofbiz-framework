@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,7 @@
 -->
 <section xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd">
-    <title>OFBiz SeleniumXml</title>
+    <title><anchor xml:id="OFBizSeleniumXml"/>OFBiz SeleniumXml</title>
     <para> This is a short document to help you get started using SeleniumXml to test your OFBiz application. Here is a <link
             xl:href="http://us.apachecon.com/presentation/materials/118/ApacheCon2008_SeleniumXml.pdf">copy of the presentation</link> that was given
         at the ApacheCon2008 OFBiz Conference that describes more about the project. </para>
