@@ -239,6 +239,9 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductPriceRule"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <if-empty field="parameters.fromDate">
+            <now-timestamp field="newEntity.fromDate"/>
+        </if-empty>
         <sequenced-id sequence-name="ProductPriceRule" field="newEntity.productPriceRuleId"/>
         <field-to-result field="newEntity.productPriceRuleId" result-name="productPriceRuleId"/>
 
