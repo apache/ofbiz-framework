@@ -31,10 +31,11 @@
         package-name="org.ofbiz.selenium.test"
         default-resource-name="ExampleEntityLabels"
         title="Selenium Test suite file">
-        <field name="testSuiteId" type="id-ne"></field>
-        <field name="testSuiteName" type="name"></field>
-        <field name="testSuitePath" type="description"></field>
-        <field name="description" type="very-long"></field>
+        <field name="testSuiteId" type="id-ne"/>
+        <field name="testSuiteName" type="name"/>
+        <field name="testSuiteType" type="id"/>
+        <field name="testSuitePath" type="description"/>
+        <field name="description" type="very-long"/>
         <prim-key field="testSuiteId"/>
     </entity>
 </entitymodel>
