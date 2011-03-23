@@ -82,7 +82,6 @@ under the License.
                                             </link>
                                             <link target="ProductBarCode.pdf" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext">
                                                 <parameter param-name="productId"/>
-                                                <parameter param-name="productName"/>
                                             </link>
 
                                             <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
@@ -1263,7 +1262,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
-                <set field="productName" from-field="product.productName" default-value="product.internalName"/>
+                <set field="productName" from-field="product.productName" default-value="${product.internalName}"/>
             </actions>
             <widgets>
                 <platform-specific>
