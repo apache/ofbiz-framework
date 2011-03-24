@@ -58,6 +58,12 @@
         <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
         <field name="ruleName" title="${uiLabelMap.CommonName}"><text size="25"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60"/></field>
+        <field name="isSale" title="${uiLabelMap.ProductSaleRule}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
