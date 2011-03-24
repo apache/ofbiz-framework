@@ -2257,6 +2257,10 @@
         <value xml:lang="zh">利润百分比</value>
         <value xml:lang="zh_TW">利潤百分比</value>
     </property>
+    <property key="ProductPriceActionType.description.PRICE_POWHS">
+        <value xml:lang="en">Percent Of Wholesale</value>
+        <value xml:lang="fr">Pourcentage de la vente en gros</value>
+    </property>
     <property key="ProductPriceActionType.description.PRICE_WFLAT">
         <value xml:lang="de">Grosshandelspreis übersteuern</value>
         <value xml:lang="en">Wholesale Amount Override</value>
