@@ -59,7 +59,7 @@
         <field name="ruleName" title="${uiLabelMap.CommonName}"><text size="25"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text size="60"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time type="timestamp"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>        
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
         <field use-when="org.ofbiz.base.util.UtilValidate.isEmpty(productPriceConds) &amp;&amp; org.ofbiz.base.util.UtilValidate.isEmpty(productPriceActions)"
             name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -74,12 +74,12 @@
         <field name="productPriceCondSeqId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
         <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
             <drop-down allow-empty="false" current="selected">
-                <list-options list-name="inputParamEnums" key-name="enumId" description="${description}"/>                
+                <list-options list-name="inputParamEnums" key-name="enumId" description="${description}"/>
             </drop-down>
         </field>        
         <field name="operatorEnumId" title="${uiLabelMap.ProductOperator}">
             <drop-down allow-empty="false" current="selected">
-                <list-options list-name="condOperEnums" key-name="enumId" description="${description}"/>                
+                <list-options list-name="condOperEnums" key-name="enumId" description="${description}"/>
             </drop-down>
         </field>        
         <field use-when="&quot;PRIP_QUANTITY&quot;.equals(inputParamEnumId) || &quot;PRIP_LIST_PRICE&quot;.equals(inputParamEnumId)" 
@@ -107,12 +107,12 @@
         <field name="new"><display default-value="${uiLabelMap.ProductPriceRulesNewCond}"/></field>
         <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
             <drop-down allow-empty="false">
-                <list-options list-name="inputParamEnums" key-name="enumId" description="${description}"/>                
+                <list-options list-name="inputParamEnums" key-name="enumId" description="${description}"/>
             </drop-down>
         </field>        
         <field name="operatorEnumId" title="${uiLabelMap.ProductOperator}">
             <drop-down allow-empty="false">
-                <list-options list-name="condOperEnums" key-name="enumId" description="${description}"/>                
+                <list-options list-name="condOperEnums" key-name="enumId" description="${description}"/>
             </drop-down>
         </field>        
         <field name="condValueInput" title="${uiLabelMap.ProductValue}"><text size="10"/></field>
@@ -147,7 +147,7 @@
         <field name="new"><display default-value="${uiLabelMap.ProductPriceRulesNewAction}"/></field>
         <field name="productPriceActionTypeId" title="${uiLabelMap.ProductActionType}">
             <drop-down allow-empty="false">
-                <list-options list-name="productPriceActionTypes" key-name="productPriceActionTypeId" description="${description}"/>                
+                <list-options list-name="productPriceActionTypes" key-name="productPriceActionTypeId" description="${description}"/>
             </drop-down>
         </field>        
         <field name="amount" title="${uiLabelMap.ProductValue}"><text/></field>
