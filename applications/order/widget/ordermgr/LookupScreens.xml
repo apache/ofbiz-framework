@@ -137,7 +137,7 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupCustomerRequestItem}"/>
-                <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.parm0}"/>
+                <set field="custRequestId" from-field="parameters.custRequestId" default-value="${parameters.parm1}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -190,7 +190,7 @@ under the License.
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupQuoteItem}"/>
-                <set field="quoteId" from-field="parameters.quoteId" default-value="${parameters.parm0}"/>
+                <set field="quoteId" from-field="parameters.quoteId" default-value="${parameters.parm1}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
