@@ -114,7 +114,7 @@
     <form name="AddProductPriceRulesCond" type="list" target="createProductPriceCond" title="" list-name="productPriceCondAdd" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
-        <field name="new"><display default-value="${uiLabelMap.ProductPriceRulesNewCond}"/></field>
+        <field name="new" title="${uiLabelMap.CommonNew}"><display default-value="${uiLabelMap.ProductPriceRulesNewCond}"/></field>
         <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -158,7 +158,7 @@
     <form name="AddProductPriceRulesAction" type="list" target="createProductPriceAction" title="" list-name="productPriceActionAdd" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">            
         <field name="productPriceRuleId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
-        <field name="new"><display default-value="${uiLabelMap.ProductPriceRulesNewAction}"/></field>
+        <field name="new" title="${uiLabelMap.CommonNew}"><display default-value="${uiLabelMap.ProductPriceRulesNewAction}"/></field>
         <field name="productPriceActionTypeId" title="${uiLabelMap.ProductActionType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProductPriceActionType" description="${description}" key-field-name="productPriceActionTypeId"/>
