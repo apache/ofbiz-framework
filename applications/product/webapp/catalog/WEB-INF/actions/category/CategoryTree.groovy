@@ -31,45 +31,36 @@ import javolution.util.FastList.*;
 import org.ofbiz.entity.*;
 import java.util.List;
 
-// Put the result of CategoryWorker.getRelatedCategories into the fillTree function as attribute.
-// The fillTree function will return the complete list of category of given catalog.
-// PLEASE NOTE : The structure of the complete list of fillTree function is according to the JSON_DATA plugin of the jsTree.
-
-List fillTree(rootCat) {
-    if (rootCat) {
-        rootCat.sort{ it.productCategoryId }
-        def listTree = FastList.newInstance();
-        for (root in rootCat) {
-            preCatChilds = delegator.findByAnd("ProductCategoryRollup", ["parentProductCategoryId": root.productCategoryId]);
-            catChilds = EntityUtil.getRelated("CurrentProductCategory",preCatChilds);
-            def childList = FastList.newInstance();
-            def rootMap = FastMap.newInstance();
-            category = delegator.findByPrimaryKey("ProductCategory", ["productCategoryId": root.productCategoryId]);
-            categoryContentWrapper = new CategoryContentWrapper(category, request);
-            context.title = categoryContentWrapper.CATEGORY_NAME;
-            categoryDescription = categoryContentWrapper.DESCRIPTION;
-            
-            if (categoryContentWrapper.CATEGORY_NAME) {
-                rootMap["categoryName"] = categoryContentWrapper.CATEGORY_NAME;
-            } else {
-                rootMap["categoryName"] = root.categoryName;
-            }
-            if (categoryContentWrapper.DESCRIPTION) {
-                rootMap["categoryDescription"] = categoryContentWrapper.DESCRIPTION;
-            } else {
-                rootMap["categoryDescription"] = root.description;
-            }
-            rootMap["productCategoryId"] = root.productCategoryId;
-            rootMap["child"] = catChilds;
-            rootMap["isCatalog"] = false;
-            listTree.add(rootMap);
-            
-        }
-        return listTree;
-    }
-}
+// Put the result of CategoryWorker.getRelatedCategories into the separateRootType function as attribute.
+// The separateRootType function will return the list of category of given catalog.
+// PLEASE NOTE : The structure of the list of separateRootType function is according to the JSON_DATA plugin of the jsTree.
 
 completedTree =  FastList.newInstance();
+
+List separateRootType(roots) {
+    if(roots) {
+         prodRootTypeTree = FastList.newInstance();
+         def i = 0;
+        for(root in roots) {
+            prodCatalogMap2 = FastMap.newInstance();
+             prodCatalogTree2 = FastList.newInstance();
+            prodCatalogCategories = FastList.newInstance();
+            prodCatalog = root.getRelatedOne("ProductCategory");
+            
+            productCat = root.getRelatedOne("ProductCategory");
+            prodCatalogId = productCat.getString("productCategoryId");
+            prodCatalogMap2.put("productCategoryId", prodCatalogId);
+            prodCatalogMap2.put("categoryName", productCat.getString("categoryName"));
+            prodCatalogMap2.put("isCatalog", false)
+            prodCatalogMap.put("isCategoryType", true);
+            
+            i++;
+            
+            prodRootTypeTree.add(prodCatalogMap2);
+        }
+        return prodRootTypeTree;
+    }
+}
 
 // Get the Catalogs
 prodCatalogs = delegator.findByAnd("ProdCatalog");
@@ -83,14 +74,14 @@ if (prodCatalogs.size() > 0) {
         prodCatalogMap.put("productCategoryId", prodCatalogId);
         prodCatalogMap.put("categoryName", prodCatalog.getString("catalogName"));
         prodCatalogMap.put("isCatalog", true);
+        prodCatalogMap.put("isCategoryType", false);
         
-        CategoryWorker.getRelatedCategories(request, "CatalogList_"+i, CatalogWorker.getCatalogTopCategoryId(request, prodCatalogId), true);
-        categoryList = null;
-        categoryList = request.getAttribute("CatalogList_"+i);
+        prodCatalogCategories = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", ["prodCatalogId" : prodCatalog.prodCatalogId]));
+        
         prodCatalogTree = FastList.newInstance();
         
-        if (categoryList) {
-            prodCatalogTree = fillTree(categoryList);
+        if (prodCatalogCategories) {
+            prodCatalogTree = separateRootType(prodCatalogCategories);
             prodCatalogMap.put("child", prodCatalogTree);
             completedTree.add(prodCatalogMap);
         }

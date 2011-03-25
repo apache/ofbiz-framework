@@ -406,6 +406,7 @@ public class CategoryServices {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("productCategoryId");
         String isCatalog = request.getParameter("isCatalog");
+        String isCategoryType = request.getParameter("isCategoryType");
         String entityName = null;
         String primaryKeyName = null;
         
@@ -423,14 +424,20 @@ public class CategoryServices {
         try {
             GenericValue category = delegator.findByPrimaryKey(entityName ,UtilMisc.toMap(primaryKeyName, productCategoryId));
             if (UtilValidate.isNotEmpty(category)) {
-                if (isCatalog.equals("true")) {
+                if (isCatalog.equals("true") && isCategoryType.equals("false")) {
                     CategoryWorker.getRelatedCategories(request, "ChildCatalogList", CatalogWorker.getCatalogTopCategoryId(request, productCategoryId), true);
-                    childOfCats = (List<GenericValue>) request.getAttribute("ChildCatalogList");
+                    childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
+                    
+                } else if(isCatalog.equals("false") && isCategoryType.equals("false")){
+                    List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum", "productCategoryId", "parentProductCategoryId");
+                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
+                            "parentProductCategoryId", productCategoryId ), sortList));
                 } else {
-                    childOfCats = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
-                            "parentProductCategoryId", productCategoryId ));
+                    List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum", "prodCatalogCategoryTypeId", "productCategoryId");
+                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", productCategoryId), sortList));
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
+                	
                     for (GenericValue childOfCat : childOfCats ) {
                         
                         Object catId = null;
@@ -443,8 +450,8 @@ public class CategoryServices {
                         List<GenericValue> childList = null;
                         
                         // Get the child list of chosen category
-                        childList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
-                                    "parentProductCategoryId", catId));
+                        childList = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
+                                    "parentProductCategoryId", catId)));
                         
                         // Get the chosen category information for the categoryContentWrapper
                         GenericValue cate = delegator.findByPrimaryKey("ProductCategory" ,UtilMisc.toMap("productCategoryId",catId));
@@ -458,7 +465,7 @@ public class CategoryServices {
                         CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
                         
                         if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField))) {
-                            dataMap.put("title", categoryContentWrapper.get(catNameField)+"["+catId+"]");
+                            dataMap.put("title", categoryContentWrapper.get(catNameField)+" "+"["+catId+"]");
                         } else {
                             dataMap.put("title", catId);
                         }
