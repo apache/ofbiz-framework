@@ -192,7 +192,8 @@ public class ScreenRenderer {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
-        Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "authz", "security", "webSiteId");
+        Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "authz", "security", "webSiteId",
+                "org.apache.catalina.jsp_classpath");
         Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
