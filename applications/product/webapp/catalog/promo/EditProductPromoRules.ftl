@@ -232,7 +232,7 @@ under the License.
     </#list>
                   </select>
                   <input type="text" size="25" name="condValue" />
-                  ${uiLabelMap.CommonOther}:<input type="text" size="10" name="otherValue" />
+                  ${uiLabelMap.CommonOther}:<input type="text" size="10" name="otherValue" /><br />
                   <label>${uiLabelMap.OrderSelectShippingMethod}:</label>
                   <select name = "carrierShipmentMethod">
                     <option value = "">--${uiLabelMap.OrderSelectShippingMethod}--</option>
@@ -278,7 +278,7 @@ under the License.
                     ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" value="${(productPromoAction.quantity)?if_exists}" />
                     ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" value="${(productPromoAction.amount)?if_exists}" />
                     ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" value="${(productPromoAction.productId)?if_exists}" />
-                    ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" value="${(productPromoAction.partyId)?if_exists}" />
+                    ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" value="${(productPromoAction.partyId)?if_exists}" /><br />
                     ${uiLabelMap.ProductServiceName}:&nbsp;<input type="text" size="20" name="serviceName" value="${(productPromoAction.serviceName)?if_exists}" />
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
@@ -404,7 +404,7 @@ under the License.
                     ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" />
                     ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" />
                     ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" />
-                    ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" />
+                    ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" /><br />
                     ${uiLabelMap.ProductServiceName}:&nbsp;<input type="text" size="20" name="serviceName" />
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
