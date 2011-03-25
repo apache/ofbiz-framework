@@ -3942,7 +3942,9 @@ public class OrderServices {
         return result;
     }
 
-    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart, Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax, boolean deleteItems) throws GeneralException {
+    private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart,
+            Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax,
+            boolean deleteItems) throws GeneralException {
         // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
         int shipGroups = cart.getShipGroupSize();
         for (int gi = 0; gi < shipGroups; gi++) {
@@ -3985,6 +3987,19 @@ public class OrderServices {
         Map<String, Object> validateResp = coh.validatePaymentMethods();
         if (ServiceUtil.isError(validateResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(validateResp));
+        }
+
+        // handle OrderHeader fields
+        String billingAccountId = cart.getBillingAccountId();
+        if (UtilValidate.isNotEmpty(billingAccountId)) {
+            try {
+                GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                orderHeader.set("billingAccountId", billingAccountId);
+                toStore.add(orderHeader);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+                throw new GeneralException(e.getMessage());
+            }
         }
 
         toStore.addAll(cart.makeOrderItems());
