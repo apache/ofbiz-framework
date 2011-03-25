@@ -3919,19 +3919,19 @@
         <value xml:lang="zh_TW">為支付方式設置的金額無效。</value>
     </property>
     <property key="checkevents.not_enough_available_on_account">
-        <value xml:lang="de">Nicht genug verfügbar auf Konto #{billingAccountId}.</value>
-        <value xml:lang="en">Not enough available on account #{billingAccountId}.</value>
-        <value xml:lang="es">No hay suficiente disponible en la cuenta #{billingAccountId}.</value>
-        <value xml:lang="fr">Disponibilités insuffisantes sur le compte n°{billingAccountId}.</value>
-        <value xml:lang="it">Non abbastanza diponibilità sul conto #{billingAccountId}.</value>
-        <value xml:lang="nl">Not enough available on account #{billingAccountId}.</value>
-        <value xml:lang="pt_BR">Sem recursos suficientes na conta #{billingAccountId}.</value>
-        <value xml:lang="ro">Nu este destula disponibilitate in  cont #{billingAccountId}.</value>
-        <value xml:lang="ru">Недостаточно для учетной записи №{billingAccountId}.</value>
-        <value xml:lang="th">ไม่สามารถนำไปใช้ได้เพียงพอในบัญชี #{billingAccountId}.</value>
-        <value xml:lang="zh">账户 #{billingAccountId} 金额不够。</value>
-        <value xml:lang="zh_CN">帐户余额不足#{billingAccountId}.</value>
-        <value xml:lang="zh_TW">賬戶 #{billingAccountId} 金額不夠。</value>
+        <value xml:lang="de">Nicht genug verfügbar auf Konto ${billingAccountId}.</value>
+        <value xml:lang="en">Not enough available on account ${billingAccountId}.</value>
+        <value xml:lang="es">No hay suficiente disponible en la cuenta ${billingAccountId}.</value>
+        <value xml:lang="fr">Disponibilités insuffisantes sur le compte ${billingAccountId}.</value>
+        <value xml:lang="it">Non abbastanza diponibilità sul conto ${billingAccountId}.</value>
+        <value xml:lang="nl">Not enough available on account ${billingAccountId}.</value>
+        <value xml:lang="pt_BR">Sem recursos suficientes na conta ${billingAccountId}.</value>
+        <value xml:lang="ro">Nu este destula disponibilitate in  cont ${billingAccountId}.</value>
+        <value xml:lang="ru">Недостаточно для учетной записи ${billingAccountId}.</value>
+        <value xml:lang="th">ไม่สามารถนำไปใช้ได้เพียงพอในบัญชี ${billingAccountId}.</value>
+        <value xml:lang="zh">账户 ${billingAccountId} 金额不够。</value>
+        <value xml:lang="zh_CN">帐户余额不足${billingAccountId}.</value>
+        <value xml:lang="zh_TW">賬戶 ${billingAccountId} 金額不夠。</value>
     </property>
     <property key="checkevents.payment_not_cover_this_order">
         <value xml:lang="de">Gewählte Zahlweise deckt nicht diese Bestellung.</value>
