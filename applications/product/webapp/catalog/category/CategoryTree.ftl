@@ -36,7 +36,7 @@ var rawdata = [
                 <#list rootCat as root>
                     {
                     "data": {"title" : unescapeHtmlText("<#if root.categoryName?exists>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"onClick" : "window.location.href='<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>'; return false;"}},
-                    "attr": {"id" : "${root.productCategoryId}", "rel" : "root", "isCatalog" : "${root.isCatalog?string}"}
+                    "attr": {"id" : "${root.productCategoryId}", "rel" : "root", "isCatalog" : "${root.isCatalog?string}" ,"isCategoryType" : "${root.isCategoryType?string}"}
                     <#if root.child?exists>
                     ,"state" : "closed"
                     </#if>
@@ -68,12 +68,24 @@ var rawdata = [
                           "ajax" : { "url" : "<@ofbizUrl>getChild</@ofbizUrl>", "type" : "POST",
                           "data" : function (n) {
                             return { 
+                                "isCategoryType" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
                                 "isCatalog" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
                                 "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1
                         }; 
                     }
                 }
-            }
+            },
+            "types" : {
+             "valid_children" : [ "root" ],
+             "types" : {
+                 "CATEGORY" : {
+                     "icon" : { 
+                         "image" : "/images/jquery/plugins/jsTree/themes/apple/d.png",
+                         "position" : "10px40px"
+                     }
+                 }
+             }
+         }
         });
     });
   }
