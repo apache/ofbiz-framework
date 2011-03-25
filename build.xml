@@ -27,7 +27,7 @@ under the License.
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
     <property name="pos.memory.max.param" value="-Xmx512M"/>
-    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=128m"/>
+    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=512"/>
 
     <available file="applications/build.xml" property="applications.present"/>
     <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
@@ -157,11 +157,11 @@ under the License.
             </fileset>
         </subant>
 
-        <subant target="clean"  failonerror="${specialpurpose.present}" 
+        <subant target="clean"  failonerror="${specialpurpose.present}"
           description="Use failonerror=false in case the specialpurpose directory is not there">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
-        <subant target="clean" failonerror="${applications.present}" 
+        <subant target="clean" failonerror="${applications.present}"
           description="Use failonerror=false in case the applications directory is not there">
             <filelist dir="." files="applications/build.xml"/>
         </subant>
@@ -283,7 +283,7 @@ under the License.
     <!-- WebSite Targets                                                    -->
     <!-- ================================================================== -->
 
-    <target name="build-website" 
+    <target name="build-website"
             description="For committers : Update dtds and JavaDoc from OFBiz instance to site">
         <antcall target="copy-dtds"/>
         <antcall target="docs"/>
@@ -335,7 +335,7 @@ under the License.
     <!-- Start OFBiz                                                        -->
     <!-- ================================================================== -->
 
-    <target name="run" 
+    <target name="run"
             description="This will start OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -343,7 +343,7 @@ under the License.
             <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
-    <target name="run-pos" 
+    <target name="run-pos"
             description="Start the POS (Point of sale) system">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -436,16 +436,16 @@ under the License.
         </java>
     </target>
 
-    <!-- ================================= 
-          target: run-create-tenant        
+    <!-- =================================
+          target: run-create-tenant
          ================================= -->
-    <target name="run-create-tenant" 
+    <target name="run-create-tenant"
         depends="create-tenant-on-Derby,create-tenant-on-MySQL,create-tenant-on-Oracle,create-tenant-on-PostgreSQL"
         description="Creates a new tenant in your environment, creates the delegator, loads initial data with admin-user and password (needs multitenant=Y in general.properties)">
         <tstamp/>
     </target>
 
-    <!-- description="This creates entity Tenant and TenantDataSource in default, installs data in the delegator and creates the admin-user and password for the tenant"  
+    <!-- description="This creates entity Tenant and TenantDataSource in default, installs data in the delegator and creates the admin-user and password for the tenant"
         sub-target of run-create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="get-tenant-data">
         <input addproperty="tenantId" message="Enter Id for the tenant: "/>
@@ -473,7 +473,7 @@ under the License.
         </condition>
         <antcall target="tenant-data-entry"/>
     </target>
-    <!-- description="Creates tenant data and instance"  
+    <!-- description="Creates tenant data and instance"
         sub-target of run-create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-Derby" depends="get-tenant-data" if="isDerby">
         <echo message="Installing on Derby"/>
@@ -493,7 +493,7 @@ under the License.
             <param name="delegatorId" value="default#${tenantId}"/>
         </antcall>
     </target>
-    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"  
+    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"
         sub-target of run-create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-MySQL" depends="get-tenant-data" if="isMySQL">
         <echo message="Installing on MySQL"/>
@@ -516,7 +516,7 @@ under the License.
             <param name="delegatorId" value="default#${tenantId}"/>
         </antcall>
     </target>
-    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"  
+    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"
         sub-target of run-create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-Oracle" depends="get-tenant-data" if="isOracle">
         <echo message="Installing on Oracle"/>
@@ -539,7 +539,7 @@ under the License.
             <param name="delegatorId" value="default#${tenantId}"/>
         </antcall>
     </target>
-    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"  
+    <!-- description="Creates tenant data and instance. Don't forget db driver(s) and already created DBs in function of the entityengine.xml datasource-names"
         sub-target of run-create-tenant, can't used alone => no description, to not clutter "ant -p" -->
     <target name="create-tenant-on-PostgreSQL" depends="get-tenant-data" if="isPostgreSQL">
         <echo message="Installing on PostgreSQL"/>
@@ -577,7 +577,7 @@ under the License.
         <echo message="Please make sure that the driver of the platform is installed and that the databases have been created (Check names just above)"/>
         <echo>------------------------------------</echo>
         <input addproperty="continueYN" message="Continue Y or N" validargs="N,n,Y,y"/>
-        
+
     </target>
     <target name="load-tenant-admin-user-login"
         description="Creates the admin login for the tenant with admin privileges, and a temporay password equal to 'ofbiz'. Password must be changed on first login">
@@ -650,7 +650,7 @@ under the License.
         <antcall target="load-admin-user-login"/>
     </target>
 
-    <target name="run-debug" depends="build" 
+    <target name="run-debug" depends="build"
             description="Starts OFBiz in debugging mode">
         <java jar="ofbiz.jar"  fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -723,7 +723,7 @@ under the License.
         </fail>
     </target>
     <target name="run-single-test-suite" depends="download-cobertura, build"
-            description="Run a single test suite, syntax eg: ant run-single-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">      
+            description="Run a single test suite, syntax eg: ant run-single-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -740,7 +740,7 @@ under the License.
             </condition>
         </fail>
     </target>
-    <target name="run-test-list" depends="_setup-separated-test-run" 
+    <target name="run-test-list" depends="_setup-separated-test-run"
             description="Run all configured tests, stopping/starting ofbiz between each test">
         <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
@@ -851,7 +851,7 @@ under the License.
     <!-- ================================================================== -->
     <!-- Create New Component. This target will create basic directory structure for an OFBiz component in hot-deploy directory. -->
     <!-- ================================================================== -->
-    
+
     <target name="create-component"
             description="Creates the layout of an OFBiz component in the hot-deploy folder.">
         <input addproperty="component-name" message="Component name: (e.g. mycomponent) [Mandatory]"/>
