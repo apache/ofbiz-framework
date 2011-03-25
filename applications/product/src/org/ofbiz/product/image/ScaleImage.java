@@ -23,6 +23,8 @@ import java.awt.image.ImagingOpException;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.NullPointerException;
+import java.lang.SecurityException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -118,7 +120,6 @@ public class ScaleImage {
             filenameExpander = FlexibleStringExpander.getInstance(filenameFormat);
             id = (String) context.get("productId");
             fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "type", "original"));
-            Debug.logWarning("fileLocation for view type = MAIN : " + fileLocation,module);
         } else if (viewType.toLowerCase().contains("additional") && viewNumber != null && !viewNumber.equals("0")) {
             String filenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format");
             filenameExpander = FlexibleStringExpander.getInstance(filenameFormat);
@@ -138,7 +139,7 @@ public class ScaleImage {
         }
         
         /* get original BUFFERED IMAGE */
-            resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + fileLocation + "." + imgExtension, locale));
+        resultBufImgMap.putAll(ImageTransform.getBufferedImage(imageServerPath + "/" + fileLocation + "." + imgExtension, locale));
 
         if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
@@ -153,16 +154,18 @@ public class ScaleImage {
                 return result;
             }
 
-            /* scale Image for each Size Type */
-            Iterator<String> sizeIter = sizeTypeList.iterator();
-            while (sizeIter.hasNext()) {
-                String sizeType = sizeIter.next();
+            /* Scale image for each size from ImageProperties.xml */
+            for (Map.Entry<String, Map<String, String>> entry : imgPropertyMap.entrySet()) {
+                String sizeType = entry.getKey();
+                
+                // Scale
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
 
+                /* Write the new image file */
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {
                     bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
 
-                    // write the New Scaled Image
+                    // Build full path for the new scaled image
                     String newFileLocation = null;
                     filenameToUse = sizeType + filenameToUse.substring(filenameToUse.lastIndexOf("."));
                     if (viewType.toLowerCase().contains("main")) {
@@ -170,21 +173,38 @@ public class ScaleImage {
                     } else if (viewType.toLowerCase().contains("additional")) {
                         newFileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "id", id, "viewtype", viewType, "sizetype", sizeType));
                     }
-
                     String newFilePathPrefix = "";
                     if (newFileLocation.lastIndexOf("/") != -1) {
                         newFilePathPrefix = newFileLocation.substring(0, newFileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-                    }
-
+                    }     
+                    // Directory
                     String targetDirectory = imageServerPath + "/" + newFilePathPrefix;
-                    File targetDir = new File(targetDirectory);
-                    if (!targetDir.exists()) {
-                        boolean created = targetDir.mkdirs();
-                        if (!created) {
-                            String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
-                            Debug.logFatal(errMsg, module);
-                            return ServiceUtil.returnError(errMsg);
+                    try {
+                        // Create the new directory
+                        File targetDir = new File(targetDirectory);
+                        if (!targetDir.exists()) {
+                            boolean created = targetDir.mkdirs();
+                            if (!created) {
+                                String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
+                                Debug.logFatal(errMsg, module);
+                                return ServiceUtil.returnError(errMsg);
+                            }
+                        // Delete existing image files
+                        // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
+                        } else if (newFileLocation.endsWith("/" + id)) {
+                            try {
+                                File[] files = targetDir.listFiles(); 
+                                for(File file : files) {
+                                    if (file.isFile() && file.getName().startsWith(id)) {
+                                        file.delete();
+                                    }    
+                                }
+                            } catch (SecurityException e) {
+                                Debug.logError(e,module);
+                            }
                         }
+                    } catch (NullPointerException e) {
+                        Debug.logError(e,module);
                     }
 
                     // write new image
@@ -202,12 +222,14 @@ public class ScaleImage {
                         return result;
                     }
 
-                    /* write Return Result */
-                    String imageUrl = imageUrlPrefix + "/" + newFileLocation + "." + imgExtension;
-                    imgUrlMap.put(sizeType, imageUrl);
+                    // Save each Url
+                    if (sizeTypeList.contains(sizeType)) {
+                        String imageUrl = imageUrlPrefix + "/" + newFileLocation + "." + imgExtension;
+                        imgUrlMap.put(sizeType, imageUrl);
+                    }
 
                 } // scaleImgMap
-            } // sizeIter
+            } // Loop over sizeType
 
             result.put("responseMessage", "success");
             result.put("imageUrlMap", imgUrlMap);

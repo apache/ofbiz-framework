@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.lang.NullPointerException;
+import java.lang.SecurityException;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
@@ -1015,28 +1017,59 @@ public class ProductServices {
 
             /* Write the new image file */
             String targetDirectory = imageServerPath + "/" + filePathPrefix;
-            File targetDir = new File(targetDirectory);
-            if (!targetDir.exists()) {
-                boolean created = targetDir.mkdirs();
-                if (!created) {
-                    String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
-                    Debug.logFatal(errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
-                }
-            }
-            File file = new File(imageServerPath + "/" + fileLocation + "." +  extension.getString("fileExtensionId"));
             try {
-                RandomAccessFile out = new RandomAccessFile(file, "rw");
-                out.write(imageData.array());
-                out.close();
-            } catch (FileNotFoundException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                        "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
-            } catch (IOException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                        "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                File targetDir = new File(targetDirectory);
+                // Create the new directory
+                if (!targetDir.exists()) {
+                    boolean created = targetDir.mkdirs();
+                    if (!created) {
+                        String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_create_target_directory", locale) + " - " + targetDirectory;
+                        Debug.logFatal(errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                // Delete existing image files
+                // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
+                } else if (!filenameToUse.contains(productId)) {
+                    try {
+                        File[] files = targetDir.listFiles(); 
+                        for(File file : files) {
+                            if (file.isFile()) file.delete(); 
+                        }
+                    } catch (SecurityException e) {
+                        Debug.logError(e,module);
+                    }
+                // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id})
+                } else {
+                    try {
+                        File[] files = targetDir.listFiles(); 
+                        for(File file : files) {
+                            if (file.isFile() && file.getName().startsWith(productId + "_View_" + viewNumber)) file.delete();
+                        }
+                    } catch (SecurityException e) {
+                        Debug.logError(e,module);
+                    }
+                }
+            } catch (NullPointerException e) {
+                Debug.logError(e,module);
+            }
+            // Write
+            try {
+            File file = new File(imageServerPath + "/" + fileLocation + "." +  extension.getString("fileExtensionId"));
+                try {
+                    RandomAccessFile out = new RandomAccessFile(file, "rw");
+                    out.write(imageData.array());
+                    out.close();
+                } catch (FileNotFoundException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductImageViewUnableWriteFile", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
+                            "ProductImageViewUnableWriteBinaryData", UtilMisc.toMap("fileName", file.getAbsolutePath()), locale));
+                }
+            } catch (NullPointerException e) {
+                Debug.logError(e,module);
             }
 
             /* scale Image in different sizes */

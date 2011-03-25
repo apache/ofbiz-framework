@@ -110,7 +110,21 @@ if (fileType) {
             file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
             file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
             try {
-                file1.delete();
+                // Delete existing image files
+                File targetDir = new File(imageServerPath + "/" + filePathPrefix);
+                // Images are ordered by productId (${location}/${id}/${viewtype}/${sizetype})
+                if (!filenameToUse.startsWith(productId + ".")) {
+                    File[] files = targetDir.listFiles(); 
+                    for(File file : files) {
+                        if (file.isFile() && !file.getName().equals(defaultFileName)) file.delete();
+                    } 
+                // Images aren't ordered by productId (${location}/${viewtype}/${sizetype}/${id}) !!! BE CAREFUL !!!
+                } else {
+                    File[] files = targetDir.listFiles(); 
+                    for(File file : files) {
+                        if (file.isFile() && !file.getName().equals(defaultFileName)  && file.getName().startsWith(productId + ".")) file.delete();
+                    }
+                }
             } catch (Exception e) {
                 System.out.println("error deleting existing file (not neccessarily a problem)");
             }
