@@ -216,7 +216,7 @@ under the License.
             <#if itemProductAssocList?exists && itemProductAssocList?has_content>
               <tr><td colspan="8"><hr /></td></tr>
               <tr>
-                <td>${uiLabelMap.AssociatedProducts}</td>
+                <td>${uiLabelMap.OrderAssociatedProducts}</td>
                 <td><a href="<@ofbizUrl>LookupAssociatedProducts?productId=${cartLine.getProductId()?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickLookup}</a></td>
               </tr>
               <#assign relatedProdCount = 0/>
@@ -308,7 +308,7 @@ under the License.
               <tr>
                 <td colspan="4" nowrap="nowrap" align="right">
                   <div>
-                    <i>Adjustment</i> - ${adjustmentType.get("description",locale)?if_exists}
+                    <i>${uiLabelMap.OrderAdjustment}</i> - ${adjustmentType.get("description",locale)?if_exists}
                     <#if cartAdjustment.productPromoId?has_content><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${cartAdjustment.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></#if>:
                   </div>
                 </td>

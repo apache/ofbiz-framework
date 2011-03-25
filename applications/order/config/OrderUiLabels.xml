@@ -1858,6 +1858,7 @@
     </property>
     <property key="OrderAssociatedProducts">
         <value xml:lang="en">Associated Products</value>
+        <value xml:lang="fr">Produits associés</value>
         <value xml:lang="pt_BR">Produtos relacionado</value>
         <value xml:lang="zh_TW">關連的產品</value>
     </property>
