@@ -27,7 +27,7 @@ under the License.
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
     <property name="pos.memory.max.param" value="-Xmx512M"/>
-    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=512"/>
+    <property name="memory.maxpermsize.param" value="-XX:MaxPermSize=512m"/>
 
     <available file="applications/build.xml" property="applications.present"/>
     <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
