@@ -596,9 +596,9 @@ public class ServiceDispatcher {
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
         if (Debug.timingOn() && timeToRun > 50) {
-            Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
+            Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + result.toString() + "]", module);
         } else if (timeToRun > 200) {
-            Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
+            Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + result.toString() + "]", module);
         }
 
         return result;
