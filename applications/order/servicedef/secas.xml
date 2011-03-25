@@ -420,4 +420,10 @@ under the License.
     <eca service="createUpdateCustomerAndShippingAddress" event="invoke">
         <action service="setAnonUserLogin" mode="sync"/>
     </eca>
+    
+    <!-- Use for link the payment and the invoice When Received Payment -->
+    <eca service="createPaymentFromPreference" event="commit">
+        <condition field-name="paymentId" operator="is-not-empty"/>
+        <action service="createOrderPaymentApplication" mode="sync"/>
+    </eca>
 </service-eca>

@@ -1441,4 +1441,21 @@ under the License.
         </iterate>
         <field-to-result field="availabalityList"/>
     </simple-method>
+    
+    <simple-method method-name="createOrderPaymentApplication" short-description="Create Order Payment Application">
+        <entity-one value-field="paymentMap" entity-name="Payment"/>
+        <set field="createCtx.amountApplied" from-field="paymentMap.amount" type="BigDecimal"/>
+        <set field="createCtx.paymentId" from-field="paymentMap.paymentId"/>
+        <entity-one value-field="orderPaymentPreMap" entity-name="OrderPaymentPreference">
+            <field-map field-name="orderPaymentPreferenceId" from-field="paymentMap.paymentPreferenceId"/>
+        </entity-one>
+        <entity-and list="orderItemBilList" entity-name="OrderItemBilling">
+            <field-map field-name="orderId" from-field="orderPaymentPreMap.orderId"/>
+            <order-by field-name="invoiceId"/>
+        </entity-and>
+        <if-not-empty field="orderItemBilList">
+            <set field="createCtx.invoiceId" from-field="orderItemBilList[0].invoiceId"/>
+            <call-service service-name="createPaymentApplication" in-map-name="createCtx"/>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

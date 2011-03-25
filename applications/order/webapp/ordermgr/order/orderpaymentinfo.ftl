@@ -97,6 +97,7 @@ under the License.
      <tr><td colspan="4"><hr /></td></tr>
      <#if orderPaymentPreferences?has_content || billingAccount?has_content || invoices?has_content>
         <#list orderPaymentPreferences as orderPaymentPreference>
+          <#assign paymentList = orderPaymentPreference.getRelated("Payment")>
           <#assign pmBillingAddress = {}>
           <#assign oppStatusItem = orderPaymentPreference.getRelatedOne("StatusItem")>
           <#if outputted?default("false") == "true">
@@ -177,6 +178,21 @@ under the License.
                     </#if>
                   </td>
                 </tr>
+                <#if paymentList?has_content>
+                    <tr>
+                    <td align="right" valign="top" width="29%">
+                      <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
+                    </td>
+                    <td width="1%">&nbsp;</td>
+                      <td width="60%">
+                        <div>
+                            <#list paymentList as paymentMap>
+                                <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                            </#list>
+                        </div>
+                      </td>
+                    </tr>
+                </#if>
               </#if>
             <#else>
               <tr>
@@ -222,6 +238,21 @@ under the License.
                    </#if>
                   </td>
                 </tr>
+                <#if paymentList?has_content>
+                    <tr>
+                    <td align="right" valign="top" width="29%">
+                      <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
+                    </td>
+                    <td width="1%">&nbsp;</td>
+                      <td width="60%">
+                        <div>
+                            <#list paymentList as paymentMap>
+                                <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                            </#list>
+                        </div>
+                      </td>
+                    </tr>
+                </#if>
             </#if>
           <#else>
             <#if paymentMethod.paymentMethodTypeId?if_exists == "CREDIT_CARD">
@@ -345,6 +376,21 @@ under the License.
                   </#if>
                 </td>
               </tr>
+              <#if paymentList?has_content>
+                <tr>
+                <td align="right" valign="top" width="29%">
+                  <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
+                </td>
+                <td width="1%">&nbsp;</td>
+                  <td width="60%">
+                    <div>
+                        <#list paymentList as paymentMap>
+                            <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                        </#list>
+                    </div>
+                  </td>
+                </tr>
+              </#if>
             <#elseif paymentMethod.paymentMethodTypeId?if_exists == "GIFT_CARD">
               <#assign giftCard = paymentMethod.getRelatedOne("GiftCard")>
               <#if giftCard?exists>
@@ -389,6 +435,21 @@ under the License.
                   </#if>
                 </td>
               </tr>
+              <#if paymentList?has_content>
+                <tr>
+                <td align="right" valign="top" width="29%">
+                  <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
+                </td>
+                <td width="1%">&nbsp;</td>
+                  <td width="60%">
+                    <div>
+                        <#list paymentList as paymentMap>
+                            <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                        </#list>
+                    </div>
+                  </td>
+                </tr>
+              </#if>
             </#if>
           </#if>
           <#if pmBillingAddress?has_content>
@@ -409,6 +470,21 @@ under the License.
               </td>
               <td width="10%">&nbsp;</td>
             </tr>
+            <#if paymentList?has_content>
+            <tr>
+            <td align="right" valign="top" width="29%">
+              <div>&nbsp;<span class="label">${uiLabelMap.AccountingInvoicePayments}</span></div>
+            </td>
+            <td width="1%">&nbsp;</td>
+              <td width="60%">
+                <div>
+                    <#list paymentList as paymentMap>
+                        <a href="/accounting/control/paymentOverview?paymentId=${paymentMap.paymentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${paymentMap.paymentId}</a><#if paymentMap_has_next><br /></#if>
+                    </#list>
+                </div>
+              </td>
+            </tr>
+            </#if>
           </#if>
         </#list>
 
