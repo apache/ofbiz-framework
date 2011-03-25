@@ -1115,4 +1115,11 @@ under the License.
         </description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    
+    <!-- Use for link the payment and the invoice When Received Payment -->
+    <service name="createOrderPaymentApplication" engine="simple" auth="true"
+            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="createOrderPaymentApplication">
+        <description>Create Order Payment Application</description>
+        <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>
