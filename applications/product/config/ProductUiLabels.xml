@@ -5788,7 +5788,6 @@
         <value xml:lang="en">Approve</value>
         <value xml:lang="th">ยืนยันรูปภาพ</value>
     </property>
-
     <property key="ImageCropping">
         <value xml:lang="en">Image Cropping</value>
         <value xml:lang="th">ตัดภาพ</value>
@@ -24863,6 +24862,10 @@
     <property key="Upload">
         <value xml:lang="en">Upload</value>
         <value xml:lang="th">อัพโหลด</value>
+    </property>
+    <property key="UseCartQuantity">
+        <value xml:lang="en">Use cart quantity</value>
+        <value xml:lang="fr">Utiliser la quantité du panier</value>
     </property>
     <property key="WelcomeMessage">
         <value xml:lang="en">Welcome to the Image Management</value>
