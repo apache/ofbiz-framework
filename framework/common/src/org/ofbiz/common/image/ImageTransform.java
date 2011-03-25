@@ -117,8 +117,17 @@ public class ImageTransform {
         Map<String, Object> result = FastMap.newInstance();
 
         /* DIMENSIONS from ImageProperties */
-        defaultHeight = Double.parseDouble(dimensionMap.get(sizeType).get("height").toString());
-        defaultWidth = Double.parseDouble(dimensionMap.get(sizeType).get("width").toString());
+        // A missed dimension is authorized
+        if (dimensionMap.get(sizeType).containsKey("height")) {
+            defaultHeight = Double.parseDouble(dimensionMap.get(sizeType).get("height").toString());
+        } else {
+            defaultHeight = -1;
+        }
+        if (dimensionMap.get(sizeType).containsKey("width")) {
+            defaultWidth = Double.parseDouble(dimensionMap.get(sizeType).get("width").toString());
+        } else {
+            defaultWidth = -1;
+        }
         if (defaultHeight == 0.0 || defaultWidth == 0.0) {
             String errMsg = UtilProperties.getMessage(resource, "ImageTransform.one_default_dimension_is_null", locale) + " : defaultHeight = " + defaultHeight + " ; defaultWidth = " + defaultWidth;
             Debug.logError(errMsg, module);
@@ -128,7 +137,23 @@ public class ImageTransform {
 
         /* SCALE FACTOR */
         // find the right Scale Factor related to the Image Dimensions
-        if (imgHeight > imgWidth) {
+        if (defaultHeight == -1) {
+            scaleFactor = defaultWidth / imgWidth;
+            if (scaleFactor == 0.0) {
+                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.width_scale_factor_is_null", locale) + "  (defaultWidth = " + defaultWidth + "; imgWidth = " + imgWidth;
+                Debug.logError(errMsg, module);
+                result.put("errorMessage", errMsg);
+                return result;
+            }
+        } else if (defaultWidth == -1) {
+            scaleFactor = defaultHeight / imgHeight;
+            if (scaleFactor == 0.0) {
+                String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
+                Debug.logError(errMsg, module);
+                result.put("errorMessage", errMsg);
+                return result;
+            }
+        } else if (imgHeight > imgWidth) {
             scaleFactor = defaultHeight / imgHeight;
             if (scaleFactor == 0.0) {
                 String errMsg = UtilProperties.getMessage(resource, "ImageTransform.height_scale_factor_is_null", locale) + "  (defaultHeight = " + defaultHeight + "; imgHeight = " + imgHeight;
