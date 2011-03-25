@@ -2410,6 +2410,7 @@ public class PaymentGatewayServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                     "AccountingPaymentRefundError", locale));
         }
+        refundResponse.putAll(ServiceUtil.returnSuccess("Payment #" + refundResponse.get("paymentId") +" is refunded successfully with amount " + refundResponse.get("refundAmount") +" for manual transaction."));
         return refundResponse;
     }
 

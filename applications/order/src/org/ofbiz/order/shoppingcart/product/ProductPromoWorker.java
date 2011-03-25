@@ -1772,6 +1772,14 @@ public class ProductPromoWorker {
                     actionResultInfo.totalDiscountAmount = amount;
                 }
             }
+        } else if ("PROMO_TAX_PERCENT".equals(productPromoActionEnumId)) {
+            BigDecimal percentage = (productPromoAction.get("amount") == null ? BigDecimal.ZERO : (productPromoAction.getBigDecimal("amount").movePointLeft(2))).negate();
+            BigDecimal amount = cart.getTotalSalesTax().multiply(percentage);
+            if (amount.compareTo(BigDecimal.ZERO) != 0) {
+                doOrderPromoAction(productPromoAction, cart, amount, "amount", delegator);
+                actionResultInfo.ranAction = true;
+                actionResultInfo.totalDiscountAmount = amount;
+            }
         } else {
             Debug.logError("An un-supported productPromoActionType was used: " + productPromoActionEnumId + ", not performing any action", module);
             actionResultInfo.ranAction = false;
