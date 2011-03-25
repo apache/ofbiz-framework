@@ -1534,6 +1534,7 @@ public class CheckOutHelper {
         BigDecimal billingAccountAmt = cart.getBillingAccountAmount();
         BigDecimal availableAmount = this.availableAccountBalance(billingAccountId);
         if (billingAccountAmt.compareTo(availableAmount) > 0) {
+            Debug.logError("Billing account " + billingAccountId + " has [" + availableAmount + "] available but needs [" + billingAccountAmt + "] for this order", module);
             Map<String, String> messageMap = UtilMisc.toMap("billingAccountId", billingAccountId);
             errMsg = UtilProperties.getMessage(resource_error, "checkevents.not_enough_available_on_account", messageMap, (cart != null ? cart.getLocale() : Locale.getDefault()));
             return ServiceUtil.returnError(errMsg);
