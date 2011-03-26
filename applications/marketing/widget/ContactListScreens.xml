@@ -401,7 +401,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitlePreferredContactMech"/>
                 <set field="title" value="${uiLabelMap.PageTitlePreferredContactMech}"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
-                <set field="partyId" from-field="parameters.parm1"/>
+                <set field="partyId" from-field="parameters.parm0"/>
                 <set field="entityName" value="PartyAndContactMech"/>
                 <set field="searchFields" value="[contactMechId, partyId, infoString, paToName, paAddress1]"/>
             </actions>
