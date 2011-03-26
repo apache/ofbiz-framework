@@ -20,7 +20,7 @@ package org.ofbiz.base.splash;
 
 import java.awt.EventQueue;
 
-import org.ofbiz.base.start.Start;
+import org.ofbiz.base.start.Config;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
 
@@ -28,7 +28,7 @@ public class SplashLoader implements StartupLoader, Runnable {
 
     public static final String module = SplashLoader.class.getName();
     private static SplashScreen screen = null;
-    private Start.Config config = null;
+    private Config config = null;
 
     /**
      * Load a startup class
@@ -38,7 +38,7 @@ public class SplashLoader implements StartupLoader, Runnable {
      * @throws org.ofbiz.base.start.StartupException
      *
      */
-    public void load(Start.Config config, String args[]) throws StartupException {
+    public void load(Config config, String args[]) throws StartupException {
         this.config = config;
 
         Thread t = new Thread(this);
