@@ -92,8 +92,6 @@ public class Start {
         }
     }
 
-    private ClassLoader classloader = null;
-    private Classpath classPath = new Classpath(System.getProperty("java.class.path"));
     private Config config = null;
     private String[] loaderArgs = null;
     private List<StartupLoader> loaders = new ArrayList<StartupLoader>();
@@ -151,44 +149,11 @@ public class Start {
     }
 
     private void initClasspath() throws IOException {
-        // load tools.jar
-        if (config.toolsJar != null) {
-            classPath.addComponent(config.toolsJar);
-        }
-
-        // load comm.jar
-        if (config.commJar != null) {
-            classPath.addComponent(config.commJar);
-        }
-
-        // add OFBIZ_HOME to CP & load libs
-        classPath.addClasspath(config.ofbizHome);
-        loadLibs(config.ofbizHome, false);
-
-        // load the lib directory
-        if (config.baseLib != null) {
-            loadLibs(config.baseLib, true);
-        }
-
-        // load the ofbiz-base.jar
-        if (config.baseJar != null) {
-            classPath.addComponent(config.baseJar);
-        }
-
-        // load the base schema directory
-        if (config.baseDtd != null) {
-            classPath.addComponent(config.baseDtd);
-        }
-
-        // load the config directory
-        if (config.baseConfig != null) {
-            classPath.addComponent(config.baseConfig);
-        }
-
-        classPath.instrument(config.instrumenterFile, config.instrumenterClassName);
-        // set the classpath/classloader
+        Classpath classPath = new Classpath(System.getProperty("java.class.path"));
+        this.config.initClasspath(classPath);
+        // Set the classpath/classloader
         System.setProperty("java.class.path", classPath.toString());
-        this.classloader = classPath.getClassLoader();
+        ClassLoader classloader = classPath.getClassLoader();
         Thread.currentThread().setContextClassLoader(classloader);
         if (System.getProperty("DEBUG") != null) {
             System.out.println("Startup Classloader: " + classloader.toString());
@@ -220,6 +185,7 @@ public class Start {
     }
 
     private void initStartLoaders() {
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         synchronized (this.loaders) {
             // initialize the loaders
             for (String loaderClassName: config.loaders) {
@@ -234,22 +200,6 @@ public class Start {
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.exit(99);
-                }
-            }
-        }
-    }
-
-    private void loadLibs(String path, boolean recurse) throws IOException {
-        File libDir = new File(path);
-        if (libDir.exists()) {
-            File files[] = libDir.listFiles();
-            for (File file: files) {
-                String fileName = file.getName();
-                // FIXME: filter out other files?
-                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
-                    loadLibs(file.getCanonicalPath(), recurse);
-                } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
-                    classPath.addComponent(file);
                 }
             }
         }

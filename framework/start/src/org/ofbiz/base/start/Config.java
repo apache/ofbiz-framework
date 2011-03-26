@@ -220,6 +220,7 @@ public class Config {
         }
 
         Properties props = this.getPropertiesFile(config);
+        System.out.println("Start.java using configuration file " + config);
 
         // set the ofbiz.home
         if (ofbizHome == null) {
@@ -355,4 +356,52 @@ public class Config {
             }
         }
     }
+
+    public void initClasspath(Classpath classPath) throws IOException {
+        // load tools.jar
+        if (this.toolsJar != null) {
+            classPath.addComponent(this.toolsJar);
+        }
+        // load comm.jar
+        if (this.commJar != null) {
+            classPath.addComponent(this.commJar);
+        }
+        // add OFBIZ_HOME to class path & load libs
+        classPath.addClasspath(this.ofbizHome);
+        loadLibs(classPath, this.ofbizHome, false);
+        // load the lib directory
+        if (this.baseLib != null) {
+            loadLibs(classPath, this.baseLib, true);
+        }
+        // load the ofbiz-base.jar
+        if (this.baseJar != null) {
+            classPath.addComponent(this.baseJar);
+        }
+        // load the base schema directory
+        if (this.baseDtd != null) {
+            classPath.addComponent(this.baseDtd);
+        }
+        // load the config directory
+        if (this.baseConfig != null) {
+            classPath.addComponent(this.baseConfig);
+        }
+        classPath.instrument(this.instrumenterFile, this.instrumenterClassName);
+    }
+
+    private void loadLibs(Classpath classPath, String path, boolean recurse) throws IOException {
+        File libDir = new File(path);
+        if (libDir.exists()) {
+            File files[] = libDir.listFiles();
+            for (File file: files) {
+                String fileName = file.getName();
+                // FIXME: filter out other files?
+                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
+                    loadLibs(classPath, file.getCanonicalPath(), recurse);
+                } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
+                    classPath.addComponent(file);
+                }
+            }
+        }
+    }
+
 }
