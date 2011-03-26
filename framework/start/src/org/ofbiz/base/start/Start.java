@@ -35,7 +35,7 @@ import java.util.List;
  * Start - OFBiz Container(s) Startup Class
  *
  */
-public class Start implements Runnable {
+public class Start {
 
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
     private static final String STATUS_COMMAND = "STATUS";
@@ -97,11 +97,9 @@ public class Start implements Runnable {
     private Config config = null;
     private String[] loaderArgs = null;
     private List<StartupLoader> loaders = new ArrayList<StartupLoader>();
-    private boolean serverRunning = true;
-    private ServerSocket serverSocket = null;
     private boolean serverStarted = false;
     private boolean serverStopping = false;
-    private Thread serverThread = null;
+    private Thread adminPortThread = null;
 
     public void init(String[] args) throws IOException {
         init(args, true);
@@ -200,18 +198,15 @@ public class Start implements Runnable {
 
     private void initListenerThread() throws IOException {
         if (config.adminPort > 0) {
-            this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
-            this.serverThread = new Thread(this, this.toString());
-            this.serverThread.setDaemon(false);
-            System.out.println("Admin socket configured on - " + config.adminAddress + ":" + config.adminPort);
-            this.serverThread.start();
+            this.adminPortThread = new AdminPortThread();
+            this.adminPortThread.start();
         } else {
             System.out.println("Admin socket not configured; set to port 0");
         }
     }
 
     private void initLogDirectory() {
-        // stat the log directory
+        // Create the log directory
         boolean createdDir = false;
         File logDir = new File(config.logDir);
         if (!logDir.exists()) {
@@ -258,60 +253,6 @@ public class Start implements Runnable {
                 }
             }
         }
-    }
-
-    private void processClientRequest(Socket client) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        String request = reader.readLine();
-
-        PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
-        writer.println(processRequest(request, client));
-        writer.flush();
-
-        writer.close();
-        reader.close();
-    }
-
-    private String processRequest(String request, Socket client) {
-        if (request != null) {
-            String key = request.substring(0, request.indexOf(':'));
-            String command = request.substring(request.indexOf(':') + 1);
-            if (!key.equals(config.adminKey)) {
-                return "FAIL";
-            } else {
-                if (command.equals(Start.SHUTDOWN_COMMAND)) {
-                    if (serverStopping) return "IN-PROGRESS";
-                    Thread t = new Thread() {
-                        @Override
-                        public void run() {
-                            shutdownServer();
-                        }
-                    };
-                    t.start();
-                    return "OK";
-                } else if (command.equals(Start.STATUS_COMMAND)) {
-                    return serverStopping ? "Stopping" : serverStarted ? "Running" : "Starting";
-                }
-                return "FAIL";
-            }
-        } else {
-            return "FAIL";
-        }
-    }
-
-    public void run() {
-        while (serverRunning) {
-            try {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Received connection from - " + clientSocket.getInetAddress() + " : " + clientSocket.getPort());
-                processClientRequest(clientSocket);
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        shutdownServer();
-        System.exit(0);
     }
 
     private String sendSocketCommand(String command) throws IOException, ConnectException {
@@ -377,7 +318,9 @@ public class Start implements Runnable {
                 }
             }
         }
-        serverRunning = false;
+        if (this.adminPortThread != null && this.adminPortThread.isAlive()) {
+            this.adminPortThread.interrupt();
+        }
     }
 
     public void start() {
@@ -431,7 +374,71 @@ public class Start implements Runnable {
         return status;
     }
 
-    public void stop() {
+    public void stopServer() {
         shutdownServer();
+        System.exit(0);
+    }
+
+    private class AdminPortThread extends Thread {
+        private ServerSocket serverSocket = null;
+
+        AdminPortThread() throws IOException {
+            super("AdminPortThread");
+            this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
+            setDaemon(false);
+        }
+
+        private void processClientRequest(Socket client) throws IOException {
+            BufferedReader reader = null;
+            PrintWriter writer = null;
+            try {
+                reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                String request = reader.readLine();
+                if (request != null) {
+                    writer = new PrintWriter(client.getOutputStream(), true);
+                    String key = request.substring(0, request.indexOf(':'));
+                    String command = request.substring(request.indexOf(':') + 1);
+                    if (key.equals(config.adminKey)) {
+                        if (command.equals(Start.SHUTDOWN_COMMAND)) {
+                            if (serverStopping) {
+                                writer.println("IN-PROGRESS");
+                            } else {
+                                writer.println("OK");
+                                writer.flush();
+                                stopServer();
+                            }
+                            return;
+                        } else if (command.equals(Start.STATUS_COMMAND)) {
+                            writer.println(serverStopping ? "Stopping" : serverStarted ? "Running" : "Starting");
+                            return;
+                        }
+                    }
+                }
+                writer.println("FAIL");
+            } finally {
+                if (reader != null) {
+                    reader.close();
+                }
+                if (writer != null) {
+                    writer.flush();
+                    writer.close();
+                }
+            }
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Admin socket configured on - " + config.adminAddress + ":" + config.adminPort);
+            while (!Thread.interrupted()) {
+                try {
+                    Socket clientSocket = serverSocket.accept();
+                    System.out.println("Received connection from - " + clientSocket.getInetAddress() + " : " + clientSocket.getPort());
+                    processClientRequest(clientSocket);
+                    clientSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
