@@ -783,28 +783,28 @@ under the License.
         <sonar:sonar workDir="." key="org.apache:ofbiz" version="${info.entry.commit(revision)}">
             <sources>
                 <!--framework-->
-                <path location="applications/appserver/src" />
-                <path location="applications/base/src" />
-                <path location="applications/bi/src" />
-                <path location="applications/catalina/src" />
-                <path location="applications/common/src" />
-                <path location="applications/datafile/src" />
-                <path location="applications/entity/src" />
-                <path location="applications/entityext/src" />
-                <path location="applications/example/src" />
-                <path location="applications/geronimo/src" />
-                <path location="applications/guiapp/src" />
-                <path location="applications/jetty/src" />
-                <path location="applications/minilang/src" />
-                <path location="applications/security/src" />
-                <path location="applications/service/src" />
-                <path location="applications/sql/src" />
-                <path location="applications/start/src" />
-                <path location="applications/testtools/src" />
-                <path location="applications/webapp/src" />
-                <path location="applications/webslinger/src" />
-                <path location="applications/webtools/src" />
-                <path location="applications/widget/src" />
+                <path location="framework/appserver/src" />
+                <path location="framework/base/src" />
+                <path location="framework/bi/src" />
+                <path location="framework/catalina/src" />
+                <path location="framework/common/src" />
+                <path location="framework/datafile/src" />
+                <path location="framework/entity/src" />
+                <path location="framework/entityext/src" />
+                <path location="framework/example/src" />
+                <path location="framework/geronimo/src" />
+                <path location="framework/guiapp/src" />
+                <path location="framework/jetty/src" />
+                <path location="framework/minilang/src" />
+                <path location="framework/security/src" />
+                <path location="framework/service/src" />
+                <path location="framework/sql/src" />
+                <path location="framework/start/src" />
+                <path location="framework/testtools/src" />
+                <path location="framework/webapp/src" />
+                <path location="framework/webslinger/src" />
+                <path location="framework/webtools/src" />
+                <path location="framework/widget/src" />
                 <!--applications-->
                 <path location="applications/accounting/src" />
                 <path location="applications/commonext/src" />
