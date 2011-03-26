@@ -220,11 +220,11 @@ under the License.
     </container>
 
     <!-- load JUnit test container -->
+    <!-- this is now run through the new testtools stuff
     <container name="junit-container" class="org.ofbiz.base.container.JunitContainer">
         <property name="base-test" value="org.ofbiz.base.test.BaseUnitTests"/>
-        <!-- this is now run through the new testtools stuff <property name="entity-test" value="org.ofbiz.entity.test.EntityTestSuite"/> -->
-        <!-- this is now run through the new testtools stuff <property name="service-test" value="org.ofbiz.service.test.ServiceEngineTests"/> -->
     </container>
+    -->
 
     <container name="testtools-container" class="org.ofbiz.testtools.TestRunContainer"/>
 </ofbiz-containers>
