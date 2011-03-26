@@ -43,20 +43,76 @@ import java.util.TimeZone;
  */
 public class Start implements Runnable {
 
-    private Classpath classPath = new Classpath(System.getProperty("java.class.path"));
-    private ClassLoader classloader = null;
-    private ServerSocket serverSocket = null;
-    private Thread serverThread = null;
-    private boolean serverStarted = false;
-    private boolean serverStopping = false;
-    private boolean serverRunning = true;
-    private List<StartupLoader> loaders = new ArrayList<StartupLoader>();
-    private Config config = null;
-    private String[] loaderArgs = null;
-
+    private static final double REQUIRED_JDK = 1.6;
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
     private static final String STATUS_COMMAND = "STATUS";
-    private static final double REQUIRED_JDK = 1.6;
+
+    private static String getConfigFileName(String command) {
+        // default command is "start"
+        if (command == null || command.trim().length() == 0) {
+            command = "start";
+        }
+        // strip off the leading dash
+        if (command.startsWith("-")) {
+            command = command.substring(1);
+        }
+        // shutdown & status hack
+        if (command.equalsIgnoreCase("shutdown")) {
+            command = "start";
+        } else if (command.equalsIgnoreCase("status")) {
+            command = "start";
+        }
+        return "org/ofbiz/base/start/" + command + ".properties";
+    }
+
+    public static void main(String[] args) throws IOException {
+        String firstArg = args.length > 0 ? args[0] : "";
+        Start start = new Start();
+
+        if (firstArg.equals("-help") || firstArg.equals("-?")) {
+            System.out.println("");
+            System.out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
+            System.out.println("-both    -----> Run simultaneously the POS (Point of Sales) application and OFBiz standard");
+            System.out.println("-help, -? ----> This screen");
+            System.out.println("-install -----> Run install (create tables/load data)");
+            System.out.println("-pos     -----> Run the POS (Point of Sales) application");
+            System.out.println("-setup -------> Run external application server setup");
+            System.out.println("-start -------> Start the server");
+            System.out.println("-status ------> Status of the server");
+            System.out.println("-shutdown ----> Shutdown the server");
+            System.out.println("-test --------> Run the JUnit test script");
+            System.out.println("[no config] --> Use default config");
+            System.out.println("[no command] -> Start the server w/ default config");
+        } else {
+            // hack for the status and shutdown commands
+            if (firstArg.equals("-status")) {
+                start.init(args, false);
+                System.out.println("Current Status : " + start.status());
+            } else if (firstArg.equals("-shutdown")) {
+                start.init(args, false);
+                System.out.println("Shutting down server : " + start.shutdown());
+            } else {
+                // general start
+                start.init(args, true);
+                start.start();
+            }
+        }
+    }
+
+    private ClassLoader classloader = null;
+    private Classpath classPath = new Classpath(System.getProperty("java.class.path"));
+    private Config config = null;
+    private String[] loaderArgs = null;
+    private List<StartupLoader> loaders = new ArrayList<StartupLoader>();
+    private boolean serverRunning = true;
+    private ServerSocket serverSocket = null;
+    private boolean serverStarted = false;
+    private boolean serverStopping = false;
+    private Thread serverThread = null;
+
+    public void init(String[] args) throws IOException {
+        init(args, true);
+    }
 
     public void init(String[] args, boolean fullInit) throws IOException {
         String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
@@ -100,92 +156,6 @@ public class Start implements Runnable {
 
             // initialize the startup loaders
             initStartLoaders();
-        }
-    }
-
-    public void init(String[] args) throws IOException {
-        init(args, true);
-    }
-
-    public void run() {
-        while (serverRunning) {
-            try {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Received connection from - " + clientSocket.getInetAddress() + " : " + clientSocket.getPort());
-                processClientRequest(clientSocket);
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        shutdownServer();
-        System.exit(0);
-    }
-
-    private void processClientRequest(Socket client) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        String request = reader.readLine();
-
-        PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
-        writer.println(processRequest(request, client));
-        writer.flush();
-
-        writer.close();
-        reader.close();
-    }
-
-    private String processRequest(String request, Socket client) {
-        if (request != null) {
-            String key = request.substring(0, request.indexOf(':'));
-            String command = request.substring(request.indexOf(':') + 1);
-            if (!key.equals(config.adminKey)) {
-                return "FAIL";
-            } else {
-                if (command.equals(Start.SHUTDOWN_COMMAND)) {
-                    if (serverStopping) return "IN-PROGRESS";
-                    Thread t = new Thread() {
-                        @Override
-                        public void run() {
-                            shutdownServer();
-                        }
-                    };
-                    t.start();
-                    return "OK";
-                } else if (command.equals(Start.STATUS_COMMAND)) {
-                    return serverStopping ? "Stopping" : serverStarted ? "Running" : "Starting";
-                }
-                return "FAIL";
-            }
-        } else {
-            return "FAIL";
-        }
-    }
-
-    private void initListenerThread() throws IOException {
-        if (config.adminPort > 0) {
-            this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
-            this.serverThread = new Thread(this, this.toString());
-            this.serverThread.setDaemon(false);
-            System.out.println("Admin socket configured on - " + config.adminAddress + ":" + config.adminPort);
-            this.serverThread.start();
-        } else {
-            System.out.println("Admin socket not configured; set to port 0");
-        }
-    }
-
-    private void loadLibs(String path, boolean recurse) throws IOException {
-        File libDir = new File(path);
-        if (libDir.exists()) {
-            File files[] = libDir.listFiles();
-            for (File file: files) {
-                String fileName = file.getName();
-                // FIXME: filter out other files?
-                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
-                    loadLibs(file.getCanonicalPath(), recurse);
-                } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
-                    classPath.addComponent(file);
-                }
-            }
         }
     }
 
@@ -235,6 +205,18 @@ public class Start implements Runnable {
         }
     }
 
+    private void initListenerThread() throws IOException {
+        if (config.adminPort > 0) {
+            this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
+            this.serverThread = new Thread(this, this.toString());
+            this.serverThread.setDaemon(false);
+            System.out.println("Admin socket configured on - " + config.adminAddress + ":" + config.adminPort);
+            this.serverThread.start();
+        } else {
+            System.out.println("Admin socket not configured; set to port 0");
+        }
+    }
+
     private void initLogDirectory() {
         // stat the log directory
         boolean createdDir = false;
@@ -269,28 +251,95 @@ public class Start implements Runnable {
         }
     }
 
-    /**
-     * Returns <code>true</code> if all loaders were loaded.
-     * 
-     * @return <code>true</code> if all loaders were loaded.
-     */
-    private boolean startStartLoaders() {
-        synchronized (this.loaders) {
-            // start the loaders
-            for (StartupLoader loader: this.loaders) {
-                if (this.serverStopping) {
-                    return false;
-                }
-                try {
-                    loader.start();
-                } catch (StartupException e) {
-                    e.printStackTrace();
-                    return false;
+    private void loadLibs(String path, boolean recurse) throws IOException {
+        File libDir = new File(path);
+        if (libDir.exists()) {
+            File files[] = libDir.listFiles();
+            for (File file: files) {
+                String fileName = file.getName();
+                // FIXME: filter out other files?
+                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
+                    loadLibs(file.getCanonicalPath(), recurse);
+                } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
+                    classPath.addComponent(file);
                 }
             }
-            serverStarted = true;
         }
-        return true;
+    }
+
+    private void processClientRequest(Socket client) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        String request = reader.readLine();
+
+        PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
+        writer.println(processRequest(request, client));
+        writer.flush();
+
+        writer.close();
+        reader.close();
+    }
+
+    private String processRequest(String request, Socket client) {
+        if (request != null) {
+            String key = request.substring(0, request.indexOf(':'));
+            String command = request.substring(request.indexOf(':') + 1);
+            if (!key.equals(config.adminKey)) {
+                return "FAIL";
+            } else {
+                if (command.equals(Start.SHUTDOWN_COMMAND)) {
+                    if (serverStopping) return "IN-PROGRESS";
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            shutdownServer();
+                        }
+                    };
+                    t.start();
+                    return "OK";
+                } else if (command.equals(Start.STATUS_COMMAND)) {
+                    return serverStopping ? "Stopping" : serverStarted ? "Running" : "Starting";
+                }
+                return "FAIL";
+            }
+        } else {
+            return "FAIL";
+        }
+    }
+
+    public void run() {
+        while (serverRunning) {
+            try {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Received connection from - " + clientSocket.getInetAddress() + " : " + clientSocket.getPort());
+                processClientRequest(clientSocket);
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        shutdownServer();
+        System.exit(0);
+    }
+
+    private String sendSocketCommand(String command) throws IOException, ConnectException {
+        Socket socket = new Socket(config.adminAddress, config.adminPort);
+
+        // send the command
+        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        writer.println(config.adminKey + ":" + command);
+        writer.flush();
+
+        // read the reply
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        String response = reader.readLine();
+
+        reader.close();
+
+        // close the socket
+        writer.close();
+        socket.close();
+
+        return response;
     }
 
     private void setShutdownHook() {
@@ -317,6 +366,10 @@ public class Start implements Runnable {
         }
     }
 
+    public String shutdown() throws IOException {
+        return sendSocketCommand(Start.SHUTDOWN_COMMAND);
+    }
+
     private void shutdownServer() {
         if (serverStopping) return;
         serverStopping = true;
@@ -334,13 +387,6 @@ public class Start implements Runnable {
         serverRunning = false;
     }
 
-    private void startServer() {
-        // start the startup loaders
-        if (!startStartLoaders()) {
-            System.exit(99);
-        }
-    }
-
     public void start() {
         startServer();
         if (config.shutdownAfterLoad) {
@@ -349,22 +395,35 @@ public class Start implements Runnable {
         }
     }
 
-    public void stop() {
-        shutdownServer();
+    private void startServer() {
+        // start the startup loaders
+        if (!startStartLoaders()) {
+            System.exit(99);
+        }
     }
 
-    /* This method is a bad idea.
-    public void destroy() {
-        this.serverSocket = null;
-        this.serverThread = null;
-        this.loaders = null;
-        this.config = null;
-        this.loaderArgs = null;
-    }
-    */
-
-    public String shutdown() throws IOException {
-        return sendSocketCommand(Start.SHUTDOWN_COMMAND);
+    /**
+     * Returns <code>true</code> if all loaders were started.
+     * 
+     * @return <code>true</code> if all loaders were started.
+     */
+    private boolean startStartLoaders() {
+        synchronized (this.loaders) {
+            // start the loaders
+            for (StartupLoader loader: this.loaders) {
+                if (this.serverStopping) {
+                    return false;
+                }
+                try {
+                    loader.start();
+                } catch (StartupException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+            serverStarted = true;
+        }
+        return true;
     }
 
     public String status() throws IOException {
@@ -379,105 +438,138 @@ public class Start implements Runnable {
         return status;
     }
 
-    private String sendSocketCommand(String command) throws IOException, ConnectException {
-        Socket socket = new Socket(config.adminAddress, config.adminPort);
-
-        // send the command
-        PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        writer.println(config.adminKey + ":" + command);
-        writer.flush();
-
-        // read the reply
-        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        String response = reader.readLine();
-
-        reader.close();
-
-        // close the socket
-        writer.close();
-        socket.close();
-
-        return response;
-    }
-
-    public static void main(String[] args) throws IOException {
-        String firstArg = args.length > 0 ? args[0] : "";
-        Start start = new Start();
-
-        if (firstArg.equals("-help") || firstArg.equals("-?")) {
-            System.out.println("");
-            System.out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
-            System.out.println("-both    -----> Run simultaneously the POS (Point of Sales) application and OFBiz standard");
-            System.out.println("-help, -? ----> This screen");
-            System.out.println("-install -----> Run install (create tables/load data)");
-            System.out.println("-pos     -----> Run the POS (Point of Sales) application");
-            System.out.println("-setup -------> Run external application server setup");
-            System.out.println("-start -------> Start the server");
-            System.out.println("-status ------> Status of the server");
-            System.out.println("-shutdown ----> Shutdown the server");
-            System.out.println("-test --------> Run the JUnit test script");
-            System.out.println("[no config] --> Use default config");
-            System.out.println("[no command] -> Start the server w/ default config");
-        } else {
-            // hack for the status and shutdown commands
-            if (firstArg.equals("-status")) {
-                start.init(args, false);
-                System.out.println("Current Status : " + start.status());
-            } else if (firstArg.equals("-shutdown")) {
-                start.init(args, false);
-                System.out.println("Shutting down server : " + start.shutdown());
-            } else {
-                // general start
-                start.init(args, true);
-                start.start();
-            }
-        }
-    }
-
-    private static String getConfigFileName(String command) {
-        // default command is "start"
-        if (command == null || command.trim().length() == 0) {
-            command = "start";
-        }
-
-        // strip off the leading dash
-        if (command.startsWith("-")) {
-            command = command.substring(1);
-        }
-
-        // shutdown & status hack
-        if (command.equalsIgnoreCase("shutdown")) {
-            command = "start";
-        } else if (command.equalsIgnoreCase("status")) {
-            command = "start";
-        }
-
-        return "org/ofbiz/base/start/" + command + ".properties";
+    public void stop() {
+        shutdownServer();
     }
 
     public static class Config {
-        public String containerConfig;
-        public String testConfig;
         public InetAddress adminAddress;
-        public int adminPort;
         public String adminKey;
-        public String ofbizHome;
-        public String baseJar;
-        public String toolsJar;
-        public String commJar;
-        public String baseLib;
-        public String baseDtd;
+        public int adminPort;
+        public String awtHeadless;
         public String baseConfig;
-        public String logDir;
+        public String baseDtd;
+        public String baseJar;
+        public String baseLib;
+        public String commJar;
+        public String containerConfig;
         public String instrumenterClassName;
         public String instrumenterFile;
         public List<String> loaders;
-        public String awtHeadless;
-        public String splashLogo;
-        public boolean shutdownAfterLoad = false;
-        public boolean useShutdownHook = true;
-        public boolean requireToolsJar = false;
+        public String logDir;
+        public String ofbizHome;
         public boolean requireCommJar = false;
+        public boolean requireToolsJar = false;
+        public boolean shutdownAfterLoad = false;
+        public String splashLogo;
+        public String testConfig;
+        public String toolsJar;
+        public boolean useShutdownHook = true;
+
+        private String findSystemJar(Properties props, String javaVendor, String javaVersion, String jarName, boolean required) {
+            String fileSep = System.getProperty("file.separator");
+            String javaHome = System.getProperty("java.home");
+            String errorMsg = "Unable to locate " + jarName + " - ";
+            //String foundMsg = "Found " + jarName + " - ";
+            String jarLoc = "lib" + fileSep + jarName;
+            File tj = null;
+
+            if ("tools.jar".equals(jarName) && javaVendor.startsWith("Apple")) {
+                // tools.jar is always available in Apple's JDK implementation
+                return null;
+            }
+
+            // check to see if it is in the OFBIZ_HOME directory
+            tj = new File(ofbizHome + fileSep + jarName);
+            if (tj.exists()) {
+                return null;
+            }
+
+            // check to see if it is in the base/lib directory
+            tj = new File(baseLib + fileSep + jarName);
+            if (tj.exists()) {
+                return null;
+            }
+
+            // try to locate tools.jar from the properties file
+            String jarProps = props.getProperty("java." + jarName, null);
+            if (jarProps != null) {
+                tj = new File(jarProps);
+                if (!tj.exists()) {
+                    if (required) {
+                        System.err.println(errorMsg + tj.getAbsolutePath());
+                    }
+                } else {
+                    //System.out.println(foundMsg + tj.getAbsolutePath());
+                    return jarProps;
+                }
+            }
+
+            // next check the JAVA_HOME lib dir
+            tj = new File(javaHome + fileSep + jarLoc);
+            if (!tj.exists()) {
+                if (required) {
+                    System.err.println(errorMsg + tj.getAbsolutePath());
+                }
+            } else {
+                //System.out.println(foundMsg + tj.getAbsolutePath());
+                return tj.getAbsolutePath();
+            }
+
+            // next if we are a JRE dir check the parent dir
+            String jreExt = fileSep + "jre";
+            if (javaHome.toLowerCase().endsWith(jreExt)) {
+                javaHome = javaHome.substring(0, javaHome.lastIndexOf(fileSep));
+                tj = new File(javaHome + fileSep + jarLoc);
+                if (!tj.exists()) {
+                    if (required) {
+                        System.err.println(errorMsg + tj.getAbsolutePath());
+                    }
+                } else {
+                    //System.out.println(foundMsg + tj.getAbsolutePath());
+                    return tj.getAbsolutePath();
+                }
+            }
+
+            // special windows checking
+            if (javaHome.toLowerCase().charAt(1) == ':') {
+                String driveLetter = javaHome.substring(0, 2);
+                String windowsPath = driveLetter + fileSep + "j2sdk" + javaVersion;
+                tj = new File(windowsPath + fileSep + jarLoc);
+                if (!tj.exists()) {
+                    if (required) {
+                        System.err.println(errorMsg + tj.getAbsolutePath());
+                    }
+                } else {
+                    //System.out.println(foundMsg + tj.getAbsolutePath());
+                    return tj.getAbsolutePath();
+                }
+            }
+
+            if (required) {
+                System.err.println("");
+                System.err.println("Required library " + jarName + " could not be located.");
+                System.err.println("Make sure you using Java2 SDK " + REQUIRED_JDK + "+ and NOT the JRE.");
+                System.err.println("You may need to copy " + jarName + " into a loadable lib directory");
+                System.err.println("(i.e. OFBIZ_HOME or OFBIZ_HOME/base/lib)");
+                System.err.println("");
+                System.exit(-1);
+            }
+
+            return null;
+        }
+
+        private String getOfbizHomeProp(Properties props, String key, String def) {
+            String value = System.getProperty(key);
+            if (value != null) return value;
+            return ofbizHome + "/" + props.getProperty(key, def);
+        }
+
+        private String getProp(Properties props, String key, String def) {
+            String value = System.getProperty(key);
+            if (value != null) return value;
+            return props.getProperty(key, def);
+        }
 
         private Properties getPropertiesFile(String config) throws IOException {
             InputStream propsStream = null;
@@ -521,18 +613,6 @@ public class Start implements Runnable {
                 throw new IOException("Cannot load configuration properties : " + config);
             }
             return props;
-        }
-
-        private String getOfbizHomeProp(Properties props, String key, String def) {
-            String value = System.getProperty(key);
-            if (value != null) return value;
-            return ofbizHome + "/" + props.getProperty(key, def);
-        }
-
-        private String getProp(Properties props, String key, String def) {
-            String value = System.getProperty(key);
-            if (value != null) return value;
-            return props.getProperty(key, def);
         }
 
         public void readConfig(String config) throws IOException {
@@ -682,99 +762,6 @@ public class Start implements Runnable {
                     currentPosition++;
                 }
             }
-        }
-
-        private String findSystemJar(Properties props, String javaVendor, String javaVersion, String jarName, boolean required) {
-            String fileSep = System.getProperty("file.separator");
-            String javaHome = System.getProperty("java.home");
-            String errorMsg = "Unable to locate " + jarName + " - ";
-            //String foundMsg = "Found " + jarName + " - ";
-            String jarLoc = "lib" + fileSep + jarName;
-            File tj = null;
-
-            if ("tools.jar".equals(jarName) && javaVendor.startsWith("Apple")) {
-                // tools.jar is always available in Apple's JDK implementation
-                return null;
-            }
-
-            // check to see if it is in the OFBIZ_HOME directory
-            tj = new File(ofbizHome + fileSep + jarName);
-            if (tj.exists()) {
-                return null;
-            }
-
-            // check to see if it is in the base/lib directory
-            tj = new File(baseLib + fileSep + jarName);
-            if (tj.exists()) {
-                return null;
-            }
-
-            // try to locate tools.jar from the properties file
-            String jarProps = props.getProperty("java." + jarName, null);
-            if (jarProps != null) {
-                tj = new File(jarProps);
-                if (!tj.exists()) {
-                    if (required) {
-                        System.err.println(errorMsg + tj.getAbsolutePath());
-                    }
-                } else {
-                    //System.out.println(foundMsg + tj.getAbsolutePath());
-                    return jarProps;
-                }
-            }
-
-            // next check the JAVA_HOME lib dir
-            tj = new File(javaHome + fileSep + jarLoc);
-            if (!tj.exists()) {
-                if (required) {
-                    System.err.println(errorMsg + tj.getAbsolutePath());
-                }
-            } else {
-                //System.out.println(foundMsg + tj.getAbsolutePath());
-                return tj.getAbsolutePath();
-            }
-
-            // next if we are a JRE dir check the parent dir
-            String jreExt = fileSep + "jre";
-            if (javaHome.toLowerCase().endsWith(jreExt)) {
-                javaHome = javaHome.substring(0, javaHome.lastIndexOf(fileSep));
-                tj = new File(javaHome + fileSep + jarLoc);
-                if (!tj.exists()) {
-                    if (required) {
-                        System.err.println(errorMsg + tj.getAbsolutePath());
-                    }
-                } else {
-                    //System.out.println(foundMsg + tj.getAbsolutePath());
-                    return tj.getAbsolutePath();
-                }
-            }
-
-            // special windows checking
-            if (javaHome.toLowerCase().charAt(1) == ':') {
-                String driveLetter = javaHome.substring(0, 2);
-                String windowsPath = driveLetter + fileSep + "j2sdk" + javaVersion;
-                tj = new File(windowsPath + fileSep + jarLoc);
-                if (!tj.exists()) {
-                    if (required) {
-                        System.err.println(errorMsg + tj.getAbsolutePath());
-                    }
-                } else {
-                    //System.out.println(foundMsg + tj.getAbsolutePath());
-                    return tj.getAbsolutePath();
-                }
-            }
-
-            if (required) {
-                System.err.println("");
-                System.err.println("Required library " + jarName + " could not be located.");
-                System.err.println("Make sure you using Java2 SDK " + REQUIRED_JDK + "+ and NOT the JRE.");
-                System.err.println("You may need to copy " + jarName + " into a loadable lib directory");
-                System.err.println("(i.e. OFBIZ_HOME or OFBIZ_HOME/base/lib)");
-                System.err.println("");
-                System.exit(-1);
-            }
-
-            return null;
         }
     }
 }
