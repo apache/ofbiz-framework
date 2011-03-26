@@ -32,6 +32,33 @@ import java.util.TimeZone;
 
 public class Config {
     public static final double REQUIRED_JDK = 1.6;
+
+    private static String getConfigFileName(String command) {
+        // default command is "start"
+        if (command == null || command.trim().length() == 0) {
+            command = "start";
+        }
+        // strip off the leading dash
+        if (command.startsWith("-")) {
+            command = command.substring(1);
+        }
+        // shutdown & status hack
+        if (command.equalsIgnoreCase("shutdown")) {
+            command = "start";
+        } else if (command.equalsIgnoreCase("status")) {
+            command = "start";
+        }
+        return "org/ofbiz/base/start/" + command + ".properties";
+    }
+
+    public static Config getInstance(String[] args) throws IOException {
+        String firstArg = args.length > 0 ? args[0] : "";
+        String configFileName = getConfigFileName(firstArg);
+        Config result = new Config();
+        result.readConfig(configFileName);
+        return result;
+    }
+
     public InetAddress adminAddress;
     public String adminKey;
     public int adminPort;
@@ -206,6 +233,53 @@ public class Config {
         return props;
     }
 
+    public void initClasspath(Classpath classPath) throws IOException {
+        // load tools.jar
+        if (this.toolsJar != null) {
+            classPath.addComponent(this.toolsJar);
+        }
+        // load comm.jar
+        if (this.commJar != null) {
+            classPath.addComponent(this.commJar);
+        }
+        // add OFBIZ_HOME to class path & load libs
+        classPath.addClasspath(this.ofbizHome);
+        loadLibs(classPath, this.ofbizHome, false);
+        // load the lib directory
+        if (this.baseLib != null) {
+            loadLibs(classPath, this.baseLib, true);
+        }
+        // load the ofbiz-base.jar
+        if (this.baseJar != null) {
+            classPath.addComponent(this.baseJar);
+        }
+        // load the base schema directory
+        if (this.baseDtd != null) {
+            classPath.addComponent(this.baseDtd);
+        }
+        // load the config directory
+        if (this.baseConfig != null) {
+            classPath.addComponent(this.baseConfig);
+        }
+        classPath.instrument(this.instrumenterFile, this.instrumenterClassName);
+    }
+
+    private void loadLibs(Classpath classPath, String path, boolean recurse) throws IOException {
+        File libDir = new File(path);
+        if (libDir.exists()) {
+            File files[] = libDir.listFiles();
+            for (File file: files) {
+                String fileName = file.getName();
+                // FIXME: filter out other files?
+                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
+                    loadLibs(classPath, file.getCanonicalPath(), recurse);
+                } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
+                    classPath.addComponent(file);
+                }
+            }
+        }
+    }
+
     public void readConfig(String config) throws IOException {
         // check the java_version
         String javaVersion = System.getProperty("java.version");
@@ -353,53 +427,6 @@ public class Config {
             } else {
                 loaders.add(loaderClass);
                 currentPosition++;
-            }
-        }
-    }
-
-    public void initClasspath(Classpath classPath) throws IOException {
-        // load tools.jar
-        if (this.toolsJar != null) {
-            classPath.addComponent(this.toolsJar);
-        }
-        // load comm.jar
-        if (this.commJar != null) {
-            classPath.addComponent(this.commJar);
-        }
-        // add OFBIZ_HOME to class path & load libs
-        classPath.addClasspath(this.ofbizHome);
-        loadLibs(classPath, this.ofbizHome, false);
-        // load the lib directory
-        if (this.baseLib != null) {
-            loadLibs(classPath, this.baseLib, true);
-        }
-        // load the ofbiz-base.jar
-        if (this.baseJar != null) {
-            classPath.addComponent(this.baseJar);
-        }
-        // load the base schema directory
-        if (this.baseDtd != null) {
-            classPath.addComponent(this.baseDtd);
-        }
-        // load the config directory
-        if (this.baseConfig != null) {
-            classPath.addComponent(this.baseConfig);
-        }
-        classPath.instrument(this.instrumenterFile, this.instrumenterClassName);
-    }
-
-    private void loadLibs(Classpath classPath, String path, boolean recurse) throws IOException {
-        File libDir = new File(path);
-        if (libDir.exists()) {
-            File files[] = libDir.listFiles();
-            for (File file: files) {
-                String fileName = file.getName();
-                // FIXME: filter out other files?
-                if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
-                    loadLibs(classPath, file.getCanonicalPath(), recurse);
-                } else if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
-                    classPath.addComponent(file);
-                }
             }
         }
     }
