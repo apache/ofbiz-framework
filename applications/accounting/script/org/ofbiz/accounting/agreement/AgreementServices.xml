@@ -126,7 +126,7 @@ under the License.
             <set from-field="parameters.agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
         </else>
         </if-empty>
-        <field-to-result field="agreementId" result-name="agreementId"/>
+        <field-to-result field="newEntity.agreementId" result-name="agreementId"/>
         <field-to-result field="newEntity.agreementItemSeqId" result-name="agreementItemSeqId"/>
 
         <!-- finally create the record (should not exist already)-->
