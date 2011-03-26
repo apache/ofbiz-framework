@@ -121,7 +121,7 @@ function lookup_popup2(view_name) {
     if (this.args != null) {
         if (this.args.length > 2) {
             for (var i = 2; i < this.args.length; i++) {
-                argString += "&parm" + (i - 2) + "=" + this.args[i];
+                argString += "&parm" + (i - 3) + "=" + this.args[i];
             }
         }
     }
@@ -255,7 +255,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             var requestUrlAndArgs = requestUrl;
             if (typeof args == "object" && jQuery.isArray(args)) {
                 for (var i = 0; i < args.length; i++) {
-                        requestUrlAndArgs += "&parm" + (i+1) + "=" + jQuery(args[i]).val();
+                        requestUrlAndArgs += "&parm" + i + "=" + jQuery(args[i]).val();
                 }
             }
             jQuery("#" + lookupId).load(requestUrlAndArgs, function(data){ 
