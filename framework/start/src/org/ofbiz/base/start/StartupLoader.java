@@ -43,7 +43,7 @@ public interface StartupLoader {
      * will halt loader loading, so it should be thrown only when OFBiz can't
      * operate without it.
      */
-    public void load(Start.Config config, String args[]) throws StartupException;
+    public void load(Config config, String args[]) throws StartupException;
 
     /**
      * Start the startup class. This method must not block - implementations

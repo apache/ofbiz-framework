@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.ofbiz.base.start.Config;
 import org.ofbiz.base.start.Start;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
@@ -70,7 +71,7 @@ public class ContainerLoader implements StartupLoader {
     /**
      * @see org.ofbiz.base.start.StartupLoader#load(Start.Config, String[])
      */
-    public synchronized void load(Start.Config config, String args[]) throws StartupException {
+    public synchronized void load(Config config, String args[]) throws StartupException {
         if (this.loaded || this.unloading) {
             return;
         }
