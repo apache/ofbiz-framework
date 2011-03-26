@@ -38,24 +38,6 @@ public class Start {
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
     private static final String STATUS_COMMAND = "STATUS";
 
-    private static String getConfigFileName(String command) {
-        // default command is "start"
-        if (command == null || command.trim().length() == 0) {
-            command = "start";
-        }
-        // strip off the leading dash
-        if (command.startsWith("-")) {
-            command = command.substring(1);
-        }
-        // shutdown & status hack
-        if (command.equalsIgnoreCase("shutdown")) {
-            command = "start";
-        } else if (command.equalsIgnoreCase("status")) {
-            command = "start";
-        }
-        return "org/ofbiz/base/start/" + command + ".properties";
-    }
-
     public static void main(String[] args) throws IOException {
         String firstArg = args.length > 0 ? args[0] : "";
         Start start = new Start();
@@ -107,13 +89,11 @@ public class Start {
     }
 
     private void createLogDirectory() {
-        boolean createdDir = false;
         File logDir = new File(config.logDir);
         if (!logDir.exists()) {
-            createdDir = logDir.mkdir();
-        }
-        if (createdDir) {
-            System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
+            if (logDir.mkdir()) {
+                System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
+            }
         }
     }
 
@@ -130,13 +110,7 @@ public class Start {
                 throw (IOException) new IOException("Couldn't load global system props").initCause(e);
             }
         }
-        String firstArg = args.length > 0 ? args[0] : "";
-        String cfgFile = Start.getConfigFileName(firstArg);
-
-        this.config = new Config();
-
-        // read the default properties first
-        config.readConfig(cfgFile);
+        this.config = Config.getInstance(args);
 
         // parse the startup arguments
         if (args.length > 0) {
