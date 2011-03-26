@@ -269,22 +269,28 @@ public class Start implements Runnable {
         }
     }
 
-    private void startStartLoaders() {
+    /**
+     * Returns <code>true</code> if all loaders were loaded.
+     * 
+     * @return <code>true</code> if all loaders were loaded.
+     */
+    private boolean startStartLoaders() {
         synchronized (this.loaders) {
             // start the loaders
             for (StartupLoader loader: this.loaders) {
                 if (this.serverStopping) {
-                    return;
+                    return false;
                 }
                 try {
                     loader.start();
                 } catch (StartupException e) {
                     e.printStackTrace();
-                    System.exit(99);
+                    return false;
                 }
             }
             serverStarted = true;
         }
+        return true;
     }
 
     private void setShutdownHook() {
@@ -330,7 +336,9 @@ public class Start implements Runnable {
 
     private void startServer() {
         // start the startup loaders
-        startStartLoaders();
+        if (!startStartLoaders()) {
+            System.exit(99);
+        }
     }
 
     public void start() {
