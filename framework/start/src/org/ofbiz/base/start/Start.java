@@ -24,12 +24,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Start - OFBiz Container(s) Startup Class
@@ -94,10 +92,30 @@ public class Start {
 
     private Config config = null;
     private String[] loaderArgs = null;
-    private List<StartupLoader> loaders = new ArrayList<StartupLoader>();
+    private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
     private boolean serverStarted = false;
     private boolean serverStopping = false;
     private Thread adminPortThread = null;
+
+    private void createListenerThread() throws IOException {
+        if (config.adminPort > 0) {
+            this.adminPortThread = new AdminPortThread();
+            this.adminPortThread.start();
+        } else {
+            System.out.println("Admin socket not configured; set to port 0");
+        }
+    }
+
+    private void createLogDirectory() {
+        boolean createdDir = false;
+        File logDir = new File(config.logDir);
+        if (!logDir.exists()) {
+            createdDir = logDir.mkdir();
+        }
+        if (createdDir) {
+            System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
+        }
+    }
 
     public void init(String[] args) throws IOException {
         init(args, true);
@@ -130,21 +148,23 @@ public class Start {
             // initialize the classpath
             initClasspath();
 
-            // initialize the log directory
-            initLogDirectory();
+            // create the log directory
+            createLogDirectory();
 
-            // initialize the listener thread
-            initListenerThread();
+            // create the listener thread
+            createListenerThread();
 
             // set the shutdown hook
             if (config.useShutdownHook) {
-                setShutdownHook();
+                Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { shutdownServer(); } });
             } else {
                 System.out.println("Shutdown hook disabled");
             }
 
             // initialize the startup loaders
-            initStartLoaders();
+            if (!initStartLoaders()) {
+                System.exit(99);
+            }
         }
     }
 
@@ -161,36 +181,13 @@ public class Start {
         }
     }
 
-    private void initListenerThread() throws IOException {
-        if (config.adminPort > 0) {
-            this.adminPortThread = new AdminPortThread();
-            this.adminPortThread.start();
-        } else {
-            System.out.println("Admin socket not configured; set to port 0");
-        }
-    }
-
-    private void initLogDirectory() {
-        // Create the log directory
-        boolean createdDir = false;
-        File logDir = new File(config.logDir);
-        if (!logDir.exists()) {
-            logDir.mkdir();
-            createdDir = true;
-        }
-
-        if (createdDir) {
-            System.out.println("Created OFBiz log dir [" + logDir.getAbsolutePath() + "]");
-        }
-    }
-
-    private void initStartLoaders() {
+    private boolean initStartLoaders() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         synchronized (this.loaders) {
             // initialize the loaders
             for (String loaderClassName: config.loaders) {
                 if (this.serverStopping) {
-                    return;
+                    return false;
                 }
                 try {
                     Class<?> loaderClass = classloader.loadClass(loaderClassName);
@@ -199,10 +196,12 @@ public class Start {
                     this.loaders.add(loader);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.exit(99);
+                    return false;
                 }
             }
+            this.loaders.trimToSize();
         }
+        return true;
     }
 
     private String sendSocketCommand(String command) throws IOException, ConnectException {
@@ -224,30 +223,6 @@ public class Start {
         socket.close();
 
         return response;
-    }
-
-    private void setShutdownHook() {
-        try {
-            Method shutdownHook = java.lang.Runtime.class.getMethod("addShutdownHook", new Class[]{java.lang.Thread.class});
-            Thread hook = new Thread() {
-                @Override
-                public void run() {
-                    setName("OFBiz_Shutdown_Hook");
-                    shutdownServer();
-                    // Try to avoid JVM crash
-                    try {
-                        Thread.sleep(1000);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-
-            shutdownHook.invoke(Runtime.getRuntime(), new Object[]{hook});
-        } catch (Exception e) {
-            // VM Does not support shutdown hook
-            e.printStackTrace();
-        }
     }
 
     public String shutdown() throws IOException {
@@ -274,17 +249,11 @@ public class Start {
     }
 
     public void start() {
-        startServer();
-        if (config.shutdownAfterLoad) {
-            shutdownServer();
-            System.exit(0);
-        }
-    }
-
-    private void startServer() {
-        // start the startup loaders
         if (!startStartLoaders()) {
             System.exit(99);
+        }
+        if (config.shutdownAfterLoad) {
+            stopServer();
         }
     }
 
