@@ -132,9 +132,9 @@ public class MacroFormRenderer implements FormStringRenderer {
             templateReader.close();
             environment.include(template);
         } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering screen thru ftl", module);
+            Debug.logError(e, "Error rendering screen thru ftl macro: " + macro, module);
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering screen thru ftl", module);
+            Debug.logError(e, "Error rendering screen thru ftl, macro: " + macro, module);
         }
     }
 
