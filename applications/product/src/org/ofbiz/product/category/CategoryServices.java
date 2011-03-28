@@ -420,6 +420,7 @@ public class CategoryServices {
         
         List categoryList = FastList.newInstance();
         List<GenericValue> childOfCats;
+        List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum", "title");
         
         try {
             GenericValue category = delegator.findByPrimaryKey(entityName ,UtilMisc.toMap(primaryKeyName, productCategoryId));
@@ -429,12 +430,10 @@ public class CategoryServices {
                     childOfCats = EntityUtil.filterByDate((List<GenericValue>) request.getAttribute("ChildCatalogList"));
                     
                 } else if(isCatalog.equals("false") && isCategoryType.equals("false")){
-                    List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum", "productCategoryId", "parentProductCategoryId");
-                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap(
-                            "parentProductCategoryId", productCategoryId ), sortList));
+                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryRollupAndChild", UtilMisc.toMap(
+                            "parentProductCategoryId", productCategoryId )));
                 } else {
-                    List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum", "prodCatalogCategoryTypeId", "productCategoryId");
-                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", productCategoryId), sortList));
+                    childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", productCategoryId)));
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
                 	
@@ -464,9 +463,12 @@ public class CategoryServices {
                         Map dataAttrMap = FastMap.newInstance();
                         CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
                         
+                        String title = null;
                         if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField))) {
-                            dataMap.put("title", categoryContentWrapper.get(catNameField)+" "+"["+catId+"]");
+                            title = categoryContentWrapper.get(catNameField)+" "+"["+catId+"]";
+                            dataMap.put("title", title);
                         } else {
+                            title = catId.toString();
                             dataMap.put("title", catId);
                         }
                         dataAttrMap.put("onClick","window.location.href='EditCategory?productCategoryId="+catId+"'; return false;");
@@ -478,10 +480,13 @@ public class CategoryServices {
                         attrMap.put("isCatalog", false);
                         attrMap.put("rel", "CATEGORY");
                         josonMap.put("attr",attrMap);
+                        josonMap.put("sequenceNum",childOfCat.get("sequenceNum"));
+                        josonMap.put("title",title);
                         
                         categoryList.add(josonMap);
                     }
-                    toJsonObjectList(categoryList,response);
+                    List<Map<Object, Object>> sortedCategoryList = UtilMisc.sortMaps(categoryList, sortList);
+                    toJsonObjectList(sortedCategoryList,response);
                 }
             }
         } catch (GenericEntityException e) {
