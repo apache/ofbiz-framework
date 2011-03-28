@@ -669,6 +669,7 @@ under the License.
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="test"/>
+            <env key="LC_ALL" value="C"/>
         </java>
         <mkdir dir="runtime/logs/test-results/html"/>
         <junitreport todir="runtime/logs/test-results">
@@ -697,6 +698,7 @@ under the License.
             <arg value="testlist"/>
             <arg file="runtime/test-list-build.xml"/>
             <arg value="-ant"/>
+            <env key="LC_ALL" value="C"/>
         </java>
     </target>
     <target name="run-single-test" depends="download-cobertura, build"
@@ -708,6 +710,7 @@ under the License.
             <arg value="test"/>
             <arg value="-component=${test.component}"/>
             <arg value="-case=${test.case}"/>
+            <env key="LC_ALL" value="C"/>
         </java>
         <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
         <mkdir dir="runtime/logs/test-results/${test.component}-${test.case}"/>
@@ -731,6 +734,7 @@ under the License.
             <arg value="test"/>
             <arg value="-component=${test.component}"/>
             <arg value="-suitename=${test.suiteName}"/>
+            <env key="LC_ALL" value="C"/>
         </java>
         <fail message="Test run was unsuccessful">
             <condition>
