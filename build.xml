@@ -415,7 +415,7 @@ under the License.
         </java>
     </target>
     <target name="run-install-readers" depends="build"
-            description="This loads data using the command line argument 'data-readers' that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo)">
+            description='This loads data using the command line argument data-readers that takes a comma separated list of readers (seed, seed-initial, demo, ext, ext-test, ext-demo). On Windows XP (at least) you need top wrap the parameters in double-quotes. For instance: ant run-install-readers "-Ddata-readers=seed,seed-initial,ext"'>
         <java jar="ofbiz.jar" fork="true" >
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
