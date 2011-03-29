@@ -287,8 +287,8 @@ public class Start {
             try {
                 reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 String request = reader.readLine();
-                if (request != null) {
-                    writer = new PrintWriter(client.getOutputStream(), true);
+                writer = new PrintWriter(client.getOutputStream(), true);
+                if (request != null && !request.isEmpty() && request.contains(":")) {
                     String key = request.substring(0, request.indexOf(':'));
                     String command = request.substring(request.indexOf(':') + 1);
                     if (key.equals(config.adminKey)) {
