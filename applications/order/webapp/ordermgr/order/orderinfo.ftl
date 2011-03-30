@@ -38,6 +38,7 @@ under the License.
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
                 <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
+                <input type="hidden" name="newStatusId" value="ORDER_APPROVED"/>
                 <input type="hidden" name="setItemStatus" value="Y"/>
                 <input type="hidden" name="workEffortId" value="${workEffortId?if_exists}"/>
                 <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
