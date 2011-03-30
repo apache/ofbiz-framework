@@ -21,7 +21,7 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../applications/content/dtd/docbook.xsd">
     <title><anchor xml:id="OFBizSeleniumXml"/>OFBiz SeleniumXml</title>
     <para> This is a short document to help you get started using SeleniumXml to test your OFBiz application. Here is a <link
-        xl:href="http://www.kenfuse.com/forum/material-regarding-seleniumxml">copy of the presentation</link> that was given
+        xl:href="http://www.kenfuse.com/forum/material-regarding-seleniumxmlTh">copy of the presentation</link> that was given
         at the ApacheCon2008 OFBiz Conference that describes more about the project. </para>
     <section>
         <title>Installing SeleniumXml</title>
