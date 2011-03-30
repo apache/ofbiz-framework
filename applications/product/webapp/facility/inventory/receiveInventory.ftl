@@ -459,7 +459,7 @@ under the License.
                           <td>&nbsp;</td>
                           <td align="right">${uiLabelMap.ProductFacilityOwner}:</td>
                           <td align="right"><input type="text" name="ownerPartyId_o_${rowCount}" size="20" maxlength="20" value="${facility.ownerPartyId}"/></td>
-                          <#if currencyUomId != orderCurrencyUomId>
+                          <#if currencyUomId?default('') != orderCurrencyUomId?default('')>
                             <td>${uiLabelMap.ProductPerUnitPriceOrder}:</td>
                             <td>
                               <input type="hidden" name="orderCurrencyUomId_o_${rowCount}" value="${orderCurrencyUomId?if_exists}" />
