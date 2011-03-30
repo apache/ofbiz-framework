@@ -207,7 +207,7 @@ under the License.
                     <#else>
                       <#assign LookupFacilityLocationView="LookupFacilityLocation">
                     </#if>
-                    <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId_o_${rowCount}" id="locationSeqId_o_${rowCount}" fieldFormName="${LookupFacilityLocationView}"/>
+                    <@htmlTemplate.lookupField formName="selectAllForm" name="locationSeqId" id="locationSeqId" fieldFormName="${LookupFacilityLocationView}"/>
                   </#if>
                 </td>
               </tr>
