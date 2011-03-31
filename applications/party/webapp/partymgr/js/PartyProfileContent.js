@@ -19,7 +19,7 @@ under the License.
 
 /**
  *
- **/
+ */
 var uiLabelJsonObject = null;
 jQuery(document).ready(function() {
 
@@ -29,10 +29,7 @@ jQuery(document).ready(function() {
 
     uiLabelJsonObjects = getJSONuiLabels(labelObject);
 
-    jQuery("#uploadPartyContent").bind("submit", uploadPartyContent);
-    jQuery("#uploadPartyContent").bind("submit", getUploadProgressStatus);
     jQuery("#progress_bar").progressbar({value: 0});
-
 });
 
 function uploadPartyContent(event){
@@ -42,16 +39,22 @@ function uploadPartyContent(event){
     if(infodiv.length < 1){
         jQuery('<div id="content-messages"></div>').insertAfter(jQuery("#partyContentList"));
     }
-    if(targetFrame.length < 1){
+    if (targetFrame.length < 1){
         jQuery('#partyContent').append("<iframe id='target_upload' name='target_upload' style='display: none' src=''> </iframe>");
     }
     jQuery('#uploadPartyContent').attr("target", "target_upload");
+
+    var labelField = jQuery("#progressBarSavingMsg");
+    if (labelField.length) {
+        labelField.remove();
+    }
 }
 
 function uploadCompleted(){
     var iframePartyContentList = jQuery("#target_upload").contents().find("#partyContentList").html();
 
-    // update partyContentList - copy the Data from the iFrame partyContentList to the page partyContentList
+    // update partyContentList - copy the Data from the iFrame partyContentList
+    // to the page partyContentList
     jQuery("#partyContentList").html(iframePartyContentList);
 
     jQuery('#progressBarSavingMsg').html(uiLabelJsonObjects.CommonUiLabels[2]);
@@ -65,7 +68,8 @@ function uploadCompleted(){
 
 function checkIframeStatus() {
     var iframePartyContentList = null;
-    // if the new partyContentList isn't created wait a few ms and call the method again
+    // if the new partyContentList isn't created wait a few ms and call the
+    // method again
     jQuery.fjTimer({
         interval: 500,
         repeat: true,
