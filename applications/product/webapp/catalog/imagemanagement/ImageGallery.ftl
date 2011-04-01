@@ -19,57 +19,50 @@ under the License.
 
 <table cellspacing="0" cellpadding="0" border="0" align="center" width="100%">
     <#assign imageIndex = 0>
-    <#if productContentAndInfos?has_content>
+    <#if productImageList?has_content>
         <#if product?has_content>
             <h1><b>${product.productId}</b></h1>
         </#if>
         <#-- <#assign productName = productTextData >
         <#assign seoUrl = productName.replaceAll(" ", "-") > -->
         <#assign alt_row = false>
-        <#list productContentAndInfos as productContentAndInfo>
-            <#assign contentAssocs  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", productContentAndInfo.contentId?if_exists, "contentAssocTypeId", "IMAGE_THUMBNAIL"))/>
-            <#if contentAssocs?has_content>
-                <#assign contentAssoc = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(contentAssocs) />
-                <#assign ImageContent = delegator.findByPrimaryKey("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo))?if_exists>
-                <#assign contentDataResourceView = delegator.findByPrimaryKey("ContentDataResourceView", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo, "drDataResourceId", ImageContent.dataResourceId))?if_exists>
-                <#assign contentName  = productContentAndInfo.contentName>
-                <#if imageIndex < 5>
-                    <td style="vertical-align:bottom">
-                        <table>
-                            <tbody>
-                                <tr valign="middle">
-                                    <#-- <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td> -->
-                                    <td align="center"><a href="<@ofbizContentUrl>${(productContentAndInfo.drObjectInfo)?if_exists}</@ofbizContentUrl>" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
-                                </tr>
-                                <tr valign="middle">
-                                    <#-- <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td> -->
-                                    <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}','' ,500,500);" class="buttontext">Share</a></td>
-                                </tr>
-                                <br/>
-                            </tbody>
-                        </table>
-                    </td>
-                    <#assign imageIndex = imageIndex+1>
-                <#else>
-                    <#assign imageIndex = 0>
-                    <tr></tr>
-                    <td style="vertical-align:bottom">
-                        <table>
-                            <tbody>
-                                <tr valign="middle">
-                                    <#-- <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td> -->
-                                    <td align="center"><a href="<@ofbizContentUrl>${(productContentAndInfo.drObjectInfo)?if_exists}</@ofbizContentUrl>" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
-                                </tr>
-                                <tr valign="middle">
-                                    <#-- <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td> -->
-                                    <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}','' ,500,500);" class="buttontext">Share</a></td>
-                                </tr>
-                                <br/>
-                            </tbody>
-                        </table>
-                    </td>
-                    <#assign imageIndex = imageIndex+1>
-                </#if>
+        <#list productImageList as productImage>
+            <#if imageIndex < 5>
+                <td style="vertical-align:bottom">
+                    <table>
+                        <tbody>
+                            <tr valign="middle">
+                                <#-- <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td> -->
+                                <td align="center"><a href="<@ofbizContentUrl>${(productImage.productImage)?if_exists}</@ofbizContentUrl>" target="_blank"><img src="<@ofbizContentUrl>${(productImage.productImageThumb)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
+                            </tr>
+                            <tr valign="middle">
+                                <#-- <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td> -->
+                                <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productImage.contentId}&amp;dataResourceId=${productImage.dataResourceId}','' ,500,500);" class="buttontext">Share</a></td>
+                            </tr>
+                            <br/>
+                        </tbody>
+                    </table>
+                </td>
+                <#assign imageIndex = imageIndex+1>
+            <#else>
+                <#assign imageIndex = 0>
+                <tr></tr>
+                <td style="vertical-align:bottom">
+                    <table>
+                        <tbody>
+                            <tr valign="middle">
+                                <#-- <td align="center"><a href="/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}" target="_blank"><img src="<@ofbizContentUrl>${(contentDataResourceView.drObjectInfo)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td> -->
+                                <td align="center"><a href="<@ofbizContentUrl>${(productImage.productImage)?if_exists}</@ofbizContentUrl>" target="_blank"><img src="<@ofbizContentUrl>${(productImage.productImageThumb)?if_exists}</@ofbizContentUrl>" vspace="5" hspace="5" alt=""/></a></td>
+                            </tr>
+                            <tr valign="middle">
+                                <#-- <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productContentAndInfo.contentId}&amp;dataResourceId=${productContentAndInfo.dataResourceId}&amp;seoUrl=/catalog/images/${seoUrl}-${product.productId}/${seoUrl}-${contentName}','' ,500,500);" class="buttontext">Share</a></td> -->
+                                <td align="center"><a href="javascript:lookup_popup2('ImageShare?contentId=${productImage.contentId}&amp;dataResourceId=${productImage.dataResourceId}','' ,500,500);" class="buttontext">Share</a></td>
+                            </tr>
+                            <br/>
+                        </tbody>
+                    </table>
+                </td>
+                <#assign imageIndex = imageIndex+1>
             </#if>
         </#list>
     </#if>

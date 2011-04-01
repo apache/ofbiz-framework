@@ -625,4 +625,25 @@ if (product) {
 
     // not the best to save info in an action, but this is probably the best place to count a view; it is done async
     dispatcher.runAsync("countProductView", [productId : productId, weight : new Long(1)], false);
+
+    //get product image from image management
+    productImageList = [];
+    productContentAndInfoImageManamentList = delegator.findByAnd("ProductContentAndInfo", ["productId": productId, productContentTypeId : "IMAGE", "statusId" : "IM_APPROVED", "drIsPublic" : "Y"], ["sequenceNum"]);
+    if(productContentAndInfoImageManamentList) {
+        productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
+            contentAssocThumbList = delegator.findByAnd("ContentAssoc", [contentId : productContentAndInfoImageManament.contentId, contentAssocTypeId : "IMAGE_THUMBNAIL"]);
+            contentAssocThumb = EntityUtil.getFirst(contentAssocThumbList);
+            if(contentAssocThumb) {
+                imageContentThumb = delegator.findByPrimaryKey("Content", [contentId : contentAssocThumb.contentIdTo]);
+                if(imageContentThumb) {
+                    productImageThumb = delegator.findByPrimaryKey("ContentDataResourceView", [contentId : imageContentThumb.contentId, drDataResourceId : imageContentThumb.dataResourceId]);
+                    productImageMap = [:];
+                    productImageMap.productImageThumb = productImageThumb.drObjectInfo;
+                    productImageMap.productImage = productContentAndInfoImageManament.drObjectInfo;
+                    productImageList.add(productImageMap);
+                }
+            }
+        }
+        context.productImageList = productImageList;
+    }
 }

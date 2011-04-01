@@ -563,12 +563,5 @@ under the License.
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
-        <!--<menu-item name="AutomaticResize" title="${uiLabelMap.AutomaticResize}">
-            <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-            </condition>
-            <link target="AutomaticResize"/>
-        </menu-item>-->
     </menu>
-    
 </menus>

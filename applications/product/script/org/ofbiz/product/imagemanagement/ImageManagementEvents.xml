@@ -46,15 +46,14 @@ under the License.
         </entity-and>
         <if-not-empty field="productContentAndInfos">
             <first-from-list entry="productContentAndInfo" list="productContentAndInfos"/>
+            
+            <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/SetDefaultImage.groovy"/>
+            
             <entity-one value-field="product" entity-name="Product">
                 <field-map field-name="productId" from-field="parameters.productId"/>
             </entity-one>
             <set field="product.originalImageUrl" from-field="productContentAndInfo.drObjectInfo"/>
             <store-value value-field="product"/>
-        
-            <!--<set field="setThumbnailMap.productId" from-field="parameters.productId"/>
-            <set field="setThumbnailMap.contentIdTo" from-field="parameters.contentIdTo"/>
-            <call-service service-name="setThumbnail" in-map-name="setThumbnailMap"/>-->
         </if-not-empty>
     </simple-method>
 </simple-methods>

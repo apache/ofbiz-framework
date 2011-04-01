@@ -197,7 +197,7 @@ public class ScaleImage {
                                 for(File file : files) {
                                     if (file.isFile() && file.getName().startsWith(id)) {
                                         file.delete();
-                                    }    
+                                    }
                                 }
                             } catch (SecurityException e) {
                                 Debug.logError(e,module);
@@ -243,10 +243,10 @@ public class ScaleImage {
             return ServiceUtil.returnError(errMsg);
         }
     }
-    
+
     public static Map<String, Object> scaleImageManageInAllSize(Map<String, ? extends Object> context, String filenameToUse, String viewType, String viewNumber , String imageType)
         throws IllegalArgumentException, ImagingOpException, IOException, JDOMException {
-    
+
         /* VARIABLES */
         Locale locale = (Locale) context.get("locale");
         List<String> sizeTypeList = null;
@@ -265,7 +265,7 @@ public class ScaleImage {
         Map<String, Object> resultBufImgMap = FastMap.newInstance();
         Map<String, Object> resultScaleImgMap = FastMap.newInstance();
         Map<String, Object> result = FastMap.newInstance();
-    
+
         /* ImageProperties.xml */
         String imgPropertyFullPath = System.getProperty("ofbiz.home") + "/applications/product/config/ImageProperties.xml";
         resultXMLMap.putAll(ImageTransform.getXMLValue(imgPropertyFullPath, locale));
@@ -277,7 +277,7 @@ public class ScaleImage {
             result.put("errorMessage", errMsg);
             return result;
         }
-    
+
         /* IMAGE */
         // get Name and Extension
         index = filenameToUse.lastIndexOf(".");
@@ -287,7 +287,7 @@ public class ScaleImage {
         String mainFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
         String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-    
+
         String id = null;
         String type = null;
         if (viewType.toLowerCase().contains("main")) {
@@ -316,7 +316,7 @@ public class ScaleImage {
         
         if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
-    
+
             // get Dimensions
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
@@ -326,23 +326,23 @@ public class ScaleImage {
                 result.put("errorMessage", errMsg);
                 return result;
             }
-    
+
             // new Filename Format
             FlexibleStringExpander addFilenameExpander = mainFilenameExpander;
             if (viewType.toLowerCase().contains("additional")) {
                 String addFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.additionalviewsize.format");
                 addFilenameExpander = FlexibleStringExpander.getInstance(addFilenameFormat);
             }
-    
+
             /* scale Image for each Size Type */
             Iterator<String> sizeIter = sizeTypeList.iterator();
             while (sizeIter.hasNext()) {
                 String sizeType = sizeIter.next();
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
-    
+
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {
                     bufNewImg = (BufferedImage) resultScaleImgMap.get("bufferedImage");
-    
+
                     // write the New Scaled Image
                     String newFileLocation = null;
                     if (viewType.toLowerCase().contains("main")) {
@@ -354,7 +354,7 @@ public class ScaleImage {
                     if (newFileLocation.lastIndexOf("/") != -1) {
                         newFilePathPrefix = newFileLocation.substring(0, newFileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
                     }
-    
+
                     String targetDirectory = imageServerPath + "/" + newFilePathPrefix;
                     File targetDir = new File(targetDirectory);
                     if (!targetDir.exists()) {
@@ -365,7 +365,7 @@ public class ScaleImage {
                             return ServiceUtil.returnError(errMsg);
                         }
                     }
-    
+
                     // write new image
                     try {
                         ImageIO.write((RenderedImage) bufNewImg, imgExtension, new File(imageServerPath + "/" + newFilePathPrefix + filenameToUse));
@@ -380,19 +380,19 @@ public class ScaleImage {
                         result.put("errorMessage", errMsg);
                         return result;
                     }
-    
+
                     /* write Return Result */
                     String imageUrl = imageUrlPrefix + "/" + newFilePathPrefix + filenameToUse;
                     imgUrlMap.put(sizeType, imageUrl);
-    
+
                 } // scaleImgMap
             } // sizeIter
-    
+
             result.put("responseMessage", "success");
             result.put("imageUrlMap", imgUrlMap);
             result.put("original", resultBufImgMap);
             return result;
-    
+
         } else {
             String errMsg = UtilProperties.getMessage(resource, "ScaleImage.unable_to_scale_original_image", locale) + " : " + filenameToUse;
             Debug.logError(errMsg, module);
