@@ -233,6 +233,7 @@
             <condition>
                 <and>
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-has-permission permission="PROJECTMGR" action="_ADMIN"/>
                 </and>
             </condition>
             <link target="EditProject"/>
