@@ -37,7 +37,7 @@
     <!-- Targets to create  patch files                                    -->
     <!-- ================================================================= -->
 
-    <target name="create-ofbiz-patches" description="Creates patch for framework, application, specialpurpose components">
+    <target name="create-ofbiz-patches" description="Creates patches for root, framework, application and specialpurpose components">
         <exec executable="svn" output="patches/root.patch" dir="${ofbiz.home.dir}">
             <arg value="diff"/>
             <arg value="--depth=files"/>
@@ -81,7 +81,7 @@
         </exec>
     </target>
 
-    <target name="apply-ofbiz-patches" description="Apply the patch to framework, application, specialpurpose components.">
+    <target name="apply-ofbiz-patches" description="Apply the patches to root, framework, application and specialpurpose components.">
         <fail message="Patch files not found.">
             <condition>
                 <or>
