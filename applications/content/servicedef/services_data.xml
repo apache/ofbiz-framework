@@ -88,7 +88,7 @@
         <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="textData" mode="IN" optional="true" type="String"/>
+        <attribute name="textData" mode="IN" optional="true" type="String" allow-html="safe"/>
         <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
         <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
@@ -98,7 +98,7 @@
         <description>Create a DataResource and, possibly, ElectronicText or ImageDataResource</description>
         <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="textData" mode="IN" type="String" optional="true"/>
+        <attribute name="textData" mode="IN" type="String" optional="true"  allow-html="safe"/>
         <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
         <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
@@ -261,11 +261,11 @@
         <attribute mode="IN" name="rootDir" optional="true" type="String"/>
     </service>
     -->
-    
+
     <!-- Cleared associated DataResource rendered cache from UtilCache. -->
     <service name="clearAssociatedRenderCache" engine="java" auth="true" default-entity-name="DataResource"
             location="org.ofbiz.content.data.DataServices" invoke="clearAssociatedRenderCache">
         <auto-attributes include="pk" mode="IN" />
     </service>
-    
+
 </services>
