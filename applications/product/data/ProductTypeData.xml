@@ -603,8 +603,7 @@ under the License.
     <RoleType roleTypeId="IMAGEAPPROVER" hasTable="N" description="Image Approver"/>
     
     <ProductContentType description="Image" hasTable="N" parentTypeId="" productContentTypeId="IMAGE"/>
-    <ProductContentType description="Image Thumbnail" hasTable="N" parentTypeId="" productContentTypeId="DEFAULT_IMAGE"/>
-    <ProductContentType description="Frame" hasTable="N" parentTypeId="" productContentTypeId="FRAME"/>
+    <ProductContentType description="Default Image" hasTable="N" parentTypeId="" productContentTypeId="DEFAULT_IMAGE"/>
     
     <ContentType contentTypeId="IMAGE_FRAME" description="Frame Image"/>
     

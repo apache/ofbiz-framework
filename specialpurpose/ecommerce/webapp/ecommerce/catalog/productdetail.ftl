@@ -343,8 +343,7 @@ ${virtualVariantJavaScript?if_exists}
     
     <hr />
     <div id="productImageBox">
-        <#assign userLoginSecurityGroup = delegator.findByAnd("UserLoginSecurityGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("groupId", "IMAGEADMIN"))>
-        <#if userLoginSecurityGroup != null && userLoginSecurityGroup?has_content>
+        <#if productImageList != null && productImageList?has_content>
             <#-- Product image/name/price -->
             <div id="detailImageBox">
                 <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists />
@@ -361,20 +360,12 @@ ${virtualVariantJavaScript?if_exists}
                 </#if>
             </div>
             <#-- Show Image Approved -->
-            <#assign productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", {"productId", product.productId?if_exists, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "Y"}, Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"))>
             <div id="additionalImageBox">
-                <#if productContentAndInfos?has_content>
-                    <#list productContentAndInfos as productContentAndInfo>
-                        <#assign contentAssocs  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", productContentAndInfo.contentId?if_exists, "contentAssocTypeId", "IMAGE_THUMBNAIL"))/>
-                        <#if contentAssocs?has_content>
-                            <#list contentAssocs as contentAssoc>
-                                <#assign ImageContent = delegator.findByPrimaryKey("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo))?if_exists>
-                                <#assign contentDataResourceView = delegator.findByPrimaryKey("ContentDataResourceView", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentAssoc.contentIdTo, "drDataResourceId", ImageContent.dataResourceId))?if_exists>
-                                <div class="additionalImage">
-                                    <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productContentAndInfo.drObjectInfo}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${contentDataResourceView.drObjectInfo}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
-                                </div>
-                            </#list>  
-                        </#if>
+                <#if productImageList?has_content>
+                    <#list productImageList as productImage>
+                        <div class="additionalImage">
+                            <a href="javascript:void(0);" swapDetail="<@ofbizContentUrl>${productImage.productImage}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${productImage.productImageThumb}</@ofbizContentUrl>" vspace="5" hspace="5" alt="" /></a>
+                        </div>
                     </#list>
                 </#if>
             </div>

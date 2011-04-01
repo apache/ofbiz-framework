@@ -1497,13 +1497,6 @@ under the License.
         <attribute name="partyId" mode="IN" type="String" optional="false"/>
     </service>
     
-    <service name="setThumbnail" engine="java"
-        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="setThumbnail" auth="true">
-        <description>Set Thumbnail for product</description>
-        <attribute mode="IN" name="contentIdTo" optional="false" type="String"/>
-        <attribute mode="IN" name="productId" optional="false" type="String"/>
-    </service>
-    
     <service name="resizeAllImageOfProduct" engine="simple"
         location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="resizeAllImageOfProduct" auth="true">
         <description>Resize All Image Of Product.</description>

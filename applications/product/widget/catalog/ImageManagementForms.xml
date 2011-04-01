@@ -193,7 +193,7 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-       	<field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
+        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
         <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
@@ -793,11 +793,6 @@ under the License.
         </field>
     </form>
     
-    <form name="AutomaticResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListAutomaticResize"> 
-        <field name="productId" title="Choose Product ID"><lookup target-form-name="LookupProduct"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    
     <form name="ListLookupImageFrame" type="list" list-name="listIt" paginate-target="ListLookupImageFrame" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="ContentDataResourceView">
@@ -882,7 +877,7 @@ under the License.
             </entity-condition>
         </actions>
         <field name="mapKey" title="Size"><display/></field>
-        <field name="deleteButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+        <field name="deleteButton" title="${uiLabelMap.CommonRemove}" use-when="${groovy: return context.mapKey != '100';}" widget-style="buttontext">
             <hyperlink target="removeImageBySize" description="${uiLabelMap.CommonRemove}" also-hidden="false" confirmation-message="Do you want to remove this size?">
                 <parameter param-name="productId" from-field="parameters.productId"/>
                 <parameter param-name="mapKey" from-field="mapKey"/>
@@ -901,7 +896,6 @@ under the License.
                 <condition-list combine="and">
                     <condition-expr field-name="productId" from-field="parameters.productId"/>
                     <condition-expr field-name="productContentTypeId" value="IMAGE"/>
-                    <condition-expr field-name="drMimeTypeId" value="image/jpeg"/>
                     <!--<condition-expr field-name="statusId" from-field="statusForm"/>-->
                 </condition-list>
             </entity-condition>

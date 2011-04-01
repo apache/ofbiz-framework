@@ -16,29 +16,41 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#assign contentURL = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("url.properties", "content.url.prefix.standard")>
 <script type="text/javascript">
-var form = document.ImageShare;
-var protocol = document.location.protocol;
-var host = document.location.host;
-var imageUrl = form.imageURL.value;
-var imageThumbUrl = form.imageThumbnail.value;
-form.direct.setAttribute('readOnly','readonly');
-form.html.setAttribute('readOnly','readonly');
-form.forumCode.setAttribute('readOnly','readonly');
-form.altForumCode.setAttribute('readOnly','readonly');
-
-var pathImageUrl = "http://" + host  + imageUrl;
-var pathImageThumbnailUrl = "http://"+ host + imageThumbUrl;
-
-if (form.contentId.value != "") {
-    form.link.value = "http://" + host + form.seoURL.value;
-    form.direct.value = pathImageUrl;
-    form.html.value = "<a target='_blank' title='Image' href='" + pathImageUrl + "'><img src='" + pathImageUrl + "' border='0'/></a>Uploaded with <a target='_blank' href='http://images.ofbiz.com'>ofbiz.com</a>";
-    form.forumCode.value = "[URL=" + pathImageUrl + "/][IMG]" + pathImageUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
-    form.altForumCode.value = "[URL=" + pathImageUrl + "/][IMG]" + pathImageUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
-    form.forumThumbnail.value = "[URL=" + pathImageThumbnailUrl + "/][IMG]" + pathImageThumbnailUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
-    form.altForumThumbnail.value = "[URL=" + pathImageThumbnailUrl + "/][IMG]" + pathImageThumbnailUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
-    form.htmlThumbnail.value = "<a target='_blank' title='Image' href='" + pathImageThumbnailUrl + "'><img src='" + pathImageThumbnailUrl + "' border='0'/></a>Uploaded with <a target='_blank' href='http://images.ofbiz.com'>ofbiz.com</a>";
-}
+$(document).ready(function(){
+    var form = document.ImageShare;
+    var protocol = document.location.protocol;
+    var host = document.location.host;
+    var contentURL = '${contentURL}';
+    var imageUrl = form.imageURL.value;
+    var imageThumbUrl = form.imageThumbnail.value;
+    form.direct.setAttribute('readOnly','readonly');
+    form.html.setAttribute('readOnly','readonly');
+    form.forumCode.setAttribute('readOnly','readonly');
+    form.altForumCode.setAttribute('readOnly','readonly');
+    
+    if (contentURL != "") {
+        var pathImageUrl = contentURL + imageUrl;
+        var pathImageThumbnailUrl = contentURL + imageThumbUrl;
+    }
+    else {
+        var pathImageUrl = "http://" + host + imageUrl;
+        var pathImageThumbnailUrl = "http://"+ host + imageThumbUrl;
+    }
+    
+    if (form.contentId.value != "") {
+        pathImageUrl = $('#ImageShare_direct').html(pathImageUrl).text();
+        pathImageThumbnailUrl = $('#ImageShare_direct').html(pathImageThumbnailUrl).text();
+        form.link.value = "http://" + host + form.seoURL.value;
+        form.direct.value = pathImageUrl;
+        form.html.value = "<a target='_blank' title='Image' href='" + pathImageUrl + "'><img src='" + pathImageUrl + "' border='0'/></a>Uploaded with <a target='_blank' href='http://images.ofbiz.com'>ofbiz.com</a>";
+        form.forumCode.value = "[URL=" + pathImageUrl + "/][IMG]" + pathImageUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
+        form.altForumCode.value = "[URL=" + pathImageUrl + "/][IMG]" + pathImageUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
+        form.forumThumbnail.value = "[URL=" + pathImageThumbnailUrl + "/][IMG]" + pathImageThumbnailUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
+        form.altForumThumbnail.value = "[URL=" + pathImageThumbnailUrl + "/][IMG]" + pathImageThumbnailUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";
+        form.htmlThumbnail.value = "<a target='_blank' title='Image' href='" + pathImageThumbnailUrl + "'><img src='" + pathImageThumbnailUrl + "' border='0'/></a>Uploaded with <a target='_blank' href='http://images.ofbiz.com'>ofbiz.com</a>";
+    }
+});
 
 </script>

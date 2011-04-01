@@ -2937,20 +2937,6 @@ under the License.
         <event type="java" path="org.ofbiz.virtualvillage.imagemanagement.ImageManagementServices" invoke="progressUploadImage"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    <request-map uri="AutomaticResize">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AutomaticResize"/>
-        <response name="error" type="view" value="AutomaticResize"/>
-    </request-map>
-    <request-map uri="ListAutomaticResize">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListAutomaticResize"/>
-        <response name="error" type="view" value="ListAutomaticResize"/>
-    </request-map>
-    <request-map uri="UploadProductImageForManageMent">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListAutomaticResize"/>
-    </request-map>
     <request-map uri="chooseFrameImage">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.imagemanagement.FrameImage" invoke="chooseFrameImage"/>

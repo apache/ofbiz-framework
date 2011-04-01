@@ -122,7 +122,7 @@ if (fileType) {
                 } else {
                     File[] files = targetDir.listFiles(); 
                     for(File file : files) {
-                        if (file.isFile() && !file.getName().equals(defaultFileName)  && file.getName().startsWith(productId + ".")) file.delete();
+                        if (file.isFile() && !file.getName().equals(defaultFileName) && file.getName().startsWith(productId + ".")) file.delete();
                     }
                 }
             } catch (Exception e) {

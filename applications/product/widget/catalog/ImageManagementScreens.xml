@@ -87,17 +87,7 @@ under the License.
                         <section>
                             <actions>
                                 <set field="userTabButtonImage" value="ImageGallery"/>
-                                <entity-condition entity-name="ProductContentAndInfo" list="productContentAndInfos">
-                                    <condition-list combine="and">
-                                        <condition-expr field-name="productId" from-field="parameters.productId"/>
-                                        <condition-expr field-name="productContentTypeId" value="IMAGE"/>
-                                        <condition-expr field-name="statusId" value="IM_APPROVED"/>
-                                        <condition-expr field-name="drIsPublic" value="Y"/>
-                                    </condition-list>
-                                    <order-by field-name="sequenceNum"/>
-                                </entity-condition>
-                                
-                                <entity-and  list="productContents" entity-name="ProductContent">
+                                <!--<entity-and  list="productContents" entity-name="ProductContent">
                                    <field-map field-name="productId" from-field="parameters.productId" />
                                    <field-map field-name="productContentTypeId" value="PRODUCT_NAME" />
                                 </entity-and>
@@ -105,10 +95,11 @@ under the License.
                                 <entity-and  list="contentAssocs" entity-name="ContentAssoc">
                                    <field-map field-name="contentId" from-field="productContents[0].contentId" />
                                    <field-map field-name="contentAssocTypeId" value="ALTERNATE_LOCALE" />
-                                </entity-and>
+                                </entity-and>-->
                                 
                                 <!--<entity-one value-field="product" entity-name="Product"/>-->
-                                <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/seoLocales.groovy"/>
+                                <!--<script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/seoLocales.groovy"/>-->
+                                <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/ImageGallery.groovy"/>
                             </actions>
                             <widgets>
                                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -853,106 +844,6 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-        </section>
-    </screen>
-    
-    <screen name="AutomaticResize">
-        <section>
-            <actions>
-                <set field="userTabButtonImage" value="AutomaticResize"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.AutomaticResize}">
-                                    <include-form name="AutomaticResize" location="component://product/widget/catalog/ImageManagementForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="ListAutomaticResize">
-        <section>
-            <condition>
-                <not><if-empty field="parameters.productId"/></not>
-            </condition>
-            <actions>
-                <set field="userTabButtonImage" value="AutomaticResize"/>
-                <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="Product" value-field="product"/>
-                <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/productAdditionalView.js" global="true"/>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/automaticResize.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                            </condition>
-                            <widgets>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field="product"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AutomaticResize}">
-                                            <platform-specific>
-                                                <html><html-template location="component://product/webapp/catalog/imagemanagement/AutomaticResize.ftl"/></html>
-                                            </platform-specific>
-                                        </screenlet>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label text="${uiLabelMap.ProductNoExistingProductsFound}"/>
-                                    </fail-widgets>
-                                </section>
-                            </widgets>
-                            <fail-widgets>
-                                <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-            <fail-widgets>
-                <section>
-                    <actions>
-                        <set field="userTabButtonImage" value="AutomaticResize"/>
-                        <set field="errorMessage" value="There is no a selected product, please insert or select the product to view image(s)."/>
-                    </actions>
-                    <widgets>
-                        <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <section>
-                                    <condition>
-                                        <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AutomaticResize}">
-                                            <include-form name="AutomaticResize" location="component://product/widget/catalog/ImageManagementForms.xml"/>
-                                        </screenlet>
-                                    </widgets>
-                                    <fail-widgets>
-                                        <label text="You do not have permission to access this page. (&quot;IMAGE_MANAGEMENT_ADMIN&quot; needed)"/>
-                                    </fail-widgets>
-                                </section>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </fail-widgets>
         </section>
     </screen>
     

@@ -535,14 +535,14 @@ public class ImageManagementServices {
         String contentIdThumb = (String) contentThumbResult.get("contentId");
         result.put("contentIdThumb", contentIdThumb);
         
-/*        // File to use for image thumbnail
+        /*// File to use for image thumbnail
         FlexibleStringExpander filenameExpanderThumb = FlexibleStringExpander.getInstance(imageFilenameFormat);
         String fileLocationThumb = filenameExpanderThumb.expandString(UtilMisc.toMap("location", "products", "type", "small", "id", contentIdThumb));
         String filenameToUseThumb = fileLocationThumb;
         if (fileLocationThumb.lastIndexOf("/") != -1) {
             filenameToUseThumb = fileLocationThumb.substring(fileLocationThumb.lastIndexOf("/") + 1);
         }
-    	
+        
         String fileContentType = (String) context.get("_uploadedFile_contentType");
         if (fileContentType.equals("image/pjpeg")) {
             fileContentType = "image/jpeg";
@@ -788,77 +788,6 @@ public class ImageManagementServices {
         }
     }
     
-    public static Map<String, Object> setThumbnail(DispatchContext dctx, Map<String, ? extends Object> context) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
-        Delegator delegator = dctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String productId = (String) context.get("productId");
-        String contentIdTo = (String) context.get("contentIdTo");
-        
-        try {
-            if (UtilValidate.isNotEmpty(contentIdTo)) {
-                String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-                String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
-                
-                FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
-                String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "medium", "id", productId));
-                String filePathPrefix = "";
-                String filenameToUse = fileLocation;
-                if (fileLocation.lastIndexOf("/") != -1) {
-                    filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
-                    filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
-                }
-                
-                GenericValue content = null;
-                try {
-                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentIdTo), false);
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
-                
-                String contentName = (String) content.get("contentName");
-                
-                if (contentName.lastIndexOf(".") > 0 && contentName.lastIndexOf(".") < contentName.length()) {
-                    filenameToUse += contentName.substring(contentName.lastIndexOf("."));
-                } else {
-                    filenameToUse += ".jpg";
-                }
-                
-                try {
-                    File f1 = new File(imageServerPath + "/" + productId + "/" + contentName);
-                    File f2 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
-                    InputStream input = new FileInputStream(f1);
-                    OutputStream out = new FileOutputStream(f2);
-                    
-                    byte[] buf = new byte[1024];
-                    int len;
-                    while ((len = input.read(buf)) > 0){
-                      out.write(buf, 0, len);
-                    }
-                    input.close();
-                    out.close();
-                    
-                    Map<String, Object> updateProductMap = FastMap.newInstance();
-                    updateProductMap.put("userLogin", userLogin);
-                    updateProductMap.put("productId", productId);
-                    updateProductMap.put("smallImageUrl", "/images/products/small/" + filenameToUse);
-                    try {
-                        dispatcher.runSync("updateProduct", updateProductMap);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (Exception e) {
-            return ServiceUtil.returnError(e.getMessage());
-        }
-        return ServiceUtil.returnSuccess();
-    }
-    
     public static File checkExistsImage(File file) {
         if (!file.exists()) {
             imageCount = 0;
@@ -928,6 +857,7 @@ public class ImageManagementServices {
         String contentId = (String) context.get("contentId");
         String dataResourceName = (String) context.get("dataResourceName");
         String width = (String) context.get("resizeWidth");
+        String imageType = ".jpg";
         int resizeWidth = Integer.parseInt(width);
         int resizeHeight = resizeWidth;
         
@@ -935,46 +865,43 @@ public class ImageManagementServices {
             BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceName));
             double imgHeight = bufImg.getHeight();
             double imgWidth = bufImg.getWidth();
-            String filenameToUse = dataResourceName.substring(0, dataResourceName.length() - 4) + "-" + resizeWidth + ".jpg";
+            if (dataResourceName.lastIndexOf(".") > 0 && dataResourceName.lastIndexOf(".") < dataResourceName.length()) {
+                imageType = dataResourceName.substring(dataResourceName.lastIndexOf("."));
+            }
+            
+            String filenameToUse = dataResourceName.substring(0, dataResourceName.length() - 4) + "-" + resizeWidth + imageType;
             
             if (dataResourceName.length() > 3) {
                 String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
-                if (mimeType.equals("jpg")) {
-                    Map<String, Object> resultResize = ImageManagementServices.resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
-                    ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
-                    
-                    Map<String, Object> contentThumb = FastMap.newInstance();
-                    contentThumb.put("contentTypeId", "DOCUMENT");
-                    contentThumb.put("userLogin", userLogin);
-                    Map<String, Object> contentThumbResult = FastMap.newInstance();
-                    try {
-                        contentThumbResult = dispatcher.runSync("createContent", contentThumb);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
-                    
-                    String contentIdThumb = (String) contentThumbResult.get("contentId");
-                    String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameToUse;
-                    ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlThumb, contentIdThumb, "image/jpeg");
-                    
-                    Map<String, Object> createContentAssocMap = FastMap.newInstance();
-                    createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
-                    createContentAssocMap.put("contentId", contentId);
-                    createContentAssocMap.put("contentIdTo", contentIdThumb);
-                    createContentAssocMap.put("userLogin", userLogin);
-                    createContentAssocMap.put("mapKey", width);
-                    try {
-                        dispatcher.runSync("createContentAssoc", createContentAssocMap);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());
-                    }
+                Map<String, Object> resultResize = ImageManagementServices.resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
+                ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                
+                Map<String, Object> contentThumb = FastMap.newInstance();
+                contentThumb.put("contentTypeId", "DOCUMENT");
+                contentThumb.put("userLogin", userLogin);
+                Map<String, Object> contentThumbResult = FastMap.newInstance();
+                try {
+                    contentThumbResult = dispatcher.runSync("createContent", contentThumb);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
                 }
-                else{
-                    String errMsg = UtilProperties.getMessage(resource, "ImageManagementErrorMessageResizeImage", locale);
-                    Debug.logError(errMsg, module);
-                    return ServiceUtil.returnError(errMsg);
+                
+                String contentIdThumb = (String) contentThumbResult.get("contentId");
+                String imageUrlThumb = imageServerUrl + "/" + productId + "/" + filenameToUse;
+                ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlThumb, contentIdThumb, "image/jpeg");
+                
+                Map<String, Object> createContentAssocMap = FastMap.newInstance();
+                createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
+                createContentAssocMap.put("contentId", contentId);
+                createContentAssocMap.put("contentIdTo", contentIdThumb);
+                createContentAssocMap.put("userLogin", userLogin);
+                createContentAssocMap.put("mapKey", width);
+                try {
+                    dispatcher.runSync("createContentAssoc", createContentAssocMap);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -994,17 +921,19 @@ public class ImageManagementServices {
         String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String filenameToUse = (String) context.get("drDataResourceName");
-        String mimeType = filenameToUse.substring(filenameToUse.length() - 3, filenameToUse.length());
+        String imageType = filenameToUse.substring(filenameToUse.lastIndexOf("."));
+        String imgExtension = filenameToUse.substring(filenameToUse.length() - 3, filenameToUse.length());
         String imageUrl = imageServerUrl + "/" + productId + "/" + filenameToUse;
         
         try {
-            if (mimeType.equals("jpg")) {
-                List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE"));
-                GenericValue productContent = EntityUtil.getFirst(productContentList);
-                String dataResourceName = (String) productContent.get("drDataResourceName");
-                
+            List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE"));
+            GenericValue productContent = EntityUtil.getFirst(productContentList);
+            String dataResourceName = (String) productContent.get("drDataResourceName");
+            String mimeType = filenameToUse.substring(filenameToUse.lastIndexOf("."));
+            
+            if (imageType.equals(mimeType)) {
                 BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceName));
-                ImageIO.write((RenderedImage) bufImg, "jpg", new File(imageServerPath + "/" + productId + "/" + filenameToUse));
+                ImageIO.write((RenderedImage) bufImg, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
                 
                 File file = new File(imageServerPath + "/" + productId + "/" + dataResourceName);
                 file.delete();
@@ -1059,11 +988,11 @@ public class ImageManagementServices {
                         GenericValue dataResourceAssoc = EntityUtil.getFirst(dataResourceAssocList);
                         
                         String drDataResourceNameAssoc = (String) dataResourceAssoc.get("drDataResourceName");
-                        String filenameToUseAssoc = filenameToUse.substring(0, filenameToUse.length() - 4) + "-" + contentAssoc.get("mapKey") + ".jpg";
+                        String filenameToUseAssoc = filenameToUse.substring(0, filenameToUse.length() - 4) + "-" + contentAssoc.get("mapKey") + imageType;
                         String imageUrlAssoc = imageServerUrl + "/" + productId + "/" + filenameToUseAssoc;
                         
                         BufferedImage bufImgAssoc = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc));
-                        ImageIO.write((RenderedImage) bufImgAssoc, "jpg", new File(imageServerPath + "/" + productId + "/" + filenameToUseAssoc));
+                        ImageIO.write((RenderedImage) bufImgAssoc, imgExtension, new File(imageServerPath + "/" + productId + "/" + filenameToUseAssoc));
                         
                         File fileAssoc = new File(imageServerPath + "/" + productId + "/" + drDataResourceNameAssoc);
                         fileAssoc.delete();
