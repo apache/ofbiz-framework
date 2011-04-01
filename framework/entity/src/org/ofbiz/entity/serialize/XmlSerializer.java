@@ -26,6 +26,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ import java.util.TreeSet;
 import java.util.Vector;
 import java.util.WeakHashMap;
 
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.UtilGenerics;
@@ -318,7 +320,19 @@ public class XmlSerializer {
             // - SQL Objects -
             if ("sql-Timestamp".equals(tagName)) {
                 String valStr = element.getAttribute("value");
-                return java.sql.Timestamp.valueOf(valStr);
+                /*
+                 * sql-Timestamp is defined as xsd:dateTime in ModelService.getTypes(),
+                 * so try to parse the value as xsd:dateTime first.
+                 * Fallback is java.sql.Timestamp because it has been this way all the time.
+                 */
+                try {
+                    Calendar cal = DatatypeConverter.parseDate(valStr);
+                    return new java.sql.Timestamp(cal.getTimeInMillis());
+                }
+                catch (Exception e) {
+                    Debug.logWarning("sql-Timestamp does not conform to XML Schema definition, try java.sql.Timestamp format", module);
+                    return java.sql.Timestamp.valueOf(valStr);
+                }
             } else if ("sql-Date".equals(tagName)) {
                 String valStr = element.getAttribute("value");
                 return java.sql.Date.valueOf(valStr);
