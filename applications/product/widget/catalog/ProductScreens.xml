@@ -229,6 +229,7 @@ under the License.
                             <include-form name="UpdateProductPrice" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductPrices}">
+                            <label style="h3" text="${uiLabelMap.ProductPricesWarning}"/>
                             <include-form name="AddProductPrice" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
