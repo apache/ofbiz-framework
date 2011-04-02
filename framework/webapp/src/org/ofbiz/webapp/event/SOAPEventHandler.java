@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.io.Writer;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -46,12 +47,14 @@ import org.apache.axiom.soap.SOAPFactory;
 import org.apache.axiom.soap.impl.builder.StAXSOAPModelBuilder;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.engine.SoapSerializer;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
@@ -195,9 +198,17 @@ public class SOAPEventHandler implements EventHandler {
                 createAndSendSOAPResponse(serviceResults, serviceName, response);
 
             } catch (GenericServiceException e) {
-                sendError(response, "Problem processing the service");
-                Debug.logError(e, module);
-                return null;
+                if (UtilProperties.getPropertyAsBoolean("service", "secureSoapAnswer", true)) {
+                    sendError(response, "Problem processing the service, check your parameters.");
+                } else {
+                    if(e.getMessageList() == null) {
+                        sendError(response, e.getMessage());
+                    } else {
+                        sendError(response, e.getMessageList());
+                    }
+                    Debug.logError(e, module);
+                    return null;
+                }
             }
         } catch (Exception e) {
             sendError(response, e.getMessage());
@@ -245,7 +256,7 @@ public class SOAPEventHandler implements EventHandler {
             // instead, create the xmlns attribute directly:
             OMAttribute defaultNS = factory.createOMAttribute("xmlns", null, ModelService.TNS);
             resService.addAttribute(defaultNS);
-            
+
             // log the response message
             if (Debug.verboseOn()) {
                 try {
@@ -263,12 +274,18 @@ public class SOAPEventHandler implements EventHandler {
     }
 
     private void sendError(HttpServletResponse res, String errorMessage) throws EventHandlerException {
+        // setup the response
+        sendError(res, ServiceUtil.returnError(errorMessage));
+    }
+
+    private void sendError(HttpServletResponse res, List<String> errorMessages) throws EventHandlerException {
+        sendError(res, ServiceUtil.returnError(errorMessages));
+    }
+    private void sendError(HttpServletResponse res, Object object) throws EventHandlerException {
         try {
             // setup the response
             res.setContentType("text/xml");
-            Map<String, Object> results = FastMap.newInstance();
-            results.put("errorMessage", errorMessage);
-            String xmlResults= SoapSerializer.serialize(results);
+            String xmlResults= SoapSerializer.serialize(object);
             XMLStreamReader xmlReader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = new StAXOMBuilder(xmlReader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
