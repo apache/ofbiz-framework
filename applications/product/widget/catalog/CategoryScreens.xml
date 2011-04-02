@@ -483,6 +483,8 @@ under the License.
     <screen name="EditProductCategoryLinks">
         <section>
             <actions>
+                <property-map resource="ProductEntityLabels" map-name="uiLabelMap" global="true"/>
+            
                 <set field="titleProperty" value="PageTitleEditProductCategoryLink"/>
                 <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditProductCategoryLinks"/>
