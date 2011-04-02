@@ -53,3 +53,5 @@ fi
 #$JAVA $VMARGS -jar ofbiz.jar $* >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
 exec "$JAVA" $VMARGS -jar ofbiz.jar "$@"
 
+# Allow To Run From Jenkins. See http://wiki.jenkins-ci.org/display/JENKINS/ProcessTreeKiller. Drawback: the calling Jenkins job does not terminate
+#BUILD_ID=dontKillMe
