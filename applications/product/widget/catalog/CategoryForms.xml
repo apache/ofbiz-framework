@@ -192,12 +192,8 @@ under the License.
         <field name="imageUrl" tooltip="${uiLabelMap.ProductImageUrlTooltip}"><text size="60" maxlength="255"/></field>
         <field name="linkTypeEnumId" title="${uiLabelMap.ProductLinkTypeEnumId}">
             <drop-down allow-empty = "false">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
-                    <entity-constraint name="enumId" operator="equals" value="PCLT_SEARCH_PARAM"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
-                    <entity-constraint name="enumId" operator="equals" value="PCLT_ABS_URL"/>
+                <entity-options description="${groovy: uiLabelMap.get(&quot;ProductCategoryLinkType.description.&quot;+enumId)}" entity-name="Enumeration" key-field-name="enumId">
+                    <entity-constraint name="enumTypeId" operator="equals" value="PCAT_LINK_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

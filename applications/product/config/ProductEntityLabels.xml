@@ -3016,6 +3016,21 @@
         <value xml:lang="zh">被盗</value>
         <value xml:lang="zh_TW">被盜</value>
     </property>
+    <property key="ProductCategoryLinkType.description.PCLT_SEARCH_PARAM">
+        <value xml:lang="de">Suchparameter</value>
+        <value xml:lang="en">Search Parameters</value>
+        <value xml:lang="fr">Paramètres de recherche</value>
+    </property>
+    <property key="ProductCategoryLinkType.description.PCLT_ABS_URL">
+        <value xml:lang="de">Absolute URL</value>
+        <value xml:lang="en">Absolute URL</value>
+        <value xml:lang="fr">URL absolue</value>
+    </property>
+    <property key="ProductCategoryLinkType.description.PCLT_CAT_ID">
+        <value xml:lang="de">Kategorie ID</value>
+        <value xml:lang="en">Category ID</value>
+        <value xml:lang="fr">Ref. de catégorie</value>
+    </property>
 
     <!-- Field Descriptions -->
     <!--  ProdCatalog -->
