@@ -93,7 +93,10 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     public static final String module = ModelService.class.getName();
 
     public static final String XSD = "http://www.w3.org/2001/XMLSchema";
-    public static final String TNS = "http://ofbiz.apache.org/service/";
+    // The line below allows to define an empty targetNameSpace by commenting out the  TargetNamespace property in service.properties
+    // To be compliant with CFX which uses JAX-WS and follow WS-I Basic Profile: http://en.wikipedia.org/wiki/WS-I_Basic_Profile
+    // see http://mail-archives.apache.org/mod_mbox/cxf-users/200901.mbox/%3C200901231332.03818.dkulp@apache.org%3E for details
+    public static final String TNS = UtilProperties.getPropertyValue("service.properties", "TargetNamespace", "");
     public static final String OUT_PARAM = "OUT";
     public static final String IN_PARAM = "IN";
 
@@ -1189,7 +1192,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         Definition def = factory.newDefinition();
         def.setTargetNamespace(TNS);
         def.addNamespace("xsd", XSD);
-        def.addNamespace("tns", TNS);
+        def.addNamespace("tns", "http://ofbiz.apache.org/service"); // This name space, used only in wsdl:definitions can be hardcoded
         def.addNamespace("soap", "http://schemas.xmlsoap.org/wsdl/soap/");
         this.getWSDL(def, locationURI);
         return factory.newWSDLWriter().getDocument(def);
