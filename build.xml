@@ -778,7 +778,34 @@ under the License.
         </cobertura-report>
     </target>
 
-    <target name="sonar" depends="download-sonar-ant-task, sonar-init"
+    <target name="cobertura-report-xml"
+            description="generates a XML file from the cobertura report, this will be use by sonar">
+        <delete dir="runtime/logs/cobertura-report"/>
+        <mkdir dir="runtime/logs/cobertura-report"/>
+        <taskdef resource="tasks.properties">
+            <classpath>
+                <fileset dir="framework/base/lib">
+                    <include name="cobertura-1.9.3.jar" />
+                    <include name="log4j-1.2.15.jar" />
+                    <include name="scripting/asm*.jar" />
+                </fileset>
+            </classpath>
+        </taskdef>
+        <cobertura-merge datafile="runtime/logs/cobertura.dat">
+            <fileset dir="runtime/logs">
+                <include name="cobertura-base.dat"/>
+                <include name="cobertura-components.dat"/>
+            </fileset>
+        </cobertura-merge>
+        <cobertura-report format="xml" datafile="runtime/logs/cobertura.dat" destdir="runtime/logs/cobertura-report">
+            <dirset dir=".">
+                <include name="*/*/src"/>
+            </dirset>
+            <include name="**/*.java"/>
+        </cobertura-report>
+    </target>
+
+    <target name="sonar" depends="download-sonar-ant-task, sonar-init, cobertura-report-xml"
             description="Sonar code analysis. You need a Sonar instance running to use it. More info on http://www.sonarsource.org/">
         <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
             <arg value="info"/>
@@ -833,7 +860,8 @@ under the License.
                 <path location="specialpurpose/oagis/src" />
                 <path location="specialpurpose/pos/src" />
             </sources>
-            <property key="sonar.dynamicAnalysis" value="false" />
+            <property key="sonar.dynamicAnalysis" value="reuseReports" />
+            <property key="sonar.cobertura.reportPath" value="runtime/logs/cobertura-report/coverage.xml"/>
             <property key="sonar.java.source" value="1.6" />
             <property key="sonar.java.target" value="1.6" />
         </sonar:sonar>
