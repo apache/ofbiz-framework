@@ -473,6 +473,10 @@
         <value xml:lang="pt">Adicionar Membro do Grupo de Pagamento</value>
         <value xml:lang="zh_TW">增加支付群組成員</value>
     </property>
+    <property key="AccountingAddTax">
+        <value xml:lang="en">Add Tax</value>
+        <value xml:lang="fr">Ajouter les taxes</value>
+    </property>
     <property key="AccountingAddTaxAuthorityGlAccount">
         <value xml:lang="de">Steuerkonto hinzufügen</value>
         <value xml:lang="en">Add TaxAuthority GL Account</value>
@@ -2519,6 +2523,10 @@
         <value xml:lang="en">Consolidated data from divisions ${partyNameList}</value>
         <value xml:lang="hi_IN">डिवीजनों ${partyNameList} से समेकित डेटा</value>
         <value xml:lang="pt">Os dados consolidados a partir das divisões ${partyNameList}</value>
+    </property>
+    <property key="AccountingConfirmationCancelOrder">
+        <value xml:lang="en">Do you want to cancel this invoice number ${invoice.invoiceId}?</value>
+        <value xml:lang="fr">Voulez-vous annuler la facture n° ${invoice.invoiceId} ?</value>
     </property>
     <property key="AccountingCopyAgreement">
         <value xml:lang="ar">نسخ الإتفاقية</value>
