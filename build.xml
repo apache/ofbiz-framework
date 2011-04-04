@@ -785,7 +785,7 @@ under the License.
             <arg value="--xml"/>
         </exec>
         <xmlproperty file="runtime/svninfo_tmp.xml"/>
-        <sonar:sonar workDir="." key="org.apache:ofbiz" version="${info.entry.commit(revision)}">
+        <sonar:sonar workDir="runtime/sonar" key="org.apache:ofbiz" version="${info.entry.commit(revision)}">
             <sources>
                 <!--framework-->
                 <path location="framework/appserver/src" />
@@ -834,6 +834,8 @@ under the License.
                 <path location="specialpurpose/pos/src" />
             </sources>
             <property key="sonar.dynamicAnalysis" value="false" />
+            <property key="sonar.java.source" value="1.6" />
+            <property key="sonar.java.target" value="1.6" />
         </sonar:sonar>
     </target>
 
