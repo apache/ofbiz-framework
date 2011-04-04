@@ -4136,6 +4136,7 @@
     </property>
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
+        <value xml:lang="en">Recherche de factures fournisseur</value>
         <value xml:lang="hi_IN">एपी (AP) चालान खोजें</value>
         <value xml:lang="pt">Encontrar Faturas do contas a pagar</value>
         <value xml:lang="zh_TW">找尋應付發票</value>
@@ -4147,6 +4148,7 @@
     </property>
     <property key="AccountingFindApPayments">
         <value xml:lang="en">Find AP Payments</value>
+        <value xml:lang="en">Recherche de paiements fournisseur</value>
         <value xml:lang="hi_IN">लेखा देय भुगतान खोजें</value>
         <value xml:lang="pt">Encontrar Pagamentos do contas a pagar</value>
         <value xml:lang="zh_TW">找尋應付支付</value>
@@ -6419,7 +6421,7 @@
         <value xml:lang="de">Status auf 'Annulliert'</value>
         <value xml:lang="en">Status to 'Cancelled'</value>
         <value xml:lang="es">Status a 'Cancelado'</value>
-        <value xml:lang="fr">Statut à 'Annullée'</value>
+        <value xml:lang="fr">Statut à 'Annulée'</value>
         <value xml:lang="hi_IN">'रद्द' की स्थिति</value>
         <value xml:lang="it">Stato a 'Annullato'</value>
         <value xml:lang="nl">Status naar 'Geannuleerd'</value>
@@ -6604,6 +6606,7 @@
     </property>
     <property key="AccountingInvoicesDueSoon">
         <value xml:lang="en">Invoices Due Soon</value>
+        <value xml:lang="fr">Factures à régler prochainementvend</value>
         <value xml:lang="pt">Faturas devidas em breve</value>
     </property>
     <property key="AccountingInvoicesFound">
@@ -8374,6 +8377,7 @@
     </property>
     <property key="AccountingPastDueInvoices">
         <value xml:lang="en">Past Due Invoices</value>
+        <value xml:lang="fr">Factures en attente de règlement</value>
         <value xml:lang="pt">Faturas passdas em débito</value>
     </property>
     <property key="AccountingPayOnlyWithBillingAccount">
@@ -11040,6 +11044,7 @@
     </property>
     <property key="AccountingTaxProductIdCannotCalculate">
         <value xml:lang="en">productId don't have value, cannot call calcTax service.</value>
+        <value xml:lang="fr">Pas de produit associé, le calcul des taxes ne peut être effectué</value>
         <value xml:lang="it">Codice prodotto non ha nessun valore, non è possibile eseguire il servizio calcTax.</value>
         <value xml:lang="pt">productId não têm valor, não pode chamar o serviço calcTax.</value>
     </property>
@@ -14264,6 +14269,7 @@
     </property>
     <property key="FormFieldTitle_origAmount">
         <value xml:lang="en">Orig Amount</value>
+        <value xml:lang="fr">Montant original</value>
         <value xml:lang="hi_IN">मूल राशि</value>
         <value xml:lang="it">Importo originale</value>
         <value xml:lang="pt">Quantia original</value>
@@ -14272,6 +14278,7 @@
     </property>
     <property key="FormFieldTitle_origCurrencyUomId">
         <value xml:lang="en">Orig Currency Uom Id</value>
+        <value xml:lang="fr">Devise originale</value>
         <value xml:lang="hi_IN">मूल मुद्रा माप की इकाई(Uom) क्रमांक</value>
         <value xml:lang="it">Valuta di origine</value>
         <value xml:lang="pt">ID de UDM da moeda original</value>
