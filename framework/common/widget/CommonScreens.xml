@@ -127,7 +127,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${localeJsFile}" global="true"/>
 
                 
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.5.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.5.2.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
@@ -275,8 +275,8 @@ under the License.
                         </service>
 
                         <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
-                        <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>                        
-                        
+                        <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
+
                         <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/messages.ftl"/>
                     </actions>
                     <widgets>
@@ -356,7 +356,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
                 <set field="initialLocale" type="String" value="${groovy:parameters?.userLogin?.lastLocale?.substring(0,2)}" default-value="${groovy:locale.toString()?.substring(0,2)?:'en'}"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-${initialLocale}.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.5.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.5.2.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
