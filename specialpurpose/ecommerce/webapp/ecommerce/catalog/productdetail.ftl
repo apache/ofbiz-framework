@@ -18,6 +18,7 @@ under the License.
 -->
 <#-- variable setup -->
 <#assign price = priceMap?if_exists />
+<#assign productImageList = productImageList?if_exists />
 <#-- end variable setup -->
 
 <#-- virtual product javascript -->
