@@ -750,7 +750,8 @@ under the License.
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
 
-    <target name="cobertura-report">
+    <target name="cobertura-report"
+            description="generates a HTML code coverage report with cobertura, can be found in runtime/logs/cobertura-report">
         <delete dir="runtime/logs/cobertura-report"/>
         <mkdir dir="runtime/logs/cobertura-report"/>
         <taskdef resource="tasks.properties">
