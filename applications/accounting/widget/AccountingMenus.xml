@@ -307,7 +307,7 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="setInvoiceStatus" request-confirmation="true" confirmation-message="You want to cancel this invoice number ${invoice.invoiceId}?">
+            <link target="setInvoiceStatus" request-confirmation="true" confirmation-message="${uiLabelMap.AccountingConfirmationCancelOrder}">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
                 <parameter param-name="statusId" value="INVOICE_CANCELLED"/>
             </link>
@@ -327,7 +327,7 @@ under the License.
                 <parameter param-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
             </link>
         </menu-item>
-        <menu-item name="addtax" title="Add Tax">
+        <menu-item name="addtax" title="${uiLabelMap.AccountingAddTax}">
             <condition>
                 <and>
                     <not><if-empty field="invoice.invoiceId"/></not>
