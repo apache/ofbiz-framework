@@ -65,6 +65,7 @@ public class TransactionUtil implements Status {
     public static boolean debugResources = true;
 
     private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<List<Transaction>>();
+    private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<List<Exception>>();
     private static ThreadLocal<Exception> transactionBeginStack = new ThreadLocal<Exception>();
     private static ThreadLocal<List<Exception>> transactionBeginStackSave = new ThreadLocal<List<Exception>>();
     private static Map<Long, Exception> allThreadsTransactionBeginStack = Collections.<Long, Exception>synchronizedMap(FastMap.<Long, Exception>newInstance());
@@ -581,19 +582,29 @@ public class TransactionUtil implements Status {
     }
     public static boolean suspendedTransactionsHeld() {
         List<Transaction> tl = suspendedTxStack.get();
-        if (UtilValidate.isNotEmpty(tl)) {
-            return true;
-        } else {
-            return false;
-        }
+        return UtilValidate.isNotEmpty(tl);
     }
-    protected static void pushSuspendedTransaction(Transaction t) {
+    public static List<Transaction> getSuspendedTxStack() {
         List<Transaction> tl = suspendedTxStack.get();
         if (tl == null) {
             tl = new LinkedList<Transaction>();
             suspendedTxStack.set(tl);
         }
+        return tl;
+    }
+    public static List<Exception> getSuspendedTxLocationsStack() {
+        List<Exception> tl = suspendedTxLocationStack.get();
+        if (tl == null) {
+            tl = new LinkedList<Exception>();
+            suspendedTxLocationStack.set(tl);
+        }
+        return tl;
+    }
+    protected static void pushSuspendedTransaction(Transaction t) {
+        List<Transaction> tl = getSuspendedTxStack();
         tl.add(0, t);
+        List<Exception> stls = getSuspendedTxLocationsStack();
+        stls.add(0, new Exception("TX Suspend Location"));
         // save the current transaction start stamp
         pushTransactionStartStamp(t);
     }
@@ -602,6 +613,8 @@ public class TransactionUtil implements Status {
         if (UtilValidate.isNotEmpty(tl)) {
             // restore the transaction start stamp
             popTransactionStartStamp();
+            List<Exception> stls = suspendedTxLocationStack.get();
+            if (UtilValidate.isNotEmpty(stls)) stls.remove(0);
             return tl.remove(0);
         } else {
             return null;
@@ -611,6 +624,8 @@ public class TransactionUtil implements Status {
         List<Transaction> tl = suspendedTxStack.get();
         if (UtilValidate.isNotEmpty(tl)) {
             tl.remove(t);
+            List<Exception> stls = suspendedTxLocationStack.get();
+            if (UtilValidate.isNotEmpty(stls)) stls.remove(0);
             popTransactionStartStamp(t);
         }
     }
