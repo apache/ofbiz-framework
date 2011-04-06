@@ -135,7 +135,7 @@ under the License.
         <field position="2" name="dueDate"><display description="${bsh:if(invoice.get(&quot;dueDate&quot;)!=null)return(invoice.getString(&quot;dueDate&quot;).substring(0,10));}"/></field>
         <field position="1" name="total"><display description="${total}" type="currency" currency="${invoice.currencyUomId}"/></field>
         <field position="2" name="paidDate"><display description="${bsh:if(invoice.get(&quot;paidDate&quot;)!=null)return(invoice.getString(&quot;paidDate&quot;).substring(0,10));}"/></field>
-        <field position="1" name="referenceNumber"><display/></field>
+        <field position="1" name="referenceNumber" title="${uiLabelMap.FormFieldTitle_referenceNum}"><display/></field>
         <field name="currencyUomId"><hidden/></field>
     </form>
 
