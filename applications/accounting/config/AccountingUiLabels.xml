@@ -4136,7 +4136,7 @@
     </property>
     <property key="AccountingFindApInvoices">
         <value xml:lang="en">Find AP Invoices</value>
-        <value xml:lang="en">Recherche de factures fournisseur</value>
+        <value xml:lang="fr">Recherche de factures fournisseur</value>
         <value xml:lang="hi_IN">एपी (AP) चालान खोजें</value>
         <value xml:lang="pt">Encontrar Faturas do contas a pagar</value>
         <value xml:lang="zh_TW">找尋應付發票</value>
