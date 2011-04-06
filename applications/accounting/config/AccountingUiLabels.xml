@@ -6650,6 +6650,7 @@
     <property key="AccountingIssueCheck">
         <value xml:lang="de">Scheck ausstellen</value>
         <value xml:lang="en">Issue Check</value>
+        <value xml:lang="fr">Générer un chèque</value>
         <value xml:lang="hi_IN">चेक जारी करे</value>
         <value xml:lang="pt">Emitir verificação</value>
     </property>
@@ -7620,7 +7621,7 @@
         <value xml:lang="de">Keine Rechnungen gefunden</value>
         <value xml:lang="en">No Invoices Found</value>
         <value xml:lang="es">No facturas encontradas</value>
-        <value xml:lang="fr">Aucunefacture trouvée</value>
+        <value xml:lang="fr">Aucune facture trouvée</value>
         <value xml:lang="hi_IN">चालान नहीं मिला</value>
         <value xml:lang="it">Nessuna Fattura Trovata</value>
         <value xml:lang="nl">Geen facturen gevonden</value>
@@ -9939,6 +9940,7 @@
     </property>
     <property key="AccountingPrintInvoices">
         <value xml:lang="en">Print Invoices</value>
+        <value xml:lang="fr">Imprimer les factures</value>
         <value xml:lang="pt">Imprimir Faturas</value>
     </property>
     <property key="AccountingProblemChangingInvoiceStatusTo">
@@ -10130,6 +10132,7 @@
     <property key="AccountingPurchaseInvoices">
         <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoices</value>
+        <value xml:lang="fr">Factures d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान</value>
         <value xml:lang="pt">Faturas de Compra</value>
     </property>
@@ -10556,6 +10559,7 @@
     </property>
     <property key="AccountingSelectAction">
         <value xml:lang="en">Select Action</value>
+        <value xml:lang="fr">Choisir une action</value>
         <value xml:lang="hi_IN">कार्य चुनें</value>
         <value xml:lang="pt">Selecionar Ação</value>
     </property>
@@ -11818,6 +11822,7 @@
     </property>
     <property key="AccountingVendorParty">
         <value xml:lang="en">Vendor Party</value>
+        <value xml:lang="fr">Réf. vendeur</value>
         <value xml:lang="hi_IN">विक्रेता पार्टी</value>
         <value xml:lang="pt">participante Fornecedor</value>
         <value xml:lang="zh_TW">供應商成員</value>
@@ -13373,11 +13378,13 @@
     </property>
     <property key="FormFieldTitle_fromDueDate">
         <value xml:lang="en">From Due Date</value>
+        <value xml:lang="fr">Depuis la date d'échéance</value>
         <value xml:lang="hi_IN">अन्तिम दिनांक से</value>
         <value xml:lang="pt">Da Data de Vencimento</value>
     </property>
     <property key="FormFieldTitle_fromInvoiceDate">
         <value xml:lang="en">From Invoice Date</value>
+        <value xml:lang="fr">Facture depuis la date</value>
         <value xml:lang="hi_IN">चालान दिनांक से</value>
         <value xml:lang="pt">Da data da fatura</value>
     </property>
@@ -15500,11 +15507,13 @@
     </property>
     <property key="FormFieldTitle_thruDueDate">
         <value xml:lang="en">Thru Due Date</value>
+        <value xml:lang="fr">Jusqu'à la date d'échéance</value>
         <value xml:lang="hi_IN">अन्तिम दिनांक तक</value>
         <value xml:lang="pt">Data de Vencimento do débito</value>
     </property>
     <property key="FormFieldTitle_thruInvoiceDate">
         <value xml:lang="en">Thru Invoice Date</value>
+        <value xml:lang="fr">Jusqu'à la date de facture</value>
         <value xml:lang="hi_IN">चालान दिनांक तक</value>
         <value xml:lang="pt">Data de vencimento da fatura</value>
     </property>
