@@ -522,7 +522,16 @@ public class DateTimeConverters implements ConverterLoader {
             try {
                 return new java.sql.Timestamp(df.parse(str).getTime());
             } catch (ParseException e) {
-                throw new ConversionException(e);
+                // before throwing an exception, try a generic format first
+                df = DateFormat.getDateTimeInstance();
+                if (timeZone != null) {
+                    df.setTimeZone(timeZone);
+                }
+                try {
+                    return new java.sql.Timestamp(df.parse(str).getTime());
+                } catch (ParseException e2) {
+                    throw new ConversionException(e);
+                }
             }
         }
     }
