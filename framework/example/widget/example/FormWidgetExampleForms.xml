@@ -96,7 +96,7 @@ under the License.
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField6Title}"
                tooltip="${uiLabelMap.ExampleToDo}">
-            <display/>
+            <display type="date-time"/>
         </field>
         <!-- ***************** -->
         <!-- ***   field7  *** -->
