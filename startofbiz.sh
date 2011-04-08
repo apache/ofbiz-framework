@@ -49,9 +49,9 @@ else
   JAVA=java
 fi
 
+# Allows to run from Jenkins. See http://wiki.jenkins-ci.org/display/JENKINS/ProcessTreeKiller. Cons: the calling Jenkins job does not terminate if the log is not enabled, pros: this allows to monitor the log in Jenkins
+#BUILD_ID=dontKillMe
+
 # start ofbiz
 #$JAVA $VMARGS -jar ofbiz.jar $* >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
 exec "$JAVA" $VMARGS -jar ofbiz.jar "$@"
-
-# Allow To Run From Jenkins. See http://wiki.jenkins-ci.org/display/JENKINS/ProcessTreeKiller. Drawback: the calling Jenkins job does not terminate
-#BUILD_ID=dontKillMe
