@@ -102,7 +102,14 @@ under the License.
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask="" event="" action="" step="" timeValues="">
   <span class="view-calendar">
-      <input type="text" name="${name}" <#if event?has_content && action?has_content> ${event}="${action}"</#if> <@renderClass className alert /><#rt/>
+      <input type="text" name="${name}_i18n" <@renderClass className alert /><#rt/>
+        <#if title?has_content> title="${title}"</#if>
+        <#if value?has_content> value="${value}"</#if>
+        <#if size?has_content> size="${size}"</#if><#rt/>
+        <#if maxlength?has_content>  maxlength="${maxlength}"</#if>
+        <#if id?has_content> id="${id}_i18n"</#if>/><#rt/>
+        <#-- the style attribute is a little bit messy but when using disply:none the timepicker is shown on a wrong place -->
+        <input type="text" name="${name}" style="height:1px;width:1px;border:none;background-color:transparent" <#if event?has_content && action?has_content> ${event}="${action}"</#if> <@renderClass className alert /><#rt/>
         <#if title?has_content> title="${title}"</#if>
         <#if value?has_content> value="${value}"</#if>
         <#if size?has_content> size="${size}"</#if><#rt/>
@@ -110,6 +117,42 @@ under the License.
         <#if id?has_content> id="${id}"</#if>/><#rt/>
       <#if dateType!="time" >
           <script type="text/javascript">
+              <#-- If language specific lib is found, use date / time converter else just copy the value fields -->
+              if (Date.CultureInfo != undefined) {
+                  var initDate = <#if value?has_content>jQuery("#${id}_i18n").val()<#else>""</#if>;
+                  if (initDate != "") {
+                      var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
+                      <#-- bad hack because the JS date parser doesn't understand dots in the date / time string -->
+                      if (initDate.indexOf('.') != -1) {
+                          initDate = initDate.substring(0, initDate.indexOf('.'));
+                      }
+                      var dateObj = Date.parse(initDate);
+                      var formatedObj = dateObj.toString(dateFormat);
+                      jQuery("#${id}_i18n").val(formatedObj);
+                  }
+
+                  jQuery("#${id}").change(function() {
+                      var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
+                      var dateObj = Date.parse(this.value);
+                      var formatedObj = dateObj.toString(dateFormat);
+                      jQuery("#${id}_i18n").val(formatedObj);
+                  });
+                  jQuery("#${id}_i18n").change(function() {
+                      var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
+                      var dateObj = Date.parse(this.value);
+                      var formatedObj = dateObj.toString(ofbizTime);
+                      jQuery("#${id}").val(formatedObj);
+                  });
+              } else {
+                  <#-- fallback if no language specific js date file is found -->
+                  jQuery("#${id}").change(function() {
+                      jQuery("#${id}_i18n").val(this.value);
+                  });
+                  jQuery("#${id}_i18n").change(function() {
+                      jQuery("#${id}").val(this.value);
+                  });
+              }
+
               <#if shortDateInput?exists && shortDateInput>
                  jQuery("#${id}").datepicker({
               <#else>

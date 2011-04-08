@@ -777,5 +777,9 @@ under the License.
         <attribute name="geoAssocTypeId" mode="IN" type="String"/>        
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
-    
+
+    <service name="createJsLanguageFileMapping" engine="java" auth="false" use-transaction="false"
+        location="org.ofbiz.common.JsLanguageFileMappingCreator" invoke="createJsLanguageFileMapping">
+    </service>
+
 </services>
