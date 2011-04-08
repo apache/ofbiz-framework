@@ -3266,6 +3266,7 @@ under the License.
       <field name="userId" type="value"><description>Username - your authorize.net userid</description></field>
       <field name="pwd" type="value" encrypt="true"><description>Password - your authorize.net password</description></field>
       <field name="transDescription" type="value"><description>Default Transaction Description</description></field>
+      <field name="duplicateWindow" type="numeric"><description>Check the duplicate transaction in the specified time duration which is specified in seconds. If duplicate transaction occurs in the defined time limit then return error.</description></field>
       <prim-key field="paymentGatewayConfigId"/>
       <relation type="one" fk-name="PGAN_PGC" rel-entity-name="PaymentGatewayConfig">
         <key-map field-name="paymentGatewayConfigId"/>
