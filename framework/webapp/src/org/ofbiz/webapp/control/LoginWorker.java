@@ -292,11 +292,6 @@ public class LoginWorker {
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("userLogin") != null) {
-            // already logged in, do nothing...
-            return "success";
-        }
-
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
 
