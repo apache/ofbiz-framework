@@ -41,7 +41,7 @@
         <value xml:lang="es">Añadir permiso (desde lista) a grupo de seguridad</value>
         <value xml:lang="fr">Ajouter une autorisation (à partir de la liste) au groupe de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह में अनुमति(सूची से) जोड़ें</value>
-        <value xml:lang="it">Aggiungi permesso (dalla lista) al gruppo gicurezza</value>
+        <value xml:lang="it">Aggiungi permesso (dalla lista) al gruppo sicurezza</value>
         <value xml:lang="nl">Rechten vanaf lijst aan beveiligingsgroep toevoegen</value>
         <value xml:lang="pt_BR">Adicionar permissão (da lista) ao SecurityGroup</value>
         <value xml:lang="pt_PT">Adicionar Permissão (da lista)ao Grupo de Segurança</value>
@@ -228,6 +228,7 @@
     </property>
     <property key="FindUserLogin">
         <value xml:lang="en">Find User Login</value>
+        <value xml:lang="it">Ricerca utenti</value>
         <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
     </property>
     <property key="FormFieldTitle_currentPassword">
@@ -259,6 +260,36 @@
         <value xml:lang="th">ยืนยันรหัสผ่าน</value>
         <value xml:lang="zh">当前密码验证</value>
         <value xml:lang="zh_TW">目前密碼驗証</value>
+    </property>
+    <property key="FormFieldTitle_disabledDateTime">
+        <value xml:lang="en">Disabled Date Time</value>
+        <value xml:lang="it">Disabilitato dal</value>
+    </property>
+    <property key="FormFieldTitle_enabled">
+        <value xml:lang="ar">شغال</value>
+        <value xml:lang="de">Aktiviert</value>
+        <value xml:lang="en">Enabled</value>
+        <value xml:lang="es">Habilitado</value>
+        <value xml:lang="fr">Disponible</value>
+        <value xml:lang="hi_IN">सक्रिय</value>
+        <value xml:lang="it">Abilitato</value>
+        <value xml:lang="nl">Beschikbaar</value>
+        <value xml:lang="pt">Activado</value>
+        <value xml:lang="pt_BR">Habilitado</value>
+        <value xml:lang="ro">Abilitat</value>
+        <value xml:lang="ru">Доступно</value>
+        <value xml:lang="th">สามารถ</value>
+        <value xml:lang="zh">有效</value>
+        <value xml:lang="zh_CN">启用</value>
+        <value xml:lang="zh_TW">有效</value>
+    </property>
+    <property key="FormFieldTitle_externalAuthId">
+        <value xml:lang="en">External Auth Id</value>
+        <value xml:lang="it">Codice autenticazione esterna</value>
+    </property>
+    <property key="FormFieldTitle_hasLoggedOut">
+        <value xml:lang="en">Has Logged Out</value>
+        <value xml:lang="it">Uscito dal sistema</value>
     </property>
     <property key="FormFieldTitle_maxHits">
         <value xml:lang="en">Maximum number of visits</value>
@@ -308,6 +339,10 @@
         <value xml:lang="zh">新密码验证</value>
         <value xml:lang="zh_TW">新密碼驗証</value>
     </property>
+    <property key="FormFieldTitle_passwordHint">
+        <value xml:lang="en">Password Hint</value>
+        <value xml:lang="it">Suggerimento password</value>
+    </property>
     <property key="FormFieldTitle_requirePasswordChange">
         <value xml:lang="en">Require Password Change</value>
         <value xml:lang="fr">Changement mot de passe obligatoire</value>
@@ -316,6 +351,10 @@
         <value xml:lang="pt_BR">Pedir alteração de senha</value>
         <value xml:lang="zh">必须修改密码</value>
         <value xml:lang="zh_TW">必須修改密碼</value>
+    </property>
+    <property key="FormFieldTitle_successiveFailedLogins">
+        <value xml:lang="en">Successive Failed Logins</value>
+        <value xml:lang="it">Accessi falliti consecutivi</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
         <value xml:lang="en">Duration during which the view will not be accessible (in seconds)</value>
@@ -344,7 +383,7 @@
         <value xml:lang="es">Código de usuario para conexión</value>
         <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्ता लॉगिन क्रमांक</value>
-        <value xml:lang="it">Utente login</value>
+        <value xml:lang="it">Codice utente</value>
         <value xml:lang="nl">Loginnaam gebruiker</value>
         <value xml:lang="pt_BR">Id de login do usuário</value>
         <value xml:lang="ro">Utilizator Login</value>
@@ -357,7 +396,7 @@
         <value xml:lang="en">View Name</value>
         <value xml:lang="fr">Nom de la vue</value>
         <value xml:lang="hi_IN">नाम देखें</value>
-        <value xml:lang="it">Mostra nome</value>
+        <value xml:lang="it">Nome della vista</value>
         <value xml:lang="pt_BR">Ver nome</value>
         <value xml:lang="zh">浏览名称</value>
         <value xml:lang="zh_TW">瀏覽名稱</value>
@@ -388,7 +427,7 @@
         <value xml:lang="es">Añadir condiciones de emisor</value>
         <value xml:lang="fr">Ajoutez les dispositions d'émetteur</value>
         <value xml:lang="hi_IN">जारीकर्ता के प्रावधान जोड़ें</value>
-        <value xml:lang="it">Aggiorni Fornitore di Certificati</value>
+        <value xml:lang="it">Aggiungi fornitore di certificati</value>
         <value xml:lang="nl">Provisies uitgever toevoegen</value>
         <value xml:lang="pt_BR">Adicionar emissor de provisões</value>
         <value xml:lang="th">เพิ่มการจำแนกเงื่อนไข</value>
@@ -462,7 +501,7 @@
         <value xml:lang="es">Buscar grupo de seguridad</value>
         <value xml:lang="fr">Recherche de groupes de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह खोजें</value>
-        <value xml:lang="it">Ricerca Gruppo Sicurezza</value>
+        <value xml:lang="it">Ricerca gruppi sicurezza</value>
         <value xml:lang="nl">Beveiligingsgroep(en) vinden</value>
         <value xml:lang="pt_BR">Procurar grupo de segurança</value>
         <value xml:lang="ro">Cauta Grup Siguranta</value>
@@ -576,6 +615,7 @@
     </property>
     <property key="UserLogin">
         <value xml:lang="en">User Login</value>
+        <value xml:lang="it">Utente</value>
         <value xml:lang="pt_BR">Nome de Usuário</value>
     </property>
     <property key="UserLoginChangePassword">
@@ -598,7 +638,7 @@
         <value xml:lang="en">Update User Login Security Settings</value>
         <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्ता लॉगिन सुरक्षा सेटिंग्स नवीनतम करे</value>
-        <value xml:lang="it">Aggiorna Impostazioni Sicurezza Utente Login</value>
+        <value xml:lang="it">Aggiorna impostazioni sicurezza utente</value>
         <value xml:lang="nl">UserLogin Security Settings wijzigen</value>
         <value xml:lang="pt_BR">Atualizar configurações de segurança do nome de usuário</value>
         <value xml:lang="ro">Actualizare Setari De Siguranta Utilizator Login</value>
@@ -613,7 +653,7 @@
         <value xml:lang="es">Usuarios</value>
         <value xml:lang="fr">Utilisateurs de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्ता लॉगिन</value>
-        <value xml:lang="it">Utenti Logins</value>
+        <value xml:lang="it">Utenti</value>
         <value xml:lang="nl">User logins</value>
         <value xml:lang="pt_BR">Nomes de usuário</value>
         <value xml:lang="pt_PT">Inícios de Secção</value>
