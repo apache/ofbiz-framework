@@ -286,7 +286,7 @@ public class GenericDAO {
         }
 
         if (retVal == 0) {
-            throw new GenericEntityNotFoundException("Tried to update an entity that does not exist.");
+            throw new GenericEntityNotFoundException("Tried to update an entity that does not exist, entity: " + entity.toString());
         }
         return retVal;
     }
