@@ -173,6 +173,7 @@
         <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert</value>
         <value xml:lang="en">Your password has been changed successfully</value>
         <value xml:lang="fr">Votre mot de passe a été changé avec succès</value>
+        <value xml:lang="it">La password è stata cambiata con successo</value>
         <value xml:lang="nl">Uw wachtwoord is aangepast</value>
         <value xml:lang="pt_BR">Sua senha foi alterada com sucesso</value>
         <value xml:lang="zh_TW">你的密碼已成功變更。</value>
