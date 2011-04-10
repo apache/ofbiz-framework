@@ -973,6 +973,7 @@ public class SeleniumXml {
         String serverPort = null;
         String browser = null;
         String startUrl = null;
+        String timeout = null;
 
         //First initialize with property values
         if(props != null ) { //Get setup params from property value
@@ -980,6 +981,7 @@ public class SeleniumXml {
             serverPort = props.getProperty("proxyPort", "4444");
             browser = props.getProperty("browser", "*iexplore");
             startUrl = props.getProperty("startUrl", "http://localhost:8080");
+            timeout = props.getProperty("timeout", "30000");
             imagePath = props.getProperty("imagePath", "runtime/logs/");
         }
         //Second over ride properties if defined in the "setup" element
@@ -1003,9 +1005,11 @@ public class SeleniumXml {
         logger.info("setup: serverPort=" + serverPort);
         logger.info("setup: browser=" + browser);
         logger.info("setup: startUrl=" + startUrl);
+        logger.info("setup: timeout=" + timeout);
         logger.info("setup: imagePath=" + imagePath);
         this.sel = new DefaultSelenium(serverHost, Integer.parseInt(serverPort), browser, startUrl);
         this.sel.start();
+        this.sel.setTimeout(timeout);
     }
 
     private String getAbsolutePath(String fileName){
