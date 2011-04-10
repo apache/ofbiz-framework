@@ -356,7 +356,7 @@
         <value xml:lang="en">The account for user login id "${username}" has been disabled.</value>
         <value xml:lang="es">La cuenta  "${username}" ha sido deshabilitada</value>
         <value xml:lang="fr">Le compte de l'utilisateur "${username}" a été neutralisé.</value>
-        <value xml:lang="it">L'utente "${username}" è stato disabilitato.</value>
+        <value xml:lang="it">L'utente "${username}" è stato disabilitato</value>
         <value xml:lang="nl">De gebruikersnaam: "${username}" is geblokkeerd.</value>
         <value xml:lang="pt_BR">A conta de logon user id "$ {nome}" foi desativada.</value>
         <value xml:lang="ro">Utilizatorul "${username}" a fost dezactivat.</value>
@@ -752,7 +752,7 @@
         <value xml:lang="en">It will be re-enabled ${reEnableTime}.</value>
         <value xml:lang="es">Será reactivado en ${reEnableTime}.</value>
         <value xml:lang="fr">Il sera renouvellé : ${reEnableTime}.</value>
-        <value xml:lang="it">Sarà riabilitata ${reEnableTime}.</value>
+        <value xml:lang="it">Sarà riabilitato il ${reEnableTime}.</value>
         <value xml:lang="nl">Hij zal weer geactiveerd zijn op ${reEnableTime}.</value>
         <value xml:lang="pt_BR">Será reativado ${reEnableTime}.</value>
         <value xml:lang="ro">Aceasta a fost re-abilitata in ${reEnableTime}.</value>
