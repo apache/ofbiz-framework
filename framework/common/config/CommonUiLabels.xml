@@ -3117,7 +3117,7 @@
         <value xml:lang="es">Los siguientes errores ocurrieron</value>
         <value xml:lang="fr">Erreur(s) </value>
         <value xml:lang="hi_IN">निम्नलिखित त्रुटियाँ घटित हुई</value>
-        <value xml:lang="it">Il seguente errore è accaduto</value>
+        <value xml:lang="it">Errore</value>
         <value xml:lang="nl">De volgende fouten kwamen voor</value>
         <value xml:lang="pt">Ocorreram os Seguintes Erros</value>
         <value xml:lang="pt_BR">Os seguintes erros ocorreram</value>
@@ -3135,7 +3135,7 @@
         <value xml:lang="es">Ocurrió lo siguiente</value>
         <value xml:lang="fr">Information sur l'action effectuée</value>
         <value xml:lang="hi_IN">निम्नलिखित हुआ</value>
-        <value xml:lang="it">Informazioni sul comando eseguito</value>
+        <value xml:lang="it">Informazione</value>
         <value xml:lang="nl">Het volgende gebeurde</value>
         <value xml:lang="pt">Ocorreu o seguinte</value>
         <value xml:lang="ro">S-au intamplat urmatoarele</value>
@@ -10968,7 +10968,7 @@
         <value xml:lang="es">Participante</value>
         <value xml:lang="fr">Acteurs</value>
         <value xml:lang="hi_IN">पार्टी</value>
-        <value xml:lang="it">Soggetto</value>
+        <value xml:lang="it">Soggetti</value>
         <value xml:lang="nl">Partij</value>
         <value xml:lang="pt">Participante</value>
         <value xml:lang="ro">Subiecti</value>
@@ -11002,7 +11002,7 @@
         <value xml:lang="es">Proyecto</value>
         <value xml:lang="fr">Projets</value>
         <value xml:lang="hi_IN">परियोजना</value>
-        <value xml:lang="it">Progetto</value>
+        <value xml:lang="it">Progetti</value>
         <value xml:lang="pt_BR">Projeto</value>
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目</value>

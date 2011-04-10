@@ -25,7 +25,7 @@
         <value xml:lang="es">Añadir permiso (manualmente) al grupo de seguridad</value>
         <value xml:lang="fr">Ajouter une autorisation (manuellement) au groupe de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह में अनुमति(स्वयं) जोड़ें</value>
-        <value xml:lang="it">Aggiungi Permesso (manualmente) al Gruppo Sicurezza</value>
+        <value xml:lang="it">Aggiungi permesso (manualmente) al gruppo sicurezza</value>
         <value xml:lang="nl">Handmatig rechten aan deze beveiligingsgroep toevoegen</value>
         <value xml:lang="pt_BR">Adicionar permissão (manualmente) ao SecurityGroup</value>
         <value xml:lang="pt_PT">Adicionar Permissão (manualmente) ao Grupo de Segurança</value>
@@ -41,7 +41,7 @@
         <value xml:lang="es">Añadir permiso (desde lista) a grupo de seguridad</value>
         <value xml:lang="fr">Ajouter une autorisation (à partir de la liste) au groupe de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह में अनुमति(सूची से) जोड़ें</value>
-        <value xml:lang="it">Aggiungi Permesso (dalla lista) al Gruppo Sicurezza</value>
+        <value xml:lang="it">Aggiungi permesso (dalla lista) al gruppo gicurezza</value>
         <value xml:lang="nl">Rechten vanaf lijst aan beveiligingsgroep toevoegen</value>
         <value xml:lang="pt_BR">Adicionar permissão (da lista) ao SecurityGroup</value>
         <value xml:lang="pt_PT">Adicionar Permissão (da lista)ao Grupo de Segurança</value>
@@ -66,7 +66,7 @@
         <value xml:lang="es">Añadir usuario a grupo de seguridad</value>
         <value xml:lang="fr">Ajouter un identifiant de connexion à ce groupe de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह में प्रयोक्तालॉगिन जोड़ें</value>
-        <value xml:lang="it">Aggiungi Utente al Gruppo Sicurezza</value>
+        <value xml:lang="it">Aggiungi utente al gruppo sicurezza</value>
         <value xml:lang="nl">Loginnaam gebruiker aan beveiligingsgroep toevoegen</value>
         <value xml:lang="pt_BR">Adicionar usuário e senha ao Grupo de Segurança</value>
         <value xml:lang="pt_PT">Adicionar Início de Utilizador a Este Grupo de Segurança</value>
@@ -236,7 +236,7 @@
         <value xml:lang="es">Clave actual</value>
         <value xml:lang="fr">Mot de passe actuel</value>
         <value xml:lang="hi_IN">वर्तमान पासवर्ड</value>
-        <value xml:lang="it">Password Attuale</value>
+        <value xml:lang="it">Password attuale</value>
         <value xml:lang="nl">Huidig wachtwoord</value>
         <value xml:lang="pt_BR">Senha atual</value>
         <value xml:lang="ro">Parola Actuala</value>
@@ -251,7 +251,7 @@
         <value xml:lang="es">Verificar clave actual</value>
         <value xml:lang="fr">Vérification du mot de passe actuel</value>
         <value xml:lang="hi_IN">वर्तमान पासवर्ड सत्यापित करें</value>
-        <value xml:lang="it">Password Attuale Verifica</value>
+        <value xml:lang="it">Verifica password attuale</value>
         <value xml:lang="nl">Verificatie huidig wachtwoord</value>
         <value xml:lang="pt_BR">Verificação da senha atual</value>
         <value xml:lang="ro">Verifica Parola Actuala </value>
@@ -285,7 +285,7 @@
         <value xml:lang="es">Nueva clave</value>
         <value xml:lang="fr">Nouveau mot de passe</value>
         <value xml:lang="hi_IN">नया पासवर्ड</value>
-        <value xml:lang="it">Password Nuova</value>
+        <value xml:lang="it">Nuova password</value>
         <value xml:lang="nl">Nieuw wachtwoord</value>
         <value xml:lang="pt_BR">Nova senha</value>
         <value xml:lang="ro">Parola Noua</value>
@@ -300,7 +300,7 @@
         <value xml:lang="es">Validar nueva clave</value>
         <value xml:lang="fr">Vérification du nouveau mot de passe</value>
         <value xml:lang="hi_IN">नया पासवर्ड सत्यापित करें</value>
-        <value xml:lang="it">Verifica Password Nuova</value>
+        <value xml:lang="it">Verifica nuova password</value>
         <value xml:lang="pt_BR">Verificação da nova senha</value>
         <value xml:lang="ro">Verifica Parola Noua</value>
         <value xml:lang="ru">Новый пароль повторно</value>
@@ -321,7 +321,7 @@
         <value xml:lang="en">Duration during which the view will not be accessible (in seconds)</value>
         <value xml:lang="fr">Durée pendant laquelle la vue ne sera plus accessible (en secondes)</value>
         <value xml:lang="hi_IN">अवधि जिसके दौरान देखना सुलभ नहीं होगा (सेकंड में)</value>
-        <value xml:lang="it">Durata durante la quale la vista non è accessibile (in secondi)</value>
+        <value xml:lang="it">Tempo durante il quale la vista non è accessibile (in secondi)</value>
         <value xml:lang="pt_BR">Período durante o qual a vista não poderá ser acessada (em segundos)</value>
         <value xml:lang="zh">视图不能访问的时长(秒)</value>
         <value xml:lang="zh_TW">視圖不能訪問的時長(秒)</value>
@@ -584,7 +584,7 @@
         <value xml:lang="es">Cambiar clave de conexión</value>
         <value xml:lang="fr">Changer le mot de passe de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्तालॉगिन का पासवर्ड बदलें</value>
-        <value xml:lang="it">Cambio Password Utente Login</value>
+        <value xml:lang="it">Cambio password utente</value>
         <value xml:lang="nl">Wachtwoord wijzigen</value>
         <value xml:lang="pt_BR">Alterar senha do nome de usuário</value>
         <value xml:lang="ro">Schimb Parola Utilizator Login</value>

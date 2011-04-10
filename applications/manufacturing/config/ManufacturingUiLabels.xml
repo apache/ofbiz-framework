@@ -24,7 +24,7 @@
         <value xml:lang="en">Allocated Cost</value>
         <value xml:lang="es">Coste asignado</value>
         <value xml:lang="fr">Coût alloué</value>
-        <value xml:lang="it">Costo Allocato</value>
+        <value xml:lang="it">Costo allocato</value>
         <value xml:lang="pt_BR">Custo alocado</value>
         <value xml:lang="th">ส่วนแบ่งราคา</value>
         <value xml:lang="zh">已分摊成本</value>
@@ -45,7 +45,7 @@
         <value xml:lang="en">Calendar Week Id</value>
         <value xml:lang="es">Código de semana</value>
         <value xml:lang="fr">Réf. du calendrier par semaine</value>
-        <value xml:lang="it">Calendario Settmanale</value>
+        <value xml:lang="it">Calendario settmanale</value>
         <value xml:lang="pt_BR">Id da semana no calendário</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
         <value xml:lang="zh">自然周标识</value>
@@ -67,7 +67,7 @@
         <value xml:lang="en">Cost Custom Method Id</value>
         <value xml:lang="es">Código del método de cálculo </value>
         <value xml:lang="fr">Réf. de méthode de coût personnalisée</value>
-        <value xml:lang="it">Metodo Costo Personalizzato</value>
+        <value xml:lang="it">Metodo costo personalizzato</value>
         <value xml:lang="pt_BR">Id do método de cálculo</value>
         <value xml:lang="ro">Metoda Cost Personalizat</value>
         <value xml:lang="th">รหัสวิธีการคำนวณเงินลูกค้า</value>
@@ -79,7 +79,7 @@
         <value xml:lang="en">Cost Gl Account Type Id</value>
         <value xml:lang="es">Código de asiento</value>
         <value xml:lang="fr">Réf. de type de compte de coût (GL)</value>
-        <value xml:lang="it">Tipo Conto Contabilità Generale</value>
+        <value xml:lang="it">Tipo conto contabilità generale</value>
         <value xml:lang="pt_BR">Id de tipo de balanço</value>
         <value xml:lang="ro">Tip Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าใช้จ่าย GI</value>
@@ -98,7 +98,7 @@
         <value xml:lang="en">Default Years Offset</value>
         <value xml:lang="es">Desfase anual por defecto</value>
         <value xml:lang="fr">Décalage d'années par défaut</value>
-        <value xml:lang="it">Scostamento Anni Di Default</value>
+        <value xml:lang="it">Scostamento anni di default</value>
         <value xml:lang="pt_BR">Deslocamento padrão em anos</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
         <value xml:lang="zh">缺省财年损益</value>
@@ -120,7 +120,7 @@
         <value xml:lang="en">Fail If Items Are Not Available</value>
         <value xml:lang="es">Fallar si no todos los items están disponibles</value>
         <value xml:lang="fr">Echec si les articles ne sont pas disponibles</value>
-        <value xml:lang="it">Fallisce se i Prodotti Non Sono Disponibili</value>
+        <value xml:lang="it">Fallisce se i prodotti non sono disponibili</value>
         <value xml:lang="pt_BR">Falha se os itens não estão disponíveis</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
         <value xml:lang="zh">如果明细无效时失败</value>
@@ -131,7 +131,7 @@
         <value xml:lang="en">Fixed Cost</value>
         <value xml:lang="es">Coste fijo</value>
         <value xml:lang="fr">Coût fixe</value>
-        <value xml:lang="it">Costo Fisso</value>
+        <value xml:lang="it">Costo fisso</value>
         <value xml:lang="pt_BR">Custo fixo</value>
         <value xml:lang="ro">Cost Fix</value>
         <value xml:lang="th">เปลี่ยนแปลงราคา</value>
@@ -165,7 +165,7 @@
         <value xml:lang="en">Issued Quantity</value>
         <value xml:lang="es">Cantidad emitida</value>
         <value xml:lang="fr">Quantité prélevée</value>
-        <value xml:lang="it">Quantità Prelevata</value>
+        <value xml:lang="it">Quantità prelevata</value>
         <value xml:lang="pt_BR">Quantidade emitida</value>
         <value xml:lang="ro">Cantitate Preluat</value>
         <value xml:lang="th">จำนวน</value>
@@ -262,7 +262,7 @@
         <value xml:lang="en">Per Milli Second</value>
         <value xml:lang="es">por milisegundo</value>
         <value xml:lang="fr">Par millisecondes</value>
-        <value xml:lang="it">Per Milli Secondi</value>
+        <value xml:lang="it">Per millisecondi</value>
         <value xml:lang="pt_BR">Por milissegundo</value>
         <value xml:lang="ro">Pe Milisecunde</value>
         <value xml:lang="th">ต่อพันวินาที</value>
@@ -274,7 +274,7 @@
         <value xml:lang="en">Product Feature</value>
         <value xml:lang="es">Characterística de producto</value>
         <value xml:lang="fr">Caractéristique de l'article</value>
-        <value xml:lang="it">Caratteristica Prodotto</value>
+        <value xml:lang="it">Caratteristica prodotto</value>
         <value xml:lang="pt_BR">Característica do produto</value>
         <value xml:lang="ro">Caratteristica Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
@@ -286,7 +286,7 @@
         <value xml:lang="en">Product Id For</value>
         <value xml:lang="es">Código de producto</value>
         <value xml:lang="fr">Réf. de l'article pour</value>
-        <value xml:lang="it">Codice Prodotto Da</value>
+        <value xml:lang="it">Codice prodotto da</value>
         <value xml:lang="pt_BR">Id do produto para</value>
         <value xml:lang="ro">Cod Produs De la</value>
         <value xml:lang="th">รหัสสินค้าสำหรับ</value>
@@ -298,7 +298,7 @@
         <value xml:lang="en">Product Id In</value>
         <value xml:lang="es">Código de producto en</value>
         <value xml:lang="fr">Réf. de l'article dans</value>
-        <value xml:lang="it">Codice Prodotto In</value>
+        <value xml:lang="it">Codice prodotto in</value>
         <value xml:lang="pt_BR">Id de produto em</value>
         <value xml:lang="ro">Cod Produs In</value>
         <value xml:lang="th">รหัสสินค้าใน</value>
@@ -309,7 +309,7 @@
         <value xml:lang="en">Product Id In Subst</value>
         <value xml:lang="es">Código de producto en sustitución</value>
         <value xml:lang="fr">Réf. de l'article dans subst.</value>
-        <value xml:lang="it">Codice Prodotto In Sostituzione</value>
+        <value xml:lang="it">Codice prodotto in sostituzione</value>
         <value xml:lang="pt_BR">Id de produto em substituição</value>
         <value xml:lang="ro">Cod Produs In Substitutie</value>
         <value xml:lang="th">รหัสสินค้าในที่มีอยู่จริง</value>
@@ -321,7 +321,7 @@
         <value xml:lang="en">production Runs</value>
         <value xml:lang="es">Código de producto en sustitución</value>
         <value xml:lang="fr">Cadences de production</value>
-        <value xml:lang="it">Ordini di Produzione</value>
+        <value xml:lang="it">Ordini di produzione</value>
         <value xml:lang="pt_BR">Ritmos de produção</value>
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -333,7 +333,7 @@
         <value xml:lang="en">routingId</value>
         <value xml:lang="es">Fecha de comienzo del requisito</value>
         <value xml:lang="fr">Gamme</value>
-        <value xml:lang="it">Id Ciclo</value>
+        <value xml:lang="it">Id ciclo</value>
         <value xml:lang="pt_BR">Id de período</value>
         <value xml:lang="ro">Id Ciclu</value>
         <value xml:lang="th">รหัส routing</value>
@@ -345,7 +345,7 @@
         <value xml:lang="en">Rule Id</value>
         <value xml:lang="es">Código de regla</value>
         <value xml:lang="fr">Réf. de règle</value>
-        <value xml:lang="it">Codice Regola</value>
+        <value xml:lang="it">Codice regola</value>
         <value xml:lang="pt_BR">Id de regra</value>
         <value xml:lang="ro">Cod Regula</value>
         <value xml:lang="th">รหัสข้อบังคับ</value>
@@ -357,7 +357,7 @@
         <value xml:lang="en">Rule Operator</value>
         <value xml:lang="es">Operador de regla</value>
         <value xml:lang="fr">Opérateur de règle</value>
-        <value xml:lang="it">Regola Operatore</value>
+        <value xml:lang="it">Operatore della regola</value>
         <value xml:lang="pt_BR">Operador de regra</value>
         <value xml:lang="ro">Regula Operator</value>
         <value xml:lang="th">ผู้ออกกฎระเบียบ</value>
@@ -369,7 +369,7 @@
         <value xml:lang="en">Rule Seq Id</value>
         <value xml:lang="es">Número de secuencia de regla</value>
         <value xml:lang="fr">Réf. séq. de règle </value>
-        <value xml:lang="it">Codice Regola Sequenza</value>
+        <value xml:lang="it">Numero seq. regola</value>
         <value xml:lang="pt_BR">Id de sequência de regra</value>
         <value xml:lang="ro">Cod Regula Secventa</value>
         <value xml:lang="th">รหัสลำดับข้อบังคับ</value>
@@ -381,7 +381,7 @@
         <value xml:lang="en">Run Time</value>
         <value xml:lang="es">Tiempo de ejeución</value>
         <value xml:lang="fr">Moment d'exécution</value>
-        <value xml:lang="it">Orario di Esecuzione</value>
+        <value xml:lang="it">Orario di esecuzione</value>
         <value xml:lang="pt_BR">Tempo de execução</value>
         <value xml:lang="th">ระยะเวลาดำเนินงาน</value>
         <value xml:lang="zh">运行时间</value>
@@ -414,7 +414,7 @@
         <value xml:lang="en">Secondary Location Seq Id</value>
         <value xml:lang="es">Número de secuencia de la ubicación secundaria</value>
         <value xml:lang="fr">Ref. séq. d'emplacement secondaire</value>
-        <value xml:lang="it">Locazione Secondaria</value>
+        <value xml:lang="it">Locazione secondaria</value>
         <value xml:lang="pt_BR">Id de sequência do local secundário</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
         <value xml:lang="zh">辅助地点序列号</value>
@@ -425,7 +425,7 @@
         <value xml:lang="en">Start Date Time</value>
         <value xml:lang="es">Fecha y hora de comienzo</value>
         <value xml:lang="fr">Heure de date de début</value>
-        <value xml:lang="it">Data/Ora di Inizio</value>
+        <value xml:lang="it">Data/Ora di inizio</value>
         <value xml:lang="pt_BR">Data e hora de início</value>
         <value xml:lang="th">วันเวลาเริ่มต้น</value>
         <value xml:lang="zh">开始日期时间</value>
@@ -480,7 +480,7 @@
         <value xml:lang="en">Tot Issued Quantity</value>
         <value xml:lang="es">Cantidad total emitida</value>
         <value xml:lang="fr">Quantité totale prélevée</value>
-        <value xml:lang="it">Totale Quantità Prelevata</value>
+        <value xml:lang="it">Totale quantità prelevata</value>
         <value xml:lang="pt_BR">Quantidade total emitida</value>
         <value xml:lang="ro">Total Cantitate Preluata</value>
         <value xml:lang="th">รวมจำนวนประเด็น</value>
@@ -492,7 +492,7 @@
         <value xml:lang="en">Tot Ordered Quantity</value>
         <value xml:lang="es">Cantidad total pedida</value>
         <value xml:lang="fr">Quantité totale commandée</value>
-        <value xml:lang="it">Totale Quantità Ordinata</value>
+        <value xml:lang="it">Totale quantità ordinata</value>
         <value xml:lang="pt_BR">Quantidade total encomendada</value>
         <value xml:lang="ro">Total Cantitate Comandata</value>
         <value xml:lang="th">รวมจำนวนที่สั่งซื้อ</value>
@@ -504,7 +504,7 @@
         <value xml:lang="en">Tot Planned Quantity</value>
         <value xml:lang="es">Cantidad total planificada</value>
         <value xml:lang="fr">Quantité totale planifiée</value>
-        <value xml:lang="it">Totale Quantità Pianificata</value>
+        <value xml:lang="it">Totale quantità pianificata</value>
         <value xml:lang="pt_BR">Quantidade planejada total</value>
         <value xml:lang="ro">Total Cantitate Planificata</value>
         <value xml:lang="th">ผลรวมจำนวนที่คาดไว้</value>
@@ -550,7 +550,7 @@
         <value xml:lang="en">Variable Cost</value>
         <value xml:lang="es">Coste variable</value>
         <value xml:lang="fr">Coût variable</value>
-        <value xml:lang="it">Costo Variabile</value>
+        <value xml:lang="it">Costo variabile</value>
         <value xml:lang="pt_BR">Custo variável</value>
         <value xml:lang="ro">Cost Variabil</value>
         <value xml:lang="th">ราคาเปลี่ยนแปลงได้</value>
@@ -608,7 +608,7 @@
         <value xml:lang="en">Actual Costs</value>
         <value xml:lang="es">Costos Reales</value>
         <value xml:lang="fr">Coûts actuels</value>
-        <value xml:lang="it">Costi Attuali</value>
+        <value xml:lang="it">Costi attuali</value>
         <value xml:lang="pt_BR">Custos reais</value>
         <value xml:lang="ro">Costuri Actuali</value>
         <value xml:lang="th">ราคาจริง</value>
@@ -620,7 +620,7 @@
         <value xml:lang="en">Actual End Date/Time</value>
         <value xml:lang="es">Fecha/Hora de Fin Real</value>
         <value xml:lang="fr">Date/heure de fin actuelle</value>
-        <value xml:lang="it">Data/Ora Fine Attuale</value>
+        <value xml:lang="it">Data/Ora fine attuale</value>
         <value xml:lang="pt_BR">Data/hora de encerramento real</value>
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="th">วัน/เวลา ที่เสร็จจริง</value>
@@ -632,7 +632,7 @@
         <value xml:lang="en">Actual Materials</value>
         <value xml:lang="es">Materiales reales</value>
         <value xml:lang="fr">Matériels rééls</value>
-        <value xml:lang="it">Materiali Attuali</value>
+        <value xml:lang="it">Materiali attuali</value>
         <value xml:lang="pt_BR">Materiais reais</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
         <value xml:lang="zh">实际材料</value>
@@ -643,7 +643,7 @@
         <value xml:lang="en">Actual Start Date/Time</value>
         <value xml:lang="es">Fecha/Hora de Inicio Real</value>
         <value xml:lang="fr">Date/heure de début réelle</value>
-        <value xml:lang="it">Data/Ora Inizio Attuale</value>
+        <value xml:lang="it">Data/Ora inizio attuale</value>
         <value xml:lang="pt_BR">Data e hora real para início</value>
         <value xml:lang="ro">Data/Ora Initiere</value>
         <value xml:lang="th">วัน/เวลา เริ่มต้นจริง</value>
@@ -655,7 +655,7 @@
         <value xml:lang="en">Add a existing RoutingTask</value>
         <value xml:lang="es">Añadir una tarea existente</value>
         <value xml:lang="fr">Ajouter une opération existante</value>
-        <value xml:lang="it">Aggiungi una Operazione esistente</value>
+        <value xml:lang="it">Aggiungi una operazione esistente</value>
         <value xml:lang="pt_BR">Adicionar tarefa de roteamento já existente</value>
         <value xml:lang="ro">Adauga o Operatie existenta</value>
         <value xml:lang="th">เพิ่มการทำงานที่มีอยู่</value>
@@ -667,7 +667,7 @@
         <value xml:lang="en">Assign Fixed Asset</value>
         <value xml:lang="es">Asignar activo fijo</value>
         <value xml:lang="fr">Affecter la machine</value>
-        <value xml:lang="it">Assegna Cespite</value>
+        <value xml:lang="it">Assegna cespite</value>
         <value xml:lang="pt_BR">Designar ativo fixo</value>
         <value xml:lang="ro">Inregistreaza Mijloc Fix</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
@@ -679,7 +679,7 @@
         <value xml:lang="en">Add ProductComponent to ProductionRun</value>
         <value xml:lang="es">Añadir componente</value>
         <value xml:lang="fr">Ajouter un composant à l'O.F.</value>
-        <value xml:lang="it">Aggiungi Componente Prodotto ad un´Ordine di Produzione</value>
+        <value xml:lang="it">Aggiungi componente ad un ordine di produzione</value>
         <value xml:lang="pt_BR">Adicionar componente de produto a execução de produção</value>
         <value xml:lang="ro">Adauga Componente Produs la o comanda de Productie</value>
         <value xml:lang="th">เพิ่มส่วนประกอบสินค้าในการผลิตสินค้า</value>
@@ -688,7 +688,7 @@
     </property>
     <property key="ManufacturingAddProductionRunRoutingTaskNotCreated">
         <value xml:lang="en">Add Production Run Routing Task Not Created</value>
-        <value xml:lang="it">Aggiunta componente prodotto ad un´compito non creato</value>
+        <value xml:lang="it">Aggiunta componente ad un compito non creato</value>
         <value xml:lang="pt_BR">Adicionar tarefa de execução de produção de roteamento não foi criada</value>
         <value xml:lang="zh">添加没有创建的产品运行规程任务</value>
         <value xml:lang="zh_TW">添加沒有創建的產品運行規程任務</value>
@@ -698,7 +698,7 @@
         <value xml:lang="en">Add Qty Produced</value>
         <value xml:lang="es">Añadir Cant. Producida</value>
         <value xml:lang="fr">Ajouter la quantité produite</value>
-        <value xml:lang="it">Aggiungi Quantità Prodotta</value>
+        <value xml:lang="it">Aggiungi quantità prodotta</value>
         <value xml:lang="pt_BR">Adicionar quantidade produzida</value>
         <value xml:lang="ro">Adauga Cantitate Produsa</value>
         <value xml:lang="th">เพิ่มจำนวนสินค้า</value>
@@ -710,7 +710,7 @@
         <value xml:lang="en">Add Qty Rejected</value>
         <value xml:lang="es">Añadir Cantidad rechazada</value>
         <value xml:lang="fr">Ajouter la quantité rejetée</value>
-        <value xml:lang="it">Aggiungi Quantità Scartata</value>
+        <value xml:lang="it">Aggiungi quantità scartata</value>
         <value xml:lang="pt_BR">Adicionar quantidade rejeitada</value>
         <value xml:lang="ro">Adauga Cantitate Rebutata</value>
         <value xml:lang="th">เพิ่มจำนวนการปฏิเสธ</value>
@@ -722,7 +722,7 @@
         <value xml:lang="en">Add a RoutingTask</value>
         <value xml:lang="es">Añadir una ruta</value>
         <value xml:lang="fr">Ajouter une opération</value>
-        <value xml:lang="it">Aggiungi una Operazione</value>
+        <value xml:lang="it">Aggiungi una operazione</value>
         <value xml:lang="pt_BR">Adicionar tarefa de roteamento</value>
         <value xml:lang="ro">Adauga o Operatie</value>
         <value xml:lang="th">เพิ่มการทำงาน</value>
@@ -734,7 +734,7 @@
         <value xml:lang="en">Add Actual Setup Time</value>
         <value xml:lang="es">Añadir Tiempo de configuración</value>
         <value xml:lang="fr">Ajouter le temps d'installation réel</value>
-        <value xml:lang="it">Aggiungi Tempo Installazione Attuale</value>
+        <value xml:lang="it">Aggiungi tempo installazione attuale</value>
         <value xml:lang="pt_BR">Adicionar tempo de preparação real</value>
         <value xml:lang="ro">Adauga Timp Actual de Instalare</value>
         <value xml:lang="th">เพิ่มการติดตั้งเวลาจริง</value>
@@ -746,7 +746,7 @@
         <value xml:lang="en">Add Actual Task Time</value>
         <value xml:lang="es">Añadir Tiempo de Tarea</value>
         <value xml:lang="fr">Ajouter le temps d'opération réel</value>
-        <value xml:lang="it">Aggiungi Tempo Attuale Operazione</value>
+        <value xml:lang="it">Aggiungi tempo attuale operazione</value>
         <value xml:lang="pt_BR">Adicionar tempo de tarefa real</value>
         <value xml:lang="ro">Adauga Timp Actual Sarcina</value>
         <value xml:lang="th">เพิ่มเวลาการทำงานจริง</value>
@@ -758,7 +758,7 @@
         <value xml:lang="en">Any Fixed Asset Group</value>
         <value xml:lang="es">Cualquier grupo de máquinas</value>
         <value xml:lang="fr">Tous les groupes de machine</value>
-        <value xml:lang="it">Qualsiasi Gruppo Macchina</value>
+        <value xml:lang="it">Qualsiasi gruppo macchina</value>
         <value xml:lang="pt_BR">Qualquer grupo de ativos fixos</value>
         <value xml:lang="ro">Orice Grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -781,7 +781,7 @@
         <value xml:lang="en">Associated Production Runs</value>
         <value xml:lang="es">Tiradas asociadas</value>
         <value xml:lang="fr">Exécution de production associées</value>
-        <value xml:lang="it">Ordini di Produzione Associati</value>
+        <value xml:lang="it">Ordini di produzione associati</value>
         <value xml:lang="pt_BR">Execuções da produção associadas</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
         <value xml:lang="zh">相关的生产运行</value>
@@ -792,7 +792,7 @@
         <value xml:lang="en">Bill Of Materials</value>
         <value xml:lang="es">Lista de materiales</value>
         <value xml:lang="fr">Nomenclature</value>
-        <value xml:lang="it">Distinta Base</value>
+        <value xml:lang="it">Distinta base</value>
         <value xml:lang="pt_BR">Estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Lista Repere Produs</value>
         <value xml:lang="th">รายการของสินค้า</value>
@@ -836,7 +836,7 @@
         <value xml:lang="en">Bom Simulation</value>
         <value xml:lang="es">Simulación de materiales</value>
         <value xml:lang="fr">Simulation de nomenclature</value>
-        <value xml:lang="it">Simulazione Distinta Base</value>
+        <value xml:lang="it">Simulazione distinta base</value>
         <value xml:lang="pt_BR">Simulação da estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Simulare Lista repere</value>
         <value xml:lang="th">รายการของสินค้าที่เลียนแบบ</value>
@@ -848,7 +848,7 @@
         <value xml:lang="en">Bom Type</value>
         <value xml:lang="es">Tipo de lista de materiales</value>
         <value xml:lang="fr">Type de nomenclature</value>
-        <value xml:lang="it">Tipo Distinta Base</value>
+        <value xml:lang="it">Tipo distinta base</value>
         <value xml:lang="pt_BR">Tipo de estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Tip Lista repere</value>
         <value xml:lang="th">ประเภทรายการของสินค้า</value>
@@ -872,7 +872,7 @@
         <value xml:lang="en">Manufacturing Calendar Capacity</value>
         <value xml:lang="es">Capacidad del calendario</value>
         <value xml:lang="fr">Capacité du calendrier de fabrication</value>
-        <value xml:lang="it">Capacità Calendario Produzione</value>
+        <value xml:lang="it">Capacità calendario produzione</value>
         <value xml:lang="pt_BR">Capacidade do calendário de produção</value>
         <value xml:lang="ro">Capacitate Productie Calendar</value>
         <value xml:lang="th">การสร้างปฏิทินการทำงาน</value>
@@ -884,7 +884,7 @@
         <value xml:lang="en">Exception Day</value>
         <value xml:lang="es">Fecha de excepción</value>
         <value xml:lang="fr">Jour exclu</value>
-        <value xml:lang="it">Giorno Speciale</value>
+        <value xml:lang="it">Giorno speciale</value>
         <value xml:lang="pt_BR">Data de exceção</value>
         <value xml:lang="ro">Zi Speciala</value>
         <value xml:lang="th">วันที่ยกเว้น</value>
@@ -896,7 +896,7 @@
         <value xml:lang="en">Manufacturing Calendar Exception  Day Id Already Exist</value>
         <value xml:lang="es">El código de excepción ya existe</value>
         <value xml:lang="fr">Cette réf. de jour exclu existe déjà</value>
-        <value xml:lang="it">Codice Capacità Calendario Produzione già esistente</value>
+        <value xml:lang="it">Codice capacità calendario produzione già esistente</value>
         <value xml:lang="pt_BR">Id do dia de exceção do calendário de produção já existente</value>
         <value xml:lang="ro">Cod Capacitate Calendar Productie existenta</value>
         <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
@@ -920,7 +920,7 @@
         <value xml:lang="en">Exception Week</value>
         <value xml:lang="es">Semana de excepción</value>
         <value xml:lang="fr">Semaine exclue</value>
-        <value xml:lang="it">Settimana Speciale</value>
+        <value xml:lang="it">Settimana speciale</value>
         <value xml:lang="pt_BR">Semana de exceção</value>
         <value xml:lang="ro">Saptamana Speciala</value>
         <value xml:lang="th">สัปดาห์ที่ยกเว้น</value>
@@ -932,7 +932,7 @@
         <value xml:lang="en">Manufacturing Calendar Exception Week Id Already Exist</value>
         <value xml:lang="es">El código de excepción de semana ya existe</value>
         <value xml:lang="fr">Cette réf. de semaine exclue existe déjà</value>
-        <value xml:lang="it">Codice Calendario Settimanale Produzione Speciale è gia esistente</value>
+        <value xml:lang="it">Codice calendario settimanale produzione speciale già esistente</value>
         <value xml:lang="pt_BR">Id de semana de exceção no calendário de produção já existente</value>
         <value xml:lang="ro">Cod Calendar Saptamana Productie Speciala deja existent</value>
         <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่</value>
@@ -968,7 +968,7 @@
         <value xml:lang="en">Calendar Id already exist</value>
         <value xml:lang="es">El código de calendario ya existe</value>
         <value xml:lang="fr">Cette réf. de calendrier existe déja</value>
-        <value xml:lang="it">Codice Calendario già esistente</value>
+        <value xml:lang="it">Codice calendario già esistente</value>
         <value xml:lang="pt_BR">Ide de calendário já existente</value>
         <value xml:lang="ro">Cod Calendar deja existent</value>
         <value xml:lang="th">รหัสปฏิทินที่มีอยู่ล้ว</value>
@@ -980,7 +980,7 @@
         <value xml:lang="en">You do not have permission to view this page. ("MANUFACTURING_VIEW" or "MANUFACTURING_ADMIN" needed)</value>
         <value xml:lang="es">Usted no tiene permiso para ver esta página. Necesita los permisos "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN"</value>
         <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un calendrier, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
-        <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
+        <value xml:lang="it">Non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
         <value xml:lang="pt_BR">Você não possui permissão para visualizar essa página (Permissão MANUFACTURING_VIEW ou MANUFACTURING_ADMIN necessária).</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Ai nevoie de permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
@@ -1004,7 +1004,7 @@
         <value xml:lang="en">Week</value>
         <value xml:lang="es">Semana</value>
         <value xml:lang="fr">Semaine</value>
-        <value xml:lang="it">Calendario Settimanale</value>
+        <value xml:lang="it">Calendario settimanale</value>
         <value xml:lang="pt_BR">Semana</value>
         <value xml:lang="ro">Saptamana</value>
         <value xml:lang="th">สัปดาห์</value>
@@ -1016,7 +1016,7 @@
         <value xml:lang="en">There is still an exception week which use this week</value>
         <value xml:lang="es">Hay una semana de excepción que usa esta semana</value>
         <value xml:lang="fr">Il existe encore une semaine exclue qui utilise cette semaine</value>
-        <value xml:lang="it">C'è ancora una settimanale speciale che usa questa settimana</value>
+        <value xml:lang="it">C'è ancora una settimana speciale che usa questa settimana</value>
         <value xml:lang="pt_BR">Ainda há uma semana de exceção que usa esta semana</value>
         <value xml:lang="ro">Exista deja o saptamana speciala care foloseste acest calendar</value>
         <value xml:lang="th">ยังคงมีข้อยกเว้นของสัปดาห์ที่ใช้ในสัปดาห์นี้</value>
@@ -1028,7 +1028,7 @@
         <value xml:lang="en">Calendar Week ID</value>
         <value xml:lang="es">Semana asociada</value>
         <value xml:lang="fr">Semaine</value>
-        <value xml:lang="it">Codice Calendario Settimanale</value>
+        <value xml:lang="it">Settimana</value>
         <value xml:lang="pt_BR">Id de semana do calendário</value>
         <value xml:lang="ro">Cod Calendar Saptamana</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
@@ -1040,7 +1040,7 @@
         <value xml:lang="en">CalendarWeekId already exist</value>
         <value xml:lang="es">El código ya existe</value>
         <value xml:lang="fr">Cette réf. de semaine existe déja</value>
-        <value xml:lang="it">Codice Calendario Settimanale già esistente</value>
+        <value xml:lang="it">Codice calendario settimanale già esistente</value>
         <value xml:lang="pt_BR">Id de semana de calendário já existente</value>
         <value xml:lang="ro">Cod Calendar Saptamana existent </value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ยังคงใช้อยู่</value>
@@ -1052,7 +1052,7 @@
         <value xml:lang="en">Calendar Week ID does'nt exist</value>
         <value xml:lang="es">El código de calendario no existe</value>
         <value xml:lang="fr">Réf. de semaine de calendrier n'existe pas</value>
-        <value xml:lang="it">Codice Calendario Settimanale non esiste</value>
+        <value xml:lang="it">Codice calendario settimanale non esistente</value>
         <value xml:lang="pt_BR">Id de semana de calendário não existe</value>
         <value xml:lang="ro">Cod Calendar Sptamana nu exista</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ไม่ใช้</value>
@@ -1064,7 +1064,7 @@
         <value xml:lang="en">Weeks</value>
         <value xml:lang="es">Semanas</value>
         <value xml:lang="fr">Semaines</value>
-        <value xml:lang="it">Calendari Settimanali</value>
+        <value xml:lang="it">Calendari settimanali</value>
         <value xml:lang="pt_BR">Semanas</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
@@ -1110,7 +1110,7 @@
         <value xml:lang="en">OFBiz: Manufacturing Manager</value>
         <value xml:lang="es">OFBiz: Gestor de producción</value>
         <value xml:lang="fr">OFBiz: Gestion de production</value>
-        <value xml:lang="it">OFBiz: Gestione della Produzione</value>
+        <value xml:lang="it">OFBiz: Gestione della produzione</value>
         <value xml:lang="pt_BR">OFBiz: Gestão de produção</value>
         <value xml:lang="ro">OFBiz: Gestiune Productie</value>
         <value xml:lang="th">OFBiz: การจัดการการผลิต</value>
@@ -1178,7 +1178,7 @@
         <value xml:lang="en">Copy a routingTask and Add it</value>
         <value xml:lang="es">Copiar una tarea y añadirla</value>
         <value xml:lang="fr">Copier une opération puis l'ajouter</value>
-        <value xml:lang="it">Copia e aggiungi una Operazione</value>
+        <value xml:lang="it">Copia e aggiungi una operazione</value>
         <value xml:lang="pt_BR">Copiar a tarefa de roteamento e adicioná-la</value>
         <value xml:lang="ro">Copiaza si Adauga o Operatie </value>
         <value xml:lang="th">คัดลอกการทำงานและเพิ่มมัน</value>
@@ -1190,7 +1190,7 @@
         <value xml:lang="en">Copy BOM</value>
         <value xml:lang="es">Copiar Lista de materiales</value>
         <value xml:lang="fr">Copie de la nomenclature</value>
-        <value xml:lang="it">Copia Distinte Base</value>
+        <value xml:lang="it">Copia distinte base</value>
         <value xml:lang="pt_BR">Copiar estrutura de produtos (BOM)</value>
         <value xml:lang="ro">Copiaza Lista repere </value>
         <value xml:lang="th">คัดลอกรายการของสินค้า</value>
@@ -1202,7 +1202,7 @@
         <value xml:lang="en">To Product Id</value>
         <value xml:lang="es">Código del producto destino</value>
         <value xml:lang="fr">Réf. à l'article</value>
-        <value xml:lang="it">Al Codice Prodotto</value>
+        <value xml:lang="it">Al codice prodotto</value>
         <value xml:lang="pt_BR">Para o Id de produto</value>
         <value xml:lang="ro">La Cod Produs</value>
         <value xml:lang="th">ถึงรหัสสินค้า</value>
@@ -1247,12 +1247,16 @@
         <value xml:lang="en">Create Calendar Week</value>
         <value xml:lang="es">Crear semana</value>
         <value xml:lang="fr">Créer un calendier de semaine</value>
-        <value xml:lang="it">Creare Calendario Settimanale</value>
+        <value xml:lang="it">Creare calendario settimanale</value>
         <value xml:lang="pt_BR">Criar calendário semanal</value>
         <value xml:lang="ro">Creare Calendar Saptamana</value>
         <value xml:lang="th">สร้างปฏิทินประจำสัปดาห์</value>
         <value xml:lang="zh">新建日历周</value>
         <value xml:lang="zh_TW">新建日曆週</value>
+    </property>
+    <property key="ManufacturingCreateDependentProductionRuns">
+        <value xml:lang="en">Create Dependent Production Runs</value>
+        <value xml:lang="it">Crea ordini di produzione dipendenti</value>
     </property>
     <property key="ManufacturingCreateMachineGroup">
         <value xml:lang="de">Anlagengruppe erstellen</value>
@@ -1292,7 +1296,7 @@
         <value xml:lang="en">Create a Production Run</value>
         <value xml:lang="es">Crear orden de producción</value>
         <value xml:lang="fr">Création O.F.</value>
-        <value xml:lang="it">Creare un Ordine di Produzione</value>
+        <value xml:lang="it">Nuovo ordine di produzione</value>
         <value xml:lang="pt_BR">Criar execução de produção</value>
         <value xml:lang="ro">Creare Comanda de Productie</value>
         <value xml:lang="th">สร้างการผลิตสินค้า</value>
@@ -1364,7 +1368,7 @@
         <value xml:lang="en">Dependent Production Runs</value>
         <value xml:lang="es">Esfuerzos de trabajo dependientes</value>
         <value xml:lang="fr">Exécution de production dépendantes</value>
-        <value xml:lang="it">Dipendenza Ordine di Produzione</value>
+        <value xml:lang="it">Ordini di produzione dipendenti</value>
         <value xml:lang="pt_BR">Execuções de produção dependentes</value>
         <value xml:lang="ro">Comenzi lansate in Productie?</value>
         <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
@@ -1472,7 +1476,7 @@
         <value xml:lang="en">Edit Production Run</value>
         <value xml:lang="es">Editar orden de producción</value>
         <value xml:lang="fr">Modifier l'ordre de fabrication</value>
-        <value xml:lang="it">Aggiorna Ordine di Produzione</value>
+        <value xml:lang="it">Aggiorna ordine di produzione</value>
         <value xml:lang="pt_BR">Editar execução de produção</value>
         <value xml:lang="ro">Actualizare Comenzi de Productie</value>
         <value xml:lang="th">แก้ไขการผลิต</value>
@@ -1484,7 +1488,7 @@
         <value xml:lang="en">Edit Routing</value>
         <value xml:lang="es">Editar ruta</value>
         <value xml:lang="fr">Modification gamme</value>
-        <value xml:lang="it">Aggiorna Ciclo</value>
+        <value xml:lang="it">Aggiorna ciclo</value>
         <value xml:lang="pt_BR">Editar rota</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
@@ -1496,7 +1500,7 @@
         <value xml:lang="en">Edit Routing Product Link</value>
         <value xml:lang="es">Editar asociación de producto a ruta</value>
         <value xml:lang="fr">Modification des liens article - gamme</value>
-        <value xml:lang="it">Aggiorna Link Prodotto Ciclo</value>
+        <value xml:lang="it">Aggiorna link prodotto-ciclo</value>
         <value xml:lang="pt_BR">Editar link da rota do produto</value>
         <value xml:lang="ro">Actualizare Link Ciclu Produs </value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมต่อสินค้า</value>
@@ -1707,7 +1711,7 @@
         <value xml:lang="en">Find Production Run</value>
         <value xml:lang="es">Buscar órdenes de producción</value>
         <value xml:lang="fr">Recherche d'ordre de fabrication</value>
-        <value xml:lang="it">Ricerca Ordine di Produzione</value>
+        <value xml:lang="it">Ricerca ordine di produzione</value>
         <value xml:lang="pt_BR">Procurar execuções de produção</value>
         <value xml:lang="ro">Cauta Comanda de Productie</value>
         <value xml:lang="th">ค้นหาการผลิตสินค้า</value>
@@ -1719,7 +1723,7 @@
         <value xml:lang="en">Find Routing</value>
         <value xml:lang="es">Buscar ruta</value>
         <value xml:lang="fr">Recherche de gamme</value>
-        <value xml:lang="it">Ricerca Ciclo</value>
+        <value xml:lang="it">Ricerca ciclo</value>
         <value xml:lang="pt_BR">Procurar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
@@ -1974,7 +1978,7 @@
         <value xml:lang="en">JobShop</value>
         <value xml:lang="es">Producción</value>
         <value xml:lang="fr">Ordres de fabrication</value>
-        <value xml:lang="it">Ordine di Produzione</value>
+        <value xml:lang="it">Ordine di produzione</value>
         <value xml:lang="pt_BR">Pedidos de fabricação</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">ที่ทำงาน</value>
@@ -2009,7 +2013,7 @@
         <value xml:lang="en">List Of Production Run Components</value>
         <value xml:lang="es">Lista de componentes de la orden de producción</value>
         <value xml:lang="fr">Liste de production de l'ordre de fabrication</value>
-        <value xml:lang="it">Lista dei Componenti dell'Ordine di Produzione</value>
+        <value xml:lang="it">Lista dei componenti dell'ordine di produzione</value>
         <value xml:lang="pt_BR">Lista de componentes para execução de produção</value>
         <value xml:lang="th">รายการของการผลิตสินค้า</value>
         <value xml:lang="zh">生产运行组件列表</value>
@@ -2020,7 +2024,7 @@
         <value xml:lang="en">List Of Production Run Fixed Assets</value>
         <value xml:lang="es">Lista de activos fijos de la orden de producción</value>
         <value xml:lang="fr">Liste de production des cours des machines</value>
-        <value xml:lang="it">Lista dei Cespiti Ordine di Produzione</value>
+        <value xml:lang="it">Lista dei cespiti ordine di produzione</value>
         <value xml:lang="pt_BR">Lista de Ativos fixos para execução de produção</value>
         <value xml:lang="ro">Lista Mijloacelor Fixe pentru Comanda de Productie</value>
         <value xml:lang="th">รายการของการผลิตสินค้าจากสินทรัพย์ไม่ถาวร</value>
@@ -2495,7 +2499,7 @@
         <value xml:lang="en">New Routing</value>
         <value xml:lang="es">Nueva ruta</value>
         <value xml:lang="fr">Nouvelle gamme</value>
-        <value xml:lang="it">Nuovo Ciclo</value>
+        <value xml:lang="it">Nuovo ciclo</value>
         <value xml:lang="pt_BR">Nova rota</value>
         <value xml:lang="ro">Nou Ciclu</value>
         <value xml:lang="th">Routing ใหม่</value>
@@ -2798,7 +2802,7 @@
         <value xml:lang="en">Product Routing link doesn't exist</value>
         <value xml:lang="es">La relación con la ruta no existe</value>
         <value xml:lang="fr">Le lien article-gamme saisi, n'existe pas</value>
-        <value xml:lang="it">Link Ciclo Prodotto inesistente</value>
+        <value xml:lang="it">Link ciclo-prodotto inesistente</value>
         <value xml:lang="pt_BR">Relação do produto com a rota não existe</value>
         <value xml:lang="ro">Link Ciclu Produs inexistent</value>
         <value xml:lang="th">ไม่มีการเชื่อมโยงกับสินค้า</value>
@@ -3061,7 +3065,7 @@
         <value xml:lang="en">Production Run Name</value>
         <value xml:lang="es">Nombre de orden de producción</value>
         <value xml:lang="fr">Nom de l'ordre de fabrication</value>
-        <value xml:lang="it">Nome Ordine di Produzione</value>
+        <value xml:lang="it">Nome ordine di produzione</value>
         <value xml:lang="pt_BR">Nome da execução de produção</value>
         <value xml:lang="ro">Nume Comanda de Productie</value>
         <value xml:lang="th">ชื่อผลิตผล</value>
@@ -3590,7 +3594,7 @@
         <value xml:lang="en">Routing has no Routing Task</value>
         <value xml:lang="es">La ruta no tiene tareas asociadas</value>
         <value xml:lang="fr">La gamme n'a pas opération</value>
-        <value xml:lang="it">Il Ciclo non ha Operazioni</value>
+        <value xml:lang="it">Il ciclo non ha operazioni</value>
         <value xml:lang="pt_BR">A rota não possui tarefas associadas</value>
         <value xml:lang="ro">Ciclul nu are Operatii</value>
         <value xml:lang="th">ไม่มีการทำงาน</value>
@@ -3602,7 +3606,7 @@
         <value xml:lang="en">Routing Id</value>
         <value xml:lang="es">Código de ruta</value>
         <value xml:lang="fr">Réf. de gamme</value>
-        <value xml:lang="it">Codice Ciclo</value>
+        <value xml:lang="it">Codice ciclo</value>
         <value xml:lang="pt_BR">Id da rota</value>
         <value xml:lang="ro">Cod Ciclu</value>
         <value xml:lang="th">รหัส Routing </value>
@@ -3614,7 +3618,7 @@
         <value xml:lang="en">RoutingId is missing</value>
         <value xml:lang="es">Falta código de ruta</value>
         <value xml:lang="fr">Réf. de gamme manquante</value>
-        <value xml:lang="it">Codice Ciclo è mancante</value>
+        <value xml:lang="it">Codice ciclo mancante</value>
         <value xml:lang="pt_BR">Id de rota está faltando</value>
         <value xml:lang="ro">Cod Ciclu lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่ Routing</value>
@@ -3626,7 +3630,7 @@
         <value xml:lang="en">Routing Name</value>
         <value xml:lang="es">Nombre de ruta</value>
         <value xml:lang="fr">Nom de la gamme</value>
-        <value xml:lang="it">Nome Ciclo</value>
+        <value xml:lang="it">Nome ciclo</value>
         <value xml:lang="pt_BR">Nome da rota</value>
         <value xml:lang="ro">Nome Ciclu</value>
         <value xml:lang="th">ชื่อ Routing</value>
@@ -3638,7 +3642,7 @@
         <value xml:lang="en">The Routing Seq Id format is not correct</value>
         <value xml:lang="es">El formato usado para el código de secuencia no es correcto</value>
         <value xml:lang="fr">La réf. séq. de format de la gamme est incorrecte</value>
-        <value xml:lang="it">Codice Ciclo Seq formato non è corretto</value>
+        <value xml:lang="it">Il formato del codice ciclo seq non è corretto</value>
         <value xml:lang="pt_BR">O formato do Id de sequência da rota não está correto</value>
         <value xml:lang="ro">Cod Ciclu Seq format incorect</value>
         <value xml:lang="th">รูปแบบรหัส Routing ไม่ถูกต้อง</value>
@@ -3650,7 +3654,7 @@
         <value xml:lang="en">Routing SeqId is Missing</value>
         <value xml:lang="es">Falta el código de secuencia</value>
         <value xml:lang="fr">Réf. séq. de gamme manquante</value>
-        <value xml:lang="it">Codice Ciclo Seq è Mancante</value>
+        <value xml:lang="it">Codice ciclo seq mancante</value>
         <value xml:lang="pt_BR">O Id da sequência de rota está faltando</value>
         <value xml:lang="ro">Cod Ciclu Seq Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสลำดับ Routing</value>
@@ -3886,7 +3890,7 @@
         <value xml:lang="en">Start Date</value>
         <value xml:lang="es">Fecha de inicio</value>
         <value xml:lang="fr">Date de début</value>
-        <value xml:lang="it">Data Inizio</value>
+        <value xml:lang="it">Data di inizio</value>
         <value xml:lang="pt_BR">Data de início</value>
         <value xml:lang="ro">Data Initiala</value>
         <value xml:lang="th">วันเริ่มต้น</value>
@@ -4449,7 +4453,7 @@
         <value xml:lang="en">Edit Routing</value>
         <value xml:lang="es">Editar ruta</value>
         <value xml:lang="fr">Modifier la gamme</value>
-        <value xml:lang="it">Aggiorna Ciclo</value>
+        <value xml:lang="it">Aggiorna ciclo</value>
         <value xml:lang="pt_BR">Editar Rota</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
@@ -4461,7 +4465,7 @@
         <value xml:lang="en">Edit Routing-Product Link</value>
         <value xml:lang="es">Editar asociación con producto</value>
         <value xml:lang="fr">Modification des liens article - gamme</value>
-        <value xml:lang="it">Aggiorna Link Ciclo-Prodotto</value>
+        <value xml:lang="it">Aggiorna link ciclo-prodotto</value>
         <value xml:lang="pt_BR">Editar associação entre rota e produto</value>
         <value xml:lang="ro">Actualizare Link Ciclu-Produs</value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมโยงสินค้า</value>
@@ -4602,7 +4606,7 @@
         <value xml:lang="en">Find Routing</value>
         <value xml:lang="es">Buscar ruta</value>
         <value xml:lang="fr">Recherche de gammes</value>
-        <value xml:lang="it">Ricerca Ciclo</value>
+        <value xml:lang="it">Ricerca ciclo</value>
         <value xml:lang="pt_BR">Buscar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
@@ -4673,7 +4677,7 @@
         <value xml:lang="en">Lookup Routing</value>
         <value xml:lang="es">Buscar ruta</value>
         <value xml:lang="fr">Rechercher un ou des gammes</value>
-        <value xml:lang="it">Ricerca Ciclo</value>
+        <value xml:lang="it">Ricerca ciclo</value>
         <value xml:lang="pt_BR">Buscar rota</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
