@@ -90,7 +90,7 @@
         <value xml:lang="en">following error occurred during login: ${errorMessage}</value>
         <value xml:lang="es">Error al hacer login</value>
         <value xml:lang="fr">${errorMessage}</value>
-        <value xml:lang="it">Il seguente errore è accaduto durante l'autenticazione: ${errorMessage}</value>
+        <value xml:lang="it">${errorMessage}</value>
         <value xml:lang="nl">De volgende fout kwam voor tijdens het inloggen: ${errorMessage}</value>
         <value xml:lang="pt_BR"> ${errorMessage}</value>
         <value xml:lang="ro">A aparut urmatoarea eroare in timpul logarii: ${errorMessage}</value>

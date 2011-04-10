@@ -24,7 +24,7 @@
         <value xml:lang="en">The following required parameter is missing:</value>
         <value xml:lang="es">Se necesita ingresar el siguiente parametro :</value>
         <value xml:lang="fr">Le paramètre requis suivant manque :</value>
-        <value xml:lang="it">Il seguente parametro richiesto è mancante:</value>
+        <value xml:lang="it">Parametro richiesto mancante:</value>
         <value xml:lang="nl">De volgende vereiste parameters werden niet gevonden:</value>
         <value xml:lang="ro">Parametrul Cerut lipseste:</value>
         <value xml:lang="th">กรุณากรอกข้อมูลให้ครบถ้วน</value>
@@ -36,7 +36,7 @@
         <value xml:lang="en">You do not have permission to perform this operation for this party</value>
         <value xml:lang="es">Usted no cuenta con permisos para realizar la acción</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour effectuer cette opération</value>
-        <value xml:lang="it">Tu non hai il permesso per eseguire questa operazione per questo soggetto</value>
+        <value xml:lang="it">Non hai il permesso per eseguire questa operazione per questo soggetto</value>
         <value xml:lang="nl">U bezit niet de benodigde persmissie om deze opdracht uit te voeren</value>
         <value xml:lang="ro">Tu nu ai dreptul sa executi aceasta operatie pentru acest Subiect.</value>
         <value xml:lang="th">ไม่ได้รับการอนุญาติให้จัดการข้อมูลในส่วนของกลุ่มผู้ใช้นี้</value>
@@ -48,7 +48,7 @@
         <value xml:lang="en">You do not have permission to run this service</value>
         <value xml:lang="es">Usted no cuenta con permisos para realizar la acción</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation pour effectuer ce service</value>
-        <value xml:lang="it">Tu non hai il permesso di eseguire questo servizio</value>
+        <value xml:lang="it">Non hai il permesso di eseguire questo servizio</value>
         <value xml:lang="nl">U bezit niet de benodigde permissies om deze service uit te voeren</value>
         <value xml:lang="ro">Nu ai dreptul sa folosesti acest serviciu.</value>
         <value xml:lang="th">ไม่ได้รับอนุญาติให้ดำเนินการในส่วนของ service นี้</value>
@@ -60,7 +60,7 @@
         <value xml:lang="en">Party ID missing</value>
         <value xml:lang="es">No existe el código de Participante</value>
         <value xml:lang="fr">Il manque la Party ID</value>
-        <value xml:lang="it">Soggetto è mancante</value>
+        <value xml:lang="it">Party ID mancante</value>
         <value xml:lang="nl">Relatie nummer van deze partij is niet gevonden</value>
         <value xml:lang="ro">Cod Subiect Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสกลุ่มผู้ใช้</value>
@@ -72,7 +72,7 @@
         <value xml:lang="en">Unable to cancel job</value>
         <value xml:lang="es">No se puede cancelar la terea</value>
         <value xml:lang="fr">Impossible d'annuler ce job</value>
-        <value xml:lang="it">Non è possibile cancellare il lavoro</value>
+        <value xml:lang="it">Impossibile annullare il lavoro</value>
         <value xml:lang="nl">Niet mogelijk om deze Job te stoppen</value>
         <value xml:lang="ro">Nu este posibila stergerea Lucrului</value>
         <value xml:lang="th">ไม่สามารถยกเลิกงานได้</value>
@@ -84,7 +84,7 @@
         <value xml:lang="en">Unable to cancel job retries</value>
         <value xml:lang="es">No se puede cancelar los reintentos de la terea</value>
         <value xml:lang="fr">Impossible d'annuler les nouvelles tentatives de traitement par lot</value>
-        <value xml:lang="it">Non è possibile cancellare il lavoro riprovando</value>
+        <value xml:lang="it">Impossibile annullare il nuovo tentativo di lavoro</value>
         <value xml:lang="nl">Niet mogelijk om deze Job regels te verwijderen.</value>
         <value xml:lang="ro">Nu este posibila stergerea noilor tentative de lucru</value>
         <value xml:lang="th">ไม่สามารถยกเลิกงานได้ กรุณาลองอีกครั้ง</value>
