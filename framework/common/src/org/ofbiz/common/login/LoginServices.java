@@ -879,6 +879,9 @@ public class LoginServices {
         if (context.containsKey("userLdapDn")) {
             userLoginToUpdate.set("userLdapDn", context.get("userLdapDn"), true);
         }
+        if (context.containsKey("requirePasswordChange")) {
+            userLoginToUpdate.set("requirePasswordChange", context.get("requirePasswordChange"), true);
+        }
 
         // if was disabled and we are enabling it, clear disabledDateTime
         if (!wasEnabled && "Y".equals(context.get("enabled"))) {
