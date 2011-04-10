@@ -95,6 +95,10 @@ under the License.
         <response name="success" type="view" value="forgotPassword"/>
         <response name="error" type="view" value="forgotPassword"/>
     </request-map>
+    <request-map uri="passwordChange">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="requirePasswordChange"/>
+    </request-map>
     <request-map uri="view">
         <security https="false" auth="false"/>
         <response name="success" type="request" value="main"/>
