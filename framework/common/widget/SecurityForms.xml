@@ -201,7 +201,7 @@ under the License.
                 <order-by field-name="userLoginId"/>
             </entity-condition>
         </actions>
-        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}" widget-style="buttontext">
+        <field name="userLoginId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${userLoginId}" target="editlogin">
                 <parameter param-name="userLoginId"/>
             </hyperlink>
