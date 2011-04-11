@@ -41,6 +41,10 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
                 // setup the Entity ECA Handler
                 delegator.initEntityEcaHandler();
                 //Debug.logInfo("got delegator(" + delegatorName + ") from cache", module);
+                
+                // setup the distributed CacheClear
+                delegator.initDistributedCacheClear();
+
                 return delegator;
             }
             try {
