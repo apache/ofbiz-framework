@@ -83,13 +83,13 @@ public class JmsListenerFactory implements Runnable {
             if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher] : Loading JMS Listeners.", module);
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element) nodeList.item(i);
+                StringBuilder serverKey = new StringBuilder();
                 for (Element server: UtilXml.childElementList(element, "server")) {
                     try {
                         String listenerEnabled = server.getAttribute("listen");
 
                         if (listenerEnabled.equalsIgnoreCase("true")) {
                             // create a server key
-                            StringBuilder serverKey = new StringBuilder();
 
                             serverKey.append(server.getAttribute("jndi-server-name") + ":");
                             serverKey.append(server.getAttribute("jndi-name") + ":");
@@ -104,7 +104,7 @@ public class JmsListenerFactory implements Runnable {
                                 listeners.put(serverKey.toString(), listener);
                         }
                     } catch (GenericServiceException gse) {
-                        Debug.logVerbose("Cannot load message listener (" + gse.toString() + ").", module);
+                        Debug.logInfo("Cannot load message listener " + serverKey + " error: (" + gse.toString() + ").", module);
                     } catch (Exception e) {
                         Debug.logError(e, "Uncaught exception.", module);
                     }
