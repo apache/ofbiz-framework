@@ -52,11 +52,13 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
             dispatcherName = delegator.getDelegatorName();
             Debug.logWarning("Got a getGenericDispatcher call with a null dispatcherName, assuming default for the name.", module);
         }
-        
-        if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
-            dispatcherName += "#" + delegator.getDelegatorTenantId();
+
+        if (UtilValidate.isNotEmpty(delegator)) {
+            if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
+                dispatcherName += "#" + delegator.getDelegatorTenantId();
+            }
         }
-        
+
         LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
 
         if (dispatcher == null) {
