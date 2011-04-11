@@ -276,38 +276,11 @@ public class GenericDelegator implements Delegator {
 
         // setup the crypto class; this also after the delegator is in the cache otherwise we get infinite recursion
         this.crypto = new EntityCrypto(this);
-
-        //time to do some tricks with manual class loading that resolves circular dependencies, like calling services...
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-        // if useDistributedCacheClear is false do nothing since the
-        // distributedCacheClear member field with a null value will cause the
-        // dcc code to do nothing
-        if (getDelegatorInfo().useDistributedCacheClear) {
-            // initialize the distributedCacheClear mechanism
-            String distributedCacheClearClassName = getDelegatorInfo().distributedCacheClearClassName;
-
-            try {
-                Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);
-                this.distributedCacheClear = (DistributedCacheClear) dccClass.newInstance();
-                this.distributedCacheClear.setDelegator(this, getDelegatorInfo().distributedCacheClearUserLoginId);
-            } catch (ClassNotFoundException e) {
-                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " was not found, distributed cache clearing will be disabled", module);
-            } catch (InstantiationException e) {
-                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " could not be instantiated, distributed cache clearing will be disabled", module);
-            } catch (IllegalAccessException e) {
-                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " could not be accessed (illegal), distributed cache clearing will be disabled", module);
-            } catch (ClassCastException e) {
-                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " does not implement the DistributedCacheClear interface, distributed cache clearing will be disabled", module);
-            }
-        } else {
-            Debug.logInfo("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", module);
-        }
     }
-    
+
     protected void setDelegatorNames(String delegatorFullName) {
         this.delegatorFullName = delegatorFullName;
-        
+
         int hashSymbolIndex = delegatorFullName.indexOf('#');
         if (hashSymbolIndex == -1) {
             this.delegatorBaseName = delegatorFullName;
@@ -321,10 +294,13 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#initEntityEcaHandler()
      */
     public synchronized void initEntityEcaHandler() {
-        if (!getDelegatorInfo().useEntityEca || this.entityEcaHandler != null) {
+        // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to EntityEcaHandler
+        if (this.entityEcaHandler != null) {
             return;
         }
+        // If useEntityEca is false do nothing: the entityEcaHandler member field with a null value would cause its code to do nothing
         if (getDelegatorInfo().useEntityEca) {
+            //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the entity eca handler
             String entityEcaHandlerClassName = getDelegatorInfo().entityEcaHandlerClassName;
@@ -777,7 +753,7 @@ public class GenericDelegator implements Delegator {
             } catch (GenericEntityException e) {
                 // see if this was caused by an existing record before resetting the sequencer and trying again
                 // NOTE: use the helper directly so ECA rules, etc won't be run
-                
+
                 GenericValue existingValue = null;
                 try {
                     existingValue = helper.findByPrimaryKey(value.getPrimaryKey());
@@ -2820,6 +2796,40 @@ public class GenericDelegator implements Delegator {
         public TestOperation(OperationType operation, GenericValue value) {
             this.operation = operation;
             this.value = value;
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#initDistributedCacheClear()
+     */
+    public void initDistributedCacheClear() {
+        // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to DistributedCacheClear
+        if (this.distributedCacheClear != null) {
+            return;
+        }
+
+        // If useDistributedCacheClear is false do nothing: the distributedCacheClear member field with a null value would cause dcc code to do nothing
+        if (getDelegatorInfo().useDistributedCacheClear) {
+            //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            // initialize the distributedCacheClear mechanism
+            String distributedCacheClearClassName = getDelegatorInfo().distributedCacheClearClassName;
+
+            try {
+                Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);
+                this.distributedCacheClear = UtilGenerics.cast(dccClass.newInstance());
+                this.distributedCacheClear.setDelegator(this, getDelegatorInfo().distributedCacheClearUserLoginId);
+            } catch (ClassNotFoundException e) {
+                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " was not found, distributed cache clearing will be disabled", module);
+            } catch (InstantiationException e) {
+                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " could not be instantiated, distributed cache clearing will be disabled", module);
+            } catch (IllegalAccessException e) {
+                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " could not be accessed (illegal), distributed cache clearing will be disabled", module);
+            } catch (ClassCastException e) {
+                Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " does not implement the DistributedCacheClear interface, distributed cache clearing will be disabled", module);
+            }
+        } else {
+            Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", module);
         }
     }
 }

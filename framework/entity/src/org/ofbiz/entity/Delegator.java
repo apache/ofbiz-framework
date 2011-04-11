@@ -796,6 +796,8 @@ public interface Delegator {
 
     public void initEntityEcaHandler();
 
+    public void initDistributedCacheClear();
+
     public GenericPK makePK(Element element);
 
     /** Creates a Primary Key in the form of a GenericPK without persisting it */
