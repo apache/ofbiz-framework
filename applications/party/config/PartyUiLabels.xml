@@ -3524,7 +3524,7 @@
         <value xml:lang="es">Usuario</value>
         <value xml:lang="fr">Client utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता ग्राहक</value>
-        <value xml:lang="it">Utente Client</value>
+        <value xml:lang="it">Utente client</value>
         <value xml:lang="nl">Client User</value>
         <value xml:lang="pt_BR">Usuário</value>
         <value xml:lang="pt_PT">Nome de Utilizador do Cliente </value>
@@ -5641,7 +5641,7 @@
         <value xml:lang="es">Continuar sesión</value>
         <value xml:lang="fr">Session suivante</value>
         <value xml:lang="hi_IN">सत्र का अनुगमन करें</value>
-        <value xml:lang="it">Segue Sessione</value>
+        <value xml:lang="it">Segui sessione</value>
         <value xml:lang="nl">Volg sessie</value>
         <value xml:lang="pt_BR">Continuar sessão</value>
         <value xml:lang="pt_PT">Prosseguir Sessão</value>
@@ -5928,7 +5928,7 @@
         <value xml:lang="es">Encontrar pista</value>
         <value xml:lang="fr">Enregistrement de pointage</value>
         <value xml:lang="hi_IN">हिट ट्रेक्क्रर</value>
-        <value xml:lang="it">Traccia Colpi</value>
+        <value xml:lang="it">Traccia dei colpi</value>
         <value xml:lang="nl">Hit Tracker</value>
         <value xml:lang="pt_BR">Encontrar pista</value>
         <value xml:lang="pt_PT">Encontrar Pista </value>
@@ -6038,7 +6038,7 @@
         <value xml:lang="es">Origen</value>
         <value xml:lang="fr">Origine</value>
         <value xml:lang="hi_IN">प्रारंभिक भाषा</value>
-        <value xml:lang="it">Iniziale Locale</value>
+        <value xml:lang="it">Lingua iniziale</value>
         <value xml:lang="nl">Initialen Locale</value>
         <value xml:lang="pt_BR">Origem inicial</value>
         <value xml:lang="pt_PT">Inicial da Localidade</value>
@@ -6054,7 +6054,7 @@
         <value xml:lang="es">Referencia inicial</value>
         <value xml:lang="fr">Référence initiale </value>
         <value xml:lang="hi_IN">प्रारंभिक संदर्भ</value>
-        <value xml:lang="it">Iniziale Riferimento</value>
+        <value xml:lang="it">Riferimento iniziale</value>
         <value xml:lang="nl">Initial Referer</value>
         <value xml:lang="pt_BR">Referência inicial</value>
         <value xml:lang="pt_PT">Inicial de Referência</value>
@@ -6070,7 +6070,7 @@
         <value xml:lang="es">Petición inicial</value>
         <value xml:lang="fr">Demande initiale</value>
         <value xml:lang="hi_IN">प्रारंभिक अनुरोध</value>
-        <value xml:lang="it">Iniziale Richiesta</value>
+        <value xml:lang="it">Richiesta iniziale</value>
         <value xml:lang="nl">Initial Request</value>
         <value xml:lang="pt_BR">Requisição inicial</value>
         <value xml:lang="pt_PT">Inicial do Pedido</value>
@@ -6086,7 +6086,7 @@
         <value xml:lang="es">Inicial</value>
         <value xml:lang="fr">Utilisateur initial</value>
         <value xml:lang="hi_IN">प्रारंभिक प्रयोक्ता एजेंट</value>
-        <value xml:lang="it">Iniziale User Agent</value>
+        <value xml:lang="it">User agent iniziale</value>
         <value xml:lang="nl">Initial User Agent</value>
         <value xml:lang="pt_BR">Usuário inicial</value>
         <value xml:lang="pt_PT">Inicial do Agente Utilizador</value>
@@ -8077,7 +8077,7 @@
         <value xml:lang="en">Page Push/Following</value>
         <value xml:lang="es">Siguiente</value>
         <value xml:lang="fr">Page envoyée / page suivante</value>
-        <value xml:lang="it">Pagina Precedente/Successiva</value>
+        <value xml:lang="it">Pagina precedente/successiva</value>
         <value xml:lang="nl">Page Push/Following</value>
         <value xml:lang="pt_BR">Página anterior/seguinte</value>
         <value xml:lang="pt_PT">Carregar Página/Seguinte</value>
@@ -10210,7 +10210,7 @@
         <value xml:lang="es">Aún activo</value>
         <value xml:lang="fr">Encore actif (ve)</value>
         <value xml:lang="hi_IN">अब तक सक्रिय</value>
-        <value xml:lang="it">Ancora Attivo</value>
+        <value xml:lang="it">Ancora attivo</value>
         <value xml:lang="nl">Nog steeds actief</value>
         <value xml:lang="pt_BR">Ainda ativo</value>
         <value xml:lang="pt_PT">Ainda Activo</value>
@@ -10808,7 +10808,7 @@
         <value xml:lang="es">Usuario creado</value>
         <value xml:lang="fr">Création d'un utilisateur</value>
         <value xml:lang="hi_IN">उपयोगकर्ता बनाया गया</value>
-        <value xml:lang="it">Utente Creatore</value>
+        <value xml:lang="it">Creato utente</value>
         <value xml:lang="nl">Gebruiker aangemaakt</value>
         <value xml:lang="pt_BR">Usuário criado</value>
         <value xml:lang="pt_PT">Utilizador Criado</value>
@@ -11042,7 +11042,7 @@
         <value xml:lang="en">Visit Detail</value>
         <value xml:lang="es">Detalle de visita</value>
         <value xml:lang="fr">Détail des visites</value>
-        <value xml:lang="it">Dettagli Visita</value>
+        <value xml:lang="it">Dettagli visita</value>
         <value xml:lang="nl">Detail webbezoek</value>
         <value xml:lang="pt_BR">Detalhes de visita</value>
         <value xml:lang="pt_PT">Detalhe de Visita</value>
@@ -11057,7 +11057,7 @@
         <value xml:lang="en">VisitID / SessionID</value>
         <value xml:lang="es">Código de visita / código de sesión</value>
         <value xml:lang="fr">Ident. de la visite / de la session</value>
-        <value xml:lang="it">Numero Visita / Numero Sessione</value>
+        <value xml:lang="it">Numero visita / Numero sessione</value>
         <value xml:lang="nl">Bezoek-ID/Sessie-ID</value>
         <value xml:lang="pt_BR">ID da visita / ID da sessão</value>
         <value xml:lang="pt_PT">Id da Visita/Id da secção</value>
@@ -11076,7 +11076,7 @@
         <value xml:lang="nl">Bezoek-Id</value>
         <value xml:lang="pt_BR">ID da visita</value>
         <value xml:lang="pt_PT">Id da Visita</value>
-        <value xml:lang="ro">Numero Visita</value>
+        <value xml:lang="ro">Numero visita</value>
         <value xml:lang="ru">Код посещения</value>
         <value xml:lang="th">รหัสการเยี่ยมชม</value>
         <value xml:lang="zh">访问标识</value>
