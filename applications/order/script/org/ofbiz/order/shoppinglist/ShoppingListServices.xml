@@ -232,13 +232,16 @@ under the License.
             <map-to-map map="calcPriceInBaseMap" to-map="calcPriceInMap"/>
             <set field="calcPriceInMap.product" from-field="product"/>
             <set field="calcPriceInMap.quantity" from-field="shoppingListItem.quantity"/>
-            <call-service service-name="calculateProductPrice" in-map-name="calcPriceInMap">
-                <result-to-field result-name="price" field="calcPriceOutMap.price"/>
-            </call-service>
+            <if-not-empty field="shoppingListItem.modifiedPrice">
+                <call-service service-name="calculateProductPrice" in-map-name="calcPriceInMap">
+                    <result-to-field result-name="price" field="calcPriceOutMap.price"/>
+                </call-service>
+            </if-not-empty>
+            <set field="itemPrice" from-field="shoppingListItem.modifiedPrice" default-value="${calcPriceOutMap.price}"/>
             <calculate field="totalPrice">
                 <calcop field="totalPrice" operator="add"/>
                 <calcop operator="multiply">
-                    <calcop operator="get" field="calcPriceOutMap.price"/>
+                    <calcop operator="get" field="itemPrice"/>
                     <calcop operator="get" field="shoppingListItem.quantity"/>
                 </calcop>
             </calculate>
