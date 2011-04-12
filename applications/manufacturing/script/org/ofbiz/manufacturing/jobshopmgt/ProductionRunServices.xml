@@ -152,7 +152,7 @@ under the License.
                 <if>
                     <condition>
                         <or>
-                            <if-compare field="parameters.failIfItemsAreNotAvailable" operator="equals" value="Y" type="String"/>
+                            <if-empty field="parameters.failIfItemsAreNotOnHand"/>
                             <if-compare field="parameters.failIfItemsAreNotOnHand" operator="equals" value="Y" type="String"/>
                         </or>
                     </condition>

@@ -191,9 +191,9 @@ under the License.
             with type PRUNT_PROD_NEEDED is retrieved and used to get the quantity; its status is also updated to COMPLETED after
             the issuance is done.
             If locationSeqIds are provided, then the items are only issued from the inventory items associated to the locations.
-            If failIfItemsAreNotAvailable is set to "Y" (the default is "N") then the service fails if there isn not enough inventory available:
+            If failIfItemsAreNotAvailable is set to "Y" (the default is "Y") then the service fails if there is not enough inventory available:
             no reservation will be stolen.
-            If failIfItemsAreNotOnHand is set to "Y" (the default is "N") then the service fails if there isn not enough inventory:
+            If failIfItemsAreNotOnHand is set to "Y" (the default is "Y") then the service fails if there is not enough inventory:
             no items with negative qoh will be created.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
