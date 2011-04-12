@@ -36,29 +36,27 @@ under the License.
         <tr>
         </#if>
           <td>
-            <table>
-              <tr>
-                <td>
-                  <div class="h2">
-                    <form method="post" action="<@ofbizUrl>createPortalPagePortlet</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="createPortalPortlet_${portalPortlet.portalPortletId}"><input name="portalPortletId" value="${portalPortlet.portalPortletId}" type="hidden"/><input name="portalPageId" value="${parameters.portalPageId}" type="hidden"/><input name="columnSeqId" value="${parameters.columnSeqId}" type="hidden"/></form><a class="buttontext" href="javascript:document.createPortalPortlet_${portalPortlet.portalPortletId}.submit()">${uiLabelMap.CommonAdd}: ${portalPortlet.portletName}</a>
-                  </div>
-                  <div class="tabletext">
-                    ${portalPortlet.description?if_exists}
-                  </div>
-                  <div class="tabletext">
-                    ${parameters.portletCategoryId}
-                  </div>
-                </td>
-                <td>
-                  <#if portalPortlet.screenshot?has_content>
-                    <div class="screenshot">
-                      <a href="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>" width="250" alt=""/></a>
-                    </div>
-                  </#if>
-                </td>
-              </tr>
-            </table>
+            <div class="h3">
+              <form method="post" action="<@ofbizUrl>createPortalPagePortlet</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="createPortalPortlet_${portalPortlet.portalPortletId}"><input name="portalPortletId" value="${portalPortlet.portalPortletId}" type="hidden"/><input name="portalPageId" value="${parameters.portalPageId}" type="hidden"/><input name="columnSeqId" value="${parameters.columnSeqId}" type="hidden"/></form><a class="buttontext" href="javascript:document.createPortalPortlet_${portalPortlet.portalPortletId}.submit()">${uiLabelMap.CommonAdd}: ${portalPortlet.portletName}</a>
+            </div>
+            <div class="tabletext">
+              ${portalPortlet.description?if_exists}
+            </div>
+            <div class="tabletext">
+              ${parameters.portletCategoryId}
+            </div>
           </td>
+          <td>
+            <#if portalPortlet.screenshot?has_content>
+              <div class="screenshot">
+                <a href="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${portalPortlet.screenshot}</@ofbizContentUrl>" width="250" alt=""/></a>
+              </div>
+            </#if>
+          </td>
+        <#if leftColumn==true>
+          <td width="10%">
+          </td>
+        </#if>
         <#if leftColumn==false>
         </tr>
         </#if>
