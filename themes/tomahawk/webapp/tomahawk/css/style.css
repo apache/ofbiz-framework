@@ -951,6 +951,11 @@ width:385px;
 height:50px;
 }
 
+#logo-area a{
+display:block;
+height:100%;
+}
+
 #masthead {
 background: url(../images/header_top_bg.gif) repeat-x;
 font-weight: bold;
@@ -1000,13 +1005,13 @@ text-decoration: none;
 }
 
 ul#preferences-menu .expanded {
-background: url(../images/collapse.png) no-repeat right;
+background: url(../images/expand.png) no-repeat right;
 width:22px;
 padding: 0;
 }
 
 ul#preferences-menu .collapsed {
-background: url(../images/expand.png) no-repeat right;
+background: url(../images/collapse.png) no-repeat right;
 width:32px;
 padding: 0;
 }
@@ -1037,7 +1042,7 @@ background: url(../images/collapse.png) no-repeat right;
 }
 
 ul#preferences-menu li.expanded a:hover {
-background: url(../images/collapse.png) no-repeat right;
+background: url(../images/expand.png) no-repeat right;
 }
 
 ul#preferences-menu li a.help-link {
@@ -1463,6 +1468,9 @@ color:#000000;
 padding: 6px 10px 6px;
 line-height:19px;
 white-space: nowrap;
+}
+
+.button-bar a.buttontext {
 text-transform:uppercase;
 }
 
@@ -1505,7 +1513,6 @@ background: url(../images/button_sprite.png) no-repeat 0px -130px;
 .button-bar ul a:hover,.button-bar a:hover {
 color:#25292c;
 background-image:url(../images/ptrn_button_hover.gif);
-bbbackground-color:#EDCC12;
 text-decoration: none;
 }
 

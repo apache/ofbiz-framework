@@ -108,7 +108,7 @@ under the License.
             <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
           </#if>
           <#if headerImageUrl?exists>
-            <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName}"><span>&nbsp;</span></a></li>
+            <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName}"></a></li>
           </#if>
           <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
             <li class="last-system-msg">
