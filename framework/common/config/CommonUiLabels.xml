@@ -1329,7 +1329,7 @@
         <value xml:lang="es">Limpiar</value>
         <value xml:lang="fr">Effacer</value>
         <value xml:lang="hi_IN">साफ़ करें</value>
-        <value xml:lang="it">Azzera</value>
+        <value xml:lang="it">Pulisci</value>
         <value xml:lang="nl">Wis</value>
         <value xml:lang="pt">Limpar</value>
         <value xml:lang="ro">Azereaza</value>
@@ -1345,7 +1345,7 @@
         <value xml:lang="es">Limpiar todo</value>
         <value xml:lang="fr">Tout effacer</value>
         <value xml:lang="hi_IN">सभी साफ करें</value>
-        <value xml:lang="it">Azzera tutto</value>
+        <value xml:lang="it">Pulisci tutto</value>
         <value xml:lang="pt">Limpar Tudo</value>
         <value xml:lang="ru">Отчистить все</value>
         <value xml:lang="th">เคลียร์ทั้งหมด</value>
@@ -1356,7 +1356,7 @@
         <value xml:lang="en">Clear Current</value>
         <value xml:lang="fr">Vider l'en cours</value>
         <value xml:lang="hi_IN">वर्तमान को साफ़ करें</value>
-        <value xml:lang="it">Pulisci Attuale</value>
+        <value xml:lang="it">Pulisci attuale</value>
         <value xml:lang="pt_BR">Limpar atual</value>
         <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
         <value xml:lang="zh">清除当前的</value>

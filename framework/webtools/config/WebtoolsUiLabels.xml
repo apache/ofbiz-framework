@@ -4025,7 +4025,7 @@
         <value xml:lang="de">Statistiken (seit Start) zurücksetzen</value>
         <value xml:lang="en">Clear Since Start Stats</value>
         <value xml:lang="fr">Effacer depuis le début des statistiques</value>
-        <value xml:lang="it">Pulisce fino dall'avvio statistiche</value>
+        <value xml:lang="it">Azzera statistiche</value>
         <value xml:lang="pt">Limpar Desde o InÃ­cio das estatÃ­sticas</value>
         <value xml:lang="th">ยกเลิกตั้งแต่เริ่มต้น</value>
         <value xml:lang="zh">清除启动以来的统计</value>
@@ -4045,7 +4045,7 @@
         <value xml:lang="de">Ereignisstatistik</value>
         <value xml:lang="en">Event Statistics</value>
         <value xml:lang="fr">Statistiques d'évènement</value>
-        <value xml:lang="it">Evento statistiche</value>
+        <value xml:lang="it">Statistiche eventi</value>
         <value xml:lang="pt">EstatÃ­sticas de Eventos</value>
         <value xml:lang="th">สถิติเหตุการณ์</value>
         <value xml:lang="zh">事件统计</value>
@@ -4075,7 +4075,7 @@
         <value xml:lang="de">Serverstatistiken seit Serverstart</value>
         <value xml:lang="en">Server Statistics Since Start</value>
         <value xml:lang="fr">Début depuis les statistiques du serveur</value>
-        <value xml:lang="it">Statistiche da quanto il Server è Avviato</value>
+        <value xml:lang="it">Statistiche da quando il server è avviato</value>
         <value xml:lang="pt">As estatÃ­sticas do servidor desde o Inicio</value>
         <value xml:lang="th">สถิติตั้งแต่เริ่มต้น</value>
         <value xml:lang="zh">自启动以来的服务器统计</value>
@@ -4175,7 +4175,7 @@
         <value xml:lang="de">Anfragestatistik</value>
         <value xml:lang="en">Request Statistics</value>
         <value xml:lang="fr">Requête statistiques</value>
-        <value xml:lang="it">Statistica richieste</value>
+        <value xml:lang="it">Statistiche richieste</value>
         <value xml:lang="pt">Requisitar EstatÃ­sticas</value>
         <value xml:lang="th">สถิติคำร้อง</value>
         <value xml:lang="zh">请求统计</value>
@@ -4185,7 +4185,7 @@
         <value xml:lang="de">Serverstatistik (seit Start)</value>
         <value xml:lang="en">Stats Since Server Start</value>
         <value xml:lang="fr">Statistiques depuis le démarrage du serveur</value>
-        <value xml:lang="it">Statistiche da quanto il Server è Avviato</value>
+        <value xml:lang="it">Statistiche da quando il server è avviato</value>
         <value xml:lang="pt">EstatÃ­sticas Desde InÃ­cio do servidor</value>
         <value xml:lang="ro">Statistici de cand serverul a fost Deschis</value>
         <value xml:lang="th">สถิติตั้งแต่เริ่มต้น</value>
@@ -4226,7 +4226,7 @@
         <value xml:lang="de">Statistiken ansehen</value>
         <value xml:lang="en">View Statistics</value>
         <value xml:lang="fr">Voir les statistiques</value>
-        <value xml:lang="it">Mostra statistiche</value>
+        <value xml:lang="it">Statistiche viste</value>
         <value xml:lang="pt">Ver EstatÃ­sticas</value>
         <value xml:lang="th">แสดงสถิติ</value>
         <value xml:lang="zh">浏览统计</value>
