@@ -1012,6 +1012,7 @@ public class ShoppingCartServices {
                     amount = BigDecimal.ZERO;
                 }
                  */
+                BigDecimal modifiedPrice = shoppingListItem.getBigDecimal("modifiedPrice");
                 BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                 if (quantity == null) {
                     quantity = BigDecimal.ZERO;
@@ -1032,6 +1033,15 @@ public class ShoppingCartServices {
                     } catch (CartItemModifyException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
+                    }
+                    
+                    // set the modified price
+                    if (modifiedPrice != null && modifiedPrice.doubleValue() != 0) {
+                        ShoppingCartItem item = cart.findCartItem(itemIndex);
+                        if (item != null) {
+                            item.setIsModifiedPrice(true);
+                            item.setBasePrice(modifiedPrice);
+                        }
                     }
                 }
 

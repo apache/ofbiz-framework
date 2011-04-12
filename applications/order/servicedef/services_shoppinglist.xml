@@ -101,6 +101,7 @@ under the License.
         <attribute name="shoppingListId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="modifiedPrice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservStart" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="reservLength" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservPersons" type="BigDecimal" mode="IN" optional="true"/>

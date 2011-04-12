@@ -2800,6 +2800,7 @@ under the License.
       <field name="shoppingListItemSeqId" type="id-ne"></field>
       <field name="productId" type="id"></field>
       <field name="quantity" type="fixed-point"></field>
+      <field name="modifiedPrice" type="currency-precise"/>
       <field name="reservStart" type="date-time"></field>
       <field name="reservLength" type="fixed-point"></field>
       <field name="reservPersons" type="fixed-point"></field>
