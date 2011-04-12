@@ -621,7 +621,7 @@ ${item.description}</span>
 </#list>
 </select> ${paginateViewSizeLabel}</li></#if>
 <li class="nav-displaying">${commonDisplaying}</li>
-</ul></div><br />
+</ul></div>
 </#if>
 </#macro>
 
