@@ -175,15 +175,20 @@ under the License.
     <form name="ListSecurityGroupUserLogins" type="list" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
+            <set field="sortField" from-field="parameters.sortField" default-value="userLoginId"/>
             <entity-condition entity-name="UserLoginAndSecurityGroup">
                 <condition-expr field-name="groupId" from-field="groupId"/>
-                <order-by field-name="userLoginId"/>
+                <order-by field-name="${sortField}"/>
             </entity-condition>
         </actions>
         <field name="groupId"><hidden/></field>
-        <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><display/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="userLoginId" sort-field="true">
+            <hyperlink also-hidden="false" description="${userLoginId}" target="editlogin">
+                <parameter param-name="userLoginId"/>
+            </hyperlink>
+        </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" sort-field="true"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" sort-field="true"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
@@ -197,18 +202,19 @@ under the License.
     <form name="ListUserLogins" type="list" list-name="securityGroups"
         paginate-target="FindUserLogin" header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
+            <set field="sortField" from-field="parameters.sortField" default-value="userLoginId"/>
             <entity-condition entity-name="UserLogin">
-                <order-by field-name="userLoginId"/>
+                <order-by field-name="${sortField}"/>
             </entity-condition>
         </actions>
-        <field name="userLoginId" widget-style="buttontext">
+        <field name="userLoginId" widget-style="buttontext" sort-field="true">
             <hyperlink also-hidden="false" description="${userLoginId}" target="editlogin">
                 <parameter param-name="userLoginId"/>
             </hyperlink>
         </field>
-        <field name="enabled"><display/></field>
-        <field name="hasLoggedOut"><display/></field>
-        <field name="disabledDateTime"><display/></field>
+        <field name="enabled" sort-field="true"><display/></field>
+        <field name="hasLoggedOut" sort-field="true"><display/></field>
+        <field name="disabledDateTime" sort-field="true"><display/></field>
     </form>
 
     <form name="ListUserLoginSecurityGroups" type="list"
