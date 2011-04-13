@@ -39,7 +39,20 @@ if (!userLogin) {
         if (orderId) {
             orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
             orderStatuses = orderHeader.getRelated("OrderStatus");
-            filteredOrderStatusList = EntityUtil.filterByCondition(orderStatuses, EntityCondition.makeCondition("statusId", EntityOperator.IN, ["ORDER_COMPLETED", "ORDER_APPROVED"]));
+            filteredOrderStatusList = [];
+            extOfflineModeExists = false;
+            
+            // Handled the case of OFFLINE payment method. In case of OFFLINE payment "ORDER_CREATED" status must be checked.
+            orderPaymentPreferences = orderHeader.getRelated("OrderPaymentPreference", UtilMisc.toList("orderPaymentPreferenceId"));
+            filteredOrderPaymentPreferences = EntityUtil.filterByCondition(orderPaymentPreferences, EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.IN, ["EXT_OFFLINE"]));
+            if (filteredOrderPaymentPreferences) {
+                extOfflineModeExists = true;
+            }
+            if (extOfflineModeExists) {
+                filteredOrderStatusList = EntityUtil.filterByCondition(orderStatuses, EntityCondition.makeCondition("statusId", EntityOperator.IN, ["ORDER_COMPLETED", "ORDER_APPROVED", "ORDER_CREATED"]));
+            } else {
+                filteredOrderStatusList = EntityUtil.filterByCondition(orderStatuses, EntityCondition.makeCondition("statusId", EntityOperator.IN, ["ORDER_COMPLETED", "ORDER_APPROVED"]));
+            }            
             if (UtilValidate.isNotEmpty(filteredOrderStatusList)) {
                 if (filteredOrderStatusList.size() < 2) {
                     statusUserLogin = EntityUtil.getFirst(filteredOrderStatusList).statusUserLogin;
