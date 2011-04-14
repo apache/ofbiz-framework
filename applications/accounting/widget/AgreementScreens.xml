@@ -27,6 +27,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="agreements"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
