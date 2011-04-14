@@ -28,6 +28,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="agreements"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -497,6 +498,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="AccountingPageTitleAgreementPriceList"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
