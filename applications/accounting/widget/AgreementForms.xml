@@ -298,7 +298,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="price" widget-area-style="align-text"><display/></field>
+        <field name="price"><display type="currency" currency="${agreementItem.currencyUomId}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementItemProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="productId"/>
@@ -328,7 +328,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="lastPrice" widget-area-style="align-text"><display/></field>
+        <field name="lastPrice"><display type="currency" currency="${agreementItem.currencyUomId}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementItemSupplierProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="minimumOrderQuantity"/>
@@ -364,7 +364,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="price" title-area-style="tableheadmedium" widget-area-style="align-text"><display/></field>
+        <field name="price" title-area-style="tableheadmedium"><display type="currency" currency="${agreementItem.currencyUomId}"/></field>
     </form>
     <form name="ListAgreementItemSupplierProductsForReport" list-name="agreementProducts" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -373,7 +373,7 @@ under the License.
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
         </field>
-        <field name="lastPrice" title-area-style="tableheadmedium" widget-area-style="align-text"><display/></field>
+        <field name="lastPrice" title-area-style="tableheadmedium"><display type="currency" currency="${agreementItem.currencyUomId}"/></field>
     </form>
     <form name="EditAgreementItemProduct" type="single" target="updateAgreementItemProduct" title="" default-map-name="agreementProductAppl"
         header-row-style="header-row" default-table-style="basic-table">
