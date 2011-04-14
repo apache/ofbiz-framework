@@ -451,6 +451,10 @@
         <value xml:lang="zh">浏览根 (一个)</value>
         <value xml:lang="zh_TW">瀏覽根 (一個)</value>
     </property>
+    <property key="ProdCatalogCategoryType.description.PCCT_EBAY_ROOT">
+        <value xml:lang="de">Ebay Root (Eine)</value>
+        <value xml:lang="en">Ebay Root (One)</value>
+    </property>
     <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
         <value xml:lang="de">Am populärsten (Eine)</value>
         <value xml:lang="en">Most Popular (One)</value>
@@ -500,7 +504,7 @@
         <value xml:lang="zh_TW">允許購買 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_QUICK_ADD">
-        <value xml:lang="de">Rasches Hinzufügen (mehrere)</value>
+        <value xml:lang="de">Rasches Hinzufügen (Mehrere)</value>
         <value xml:lang="en">Quick Add (Many)</value>
         <value xml:lang="es">Añadir rápido (muchos)</value>
         <value xml:lang="fr">Ajout rapide (plusieurs)</value>
@@ -883,6 +887,10 @@
         <value xml:lang="zh">页脚</value>
         <value xml:lang="zh_TW">頁腳</value>
     </property>
+    <property key="ProductCategoryContentType.description.GIFT_CARD_CATEGORY">
+        <value xml:lang="de">Gutschein</value>
+        <value xml:lang="en">Gift Card</value>
+    </property>
     <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
         <value xml:lang="de">Link 1 Alternativtext</value>
         <value xml:lang="en">Link 1 Alt Text</value>
@@ -932,6 +940,10 @@
         <value xml:lang="th">Cross Sell</value>
         <value xml:lang="zh">交叉销售</value>
         <value xml:lang="zh_TW">交叉銷售</value>
+    </property>
+    <property key="ProductCategoryType.description.GIFT_CARD_CATEGORY">
+        <value xml:lang="de">Gutscheine</value>
+        <value xml:lang="en">Gift Cards</value>
     </property>
     <property key="ProductCategoryType.description.INDUSTRY_CATEGORY">
         <value xml:lang="de">Industrie</value>
