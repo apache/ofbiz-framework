@@ -33,4 +33,12 @@ License.
         <para>A list of all transactions that have been authorised, captured or manually entered
             will be displayed.</para>
     </section>
+    <section>
+        <title>Transaction results (external link)</title>
+        <para>
+            <link xl:href="http://www.authorize.net/support/merchant/Transaction_Response/Transaction_Response.htm">
+                List of all the transaction results
+            </link>
+        </para>
+    </section>
 </section>
