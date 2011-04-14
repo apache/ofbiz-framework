@@ -4238,7 +4238,7 @@
         <value xml:lang="zh_TW">錯誤：查找銷售訂單行失敗</value>
     </property>
     <property key="checkhelper.select_method_of_payment">
-        <value xml:lang="de">Bitte wählen sie eine Zahlweise.</value>
+        <value xml:lang="de">Bitte wählen Sie eine Zahlungsart.</value>
         <value xml:lang="en">Please select a method of payment.</value>
         <value xml:lang="es">Por favor, seleccione un método de pago.</value>
         <value xml:lang="fr">S'il vous plaît choisissez un moyen de paiement.</value>

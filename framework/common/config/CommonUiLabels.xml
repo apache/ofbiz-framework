@@ -2254,6 +2254,7 @@
         <value xml:lang="zh_TW">無效</value>
     </property>
     <property key="CommonDisplaying">
+        <value xml:lang="de">Zeige ${lowCount} - ${highCount} von ${total}</value>
         <value xml:lang="en">Displaying ${lowCount} - ${highCount} of ${total}</value>
         <value xml:lang="es">Mostrando ${lowCount} - ${highCount} de ${total}</value>
         <value xml:lang="fr">Affichage de ${lowCount} à ${highCount} sur ${total}</value>
@@ -4159,6 +4160,7 @@
         <value xml:lang="zh_TW">明細</value>
     </property>
     <property key="CommonItemsPerPage">
+        <value xml:lang="de">Elemente pro Seite</value>
         <value xml:lang="en">Items per page</value>
         <value xml:lang="fr">Éléments par page</value>
         <value xml:lang="it">Righe per pagina</value>

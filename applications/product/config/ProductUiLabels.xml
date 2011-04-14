@@ -19,6 +19,10 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AddNewProductFeatureToProduct">
+        <value xml:lang="de">Neues Merkmal für dieses Produkt erstellen</value>
+        <value xml:lang="en">Add new Product Feature to current product</value>
+    </property>
     <property key="Approve">
         <value xml:lang="en">Approve</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -57,6 +61,10 @@
     <property key="ChooseReplacementImage">
         <value xml:lang="en">Choose Replacement Image</value>
         <value xml:lang="th">เลือกภาพที่จะแทนที่</value>
+    </property>
+    <property key="CreateNewProductFeatureType">
+        <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
+        <value xml:lang="en">Create New Product Feature Type</value>
     </property>
     <property key="FacilityActualShippingCharges">
         <value xml:lang="en">Actual shipping charges</value>
@@ -4297,6 +4305,7 @@
         <value xml:lang="zh_TW">產品特性ID</value>
     </property>
     <property key="FormFieldTitle_productFeatureIdTo">
+        <value xml:lang="de">Produktmerkmal ID zu</value>
         <value xml:lang="en">Product Feature Id To</value>
         <value xml:lang="fr">Réf. de caractéristique de produit dest.</value>
         <value xml:lang="it">Caratteristica prodotto a</value>
@@ -5548,7 +5557,7 @@
         <value xml:lang="zh_TW">單位包含在內</value>
     </property>
     <property key="FormFieldTitle_useCountLimit">
-        <value xml:lang="de">Verwendung Anzahl Limite</value>
+        <value xml:lang="de">Verwende Anzahlbegrenzung</value>
         <value xml:lang="en">Use Count Limit</value>
         <value xml:lang="es">Usar el límite de contador</value>
         <value xml:lang="fr">Limite d'utilisation du compte</value>
@@ -5572,13 +5581,14 @@
         <value xml:lang="zh_TW">使用天數限制</value>
     </property>
     <property key="FormFieldTitle_useLimitPerCode">
+        <value xml:lang="de">Verwende "pro Code" Begrenzung</value>
         <value xml:lang="en">Use Limit Per Code</value>
         <value xml:lang="it">Usa limite per codice</value>
         <value xml:lang="zh">每个代码使用限制</value>
         <value xml:lang="zh_TW">每個代碼使用限制</value>
     </property>
     <property key="FormFieldTitle_useLimitPerCustomer">
-        <value xml:lang="de">Verwendung begrenzen pro Kunde</value>
+        <value xml:lang="de">Verwende "pro Kunde" Begrenzung</value>
         <value xml:lang="en">Use Limit Per Customer</value>
         <value xml:lang="es">Usar límite por cliente</value>
         <value xml:lang="fr">Limite par client</value>
@@ -5590,7 +5600,7 @@
         <value xml:lang="zh_TW">每個客戶使用限制</value>
     </property>
     <property key="FormFieldTitle_useLimitPerOrder">
-        <value xml:lang="de">Verwendung begrenzen pro Auftrag</value>
+        <value xml:lang="de">Verwende "pro Auftrag" Begrenzung</value>
         <value xml:lang="en">Use Limit Per Order</value>
         <value xml:lang="es">Usar límite por pedido</value>
         <value xml:lang="fr">Limite par commande</value>
@@ -5602,7 +5612,7 @@
         <value xml:lang="zh_TW">每個訂單使用限制</value>
     </property>
     <property key="FormFieldTitle_useLimitPerPromotion">
-        <value xml:lang="de">Verwendung begrenzen pro Aktion</value>
+        <value xml:lang="de">Verwende "pro Aktion" Begrenzung</value>
         <value xml:lang="en">Use Limit Per Promotion</value>
         <value xml:lang="es">Usar límite por promoción</value>
         <value xml:lang="fr">Limite par promotion</value>
@@ -5674,7 +5684,8 @@
         <value xml:lang="zh_TW">用戶輸入</value>
     </property>
     <property key="FormFieldTitle_validateGCFinAcct">
-        <value xml:lang="en">Validate GC Fin Acct</value>
+        <value xml:lang="de">Bestätigen Sie das Finanzkonto des Gutscheins</value>
+        <value xml:lang="en">Validate the Gift Card's financial Account</value>
         <value xml:lang="fr">Valider le compte financier de la carte cadeau</value>
         <value xml:lang="it">Valida carta regalo conto finanaza</value>
         <value xml:lang="zh">验证礼品卡金融账户</value>
@@ -5781,10 +5792,12 @@
         <value xml:lang="zh_TW">工項成品規範類型ID</value>
     </property>
     <property key="Gallery">
+        <value xml:lang="de">Gallerie</value>
         <value xml:lang="en">Gallery</value>
         <value xml:lang="th">แกลลอรี่</value>
     </property>
     <property key="ImageApprove">
+        <value xml:lang="de">Bestätigen</value>
         <value xml:lang="en">Approve</value>
         <value xml:lang="th">ยืนยันรูปภาพ</value>
     </property>
@@ -10886,10 +10899,12 @@
         <value xml:lang="zh_TW">條件</value>
     </property>
     <property key="ProductConditionsActionsRemoveBefore">
+        <value xml:lang="de">Um eine Preisregel zu löschen, müssen entweder zuerst alle dazugehörigen Bedingungen und Aktionen entfernt ODER die Regel über das Ablaufdatum deaktiviert werden</value>
         <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Thru Date</value>
         <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée</value>
     </property>
     <property key="ProductConditionsThenActions">
+        <value xml:lang="de">Wenn mehrere Bedingungen eingegeben wurde, sind sie logisch UND verknüpft. Daher müssen alle Bedingungen WAHR sein und die Preisregel auszuführen (gleiches für Aktionen)</value>
         <value xml:lang="en">If multiple conditions are entered they are tested logically as and AND statement. Therefore all Conditions must be TRUE for the price rule to execute (same for actions)</value>
         <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions sont exécutées (autrement dit ET logique entre conditions, de même pour les actions)</value>
     </property>
@@ -13249,8 +13264,8 @@
         <value xml:lang="zh_TW">特性分類</value>
     </property>
     <property key="ProductFeatureCategoryAttach">
-        <value xml:lang="de">Merkmale zur Kategorie hinzufügen von Produkten</value>
-        <value xml:lang="en">Attach Features to Category from Products</value>
+        <value xml:lang="de">Produktmerkmale zur Kategorie hinzufügen</value>
+        <value xml:lang="en">Attach Productfeatures to Category</value>
         <value xml:lang="es">Adjuntar características a categoría de productos</value>
         <value xml:lang="fr">Associé les caractéristiques à la catégorie depuis les articles</value>
         <value xml:lang="it">Associa caratteristiche alla categoria di prodotti</value>
@@ -18988,10 +19003,12 @@
         <value xml:lang="zh_TW">產品分類</value>
     </property>
     <property key="ProductProductCategoryName">
+        <value xml:lang="de">Produktkategorie Name</value>
         <value xml:lang="en">Product Category Name</value>
         <value xml:lang="it">Nome categoria prodotti</value>
     </property>
     <property key="ProductProductCategoryDescription">
+        <value xml:lang="de">Produktkategorie Beschreibung</value>
         <value xml:lang="en">Product Category Description</value>
         <value xml:lang="it">Descrizione categoria prodotti</value>
     </property>

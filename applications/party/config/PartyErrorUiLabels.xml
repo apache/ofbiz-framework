@@ -1157,7 +1157,7 @@
         <value xml:lang="zh_TW">無法更新人員資訊 (讀失敗)：${0}</value>
     </property>
     <property key="person.update.success">
-        <value xml:lang="de">Person erfolgreich aktualisiert.</value>
+        <value xml:lang="de">Persönliche Daten erfolgreich aktualisiert.</value>
         <value xml:lang="en">Person successfully updated.</value>
         <value xml:lang="es">Actualización finalizada correctamente</value>
         <value xml:lang="fr">Personne mise à jour avec succès.</value>
