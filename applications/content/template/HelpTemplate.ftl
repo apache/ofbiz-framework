@@ -54,7 +54,7 @@ under the License.
           </#if>
         <#else>
           <#if subTitle?node_name = "anchor">
-            <a name="${subTitle["@xml:id"]}" />
+            <span id="${subTitle["@xml:id"]}" />
           </#if>
         </#if>
       </#list>
