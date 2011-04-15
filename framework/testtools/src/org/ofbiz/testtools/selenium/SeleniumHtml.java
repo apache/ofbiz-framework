@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilProperties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -41,11 +42,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class SeleniumHtml {
     public static final String module = SeleniumHtml.class.getName();
-    private static Properties props;
     public String host;
     public int port;
     public String browser;
@@ -97,14 +100,13 @@ public class SeleniumHtml {
     public static String runHtmlTestSuite(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map parameters = UtilHttp.getParameterMap(request);
         String para = (String) parameters.get("testSuitePath");
-        props = new Properties();
 
         try {
             SeleniumHtml client = new SeleniumHtml();
-            client.host = props.getProperty("serverHost", "localhost");
-            client.port = Integer.parseInt(props.getProperty("proxyPort", "4444"));
-            client.browser = props.getProperty("browser", "*firefox");
-            client.baseUrl = props.getProperty("startUrl", "http://localhost:8080");
+            client.host = UtilProperties.getPropertyValue("seleniumXml.properties", "serverHost", "localhost");
+            client.port = Integer.parseInt(UtilProperties.getPropertyValue("seleniumXml.properties", "proxyPort", "4444"));
+            client.browser = UtilProperties.getPropertyValue("seleniumXml.properties", "browser", "*firefox");
+            client.baseUrl = UtilProperties.getPropertyValue("seleniumXml.properties", "startUrlHttps", "https://localhost:8443");
 
             if (Debug.infoOn()) {
                 Debug.logInfo("Parameters used for selenium: host: " + client.host
