@@ -66,4 +66,5 @@ under the License.
 
     <!-- example test suite -->
     <SeleniumTestSuitePath testSuiteId="EXAMPLE_TESTSUITE" testSuiteName="example_testsuite" testSuiteType="XML" testSuitePath="framework/testtools/testdef/seleniumxml/example/example_testsuite.xml" description="test suite for example component"/>
+    <SeleniumTestSuitePath testSuiteId="EX_HTML_TESTSUITE" testSuiteName="example_html_testsuite" testSuiteType="HTML" testSuitePath="framework/example/testdef/selenium/testSuite.html" description="HTML test suite for example component"/>
 </entity-engine-xml>

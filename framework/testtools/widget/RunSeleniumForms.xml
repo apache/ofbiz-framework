@@ -23,13 +23,16 @@
     
     <form name="editSeleniumTestSuitePath" target="updateSeleniumTestSuitePath" type="single" title="Add new selenium test suite" default-map-name="testSuitePath"
         header-row-style="header-row" default-table-style="basic-table">
-        
-        <!--alt-target use-when="testSuitePath==null" target="createSeleniumTestSuitePath"/--> 
-        
-        <field name="testSuiteId" use-when="testSuitePath ==  null"><text></text></field>
-        <field name="testSuiteId" use-when="testSuitePath != null"><display></display></field>
-        <field name="testSuiteName"><text></text></field>
-        <field name="testSuitePath"><text></text></field>
+        <field name="testSuiteId" use-when="testSuitePath ==  null"><text/></field>
+        <field name="testSuiteId" use-when="testSuitePath != null"><display/></field>
+        <field name="testSuiteName"><text/></field>
+        <field name="testSuiteType">
+            <drop-down allow-empty="false">
+                <option key="XML" description="XML"/>
+                <option key="HTML" description="HTML"/>
+            </drop-down>
+        </field>
+        <field name="testSuitePath"><text/></field>
         <field name="description"><textarea rows="3"/></field>
         <field name="submitButton" title=""><submit button-type="button"/></field>
     </form>
@@ -41,14 +44,22 @@
                 <parameter param-name="testSuiteId"/>
             </hyperlink>
         </field>
-        <field name="testSuiteName"><display></display></field>
-        <field name="testSuitePath"><display></display></field>
-        <field name="description"><display></display></field>
-        
-        <field name="runTest" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="testSuiteName"><display/></field>
+        <field name="testSuitePath"><display/></field>
+        <field name="description"><display/></field>
+        <field name="testSuiteType"><display/></field>
+        <field name="runTest" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+                use-when="&quot;XML&quot;.equals(testSuiteType)">
             <hyperlink target="runTestSuite"  description="${uiLabelMap.CommonRun}">
                 <parameter param-name="testSuiteId"/>
                 <parameter param-name="testSuitePath" />
+            </hyperlink>
+        </field>
+        <field name="runTest" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+                use-when="&quot;HTML&quot;.equals(testSuiteType)">
+            <hyperlink target="runHtmlSuite" description="${uiLabelMap.CommonRun}">
+                <parameter param-name="testSuiteId"/>
+                <parameter param-name="testSuitePath"/>
             </hyperlink>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
