@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:NS1="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Seq RDF:about="urn:mozilla:item:root">
+    <RDF:li RDF:resource="urn:mozilla:item:langpack-fr@firefox.mozilla.org"/>
+    <RDF:li RDF:resource="urn:mozilla:item:langpack-en-GB@firefox.mozilla.org"/>
+    <RDF:li RDF:resource="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"/>
+    <RDF:li RDF:resource="urn:mozilla:item:ubufox@ubuntu.com"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="urn:mozilla:item:{972ce4c6-7e08-4474-a285-3208198ce6fd}"
+                   NS1:installLocation="app-global"
+                   NS1:version="3.6.16"
+                   NS1:internalName="classic/1.0"
+                   NS1:locked="true"
+                   NS1:appManaged="true"
+                   NS1:name="Default"
+                   NS1:description="The default theme."
+                   NS1:creator="Mozilla"
+                   NS1:contributor="Mozilla Contributors">
+    <NS1:type NC:parseType="Integer">4</NS1:type>
+    <NS1:targetApplication RDF:resource="rdf:#$3MpMS1"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:item:langpack-fr@firefox.mozilla.org"
+                   NS1:installLocation="app-global"
+                   NS1:version="3.6.1195"
+                   NS1:name="Français Language Pack"
+                   NS1:creator="L'équipe FrenchMozilla">
+    <NS1:type NC:parseType="Integer">8</NS1:type>
+    <NS1:contributor>Philippe Dessante</NS1:contributor>
+    <NS1:contributor>Benoît Leseul</NS1:contributor>
+    <NS1:contributor>Vincent Béron</NS1:contributor>
+    <NS1:contributor>Cédric Corazza</NS1:contributor>
+    <NS1:contributor>Marie Léger-St-Jean</NS1:contributor>
+    <NS1:contributor>Jérôme Schell</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$nMpMS1"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="urn:mozilla:item:ubufox@ubuntu.com"
+                   NS1:installLocation="app-system-share"
+                   NS1:version="0.9rc2"
+                   NS1:iconURL="chrome://ubufox/content/ubuntulogo32.png"
+                   NS1:name="Ubuntu Firefox Modifications"
+                   NS1:description="Ubuntu configuration defaults and apt support for firefox extensions/plugins."
+                   NS1:creator="Canonical Ltd.">
+    <NS1:type NC:parseType="Integer">2</NS1:type>
+    <NS1:contributor>Alexander Sack &lt;asac@ubuntu.com&gt;</NS1:contributor>
+    <NS1:contributor>Sasa Bodiroza &lt;jazzva@gmail.com&gt;</NS1:contributor>
+    <NS1:contributor>Daniel Abramov &lt;ex@vingrad.ru&gt;</NS1:contributor>
+    <NS1:contributor>Arzhel Younsi &lt;xionox@gmail.com&gt;</NS1:contributor>
+    <NS1:contributor>Saïvann Carignan &lt;oxmosys@gmail.com&gt;</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$QLpMS1"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$nMpMS1"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.6b2"
+                   NS1:maxVersion="3.6.*" />
+  <RDF:Description RDF:about="rdf:#$3MpMS1"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.6.16"
+                   NS1:maxVersion="3.6.16" />
+  <RDF:Description RDF:about="urn:mozilla:item:langpack-en-GB@firefox.mozilla.org"
+                   NS1:installLocation="app-global"
+                   NS1:version="3.6.160"
+                   NS1:name="English (GB)  Language Pack"
+                   NS1:creator="Mark Tyndall">
+    <NS1:type NC:parseType="Integer">8</NS1:type>
+    <NS1:contributor>David Bartlett</NS1:contributor>
+    <NS1:contributor>Constantine Murenin</NS1:contributor>
+    <NS1:targetApplication RDF:resource="rdf:#$bMpMS1"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$bMpMS1"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="3.6b2"
+                   NS1:maxVersion="3.6.*" />
+  <RDF:Description RDF:about="rdf:#$QLpMS1"
+                   NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   NS1:minVersion="1.5"
+                   NS1:maxVersion="3.7.*" />
+</RDF:RDF>
