@@ -68,6 +68,12 @@
         <security https="true" auth="true"/>
         <response name="success" type="request" value="selenium"/>
     </request-map>
+
+    <request-map uri="runHtmlSuite">
+        <event type="java" path="org.ofbiz.testtools.selenium.SeleniumHtml" invoke="runHtmlTestSuite"/>
+        <response name="success" type="view" value="selenium" />
+        <response name="error" type="view" value="selenium" />
+    </request-map>
     
     <!--  selenium Test Case -->
     <view-map name="selenium" type="screen" page="component://testtools/widget/CommonScreens.xml#selenium"/>

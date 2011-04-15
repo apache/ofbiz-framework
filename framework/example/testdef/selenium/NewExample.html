@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>NewExample</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">NewFeature</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/example/control/setSessionLocale?newLocale=en</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/example/control/logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>USERNAME</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>PASSWORD</td>
+	<td>ofbiz</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Login']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>OFBiz: Example: Find Example</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/example/control/FindExample?portalPageId=Example</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>New Example</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=New Example</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>EditExample_statusId</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>EditExample_statusId</td>
+	<td>label=Defined</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>EditExample_exampleName</td>
+	<td>New Example 1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>EditExample_description</td>
+	<td>This is a description</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>EditExample_longDescription</td>
+	<td>Long description goes here</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>EditExample_comments</td>
+	<td>comments go here</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>EditExample_exampleSize</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@class='ui-datepicker-trigger'][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[contains(text(),'Now')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[contains(text(),'Done')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>EditExample_anotherText</td>
+	<td>label=Contrived</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submitButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='search-results']//a[@class='buttontext']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='search-results']//a[@class='buttontext']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Items</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>description</td>
+	<td>Item 1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>amount</td>
+	<td>100</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>amountUomId</td>
+	<td>label=Weight: Stone (st)</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@name='submitButton' and @value='Add']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Do you confirm ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Example</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/example/control/logout</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
