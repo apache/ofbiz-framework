@@ -19,28 +19,10 @@
 
 package org.ofbiz.testtools.seleniumxml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.SeleniumException;
 import javolution.util.FastMap;
 import junit.framework.Assert;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.BasicConfigurator;
@@ -50,21 +32,22 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.testtools.seleniumxml.DataLoader;
-import org.ofbiz.testtools.seleniumxml.DataLoop;
-import org.ofbiz.testtools.seleniumxml.GroovyRunner;
-import org.ofbiz.testtools.seleniumxml.JythonRunner;
-import org.ofbiz.testtools.seleniumxml.RemoteRequest;
-import org.ofbiz.testtools.seleniumxml.TestCaseException;
+import org.ofbiz.base.util.*;
 import org.ofbiz.testtools.seleniumxml.util.TestUtils;
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.SeleniumException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SeleniumXml {
     public static String PROPS_NAME = "selenium.config";
