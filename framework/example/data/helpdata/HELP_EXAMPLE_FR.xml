@@ -36,6 +36,7 @@ License.
         Pour avoir la liste complète, cliquez sur le bouton "Index" et regardez l'arborescence de l'aide. Voici aussi une liste
         de raccourcis :
         <itemizedlist>
+          <listitem><para>Comment fonctionne <link xl:href="showHelp?helpTopic=DOCUMENTATION_SYSTEM">le système de documentation d'Apache OFBiz</link></para></listitem>
           <listitem><para><link xl:href="showHelp?helpTopic=EXAMPLE_docbook">Ce qu'il est possible de faire dans les fichiers d'aide</link></para></listitem>
         </itemizedlist>
       </para>
