@@ -79,6 +79,8 @@ under the License.
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <override name="firstName" mode="IN" type="String" optional="false"/>
+        <override name="lastName" mode="IN" type="String" optional="false"/>
     </service>
     <service name="createPersonAndUserLogin" engine="simple" require-new-transaction="true"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="createPersonAndUserLogin" auth="false">
