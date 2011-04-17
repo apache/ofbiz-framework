@@ -36,6 +36,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
@@ -46,6 +47,7 @@ import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
+import org.ofbiz.product.product.ProductWorker;
 
 
 public class ProductDisplayWorker {
@@ -282,6 +284,14 @@ public class ProductDisplayWorker {
                 String prodId = entry.getKey();
                 Integer quantity = entry.getValue();
                 BigDecimal occs = productQuantities.get(prodId);
+                //For quantity we should test if we allow to add decimal quantity for this product an productStore : if not then round to 0
+                if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, (String)prodId, cart.getProductStoreId())){
+                    occs = occs.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                }
+                else {
+                    occs = occs.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                }
+                productQuantities.put(prodId, occs);
                 BigDecimal nqdbl = quantityModifier.multiply(new BigDecimal(quantity)).add(occs.multiply(occurancesModifier));
 
                 newMetric.put(prodId, nqdbl);

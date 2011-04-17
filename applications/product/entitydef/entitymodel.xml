@@ -2729,6 +2729,7 @@ under the License.
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="inShippingBox" type="indicator"></field>
       <field name="defaultShipmentBoxTypeId" type="id"></field>
+      <field name="orderDecimalQuantity" type="indicator"><description>use to indicate if decimal quantity can be ordered for this product. Default value is Y</description></field>
       <prim-key field="productId"/>
       <relation type="one" fk-name="PROD_TYPE" rel-entity-name="ProductType">
         <key-map field-name="productTypeId"/>
@@ -3755,6 +3756,7 @@ under the License.
       <field name="addToCartReplaceUpsell" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</description></field>
       <field name="splitPayPrefPerShpGrp" type="indicator"><description>Default N. If Y then before the order is stored the OrderPaymentPreference record will be split, one for each OrderItemShipGroup.</description></field>
       <field name="showOutOfStockProducts" type="indicator"><description>Default Y. If N then out of stock products will not be displayed on site</description></field>
+      <field name="orderDecimalQuantity" type="indicator"><description>use to indicate if decimal quantity can be ordered for this producStore. Default value is Y</description></field>
         
         <!-- old fields, deprecated -->
         <field name="oldStyleSheet" col-name="STYLE_SHEET" type="url"></field>
