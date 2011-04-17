@@ -300,7 +300,15 @@ ${item.description}</span>
 <#macro renderFormClose focusFieldName formName>
     </form><#lt/>
     <#if focusFieldName?has_content>
-        <script language="JavaScript" type="text/javascript">document.${formName}.${focusFieldName}.focus();</script><#lt/>
+        <script language="JavaScript" type="text/javascript">
+          var form = document.${formName};
+          form.${focusFieldName}.focus();
+          <#-- enable the validation plugin for all generated forms
+               only enable the validation if min one field is marked as 'required' -->
+          if (jQuery(form).find(".required").size() > 0) {
+            jQuery(form).validate();
+          }
+        </script><#lt/>
     </#if>
 </#macro>
 <#macro renderMultiFormClose>
