@@ -305,6 +305,9 @@
         <field name="reqReturnInventoryReceive">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
+        <field name="orderDecimalQuantity" tooltip="${uiLabelMap.ProductOrderDecimalQuantityExistsToOverride}">
+            <drop-down allow-empty="true" ><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <sort-order>
             <field-group>
@@ -336,6 +339,7 @@
                 <sort-field name="addToCartRemoveIncompat"/>
                 <sort-field name="showCheckoutGiftOptions"/>
                 <sort-field name="prodSearchExcludeVariants"/>
+                <sort-field name="orderDecimalQuantity"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShipping}" collapsible="true" initially-collapsed="true">
                 <sort-field name="prorateShipping"/>

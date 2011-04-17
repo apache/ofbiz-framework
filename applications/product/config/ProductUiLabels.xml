@@ -3860,6 +3860,10 @@
         <value xml:lang="zh">一个库存场所</value>
         <value xml:lang="zh_TW">存貨場所嗎</value>
     </property>
+    <property key="FormFieldTitle_orderDecimalQuantity">
+        <value xml:lang="en">Allow order decimal quantity</value>
+        <value xml:lang="fr">Accepte les commandes à quantité décimale</value>
+    </property>
     <property key="FormFieldTitle_orderFlatPrice">
         <value xml:lang="de">Auftrag Pauschalpreis</value>
         <value xml:lang="en">Order Flat Price</value>
@@ -17671,6 +17675,10 @@
         <value xml:lang="th">OR enter a Container ID</value>
         <value xml:lang="zh">或者输入一个容器标识</value>
         <value xml:lang="zh_TW">或者輸入一個容器ID</value>
+    </property>
+    <property key="ProductOrderDecimalQuantityExistsToOverride">
+        <value xml:lang="en">Allow decimal quantity to order can be define by product</value>
+        <value xml:lang="fr">La possibilité de commandé une quantité décimal peut être définie par produit</value>
     </property>
     <property key="ProductOrderId">
         <value xml:lang="de">Auftrag ID</value>

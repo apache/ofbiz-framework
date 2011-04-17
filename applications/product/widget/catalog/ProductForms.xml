@@ -257,6 +257,9 @@ under the License.
         <field use-when="product!=null" position="2" name="createdByText" title="${uiLabelMap.CommonCreatedBy}:">
             <display description="[${product.createdByUserLogin}] ${uiLabelMap.CommonOn} ${product.createdDate}" also-hidden="false"/>
         </field>
+        <field name="orderDecimalQuantity" >
+            <drop-down allow-empty="true" ><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
         <sort-order>
             <field-group>
                 <sort-field name="productId"/>
@@ -321,6 +324,9 @@ under the License.
                 <sort-field name="inShippingBox"/>
                 <sort-field name="defaultShipmentBoxTypeId"/>
                 <sort-field name="chargeShipping"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
+                <sort-field name="orderDecimalQuantity"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonMiscellaneous}" collapsible="true" initially-collapsed="true">
                 <sort-field name="returnable"/>
