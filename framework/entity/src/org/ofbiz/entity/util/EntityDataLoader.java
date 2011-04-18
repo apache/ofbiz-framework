@@ -98,7 +98,7 @@ public class EntityDataLoader {
                 }
 
                 // get all of the main resource model stuff, ie specified in the entityengine.xml file
-                EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName);
+                EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName.trim());
 
                 if (entityDataReaderInfo == null) {
                     Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
