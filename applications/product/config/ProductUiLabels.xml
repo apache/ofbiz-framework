@@ -17678,7 +17678,7 @@
     </property>
     <property key="ProductOrderDecimalQuantityExistsToOverride">
         <value xml:lang="en">Allow decimal quantity to order can be define by product</value>
-        <value xml:lang="fr">La possibilité de commandé une quantité décimal peut être définie par produit</value>
+        <value xml:lang="fr">La possibilité de commander une quantité décimale peut être définie par produit</value>
     </property>
     <property key="ProductOrderId">
         <value xml:lang="de">Auftrag ID</value>
