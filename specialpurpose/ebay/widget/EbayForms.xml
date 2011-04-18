@@ -180,7 +180,7 @@ under the License.
         <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
             <drop-down no-current-selected-key="${ebayConfig.webSiteId}">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options description="${siteName}" entity-name="WebSite" key-field-name="webSiteId">
+                <entity-options description="${siteName} [${webSiteId}]" entity-name="WebSite" key-field-name="webSiteId">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
             </drop-down>
