@@ -177,10 +177,10 @@ under the License.
         <field name="xmlGatewayUri"><text size="40"/></field>
         <field name="apiServerUrl"><text size="40"/></field>
         <field name="customXml"><textarea cols="60" rows="5"/></field> 
-        <field name="webSiteId" title="${uiLabelMap.ProductWebSite}">
-            <drop-down>
+        <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
+            <drop-down no-current-selected-key="${ebayConfig.webSiteId}">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options description="${siteName}" entity-name="WebSite">
+                <entity-options description="${siteName}" entity-name="WebSite" key-field-name="webSiteId">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
             </drop-down>
@@ -259,10 +259,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="webSiteId" title="${uiLabelMap.ProductWebSite}">
-            <drop-down>
+        <field name="websiteId" field-name="webSiteId" parameter-name="webSiteId" title="${uiLabelMap.ProductWebSite}">
+            <drop-down no-current-selected-key="${parameters.webSiteId}">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]">
+                <entity-options entity-name="WebSite" description="${siteName} [${webSiteId}]" key-field-name="webSiteId">
                     <entity-order-by field-name="siteName"/>
                 </entity-options>
             </drop-down>
