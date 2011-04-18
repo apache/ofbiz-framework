@@ -51,13 +51,13 @@ under the License.
     <Geo abbreviation="粤" geoCode="44" geoId="CN-44" geoName="广东" geoTypeId="PROVINCE" wellKnownText="Guangdong"/>
     <Geo abbreviation="闽" geoCode="35" geoId="CN-35" geoName="福建" geoTypeId="PROVINCE" wellKnownText="Fujian"/>
     <Geo abbreviation="台" geoCode="71" geoId="CN-71" geoName="台湾" geoTypeId="PROVINCE" wellKnownText="Taiwan"/>
-    <Geo abbreviation="桂" geoCode="45" geoId="CN-45" geoName="广西" geoTypeId="REGION" wellKnownText="Guangxi"/>
-    <Geo abbreviation="内蒙古" geoCode="15" geoId="CN-15" geoName="内蒙古" geoTypeId="REGION" wellKnownText="Inner Mongolia"/>
-    <Geo abbreviation="宁" geoCode="64" geoId="CN-64" geoName="宁夏" geoTypeId="REGION" wellKnownText="Ningxia"/>
-    <Geo abbreviation="新" geoCode="65" geoId="CN-65" geoName="新疆" geoTypeId="REGION" wellKnownText="Xinjiang"/>
-    <Geo abbreviation="藏" geoCode="54" geoId="CN-54" geoName="西藏" geoTypeId="REGION" wellKnownText="Tibet"/>
-    <Geo abbreviation="香港" geoCode="91" geoId="CN-91" geoName="香港" geoTypeId="REGION" wellKnownText="Hong Kong"/>
-    <Geo abbreviation="澳门" geoCode="92" geoId="CN-92" geoName="澳门" geoTypeId="REGION" wellKnownText="Macau"/>
+    <Geo abbreviation="桂" geoCode="45" geoId="CN-45" geoName="广西" geoTypeId="MUNICIPALITY" wellKnownText="Guangxi"/>
+    <Geo abbreviation="内蒙古" geoCode="15" geoId="CN-15" geoName="内蒙古" geoTypeId="MUNICIPALITY" wellKnownText="Inner Mongolia"/>
+    <Geo abbreviation="宁" geoCode="64" geoId="CN-64" geoName="宁夏" geoTypeId="MUNICIPALITY" wellKnownText="Ningxia"/>
+    <Geo abbreviation="新" geoCode="65" geoId="CN-65" geoName="新疆" geoTypeId="MUNICIPALITY" wellKnownText="Xinjiang"/>
+    <Geo abbreviation="藏" geoCode="54" geoId="CN-54" geoName="西藏" geoTypeId="MUNICIPALITY" wellKnownText="Tibet"/>
+    <Geo abbreviation="香港" geoCode="91" geoId="CN-91" geoName="香港" geoTypeId="MUNICIPALITY" wellKnownText="Hong Kong"/>
+    <Geo abbreviation="澳门" geoCode="92" geoId="CN-92" geoName="澳门" geoTypeId="MUNICIPALITY" wellKnownText="Macau"/>
 
     <GeoAssoc geoId="CHN" geoIdTo="CN-11" geoAssocTypeId="REGIONS"/>    
     <GeoAssoc geoId="CHN" geoIdTo="CN-50" geoAssocTypeId="REGIONS"/>
@@ -86,6 +86,8 @@ under the License.
     <GeoAssoc geoId="CHN" geoIdTo="CN-44" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="CHN" geoIdTo="CN-35" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="CHN" geoIdTo="CN-71" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-45" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHN" geoIdTo="CN-15" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="CHN" geoIdTo="CN-64" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="CHN" geoIdTo="CN-65" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="CHN" geoIdTo="CN-54" geoAssocTypeId="REGIONS"/>

@@ -91,7 +91,7 @@ public class CommonWorkers {
         List<GenericValue> geoList = FastList.newInstance();
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
                 EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
-                EntityCondition.makeCondition("geoTypeId", "TERRITORY"));
+                EntityCondition.makeCondition("geoTypeId", "TERRITORY"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"));
         List<String> sortList = UtilMisc.toList("geoName");
         try {
             geoList = delegator.findList("Geo", condition, null, sortList, null, true);
@@ -119,6 +119,7 @@ public class CommonWorkers {
                 EntityCondition.makeCondition(EntityOperator.OR,
                         EntityCondition.makeCondition("geoTypeId", "STATE"),
                         EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
+                        EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"),
                         EntityCondition.makeCondition("geoTypeId", "COUNTY")));
 
         if (UtilValidate.isEmpty(listOrderBy)) {
