@@ -56,6 +56,7 @@ import com.ebay.soap.eBLBaseComponents.StoreColorType;
 import com.ebay.soap.eBLBaseComponents.StoreFontType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeArrayType;
 import com.ebay.soap.eBLBaseComponents.StoreThemeType;
+import com.ebay.soap.eBLBaseComponents.StoreCustomCategoryType;
 
 public class EbayStoreOptions {
 
@@ -276,4 +277,64 @@ public class EbayStoreOptions {
             } 
         }
     }
+    
+    public static String retrieveEbayStoreCategoryByParent(HttpServletRequest request, HttpServletResponse response) {
+        List<StoreCustomCategoryType> results = FastList.newInstance();
+        try {
+            Map paramMap = UtilHttp.getCombinedMap(request);
+            if (paramMap.get("productStoreId") != null) {
+                String ebayStoreCategory = (String)paramMap.get("ebayCategoryId");
+                // when change category should be remove old category from session
+                if (ebayStoreCategory.indexOf("CH_") != -1) {
+                    ebayStoreCategory = ebayStoreCategory.replace("CH_", "");
+                    if (UtilValidate.isNotEmpty(ebayStoreCategory)) {
+                        ApiContext apiContext = EbayEvents.getApiContext(request);
+                        Map<String,Object> addItemObject = EbayEvents.getAddItemListingObject(request, apiContext);
+                        String refName = "itemCateFacade_".concat(ebayStoreCategory);
+                        if (UtilValidate.isNotEmpty(addItemObject.get(refName))) {
+                            addItemObject.remove(refName);
+                        }
+                    }
+                    ebayStoreCategory = "";
+                }
+                request.setAttribute("productStoreId", paramMap.get("productStoreId"));
+                request.setAttribute("categoryId", ebayStoreCategory);
+                ApiContext apiContext = EbayEvents.getApiContext(request);
+                EbayStoreSiteFacade sf = EbayEvents.getSiteFacade(apiContext,request);
+                results = EbayEvents.getStoreChildCategories(request);
+                if (UtilValidate.isNotEmpty(results)) {
+                    List<Map<String,Object>> categories = FastList.newInstance();
+                    for (StoreCustomCategoryType category : results) {
+                        Map<String,Object> context = FastMap.newInstance();
+                        context.put("CategoryCode", category.getCategoryID());
+                        context.put("CategoryName", category.getName());
+                        String isLeaf = "false";
+                        if (category.getChildCategory().length == 0) {
+                            isLeaf = "true";
+                        } else {
+                            isLeaf = "false";
+                        }
+                        //String isLeaf = String.valueOf(category.getChildCategory().!= null ? "true" : "false");
+                        context.put("IsLeafCategory", isLeaf);
+                        categories.add(context);
+                    }
+                    if (categories.size() > 0) {
+                        toJsonObjectList(categories,response);
+                    }
+                }
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (EventHandlerException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (ApiException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (SdkException e) {
+            Debug.logError(e.getMessage(), module);
+        } catch (Exception e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        return "success";
+    }
+
 }

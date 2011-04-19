@@ -294,7 +294,7 @@
     <request-map uri="retrieveEbayStoreCategoryByParent">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.ebaystore.EbayStoreOptions" invoke="retrieveEbayStoreCategoryByParent"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="request" value="json"/>
     </request-map>
     <request-map uri="clearExpListing">
         <security https="true" auth="true"/>

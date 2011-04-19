@@ -427,6 +427,7 @@ public class EbayEvents {
 
     public static List<StoreCustomCategoryType> getStoreChildCategories(HttpServletRequest request) throws ApiException, SdkException, Exception {
         List<StoreCustomCategoryType> categories = FastList.newInstance();
+        List<StoreCustomCategoryType> csCateList = FastList.newInstance();
         EbayStoreSiteFacade sf = null;
         String categoryId = null;
 
@@ -445,22 +446,21 @@ public class EbayEvents {
         sf = getSiteFacade(apiContext,request);
         if (UtilValidate.isNotEmpty(sf)) {
             Map<SiteCodeType, List<StoreCustomCategoryType>> csCateMaps = sf.getSiteStoreCategoriesMap();
-            List<StoreCustomCategoryType> csCateList = csCateMaps.get(apiContext.getSite());
+            csCateList = csCateMaps.get(apiContext.getSite());
             if (UtilValidate.isNotEmpty(csCateList)) {
-                for (StoreCustomCategoryType csCate : csCateList) {
-                    StoreCustomCategoryType[] categoryChildCategories = csCate.getChildCategory();
-                    if (categoryChildCategories.length > 0) {
-                        for (StoreCustomCategoryType childCategory : categoryChildCategories) {
-                            StoreCustomCategoryType[] categoryChild2 = childCategory.getChildCategory();
-                            if (categoryChild2.length > 0) {
-                                for (StoreCustomCategoryType categoryChild3 : categoryChild2) {
-                                    categories.add(categoryChild3);
-                                }
-                            } else {
-                                categories.add(childCategory);
+                if (UtilValidate.isNotEmpty(categoryId)) {
+                    // find child of selected ebay categories 
+                    for (StoreCustomCategoryType csCate : csCateList) {
+                        if (categoryId.equals(String.valueOf(csCate.getCategoryID()))) {
+                            StoreCustomCategoryType [] childCategories = csCate.getChildCategory();
+                            for (StoreCustomCategoryType childCategoryId : childCategories) {
+                                categories.add(childCategoryId);
                             }
                         }
-                    } else {
+                    }
+                } else {
+                    // find first level of ebay categories
+                    for (StoreCustomCategoryType csCate : csCateList) {
                         categories.add(csCate);
                     }
                 }
@@ -832,12 +832,27 @@ public class EbayEvents {
                         }
                         StorefrontType storeFront = new StorefrontType();
                         if (UtilValidate.isNotEmpty(requestParams.get("ebayStore1Category"))) {
-                            storeFront.setStoreCategoryID(new Long(requestParams.get("ebayStore1Category").toString()));
-                            attributeMapList.put("StoreCategoryID", requestParams.get("ebayStore1Category").toString());
+                            String ebayStore1Category = (String)requestParams.get("ebayStore1Category");
+                            if (ebayStore1Category.contains("false")) {
+                                request.setAttribute("_ERROR_MESSAGE_","Please select ebay store category with low level of categories.");
+                                return "error";
+                            } else {
+                                if (ebayStore1Category.contains("true")) ebayStore1Category = ebayStore1Category.substring(0,ebayStore1Category.indexOf(":"));
+                            }
+                            storeFront.setStoreCategoryID(new Long(ebayStore1Category));
+                            attributeMapList.put("StoreCategoryID", ebayStore1Category);
+
                         }
                         if (UtilValidate.isNotEmpty(requestParams.get("ebayStore2Category"))) {
-                            storeFront.setStoreCategory2ID(new Long(requestParams.get("ebayStore2Category").toString()));
-                            attributeMapList.put("StoreCategory2ID", requestParams.get("ebayStore2Category").toString());
+                            String ebayStore2Category = (String)requestParams.get("ebayStore2Category");
+                            if (ebayStore2Category.contains("false")) {
+                                request.setAttribute("_ERROR_MESSAGE_","Please select ebay store category with low level of categories.");
+                                return "error";
+                            } else {
+                                if (ebayStore2Category.contains("true")) ebayStore2Category = ebayStore2Category.substring(0,ebayStore2Category.indexOf(":"));
+                            }
+                            storeFront.setStoreCategory2ID(new Long(ebayStore2Category));
+                            attributeMapList.put("StoreCategory2ID", ebayStore2Category);
                         }
                         if (UtilValidate.isNotEmpty(requestParams.get("ebayStore1Category")) || UtilValidate.isNotEmpty(requestParams.get("ebayStore2Category"))) {
                             item.setStorefront(storeFront);
