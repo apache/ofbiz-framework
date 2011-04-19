@@ -1104,6 +1104,9 @@ public class OrderServices {
            while (orderTermIter.hasNext()) {
                GenericValue orderTerm = orderTermIter.next();
                orderTerm.set("orderId", orderId);
+               if (orderTerm.get("orderItemSeqId") == null) {
+                   orderTerm.set("orderItemSeqId", "_NA_");
+               }
                toBeStored.add(orderTerm);
            }
        }
