@@ -81,7 +81,8 @@
      request.setAttribute("productStoreId", productStoreId);
      categories = EbayEvents.getChildCategories(request);
      context.categories = categories;
-     
+     storeCategories = EbayEvents.getStoreChildCategories(request);
+     context.storeCategories = storeCategories;
      
      // point product tab id 
      productId = null;

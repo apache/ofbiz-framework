@@ -233,6 +233,7 @@ under the License.
                  <#assign requireEbayInventory = addItemObj.requireEbayInventory?if_exists>
                  <#assign item = addItem.getItem()?if_exists>
                  <#assign primaryCate = item.getPrimaryCategory()?if_exists>
+                 <#assign storeFront = item.getStorefront()?if_exists>
                  <#if isProductId == item.getSKU()?if_exists>
                      <input type="hidden" name="productId" value="${item.getSKU()?if_exists}"/>
                      <#assign smallImageUrl = "">
@@ -320,24 +321,25 @@ under the License.
                                             <td>
                                               <div>
                                                   <div id="loading"></div>
-                                                  <select id="ebayStore1Category" name="ebayStore1Category">
+                                                  <select id="ebayStore1Category" name="ebayStore1Category" onchange="retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayStoreCategoryByParent</@ofbizUrl>',this.value,'${productStoreId}','ebayStore1Category')">
                                                         <option value="">Please select</option>
+                                                        <option value="">------</option>
                                                         <#if storeCategories?exists>
                                                             <#if storeFront?has_content>
-                                                                <#if !storeFront.isLeafCategory()?has_content> 
+                                                                <#--if !storeFront.isLeafCategory()?has_content> 
                                                                     <#assign  leafCate  = "false">
                                                                 <#else>
                                                                     <#assign  leafCate  = "true">
-                                                                </#if>
+                                                                </#if-->
                                                                 <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
                                                                  <option selected="selected" value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
                                                             <#else>
                                                                 <#list storeCategories as csCate>
-                                                                    <#if !csCate.IsLeafCategory?has_content> 
+                                                                    <#--if !csCate.IsLeafCategory?has_content> 
                                                                         <#assign  leafCate  = "false">
                                                                     <#else>
                                                                         CH_${storeFront.getStoreCategoryID()?if_exists}<#assign  leafCate  = "true">
-                                                                    </#if>
+                                                                    </#if-->
                                                                     <#assign categoryId = csCate.getCategoryID()?if_exists>
                                                                     <option value="${csCate.getCategoryID()?if_exists}" >${csCate.getName()?if_exists}</option>
                                                                 </#list>
@@ -353,24 +355,24 @@ under the License.
                                             <td>
                                               <div>
                                                   <div id="loading"></div>
-                                                  <select id="ebayStore2Category" name="ebayStore2Category">
+                                                  <select id="ebayStore2Category" name="ebayStore2Category" onchange="retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayStoreCategoryByParent</@ofbizUrl>',this.value,'${productStoreId}','ebayStore2Category')">
                                                         <option value="">Please select</option>
                                                         <#if storeCategories?exists>
                                                             <#if storeFront?has_content>
-                                                                <#if !storeFront.isLeafCategory()?has_content> 
+                                                                <#--if !storeFront.isLeafCategory()?has_content> 
                                                                     <#assign  leafCate  = "false">
                                                                 <#else>
                                                                     <#assign  leafCate  = "true">
-                                                                </#if>
-                                                                <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
-                                                                 <option selected="selected" value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
+                                                                </#if-->
+                                                                <#assign storeCate2Id  = storeFront.getStoreCategory2ID()?if_exists>
+                                                                 <option selected="selected" value="${storeFront.getStoreCategory2ID()?if_exists}" >${storeFront.getStoreCategory2ID()?if_exists}</option>
                                                             <#else>
                                                                 <#list storeCategories as csCate>
-                                                                    <#if !csCate.IsLeafCategory?has_content> 
+                                                                    <#--if !csCate.IsLeafCategory?has_content> 
                                                                         <#assign  leafCate  = "false">
                                                                     <#else>
                                                                         CH_${storeFront.getStoreCategoryID()?if_exists}<#assign  leafCate  = "true">
-                                                                    </#if>
+                                                                    </#if-->
                                                                     <#assign categoryId = csCate.getCategoryID()?if_exists>
                                                                     <option value="${csCate.getCategoryID()?if_exists}" >${csCate.getName()?if_exists}</option>
                                                                 </#list>
@@ -378,7 +380,7 @@ under the License.
                                                         </#if>
                                                   </select>
                                               </div>
-                                              <input type="hidden" name="storeCate2Id" value="${storeCate1Id?if_exists}"/>
+                                              <input type="hidden" name="storeCate2Id" value="${storeCate2Id?if_exists}"/>
                                             </td>
                                         </tr>
                                         <tr>
