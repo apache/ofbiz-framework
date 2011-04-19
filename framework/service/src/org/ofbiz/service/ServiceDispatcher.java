@@ -596,9 +596,19 @@ public class ServiceDispatcher {
 
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
         if (Debug.timingOn() && timeToRun > 50) {
-            Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + result.toString() + "]", module);
-        } else if (timeToRun > 200) {
-            Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + result.toString() + "]", module);
+            // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
+            String resultStr = result.toString();
+            if (resultStr.length() > 10240) {
+                resultStr = resultStr.substring(0, 10226) + "...[truncated]";
+            }
+            Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + resultStr + "]", module);
+        } else if (timeToRun > 200 && Debug.infoOn()) {
+            // Sanity check - some service results can be multiple MB in size. Limit message size to 10K.
+            String resultStr = result.toString();
+            if (resultStr.length() > 10240) {
+                resultStr = resultStr.substring(0, 10226) + "...[truncated]";
+            }
+            Debug.logInfo("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds with response [" + resultStr + "]", module);
         }
 
         return result;
