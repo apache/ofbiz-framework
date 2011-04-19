@@ -39,11 +39,7 @@ under the License.
     <!-- org.ofbiz.example.example -->
     <!-- ========================================================= -->
 
-    <entity entity-name="Example"
-            package-name="org.ofbiz.example.example"
-            title="Example Entity"
-            default-resource-name="ExampleEntityLabels"
-            >
+    <entity entity-name="Example" package-name="org.ofbiz.example.example" title="Example Entity">
         <field name="exampleId" type="id-ne"><description>primary sequenced ID</description></field>
         <field name="exampleTypeId" type="id-ne"></field>
         <field name="statusId" type="id-ne"></field>

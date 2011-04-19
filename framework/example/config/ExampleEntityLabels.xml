@@ -69,6 +69,22 @@
         <value xml:lang="th">สภาพที่เป็นจริง</value>
         <value xml:lang="zh">真实世界</value>
     </property>
+
+    <!-- Entity descriptions. The Web Tools component will use these properties
+        for online documentation. Entity description property keys have the form:
+        EntityDescription.[entityname].
+    -->
+    <property key="EntityDescription.Example">
+        <value xml:lang="en">Example Entity</value>
+    </property>
+
+    <!-- Entity field descriptions. The Web Tools component will use these properties
+        for online documentation. Field description property keys have two forms:
+        FieldDescription.[fieldname] - will be used for all fields of that name
+        FieldDescription.[entityname].[fieldname] - will be used for the specified
+        entity field
+    -->
+
     <property key="FieldDescription.Example.exampleId">
         <value xml:lang="en">A unique Example ID. If you don't assign an ID, one will be generated automatically</value>
         <value xml:lang="fr">Une réf. unique d'exemple. Si vous n'entrez pas de réf., elle sera générée automatiquement</value>
@@ -134,12 +150,6 @@
         <value xml:lang="th">ตัวอย่างวันที่</value>
         <value xml:lang="zh">样例日期</value>
     </property>
-    <!-- Entity field descriptions. The Webtools component will use these properties
-        for online documentation. Field description properties have two forms:
-        FieldDescription.[fieldname] - will be used for all fields of that name
-        FieldDescription.[entityname].[fieldname] - will be used for the specified
-        entity field
-    -->
     <property key="FieldDescription.exampleId">
         <value xml:lang="en">Example ID</value>
         <value xml:lang="fr">Réf. d'exemple</value>
