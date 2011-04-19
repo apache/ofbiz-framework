@@ -24,6 +24,7 @@ import java.util.TimeZone;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.UtilValidate;
 import org.w3c.dom.Element;
 
 /**
@@ -99,7 +100,7 @@ public class ModelInfo {
     // Strings to go in the comment header.
     /** The title for documentation purposes */
     public String getTitle() {
-        return this.title != null ? this.title : def.getTitle();
+        return UtilValidate.isNotEmpty(this.title) ? this.title : def.getTitle();
     }
 
     public void setTitle(String title) {
@@ -108,7 +109,7 @@ public class ModelInfo {
 
     /** The description for documentation purposes */
     public String getDescription() {
-        return this.description != null ? this.description : def.getDescription();
+        return UtilValidate.isNotEmpty(this.description) ? this.description : def.getDescription();
     }
 
     public void setDescription(String description) {
@@ -117,7 +118,7 @@ public class ModelInfo {
 
     /** The copyright for documentation purposes */
     public String getCopyright() {
-        return this.copyright != null ? this.copyright : def.getCopyright();
+        return UtilValidate.isNotEmpty(this.copyright) ? this.copyright : def.getCopyright();
     }
 
     public void setCopyright(String copyright) {
@@ -126,7 +127,7 @@ public class ModelInfo {
 
     /** The author for documentation purposes */
     public String getAuthor() {
-        return this.author != null ? this.author : def.getAuthor();
+        return UtilValidate.isNotEmpty(this.author) ? this.author : def.getAuthor();
     }
 
     public void setAuthor(String author) {
@@ -135,7 +136,7 @@ public class ModelInfo {
 
     /** The version for documentation purposes */
     public String getVersion() {
-        return this.version != null ? this.version : def.getVersion();
+        return UtilValidate.isNotEmpty(this.version) ? this.version : def.getVersion();
     }
 
     public void setVersion(String version) {
@@ -144,7 +145,7 @@ public class ModelInfo {
 
     /** The default-resource-name of the Entity */
     public String getDefaultResourceName() {
-        return this.defaultResourceName != null ? this.defaultResourceName : def.getDefaultResourceName();
+        return UtilValidate.isNotEmpty(this.defaultResourceName) ? this.defaultResourceName : def.getDefaultResourceName();
     }
 
     public void setDefaultResourceName(String defaultResourceName) {
