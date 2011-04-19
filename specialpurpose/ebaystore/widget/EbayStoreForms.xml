@@ -120,6 +120,28 @@ value="${bsh:billingAccount != null ? org.ofbiz.accounting.payment.BillingAccoun
         <field name="currentPasswordVerify"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
+    <form name="AddCatalog" type="single" target="associateCatalogToStore">
+        <field name="productStoreId"><hidden /></field>
+        <field name="catalogName" parameter-name="prodCatalogId">
+            <drop-down>
+                <list-options list-name="prodCatalogList" key-name="prodCatalogId" description="${catalogName}"/>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>
+    <form name="CatalogList" type="list" list-name="prodStoreCatalogList" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="productStoreId"><display/></field>
+        <field name="prodCatalogId">
+            <display-entity entity-name="ProdCatalog" description="${catalogName}" key-field-name="prodCatalogId"/>
+        </field>
+        <field name="delete" widget-style="buttontext">
+            <hyperlink target="removeCatalogFromStore" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="prodCatalogId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
     <form name="errorMessageList" type="list" target="" list-name="errorMsgList" view-size="30"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="createDatetime"><display/></field>
