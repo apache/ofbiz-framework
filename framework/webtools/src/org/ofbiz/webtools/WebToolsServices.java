@@ -663,6 +663,15 @@ public class WebToolsServices {
                                 Debug.logInfo(exception.getMessage(), module);
                             }
                         }
+                        String entityDescription = null;
+                        if (bundle != null) {
+                            try {
+                                entityDescription = bundle.getString("EntityDescription." + entity.getEntityName());
+                            } catch (Exception exception) {}
+                        }
+                        if (UtilValidate.isEmpty(entityDescription)) {
+                            entityDescription = entity.getDescription();
+                        }
 
                         // fields list
                         List<Map<String, Object>> javaNameList = FastList.newInstance();
@@ -754,7 +763,7 @@ public class WebToolsServices {
                         entityMap.put("groupName", groupName);
                         entityMap.put("plainTableName", entity.getPlainTableName());
                         entityMap.put("title", entity.getTitle());
-                        entityMap.put("description", entity.getDescription());
+                        entityMap.put("description", entityDescription);
                         String entityLocation = entity.getLocation();
                         entityLocation = entityLocation.replaceFirst(System.getProperty("ofbiz.home") + "/", "");
                         entityMap.put("location", entityLocation);
