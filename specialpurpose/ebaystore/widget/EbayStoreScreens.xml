@@ -160,6 +160,42 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="AssociateCatalog">
+        <section>
+            <actions>
+                <set field="headerItem" value="ebayStore"/>
+                <set field="tabButtonItem" value="associateCatalogToStore"/>
+                <entity-and entity-name="ProductStoreCatalog" list="prodStoreCatalogList" filter-by-date="true">
+                    <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
+                </entity-and>
+                <set field="prodCatalogIds" value="${groovy:org.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(prodStoreCatalogList, 'prodCatalogId', true);}" type="List"/>
+                <entity-condition entity-name="ProdCatalog" list="prodCatalogList">
+                    <condition-expr field-name="prodCatalogId" operator="not-in" from-field="prodCatalogIds" ignore-if-empty="true"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="Add Catalog To Store">
+                            <include-form name="AddCatalog" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field="prodStoreCatalogList"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="Associated Catalog List">
+                                    <include-form name="CatalogList" location="component://ebaystore/widget/EbayStoreForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <!-- Export product listing  -->
     <screen name="exportProductListing">
         <section>

@@ -110,6 +110,23 @@
         <response name="success" type="view" value="LeaveFeedback"/>
         <response name="error" type="view" value="LeaveFeedback"/>
     </request-map>
+    <!-- Associate catalog to Ebay Store -->
+    <request-map uri="AssociateCatalog">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="AssociateCatalog"/>
+    </request-map>
+    <request-map uri="associateCatalogToStore">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createProductStoreCatalog"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+        <request-map uri="removeCatalogFromStore">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteProductStoreCatalog"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
     <!-- Automation Preferences -->
     <request-map uri="automationPreferences">
         <security auth="true" https="true"/>
@@ -552,6 +569,8 @@
     <view-map name="FeedbackStore" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#FeedbackStore"/>
     <view-map name="Feedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#Feedback"/>
     <view-map name="LeaveFeedback" type="screen" page="component://ebaystore/widget/EbayAccountScreens.xml#LeaveFeedback"/>
+    <!-- Associate Catalog to Ebay Store-->
+    <view-map name="AssociateCatalog" type="screen" page="component://ebaystore/widget/EbayStoreScreens.xml#AssociateCatalog"/>
     <!-- AutomationPreferences -->
     <view-map name="AutomationPreferences" type="screen" page="component://ebaystore/widget/EbaySellingManagerScreens.xml#EbayAutomationPreferences"/>
     <!-- Selling Manager -->

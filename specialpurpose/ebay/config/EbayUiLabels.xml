@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EbayAddCatalogToStore">
+        <value xml:lang="en">Add Catalog To Store</value>
+    </property>
     <property key="EbayAddEbayConfiguration">
         <value xml:lang="en">Add Ebay Configuration</value>
         <value xml:lang="it">Aggiungi configurazione eBay</value>

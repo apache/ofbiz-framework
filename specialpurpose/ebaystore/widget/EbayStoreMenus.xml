@@ -38,6 +38,11 @@
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
             </link>
         </menu-item>
+        <menu-item name="associateCatalogToStore" title="${uiLabelMap.EbayAddCatalogToStore}">
+            <link target="AssociateCatalog">
+                <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
+            </link>
+        </menu-item>
         <menu-item name="ebayExportAllCategoryToEbayStore" title="${uiLabelMap.EbayExportAllCategoryToEbayStore}">
             <link target="exportCategoryEbayStore">
                 <parameter param-name="productStoreId" value="${parameters.productStoreId}"/>
