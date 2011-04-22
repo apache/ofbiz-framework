@@ -92,15 +92,20 @@ under the License.
                                     <widgets>
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
                                         <container style="button-bar">
-                                            <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/>
+                                            <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext create">
+                                                <image url-mode="raw" src="${iconsLocation}/add.png"/>
+                                            </link>
                                             <link target="ExampleReportHtml" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext">
                                                 <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/printer.png"/>
                                             </link>
                                             <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext">
                                                 <parameter param-name="exampleId"/>
+                                                <image url-mode="raw" src="${iconsLocation}/page_white_acrobat.png"/>
                                             </link>
                                             <link target="help" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank">
                                                 <parameter param-name="topic" value="ExampleEditHelp"/>
+                                                <image url-mode="raw" src="${iconsLocation}/help.png"/>
                                             </link>
                                         </container>
                                     </widgets>
@@ -158,7 +163,9 @@ under the License.
                                             <label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${exampleFeature.description} [${exampleFeatureId}]</label>
                                         </container>
                                         <container style="button-bar">
-                                            <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext"/>
+                                            <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext">
+                                                <image url-mode="raw" src="${iconsLocation}/add.png"/>
+                                            </link>
                                         </container>
                                     </widgets>
                                     <fail-widgets>

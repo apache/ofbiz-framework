@@ -70,7 +70,7 @@ under the License.
     <#if id?has_content><#assign idText = " id=\"${id}\""/></#if>
     <#if style?has_content>
       <#if style=="h1">
-        <h1${idText}>${text}</h1> 
+        <h1${idText}>${text}</h1>
       <#elseif style=="h2">
         <h2${idText}>${text}</h2>
       <#elseif style=="h3">
@@ -82,10 +82,10 @@ under the License.
       <#elseif style=="h6">
         <h6${idText}>${text}</h6>
       <#else>
-        <span${idText} class="${style}">${text}</span> 
+        <span${idText} class="${style}">${text}</span>
       </#if>
     <#else>
-      <span${idText}>${text}</span> 
+      <span${idText}>${text}</span>
     </#if>
   </#if>
 </#macro>
@@ -100,7 +100,7 @@ under the License.
 </form><#rt/>
 </#if>
 <a <#if id?has_content>id="${id}"</#if> <#if style?has_content>class="${style}"</#if> <#if name?has_content>name="${name}"</#if> <#if targetWindow?has_content>target="${targetWindow}"</#if> href="<#if "hidden-form"==linkType>javascript:document.${uniqueItemName}.submit()<#else>${linkUrl}</#if>"><#rt/>
-<#if imgStr?has_content>${imgStr}<#else><#if text?has_content>${text}</#if></#if></a>
+<#if imgStr?has_content>${imgStr}</#if><#if text?has_content>${text}</#if></a>
 <#else>
 <div id="${uniqueItemName}"></div>
 
@@ -267,7 +267,7 @@ ${menuString}
                   <input name="mode" value="DRAGDROPBOTTOM" type="hidden"/>
                 </form>
                 <a href="javascript:document.movePortletLeft_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
-            </#if>            
+            </#if>
             <#if nextColumnSeqId?has_content>
               <li class="move-right">
                 <form method="post" action="updatePortletSeqDragDrop" name="movePortletRight_${portletKey}">
@@ -278,7 +278,7 @@ ${menuString}
                   <input name="mode" value="DRAGDROPBOTTOM" type="hidden"/>
                 </form>
                 <a href="javascript:document.movePortletRight_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
-            </#if>            
+            </#if>
             <#if prevPortletId?has_content>
               <li class="move-up">
                 <form method="post" action="updatePortletSeqDragDrop" name="movePortletUp_${portletKey}">
@@ -291,7 +291,7 @@ ${menuString}
                   <input name="mode" value="DRAGDROPBEFORE" type="hidden"/>
                 </form>
                 <a href="javascript:document.movePortletUp_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
-            </#if>            
+            </#if>
             <#if nextPortletId?has_content>
               <li class="move-down">
                 <form method="post" action="updatePortletSeqDragDrop" name="movePortletDown_${portletKey}">
@@ -304,7 +304,7 @@ ${menuString}
                   <input name="mode" value="DRAGDROPAFTER" type="hidden"/>
                 </form>
                 <a href="javascript:document.movePortletDown_${portletKey}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
-            </#if>            
+            </#if>
           </ul>
           <br class="clear"/>
         </div>

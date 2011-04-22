@@ -190,7 +190,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String description = displayField.getDescription(context);
         String type = displayField.getType();
-        String imageLocation = displayField.getImageLocation();
+        String imageLocation = displayField.getImageLocation(context);
         Integer size = Integer.valueOf("0");
         String title = "";
 
@@ -311,7 +311,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
-        this.request.setAttribute("image", hyperlinkField.getImage());
+        this.request.setAttribute("image", hyperlinkField.getImageLocation(context));
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
 
         String encodedAlternate = encode(hyperlinkField.getAlternate(context), modelFormField, context);
@@ -1070,7 +1070,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String name = modelFormField.getParameterName(context);
         String buttonType =  submitField.getButtonType();
         String formName = modelForm.getCurrentFormName(context);
-        String imgSrc = submitField.getImageLocation();
+        String imgSrc = submitField.getImageLocation(context);
         String confirmation = submitField.getConfirmation(context);
         String className = "";
         String alert = "false";
