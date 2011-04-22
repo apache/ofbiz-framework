@@ -329,13 +329,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      * @see org.ofbiz.widget.form.FormStringRenderer#renderHyperlinkField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.HyperlinkField)
      */
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
-        this.request.setAttribute("image", hyperlinkField.getImage());
+        this.request.setAttribute("image", hyperlinkField.getImageLocation(context));
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         String description = encode(hyperlinkField.getDescription(context), modelFormField, context);
         String confirmation = encode(hyperlinkField.getConfirmation(context), modelFormField, context);
         WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
                 hyperlinkField.getParameterMap(context), description, hyperlinkField.getTargetWindow(context), confirmation, modelFormField,
-                this.request, this.response, context);               
+                this.request, this.response, context);
         this.appendTooltip(writer, context, modelFormField);
         //appendWhitespace(writer);
     }
@@ -343,13 +343,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void makeHyperlinkString(Appendable writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
         if (subHyperlink == null) {
             return;
-        }        
+        }
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
             String description = encode(subHyperlink.getDescription(context), subHyperlink.getModelFormField(), context);
             WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
                     subHyperlink.getParameterMap(context), description, subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
-                    this.request, this.response, context);            
+                    this.request, this.response, context);
         }
     }
 
@@ -525,9 +525,9 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
-        
+
         String event = modelFormField.getEvent();
-        String action = modelFormField.getAction(context);        
+        String action = modelFormField.getAction(context);
 
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
@@ -597,14 +597,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(idName);
             writer.append('"');
         }
-        
+
         if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
             writer.append(" ");
             writer.append(event);
             writer.append("=\"");
             writer.append(action);
             writer.append('"');
-        }        
+        }
 
         writer.append("/>");
 
@@ -1087,7 +1087,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(confirmation);
                 writer.append("'); \" ");
             }
-            
+
             writer.append(" href=\"javascript:document.");
             writer.append(modelForm.getCurrentFormName(context));
             writer.append(".submit()\">");
@@ -1112,7 +1112,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             writer.append(" src=\"");
-            this.appendContentUrl(writer, submitField.getImageLocation());
+            this.appendContentUrl(writer, submitField.getImageLocation(context));
             writer.append('"');
 
             event = modelFormField.getEvent();
@@ -1124,7 +1124,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(action);
                 writer.append('"');
             }
-            
+
             if (UtilValidate.isNotEmpty(confirmation)) {
                 writer.append("onclick=\" return confirm('");
                 writer.append(confirmation);
@@ -2921,7 +2921,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
              writer.append(titleText);
         }
     }
-    
+
     public void renderContainerFindField(Appendable writer, Map<String, Object> context, ContainerField containerField) throws IOException {
         writer.append("<div ");
         String id = containerField.getModelFormField().getIdName();
