@@ -493,10 +493,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
 
         // the text
         Image img = link.getImage();
-        if (img == null) {
-            writer.append(link.getText(context));
-        } else {
+        if (img != null) {
             renderImage(writer, context, img);
+            writer.append("&nbsp;" + link.getText(context));
+        } else {
+            writer.append(link.getText(context));
         }
 
         if (UtilValidate.isNotEmpty(target)) {

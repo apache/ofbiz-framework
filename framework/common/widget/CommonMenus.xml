@@ -23,7 +23,9 @@ under the License.
         default-selected-style="selected" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="headerItem">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">
             <condition><not><if-empty field="userLogin"/></not></condition>
-            <link target="main"/>
+            <link target="main">
+                <image url-mode="raw" src="${iconsLocation}/house.png"/>
+            </link>
         </menu-item>
     </menu>
 

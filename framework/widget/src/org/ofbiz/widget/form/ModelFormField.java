@@ -2064,7 +2064,7 @@ public class ModelFormField {
         protected FlexibleStringExpander description;
         protected String type;  // matches type of field, currently text or currency
         protected String size;  // maximum number of characters to display
-        protected String imageLocation;
+        protected FlexibleStringExpander imageLocation;
         protected FlexibleStringExpander currency;
         protected FlexibleStringExpander date;
         protected InPlaceEditor inPlaceEditor;
@@ -2086,7 +2086,7 @@ public class ModelFormField {
             super(element, modelFormField);
             this.type = element.getAttribute("type");
             this.size = element.getAttribute("size");
-            this.imageLocation = element.getAttribute("image-location");
+            this.setImageLocation(element.getAttribute("image-location"));
             this.setCurrency(element.getAttribute("currency"));
             this.setDescription(element.getAttribute("description"));
             this.setDate(element.getAttribute("date"));
@@ -2118,8 +2118,8 @@ public class ModelFormField {
             return this.size = size;
         }
 
-        public String getImageLocation(){
-            return this.imageLocation;
+        public String getImageLocation(Map<String, Object> context){
+            return this.imageLocation.expandString(context);
         }
 
         public String getDescription(Map<String, Object> context) {
@@ -2228,6 +2228,13 @@ public class ModelFormField {
          */
         public void setAlsoHidden(boolean b) {
             alsoHidden = b;
+        }
+
+        /**
+         * @param Image-location
+         */
+        public void setImageLocation(String value) {
+            this.imageLocation = FlexibleStringExpander.getInstance(value);
         }
 
         /**
@@ -2361,11 +2368,11 @@ public class ModelFormField {
         protected boolean alsoHidden = true;
         protected String linkType;
         protected String targetType;
-        protected String image;
         protected String size;
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander alternate;
+        protected FlexibleStringExpander imageLocation;
         protected FlexibleStringExpander imageTitle;
         protected FlexibleStringExpander targetWindowExdr;
         protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
@@ -2390,6 +2397,7 @@ public class ModelFormField {
 
             this.setDescription(element.getAttribute("description"));
             this.setAlternate(element.getAttribute("alternate"));
+            this.setImageLocation(element.getAttribute("image-location"));
             this.setImageTitle(element.getAttribute("image-title"));
             this.setTarget(element.getAttribute("target"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
@@ -2397,7 +2405,6 @@ public class ModelFormField {
             this.targetType = element.getAttribute("target-type");
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
             this.parametersMapAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("parameters-map"));
-            this.image = element.getAttribute("image-location");
             this.size = element.getAttribute("size");
             this.setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             this.setConfirmationMsg(element.getAttribute("confirmation-message"));
@@ -2461,6 +2468,10 @@ public class ModelFormField {
         public String getAlternate(Map<String, Object> context) {
             return this.alternate.expandString(context);
         }
+        
+        public String getImageLocation(Map<String, Object> context) {
+            return this.imageLocation.expandString(context);
+        }
 
         public String getImageTitle(Map<String, Object> context) {
             return this.imageTitle.expandString(context);
@@ -2483,10 +2494,6 @@ public class ModelFormField {
             }
             
             return fullParameterMap;
-        }
-
-        public String getImage() {
-            return this.image;
         }
 
         public String getSize() {
@@ -2518,6 +2525,13 @@ public class ModelFormField {
             this.description = FlexibleStringExpander.getInstance(string);
         }
 
+        /**
+         * @param string
+         */
+        public void setImageLocation(String string) {
+            this.imageLocation = FlexibleStringExpander.getInstance(string);
+        }
+        
         /**
          * @param string
          */
@@ -3402,7 +3416,7 @@ public class ModelFormField {
 
     public static class SubmitField extends FieldInfo {
         protected String buttonType;
-        protected String imageLocation;
+        protected FlexibleStringExpander imageLocation;
         protected FlexibleStringExpander backgroundSubmitRefreshTargetExdr;
         protected boolean requestConfirmation = false;
         protected FlexibleStringExpander confirmationMsgExdr;
@@ -3422,7 +3436,7 @@ public class ModelFormField {
         public SubmitField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.buttonType = element.getAttribute("button-type");
-            this.imageLocation = element.getAttribute("image-location");
+            setImageLocation(element.getAttribute("image-location"));
             this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element.getAttribute("background-submit-refresh-target"));
             setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             setConfirmationMsg(element.getAttribute("confirmation-message"));
@@ -3437,8 +3451,8 @@ public class ModelFormField {
             return buttonType;
         }
 
-        public String getImageLocation() {
-            return imageLocation;
+        public String getImageLocation(Map<String, Object> context) {
+            return this.imageLocation.expandString(context);
         }
 
         public boolean getRequestConfirmation() {
@@ -3472,8 +3486,8 @@ public class ModelFormField {
         /**
          * @param string
          */
-        public void setImageLocation(String string) {
-            imageLocation = string;
+        public void setImageLocation(String val) {
+            imageLocation = FlexibleStringExpander.getInstance(val);
         }
 
         public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
