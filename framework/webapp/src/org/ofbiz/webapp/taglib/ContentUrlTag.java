@@ -67,7 +67,10 @@ public class ContentUrlTag extends BodyTagSupport {
             return;
         }
         GenericValue webSite = WebSiteWorker.getWebSite(request);
-        appendContentPrefix(webSite, request.isSecure(), urlBuffer);
+        String forwardedProto = request.getHeader("X-Forwarded-Proto");
+        boolean isForwardedSecure = UtilValidate.isNotEmpty(forwardedProto) && "HTTPS".equals(forwardedProto.toUpperCase());
+        boolean isSecure = request.isSecure() || isForwardedSecure;
+        appendContentPrefix(webSite, isSecure, urlBuffer);
     }
 
     public static void appendContentPrefix(GenericValue webSite, boolean secure, Appendable urlBuffer) throws IOException {
