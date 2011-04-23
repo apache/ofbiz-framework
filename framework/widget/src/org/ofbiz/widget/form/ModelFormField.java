@@ -2119,7 +2119,11 @@ public class ModelFormField {
         }
 
         public String getImageLocation(Map<String, Object> context){
-            return this.imageLocation.expandString(context);
+            if (this.imageLocation != null) {
+                return this.imageLocation.expandString(context);
+            } else {
+                return "";
+            }
         }
 
         public String getDescription(Map<String, Object> context) {
