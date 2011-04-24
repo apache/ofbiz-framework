@@ -47,10 +47,30 @@ under the License.
     <screen name="ExamplePortlet2">
         <section>
             <actions>
-                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>   
+                <set field="nextPortalPageId" from-field="nextPortalPageId" default-value=""/>
+                <set field="nextParentPortalPageId" from-field="nextParentPortalPageId" default-value="EXAMPLE"/>             
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ExamplePortletSecond}">
+                    <section>
+                        <condition><not><if-empty field="nextPortalPageId"/></not></condition>
+                       <widgets>
+                           <link target="showPortalPage" text="${uiLabelMap.ExamplePortletGoToConfiguredPortalPage} : ${nextPortalPageId} ${uiLabelMap.CommonOf} ${nextParentPortalPageId}" >
+                               <parameter param-name="portalPageId" from-field="nextPortalPageId"/>
+                               <parameter param-name="parentPortalPageId" from-field="nextParentPortalPageId"/>
+                               <image src="${iconsLocation}/application_go.png"/>
+                           </link>
+                       </widgets>
+                       <fail-widgets>
+                           <link target="editPortalPortletAttributes" text="${uiLabelMap.ExamplePortletAttributNeedToBeDefineClickHere}" >
+                               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+                               <parameter param-name="portalPortletId" value="EXAMPLE_2"/>
+                               <parameter param-name="portletSeqId" value="00001"/>
+                               <image src="${iconsLocation}/wrench_orange.png"/>
+                           </link>
+                       </fail-widgets>
+                    </section>
                 </screenlet>
             </widgets>
         </section>

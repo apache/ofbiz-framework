@@ -459,6 +459,14 @@
         <value xml:lang="th">ตัวอย่างรูปแบบ Widget</value>
         <value xml:lang="zh">表单挂件样例</value>
     </property>
+    <property key="ExamplePortletAttributNeedToBeDefineClickHere">
+        <value xml:lang="en">Portlet Attribut need to be define, click here to resolve it </value>
+        <value xml:lang="fr">Les attributs de la portlet doivent être definie. Cliquez ici pour résoudre le problème.</value>
+    </property>
+    <property key="ExamplePortletGoToConfiguredPortalPage">
+        <value xml:lang="en">Go to configured portal page -> </value>
+        <value xml:lang="fr">Allez à la page portail configurée -> </value>
+    </property>
     <property key="ExampleGroupField">
         <value xml:lang="en">Group</value>
         <value xml:lang="it">Gruppo</value>

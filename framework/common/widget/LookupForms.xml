@@ -92,4 +92,26 @@ under the License.
         <field name="disabledDateTime"><display/></field>
     </form>
 
+    <form name="LookupPortalPage" type="single" target="LookupPortalPage">
+        <auto-fields-entity entity-name="PortalPage" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="ListPortalPages" type="list" list-name="listIt" paginate-target="LookupPortalPage"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="orderBy" value="portalPageId"/>
+                <field-map field-name="entityName" value="PortalPage"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="PortalPage" default-field-type="display"/>
+        <field name="portalPageId" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" target-type="plain" description="${portalPageId}" target="javascript:set_value('${portalPageId}')"/>
+        </field>
+    </form>
 </forms>

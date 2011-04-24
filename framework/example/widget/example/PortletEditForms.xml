@@ -38,6 +38,16 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
 
+    <form name="ExamplePortlet2Edit" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+        <field name="nextPortalPageId">
+            <lookup target-form-name="LookupPortalPage"/>
+        </field>
+        <field name="nextParentPortalPageId">
+            <lookup target-form-name="LookupPortalPage"/>
+        </field>
+        <field name="updateButton"><submit/></field>
+    </form>
+    
     <form name="ExamplePortlet3Edit" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="SpecificTitle">
             <text/>
