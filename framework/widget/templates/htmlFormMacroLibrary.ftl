@@ -297,7 +297,7 @@ ${item.description}</span>
         <input type="hidden" name="_useRowSubmit" value="Y"/>
     </#if>
 </#macro>
-<#macro renderFormClose focusFieldName formName>
+<#macro renderFormClose focusFieldName formName containerId hasRequiredField>
     </form><#lt/>
     <#if focusFieldName?has_content>
         <script language="JavaScript" type="text/javascript">
@@ -309,6 +309,16 @@ ${item.description}</span>
             jQuery(form).validate();
           }
         </script><#lt/>
+    </#if>
+    <#if containerId?has_content && hasRequiredField?has_content>
+      <script type="text/javascript">
+          jQuery("#${containerId}").validate({
+             submitHandler: 
+                 function(form) {
+                 form.submit();
+             }
+          });
+      </script>
     </#if>
 </#macro>
 <#macro renderMultiFormClose>
