@@ -468,7 +468,7 @@ function modifySubmitButton (lookupDiv) {
         //modify nav-pager
         var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
         jQuery.each(navPagers, function(navPager) {
-            jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + jQuery(navPagers[navPager]).attr("href") + "', '" + lookupForm.id + "', 'link')");
+            jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + jQuery(navPagers[navPager]).attr("href") + "','link')");
         });
 
         var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
@@ -489,13 +489,13 @@ function modifySubmitButton (lookupDiv) {
                         var viewSize = navPagersSelect[navPager].value;
                         var spl = ocSub.split(searchPattern);
                         navPagersSelect[navPager].onchange = function () {
-                            lookupPaginationAjaxRequest(spl[0] + this.value + spl[1], lookupForm.id, 'select');
+                            lookupPaginationAjaxRequest(spl[0] + this.value + spl[1],'select');
                         };
                     } else if (searchPattern_IE.test(ocSub)) {
                         var viewSize = navPagersSelect[navPager].value;
                         var spl = ocSub.split(searchPattern_IE);
                         navPagersSelect[navPager].onchange = function () {
-                            lookupPaginationAjaxRequest("/" + spl[0] + this.value + spl[1], lookupForm.id, 'select');
+                            lookupPaginationAjaxRequest("/" + spl[0] + this.value + spl[1],'select');
                         };
                     } else if (searchPattern2.test(ocSub)) {
                         ocSub = ocSub.replace(searchPattern2, "");
@@ -503,7 +503,7 @@ function modifySubmitButton (lookupDiv) {
                             ocSub.replace(searchPattern, viewSize);
                         }
                         navPagersSelect[navPager].onchange = function () {
-                            lookupPaginationAjaxRequest(ocSub + this.value, lookupForm.id, 'select');
+                            lookupPaginationAjaxRequest(ocSub + this.value,'select');
                         };
                     } else if (searchPattern2_IE.test(ocSub)) {
                         ocSub = ocSub.replace(searchPattern2_IE, "");
@@ -511,12 +511,12 @@ function modifySubmitButton (lookupDiv) {
                             ocSub.replace(searchPattern_IE, viewSize);
                         }
                         navPagersSelect[navPager].onchange = function () {
-                            lookupPaginationAjaxRequest("/" + ocSub + this.value, lookupForm.id, 'select');
+                            lookupPaginationAjaxRequest("/" + ocSub + this.value,'select');
                         };
                     }
                 } else {
                     var ocSub = oc.substring((oc.indexOf('=') + 1),(oc.length - 1));
-                    navPagersSelect[navPager].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ", '" + lookupForm.id +"')");
+                    navPagersSelect[navPager].setAttribute("onchange", "lookupPaginationAjaxRequest(" + ocSub + ",'')");
                 }
 
                 if (resultTable == null) {
@@ -615,16 +615,12 @@ function lookupFormAjaxRequest(formAction, form) {
     });
 }
 
-function lookupPaginationAjaxRequest(navAction, form, type) {
+function lookupPaginationAjaxRequest(navAction, type) {
     lookupDiv = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).divRef);
     lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
 
-    if (type == 'link') {
-        navAction = navAction.substring(0, navAction.length - 1);
-    }
-    
     lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
-    jQuery("#" + lookupId).load(navAction, function(data) { 
+    jQuery("#" + lookupId).load(navAction, function(data) {
         if (data.search(/loginform/) != -1) {
             window.location.href = window.location.href;
             return;
