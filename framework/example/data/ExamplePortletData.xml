@@ -25,6 +25,7 @@ under the License.
 
     <PortalPortlet portalPortletId="EXAMPLE_2" portletName="Example 2" description="Example portlet n. 2"
         screenName="ExamplePortlet2" screenLocation="component://example/widget/example/PortletScreens.xml"
+        editFormName="ExamplePortlet2Edit" editFormLocation="component://example/widget/example/PortletEditForms.xml"
         screenshot="/images/opentravelsystem_logo.jpg"/>
 
     <PortalPortlet portalPortletId="EXAMPLE_3" portletName="Example 3" description="Example portlet n. 3"

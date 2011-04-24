@@ -166,6 +166,7 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="editPortalPageColumnWidth" save-last-view="true"/>
     </request-map>
+    <request-map uri="LookupPortalPage"><security https="true" auth="true"/><response name="success" type="view" value="LookupPortalPage"/></request-map>
     <!-- View Mappings -->
     <view-map name="showPortalPage" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="showPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortlet"/>
@@ -177,4 +178,5 @@ under the License.
     <view-map name="addPortlet" type="screen" page="component://common/widget/PortalPageScreens.xml#AddPortlet"/>
     <view-map name="editPortalPortletAttributes" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPortletAttributes"/>
     <view-map name="editPortalPageColumnWidth" type="screen" page="component://common/widget/PortalPageScreens.xml#EditPortalPageColumnWidth"/>
+    <view-map name="LookupPortalPage" type="screen" page="component://common/widget/LookupScreens.xml#LookupPortalPage"/>
 </site-conf>
