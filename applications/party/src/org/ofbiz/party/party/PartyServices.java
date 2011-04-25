@@ -1652,7 +1652,23 @@ public class PartyServices {
             return ServiceUtil.returnError(e.getMessage());
         }
 
-        // TODO: there are a number of other places which may need to be updated
+        // update the Product Store Role records
+        try {
+            delegator.storeByCondition("ProductStoreRole", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "thruDate", now),
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        //  update the Communication Event Role records
+        try {
+            delegator.storeByCondition("CommunicationEventRole", UtilMisc.toMap("partyId", partyIdTo),
+                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
 
         // remove all previous party roles
         try {
