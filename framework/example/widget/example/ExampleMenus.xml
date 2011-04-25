@@ -22,80 +22,56 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="ExampleAppBar" title="${uiLabelMap.ExampleApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ExampleMenuItem" title="${uiLabelMap.ExampleExample}">
-            <link target="FindExample">
-                 <image url-mode="raw" src="${iconsLocation}/application.png"/>
-            </link>
+            <link target="FindExample"/>
         </menu-item>
         <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}">
-            <link target="FindExampleFeature">
-                <image url-mode="raw" src="${iconsLocation}/application_view_icons.png"/>
-            </link>
+            <link target="FindExampleFeature"/>
         </menu-item>
         <menu-item name="FormWidgetExamples" title="${uiLabelMap.ExampleFormWidgetExamples}">
-            <link target="FormWidgetExamples">
-                <image url-mode="raw" src="${iconsLocation}/application_form.png"/>
-            </link>
+            <link target="FormWidgetExamples"/>
         </menu-item>
         <menu-item name="AjaxExample" title="${uiLabelMap.ExampleAjaxExamples}">
-            <link target="authview/findExampleAjax">
-                <image url-mode="raw" src="${iconsLocation}/rainbow.png"/>
-            </link>
+            <link target="authview/findExampleAjax"/>
         </menu-item>
         <menu-item name="portalPage" parent-portal-page-value="EXAMPLE"/>
         <menu-item name="Dashboard" title="${uiLabelMap.ExampleDashboard}" align-style="opposed">
             <link target="ManagePortalPages">
                 <parameter param-name="parentPortalPageId" value="EXAMPLE"/>
-                <image url-mode="raw" src="${iconsLocation}/application_key.png"/>
             </link>
         </menu-item>
         <menu-item name="ExampleGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
-            <link target="ExampleGeoLocationPointSet1">
-                <image url-mode="raw" src="${iconsLocation}/map.png"/>
-            </link>
+            <link target="ExampleGeoLocationPointSet1"/>
         </menu-item>
         <menu-item name="Birt" title="${uiLabelMap.Birt}">
-            <link target="BirtMain">
-                <image url-mode="raw" src="${iconsLocation}/report.png"/>
-            </link>
+            <link target="BirtMain"/>
         </menu-item>
         <menu-item name="ExampleCharts" title="Chart examples">
-            <link target="ExampleBarChart">
-                <image url-mode="raw" src="${iconsLocation}/chart_bar.png"/>
-            </link>
+            <link target="ExampleBarChart"/>
         </menu-item>
     </menu>
 
     <menu name="EditExample" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
-            <link target="EditExample">
-                <parameter param-name="exampleId"/>
-                <image url-mode="raw" src="${iconsLocation}/application_edit.png"/>
-            </link>
+            <link target="EditExample"/>
         </menu-item>
         <menu-item name="EditExampleItems" title="${uiLabelMap.CommonItems}">
             <link target="EditExampleItems">
                 <parameter param-name="exampleId"/>
-                <image url-mode="raw" src="${iconsLocation}/application_view_list.png"/>
             </link>
         </menu-item>
         <menu-item name="EditExampleFeatureAppls" title="${uiLabelMap.ExampleFeatures}">
             <link target="EditExampleFeatureAppls">
                 <parameter param-name="exampleId"/>
-                <image url-mode="raw" src="${iconsLocation}/application_view_icons.png"/>
             </link>
         </menu-item>
     </menu>
 
     <menu name="EditExampleFeature" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditExampleFeature" title="${uiLabelMap.ExampleFeature}">
-            <link target="EditExampleFeature">
-                <parameter param-name="exampleFeatureId"/>
-            </link>
+            <link target="EditExampleFeature"/>
         </menu-item>
         <menu-item name="EditExampleFeatureExampleAppls" title="${uiLabelMap.ExampleExamples}">
-            <link target="EditExampleFeatureExampleAppls">
-                <parameter param-name="exampleFeatureId"/>
-            </link>
+            <link target="EditExampleFeatureExampleAppls"/>
         </menu-item>
     </menu>
 
