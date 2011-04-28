@@ -470,6 +470,15 @@ under the License.
         </field>
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+
+        <field name="viewHistoryLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="ProductPriceHistory" description="${uiLabelMap.ProductHistory}" also-hidden="false">
+                <parameter param-name="productId"/>
+                <parameter param-name="productPriceTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductPrice" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productId"/><parameter param-name="productPriceTypeId"/><parameter param-name="productPricePurposeId"/>
@@ -2077,4 +2086,17 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
+    <form name="ListProductPriceHistory" type="list" list-name="productPricesChanges" header-row-style="header-row" default-table-style="basic-table">
+        <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}"><display-entity entity-name="ProductPriceType"/></field>
+        <field name="productPricePurposeId" title="${uiLabelMap.CommonPurpose}"><display/></field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrency}"><display/></field>
+        <field name="productStoreGroupId" title="${uiLabelMap.ProductProductStoreGroup}"><display-entity entity-name="ProductStoreGroup" description="${productStoreGroupName}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
+        <field name="price" title="${uiLabelMap.ProductPrice}"><display/></field>
+        <field name="oldPrice"><display/></field>
+        <field name="changedByUserLogin" title="${uiLabelMap.ProductLastModifiedBy}"><display/></field>
+        <field name="changedDate"><display/></field>
+    </form>
  </forms>
+ 

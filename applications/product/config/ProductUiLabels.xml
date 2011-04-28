@@ -8032,6 +8032,9 @@
         <value xml:lang="zh">产品导出</value>
         <value xml:lang="zh_TW">產品導出</value>
     </property>
+    <property key="PageTitleProductPricesHistory">
+        <value xml:lang="en">Product Price History</value>
+    </property>
     <property key="PageTitleProductStocktake">
         <value xml:lang="en">Product Stocktake</value>
         <value xml:lang="fr">Inventaire d'un article</value>
@@ -14134,6 +14137,9 @@
         <value xml:lang="th"> วัน/เวลา กรอกข้อมูลบ่งชี้ถึงแนวโน้มเวลาก่อนจากวันที่หรือหลังถึงวันที่. ถ้าก่อนวันที่คือ แดง, กลุ่มไม่เริ่ม; ถ้าถึงวันที่คือ แดง, กลุ่มหมดอายุ (แลบางทีควรจะลบ).</value>
         <value xml:lang="zh"> 日期/时间记录表示当前时间在开始日期之前或结束日期之后。如果开始日期是红色， 那么关联还没有开始；如果结束日期是红色， 那么关联已经过期了 (并且可能应该删除)。</value>
         <value xml:lang="zh_TW"> 日期/時間記錄表示當前時間在開始日期之前或結束日期之後。如果開始日期是紅色， 那麼關聯還沒有開始；如果結束日期是紅色， 那麼關聯已經過期了 (並且可能應該刪除)。</value>
+    </property>
+    <property key="ProductHistory">
+        <value xml:lang="en">History</value>
     </property>
     <property key="ProductHost">
         <value xml:lang="de">Server</value>

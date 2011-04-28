@@ -556,6 +556,10 @@ under the License.
         <response name="success" type="request-redirect" value="EditProductPrices"><redirect-parameter name="productId"/></response>
         <response name="error" type="view" value="EditProductPrices"/>
     </request-map>
+    <request-map uri="ProductPriceHistory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ProductPriceHistory"/>
+    </request-map>
     <request-map uri="deleteProductPrice">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="deleteProductPrice"/>
@@ -3101,6 +3105,7 @@ under the License.
     <view-map name="EditProductParties" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductParties"/>
     <view-map name="showFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#showFixedAssetProduct"/>
     <view-map name="newFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#newFixedAssetProduct"/>
+    <view-map name="ProductPriceHistory" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ProductPriceHistory"/>
     <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo" content-type="application/pdf" encoding="none"/>
 
     <view-map name="EditProductContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContent"/>

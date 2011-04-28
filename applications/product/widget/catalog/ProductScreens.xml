@@ -1427,4 +1427,36 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="ProductPriceHistory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleProductPricesHistory"/>
+                <set field="tabButtonItem" value="EditProductPrices"/>
+                <set field="labelTitleProperty" value="PageTitleProductPricesHistory"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="Product" value-field="product"/>
+                <entity-and entity-name="ProductPriceChange" list="productPricesChanges">
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="productPriceTypeId" from-field="parameters.productPriceTypeId"/>
+                    <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+                    <order-by field-name="fromDate"/>
+                </entity-and>
+
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
+                    <decorator-section name="body">
+                        <link target="EditProductPrices" text="${uiLabelMap.CommonBack}" style="buttontext">
+                            <parameter param-name="productId"/>
+                        </link>
+                        <screenlet title="${uiLabelMap.PageTitleProductPricesHistory}">
+                            <include-form name="ListProductPriceHistory" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
