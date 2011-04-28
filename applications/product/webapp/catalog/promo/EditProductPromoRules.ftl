@@ -33,8 +33,11 @@ under the License.
   <#list productPromoRules as productPromoRule>
     <#assign productPromoConds = productPromoRule.getRelated("ProductPromoCond")>
     <#assign productPromoActions = productPromoRule.getRelated("ProductPromoAction")>
+      <#if productPromoRule_index != 0>
+        <tr><td colspan="3"><hr /></td></tr>
+      </#if>
       <tr valign="middle" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
-        <td class="label"><b>${(productPromoRule.productPromoRuleId)?if_exists}</b></td>
+        <td class="label"><b> ${uiLabelMap.ProductRule} ${(productPromoRule.productPromoRuleId)?if_exists}</b></td>
         <td>
           <form method="post" action="<@ofbizUrl>updateProductPromoRule</@ofbizUrl>">
             <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)?if_exists}" />
@@ -53,8 +56,9 @@ under the License.
     </#if>
         </td>
       </tr>
+      <tr><td><hr /></td><td colspan="2"></td></tr>
       <tr valign="top" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
-        <td align="right" class="label">${uiLabelMap.ProductConditions}</td>
+        <td align="right" class="label">${uiLabelMap.ProductConditionsForRule} ${(productPromoRule.productPromoRuleId)?if_exists} :</td>
         <td colspan="2">
           <table cellspacing="0" class="basic-table">
     <#assign maxCondSeqId = 1>
@@ -68,8 +72,9 @@ under the License.
           <#assign maxCondSeqId = curCondSeqId + 1>
         </#if>
       </#if>
-              <td class="label"><b>${(productPromoCond.productPromoCondSeqId)?if_exists}</b></td>
+              <td></td>
               <td>
+                <b>${uiLabelMap.ProductCondition} ${(productPromoCond.productPromoCondSeqId)?if_exists}</b>
                 <form method="post" action="<@ofbizUrl>updateProductPromoCond</@ofbizUrl>">
                   <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)?if_exists}"/>
                   <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)?if_exists}"/>
@@ -98,6 +103,7 @@ under the License.
                     <option value="${(condOperEnum.enumId)?if_exists}">${(condOperEnum.get("description",locale))?if_exists}</option>
       </#list>
                   </select>
+                  <label>${uiLabelMap.ProductConditionValue}:</label>
                   <input type="text" size="25" name="condValue" value="${(productPromoCond.condValue)?if_exists}" />
       <#assign otherValue = productPromoCond.otherValue?if_exists>
                   <label>${uiLabelMap.CommonOther}:</label><input type="text" size="10" name="otherValue" <#if otherValue?has_content && !otherValue.contains("@")> value="${(productPromoCond.otherValue)?if_exists}"</#if> />
@@ -122,9 +128,16 @@ under the License.
                   </select>
                   <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                 </form>
+                <form name="deleteProductPromoCondition_${productPromoRule_index}_${productPromoCond_index}" method="post" action="<@ofbizUrl>deleteProductPromoCond</@ofbizUrl>">
+                  <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)?if_exists}" />
+                  <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)?if_exists}" />
+                  <input type="hidden" name="productPromoCondSeqId" value="${(productPromoCond.productPromoCondSeqId)?if_exists}" />
+                  <a href="javascript:document.deleteProductPromoCondition_${productPromoRule_index}_${productPromoCond_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                </form>
       <#-- ======================= Categories ======================== -->
-                <div class="label">${uiLabelMap.ProductConditions} ${uiLabelMap.ProductCategories}:</div>
+                <div class="label">${uiLabelMap.ProductConditionsCategoriesForCondition} ${(productPromoCond.productPromoCondSeqId)?if_exists}:</div>
       <#assign condProductPromoCategories = productPromoCond.getRelated("ProductPromoCategory")>
+      <#if condProductPromoCategories?has_content>
       <#list condProductPromoCategories as condProductPromoCategory>
         <#assign condProductCategory = condProductPromoCategory.getRelatedOneCache("ProductCategory")>
         <#assign condApplEnumeration = condProductPromoCategory.getRelatedOneCache("ApplEnumeration")>
@@ -144,6 +157,9 @@ under the License.
                   </form>
                 </div>
       </#list>
+      <#else>
+        <div>${uiLabelMap.ProductNoConditionCategories}</div>
+      </#if>
                 <div>
                   <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>" name="createProductPromoCategoryConditions">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
@@ -161,12 +177,13 @@ under the License.
                       <option value="Y">${uiLabelMap.CommonY}</option>
                     </select>
                     ${uiLabelMap.CommonAnd} ${uiLabelMap.CommonGroup}: <input type="text" size="10" maxlength="20" name="andGroupId" value="_NA_"/>*
-                    <input type="submit" value="${uiLabelMap.CommonAdd}" />
+                    <input type="submit" value="${uiLabelMap.ProductAddConditionCategory}" />
                   </form>
                 </div>
       <#-- ======================= Products ======================== -->
-                <div class="label">${uiLabelMap.ProductConditions} ${uiLabelMap.ProductProducts}:</div>
+                <div class="label">${uiLabelMap.ProductConditionsProductsForCondition} ${(productPromoCond.productPromoCondSeqId)?if_exists}:</div>
       <#assign condProductPromoProducts = productPromoCond.getRelated("ProductPromoProduct")>
+      <#if condProductPromoProducts?has_content>
       <#list condProductPromoProducts as condProductPromoProduct>
         <#assign condProduct = condProductPromoProduct.getRelatedOneCache("Product")?if_exists>
         <#assign condApplEnumeration = condProductPromoProduct.getRelatedOneCache("ApplEnumeration")>
@@ -183,6 +200,9 @@ under the License.
                   </form>
                 </div>
       </#list>
+      <#else>
+        <div>${uiLabelMap.ProductNoConditionProducts}</div>
+      </#if>
                 <div>
                   <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
@@ -195,18 +215,11 @@ under the License.
                       <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
       </#list>
                     </select>
-                    <input type="submit" value="${uiLabelMap.CommonAdd}" />
+                    <input type="submit" value="${uiLabelMap.ProductAddConditionProducts}" />
                   </form>
                 </div>
               </td>
-              <td align="center">
-                <form name="deleteProductPromoCondition_${productPromoRule_index}_${productPromoCond_index}" method="post" action="<@ofbizUrl>deleteProductPromoCond</@ofbizUrl>">
-                  <input type="hidden" name="productPromoId" value="${(productPromoCond.productPromoId)?if_exists}" />
-                  <input type="hidden" name="productPromoRuleId" value="${(productPromoCond.productPromoRuleId)?if_exists}" />
-                  <input type="hidden" name="productPromoCondSeqId" value="${(productPromoCond.productPromoCondSeqId)?if_exists}" />
-                  <a href="javascript:document.deleteProductPromoCondition_${productPromoRule_index}_${productPromoCond_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
-                </form>
-              </td>
+              <td></td>
             </tr>
       <#-- toggle the row color -->
       <#if condClass == "2">
@@ -231,8 +244,9 @@ under the License.
                     <option value="${(condOperEnum.enumId)?if_exists}">${(condOperEnum.get("description",locale))?if_exists}</option>
     </#list>
                   </select>
+                  <label>${uiLabelMap.ProductConditionValue}:</label>
                   <input type="text" size="25" name="condValue" />
-                  ${uiLabelMap.CommonOther}:<input type="text" size="10" name="otherValue" /><br />
+                  ${uiLabelMap.CommonOther}:<input type="text" size="10" name="otherValue" />
                   <label>${uiLabelMap.OrderSelectShippingMethod}:</label>
                   <select name = "carrierShipmentMethod">
                     <option value = "">--${uiLabelMap.OrderSelectShippingMethod}--</option>
@@ -241,23 +255,25 @@ under the License.
                     <option value = "${carrierShipmentMethod.partyId?if_exists}@${carrierShipmentMethod.shipmentMethodTypeId?if_exists}">${carrierShipmentMethod.partyId?if_exists}&nbsp;${shipmentMethodType.get("description")?if_exists}</option>
     </#list>
                   </select>
-                  <input type="submit" value="${uiLabelMap.CommonCreate}" />
+                  <input type="submit" value="${uiLabelMap.ProductCreateCondition}" />
                 </form>
               </td>
             </tr>
           </table>
         </td>
       </tr>
+      <tr><td><hr /></td><td colspan="2"></td></tr>
       <tr valign="top" class="row-level-one<#if ruleClass == "1"> alternate-row</#if>">
-        <td align="right" class="label">${uiLabelMap.ProductActions} :</td>
+        <td align="right" class="label">${uiLabelMap.ProductActionForRule} ${(productPromoRule.productPromoRuleId)?if_exists} :</td>
         <td colspan="2">
           <table cellspacing="0" class="basic-table">
     <#assign actionClass = "2">
     <#list productPromoActions as productPromoAction>
             <tr class="row-level-two<#if actionClass == "1"> alternate-row</#if>">
-              <td class="label"><b>${(productPromoAction.productPromoActionSeqId)?if_exists}</b></td>
+              <td></td>
               <td>
                 <div>
+                  <b> ${uiLabelMap.ProductAction} ${(productPromoAction.productPromoActionSeqId)?if_exists}</b>
                   <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>">
                     <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)?if_exists}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)?if_exists}" />
@@ -294,10 +310,17 @@ under the License.
                     </select>
                     <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                   </form>
+                  <form name="deleteProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" method="post" action="<@ofbizUrl>deleteProductPromoAction</@ofbizUrl>">
+                    <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)?if_exists}" />
+                    <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)?if_exists}" />
+                    <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)?if_exists}" />
+                    <a href="javascript:document.deleteProductPromoAction_${productPromoRule_index}_${productPromoAction_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                  </form>
                 </div>
       <#-- ======================= Categories ======================== -->
-                <div class="label">${uiLabelMap.ProductActions} ${uiLabelMap.ProductCategories}:</div>
+                <div class="label">${uiLabelMap.ProductActionsCategoriesForAction} ${(productPromoAction.productPromoActionSeqId)?if_exists}:</div>
       <#assign actionProductPromoCategories = productPromoAction.getRelated("ProductPromoCategory")>
+      <#if actionProductPromoCategories?has_content>
       <#list actionProductPromoCategories as actionProductPromoCategory>
         <#assign actionProductCategory = actionProductPromoCategory.getRelatedOneCache("ProductCategory")>
         <#assign actionApplEnumeration = actionProductPromoCategory.getRelatedOneCache("ApplEnumeration")>
@@ -317,6 +340,10 @@ under the License.
                   </form>
                 </div>
       </#list>
+      <#else>
+        <div>${uiLabelMap.ProductNoActionCategories}</div>
+      </#if>
+      <br />
                 <div>
                   <form method="post" action="<@ofbizUrl>createProductPromoCategory</@ofbizUrl>" name="createProductPromoCategoryActions">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
@@ -334,12 +361,13 @@ under the License.
                       <option value="Y">${uiLabelMap.CommonY}</option>
                     </select>
                     ${uiLabelMap.CommonAnd} ${uiLabelMap.CommonGroup}: <input type="text" size="10" maxlength="20" name="andGroupId" value="_NA_"/>*
-                    <input type="submit" value="${uiLabelMap.CommonAdd}" />
+                    <input type="submit" value="${uiLabelMap.ProductAddActionCategory}" />
                   </form>
                 </div>
       <#-- ======================= Products ======================== -->
-                <div class="label">${uiLabelMap.ProductActions} ${uiLabelMap.ProductProducts}:</div>
+                 <div class="label">${uiLabelMap.ProductActionsProductsForAction} ${(productPromoAction.productPromoActionSeqId)?if_exists}:</div>
       <#assign actionProductPromoProducts = productPromoAction.getRelated("ProductPromoProduct")>
+      <#if actionProductPromoProducts?has_content>
       <#list actionProductPromoProducts as actionProductPromoProduct>
         <#assign actionProduct = actionProductPromoProduct.getRelatedOneCache("Product")?if_exists>
         <#assign actionApplEnumeration = actionProductPromoProduct.getRelatedOneCache("ApplEnumeration")>
@@ -356,6 +384,9 @@ under the License.
                   </form>
                 </div>
       </#list>
+      <#else>
+        <div>${uiLabelMap.ProductNoActionProducts}</div>
+      </#if>
                 <div>
                   <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
@@ -368,18 +399,11 @@ under the License.
                       <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
       </#list>
                     </select>
-                    <input type="submit" value="${uiLabelMap.CommonAdd}" />
+                    <input type="submit" value="${uiLabelMap.ProductAddActionProducts}" />
                   </form>
                 </div>
               </td>
-              <td align="center">
-                <form name="deleteProductPromoAction_${productPromoRule_index}_${productPromoAction_index}" method="post" action="<@ofbizUrl>deleteProductPromoAction</@ofbizUrl>">
-                  <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)?if_exists}" />
-                  <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)?if_exists}" />
-                  <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)?if_exists}" />
-                  <a href="javascript:document.deleteProductPromoAction_${productPromoRule_index}_${productPromoAction_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
-                </form>
-              </td>
+              <td></td>
             </tr>
       <#-- toggle the row color -->
       <#if actionClass == "2">
@@ -411,7 +435,7 @@ under the License.
                       <option value="N">${uiLabelMap.CommonN}</option>
                       <option value="Y">${uiLabelMap.CommonY}</option>
                     </select>
-                    <input type="submit" value="${uiLabelMap.CommonCreate}" />
+                    <input type="submit" value="${uiLabelMap.ProductCreateAction}" />
                   </form>
                 </div>
               </td>

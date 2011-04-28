@@ -8292,6 +8292,18 @@
         <value xml:lang="zh">账户</value>
         <value xml:lang="zh_TW">帳戶</value>
     </property>
+    <property key="ProductAction">
+        <value xml:lang="en">Action</value>
+    </property>
+    <property key="ProductActionsCategoriesForAction">
+        <value xml:lang="en">Actions Categories For Action</value>
+    </property>
+    <property key="ProductActionForRule">
+        <value xml:lang="en">Action For Rule</value>
+    </property>
+    <property key="ProductActionsProductsForAction">
+        <value xml:lang="en">Actions Products For Action</value>
+    </property>
     <property key="ProductActionType">
         <value xml:lang="de">Aktionstyp</value>
         <value xml:lang="en">Action Type</value>
@@ -8446,6 +8458,12 @@
         <value xml:lang="zh">实际运输</value>
         <value xml:lang="zh_TW">實際運輸</value>
     </property>
+    <property key="ProductAddActionCategory">
+        <value xml:lang="en">Add Action Category</value>
+    </property>
+    <property key="ProductAddActionProducts">
+        <value xml:lang="en">Add Action Products</value>
+    </property>
     <property key="ProductAddAdditionalImages">
         <value xml:lang="en">Add Additional Images</value>
     </property>
@@ -8506,6 +8524,12 @@
     <property key="ProductAddCommunicationEvent">
         <value xml:lang="en">Add Communication Event</value>
         <value xml:lang="it">Aggiungi evento comunicazione</value>
+    </property>
+    <property key="ProductAddConditionCategory">
+        <value xml:lang="en">Add Condition Category</value>
+    </property>
+    <property key="ProductAddConditionProducts">
+        <value xml:lang="en">Add Condition Products</value>
     </property>
     <property key="ProductAddContentCategory">
         <value xml:lang="de">Inhalt zu Kategorie hinzufügen</value>
@@ -10890,6 +10914,12 @@
         <value xml:lang="zh">组件</value>
         <value xml:lang="zh_TW">元件</value>
     </property>
+    <property key="ProductCondition">
+        <value xml:lang="en">Condition</value>
+    </property>
+    <property key="ProductConditionValue">
+        <value xml:lang="en">Condition Value</value>
+    </property>
     <property key="ProductConditions">
         <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Conditions</value>
@@ -10907,10 +10937,22 @@
         <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Thru Date</value>
         <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée</value>
     </property>
+    <property key="ProductConditionsCategoriesForCondition">
+        <value xml:lang="en">Conditions Categories For Condition</value>
+    </property>
+    <property key="ProductConditionsForRule">
+        <value xml:lang="en">Conditions For Rule</value>
+    </property>
+    <property key="ProductConditionsProductsForCondition">
+        <value xml:lang="en">Conditions Products For Condition</value>
+    </property>
     <property key="ProductConditionsThenActions">
         <value xml:lang="de">Wenn mehrere Bedingungen eingegeben wurde, sind sie logisch UND verknüpft. Daher müssen alle Bedingungen WAHR sein und die Preisregel auszuführen (gleiches für Aktionen)</value>
         <value xml:lang="en">If multiple conditions are entered they are tested logically as and AND statement. Therefore all Conditions must be TRUE for the price rule to execute (same for actions)</value>
         <value xml:lang="fr">Si toutes les conditions sont vérifiées, alors les actions sont exécutées (autrement dit ET logique entre conditions, de même pour les actions)</value>
+    </property>
+    <property key="ProductConditionValue">
+        <value xml:lang="en">Condition Value</value>
     </property>
     <property key="ProductConfigItem">
         <value xml:lang="de">Konfigurationsposition</value>
@@ -11306,6 +11348,9 @@
         <value xml:lang="en">Country of Origin</value>
         <value xml:lang="it">Paese di origine</value>
     </property>
+    <property key="ProductCreateAction">
+        <value xml:lang="en">Create Action</value>
+    </property>
     <property key="ProductCreateAProductFeatureCategory">
         <value xml:lang="de">Produktmerkmal Kategorie erstellen</value>
         <value xml:lang="en">Create a Product Feature Category</value>
@@ -11317,6 +11362,9 @@
         <value xml:lang="th">สร้างหมวดหมู่ลักษณะสินค้า</value>
         <value xml:lang="zh">创建一个产品特征分类</value>
         <value xml:lang="zh_TW">創建一個產品特性分類</value>
+    </property>
+    <property key="ProductCreateCondition">
+        <value xml:lang="en">Create Condition</value>
     </property>
     <property key="ProductCreateInformationNewSupplier">
         <value xml:lang="de">Informationen zu neuem Lieferant erstellen</value>
@@ -16650,6 +16698,12 @@
         <value xml:lang="zh">下次送货</value>
         <value xml:lang="zh_TW">下次送貨</value>
     </property>
+    <property key="ProductNoActionCategories">
+        <value xml:lang="en">No Action Categories</value>
+    </property>
+    <property key="ProductNoActionProducts">
+        <value xml:lang="en">No Action Products</value>
+    </property>
     <property key="ProductNoCategorySpecified">
         <value xml:lang="de">Keine Kategorie ausgewählt</value>
         <value xml:lang="en">No category specified</value>
@@ -16685,6 +16739,12 @@
         <value xml:lang="th">ไม่พบกลุ่มเด็ก</value>
         <value xml:lang="zh">没有找到下级组</value>
         <value xml:lang="zh_TW">沒有找到下級組</value>
+    </property>
+    <property key="ProductNoConditionCategories">
+        <value xml:lang="en">No Condition Categories</value>
+    </property>
+    <property key="ProductNoConditionProducts">
+        <value xml:lang="en">No Condition Products</value>
     </property>
     <property key="ProductNoDescription">
         <value xml:lang="de">Keine Beschreibung</value>
@@ -21332,6 +21392,9 @@
         <value xml:lang="th">ชื่อข้อบังคับ, คำอธิบาย, จากวันที่, ถึงวันที่</value>
         <value xml:lang="zh">规则名称， 描述， 开始日期， 结束日期</value>
         <value xml:lang="zh_TW">規則名稱， 描述， 開始日期， 結束日期</value>
+    </property>
+    <property key="ProductRule">
+        <value xml:lang="en">Rule</value>
     </property>
     <property key="ProductRules">
         <value xml:lang="de">Regeln</value>
