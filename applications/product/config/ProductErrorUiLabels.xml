@@ -35,6 +35,10 @@
         <value xml:lang="en">Product not found in the current category.</value>
         <value xml:lang="it">Prodotto non trovato nell'attuale categoria.</value>
     </property>
+    <property key="ImageManagementErrorRmoveDefaultImage">
+        <value xml:lang="en">Unable to remove an image. It is the defualt image.</value>
+        <value xml:lang="th">ไม่สามารถลบรูปภาพ</value>
+    </property>
     <property key="ScaleImage.error_occurs_during_writing">
         <value xml:lang="en">An error occurs during writing</value>
         <value xml:lang="fr">Une erreur est survenue lors de l'écriture</value>

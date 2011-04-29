@@ -23,18 +23,6 @@
         <value xml:lang="de">Neues Merkmal für dieses Produkt erstellen</value>
         <value xml:lang="en">Add new Product Feature to current product</value>
     </property>
-    <property key="Approve">
-        <value xml:lang="en">Approve</value>
-        <value xml:lang="th">ยืนยัน</value>
-    </property>
-    <property key="Approved">
-        <value xml:lang="en">Approved</value>
-        <value xml:lang="th">ยืนยันแล้ว</value>
-    </property>
-    <property key="AutomaticResize">
-        <value xml:lang="en">Automatic Resize</value>
-        <value xml:lang="th">เปลี่ยนขนาดอัตโนมัติ</value>
-    </property>
     <property key="CatalogWebAnalytics">
         <value xml:lang="en">Web Analytics</value>
         <value xml:lang="it">Analisi Web</value>
@@ -49,18 +37,6 @@
         <value xml:lang="en">Web Analytics Types</value>
         <value xml:lang="it">Tipi di analisi Web</value>
         <value xml:lang="zh_TW">網站分析型態</value>
-    </property>
-    <property key="ChooseImageToReplace">
-        <value xml:lang="en">Choose Image to Replace</value>
-        <value xml:lang="th">เลือกภาพสำหรับแทนที่</value>
-    </property>
-    <property key="ChooseProductID">
-        <value xml:lang="en">Choose Product ID</value>
-        <value xml:lang="th">เลือกรหัสสินค้า</value>
-    </property>
-    <property key="ChooseReplacementImage">
-        <value xml:lang="en">Choose Replacement Image</value>
-        <value xml:lang="th">เลือกภาพที่จะแทนที่</value>
     </property>
     <property key="CreateNewProductFeatureType">
         <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
@@ -5795,59 +5771,188 @@
         <value xml:lang="zh">人工服务好的标准类型标识</value>
         <value xml:lang="zh_TW">工項成品規範類型ID</value>
     </property>
-    <property key="Gallery">
-        <value xml:lang="de">Gallerie</value>
-        <value xml:lang="en">Gallery</value>
-        <value xml:lang="th">แกลลอรี่</value>
-    </property>
-    <property key="ImageApprove">
-        <value xml:lang="de">Bestätigen</value>
-        <value xml:lang="en">Approve</value>
-        <value xml:lang="th">ยืนยันรูปภาพ</value>
-    </property>
-    <property key="ImageCropping">
-        <value xml:lang="en">Image Cropping</value>
-        <value xml:lang="th">ตัดภาพ</value>
-    </property>
-    <property key="ImageFrames">
-        <value xml:lang="en">Image Frames</value>
-        <value xml:lang="th">เฟรม</value>
-    </property>
     <property key="ImageManagement">
         <value xml:lang="en">Image Management</value>
         <value xml:lang="th">จัดการรูปภาพ</value>
+    </property>
+    <property key="ImageManagementAction">
+        <value xml:lang="en">Action</value>
+    </property>
+    <property key="ImageManagementAltForumCode">
+        <value xml:lang="en">Alt Forum Code</value>
+    </property>
+    <property key="ImageManagementAltForumThumbnail">
+        <value xml:lang="en">Alt Forum Thumbnail</value>
     </property>
     <property key="ImageManagementApplication">
         <value xml:lang="en">Image Management Application</value>
         <value xml:lang="th">โปรแกรมจัดการรูปภาพ</value>
     </property>
-    <property key="ImageRecentlyApproved">
-        <value xml:lang="en">Recently Approved</value>
-        <value xml:lang="th">รูปภาพยืนยันล่าสุด</value>
+    <property key="ImageManamentApprove">
+        <value xml:lang="de">Bestätigen</value>
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="th">อนุมัติ</value>
     </property>
-    <property key="ImageRejected">
-        <value xml:lang="en">Rejected</value>
-        <value xml:lang="th">ปฏิเสธรูปภาพ</value>
+    <property key="ImageManamentApprovedDate">
+        <value xml:lang="en">Approved Date</value>
+        <value xml:lang="th">วันที่อนุมัติ</value>
     </property>
-    <property key="ImageRotating">
+    <property key="ImageManagementCaption">
+        <value xml:lang="en">Caption</value>
+        <value xml:lang="th">คำอธิบายภาพ</value>
+    </property>
+    <property key="ImageManagementChooseExistFrame">
+        <value xml:lang="en">Choose Exist Frame</value>
+        <value xml:lang="th">เลือกกรอกรูปภาพที่มีอยู่</value>
+    </property>
+    <property key="ImageManagementChooseImageToReplace">
+        <value xml:lang="en">Choose Image to Replace</value>
+        <value xml:lang="th">เลือกรูปภาพสำหรับแทนที่</value>
+    </property>
+    <property key="ImageManagementChooseProductID">
+        <value xml:lang="en">Choose Product ID</value>
+        <value xml:lang="th">เลือกรหัสสินค้า</value>
+    </property>
+    <property key="ImageManagementChooseReplacementImage">
+        <value xml:lang="en">Choose Replacement Image</value>
+        <value xml:lang="th">เลือกรูปภาพที่จะแทนที่</value>
+    </property>
+    <property key="ImageManagementCrop">
+        <value xml:lang="en">Crop</value>
+        <value xml:lang="th">ตัดรูปภาพ</value>
+    </property>
+    <property key="ImageManagementDefaultImage">
+        <value xml:lang="en">Default Image</value>
+    </property>
+    <property key="ImageManagementDirectLink">
+        <value xml:lang="en">Direct Link</value>
+        <value xml:lang="th">เชื่อมโยงโดยตรง</value>
+    </property>
+    <property key="ImageManagementFrame">
+        <value xml:lang="en">Frame</value>
+        <value xml:lang="th">กรอบรูปภาพ</value>
+    </property>
+    <property key="ImageManagementForumCode">
+        <value xml:lang="en">Forum Code</value>
+        <value xml:lang="th">รหัสฟอรั่ม</value>
+    </property>
+    <property key="ImageManagementForumThumbnail">
+        <value xml:lang="en">Forum Thumbnail</value>
+        <value xml:lang="th">รูปภาพย่อฟอรั่ม</value>
+    </property>
+    <property key="ImageManagementGallery">
+        <value xml:lang="de">Gallerie</value>
+        <value xml:lang="en">Gallery</value>
+        <value xml:lang="th">แกลลอรี่</value>
+    </property>
+    <property key="ImageManagementHTMLCode">
+        <value xml:lang="en">HTML Code</value>
+    </property>
+    <property key="ImageManagementHTMLThumbnail">
+        <value xml:lang="en">HTML Thumbnail</value>
+    </property>
+    <property key="ImageManagementImageCropping">
+        <value xml:lang="en">Image Cropping</value>
+        <value xml:lang="th">ตัดรูปภาพ</value>
+    </property>
+    <property key="ImageManagementImageFrames">
+        <value xml:lang="en">Image Frame</value>
+        <value xml:lang="th">กรอบรูปภาพ</value>
+    </property>
+    <property key="ImageManagementImageHeight">
+        <value xml:lang="en">Image Height</value>
+        <value xml:lang="th">ความสูงของรูปภาพ</value>
+    </property>
+    <property key="ImageManagementImageName">
+        <value xml:lang="en">Image Name</value>
+        <value xml:lang="th">ชื่อรูปภาพ</value>
+    </property>
+    <property key="ImageManagementImageRotating">
         <value xml:lang="en">Image Rotating</value>
-        <value xml:lang="th">หมุนภาพ</value>
+        <value xml:lang="th">หมุนรูปภาพ</value>
     </property>
-    <property key="ImageUpload">
-        <value xml:lang="en">Upload</value>
-        <value xml:lang="th">อัพโหลดรูป</value>
+    <property key="ImageManagementImageToReplace">
+        <value xml:lang="en">Image to Replace</value>
+        <value xml:lang="th">ภาพที่จะเปลี่ยน</value>
     </property>
-    <property key="ImageUploadList">
+    <property key="ImageManagementImageUploadList">
         <value xml:lang="en">Image Upload List</value>
         <value xml:lang="th">รูปภาพที่อัพโหลด</value>
     </property>
-    <property key="ImageWatermarking">
+    <property key="ImageManagementImageWatermarking">
         <value xml:lang="en">Image Watermarking</value>
+        <value xml:lang="th">ลายน้ำรูปภาพ</value>
+    </property>
+    <property key="ImageManagementImageWidth">
+        <value xml:lang="en">Image Width</value>
+        <value xml:lang="th">ความกว้างของรูปภาพ</value>
+    </property>
+    <property key="ImageManagementOpacity">
+        <value xml:lang="en">Opacity</value>
+        <value xml:lang="th">ความทึบแสง</value>
+    </property>
+    <property key="ImageManagementRecentlyApproved">
+        <value xml:lang="en">Recently Approved</value>
+        <value xml:lang="th">อนุมัติล่าสุด</value>
+    </property>
+    <property key="ImageManagementRejectedBy">
+        <value xml:lang="en">Rejected By</value>
+        <value xml:lang="th">ผู้ไม่ยอมรับ</value>
+    </property>
+    <property key="ImageManagementRejectedReason">
+        <value xml:lang="en">Rejected Reason</value>
+        <value xml:lang="th">เหตุผลที่ไม่ยอมรับ</value>
+    </property>
+    <property key="ImageManagementReplace">
+        <value xml:lang="en">Replace</value>
+        <value xml:lang="th">แทนที่</value>
+    </property>
+    <property key="ImageManagementReplacementImage">
+        <value xml:lang="en">Replacement Image</value>
+        <value xml:lang="th">เปลี่ยนรูปภาพ</value>
+    </property>
+    <property key="ImageManagementResize">
+        <value xml:lang="en">Resize</value>
+        <value xml:lang="th">เปลี่ยนขนาด</value>
+    </property>
+    <property key="ImageManagementRotate">
+        <value xml:lang="en">Rotate</value>
+        <value xml:lang="th">หมุนรูปภาพ</value>
+    </property>
+    <property key="ImageManagementSetDefault">
+        <value xml:lang="en">Set Default</value>
+    </property>
+    <property key="ImageManagementShare">
+        <value xml:lang="en">Share</value>
+        <value xml:lang="th">แบ่งบัน</value>
+    </property>
+    <property key="ImageManagementShareImage">
+        <value xml:lang="en">Share Image</value>
+        <value xml:lang="th">แบ่งบันรูปภาพ</value>
+    </property>
+    <property key="ImageManagementSortOrder">
+        <value xml:lang="en">Sort Order</value>
+        <value xml:lang="th">เรียงลำดับ</value>
+    </property>
+    <property key="ImageManagementTextColor">
+        <value xml:lang="en">Text Color</value>
+        <value xml:lang="th">สีตัวอักษร</value>
+    </property>
+    <property key="ImageManagementTextSize">
+        <value xml:lang="en">Text Size</value>
+        <value xml:lang="th">ขนาดตัวอักษร</value>
+    </property>
+    <property key="ImageManagementUploadNewFrame">
+        <value xml:lang="en">Upload New Frame</value>
+        <value xml:lang="th">อัพโหลดกรอกรูปภาพใหม่</value>
+    </property>
+    <property key="ImageManagementWatermark">
+        <value xml:lang="en">Watermark</value>
         <value xml:lang="th">ลายน้ำ</value>
     </property>
-    <property key="Manage">
-        <value xml:lang="en">Manage</value>
-        <value xml:lang="th">จัดการ</value>
+    <property key="ImageManagementWelcomeMessage">
+        <value xml:lang="en">Welcome to the Image Management</value>
+        <value xml:lang="th">ยินดีต้อนรับสู้รบบการจัดการรูปภาพ</value>
     </property>
     <property key="MetaDescription">
         <value xml:lang="en">Meta Description</value>
@@ -22982,6 +23087,10 @@
         <value xml:lang="zh">州</value>
         <value xml:lang="zh_TW">州</value>
     </property>
+    <property key="ProductStatus">
+        <value xml:lang="en">Product Status</value>
+        <value xml:lang="th">สถานะสินค้า</value>
+    </property>
     <property key="ProductStatusId">
         <value xml:lang="de">Status ID</value>
         <value xml:lang="en">Status Id</value>
@@ -24933,40 +25042,8 @@
         <value xml:lang="zh">你搜索</value>
         <value xml:lang="zh_TW">你所搜索的</value>
     </property>
-    <property key="RecentlyApproved">
-        <value xml:lang="en">Recently Approved</value>
-        <value xml:lang="th">แกลลอรี่</value>
-    </property>
-    <property key="Rejected">
-        <value xml:lang="en">Rejected</value>
-        <value xml:lang="th">ปฏิเสธ</value>
-    </property>
-    <property key="Rename">
-        <value xml:lang="en">Rename</value>
-        <value xml:lang="th">เปลี่ยนชื่อ</value>
-    </property>
-    <property key="Replace">
-        <value xml:lang="en">Replace</value>
-        <value xml:lang="th">แทนที่</value>
-    </property>
-    <property key="Resize">
-        <value xml:lang="en">Resize</value>
-        <value xml:lang="th">เปลี่ยนขนาด</value>
-    </property>
-    <property key="ShareImage">
-        <value xml:lang="en">Share Image</value>
-        <value xml:lang="th">แบ่งบันภาพ</value>
-    </property>
-    <property key="Upload">
-        <value xml:lang="en">Upload</value>
-        <value xml:lang="th">อัพโหลด</value>
-    </property>
     <property key="UseCartQuantity">
         <value xml:lang="en">Use cart quantity</value>
         <value xml:lang="fr">Utiliser la quantité du panier</value>
-    </property>
-    <property key="WelcomeMessage">
-        <value xml:lang="en">Welcome to the Image Management</value>
-        <value xml:lang="th">ยินดีต้อนรับสู้รบบการจัดการรูปภาพ</value>
     </property>
 </resource>

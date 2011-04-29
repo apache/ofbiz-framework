@@ -476,18 +476,18 @@ under the License.
     </menu>
 
      <menu name="ImageManagementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="userTabButtonImage">
-        <menu-item name="main" title="${uiLabelMap.Main}">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}">
             <condition>
                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
             </condition>
             <link target="Imagemanagement"/>
         </menu-item>
-        <menu-item name="ImageGallery" title="${uiLabelMap.Gallery}">
+        <menu-item name="ImageGallery" title="${uiLabelMap.ImageManagementGallery}">
             <link target="ListImageGallery">
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
-        <menu-item name="ImageUpload" title="${uiLabelMap.ImageUpload}">
+        <menu-item name="ImageUpload" title="${uiLabelMap.CommonUpload}">
             <condition>
                 <or>
                     <if-has-permission permission="IMAGE_MANAGEMENT_UPLOAD"/>
@@ -496,7 +496,7 @@ under the License.
             </condition>
             <link target="ImageUpload"/>
         </menu-item>
-        <menu-item name="ImageManage" title="${uiLabelMap.Manage}">
+        <menu-item name="ImageManage" title="${uiLabelMap.CommonManage}">
             <condition>
                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
             </condition>
@@ -504,7 +504,7 @@ under the License.
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
-        <menu-item name="ImageApprove" title="${uiLabelMap.ImageApprove}">
+        <menu-item name="ImageApprove" title="${uiLabelMap.ImageManamentApprove}">
             <condition>
                 <or>
                     <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
@@ -513,7 +513,7 @@ under the License.
             </condition>
             <link target="ImageApprove"/>
         </menu-item>
-        <menu-item name="ImageRejected" title="${uiLabelMap.ImageRejected}">
+        <menu-item name="ImageRejected" title="${uiLabelMap.CommonRejected}">
             <condition>
                 <or>
                     <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
@@ -522,7 +522,7 @@ under the License.
             </condition>
             <link target="ImageRejected"/>
         </menu-item>
-        <menu-item name="ImageRecentlyApproved" title="${uiLabelMap.ImageRecentlyApproved}">
+        <menu-item name="ImageRecentlyApproved" title="${uiLabelMap.ImageManagementRecentlyApproved}">
             <condition>
                 <or>
                     <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>
@@ -531,7 +531,7 @@ under the License.
             </condition>
             <link target="ImageRecentlyApproved"/>
         </menu-item>
-        <menu-item name="ImageReplace" title="${uiLabelMap.Replace}">
+        <menu-item name="ImageReplace" title="${uiLabelMap.ImageManagementReplace}">
             <condition>
                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
             </condition>
@@ -539,27 +539,11 @@ under the License.
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
-        <menu-item name="ImageRename" title="${uiLabelMap.Rename}">
-            <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-            </condition>
-            <link target="ListImageRename">
-                <parameter param-name="productId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ImageResize" title="${uiLabelMap.Resize}">
+        <menu-item name="ImageResize" title="${uiLabelMap.ImageManagementResize}">
             <condition>
                 <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
             </condition>
             <link target="ImageResize">
-                <parameter param-name="productId"/>
-            </link>
-        </menu-item>
-        <menu-item name="ImageRemove" title="${uiLabelMap.Remove}">
-            <condition>
-                <if-has-permission permission="IMAGE_MANAGEMENT_ADMIN"/>
-            </condition>
-            <link target="ListImageRemove">
                 <parameter param-name="productId"/>
             </link>
         </menu-item>

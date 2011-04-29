@@ -31,10 +31,12 @@ $(document).ready(function(){
     form.altForumCode.setAttribute('readOnly','readonly');
     
     if (contentURL != "") {
+        var pathImageUrlEcommerce = contentURL + imageUrl;
         var pathImageUrl = contentURL + imageUrl;
         var pathImageThumbnailUrl = contentURL + imageThumbUrl;
     }
     else {
+        var pathImageUrlEcommerce = "http://localhost:8080" + imageUrl;
         var pathImageUrl = "http://" + host + imageUrl;
         var pathImageThumbnailUrl = "http://"+ host + imageThumbUrl;
     }
@@ -42,7 +44,7 @@ $(document).ready(function(){
     if (form.contentId.value != "") {
         pathImageUrl = $('#ImageShare_direct').html(pathImageUrl).text();
         pathImageThumbnailUrl = $('#ImageShare_direct').html(pathImageThumbnailUrl).text();
-        form.link.value = "http://" + host + form.seoURL.value;
+        form.link.value = pathImageUrlEcommerce;
         form.direct.value = pathImageUrl;
         form.html.value = "<a target='_blank' title='Image' href='" + pathImageUrl + "'><img src='" + pathImageUrl + "' border='0'/></a>Uploaded with <a target='_blank' href='http://images.ofbiz.com'>ofbiz.com</a>";
         form.forumCode.value = "[URL=" + pathImageUrl + "/][IMG]" + pathImageUrl + "[/IMG][/URL]Uploaded with [URL=http://images.ofbiz.com]ofbiz.com[/URL]";

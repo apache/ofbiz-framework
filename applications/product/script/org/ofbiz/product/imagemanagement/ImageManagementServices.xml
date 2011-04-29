@@ -127,27 +127,41 @@ under the License.
     </simple-method>
    
     <simple-method method-name="removeProductContentAndImageFile" short-description="Remove Content From Product and Image File">
-        <entity-and list="contentAssocs" entity-name="ContentAssoc">
+        <entity-and entity-name="ProductContent" list="checkDefaultImage">
+            <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="contentId" from-field="parameters.contentId"/>
-            <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>
         </entity-and>
-        <if-not-empty field="contentAssocs">
-            <iterate entry="contentAssoc" list="contentAssocs">
-                <remove-value value-field="contentAssoc"/>
-                
-                <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
-                <set field="removeContent.productId" from-field="parameters.productId"/>
-                <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
-            </iterate>
-        </if-not-empty>
-        
-        <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-        <set field="removeContent.contentId" from-field="parameters.contentId"/>
-        <set field="removeContent.productId" from-field="parameters.productId"/>
-        <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+        <if-empty field="checkDefaultImage">
+            <entity-and list="contentAssocs" entity-name="ContentAssoc">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
+            </entity-and>
+            <if-not-empty field="contentAssocs">
+                <iterate entry="contentAssoc" list="contentAssocs">
+                    <remove-value value-field="contentAssoc"/>
+                    
+                    <set field="removeContent.contentId" from-field="contentAssoc.contentIdTo"/>
+                    <set field="removeContent.productId" from-field="parameters.productId"/>
+                    <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+                </iterate>
+            </if-not-empty>
+            
+            <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
+            <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+            <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
+            <set field="removeContent.contentId" from-field="parameters.contentId"/>
+            <set field="removeContent.productId" from-field="parameters.productId"/>
+            <call-service service-name="removeProductContentForImageManagement" in-map-name="removeContent"/>
+        <else>
+            <add-error>
+                <fail-property resource="ProductErrorUiLabels" property="ImageManagementErrorRmoveDefaultImage"/>
+            </add-error>
+            <log level="error" message="Cannot remove image contentId ${parameters.contentId}"/>
+            <check-errors/>
+        </else>
+        </if-empty>
     </simple-method>
     
     <simple-method method-name="removeProductContentForImageManagement" short-description="Remove Content From Product">
