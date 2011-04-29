@@ -1180,6 +1180,10 @@ nextProd:
      * @throws GenericEntityException to catch
      */
     public static Boolean isDecimalQuantityOrderAllowed(Delegator delegator, String poductId, String productStoreId) throws GenericEntityException{
+        //sometime productStoreId may be null (ie PO), then return default value which is TRUE
+        if(UtilValidate.isEmpty(productStoreId)){
+            return Boolean.TRUE;
+        }
         String allowDecimalStore = delegator.findOne("ProductStore", Boolean.TRUE, UtilMisc.toMap("productStoreId", productStoreId)).getString("orderDecimalQuantity");
         String allowDecimalProduct = delegator.findOne("Product", Boolean.TRUE, UtilMisc.toMap("productId", poductId)).getString("orderDecimalQuantity");
         
