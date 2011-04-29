@@ -209,9 +209,6 @@ public class Base64 {
         if (str == null) {
             return null;
         }
-        byte data[] = new byte[str.length()];
-
-        data = str.getBytes();
-        return new String(base64Encode(data));
+        return new String(base64Encode(str.getBytes()));
     }
 }
