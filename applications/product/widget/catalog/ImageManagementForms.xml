@@ -44,8 +44,8 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name">
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}">
             <hyperlink target="${currentFormName}" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
                 <parameter param-name="contentId"/>
@@ -55,7 +55,7 @@ under the License.
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
         <field name="fromDate"><display/></field>
-        <field name="statusId" title="Status">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
@@ -64,7 +64,7 @@ under the License.
     </form>
     
     <form name="ImageGallery" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageGallery"> 
-        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
@@ -95,26 +95,26 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="statusProductId" title="Product Status" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="statusProductId" title="${uiLabelMap.ProductStatus}" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <radio no-current-selected-key="${checkRadio}">
-                <option key="IM_APPROVED__${productId}" description="Approve"/>
-                <option key="IM_REJECTED__${productId}" description="Reject"/>
-                <option key="IM_PENDING__${productId}" description="Pending"/>
+                <option key="IM_APPROVED__${productId}" description="${uiLabelMap.FormFieldTitle_approve}"/>
+                <option key="IM_REJECTED__${productId}" description="${uiLabelMap.FormFieldTitle_rejectButton}"/>
+                <option key="IM_PENDING__${productId}" description="${uiLabelMap.FormFieldTitle_pending}"/>
             </radio>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
-        <field name="checkStatusId" position="2" title="Status">
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="checkStatusId" position="2" title="${uiLabelMap.CommonStatus}">
             <radio no-current-selected-key="${checkRadio}">
-                <option key="IM_APPROVED/${productId}" description="Approve"/>
-                <option key="IM_REJECTED/${productId}" description="Reject"/>
-                <option key="IM_PENDING/${productId}" description="Pending"/>
+                <option key="IM_APPROVED/${productId}" description="${uiLabelMap.FormFieldTitle_approve}"/>
+                <option key="IM_REJECTED/${productId}" description="${uiLabelMap.FormFieldTitle_rejectButton}"/>
+                <option key="IM_PENDING/${productId}" description="${uiLabelMap.FormFieldTitle_pending}"/>
             </radio>
         </field>
-        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
@@ -150,11 +150,11 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
@@ -163,7 +163,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ImageRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+    <form name="ListPeopleRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
         use-row-submit="true" separate-columns="true" target="addRejectedReasonImageManagement">
         <row-actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
@@ -189,19 +189,19 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
-        <field name="statusId" position="2" title="Status">
+        <field name="statusId" position="2" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="description" position="2" title="Rejected Reason">
+        <field name="description" position="2" title="${uiLabelMap.ImageManagementRejectedReason}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="IMAGE_REJECT_REASON"/>
@@ -214,7 +214,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="ListPeopleRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
+    <form name="ImageRejected" type="multi" title="" list-name="productContentAndInfos" odd-row-style="alternate-row" default-table-style="basic-table" 
         use-row-submit="true" separate-columns="true" target="">
         <row-actions>
             <entity-one entity-name="ContentDataResourceView" value-field="contentDataResourceView">
@@ -244,27 +244,27 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="Product Name [Product ID] - Category Name" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="drObjectInfo" position="2" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" position="2" title="Image Name"><display/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
         <field name="thruDate" position="2"><display/></field>
-        <field name="statusId" position="2" title="Status">
+        <field name="statusId" position="2" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="rejectedBy" position="2" title="Rejected By"><display/></field>
-        <field name="description" position="2" title="Rejected Reason"><display/></field>
+        <field name="rejectedBy" position="2" title="${uiLabelMap.ImageManagementRejectedBy}"><display/></field>
+        <field name="description" position="2" title="${uiLabelMap.ImageManagementRejectedReason}"><display/></field>
         <field name="viewButton" position="2" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
     </form>
     
     <form name="ImageManage" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageManage"> 
-        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
@@ -305,33 +305,49 @@ under the License.
         <field name="dataResourceId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="_rowSubmit" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="action" use-when="${groovy: return context.drMimeTypeId == 'image/jpeg';}" title="Action" event="onChange" action="javascript:
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="action" use-when="${groovy: return context.drMimeTypeId == 'image/jpeg';}" title="${uiLabelMap.ImageManagementAction}" event="onChange" action="javascript:
             document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}'; 
             document.ListImageManage.submit();">
             <drop-down allow-empty="true">
-                  <option key="frame" description="Frame"/>
-                  <option key="watermark" description="Watermark"/>
-                  <option key="crop" description="Crop"/>
-                  <option key="rotate" description="Rotate"/>
+                  <option key="frame" description="${uiLabelMap.ImageManagementFrame}"/>
+                  <option key="watermark" description="${uiLabelMap.ImageManagementWatermark}"/>
+                  <option key="crop" description="${uiLabelMap.ImageManagementCrop}"/>
+                  <option key="rotate" description="${uiLabelMap.ImageManagementRotate}"/>
             </drop-down>
         </field>
-        <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Caption"><text/></field>
-        <field name="sequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Sort Order"><text maxlength="2" size="5"/></field>
-        <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Enable"><check/></field>
-        <field name="defaultImage" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="Default Image" widget-style="buttontext">
-            <hyperlink target="setDefaultImage" description="Set Default">
+        <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementCaption}"><text/></field>
+        <field name="sequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementSortOrder}"><text maxlength="2" size="5"/></field>
+        <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.CommonEnable}"><check/></field>
+        <field name="defaultImage" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementDefaultImage}" widget-style="buttontext">
+            <hyperlink target="setDefaultImage" description="${uiLabelMap.ImageManagementSetDefault}">
                 <parameter param-name="productId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo"/>
             </hyperlink>
         </field>
-        <field name="drDataResourceName" title="Image Name"><display/></field>
-        <field name="statusId" title="Status">
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}" id-name="description">
+            <display description="${drDataResourceName}" >
+                <in-place-editor url="renameImage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
+                    <simple-editor/>
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
+                </in-place-editor>
+            </display>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
+        </field>
+        <field name="deleteButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink target="removeImage" description="${uiLabelMap.CommonRemove}" also-hidden="false" confirmation-message="Do you want to remove this image?">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="productContentTypeId" from-field="productContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <sort-order>
@@ -392,22 +408,22 @@ under the License.
         <field name="checkFrame"><hidden value="T"/></field>
         <field name="frameURL"><hidden value="${parameters.checkFrame}"/></field>
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
-        <field name="imageShare" use-when="imageURL != null" title="Image" widget-area-style="image-src"><image value="${imageURL}"/></field>
-        <field name="imageShare" use-when="imageURL == null" title="Image"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="image-src"><image value="${imageURL}"/></field>
+        <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
         <field name="imageDimention" widget-area-style="dimention"><display></display></field>
-        <field name="imageFrame" use-when="frameURL != null" title="Frame" widget-area-style="image-fr"><image value="${frameURL}"/></field>
-        <field name="imageFrame" use-when="frameURL == null" title="Frame" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageFrame" use-when="frameURL != null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="${frameURL}"/></field>
+        <field name="imageFrame" use-when="frameURL == null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" width="200"/></field>
         <field name="frameDimention" use-when="frameURL != null" widget-area-style="frameDimention"><display></display></field>
-        <field name="uploadedFile" title="Upload New Frame" event="onClick" action="javascript:setUploadTarget('_self');"><file/></field>
-        <field name="uploadButton" title="Upload" widget-style="smallSubmit" event="onClick" action="javascript:document.ImageFrames.setAttribute('enctype', 'multipart/form-data');setTargetWindows('upload');document.ImageFrames.submit();"><submit button-type="button"/></field>
-        <field name="imageFrameContentId" title="Choose Exist Frame"><lookup target-form-name="LookupImageFrame"/></field>
-        <field name="confirmButton" title="Confirm" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('choose');document.ImageFrames.submit();"><submit button-type="button"/></field>
-        <field name="imageWidth" title="Image Width"><text/></field>
-        <field name="imageHeight" title="Image Height"><text/></field>
-        <field name="previewButton" title="Preview" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('new');"><submit button-type="button"/></field>
-        <field name="submitButton" title="Create" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('_self');"><submit button-type="button"/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ImageManagementUploadNewFrame}" event="onClick" action="javascript:setUploadTarget('_self');"><file/></field>
+        <field name="uploadButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit" event="onClick" action="javascript:document.ImageFrames.setAttribute('enctype', 'multipart/form-data');setTargetWindows('upload');document.ImageFrames.submit();"><submit button-type="button"/></field>
+        <field name="imageFrameContentId" title="${uiLabelMap.ImageManagementChooseExistFrame}"><lookup target-form-name="LookupImageFrame"/></field>
+        <field name="confirmButton" title="${uiLabelMap.FormFieldTitle_confirmButton}" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('choose');document.ImageFrames.submit();"><submit button-type="button"/></field>
+        <field name="imageWidth" title="${uiLabelMap.ImageManagementImageWidth}"><text/></field>
+        <field name="imageHeight" title="${uiLabelMap.ImageManagementImageHeight}"><text/></field>
+        <field name="previewButton" title="${uiLabelMap.CommonPreview}" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('new');"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('_self');"><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewFrameImage();">
-            <hyperlink target="ListImageManage" description="Cancel">
+            <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
                 <parameter param-name="productId" from-field="parameters.productId"></parameter>
             </hyperlink>
         </field>
@@ -433,10 +449,10 @@ under the License.
         <field name="positionY" widget-area-style="positionY"><hidden value="50.00"/></field>
         <field name="previewCount" widget-area-style="count"><hidden value="0"/></field>
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
-        <field name="imageWatermark" use-when="imageURL != null" title="Image" widget-area-style="img-src"><image value="${imageURL}"/></field>
-        <field name="imageWatermark" use-when="imageURL == null" title="Image" widget-area-style="img-src-de"><image value="/images/defaultImage.jpg"/></field>
+        <field name="imageWatermark" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src"><image value="${imageURL}"/></field>
+        <field name="imageWatermark" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src-de"><image value="/images/defaultImage.jpg"/></field>
         <field name="" widget-style="h3"><display description="Click directly on the image to adjust the location of the watermark"></display></field>
-        <field name="imageOpacity" title="Opacity" widget-area-style="opacity">
+        <field name="imageOpacity" title="${uiLabelMap.ImageManagementOpacity}" widget-area-style="opacity">
             <drop-down no-current-selected-key="0.5">
                 <option key="0.1" description="10%"/>
                 <option key="0.2" description="20%"/>
@@ -450,9 +466,9 @@ under the License.
                 <option key="1.0" description="100%"/>
             </drop-down>
         </field>
-        <field name="textWatermark" title="Text" widget-area-style="watermark_txt"><text default-value="DEFAULT"/></field>
-        <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="Preview"></hyperlink></field>
-        <field name="colorWatermark" title="Text Color" widget-area-style="txt_color">
+        <field name="textWatermark" title="${uiLabelMap.CommonText}" widget-area-style="watermark_txt"><text default-value="DEFAULT"/></field>
+        <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="${uiLabelMap.CommonPreview}"></hyperlink></field>
+        <field name="colorWatermark" title="${uiLabelMap.ImageManagementTextColor}" widget-area-style="txt_color">
             <drop-down allow-empty="true" no-current-selected-key="TEXT_BLACK">
                 <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
                     <entity-constraint name="productFeatureTypeId" value="COLOR"/>
@@ -461,7 +477,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="sizeWatermark" title="Text Size" widget-area-style="txt_size">
+        <field name="sizeWatermark" title="${uiLabelMap.ImageManagementTextSize}" widget-area-style="txt_size">
             <drop-down allow-empty="true" no-current-selected-key="TEXT_MIDDLE">
                 <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
                     <entity-constraint name="productFeatureTypeId" value="SIZE"/>
@@ -470,9 +486,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="Watermark" event="onClick" action="javascript:setImageDimention()" widget-style="smallSubmit" ><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" event="onClick" action="javascript:setImageDimention()" widget-style="smallSubmit" ><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewWatermarkImage();">
-            <hyperlink target="ListImageManage" description="Cancel">
+            <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
                 <parameter param-name="productId" from-field="parameters.productId"></parameter>
             </hyperlink>
         </field>
@@ -493,8 +509,8 @@ under the License.
         <field name="imageY"><hidden/></field>
         <field name="imageW"><hidden/></field>
         <field name="imageH"><hidden/></field>
-        <field name="imageCropp" widget-area-style="cropbox" use-when="imageURL != null" title="Image" ><image value="${imageURL}"/></field>
-        <field name="imageCropp" use-when="imageURL == null" title="Image" ><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageCropp" widget-area-style="cropbox" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" ><image value="${imageURL}"/></field>
+        <field name="imageCropp" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" ><image value="/images/defaultImage.jpg" width="200"/></field>
     </form>
     
     <form name="ImageRotating" type="single" target="RotateImage" title="" header-row-style="header-row" default-table-style="basic-table">
@@ -518,10 +534,10 @@ under the License.
         <field name="dataResourceId"><hidden/></field>
         <field name="angle"><hidden/></field>
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
-        <field name="imageRotate" widget-area-style="cropbox" title="Image"><image value="${imageURL}" /></field>
-        <field name="submitButton" title="Submit" widget-style="smallSubmit" position="1"><submit button-type="button"/></field>
+        <field name="imageRotate" widget-area-style="cropbox" title="${uiLabelMap.CommonImage}"><image value="${imageURL}" /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" position="1"><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext">
-            <hyperlink target="ListImageManage" description="Cancel">
+            <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
                 <parameter param-name="productId" from-field="parameters.productId"></parameter>
             </hyperlink>
         </field>
@@ -548,16 +564,16 @@ under the License.
         <field name="imageThumbnail"><hidden/></field>
         <field name="seoURL"><hidden value="${parameters.seoUrl}"/></field>
         <field name="contentId"><hidden/></field>
-        <field name="imageShare" use-when="imageURL != null" title="Image"><image value="${imageURL}" width="200"/></field>
-        <field name="imageShare" use-when="imageURL == null" title="Image"><image value="/images/defaultImage.jpg" width="200"/></field>
-        <field name="link" title="Link"  event="onClick" action="javascript:select();"><text/></field>
-        <field name="direct" title="Direct Link"  event="onClick" action="javascript:select();"><text/></field>
-        <field name="forumCode" title="Forum Code" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="forumThumbnail" title="Forum Thumbnail" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="altForumCode" title="Alt Forum Code" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="altForumThumbnail" title="Alt Forum Thumbnail" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="html" title="HTML Code" event="onClick" action="javascript:select();"><text/></field>
-        <field name="htmlThumbnail" title="HTML Thumbnail" event="onClick" action="javascript:select();"><text/></field>
+        <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}"><image value="${imageURL}" width="200"/></field>
+        <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="link" title="${uiLabelMap.CommonLink}"  event="onClick" action="javascript:select();"><text/></field>
+        <field name="direct" title="${uiLabelMap.ImageManagementDirectLink}"  event="onClick" action="javascript:select();"><text/></field>
+        <field name="forumCode" title="${uiLabelMap.ImageManagementForumCode}" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="forumThumbnail" title="${uiLabelMap.ImageManagementForumThumbnail}" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="altForumCode" title="${uiLabelMap.ImageManagementAltForumCode}" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="altForumThumbnail" title="${uiLabelMap.ImageManagementAltForumThumbnail}" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="html" title="${uiLabelMap.ImageManagementHTMLCode}" event="onClick" action="javascript:select();"><text/></field>
+        <field name="htmlThumbnail" title="${uiLabelMap.ImageManagementHTMLThumbnail}" event="onClick" action="javascript:select();"><text/></field>
     </form>
     
     <form name="ImageReplace" type="single" target="replaceImageToExistImage" title="" header-row-style="header-row" default-table-style="basic-table">
@@ -578,8 +594,8 @@ under the License.
         <field name="contentIdReplace"><hidden value="${parameters.contentIdReplace}"/></field>
         <field name="dataResourceNameExist"><hidden value="${contentDataResourceExist.drDataResourceName}"/></field>
         <field name="dataResourceNameReplace"><hidden value="${contentDataResourceReplace.drDataResourceName}"/></field>
-        <field name="imageExist" position="1" use-when="imageURLExist != null" title="Replacement Image"><image value="${imageURLExist}" width="200"/></field>
-        <field name="imageReplace" position="2" use-when="imageURLReplace != null&amp;&amp;imageURLExist != null" title="Image to Replace"><image value="${imageURLReplace}" width="200"/></field>
+        <field name="imageExist" position="1" use-when="imageURLExist != null" title="${uiLabelMap.ImageManagementReplacementImage}"><image value="${imageURLExist}" width="200"/></field>
+        <field name="imageReplace" position="2" use-when="imageURLReplace != null&amp;&amp;imageURLExist != null" title="${uiLabelMap.ImageManagementImageToReplace}"><image value="${imageURLReplace}" width="200"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
@@ -607,8 +623,8 @@ under the License.
             <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
         </row-actions>
         <field name="productId"><hidden/></field>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name"><display/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="status"><display description="Uploaded"/></field>
         <field name="removeContent" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -645,14 +661,14 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name" widget-style="buttontext">
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
         </field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
         <field name="fromDate"><display/></field>
-        <field name="statusId" title="Status">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
@@ -661,7 +677,7 @@ under the License.
     </form>
     
     <form name="productImageReplace" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageReplace"> 
-        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
@@ -696,14 +712,14 @@ under the License.
             <set field="ApprovedBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
         </row-actions>
         <field name="productId"><hidden/></field>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name"><display/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
-        <field name="statusId" title="Status">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="purchaseFromDate" title="Approved Date"><display/></field>
+        <field name="purchaseFromDate" title="${uiLabelMap.ImageManamentApprovedDate}"><display/></field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>
@@ -733,8 +749,8 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name">
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}">
             <hyperlink target="ListImageReplace" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
                 <parameter param-name="contentIdExist" from-field="contentId"/>
@@ -742,7 +758,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="fromDate"><display/></field>
-        <field name="statusId" title="Status">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
@@ -774,8 +790,8 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name">
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}">
             <hyperlink target="ListImageReplace" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
                 <parameter param-name="contentIdReplace" from-field="contentId"/>
@@ -785,7 +801,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="fromDate"><display/></field>
-        <field name="statusId" title="Status">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
@@ -799,8 +815,8 @@ under the License.
                 <condition-expr field-name="contentTypeId" value="IMAGE_FRAME"/>
             </entity-condition>
         </actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name" widget-style="buttontext">
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
         </field>
         <field name="contentId"><display/></field>
@@ -813,56 +829,10 @@ under the License.
         </field>-->
     </form>
     
-    <form name="ImageRemove" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageRemove">
-        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    
-    <form name="ListImageRemove" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
-        <actions>
-            <entity-condition entity-name="ProductContentAndInfo">
-                <condition-list combine="and">
-                    <condition-expr field-name="productId" from-field="parameters.productId"/>
-                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
-                </condition-list>
-            </entity-condition>
-        </actions>
-        <row-actions>
-            <entity-and entity-name="ContentAssoc" list="contentAssocs">
-                <field-map field-name="contentId"/>
-                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
-            </entity-and>
-            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
-            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
-                <field-map field-name="contentId" from-field="contentIdTo"/>
-            </entity-and>
-            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
-            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
-                <field-map field-name="contentId"/>
-            </entity-and>
-        </row-actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <field name="drDataResourceName" title="Image Name"><display/></field>
-        <field name="contentId"><display/></field>
-        <field name="dataResourceId"><display/></field>
-        <field name="fromDate"><display/></field>
-        <field name="statusId" title="Status">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
-        </field>
-        <field name="deleteButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="removeImage" description="${uiLabelMap.CommonRemove}" also-hidden="false" confirmation-message="Do you want to remove this image?">
-                <parameter param-name="productId" from-field="productId"/>
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="productContentTypeId" from-field="productContentTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-            </hyperlink>
-        </field>
-    </form>
-    
     <form name="ImageResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="resizeAllImageOfProduct">
-        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
-        <field name="size" title="Image Width"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.Resize}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
+        <field name="size" title="${uiLabelMap.ImageManagementImageWidth}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
     <form name="sizeListOfProduct" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
@@ -876,60 +846,12 @@ under the License.
                 <order-by field-name="mapKey"/>
             </entity-condition>
         </actions>
-        <field name="mapKey" title="Size"><display/></field>
+        <field name="mapKey" title="${uiLabelMap.CommonSize}"><display/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonRemove}" use-when="${groovy: return context.mapKey != '100';}" widget-style="buttontext">
             <hyperlink target="removeImageBySize" description="${uiLabelMap.CommonRemove}" also-hidden="false" confirmation-message="Do you want to remove this size?">
                 <parameter param-name="productId" from-field="parameters.productId"/>
                 <parameter param-name="mapKey" from-field="mapKey"/>
             </hyperlink>
-        </field>
-    </form>
-    
-    <form name="ImageRename" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageRename">
-        <field name="productId" title="${uiLabelMap.ChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>
-    
-    <form name="ListImageRename" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
-        <actions>
-            <entity-condition entity-name="ProductContentAndInfo">
-                <condition-list combine="and">
-                    <condition-expr field-name="productId" from-field="parameters.productId"/>
-                    <condition-expr field-name="productContentTypeId" value="IMAGE"/>
-                    <!--<condition-expr field-name="statusId" from-field="statusForm"/>-->
-                </condition-list>
-            </entity-condition>
-        </actions>
-        <row-actions>
-            <entity-and entity-name="ContentAssoc" list="contentAssocs">
-                <field-map field-name="contentId"/>
-                <field-map field-name="contentAssocTypeId" value="IMAGE_THUMBNAIL"/>
-            </entity-and>
-            <set field="contentIdTo" from-field="contentAssocs[0].contentIdTo"/>
-            <entity-and entity-name="ContentDataResourceView" list="contentDataResourceViews">
-                <field-map field-name="contentId" from-field="contentIdTo"/>
-            </entity-and>
-            <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
-            <entity-and entity-name="ContentDataResourceView" list="origContentDataResourceViews">
-                <field-map field-name="contentId"/>
-            </entity-and>
-        </row-actions>
-        <field name="drObjectInfo" title="Image"><image width="100"/></field>
-        <!--<field name="drDataResourceName" title="Image Name"><text/></field>-->
-        <field name="drDataResourceName" title="Image Name" id-name="description">
-            <display description="${drDataResourceName}" >
-                <in-place-editor url="renameImage" cancel-control="button" saving-text="Updating..." text-between-controls=" ">
-                    <simple-editor/>
-                    <field-map field-name="productId" from-field="productId"/>
-                    <field-map field-name="contentId" from-field="contentId"/>
-                </in-place-editor>
-            </display>
-        </field>
-        <field name="contentId"><display/></field>
-        <field name="dataResourceId"><display/></field>
-        <field name="fromDate"><display/></field>
-        <field name="statusId" title="Status">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
     </form>
 </forms>

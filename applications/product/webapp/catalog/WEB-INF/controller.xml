@@ -2807,8 +2807,8 @@ under the License.
     <request-map uri="removeImage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="removeProductContentAndImageFile"/>
-        <response name="success" type="view" value="ListImageRemove"/>
-        <response name="error" type="view" value="ListImageRemove"/>
+        <response name="success" type="view" value="ListImageManage"/>
+        <response name="error" type="view" value="ListImageManage"/>
     </request-map>
     <request-map uri="createWatermarkImage">
         <security https="true" auth="true"/>
@@ -2897,7 +2897,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="groovy" path="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/" invoke="checkRejected.groovy"/>
         <response name="approved" type="view" value="ImageApprove"/>
-        <response name="rejected" type="view" value="ImageRejected"/>
+        <response name="rejected" type="view" value="ListPeopleRejected"/>
     </request-map>
     <request-map uri="ListImageReplace">
         <security https="true" auth="true"/>
@@ -2965,14 +2965,6 @@ under the License.
         <response name="success" type="view" value="ListImageManage"/>
         <response name="error" type="view" value="ImageWatermarking"/>
     </request-map>
-    <request-map uri="ImageRemove">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ImageRemove"/>
-    </request-map>
-    <request-map uri="ListImageRemove">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListImageRemove"/>
-    </request-map>
     <request-map uri="ImageResize">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ImageResize"/>
@@ -2989,19 +2981,11 @@ under the License.
         <response name="success" type="view" value="ImageResize"/>
         <response name="error" type="view" value="ImageResize"/>
     </request-map>
-    <request-map uri="ImageRename">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ImageRename"/>
-    </request-map>
-    <request-map uri="ListImageRename">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListImageRename"/>
-    </request-map>
     <request-map uri="renameImage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="renameImage"/>
-        <response name="success" type="view" value="ListImageRename"/>
-        <response name="error" type="view" value="ListImageRename"/>
+        <response name="success" type="view" value="ListImageManage"/>
+        <response name="error" type="view" value="ListImageManage"/>
     </request-map>
 
    <!-- ================ Lookup Requests ================= -->
@@ -3275,10 +3259,6 @@ under the License.
     <view-map name="AutomaticResize" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#AutomaticResize"/>
     <view-map name="ListAutomaticResize" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListAutomaticResize"/>
     <view-map name="LookupImageFrame" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#LookupImageFrame"/>
-    <view-map name="ImageRemove" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRemove"/>
-    <view-map name="ListImageRemove" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListImageRemove"/>
     <view-map name="ImageResize" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageResize"/>
-    <view-map name="ImageRename" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ImageRename"/>
-    <view-map name="ListImageRename" type="screen" page="component://product/widget/catalog/ImageManagementScreens.xml#ListImageRename"/>
     <!-- end of view mappings -->
 </site-conf>

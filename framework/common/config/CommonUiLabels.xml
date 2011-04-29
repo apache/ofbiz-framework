@@ -2529,6 +2529,10 @@
     <property key="CommonEmptyHeader">
         <value xml:lang="en" xml:space="preserve"> </value>
     </property>
+    <property key="CommonEnable">
+        <value xml:lang="en">Enable</value>
+        <value xml:lang="th">เปิดใช้งาน</value>
+    </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
         <value xml:lang="de">Aktiviert</value>
@@ -3848,6 +3852,10 @@
         <value xml:lang="zh">每小时</value>
         <value xml:lang="zh_TW">每小時</value>
     </property>
+    <property key="CommonImage">
+        <value xml:lang="en">Image</value>
+        <value xml:lang="th">รูปภาพ</value>
+    </property>
     <property key="CommonId">
         <value xml:lang="ar">دليل</value>
         <value xml:lang="de">ID</value>
@@ -4591,6 +4599,10 @@
         <value xml:lang="pt_BR">Gerenciar Páginas do Portal ...</value>
         <value xml:lang="zh">管理门户页面...</value>
         <value xml:lang="zh_TW">管理門戶頁面...</value>
+    </property>
+    <property key="CommonManage">
+        <value xml:lang="en">Manage</value>
+        <value xml:lang="th">จัดการ</value>
     </property>
     <property key="CommonManager">
         <value xml:lang="ar">مدير</value>
@@ -6409,6 +6421,10 @@
         <value xml:lang="zh_CN">前</value>
         <value xml:lang="zh_TW">上一個</value>
     </property>
+    <property key="CommonPreview">
+        <value xml:lang="en">Preview</value>
+        <value xml:lang="th">แสดงตัวอย่าง</value>
+    </property>
     <property key="CommonPrimaryApps">
         <value xml:lang="de">Primäranwendungen</value>
         <value xml:lang="en">Primary Apps</value>
@@ -7829,6 +7845,10 @@
         <value xml:lang="zh">自从</value>
         <value xml:lang="zh_CN">自从</value>
         <value xml:lang="zh_TW">自從</value>
+    </property>
+    <property key="CommonSize">
+        <value xml:lang="en">Size</value>
+        <value xml:lang="th">ขนาด</value>
     </property>
     <property key="CommonSkipNavigation">
         <value xml:lang="de">Navigation auslassen</value>
@@ -9957,6 +9977,10 @@
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh_TW">金額</value>
     </property>
+    <property key="FormFieldTitle_approve">
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="th">อนุมัติ</value>
+    </property>
     <property key="FormFieldTitle_attrName">
         <value xml:lang="ar">اسم الخاصية</value>
         <value xml:lang="de">Attributnamen</value>
@@ -10004,6 +10028,10 @@
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_TW">評論</value>
+    </property>
+    <property key="FormFieldTitle_confirmButton">
+        <value xml:lang="en">Confirm</value>
+        <value xml:lang="th">ยืนยัน</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
         <value xml:lang="ar">دليل مكانزمة الصلة</value>
@@ -10342,6 +10370,10 @@
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome pagina portale</value>
         <value xml:lang="pt_BR">Nome da página do Portal</value>
+    </property>
+    <property key="FormFieldTitle_pending">
+        <value xml:lang="en">Pending</value>
+        <value xml:lang="th">รอดำเนินการ</value>
     </property>
     <property key="FormFieldTitle_price">
         <value xml:lang="ar">السعر</value>
