@@ -96,9 +96,10 @@ public class EntityDataLoader {
                 } else {
                     throw new IllegalArgumentException("Reader name list does not contain String(s) or Element(s)");
                 }
+                readerName = readerName.trim();
 
                 // get all of the main resource model stuff, ie specified in the entityengine.xml file
-                EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName.trim());
+                EntityDataReaderInfo entityDataReaderInfo = EntityConfigUtil.getEntityDataReaderInfo(readerName);
 
                 if (entityDataReaderInfo == null) {
                     Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
