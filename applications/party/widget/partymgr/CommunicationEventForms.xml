@@ -461,10 +461,10 @@ under the License.
 
     <form name="ListCommunicationByOrder" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2">
         <actions>
-            <service result-map-list="listIt" result-map="result" service-name="performFind">
-                <field-map from-field="parameters" field-name="inputFields"/>
-                <field-map from-field="entityName" field-name="entityName"/>
-                <field-map value="-entryDate" field-name="orderBy"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" value="-entryDate"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
@@ -601,10 +601,10 @@ under the License.
 
     <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2" target="deleteCommunicationEvent">
         <actions>
-            <service result-map-list="listIt" result-map="result" service-name="performFind">
-                <field-map from-field="parameters" field-name="inputFields"/>
-                <field-map from-field="entityName" field-name="entityName"/>
-                <field-map value="-entryDate" field-name="orderBy"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" value="-entryDate"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
