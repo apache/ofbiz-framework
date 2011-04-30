@@ -1632,7 +1632,7 @@
     <property key="RoleType.description.ADDRESSEE">
         <value xml:lang="en">Addressee</value>
         <value xml:lang="fr">Destinataire</value>
-        <value xml:lang="it">Indirizzi</value>
+        <value xml:lang="it">Destinatario</value>
         <value xml:lang="pt_BR">Destinatário</value>
         <value xml:lang="zh">收信人</value>
         <value xml:lang="zh_TW">收信人</value>
