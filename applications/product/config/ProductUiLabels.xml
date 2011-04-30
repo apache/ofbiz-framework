@@ -3458,6 +3458,9 @@
         <value xml:lang="zh">上次价格</value>
         <value xml:lang="zh_TW">上次價格</value>
     </property>
+    <property key="FormFieldTitle_shippingPrice">
+        <value xml:lang="en">Shipping Price</value>
+    </property>
     <property key="FormFieldTitle_levelId">
         <value xml:lang="de">Ebene ID</value>
         <value xml:lang="en">Level Id</value>
