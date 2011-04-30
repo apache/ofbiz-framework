@@ -2086,7 +2086,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
-        boolean disabled = lookupField.disabled;
+        boolean readonly = lookupField.readonly;
 
         // add lookup pop-up button
         String descriptionFieldName = lookupField.getDescriptionFieldName();
@@ -2173,8 +2173,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (action != null) {
             sr.append(action);
         }
-        sr.append("\" disabled=");
-        sr.append(Boolean.toString(disabled));
+        sr.append("\" readonly=");
+        sr.append(Boolean.toString(readonly));
 
         sr.append(" autocomplete=\"");
         sr.append(autocomplete);
