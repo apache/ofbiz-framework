@@ -4680,6 +4680,7 @@ under the License.
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
       <field name="lastPrice" type="currency-precise"></field>
+      <field name="shippingPrice" type="currency-precise"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="supplierProductName" type="name"></field>
       <field name="supplierProductId" type="id"></field>
