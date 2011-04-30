@@ -128,11 +128,12 @@ under the License.
             <field-to-result field="newPartyContactMech.contactMechId" result-name="contactMechId"/>
             <field-to-request field="newPartyContactMech.contactMechId" request-name="contactMechId"/>
             <else>
-                <if-compare-field field="parameters.extension" operator="not-equals" to-field="partyContactMech.extension">
-                    <set field="partyContactMech.extension" from-field="parameters.extension"/>
+                <set field="extension" from-field="partyContactMech.extension"/>
+                <set-nonpk-fields value-field="partyContactMech" map="parameters"/>
+                <if-compare-field field="parameters.extension" operator="not-equals" to-field="extension">
                     <set field="partyContactMech.thruDate" value=""/>
-                    <store-value value-field="partyContactMech"/>
                 </if-compare-field>
+                <store-value value-field="partyContactMech"/>
                 <log level="info" message="Setting id to result: ${partyContactMech.contactMechId}"/>
                 <field-to-result field="partyContactMech.contactMechId" result-name="contactMechId"/>
                 <field-to-request field="partyContactMech.contactMechId" request-name="contactMechId"/>
