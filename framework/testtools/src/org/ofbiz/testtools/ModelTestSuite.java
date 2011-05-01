@@ -23,6 +23,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -95,7 +96,8 @@ public class ModelTestSuite {
             String className = testElement.getAttribute("class-name");
 
             try {
-                Class<?> clz = ObjectType.loadClass(className);
+                @SuppressWarnings("unchecked")
+		Class<? extends TestCase> clz = (Class<? extends TestCase>) ObjectType.loadClass(className);
                 TestSuite suite = new TestSuite();
                 suite.addTestSuite(clz);
                 Enumeration<?> testEnum = suite.tests();
