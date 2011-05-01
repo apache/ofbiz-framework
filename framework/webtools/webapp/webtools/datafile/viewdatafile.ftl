@@ -16,15 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.WebtoolsDataFileMainTitle}</li>
-    </ul>
-    <br class="clear"/>
-  </div>
-  <div class="screenlet-body">
-    <br />
     <p>${uiLabelMap.WebtoolsDataFileMessage1}.</p>
     <br />
     <#if security.hasPermission("DATAFILE_MAINT", session)>
@@ -159,5 +150,3 @@ under the License.
     <#else>
       <h3>You do not have permission to use this page (DATAFILE_MAINT needed)</h3>
     </#if>
-  </div>
-</div>

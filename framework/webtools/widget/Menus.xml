@@ -24,7 +24,7 @@ under the License.
         <menu-item name="logging" title="${uiLabelMap.WebtoolsLogging}">
             <link target="LogView"/>
         </menu-item>
-        <menu-item name="cache" title="${uiLabelMap.WebtoolsCacheDebugTools}">
+        <menu-item name="cache" title="${uiLabelMap.WebtoolsCacheMaintenance}">
             <link target="FindUtilCache"/>
         </menu-item>
         <menu-item name="artifact" title="${uiLabelMap.WebtoolsArtifactInfo}">

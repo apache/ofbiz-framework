@@ -16,14 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.WebtoolsSqlProcessor}</li>
-    </ul>
-    <br class="clear"/>
-  </div>
-  <div class="screenlet-body">
     <form method="post" action="EntitySQLProcessor" name="EntitySQLCommand">
       <table class="basic-table" cellspacing="0">
         <tr>
@@ -62,8 +54,7 @@ under the License.
         </tr>
       </table>
     </form>
-  </div>
-</div>
+
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>

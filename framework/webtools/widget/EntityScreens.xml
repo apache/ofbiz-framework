@@ -56,7 +56,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEntityExportAll}">
+                        <screenlet>
                             <platform-specific>
                                 <html><html-template location="component://webtools/webapp/webtools/entity/EntityExportAll.ftl"/></html>
                             </platform-specific>
@@ -78,7 +78,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEntityImportDir}">
+                        <screenlet>
                             <platform-specific>
                                 <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportDir.ftl"/></html>
                             </platform-specific>
@@ -100,7 +100,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEntityImport}">
+                        <screenlet>
                             <platform-specific>
                                 <html><html-template location="component://webtools/webapp/webtools/entity/EntityImport.ftl"/></html>
                             </platform-specific>
@@ -122,7 +122,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEntityImportReaders}">
+                        <screenlet>
                             <platform-specific>
                                 <html><html-template location="component://webtools/webapp/webtools/entity/EntityImportReaders.ftl"/></html>
                             </platform-specific>
@@ -163,9 +163,10 @@ under the License.
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsFindValues} ${uiLabelMap.WebtoolsForEntity}: ${entityName}"/>
                 <set field="commonDisplaying" value="${uiLabelMap.CommonDisplaying}"/>
+                <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
@@ -208,9 +209,10 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewGeneric.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsViewValue}: ${entityName}"/>
+                <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ViewGeneric.ftl"/></html>
@@ -232,9 +234,10 @@ under the License.
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewRelations.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsRelations}: ${entityName}"/>
+                <set field="tabButtonItem" value="entitymaint"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
                             <html><html-template location="component://webtools/webapp/webtools/entity/ViewRelations.ftl"/></html>
@@ -358,7 +361,9 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="EntityEoModelBundle" location="component://webtools/widget/EntityForms.xml"/>
+                        <screenlet>
+                            <include-form name="EntityEoModelBundle" location="component://webtools/widget/EntityForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -376,7 +381,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
+                        <screenlet>
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/CheckDb.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>
@@ -392,12 +397,13 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsPerformanceTests"/>
+                <set field="tabButtonItem" value="entityPerformanceTest"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.WebtoolsEntityEnginePerformanceTests}">
+                        <screenlet>
                             <label>${uiLabelMap.WebtoolsNotePerformanceResultsMayVary}</label>
                             <include-form name="ListPerformanceResults" location="component://webtools/widget/EntityForms.xml"/>
                         </screenlet>
@@ -422,7 +428,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonImportExportDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.WebtoolsCheckUpdateDatabase}">
+                        <screenlet>
                             <platform-specific><html><html-template location="component://webtools/webapp/webtools/entity/xmldsdump.ftl"/></html></platform-specific>
                         </screenlet>
                     </decorator-section>

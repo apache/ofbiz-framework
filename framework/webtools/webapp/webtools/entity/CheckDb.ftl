@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div>
     <h3>${uiLabelMap.WebtoolsCheckUpdateDatabase}</h3>
     <form method="post" action="${encodeURLCheckDb}">
         <input type="hidden" name="option" value="checkupdatetables"/>
@@ -111,9 +110,8 @@ under the License.
         ${uiLabelMap.WebtoolsGroupName}: <input type="text" name="groupName" value="${groupName}" size="40"/>
         <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
     </form>
-    <hr />
-</div>
 <#if miters?has_content>
+    <hr />
     <ul>
         <#list miters as miter>
             <li>${miter}</li>

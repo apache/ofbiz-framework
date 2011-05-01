@@ -17,11 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
-<br />
-<p>
-    ${uiLabelMap.WebtoolsXMLExportInfo}
-</p>
+<p>${uiLabelMap.WebtoolsXMLExportInfo}</p>
 <#if results?has_content>
     <hr />
     <h2>${uiLabelMap.WebtoolsResults}:</h2>
@@ -29,10 +25,7 @@ under the License.
         <p>${result}</p>
     </#list>
 </#if>
-
 <hr />
-
-<h2>${uiLabelMap.WebtoolsExport}:</h2>
 <form method="post" action="<@ofbizUrl>entityExportAll</@ofbizUrl>">
     ${uiLabelMap.WebtoolsOutputDirectory}: <input type="text" size="60" name="outpath" value="${outpath?if_exists}" /><br />
     ${uiLabelMap.WebtoolsTimeoutSeconds}: <input type="text" size="6" value="${txTimeout?default('7200')}" name="txTimeout"/><br />

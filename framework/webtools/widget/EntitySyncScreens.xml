@@ -58,9 +58,9 @@ under the License.
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="button-bar">
-                           <link target="EntitySyncStatus" style="smallSubmit" text="${uiLabelMap.CommonRefresh}"/>
+                           <link target="EntitySyncStatus" style="buttontext refresh" text="${uiLabelMap.CommonRefresh}"/>
                         </container>
-                        <screenlet title="${uiLabelMap.PageTitleEntitySyncStatus}">
+                        <screenlet>
                             <include-form name="EntitySyncStatus" location="component://webtools/widget/EntitySyncForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.WebtoolsLoadOfflineData}">
