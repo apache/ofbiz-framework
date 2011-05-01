@@ -31,15 +31,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <platform-specific>
-                                    <html>
-                                        <html-template location="component://webtools/webapp/webtools/service/availableservices.ftl"/>
-                                    </html>
-                                </platform-specific>
-                            </widgets>
-                        </section>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://webtools/webapp/webtools/service/availableservices.ftl"/>
+                            </html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -127,7 +123,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleRunService}">
+                        <screenlet>
                             <include-form name="runService" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                     </decorator-section>

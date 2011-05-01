@@ -17,11 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.WebtoolsImportToDataSource}</h1>
-<br />
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
 <hr />
-<h2>${uiLabelMap.WebtoolsImport}:</h2>
 
   <form method="post" action="<@ofbizUrl>entityImportDir</@ofbizUrl>">
     ${uiLabelMap.WebtoolsAbsolutePath}:<br />

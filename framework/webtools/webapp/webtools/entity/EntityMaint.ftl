@@ -16,14 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<div class="screenlet">
-  <div class="screenlet-title-bar">
-    <ul>
-      <li class="h3">${uiLabelMap.WebtoolsEntityDataMaintenance}</li>
-    </ul>
-    <br class="clear"/>
-  </div>
-  <div class="screenlet-body">
     <div>
        <form action="<@ofbizUrl>/entitymaint</@ofbizUrl>">
           <b>${uiLabelMap.CommonGroup}:</b>
@@ -35,29 +27,21 @@ under the License.
           </select>
           <b>${uiLabelMap.WebtoolsEntityName}:</b>
           <input type= "text" name= "filterByEntityName" value="${parameters.filterByEntityName?if_exists}"/>
-          <input type="submit"/>
+          <input type="submit" value="${uiLabelMap.CommonApply}"/>
        </form>
     </div>
-    <p><b><u>${uiLabelMap.CommonNote}</u></b></p>
-    <p>
-       <b>${uiLabelMap.WebtoolsCreate}</b> = ${uiLabelMap.CommonCreateNew}&nbsp;&nbsp;
-       <b>${uiLabelMap.WebtoolsReln}</b> = ${uiLabelMap.WebtoolsViewRelations}&nbsp;&nbsp;
-       <b>${uiLabelMap.WebtoolsFind}</b> = ${uiLabelMap.WebtoolsFindRecord}&nbsp;&nbsp;
-       <b>${uiLabelMap.WebtoolsAll}</b> = ${uiLabelMap.WebtoolsFindAllRecords}&nbsp;&nbsp;
-    </p>
-    <br />
     <#assign firstChar = "x">
     <#assign anchor="">
     <#assign alt_row = false>
     <#assign right_col = false>
-
-    <#list entitiesList as entity>
+    <div class="button-bar">
+      <#list entitiesList as entity>
         <#if entity.entityName?substring(0, 1) != firstChar>
-            <#assign firstChar = entity.entityName?substring(0, 1)>
-            <a href="#Entity_${firstChar}">${firstChar}</a>&nbsp;
+          <#assign firstChar = entity.entityName?substring(0, 1)>
+          <a href="#Entity_${firstChar}">${firstChar}</a>&nbsp;
         </#if>
-    </#list>
-    <br /><br />
+      </#list>
+    </div>
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
@@ -103,12 +87,12 @@ under the License.
                 </#if>
               <#else>
                 <#if entity.entityPermissionCreate == 'Y'>
-                  <a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsCreate}</a>
+                  <a href='<@ofbizUrl>ViewGeneric?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.CommonCreateNew}'>${uiLabelMap.WebtoolsCreate}</a>
                 </#if>
                 <#if entity.entityPermissionView == 'Y'>
-                  <a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsReln}</a>
-                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}</@ofbizUrl>'>${uiLabelMap.WebtoolsFind}</a>
-                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>'>${uiLabelMap.WebtoolsAll}</a>
+                  <a href='<@ofbizUrl>ViewRelations?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.WebtoolsViewRelations}'>${uiLabelMap.WebtoolsReln}</a>
+                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}</@ofbizUrl>' title='${uiLabelMap.WebtoolsFindRecord}'>${uiLabelMap.WebtoolsFind}</a>
+                  <a href='<@ofbizUrl>FindGeneric?entityName=${entity.entityName}&amp;find=true&amp;VIEW_SIZE=50&amp;VIEW_INDEX=0</@ofbizUrl>' title='${uiLabelMap.WebtoolsFindAllRecords}'>${uiLabelMap.WebtoolsAll}</a>
                 </#if>
               </#if>
             </td>
@@ -124,5 +108,3 @@ under the License.
         </table>
       </div>
     </div>
-  </div>
-</div>

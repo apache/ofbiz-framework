@@ -363,14 +363,11 @@ under the License.
         </#if>
       </div>
     </form>
-    <br />
   </#if>
 
   <div class="screenlet">
-    <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsServicesListFor} ${dispatcherName?default(uiLabelMap.CommonNA)} (${servicesFoundCount} ${uiLabelMap.CommonFound})</h3>
-    </div>
     <div class="screenlet-body">
+      <label>${uiLabelMap.WebtoolsServicesListFor} ${dispatcherName?default(uiLabelMap.CommonNA)} (${servicesFoundCount} ${uiLabelMap.CommonFound})</label>
       <table class="basic-table hover-bar" cellspacing='0'>
         <tr class="header-row">
           <td>${uiLabelMap.WebtoolsServiceName}</td>

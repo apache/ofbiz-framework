@@ -34,9 +34,6 @@ under the License.
     <a href="<@ofbizUrl>xmldsdump</@ofbizUrl>" class="smallSubmit">${uiLabelMap.WebtoolsUnCheckAll}</a>
   </div>
 </#macro>
-
-<h1>${uiLabelMap.PageTitleEntityExport}</h1>
-<br />
 <p>${uiLabelMap.WebtoolsXMLExportInfo}</p>
 <hr />
 

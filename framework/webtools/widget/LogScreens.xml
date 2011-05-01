@@ -65,7 +65,7 @@ under the License.
             <widgets>
                 <decorator-screen name="log-decorator">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleServiceList}">
+                        <screenlet>
                             <include-form name="ListServices" location="component://webtools/widget/ServiceForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -112,7 +112,7 @@ under the License.
              <widgets>
                  <decorator-screen name="log-decorator">
                      <decorator-section name="body">
-                         <screenlet title="${uiLabelMap.WebtoolsViewLog}">
+                         <screenlet>
                              <container style="button-bar">
                                  <link target="LogView" text="${uiLabelMap.CommonRefresh}" style="buttontext refresh"/>
                              </container>
