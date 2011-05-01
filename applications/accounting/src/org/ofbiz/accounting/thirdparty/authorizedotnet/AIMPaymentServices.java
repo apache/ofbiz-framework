@@ -97,7 +97,7 @@ public class AIMPaymentServices {
         }
         Map<String, Object> reply = processCard(request, props, locale);
         //now we need to process the result
-        processAuthTransResult(reply, results);
+        processAuthTransResult(request, reply, results);
         return results;
     }
 
@@ -141,7 +141,7 @@ public class AIMPaymentServices {
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
-        processCaptureTransResult(reply, results);
+        processCaptureTransResult(request, reply, results);
         // if there is no captureRefNum, then the capture failed
         if (results.get("captureRefNum") == null) {
              return ServiceUtil.returnError((String) results.get("captureMessage"));
@@ -184,7 +184,7 @@ public class AIMPaymentServices {
             return results;
         }
         Map<String, Object> reply = processCard(request, props, locale);
-        results.putAll(processRefundTransResult(reply));
+        results.putAll(processRefundTransResult(request, reply));
         boolean refundResult = ((Boolean)results.get("refundResult")).booleanValue();
         String refundFlag = (String)results.get("refundFlag");
         // Since the refund failed, we are going to void the previous authorization against
@@ -221,7 +221,7 @@ public class AIMPaymentServices {
                         return reply;
                     }
                     results = ServiceUtil.returnSuccess();
-                    results.putAll(processRefundTransResult(reply));
+                    results.putAll(processRefundTransResult(request, reply));
                     return results;
                 } else {
                     // TODO: Modify the code to (a) do a void of the whole transaction, and (b)
@@ -249,7 +249,8 @@ public class AIMPaymentServices {
             return reply;
         }
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        results.putAll(processReleaseTransResult(reply));
+        context.put("x_Amount", context.get("releaseAmount")); // hack for releaseAmount
+        results.putAll(processReleaseTransResult(context, reply));
         return results;
     }
 
@@ -301,7 +302,7 @@ public class AIMPaymentServices {
         }
         Map<String, Object> reply = processCard(request, props, locale);
         //now we need to process the result
-        processAuthCaptureTransResult(reply, results);
+        processAuthCaptureTransResult(request, reply, results);
         // if there is no captureRefNum, then the capture failed
         if (results.get("captureRefNum") == null) {
              return ServiceUtil.returnError((String) results.get("captureMessage"));
@@ -336,9 +337,12 @@ public class AIMPaymentServices {
                 result.put("authResult", Boolean.TRUE);
             } else {
                 result.put("authResult", Boolean.FALSE);
-                Debug.logInfo("responseCode:   " + ar.getResponseCode(), module);
-                Debug.logInfo("responseReason: " + ar.getReasonCode(), module);
-                Debug.logInfo("reasonText:     " + ar.getReasonText(), module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("transactionId:  " + ar.getTransactionId(), module);
+                    Debug.logInfo("responseCode:   " + ar.getResponseCode(), module);
+                    Debug.logInfo("responseReason: " + ar.getReasonCode(), module);
+                    Debug.logInfo("reasonText:     " + ar.getReasonText(), module);
+                }
             }
             result.put("httpResponse", httpResponse);
             result.put("authorizeResponse", ar);
@@ -581,6 +585,7 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Card_Num", number);
         AIMRequest.put("x_Exp_Date", expDate);
         AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
+        AIMRequest.put("x_ref_trans_id", at.get("referenceNum"));
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
         if (AIMRequest.get("x_market_type") != null) {
             AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
@@ -602,6 +607,7 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Exp_Date", expDate);
         AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
+        AIMRequest.put("x_ref_trans_id", at.get("referenceNum"));
         if (AIMRequest.get("x_market_type") != null) {
             AIMRequest.put("x_card_type", getCardType(UtilFormatOut.checkNull(cc.getString("cardType"))));
         }
@@ -614,6 +620,7 @@ public class AIMPaymentServices {
         AIMRequest.put("x_Currency_Code", currency);
         AIMRequest.put("x_Method", props.getProperty("method"));
         AIMRequest.put("x_Type", props.getProperty("transType"));
+        AIMRequest.put("x_ref_trans_id", at.get("referenceNum"));
         AIMRequest.put("x_Trans_ID", at.get("referenceNum"));
         AIMRequest.put("x_Auth_Code", at.get("gatewayCode"));
         Debug.logInfo("buildVoidTransaction. " + at.toString(), module);
@@ -625,7 +632,7 @@ public class AIMPaymentServices {
         return result;
     }
 
-    private static void processAuthTransResult(Map<String, Object> reply, Map<String, Object> results) {
+    private static void processAuthTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean authResult = (Boolean) reply.get("authResult");
         results.put("authResult", new Boolean(authResult.booleanValue()));
@@ -636,7 +643,11 @@ public class AIMPaymentServices {
             results.put("authRefNum", ar.getTransactionId());
             results.put("cvCode", ar.getCvResult());
             results.put("avsCode", ar.getAvsResult());
-            results.put("processAmount", ar.getAmount());
+            if (ar.getAmount() == BigDecimal.ZERO) {
+                results.put("processAmount", getXAmount(request));
+            } else {
+                results.put("processAmount", ar.getAmount());
+            }
         } else {
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", BigDecimal.ZERO);
@@ -645,7 +656,7 @@ public class AIMPaymentServices {
         Debug.logInfo("processAuthTransResult: " + results.toString(),module);
     }
 
-    private static void processCaptureTransResult(Map<String, Object> reply, Map<String, Object> results) {
+    private static void processCaptureTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean captureResult = (Boolean) reply.get("authResult");
         results.put("captureResult", new Boolean(captureResult.booleanValue()));
@@ -654,14 +665,18 @@ public class AIMPaymentServices {
         results.put("captureRefNum", ar.getTransactionId());
         if (captureResult.booleanValue()) { //passed
             results.put("captureCode", ar.getAuthorizationCode());
-            results.put("captureAmount", ar.getAmount());
+            if (ar.getAmount() == BigDecimal.ZERO) {
+                results.put("captureAmount", getXAmount(request));
+            } else {
+                results.put("captureAmount", ar.getAmount());
+            }
         } else {
             results.put("captureAmount", BigDecimal.ZERO);
         }
         Debug.logInfo("processCaptureTransResult: " + results.toString(),module);
     }
 
-    private static Map<String, Object> processRefundTransResult(Map<String, Object> reply) {
+    private static Map<String, Object> processRefundTransResult(Map<String, Object> request, Map<String, Object> reply) {
         Map<String, Object> results = FastMap.newInstance();
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean captureResult = (Boolean) reply.get("authResult");
@@ -671,7 +686,11 @@ public class AIMPaymentServices {
         results.put("refundRefNum", ar.getTransactionId());
         if (captureResult.booleanValue()) { //passed
             results.put("refundCode", ar.getAuthorizationCode());
-            results.put("refundAmount", ar.getAmount());
+            if (ar.getAmount() == BigDecimal.ZERO) {
+                results.put("refundAmount", getXAmount(request));
+            } else {
+                results.put("refundAmount", ar.getAmount());
+            }
         } else {
             results.put("refundAmount", BigDecimal.ZERO);
         }
@@ -679,7 +698,7 @@ public class AIMPaymentServices {
         return results;
     }
 
-    private static Map<String, Object> processReleaseTransResult(Map<String, Object> reply) {
+    private static Map<String, Object> processReleaseTransResult(Map<String, Object> request, Map<String, Object> reply) {
         Map<String, Object> results = FastMap.newInstance();
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean captureResult = (Boolean) reply.get("authResult");
@@ -689,7 +708,11 @@ public class AIMPaymentServices {
         results.put("releaseRefNum", ar.getTransactionId());
         if (captureResult.booleanValue()) { //passed
             results.put("releaseCode", ar.getAuthorizationCode());
-            results.put("releaseAmount", ar.getAmount());
+            if (ar.getAmount() == BigDecimal.ZERO) {
+                results.put("releaseAmount", getXAmount(request));
+            } else {
+                results.put("releaseAmount", ar.getAmount());
+            }
         } else {
             results.put("releaseAmount", BigDecimal.ZERO);
         }
@@ -697,7 +720,7 @@ public class AIMPaymentServices {
         return results;
     }
 
-    private static void processAuthCaptureTransResult(Map<String, Object> reply, Map<String, Object> results) {
+    private static void processAuthCaptureTransResult(Map<String, Object> request, Map<String, Object> reply, Map<String, Object> results) {
         AuthorizeResponse ar = (AuthorizeResponse) reply.get("authorizeResponse");
         Boolean authResult = (Boolean) reply.get("authResult");
         results.put("authResult", new Boolean(authResult.booleanValue()));
@@ -712,7 +735,11 @@ public class AIMPaymentServices {
             results.put("authRefNum", ar.getTransactionId());
             results.put("cvCode", ar.getCvResult());
             results.put("avsCode", ar.getAvsResult());
-            results.put("processAmount", ar.getAmount());
+            if (ar.getAmount() == BigDecimal.ZERO) {
+                results.put("processAmount", getXAmount(request));
+            } else {
+                results.put("processAmount", ar.getAmount());
+            }
         } else {
             results.put("authCode", ar.getResponseCode());
             results.put("processAmount", BigDecimal.ZERO);
@@ -753,5 +780,17 @@ public class AIMPaymentServices {
         if ((cardType.equalsIgnoreCase("JCB"))) return "J";
         if (((cardType.equalsIgnoreCase("DINERSCLUB")))) return "C";        
         return "";
+    }
+    
+    private static BigDecimal getXAmount(Map<String, Object> request) {
+        BigDecimal amt = BigDecimal.ZERO;
+        if (request.get("x_Amount") != null) {
+            try {
+                amt = new BigDecimal((String) request.get("x_Amount"));
+            } catch (NumberFormatException e) {
+                Debug.logWarning(e, e.getMessage(), module);
+            }
+        }
+        return amt;
     }
 }
