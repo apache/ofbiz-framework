@@ -29,6 +29,7 @@ jQuery(document).ready( function() {
     // initializ the d_n_d jQuery functions
     jQuery("" + SORTABLE_COLUMN_LIST + "").sortable({
         connectWith: ".connectedSortable",
+        handle: ".portlet-config, .screenlet-title-bar",
         tolerance: "pointer",
         dropOnEmpty: true,
         cursor: "move",
