@@ -17,6 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<div class="page-title"><span>${uiLabelMap.WebtoolsExportFromDataSource}</span></div>
 <p>${uiLabelMap.WebtoolsXMLExportInfo}</p>
 <#if results?has_content>
     <hr />
