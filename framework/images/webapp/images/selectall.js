@@ -389,7 +389,7 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
  * form of: areaId, target, target parameters [, areaId, target, target parameters...].
 */
 
-function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, formName){
+function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, defaultDelay, formName){
     var areaArray = areaCsvString.replace(/&amp;/g, '&').split(",");
     var numAreas = parseInt(areaArray.length / 3);
     
@@ -403,6 +403,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, for
         
         jQuery("#" + div).autocomplete({
             minLength: defaultMinLength,
+            delay: defaultDelay,
             source: function(request, response){
                 jQuery.ajax({
                     url: url,
