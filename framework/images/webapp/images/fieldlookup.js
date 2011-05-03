@@ -180,7 +180,7 @@ function initiallyCollapseDelayed() {
 /*************************************
 * Fieldlookup Class & Methods
 *************************************/
-function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation, defaultMinLength, args) {
+function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation, defaultMinLength, defaultDelay, args) {
     
     // add the presentation attribute to the request url to let the request know which decorator should be loaded
     if(!presentation) {
@@ -213,7 +213,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
          SHOW_DESCRIPTION = showDescription;
         //write the new input box id in the ajaxUrl Array
         ajaxUrl = ajaxUrl.replace(ajaxUrl.substring(0, ajaxUrl.indexOf(",")), newInputBoxId);
-        new ajaxAutoCompleter(ajaxUrl, showDescription, defaultMinLength, formName);
+        new ajaxAutoCompleter(ajaxUrl, showDescription, defaultMinLength, defaultDelay, formName);
     }
     
     var positioning = null;

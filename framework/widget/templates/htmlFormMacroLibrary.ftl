@@ -66,7 +66,7 @@ under the License.
     /><#t/>
     <#if ajaxEnabled?has_content && ajaxEnabled>
         <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>
-        <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2});</script><#lt/>
+        <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', false, ${defaultMinLength!2}, ${defaultDelay!300});</script><#lt/>
     </#if>
 </#macro>
 
