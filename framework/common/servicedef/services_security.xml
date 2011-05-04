@@ -97,7 +97,7 @@ under the License.
         <permission-service service-name="securityPermissionCheck" main-action="CREATE"/>
         <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
-        <attribute name="maxHits" type="Integer" mode="IN" optional="false"/>
+        <attribute name="maxHits" type="Long" mode="IN" optional="false"/>
         <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/>
         <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>
     </service>
@@ -106,7 +106,7 @@ under the License.
         <permission-service service-name="securityPermissionCheck" main-action="UPDATE"/>
         <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
-        <attribute name="maxHits" type="Integer" mode="IN" optional="false"/>
+        <attribute name="maxHits" type="Long" mode="IN" optional="false"/>
         <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/>
         <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>
     </service>
