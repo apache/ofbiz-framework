@@ -11028,9 +11028,6 @@
     <property key="ProductCondition">
         <value xml:lang="en">Condition</value>
     </property>
-    <property key="ProductConditionValue">
-        <value xml:lang="en">Condition Value</value>
-    </property>
     <property key="ProductConditions">
         <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Conditions</value>

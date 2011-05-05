@@ -4148,7 +4148,7 @@
     </property>
     <property key="AccountingFindApPayments">
         <value xml:lang="en">Find AP Payments</value>
-        <value xml:lang="en">Recherche de paiements fournisseur</value>
+        <value xml:lang="fr">Recherche de paiements fournisseur</value>
         <value xml:lang="hi_IN">लेखा देय भुगतान खोजें</value>
         <value xml:lang="pt">Encontrar Pagamentos do contas a pagar</value>
         <value xml:lang="zh_TW">找尋應付支付</value>
