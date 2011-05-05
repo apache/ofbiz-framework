@@ -181,6 +181,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
         <inline-jdbc
                 jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
                 jdbc-uri="jdbc:derby:ofbiz;create=true"
@@ -202,6 +203,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         use-indices-unique="false"
         alias-view-columns="false"
         use-order-by-nulls="true">
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
         <inline-jdbc
             jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
             jdbc-uri="jdbc:derby:ofbizodbc;create=true"
@@ -223,6 +225,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-indices-unique="false"
             alias-view-columns="false"
             use-order-by-nulls="true">
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
         <read-data reader-name="seed"/>
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
@@ -252,6 +255,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="seed-initial"/>
         <read-data reader-name="demo"/>
         <read-data reader-name="ext"/>
+        <!-- beware use-indices-unique="false" is needed because of Derby bug with null values in a unique index -->
         <inline-jdbc
             jdbc-driver="org.apache.derby.jdbc.EmbeddedDriver"
             jdbc-uri="jdbc:derby:ofbiztenant;create=true"
