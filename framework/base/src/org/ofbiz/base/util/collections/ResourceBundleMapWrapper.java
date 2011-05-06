@@ -191,13 +191,10 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
          * @see java.util.Map#size()
          */
         public int size() {            
-            if(isMapInitialized)
-            {
+            if(isMapInitialized) {
                 // this is an approximate size, won't include elements from parent bundles
                 return topLevelMap.size() -1;
-            }
-            else
-            {
+            } else {
                 return resourceBundle.keySet().size();                        
             }
         }
@@ -248,8 +245,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
          */
         public Object get(Object arg0) {
             Object value = null;
-            if(isMapInitialized)
-            {
+            if(isMapInitialized) {
                 value = this.topLevelMap.get(arg0);
             }
 
@@ -257,13 +253,6 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
                 if (value == null) {
                     try {
                         value = this.resourceBundle.getObject((String) arg0);
-                    } catch (MissingResourceException mre) {
-                        // do nothing, this will be handled by recognition that the value is still null
-                    }
-                }
-                if (value == null) {
-                    try {
-                        value = this.resourceBundle.getString((String) arg0);
                     } catch (MissingResourceException mre) {
                         // do nothing, this will be handled by recognition that the value is still null
                     }
