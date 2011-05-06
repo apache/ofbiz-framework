@@ -1605,6 +1605,7 @@ background-repeat:repeat-x;
 padding:5px 10px 0px 10px;
 font-size:1.1em;
 margin: 0px;
+min-height:20px;
 }
 
 .tab-bar ul li {
