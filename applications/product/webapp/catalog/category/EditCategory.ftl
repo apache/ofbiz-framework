@@ -25,6 +25,8 @@ function insertImageName(type,nameValue) {
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductResultOfImageUpload}</h3>
+        </div>
+        <div class="screenlet-body">
             <#if !(clientFileName?has_content)>
                 <div>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
             <#else>
