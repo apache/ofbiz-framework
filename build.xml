@@ -805,7 +805,7 @@ under the License.
         </cobertura-report>
     </target>
 
-    <target name="sonar" depends="download-sonar-ant-task, sonar-init, cobertura-report-xml"
+    <target name="sonar" depends="download-sonar-ant-task, sonar-init"
             description="Sonar code analysis. You need a Sonar instance running to use it. More info on http://www.sonarsource.org/">
         <exec executable="svn" dir="." output="runtime/svninfo_tmp.xml">
             <arg value="info"/>
@@ -864,7 +864,23 @@ under the License.
             <property key="sonar.cobertura.reportPath" value="runtime/logs/cobertura-report/coverage.xml"/>
             <property key="sonar.java.source" value="1.6" />
             <property key="sonar.java.target" value="1.6" />
+            <property key="sonar.jdbc.url"
+               value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />
+            <property key="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
+            <property key="sonar.jdbc.username" value="${sonar.jdbc.username}" />
+            <property key="sonar.jdbc.password" value="${sonar.jdbc.password}" />
+
+            <!-- SERVER ON A REMOTE HOST -->
+            <property key="sonar.host.url" value="${sonar.host.url}" /> 
         </sonar:sonar>
+    </target>
+
+    <target name="full-sonar">
+        <antcall target="clean-all"/>
+        <antcall target="run-install"/>
+        <antcall target="run-tests"/>
+        <antcall target="cobertura-report-xml"/>
+        <antcall target="sonar"/>
     </target>
 
     <!-- ================================================================== -->
