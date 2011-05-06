@@ -178,7 +178,7 @@
         <value xml:lang="fr">Rapprochement de compte</value>
         <value xml:lang="hi_IN">लेखा पुनर्मिलान</value>
         <value xml:lang="it">Riconciliazione</value>
-        <value xml:lang="nl">Afstemming rekening</value>
+        <value xml:lang="nl">Afstemming grootboekrekening</value>
         <value xml:lang="pt">Reconciliação de Conta</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
         <value xml:lang="zh">账户对账</value>
@@ -190,7 +190,7 @@
         <value xml:lang="fr">Rapprochements de compte</value>
         <value xml:lang="hi_IN">लेखा पुनर्मिलान</value>
         <value xml:lang="it">Riconciliazioni</value>
-        <value xml:lang="nl">Afstemmingen</value>
+        <value xml:lang="nl">Afstemmingen grootboekrekening</value>
         <value xml:lang="pt">Reconciliações de Contas</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
         <value xml:lang="zh">账户对账</value>
@@ -202,7 +202,7 @@
         <value xml:lang="fr">Transactions comptables</value>
         <value xml:lang="hi_IN">लेखा गतिविधियाँ</value>
         <value xml:lang="it">Prime Note</value>
-        <value xml:lang="nl">Boekhoudtransacties</value>
+        <value xml:lang="nl">Boekingen</value>
         <value xml:lang="pt">Transações Contábeis</value>
         <value xml:lang="th">รายการบัญชี</value>
         <value xml:lang="zh">交易记账</value>
@@ -214,7 +214,7 @@
         <value xml:lang="fr">Entrées de transactions comptables</value>
         <value xml:lang="hi_IN">लेखा लेनदेन की प्रविष्टियाँ</value>
         <value xml:lang="it">Righe Prime Note</value>
-        <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
+        <value xml:lang="nl">Aanmaken boeking</value>
         <value xml:lang="pt">Escrituração de Transações Contábeis</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
         <value xml:lang="zh">交易记录记账</value>
@@ -1942,7 +1942,7 @@
         <value xml:lang="fr">Comptes de facturation</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग) खातें</value>
         <value xml:lang="it">Conti Fatturazione</value>
-        <value xml:lang="nl">factuurrekeningen</value>
+        <value xml:lang="nl">Factuurrekeningen</value>
         <value xml:lang="pt">Contas de cobrança</value>
         <value xml:lang="ro">Conturi Facturare</value>
         <value xml:lang="ru">Кредитные счета</value>
@@ -2197,6 +2197,7 @@
         <value xml:lang="en">Cash Flow Statement</value>
         <value xml:lang="fr">Tableau des flux de trésorerie</value>
         <value xml:lang="hi_IN">रोकड प्रवाह विवरण</value>
+        <value xml:lang="nl">Kasboek</value>		
         <value xml:lang="pt">Demonstração dos Fluxos de Caixa</value>
         <value xml:lang="zh_TW">現金流量表</value>
     </property>
@@ -2204,6 +2205,7 @@
         <value xml:lang="en">Chart of accounts for</value>
         <value xml:lang="fr">Plan comptable pour</value>
         <value xml:lang="hi_IN">लेखा-चित्र के लिए</value>
+        <value xml:lang="nl">Overzicht grootboekrekeningen voor</value>		
         <value xml:lang="pt">Plano de Contas para</value>
         <value xml:lang="zh_TW">會計科目表</value>
     </property>
@@ -2486,7 +2488,7 @@
         <value xml:lang="fr">Bilan comparatif</value>
         <value xml:lang="hi_IN">तुलनात्मक तुलन-पत्र</value>
         <value xml:lang="it">Stato Patrimoniale Comparativo</value>
-        <value xml:lang="nl">Vergelijkingsbalans</value>
+        <value xml:lang="nl">Vergelijking Balans</value>
         <value xml:lang="pt">Comparativo do Balanço</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
         <value xml:lang="zh">比较资产负债表</value>
@@ -2496,6 +2498,7 @@
         <value xml:lang="en">Comparative Cash Flow Statement</value>
         <value xml:lang="fr">Tableau comparatif de flux de trésorerie</value>
         <value xml:lang="hi_IN">तुलनात्मक रोकड प्रवाह विवरण</value>
+        <value xml:lang="nl">Vergelijking Kasboek</value>		
         <value xml:lang="pt">Demonstração dos Fluxos de Caixa comparativo</value>
         <value xml:lang="zh_TW">比較現金流量表</value>
     </property>
@@ -2505,6 +2508,7 @@
         <value xml:lang="fr">Comparatif Compte de résultat</value>
         <value xml:lang="hi_IN">तुलनात्मक आय विवरण</value>
         <value xml:lang="it">Conto Economico Comparativo</value>
+        <value xml:lang="nl">Vergelijking Resultatenrekening</value>		
         <value xml:lang="pt">Comparativo de Demonstração de Resultados</value>
         <value xml:lang="zh_TW">比較損益表</value>
     </property>
@@ -2854,7 +2858,7 @@
         <value xml:lang="fr">Créer une transaction de paiement</value>
         <value xml:lang="hi_IN">भुगतान लेखा गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
-        <value xml:lang="nl">Maak transactie voor betaalrekening aan</value>
+        <value xml:lang="nl">Aanmaken boeking van betaling</value>
         <value xml:lang="pt">Criar operação contabil de pagamento</value>
         <value xml:lang="th">สร้างรายการบัญชีการชำระเงิน</value>
         <value xml:lang="zh">新建支付会计交易</value>
@@ -2896,7 +2900,7 @@
         <value xml:lang="fr">Créer une transaction de vente</value>
         <value xml:lang="hi_IN">बिक्री लेखा गतिविधि बनाएँ</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
-        <value xml:lang="nl">Maak transatie voor verkoopadministratie</value>
+        <value xml:lang="nl">Aanmaken boeking van verkoop</value>
         <value xml:lang="pt">Criar transação contábil de vendas</value>
         <value xml:lang="th">สร้างบัญชีรายการขาย</value>
         <value xml:lang="zh">新建销售会计交易</value>
@@ -5486,6 +5490,7 @@
         <value xml:lang="de">Probebilanz</value>
         <value xml:lang="en">GL Account Trial Balance</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance)</value>
+        <value xml:lang="nl">Grootboekrekening Proefbalans</value>		
         <value xml:lang="pt">Balancete Teste da Conta Razão</value>
         <value xml:lang="zh_TW">總帳科目試算餘額</value>
     </property>
@@ -5563,7 +5568,7 @@
         <value xml:lang="fr">Configurations globales du GL</value>
         <value xml:lang="hi_IN">सार्विक जीएल(GL) सेटिंग्स</value>
         <value xml:lang="it">Configurazione Contabilità Generale</value>
-        <value xml:lang="nl">Algemene instellingen boekhouding</value>
+        <value xml:lang="nl">Boekhouding algemeen</value>
         <value xml:lang="pt">Configurações globais da contabilidade</value>
         <value xml:lang="th">การกำหนดบัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">全局总账设置</value>
@@ -5664,7 +5669,7 @@
         <value xml:lang="fr">Déclaration de revenus</value>
         <value xml:lang="hi_IN">आय विवरण</value>
         <value xml:lang="it">Conto Economico</value>
-        <value xml:lang="nl">Inkomensoverzicht</value>
+        <value xml:lang="nl">Resultatenrekening</value>
         <value xml:lang="pt">Declaração de rendimentos</value>
         <value xml:lang="ro">Extract Cont in Intrare</value>
         <value xml:lang="ru">Результативный счет</value>
@@ -5735,6 +5740,7 @@
     <property key="AccountingInventoryValuation">
         <value xml:lang="en">Inventory Valuation</value>
         <value xml:lang="hi_IN">वस्तु मूल्यांकन</value>
+        <value xml:lang="nl">Voorraadwaardering</value>		
         <value xml:lang="pt">Inventário de Avaliação</value>
         <value xml:lang="zh_TW">庫存評價表</value>
     </property>
@@ -6714,7 +6720,7 @@
         <value xml:lang="fr">Dettes</value>
         <value xml:lang="hi_IN">देयताएँ</value>
         <value xml:lang="it">Debiti</value>
-        <value xml:lang="nl">Schulden</value>
+        <value xml:lang="nl">Passiva</value>
         <value xml:lang="pt">Passivos</value>
         <value xml:lang="ro">Datorii-Debit</value>
         <value xml:lang="ru">Обязательства</value>
@@ -8063,7 +8069,7 @@
         <value xml:lang="en">Organization GL Settings</value>
         <value xml:lang="fr">Configurations internes du GL</value>
         <value xml:lang="hi_IN">संगठन जीएल(Gl) सेटिंग्स</value>
-        <value xml:lang="nl">Organisatie grootboek instellingen</value>
+        <value xml:lang="nl">Boekhouding organisatie</value>
         <value xml:lang="pt">Configurações da Contabilização da Organização</value>
         <value xml:lang="zh">组织机构总账设置</value>
         <value xml:lang="zh_TW">單位組織設定</value>
@@ -8236,7 +8242,7 @@
         <value xml:lang="fr">Résumé des comptes</value>
         <value xml:lang="hi_IN">लेखा सारांश</value>
         <value xml:lang="it">Sommario Conti</value>
-        <value xml:lang="nl">Samenvatting rekeningen</value>
+        <value xml:lang="nl">Overzicht grootboekrekeningen</value>
         <value xml:lang="pt">Resumo de contas</value>
         <value xml:lang="zh">账户总览</value>
         <value xml:lang="zh_TW">賬戶總覽</value>
@@ -10250,7 +10256,7 @@
         <value xml:lang="fr">Rapports</value>
         <value xml:lang="hi_IN">ब्यौरेवार विवरण</value>
         <value xml:lang="it">Stampe</value>
-        <value xml:lang="nl">Raporten</value>
+        <value xml:lang="nl">Overzichten</value>
         <value xml:lang="pt">Relatórios</value>
         <value xml:lang="ro">Tiparire</value>
         <value xml:lang="ru">Отчеты</value>
@@ -10651,7 +10657,7 @@
         <value xml:lang="fr">Configuration</value>
         <value xml:lang="hi_IN">विन्यास</value>
         <value xml:lang="it">Configurazione</value>
-        <value xml:lang="nl">Configuratie</value>
+        <value xml:lang="nl">Instellingen</value>
         <value xml:lang="pt">Configuração</value>
         <value xml:lang="th">ติดตั้ง</value>
         <value xml:lang="zh">设置</value>
@@ -11184,6 +11190,7 @@
     </property>
     <property key="AccountingTotalAccumulatedDepreciation">
         <value xml:lang="en">Total Accumulated Depreciation</value>
+        <value xml:lang="nl">Geaccumuleerde afschrijvingen totaal</value>       
         <value xml:lang="pt">Depreciação Acumulada Total</value>
     </property>
     <property key="AccountingTotalAmountPercentageIsNotEqualOneHundred">
@@ -11193,6 +11200,7 @@
     </property>
     <property key="AccountingTotalAssets">
         <value xml:lang="en">Total Assets</value>
+        <value xml:lang="nl">Totaal activa</value>      
         <value xml:lang="pt">Ativos Totais</value>
     </property>
     <property key="AccountingTotalCapital">
@@ -11264,6 +11272,14 @@
         <value xml:lang="en">Total Liabilities and Equities</value>
         <value xml:lang="pt">Total do Passivo e Ações</value>
     </property>
+    <property key="AccountingTotalLiabilities">
+        <value xml:lang="en">Total Liabilities</value>
+        <value xml:lang="nl">Totaal kortlopende schulden</value>      
+    </property> 
+    <property key="AccountingTotalEquities">
+        <value xml:lang="en">Total Equities</value>
+        <value xml:lang="nl">Totaal eigen vermogen</value>      
+    </property>	
     <property key="AccountingTotalNetSales">
         <value xml:lang="en">Total Net Sales</value>
         <value xml:lang="hi_IN">कुल शुद्ध विक्रय</value>
@@ -11324,7 +11340,7 @@
         <value xml:lang="fr">Totaux de transaction</value>
         <value xml:lang="hi_IN">गतिविधि के योग</value>
         <value xml:lang="it">Totali Prime Note</value>
-        <value xml:lang="nl">Totalen transactie</value>
+        <value xml:lang="nl">Totalen grootboekrekeningen</value>
         <value xml:lang="pt">Totais de transação</value>
         <value xml:lang="th">ผลรวมรายการ</value>
         <value xml:lang="zh">交易合计</value>
@@ -12192,7 +12208,7 @@
         <value xml:lang="fr">Résumé</value>
         <value xml:lang="hi_IN">सारांश</value>
         <value xml:lang="it">Sommario</value>
-        <value xml:lang="nl">Samenvatting</value>
+        <value xml:lang="nl">Snel naar...</value>
         <value xml:lang="pt">Resumo</value>
         <value xml:lang="th">สรุป</value>
         <value xml:lang="zh">总览</value>
@@ -12210,7 +12226,7 @@
         <value xml:lang="fr">Code du compte</value>
         <value xml:lang="hi_IN">खाता कोड</value>
         <value xml:lang="it">Codice Conto</value>
-        <value xml:lang="nl">Accountcode</value>
+        <value xml:lang="nl">Grootboekrekeningnummer</value>
         <value xml:lang="pt">Código da conta</value>
         <value xml:lang="ro">Cod Cont</value>
         <value xml:lang="ru">Код счета</value>
@@ -12256,7 +12272,7 @@
         <value xml:lang="fr">Nom du compte</value>
         <value xml:lang="hi_IN">खाता नाम</value>
         <value xml:lang="it">Nome Conto</value>
-        <value xml:lang="nl">Accountnaam</value>
+        <value xml:lang="nl">Grootboekrekeningnaam</value>
         <value xml:lang="pt">Nome da Conta</value>
         <value xml:lang="ro">Nume Cont</value>
         <value xml:lang="ru">Название счета</value>
@@ -12837,6 +12853,7 @@
         <value xml:lang="en">Cost Centers</value>
         <value xml:lang="fr">Centres de coût</value>
         <value xml:lang="hi_IN">लागत केंद्र</value>
+        <value xml:lang="nl">Kostenplaatsen</value>		
         <value xml:lang="pt">Centros de custo</value>
         <value xml:lang="zh_TW">成本中心</value>
     </property>
@@ -17134,7 +17151,7 @@
         <value xml:lang="fr">Transactions comptables non postées</value>
         <value xml:lang="hi_IN">अनपोस्टेड लेखा गतिविधियाँ</value>
         <value xml:lang="it">Prime Note non Contabilizzate</value>
-        <value xml:lang="nl">Onverwerkte transacties</value>
+        <value xml:lang="nl">Onverwerkte boekingen</value>
         <value xml:lang="pt">Transações Contábeis não enviadas</value>
         <value xml:lang="ro">Tranzactie ne Contabilizate</value>
         <value xml:lang="ru">Отмененные бухгалтерские проводки</value>
