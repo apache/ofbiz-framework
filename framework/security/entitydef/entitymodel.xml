@@ -225,7 +225,6 @@ under the License.
     </entity>
     <view-entity entity-name="UserLoginAndProtectedView"
           package-name="org.ofbiz.security.securitygroup"
-          never-cache="true"
           title="UserLogin And ProtectedView View Entity">
       <member-entity entity-alias="ULSGPV" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="PV" entity-name="ProtectedView"/>
