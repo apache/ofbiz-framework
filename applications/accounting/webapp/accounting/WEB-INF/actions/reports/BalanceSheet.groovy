@@ -19,6 +19,7 @@
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -29,6 +30,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 import javolution.util.FastList;
+
+uiLabelMap = UtilProperties.getResourceBundleMap("AccountingUiLabels", locale);
 
 if (!thruDate) {
     thruDate = UtilDateTime.nowTimestamp();
@@ -193,7 +196,7 @@ accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal + accountBalance.balance;
 }
 context.assetAccountBalanceList = accountBalanceList;
-context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL ASSETS", "balance", balanceTotal));
+context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", uiLabelMap.AccountingTotalAssets, "balance", balanceTotal));
 context.assetBalanceTotal = balanceTotal;
 
 // CURRENT ASSETS
@@ -301,7 +304,7 @@ accountBalanceList.each { accountBalance ->
 }
 //context.contraAssetAccountBalanceList = accountBalanceList;
 context.assetAccountBalanceList.addAll(accountBalanceList);
-context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL ACCUMULATED DEPRECIATION", "balance", balanceTotal));
+context.assetAccountBalanceList.add(UtilMisc.toMap("accountName", uiLabelMap.AccountingTotalAccumulatedDepreciation, "balance", balanceTotal));
 context.contraAssetBalanceTotal = balanceTotal;
 //balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingLongTermAssetsAtCost", "balance", (context.longtermAssetBalanceTotal - context.contraAssetBalanceTotal)));
 balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingTotalAccumulatedDepreciation", "balance", balanceTotal));
@@ -340,7 +343,7 @@ accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal + accountBalance.balance;
 }
 context.liabilityAccountBalanceList = accountBalanceList;
-context.liabilityAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL LIABILITIES", "balance", balanceTotal));
+context.liabilityAccountBalanceList.add(UtilMisc.toMap("accountName", uiLabelMap.AccountingTotalLiabilities, "balance", balanceTotal));
 context.liabilityBalanceTotal = balanceTotal;
 
 // CURRENT LIABILITY
@@ -419,7 +422,7 @@ accountBalanceList.each { accountBalance ->
     balanceTotal = balanceTotal + accountBalance.balance;
 }
 context.equityAccountBalanceList = accountBalanceList;
-context.equityAccountBalanceList.add(UtilMisc.toMap("accountName", "TOTAL EQUITIES", "balance", balanceTotal));
+context.equityAccountBalanceList.add(UtilMisc.toMap("accountName", uiLabelMap.AccountingTotalEquities, "balance", balanceTotal));
 context.equityBalanceTotal = balanceTotal;
 
 context.liabilityEquityBalanceTotal = context.liabilityBalanceTotal + context.equityBalanceTotal

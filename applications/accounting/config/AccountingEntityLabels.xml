@@ -24,6 +24,7 @@
         <value xml:lang="fr">Amortissements</value>
         <value xml:lang="hi_IN">परिशोधन</value>
         <value xml:lang="it">Ammortamento</value>
+        <value xml:lang="nl">Amortisatie</value>		
         <value xml:lang="pt_BR">Amortização</value>
         <value xml:lang="ro">Amortizare</value>
         <value xml:lang="ru">Амортизация</value>
@@ -36,6 +37,7 @@
         <value xml:lang="fr">Capitalisations</value>
         <value xml:lang="hi_IN">कुल पूंजी</value>
         <value xml:lang="it">Capitalizzazioni</value>
+        <value xml:lang="nl">Kapitalisatie</value>		
         <value xml:lang="pt_BR">Capitalização</value>
         <value xml:lang="ro">Capitalizare</value>
         <value xml:lang="ru">Капитализация</value>
@@ -48,6 +50,7 @@
         <value xml:lang="fr">Ligne de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट सीमा</value>
         <value xml:lang="it">Riga Nota Credito</value>
+        <value xml:lang="nl">Kredietlijn</value>		
         <value xml:lang="pt_BR">Linha de Crédito</value>
         <value xml:lang="ro">Linie Nota de Credit</value>
         <value xml:lang="ru">Кредитная линия</value>
@@ -61,6 +64,7 @@
         <value xml:lang="fr">Note de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट मेमो</value>
         <value xml:lang="it">Nota Credito</value>
+        <value xml:lang="nl">Creditnota</value>		
         <value xml:lang="pt_BR">Nota de Crédito</value>
         <value xml:lang="ro">Nota de Credit</value>
         <value xml:lang="ru">Кредитный мемориальный ордер</value>
@@ -74,6 +78,7 @@
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="hi_IN">मूल्यह्रास</value>
         <value xml:lang="it">Deprecato</value>
+        <value xml:lang="nl">Afschrijving</value>		
         <value xml:lang="pt_BR">Depreciação</value>
         <value xml:lang="ro">Depreciat</value>
         <value xml:lang="ru">Износ</value>
@@ -87,6 +92,7 @@
         <value xml:lang="fr">Débours</value>
         <value xml:lang="hi_IN">अदायगी</value>
         <value xml:lang="it">Esborso</value>
+        <value xml:lang="nl">Uitbelating</value>		
         <value xml:lang="pt_BR">Desembolso</value>
         <value xml:lang="ro">Rambursari</value>
         <value xml:lang="ru">Выплата</value>
@@ -99,6 +105,7 @@
         <value xml:lang="fr">Externe</value>
         <value xml:lang="hi_IN">बाहरी</value>
         <value xml:lang="it">Esterno</value>
+        <value xml:lang="nl">Extern</value>		
         <value xml:lang="pt_BR">Externo</value>
         <value xml:lang="ro">Extern</value>
         <value xml:lang="ru">Внешняя</value>
@@ -111,6 +118,7 @@
         <value xml:lang="fr">Paiement à recevoir</value>
         <value xml:lang="hi_IN">आवक भुगतान</value>
         <value xml:lang="it">Pagamento in entrata</value>
+        <value xml:lang="nl">Inkomende betaling</value>		
         <value xml:lang="pt_BR">Pagamento na Entrada</value>
         <value xml:lang="zh">新收款</value>
         <value xml:lang="zh_TW">新收款</value>
@@ -120,6 +128,7 @@
         <value xml:lang="fr">Interne</value>
         <value xml:lang="hi_IN">आंतरिक</value>
         <value xml:lang="it">Interno</value>
+        <value xml:lang="nl">Intern</value>		
         <value xml:lang="pt_BR">Interno</value>
         <value xml:lang="ro">Intern</value>
         <value xml:lang="ru">Внутренняя</value>
@@ -132,6 +141,7 @@
         <value xml:lang="fr">Stock</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory)</value>
         <value xml:lang="it">Inventario</value>
+        <value xml:lang="nl">Voorraad</value>		
         <value xml:lang="pt_BR">Inventário</value>
         <value xml:lang="zh">库存</value>
         <value xml:lang="zh_TW">庫存</value>
@@ -141,6 +151,7 @@
         <value xml:lang="fr">Inventaire des retours</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory) में वापसी से</value>
         <value xml:lang="it">Inventario dal Reso</value>
+        <value xml:lang="nl">Voorraad retour</value>		
         <value xml:lang="pt_BR">Inventário de Retornos</value>
         <value xml:lang="ro">Inventarul Returnarilor</value>
         <value xml:lang="ru">Возврат ТМЦ</value>
@@ -153,6 +164,7 @@
         <value xml:lang="fr">Différence d'inventaire</value>
         <value xml:lang="hi_IN">मद विचरण</value>
         <value xml:lang="it">Riga Varianza</value>
+        <value xml:lang="nl">Regelvariatie</value>		
         <value xml:lang="pt_BR">Variância do Item</value>
         <value xml:lang="ro">Linie Variere</value>
         <value xml:lang="ru">Расхождение по позиции</value>
@@ -165,6 +177,7 @@
         <value xml:lang="fr">Production</value>
         <value xml:lang="hi_IN">विनिर्माण</value>
         <value xml:lang="it">Produzione</value>
+        <value xml:lang="nl">Productie</value>		
         <value xml:lang="pt_BR">Produção</value>
         <value xml:lang="zh">生产</value>
         <value xml:lang="zh_TW">生產</value>
@@ -174,6 +187,7 @@
         <value xml:lang="fr">Note</value>
         <value xml:lang="hi_IN">टिप्पणी</value>
         <value xml:lang="it">Nota</value>
+        <value xml:lang="nl">Nota</value>		
         <value xml:lang="pt_BR">Nota</value>
         <value xml:lang="ro">Nota</value>
         <value xml:lang="ru">Закладная</value>
@@ -186,6 +200,7 @@
         <value xml:lang="fr">Obligation</value>
         <value xml:lang="hi_IN">दायित्व</value>
         <value xml:lang="it">Obbligazione</value>
+        <value xml:lang="nl">Verplichting</value>		
         <value xml:lang="pt_BR">Obrigação</value>
         <value xml:lang="ro">Obligatii</value>
         <value xml:lang="ru">Обязательство</value>
@@ -198,6 +213,7 @@
         <value xml:lang="fr">Autre interne</value>
         <value xml:lang="hi_IN">अन्य आंतरिक</value>
         <value xml:lang="it">Altri Interni</value>
+        <value xml:lang="nl">Andere intern</value>		
         <value xml:lang="pt_BR">Outro Interno</value>
         <value xml:lang="ro">Alt Intern</value>
         <value xml:lang="ru">Другая внутренняя</value>
@@ -210,6 +226,7 @@
         <value xml:lang="fr">Autre obligation</value>
         <value xml:lang="hi_IN">अन्य दायित्व</value>
         <value xml:lang="it">Altra Obbligazione</value>
+        <value xml:lang="nl">Andere verplichtingen</value>		
         <value xml:lang="pt_BR">Outra Obrigação</value>
         <value xml:lang="ro">Alta Obligatie</value>
         <value xml:lang="ru">Другое обязательство</value>
@@ -222,6 +239,7 @@
         <value xml:lang="fr">Paiement sortant</value>
         <value xml:lang="hi_IN">निर्गामी भुगतान</value>
         <value xml:lang="it">Pagamento in uscita</value>
+        <value xml:lang="nl">Uitgaande betaling</value>		
         <value xml:lang="pt_BR">Pagamento na Saída</value>
         <value xml:lang="zh">新付款</value>
         <value xml:lang="zh_TW">新付款</value>
@@ -231,6 +249,7 @@
         <value xml:lang="fr">Paiement</value>
         <value xml:lang="hi_IN">भुगतान</value>
         <value xml:lang="it">Pagamento</value>
+        <value xml:lang="nl">Betaling</value>		
         <value xml:lang="pt_BR">Pagamento</value>
         <value xml:lang="ro">Plati</value>
         <value xml:lang="ru">Платеж</value>
@@ -243,6 +262,7 @@
         <value xml:lang="fr">Paiment effectué</value>
         <value xml:lang="hi_IN">भुगतान लागू</value>
         <value xml:lang="it">Pagamento applicato</value>
+        <value xml:lang="nl">Betaling toegepast</value>		
         <value xml:lang="pt_BR">Pagamento Executado</value>
         <value xml:lang="zh">应用的支付款</value>
         <value xml:lang="zh_TW">應用的支付款</value>
@@ -252,6 +272,7 @@
         <value xml:lang="fr">Clôture de période</value>
         <value xml:lang="hi_IN">अवधि समापन</value>
         <value xml:lang="it">Chiusura di Periodo Fiscale</value>
+        <value xml:lang="nl">Periode afsluiting</value>		
         <value xml:lang="pt_BR">Fechamento do Período</value>
         <value xml:lang="ro">Perioada Inchisa</value>
         <value xml:lang="ru">Закрытие периода</value>
@@ -264,6 +285,7 @@
         <value xml:lang="fr">Facture d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान</value>
         <value xml:lang="it">Fattura di acquisto</value>
+        <value xml:lang="nl">Inkoopfactuur</value>		
         <value xml:lang="pt_BR">Fatura de Compra</value>
         <value xml:lang="zh">购货发票</value>
         <value xml:lang="zh_TW">購貨發票</value>
@@ -274,6 +296,7 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="hi_IN">रसीद</value>
         <value xml:lang="it">Ricevute</value>
+        <value xml:lang="nl">Bon</value>		
         <value xml:lang="pt_BR">Recibo</value>
         <value xml:lang="ro">Chitanta</value>
         <value xml:lang="ru">Выручка</value>
@@ -298,6 +321,7 @@
         <value xml:lang="fr">Facture de vente</value>
         <value xml:lang="hi_IN">बिक्री चालान</value>
         <value xml:lang="it">Fattura di vendita</value>
+        <value xml:lang="nl">Verkoopfactuur</value>		
         <value xml:lang="pt_BR">Fatura da Venda</value>
         <value xml:lang="zh">销售发票</value>
         <value xml:lang="zh_TW">銷售發票</value>
@@ -307,6 +331,7 @@
         <value xml:lang="fr">Facture d'expédition</value>
         <value xml:lang="hi_IN">बिक्री शिपमेंट</value>
         <value xml:lang="it">Spedizione di vendita</value>
+        <value xml:lang="nl">Verkoop verzending</value>		
         <value xml:lang="pt_BR">Entrega</value>
         <value xml:lang="zh">销售送货</value>
         <value xml:lang="zh_TW">銷售送貨</value>
@@ -316,6 +341,7 @@
         <value xml:lang="fr">Reçu d'expédition</value>
         <value xml:lang="hi_IN">शिपमेंट रसीद</value>
         <value xml:lang="it">Ricevuta di spedizione</value>
+        <value xml:lang="nl">Verzending bon</value>		
         <value xml:lang="pt_BR">Recibo da Entrega</value>
         <value xml:lang="zh">送货收据</value>
         <value xml:lang="zh_TW">送貨收據</value>
@@ -337,6 +363,7 @@
         <value xml:lang="fr">Ajustement</value>
         <value xml:lang="hi_IN">समायोजन</value>
         <value xml:lang="it">Aggiustamento</value>
+        <value xml:lang="nl">Aanpassing</value>		
         <value xml:lang="pt_BR">Ajuste</value>
         <value xml:lang="ru">Поправка</value>
         <value xml:lang="th">การปรับปรุงรายการ</value>
@@ -348,6 +375,7 @@
         <value xml:lang="fr">Dépôt</value>
         <value xml:lang="hi_IN">जमा</value>
         <value xml:lang="it">Deposito</value>
+        <value xml:lang="nl">Storting</value>		
         <value xml:lang="pt_BR">Depósito</value>
         <value xml:lang="ru">Взнос</value>
         <value xml:lang="th">เงินมัดจำ</value>
@@ -359,6 +387,7 @@
         <value xml:lang="fr">Retrait</value>
         <value xml:lang="hi_IN">निकालना</value>
         <value xml:lang="it">Prelievo</value>
+        <value xml:lang="nl">Opname</value>		
         <value xml:lang="pt_BR">Saque</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ถอน</value>
@@ -371,6 +400,7 @@
         <value xml:lang="fr">Compte bancaire</value>
         <value xml:lang="hi_IN">बैंक खाता</value>
         <value xml:lang="it">Conto Bancario</value>
+        <value xml:lang="nl">Bankrekening</value>		
         <value xml:lang="pt_BR">Conta Bancária</value>
         <value xml:lang="ru">Банковский счет</value>
         <value xml:lang="th">บัญชีธนาคาร</value>
@@ -395,6 +425,7 @@
         <value xml:lang="fr">Chèque cadeau</value>
         <value xml:lang="hi_IN">उपहार प्रमाण पत्र(GiftCertificate)</value>
         <value xml:lang="it">Certificato Omaggio</value>
+        <value xml:lang="nl">Cadeaubon</value>		
         <value xml:lang="pt_BR">Vale Presente</value>
         <value xml:lang="ru">Подарочный сертификат</value>
         <value xml:lang="th">ของขวัญที่มีใบรับรอง</value>
@@ -407,6 +438,7 @@
         <value xml:lang="fr">Compte d'investissement</value>
         <value xml:lang="hi_IN">निवेश खाता</value>
         <value xml:lang="it">Conto Investimento</value>
+        <value xml:lang="nl">Beleggingsrekening</value>		
         <value xml:lang="pt_BR">Conta Investimento</value>
         <value xml:lang="ru">Инвестиционный счет</value>
         <value xml:lang="th">บัญชีเงินลงทุน</value>
@@ -431,6 +463,7 @@
         <value xml:lang="fr">Compte de service crédit</value>
         <value xml:lang="hi_IN">सेवा जमा खाता</value>
         <value xml:lang="it">Conto Servizio Credito</value>
+        <value xml:lang="nl">Kredietservice rekening</value>		
         <value xml:lang="pt_BR">Conta de Serviço de Crédito</value>
         <value xml:lang="ru">Сервисный кредитный счет</value>
         <value xml:lang="th">บริการเครดิตบัญชี</value>
@@ -442,6 +475,7 @@
         <value xml:lang="fr">Carte d'essence 1</value>
         <value xml:lang="hi_IN">गैस कार्ड नंबर 1</value>
         <value xml:lang="it">Numero Carta Carburante 1</value>
+        <value xml:lang="nl">Tankpas 1</value>		
         <value xml:lang="pt_BR">Cartão de Abastecimento 1</value>
         <value xml:lang="ro">Nr.Card Carburant 1</value>
         <value xml:lang="ru">Газовая карта №1</value>
@@ -454,6 +488,7 @@
         <value xml:lang="fr">Carte d'essence 2</value>
         <value xml:lang="hi_IN">गैस कार्ड नंबर 2</value>
         <value xml:lang="it">Numero Carta Carburante 2</value>
+        <value xml:lang="nl">Tankpas 2</value>		
         <value xml:lang="pt_BR">Cartão de Abastecimento 2</value>
         <value xml:lang="ro">Nr.Card Carburant 2</value>
         <value xml:lang="ru">Газовая карта №2</value>
@@ -466,6 +501,7 @@
         <value xml:lang="fr">Carte d'essence 3</value>
         <value xml:lang="hi_IN">गैस कार्ड नंबर 3</value>
         <value xml:lang="it">Numero Carta Carburante 3</value>
+        <value xml:lang="nl">Tankpas 3</value>		
         <value xml:lang="pt_BR">Cartão de Abastecimento 3</value>
         <value xml:lang="ro">Nr.Card Carburant 3</value>
         <value xml:lang="ru">Газовая карта №3</value>
@@ -490,6 +526,7 @@
         <value xml:lang="fr">Numéro de traçage interne</value>
         <value xml:lang="hi_IN">आंतरिक ट्रैकिंग लेबल संख्या</value>
         <value xml:lang="it">Numero Interno Tracciatura Etichetta</value>
+        <value xml:lang="nl">Intern volglabelnummer</value>		
         <value xml:lang="pt_BR">Número de Controle Interno</value>
         <value xml:lang="ro">Date Interne Nr.Eticheta </value>
         <value xml:lang="ru">Инвентарный номер</value>
@@ -514,6 +551,7 @@
         <value xml:lang="fr">Numéro d'Identification de Véhicule</value>
         <value xml:lang="hi_IN">वाहन पहचान संख्या (VIN)</value>
         <value xml:lang="it">Numero Identificazione Veicolo (VIN)</value>
+        <value xml:lang="nl">Voertuig Identificatie Nummer (VIN)</value>		
         <value xml:lang="pt_BR">Numeração do Chassi (VIN)</value>
         <value xml:lang="ro">Nr Identificare Vehicol (VIN)</value>
         <value xml:lang="ru">Идентификационный номер автомобиля (VIN)</value>
@@ -526,6 +564,7 @@
         <value xml:lang="fr">Vente d'actif</value>
         <value xml:lang="hi_IN">परिसंपत्ति की बिक्री</value>
         <value xml:lang="it">Vendita Cespite</value>
+        <value xml:lang="nl">Verkoop van bezit</value>		
         <value xml:lang="pt_BR">Venda de Ativo</value>
         <value xml:lang="ro">Bunuri in vanzare</value>
         <value xml:lang="ru">Продажа имущества</value>
@@ -538,6 +577,7 @@
         <value xml:lang="fr">Utilisation d'actif</value>
         <value xml:lang="hi_IN">परिसंपत्ति का उपयोग</value>
         <value xml:lang="it">Uso Cespite</value>
+        <value xml:lang="nl">Gebruik van bezit</value>		
         <value xml:lang="pt_BR">Uso de Ativo</value>
         <value xml:lang="ro">Bunuri in uz</value>
         <value xml:lang="ru">Использование имущества</value>
@@ -550,6 +590,7 @@
         <value xml:lang="fr">Coût standard d'installation</value>
         <value xml:lang="hi_IN">मानक स्थापना लागत</value>
         <value xml:lang="it">Costo Standard Iniziale</value>
+        <value xml:lang="nl">Standaard initiele kosten</value>		
         <value xml:lang="pt_BR">Custo de Instalação Padrão</value>
         <value xml:lang="ro">Cost Standard Initial</value>
         <value xml:lang="ru">Стандартная стоимость установки</value>
@@ -562,6 +603,7 @@
         <value xml:lang="fr">Coût standard d'utilisation</value>
         <value xml:lang="hi_IN">मानक उपयोग की लागत</value>
         <value xml:lang="it">Costo Standard Uso</value>
+        <value xml:lang="nl">Standaard gebruikskosten</value>		
         <value xml:lang="pt_BR">Custo de Uso Padrão</value>
         <value xml:lang="ro">Cost Standard in Uz</value>
         <value xml:lang="ru">Стандартная стоимость использования</value>
@@ -574,6 +616,7 @@
         <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="hi_IN">कंप्यूटर हार्डवेयर</value>
         <value xml:lang="it">Hardware per computer</value>
+        <value xml:lang="nl">Computer hardware</value>		
         <value xml:lang="pt_BR">Hardware de Computador</value>
         <value xml:lang="zh">计算机硬件</value>
         <value xml:lang="zh_TW">電腦硬體</value>
@@ -583,6 +626,7 @@
         <value xml:lang="fr">Logiciel informatique</value>
         <value xml:lang="hi_IN">कंप्यूटर सॉफ्टवेयर</value>
         <value xml:lang="it">Software per computer</value>
+        <value xml:lang="nl">Computer software</value>		
         <value xml:lang="pt_BR">Software</value>
         <value xml:lang="zh">计算机软件</value>
         <value xml:lang="zh_TW">電腦軟件</value>
@@ -592,6 +636,7 @@
         <value xml:lang="fr">Equipement</value>
         <value xml:lang="hi_IN">उपकरण</value>
         <value xml:lang="it">Attrezzature</value>
+        <value xml:lang="nl">Uitrusting</value>		
         <value xml:lang="pt_BR">Equipamento</value>
         <value xml:lang="ro">Echipamente</value>
         <value xml:lang="ru">Оборудование</value>
@@ -616,6 +661,7 @@
         <value xml:lang="fr">Autre actif immobilisé</value>
         <value xml:lang="hi_IN">अन्य अचल संपत्ति</value>
         <value xml:lang="it">Altri Cespiti</value>
+        <value xml:lang="nl">Andere vaste activa</value>		
         <value xml:lang="pt_BR">Outro Ativo Fixo</value>
         <value xml:lang="ro">Alte Mijloace Fixe</value>
         <value xml:lang="ru">Другие основные средства</value>
@@ -640,6 +686,7 @@
         <value xml:lang="fr">Propriété</value>
         <value xml:lang="hi_IN">संपत्ति</value>
         <value xml:lang="it">Proprietà</value>
+        <value xml:lang="nl">Eigendom</value>		
         <value xml:lang="pt_BR">Propriedade</value>
         <value xml:lang="ro">Proprietati</value>
         <value xml:lang="ru">Имущество</value>
@@ -652,6 +699,7 @@
         <value xml:lang="fr">Bien immobilier</value>
         <value xml:lang="hi_IN">रियल एस्टेट</value>
         <value xml:lang="it">Immobiliare</value>
+        <value xml:lang="nl">Onroerend goed</value>		
         <value xml:lang="pt_BR">Imóvel</value>
         <value xml:lang="ro">Imobile</value>
         <value xml:lang="ru">Недвижимость</value>
@@ -664,6 +712,7 @@
         <value xml:lang="fr">Véhicule</value>
         <value xml:lang="hi_IN">वाहन</value>
         <value xml:lang="it">Veicolo</value>
+        <value xml:lang="nl">Voertuig</value>		
         <value xml:lang="pt_BR">Veículo</value>
         <value xml:lang="ro">Vehicol</value>
         <value xml:lang="ru">Транспорт</value>
@@ -676,6 +725,7 @@
         <value xml:lang="fr">Amortissement cumulé</value>
         <value xml:lang="hi_IN">संचित परिशोधन</value>
         <value xml:lang="it">Fondo Ammortamento Beni Intangibili</value>
+        <value xml:lang="nl">Cumulatieve amortisatie</value>		
         <value xml:lang="pt_BR">Amortização Acumulada</value>
         <value xml:lang="ro">Amortizare Acumulata</value>
         <value xml:lang="ru">Аккумулированная амортизация</value>
@@ -688,6 +738,7 @@
         <value xml:lang="fr">Dépréciation cumulée</value>
         <value xml:lang="hi_IN">संचित मूल्यह्रास</value>
         <value xml:lang="it">Fondo Ammortamento Beni Tangibili</value>
+        <value xml:lang="nl">Cumulatieve afschrijvingen</value>		
         <value xml:lang="pt_BR">Depreciação Acumulada</value>
         <value xml:lang="ro">Devalorizare Acumulata</value>
         <value xml:lang="ru">Аккумулированный износ</value>
@@ -700,6 +751,7 @@
         <value xml:lang="fr">Amortissement</value>
         <value xml:lang="hi_IN">ऋण परिशोधन</value>
         <value xml:lang="it">Ammortamento Beni Intangibili</value>
+        <value xml:lang="nl">Amortisatie</value>		
         <value xml:lang="pt_BR">Amortização</value>
         <value xml:lang="ro">Amortizari</value>
         <value xml:lang="ru">Амортизация</value>
@@ -712,6 +764,7 @@
         <value xml:lang="fr">Actif</value>
         <value xml:lang="hi_IN">परिसंपत्ति</value>
         <value xml:lang="it">Attivo</value>
+        <value xml:lang="nl">Activa</value>		
         <value xml:lang="pt_BR">Ativo</value>
         <value xml:lang="ro">Bunuri</value>
         <value xml:lang="ru">Активы</value>
@@ -736,6 +789,7 @@
         <value xml:lang="fr">Décaissement</value>
         <value xml:lang="hi_IN">नकद व्यय</value>
         <value xml:lang="it">Spese Di Cassa</value>
+        <value xml:lang="nl">Cash betaling</value>		
         <value xml:lang="pt_BR">Despesa em Dinheiro</value>
         <value xml:lang="ro">Cheltuieli Casa</value>
         <value xml:lang="ru">Денежные расходы</value>
@@ -748,6 +802,7 @@
         <value xml:lang="fr">Encaissement</value>
         <value xml:lang="hi_IN">नकद आय</value>
         <value xml:lang="it">Ricavi di Cassa</value>
+        <value xml:lang="nl">Cash ontvangst</value>		
         <value xml:lang="pt_BR">Renda em Dinheiro</value>
         <value xml:lang="ro">Venituri din Casa</value>
         <value xml:lang="ru">Денежный доходы</value>
@@ -760,6 +815,7 @@
         <value xml:lang="fr">Coût direct des marchandises vendues</value>
         <value xml:lang="hi_IN">बेचे हुए माल के व्यय की लागत</value>
         <value xml:lang="it">Costo dela Merce Venduta</value>
+        <value xml:lang="nl">Kostprijs verkochte goederen</value>		
         <value xml:lang="pt_BR">Custo de Mercadoria Vendida</value>
         <value xml:lang="ro">Cost de Vinzare Cumparare</value>
         <value xml:lang="ru">Стоимость проданных товаров</value>
@@ -772,6 +828,7 @@
         <value xml:lang="fr">Crédit</value>
         <value xml:lang="hi_IN">जमा</value>
         <value xml:lang="it">Avere</value>
+        <value xml:lang="nl">Krediet</value>		
         <value xml:lang="pt_BR">Crédito</value>
         <value xml:lang="ro">Credit</value>
         <value xml:lang="ru">Кредит</value>
@@ -784,6 +841,7 @@
         <value xml:lang="fr">Actif à court terme</value>
         <value xml:lang="hi_IN">वर्तमान परिसंपत्ति</value>
         <value xml:lang="it">Attivo Circolante</value>
+        <value xml:lang="nl">Vlottende activa</value>		
         <value xml:lang="pt_BR">Ativo Circulante</value>
         <value xml:lang="ro">Bunuri Actuale</value>
         <value xml:lang="ru">Текущие активы</value>
@@ -796,6 +854,7 @@
         <value xml:lang="fr">Dette à court terme</value>
         <value xml:lang="hi_IN">चालू दायित्व</value>
         <value xml:lang="it">Debiti a Breve Termine</value>
+        <value xml:lang="nl">Kortlopende schulden</value>		
         <value xml:lang="pt_BR">Passivo Circulante</value>
         <value xml:lang="ro">Pasivitati Actuale</value>
         <value xml:lang="ru">Текущие обязательства</value>
@@ -808,6 +867,7 @@
         <value xml:lang="fr">Débit</value>
         <value xml:lang="hi_IN">नामे</value>
         <value xml:lang="it">Dare</value>
+        <value xml:lang="nl">Debit</value>		
         <value xml:lang="pt_BR">Débito</value>
         <value xml:lang="ro">Debit</value>
         <value xml:lang="ru">Дебит</value>
@@ -821,6 +881,7 @@
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="hi_IN">मूल्यह्रास</value>
         <value xml:lang="it">Ammortamento Beni Tangibili</value>
+        <value xml:lang="nl">Afschrijving</value>		
         <value xml:lang="pt_BR">Depreciação</value>
         <value xml:lang="ro">Devalorizari</value>
         <value xml:lang="ru">Износ</value>
@@ -833,6 +894,7 @@
         <value xml:lang="fr">Capitaux propres distribués</value>
         <value xml:lang="hi_IN">इक्विटी वितरण</value>
         <value xml:lang="it">Distribuzione Azioni</value>
+        <value xml:lang="nl">Eigen vermogen distributie</value>		
         <value xml:lang="pt_BR">Distribuição de Bens</value>
         <value xml:lang="ro">Distributie de Actiuni</value>
         <value xml:lang="ru">Распределение прибыли</value>
@@ -857,6 +919,7 @@
         <value xml:lang="fr">Capitaux propres</value>
         <value xml:lang="hi_IN">इक्विटी</value>
         <value xml:lang="it">Patrimonio Netto</value>
+        <value xml:lang="nl">Vermogen</value>		
         <value xml:lang="pt_BR">Bens</value>
         <value xml:lang="ro">Actiuni</value>
         <value xml:lang="ru">Собственные средства</value>
@@ -869,6 +932,7 @@
         <value xml:lang="fr">Charges</value>
         <value xml:lang="hi_IN">व्यय</value>
         <value xml:lang="it">Costi</value>
+        <value xml:lang="nl">Kosten</value>		
         <value xml:lang="pt_BR">Despesa</value>
         <value xml:lang="ro">Cheltuieli</value>
         <value xml:lang="ru">Расходы</value>
@@ -881,6 +945,7 @@
         <value xml:lang="fr">Revenus</value>
         <value xml:lang="hi_IN">आय</value>
         <value xml:lang="it">Ricavi</value>
+        <value xml:lang="nl">Opbrengsten</value>		
         <value xml:lang="pt_BR">Renda</value>
         <value xml:lang="ro">Venit</value>
         <value xml:lang="ru">Доходы</value>
@@ -893,6 +958,7 @@
         <value xml:lang="fr">Charges financières</value>
         <value xml:lang="hi_IN">ब्याज व्यय</value>
         <value xml:lang="it">Costi per Interessi</value>
+        <value xml:lang="nl">Rentekosten</value>		
         <value xml:lang="pt_BR">Custo sobre Juros</value>
         <value xml:lang="ro">Dobanda Cheltuieli</value>
         <value xml:lang="ru">Выплата процентов</value>
@@ -905,6 +971,7 @@
         <value xml:lang="fr">Ajustement d'inventaire</value>
         <value xml:lang="hi_IN">सूची समायोजन</value>
         <value xml:lang="it">Modifiche di Inventario</value>
+        <value xml:lang="nl">Voorraad aanpassing</value>		
         <value xml:lang="pt_BR">Ajuste do Inventário</value>
         <value xml:lang="ro">Reglaj Inventar</value>
         <value xml:lang="ru">Поправка остаков ТМЦ</value>
@@ -917,6 +984,7 @@
         <value xml:lang="fr">Actif en stock</value>
         <value xml:lang="hi_IN">सूची परिसंपत्ति</value>
         <value xml:lang="it">Inventario cespite</value>
+        <value xml:lang="nl">voorraad materiaal</value>		
         <value xml:lang="pt_BR">Inventário de Ativo</value>
         <value xml:lang="zh">存货资产</value>
         <value xml:lang="zh_TW">存貨資產</value>
@@ -926,6 +994,7 @@
         <value xml:lang="fr">Dette</value>
         <value xml:lang="hi_IN">दायित्व</value>
         <value xml:lang="it">Passività</value>
+        <value xml:lang="nl">Schulden</value>		
         <value xml:lang="pt_BR">Passivo</value>
         <value xml:lang="ro">Pasivitati</value>
         <value xml:lang="ru">Обязательства</value>
@@ -938,6 +1007,7 @@
         <value xml:lang="fr">Actif à long terme</value>
         <value xml:lang="hi_IN">दीर्घकालिक परिसंपत्ति</value>
         <value xml:lang="it">Cespiti</value>
+        <value xml:lang="nl">Vaste activa</value>		
         <value xml:lang="pt_BR">Ativo Operacional de Longo Prazo</value>
         <value xml:lang="ro">Bunuri pe Termen Lung</value>
         <value xml:lang="ru">Долгосрочные активы</value>
@@ -950,6 +1020,7 @@
         <value xml:lang="fr">Dette à long terme</value>
         <value xml:lang="hi_IN">दीर्घकालिक दायित्व</value>
         <value xml:lang="it">Finanziamenti e Altri Debiti a Lungo Termine</value>
+        <value xml:lang="nl">Langlopende schuld</value>		
         <value xml:lang="pt_BR">Passivo Exigível a Londo Prazo</value>
         <value xml:lang="ro">Pasivitati pe Termen Lung</value>
         <value xml:lang="ru">Долгосрочные обязательства</value>
