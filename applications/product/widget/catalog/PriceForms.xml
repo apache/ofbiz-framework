@@ -92,17 +92,12 @@
                 </entity-options>
             </drop-down>
         </field>        
-        <field use-when="&quot;PRIP_QUANTITY&quot;.equals(inputParamEnumId) || &quot;PRIP_LIST_PRICE&quot;.equals(inputParamEnumId)" 
-            name="condValueInput" title="${uiLabelMap.ProductValue}">
-            <text size="10" default-value="${condValue}"/>
-        </field>                
-        <field 
-            use-when="!&quot;PRIP_QUANTITY&quot;.equals(inputParamEnumId) &amp;&amp; !&quot;PRIP_LIST_PRICE&quot;.equals(inputParamEnumId)" 
-            name="condValue" title="${uiLabelMap.CommonEmptyHeader}">
-            <drop-down allow-empty="false" current="selected">
-                <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>
+        <field name="condValueInput" title="${uiLabelMap.ProductValue}" entry-name="condValue"><text size="10"/></field>
+        <field name="condValue" title="${uiLabelMap.CommonEmptyHeader}">
+            <drop-down allow-empty="false">
+                <list-options list-name="productPriceRulesCondValues" key-name="condValue"/>                
             </drop-down>
-        </field>                
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit/></field>        
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" widget-area-style="align-text">
             <hyperlink target="deleteProductPriceCond" description="${uiLabelMap.CommonRemove}">

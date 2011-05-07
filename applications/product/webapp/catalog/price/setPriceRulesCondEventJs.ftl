@@ -18,18 +18,14 @@ under the License.
 -->
 <script type="text/javascript">
 jQuery(document).ready( function() {
-
 <#if 0 < productPriceConds.size()>
   <#list 0..productPriceConds.size()-1 as i>
     if (document.getElementById('EditProductPriceRulesCond_o_${i}')) {
+      jQuery('#EditProductPriceRulesCond_condValueInput_o_${i}').hide();
       jQuery('#EditProductPriceRulesCond_inputParamEnumId_o_${i}').change( function() {
-    <#if 'PRIP_QUANTITY' != productPriceConds[i].inputParamEnumId && 'PRIP_LIST_PRICE' != productPriceConds[i].inputParamEnumId>
-        getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description');
-    </#if>
-      });
-    <#if 'PRIP_QUANTITY' != productPriceConds[i].inputParamEnumId && 'PRIP_LIST_PRICE' != productPriceConds[i].inputParamEnumId>
-      getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '${productPriceConds[i].condValue}');
-    </#if>
+        getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
+    });
+    getDependentDropdownValues('getAssociatedPriceRulesConds', 'inputParamEnumId', 'EditProductPriceRulesCond_inputParamEnumId_o_${i}', 'EditProductPriceRulesCond_condValue_o_${i}', 'productPriceRulesCondValues', 'condValue_o_${i}', 'description', '', '', '', '', 'EditProductPriceRulesCond_condValueInput_o_${i}');
     }
   </#list>
 </#if>
