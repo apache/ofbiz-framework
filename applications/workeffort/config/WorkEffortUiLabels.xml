@@ -1220,14 +1220,14 @@
     </property>
     <property key="PageTitleListWorkEffortFixedAssetAssigns">
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
-        <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>
+        <value xml:lang="fr">Immobilisations affectées à la tâche</value>
         <value xml:lang="it">Assegnazioni impegno di lavoro a cespite</value>
         <value xml:lang="zh">人工服务固定资产分配</value>
         <value xml:lang="zh_TW">工項固定資產分配</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>
-        <value xml:lang="fr">Mots-clé de la tâche</value>
+        <value xml:lang="fr">Mots-clés de la tâche</value>
         <value xml:lang="it">Chiavi dell'impegno di lavoro</value>
         <value xml:lang="th">คีย์เวิร์ดงาน</value>
         <value xml:lang="zh">人工服务关键字</value>
