@@ -66,4 +66,11 @@ if (urlParam) {
     urlParam = "&" + urlParam;
 }
 
+if (parameters.portalPageId) {
+    if (urlParam) {
+        urlParam = urlParam + "&";
+    }
+    urlParam = urlParam + "portalPageId=" + parameters.portalPageId;
+}
+
 context.put("urlParam", urlParam);
