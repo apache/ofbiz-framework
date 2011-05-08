@@ -153,12 +153,17 @@ under the License.
   </groovyc>
  </presetdef>
 
- <scriptdef name="if" language="javascript" classpathref="rhino.class.path" loaderref="rhino.class.path.loader" src="${ofbiz.home.dir}/tools/If-ant.py">
+ <!-- replaced by ant contrib version -->    
+ <!--scriptdef name="if" language="javascript" classpathref="rhino.class.path" loaderref="rhino.class.path.loader" src="${ofbiz.home.dir}/tools/If-ant.py">
   <element name="condition" classname="org.apache.tools.ant.taskdefs.condition.And"/>
   <element name="commands" classname="org.apache.tools.ant.taskdefs.Sequential"/>
   <element name="else" classname="org.apache.tools.ant.taskdefs.Sequential"/>
- </scriptdef>
-
+  </scriptdef-->
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+        <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-contrib-1.0b3.jar"/>
+    </classpath>
+  </taskdef>
  <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <taskdef name="jjtree" classname="org.apache.tools.ant.taskdefs.optional.javacc.JJTree" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <macrodef name="ofbiz-javacc">
@@ -181,9 +186,9 @@ under the License.
       javacchome="${ofbiz.home.dir}/lib/build/javacc"
       outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
      <replace token="public class" 
-     	value='@SuppressWarnings("all") public class' 
-     	dir="@{prefix}build/gen-src/javacc/@{dir}"
-     	includes="*.java" />
+       value='@SuppressWarnings("all") public class' 
+       dir="@{prefix}build/gen-src/javacc/@{dir}"
+       includes="*.java" />
      <delete dir="@{prefix}build/classes/@{dir}"/>
     </commands>
    </if>

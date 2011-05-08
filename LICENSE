@@ -382,6 +382,7 @@ ofbiz/trunk/specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar
 The following libraries distributed with Apache OFBiz are licensed under the
 Apache Software License:
 ofbiz/trunk/framework/webapp/lib/DataVision-1.0.0.jar
+ofbiz/trunk/framework/base/lib/ant/ant-contrib-1.0b3.jar
 =========================================================================
 Apache Software License
 
