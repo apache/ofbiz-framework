@@ -134,7 +134,7 @@ under the License.
                     This makes the field NOT NULL on the database (like primary key fields).
                     It's possible to use an id-ne similiar field type.
                     But rows can be added from outside of ofbiz (e.g. database manager, third party programm, etc).
-                    This patch uses the ability of a database to set not null constraints.
+                    This uses the ability of a database to set not null constraints.
                     Defaults to false.
                 </xs:documentation>
             </xs:annotation>
