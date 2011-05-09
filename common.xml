@@ -57,10 +57,8 @@ under the License.
     <target name="init"/>
 
     <if>
-        <condition>
-            <available file="${src.dir}"/>
-        </condition>
-        <commands>
+        <available file="${src.dir}"/>
+        <then>
             <selector id="src-extra-set">
                 <or>
                     <filename name="**/*.properties"/>
@@ -76,7 +74,7 @@ under the License.
                 </or>
             </selector>
             <property name="src.extra.dir" value="${src.dir}"/>
-        </commands>
+        </then>            
         <else>
             <selector id="src-extra-set">
                 <filename name="**" negate="true"/>

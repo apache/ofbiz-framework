@@ -172,25 +172,23 @@ under the License.
   <attribute name="prefix" default=""/>
   <sequential>
    <if>
-    <condition>
      <not>
       <uptodate
        srcfile="@{prefix}src/@{dir}/@{file}.jj"
        targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
      </not>
-    </condition>
-    <commands>
-     <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-     <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-     <javacc target="@{prefix}src/@{dir}/@{file}.jj"
-      javacchome="${ofbiz.home.dir}/lib/build/javacc"
-      outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
-     <replace token="public class" 
-       value='@SuppressWarnings("all") public class' 
-       dir="@{prefix}build/gen-src/javacc/@{dir}"
-       includes="*.java" />
-     <delete dir="@{prefix}build/classes/@{dir}"/>
-    </commands>
+     <then>
+       <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
+       <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
+       <javacc target="@{prefix}src/@{dir}/@{file}.jj"
+          javacchome="${ofbiz.home.dir}/lib/build/javacc"
+          outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
+       <replace token="public class" 
+           value='@SuppressWarnings("all") public class' 
+           dir="@{prefix}build/gen-src/javacc/@{dir}"
+           includes="*.java" />
+       <delete dir="@{prefix}build/classes/@{dir}"/>
+     </then>
    </if>
   </sequential>
  </macrodef>
