@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -870,7 +871,7 @@ public class ProductServices {
             Set<String> featureProductIds = FastSet.newInstance();
             featureProductIds.add(productId);
             featureProductIds.addAll(variantProductsById.keySet());
-            Set<String> productFeatureIds = FastSet.newInstance();
+            Set<String> productFeatureIds = new HashSet<String>();
             productFeatureIds.add(productFeatureIdOne);
             productFeatureIds.add(productFeatureIdTwo);
             productFeatureIds.add(productFeatureIdThree);
