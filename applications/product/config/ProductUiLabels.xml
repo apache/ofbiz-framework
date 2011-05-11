@@ -5375,7 +5375,7 @@
         <value xml:lang="zh">副标题</value>
         <value xml:lang="zh_TW">副標題</value>
     </property>
-    <property key="FormFieldTitle_supplierCommissionPerc">
+    <!-- property key="FormFieldTitle_supplierCommissionPerc">
         <value xml:lang="de">Lieferant Kommission Prozent</value>
         <value xml:lang="en">Supplier Commission Perc</value>
         <value xml:lang="es">Porcentaje de comisión del proveedor</value>
@@ -5386,7 +5386,7 @@
         <value xml:lang="th">เปอร์เซ็นต์ค่าคอมมิชชันของผู้จัดหาสิ่งของ</value>
         <value xml:lang="zh">供货商佣金百分比</value>
         <value xml:lang="zh_TW">供貨商佣金百分比</value>
-    </property>
+    </property-->
     <property key="FormFieldTitle_supplierPrefOrderId">
         <value xml:lang="de">Lieferant präferierte Auftragsnummer ID</value>
         <value xml:lang="en">Supplier Pref Order Id</value>
