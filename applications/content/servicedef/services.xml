@@ -1152,4 +1152,49 @@
         <implements service="permissionInterface"/>
         <attribute name="dataResourceId" type="String" mode="IN" optional="true"/>
     </service>
+
+    <!-- Content Keyword Services -->
+    <service name="createContentKeyword" default-entity-name="ContentKeyword" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentKeyword" auth="true">
+        <description>Create a ContentKeyword</description>
+        <permission-service service-name="contentGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateContentKeyword" default-entity-name="ContentKeyword" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateContentKeyword" auth="true">
+        <description>Update a ContentKeyword</description>
+        <permission-service service-name="contentGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteContentKeyword" default-entity-name="ContentKeyword" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="deleteContentKeyword" auth="true">
+        <description>Delete a ContentKeyword</description>
+        <permission-service service-name="contentGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="deleteContentKeywords" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="deleteContentKeywords" auth="true">
+        <description>Delete all the keywords of a content</description>
+        <permission-service service-name="contentGenericPermission" main-action="DELETE"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <service name="indexContentKeywords" engine="simple"
+                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="indexContentKeywords" auth="false">
+        <description>Index the Keywords for a Content</description>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="contentInstance" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+    </service>
+
+    <service name="forceIndexContentKeywords" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="forceIndexContentKeywords" auth="true">
+        <description>Induce all the keywords of a content, ignoring the flag in the Content.</description>
+        <permission-service service-name="contentGenericPermission" main-action="CREATE"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+    </service>
 </services>

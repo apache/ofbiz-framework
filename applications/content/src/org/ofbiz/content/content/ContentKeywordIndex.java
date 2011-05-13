@@ -1,0 +1,243 @@
+/*******************************************************************************
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ *******************************************************************************/
+package org.ofbiz.content.content;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+import javolution.util.FastList;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.KeywordSearchUtil;
+import org.ofbiz.content.data.DataResourceWorker;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtil;
+
+/**
+ *  Does indexing in preparation for a keyword search.
+ */
+public class ContentKeywordIndex {
+
+    public static final String module = ContentKeywordIndex.class.getName();
+
+    public static void forceIndexKeywords(GenericValue content) throws GenericEntityException {
+        ContentKeywordIndex.indexKeywords(content, true);
+    }
+
+    public static void indexKeywords(GenericValue content) throws GenericEntityException {
+        ContentKeywordIndex.indexKeywords(content, false);
+    }
+
+    public static void indexKeywords(GenericValue content, boolean doAll) throws GenericEntityException {
+        if (content == null) return;
+        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+
+        Delegator delegator = content.getDelegator();
+        if (delegator == null) return;
+        String contentId = content.getString("contentId");
+
+        // get these in advance just once since they will be used many times for the multiple strings to index
+        String separators = KeywordSearchUtil.getSeparators();
+        String stopWordBagOr = KeywordSearchUtil.getStopWordBagOr();
+        String stopWordBagAnd = KeywordSearchUtil.getStopWordBagAnd();
+        boolean removeStems = KeywordSearchUtil.getRemoveStems();
+        Set<String> stemSet = KeywordSearchUtil.getStemSet();
+
+        Map<String, Long> keywords = new TreeMap<String, Long>();
+        List<String> strings = FastList.newInstance();
+
+        int pidWeight = 1;
+        keywords.put(content.getString("contentId").toLowerCase(), Long.valueOf(pidWeight));
+
+        addWeightedKeywordSourceString(content, "dataResourceId", strings);
+        addWeightedKeywordSourceString(content, "contentName", strings);
+        addWeightedKeywordSourceString(content, "description", strings);
+
+        // ContentAttribute
+        List<GenericValue> contentAttributes = delegator.findByAnd("ContentAttribute", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue contentAttribute: contentAttributes) {
+            addWeightedKeywordSourceString(contentAttribute, "attrName", strings);
+            addWeightedKeywordSourceString(contentAttribute, "attrValue", strings);
+        }
+
+        // ContentMetaData
+        List<GenericValue> contentMetaDatas = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue contentMetaData: contentMetaDatas) {
+            addWeightedKeywordSourceString(contentMetaData, "metaDataValue", strings);
+        }
+
+        // ContentRole
+        List<GenericValue> contentRoles = delegator.findByAnd("ContentRole", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue contentRole: contentRoles) {
+            GenericValue party = delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", contentRole.getString("partyId")));
+            if (party != null) {
+                addWeightedKeywordSourceString(party, "description", strings);
+                addWeightedKeywordSourceString(party, "firstName", strings);
+                addWeightedKeywordSourceString(party, "middleName", strings);
+                addWeightedKeywordSourceString(party, "lastName", strings);
+                addWeightedKeywordSourceString(party, "groupName", strings);
+            }
+        }
+
+        // DataResourceRole
+        List<GenericValue> dataResourceRoles = delegator.findByAnd("DataResourceRole", UtilMisc.toMap("dataResourceId", content.getString("dataResourceId")));
+        for (GenericValue dataResourceRole: dataResourceRoles) {
+            GenericValue party = delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", dataResourceRole.getString("partyId")));
+            if (party != null) {
+                addWeightedKeywordSourceString(party, "description", strings);
+                addWeightedKeywordSourceString(party, "firstName", strings);
+                addWeightedKeywordSourceString(party, "middleName", strings);
+                addWeightedKeywordSourceString(party, "lastName", strings);
+                addWeightedKeywordSourceString(party, "groupName", strings);
+            }
+        }
+
+        // Product
+        List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue productContent: productContentList) {
+            GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productContent.getString("productId")));
+            if (product != null) {
+                addWeightedKeywordSourceString(product, "productName", strings);
+                addWeightedKeywordSourceString(product, "internalName", strings);
+                addWeightedKeywordSourceString(product, "brandName", strings);
+                addWeightedKeywordSourceString(product, "description", strings);
+                addWeightedKeywordSourceString(product, "longDescription", strings);
+            }
+        }
+
+        // ProductCategory
+        List<GenericValue> productCategoryContentList = delegator.findByAnd("ProductCategoryContent", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue productCategoryContent: productCategoryContentList) {
+            GenericValue productCategory = delegator.findByPrimaryKey("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryContent.getString("productCategoryId")));
+            if (productCategory != null) {
+                addWeightedKeywordSourceString(productCategory, "categoryName", strings);
+                addWeightedKeywordSourceString(productCategory, "description", strings);
+                addWeightedKeywordSourceString(productCategory, "longDescription", strings);
+            }
+        }
+
+        // PartyContent
+        List<GenericValue> partyContents = delegator.findByAnd("PartyContent", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue partyContent: partyContents) {
+            GenericValue party = delegator.findByPrimaryKey("PartyNameView", UtilMisc.toMap("partyId", partyContent.getString("partyId")));
+            if (party != null) {
+                addWeightedKeywordSourceString(party, "description", strings);
+                addWeightedKeywordSourceString(party, "firstName", strings);
+                addWeightedKeywordSourceString(party, "middleName", strings);
+                addWeightedKeywordSourceString(party, "lastName", strings);
+                addWeightedKeywordSourceString(party, "groupName", strings);
+            }
+        }
+
+        // WebSiteContent
+        List<GenericValue> webSiteContents = delegator.findByAnd("WebSiteContent", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue webSiteContent: webSiteContents) {
+            GenericValue webSite = delegator.findByPrimaryKey("WebSite", UtilMisc.toMap("webSiteId", webSiteContent.getString("webSiteId")));
+            if (webSite != null) {
+                addWeightedKeywordSourceString(webSite, "siteName", strings);
+                addWeightedKeywordSourceString(webSite, "httpHost", strings);
+                addWeightedKeywordSourceString(webSite, "httpsHost", strings);
+            }
+        }
+
+        // WorkEffortContent
+        List<GenericValue> workEffortContents = delegator.findByAnd("WorkEffortContent", UtilMisc.toMap("contentId", contentId));
+        for (GenericValue workEffortContent: workEffortContents) {
+            GenericValue workEffort = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortContent.getString("workEffortId")));
+            if (workEffort != null) {
+                addWeightedKeywordSourceString(workEffort, "workEffortName", strings);
+            }
+        }
+
+        // DataResource
+        GenericValue dataResource = delegator.findByPrimaryKey("DataResource", UtilMisc.toMap("dataResourceId", content.getString("dataResourceId")));
+        if (dataResource != null) {
+            addWeightedKeywordSourceString(dataResource, "dataResourceName", strings);
+            addWeightedKeywordSourceString(dataResource, "objectInfo", strings);
+        }
+        /*List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentId), null);
+        for (GenericValue contentDataResourceView: contentDataResourceViews) {
+            int weight = 1;
+            addWeightedDataResourceString(contentDataResourceView, weight, strings, delegator, content);
+
+            List<GenericValue> alternateViews = contentDataResourceView.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
+            alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
+            for (GenericValue thisView: alternateViews) {
+                addWeightedDataResourceString(thisView, weight, strings, delegator, content);
+            }
+        }*/
+
+        if (UtilValidate.isNotEmpty(strings)) {
+            for (String str: strings) {
+                // call process keywords method here
+                KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
+            }
+        }
+
+        List<GenericValue> toBeStored = FastList.newInstance();
+        for (Map.Entry<String, Long> entry: keywords.entrySet()) {
+            GenericValue contentKeyword = delegator.makeValue("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
+            toBeStored.add(contentKeyword);
+        }
+        if (toBeStored.size() > 0) {
+            if (Debug.verboseOn()) Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), module);
+
+            if ("true".equals(UtilProperties.getPropertyValue("contentsearch", "index.delete.on_index", "false"))) {
+                // delete all keywords if the properties file says to
+                delegator.removeByAnd("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId")));
+            }
+
+            delegator.storeAll(toBeStored);
+        }
+    }
+
+    public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, Delegator delegator, GenericValue content) {
+        Map<String, Object> drContext = UtilMisc.<String, Object>toMap("content", content);
+        try {
+            String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);
+            for (int i = 0; i < weight; i++) {
+                strings.add(contentText);
+            }
+        } catch (IOException e1) {
+            Debug.logError(e1, "Error getting content text to index", module);
+        } catch (GeneralException e1) {
+            Debug.logError(e1, "Error getting content text to index", module);
+        }
+    }
+
+    public static void addWeightedKeywordSourceString(GenericValue value, String fieldName, List<String> strings) {
+        if (value.getString(fieldName) != null) {
+            int weight = 1;
+            for (int i = 0; i < weight; i++) {
+                strings.add(value.getString(fieldName));
+            }
+        }
+    }
+}

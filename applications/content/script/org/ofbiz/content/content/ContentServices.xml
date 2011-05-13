@@ -1229,4 +1229,52 @@
         <field-to-result field="subContentList" result-name="subContentList"/>
         <field-to-result field="contentViewList" result-name="subSubContentList"/>
     </simple-method>
+
+    <!-- Content Keyword Services -->
+    <simple-method method-name="createContentKeyword" short-description="create a ContentKeyword">
+        <make-value entity-name="ContentKeyword" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    
+    <simple-method method-name="updateContentKeyword" short-description="update a ContentKeyword">
+        <entity-one entity-name="ContentKeyword" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="deleteContentKeyword" short-description="delete a ContentKeyword">
+        <entity-one entity-name="ContentKeyword" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="forceIndexContentKeywords" short-description="induce all the keywords of a content">
+        <entity-one entity-name="Content" value-field="content"/>
+        <call-class-method class-name="org.ofbiz.content.content.ContentKeywordIndex" method-name="forceIndexKeywords">
+            <field field="content" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+    </simple-method>
+    
+    <simple-method method-name="deleteContentKeywords" short-description="delete all the keywords of a content">
+        <entity-one entity-name="Content" value-field="content"/>
+        <remove-related value-field="content" relation-name="ContentKeyword"/>
+    </simple-method>
+
+    <simple-method method-name="indexContentKeywords" short-description="Index the Keywords for a Content" login-required="false">
+        <!-- this service is meant to be called from an entity ECA for entities that include a contentId -->
+        <!-- if it is the Content entity itself triggering this action, then a [contentInstance] parameter
+            will be passed and we can save a few cycles looking that up -->
+        <set from-field="parameters.contentInstance" field="contentInstance"/>
+        <if-empty field="contentInstance">
+            <set from-field="parameters.contentId" field="findContentMap.contentId"/>
+            <find-by-primary-key entity-name="Content" map="findContentMap" value-field="contentInstance"/>
+        </if-empty>
+
+        <!-- induce keywords-->
+        <call-class-method class-name="org.ofbiz.content.content.ContentKeywordIndex" method-name="indexKeywords">
+            <field field="contentInstance" type="org.ofbiz.entity.GenericValue"/>
+        </call-class-method>
+    </simple-method>
+
 </simple-methods>

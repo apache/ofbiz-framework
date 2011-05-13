@@ -1644,4 +1644,52 @@ under the License.
             <key-map field-name="helpContentId" rel-field-name="contentId"/>
         </relation>
     </extend-entity>
+    
+    <entity entity-name="ContentKeyword" package-name="org.ofbiz.content.content" title="Content Keyword Entity" never-cache="true">
+      <field name="contentId" type="id-ne"></field>
+      <field name="keyword" type="short-varchar"></field>
+      <field name="relevancyWeight" type="numeric"></field>
+      <prim-key field="contentId"/>
+      <prim-key field="keyword"/>
+      <relation type="one" fk-name="CNT_KWD_CNT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+      <index name="CNT_KWD_KWD">
+        <index-field name="keyword"/>
+      </index>
+    </entity>
+    <entity entity-name="ContentSearchConstraint" package-name="org.ofbiz.content.content" never-cache="true" title="Content Search Result Constraint Entity">
+      <field name="contentSearchResultId" type="id-ne"></field>
+      <field name="constraintSeqId" type="id-ne"></field>
+      <field name="constraintName" type="long-varchar"></field>
+      <field name="infoString" type="long-varchar"></field>
+      <field name="includeSubCategories" type="indicator"></field>
+      <field name="isAnd" type="indicator"></field>
+      <field name="anyPrefix" type="indicator"></field>
+      <field name="anySuffix" type="indicator"></field>
+      <field name="removeStems" type="indicator"></field>
+      <field name="lowValue" type="short-varchar"></field>
+      <field name="highValue" type="short-varchar"></field>
+      <prim-key field="contentSearchResultId"/>
+      <prim-key field="constraintSeqId"/>
+      <relation type="one" fk-name="CNT_SCHRSI_RES" rel-entity-name="ContentSearchResult">
+        <key-map field-name="contentSearchResultId"/>
+      </relation>
+    </entity>
+    <entity entity-name="ContentSearchResult"
+            package-name="org.ofbiz.content.content"
+            never-cache="true"
+            title="Content Search Result Entity">
+      <field name="contentSearchResultId" type="id-ne"></field>
+      <field name="visitId" type="id"></field>
+      <field name="orderByName" type="long-varchar"></field>
+      <field name="isAscending" type="indicator"></field>
+      <field name="numResults" type="numeric"></field>
+      <field name="secondsTotal" type="floating-point"></field>
+      <field name="searchDate" type="date-time"></field>
+      <prim-key field="contentSearchResultId"/>
+      <relation type="one" fk-name="CNT_SCHRES_VST" rel-entity-name="Visit">
+        <key-map field-name="visitId"/>
+      </relation>
+    </entity>
 </entitymodel>
