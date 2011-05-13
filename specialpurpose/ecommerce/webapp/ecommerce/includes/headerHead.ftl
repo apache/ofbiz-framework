@@ -92,7 +92,7 @@ under the License.
     <script language="JavaScript" type="text/javascript">
     <#list webAnalyticsConfigs as webAnalyticsConfig>
         ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
-    </script>
     </#list>
+    </script>
   </#if>
 </head>
