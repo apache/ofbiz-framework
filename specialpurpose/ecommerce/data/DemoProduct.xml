@@ -129,8 +129,8 @@ under the License.
     <ProductStoreEmailSetting productStoreId="9000" emailType="UNSUB_CONT_LIST_NOTI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListUnsubscribeEmail" subject="Unsubscribe Contact List" fromAddress="ofbiztest@example.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="CONT_EMAIL_TEMPLATE" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListEmailTemplate"/>
 
-    <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="123456" isEnabled="Y" description="This is code provided from google analytics" contentId="GOOGLE_ANA_CNT"/>
-    <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="123456" isEnabled="Y" description="This is code provided from bing analytics" contentId="BING_ANA_CNT"/>
+    <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="--  enter here your analytic script code --" isEnabled="Y" description="This is code provided from google analytics" contentId="GOOGLE_ANA_CNT"/>
+    <WebAnalyticsConfig productStoreId="9000" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="--  enter here your analytic script code --" isEnabled="Y" description="This is code provided from bing analytics" contentId="BING_ANA_CNT"/>
 
     <ProductStoreFacility productStoreId="9000" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
