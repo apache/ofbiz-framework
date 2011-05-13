@@ -26,4 +26,36 @@ under the License.
         <action service="clearAssociatedRenderCache" mode="sync" />
     </eca>
 
+    <!-- Content Keyword Indexing ECAs -->
+    <eca entity="Content" operation="create" event="return">
+        <action service="indexContentKeywords" mode="sync" value-attr="contentInstance"/>
+    </eca>
+    <eca entity="Content" operation="store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="ContentAttribute" operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="ContentMetaData" operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="ContentRole" operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="ProductContent" operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="ProductCategoryContent" operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="PartyContent" operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="WebSiteContent  " operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+    <eca entity="WorkEffortContent  " operation="create-store" event="return">
+        <action service="indexContentKeywords" mode="sync"/>
+    </eca>
+
 </entity-eca>
