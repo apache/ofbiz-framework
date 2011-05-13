@@ -66,4 +66,24 @@ public final class JsLanguageFilesMapping {
         }
 
     }
+
+    public static class validation {
+        private static Map<String, String> localeFiles = FastMap.newInstance();
+        private static String defaultValidation = "/images/webapp/images/jquery/plugins/validate/localization/messages_en.js";
+
+        static {
+            <#list validation.keySet() as validationFiles>
+            <#assign filePath = validation.get(validationFiles) />
+            localeFiles.put("${validationFiles}", "${filePath}");
+            </#list>
+        }
+
+        public static String getFilePath(String locale) {
+            if (validation.localeFiles.get(locale) == null) {
+                return validation.defaultValidation;
+            }
+            return validation.localeFiles.get(locale);
+        }
+
+    }
 }
