@@ -88,7 +88,7 @@ under the License.
   <#if metaKeywords?exists>
     <meta name="keywords" content="${metaKeywords}"/>
   </#if>
-  <#if webAnalyticsConfigs?exists>
+  <#if webAnalyticsConfigs?has_content>
     <script language="JavaScript" type="text/javascript">
     <#list webAnalyticsConfigs as webAnalyticsConfig>
         ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}

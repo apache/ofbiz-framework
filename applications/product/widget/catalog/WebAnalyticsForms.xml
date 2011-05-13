@@ -44,7 +44,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="contentId"><text-find/></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -68,13 +67,6 @@ under the License.
         <field name="webAnalyticsTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="WebAnalyticsType"/></field>
         <field name="isEnabled" title="${uiLabelMap.CommonEnabled}" sort-field="true"><display/></field>
         <field name="webSiteId" sort-field="true"><display/></field>
-        <field name="contentId" widget-style="buttontext">
-            <display-entity entity-name="Content">
-                <sub-hyperlink target="/content/control/editContent" target-type="inter-app" description="${contentId}" link-style="buttontext">
-                    <parameter param-name="contentId"/>
-                </sub-hyperlink>
-            </display-entity>        
-        </field>
         <field name="editLink" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditWebAnalyticsConfig">
                 <parameter param-name="productStoreId"/>
@@ -117,9 +109,6 @@ under the License.
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
                 <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
-        </field>
-        <field name="contentId">
-            <lookup target-form-name="LookupContent"/>
         </field>
         <field use-when="webAnalyticsConfig!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="webAnalyticsConfig==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>

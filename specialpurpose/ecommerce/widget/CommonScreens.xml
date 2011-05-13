@@ -57,6 +57,7 @@ under the License.
                 <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://ecommerce/webapp/ecommerce/includes/footer.ftl"/>
                 <entity-and list="webAnalyticsConfigs" entity-name="WebAnalyticsConfig">
                     <field-map field-name="webSiteId"/>
+                    <field-map field-name="isEnabled" value="Y"/>
                 </entity-and>
             </actions>
             <widgets>

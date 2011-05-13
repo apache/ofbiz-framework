@@ -4764,10 +4764,9 @@ under the License.
         <field name="productStoreId" type="id-ne"></field> 
         <field name="webAnalyticsTypeId" type="id-ne"></field>
         <field name="webSiteId" type="id"></field>
-        <field name="webAnalyticsCode" type="value"></field>
+        <field name="webAnalyticsCode" type="very-long"><description>copy in here the analitics javascript code without the beginning- and end&lt;script&gt; tags</description></field>
         <field name="isEnabled" type="indicator"></field>
         <field name="description" type="description"></field>
-        <field name="contentId" type="id"></field>
         <prim-key field="productStoreId"/>
         <prim-key field="webAnalyticsTypeId"/>      
         <relation type="one" fk-name="WANA_PROD_STORE" rel-entity-name="ProductStore">
@@ -4778,9 +4777,6 @@ under the License.
         </relation>
         <relation type="one" fk-name="WANA_WEBSITE" rel-entity-name="WebSite">
             <key-map field-name="webSiteId"/>
-        </relation>
-        <relation type="one-nofk" fk-name="WANA_CNT_CNT" rel-entity-name="Content">
-            <key-map field-name="contentId"/>
         </relation>
     </entity>
 
