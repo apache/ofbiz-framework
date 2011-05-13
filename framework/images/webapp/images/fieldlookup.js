@@ -588,10 +588,6 @@ function lookupAjaxRequest(request) {
     request = request.substring(0, request.indexOf('?'));
     lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
     jQuery("#" + lookupId).load(request, arg, function(data) {
-        if (data.search(/loginform/) != -1) {
-            window.location.href = window.location.href;
-            return;
-        }
         modifySubmitButton(lookupId);
     });
 }
@@ -607,10 +603,6 @@ function lookupFormAjaxRequest(formAction, form) {
     var data = jQuery("#" + form).serialize();
     data = data + "&presentation=" + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).presentation;
     jQuery("#" + lookupId).load(formAction, data, function(data) {
-        if (data.search(/loginform/) != -1) {
-            window.location.href = window.location.href;
-            return;
-        }
         modifySubmitButton(lookupId);
     });
 }
@@ -621,10 +613,6 @@ function lookupPaginationAjaxRequest(navAction, type) {
 
     lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
     jQuery("#" + lookupId).load(navAction, function(data) {
-        if (data.search(/loginform/) != -1) {
-            window.location.href = window.location.href;
-            return;
-        }
         modifySubmitButton(lookupId);
     });
 }

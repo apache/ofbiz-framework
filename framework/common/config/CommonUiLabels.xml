@@ -114,6 +114,9 @@
         <value xml:lang="zh_CN">目录</value>
         <value xml:lang="zh_TW">目錄</value>
     </property>
+    <property key="CommonAbort">
+        <value xml:lang="en">Abort</value>
+    </property>
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
         <value xml:lang="de">Angenommen</value>
@@ -371,6 +374,10 @@
         <value xml:lang="zh">地址线</value>
         <value xml:lang="zh_CN">地址栏</value>
         <value xml:lang="zh_TW">地址線</value>
+    </property>
+    <property key="CommonAddressNotFound">
+        <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
+        <value xml:lang="en">Address not found.</value>
     </property>
     <property key="CommonAddresses">
         <value xml:lang="ar">عناوين</value>
@@ -854,6 +861,12 @@
         <value xml:lang="zh_CN">八月</value>
         <value xml:lang="zh_TW">八月</value>
     </property>
+    <property key="CommonAuthenticate">
+        <value xml:lang="en">Authenticate</value>
+    </property>
+    <property key="CommonAuthorise">
+        <value xml:lang="en">Authorise</value>
+    </property>
     <property key="CommonAutoAssignedId">
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
         <value xml:lang="es">Código único - asignado automáticamente si se deja en blanco</value>
@@ -1067,6 +1080,22 @@
         <value xml:lang="zh_CN">被</value>
         <value xml:lang="zh_TW">作者</value>
     </property>
+    <property key="CommonCDyneAddressError">
+        <value xml:lang="en">Got AddressError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
+        <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
+    </property>
+    <property key="CommonCDyneCallingError">
+        <value xml:lang="en">Error calling CDyne service at URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
+    </property>
+    <property key="CommonCDyneParsingError">
+        <value xml:lang="en">Error parsing XML result from CDyne service at URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
+    </property>
+    <property key="CommonCDyneServiceError">
+        <value xml:lang="en">Got ServiceError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
+        <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
+    </property>
     <property key="CommonCancel">
         <value xml:lang="ar">إلغاء</value>
         <value xml:lang="cs">Storno</value>
@@ -1151,22 +1180,6 @@
     <property key="CommonCaptchaCode">
         <value xml:lang="en">Captcha Code</value>
         <value xml:lang="pt_BR">Código Captcha</value>
-    </property>
-    <property key="CommonCDyneAddressError">
-        <value xml:lang="en">Got AddressError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
-        <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
-    </property>
-    <property key="CommonCDyneCallingError">
-        <value xml:lang="en">Error calling CDyne service at URL ${serviceUrl}: ${errorString}</value>
-        <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
-    </property>
-    <property key="CommonCDyneParsingError">
-        <value xml:lang="en">Error parsing XML result from CDyne service at URL ${serviceUrl}: ${errorString}</value>
-        <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
-    </property>
-    <property key="CommonCDyneServiceError">
-        <value xml:lang="en">Got ServiceError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
-        <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
     </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
@@ -2105,6 +2118,9 @@
         <value xml:lang="zh">缺省组织机构</value>
         <value xml:lang="zh_TW">預設組織機構</value>
     </property>
+    <property key="CommonDeferred">
+        <value xml:lang="en">Deferred</value>
+    </property>
     <property key="CommonDelete">
         <value xml:lang="ar">حذف</value>
         <value xml:lang="cs">Smazat</value>
@@ -2390,6 +2406,14 @@
         <value xml:lang="en">Email already exist</value>
         <value xml:lang="pt_BR">E-mail já existe</value>
     </property>
+    <property key="CommonEmailDeliveryFailed">
+        <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
+        <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
+    </property>
+    <property key="CommonEmailDeliveryOriginalMessage">
+        <value xml:lang="en">----- Original message -----</value>
+        <value xml:lang="it">----- messaggio originale -----</value>
+    </property>
     <property key="CommonEmailNotValid">
         <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
         <value xml:lang="it">Id soggetto: ${parameters.partyIdTo} non ha un'indirizzo e-mail valido!</value>
@@ -2422,14 +2446,6 @@
         <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
-    <property key="CommonEmailDeliveryFailed">
-        <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
-        <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
-    </property>
-    <property key="CommonEmailDeliveryOriginalMessage">
-        <value xml:lang="en">----- Original message -----</value>
-        <value xml:lang="it">----- messaggio originale -----</value>
-    </property>
     <property key="CommonEmailSendError">
         <value xml:lang="en">Error send email: ${errorString}</value>
         <value xml:lang="it">Errore invio email: ${errorString}</value>
@@ -2438,21 +2454,21 @@
         <value xml:lang="en">Error getting content: ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
     </property>
-    <property key="CommonEmailSendMalformedUrl">
-        <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
-        <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
-    </property>
-    <property key="CommonEmailSendMissingParameterSendVia">
-        <value xml:lang="en">Parameter sendVia is required when sendType is not mail.smtp.host</value>
-        <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
-    </property>
     <property key="CommonEmailSendIOException">
         <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="it">IOException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
+    <property key="CommonEmailSendMalformedUrl">
+        <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
+        <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
+    </property>
     <property key="CommonEmailSendMessagingException">
         <value xml:lang="en">MessagingException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="it">MessagingException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+    </property>
+    <property key="CommonEmailSendMissingParameterSendVia">
+        <value xml:lang="en">Parameter sendVia is required when sendType is not mail.smtp.host</value>
+        <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
     </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
         <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
@@ -2527,7 +2543,7 @@
         <value xml:lang="zh_TW">電子郵件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="en" xml:space="preserve"> </value>
+        <value xml:lang="en" xml:space="preserve"/>
     </property>
     <property key="CommonEnable">
         <value xml:lang="en">Enable</value>
@@ -2708,6 +2724,10 @@
         <value xml:lang="pt_BR">Erro: estado de ${entity} não é válido, é ${lookedUpValue.statusId} mas deveria ser: ${goodStatusId}.</value>
         <value xml:lang="zh">错误: ${entity}状态无效，现在是${lookedUpValue.statusId}，应该是${goodStatusId}。</value>
         <value xml:lang="zh_TW">錯誤: ${entity}狀態無效，現在是${lookedUpValue.statusId}，應該是${goodStatusId}。</value>
+    </property>
+    <property key="CommonErrorSubmittingForm">
+        <value xml:lang="de">Ein Fehler beim abschicken der Form ist aufgetreten.</value>
+        <value xml:lang="en">An error occurred submitting form.</value>
     </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
@@ -3852,10 +3872,6 @@
         <value xml:lang="zh">每小时</value>
         <value xml:lang="zh_TW">每小時</value>
     </property>
-    <property key="CommonImage">
-        <value xml:lang="en">Image</value>
-        <value xml:lang="th">รูปภาพ</value>
-    </property>
     <property key="CommonId">
         <value xml:lang="ar">دليل</value>
         <value xml:lang="de">ID</value>
@@ -3942,6 +3958,10 @@
         <value xml:lang="zh">标识</value>
         <value xml:lang="zh_CN">标识</value>
         <value xml:lang="zh_TW">IDs</value>
+    </property>
+    <property key="CommonImage">
+        <value xml:lang="en">Image</value>
+        <value xml:lang="th">รูปภาพ</value>
     </property>
     <property key="CommonIn">
         <value xml:lang="ar">داخل</value>
@@ -4591,6 +4611,10 @@
         <value xml:lang="zh">男</value>
         <value xml:lang="zh_TW">男</value>
     </property>
+    <property key="CommonManage">
+        <value xml:lang="en">Manage</value>
+        <value xml:lang="th">จัดการ</value>
+    </property>
     <property key="CommonManagePortalPages">
         <value xml:lang="en">Manage Portal Pages...</value>
         <value xml:lang="fr">Gérez les pages du portail...</value>
@@ -4599,10 +4623,6 @@
         <value xml:lang="pt_BR">Gerenciar Páginas do Portal ...</value>
         <value xml:lang="zh">管理门户页面...</value>
         <value xml:lang="zh_TW">管理門戶頁面...</value>
-    </property>
-    <property key="CommonManage">
-        <value xml:lang="en">Manage</value>
-        <value xml:lang="th">จัดการ</value>
     </property>
     <property key="CommonManager">
         <value xml:lang="ar">مدير</value>
@@ -5459,10 +5479,6 @@
         <value xml:lang="zh_CN">当前没有任务，需要你的关注。</value>
         <value xml:lang="zh_TW">現在沒有任務需要處理。</value>
     </property>
-    <property key="CommonNoteCannotBeUpdated">
-        <value xml:lang="en">Could update note data (write failure): ${errorString}</value>
-        <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
-    </property>
     <property key="CommonNoUomConversionFound">
         <value xml:lang="ar">علاقة تحويل وحدات القياس غير موجودة</value>
         <value xml:lang="de">Die Beziehung der Einheit für die Konversion wurde nicht gefunden</value>
@@ -5531,30 +5547,6 @@
         <value xml:lang="fr">Non attribué</value>
         <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
         <value xml:lang="pt_BR">Não Atribuído</value>
-    </property>
-    <property key="CommonNotifyEmailDeliveryError">
-        <value xml:lang="en">Email delivery error, see error log</value>
-        <value xml:lang="it">Email delivery error, see error log</value>
-    </property>
-    <property key="CommonNotifyEmailInvalidBody">
-        <value xml:lang="en">Invalid email body; null is not allowed</value>
-        <value xml:lang="it">Corpo email invalido; null non è consentito</value>
-    </property>
-    <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
-        <value xml:lang="en">Message body generated successfully</value>
-        <value xml:lang="it">Corpo messaggio generato con successo</value>
-    </property>
-    <property key="CommonNotifyEmailProblemFindingTemplate">
-        <value xml:lang="en">Problem finding template; see logs</value>
-        <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
-    </property>
-    <property key="CommonNotifyEmailProblemProcessingTemplate">
-        <value xml:lang="en">Template processing problem, see error logs</value>
-        <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
-    </property>
-    <property key="CommonNotifyEmailProblemReadingTemplate">
-        <value xml:lang="en">Template reading problem, see error logs</value>
-        <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
     </property>
     <property key="CommonNotModifRecreat">
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>
@@ -5661,6 +5653,10 @@
         <value xml:lang="zh_CN">注释</value>
         <value xml:lang="zh_TW">便箋</value>
     </property>
+    <property key="CommonNoteCannotBeUpdated">
+        <value xml:lang="en">Could update note data (write failure): ${errorString}</value>
+        <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
+    </property>
     <property key="CommonNotes">
         <value xml:lang="ar">مذكرات</value>
         <value xml:lang="de">Anmerkungen</value>
@@ -5677,6 +5673,30 @@
         <value xml:lang="zh">便笺</value>
         <value xml:lang="zh_CN">注释</value>
         <value xml:lang="zh_TW">便箋</value>
+    </property>
+    <property key="CommonNotifyEmailDeliveryError">
+        <value xml:lang="en">Email delivery error, see error log</value>
+        <value xml:lang="it">Email delivery error, see error log</value>
+    </property>
+    <property key="CommonNotifyEmailInvalidBody">
+        <value xml:lang="en">Invalid email body; null is not allowed</value>
+        <value xml:lang="it">Corpo email invalido; null non è consentito</value>
+    </property>
+    <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
+        <value xml:lang="en">Message body generated successfully</value>
+        <value xml:lang="it">Corpo messaggio generato con successo</value>
+    </property>
+    <property key="CommonNotifyEmailProblemFindingTemplate">
+        <value xml:lang="en">Problem finding template; see logs</value>
+        <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
+    </property>
+    <property key="CommonNotifyEmailProblemProcessingTemplate">
+        <value xml:lang="en">Template processing problem, see error logs</value>
+        <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
+    </property>
+    <property key="CommonNotifyEmailProblemReadingTemplate">
+        <value xml:lang="en">Template reading problem, see error logs</value>
+        <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
     </property>
     <property key="CommonNovember">
         <value xml:lang="ar">نوفمبر</value>
@@ -6132,6 +6152,9 @@
         <value xml:lang="zh">请修改你的密码</value>
         <value xml:lang="zh_TW">請修改你的密碼</value>
     </property>
+    <property key="CommonPayment">
+        <value xml:lang="en">Payment</value>
+    </property>
     <property key="CommonPaymentMethodType">
         <value xml:lang="ar">نوع طريقة التسديد</value>
         <value xml:lang="de">Zahlungsmethode Typ</value>
@@ -6293,6 +6316,14 @@
         <value xml:lang="en">please select</value>
         <value xml:lang="pt_BR">Por favor, selecione</value>
     </property>
+    <property key="CommonPleaseSelectAllFeaturesFirst">
+        <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
+        <value xml:lang="en">Please select all features first.</value>
+    </property>
+    <property key="CommonPleaseSelectAllRequiredOptions">
+        <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
+        <value xml:lang="en">Please select all of the required options.</value>
+    </property>
     <property key="CommonPleaseWait">
         <value xml:lang="de">Bitte warten Sie ...</value>
         <value xml:lang="en">please wait ...</value>
@@ -6403,6 +6434,10 @@
         <value xml:lang="zh_CN">做好准备的</value>
         <value xml:lang="zh_TW">准備</value>
     </property>
+    <property key="CommonPreview">
+        <value xml:lang="en">Preview</value>
+        <value xml:lang="th">แสดงตัวอย่าง</value>
+    </property>
     <property key="CommonPrevious">
         <value xml:lang="ar">سابق</value>
         <value xml:lang="cs">předchozí</value>
@@ -6420,10 +6455,6 @@
         <value xml:lang="zh">上一个</value>
         <value xml:lang="zh_CN">前</value>
         <value xml:lang="zh_TW">上一個</value>
-    </property>
-    <property key="CommonPreview">
-        <value xml:lang="en">Preview</value>
-        <value xml:lang="th">แสดงตัวอย่าง</value>
     </property>
     <property key="CommonPrimaryApps">
         <value xml:lang="de">Primäranwendungen</value>
@@ -6944,6 +6975,9 @@
         <value xml:lang="zh">相关信息</value>
         <value xml:lang="zh_TW">相關資訊</value>
     </property>
+    <property key="CommonRelease">
+        <value xml:lang="en">Release</value>
+    </property>
     <property key="CommonReleaseDate">
         <value xml:lang="en">Release Date</value>
         <value xml:lang="pt_BR">Data de Lançamento</value>
@@ -7029,6 +7063,10 @@
         <value xml:lang="zh">报告</value>
         <value xml:lang="zh_CN">报告</value>
         <value xml:lang="zh_TW">報告</value>
+    </property>
+    <property key="CommonRequery">
+        <value xml:lang="de">Erneute Abfrage</value>
+        <value xml:lang="en">Requery</value>
     </property>
     <property key="CommonRequired">
         <value xml:lang="ar">إلزامي</value>
@@ -7684,6 +7722,10 @@
     <property key="CommonServiceReturnError">
         <value xml:lang="en">Return Error Service : Returning Error</value>
         <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
+    </property>
+    <property key="CommonSessionTimeoutPleaseLogIn">
+        <value xml:lang="de">Sie sind nicht mehr angemeldet. Bitte melden Sie sich erneut an.</value>
+        <value xml:lang="en">You are not logged in. Please login again.</value>
     </property>
     <property key="CommonSet">
         <value xml:lang="ar">وضع</value>
@@ -8889,6 +8931,10 @@
         <value xml:lang="zh_CN">单价</value>
         <value xml:lang="zh_TW">單價</value>
     </property>
+    <property key="CommonUnspecifiedErrorOccurred">
+        <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
+        <value xml:lang="en">An unspecified error occurred!</value>
+    </property>
     <property key="CommonUntil">
         <value xml:lang="ar">حتى</value>
         <value xml:lang="de">Bis</value>
@@ -9333,10 +9379,6 @@
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh_TW">視覺風格</value>
     </property>
-    <property key="CommonVisualThemeUsage">
-        <value xml:lang="en">Click on an image to have a preview, on a link to select a theme, and then on Done to validate your choice</value>
-        <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
-    </property>
     <property key="CommonVisualThemeIdNotFound">
         <value xml:lang="en">Visual Theme ID not found.</value>
         <value xml:lang="es">Código de tema visual no encontrado.</value>
@@ -9388,6 +9430,10 @@
         <value xml:lang="pt_BR">Tema visual selecionado</value>
         <value xml:lang="zh">已选择的视觉风格</value>
         <value xml:lang="zh_TW">已選擇的視覺風格</value>
+    </property>
+    <property key="CommonVisualThemeUsage">
+        <value xml:lang="en">Click on an image to have a preview, on a link to select a theme, and then on Done to validate your choice</value>
+        <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
     </property>
     <property key="CommonVisualThemes">
         <value xml:lang="en">Visual Themes</value>
@@ -9833,24 +9879,6 @@
         <value xml:lang="zh">数据源类型</value>
         <value xml:lang="zh_CN">数据源类型</value>
         <value xml:lang="zh_TW">資料源類型</value>
-    </property>
-    <property key="CommonPayment">
-        <value xml:lang="en">Payment</value>
-    </property>
-    <property key="CommonAuthenticate">
-        <value xml:lang="en">Authenticate</value>
-    </property>
-    <property key="CommonDeferred">
-        <value xml:lang="en">Deferred</value>
-    </property>
-    <property key="CommonAuthorise">
-        <value xml:lang="en">Authorise</value>
-    </property>
-    <property key="CommonRelease">
-        <value xml:lang="en">Release</value>
-    </property>
-    <property key="CommonAbort">
-        <value xml:lang="en">Abort</value>
     </property>
     <property key="DataSourceTypeCreate">
         <value xml:lang="ar">استحداث نوع مصدر معلومات</value>
@@ -10365,15 +10393,15 @@
         <value xml:lang="it">Pagina portale padre</value>
         <value xml:lang="pt_BR">Página superior</value>
     </property>
+    <property key="FormFieldTitle_pending">
+        <value xml:lang="en">Pending</value>
+        <value xml:lang="th">รอดำเนินการ</value>
+    </property>
     <property key="FormFieldTitle_portalPageName">
         <value xml:lang="en">Portal page name</value>
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome pagina portale</value>
         <value xml:lang="pt_BR">Nome da página do Portal</value>
-    </property>
-    <property key="FormFieldTitle_pending">
-        <value xml:lang="en">Pending</value>
-        <value xml:lang="th">รอดำเนินการ</value>
     </property>
     <property key="FormFieldTitle_price">
         <value xml:lang="ar">السعر</value>
@@ -11399,29 +11427,5 @@
         <value xml:lang="zh">中文</value>
         <value xml:lang="zh_CN">中文</value>
         <value xml:lang="zh_TW">中文</value>
-    </property>
-    <property key="CommonRequery">
-        <value xml:lang="de">Erneute Abfrage</value>
-        <value xml:lang="en">Requery</value>
-    </property>
-    <property key="CommonUnspecifiedErrorOccurred">
-        <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
-        <value xml:lang="en">An unspecified error occurred!</value>
-    </property>
-    <property key="CommonErrorSubmittingForm">
-        <value xml:lang="de">Ein Fehler beim abschicken der Form ist aufgetreten.</value>
-        <value xml:lang="en">An error occurred submitting form.</value>
-    </property>
-    <property key="CommonPleaseSelectAllFeaturesFirst">
-        <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
-        <value xml:lang="en">Please select all features first.</value>
-    </property>
-    <property key="CommonPleaseSelectAllRequiredOptions">
-        <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
-        <value xml:lang="en">Please select all of the required options.</value>
-    </property>
-    <property key="CommonAddressNotFound">
-        <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
-        <value xml:lang="en">Address not found.</value>
     </property>
 </resource>
