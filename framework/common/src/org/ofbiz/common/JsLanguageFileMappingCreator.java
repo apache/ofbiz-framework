@@ -31,13 +31,18 @@ public class JsLanguageFileMappingCreator {
         List<Locale> localeList = UtilMisc.availableLocales();
         Map<String, Object> jQueryLocaleFile = FastMap.newInstance();
         Map<String, String> dateJsLocaleFile = FastMap.newInstance();
+        Map<String, String> validationLocaleFile = FastMap.newInstance();
+        Map<String, String> validationMethodsLocaleFile = FastMap.newInstance();
 
         // setup some variables to locate the js files
         String componentRoot = "component://images/webapp";
         String jqueryUiLocaleRelPath = "/images/jquery/ui/development-bundle/ui/i18n/";
         String dateJsLocaleRelPath = "/images/jquery/plugins/datejs/";
+        String validateRelPath = "/images/jquery/plugins/validate/localization/";
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
+        String validateLocalePrefix = "messages_";
+        String validateMethLocalePrefix = "methods__";
         String jqueryUiLocalePrefix = "jquery.ui.datepicker-";
         String defaultLocaleDateJs = "en-US";
         String defaultLocaleJquery = "en";
@@ -86,6 +91,23 @@ public class JsLanguageFileMappingCreator {
             fileUrl = null;
 
             /*
+             * Try to open the jquery validation language file
+             */
+            fileName = componentRoot + validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
+            file = FileUtil.getFile(fileName);
+
+            if (file.exists()) {
+                fileUrl = validateRelPath + validateLocalePrefix + strippedLocale + jsFilePostFix;
+            }
+
+            if (fileUrl == null) {
+                fileUrl = validateRelPath + validateLocalePrefix + defaultLocaleJquery + jsFilePostFix;
+            }
+            validationLocaleFile.put(displayCountry, fileUrl);
+
+            fileUrl = null;
+
+            /*
              * Try to open the jquery timepicker language file
              */
             file = null;
@@ -118,6 +140,7 @@ public class JsLanguageFileMappingCreator {
         Map<String, Object> mapWrapper = new HashMap<String, Object>();
         mapWrapper.put("datejs", dateJsLocaleFile);
         mapWrapper.put("jquery", jQueryLocaleFile);
+        mapWrapper.put("validation", validationLocaleFile);
 
         // some magic to create a new java file
         // render it as FTL

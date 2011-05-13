@@ -362,4 +362,172 @@ public final class JsLanguageFilesMapping {
         }
 
     }
+
+    public static class validation {
+        private static Map<String, String> localeFiles = FastMap.newInstance();
+        private static String defaultValidation = "/images/webapp/images/jquery/plugins/validate/localization/messages_en.js";
+
+        static {
+            localeFiles.put("sq", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("sq_AL", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ar", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_DZ", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_BH", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_EG", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_IQ", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_JO", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_KW", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_LB", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_LY", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_MA", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_OM", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_QA", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_SA", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_SD", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_SY", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_TN", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_AE", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("ar_YE", "/images/jquery/plugins/validate/localization/messages_ar.js");
+            localeFiles.put("be", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("be_BY", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("bg", "/images/jquery/plugins/validate/localization/messages_bg.js");
+            localeFiles.put("bg_BG", "/images/jquery/plugins/validate/localization/messages_bg.js");
+            localeFiles.put("ca", "/images/jquery/plugins/validate/localization/messages_ca.js");
+            localeFiles.put("ca_ES", "/images/jquery/plugins/validate/localization/messages_ca.js");
+            localeFiles.put("zh", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("zh_CN", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("zh_HK", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("zh_SG", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("zh_TW", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("hr", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("hr_HR", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("cs", "/images/jquery/plugins/validate/localization/messages_cs.js");
+            localeFiles.put("cs_CZ", "/images/jquery/plugins/validate/localization/messages_cs.js");
+            localeFiles.put("da", "/images/jquery/plugins/validate/localization/messages_da.js");
+            localeFiles.put("da_DK", "/images/jquery/plugins/validate/localization/messages_da.js");
+            localeFiles.put("nl", "/images/jquery/plugins/validate/localization/messages_nl.js");
+            localeFiles.put("nl_BE", "/images/jquery/plugins/validate/localization/messages_nl.js");
+            localeFiles.put("nl_NL", "/images/jquery/plugins/validate/localization/messages_nl.js");
+            localeFiles.put("en", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_AU", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_CA", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_IN", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_IE", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_MT", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_NZ", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_PH", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_SG", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_ZA", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_GB", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("en_US", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("et", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("et_EE", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("fi", "/images/jquery/plugins/validate/localization/messages_fi.js");
+            localeFiles.put("fi_FI", "/images/jquery/plugins/validate/localization/messages_fi.js");
+            localeFiles.put("fr", "/images/jquery/plugins/validate/localization/messages_fr.js");
+            localeFiles.put("fr_BE", "/images/jquery/plugins/validate/localization/messages_fr.js");
+            localeFiles.put("fr_CA", "/images/jquery/plugins/validate/localization/messages_fr.js");
+            localeFiles.put("fr_FR", "/images/jquery/plugins/validate/localization/messages_fr.js");
+            localeFiles.put("fr_LU", "/images/jquery/plugins/validate/localization/messages_fr.js");
+            localeFiles.put("fr_CH", "/images/jquery/plugins/validate/localization/messages_fr.js");
+            localeFiles.put("de", "/images/jquery/plugins/validate/localization/messages_de.js");
+            localeFiles.put("de_AT", "/images/jquery/plugins/validate/localization/messages_de.js");
+            localeFiles.put("de_DE", "/images/jquery/plugins/validate/localization/messages_de.js");
+            localeFiles.put("de_LU", "/images/jquery/plugins/validate/localization/messages_de.js");
+            localeFiles.put("de_CH", "/images/jquery/plugins/validate/localization/messages_de.js");
+            localeFiles.put("el", "/images/jquery/plugins/validate/localization/messages_el.js");
+            localeFiles.put("el_CY", "/images/jquery/plugins/validate/localization/messages_el.js");
+            localeFiles.put("el_GR", "/images/jquery/plugins/validate/localization/messages_el.js");
+            localeFiles.put("iw", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("iw_IL", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("hi_IN", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("hu", "/images/jquery/plugins/validate/localization/messages_hu.js");
+            localeFiles.put("hu_HU", "/images/jquery/plugins/validate/localization/messages_hu.js");
+            localeFiles.put("is", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("is_IS", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("in", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("in_ID", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ga", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ga_IE", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("it", "/images/jquery/plugins/validate/localization/messages_it.js");
+            localeFiles.put("it_IT", "/images/jquery/plugins/validate/localization/messages_it.js");
+            localeFiles.put("it_CH", "/images/jquery/plugins/validate/localization/messages_it.js");
+            localeFiles.put("ja", "/images/jquery/plugins/validate/localization/messages_ja.js");
+            localeFiles.put("ja_JP", "/images/jquery/plugins/validate/localization/messages_ja.js");
+            localeFiles.put("ja_JP_JP", "/images/jquery/plugins/validate/localization/messages_ja.js");
+            localeFiles.put("ko", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ko_KR", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("lv", "/images/jquery/plugins/validate/localization/messages_lv.js");
+            localeFiles.put("lv_LV", "/images/jquery/plugins/validate/localization/messages_lv.js");
+            localeFiles.put("lt", "/images/jquery/plugins/validate/localization/messages_lt.js");
+            localeFiles.put("lt_LT", "/images/jquery/plugins/validate/localization/messages_lt.js");
+            localeFiles.put("mk", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("mk_MK", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ms", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ms_MY", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("mt", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("mt_MT", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("no", "/images/jquery/plugins/validate/localization/messages_no.js");
+            localeFiles.put("no_NO", "/images/jquery/plugins/validate/localization/messages_no.js");
+            localeFiles.put("no_NO_NY", "/images/jquery/plugins/validate/localization/messages_no.js");
+            localeFiles.put("pl", "/images/jquery/plugins/validate/localization/messages_pl.js");
+            localeFiles.put("pl_PL", "/images/jquery/plugins/validate/localization/messages_pl.js");
+            localeFiles.put("pt", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("pt_BR", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("pt_PT", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("ro", "/images/jquery/plugins/validate/localization/messages_ro.js");
+            localeFiles.put("ro_RO", "/images/jquery/plugins/validate/localization/messages_ro.js");
+            localeFiles.put("ru", "/images/jquery/plugins/validate/localization/messages_ru.js");
+            localeFiles.put("ru_RU", "/images/jquery/plugins/validate/localization/messages_ru.js");
+            localeFiles.put("sr", "/images/jquery/plugins/validate/localization/messages_sr.js");
+            localeFiles.put("sr_BA", "/images/jquery/plugins/validate/localization/messages_sr.js");
+            localeFiles.put("sr_ME", "/images/jquery/plugins/validate/localization/messages_sr.js");
+            localeFiles.put("sr_CS", "/images/jquery/plugins/validate/localization/messages_sr.js");
+            localeFiles.put("sr_RS", "/images/jquery/plugins/validate/localization/messages_sr.js");
+            localeFiles.put("sk", "/images/jquery/plugins/validate/localization/messages_sk.js");
+            localeFiles.put("sk_SK", "/images/jquery/plugins/validate/localization/messages_sk.js");
+            localeFiles.put("sl", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("sl_SI", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("es", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_AR", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_BO", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_CL", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_CO", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_CR", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_DO", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_EC", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_SV", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_GT", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_HN", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_MX", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_NI", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_PA", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_PY", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_PE", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_PR", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_ES", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_US", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_UY", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("es_VE", "/images/jquery/plugins/validate/localization/messages_es.js");
+            localeFiles.put("sv", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("sv_SE", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("th", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("th_TH", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("th_TH_TH", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("tr", "/images/jquery/plugins/validate/localization/messages_tr.js");
+            localeFiles.put("tr_TR", "/images/jquery/plugins/validate/localization/messages_tr.js");
+            localeFiles.put("uk", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("uk_UA", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("vi", "/images/jquery/plugins/validate/localization/messages_en.js");
+            localeFiles.put("vi_VN", "/images/jquery/plugins/validate/localization/messages_en.js");
+        }
+
+        public static String getFilePath(String locale) {
+            if (validation.localeFiles.get(locale) == null) {
+                return validation.defaultValidation;
+            }
+            return validation.localeFiles.get(locale);
+        }
+
+    }
 }
