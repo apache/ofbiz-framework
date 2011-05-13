@@ -42,7 +42,10 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <container style="button-bar"><link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/></container>
+                                        <container style="button-bar">
+                                            <link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
+                                            <link  text="${uiLabelMap.CommonAdvancedSearch}" target="ContentSearchOptions" style="buttontext"/>
+                                        </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindContent" location="component://content/widget/content/ContentForms.xml"/>
@@ -591,6 +594,68 @@ under the License.
                         </container>
                     </fail-widgets>
                 </section>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ContentSearchOptions">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/content/ContentSearchOptions.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                         <platform-specific>
+                              <html><html-template location="component://content/webapp/content/content/ContentSearchOptions.ftl"/></html>
+                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="ContentSearchResults">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleSearchResults"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/content/ContentSearchResults.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="contentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                         <platform-specific>
+                              <html><html-template location="component://content/webapp/content/content/ContentSearchResults.ftl"/></html>
+                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="EditContentKeywords">
+        <section>
+            <actions>
+                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <set field="titleProperty" value="PageTitleEditContentKeywords"/>
+                <set field="tabButtonItem" value="keywords"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-field="currentValue">
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <decorator-screen name="commonContentDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddContentKeywordsPanel" title="${uiLabelMap.PageTitleAddContentKeyword}" collapsible="true">
+                            <include-form name="AddContentKeyword" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleEditContentKeywords}">
+                            <include-form name="ListContentKeywords" location="component://content/widget/content/ContentForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

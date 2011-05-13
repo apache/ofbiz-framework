@@ -55,6 +55,9 @@
         <value xml:lang="zh">回答</value>
         <value xml:lang="zh_TW">回答</value>
     </property>
+    <property key="ContentAnyAssocType">
+        <value xml:lang="en">Any Assoc Type</value>
+    </property>
     <property key="ContentAssoc">
         <value xml:lang="ar">ارتباط المحتوى</value>
         <value xml:lang="da">Associeret indhold</value>
@@ -1253,6 +1256,9 @@
         <value xml:lang="zh">图像</value>
         <value xml:lang="zh_TW">圖像</value>
     </property>
+    <property key="ContentIncludeAllSubContents">
+        <value xml:lang="en">Include all Sub-Contents</value>
+    </property>
     <property key="ContentIndex">
         <value xml:lang="ar">الدليل</value>
         <value xml:lang="da">Indeks</value>
@@ -1301,9 +1307,77 @@
         <value xml:lang="fr">JPG</value>
         <value xml:lang="it">JPEG</value>
     </property>
+    <property key="ContentKeyword">
+        <value xml:lang="de">Schlüsselwörter</value>
+        <value xml:lang="en">Keyword</value>
+        <value xml:lang="fr">Mot-clé</value>
+        <value xml:lang="it">Chiave</value>
+        <value xml:lang="th">คีย์เวิร์ด</value>
+        <value xml:lang="zh">关键字</value>
+        <value xml:lang="zh_TW">關鍵字</value>
+    </property>
+    <property key="ContentKeywordAnyWordMatches">
+        <value xml:lang="de">Beliebiges Wort muss übereinstimmen</value>
+        <value xml:lang="en">any word matches</value>
+        <value xml:lang="es">cualquier palabra coincide</value>
+        <value xml:lang="fr">Au moins un des mots égal</value>
+        <value xml:lang="it">qualsiasi parola uguale</value>
+        <value xml:lang="ro">orice cuvant egal</value>
+        <value xml:lang="ru">соответствие любому слову</value>
+        <value xml:lang="th">บางคำที่ตรงกัน</value>
+        <value xml:lang="zh">任一字匹配</value>
+        <value xml:lang="zh_TW">任一字匹配</value>
+    </property>
+    <property key="ContentKeywordRelevancy">
+        <value xml:lang="cs">Shoda klíčového slova</value>
+        <value xml:lang="de">Stichwortrelevanz</value>
+        <value xml:lang="en">Keyword Relevancy</value>
+        <value xml:lang="es">Relevancia de palabra clave</value>
+        <value xml:lang="fr">Pertinence du mot-clé</value>
+        <value xml:lang="it">Rilevanza chiave</value>
+        <value xml:lang="ja">Keyword Relevancy</value>
+        <value xml:lang="nl">Sleutelwoord relevantie</value>
+        <value xml:lang="ro">Relevare Cheie</value>
+        <value xml:lang="ru">Keyword Relevancy</value>
+        <value xml:lang="th">คำหลักทั้งหมด</value>
+        <value xml:lang="zh">关键字关联</value>
+        <value xml:lang="zh_TW">關鍵字關聯</value>
+    </property>
+    <property key="ContentKeywordWhere">
+        <value xml:lang="de">wo</value>
+        <value xml:lang="en">where</value>
+        <value xml:lang="es">donde</value>
+        <value xml:lang="fr">où</value>
+        <value xml:lang="it">dove</value>
+        <value xml:lang="ro">Unde</value>
+        <value xml:lang="ru">где</value>
+        <value xml:lang="th">ซึ่ง</value>
+        <value xml:lang="zh">哪里</value>
+        <value xml:lang="zh_TW">哪里</value>
+    </property>
+    <property key="ContentKeywords">
+        <value xml:lang="cs">Klíčová slova</value>
+        <value xml:lang="de">Stichwörter</value>
+        <value xml:lang="en">Keywords</value>
+        <value xml:lang="es">Palabras clave</value>
+        <value xml:lang="fr">Mots-clés</value>
+        <value xml:lang="hi_IN">मुख्य शब्द</value>
+        <value xml:lang="it">Chiavi</value>
+        <value xml:lang="ja">Keywords</value>
+        <value xml:lang="nl">Sleutelwoorden</value>
+        <value xml:lang="pt_PT">Palavras-Chave</value>
+        <value xml:lang="ro">Chei</value>
+        <value xml:lang="ru">Ключевые слова</value>
+        <value xml:lang="th">คำหลัก</value>
+        <value xml:lang="zh">关键字</value>
+        <value xml:lang="zh_TW">關鍵字</value>
+    </property>
     <property key="ContentLastModifiedDateInvalidFormat">
         <value xml:lang="en">Last Modified Date is not a valid Timestamp input format.</value>
         <value xml:lang="it">Data modifica non è nel formato valido.</value>
+    </property>
+    <property key="ContentLastUpdatedDateFilter">
+        <value xml:lang="en">Last Updated Date Filter</value>
     </property>
     <property key="ContentLatest">
         <value xml:lang="da">Senest</value>
@@ -1736,6 +1810,9 @@
         <value xml:lang="it">Principale</value>
         <value xml:lang="zh">根</value>
         <value xml:lang="zh_TW">根</value>
+    </property>
+    <property key="ContentSearchContents">
+        <value xml:lang="en">Search Contents</value>
     </property>
     <property key="ContentSecurityCreatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
@@ -4366,6 +4443,9 @@
         <value xml:lang="zh">新建内容</value>
         <value xml:lang="zh_TW">新建內容</value>
     </property>
+    <property key="PageTitleAddContentKeyword">
+        <value xml:lang="en">Add Content Keyword</value>
+    </property>
     <property key="PageTitleAddDataResource">
         <value xml:lang="ar">إضافة مورد معلومات</value>
         <value xml:lang="da">Tilføj dataressource</value>
@@ -4688,6 +4768,9 @@
         <value xml:lang="th">แก้ไขหัวข้อคุณสมบัติ</value>
         <value xml:lang="zh">编辑内容属性</value>
         <value xml:lang="zh_TW">編輯內容屬性</value>
+    </property>
+    <property key="PageTitleEditContentKeywords">
+        <value xml:lang="en">Edit Content Keywords</value>
     </property>
     <property key="PageTitleEditContentMetadata">
         <value xml:lang="ar">تعرير ميتا معلومات محتوى</value>

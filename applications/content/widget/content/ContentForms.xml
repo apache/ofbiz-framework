@@ -659,4 +659,24 @@ under the License.
         </field>
         <field name="saveButton"><submit/></field>
     </form>
+    
+    <!-- Content Keyword Forms -->
+    <form name="AddContentKeyword" target="createContentKeyword" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentKeyword"/>
+        <field name="contentId"><hidden value="${parameters.contentId}"/></field>
+        <field name="keyword" title="${uiLabelMap.ContentKeyword}*"><text size="10"/></field>
+        <field name="relevancyWeight" title="${uiLabelMap.ProductWeight}"><text size="5"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListContentKeywords" type="list" target="deleteContentKeyword" odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <entity-and entity-name="ContentKeyword" use-cache="true">
+                <field-map from-field="contentId" field-name="contentId"/>
+            </entity-and>
+        </actions>
+        <auto-fields-entity entity-name="ContentKeyword" default-field-type="display"/>
+        <field name="contentId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonDelete}"><submit button-type="button"/></field>
+    </form>
 </forms>
