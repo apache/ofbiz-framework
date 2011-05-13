@@ -76,6 +76,13 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
+    <request-map uri="ajaxCheckLogin" edit="false">
+        <description>Verify a user is logged in.</description>
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="ajaxLogin"/>
+    </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="login"/>
@@ -250,6 +257,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
+    <view-map name="ajaxLogin" type="screen" page="component://common/widget/CommonScreens.xml#ajaxNotLoggedIn"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
     <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>
     <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>

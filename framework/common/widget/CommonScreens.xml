@@ -449,6 +449,18 @@ under the License.
         </section>
     </screen>
 
+    <screen name="ajaxNotLoggedIn">
+        <section>
+            <widgets>
+                <decorator-screen name="LookupDecorator">
+                    <decorator-section name="body">
+                        <label>${uiLabelMap.CommonSessionTimeoutPleaseLogIn}</label>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="requirePasswordChange">
         <section>
             <widgets>

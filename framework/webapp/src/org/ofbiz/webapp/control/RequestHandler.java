@@ -355,7 +355,12 @@ public class RequestHandler {
             if (!"success".equalsIgnoreCase(checkLoginReturnString)) {
                 // previous URL already saved by event, so just do as the return says...
                 eventReturn = checkLoginReturnString;
-                requestMap = requestMapMap.get("checkLogin");
+                // if the request is an ajax request we don't want to return the default login check
+                if (!"XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+                    requestMap = requestMapMap.get("checkLogin");
+                } else {
+                    requestMap = requestMapMap.get("ajaxCheckLogin");
+                }
             }
         }
 
