@@ -152,7 +152,7 @@
     </property>
     <property key="WorkEffortPurposeType.description.ROU_SUBCONTRACTING">
         <value xml:lang="en">Sub-contracting</value>
-        <value xml:lang="fr">Sous-contractant</value>
+        <value xml:lang="fr">Sous-traitance</value>
         <value xml:lang="it">Sotto-contratto</value>
         <value xml:lang="ro">Sub-contract</value>
         <value xml:lang="ru">Субподряд</value>
