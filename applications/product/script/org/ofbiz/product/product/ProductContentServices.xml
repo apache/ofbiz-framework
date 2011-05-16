@@ -78,6 +78,8 @@ under the License.
         <set-service-fields service-name="persistContentAndAssoc" map="parameters" to-map="persistContentAndAssoc"/>
         <set field="persistContentAndAssoc.contentTypeId" value="DOCUMENT"/>
         <set field="persistContentAndAssoc.dataResourceTypeId" value="IMAGE_OBJECT"/>
+        <set field="persistContentAndAssoc.contentName" from-field="parameters._imageData_fileName"/>
+        <set field="persistContentAndAssoc.mimeTypeId" from-field="parameters._imageData_contentType"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="persistContentAndAssoc" break-on-error="true" >
             <result-to-field result-name="contentId" field="createProductContent.contentId"/>
         </call-service>
