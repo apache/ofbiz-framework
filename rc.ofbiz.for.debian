@@ -25,8 +25,8 @@
 # description: OFBiz server
 
 # Paths - Edit for your locations
-JAVA_BINARY=/opt/jdk1.6.0_24/bin/java
-OFBIZ_HOME=/home/nexum/opt/sparta
+JAVA_BINARY=/usr/java/j2sdk1.4.2/bin/java
+OFBIZ_HOME=/home/ofbiz/ofbiz
 OFBIZ_LOG=$OFBIZ_HOME/runtime/logs/console.log
 
 # VM Options
@@ -36,7 +36,7 @@ JAVA_VMOPTIONS="-Xms128M -Xmx512M -XX:MaxPermSize=512m"
 JAVA_ARGS="-jar ofbiz.jar"
 
 # *nix user ofbiz should run as (you must create this user first)
-OFBIZ_USER=nexum
+OFBIZ_USER=ofbiz
 
 # OFBiz processes running
 ofbizprocs() {
