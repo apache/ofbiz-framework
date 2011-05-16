@@ -2543,7 +2543,7 @@
         <value xml:lang="zh_TW">電子郵件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="en" xml:space="preserve"/>
+        <value xml:lang="en" xml:space="preserve"> </value><!-- do not  remove this! -->
     </property>
     <property key="CommonEnable">
         <value xml:lang="en">Enable</value>
