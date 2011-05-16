@@ -42,6 +42,7 @@ under the License.
         </required-permissions>
         <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>
         <attribute name="cancelDateTime" type="Timestamp" mode="OUT" optional="false"/>
+        <attribute name="statusId" type="String" mode="OUT" optional="false"/> <!-- To more easily see current pending jobs and possibly cancel some others -->
     </service>
 
     <service name="cancelJobRetries" engine="java"
