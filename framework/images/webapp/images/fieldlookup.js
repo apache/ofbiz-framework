@@ -540,7 +540,7 @@ function modifySubmitButton (lookupDiv) {
                                     var link = cellElement.href;
                                     var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
                                     if (liSub.indexOf("javascript:set_") != -1) {
-                                        cellElement.href = liSub;
+                                        cellElement.href = link;
                                     } else {
                                         cellElement.href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
                                     }
@@ -567,7 +567,7 @@ function modifySubmitButton (lookupDiv) {
                         var link = cellChild[child].href;
                         var liSub = link.substring(link.lastIndexOf('/')+1,(link.length));
                         if (liSub.indexOf("javascript:set_") != -1) {
-                            cellChild[child].href = liSub;
+                            cellChild[child].href = link;
                         } else {
                             cellChild[child].href = "javascript:lookupAjaxRequest('" + liSub + "&presentation=layer')";
                         }
