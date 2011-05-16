@@ -48,6 +48,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleJobList"/>
                 <set field="tabButtonItem" value="findJob"/>
                 <set field="jobCtx" from-field="parameters"/>
+                <set field="dummy" value="${groovy: if ('SERVICE_PENDING'.equals(jobCtx.statusId)) jobCtx.jobId = ''}"/> <!--  To more easily see current pending jobs and possibly cancel some others -->
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator" location="${parameters.mainDecoratorLocation}">

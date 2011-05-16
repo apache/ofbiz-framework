@@ -543,6 +543,7 @@ public class ServiceUtil {
         if (cancelDate != null) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("cancelDateTime", cancelDate);
+            result.put("statusId", "SERVICE_PENDING"); // To more easily see current pending jobs and possibly cancel some others
             return result;
         } else {
             String errMsg = UtilProperties.getMessage(ServiceUtil.resource, "serviceUtil.unable_to_cancel_job", locale) + " : " + job;
