@@ -681,7 +681,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
                 time-between-eviction-runs-millis="600000"/>
         <!-- Sample remote URI: jdbc-uri="jdbc:firebirdsql://localhost:3050//opt/interbase/data/ofbiz.gdb" -->
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="comp/env/jdbc/xa/localfirebird" isolation-level="ReadCommitted"/> --> <!-- Orion Style JNDI name -->
-        <!-- <tyrex-dataSource dataSource-name="firebird" isolation-level="ReadCommitted"/> Â -->
+        <!-- <tyrex-dataSource dataSource-name="firebird" isolation-level="ReadCommitted"/> -->
     </datasource>
     <!--
      The following has been tested with SQL Server 2005 + MS SQL Server JDBC Driver 1.1
