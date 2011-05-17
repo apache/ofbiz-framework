@@ -45,8 +45,8 @@ under the License.
         <field name="dataResourceId" position="1">
             <lookup target-form-name="LookupDataResource"/>
         </field>
-        <field name="contentOwnerId" position="2">
-            <lookup target-form-name="LookupPartyName"/>
+        <field name="ownerContentId" position="2">
+            <lookup target-form-name="LookupContent"/>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
