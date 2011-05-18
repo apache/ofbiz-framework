@@ -56,7 +56,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="createdByUserLogin" position="2"><lookup target-form-name="LookupPerson"/></field>
+        <field name="createdByUserLogin" position="2"><lookup target-form-name="LookupUserLoginAndPartyDetails"/></field>
         <field name="localeString">
             <drop-down allow-empty="true">
                 <entity-options entity-name="CountryCode" description="${countryName} [${countryCode}]" key-field-name="countryCode">
@@ -107,6 +107,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
+        <field name="createdByUserLogin" sort-field="true"><display/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="findContentSearchResults"/>
     </form>
 
