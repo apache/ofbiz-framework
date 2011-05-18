@@ -62,15 +62,15 @@ if (hideEvents) {
     urlParam = urlParam + "hideEvents=" + hideEvents;
 }
 
-if (urlParam) {
-    urlParam = "&" + urlParam;
-}
-
 if (parameters.portalPageId) {
     if (urlParam) {
         urlParam = urlParam + "&";
     }
     urlParam = urlParam + "portalPageId=" + parameters.portalPageId;
+}
+
+if (urlParam) {
+    urlParam = "&" + urlParam;
 }
 
 context.put("urlParam", urlParam);
