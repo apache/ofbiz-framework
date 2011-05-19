@@ -1,5 +1,5 @@
 /*
- * jQuery UI Dialog 1.8.11
+ * jQuery UI Dialog 1.8.13
  *
  * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
@@ -37,6 +37,18 @@ var uiDialogClasses =
 		maxWidth: true,
 		minHeight: true,
 		minWidth: true
+	},
+	// support for jQuery 1.3.2 - handle common attrFn methods for dialog
+	attrFn = $.attrFn || {
+		val: true,
+		css: true,
+		html: true,
+		text: true,
+		data: true,
+		width: true,
+		height: true,
+		offset: true,
+		click: true
 	};
 
 $.widget("ui.dialog", {
@@ -376,12 +388,21 @@ $.widget("ui.dialog", {
 					{ click: props, text: name } :
 					props;
 				var button = $('<button type="button"></button>')
-					.attr( props, true )
-					.unbind('click')
 					.click(function() {
 						props.click.apply(self.element[0], arguments);
 					})
 					.appendTo(uiButtonSet);
+				// can't use .attr( props, true ) with jQuery 1.3.2.
+				$.each( props, function( key, value ) {
+					if ( key === "click" ) {
+						return;
+					}
+					if ( key in attrFn ) {
+						button[ key ]( value );
+					} else {
+						button.attr( key, value );
+					}
+				});
 				if ($.fn.button) {
 					button.button();
 				}
@@ -681,7 +702,7 @@ $.widget("ui.dialog", {
 });
 
 $.extend($.ui.dialog, {
-	version: "1.8.11",
+	version: "1.8.13",
 
 	uuid: 0,
 	maxZ: 0,
