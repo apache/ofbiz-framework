@@ -20,6 +20,7 @@
 //Drag & Drop Functions for myPortal
 
 //global Var for controlling hover Boxes
+"use strict";
 var SORTABLE_COLUMN_LIST = null;
 var IS_UPDATED = false;
 var DESTINATION_COLUMN_ID = null;
@@ -27,7 +28,7 @@ var DESTINATION_COLUMN_ID = null;
 //init KeyListener
 jQuery(document).ready( function() {
     // initializ the d_n_d jQuery functions
-    jQuery("" + SORTABLE_COLUMN_LIST + "").sortable({
+    jQuery(SORTABLE_COLUMN_LIST).sortable({
         connectWith: ".connectedSortable",
         handle: ".portlet-config, .screenlet-title-bar",
         tolerance: "pointer",
@@ -41,13 +42,12 @@ jQuery(document).ready( function() {
                     DESTINATION_COLUMN_ID = jQuery(this).attr("id");
                 },
         stop: function(event, ui) {
-                    preparePortletBackgroundOrderChange(jQuery("" + SORTABLE_COLUMN_LIST+ "").sortable("toArray", {connected: true}), jQuery(ui.item).attr("id"), DESTINATION_COLUMN_ID);
+                    preparePortletBackgroundOrderChange(jQuery(SORTABLE_COLUMN_LIST).sortable("toArray", {connected: true}), jQuery(ui.item).attr("id"), DESTINATION_COLUMN_ID);
                     // reset the flags
                     IS_UPDATED = false;
                     DESTINATION_COLUMN_ID = null;
                 }
-    }).disableSelection();
-    
+    });
 });
 
 function preparePortletBackgroundOrderChange(serializedDate, dragedItemId, destinationColumnId) {
@@ -151,11 +151,8 @@ function updatePortletOrder(currentItem, nextObjectToDroppedItem, mode, destinat
         url: "/myportal/control/updatePortalPagePortletSeqAjax",
         data: requestData,
         type: "POST",
-        success: function(data){
-            onCompleteRequest();
-        }
-    });
-    
+    }).success( function(data){ onCompleteRequest(); });
+
 }
 
 //removes the loading image
