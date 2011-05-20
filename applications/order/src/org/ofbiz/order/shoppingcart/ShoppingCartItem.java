@@ -1110,7 +1110,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (_product != null && isModifiedPrice == false) {
             try {
                 Map<String, Object> priceContext = FastMap.newInstance();
-                priceContext.put("currencyUomId", cart.getCurrency());
+                priceContext.put("currencyUomIdTo", cart.getCurrency());
 
                 String partyId = cart.getPartyId();
                 if (partyId != null) {
