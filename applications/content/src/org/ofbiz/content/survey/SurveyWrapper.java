@@ -164,7 +164,8 @@ public class SurveyWrapper {
 
     /**
      * Renders the Survey
-     * @return Writer object from the parsed Freemarker Template
+     * @param templateUrl the template URL
+     * @param writer the write
      * @throws SurveyWrapperException
      */
     public void render(URL templateUrl, Writer writer) throws SurveyWrapperException {

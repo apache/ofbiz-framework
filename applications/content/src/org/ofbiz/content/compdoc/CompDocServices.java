@@ -67,13 +67,12 @@ public class CompDocServices {
     
     /**
      *
-     * @param request
-     * @param response
-     * @return
-     *
      * Creates the topmost Content entity of a Composite Document tree.
      * Also creates an "empty" Composite Document Instance Content entity.
      * Creates ContentRevision/Item records for each, as well.
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return Creates the topmost Content entity of a Composite Document tree
      */
 
     public static Map<String, Object> persistRootCompDoc(DispatchContext dctx, Map<String, ? extends Object> context) {

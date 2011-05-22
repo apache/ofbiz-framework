@@ -344,9 +344,9 @@ public class DataServices {
     /**
      * Because sometimes a DataResource will exist, but no ElectronicText has been created,
      * this method will create an ElectronicText if it does not exist.
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return update the ElectronicText
      */
     public static Map<String, Object> updateElectronicTextMethod(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
