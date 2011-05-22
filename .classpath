@@ -258,6 +258,7 @@
     <classpathentry kind="src" path="specialpurpose/pos/src"/>
     <classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
     <classpathentry kind="src" path="specialpurpose/shark/src" excluding="org/enhydra/|org/ofbiz/"/>
+    <classpathentry kind="src" path="specialpurpose/webpos/src"/>
     <classpathentry kind="src" path="specialpurpose/workflow/src"/>
     <classpathentry kind="output" path="bin"/>
 </classpath>
