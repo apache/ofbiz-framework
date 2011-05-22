@@ -230,8 +230,8 @@ public class ShoppingCartHelper {
         }
 
         // add or increase the item to the cart
+        int itemId = -1;
         try {
-            int itemId = -1;
             if (productId != null) {
 
                        itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength,
@@ -263,6 +263,9 @@ public class ShoppingCartHelper {
 
         // Indicate there were no critical errors
         result = ServiceUtil.returnSuccess();
+        if (itemId != -1) {
+            result.put("itemId", new Integer(itemId));
+        }
         return result;
     }
 

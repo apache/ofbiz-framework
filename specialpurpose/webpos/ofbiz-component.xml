@@ -29,6 +29,9 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/WebPosSecurityData.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_cart.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_customer.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/services_search.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_manager.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_payment.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_promo.xml"/>

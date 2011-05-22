@@ -16,28 +16,70 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webpos.WebPosEvents;
 import org.ofbiz.webpos.session.WebPosSession;
+import org.ofbiz.webpos.transaction.WebPosTransaction;
 
 webPosSession = WebPosEvents.getWebPosSession(request, null);
 if (webPosSession) {
     shoppingCart = webPosSession.getCart();
+    context.isManager = webPosSession.isManagerLoggedIn();
+    context.transactionId = webPosSession.getCurrentTransaction().getTransactionId();
+    context.userLoginId = webPosSession.getUserLoginId();
+    context.drawerNumber = webPosSession.getCurrentTransaction().getDrawerNumber();
+    context.totalDue = webPosSession.getCurrentTransaction().getTotalDue();
+    context.totalQuantity = webPosSession.getCurrentTransaction().getTotalQuantity();
+    context.isOpen = webPosSession.getCurrentTransaction().isOpen();
+    
+    context.person = null;
+    if (UtilValidate.isNotEmpty(shoppingCart)) {
+        placingCustomerParty = delegator.findOne("PartyAndPerson", [partyId : shoppingCart.getPlacingCustomerPartyId()], false);
+        if (UtilValidate.isNotEmpty(placingCustomerParty)) {
+            context.person = placingCustomerParty.lastName + " " + placingCustomerParty.firstName;
+        }
+    }
 } else {
     shoppingCart = null;
 }
 
-// Get the Cart and Prepare Size
+context.cashAmount = BigDecimal.ZERO;
+context.checkAmount = BigDecimal.ZERO;
+context.giftAmount = BigDecimal.ZERO;
+context.creditAmount = BigDecimal.ZERO;
+context.totalPay = BigDecimal.ZERO;
+
 if (shoppingCart) {
     context.shoppingCartSize = shoppingCart.size();
+    payments = shoppingCart.selectedPayments();
+    for (i = 0; i < payments; i++) {
+        paymentInfo = shoppingCart.getPaymentInfo(i);
+        if (paymentInfo.amount != null) {
+            amount = paymentInfo.amount;
+            if (paymentInfo.paymentMethodTypeId != null) {
+                if ("CASH".equals(paymentInfo.paymentMethodTypeId)) {
+                    context.cashAmount = new BigDecimal((context.cashAmount).add(amount));
+                }
+                else if ("PERSONAL_CHECK".equals(paymentInfo.paymentMethodTypeId)) {
+                    context.checkAmount = new BigDecimal((context.checkAmount).add(amount));
+                }
+                else if ("GIFT_CARD".equals(paymentInfo.paymentMethodTypeId)) {
+                    context.giftAmount = new BigDecimal((context.giftAmount).add(amount));
+                }
+                else if ("CREDIT_CARD".equals(paymentInfo.paymentMethodTypeId)) {
+                    context.creditAmount = new BigDecimal((context.creditAmount).add(amount));
+                }
+                context.totalPay = new BigDecimal((context.totalPay).add(amount));
+            }
+        }
+    }
+    context.shoppingCart = shoppingCart;
 } else {
     context.shoppingCartSize = 0;
 }
-context.shoppingCart = shoppingCart;
 
-//check if a parameter is passed
-if (request.getAttribute("add_product_id") != "") {
-    add_product_id = request.getParameter("add_product_id");
-    product = delegator.findOne("Product", [productId : add_product_id], true);
-    context.product = product;
-}
+context.paymentCash   = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "CASH"], true);
+context.paymentCheck  = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "PERSONAL_CHECK"], true);
+context.paymentGift   = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "GIFT_CARD"], true);
+context.paymentCredit = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "CREDIT_CARD"], true);

@@ -40,7 +40,6 @@ under the License.
         <fileset dir="../../framework/minilang/build/lib" includes="*.jar"/>
         <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
         <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
-        <fileset dir="../../specialpurpose/pos/build/lib" includes="*.jar"/> <!-- to be removed -->
         <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/product/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/marketing/build/lib" includes="*.jar"/>

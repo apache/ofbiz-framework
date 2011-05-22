@@ -20,138 +20,56 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
-    <screen name="webPosMainDecorator">
-        <section>
-            <actions>
-                <set field="MainColumnStyle" value="rightonly"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-
+    
     <screen name="Main">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleMain"/>
-                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="titleProperty" value="WebPosMenuMain"/>
+                <set field="leftbarScreenName" value="LeftBar"/>
+                <set field="leftbarScreenLocation" value="component://webpos/widget/CommonScreens.xml"/>
+                <set field="rightbarScreenName" value="RightBar"/>
+                <set field="rightbarScreenLocation" value="component://webpos/widget/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="center"/>
             </actions>
             <widgets>
-                <include-screen name="SearchProducts"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="Manager">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleMain"/>
-                <set field="rightbarScreenName" value="rightbar_manager"/>
-            </actions>
-            <widgets>
-                <include-screen name="SearchProducts"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="Payment">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleMain"/>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
-            </actions>
-            <widgets>
-                <include-screen name="SearchProducts"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="Promo">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleMain"/>
-                <set field="rightbarScreenName" value="rightbar_promo"/>
-            </actions>
-            <widgets>
-                <include-screen name="SearchProducts"/>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="SearchProducts">
-        <section>
-            <actions>
-                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchProducts.js" global="true"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="webPosMainDecorator">
+                <decorator-screen name="CommonWebPosMainDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.WebPosCart}">
-                            <container id="SearchProducts">
-                                <platform-specific><html><html-template location="component://webpos/webapp/webpos/search/SearchProducts.ftl"/></html></platform-specific>
-                            </container>
-                            <container id="CartScreen">
-                                <include-screen name="ShowCart"/>
-                            </container>
-                        </screenlet>
+                        <include-screen name="CenterBar" location="component://webpos/widget/CommonScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-
-    <screen name="ShowCart">
+    
+    <screen name="Manager">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels -->
-                <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-to-field resource="order" property="orderPreference.giftEnable" field="giftEnable" default="Y"/>
-                <set field="titleProperty" value="PageTitleShoppingCart"/>
-                <set field="headerItem" value="Shopping Cart"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/ShowCart.groovy"/>
+                <set field="titleProperty" value="WebPosPageTitleManager"/>
+                <set field="headerItem" value="Manager"/>
+                <set field="leftbarScreenName" value="LeftBar"/>
+                <set field="leftbarScreenLocation" value="component://webpos/widget/CommonScreens.xml"/>
+                <set field="rightbarScreenName" value="RightBar"/>
+                <set field="rightbarScreenLocation" value="component://webpos/widget/CommonScreens.xml"/>
+                <set field="MainColumnStyle" value="center"/>
             </actions>
             <widgets>
-                <section>
-                    <condition>
-                        <not><if-empty field="shoppingCart"/></not>
-                    </condition>
-                    <widgets>
-                        <container>
-                            <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/ShowCart.ftl"/></html></platform-specific>
-                        </container>
-                    </widgets>
-                </section>
+                <container id="ManagerScreens">
+                    <decorator-screen name="CommonWebPosManagerDecorator" location="${parameters.mainDecoratorLocation}">
+                        <decorator-section name="body">
+                            <include-screen name="CenterBar" location="component://webpos/widget/CommonScreens.xml"/>
+                        </decorator-section>
+                    </decorator-screen>
+                </container>
             </widgets>
         </section>
     </screen>
-
-    <screen name="MicroCart">
+    
+    <screen name="Messages">
         <section>
-            <actions>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/MicroCart.groovy"/>
-            </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.PageTitleMain}">
-                    <container id="MicroCart">
-                        <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/MicroCart.ftl"/></html></platform-specific>
-                    </container>
-                </screenlet>
+                <container id="Messages">
+                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Messages.ftl"/></html></platform-specific>
+                </container>
             </widgets>
         </section>
     </screen>

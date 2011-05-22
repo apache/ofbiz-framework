@@ -65,6 +65,8 @@ under the License.
           </tr>
         </table>
         <input type="hidden" name="JavaScriptEnabled" value="N"/>
+        <br/>
+        <a href="<@ofbizUrl>forgotPassword</@ofbizUrl>">${uiLabelMap.CommonForgotYourPassword}?</a>
       </form>
     </div>
   </div>

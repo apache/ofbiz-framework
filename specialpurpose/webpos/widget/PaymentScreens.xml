@@ -20,94 +20,54 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-
+    
     <screen name="PayCash">
         <section>
             <actions>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
                 <set field="titleProperty" value="WebPosPageTitlePayCash"/>
             </actions>
             <widgets>
-                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
-                <container id="PayCash">
+                <container>
                     <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/PayCash.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="PayCheck">
         <section>
             <actions>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
                 <set field="titleProperty" value="WebPosPageTitlePayCheck"/>
             </actions>
             <widgets>
-                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
-                <container id="PayCheck">
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/PayCheck.ftl"/></html></platform-specific>
-                </container>
+                 <container>
+                     <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/PayCheck.ftl"/></html></platform-specific>
+                 </container>
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="PayGiftCard">
         <section>
             <actions>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
                 <set field="titleProperty" value="WebPosPageTitlePayGiftCard"/>
             </actions>
             <widgets>
-                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
-                <container id="PayGiftCard">
+                <container>
                     <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/PayGiftCard.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="PayCreditCard">
         <section>
             <actions>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
                 <set field="titleProperty" value="WebPosPageTitlePayCreditCard"/>
             </actions>
             <widgets>
-                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
-                <container id="PayCreditCard">
+                <container>
                     <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/PayCreditCard.ftl"/></html></platform-specific>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="ClearPayment">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
-                <set field="titleProperty" value="WebPosPageTitlePayClear"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/MicroCart.groovy"/>
-            </actions>
-            <widgets>
-                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
-                <container id="ClearPayment">
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/ClearPayment.ftl"/></html></platform-specific>
-                </container>
-            </widgets>
-        </section>
-    </screen>
-
-    <screen name="PaySetRef">
-        <section>
-            <actions>
-                <set field="rightbarScreenName" value="rightbar_payment"/>
-                <set field="titleProperty" value="WebPosPageTitlePaySetRef"/>
-                <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/MicroCart.groovy"/>
-            </actions>
-            <widgets>
-                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
-                <container id="PaySetRef">
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/PaySetRef.ftl"/></html></platform-specific>
                 </container>
             </widgets>
         </section>

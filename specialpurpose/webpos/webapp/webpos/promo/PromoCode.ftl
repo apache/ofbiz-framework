@@ -16,29 +16,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<div id="panel">
-    <form method="post" action="<@ofbizUrl>PromoCode</@ofbizUrl>" name="PromoCodeForm">
-        <table border="0">
-            <tr>
-                <td colspan="2"">&nbsp;</td>
-            </tr>
-            <tr>
-                <td><b>${uiLabelMap.WebPosPromoCode}</b></td>
-                <td><input type="text" name="promoCode" id="promoCode"/></td>
-            </tr>
-            <tr>
-                <td colspan="2"">&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="${uiLabelMap.CommonConfirm}" name="confirm"/>
-                    <input type="submit" value="${uiLabelMap.CommonCancel}"/>
-                </td>
-            </tr>
-        </table>
-    </form>
+<div id="promo" style="display:none">
+  <table border="0" width="100%">
+    <tr>
+      <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="50%" align="right">${uiLabelMap.WebPosPromoCode}</td>
+      <td width="50%" align="left"><input type="text" id="promoCode" name="promoCode" size="10" value=""/></td>
+    </tr>
+    <tr>
+      <td colspan="2"">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <input type="submit" value="${uiLabelMap.CommonConfirm}" id="promoCodeConfirm"/>
+        <input type="submit" value="${uiLabelMap.CommonCancel}" id="promoCodeCancel"/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><div class="errorPosMessage"><span id="promoCodeFormServerError"/></div></td>
+    </tr>
+  </table>
 </div>
-<script language="javascript" type="text/javascript">
-    document.PromoCodeForm.promoCode.focus();
-</script>

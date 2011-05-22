@@ -40,61 +40,42 @@ under the License.
 }
 
 .tableButtons {
-    background-color: #FFFFF;
-    color: #FFFF00;
     width: 100%;
     height: 100%;
 }
 
 .tableButtons td {
-    background-color: #000099;
-    background-image: url(/images/gradient_sub_uns.gif);
+    border: 1px solid #0099CC;
+    background-color: #fece2f;
     background-repeat: repeat-x;
-    height: 1em;
     text-align: center;
     border-width: 2px;
     padding-left: 0.5em;
     height: 5em;
     width: 5em;
-}
 
-.posButton, A.posButton, A.posButton:visited {
-    color: #ffff00;
-    font-size: 0.9em;
-    font-weight: bold;
-    padding-left: 0.2em;
-    padding-right: 0.5em;
 }
-
-A.posButton:hover {
-    color: #ffff00;
-}
-
-div#panel {
-    border: solid 2px #EBEFF7;
-    background-color: #CCFFFF;
-    padding: 10px;
-    top: 250px;
-    left: 200px;
-    position: absolute;
-    color: #333;
+.pos-cart-odd {
+    background-color: white;
     overflow: auto;
 }
-
-div.pos-cart-scroll {
-    height: 370px;
-    width: 100%;
-    overflow: auto;
-}
-
-.pos-cart-hover-bar:hover {
+.pos-cart-odd:hover {
     background-color: #FFFCCF;
     cursor: pointer;
 }
-
+.pos-cart-even {
+    background-color: #eeeeee;
+    overflow: auto;
+}
+.pos-cart-even:hover {
+    background-color: #FFFCCF;
+    cursor: pointer;
+}
+.pos-cart-choose {
+    background: #fece2f 50% 50% repeat-x;
+}
 .errorPosMessage {
     background-color: #FF0000;
-    border: solid #000000 0.1em;
     font-size: 1.1em;
     font-weight: bold;
     text-align: center;
@@ -103,45 +84,356 @@ div.pos-cart-scroll {
     color: #FFFCCF;
     overflow: auto;
 }
-
-/* ===== Header Styles ===== */
-#webpos-header {
-    position: relative;
-    background: #ffffff;
+#posButton {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#posButton li {
+    margin: 2px;
+    padding: 1px;
+    float: left;
+    width: 60px;
+    height: 60px;
+    line-height: 10px;
+    font-size: 0.90em;
+    text-align: center;
+    overflow: hidden;
+}
+.notSelectedButton {
+    border: 1px solid #d19405;
+    background: #fece2f 50% 50% repeat-x;
+    font-weight: bold;
+    color: black;
+    outline: none;
+}
+.notSelectedButton a, .notSelectedButton a:link, .notSelectedButton a:visited, .notSelectedButton a:hover {
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+.selectedButton {
+    border: 1px solid #d19405;
+    background: #f39814 50% 50% repeat-x;
+    font-weight: bold;
+    color: white;
+    outline: none;
+}
+.selectedButton a, .selectedButton a:link, .selectedButton a:visited, .selectedButton a:hover {
+    color: white;
+    text-decoration: none;
+    outline: none;
+    cursor: hand;
+}
+.linkButton {
+    width: 60px;
+    height: 40px;
+    line-height: 10px;
+    font-size: 0.90em;
+    text-align: center;
+    overflow: hidden;
+}
+#posShortcut {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#posShortcut li {
+    margin: 2px;
+    padding: 1px;
+    float: left;
+    width: 60px;
+    height: 60px;
+    line-height: 20px;
+    font-size: 0.90em;
+    text-align: center;
+}
+.notSelectedShortcut {
+    border: 1px solid #d19405;
+    background: #fece2f 50% 50% repeat-x;
+    font-weight: bold;
+    color: black;
+    outline: none;
+}
+.notSelectedShortcut a, .notSelectedShortcut a:link, .notSelectedShortcut a:visited, .notSelectedShortcut a:hover {
+    color: black;
+    text-decoration: none;
+    outline: none;
+}
+.selectedShortcut {
+    border: 1px solid #d19405;
+    background: #f39814 50% 50% repeat-x;
+    font-weight: bold;
+    color: white;
+    outline: none;
+}
+.selectedShortcut a, .selectedShortcut a:link, .selectedShortcut a:visited, .selectedShortcut a:hover {
+    color: white;
+    text-decoration: none;
+    outline: none;
+    cursor: hand;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+    border: 1px solid #0099CC;
+    background: #FFFCCF;
+}
+#TopBar {
+    height: 130px;
+    width: 100%;
+}
+#TopBar .leftTopBar {
+    float: left;
+    width: 58%;
+}
+#TopBar .rightTopBar {
+    float: right;
+    width: 40%;
+}
+#centerTopBarLeft {
+    float: left;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: auto;
+}
+#centerTopBarRight {
+    float: right;
+    margin-left: 5px;
+    margin-right:5px;
+    width: auto;
+}
+#SearchProducts {
     height: 100px;
-    voice-family: "\"}\"";
-    voice-family: inherit;
 }
-#webpos-header #left {
+#searchProductsResults {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
     position: absolute;
     top: 0px;
-    left: 0px;
-    width: 280px;
+    left: 25%;
+    width: 50%;
+    height: 280px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-#webpos-header #middle {
-    margin-left: 290px;
-    margin-right: 210px;
-    padding-top: 10px;
-    width: auto;
-    text-align: center;
+.searchProductsResultsHead {
+    height: 30px;
 }
-#webpos-header #right {
+.searchProductsResultsCartBody {
+    height: 186px;
+    max-height: 186px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#searchPartiesResults {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
     position: absolute;
     top: 0px;
-    right: 0px;
-    width: 200px;
-    padding: 0px;
-    margin-top: 20px;
-    text-align: right;
+    right: 0%;
+    width: 65%;
+    height: 280px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-#webpos-header #middle {
-    margin-left: 290px;
-    margin-right: 210px;
-    padding-top: 10px;
+.searchPartiesResultsHead {
+    height: 30px;
+}
+.searchPartiesResultsCartBody {
+    height: 168px;
+    max-height: 168px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#SearchSalesRepsList {
+    border: 1px solid #0099CC;
+    overflow: auto; 
+    height: 120px;
+}
+#SearchSalesReps {
+    height: 110px;
+}
+#CustomerAddressList {
+    height: 120px;
+}
+#customerAddress {
+    border: 1px solid #0099CC;
+    overflow: auto; 
+    height: 110px;
+}
+#billingAddressSelected  {
+    color: white;
+}
+#shippingAddressSelected {
+    color: white;
+}
+.selectedAddress {
+    border: 1px solid #0099CC;
+    background-color: #fece2f;
+}
+#CenterBar {
+    margin-top: 33px;
+    height: auto;
+}
+.leftCenterBar {
+    float: left;
+    width: 24em;
+    margin-right: 1em;
+}
+.rightCenterBar  {
+    float: right;
+    margin-left: 1em;
+    width: 24em;
+}
+.centerCenterBar  {
+    margin-left: 24em;
+    margin-right: 24em;
     width: auto;
+}
+#CartHeader {
+    height: 100px;
+    width: 100%;
+}
+#Cart {
+    height: 460px;
+    width: 100%;
+}
+.basic-table .CartHead {
+    height: 30px;
+}
+.basic-table .CartBody {
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.basic-table .CartFoot {
+    height: 30px;
+}
+#CartItemSelected {
+    height: 130px;
+    overflow: auto;
+}
+#CartItemSelectedLeft {
+    float: left;
+}
+#CartItemSelectedRight {
+    float: right;
+}
+#chooseVariant {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 40%;
+    width: 20%;
+    height: 280px;
+}
+#payCash {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 40%;
+    width: 20%;
+    height: 180px;
+}
+#payCheck {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 39%;
+    width: 22%;
+    height: 210px;
+}
+#payGiftCard {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 38%;
+    width: 24%;
+    height: 210px;
+}
+#payCreditCard {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 23%;
+    width: 54%;
+    height: 310px;
+}
+#payFinish {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 40%;
+    width: 20%;
+    height: 110px;
+}
+#openTerminal {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 38%;
+    width: 24%;
+    height: 130px;
+}
+#closeTerminal {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 30%;
+    width: 40%;
+    height: 250px;
+}
+#paidOutAndIn {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 30%;
+    width: 40%;
+    height: 200px;
+}
+#promo {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 36%;
+    width: 28%;
+    height: 150px;
+}
+#voidOrder {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 30%;
+    width: 40%;
+    height: 130px;
+}
+#editAddress {
+    border: solid 4px #0099CC;
+    background-color: #CCFFFF;
+    position: absolute;
+    top: 300px;
+    left: 20%;
+    width: 60%;
+    height: 200px;
+}
+#pleaseWait {
+    border: 1px solid #d19405;
+    background: #fece2f url(/images/ajax-loader.gif) no-repeat center left;
+    position: absolute;
+    top: 50px;
+    left: 85%;
+    width: 13%;
+    height: 20px;
     text-align: center;
-}
-#webpos-header #middle-right {
-    margin-left: 290px;
-    width: auto;
+    vertical-align: middle;
 }
