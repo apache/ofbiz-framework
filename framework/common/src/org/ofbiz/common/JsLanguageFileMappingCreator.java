@@ -32,7 +32,7 @@ public class JsLanguageFileMappingCreator {
         Map<String, Object> jQueryLocaleFile = FastMap.newInstance();
         Map<String, String> dateJsLocaleFile = FastMap.newInstance();
         Map<String, String> validationLocaleFile = FastMap.newInstance();
-        Map<String, String> validationMethodsLocaleFile = FastMap.newInstance();
+        //Map<String, String> validationMethodsLocaleFile = FastMap.newInstance();
 
         // setup some variables to locate the js files
         String componentRoot = "component://images/webapp";
@@ -42,7 +42,7 @@ public class JsLanguageFileMappingCreator {
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
         String validateLocalePrefix = "messages_";
-        String validateMethLocalePrefix = "methods__";
+        //String validateMethLocalePrefix = "methods__";
         String jqueryUiLocalePrefix = "jquery.ui.datepicker-";
         String defaultLocaleDateJs = "en-US";
         String defaultLocaleJquery = "en";
