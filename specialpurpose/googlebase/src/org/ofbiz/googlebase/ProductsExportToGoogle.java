@@ -430,7 +430,7 @@ public class ProductsExportToGoogle {
                 String link = webSiteUrl + "/" + webSiteMountPoint + "/control/product/~product_id=" + prod.getString("productId") + trackingCodeId + utmSource + utmMedium + utmTerm + utmContent + utmCampaign;
                 String productName = null;
                 String productDescription = null;
-                String productURL = null;
+                //String productURL = null;
                 List<GenericValue> productAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", prod.getString("productId"), "localeString", localeString, "thruDate", null));
                 if (productAndInfos.size() > 0) {
                     for (GenericValue productContentAndInfo : productAndInfos ) {
@@ -440,9 +440,9 @@ public class ProductsExportToGoogle {
                             productName = electronicText.getString("textData");
                         if ("LONG_DESCRIPTION".equals(productContentAndInfo.getString("productContentTypeId")))
                             productDescription = electronicText.getString("textData");
-                        if ("PRODUCT_URL".equals(productContentAndInfo.getString("productContentTypeId")))
-                            productURL = electronicText.getString("textData") + utmSource + utmMedium + utmTerm + utmContent + utmCampaign;
-                        }
+                        //if ("PRODUCT_URL".equals(productContentAndInfo.getString("productContentTypeId")))
+                            //productURL = electronicText.getString("textData") + utmSource + utmMedium + utmTerm + utmContent + utmCampaign;
+                    }
                 } else {
                     productName = prod.getString("internalName");
                     productDescription = prod.getString("longDescription");
