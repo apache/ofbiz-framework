@@ -98,7 +98,7 @@ public class SeleniumHtml {
     }
 
     public static String runHtmlTestSuite(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Map parameters = UtilHttp.getParameterMap(request);
+        Map<String, Object> parameters = UtilHttp.getParameterMap(request);
         String para = (String) parameters.get("testSuitePath");
 
         try {
@@ -118,7 +118,7 @@ public class SeleniumHtml {
             if (testFile.exists()) {
                 if (Debug.infoOn()) Debug.logInfo("Running this testsuite: " + testFile.getAbsolutePath(), module);
 
-                Map results = client.runSuite(testFile.getAbsolutePath());
+                Map<String, Object> results = client.runSuite(testFile.getAbsolutePath());
                 if ("true".equals(results.get("status").toString())) {
                     request.setAttribute("_EVENT_MESSAGE_LIST_", results.get("logs"));
                 } else {
@@ -132,7 +132,7 @@ public class SeleniumHtml {
         return "success";
    }
 
-    public Map runSuite(String filename) throws Exception {
+    public Map<String, Object> runSuite(String filename) throws Exception {
         TestSuite suite = new TestSuite();
         suite.file = new File(filename);
         File suiteDirectory = suite.file.getParentFile();
@@ -146,7 +146,7 @@ public class SeleniumHtml {
 
         Map<String, Object> results = FastMap.newInstance();
         List<String> messages = FastList.newInstance();
-        Map testResults;
+        Map<String, Object> testResults;
 
         for (int i = 1; i < tableRows.getLength(); i++) {
             Element tableRow = (Element) tableRows.item(i);
@@ -172,7 +172,7 @@ public class SeleniumHtml {
         return results;
     }
 
-    public Map runTest(Test test) throws Exception {
+    public Map<String, Object> runTest(Test test) throws Exception {
         String filename = test.file.toString();
         List<String> messages = FastList.newInstance();
 
@@ -297,7 +297,7 @@ public class SeleniumHtml {
             Debug.logInfo("XML detected; using default XML parser.", module);
         } else {
             try {
-                Class nekoParserClass = Class.forName("org.cyberneko.html.parsers.DOMParser");
+                Class<?> nekoParserClass = Class.forName("org.cyberneko.html.parsers.DOMParser");
                 Object parser = nekoParserClass.newInstance();
                 Method parse = nekoParserClass.getMethod("parse", new Class[] { String.class });
                 Method getDocument = nekoParserClass.getMethod("getDocument", new Class[0]);
