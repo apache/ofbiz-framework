@@ -58,9 +58,9 @@ public class InvoiceWorker {
 
     /**
      * Return the total amount of the invoice (including tax) using the the invoiceId as input.
-     * @param delegator
-     * @param invoiceId
-     * @return
+     * @param delegator the delegator
+     * @param invoiceId the invoice id
+     * @return Return the total amount of the invoice 
      */
     public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId) {
         return getInvoiceTotal(delegator, invoiceId, Boolean.TRUE);
@@ -69,11 +69,11 @@ public class InvoiceWorker {
     /**
      * Return the total amount of the invoice (including tax) using the the invoiceId as input.
      * with the ability to specify if the actual currency is required.
-     * @param delegator
-     * @param invoiceId
+     * @param delegator the delegator
+     * @param invoiceId the invoice Id
      * @param actualCurrency true: provide the actual currency of the invoice (could be different from the system currency)
      *                       false: if required convert the actual currency into the system currency.
-     * @return
+     * @return Return the total amount of the invoice
      */
     public static BigDecimal getInvoiceTotal(Delegator delegator, String invoiceId, Boolean actualCurrency) {
         if (delegator == null) {
@@ -96,7 +96,7 @@ public class InvoiceWorker {
 
     /**
      * Method to return the total amount of an invoice item i.e. quantity * amount
-     * @param invoice GenericValue object of the Invoice
+     * @param invoiceItem GenericValue object of the invoice item
      * @return the invoice total as BigDecimal
      */
     public static BigDecimal getInvoiceItemTotal(GenericValue invoiceItem) {
@@ -151,10 +151,10 @@ public class InvoiceWorker {
       *
       * Return the total amount of the invoice (including tax) using the the invoice GenericValue as input.
       * with the ability to specify if the actual currency is required.
-      * @param invoice
+      * @param invoice GenericValue object of the Invoice
       * @param actualCurrency true: provide the actual currency of the invoice (could be different from the system currency)
       *                       false: if required convert the actual currency into the system currency.
-      * @return
+      * @return Return the total amount of the invoice
       */
      public static BigDecimal getInvoiceTotal(GenericValue invoice, Boolean actualCurrency) {
         BigDecimal invoiceTotal = ZERO;
@@ -341,7 +341,9 @@ public class InvoiceWorker {
 
     /**
      * Method to return the total amount of an invoice which is not yet applied to a payment
-     * @param invoice GenericValue object of the Invoice
+     * @param delegator the delegator
+     * @param invoiceId the invoice id
+     * @param actualCurrency the currency
      * @return the invoice total as BigDecimal
      */
     public static BigDecimal getInvoiceNotApplied(Delegator delegator, String invoiceId, Boolean actualCurrency) {
@@ -359,9 +361,9 @@ public class InvoiceWorker {
     /**
      * Returns amount not applied (i.e., still outstanding) of an invoice at an asOfDate, based on Payment.effectiveDate <= asOfDateTime
      *
-     * @param invoice
-     * @param asOfDateTime
-     * @return
+     * @param invoice GenericValue object of the invoice
+     * @param asOfDateTime the date to use
+     * @return Returns amount not applied of the invoice
      */
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice, Timestamp asOfDateTime) {
         return InvoiceWorker.getInvoiceTotal(invoice, Boolean.TRUE).subtract(getInvoiceApplied(invoice, asOfDateTime));
@@ -370,7 +372,8 @@ public class InvoiceWorker {
 
     /**
      * Method to return the total amount of an invoice which is applied to a payment
-     * @param invoice GenericValue object of the Invoice
+     * @param delegator the delegator
+     * @param invoiceId the invoice id
      * @return the invoice total as BigDecimal
      */
     public static BigDecimal getInvoiceApplied(Delegator delegator, String invoiceId) {
@@ -380,10 +383,10 @@ public class InvoiceWorker {
     /**
      * Returns amount applied to invoice before an asOfDateTime, based on Payment.effectiveDate <= asOfDateTime
      *
-     * @param delegator
-     * @param invoiceId
+     * @param delegator the delegator
+     * @param invoiceId the invoice id
      * @param asOfDateTime - a Timestamp
-     * @return
+     * @return returns amount applied to invoice before an asOfDateTime
      */
     public static BigDecimal getInvoiceApplied(Delegator delegator, String invoiceId, Timestamp asOfDateTime, Boolean actualCurrency) {
         if (delegator == null) {
@@ -419,7 +422,7 @@ public class InvoiceWorker {
     }
     /**
      * Method to return the total amount of an invoice which is applied to a payment
-     * @param invoice GenericValue object of the Invoice
+     * @param invoice GenericValue object of the invoice
      * @return the applied total as BigDecimal
      */
     public static BigDecimal getInvoiceApplied(GenericValue invoice) {
@@ -427,10 +430,10 @@ public class InvoiceWorker {
     }
 
     /**
-     * @param delegator
-     * @param invoiceId
-     * @param invoiceItemSeqId
-     * @return
+     * Return the amount applied to the invoice
+     * @param invoice GenericValue object of the invoice
+     * @param actualCurrency the currency of the invoice
+     * @return returns the amount applied to the invoice
      */
     public static BigDecimal getInvoiceApplied(GenericValue invoice, Boolean actualCurrency) {
         return getInvoiceApplied(invoice.getDelegator(), invoice.getString("invoiceId"), UtilDateTime.nowTimestamp(), actualCurrency);
@@ -440,7 +443,9 @@ public class InvoiceWorker {
     }
     /**
      * Method to return the amount of an invoiceItem which is applied to a payment
-     * @param invoice GenericValue object of the Invoice
+     * @param delegator the delegator
+     * @param invoiceId the invoice id
+     * @param invoiceItemSeqId the invoice item id
      * @return the invoice total as BigDecimal
      */
     public static BigDecimal getInvoiceItemApplied(Delegator delegator, String invoiceId, String invoiceItemSeqId) {
@@ -464,7 +469,7 @@ public class InvoiceWorker {
 
     /**
      * Method to return the total amount of an invoiceItem which is applied to a payment
-     * @param invoice GenericValue object of the Invoice
+     * @param invoiceItem GenericValue object of the invoice item
      * @return the applied total as BigDecimal
      */
     public static BigDecimal getInvoiceItemApplied(GenericValue invoiceItem) {
@@ -694,7 +699,7 @@ public class InvoiceWorker {
 
     /** Returns the invoice tax total for unattributed tax items, that is items which have no taxAuthPartyId value
      * @param invoice GenericValue object representing the invoice
-     * @return
+     * @return Returns the invoice tax total for unattributed tax items
      */
     public static BigDecimal getInvoiceUnattributedTaxTotal(GenericValue invoice) {
          List<GenericValue> invoiceTaxItems = null;

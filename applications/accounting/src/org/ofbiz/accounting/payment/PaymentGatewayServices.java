@@ -2811,8 +2811,8 @@ public class PaymentGatewayServices {
     /**
      * Gets the chronologically latest PaymentGatewayResponse from an OrderPaymentPreference which is either a PRDS_PAY_AUTH
      * or PRDS_PAY_REAUTH.  Used for capturing.
-     * @param orderPaymentPreference
-     * @return
+     * @param orderPaymentPreference GenericValue object of the order payment preference
+     * @return return the first authorization of the order payment preference
      */
     public static GenericValue getAuthTransaction(GenericValue orderPaymentPreference) {
         return EntityUtil.getFirst(getAuthTransactions(orderPaymentPreference));
@@ -2821,8 +2821,8 @@ public class PaymentGatewayServices {
     /**
      * Gets a chronologically ordered list of PaymentGatewayResponses from an OrderPaymentPreference which is either a PRDS_PAY_AUTH
      * or PRDS_PAY_REAUTH.
-     * @param orderPaymentPreference
-     * @return
+     * @param orderPaymentPreference GenericValue object of the order payment preference
+     * @return return the authorizations of the order payment preference
      */
     public static List<GenericValue> getAuthTransactions(GenericValue orderPaymentPreference) {
         List<GenericValue> authTransactions = null;
