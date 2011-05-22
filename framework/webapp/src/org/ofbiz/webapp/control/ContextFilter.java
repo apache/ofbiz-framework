@@ -44,7 +44,6 @@ import javolution.util.FastList;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.container.ContainerLoader;
-import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
