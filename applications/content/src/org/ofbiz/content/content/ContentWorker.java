@@ -1337,8 +1337,8 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     /**
      * Checks to see if there is a purpose string (delimited by pipes) and
      * turns it into a list and concants to any existing purpose list.
-     * @param context
-     * @return
+     * @param context the context
+     * @return the list of content purpose
      */
     public static List<String> prepContentPurposeList(Map<String, Object> context) {
         List<String> contentPurposeList = UtilGenerics.checkList(context.get("contentPurposeList"));
