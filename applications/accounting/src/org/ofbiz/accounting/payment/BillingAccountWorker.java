@@ -128,9 +128,9 @@ public class BillingAccountWorker {
      * Calculates the "available" balance of a billing account, which is the
      * net balance minus amount of pending (not cancelled, rejected, or received) order payments.
      * When looking at using a billing account for a new order, you should use this method.
-     * @param billingAccountId
-     * @param delegator
-     * @return
+     * @param billingAccountId the billing account id
+     * @param delegator the delegato
+     * @return return the "available" balance of a billing account
      * @throws GenericEntityException
      */
     public static BigDecimal getBillingAccountBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
@@ -221,8 +221,8 @@ public class BillingAccountWorker {
     /**
      * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus the balance of outstanding orders
      * When trying to figure out how much of a billing account can be used to pay for an outstanding order, use this method
-     * @param billingAccount
-     * @return
+     * @param billingAccount GenericValue object of the billing account
+     * @return returns the amount which could be charged to a billing account
      * @throws GenericEntityException
      */
     public static BigDecimal getBillingAccountAvailableBalance(GenericValue billingAccount) throws GenericEntityException {
@@ -244,9 +244,9 @@ public class BillingAccountWorker {
     /**
      * Calculates the net balance of a billing account, which is sum of all amounts applied to invoices minus sum of all amounts applied from payments.
      * When charging or capturing an invoice to a billing account, use this method
-     * @param delegator
-     * @param billingAccountId
-     * @return
+     * @param delegator the delegator
+     * @param billingAccountId the billing account id
+     * @return the amount of the billing account which could be captured
      * @throws GenericEntityException
      */
     public static BigDecimal getBillingAccountNetBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
@@ -274,9 +274,9 @@ public class BillingAccountWorker {
 
     /**
      * Returns the amount of the billing account which could be captured, which is BillingAccount.accountLimit - net balance
-     * @param billingAccount
-     * @return
-     * @throws GenericEntityException
+     * @param billingAccount GenericValue object of the billing account
+     * @return the amount of the billing account which could be captured
+     * @throws GenericEntityException 
      */
     public static BigDecimal availableToCapture(GenericValue billingAccount) throws GenericEntityException {
         BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));

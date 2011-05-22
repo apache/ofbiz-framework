@@ -201,7 +201,8 @@ public class PaymentWorker {
 
     /**
      * Method to return the total amount of an payment which is applied to a payment
-     * @param payment GenericValue object of the Payment
+     * @param delegator the delegator
+     * @param paymentId paymentId of the Payment
      * @return the applied total as BigDecimal
      */
     public static BigDecimal getPaymentApplied(Delegator delegator, String paymentId) {
@@ -228,8 +229,8 @@ public class PaymentWorker {
     }
     /**
      * Method to return the amount applied converted to the currency of payment
-     * @param String paymentApplicationId
-     * @return the applied amount as BigDecimal
+     * @param paymentApplicationId the payment application id
+     * @return appliedAmount the applied amount as BigDecimal
      */
     public static BigDecimal getPaymentAppliedAmount(Delegator delegator, String paymentApplicationId) {
         GenericValue paymentApplication = null;
@@ -264,7 +265,7 @@ public class PaymentWorker {
     /**
      * Method to return the total amount of an payment which is applied to a payment
      * @param payment GenericValue object of the Payment
-     * @param false for currency of the payment, true for the actual currency
+     * @param actual false for currency of the payment, true for the actual currency
      * @return the applied total as BigDecimal in the currency of the payment
      */
     public static BigDecimal getPaymentApplied(GenericValue payment, Boolean actual) {

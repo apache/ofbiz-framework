@@ -141,7 +141,7 @@ public class ValueLinkApi {
      * Obtain an instance of the ValueLinkApi; this method will always return an existing reference if one is available
      * @param delegator Delegator used to query the encryption keys
      * @param props Properties to use for the Api (usually payment.properties)
-     * @return
+     * @return Obtain an instance of the ValueLinkApi
      */
     public static ValueLinkApi getInstance(Delegator delegator, Properties props) {
         return getInstance(delegator, props, false);
