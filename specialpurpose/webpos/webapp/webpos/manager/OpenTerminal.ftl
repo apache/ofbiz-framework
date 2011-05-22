@@ -16,29 +16,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<div id="panel">
-    <form method="post" action="<@ofbizUrl>OpenTerminal</@ofbizUrl>" name="OpenTerminalForm">
-        <table border="0">
-            <tr>
-                <td colspan="2"">&nbsp;</td>
-            </tr>
-            <tr>
-                <td><b>${uiLabelMap.WebPosManagerOpenTerminalDrawingAmount}</b></td>
-                <td><input type="text" name="startingDrawerAmount" id="startingDrawerAmount" value="${parameters.startingDrawerAmount?default("")}"/></td>
-            </tr>
-            <tr>
-                <td colspan="2"">&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="${uiLabelMap.CommonConfirm}" name="confirm"/>
-                    <input type="submit" value="${uiLabelMap.CommonCancel}"/>
-                </td>
-            </tr>
-        </table>
-    </form>
+<div id="openTerminal" style="display:none">
+  <table border="0" width="100%">
+    <tr>
+      <td colspan="2"">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="50%" align="right">${uiLabelMap.WebPosManagerOpenTerminalDrawingAmount}</td>
+      <td width="50%" align="left"><input type="text" id="startingDrawerAmount" name="startingDrawerAmount" size="10" value=""/></td>
+    </tr>
+    <tr>
+      <td colspan="2"">&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <input type="submit" value="${uiLabelMap.CommonConfirm}" id="openTerminalConfirm"/>
+        <input type="submit" value="${uiLabelMap.CommonCancel}" id="openTerminalCancel"/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><div class="errorPosMessage"><span id="openTerminalFormServerError"/></div></td>
+    </tr>
+  </table>
 </div>
-<script language="javascript" type="text/javascript">
-    document.OpenTerminalForm.startingDrawerAmount.focus();
-</script>

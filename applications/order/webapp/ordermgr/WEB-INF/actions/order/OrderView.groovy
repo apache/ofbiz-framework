@@ -81,6 +81,9 @@ if (orderHeader) {
     context.currencyUomId = orderReadHelper.getCurrency();
     context.orderTerms = orderTerms;
 
+    // get sales reps
+    context.salesReps = orderHeader.getRelated("OrderRole", [orderId : orderHeader.orderId, roleTypeId : "SALES_REP"], null);
+    
     // get the order type
     orderType = orderHeader.orderTypeId;
     context.orderType = orderType;

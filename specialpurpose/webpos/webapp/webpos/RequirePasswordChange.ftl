@@ -16,48 +16,45 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#assign username = ""/>
 <#if requestParameters.USERNAME?has_content>
   <#assign username = requestParameters.USERNAME/>
 <#elseif autoUserLogin?has_content>
   <#assign username = autoUserLogin.userLoginId/>
 </#if>
-
 <h1>${uiLabelMap.CommonLogin}</h1>
 <br />
-
 <div style="float: center; width: 49%; margin-right: 5px; text-align: center;" class="screenlet">
-    <div class="screenlet-title-bar">${uiLabelMap.CommonPasswordChange}</div>
-    <div class="screenlet-body" style="text-align: center;">
-      <form method="post" action="<@ofbizUrl>login${previousParams}</@ofbizUrl>" name="loginform">
-          <input type="hidden" name="requirePasswordChange" value="Y"/>
-          <input type="hidden" name="USERNAME" value="${username}"/>
-          <div>
-              ${uiLabelMap.CommonUsername}:&nbsp;${username}
-          </div>
-          <#if autoUserLogin?has_content>
-              <div>
-                  (${uiLabelMap.CommonNot}&nbsp;${autoUserLogin.userLoginId}?&nbsp;<a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
-              </div>
-          </#if>
-          <div class="tabletext">
-              ${uiLabelMap.CommonPassword}:&nbsp;
-              <input type="password" name="PASSWORD" value="" size="20"/>
-          </div>
-          <div class="tabletext">
-              ${uiLabelMap.CommonNewPassword}:&nbsp;
-              <input type="password" name="newPassword" value="" size="20"/>
-          </div>
-          <div class="tabletext">
-              ${uiLabelMap.CommonNewPasswordVerify}:&nbsp;
-              <input type="password" name="newPasswordVerify" value="" size="20"/>
-          </div>
-          <div class="tabletext">
-              <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonLogin}"/>
-          </div>
-      </form>
-    </div>
+  <div class="screenlet-title-bar">${uiLabelMap.CommonPasswordChange}</div>
+  <div class="screenlet-body" style="text-align: center;">
+    <form method="post" action="<@ofbizUrl>login${previousParams}</@ofbizUrl>" name="loginform">
+      <input type="hidden" name="requirePasswordChange" value="Y"/>
+      <input type="hidden" name="USERNAME" value="${username}"/>
+      <div>
+        ${uiLabelMap.CommonUsername}:&nbsp;${username}
+      </div>
+      <#if autoUserLogin?has_content>
+        <div>
+          (${uiLabelMap.CommonNot}&nbsp;${autoUserLogin.userLoginId}?&nbsp;<a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClickHere}</a>)
+        </div>
+      </#if>
+      <div class="tabletext">
+        ${uiLabelMap.CommonPassword}:&nbsp;
+        <input type="password" name="PASSWORD" value="" size="20"/>
+      </div>
+      <div class="tabletext">
+        ${uiLabelMap.CommonNewPassword}:&nbsp;
+        <input type="password" name="newPassword" value="" size="20"/>
+      </div>
+      <div class="tabletext">
+        ${uiLabelMap.CommonNewPasswordVerify}:&nbsp;
+        <input type="password" name="newPasswordVerify" value="" size="20"/>
+      </div>
+      <div class="tabletext">
+        <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonLogin}"/>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script language="JavaScript" type="text/javascript">

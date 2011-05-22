@@ -28,7 +28,9 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -37,8 +39,8 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
-import org.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
+import org.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -121,11 +123,12 @@ public class WebPosTransaction {
     }
 
     public boolean isOpen() {
+        this.isOpen = false;
         GenericValue terminalState = this.getTerminalState();
         if (terminalState != null) {
-            this.isOpen = true;
-        } else {
-            this.isOpen = false;
+            if ((terminalState.getDate("closedDate")) == null) {
+                this.isOpen = true;
+            }
         }
         return this.isOpen;
     }
@@ -171,13 +174,13 @@ public class WebPosTransaction {
         }
     }
 
-    public void modifyPrice(String productId, BigDecimal price) {
-        Debug.logInfo("Modify item price " + productId + "/" + price, module);
-        ShoppingCartItem item = getCart().findCartItem(productId, null, null, null, BigDecimal.ZERO);
+    public void modifyPrice(int cartLineIdx, BigDecimal price) {
+        ShoppingCartItem item = getCart().findCartItem(cartLineIdx);
         if (UtilValidate.isNotEmpty(item)) {
+            Debug.logInfo("Modify item price " + item.getProductId() + "/" + price, module);
             item.setBasePrice(price);
         } else {
-            Debug.logInfo("Item not found " + productId, module);
+            Debug.logInfo("Item " + cartLineIdx + " not found", module);
         }
     }
 
@@ -190,12 +193,11 @@ public class WebPosTransaction {
     }
 
     public BigDecimal processSale() throws GeneralException {
-        //TODO insert check if not enough funds
-        Debug.log("process sale", module);
+        Debug.log("Process sale", module);
         BigDecimal grandTotal = this.getGrandTotal();
         BigDecimal paymentAmt = this.getPaymentTotal();
         if (grandTotal.compareTo(paymentAmt) > 0) {
-            throw new IllegalStateException();
+            throw new GeneralException(UtilProperties.getMessage(resource, "WebPosNotEnoughFunds", webPosSession.getLocale()));
         }
 
         // attach the party ID to the cart
@@ -203,14 +205,14 @@ public class WebPosTransaction {
 
         // validate payment methods
         Debug.log("Validating payment methods", module);
-        Map<String, ? extends Object> valRes = ch.validatePaymentMethods();
+        Map<String, ? extends Object> valRes = UtilGenerics.cast(ch.validatePaymentMethods());
         if (valRes != null && ServiceUtil.isError(valRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(valRes));
         }
 
-        // store the "order"
+        // store the order
         Debug.log("Store order", module);
-        Map<String, ? extends Object> orderRes = ch.createOrder(webPosSession.getUserLogin());
+        Map<String, ? extends Object> orderRes = UtilGenerics.cast(ch.createOrder(webPosSession.getUserLogin()));
 
         if (orderRes != null && ServiceUtil.isError(orderRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(orderRes));
@@ -222,7 +224,7 @@ public class WebPosTransaction {
         Debug.log("Processing the payment(s)", module);
         Map<String, ? extends Object> payRes = null;
         try {
-            payRes = ch.processPayment(ProductStoreWorker.getProductStore(webPosSession.getProductStoreId(), webPosSession.getDelegator()), webPosSession.getUserLogin(), true);
+            payRes = UtilGenerics.cast(ch.processPayment(ProductStoreWorker.getProductStore(webPosSession.getProductStoreId(), webPosSession.getDelegator()), webPosSession.getUserLogin(), true));
         } catch (GeneralException e) {
             Debug.logError(e, module);
             throw e;
@@ -327,7 +329,7 @@ public class WebPosTransaction {
             boolean isExternal = true;
             Iterator<GenericValue> i = values.iterator();
             while (i.hasNext() && isExternal) {
-                GenericValue v = i.next();
+                GenericValue v = (GenericValue) i.next();
                 //Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
                 if (!externalCode.equals(v.getString("paymentServiceTypeEnumId"))) {
                     isExternal = false;
@@ -368,16 +370,8 @@ public class WebPosTransaction {
         return this.getTotalDue();
     }
 
-    public BigDecimal processAmount(String amtStr) throws GeneralException {
-        BigDecimal amount;
-        if (UtilValidate.isNotEmpty(amtStr)) {
-            try {
-                amount = new BigDecimal(amtStr);
-            } catch (NumberFormatException e) {
-                Debug.logError("Invalid number for amount : " + amtStr, module);
-                throw new GeneralException();
-            }
-        } else {
+    public BigDecimal processAmount(BigDecimal amount) throws GeneralException {
+        if (UtilValidate.isEmpty(amount)) {
             Debug.log("Amount is empty; assumption is full amount : " + this.getTotalDue(), module);
             amount = this.getTotalDue();
             if (amount.compareTo(BigDecimal.ZERO) <= 0) {
@@ -399,14 +393,14 @@ public class WebPosTransaction {
         }
     }
 
-    public synchronized void processExternalPayment(String paymentMethodTypeId, String amountStr, String refNum) {
+    public synchronized void processExternalPayment(String paymentMethodTypeId, BigDecimal amount, String refNum) {
         if (refNum == null) {
             //TODO handle error message
             return;
         }
 
         try {
-            BigDecimal amount = processAmount(amountStr);
+            amount = processAmount(amount);
             Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
@@ -497,6 +491,10 @@ public class WebPosTransaction {
 
     public BigDecimal getPaymentTotal() {
         return getCart().getPaymentTotal();
+    }
+    
+    public BigDecimal getTotalQuantity() {
+        return getCart().getTotalQuantity();
     }
 
     public BigDecimal getTotalDue() {

@@ -16,111 +16,135 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<script language="JavaScript" type="text/javascript">
-    function toggle(e) {
-        e.checked = !e.checked;
-    }
+<input type="hidden" id="selectedItem" name="selectedItem" value="${selectedItem?default(0)}"/>
+<input type="hidden" id="cartSize" name="cartSize" value="${shoppingCartSize?default(0)}"/>
 
-    function checkToggle(e) {
-        var cform = document.cartform;
-        if (e.checked) {
-            var len = cform.elements.length;
-            var allchecked = true;
-            for (var i = 0; i < len; i++) {
-                var element = cform.elements[i];
-                if (element.name == "selectedItem" && !element.checked) {
-                    allchecked = false;
-                }
-                cform.selectAll.checked = allchecked;
-            }
-        } else {
-            cform.selectAll.checked = false;
-        }
-    }
-
-    function toggleAll(e) {
-        var cform = document.cartform;
-        var len = cform.elements.length;
-        for (var i = 0; i < len; i++) {
-            var element = cform.elements[i];
-            if (element.name == "selectedItem" && element.checked != e.checked) {
-                toggle(element);
-            }
-        }
-    }
-
-    function removeSelected() {
-        var cform = document.cartform;
-        cform.removeSelected.value = true;
-        cform.submit();
-    }
-</script>
-<div class="pos-cart-scroll">
-    <table class="basic-table" cellspacing="0">
-        <tr class="header-row">
-            <td nowrap="nowrap">&nbsp;</td>
-            <td nowrap="nowrap"><b>${uiLabelMap.OrderProduct}</b></td>
-            <td nowrap="nowrap">&nbsp;</td>
-            <td nowrap="nowrap" align="center"><b>${uiLabelMap.CommonQuantity}</b></td>
-            <td nowrap="nowrap" align="right"><b>${uiLabelMap.WebPosUnitPrice}</b></td>
-            <td nowrap="nowrap" align="right"><b>${uiLabelMap.WebPosAdjustments}</b></td>
-            <td nowrap="nowrap" align="right"><b>${uiLabelMap.WebPosItemTotal}</b></td>
-            <td nowrap="nowrap" align="center"><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);" /></td>
-        </tr>
-        <#if (shoppingCartSize > 0)>
-            <form method="post" action="<@ofbizUrl>ModifyCart</@ofbizUrl>" name="cartform">
-              <input type="hidden" name="removeSelected" value="false" />
-                <#assign itemsFromList = false>
-                <#-- set initial row color -->
-                <#assign alt_row = false>
-                <#list shoppingCart.items() as cartLine>
-                  <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
-                  <#-- show adjustment info -->
-                  <#list cartLine.getAdjustments() as cartLineAdjustment>
-                    <!-- cart line ${cartLineIndex} adjustment: ${cartLineAdjustment} -->
-                  </#list>
-                  <tr <#if alt_row>class="alternate-row pos-cart-hover-bar"<#else>class="pos-cart-hover-bar"</#if>>
-                    <td>&nbsp;</td>
-                    <td>
-                        <div>
-                          <#if cartLine.getProductId()?exists>
-                            <#-- product item -->
-                            <#-- start code to display a small image of the product -->
-                            <#if cartLine.getParentProductId()?exists>
-                              <#assign parentProductId = cartLine.getParentProductId()/>
-                            <#else>
-                              <#assign parentProductId = cartLine.getProductId()/>
-                            </#if>
-                            <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
-                            <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
-                            <#if smallImageUrl?string?has_content>
-                                <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0" alt="" />
-                            </#if>
-                            <#-- end code to display a small image of the product -->
-                            ${cartLine.getProductId()} - ${cartLine.getName()?if_exists} : ${cartLine.getDescription()?if_exists}
-                          <#else>
-                            <#-- this is a non-product item -->
-                            <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
-                          </#if>
-                        </div>
-                    </td>
-                    <td nowrap="nowrap" align="right">
-                        &nbsp;
-                    </td>
-                    <td nowrap="nowrap" align="center">
-                      <div>
-                        <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" />
-                      </div>
-                    </td>
-                    <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></div></td>
-                    <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
-                    <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
-                    <td nowrap="nowrap" align="center"><div><#if !cartLine.getIsPromo()><input type="checkbox" name="selectedItem" value="${cartLineIndex}" onclick="javascript:checkToggle(this);" /><#else>&nbsp;</#if></div></td>
-                  </tr>
-                  <#-- toggle the row color -->
-                  <#assign alt_row = !alt_row>
-                </#list>
-            </form>
-        </#if>
-    </table>
+<#if (shoppingCartSize > 0)>
+<div id="CartHeader">
+  <table class="basic-table" cellspacing="1" cellpadding="1">
+    <input type="hidden" id="totalDue" value="${totalDue}"/>
+    <input type="hidden" id="totalCash" value="${cashAmount}"/>
+    <input type="hidden" id="totalCheck" value="${checkAmount}"/>
+    <input type="hidden" id="totalGift" value="${giftAmount}"/>
+    <input type="hidden" id="totalCredit" value="${creditAmount}"/>
+    <input type="hidden" id="totalDueFormatted" value="<@ofbizCurrency amount=totalDue isoCode=shoppingCart.getCurrency()/>"/>
+    <input type="hidden" id="totalCashFormatted" value="<@ofbizCurrency amount=cashAmount isoCode=shoppingCart.getCurrency()/>"/>
+    <input type="hidden" id="totalCheckFormatted" value="<@ofbizCurrency amount=checkAmount isoCode=shoppingCart.getCurrency()/>"/>
+    <input type="hidden" id="totalGiftFormatted" value="<@ofbizCurrency amount=giftAmount isoCode=shoppingCart.getCurrency()/>"/>
+    <input type="hidden" id="totalCreditFormatted" value="<@ofbizCurrency amount=creditAmount isoCode=shoppingCart.getCurrency()/>"/>
+    <tr>
+      <td>${uiLabelMap.WebPosTransactionId}</td>
+      <td><b>${transactionId?default("NA")}</b></td>
+      <td>${(paymentCash.get("description", locale))?if_exists}</td>
+      <td align="right"><b><@ofbizCurrency amount=cashAmount isoCode=shoppingCart.getCurrency()/></b></td>
+      <td>${uiLabelMap.WebPosTotalItemSubTotal}</td>
+      <td align="right"><b><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></b></td>
+    </tr>
+    <tr>
+      <td>${uiLabelMap.WebPosDrawer}</td>
+      <td><b>${drawerNumber?default(0)}</b></td>
+      <td>${(paymentCheck.get("description", locale))?if_exists}</td>
+      <td align="right"><b><@ofbizCurrency amount=checkAmount isoCode=shoppingCart.getCurrency()/></b></td>
+      <td>${uiLabelMap.WebPosTotalPromotions}</td>
+      <td align="right"><b><@ofbizCurrency amount=shoppingCart.getOrderOtherAdjustmentTotal() isoCode=shoppingCart.getCurrency()/></b></td>
+    </tr>
+    <tr>
+      <td>${uiLabelMap.WebPosTerminal}</td>
+      <td><b><#if isOpen>${uiLabelMap.WebPosTerminalOpen}<#else>${uiLabelMap.WebPosTerminalClose}</#if></b></td>
+      <td>${(paymentGift.get("description", locale))?if_exists}</td>
+      <td align="right"><b><@ofbizCurrency amount=giftAmount isoCode=shoppingCart.getCurrency()/></b></td>
+      <td>${uiLabelMap.WebPosTotalSalesTax}</td>
+      <td align="right"><b><@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/></b></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>${(paymentCredit.get("description", locale))?if_exists}</td>
+      <td align="right"><b><@ofbizCurrency amount=creditAmount isoCode=shoppingCart.getCurrency()/></b></td>
+      <td>${uiLabelMap.WebPosTotalShipping}</td>
+      <td align="right"><b><@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/></b></td>
+    </tr>
+    <tr>
+      <td>${uiLabelMap.WebPosTransactionTotalDue}</td>
+      <td align="right"><b><@ofbizCurrency amount=totalDue isoCode=shoppingCart.getCurrency()/></b></td>
+      <td>${uiLabelMap.WebPosTransactionTotalPay}</td>
+      <td align="right"><b><@ofbizCurrency amount=totalPay isoCode=shoppingCart.getCurrency()/></b></td>
+      <td>${uiLabelMap.WebPosTotal}</td>
+      <td align="right"><b><@ofbizCurrency amount=shoppingCart.getDisplayGrandTotal() isoCode=shoppingCart.getCurrency()/></b></td>
+    </tr>
+  </table>
 </div>
+</#if>
+<div id="Cart">
+  <table class="basic-table" cellspacing="0">
+    <thead class="CartHead">
+      <tr class="header-row">
+        <td nowrap><b>${uiLabelMap.OrderProduct}</b></td>
+        <td nowrap align="center"><b>${uiLabelMap.CommonQuantity}</b></td>
+        <td nowrap align="right"><b>${uiLabelMap.WebPosUnitPrice}</b></td>
+        <td nowrap align="right"><b>${uiLabelMap.WebPosAdjustments}</b></td>
+        <td nowrap align="right"><b>${uiLabelMap.WebPosItemTotal}</b></td>
+        <td nowrap align="center"><b>${uiLabelMap.CommonRemove}</b></td>
+      </tr>
+    </thead>
+    <#if (shoppingCartSize > 0)>
+    <tbody class="CartBody">
+      <#-- set initial row color -->
+      <#assign alt_row = false>
+      <#list shoppingCart.items() as cartLine>
+        <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
+        <tr id="cartLine${cartLineIndex}" <#if alt_row>class="pos-cart-even"<#else>class="pos-cart-odd"</#if>>
+          <td>
+            <div>
+              <#if cartLine.getProductId()?exists>
+                <#-- product item -->
+                <#-- start code to display a small image of the product -->
+                <#if cartLine.getParentProductId()?exists>
+                  <#assign parentProductId = cartLine.getParentProductId()/>
+                <#else>
+                  <#assign parentProductId = cartLine.getProductId()/>
+                </#if>
+                <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
+                <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
+                <#if smallImageUrl?string?has_content>
+                  <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>
+                </#if>
+                <#-- end code to display a small image of the product -->
+                ${cartLine.getProductId()} - ${cartLine.getName()?if_exists} : ${cartLine.getDescription()?if_exists}
+              <#else>
+                <#-- this is a non-product item -->
+                <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
+              </#if>
+            </div>
+          </td>
+          <td nowrap align="center">
+            ${cartLine.getQuantity()?string.number}
+          </td>
+          <td nowrap align="right"><div><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency()/></div></td>
+          <td nowrap align="right"><div><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
+          <td nowrap align="right"><div><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
+          <td nowrap align="center"><a href="javascript:deleteCartItem('${cartLineIndex}');"><img src="/images/mini-trash.png" /></a></td>
+        </tr>
+        <#-- toggle the row color -->
+        <#assign alt_row = !alt_row>
+      </#list>
+    <tbody>
+    <tfoot class="CartFoot">
+      <tr>
+        <td colspan="6"><b><hr/></b></td>
+      </tr>
+      <tr id="CartTotal">
+        <td align="left"><b>${shoppingCartSize?default(0)}</b></td>
+        <td align="center"><b>${totalQuantity?default(0)}</b></td>
+        <td align="right">&nbsp;</td>
+        <td align="right">&nbsp;</td>
+        <td align="right"><b><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></b></td>
+        <td align="right">&nbsp;</td>
+      </tr>
+    <tfoot>
+    </#if>
+  </table>
+</div>
+<script language="JavaScript" type="text/javascript">
+  selectCartItem();
+</script>

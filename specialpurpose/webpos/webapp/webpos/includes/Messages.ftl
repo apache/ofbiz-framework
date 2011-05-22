@@ -62,3 +62,5 @@ under the License.
     </#if>
   </div>
 </#if>
+
+<div id="errors" style="display:none" class="errorPosMessage"/>

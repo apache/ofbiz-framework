@@ -584,6 +584,11 @@ public class ShoppingCartEvents {
                 shipBeforeDate, shipAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
         controlDirective = processResult(result, request);
 
+        Integer itemId = (Integer)result.get("itemId");
+        if (UtilValidate.isNotEmpty(itemId)) {
+            request.setAttribute("itemId", itemId);
+        }
+
         // Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";

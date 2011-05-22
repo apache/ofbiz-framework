@@ -3233,7 +3233,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         Iterator<ShoppingCartItem> cartItemIter = this.iterator();
         while (cartItemIter.hasNext()) {
             ShoppingCartItem checkItem = cartItemIter.next();
-            if (checkItem.getIsPromo()) {
+            if (checkItem != null && checkItem.getIsPromo()) {
                 this.clearItemShipInfo(checkItem);
                 cartItemIter.remove();
             } else {

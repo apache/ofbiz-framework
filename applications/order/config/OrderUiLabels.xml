@@ -10064,6 +10064,10 @@
         <value xml:lang="zh">销售订单查找失败</value>
         <value xml:lang="zh_TW">銷售訂單查詢失敗</value>
     </property>
+    <property key="OrderSalesReps">
+        <value xml:lang="en">Sales Reps</value>
+        <value xml:lang="it">Venditori</value>
+    </property>
     <property key="OrderSalesTax">
         <value xml:lang="cs">DPH</value>
         <value xml:lang="de">Mehrwertsteuer</value>

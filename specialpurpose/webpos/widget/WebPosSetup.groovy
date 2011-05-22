@@ -31,9 +31,13 @@ productStore = ProductStoreWorker.getProductStore(request);
 prodCatalog = CatalogWorker.getProdCatalog(request);
 if (prodCatalog) {
     catalogStyleSheet = prodCatalog.styleSheet;
-    if (catalogStyleSheet) globalContext.catalogStyleSheet = catalogStyleSheet;
+    if (catalogStyleSheet) {
+        globalContext.catalogStyleSheet = catalogStyleSheet;
+    }
     catalogHeaderLogo = prodCatalog.headerLogo;
-    if (catalogHeaderLogo) globalContext.catalogHeaderLogo = catalogHeaderLogo;
+    if (catalogHeaderLogo) {
+        globalContext.catalogHeaderLogo = catalogHeaderLogo;
+    }
 }
 
 globalContext.productStore = productStore;

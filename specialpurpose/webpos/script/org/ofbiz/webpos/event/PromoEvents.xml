@@ -19,34 +19,32 @@ under the License.
 -->
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="addPromoCode" short-description="Add Promotion Code" login-required="true">
-        <if-not-empty field="parameters.confirm">
-            <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field="posTerminalId" type="String"/>
-            </call-class-method>
-            <if-not-empty field="webPosSession">
-                <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+        <clear-field field="posTerminalId"/>
+        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="posTerminalId" type="String"/>
+        </call-class-method>
+        <if-not-empty field="webPosSession">
+            <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
+            <check-errors/>
+            <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
+            <if-compare field="isOpen" operator="equals" value="true" type="String">
+                <set field="promoCode" from-field="parameters.promoCode"/>
+                <call-object-method obj-field="webPosTransaction" method-name="addProductPromoCode" ret-field="result">
+                    <field field="promoCode" type="String"/>
+                </call-object-method>
                 <check-errors/>
-                <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
-                <if-compare field="isOpen" operator="equals" value="true" type="String">
-                    <set field="promoCode" from-field="parameters.promoCode"/>
-                    <call-object-method obj-field="webPosTransaction" method-name="addProductPromoCode" ret-field="result">
-                        <field field="promoCode" type="String"/>
-                    </call-object-method>
-                    <check-errors/>
-                    <!-- TODO handle exceptions and errors -->
-                    <log level="info" message="Added product promotion code ${promoCode}"/>
-                <else>
-                    <add-error><fail-property resource="WebPosUiLabels" property="WebPosPromoCodeTerminalNotOpened"/></add-error>
-                    <check-errors/>
-                </else>
-                </if-compare>
+                <!-- TODO handle exceptions and errors -->
+                <log level="info" message="Added product promotion code ${promoCode}"/>
             <else>
-                <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+                <add-error><fail-property resource="WebPosUiLabels" property="WebPosPromoCodeTerminalNotOpened"/></add-error>
                 <check-errors/>
             </else>
-            </if-not-empty>
+            </if-compare>
+        <else>
+            <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
+            <check-errors/>
+        </else>
         </if-not-empty>
     </simple-method>
 </simple-methods>

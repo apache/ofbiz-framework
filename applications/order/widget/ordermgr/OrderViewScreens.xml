@@ -93,6 +93,7 @@ under the License.
                     <container style="righthalf">
                         <include-screen name="ordercontactinfo"/>
                         <include-screen name="ordershippinginfo"/>
+                        <include-screen name="OrderSalesReps"/>
                     </container>
                 </container>
             </widgets>
@@ -172,6 +173,15 @@ under the License.
             <widgets>
                 <platform-specific>
                     <html><html-template location="component://order/webapp/ordermgr/order/ordershippinginfo.ftl"/></html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderSalesReps">
+        <section>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://order/webapp/ordermgr/order/OrderSalesReps.ftl"/></html>
                 </platform-specific>
             </widgets>
         </section>

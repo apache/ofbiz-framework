@@ -16,78 +16,60 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-
-jQuery(document).ready( function() { 
-
-    // Autocompleter for good identification field
-    var productsIdent = [];
-    var productsIdIdent = [];
-            
-    jQuery( "#productGoodIdentification" ).autocomplete({
-        minLength: 2,
-        source: function( request, response ) {
-            var term = request.term;
-            term = 'productGoodIdentification=' + term;
-            jQuery.ajax({
-                url: "FindProductsByIdentification",
-                type: 'POST',
-                async: false,
-                data: term,
-                success: function(data) {
-                    productsIdent = data.productsList;
-                    productsIdIdent = data.productsId;
-                    response( productsIdent );    
-                }
+jQuery(document).ready(function() {
+    productToSearchFocus();
     
-            });
-        },
-        select: function( event, ui ) {
-            var identValues = ui.item.value;
-    
-            jQuery.each(productsIdent, function(product) {
-                if (identValues == this) {
-                    document.getElementById('add_product_id').value = productsIdIdent[product];
-                    return false;
-                }
-            });
-        }
-    });
-
-    // Autocompleter for search by field
-    jQuery('#searchBy').change( function(s) {
-        document.getElementById('add_product_id').value = '';
-        document.getElementById('productToSearch').value = '';
-        jQuery('#productToSearch').focus();
-    });
-    
-    jQuery( "#productToSearch" ).autocomplete({
-        minLength: 2,
-        source: function( request, response ) {
-            var term = request.term;
-            term = 'searchBy=' + document.getElementById('searchBy').value + '&productToSearch=' + term;
-            jQuery.ajax({
-                url: "FindProducts",
-                async: false,
-                type: 'POST',
-                data: term,
-                success: function(data) {
-                    products = data.productsList;
-                    productsId = data.productsId;
-                    response( products );    
-                }
-    
-            });
-        },
-        select: function( event, ui ) {
-            var productToSearchValues = ui.item.value;
-    
-            jQuery.each(products, function(product){
-                if (productToSearchValues == this) {
-                    document.getElementById('add_product_id').value = productsId[product];
-                    return false;
-                }
-            });
+    jQuery('#productToSearch').bind('keypress', function(event) {
+        code = event.keyCode ? event.keyCode : event.which;
+        if (code.toString() == 13) {
+            productSearch();
+            return false;
         }
     });
     
+    jQuery('#searchBy').bind('change', function(event) {
+        productToSearchFocus();
+        return false;
+    });
+    
+    jQuery('#productSearchConfirm').bind('click', function(event) {
+        productSearch();
+        return false;
+    });
 });
+
+function productToSearchFocus() {
+    hideOverlayDiv();
+    jQuery('#productToSearch').focus();
+    return false;
+}
+
+function productSearch() {
+    pleaseWait('Y');
+    var param = 'goodIdentificationTypeId=' + jQuery('#goodIdentificationTypeId').val();
+    if (jQuery('#searchBy').val() == "productName") {
+        param = param + '&searchByProductName=' + jQuery('#productToSearch').val();
+    } else if (jQuery('#searchBy').val() == "productDescription") {
+        param = param + '&searchByProductDescription=' + jQuery('#productToSearch').val();
+    } else if (jQuery('#searchBy').val() == "idValue") {
+        param = param + '&searchByProductIdValue=' + jQuery('#productToSearch').val();
+    }
+    jQuery.ajax({url: 'FindProducts',
+        data: param,
+        type: 'post',
+        async: false,
+        success: function(data) {
+            var products = data.productsList;
+            // automatically add item to cart if returned only one product
+            if (products.length == 1) {
+                addItem(products[0].productId, '1', 'Y');
+            } else {
+                buildProductsResults(products, 'Y');
+            }
+        },
+        error: function(data) {
+            alert("Error during product searching");
+        }
+    });
+    pleaseWait('N');
+}

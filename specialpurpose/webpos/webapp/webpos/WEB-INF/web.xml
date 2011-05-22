@@ -59,7 +59,7 @@
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
+            <param-value>/control:/products:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
@@ -78,7 +78,7 @@
     <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-
+    
     <!-- this listener will save any abandoned cart info -->
     <listener><listener-class>org.ofbiz.order.shoppingcart.CartEventListener</listener-class></listener>
     <!-- this listener will clean up info -->
@@ -91,9 +91,20 @@
         <servlet-class>org.ofbiz.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    <servlet>
+        <servlet-name>CatalogUrlServlet</servlet-name>
+        <display-name>CatalogUrlServlet</display-name>
+        <description>Catalog (Category/Product) URL Servlet</description>
+        <servlet-class>org.ofbiz.product.category.CatalogUrlServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlServlet</servlet-name>
         <url-pattern>/control/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatalogUrlServlet</servlet-name>
+        <url-pattern>/products/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>60</session-timeout>
