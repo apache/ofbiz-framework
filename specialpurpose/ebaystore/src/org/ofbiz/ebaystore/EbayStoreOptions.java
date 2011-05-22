@@ -281,7 +281,7 @@ public class EbayStoreOptions {
     public static String retrieveEbayStoreCategoryByParent(HttpServletRequest request, HttpServletResponse response) {
         List<StoreCustomCategoryType> results = FastList.newInstance();
         try {
-            Map paramMap = UtilHttp.getCombinedMap(request);
+            Map<String, Object> paramMap = UtilHttp.getCombinedMap(request);
             if (paramMap.get("productStoreId") != null) {
                 String ebayStoreCategory = (String)paramMap.get("ebayCategoryId");
                 // when change category should be remove old category from session
@@ -299,8 +299,6 @@ public class EbayStoreOptions {
                 }
                 request.setAttribute("productStoreId", paramMap.get("productStoreId"));
                 request.setAttribute("categoryId", ebayStoreCategory);
-                ApiContext apiContext = EbayEvents.getApiContext(request);
-                EbayStoreSiteFacade sf = EbayEvents.getSiteFacade(apiContext,request);
                 results = EbayEvents.getStoreChildCategories(request);
                 if (UtilValidate.isNotEmpty(results)) {
                     List<Map<String,Object>> categories = FastList.newInstance();
