@@ -42,7 +42,9 @@ public class SimpleMethodTest extends OFBizTestCase {
     protected String methodName;
 
     /**
-     * @param modelTestSuite
+     * Tests of Simple Method
+     * @param caseName test case name
+     * @param mainElement DOM main element 
      */
     public SimpleMethodTest(String caseName, Element mainElement) {
         this(caseName, mainElement.getAttribute("location"), mainElement.getAttribute("name"));

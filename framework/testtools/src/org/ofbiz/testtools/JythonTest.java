@@ -30,7 +30,9 @@ public class JythonTest extends OFBizTestCase {
     protected String scriptLocation;
 
     /**
-     * @param modelTestSuite
+     * Tests of Jython
+     * @param caseName test case name
+     * @param mainElement DOM main element 
      */
     public JythonTest(String caseName, Element mainElement) {
         super(caseName);

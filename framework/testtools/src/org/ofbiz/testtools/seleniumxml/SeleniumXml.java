@@ -187,7 +187,7 @@ public class SeleniumXml {
     /**
      * Constructor to preset with an existing Map of parameters.  Intended to be used
      * for nested Selenium tests.
-     * @param map
+     * @param selenium the SeleniumXml Object
      */
     public SeleniumXml(SeleniumXml selenium) {
         this.sel = selenium.getSelenium();
