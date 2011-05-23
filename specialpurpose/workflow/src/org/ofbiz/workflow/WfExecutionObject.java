@@ -39,7 +39,7 @@ public interface WfExecutionObject {
 
     /**
      * @throws WfException General workflow exception.
-     * @return
+     * @return return a list
      */
     public List<String> whileOpenType() throws WfException;
 
@@ -243,14 +243,14 @@ public interface WfExecutionObject {
 
     /**
      * Gets the GenericValue object of the definition.
-     * @returns GenericValue object of the definition.
+     * @return returns GenericValue object of the definition.
      * @throws WfException
      */
     public GenericValue getDefinitionObject() throws WfException;
 
     /**
      * Gets the GenericValue object of the runtime workeffort.
-     * @returns GenericValue object of the runtime workeffort.
+     * @return returns GenericValue object of the runtime workeffort.
      * @throws WfException
      */
     public GenericValue getRuntimeObject() throws WfException;

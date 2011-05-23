@@ -25,13 +25,13 @@ public interface WfStateEventAudit extends WfEventAudit {
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the old state
      */
     public String oldState() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the new state
      */
     public String newState() throws WfException;
 

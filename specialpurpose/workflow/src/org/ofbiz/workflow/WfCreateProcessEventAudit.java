@@ -25,31 +25,31 @@ public interface WfCreateProcessEventAudit extends WfEventAudit {
 
     /**
      * @throws WfException
-     * @return
+     * @return return the activity key
      */
     public String pActivityKey() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process key
      */
     public String pProcessKey() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process name
      */
     public String pProcessName() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process mgr name
      */
     public String pProcessMgrName() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process mgr version
      */
     public String pProcessMgrVersion() throws WfException;
 

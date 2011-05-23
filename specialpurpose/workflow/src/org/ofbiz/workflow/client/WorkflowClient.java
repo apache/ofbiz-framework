@@ -67,7 +67,7 @@ public class WorkflowClient {
 
     /**
      * Get a new instance of the Workflow Client
-     * @param dctx A DispatchContext object.
+     * @param context A DispatchContext object.
      * *** Note the delegator from this object must match the delegator used by the workflow engine.
      */
     public WorkflowClient(DispatchContext context) {
@@ -116,7 +116,6 @@ public class WorkflowClient {
      * @param partyId The assigned / to be assigned users party ID.
      * @param roleTypeId The assigned / to be assigned role type ID.
      * @param fromDate The assignment's from date.
-     * @return GenericResultWaiter of the start job.
      * @throws WfException
      */
     public void acceptAndStart(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate) throws WfException {
@@ -187,12 +186,14 @@ public class WorkflowClient {
 
     /**
      * Delegate and accept an activity assignment.
-     * @param workEffortId The WorkEffort entity ID for the activitiy.
-     * @param partyId The assigned / to be assigned users party ID.
-     * @param roleTypeId The assigned / to be assigned role type ID.
-     * @param fromDate The assignment's from date.
+     * @param workEffortId the WorkEffort entity ID for the activitiy.
+     * @param fromPartyId the from users party ID.
+     * @param fromRoleTypeId the from role type ID.
+     * @param fromFromDate the from date.
+     * @param toPartyId the assigned users party ID.
+     * @param toRoleTypeId the assigned role type ID.
+     * @param toFromDate the assignment's to date.
      * @param start True to attempt to start the activity.
-     * @return GenericResultWaiter of the start job.
      * @throws WfException
      */
     public void delegateAndAccept(String workEffortId, String fromPartyId, String fromRoleTypeId, Timestamp fromFromDate, String toPartyId, String toRoleTypeId, Timestamp toFromDate, boolean start) throws WfException {
@@ -215,7 +216,6 @@ public class WorkflowClient {
     /**
      * Start the activity.
      * @param workEffortId The WorkEffort entity ID for the activitiy.
-     * @return GenericResultWaiter of the start job.
      * @throws WfException
      */
     public void start(String workEffortId) throws WfException {
@@ -246,7 +246,7 @@ public class WorkflowClient {
      * @param partyId The assigned / to be assigned users party ID.
      * @param roleTypeId The assigned / to be assigned role type ID.
      * @param fromDate The assignment's from date.
-     * @return GenericResultWaiter for the complete job.
+     * @param result The assignment result.
      * @throws WfException
      */
     public void complete(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate, Map<String, Object> result) throws WfException {
@@ -344,7 +344,6 @@ public class WorkflowClient {
      * Set the state of the execution object defined by the work effort key.
      * @param workEffortId The WorkEffort entity key for the execution object.
      * @param state The new state of the execution object.
-     * @return Current state of the execution object as a string.
      * @throws WfException If state change is not allowed.
      */
     public void setState(String workEffortId, String state) throws WfException {

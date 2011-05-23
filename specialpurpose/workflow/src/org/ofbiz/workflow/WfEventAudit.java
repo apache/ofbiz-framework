@@ -28,55 +28,55 @@ public interface WfEventAudit {
     /**
      * @throws WfException
      * @throws SourceNotAvailable
-     * @return
+     * @return return the source
      */
     public WfExecutionObject source() throws WfException, SourceNotAvailable;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the timestamp
      */
     public Timestamp timeStamp() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the event type
      */
     public String eventType() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the activity key
      */
     public String activityKey() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the activity name
      */
     public String activityName() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process key
      */
     public String processKey() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process name
      */
     public String processName() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process mgr name
      */
     public String processMgrName() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the process mgr version
      */
     public String processMgrVersion() throws WfException;
 

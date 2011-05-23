@@ -74,7 +74,7 @@ public interface WfActivity extends WfExecutionObject {
 
     /**
      * Assign Result for this activity.
-     * @param newResult New result.
+     * @param result New result.
      * @throws WfException General workflow exception.
      * @throws InvalidData Data is invalid
      */

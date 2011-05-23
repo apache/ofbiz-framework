@@ -86,8 +86,8 @@ public interface WfResource {
 
     /**
      * Release the resouce from the assignement
-     * @param fromAssigment
-     * @param releaseInfo
+     * @param fromAssignment the from assignement
+     * @param releaseInfo the release information
      * @throws WfException
      * @throws NotAssigned
      */
