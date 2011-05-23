@@ -907,10 +907,9 @@ public class RequestHandler {
     /**
      * Creates a query string based on the redirect parameters for a request response, if specified, or for all request parameters if no redirect parameters are specified.
      *
-     * @param request
-     * @param requestUri
-     * @param eventReturnString
-     * @return
+     * @param request the Http request
+     * @param requestResponse the RequestResponse Object
+     * @return return the query string
      */
     public String makeQueryString(HttpServletRequest request, ConfigXMLReader.RequestResponse requestResponse) {
         if (requestResponse == null || 

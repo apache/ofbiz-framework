@@ -52,7 +52,7 @@ public class BsfEventHandler implements EventHandler {
     }
 
     /**
-     * @see org.ofbiz.webapp.event.EventHandler#invoke(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(ConfigXMLReader.Event event, ConfigXMLReader.RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         ServletContext context = (ServletContext) request.getAttribute("servletContext");

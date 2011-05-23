@@ -53,6 +53,7 @@ import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceValidationException;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
@@ -73,7 +74,7 @@ public class ServiceEventHandler implements EventHandler {
     }
 
     /**
-     * @see org.ofbiz.webapp.event.EventHandler#invoke(java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // make sure we have a valid reference to the Service Engine

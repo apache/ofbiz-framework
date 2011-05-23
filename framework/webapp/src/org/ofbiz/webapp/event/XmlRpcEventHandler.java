@@ -57,6 +57,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
@@ -89,7 +90,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     }
 
     /**
-     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         String report = request.getParameter("echo");

@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
@@ -48,7 +49,7 @@ public class SimpleEventHandler implements EventHandler {
     }
 
     /**
-     * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
+     * @see org.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         String xmlResource = event.path;
