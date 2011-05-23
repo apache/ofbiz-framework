@@ -63,9 +63,8 @@ public class ImageTransform {
      * <p>
      * Set a buffered image
      *
-     * @param   context
      * @param   fileLocation    Full file Path or URL
-     * @return                  URL images for all different size types
+     * @return  URL images for all different size types
      * @throws  IOException Error prevents the document from being fully parsed
      * @throws  JDOMException Errors occur in parsing
      */
@@ -104,7 +103,7 @@ public class ImageTransform {
      *
      * @param   bufImg          Buffered image to scale
      * @param   imgHeight       Original image height
-     * @param   imgwidth        Original image width
+     * @param   imgWidth        Original image width
      * @param   dimensionMap    Image dimensions by size type
      * @param   sizeType        Size type to scale
      * @return                  New scaled buffered image

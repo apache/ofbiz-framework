@@ -123,11 +123,10 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
      * Run report.
      *
      * @param request
-     *
      * @param runnable
-     * @param archive
      * @param documentName
      * @param locale
+     * @param timeZone
      * @param parameters
      * @param displayTexts
      * @param maxRows

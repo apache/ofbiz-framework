@@ -45,7 +45,7 @@ public class CompilerMatcher {
      * ThreadLocal causes slightly extra memory usage, but allows for faster
      * thread-safe processing than synchronization would afford.
      *
-     * @return
+     * @return returns the ThreadLocal
      */
     public static ThreadLocal<CompilerMatcher> getThreadLocal() {
         return new ThreadLocal<CompilerMatcher>() {
@@ -61,9 +61,9 @@ public class CompilerMatcher {
      * expression argument matches the aString argument.
      * Case sensitive
      *
-     * @param aString
-     * @param patternString
-     * @return
+     * @param aString a string
+     * @param patternString a string pattern
+     * @return returns true if the compiled version of the patternString regular expression argument matches the aString argument
      * @throws MalformedPatternException
      */
     public boolean matches(String aString, String patternString) throws MalformedPatternException {
@@ -73,10 +73,10 @@ public class CompilerMatcher {
     /**
      * Returns true if the compiled version of the patternString regular
      * expression argument matches the aString argument.
-     * @param aString
-     * @param patternString
-     * @param caseSensitive
-     * @return
+     * @param aString a string
+     * @param patternString a string pattern
+     * @param caseSensitive case sensitive true/false
+     * @return returns true if the compiled version of the patternString regular expression argument matches the aString argument
      * @throws MalformedPatternException
      */
     public boolean matches(String aString, String patternString, boolean caseSensitive) throws MalformedPatternException {
@@ -88,9 +88,9 @@ public class CompilerMatcher {
      * Returns true if the compiled version of the patternString regular
      * expression argument is contained in the aString argument.
      *
-     * @param aString
-     * @param patternString
-     * @return
+     * @param aString a string
+     * @param patternString a pattern string
+     * @return Returns true if the compiled version of the patternString regular expression argument is contained in the aString argument
      * @throws MalformedPatternException
      */
     public boolean contains(String aString, String patternString) throws MalformedPatternException {
@@ -100,8 +100,8 @@ public class CompilerMatcher {
     /**
      * Compiles and caches a case sensitive regexp pattern for the given string pattern.
      *
-     * @param stringPattern
-     * @return
+     * @param stringPattern a pattern string
+     * @return compiles and caches a case sensitive regexp pattern for the given string pattern
      * @throws MalformedPatternException
      */
     private Pattern getTestPattern(String stringPattern) throws MalformedPatternException {
@@ -111,9 +111,9 @@ public class CompilerMatcher {
     /**
      * Compiles and caches a regexp pattern for the given string pattern.
      *
-     * @param stringPattern
-     * @param caseSensitive
-     * @return
+     * @param stringPattern a pattern string
+     * @param caseSensitive case sensitive true/false
+     * @return compiles and caches a regexp pattern for the given string pattern
      * @throws MalformedPatternException
      */
     private Pattern getTestPattern(String stringPattern, boolean caseSensitive) throws MalformedPatternException {
@@ -135,9 +135,9 @@ public class CompilerMatcher {
      * Perl5Util's substitute() function implements Perl's s/// operator.
      * It takes two arguments: a substitution expression, and an input.
      *
-     * @param stringPattern
-     * @param input
-     * @return
+     * @param stringPattern a pattern string
+     * @param input the input string
+     * @return returns the perl5Util's substitute() function implements Perl's
      */
     public String substitute(String stringPattern, String input) {
         return this.perl5Util.substitute(stringPattern, input);
