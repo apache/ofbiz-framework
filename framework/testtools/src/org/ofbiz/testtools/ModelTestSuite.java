@@ -97,7 +97,7 @@ public class ModelTestSuite {
 
             try {
                 @SuppressWarnings("unchecked")
-		Class<? extends TestCase> clz = (Class<? extends TestCase>) ObjectType.loadClass(className);
+                Class<? extends TestCase> clz = (Class<? extends TestCase>) ObjectType.loadClass(className);
                 TestSuite suite = new TestSuite();
                 suite.addTestSuite(clz);
                 Enumeration<?> testEnum = suite.tests();
