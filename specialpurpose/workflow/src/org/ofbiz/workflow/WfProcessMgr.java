@@ -29,13 +29,13 @@ public interface WfProcessMgr {
 
     /**
      * @throws WfException
-     * @return
+     * @return returns how many process
      */
     public int howManyProcess() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns an iterator of WfProcess
      */
     public Iterator<WfProcess> getIteratorProcess() throws WfException;
 
@@ -49,13 +49,13 @@ public interface WfProcessMgr {
     /**
      * @param member
      * @throws WfException
-     * @return
+     * @return returns if is a member of process
      */
     public boolean isMemberOfProcess(WfProcess member) throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the process manager state type
      */
     public List<String> processMgrStateType() throws WfException;
 
@@ -68,37 +68,37 @@ public interface WfProcessMgr {
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the name
      */
     public String name() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the description
      */
     public String description() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the category
      */
     public String category() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the version
      */
     public String version() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the context signature
      */
     public Map<String, Object> contextSignature() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns the result signature
      */
     public Map<String, Object> resultSignature() throws WfException;
 

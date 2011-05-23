@@ -49,11 +49,11 @@ public class WfResourceImpl implements WfResource {
 
     /**
      * Creates a new WfResource
+     * @param delegator the delegator
      * @param resourceKey Uniquely identifies the resource
      * @param resourceName The name of the resource
      * @param partyId The partyID of this resource
      * @param roleTypeId The roleTypeId of this resource
-     * @param fromDate The fromDate of this resource
      */
     public WfResourceImpl(Delegator delegator, String resourceKey, String resourceName, String partyId, String roleTypeId) {
         this.delegator = delegator;

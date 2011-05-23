@@ -44,13 +44,13 @@ public interface WfProcess extends WfExecutionObject {
 
     /**
      * @throws WfException
-     * @return
+     * @return returns how many steps
      */
     public int howManyStep() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return returns an iterator of WfActivity
      */
     public Iterator<WfActivity> getIteratorStep() throws WfException;
 
@@ -64,14 +64,14 @@ public interface WfProcess extends WfExecutionObject {
     /**
      * @param member
      * @throws WfException
-     * @return
+     * @return returns if is a member of step
      */
     public boolean isMemberOfStep(WfActivity member) throws WfException;
 
     /**
      * Gets the manager associated with this process
      * @throws WfException
-     * @return
+     * @return returns the manager
      */
     public WfProcessMgr manager() throws WfException;
 
@@ -119,7 +119,8 @@ public interface WfProcess extends WfExecutionObject {
      * @param state
      * @throws WfException
      * @throws InvalidState
-     * @return
+     * @return returns an iterator of WfActivity
+     
      */
     public Iterator<WfActivity> getActivitiesInState(String state) throws WfException, InvalidState;
 

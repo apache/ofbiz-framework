@@ -62,7 +62,7 @@ public interface WfAssignment {
 
     /**
      * Set the results of this assignment.
-     * @param Map The results of the assignement.
+     * @param results Map The results of the assignement.
      * @throws WfException
      */
     public void setResult(Map<String, Object> results) throws WfException;

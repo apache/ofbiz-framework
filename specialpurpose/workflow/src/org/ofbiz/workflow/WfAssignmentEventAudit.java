@@ -25,25 +25,25 @@ public interface WfAssignmentEventAudit extends WfEventAudit {
 
     /**
      * @throws WfException
-     * @return
+     * @return return old resource key
      */
     public String oldResourceKey() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return old resource name
      */
     public String oldResourceName() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return new resource key
      */
     public String newResourceKey() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return new resource name
      */
     public String newResourceName() throws WfException;
 

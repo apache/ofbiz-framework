@@ -551,7 +551,6 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
     /**
      * Updates the runtime data entity
-     * @param field The field name of the entity (resultDataId,contextDataId)
      * @param value The value to serialize and set
      * @throws WfException
      */

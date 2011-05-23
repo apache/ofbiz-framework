@@ -27,13 +27,13 @@ public interface WfDataEventAudit {
 
     /**
      * @throws WfException
-     * @return
+     * @return return the old data
      */
     public Map<String, Object> oldData() throws WfException;
 
     /**
      * @throws WfException
-     * @return
+     * @return return the new data
      */
     public Map<String, Object> newData() throws WfException;
 
