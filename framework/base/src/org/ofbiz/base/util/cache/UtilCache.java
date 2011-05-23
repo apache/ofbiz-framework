@@ -190,12 +190,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
         try {
             for (String propName: propNames) {
-            	if(res.containsKey(propName+ '.' + parameter))
-            	{
-	                try {
-	                    return res.getString(propName + '.' + parameter);
-	                } catch (MissingResourceException e) {}
-            	}
+        	if(res.containsKey(propName+ '.' + parameter)) {
+        	    try {
+        		return res.getString(propName + '.' + parameter);
+        	    } catch (MissingResourceException e) {}
+        	}
             }
             // don't need this, just return null
             //if (value == null) {
