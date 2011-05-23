@@ -691,7 +691,7 @@ public class PriceServices {
                         if(tempPrice != null && tempPrice != BigDecimal.ZERO){
                             Map<String, Object> priceResults = FastMap.newInstance();
                             try {
-                                priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo, "originalValue", tempPrice));
+                                priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo, "originalValue", tempPrice , "defaultDecimalScale" , Long.valueOf(2) , "defaultRoundingMode" , "HalfUp"));
                                 if (ServiceUtil.isError(priceResults) || (priceResults.get("convertedValue") == null)) {
                                     Debug.logWarning("Unable to convert " + entry.getKey() + " for product  " + productId , module);
                                 } 

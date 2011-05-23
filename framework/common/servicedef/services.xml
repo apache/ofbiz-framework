@@ -324,6 +324,8 @@ under the License.
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="purposeEnumId" mode="IN" type="String" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
+        <attribute name="defaultDecimalScale" mode="IN" type="Long" optional="true"/>
+        <attribute name="defaultRoundingMode" mode="IN" type="String" optional="true"/>
     </service>
     <service name="convertUomCustom" default-entity-name="UomConversion" engine="simple"
             location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="convertUomCustom" auth="false">

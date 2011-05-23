@@ -1110,7 +1110,6 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (_product != null && isModifiedPrice == false) {
             try {
                 Map<String, Object> priceContext = FastMap.newInstance();
-                priceContext.put("currencyUomIdTo", cart.getCurrency());
 
                 String partyId = cart.getPartyId();
                 if (partyId != null) {
@@ -1132,6 +1131,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 priceContext.put("amount", this.getSelectedAmount());
                 
                 if (cart.getOrderType().equals("PURCHASE_ORDER")) {
+                    priceContext.put("currencyUomId", cart.getCurrency());
                     Map<String, Object> priceResult = dispatcher.runSync("calculatePurchasePrice", priceContext);
                     if (ServiceUtil.isError(priceResult)) {
                         throw new CartItemModifyException("There was an error while calculating the price: " + ServiceUtil.getErrorMessage(priceResult));
@@ -1168,6 +1168,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             }
                         }
                     }
+                    priceContext.put("currencyUomIdTo", cart.getCurrency());
                     priceContext.put("prodCatalogId", this.getProdCatalogId());
                     priceContext.put("webSiteId", cart.getWebSiteId());
                     priceContext.put("productStoreId", cart.getProductStoreId());
