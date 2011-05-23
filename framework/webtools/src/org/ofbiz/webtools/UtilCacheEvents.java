@@ -40,7 +40,7 @@ public class UtilCacheEvents {
     /** An HTTP WebEvent handler the specified element from the specified cache
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return
+     * @return return an HTTP WebEvent handler the specified element from the specified cache
      */
     public static String removeElementEvent(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
@@ -112,7 +112,7 @@ public class UtilCacheEvents {
     /** An HTTP WebEvent handler that clears the named cache
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return
+     * @return return an HTTP WebEvent handler that clears the named cache
      */
     public static String clearEvent(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
@@ -149,7 +149,7 @@ public class UtilCacheEvents {
     /** An HTTP WebEvent handler that clears all caches
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return
+     * @return return an HTTP WebEvent handler that clears all caches
      */
     public static String clearAllEvent(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
@@ -171,7 +171,7 @@ public class UtilCacheEvents {
     /** An HTTP WebEvent handler that updates the named cache
      * @param request The HTTP request object for the current JSP or Servlet request.
      * @param response The HTTP response object for the current JSP or Servlet request.
-     * @return
+     * @return return an HTTP WebEvent handler that updates the named cache
      */
     public static String updateEvent(HttpServletRequest request, HttpServletResponse response) {
         String errMsg = "";
