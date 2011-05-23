@@ -499,7 +499,7 @@ public class ModelMenu extends ModelWidget {
     }
 
     /**
-     * @param string
+     * @param menuLocation the menu location to set
      */
     public void setMenuLocation(String menuLocation) {
         this.menuLocation = menuLocation;
