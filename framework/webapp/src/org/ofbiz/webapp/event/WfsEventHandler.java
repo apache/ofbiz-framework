@@ -75,12 +75,12 @@ public class WfsEventHandler implements EventHandler {
     }
 
     /** Invoke the web event
-     *@param eventPath The path or location of this event
-     *@param eventMethod The method to invoke
-     *@param request The servlet request object
-     *@param response The servlet response object
-     *@return String Result code
-     *@throws EventHandlerException
+     * @param event Contains information about what to execute
+     * @param requestMap Contains information about the request-map the event was called from
+     * @param request The servlet request object
+     * @param response The servlet response object
+     * @return String Result code
+     * @throws EventHandlerException
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         //LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
