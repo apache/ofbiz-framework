@@ -872,9 +872,9 @@ public class WebToolsServices {
 
     /** Performs an entity maintenance security check. Returns hasPermission=true
      * if the user has the ENTITY_MAINT permission.
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return return the result of the service execution
      */
     public static Map<String, Object> entityMaintPermCheck(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
