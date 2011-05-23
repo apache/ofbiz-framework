@@ -36,7 +36,7 @@ public class BirtFactory {
     /**
      * get report input stream from location
      * @param resourceName
-     * @return
+     * @return returns the input stream from location
      * @throws IOException
      * @throws SAXException
      * @throws ParserConfigurationException

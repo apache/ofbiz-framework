@@ -66,9 +66,9 @@ public class BirtEmailServices {
     /**
      * send birt mail
      *
-     * @param ctx
-     * @param context
-     * @return
+     * @param ctx the dispatch context
+     * @param context the context
+     * @return returns the result of the service execution
      */
     public static Map<String, Object> sendBirtMail(DispatchContext ctx, Map<String, ? extends Object> context) {
         Map<String, Object> serviceContext = UtilMisc.makeMapWritable(context);

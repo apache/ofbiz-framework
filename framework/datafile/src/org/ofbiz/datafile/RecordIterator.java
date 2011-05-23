@@ -214,7 +214,7 @@ public class RecordIterator {
      * @param lineNum
      * @param modelDataFile
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
-     * @return
+     * @return return the ModelRecord Object found
      */
     protected static ModelRecord findModelForLine(String line, int lineNum, ModelDataFile modelDataFile) throws DataFileException {
         // if (Debug.infoOn()) Debug.logInfo("[DataFile.findModelForLine] line: " + line, module);

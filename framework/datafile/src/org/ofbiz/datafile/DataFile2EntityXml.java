@@ -38,7 +38,9 @@ public class DataFile2EntityXml {
     }
 
     /**
-     * @param args the command line arguments
+     * Writes the entity xml
+     * @param fileName the file name
+     * @param dataFile the data file name
      */
     public static void writeToEntityXml(String fileName, DataFile dataFile) throws DataFileException {
         File file = new File(fileName);

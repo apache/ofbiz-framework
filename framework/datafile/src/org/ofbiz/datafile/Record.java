@@ -478,7 +478,7 @@ public class Record implements Serializable {
     /** Creates new Record
      * @param modelRecord
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
-     * @return
+     * @return return the Record Object created
      */
     public static Record createRecord(ModelRecord modelRecord) throws DataFileException {
     Record record = new Record(modelRecord);
@@ -490,7 +490,7 @@ public class Record implements Serializable {
      * @param modelRecord
      * @param fields
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
-     * @return
+     * @return return the Record Object created
      */
     public static Record createRecord(ModelRecord modelRecord, Map<String, Object> fields) throws DataFileException {
     Record record = new Record(modelRecord, fields);
@@ -503,7 +503,7 @@ public class Record implements Serializable {
      * @param lineNum
      * @param modelRecord
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
-     * @return
+     * @return return the Record Object created
      */
     public static Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
     Record record = new Record(modelRecord);
@@ -538,7 +538,7 @@ public class Record implements Serializable {
      * @param modelRecord
      * @param delimiter
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
-     * @return
+     * @return return a Record Object
      */
     public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter, String textDelimiter) throws DataFileException {
     Record record = new Record(modelRecord);

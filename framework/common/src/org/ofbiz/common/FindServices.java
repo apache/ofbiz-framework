@@ -210,7 +210,7 @@ public class FindServices {
      * @param queryStringMap
      * @param delegator
      * @param context
-     * @return
+     * @return returns an EntityCondition list
      */
     public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
         Set<String> processed = FastSet.newInstance();
@@ -287,7 +287,7 @@ public class FindServices {
      * @param ignoreCase
      * @param delegator
      * @param context
-     * @return
+     * @return return an EntityCondition
      */
     public static EntityCondition createSingleCondition(ModelField modelField, String operation, Object fieldValue, boolean ignoreCase, Delegator delegator, Map<String, ?> context) {
         EntityCondition cond = null;
@@ -350,8 +350,8 @@ public class FindServices {
      *
      * This is use to the generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
-     * @param keys     list of field for which it's possible to make the query
-     * @param normalizedFields     list of field the user have populated
+     * @param modelEntity the model entity object
+     * @param normalizedFields list of field the user have populated
      * @return a arrayList usable to create an entityCondition
      */
     public static List<EntityCondition> createCondition(ModelEntity modelEntity, Map<String, Map<String, Map<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, Delegator delegator, Map<String, ?> context) {
@@ -709,7 +709,7 @@ public class FindServices {
      *
      * @param dctx
      * @param context
-     * @return
+     * @return returns the first item 
      */
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
         context.put("viewSize", 1);

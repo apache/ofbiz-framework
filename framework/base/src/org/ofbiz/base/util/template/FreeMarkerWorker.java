@@ -178,7 +178,6 @@ public class FreeMarkerWorker {
      * @param templateLocation A unique ID for this template - used for caching
      * @param context The context Map
      * @param outWriter The Writer to render to
-     * @param useCache try to get template from cache
      */
     public static void renderTemplate(String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
         Template template = getTemplate(templateLocation);
@@ -186,7 +185,7 @@ public class FreeMarkerWorker {
     }
 
     /**
-     * @deprecated, replaced by {@link #renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter, boolean useCache)}
+     * @deprecated Renamed to {@link #renderTemplateFromString(String, String, Map, Appendable, boolean)}
      */
     @Deprecated
     public static Environment renderTemplateFromString(String templateString, String templateLocation, Map<String, Object> context, Appendable outWriter) throws TemplateException, IOException {
