@@ -42,7 +42,7 @@ public class ExpressionUiHelper {
     public static final int Occurrence[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
 
     /** Returns a List of valid DayInMonth occurrence int values.
-     * @return
+     * @return returns a List of valid DayInMonth occurrence int values
      */
     public static List<?> getOccurrenceList() {
         return Arrays.asList(Occurrence);

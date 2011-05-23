@@ -243,7 +243,7 @@ public class ServiceDispatcher {
      * Run the service synchronously and return the result.
      * @param localName Name of the context to use.
      * @param modelService Service model object.
-     * @param context Map of name, value pairs composing the context.
+     * @param params Map of name, value pairs composing the parameters.
      * @param validateOut Validate OUT parameters
      * @return Map of name, value pairs composing the result.
      * @throws ServiceAuthException
@@ -618,7 +618,7 @@ public class ServiceDispatcher {
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
      * @param localName Name of the context to use.
      * @param service Service model object.
-     * @param context Map of name, value pairs composing the context.
+     * @param params Map of name, value pairs composing the parameters.
      * @param requester Object implementing GenericRequester interface which will receive the result.
      * @param persist True for store/run; False for run.
      * @throws ServiceAuthException

@@ -228,9 +228,9 @@ public class ServiceEngineTestServices {
      * current service run is complete, and AFTER it has committed or rolled back its transaction; if a service finds
      * it has a lock wait timeout, add itself to the list for its parent service (somehow...) and off we go!
      *
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return returns the results of the service execution
      */
     public static Map<String, Object> testServiceLockWaitTimeoutRetryCantRecover(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();

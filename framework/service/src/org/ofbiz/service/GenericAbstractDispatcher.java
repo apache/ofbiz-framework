@@ -117,9 +117,6 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
         schedule(jobName, poolName, serviceName, ServiceUtil.makeContext(context), startTime, frequency, interval, count, endTime, maxRetry);
     }
 
-    /**
-     * @see org.ofbiz.service.LocalDispatcher#setRollbackService(java.lang.String, java.util.Map, boolean)
-     */
     public void addRollbackService(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException {
         ServiceXaWrapper xa = new ServiceXaWrapper(this.getDispatchContext());
         xa.setRollbackService(serviceName, context, true, persist);
@@ -135,9 +132,6 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
         addRollbackService(serviceName, ServiceUtil.makeContext(context), persist);
     }
 
-    /**
-     * @see org.ofbiz.service.LocalDispatcher#setCommitService(java.lang.String, java.util.Map, boolean)
-     */
     public void addCommitService(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException {
         ServiceXaWrapper xa = new ServiceXaWrapper(this.getDispatchContext());
         xa.setCommitService(serviceName, context, true, persist);

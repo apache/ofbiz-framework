@@ -988,7 +988,7 @@ public class TemporalExpressions implements Serializable {
         protected final int start;
 
         /**
-         * @param hour An integer in the range of 0 to 59.
+         * @param minute An integer in the range of 0 to 59.
          */
         public MinuteRange(int minute) {
             this(minute, minute);
