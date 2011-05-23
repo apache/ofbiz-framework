@@ -241,7 +241,7 @@ public abstract class JdbcValueHandler<T> {
 
     /**
      * Returns the SQL type for this handler.
-     * @return
+     * @return return the SQL type
      * @see <code>java.sql.Types</code>
      */
     public int getSqlType() {
@@ -252,9 +252,9 @@ public abstract class JdbcValueHandler<T> {
      * object is converted to the Java data type specified in the fieldtype
      * file.
      * 
-     * @param rs
-     * @param columnIndex
-     * @return
+     * @param rs the ResultSet object
+     * @param columnIndex the column index
+     * @return get value from result set
      * @throws SQLException
      */
     public abstract T getValue(ResultSet rs, int columnIndex) throws SQLException;
@@ -262,8 +262,8 @@ public abstract class JdbcValueHandler<T> {
     /**
      * Returns a new instance of the object - initialized with
      * the specified SQL type.
-     * @param sqlType
-     * @return
+     * @param sqlType the sql type
+     * @return returns a new instance
      */
     protected abstract JdbcValueHandler<T> newInstance(int sqlType);
 

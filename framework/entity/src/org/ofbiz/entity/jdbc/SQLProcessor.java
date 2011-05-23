@@ -87,7 +87,7 @@ public class SQLProcessor {
     /**
      * Construct an object based on the helper/datasource
      *
-     * @param helperName  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
+     * @param helperInfo  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      */
     public SQLProcessor(GenericHelperInfo helperInfo) {
         this.helperInfo = helperInfo;
@@ -98,7 +98,7 @@ public class SQLProcessor {
      * Construct an object with an connection given. The connection will not
      * be closed by this SQLProcessor, but may be by some other.
      *
-     * @param helperName  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
+     * @param helperInfo  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      * @param connection  The connection to be used
      */
     public SQLProcessor(GenericHelperInfo helperInfo, Connection connection) {
