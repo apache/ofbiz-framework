@@ -84,7 +84,7 @@ public abstract class AbstractEngine implements GenericEngine {
     }
 
     /**
-     * @see org.ofbiz.service.engine.GenericEngine#sendCallbacks(org.ofbiz.service.ModelService, java.util.Map, java.lang.Object, int)
+     * @see org.ofbiz.service.engine.GenericEngine#sendCallbacks(org.ofbiz.service.ModelService, java.util.Map, int)
      */
     public void sendCallbacks(ModelService model, Map<String, Object> context, int mode) throws GenericServiceException {
         if (!allowCallbacks(model, context, mode)) return;

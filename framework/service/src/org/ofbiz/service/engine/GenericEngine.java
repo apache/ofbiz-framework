@@ -81,7 +81,6 @@ public interface GenericEngine {
      * Send the service callbacks
      * @param modelService Service model object
      * @param context Map of name, value pairs composing the context
-     * @param cbObj Object to return to callback (Throwable or Map)
      * @param mode Service mode (sync or async)
      * @throws GenericServiceException
      */

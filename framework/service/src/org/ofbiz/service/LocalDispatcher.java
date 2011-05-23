@@ -45,7 +45,7 @@ public interface LocalDispatcher {
 
     /**
      * Returns whether Service Engine Condition Actions (SECAs) are disabled or not.
-     * @return
+     * @return returns whether Service Engine Condition Actions (SECAs) are disabled or not.
      * @throws GenericServiceException
      */
     public boolean isEcasDisabled();

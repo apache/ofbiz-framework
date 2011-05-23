@@ -67,7 +67,7 @@ public interface GenericInvoker extends Invoker {
      * Send the service callbacks
      * @param engine GenericEngine object
      * @param context Map of name, value pairs composing the context
-     * @param cbObj Object to return to callback (Throwable or Map)
+     * @param result Object to return to callback (Throwable or Map)
      * @param mode Service mode (sync or async)
      * @throws GenericServiceException
      */
