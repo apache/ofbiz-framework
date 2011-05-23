@@ -635,7 +635,7 @@ public class ModelFormField {
      * with this field. This can be used to get additional information about the field.
      * Use the getServiceName() method to get the Entity name that the field is in.
      *
-     * @return
+     * @return returns the name of the Service Attribute 
      */
     public String getAttributeName() {
         if (UtilValidate.isNotEmpty(this.attributeName)) {
@@ -667,9 +667,8 @@ public class ModelFormField {
      * is true) then the value will be retreived from the parameters Map in
      * the context.
      *
-     * @param context
-     * @param encoder
-     * @return
+     * @param context the context
+     * @return returns the entry from the context that corresponds to this field
      */
     public String getEntry(Map<String, ? extends Object> context) {
         return this.getEntry(context, "");
@@ -802,7 +801,7 @@ public class ModelFormField {
      * with this field. This can be used to get additional information about the field.
      * Use the getEntityName() method to get the Entity name that the field is in.
      *
-     * @return
+     * @return return the name of the Entity Field that corresponds with this field
      */
     public String getFieldName() {
         if (UtilValidate.isNotEmpty(this.fieldName)) {
@@ -818,7 +817,7 @@ public class ModelFormField {
      * error condition the parameter name is used to get the value from the
      * parameters Map.
      *
-     * @return
+     * @return returns the name of the Map in the form context that contains the entry
      */
     public String getMapName() {
         if (this.mapAcsr != null && !this.mapAcsr.isEmpty()) {
@@ -836,7 +835,7 @@ public class ModelFormField {
      * Get the name to use for the parameter for this field in the form interpreter.
      * For HTML forms this is the request parameter name.
      *
-     * @return
+     * @return returns the name to use for the parameter for this field in the form interpreter
      */
     public String getParameterName(Map<String, ? extends Object> context) {
         String baseName;
@@ -879,14 +878,14 @@ public class ModelFormField {
         }
     }
 
-/**
+    /**
      * the widget/interaction part will be red if the date value is
      *  before-now (for ex. thruDate), after-now (for ex. fromDate), or by-name (if the
      *  field's name or entry-name or fromDate or thruDate the corresponding
      *  action will be done); only applicable when the field is a timestamp
      *
-     * @param context
-     * @return
+     * @param context the context
+     * @return true if the field should be read otherwise false
      */
     public boolean shouldBeRed(Map<String, Object> context) {
         // red-when (never | before-now | after-now | by-name) "by-name"
@@ -1386,7 +1385,7 @@ public class ModelFormField {
     }
 
     /**
-     * @param boolean
+     * @param required the field is required 
      */
     public void setRequiredField(boolean required) {
         this.requiredField = required;
@@ -1397,14 +1396,14 @@ public class ModelFormField {
     }
 
     /**
-     * @param boolean
+     * @param sort set as sort field
      */
     public void setSortField(boolean sort) {
         this.sortField = Boolean.valueOf(sort);
     }
 
     /**
-     * @param ModelForm
+     * @param modelForm the model form
      */
     public void setModelForm(ModelForm modelForm) {
         this.modelForm = modelForm;
@@ -2228,34 +2227,34 @@ public class ModelFormField {
         }
 
         /**
-         * @param b
+         * @param b the field is also hidden true/false
          */
         public void setAlsoHidden(boolean b) {
             alsoHidden = b;
         }
 
         /**
-         * @param Image-location
+         * @param value the value of the image location
          */
         public void setImageLocation(String value) {
             this.imageLocation = FlexibleStringExpander.getInstance(value);
         }
 
         /**
-         * @param Description
+         * @param string the description of the field
          */
         public void setDescription(String string) {
             description = FlexibleStringExpander.getInstance(string);
         }
 
         /**
-         * @param string
+         * @param string the currency of the field
          */
         public void setCurrency(String string) {
             currency = FlexibleStringExpander.getInstance(string);
         }
         /**
-         * @param date
+         * @param string the date of the field
          */
         public void setDate(String string) {
             date = FlexibleStringExpander.getInstance(string);
@@ -2266,7 +2265,7 @@ public class ModelFormField {
         }
 
         /**
-         * @param str
+         * @param str the default value
          */
         public void setDefaultValue(String str) {
             this.defaultValue = FlexibleStringExpander.getInstance(str);
@@ -3081,21 +3080,21 @@ public class ModelFormField {
         }
 
         /**
-         * @param str
+         * @param str the default value of the field
          */
         public void setDefaultValue(String str) {
             this.defaultValue = FlexibleStringExpander.getInstance(str);
         }
 
         /**
-         * @param i
+         * @param visualEditorEnable is visualEditor enabled
          */
         public void setVisualEditorEnable(boolean visualEditorEnable) {
             this.visualEditorEnable = visualEditorEnable;
         }
 
         /**
-         * @param i
+         * @param eb set the visualEditor Buttons
          */
         public void setVisualEditorButtons(String eb) {
             this.visualEditorButtons = FlexibleStringExpander.getInstance(eb);
@@ -3347,8 +3346,8 @@ public class ModelFormField {
         /**
          * Get the name to use for the parameter for this field in the form interpreter.
          * For HTML forms this is the request parameter name.
-         *
-         * @return
+         * @param context the context
+         * @return returns the name to use for the parameter for this field in the form interpreter.
          */
         public String getParameterNameOther(Map<String, Object> context) {
             String baseName;
@@ -3498,7 +3497,7 @@ public class ModelFormField {
         }
 
         /**
-         * @param string
+         * @param val the value of the image location
          */
         public void setImageLocation(String val) {
             imageLocation = FlexibleStringExpander.getInstance(val);

@@ -216,7 +216,7 @@ public class ModelTree extends ModelWidget {
      * Renders this tree to a String, i.e. in a text format, as defined with the
      * TreeStringRenderer implementation.
      *
-     * @param writer The Writer that the tree text will be written to
+     * @param buf the StringBuffer Object
      * @param context Map containing the tree context; the following are
      *   reserved words in this context: parameters (Map), isError (Boolean),
      *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,

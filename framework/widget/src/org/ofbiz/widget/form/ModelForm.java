@@ -2212,7 +2212,7 @@ public class ModelForm extends ModelWidget {
     }
 
     /**
-     * @param string Form's location
+     * @param formLocation string Form's location
      */
     public void setFormLocation(String formLocation) {
         this.formLocation = formLocation;
