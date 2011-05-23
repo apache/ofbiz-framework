@@ -550,13 +550,13 @@ public class MrpServices {
 
     /**
      * Process the bill of material (bom) of the product  to insert components in the MrpEvent table.
-     *   Before inserting in the entity, test if there is the record already existing to add quantity rather to create a new one.
-     *
-     * @param product
+     * Before inserting in the entity, test if there is the record already existing to add quantity rather to create a new one.
+     * @param mrpId the mrp id
+     * @param product GenericValue oject of the product
      * @param eventQuantity the product quantity needed
-     *  @param startDate the startDate of the productionRun which will used to produce the product
-     *  @param routingTaskStartDate Map with all the routingTask as keys and startDate of each of them
-     * @return None
+     * @param startDate the startDate of the productionRun which will used to produce the product
+     * @param routingTaskStartDate Map with all the routingTask as keys and startDate of each of them
+     * @param listComponent a List with all the components
      */
 
     public static void processBomComponent(String mrpId, GenericValue product, BigDecimal eventQuantity, Timestamp startDate, Map<String, Object> routingTaskStartDate, List<BOMNode> listComponent) {

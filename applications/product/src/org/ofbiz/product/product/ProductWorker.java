@@ -842,12 +842,12 @@ public class ProductWorker {
      * By default return the product find by productId
      * but you can pass searchProductFirst at false if you want search in goodIdentification before
      * or pass searchAllId at true to find all product with this id (product.productId and goodIdentification.idValue)
-     * @param delegator
-     * @param idToFind
-     * @param goodIdentificationTypeId
-     * @param searchProductFirst
-     * @param searchAllId
-     * @return
+     * @param delegator the delegator
+     * @param idToFind the product id to find
+     * @param goodIdentificationTypeId the good identification type id to use
+     * @param searchProductFirst search first by product id
+     * @param searchAllId search all product ids
+     * @return return the list of products founds
      * @throws GenericEntityException
      */
     public static List<GenericValue> findProductsById(Delegator delegator,

@@ -46,8 +46,8 @@ public class ProductionRunHelper {
     /**
      * Get a Production Run.
      *  <li> check if routing - product link exist
-     * @param ctx The DispatchContext that this service is operating in.
-     * @param context Map containing the input parameters, productionRunId
+     * @param delegator the delegator
+     * @param productionRunId the production run id
      * @return Map with the result of the service, the output parameters are
      * <li> the productionRun
      * <li> the productionRunProduct

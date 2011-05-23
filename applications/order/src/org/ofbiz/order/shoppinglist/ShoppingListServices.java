@@ -411,10 +411,10 @@ public class ShoppingListServices {
     }
     /**
      * Create a new shoppingCart form a shoppingList
-     * @param dispatcher
-     * @param shoppingList
-     * @param locale
-     * @return
+     * @param dispatcher the local dispatcher
+     * @param shoppingList a GenericValue object of the shopping list
+     * @param locale the locale in use
+     * @return returns a new shopping cart form a shopping list
      */
     public static ShoppingCart makeShoppingListCart(LocalDispatcher dispatcher, GenericValue shoppingList, Locale locale) {
         return makeShoppingListCart(null, dispatcher, shoppingList, locale); }
@@ -422,11 +422,11 @@ public class ShoppingListServices {
     /**
      * Add a shoppinglist to an existing shoppingcart
      *
-     * @param shoppingCart
-     * @param dispatcher
-     * @param shoppingList
-     * @param locale
-     * @return
+     * @param listCart the shopping cart list
+     * @param dispatcher the local dispatcher
+     * @param shoppingList a GenericValue object of the shopping list
+     * @param locale the locale in use
+     * @return the modified shopping cart adding the shopping list elements
      */
     public static ShoppingCart makeShoppingListCart(ShoppingCart listCart, LocalDispatcher dispatcher, GenericValue shoppingList, Locale locale) {
         Delegator delegator = dispatcher.getDelegator();

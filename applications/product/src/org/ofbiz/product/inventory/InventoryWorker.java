@@ -43,9 +43,9 @@ public class InventoryWorker {
 
     /**
      * Finds all outstanding Purchase orders for a productId.  The orders and the items cannot be completed, cancelled, or rejected
-     * @param productId
-     * @param delegator
-     * @return
+     * @param productId the product id
+     * @param delegator the delegator
+     * @return returns all outstanding Purchase orders for a productId
      */
     public static List<GenericValue> getOutstandingPurchaseOrders(String productId, Delegator delegator) {
         try {
@@ -68,9 +68,9 @@ public class InventoryWorker {
 
     /**
      * Finds the net outstanding ordered quantity for a productId, netting quantity on outstanding purchase orders against cancelQuantity
-     * @param productId
-     * @param delegator
-     * @return
+     * @param productId the product id
+     * @param delegator the delegator
+     * @return returns the net outstanding ordered quantity for a productId
      */
     public static BigDecimal getOutstandingPurchasedQuantity(String productId, Delegator delegator) {
         BigDecimal qty = BigDecimal.ZERO;

@@ -192,7 +192,7 @@ public class ProductionRun {
     }
     /**
      * set the quantity property and recalculated the productComponent quantity.
-     * @return
+     * @param newQuantity the new quantity to be set
      **/
     public void setQuantity(BigDecimal newQuantity) {
         if (quantity == null) getProductProduced();
@@ -216,7 +216,7 @@ public class ProductionRun {
     }
     /**
      * set the estimatedStartDate property.
-     * @return
+     * @param estimatedStartDate set the estimatedStartDate property
      **/
     public void setEstimatedStartDate(Timestamp estimatedStartDate) {
         this.estimatedStartDate = estimatedStartDate;
@@ -238,7 +238,7 @@ public class ProductionRun {
     /**
      * set the estimatedCompletionDate property without any control or calculation.
      * usage productionRun.setEstimatedCompletionDate(productionRun.recalculateEstimatedCompletionDate(priority);
-     * @return
+     * @param estimatedCompletionDate set the estimatedCompletionDate property
      **/
     public void setEstimatedCompletionDate(Timestamp estimatedCompletionDate) {
         this.estimatedCompletionDate = estimatedCompletionDate;
@@ -383,7 +383,6 @@ public class ProductionRun {
     /**
      * clear list of all the productionRunRoutingTasks to force re-reading at the next need.
      * This methode is used when the routingTasks ordering is changed.
-     * @return
      **/
     public void clearRoutingTasksList() {
         this.productionRunRoutingTasks = null;

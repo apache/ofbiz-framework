@@ -679,9 +679,9 @@ public class CommunicationEventServices {
      * However multiparts can contain multiparts. A recursive function has been added.
      *
      * -Al Byers - Hans Bakker
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return returns the result of the service execution
      */
     public static Map<String, Object> storeIncomingEmail(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();

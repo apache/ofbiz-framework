@@ -1016,9 +1016,9 @@ public class OrderReturnServices {
     /**
      * Helper method to get billing account balance, cannot use BillingAccountWorker.getBillingAccountBalance()
      * due to circular build dependency.
-     * @param billingAccountId
-     * @param dctx
-     * @return
+     * @param billingAccountId the billing account id
+     * @param dctx the dispatch context
+     * @return returns the billing account balance
      * @throws GenericEntityException
      */
     public static BigDecimal getBillingAccountBalance(String billingAccountId, DispatchContext dctx) throws GenericEntityException {
@@ -2273,11 +2273,12 @@ public class OrderReturnServices {
 
     /**
      * Takes a List of returnItems and returns a Map of orderId -> items and a Map of orderId -> orderTotal
-     * @param returnItems
-     * @param itemsByOrder
-     * @param totalByOrder
-     * @param delegator
-     * @param returnId
+     * @param returnItems a List of return items
+     * @param returnItemsByOrderId the return items by order id
+     * @param totalByOrder the total by order id
+     * @param delegator the delegator
+     * @param returnId the return id
+     * @param returnTypeId the return type id
      */
     public static void groupReturnItemsByOrder(List<GenericValue> returnItems, Map<String, List<GenericValue>> returnItemsByOrderId, Map<String, BigDecimal> totalByOrder, Delegator delegator, String returnId, String returnTypeId) {
         Iterator<GenericValue> itemIt = returnItems.iterator();
@@ -2638,8 +2639,8 @@ public class OrderReturnServices {
 
     /**
      * These return adjustment types need to be recalculated when the return item is updated
-     * @param returnAdjustmentTypeId
-     * @return
+     * @param returnAdjustmentTypeId the return adjustment type id
+     * @return returns if the returnn adjustment need to be recalculated
      */
     public static boolean needRecalculate(String returnAdjustmentTypeId) {
         return "RET_PROMOTION_ADJ".equals(returnAdjustmentTypeId) ||
@@ -2650,9 +2651,9 @@ public class OrderReturnServices {
 
     /**
      * Get the total return adjustments for a set of key -> value condition pairs.  Done for code efficiency.
-     * @param delegator
-     * @param condition
-     * @return
+     * @param delegator the delegator
+     * @param condition the conditions to use
+     * @return return the total return adjustments
      */
     public static BigDecimal getReturnAdjustmentTotal(Delegator delegator, Map<String, ? extends Object> condition) {
         BigDecimal total = BigDecimal.ZERO;
@@ -2678,7 +2679,7 @@ public class OrderReturnServices {
     /**
      *  Get rid of unnecessary parameters based on the given service name
      * @param dctx Service DispatchContext
-     * @param serviceName
+     * @param serviceName the service name
      * @param context   context before clean up
      * @return filtered context
      * @throws GenericServiceException
