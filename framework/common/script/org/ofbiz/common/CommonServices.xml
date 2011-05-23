@@ -148,14 +148,8 @@ under the License.
             </if-not-empty>  <!-- custom conversion? -->
 
             <!-- round result, if UomConversion[Dated] so specifies -->
-            <set field="roundingMode" from-field="uomConversion.roundingMode"/>
-            <set field="decimalScale" from-field="uomConversion.decimalScale"/>
-            <if-empty field="roundingMode">
-                <property-to-field resource="general" property="convertUom.decimals" field="roundingMode"/>
-                <if-empty field="decimalScale">
-                    <property-to-field resource="general" property="convertUom.rounding" field="decimalScale"/>
-                </if-empty>
-            </if-empty>
+            <set field="roundingMode" from-field="uomConversion.roundingMode" default-value="${parameters.defaultRoundingMode}"/>
+            <set field="decimalScale" from-field="uomConversion.decimalScale" default-value="${parameters.defaultDecimalScale}"/>
             <if-not-empty field="roundingMode">
                 <calculate field="roundedValue" type="BigDecimal" decimal-scale="${decimalScale}" rounding-mode="${roundingMode}">
                     <calcop operator="get" field="convertedValue"/>
