@@ -71,12 +71,12 @@ public class FinAccountHelper {
 
      /**
       * A convenience method which adds transactions.get(0).get(fieldName) to initialValue, all done in BigDecimal to decimals and rounding
-      * @param initialValue
-      * @param transactions
-      * @param fieldName
-      * @param decimals
-      * @param rounding
-      * @return
+      * @param initialValue the initial value 
+      * @param transactions a List of GenericValue objects of transactions
+      * @param fieldName the field name to get the value from the transaction
+      * @param decimals number of decimals
+      * @param rounding how to rounding
+      * @return the new value in a BigDecimal field
       * @throws GenericEntityException
       */
      public static BigDecimal addFirstEntryAmount(BigDecimal initialValue, List<GenericValue> transactions, String fieldName, int decimals, int rounding) throws GenericEntityException {
@@ -96,8 +96,8 @@ public class FinAccountHelper {
      /**
       * Returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
       * @param codeLength length of code in number of characters
-      * @param delegator
-      * @return
+      * @param delegator the delegator
+      * @return returns a unique randomly generated account code for FinAccount.finAccountCode composed of uppercase letters and numbers
       * @throws GenericEntityException
       */
      public static String getNewFinAccountCode(int codeLength, Delegator delegator) throws GenericEntityException {
@@ -130,9 +130,9 @@ public class FinAccountHelper {
 
      /**
       * Gets the first (and should be only) FinAccount based on finAccountCode, which will be cleaned up to be only uppercase and alphanumeric
-      * @param finAccountCode
-      * @param delegator
-      * @return
+      * @param finAccountCode the financial account code
+      * @param delegator the delegator
+      * @return gets the first financial account by code
       * @throws GenericEntityException
       */
      public static GenericValue getFinAccountFromCode(String finAccountCode, Delegator delegator) throws GenericEntityException {
@@ -170,10 +170,10 @@ public class FinAccountHelper {
 
      /**
       * Sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions whose transactionDate is before asOfDateTime
-      * @param finAccountId
-      * @param asOfDateTime
-      * @param delegator
-      * @return
+      * @param finAccountId the financial account id
+      * @param asOfDateTime the validity date
+      * @param delegator the delegator
+      * @return returns the sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions
       * @throws GenericEntityException
       */
      public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
@@ -209,10 +209,10 @@ public class FinAccountHelper {
 
      /**
       * Returns the net balance (see above) minus the sum of all authorization amounts which are not expired and were authorized by the as of date
-      * @param finAccountId
-      * @param asOfDateTime
-      * @param delegator
-      * @return
+      * @param finAccountId the financial account id
+      * @param asOfDateTime the validity date
+      * @param delegator the delegator
+      * @return returns the net balance (see above) minus the sum of all authorization amounts which are not expired 
       * @throws GenericEntityException
       */
     public static BigDecimal getAvailableBalance(String finAccountId, Timestamp asOfDateTime, Delegator delegator) throws GenericEntityException {
@@ -241,9 +241,9 @@ public class FinAccountHelper {
 
     /**
      * Validates a FinAccount's PIN number
-     * @param delegator
-     * @param finAccountId
-     * @param pinNumber
+     * @param delegator the delegator
+     * @param finAccountId the financial account id
+     * @param pinNumber a pin number
      * @return true if the bin is valid
      */
     public static boolean validatePin(Delegator delegator, String finAccountId, String pinNumber) {
@@ -267,11 +267,11 @@ public class FinAccountHelper {
     }
 
     /**
-     *
-     * @param delegator
+     * Generate a random financial number
+     * @param delegator the delegator
      * @param length length of the number to generate (up to 19 digits)
      * @param isId to be used as an ID (will check the DB to make sure it doesn't already exist)
-     * @return String generated number
+     * @return Generated number
      * @throws GenericEntityException
      */
     public static String generateRandomFinNumber(Delegator delegator, int length, boolean isId) throws GenericEntityException {

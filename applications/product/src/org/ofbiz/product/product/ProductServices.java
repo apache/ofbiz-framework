@@ -1225,9 +1225,8 @@ public class ProductServices {
 
     /**
      * Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue
-     * @param dctx
-     * @param context
-     * @param context.productId use to search with productId or goodIdentification.idValue
+     * @param ctx the dispatch context
+     * @param context productId use to search with productId or goodIdentification.idValue
      * @return a GenericValue with a productId and a List of complementary productId found
      */
     public static Map<String, Object> findProductById(DispatchContext ctx, Map<String, Object> context) {

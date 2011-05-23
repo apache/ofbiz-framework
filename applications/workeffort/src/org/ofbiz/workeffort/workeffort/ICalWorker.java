@@ -92,7 +92,7 @@ public class ICalWorker {
      *
      * @param statusMessage Optional status message - usually <code>null</code>
      * for security reasons
-     * @return
+     * @return Create an HTTP Forbidden response 
      */
     public static ResponseProperties createForbiddenResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_FORBIDDEN, statusMessage);
@@ -105,7 +105,7 @@ public class ICalWorker {
      *
      * @param statusMessage Optional status message - usually <code>null</code>
      * for security reasons
-     * @return
+     * @return Create an HTTP Unauthorized response
      */
     public static ResponseProperties createNotAuthorizedResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_UNAUTHORIZED, statusMessage);
@@ -124,7 +124,7 @@ public class ICalWorker {
      *
      * @param statusMessage A message describing which calendar components were
      * not updated
-     * @return
+     * @return Create an HTTP Partial Content response.
      */
     public static ResponseProperties createPartialContentResponse(String statusMessage) {
         return new ResponseProperties(HttpServletResponse.SC_PARTIAL_CONTENT, statusMessage);

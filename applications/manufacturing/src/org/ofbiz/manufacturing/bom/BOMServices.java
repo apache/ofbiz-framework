@@ -58,9 +58,9 @@ public class BOMServices {
      * in which the productId can be found in any of the
      * bills of materials of bomType type.
      * If the bomType input field is not passed then the depth is searched for all the bom types and the lowest depth is returned.
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return returns the product's low level code (llc) i.e. the maximum depth
      */
     public static Map<String, Object> getMaxDepth(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
@@ -118,10 +118,10 @@ public class BOMServices {
      * Given a product id, computes and updates the product's low level code (field billOfMaterialLevel in Product entity).
      * It also updates the llc of all the product's descendants.
      * For the llc only the manufacturing bom ("MANUF_COMPONENT") is considered.
-     * @param dctx
-     * @param context
-     * @return
-     */
+     * @param dctx the distach context
+     * @param context the context 
+     * @return the results of the updates the product's low level code 
+    */
     public static Map<String, Object> updateLowLevelCode(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
@@ -207,10 +207,10 @@ public class BOMServices {
 
     /** Updates the product's low level code (llc) for all the products in the Product entity.
      * For the llc only the manufacturing bom ("MANUF_COMPONENT") is considered.
-     * @param dctx
-     * @param context
-     * @return
-     */
+     * @param dctx the distach context
+     * @param context the context 
+     * @return the results of the updates the product's low level code 
+    */
     public static Map<String, Object> initLowLevelCode(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
         Delegator delegator = dctx.getDelegator();
@@ -252,9 +252,9 @@ public class BOMServices {
      * ancestor if present, null otherwise.
      * Useful to avoid loops when adding new assocs (components)
      * to a bill of materials.
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the distach context
+     * @param context the context 
+     * @return returns the ProductAssoc generic value for a duplicate productIdKey ancestor if present 
      */
     public static Map<String, Object> searchDuplicatedAncestor(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
@@ -285,9 +285,9 @@ public class BOMServices {
      * and {@link BOMNode}) that represents a
      * configured bill of material tree.
      * Useful for tree traversal (breakdown, explosion, implosion).
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the distach context
+     * @param context the context 
+     * @return return the bill of material tree
      */
     public static Map<String, Object> getBOMTree(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
@@ -336,9 +336,9 @@ public class BOMServices {
     /** It reads the product's bill of materials,
      * if necessary configures it, and it returns its (possibly configured) components in
      * a List of {@link BOMNode}).
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the distach context
+     * @param context the context 
+     * @return return the list of manufacturing components
      */
     public static Map<String, Object> getManufacturingComponents(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
@@ -742,9 +742,9 @@ public class BOMServices {
     /** It reads the product's bill of materials,
      * if necessary configures it, and it returns its (possibly configured) components in
      * a List of {@link BOMNode}).
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the distach context
+     * @param context the context 
+     * @return returns the list of products in packages
      */
     public static Map<String, Object> getProductsInPackages(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();

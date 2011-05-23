@@ -59,9 +59,9 @@ public class TechDataServices {
      *
      * Used to retrieve some RoutingTasks (WorkEffort) selected by Name or MachineGroup ordered by Name
      *
-     * @param ctx
-     * @param context: a map containing workEffortName (routingTaskName) and fixedAssetId (MachineGroup or ANY)
-     * @return result: a map containing lookupResult (list of RoutingTask <=> workEffortId with currentStatusId = "ROU_ACTIVE" and workEffortTypeId = "ROU_TASK"
+     * @param ctx the dispatch context
+     * @param context a map containing workEffortName (routingTaskName) and fixedAssetId (MachineGroup or ANY)
+     * @return result a map containing lookupResult (list of RoutingTask <=> workEffortId with currentStatusId = "ROU_ACTIVE" and workEffortTypeId = "ROU_TASK"
      */
     public static Map<String, Object> lookupRoutingTask(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();

@@ -467,10 +467,10 @@ public class ContactMechWorker {
     }
 
     /** Returns the first valid FacilityContactMech found based on the given facilityId and a prioritized list of purposes
-     * @param delegator
-     * @param facilityId
-     * @param purposeTypes A List of ContactMechPurposeType ids which will be checked one at a time until a valid contact mech is found
-     * @return
+     * @param delegator the delegator
+     * @param facilityId the facility id
+     * @param purposeTypes a List of ContactMechPurposeType ids which will be checked one at a time until a valid contact mech is found
+     * @return returns the first valid FacilityContactMech found based on the given facilityId and a prioritized list of purposes
      */
     public static GenericValue getFacilityContactMechByPurpose(Delegator delegator, String facilityId, List<String> purposeTypes) {
         if (UtilValidate.isEmpty(facilityId)) return null;

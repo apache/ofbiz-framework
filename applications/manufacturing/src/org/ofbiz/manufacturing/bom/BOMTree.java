@@ -316,9 +316,17 @@ public class BOMTree {
     /** It visits the in-memory tree that represents a bill of materials
      * and it creates a manufacturing order for each of the nodes that needs
      * to be manufactured.
-     * @param orderId The (sales) order id for which the manufacturing orders are created. If specified (together with orderItemSeqId) a link between the two order lines is created. If null, no link is created.
-     * @param orderItemSeqId
-     * @param delegator The delegator used.
+     * @param facilityId the facility id
+     * @param date the context date
+     * @param workEffortName the work effort name
+     * @param description the description
+     * @param routingId the routing id
+     * @param orderId the order id
+     * @param orderItemSeqId the order item id
+     * @param shipGroupSeqId the shipment group item id
+     * @param shipmentId the shipment id delegator used
+     * @param userLogin the GenericValue object of userLogin
+     * @return returns the work effort id
      * @throws GenericEntityException If a db problem occurs.
      */
     public String createManufacturingOrders(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipGroupSeqId, String shipmentId, GenericValue userLogin)  throws GenericEntityException {

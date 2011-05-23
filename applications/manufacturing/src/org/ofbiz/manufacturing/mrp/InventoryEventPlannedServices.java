@@ -42,9 +42,9 @@ public class InventoryEventPlannedServices {
      *  Create an MrpEvent.
      *  Make an update if a record exist with same key,  (adding the event quantity to the exiting record)
      *
-     * @param ctx
-     * @param context: a map containing the parameters used to create an MrpEvent
-     * @return result: a map with service status
+     * @param ctx the dispatch context
+     * @param context a map containing the parameters used to create an MrpEvent
+     * @return result a map with service status
      */
     public static Map<String, Object> createMrpEvent(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();

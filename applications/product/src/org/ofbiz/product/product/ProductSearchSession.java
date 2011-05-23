@@ -152,19 +152,22 @@ public class ProductSearchSession {
         }
 
         /**
-         * @return Returns the viewIndex.
+         * Get the view size
+         * @return returns the viewIndex.
          */
         public Integer getViewIndex() {
             return viewIndex;
         }
         /**
-         * @param viewIndex The viewIndex to set.
+         * Set the view index
+         * @param viewIndex the viewIndex to set.
          */
         public void setViewIndex(Integer viewIndex) {
             this.viewIndex = viewIndex;
         }
         /**
-         * @param viewIndex The viewIndex to set.
+         * Set the view index
+         * @param viewIndexStr the viewIndex to set.
          */
         public void setViewIndex(String viewIndexStr) {
             if (UtilValidate.isEmpty(viewIndexStr)) {
@@ -181,14 +184,16 @@ public class ProductSearchSession {
         }
 
         /**
-         * @return Returns the viewSize.
+         * Get the view size
+         * @return returns the view size.
          */
         public Integer getViewSize() {
             return viewSize;
         }
 
         /**
-         * @param viewSize The viewSize to set.
+         * Set the view size
+         * @param viewSize the view size to set.
          */
         public void setViewSize(Integer viewSize) {
             setPreviousViewSize(getViewSize());
@@ -196,7 +201,8 @@ public class ProductSearchSession {
         }
 
         /**
-         * @param viewSize The viewSize to set.
+         * Set the view size
+         * @param viewSizeStr the view size to set.
          */
         public void setViewSize(String viewSizeStr) {
             if (UtilValidate.isEmpty(viewSizeStr)) {
@@ -213,14 +219,16 @@ public class ProductSearchSession {
         }
 
         /**
-         * @return Returns the paging.
+         * Get the paging
+         * @return Returns the paging
          */
         public String getPaging() {
             return paging;
         }
 
         /**
-         * @param paging The paging to set.
+         * Set the paging
+         * @param paging the paging to set
          */
         public void setPaging(String paging) {
             if (paging == null) {
@@ -230,13 +238,15 @@ public class ProductSearchSession {
         }
 
         /**
-         * @return Returns the previousViewSize.
+         * Get the previous view size
+         * @return returns the previous view size
          */
         public Integer getPreviousViewSize() {
             return previousViewSize;
         }
         /**
-         * @param previousViewSize The previousViewSize to set.
+         * Set the previous view size
+         * @param previousViewSize the previousViewSize to set.
          */
         public void setPreviousViewSize(Integer previousViewSize) {
             if (previousViewSize == null) {

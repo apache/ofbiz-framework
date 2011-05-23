@@ -1484,9 +1484,9 @@ public class PartyServices {
      * one party to another for the purpose of merging records together. Flags the from party
      * as disabled so it no longer appears in a search.
      *
-     * @param dctx
-     * @param context
-     * @return
+     * @param dctx the dispatch context
+     * @param context the context
+     * @return the result of the service execution
      */
     public static Map<String, Object> linkParty(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator _delegator = dctx.getDelegator();
@@ -1805,9 +1805,8 @@ public class PartyServices {
 
     /**
      * Finds partyId(s) corresponding to a party reference, partyId or a GoodIdentification idValue
-     * @param dctx
-     * @param context
-     * @param context.partyId use to search with partyId or goodIdentification.idValue
+     * @param ctx the dispatch context
+     * @param context use to search with partyId or goodIdentification.idValue
      * @return a GenericValue with a partyId and a List of complementary partyId found
      */
     public static Map<String, Object> findPartyById(DispatchContext ctx, Map<String, Object> context) {

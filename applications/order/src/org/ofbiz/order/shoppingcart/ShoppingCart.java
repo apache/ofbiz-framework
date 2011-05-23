@@ -1130,8 +1130,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
    /**
     * Get ship before date for a particular ship group
-    * @param idx
-    * @return
+    * @param idx the ship group number
+    * @return ship before date for a given ship group
     */
    public Timestamp getShipBeforeDate(int idx) {
        CartShipInfo csi = this.getShipInfo(idx);
@@ -1140,7 +1140,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
    /**
     * Get ship before date for ship group 0
-    * @return
+    * @return ship before date for the first ship group
     */
    public Timestamp getShipBeforeDate() {
        return this.getShipBeforeDate(0);
@@ -1148,8 +1148,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
    /**
     * Set ship after date for a particular ship group
-    * @param idx
-    * @param shipAfterDate
+    * @param idx the ship group number
+    * @param shipAfterDate the ship after date to be set for the given ship group
     */
    public void setShipAfterDate(int idx, Timestamp shipAfterDate) {
        CartShipInfo csi = this.getShipInfo(idx);
@@ -1158,7 +1158,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
    /**
     * Set ship after date for a particular ship group
-    * @param shipAfterDate
+    * @param shipAfterDate the ship after date to be set for the first ship group
     */
    public void setShipAfterDate(Timestamp shipAfterDate) {
        this.setShipAfterDate(0, shipAfterDate);
@@ -1166,8 +1166,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
    /**
     * Get ship after date for a particular ship group
-    * @param idx
-    * @return
+    * @param idx the ship group number
+    * @return return the ship after date for the given ship group
     */
    public Timestamp getShipAfterDate(int idx) {
        CartShipInfo csi = this.getShipInfo(idx);
@@ -1176,7 +1176,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
    /**
     * Get ship after date for ship group 0
-    * @return
+    * @return return the ship after date for the first ship group
     */
    public Timestamp getShipAfterDate() {
        return this.getShipAfterDate(0);
@@ -1906,8 +1906,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /**
      * Returns ProductStoreFinActSetting based on cart's productStoreId and FinAccountHelper's defined giftCertFinAcctTypeId
-     * @param delegator
-     * @return
+     * @param delegator the delegator
+     * @return returns ProductStoreFinActSetting based on cart's productStoreId 
      * @throws GenericEntityException
      */
     public GenericValue getGiftCertSettingFromStore(Delegator delegator) throws GenericEntityException {
@@ -1916,7 +1916,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /**
      * Determines whether pin numbers are required for gift cards, based on ProductStoreFinActSetting.  Default to true.
-     * @return
+     * @param delegator the delegator
+     * @return returns true whether pin numbers are required for gift card
      */
     public boolean isPinRequiredForGC(Delegator delegator) {
         try {
@@ -1939,8 +1940,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /**
      * Returns whether the cart should validate gift cards against FinAccount (ie, internal gift certificates).  Defaults to false.
-     * @param delegator
-     * @return
+     * @param delegator the delegator
+     * @return returns true whether the cart should validate gift cards against FinAccount
      */
     public boolean isValidateGCFinAccount(Delegator delegator) {
         try {
@@ -4642,7 +4643,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         /**
          * Reset the ship group's shipBeforeDate if it is after the parameter
-         * @param newShipBeforeDate
+         * @param newShipBeforeDate the ship group's shipBeforeDate to be reset
          */
         public void resetShipBeforeDateIfAfter(Timestamp newShipBeforeDate) {
                 if (newShipBeforeDate != null) {
@@ -4654,7 +4655,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         /**
          * Reset the ship group's shipAfterDate if it is before the parameter
-         * @param newShipBeforeDate
+         * @param newShipAfterDate the ship group's shipAfterDate to be reset
          */
         public void resetShipAfterDateIfBefore(Timestamp newShipAfterDate) {
             if (newShipAfterDate != null) {

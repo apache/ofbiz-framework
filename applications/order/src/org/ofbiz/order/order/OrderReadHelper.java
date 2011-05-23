@@ -209,7 +209,7 @@ public class OrderReadHelper {
 
     /**
      * Returns a Map of paymentMethodId -> amount charged (BigDecimal) based on PaymentGatewayResponse.
-     * @return
+     * @return returns a Map of paymentMethodId -> amount charged (BigDecimal) based on PaymentGatewayResponse.
      */
     public Map<String, BigDecimal> getReceivedPaymentTotalsByPaymentMethod() {
         Map<String, BigDecimal> paymentMethodAmounts = FastMap.newInstance();
@@ -258,7 +258,7 @@ public class OrderReadHelper {
 
     /**
      * Returns a Map of paymentMethodId -> amount refunded
-     * @return
+     * @return returns a Map of paymentMethodId -> amount refunded
      */
     public Map<String, BigDecimal> getReturnedTotalsByPaymentMethod() {
         Map<String, BigDecimal> paymentMethodAmounts = FastMap.newInstance();
@@ -337,7 +337,8 @@ public class OrderReadHelper {
     }
 
     /**
-     * @return Long number of days from termDays of first FIN_PAYMENT_TERM
+     * Return the number of days from termDays of first FIN_PAYMENT_TERM
+     * @return number of days from termDays of first FIN_PAYMENT_TERM
      */
     public Long getOrderTermNetDays() {
         List<GenericValue> orderTerms = EntityUtil.filterByAnd(getOrderTerms(), UtilMisc.toMap("termTypeId", "FIN_PAYMENT_TERM"));
@@ -2797,7 +2798,7 @@ public class OrderReadHelper {
 
     /**
      * Get orderAdjustments that have no corresponding returnAdjustment
-     * @return orderAdjustmentList
+     * @return return the order adjustments that have no corresponding with return adjustment
      */
     public List<GenericValue> getAvailableOrderHeaderAdjustments() {
         List<GenericValue> orderHeaderAdjustments = this.getOrderHeaderAdjustments();
@@ -2822,9 +2823,9 @@ public class OrderReadHelper {
 
     /**
      * Get the total return adjustments for a set of key -> value condition pairs.  Done for code efficiency.
-     * @param delegator
-     * @param condition
-     * @return
+     * @param delegator the delegator
+     * @param condition a map of the conditions to use
+     * @return Get the total return adjustments
      */
     public static BigDecimal getReturnAdjustmentTotal(Delegator delegator, Map<String, Object> condition) {
         BigDecimal total = ZERO;

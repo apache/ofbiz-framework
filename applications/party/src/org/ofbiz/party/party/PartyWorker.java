@@ -283,7 +283,7 @@ public class PartyWorker {
     }
 
     /**
-     * @deprecated Renamed to {@link #findMatchingPersonPartyAndPostalAddress(Delegator, String, String, String, String, String, String, String, String, String, String)}
+     * @deprecated Renamed to {@link #findMatchingPersonPostalAddresses(Delegator, String, String, String, String, String, String, String, String, String, String)}
      */
     @Deprecated
     public static List<GenericValue> findMatchingPartyAndPostalAddress(Delegator delegator, String address1, String address2, String city,
@@ -472,12 +472,12 @@ public class PartyWorker {
      * By default return the party find by partyId
      * but you can pass searchPartyFirst at false if you want search in partyIdentification before
      * or pass searchAllId at true to find apartyuct with this id (party.partyId and partyIdentification.idValue)
-     * @param delegator
-     * @param idToFind
-     * @param partyIdentificationTypeId
-     * @param searchPartyFirst
-     * @param searchAllId
-     * @return
+     * @param delegator the delegator
+     * @param idToFind the party id to find
+     * @param partyIdentificationTypeId the party identification type id to use
+     * @param searchPartyFirst search first with party id
+     * @param searchAllId search all the party ids
+     * @return returns the parties founds
      * @throws GenericEntityException
      */
     public static List<GenericValue> findPartiesById(Delegator delegator,

@@ -890,9 +890,9 @@ public class WorkEffortServices {
     }
 
     /** Process work effort event reminders. This service is used by the job scheduler.
-     * @param ctx
-     * @param context
-     * @return
+     * @param ctx the dispatch context
+     * @param context the context
+     * @return returns the result of the service execution
      */
     public static Map<String, Object> processWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
@@ -1095,9 +1095,9 @@ public class WorkEffortServices {
     }
 
     /** Migrate work effort event reminders.
-     * @param ctx
-     * @param context
-     * @return
+     * @param ctx the dispatch context
+     * @param context the context
+     * @return returns the result of the service execution
      */
     public static Map<String, Object> migrateWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();

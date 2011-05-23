@@ -179,8 +179,8 @@ public class ProductConfigWorker {
      * First search persisted configurations and update configWrapper.configId if found.
      * Otherwise store ProductConfigWrapper to ProductConfigConfig entity and updates configWrapper.configId with new configId
      * This method persists only the selected options, price data is lost.
-     * @param ProductConfigWrapper
-     * @param delegator
+     * @param configWrapper the ProductConfigWrapper object
+     * @param delegator the delegator
      */
     public static void storeProductConfigWrapper(ProductConfigWrapper configWrapper, Delegator delegator) {
         if (configWrapper == null || (!configWrapper.isCompleted()))  return;
