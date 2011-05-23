@@ -81,9 +81,9 @@ public class XmlSerializer {
      * If the XML string contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
      * then it is possible to unintentionally corrupt the database.</p>
      * 
-     * @param content
-     * @param delegator
-     * @return
+     * @param content the content
+     * @param delegator the delegator
+     * @return return a deserialized object from XML string
      * @throws SerializeException
      * @throws SAXException
      * @throws ParserConfigurationException
@@ -109,9 +109,9 @@ public class XmlSerializer {
      * contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
      * then it is possible to unintentionally corrupt the database.</p>
      * 
-     * @param document
-     * @param delegator
-     * @return
+     * @param document the document
+     * @param delegator the delegator
+     * @return returns a deserialized object from a DOM document
      * @throws SerializeException
      */
     public static Object deserialize(Document document, Delegator delegator) throws SerializeException {
