@@ -165,9 +165,9 @@ public class EntityCacheServices implements DistributedCacheClear {
 
     /**
      * Clear All Entity Caches Service
-     *@param ctx The DispatchContext that this service is operating in
-     *@param context Map containing the input parameters
-     *@return Map with the result of the service, the output parameters
+     * @param dctx The DispatchContext that this service is operating in
+     * @param context Map containing the input parameters
+     * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> clearAllEntityCaches(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
@@ -182,9 +182,9 @@ public class EntityCacheServices implements DistributedCacheClear {
 
     /**
      * Clear Cache Line Service: one of the following context parameters is required: value, dummyPK or primaryKey
-     *@param ctx The DispatchContext that this service is operating in
-     *@param context Map containing the input parameters
-     *@return Map with the result of the service, the output parameters
+     * @param dctx The DispatchContext that this service is operating in
+     * @param context Map containing the input parameters
+     * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> clearCacheLine(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
