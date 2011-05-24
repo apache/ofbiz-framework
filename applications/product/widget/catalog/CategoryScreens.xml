@@ -206,6 +206,7 @@ under the License.
                 <set field="textDataMap.textDataResourceId" from-field="content.dataResourceId"/>
                 <set field="contentId" from-field="content.contentId"/>
                 
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategoryContentContent.groovy"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/category/EditCategorySEO.groovy"/>
             </actions>
             <widgets>
@@ -219,22 +220,8 @@ under the License.
                                 </link>
                             </widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}">
-                            <section>
-                                <condition>
-                                    <or>
-                                        <if-compare operator="equals" value="PAGE_TITLE" field="parameters.prodCatContentTypeId"/>
-                                        <if-compare operator="equals" value="META_KEYWORD" field="parameters.prodCatContentTypeId"/>
-                                        <if-compare operator="equals" value="META_DESCRIPTION" field="parameters.prodCatContentTypeId"/>
-                                    </or>
-                                </condition>
-                                <widgets>
-                                    <include-form name="EditCategoryContentSEO" location="component://product/widget/catalog/CategoryForms.xml"/>
-                                </widgets>
-                                <fail-widgets>
-                                    <include-form name="EditCategoryContentSimpleText" location="component://product/widget/catalog/CategoryForms.xml"/>
-                                </fail-widgets>
-                            </section>
+                        <screenlet title="${contentFormTitle}">
+                            <include-form name="${contentFormName}" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ProductListAssociatedContentInfos}">
                             <include-form name="ListAssociatedContentInfos" location="component://product/widget/catalog/ProductForms.xml"/>
@@ -502,6 +489,7 @@ under the License.
                             <include-form name="ListProductCategoryLinks" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleCreateProductCategoryLink}">
+                            <label style="h3">&gt;&gt;&gt;&gt;&gt;This function is depreciated and replaced by the function under the tab &quot;Content&quot; with the content type "Related URL"</label>
                             <include-form name="AddProductCategoryLink" location="component://product/widget/catalog/CategoryForms.xml"/>
                         </screenlet>
                     </decorator-section>

@@ -4542,6 +4542,9 @@
         <value xml:lang="hi_IN">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
+    <property key="CommonLookupLocale">
+        <value xml:lang="en">Lookup Locale</value>
+    </property>
     <property key="CommonLookupWhitepages">
         <value xml:lang="en">Look up White pages</value>
         <value xml:lang="es">Páginas Blancas</value>

@@ -624,6 +624,18 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContentContent"/>
     </request-map>
+    <request-map uri="createRelatedUrlContentForCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createRelatedUrlContentForCategory"/>
+        <response name="success" type="view" value="EditCategoryContent"/>
+        <response name="error" type="view" value="EditCategoryContentContent"/>
+    </request-map>
+    <request-map uri="updateRelatedUrlContentForCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateRelatedUrlContentForCategory"/>
+        <response name="success" type="view" value="EditCategoryContent"/>
+        <response name="error" type="view" value="EditCategoryContentContent"/>
+    </request-map>
 
     <!-- ================ Product Content Requests ================= -->
     <request-map uri="EditProductContent">

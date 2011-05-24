@@ -24351,6 +24351,12 @@
         <value xml:lang="zh">更新产品变型</value>
         <value xml:lang="zh_TW">更新產品變體</value>
     </property>
+    <property key="ProductUpdateRelatedURLContentCategory">
+        <value xml:lang="en">Update Related URL Content for Category</value>
+    </property>
+    <property key="ProductUpdateSEOContentCategory">
+        <value xml:lang="en">Update SEO Content for Category</value>
+    </property>
     <property key="ProductUpdateShipping">
         <value xml:lang="de">Lieferung aktualisieren</value>
         <value xml:lang="en">Update Shipping</value>

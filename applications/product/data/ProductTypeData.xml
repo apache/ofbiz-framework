@@ -231,6 +231,7 @@ under the License.
     <ProductCategoryContentType description="Page Title" hasTable="N" parentTypeId="" prodCatContentTypeId="PAGE_TITLE"/>
     <ProductCategoryContentType description="Meta Keyword" hasTable="N" parentTypeId="" prodCatContentTypeId="META_KEYWORD"/>
     <ProductCategoryContentType description="Meta Description" hasTable="N" parentTypeId="" prodCatContentTypeId="META_DESCRIPTION"/>
+    <ProductCategoryContentType description="Related URL" hasTable="N" parentTypeId="" prodCatContentTypeId="RELATED_URL"/>
 
     <ProductContentType description="Online Access" hasTable="N" parentTypeId="" productContentTypeId="ONLINE_ACCESS"/>
     <ProductContentType description="Digital Download" hasTable="N" parentTypeId="" productContentTypeId="DIGITAL_DOWNLOAD"/>
