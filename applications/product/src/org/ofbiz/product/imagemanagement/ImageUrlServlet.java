@@ -50,7 +50,7 @@ public class ImageUrlServlet extends HttpServlet {
     }
 
     /**
-     * @see javax.servlet.Servlet#init(javax.servlet.ServletConfig)
+     * @see javax.servlet.http.HttpServlet#init(javax.servlet.ServletConfig)
      */
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -115,7 +115,7 @@ public class ImageUrlServlet extends HttpServlet {
     }
 
     /**
-     * @see javax.servlet.Servlet#destroy()
+     * @see javax.servlet.http.HttpServlet#destroy()
      */
     @Override
     public void destroy() {
