@@ -59,14 +59,14 @@ under the License.
         <field name="abbreviation" title="${uiLabelMap.CommonGeoAbbr}"><display/></field>
         <field name="wellKnownText" title="${uiLabelMap.CommonGeoWellKnownText}"><display/></field>
     </form>
-    
+
     <form name="LookupGeoName" extends="LookupGeo" target="LookupGeoName"/>
     <form name="listLookupGeoName" extends="listLookupGeo" paginate-target="LookupGeoName">
         <field name="geoId" widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
             <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_values('${geoName}', '${geoId}')"/>
         </field>
-    </form>        
-        
+    </form>
+
     <form name="LookupUserLogin" type="single" target="LookupUserLogin">
         <field name="userLoginId" title="${uiLabelMap.CommonUserLoginId}"><text-find/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -97,7 +97,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListPortalPages" type="list" list-name="listIt" paginate-target="LookupPortalPage"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -114,8 +114,15 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${portalPageId}" target="javascript:set_value('${portalPageId}')"/>
         </field>
     </form>
-    
-    <form name="LookupLocale" type="list" list-name="locales" paginate-target="LookupLocale"
+
+    <form name="LookupLocale" type="single" target="LookupLocale">
+        <field name="localeString"><text-find/></field>
+        <field name="localeName" title="${uiLabelMap.CommonLanguageTitle}"><text-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListLocales" type="list" list-name="locales" paginate-target="LookupLocale"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="localeString" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${localeString}" target="javascript:set_value('${localeString}', '${localeName}')"/>

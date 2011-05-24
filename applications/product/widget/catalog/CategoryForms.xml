@@ -55,6 +55,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
     <form name="PrepareAddCategoryContentAssoc" type="single" target="prepareAddContentToCategory" title="${uiLabelMap.ProductAddProductCategoryContentFromDate}"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
@@ -69,6 +70,7 @@ under the License.
         <!-- <field name="description"><text size="40"/></field> -->
         <field name="submitButton" title="${uiLabelMap.ProductPrepareCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
     <form name="UpdateCategoryContentAssoc" type="list" target="updateContentToCategory" title="" list-name="productCategoryContentList"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
@@ -113,6 +115,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
+
     <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent" target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="content==null" target="createSimpleTextContentForCategory"/>
@@ -135,6 +138,7 @@ under the License.
         <field use-when="content == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="content != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+
     <form name="CreateSimpleTextContentForAlternateLocale" type="single" target="createSimpleTextContentForAlternateLocaleInCategory" title="${uiLabelMap.ProductCreateSimpleTextContentForAlternateLocale}"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
@@ -143,7 +147,6 @@ under the License.
         <field name="text"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-
 
     <!-- ProductCategoryLink Forms-->
     <form name="ListProductCategoryLinks" type="list" list-name="productCategoryLinks" target="updateProductCategoryLink" separate-columns="true"
@@ -178,6 +181,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
+
     <form name="AddProductCategoryLink" type="single" target="createProductCategoryLink" title="" default-map-name="productCategoryLink"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productCategoryLink != null" target="updateProductCategoryLink"/>
@@ -207,6 +211,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
+
     <form name="ListTopCategory" type="list" list-name="noParentCategories" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"  widget-style="buttontext">
             <hyperlink target="EditCategory" description="${productCategoryId}" also-hidden="false">
@@ -216,7 +221,7 @@ under the License.
         </field>
         <field name="description"><display/></field>
     </form>
-    
+
     <form name="FindCategory" type="single" target="FindCategory" title="" default-map-name="category"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -250,8 +255,8 @@ under the License.
         <field name="categoryName" sort-field="true"><display/></field>
         <field name="description" sort-field="true"><display/></field>
     </form>
-    
-    <form name="EditCategoryContentSEO" type="single" target="updateContentSEOForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"
+
+    <form name="EditCategoryContentSEO" type="single" target="updateContentSEOForCategory" title="${uiLabelMap.ProductUpdateSEOContentCategory}"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="title" title="${uiLabelMap.PageTitle}"><text size="40"/></field>
         <field name="metaKeyword" title="${uiLabelMap.MetaKeywords}"><textarea cols="60" rows="5"/></field>
@@ -259,5 +264,30 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="prodCatContentTypeId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditCategoryContentRelatedUrl" type="single" target="updateRelatedUrlContentForCategory" title="${uiLabelMap.ProductUpdateRelatedURLContentCategory}"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="content==null" target="createRelatedUrlContentForCategory"/>
+        <auto-fields-entity entity-name="ProductCategoryContent"/>
+        <field use-when="content==null" name="contentId"><ignored/></field>
+        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="categoryContentData"><display/></field>
+        <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
+        <field name="fromDate" use-when="contentId!=null" title="${uiLabelMap.CommonFromDate}" ><display/></field>
+        <field name="dataResourceId"><hidden/></field>
+        <field name="prodCatContentTypeId"><display-entity entity-name="ProductCategoryContentType" also-hidden="true"/></field>
+        <field name="title" title="${uiLabelMap.CommonTitle}"><text size="50"></text></field>
+        <field name="description" title="${uiLabelMap.FormFieldTitle_description}"><textarea cols="50" rows="2"/></field>
+        <field name="url"><textarea cols="50" rows="2"/></field>
+        <field name="localeString">
+            <lookup target-form-name="LookupLocale"></lookup>
+        </field>
+        <field name="purchaseFromDate"><hidden/></field>
+        <field name="purchaseThruDate"><hidden/></field>
+        <field name="useCountLimit"><hidden/></field>
+        <field name="useDaysLimit"><hidden/></field>
+        <field name="productCategoryId"><hidden/></field>
+        <field use-when="content == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="content != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

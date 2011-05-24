@@ -70,7 +70,7 @@ under the License.
         <set-service-fields service-name="updateSimpleTextContent" map="parameters" to-map="updateSimpleText"/>
         <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
-    <simple-method method-name="updateContentSEOForCategory" short-description="Update Category SEO">
+    <simple-method method-name="updateContentSEOForCategory" short-description="Update SEO Content For Product Category">
         <if-not-empty field="parameters.title">
             <entity-and list="productCategoryContents" entity-name="ProductCategoryContentAndInfo">
                 <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -137,5 +137,50 @@ under the License.
             </else>
             </if-not-empty>
         </if-not-empty>
+    </simple-method>
+    <simple-method method-name="createRelatedUrlContentForCategory" short-description="Create Related URL Content For Product Category">
+        <set field="dataResource.dataResourceName" from-field="parameters.title"/>
+        <set field="dataResource.dataResourceTypeId" value="URL_RESOURCE"/>
+        <set field="dataResource.mimeTypeId" value="text/plain"/>
+        <set field="url" value="${groovy: temp = parameters.url; 
+            temp = temp.trim();
+            if(temp.indexOf(&quot;http://&quot;) == 0) return temp;
+            if(temp.indexOf(&quot;https://&quot;) == 0) return temp;
+            if(temp.indexOf(&quot;http://&quot;) != 0) return &quot;http://&quot; + temp;
+        }" type="String"/>
+        <set field="dataResource.objectInfo" from-field="url"/>
+        <set field="dataResource.localeString" from-field="parameters.localeString"/>
+        <call-service service-name="createDataResource" in-map-name="dataResource">
+            <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
+        </call-service>
+        
+        <set field="content.contentTypeId" value="DOCUMENT"/>
+        <set field="content.dataResourceId" from-field="parameters.dataResourceId"/>
+        <set field="content.contentName" from-field="parameters.title"/>
+        <set field="content.description" from-field="parameters.description"/>
+        <set field="content.localeString" from-field="parameters.localeString"/>
+        <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
+        <call-service service-name="createContent" in-map-name="content">
+            <result-to-field result-name="contentId" field="parameters.contentId"/>
+        </call-service>
+        
+        <set-service-fields service-name="createCategoryContent" map="parameters" to-map="createCategoryContentMap"/>
+        <call-service service-name="createCategoryContent" in-map-name="createCategoryContentMap"/>
+    </simple-method>
+    <simple-method method-name="updateRelatedUrlContentForCategory" short-description="Update Related URL Content For Product Category">
+        <set-service-fields service-name="updateCategoryContent" map="parameters" to-map="updateCategoryContent"/>
+        <call-service service-name="updateCategoryContent" in-map-name="updateCategoryContent"/>
+        
+        <set field="dataResource.dataResourceId" from-field="parameters.dataResourceId"/>
+        <set field="dataResource.dataResourceName" from-field="parameters.title"/>
+        <set field="dataResource.objectInfo" from-field="parameters.url"/>
+        <set field="dataResource.localeString" from-field="parameters.localeString"/>
+        <call-service service-name="updateDataResource" in-map-name="dataResource"/>
+        
+        <set field="updateContent.contentId" from-field="parameters.contentId"/>
+        <set field="updateContent.contentName" from-field="parameters.title"/>
+        <set field="updateContent.description" from-field="parameters.description"/>
+        <set field="updateContent.localeString" from-field="parameters.localeString"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
 </simple-methods>

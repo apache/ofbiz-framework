@@ -972,11 +972,36 @@ under the License.
 
     <service name="updateContentSEOForCategory" engine="simple"
             location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="updateContentSEOForCategory" auth="true">
-        <description>Update Category SEO</description>
+        <description>Update SEO Content For Product Category</description>
         <attribute name="productCategoryId" mode="IN" type="String" optional="false"/>
         <attribute name="title" mode="IN" type="String" optional="true"/>
         <attribute name="metaKeyword" mode="IN" type="String" optional="true"/>
         <attribute name="metaDescription" mode="IN" type="String" optional="true"/>
+    </service>
+
+    <service name="createRelatedUrlContentForCategory" engine="simple" default-entity-name="ProductCategoryContent"
+            location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="createRelatedUrlContentForCategory" auth="true">
+        <description>Create Related URL Content For Product Category</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="title" type="String" mode="IN" optional="false"/>
+        <attribute name="description" type="String" mode="IN" optional="false"/>
+        <attribute name="url" type="String" mode="IN" optional="false"/>
+        <attribute name="localeString" type="String" mode="IN" optional="true"/>
+        <override name="contentId" optional="true"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="updateRelatedUrlContentForCategory" engine="simple" default-entity-name="ProductCategoryContent"
+            location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="updateRelatedUrlContentForCategory" auth="true">
+        <description>Update Related URL Content For Product Category</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="contentId" type="String" mode="IN" optional="false"/>
+        <attribute name="dataResourceId" type="String" mode="IN" optional="false"/>
+        <attribute name="title" type="String" mode="IN" optional="true"/>
+        <attribute name="description" type="String" mode="IN" optional="true"/>
+        <attribute name="url" type="String" mode="IN" optional="true"/>
+        <attribute name="localeString" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- ProductFeatureDataResource services -->
