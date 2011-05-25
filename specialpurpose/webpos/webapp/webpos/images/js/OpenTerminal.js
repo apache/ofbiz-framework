@@ -66,8 +66,8 @@ function openTerminal(cleanErrors) {
         jQuery('#openTerminalFormServerError').html("");
         jQuery('#startingDrawerAmount').val("");
     }
-    jQuery('#startingDrawerAmount').focus();
     jQuery('#openTerminal').show();
+    jQuery('#startingDrawerAmount').focus();
 }
 
 function getResultOfOpenTerminal(data) {
