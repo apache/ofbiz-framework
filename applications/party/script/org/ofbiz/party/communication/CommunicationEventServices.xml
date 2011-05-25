@@ -357,6 +357,7 @@ under the License.
                     <if-not-empty field="contents">
                         <iterate entry="content" list="contents">
                             <remove-related value-field="content" relation-name="ContentRole"/>
+                            <remove-related value-field="content" relation-name="ContentKeyword"/>
                             <remove-value value-field="content"/>
                             <!-- check first if the content is used on any other communication event if yes, only delete link-->
                             <entity-and entity-name="CommEventContentAssoc" list="commEvents">
