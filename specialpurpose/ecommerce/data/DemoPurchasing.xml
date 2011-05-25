@@ -241,5 +241,44 @@ under the License.
     <ProductPrice productId="orderWhenSold" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="13.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <SupplierProduct productId="orderWhenSold" partyId="DemoSupplier" availableFromDate="2007-01-01 14:51:52.627" minimumOrderQuantity="0.0" lastPrice="10.0" currencyUomId="USD" supplierProductName="Drop ship product from demo supplier" supplierProductId="dropShip1-DS" canDropShip="Y" lastUpdatedStamp="2007-05-05 14:53:35.248" lastUpdatedTxStamp="2007-05-05 14:53:35.15" createdStamp="2007-05-05 14:53:35.248" createdTxStamp="2007-05-05 14:53:35.15"/>
 
-
+    <!-- alternative URL -->
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="dropShip-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRdropShip-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="dropShip1-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRdropShip1-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="dropShip2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRdropShip2-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="dropShip3-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRdropShip3-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="orderWhenSold-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRorderWhenSold-ALT" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DRdropShip-ALTEN" textData="dropship"/>
+    <ElectronicText dataResourceId="DRdropShip1-ALTEN" textData="dropship1"/>
+    <ElectronicText dataResourceId="DRdropShip2-ALTEN" textData="dropship2"/>
+    <ElectronicText dataResourceId="DRdropShip3-ALTEN" textData="dropship3"/>
+    <ElectronicText dataResourceId="DRorderWhenSold-ALT" textData="order-when-sold"/>
+    
+    <Content contentId="dropShip-ALT" contentTypeId="DOCUMENT" dataResourceId="dropShip-ALT" localeString="en"/>
+    <Content contentId="CdropShip-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRdropShip-ALTEN" localeString="en_US"/>
+    <Content contentId="dropShip1-ALT" contentTypeId="DOCUMENT" dataResourceId="dropShip1-ALT" localeString="en"/>
+    <Content contentId="CdropShip1-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRdropShip1-ALTEN" localeString="en_US"/>
+    <Content contentId="dropShip2-ALT" contentTypeId="DOCUMENT" dataResourceId="dropShip2-ALT" localeString="en"/>
+    <Content contentId="CdropShip2-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRdropShip2-ALTEN" localeString="en_US"/>
+    <Content contentId="dropShip3-ALT" contentTypeId="DOCUMENT" dataResourceId="dropShip3-ALT" localeString="en"/>
+    <Content contentId="CdropShip3-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRdropShip3-ALTEN" localeString="en_US"/>
+    <Content contentId="orderWhenSold-ALT" contentTypeId="DOCUMENT" dataResourceId="orderWhenSold-ALT" localeString="en"/>
+    <Content contentId="CorderWhenSold-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRorderWhenSold-ALT" localeString="en_US"/>
+    
+    <ContentAssoc contentId="dropShip-ALT" contentIdTo="CdropShip-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="dropShip1-ALT" contentIdTo="CdropShip1-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="dropShip2-ALT" contentIdTo="CdropShip2-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="dropShip3-ALT" contentIdTo="CdropShip3-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="orderWhenSold-ALT" contentIdTo="CorderWhenSold-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="dropShip" contentId="dropShip-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="dropShip1" contentId="dropShip1-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="dropShip2" contentId="dropShip2-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="dropShip3" contentId="dropShip3-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="orderWhenSold" contentId="orderWhenSold-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>

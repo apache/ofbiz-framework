@@ -226,13 +226,13 @@ function setAlternateGwp(field) {
                     <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
                     <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg" /></#if>
                     <#if smallImageUrl?string?has_content>
-                      <a href="<@ofbizUrl>product?product_id=${parentProductId}</@ofbizUrl>">
+                      <a href="<@ofbizCatalogAltUrl productId=parentProductId/>">
                         <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" class="imageborder" />
                       </a>
                     </#if>
                     <#-- end code to display a small image of the product -->
                     <#-- ${cartLineIndex} - -->
-                    <a href="<@ofbizUrl>product?product_id=${parentProductId}</@ofbizUrl>" class="linktext">${cartLine.getProductId()} -
+                    <a href="<@ofbizCatalogAltUrl productId=parentProductId/>" class="linktext">${cartLine.getProductId()} -
                     ${cartLine.getName()?if_exists}</a> : ${cartLine.getDescription()?if_exists}
                     <#-- For configurable products, the selected options are shown -->
                     <#if cartLine.getConfigWrapper()?exists>

@@ -29,7 +29,7 @@ under the License.
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <li>
     <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists>
-      <a href="<@ofbizCatalogUrl currentCategoryId=category.productCategoryId previousCategoryId=previousCategoryId!""/>" class="<#if curCategoryId?exists && curCategoryId == category.productCategoryId>buttontextdisabled<#else>linktext</#if>">
+      <a href="<@ofbizCatalogAltUrl productCategoryId=category.productCategoryId previousCategoryId=previousCategoryId!""/>" class="<#if curCategoryId?exists && curCategoryId == category.productCategoryId>buttontextdisabled<#else>linktext</#if>">
         <#if catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
           ${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}
         <#elseif catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>

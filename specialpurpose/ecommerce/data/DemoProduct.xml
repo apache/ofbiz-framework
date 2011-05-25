@@ -211,6 +211,75 @@ under the License.
         linkInfo="http://www.google.com/"/>
     <ProductCategoryLink productCategoryId="100" linkSeqId="03" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="3" linkTypeEnumId="PCLT_CAT_ID" linkInfo="101"/>
+        
+    <!-- Category Alternative URL -->
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="101-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR101-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="102-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR102-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="200-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR200-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="201-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR201-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="202-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR202-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="2011-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR2011-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="2012-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR2012-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="20111-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR20111-ALTEN" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DR100-ALTEN" textData="gismos"/>
+    <ElectronicText dataResourceId="DR101-ALTEN" textData="small-gizmos"/>
+    <ElectronicText dataResourceId="DR102-ALTEN" textData="large-gizmos"/>
+    <ElectronicText dataResourceId="DR200-ALTEN" textData="widgets"/>
+    <ElectronicText dataResourceId="DR201-ALTEN" textData="small-widgets"/>
+    <ElectronicText dataResourceId="DR202-ALTEN" textData="large-widgets"/>
+    <ElectronicText dataResourceId="DR2011-ALTEN" textData="mini-widgets"/>
+    <ElectronicText dataResourceId="DR2012-ALTEN" textData="other-mini-widgets"/>
+    <ElectronicText dataResourceId="DR20111-ALTEN" textData="micro-widgets"/>
+    
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="100-ALT" dataResourceId="100-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C100-ALTEN" dataResourceId="DR100-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="101-ALT" dataResourceId="101-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C101-ALTEN" dataResourceId="DR101-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="102-ALT" dataResourceId="102-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C102-ALTEN" dataResourceId="DR102-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="200-ALT" dataResourceId="200-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C200-ALTEN" dataResourceId="DR200-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="201-ALT" dataResourceId="201-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C201-ALTEN" dataResourceId="DR201-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="202-ALT" dataResourceId="202-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C201-ALTEN" dataResourceId="DR201-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="2011-ALT" dataResourceId="2011-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C2011-ALTEN" dataResourceId="DR2011-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="2012-ALT" dataResourceId="2012-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C2012-ALTEN" dataResourceId="DR2012-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="20111-ALT" dataResourceId="20111-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="C20111-ALTEN" dataResourceId="DR20111-ALTEN"/>
+    
+    <ContentAssoc contentId="100-ALT" contentIdTo="C100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="101-ALT" contentIdTo="C101-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="102-ALT" contentIdTo="C102-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="200-ALT" contentIdTo="C200-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="201-ALT" contentIdTo="C201-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="202-ALT" contentIdTo="C201-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="2011-ALT" contentIdTo="C2011-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="2012-ALT" contentIdTo="C2012-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="20111-ALT" contentIdTo="C20111-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="100" contentId="100-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="101" contentId="101-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="102" contentId="102-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="200" contentId="200-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="201" contentId="201-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="202" contentId="202-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="2011" contentId="2011-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="2012" contentId="2012-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="20111" contentId="20111-ALT" fromDate="2001-05-13 12:00:00.0"/>
     
     <ProdCatalog prodCatalogId="GoogleCatalog" catalogName="Google Catalog"/>
     <ProductStoreCatalog productStoreId="9000" prodCatalogId="GoogleCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
@@ -274,11 +343,43 @@ under the License.
     <Product productId="GZ-1005" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName=".NIT Gizmo" internalName=".NIT Gizmo" description="M$ .NIT gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin">
         <longDescription><![CDATA[This gizmo only works in certain areas and requires a lot of extra space to move around.<br/><br/>It is not recommended for mission critical applications or those with a low tolerance for pain and frustration.]]></longDescription>
     </Product>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1000-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1000-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1004-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1004-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1005-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1005-ALTEN" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DRGZ-1000-ALTEN" textData="tiny-gismo"/>
+    <ElectronicText dataResourceId="DRGZ-1001-ALTEN" textData="nan-gismo"/>
+    <ElectronicText dataResourceId="DRGZ-1004-ALTEN" textData="rainbow-gismo"/>
+    <ElectronicText dataResourceId="DRGZ-1005-ALTEN" textData="dot-net-gismo"/>
+    
     <DataResource dataResourceId="GZ-1005-WARN" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/plain" dataResourceName="GZ-1005 Warning" isPublic="Y"/>
     <ElectronicText dataResourceId="GZ-1005-WARN">
         <textData><![CDATA[<b>*** WARNING: this gizmo is known to crash quite often and may malfunction or cease to function due to malicious misuse of certain features ***</b>]]></textData>
     </ElectronicText>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="GZ-1000-ALT" dataResourceId="GZ-1000-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="CGZ-1000-ALTEN" dataResourceId="DRGZ-1000-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="GZ-1001-ALT" dataResourceId="GZ-1001-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="CGZ-1001-ALTEN" dataResourceId="DRGZ-1001-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="GZ-1004-ALT" dataResourceId="GZ-1004-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="CGZ-1004-ALTEN" dataResourceId="DRGZ-1004-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="GZ-1005-ALT" dataResourceId="GZ-1005-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="CGZ-1005-ALTEN" dataResourceId="DRGZ-1005-ALTEN"/>
+    
+    <ContentAssoc contentId="GZ-1000-ALT" contentIdTo="CGZ-1000-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1001-ALT" contentIdTo="CGZ-1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1004-ALT" contentIdTo="CGZ-1004-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1005-ALT" contentIdTo="CGZ-1005-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
     <Content contentId="GZ-1005-WARN" contentTypeId="DOCUMENT" dataResourceId="GZ-1005-WARN" mimeTypeId="text/plain" contentName="GZ-1005 Warning"/>
+    <ProductContent productId="GZ-1000" contentId="GZ-1000-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1001" contentId="GZ-1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1004" contentId="GZ-1004-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1005" contentId="GZ-1005-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="GZ-1005" contentId="GZ-1005-WARN" productContentTypeId="WARNINGS" fromDate="2001-05-13 12:00:00.0"/>
 
     <Product productId="GZ-1006" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo" internalName="Open Gizmo" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="Y" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -303,6 +404,147 @@ under the License.
     <Product productId="WG-9943-S4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S4" internalName="Giant Widget S4" description="Silver Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" weight="22.0" isVirtual="N" isVariant="Y"/>
 
     <Product productId="WG-9944" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget with feature explosion" internalName="Giant Widget feature Explosion" virtualVariantMethodEnum="VV_FEATURETREE" description="Giant Widget with Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item especially as it can have (almost) as many variants as you like" quantityIncluded="10.0" weight="22.0" isVirtual="Y" isVariant="N"/>
+    
+    <!-- Product Alternative URL -->
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-1-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-1-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-2-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-3-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-3-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1006-4-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1006-4-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-2002-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-2002-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-2644-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-2644-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-5005-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-5005-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-7000-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-7000-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-8544-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-8544-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-9290-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-9290-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-1111-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-5569-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-5569-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B3-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B3-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B4-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B4-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S3-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S3-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S4-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9944-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9944-ALTEN" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DRGZ-1006-ALTEN" textData="open-gismo"/>
+    <ElectronicText dataResourceId="DRGZ-1006-1-ALTEN" textData="open-gismo-lgpl"/>
+    <ElectronicText dataResourceId="DRGZ-1006-2-ALTEN" textData="open-gismo-gpl"/>
+    <ElectronicText dataResourceId="DRGZ-1006-3-ALTEN" textData="open-gismo-bsd"/>
+    <ElectronicText dataResourceId="DRGZ-1006-3-ALTEN" textData="open-gismo-mit"/>
+    <ElectronicText dataResourceId="DRGZ-2002-ALTEN" textData="square-gismo"/>
+    <ElectronicText dataResourceId="DRGZ-2644-ALTEN" textData="round-gizmo"/>
+    <ElectronicText dataResourceId="DRGZ-5005-ALTEN" textData="purple-gizmo"/>
+    <ElectronicText dataResourceId="DRGZ-7000-ALTEN" textData="massive-gizmo"/>
+    <ElectronicText dataResourceId="DRGZ-8544-ALTEN" textData="big-gizmo"/>
+    <ElectronicText dataResourceId="DRGZ-9290-ALTEN" textData="his-her-gizmo"/>
+    <ElectronicText dataResourceId="DRWG-1111-ALTEN" textData="micro-chrome-widget"/>
+    <ElectronicText dataResourceId="DRWG-5569-ALTEN" textData="tiny-chrome-widget"/>
+    <ElectronicText dataResourceId="DRWG-9943-ALTEN" textData="giant-widget-with-variant-explosion"/>
+    <ElectronicText dataResourceId="DRWG-9943-B3-ALTEN" textData="giant-widget-b3"/>
+    <ElectronicText dataResourceId="DRWG-9943-B4-ALTEN" textData="giant-widget-b4"/>
+    <ElectronicText dataResourceId="DRWG-9943-S3-ALTEN" textData="giant-widget-s3"/>
+    <ElectronicText dataResourceId="DRWG-9943-S4-ALTEN" textData="giant-widget-s4"/>
+    <ElectronicText dataResourceId="DRWG-9944-ALTEN" textData="giant-widget-with-feature-explosion"/>
+    
+    <Content contentId="GZ-1006-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-ALT" localeString="en"/>
+    <Content contentId="CGZ-1006-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-1006-1-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-1-ALT" localeString="en"/>
+    <Content contentId="CGZ-1006-1-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-1-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-1006-2-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-2-ALT" localeString="en"/>
+    <Content contentId="CGZ-1006-2-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-2-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-1006-3-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-3-ALT" localeString="en"/>
+    <Content contentId="CGZ-1006-3-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-3-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-1006-4-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-1006-4-ALT" localeString="en"/>
+    <Content contentId="CGZ-1006-4-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-1006-4-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-2002-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-2002-ALT" localeString="en"/>
+    <Content contentId="CGZ-2002-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-2002-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-2644-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-2644-ALT" localeString="en"/>
+    <Content contentId="CGZ-2644-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-2644-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-5005-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-5005-ALT" localeString="en"/>
+    <Content contentId="CGZ-5005-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-5005-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-7000-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-7000-ALT" localeString="en"/>
+    <Content contentId="CGZ-7000-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-7000-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-8544-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-8544-ALT" localeString="en"/>
+    <Content contentId="CGZ-8544-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-8544-ALTEN" localeString="en_US"/>
+    <Content contentId="GZ-9290-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-9290-ALT" localeString="en"/>
+    <Content contentId="CGZ-9290-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-9290-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-1111-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-1111-ALT" localeString="en"/>
+    <Content contentId="CWG-1111-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-1111-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-5569-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-5569-ALT" localeString="en"/>
+    <Content contentId="CWG-5569-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-5569-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-9943-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-9943-B3-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B3-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-B3-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B3-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-9943-B4-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B4-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-B4-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B4-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-9943-S3-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S3-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-S3-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S3-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-9943-S4-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S4-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-S4-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S4-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-9944-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9944-ALT" localeString="en"/>
+    <Content contentId="CWG-9944-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-9944-ALTEN" localeString="en_US"/>
+    
+    <ContentAssoc contentId="GZ-1006-ALT" contentIdTo="CGZ-1006-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1006-1-ALT" contentIdTo="CGZ-1006-1-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1006-2-ALT" contentIdTo="CGZ-1006-2-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1006-3-ALT" contentIdTo="CGZ-1006-3-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-1006-4-ALT" contentIdTo="CGZ-1006-4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-2002-ALT" contentIdTo="CGZ-2002-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-2644-ALT" contentIdTo="CGZ-2644-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-5005-ALT" contentIdTo="CGZ-5005-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-7000-ALT" contentIdTo="CGZ-7000-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-8544-ALT" contentIdTo="CGZ-8544-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GZ-9290-ALT" contentIdTo="CGZ-9290-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-1111-ALT" contentIdTo="CWG-1111-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-5569-ALT" contentIdTo="CWG-5569-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-ALT" contentIdTo="CWG-9943-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-B3-ALT" contentIdTo="CWG-9943-B3-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-B4-ALT" contentIdTo="CWG-9943-B4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-S3-ALT" contentIdTo="CWG-9943-S3-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-S4-ALT" contentIdTo="CWG-9943-S4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9944-ALT" contentIdTo="CWG-9944-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
+    <ProductContent productId="GZ-1006" contentId="GZ-1006-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1006-1" contentId="GZ-1006-1-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1006-2" contentId="GZ-1006-2-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1006-3" contentId="GZ-1006-3-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-1006-4" contentId="GZ-1006-4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <ProductContent productId="GZ-2002" contentId="GZ-2002-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-2644" contentId="GZ-2644-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-5005" contentId="GZ-5005-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-7000" contentId="GZ-7000-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-8544" contentId="GZ-8544-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GZ-9290" contentId="GZ-9290-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <ProductContent productId="WG-1111" contentId="WG-1111-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-5569" contentId="WG-5569-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-9943" contentId="WG-9943-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-9943-B3" contentId="WG-9943-B3-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-9943-B4" contentId="WG-9943-B4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-9943-S3" contentId="WG-9943-S3-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-9943-S4" contentId="WG-9943-S4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-9944" contentId="WG-9944-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 
     <ProductPrice productId="GZ-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-1000" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -353,12 +595,26 @@ under the License.
     <ProductSubscriptionResource productId="GZ-NEWS-1MO" subscriptionResourceId="GZ-NEWS" fromDate="2001-05-13 12:00:00.0" useTime="1" useTimeUomId="TF_mon"/>
     <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="3.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="5.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-NEWS-1MO-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-NEWS-1MO-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRGZ-NEWS-1MO-ALTEN" textData="gizmo-newsletter-1-month"/>
+    <Content contentId="GZ-NEWS-1MO-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-NEWS-1MO-ALT" localeString="en"/>
+    <Content contentId="CGZ-NEWS-1MO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-NEWS-1MO-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="GZ-NEWS-1MO-ALT" contentIdTo="CGZ-NEWS-1MO-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductContent productId="GZ-NEWS-1MO" contentId="GZ-NEWS-1MO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 
     <!-- test Digital Download product -->
     <Product productId="GZ-DIG" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Digital Gizmo" internalName="Digital Gizmo" description="A digital gizmo: can be downloaded immediately after purchase." longDescription="This gizmo is part of an exciting new breed that needs no corporeal form: it is all digital! Buy and download it now!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <DataResource dataResourceId="GZ-DIG" dataResourceTypeId="OFBIZ_FILE_BIN" mimeTypeId="image/gif" dataResourceName="Digital Gizmo Image" objectInfo="framework/images/webapp/images/ofbiz_logo.gif"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-DIG-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRGZ-DIG-ALTEN" textData="digital-gizmo"/>
     <Content contentId="GZ-DIG" contentTypeId="DOCUMENT" dataResourceId="GZ-DIG" mimeTypeId="image/gif" contentName="ofbiz_logo.gif" description="Image of Digital Gizmo (actually the OFBiz logo)"/>
+    <Content contentId="GZ-DIG-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
+    <Content contentId="CGZ-DIG-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-DIG-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="GZ-DIG-ALT" contentIdTo="CGZ-DIG-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ProductContent productId="GZ-DIG" contentId="GZ-DIG" productContentTypeId="DIGITAL_DOWNLOAD" fromDate="2001-05-13 12:00:00.0" useTime="3" useTimeUomId="TF_mon"/>
+    <ProductContent productId="GZ-DIG" contentId="GZ-DIG-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="80.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
 
@@ -372,6 +628,13 @@ under the License.
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1000" productAssocTypeId="MANUF_COMPONENT" quantity="1" fromDate="2001-05-13 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1001" productAssocTypeId="MANUF_COMPONENT" quantity="2" fromDate="2001-05-13 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1004" productAssocTypeId="MANUF_COMPONENT" quantity="3" fromDate="2001-05-13 12:00:00.0"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-BASKET-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-BASKET-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRGZ-BASKET-ALTEN" textData="gizmo-basket"/>
+    <Content contentId="GZ-BASKET-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-BASKET-ALT" localeString="en"/>
+    <Content contentId="CGZ-BASKET-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-BASKET-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="GZ-BASKET-ALT" contentIdTo="CGZ-BASKET-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductContent productId="GZ-BASKET" contentId="GZ-BASKET-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 
     <!-- test for marketing package pick assembly -->
     <Product productId="GZ-BASKET-PICK" productTypeId="MARKETING_PKG_PICK" productName="Gizmo Basket Assembly Pick" internalName="Assembled Pick Gizmo Basket"
@@ -383,6 +646,13 @@ under the License.
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1000" productAssocTypeId="PRODUCT_COMPONENT" quantity="1" fromDate="2007-01-01 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1001" productAssocTypeId="PRODUCT_COMPONENT" quantity="2" fromDate="2007-01-01 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1004" productAssocTypeId="PRODUCT_COMPONENT" quantity="3" fromDate="2007-01-01 12:00:00.0"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-BASKET-PICK-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-BASKET-PICK-ALT" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRGZ-BASKET-PICK-ALT" textData="gizmo-basket-assembly-pick"/>
+    <Content contentId="GZ-BASKET-PICK-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-BASKET-PICK-ALT" localeString="en"/>
+    <Content contentId="CGZ-BASKET-PICK-ALT" contentTypeId="DOCUMENT" dataResourceId="DRGZ-BASKET-PICK-ALT" localeString="en_US"/>
+    <ContentAssoc contentId="GZ-BASKET-PICK-ALT" contentIdTo="CGZ-BASKET-PICK-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductContent productId="GZ-BASKET-PICK" contentId="GZ-BASKET-PICK-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 
     <!-- test for service product type-->
     <ProductCategory productCategoryId="SERV-001" description="Services" productCategoryTypeId="CATALOG_CATEGORY"/>
@@ -391,6 +661,23 @@ under the License.
     <ProductPrice productId="SV-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2008-12-02 12:00:00.0" price="1000" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin"/>
     <ProductCategoryMember productCategoryId="SERV-001" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
+    <DataResource dataResourceId="SERV-001-ALT" dataResourceTypeId="LINK" objectInfo="services-SERV-001-c"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SERV-001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceId="SV-1000-ALT" dataResourceTypeId="LINK" objectInfo="service-product-SV-1000-p"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SV-1000-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSV-1000-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="services"/>
+    <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="service-product"/>
+    
+    <Content contentId="SERV-001-ALT" contentTypeId="DOCUMENT" dataResourceId="SERV-001-ALT" localeString="en"/>
+    <Content contentId="CSERV-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
+    <Content contentId="SV-1000-ALT" contentTypeId="DOCUMENT" dataResourceId="SV-1000-ALT" localeString="en"/>
+    <Content contentId="CSV-1000-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="SERV-001-ALT" contentIdTo="CSERV-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="SV-1000-ALT" contentIdTo="CSV-1000-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductCategoryContent productCategoryId="SERV-001" contentId="SERV-001-ALT" prodCatContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="SV-1000" contentId="SV-1000-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 
     <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
@@ -886,6 +1173,115 @@ under the License.
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GC-100" productCategoryId="GC-101"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="GC-100" productCategoryId="GC-102"/>
     <ProductCategoryRollup fromDate="2001-05-13 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="GC-100"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-101-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-101-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-102-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-102-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-002-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-002-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C10-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C10-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C25-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C25-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-C50-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-C50-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-CO-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-CO-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H10-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H10-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H25-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H25-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-H50-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-H50-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-HO-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-HO-ALTEN" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DRGC-100-ALTEN" textData="gift-cards"/>
+    <ElectronicText dataResourceId="DRGC-101-ALTEN" textData="gift-cards-purchases"/>
+    <ElectronicText dataResourceId="DRGC-102-ALTEN" textData="gift-cards-reloads"/>
+    <ElectronicText dataResourceId="DRGC-002-ALTEN" textData="gift-card-reload"/>
+    <ElectronicText dataResourceId="DRGC-001-ALTEN" textData="gift-card-activation"/>
+    <ElectronicText dataResourceId="DRGC-001-C10-ALTEN" textData="gift-card-activation-c10"/>
+    <ElectronicText dataResourceId="DRGC-001-C100-ALTEN" textData="gift-card-activation-c100"/>
+    <ElectronicText dataResourceId="DRGC-001-C25-ALTEN" textData="gift-card-activation-c25"/>
+    <ElectronicText dataResourceId="DRGC-001-C50-ALTEN" textData="gift-card-activation-c50"/>
+    <ElectronicText dataResourceId="DRGC-001-CO-ALTEN" textData="gift-card-activation-co"/>
+    <ElectronicText dataResourceId="DRGC-001-H10-ALTEN" textData="gift-card-activation-h10"/>
+    <ElectronicText dataResourceId="DRGC-001-H100-ALTEN" textData="gift-card-activation-h100"/>
+    <ElectronicText dataResourceId="DRGC-001-H25-ALTEN" textData="gift-card-activation-h25"/>
+    <ElectronicText dataResourceId="DRGC-001-H50-ALTEN" textData="gift-card-activation-h50"/>
+    <ElectronicText dataResourceId="DRGC-001-HO-ALTEN" textData="gift-card-activation-ho"/>
+    
+    <Content contentId="GC-100-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-100-ALT" localeString="en"/>
+    <Content contentId="CGC-100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-100-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-101-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-101-ALT" localeString="en"/>
+    <Content contentId="CGC-101-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-101-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-102-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-102-ALT" localeString="en"/>
+    <Content contentId="CGC-102-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-102-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-002-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-002-ALT" localeString="en"/>
+    <Content contentId="CGC-002-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-002-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-ALT" localeString="en"/>
+    <Content contentId="CGC-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-C10-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C10-ALT" localeString="en"/>
+    <Content contentId="CGC-001-C10-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C10-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-C100-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C100-ALT" localeString="en"/>
+    <Content contentId="CGC-001-C100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C100-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-C25-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C25-ALT" localeString="en"/>
+    <Content contentId="CGC-001-C25-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C25-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-C50-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-C50-ALT" localeString="en"/>
+    <Content contentId="CGC-001-C50-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-C50-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-CO-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-CO-ALT" localeString="en"/>
+    <Content contentId="CGC-001-CO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-CO-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-H10-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H10-ALT" localeString="en"/>
+    <Content contentId="CGC-001-H10-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H10-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-H100-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H100-ALT" localeString="en"/>
+    <Content contentId="CGC-001-H100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H100-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-H25-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H25-ALT" localeString="en"/>
+    <Content contentId="CGC-001-H25-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H25-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-H50-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-H50-ALT" localeString="en"/>
+    <Content contentId="CGC-001-H50-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-H50-ALTEN" localeString="en_US"/>
+    <Content contentId="GC-001-HO-ALT" contentTypeId="DOCUMENT" dataResourceId="GC-001-HO-ALT" localeString="en"/>
+    <Content contentId="CGC-001-HO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGC-001-HO-ALTEN" localeString="en_US"/>
+    
+    <ContentAssoc contentId="GC-100-ALT" contentIdTo="CGC-100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-101-ALT" contentIdTo="CGC-101-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-102-ALT" contentIdTo="CGC-102-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-002-ALT" contentIdTo="CGC-002-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-ALT" contentIdTo="CGC-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-C10-ALT" contentIdTo="CGC-001-C10-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-C100-ALT" contentIdTo="CGC-001-C100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-C25-ALT" contentIdTo="CGC-001-C25-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-C50-ALT" contentIdTo="CGC-001-C50-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-CO-ALT" contentIdTo="CGC-001-CO-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-H10-ALT" contentIdTo="CGC-001-H10-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-H100-ALT" contentIdTo="CGC-001-H100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-H25-ALT" contentIdTo="CGC-001-H25-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-H50-ALT" contentIdTo="CGC-001-H50-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="GC-001-HO-ALT" contentIdTo="CGC-001-HO-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
+    <ProductContent productId="GC-002" contentId="GC-002-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001" contentId="GC-001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-C10" contentId="GC-001-C10-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-C100" contentId="GC-001-C100-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-C25" contentId="GC-001-C25-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-C50" contentId="GC-001-C50-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-CO" contentId="GC-001-CO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-H10" contentId="GC-001-H10-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-H100" contentId="GC-001-H100-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-H25" contentId="GC-001-H25-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-H50" contentId="GC-001-H50-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="GC-100" contentId="GC-100-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="GC-101" contentId="GC-101-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="GC-102" contentId="GC-102-ALT" fromDate="2001-05-13 12:00:00.0"/>
 
     <ProductFeatureCategory productFeatureCategoryId="2000" description="Gift Card Features"/>
     <ProductFeature productFeatureId="2000" productFeatureTypeId="STYLE" productFeatureCategoryId="2000" description="Classic" defaultSequenceNum="1"/>
@@ -999,10 +1395,85 @@ under the License.
     <ProductPrice productId="WG-9943-S4-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="800.0" createdDate="2000-01-01 00:00:00.0"/>
     <ProductPrice productId="WG-9943-S4-BX5" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2000-01-01 00:00:00.0" price="2000.0" createdDate="2000-01-01 00:00:00.0"/>
     
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B3-BX2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B3-BX2-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B3-BX5-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B3-BX5-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B4-BX2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B4-BX2-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-B4-BX5-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-B4-BX5-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S3-BX2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S3-BX2-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S3-BX5-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S3-BX5-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S4-BX2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-BX2-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S4-BX5-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-BX5-ALT" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DRWG-9943-B3-BX2-ALT" textData="giant-widget-b3-bx2"/>
+    <ElectronicText dataResourceId="DRWG-9943-B3-BX5-ALT" textData="giant-widget-b3-bx5"/>
+    <ElectronicText dataResourceId="DRWG-9943-B4-BX2-ALT" textData="giant-widget-b4-bx2"/>
+    <ElectronicText dataResourceId="DRWG-9943-B4-BX5-ALT" textData="giant-widget-b4-bx5"/>
+    <ElectronicText dataResourceId="DRWG-9943-S3-BX2-ALT" textData="giant-widget-s3-bx2"/>
+    <ElectronicText dataResourceId="DRWG-9943-S3-BX5-ALT" textData="giant-widget-s3-bx5"/>
+    <ElectronicText dataResourceId="DRWG-9943-S4-BX2-ALT" textData="giant-widget-s4-bx2"/>
+    <ElectronicText dataResourceId="DRWG-9943-S4-BX5-ALT" textData="giant-widget-s4-bx5"/>
+    
+    <Content contentId="WG-9943-B3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B3-BX2-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-B3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B3-BX2-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-B3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B3-BX5-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-B3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B3-BX5-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-B4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B4-BX2-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-B4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B4-BX2-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-B4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-B4-BX5-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-B4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-B4-BX5-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-S3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S3-BX2-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-S3-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S3-BX2-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-S3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S3-BX5-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-S3-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S3-BX5-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-S4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S4-BX2-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-S4-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S4-BX2-ALT" localeString="en_US"/>
+    <Content contentId="WG-9943-S4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-9943-S4-BX5-ALT" localeString="en"/>
+    <Content contentId="CWG-9943-S4-BX5-ALT" contentTypeId="DOCUMENT" dataResourceId="DRWG-9943-S4-BX5-ALT" localeString="en_US"/>
+    
+    <ContentAssoc contentId="WG-9943-B3-BX2-ALT" contentIdTo="CWG-9943-B3-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-B3-BX5-ALT" contentIdTo="CWG-9943-B3-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-B4-BX2-ALT" contentIdTo="CWG-9943-B4-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-B4-BX5-ALT" contentIdTo="CWG-9943-B4-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-S3-BX2-ALT" contentIdTo="CWG-9943-S3-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-S3-BX5-ALT" contentIdTo="CWG-9943-S3-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-S4-BX2-ALT" contentIdTo="CWG-9943-S4-BX2-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-9943-S4-BX5-ALT" contentIdTo="CWG-9943-S4-BX5-ALT" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="GC-001-HO" contentId="GC-001-HO-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    
     <Product productId="WG-1111-BX2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="20111" productName="Micro Chrome Widget" internalName="Micro Chrome Widget" description="Micro Widget - Chrome Colored" longDescription="This micro chrome widget makes a perfect gift. This one is so small that it floats in air." isVirtual="Y" isVariant="Y" quantityIncluded="50.0" weight="2.0" piecesIncluded="2" quantityUomId="OTH_box"/>
     <Product productId="WG-1111-BX4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="20111" productName="Micro Chrome Widget" internalName="Micro Chrome Widget" description="Micro Widget - Chrome Colored" longDescription="This micro chrome widget makes a perfect gift. This one is so small that it floats in air." isVirtual="Y" isVariant="Y" quantityIncluded="50.0" weight="2.0" piecesIncluded="4" quantityUomId="OTH_box"/>
     <ProductAssoc productId="WG-1111-BX2" productIdTo="WG-1111" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
     <ProductAssoc productId="WG-1111-BX4" productIdTo="WG-1111" productAssocTypeId="ALTERNATIVE_PACKAGE" fromDate="2000-01-01 00:00:00.0"/>
     <ProductPrice productId="WG-1111-BX2" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="110.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-1111-BX4" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="200.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-1111-BX2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-BX2-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-1111-BX4-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-BX4-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRWG-1111-BX2-ALTEN" textData="micro-chrome-widget-bx2"/>
+    <ElectronicText dataResourceId="DRWG-1111-BX4-ALTEN" textData="micro-chrome-widget-bx4"/>
+    <Content contentId="WG-1111-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-1111-BX2-ALT" localeString="en"/>
+    <Content contentId="CWG-1111-BX2-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-1111-BX2-ALTEN" localeString="en_US"/>
+    <Content contentId="WG-1111-BX4-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-1111-BX4-ALT" localeString="en"/>
+    <Content contentId="CWG-1111-BX4-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRWG-1111-BX4-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="WG-1111-BX2-ALT" contentIdTo="CWG-1111-BX2-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="WG-1111-BX4-ALT" contentIdTo="CWG-1111-BX4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductContent productId="WG-1111-BX2" contentId="WG-1111-BX2-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="WG-1111-BX4" contentId="WG-1111-BX4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>
