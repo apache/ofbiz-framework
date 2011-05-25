@@ -31,27 +31,31 @@ under the License.
                 <check-errors/>
                 <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
                 <if-compare field="isOpen" operator="equals" value="false">
-                    <set field="startingDrawerAmountStr" from-field="parameters.startingDrawerAmount" type="String"/>
-                    <log message="startingDrawerAmountStr: ${startingDrawerAmountStr}" level="always"/>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="startingDrawerAmount">
-                        <field field="startingDrawerAmountStr" type="String"/>
-                        <field field="locale" type="java.util.Locale"/>
-                    </call-class-method>
-                    <if-not-empty field="startingDrawerAmount">
+                    <call-map-processor in-map-name="parameters" out-map-name="context">
+                        <simple-map-processor name="inputValidate">
+                            <process field="startingDrawerAmount">
+                                <convert type="BigDecimal" to-field="startingDrawerAmount" replace="true" set-if-null="false">
+                                    <fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/>
+                                </convert>
+                            </process>
+                        </simple-map-processor>
+                    </call-map-processor>
+                    <check-errors/>
+                    <if-empty field="context.startingDrawerAmount">
+                        <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/></add-error>
+                        <check-errors/>
+                    <else>
                         <make-value value-field="terminalState" entity-name="PosTerminalState"/>
                         <call-object-method obj-field="webPosSession" method-name="getId" ret-field="terminalState.posTerminalId"/>
                         <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.openedDate"/>
                         <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.openedByUserLoginId"/>
                         <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.startingTxId"/>
-                        <set from-field="startingDrawerAmount" field="terminalState.startingDrawerAmount" type="BigDecimal"/>
+                        <set from-field="context.startingDrawerAmount" field="terminalState.startingDrawerAmount" type="BigDecimal"/>
                         <create-value value-field="terminalState"/>
                         <check-errors/>
                         <log level="info" message="Created PosTerminalState ${terminalState.startingTxId}"/>
-                    <else>
-                        <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/></add-error>
-                        <check-errors/>
                     </else>
-                    </if-not-empty>
+                    </if-empty>
                 <else>
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerTerminalAlreadyOpened"/></add-error>
                     <check-errors/>
@@ -82,67 +86,92 @@ under the License.
                 <check-errors/>
                 <call-object-method obj-field="webPosTransaction" method-name="getTerminalState" ret-field="terminalState"/>
                 <if-not-empty field="terminalState">
-                    <set field="endingDrawerCashAmountStr" from-field="parameters.endingDrawerCashAmount" type="String"/>
-                    <if-not-empty field="endingDrawerCashAmountStr">
-                        <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="endingDrawerCashAmount">
-                            <field field="endingDrawerCashAmountStr" type="String"/>
-                            <field field="locale" type="java.util.Locale"/>
-                        </call-class-method>
-                        <if-empty field="endingDrawerCashAmount">
+                    <if-not-empty field="parameters.endingDrawerCashAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerCashAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerCashAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerOpenTerminalDrawingAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerCashAmount">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCashAmountNotValid"/></add-error>
                             <check-errors/>
                         </if-empty>
                     </if-not-empty>
-                    <set field="endingDrawerCheckAmountStr" from-field="parameters.endingDrawerCheckAmount" type="String"/>
-                    <if-not-empty field="endingDrawerCheckAmountStr">
-                        <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="endingDrawerCheckAmount">
-                            <field field="endingDrawerCheckAmountStr" type="String"/>
-                            <field field="locale" type="java.util.Locale"/>
-                        </call-class-method>
-                        <if-empty field="endingDrawerCheckAmount">
+                    <if-not-empty field="parameters.endingDrawerCheckAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerCheckAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerCheckAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCheckAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerCheckAmount">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCheckAmountNotValid"/></add-error>
                             <check-errors/>
                         </if-empty>
                     </if-not-empty>
-                    <set field="endingDrawerCcAmountStr" from-field="parameters.endingDrawerCcAmount" type="String"/>
-                    <if-not-empty field="endingDrawerCcAmountStr">
-                        <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="endingDrawerCcAmount">
-                            <field field="endingDrawerCcAmountStr" type="String"/>
-                            <field field="locale" type="java.util.Locale"/>
-                        </call-class-method>
-                        <if-empty field="endingDrawerCcAmount">
+                    <if-not-empty field="parameters.endingDrawerCcAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerCcAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerCcAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCcAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerCcAmount">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalCcAmountNotValid"/></add-error>
                             <check-errors/>
                         </if-empty>
                     </if-not-empty>
-                    <set field="endingDrawerGcAmountStr" from-field="parameters.endingDrawerGcAmount" type="String"/>
-                    <if-not-empty field="endingDrawerGcAmountStr">
-                        <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="endingDrawerGcAmount">
-                            <field field="endingDrawerGcAmountStr" type="String"/>
-                            <field field="locale" type="java.util.Locale"/>
-                        </call-class-method>
-                        <if-empty field="endingDrawerGcAmount">
+                    <if-not-empty field="parameters.endingDrawerGcAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerGcAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerGcAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalGcAmounNotValidt"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerGcAmount">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalGcAmounNotValidt"/></add-error>
                             <check-errors/>
                         </if-empty>
                     </if-not-empty>
-                    <set field="endingDrawerOtherAmountStr" from-field="parameters.endingDrawerOtherAmount" type="String"/>
-                    <if-not-empty field="endingDrawerOtherAmountStr">
-                        <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="endingDrawerOtherAmount">
-                            <field field="endingDrawerOtherAmountStr" type="String"/>
-                            <field field="locale" type="java.util.Locale"/>
-                        </call-class-method>
-                        <if-empty field="endingDrawerOtherAmount">
+                    <if-not-empty field="parameters.endingDrawerOtherAmount">
+                        <call-map-processor in-map-name="parameters" out-map-name="context">
+                            <simple-map-processor name="inputValidate">
+                                <process field="endingDrawerOtherAmount">
+                                    <convert type="BigDecimal" to-field="endingDrawerOtherAmount" replace="true" set-if-null="false">
+                                        <fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalOtherAmountNotValid"/>
+                                    </convert>
+                                </process>
+                            </simple-map-processor>
+                        </call-map-processor>
+                        <check-errors/>
+                        <if-empty field="context.endingDrawerOtherAmount">
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerCloseTerminalOtherAmountNotValid"/></add-error>
                             <check-errors/>
                         </if-empty>
                     </if-not-empty>
                     <call-object-method obj-field="webPosSession" method-name="getUserLoginId" ret-field="terminalState.closedByUserLoginId"/>
-                    <set field="terminalState.actualEndingCash" from-field="endingDrawerCashAmount" type="BigDecimal"/>
-                    <set field="terminalState.actualEndingCheck" from-field="endingDrawerCheckAmount" type="BigDecimal"/>
-                    <set field="terminalState.actualEndingCc" from-field="endingDrawerCcAmount" type="BigDecimal"/>
-                    <set field="terminalState.actualEndingGc" from-field="endingDrawerGcAmount" type="BigDecimal"/>
-                    <set field="terminalState.actualEndingOther" from-field="endingDrawerOtherAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingCash" from-field="context.endingDrawerCashAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingCheck" from-field="context.endingDrawerCheckAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingCc" from-field="context.endingDrawerCcAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingGc" from-field="context.endingDrawerGcAmount" type="BigDecimal"/>
+                    <set field="terminalState.actualEndingOther" from-field="context.endingDrawerOtherAmount" type="BigDecimal"/>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field="terminalState.closedDate"/>
                     <call-object-method obj-field="webPosTransaction" method-name="getTransactionId" ret-field="terminalState.endingTxId"/>
                     <store-value value-field="terminalState"/>
@@ -271,15 +300,19 @@ under the License.
                 <call-object-method obj-field="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
                 <check-errors/>
                 <if-compare field="isOpen" operator="equals" value="true">
-                    <set field="amountInOutStr" from-field="parameters.amountInOut" type="String"/>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="amountInOut">
-                        <field field="amountInOutStr" type="String"/>
-                        <field field="locale" type="java.util.Locale"/>
-                    </call-class-method>
-                    <if-not-empty field="amountInOut">
+                    <call-map-processor in-map-name="parameters" out-map-name="context">
+                        <simple-map-processor name="inputValidate">
+                            <process field="amountInOut">
+                                <convert type="BigDecimal" to-field="amountInOut" replace="true" set-if-null="false">
+                                    <fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndIndAmountNotValid"/>
+                                </convert>
+                            </process>
+                        </simple-map-processor>
+                    </call-map-processor>
+                    <if-not-empty field="context.amountInOut">
                         <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
                         <call-object-method obj-field="webPosTransaction" method-name="getTerminalLogId" ret-field="internTx.posTerminalLogId"/>
-                        <set field="internTx.paidAmount" from-field="amountInOut" type="BigDecimal"/>
+                        <set field="internTx.paidAmount" from-field="context.amountInOut" type="BigDecimal"/>
                         <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>
                         <if-compare field="parameters.type" operator="equals" value="IN">
                             <set field="internTx.reasonEnumId" from-field="parameters.reasonIn"/>
@@ -323,16 +356,20 @@ under the License.
         <if-not-empty field="webPosSession">
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <set field="priceStr" from-field="parameters.price" type="String"/>
-            <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="price">
-                <field field="priceStr" type="String"/>
-                <field field="locale" type="java.util.Locale"/>
-            </call-class-method>
-            <if-not-empty field="price">
+            <call-map-processor in-map-name="parameters" out-map-name="context">
+                <simple-map-processor name="inputValidate">
+                    <process field="price">
+                        <convert type="BigDecimal" to-field="price" replace="true" set-if-null="false">
+                            <fail-property resource="WebPosUiLabels" property="WebPosManagerModifyPriceNotValidPrice"/>
+                        </convert>
+                    </process>
+                </simple-map-processor>
+            </call-map-processor>
+            <if-not-empty field="context.price">
                 <set field="cartLineIdx" from-field="parameters.cartLineIdx" type="Integer"/>
                 <call-object-method obj-field="webPosTransaction" method-name="modifyPrice">
                     <field field="cartLineIdx" type="int"/>
-                    <field field="price" type="BigDecimal"/>
+                    <field field="context.price" type="BigDecimal"/>
                 </call-object-method>
                 <check-errors/>
                 <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>

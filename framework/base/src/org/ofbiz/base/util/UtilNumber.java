@@ -20,8 +20,6 @@
 package org.ofbiz.base.util;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -251,28 +249,5 @@ public class UtilNumber {
         bd = bd.multiply(new BigDecimal(100.0)).setScale(scale, roundingMode);
 
         return (bd.toString() + "%");
-    }
-    
-    /**
-      * Method to convert a string into BigDecimal.
-      *
-      * @param stringToConvert String to convert to BigDecimal
-      * @return                The string converted to BigDecimal
-      */
-    public static BigDecimal stringToBigDecimal(String stringToConvert, Locale locale) {
-        if (stringToConvert != null && stringToConvert != "") {
-            Number numb = null;
-            NumberFormat nf = NumberFormat.getInstance(locale);
-            nf.setMaximumFractionDigits(10);
-            try {
-                numb = nf.parse(stringToConvert);
-                return (new BigDecimal(numb.toString()));
-            } catch (ParseException e) {
-                return null;
-            }
-        }
-        else {
-            return null;
-        }
     }
 }

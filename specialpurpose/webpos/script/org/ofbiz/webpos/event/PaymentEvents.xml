@@ -27,18 +27,23 @@ under the License.
         <if-not-empty field="webPosSession">
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <set field="amount" from-field="parameters.amountCash" type="String"/>
-            <if-empty field="amount">
-                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="amountCash"/>
+            <if-empty field="parameters.amountCash">
+                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="context.amountCash"/>
                 <check-errors/>
             <else>
-                <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="amountCash">
-                    <field field="amount" type="String"/>
-                    <field field="locale" type="java.util.Locale"/>
-                </call-class-method>
+                <call-map-processor in-map-name="parameters" out-map-name="context">
+                    <simple-map-processor name="inputValidate">
+                        <process field="amountCash">
+                            <convert type="BigDecimal" to-field="amountCash" replace="true" set-if-null="false">
+                                <fail-property resource="WebPosUiLabels" property="WebPosPayCashNotValidAmount"/>
+                            </convert>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <check-errors/>
             </else>
             </if-empty>
-            <if-empty field="amountCash">
+            <if-empty field="context.amountCash">
                 <add-error><fail-property resource="WebPosUiLabels" property="WebPosPayCashNotValidAmount"/></add-error>
                 <check-errors/>
             <else>
@@ -47,17 +52,17 @@ under the License.
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosTransactionTotalDueZero"/></add-error>
                     <check-errors/>
                 </if-compare>
-                <if-compare-field field="totalDue" operator="less" to-field="amountCash" type="BigDecimal">
+                <if-compare-field field="totalDue" operator="less" to-field="context.amountCash" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPayCashGreaterThanTotalDue"/></add-error>
                     <check-errors/>
                 </if-compare-field>                
-                <log level="info" message="Processing [Cash] Amount : ${amountCash}"/>
+                <log level="info" message="Processing [Cash] Amount : ${context.amountCash}"/>
                 <set field="paymentType" value="CASH"/>
                 <set field="refNum" value=""/>
                 <set field="authCode" value=""/>
                 <call-object-method obj-field="webPosTransaction" method-name="addPayment">
                     <field field="paymentType" type="String"/>
-                    <field field="amountCash" type="BigDecimal"/>
+                    <field field="context.amountCash" type="BigDecimal"/>
                     <field field="refNum" type="String"/>
                     <field field="authCode" type="String"/>
                 </call-object-method>
@@ -80,24 +85,29 @@ under the License.
         <if-not-empty field="webPosSession">
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <set field="amount" from-field="parameters.amountCheck" type="String"/>
-            <if-empty field="amount">
-                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="amountCheck"/>
+            <if-empty field="parameters.amountCheck">
+                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="context.amountCheck"/>
                 <check-errors/>
             <else>
-                <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="amountCheck">
-                    <field field="amount" type="String"/>
-                    <field field="locale" type="java.util.Locale"/>
-                </call-class-method>
+                <call-map-processor in-map-name="parameters" out-map-name="context">
+                    <simple-map-processor name="inputValidate">
+                        <process field="amountCheck">
+                            <convert type="BigDecimal" to-field="amountCheck" replace="true" set-if-null="false">
+                                <fail-property resource="WebPosUiLabels" property="WebPosPayCheckNotValidAmount"/>
+                            </convert>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <check-errors/>
             </else>
             </if-empty>
-            <if-not-empty field="amountCheck">
+            <if-not-empty field="context.amountCheck">
                 <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="totalDue"/>
                 <if-compare field="totalDue" operator="less-equals" value="0.00" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosTransactionTotalDueZero"/></add-error>
                     <check-errors/>
                 </if-compare>
-                <if-compare-field field="totalDue" operator="less" to-field="amountCheck" type="BigDecimal">
+                <if-compare-field field="totalDue" operator="less" to-field="context.amountCheck" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPayCheckGreaterThanTotalDue"/></add-error>
                     <check-errors/>
                 </if-compare-field>
@@ -125,7 +135,7 @@ under the License.
                             <set field="refNum" from-field="parameters.refNum"/>
                             <call-object-method obj-field="webPosTransaction" method-name="processExternalPayment">
                                 <field field="paymentType" type="String"/>
-                                <field field="amountCheck" type="BigDecimal"/>
+                                <field field="context.amountCheck" type="BigDecimal"/>
                                 <field field="refNum" type="String"/>
                             </call-object-method>
                             <check-errors/>
@@ -163,24 +173,29 @@ under the License.
         <if-not-empty field="webPosSession">
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <set field="amount" from-field="parameters.amountGiftCard" type="String"/>
-            <if-empty field="amount">
-                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="amountGiftCard"/>
+            <if-empty field="parameters.amountGiftCard">
+                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="context.amountGiftCard"/>
                 <check-errors/>
             <else>
-                <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="amountGiftCard">
-                    <field field="amount" type="String"/>
-                    <field field="locale" type="java.util.Locale"/>
-                </call-class-method>            
+                <call-map-processor in-map-name="parameters" out-map-name="context">
+                    <simple-map-processor name="inputValidate">
+                        <process field="amountGiftCard">
+                            <convert type="BigDecimal" to-field="amountGiftCard" replace="true" set-if-null="false">
+                                <fail-property resource="WebPosUiLabels" property="WebPosPayGiftCardNotValidAmount"/>
+                            </convert>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <check-errors/>
             </else>
             </if-empty>
-            <if-not-empty field="amountGiftCard">
+            <if-not-empty field="context.amountGiftCard">
                 <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="totalDue"/>
                 <if-compare field="totalDue" operator="less-equals" value="0.00" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosTransactionTotalDueZero"/></add-error>
                     <check-errors/>
                 </if-compare>
-                <if-compare-field field="totalDue" operator="less" to-field="amountGiftCard" type="BigDecimal">
+                <if-compare-field field="totalDue" operator="less" to-field="context.amountGiftCard" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPayGiftCardGreaterThanTotalDue"/></add-error>
                     <check-errors/>
                 </if-compare-field>
@@ -204,7 +219,7 @@ under the License.
                             <set field="refNum" from-field="parameters.refNum"/>
                             <call-object-method obj-field="webPosTransaction" method-name="processExternalPayment">
                                 <field field="paymentType" type="String"/>
-                                <field field="amountGiftCard" type="BigDecimal"/>
+                                <field field="context.amountGiftCard" type="BigDecimal"/>
                                 <field field="refNum" type="String"/>
                             </call-object-method>
                             <check-errors/>
@@ -242,24 +257,29 @@ under the License.
         <if-not-empty field="webPosSession">
             <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <set field="amount" from-field="parameters.amountCreditCard" type="String"/>
-            <if-empty field="amount">
-                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="amountCreditCard"/>
+            <if-empty field="parameters.amountCreditCard">
+                <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="context.amountCreditCard"/>
                 <check-errors/>
             <else>
-                <call-class-method class-name="org.ofbiz.base.util.UtilNumber" method-name="stringToBigDecimal" ret-field="amountCreditCard">
-                    <field field="amount" type="String"/>
-                    <field field="locale" type="java.util.Locale"/>
-                </call-class-method>
+                <call-map-processor in-map-name="parameters" out-map-name="context">
+                    <simple-map-processor name="inputValidate">
+                        <process field="amountCreditCard">
+                            <convert type="BigDecimal" to-field="amountCreditCard" replace="true" set-if-null="false">
+                                <fail-property resource="WebPosUiLabels" property="WebPosPayCreditCardNotValidAmount"/>
+                            </convert>
+                        </process>
+                    </simple-map-processor>
+                </call-map-processor>
+                <check-errors/>
             </else>
             </if-empty>            
-            <if-not-empty field="amountCreditCard">
+            <if-not-empty field="context.amountCreditCard">
                 <call-object-method obj-field="webPosTransaction" method-name="getTotalDue" ret-field="totalDue"/>
                 <if-compare field="totalDue" operator="less-equals" value="0.00" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosTransactionTotalDueZero"/></add-error>
                     <check-errors/>
                 </if-compare>
-                <if-compare-field field="totalDue" operator="less" to-field="amountCreditCard" type="BigDecimal">
+                <if-compare-field field="totalDue" operator="less" to-field="context.amountCreditCard" type="BigDecimal">
                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPayCreditCardGreaterThanTotalDue"/></add-error>
                     <check-errors/>
                 </if-compare-field>
@@ -297,7 +317,7 @@ under the License.
                                 <set field="refNum" from-field="parameters.refNum"/>
                                 <call-object-method obj-field="webPosTransaction" method-name="processExternalPayment">
                                     <field field="paymentType" type="String"/>
-                                    <field field="amountCreditCard" type="BigDecimal"/>
+                                    <field field="context.amountCreditCard" type="BigDecimal"/>
                                     <field field="refNum" type="String"/>
                                 </call-object-method>
                                 <check-errors/>
@@ -351,7 +371,7 @@ under the License.
                                         <check-errors/>
                                     </if-compare>
                                 </if-not-empty>
-                                <log level="info" message="Processing Credit Card Amount : ${amount}"/>
+                                <log level="info" message="Processing Credit Card Amount : ${context.amountCreditCard}"/>
                                 <set from-field="parameters.firstName" field="firstName"/>
                                 <set from-field="parameters.lastName" field="lastName"/>
                                 <call-object-method obj-field="webPosTransaction" method-name="makeCreditCardVo" ret-field="paymentId">
@@ -364,7 +384,7 @@ under the License.
                                 <if-not-empty field="paymentId">
                                     <call-object-method obj-field="webPosTransaction" method-name="addPayment">
                                         <field field="paymentId" type="String"/>
-                                        <field field="amountCreditCard" type="BigDecimal"/>
+                                        <field field="context.amountCreditCard" type="BigDecimal"/>
                                     </call-object-method>
                                     <check-errors/>
                                     <if-not-empty field="parameters.track2">
