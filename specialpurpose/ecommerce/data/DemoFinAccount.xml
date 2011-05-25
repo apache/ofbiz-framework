@@ -87,4 +87,41 @@
 
     <!-- associate the fulfillment service with the products -->
     <ProductContent productId="FA-001" contentId="FA_ACTIVATION" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>
+    
+    <!-- alternative URL -->
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-30-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-30-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-50-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-50-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-O-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-O-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRFA-100-ALTEN" textData="account-activation"/>
+    <ElectronicText dataResourceId="DRFA-001-ALTEN" textData="financial-account-activation"/>
+    <ElectronicText dataResourceId="DRFA-001-30-ALTEN" textData="financial-account-activation-30"/>
+    <ElectronicText dataResourceId="DRFA-001-50-ALTEN" textData="financial-account-activation-50"/>
+    <ElectronicText dataResourceId="DRFA-001-O-ALTEN" textData="financial-account-activation-o"/>
+    <Content contentId="FA-100-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-100-ALT" localeString="en"/>
+    <Content contentId="CFA-100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-100-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-ALT" localeString="en"/>
+    <Content contentId="CFA-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-30-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-30-ALT" localeString="en"/>
+    <Content contentId="CFA-001-30-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-30-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-50-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-50-ALT" localeString="en"/>
+    <Content contentId="CFA-001-50-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-50-ALTEN" localeString="en_US"/>
+    <Content contentId="FA-001-O-ALT" contentTypeId="DOCUMENT" dataResourceId="FA-001-O-ALT" localeString="en"/>
+    <Content contentId="CFA-001-O-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFA-001-O-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="FA-100-ALT" contentIdTo="CFA-100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-ALT" contentIdTo="CFA-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-30-ALT" contentIdTo="CFA-001-30-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-50-ALT" contentIdTo="CFA-001-50-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FA-001-O-ALT" contentIdTo="CFA-001-O-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="FA-100" contentId="FA-100-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001" contentId="FA-001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001-30" contentId="FA-001-30-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001-50" contentId="FA-001-50-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FA-001-O" contentId="FA-001-O-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if miniProduct?exists>
-    <a href="<@ofbizUrl>product/~product_id=${miniProduct.productId}</@ofbizUrl>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a>
+    <a href="<@ofbizCatalogAltUrl productId=miniProduct.productId/>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a>
     <ul>
         <li>${miniProduct.productId}
           <#if (priceResult.price?default(0) > 0 && miniProduct.requireAmount?default("N") == "N")>
@@ -37,9 +37,9 @@ under the License.
         <#-- check to see if salesDiscontinuationDate has passed -->
         <li>${uiLabelMap.ProductNoLongerAvailable}</li>
     <#elseif miniProduct.isVirtual?default("N") == "Y">
-        <li><a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a></li>
+        <li><a href="<@ofbizCatalogAltUrl productCategoryId=requestParameters.category_id?exists productId=miniProduct.productId/>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a></li>
     <#elseif miniProduct.requireAmount?default("N") == "Y">
-        <li><a href="<@ofbizUrl>product/<#if requestParameters.category_id?exists>~category_id=${requestParameters.category_id}/</#if>~product_id=${miniProduct.productId}</@ofbizUrl>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a></li>
+        <li><a href="<@ofbizCatalogAltUrl productCategoryId=requestParameters.category_id?exists productId=miniProduct.productId/>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a></li>
     <#else>
       <li>
         <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="${miniProdFormName}" style="margin: 0;">

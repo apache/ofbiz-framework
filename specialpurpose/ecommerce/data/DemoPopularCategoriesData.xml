@@ -39,5 +39,18 @@ under the License.
     <ProductCategoryMember productCategoryId="BEST-SELL-2" productId="WG-9944" quantity="5" fromDate="2010-01-01 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="BEST-SELL-2" productId="WG-1111" quantity="7" fromDate="2010-01-01 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="BEST-SELL-2" productId="WG-5569" quantity="1" fromDate="2010-01-01 12:00:00.0"/>
-
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="BEST-SELL-1-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRBEST-SELL-1-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="BEST-SELL-2-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRBEST-SELL-2-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="DRBEST-SELL-1-ALTEN" textData="best-sell-1"/>
+    <ElectronicText dataResourceId="DRBEST-SELL-2-ALTEN" textData="best-sell-2"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="BEST-SELL-1-ALT" dataResourceId="BEST-SELL-1-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="CBEST-SELL-1-ALTEN" dataResourceId="DRBEST-SELL-2-ALTEN"/>
+    <Content contentTypeId="DOCUMENT" localeString="en" contentId="BEST-SELL-2-ALT" dataResourceId="BEST-SELL-2-ALT"/>
+    <Content contentTypeId="DOCUMENT" localeString="en_US" contentId="CBEST-SELL-2-ALTEN" dataResourceId="DRBEST-SELL-2-ALTEN"/>
+    <ContentAssoc contentId="BEST-SELL-1-ALT" contentIdTo="CBEST-SELL-1-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="BEST-SELL-2-ALT" contentIdTo="CBEST-SELL-2-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="BEST-SELL-1" contentId="BEST-SELL-1-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="BEST-SELL-2" contentId="BEST-SELL-2-ALT" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>

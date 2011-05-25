@@ -46,12 +46,12 @@ under the License.
                         <td>
                             <div class="productsummary">
                                 <div class="smallimage">
-                                    <a href="/ecommerce/products/${productCategoryId}">
+                                    <a href="<@ofbizCatalogAltUrl productCategoryId=productCategoryId/>">
                                         <span class="popup_link"><img alt="Small Image" src="${categoryImageUrl}"></span>
                                     </a>
                                 </div>
                                 <div class="productbuy">
-                                    <a class="linktext"  style="font-size:12px" href="/ecommerce/products/${productCategoryId}">${productCategory.categoryName!productCategoryId}</a>
+                                    <a class="linktext"  style="font-size:12px" href="<@ofbizCatalogAltUrl productCategoryId=productCategoryId/>">${productCategory.categoryName!productCategoryId}</a>
                                 </div>
                                 <div class="productinfo">
                                     <ul>
@@ -60,7 +60,7 @@ under the License.
                                         <#list productCategoryMembers as productCategoryMember>
                                             <#if (i > 2)>
                                                 <#if productCategoryMembers[i]?has_content>
-                                                    <a class="linktext" href="/ecommerce/products/${productCategoryId}">
+                                                    <a class="linktext" href="<@ofbizCatalogAltUrl productCategoryId=productCategoryId/>">
                                                         <span>More...</span>
                                                     </a>
                                                 </#if>
@@ -69,7 +69,7 @@ under the License.
                                             <#if productCategoryMember?has_content>
                                                 <#assign product = delegator.findByPrimaryKey("Product", Static["org.ofbiz.base.util.UtilMisc"].toMap("productId", productCategoryMember.productId))>
                                                 <li class="browsecategorytext">
-                                                    <a class="linktext" href="/ecommerce/products/PROMOTIONS/${product.productId}">
+                                                    <a class="linktext" href="<@ofbizCatalogAltUrl productCategoryId="PROMOTIONS" productId="${product.productId}"/>">
                                                         ${product.productName!product.productId}
                                                     </a>
                                                 </li>

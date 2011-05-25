@@ -57,8 +57,6 @@ public class CatalogUrlFilter extends ContextFilter {
     public static final String PRODUCT_REQUEST = "product";
     public static final String CATEGORY_REQUEST = "category";
     
-    protected static String defaultViewIndex = null;
-    protected static String defaultViewSize = null;
     protected static String defaultLocaleString = null;
     protected static String redirectUrl = null;
     
@@ -105,20 +103,16 @@ public class CatalogUrlFilter extends ContextFilter {
         }
         
         // set initial parameters
-        String initDefaultViewIndex = config.getInitParameter("defaultViewIndex");
-        String initDefaultViewSize = config.getInitParameter("defaultViewSize");
         String initDefaultLocalesString = config.getInitParameter("defaultLocaleString");
         String initRedirectUrl = config.getInitParameter("redirectUrl");
-        defaultViewIndex = UtilValidate.isNotEmpty(initDefaultViewIndex) ? initDefaultViewIndex : "";
-        defaultViewSize = UtilValidate.isNotEmpty(initDefaultViewSize) ? initDefaultViewSize : "";
         defaultLocaleString = UtilValidate.isNotEmpty(initDefaultLocalesString) ? initDefaultLocalesString : "";
         redirectUrl = UtilValidate.isNotEmpty(initRedirectUrl) ? initRedirectUrl : "";
         
         String pathInfo = httpRequest.getServletPath();
-        
         if (UtilValidate.isNotEmpty(pathInfo)) {
             List<String> pathElements = StringUtil.split(pathInfo, "/");
             String alternativeUrl = pathElements.get(0);
+
             // get web site and default locale string
             String localeString = null;
             String webSiteId = WebSiteWorker.getWebSiteId(request);
@@ -138,8 +132,8 @@ public class CatalogUrlFilter extends ContextFilter {
             }
             
             // get view index, view size and view sort from path info
-            String viewIndex = defaultViewIndex;
-            String viewSize = defaultViewSize;
+            String viewIndex = null;
+            String viewSize = null;
             String viewSort = null;
             String searchString = null;
             
@@ -163,38 +157,131 @@ public class CatalogUrlFilter extends ContextFilter {
                 }
             }
             
+            if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewIndex"))) {
+                viewIndex = httpRequest.getParameter("viewIndex");
+            }
+            if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewSize"))) {
+                viewSize = httpRequest.getParameter("viewSize");
+            }
+            if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewSort"))) {
+                viewSort = httpRequest.getParameter("viewSort");
+            }
+            if (UtilValidate.isNotEmpty(httpRequest.getParameter("searchString"))) {
+                searchString = httpRequest.getParameter("searchString");
+            }
+
             String productId = null;
             String productCategoryId = null;
             
             try {
                 // look for productId
-                List<EntityCondition> productContentConds = FastList.newInstance();
-                productContentConds.add(EntityCondition.makeCondition(
-                      EntityCondition.makeCondition("drObjectInfo", alternativeUrl)
-                      , EntityOperator.OR
-                      , EntityCondition.makeCondition("drObjectInfo", "/" + alternativeUrl)));
-                productContentConds.add(EntityCondition.makeCondition("localeString", localeString));
-                productContentConds.add(EntityCondition.makeCondition("productContentTypeId", "ALTERNATIVE_URL"));
-                productContentConds.add(EntityUtil.getFilterByDateExpr());
-                List<GenericValue> productContentInfos = delegator.findList("ProductContentAndInfo", EntityCondition.makeCondition(productContentConds), null, UtilMisc.toList("-fromDate"), null, true);
-                if (UtilValidate.isNotEmpty(productContentInfos)) {
-                    GenericValue productContentInfo = EntityUtil.getFirst(productContentInfos);
-                    productId = productContentInfo.getString("productId");
+                if (alternativeUrl.endsWith("-p")) {
+                    List<EntityCondition> productContentConds = FastList.newInstance();
+                    productContentConds.add(EntityCondition.makeCondition("productContentTypeId", "ALTERNATIVE_URL"));
+                    productContentConds.add(EntityUtil.getFilterByDateExpr());
+                    List<GenericValue> productContentInfos = delegator.findList("ProductContentAndInfo", EntityCondition.makeCondition(productContentConds), null, UtilMisc.toList("-fromDate"), null, true);
+                    if (UtilValidate.isNotEmpty(productContentInfos)) {
+                        for(GenericValue productContentInfo : productContentInfos){
+                            String contentId = (String) productContentInfo.get("contentId");
+                            List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAndCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "drLocaleString", localeString, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                            if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)){
+                                for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
+                                    GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOneCache("ElectronicText");
+                                    if (UtilValidate.isNotEmpty(ElectronicText)) {
+                                        String textData = (String) ElectronicText.get("textData");
+                                        textData = invalidCharacter(textData);
+                                        if (alternativeUrl.matches(textData + ".+$")) {
+                                            String productIdStr = null;
+                                            productIdStr = alternativeUrl.replace(textData + "-", "");
+                                            productIdStr = productIdStr.replace("-p", "");
+                                            String checkProductId = (String) productContentInfo.get("productId");
+                                            if (productIdStr.equalsIgnoreCase(checkProductId)) {
+                                                productId = checkProductId;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                List<GenericValue> contentDataResourceViews = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId, "statusId", "CTNT_IN_PROGRESS", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                                for (GenericValue contentDataResourceView : contentDataResourceViews) {
+                                    GenericValue ElectronicText = contentDataResourceView.getRelatedOneCache("ElectronicText");
+                                    if (UtilValidate.isNotEmpty(ElectronicText)) {
+                                        String textData = (String) ElectronicText.get("textData");
+                                        if (UtilValidate.isNotEmpty(textData)) {
+                                            textData = invalidCharacter(textData);
+                                            if (alternativeUrl.matches(textData + ".+$")) {
+                                                String productIdStr = null;
+                                                productIdStr = alternativeUrl.replace(textData + "-", "");
+                                                productIdStr = productIdStr.replace("-p", "");
+                                                String checkProductId = (String) productContentInfo.get("productId");
+                                                if (productIdStr.equalsIgnoreCase(checkProductId)) {
+                                                    productId = checkProductId;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 
                 // look for productCategoryId
-                List<EntityCondition> productCategoryContentConds = FastList.newInstance();
-                productCategoryContentConds.add(EntityCondition.makeCondition(
-                        EntityCondition.makeCondition("drObjectInfo", alternativeUrl)
-                        , EntityOperator.OR
-                        , EntityCondition.makeCondition("drObjectInfo", "/" + alternativeUrl)));
-                productContentConds.add(EntityCondition.makeCondition("localeString", localeString));
-                productCategoryContentConds.add(EntityCondition.makeCondition("prodCatContentTypeId", "ALTERNATIVE_URL"));
-                productCategoryContentConds.add(EntityUtil.getFilterByDateExpr());
-                List<GenericValue> productCategoryContentInfos = delegator.findList("ProductCategoryContentAndInfo", EntityCondition.makeCondition(productCategoryContentConds), null, UtilMisc.toList("-fromDate"), null, true);
-                if (UtilValidate.isNotEmpty(productCategoryContentInfos)) {
-                    GenericValue productCategoryContentInfo = EntityUtil.getFirst(productCategoryContentInfos);
-                    productCategoryId = productCategoryContentInfo.getString("productCategoryId");
+                if (alternativeUrl.endsWith("-c")) {
+                    List<EntityCondition> productCategoryContentConds = FastList.newInstance();
+                    productCategoryContentConds.add(EntityCondition.makeCondition("prodCatContentTypeId", "ALTERNATIVE_URL"));
+                    productCategoryContentConds.add(EntityUtil.getFilterByDateExpr());
+                    List<GenericValue> productCategoryContentInfos = delegator.findList("ProductCategoryContentAndInfo", EntityCondition.makeCondition(productCategoryContentConds), null, UtilMisc.toList("-fromDate"), null, true);
+                    if (UtilValidate.isNotEmpty(productCategoryContentInfos)) {
+                        for(GenericValue productCategoryContentInfo : productCategoryContentInfos){
+                            String contentId = (String) productCategoryContentInfo.get("contentId");
+                            List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAndCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "drLocaleString", localeString, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                            if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)){
+                                for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
+                                    GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOneCache("ElectronicText");
+                                    if (UtilValidate.isNotEmpty(ElectronicText)){
+                                        String textData = (String) ElectronicText.get("textData");
+                                        if (UtilValidate.isNotEmpty(textData)) {
+                                            textData = invalidCharacter(textData);
+                                            if (alternativeUrl.matches(textData + ".+$")) {
+                                                String productCategoryStr = null;
+                                                productCategoryStr = alternativeUrl.replace(textData + "-", "");
+                                                productCategoryStr = productCategoryStr.replace("-c", "");
+                                                String checkProductCategoryId = (String) productCategoryContentInfo.get("productCategoryId");
+                                                if (productCategoryStr.equalsIgnoreCase(checkProductCategoryId)) {
+                                                    productCategoryId = checkProductCategoryId;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                List<GenericValue> contentDataResourceViews = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId, "statusId", "CTNT_IN_PROGRESS", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                                for (GenericValue contentDataResourceView : contentDataResourceViews) {
+                                    GenericValue ElectronicText = contentDataResourceView.getRelatedOneCache("ElectronicText");
+                                    if (UtilValidate.isNotEmpty(ElectronicText)) {
+                                        String textData = (String) ElectronicText.get("textData");
+                                        if (UtilValidate.isNotEmpty(textData)) {
+                                            textData = invalidCharacter(textData);
+                                            if (alternativeUrl.matches(textData + ".+$")) {
+                                                String productCategoryStr = null;
+                                                productCategoryStr = alternativeUrl.replace(textData + "-", "");
+                                                productCategoryStr = productCategoryStr.replace("-c", "");
+                                                String checkProductCategoryId = (String) productCategoryContentInfo.get("productCategoryId");
+                                                if (productCategoryStr.equalsIgnoreCase(checkProductCategoryId)) {
+                                                    productCategoryId = checkProductCategoryId;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning("Cannot look for product and product category", module);
@@ -387,6 +474,7 @@ public class CatalogUrlFilter extends ContextFilter {
     
     public static String makeCategoryUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String url = null;
         try {
             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
             CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
@@ -399,7 +487,13 @@ public class CatalogUrlFilter extends ContextFilter {
                     urlBuilder.append("/");
                 }
                 // append alternative URL
-                urlBuilder.append(alternativeUrl);
+                url = invalidCharacter(alternativeUrl.toString());
+                urlBuilder.append(url);
+                if (UtilValidate.isNotEmpty(productCategoryId)) {
+                    urlBuilder.append("-");
+                    urlBuilder.append(productCategoryId);
+                    urlBuilder.append("-c");
+                }
                 // append view index
                 if (UtilValidate.isNotEmpty(viewIndex)) {
                     if (!urlBuilder.toString().endsWith("?") && !urlBuilder.toString().endsWith("&")) {
@@ -428,6 +522,10 @@ public class CatalogUrlFilter extends ContextFilter {
                     }
                     urlBuilder.append("searchString=" + searchString + "&");
                 }
+                if (urlBuilder.toString().endsWith("&")) {
+                    return urlBuilder.toString().substring(0, urlBuilder.toString().length()-1);
+                }
+                
                 return  urlBuilder.toString();
             } else {
                 return CatalogUrlServlet.makeCatalogUrl(request, productId, productCategoryId, previousCategoryId);
@@ -440,6 +538,7 @@ public class CatalogUrlFilter extends ContextFilter {
     
     public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String url = null;
         try {
             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
             ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
@@ -451,7 +550,13 @@ public class CatalogUrlFilter extends ContextFilter {
                     urlBuilder.append("/");
                 }
                 // append alternative URL
-                urlBuilder.append(alternativeUrl);
+                url = invalidCharacter(alternativeUrl.toString());
+                urlBuilder.append(url);
+                if (UtilValidate.isNotEmpty(productId)) {
+                    urlBuilder.append("-");
+                    urlBuilder.append(productId);
+                    urlBuilder.append("-p");
+                }
                 return  urlBuilder.toString();
             } else {
                 return CatalogUrlServlet.makeCatalogUrl(request, productId, productCategoryId, previousCategoryId);
@@ -460,5 +565,83 @@ public class CatalogUrlFilter extends ContextFilter {
             Debug.logWarning(e, "Cannot create product's URL for: " + productId, module);
             return redirectUrl;
         }
+    }
+    
+    public static String invalidCharacter(String str) {
+        str = str.replace("&", "-");
+        str = str.replace("\"", "-");
+        str = str.replace("×", "-");
+        str = str.replace("÷", "-");
+        str = str.replace(" ", "-");
+        str = str.replace("!", "-");
+        str = str.replace("#", "-");
+        str = str.replace("$", "-");
+        str = str.replace("%", "-");
+        str = str.replace("'", "-");
+        str = str.replace("(", "-");
+        str = str.replace(")", "-");
+        str = str.replace("*", "-");
+        str = str.replace("+", "-");
+        str = str.replace(",", "-");
+        str = str.replace(".", "-");
+        str = str.replace("/", "-");
+        str = str.replace(":", "-");
+        str = str.replace(";", "-");
+        str = str.replace("<", "-");
+        str = str.replace("=", "-");
+        str = str.replace(">", "-");
+        str = str.replace("?", "-");
+        str = str.replace("@", "-");
+        str = str.replace("[", "-");
+        str = str.replace("\\", "-");
+        str = str.replace("]", "-");
+        str = str.replace("^", "-");
+        str = str.replace("_", "-");
+        str = str.replace("`", "-");
+        str = str.replace("{", "-");
+        str = str.replace("|", "-");
+        str = str.replace("}", "-");
+        str = str.replace("~", "-");
+        str = str.replace("￠", "-");
+        str = str.replace("￡", "-");
+        str = str.replace("¤", "-");
+        str = str.replace("§", "-");
+        str = str.replace("¨", "-");
+        str = str.replace("¬", "-");
+        str = str.replace("ˉ", "-");
+        str = str.replace("°", "-");
+        str = str.replace("±", "-");
+        str = str.replace("μ", "-");
+        str = str.replace("•", "-");
+        str = str.replace("！", "-");
+        str = str.replace("￥", "-");
+        str = str.replace("……", "-");
+        str = str.replace("（", "-");
+        str = str.replace("）", "-");
+        str = str.replace("——", "-");
+        str = str.replace("【", "-");
+        str = str.replace("】", "-");
+        str = str.replace("｛", "-");
+        str = str.replace("｝", "-");
+        str = str.replace("：", "-");
+        str = str.replace("；", "-");
+        str = str.replace("“", "-");
+        str = str.replace("、", "-");
+        str = str.replace("《", "-");
+        str = str.replace("》", "-");
+        str = str.replace("，", "-");
+        str = str.replace("。", "-");
+        str = str.replace("‘", "-");
+        str = str.replace("？", "-");
+        while(str.startsWith("-")){
+            str = str.substring(1);
+        }
+        while(str.endsWith("-")){
+            str = str.substring(0,str.length() - 1);
+        }
+        while(str.indexOf("--") != -1){
+            str = str.replace("--","-");
+        }
+        return str;
     }
 }

@@ -51,6 +51,13 @@ under the License.
     </context-param>
 
     <filter>
+        <filter-name>CatalogUrlFilter</filter-name>
+        <display-name>CatalogUrlFilter</display-name>
+        <filter-class>org.ofbiz.product.category.CatalogUrlFilter</filter-class>
+        <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
+        <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
+    </filter>
+    <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
         <filter-class>org.ofbiz.webapp.control.ContextFilter</filter-class>
@@ -71,6 +78,10 @@ under the License.
             <param-value>/control/main</param-value>
         </init-param>
     </filter>
+    <filter-mapping>
+        <filter-name>CatalogUrlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
             <url-pattern>/*</url-pattern>

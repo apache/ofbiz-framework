@@ -25,18 +25,18 @@ under the License.
             <select name="pageSelect" onchange="window.location=this[this.selectedIndex].value;">
                 <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
                 <#list 0..viewIndexMax as curViewNum>
-                     <option value="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${curViewNum?int + 1}</@ofbizUrl>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                     <option value="<@ofbizCatalogAltUrl productCategoryId=productCategoryId viewSize=viewSize viewIndex=(curViewNum?int + 1)/>">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
                 </#list>
             </select>
             <#-- End Page Select Drop-Down -->
             <#if (viewIndex?int > 1)>
-                <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+                <a href="<@ofbizCatalogAltUrl productCategoryId=productCategoryId viewSize=viewSize viewIndex=(viewIndex?int - 1)/>" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
             <#if ((listSize?int - viewSize?int) > 0)>
                 <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
             </#if>
             <#if highIndex?int < listSize?int>
-             | <a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int + 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNext}</a>
+             | <a href="<@ofbizCatalogAltUrl productCategoryId=productCategoryId viewSize=viewSize viewIndex=(viewIndex?int + 1)/>" class="buttontext">${uiLabelMap.CommonNext}</a>
             </#if>
         </div>
     </#if>

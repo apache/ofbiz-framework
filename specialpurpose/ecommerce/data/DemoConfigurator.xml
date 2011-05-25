@@ -224,4 +224,185 @@ under the License.
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
     <ProductCategoryMember productCategoryId="PROMOTIONS" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
 
+    <!-- alternative URL -->
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PC-100-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPC-100-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FOOD-001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFOOD-001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PC001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPC001-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="RAM1GB_BRAND-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRRAM1GB_BRAND-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="HD250GB_BRAND-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRHD250GB_BRAND-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="HD500GB_BRAND-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRHD500GB_BRAND-ALT" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="ETH_BRAND-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRETH_BRAND-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="MOD_BRAND-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRMOD_BRAND-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="MOTHER_BOARD_ASS-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DMOTHER_BOARD_ASS" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="MOTHER_BOARD-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRMOTHER_BOARD-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="CPU-586-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRCPU-586-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="ENCHILADAS-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRENCHILADAS-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FAJITA_BEEF-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFAJITA_BEEF-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="JALAPENOS-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRJALAPENOS-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PIZZA-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPIZZA-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DOUGH-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRDOUGH-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SAUCE-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSAUCE-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SAUCE-TM-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSAUCE-TM-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SAUCE-CM-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSAUCE-CM-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SAUCE-TP-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSAUCE-TP-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SAUCE-CP-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSAUCE-CP-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PEPPERS-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPEPPERS-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PEPPERS-H-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPEPPERS-H-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PEPPERS-G-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPEPPERS-G-ALTEN" localeString="en_US"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PEPPERS-R-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPEPPERS-R-ALTEN" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="DRPC-100-ALTEN" textData="configurable-pcs"/>
+    <ElectronicText dataResourceId="DRFOOD-001-ALTEN" textData="configurable-foods"/>
+    <ElectronicText dataResourceId="DRPC001-ALTEN" textData="configurable-pc"/>
+    <ElectronicText dataResourceId="DRRAM1GB_BRAND-ALTEN" textData="ram-1-gb-ddr2"/>
+    <ElectronicText dataResourceId="DRHD250GB_BRAND-ALT" textData="hd-250-gb"/>
+    <ElectronicText dataResourceId="DRHD500GB_BRAND-ALT" textData="hd-450-gb"/>
+    <ElectronicText dataResourceId="DRETH_BRAND-ALTEN" textData="ethernet-card-10-100"/>
+    <ElectronicText dataResourceId="DRMOD_BRAND-ALTEN" textData="modem-card-56k"/>
+    <ElectronicText dataResourceId="DMOTHER_BOARD_ASS" textData="motherboard-assembly"/>
+    <ElectronicText dataResourceId="DRMOTHER_BOARD-ALTEN" textData="motherboard"/>
+    <ElectronicText dataResourceId="DRCPU-586-ALTEN" textData="cpu-intel-586"/>
+    <ElectronicText dataResourceId="DRENCHILADAS-ALTEN" textData="enchiladas"/>
+    <ElectronicText dataResourceId="DRFAJITA_BEEF-ALTEN" textData="fajita-beef"/>
+    <ElectronicText dataResourceId="DRJALAPENOS-ALTEN" textData="jalapenos"/>
+    <ElectronicText dataResourceId="DRPIZZA-ALTEN" textData="pizza"/>
+    <ElectronicText dataResourceId="DRDOUGH-ALTEN" textData="dough"/>
+    <ElectronicText dataResourceId="DRSAUCE-ALTEN" textData="sauce"/>
+    <ElectronicText dataResourceId="DRSAUCE-TM-ALTEN" textData="tomato-sauce-with-mozzarella"/>
+    <ElectronicText dataResourceId="DRSAUCE-CM-ALTEN" textData="chili-sauce-with-mozzarella"/>
+    <ElectronicText dataResourceId="DRSAUCE-TP-ALTEN" textData="tomato-sauce-with-parmesan"/>
+    <ElectronicText dataResourceId="DRSAUCE-CP-ALTEN" textData="chili-sauce-with-parmesan"/>
+    <ElectronicText dataResourceId="DRPEPPERS-ALTEN" textData="pepper"/>
+    <ElectronicText dataResourceId="DRPEPPERS-G-ALTEN" textData="green-peppers"/>
+    <ElectronicText dataResourceId="DRPEPPERS-H-ALTEN" textData="hot-peppers"/>
+    <ElectronicText dataResourceId="DRPEPPERS-R-ALTEN" textData="roasted-peppers"/>
+    
+    <Content contentId="PC-100-ALT" contentTypeId="DOCUMENT" dataResourceId="PC-100-ALT" localeString="en"/>
+    <Content contentId="CPC-100-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPC-100-ALTEN" localeString="en_US"/>
+    <Content contentId="FOOD-001-ALT" contentTypeId="DOCUMENT" dataResourceId="FOOD-001-ALT" localeString="en"/>
+    <Content contentId="CFOOD-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFOOD-001-ALTEN" localeString="en_US"/>
+    <Content contentId="PC001-ALT" contentTypeId="DOCUMENT" dataResourceId="PC001-ALT" localeString="en"/>
+    <Content contentId="CPC001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPC001-ALTEN" localeString="en_US"/>
+    <Content contentId="RAM1GB_BRAND-ALT" contentTypeId="DOCUMENT" dataResourceId="RAM1GB_BRAND-ALT" localeString="en"/>
+    <Content contentId="CRAM1GB_BRAND-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRRAM1GB_BRAND-ALTEN" localeString="en_US"/>
+    <Content contentId="HD250GB_BRAND-ALT" contentTypeId="DOCUMENT" dataResourceId="HD250GB_BRAND-ALT" localeString="en"/>
+    <Content contentId="CHD250GB_BRAND-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRHD250GB_BRAND-ALT" localeString="en_US"/>
+    <Content contentId="HD500GB_BRAND-ALT" contentTypeId="DOCUMENT" dataResourceId="HD500GB_BRAND-ALT" localeString="en"/>
+    <Content contentId="CHD500GB_BRAND-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRHD500GB_BRAND-ALT" localeString="en_US"/>
+    <Content contentId="ETH_BRAND-ALT" contentTypeId="DOCUMENT" dataResourceId="ETH_BRAND-ALT" localeString="en"/>
+    <Content contentId="CETH_BRAND-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRETH_BRAND-ALTEN" localeString="en_US"/>
+    <Content contentId="MOD_BRAND-ALT" contentTypeId="DOCUMENT" dataResourceId="MOD_BRAND-ALT" localeString="en"/>
+    <Content contentId="CMOD_BRAND-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRMOD_BRAND-ALTEN" localeString="en_US"/>
+    <Content contentId="MOTHER_BOARD_ASS-ALT" contentTypeId="DOCUMENT" dataResourceId="MOTHER_BOARD_ASS-ALT" localeString="en"/>
+    <Content contentId="CMOTHER_BOARD_ASS" contentTypeId="DOCUMENT" dataResourceId="DMOTHER_BOARD_ASS" localeString="en_US"/>
+    <Content contentId="MOTHER_BOARD-ALT" contentTypeId="DOCUMENT" dataResourceId="MOTHER_BOARD-ALT" localeString="en"/>
+    <Content contentId="CMOTHER_BOARD-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRMOTHER_BOARD-ALTEN" localeString="en_US"/>
+    <Content contentId="CPU-586-ALT" contentTypeId="DOCUMENT" dataResourceId="CPU-586-ALT" localeString="en"/>
+    <Content contentId="CCPU-586-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRCPU-586-ALTEN" localeString="en_US"/>
+    <Content contentId="ENCHILADAS-ALT" contentTypeId="DOCUMENT" dataResourceId="ENCHILADAS-ALT" localeString="en"/>
+    <Content contentId="CENCHILADAS-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRENCHILADAS-ALTEN" localeString="en_US"/>
+    <Content contentId="FAJITA_BEEF-ALT" contentTypeId="DOCUMENT" dataResourceId="FAJITA_BEEF-ALT" localeString="en"/>
+    <Content contentId="CFAJITA_BEEF-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRFAJITA_BEEF-ALTEN" localeString="en_US"/>
+    <Content contentId="JALAPENOS-ALT" contentTypeId="DOCUMENT" dataResourceId="JALAPENOS-ALT" localeString="en"/>
+    <Content contentId="CJALAPENOS-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRJALAPENOS-ALTEN" localeString="en_US"/>
+    <Content contentId="PIZZA-ALT" contentTypeId="DOCUMENT" dataResourceId="PIZZA-ALT" localeString="en"/>
+    <Content contentId="CPIZZA-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPIZZA-ALTEN" localeString="en_US"/>
+    <Content contentId="DOUGH-ALT" contentTypeId="DOCUMENT" dataResourceId="DOUGH-ALT" localeString="en"/>
+    <Content contentId="CDOUGH-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRDOUGH-ALTEN" localeString="en_US"/>
+    <Content contentId="SAUCE-ALT" contentTypeId="DOCUMENT" dataResourceId="SAUCE-ALT" localeString="en"/>
+    <Content contentId="CSAUCE-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSAUCE-ALTEN" localeString="en_US"/>
+    <Content contentId="SAUCE-TM-ALT" contentTypeId="DOCUMENT" dataResourceId="SAUCE-TM-ALT" localeString="en"/>
+    <Content contentId="CSAUCE-TM-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSAUCE-TM-ALTEN" localeString="en_US"/>
+    <Content contentId="SAUCE-CM-ALT" contentTypeId="DOCUMENT" dataResourceId="SAUCE-CM-ALT" localeString="en"/>
+    <Content contentId="CSAUCE-CM-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSAUCE-CM-ALTEN" localeString="en_US"/>
+    <Content contentId="SAUCE-TP-ALT" contentTypeId="DOCUMENT" dataResourceId="SAUCE-TP-ALT" localeString="en"/>
+    <Content contentId="CSAUCE-TP-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSAUCE-TP-ALTEN" localeString="en_US"/>
+    <Content contentId="SAUCE-CP-ALT" contentTypeId="DOCUMENT" dataResourceId="SAUCE-CP-ALT" localeString="en"/>
+    <Content contentId="CSAUCE-CP-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSAUCE-CP-ALTEN" localeString="en_US"/>
+    <Content contentId="PEPPERS-ALT" contentTypeId="DOCUMENT" dataResourceId="PEPPERS-ALT" localeString="en"/>
+    <Content contentId="CPEPPERS-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPEPPERS-ALTEN" localeString="en_US"/>
+    <Content contentId="PEPPERS-G-ALT" contentTypeId="DOCUMENT" dataResourceId="PEPPERS-G-ALT" localeString="en"/>
+    <Content contentId="CPEPPERS-G-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPEPPERS-G-ALTEN" localeString="en_US"/>
+    <Content contentId="PEPPERS-H-ALT" contentTypeId="DOCUMENT" dataResourceId="PEPPERS-H-ALT" localeString="en"/>
+    <Content contentId="CPEPPERS-H-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPEPPERS-H-ALTEN" localeString="en_US"/>
+    <Content contentId="PEPPERS-R-ALT" contentTypeId="DOCUMENT" dataResourceId="PEPPERS-R-ALT" localeString="en"/>
+    <Content contentId="CPEPPERS-R-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRPEPPERS-R-ALTEN" localeString="en_US"/>
+    
+    <ContentAssoc contentId="PC-100-ALT" contentIdTo="CPC-100-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FOOD-001-ALT" contentIdTo="CFOOD-001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="PC001-ALT" contentIdTo="CPC001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="RAM1GB_BRAND-ALT" contentIdTo="CRAM1GB_BRAND-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="HD250GB_BRAND-ALT" contentIdTo="CHD250GB_BRAND-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="HD500GB_BRAND-ALT" contentIdTo="CHD500GB_BRAND-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="ETH_BRAND-ALT" contentIdTo="CETH_BRAND-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="MOD_BRAND-ALT" contentIdTo="CMOD_BRAND-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="MOTHER_BOARD_ASS-ALT" contentIdTo="CMOTHER_BOARD_ASS" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="MOTHER_BOARD-ALT" contentIdTo="CMOTHER_BOARD-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="CPU-586-ALT" contentIdTo="CCPU-586-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="ENCHILADAS-ALT" contentIdTo="CENCHILADAS-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="FAJITA_BEEF-ALT" contentIdTo="CFAJITA_BEEF-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="JALAPENOS-ALT" contentIdTo="CJALAPENOS-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="PIZZA-ALT" contentIdTo="CPIZZA-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="DOUGH-ALT" contentIdTo="CDOUGH-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="SAUCE-ALT" contentIdTo="CSAUCE-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="SAUCE-TM-ALT" contentIdTo="CSAUCE-TM-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="SAUCE-CM-ALT" contentIdTo="CSAUCE-CM-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="SAUCE-TP-ALT" contentIdTo="CSAUCE-TP-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="SAUCE-CP-ALT" contentIdTo="CSAUCE-CP-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="PEPPERS-ALT" contentIdTo="CPEPPERS-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="PEPPERS-G-ALT" contentIdTo="CPEPPERS-G-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="PEPPERS-H-ALT" contentIdTo="CPEPPERS-H-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    <ContentAssoc contentId="PEPPERS-R-ALT" contentIdTo="CPEPPERS-R-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
+    
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="PC-100" contentId="PC-100-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductCategoryContent prodCatContentTypeId="ALTERNATIVE_URL" productCategoryId="FOOD-001" contentId="FOOD-001-ALT" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <ProductContent productId="PC001" contentId="PC001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="RAM1GB_BRAND" contentId="RAM1GB_BRAND-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="HD250GB_BRAND" contentId="HD250GB_BRAND-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="HD500GB_BRAND" contentId="HD500GB_BRAND-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="ETH_BRAND" contentId="ETH_BRAND-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="MOD_BRAND" contentId="MOD_BRAND-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="MOTHER_BOARD_ASS" contentId="MOTHER_BOARD_ASS-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="MOTHER_BOARD" contentId="MOTHER_BOARD-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="CPU-586" contentId="CPU-586-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="ENCHILADAS" contentId="ENCHILADAS-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="FAJITA_BEEF" contentId="FAJITA_BEEF-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="JALAPENOS" contentId="JALAPENOS-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="PIZZA" contentId="PIZZA-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="DOUGH" contentId="DOUGH-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="SAUCE" contentId="SAUCE-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="SAUCE-TM" contentId="SAUCE-TM-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="SAUCE-CM" contentId="SAUCE-CM-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="SAUCE-TP" contentId="SAUCE-TP-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="SAUCE-CP" contentId="SAUCE-CP-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="PEPPERS" contentId="PEPPERS-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="PEPPERS-G" contentId="PEPPERS-G-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="PEPPERS-H" contentId="PEPPERS-H-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductContent productId="PEPPERS-R" contentId="PEPPERS-R-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
 </entity-engine-xml>
