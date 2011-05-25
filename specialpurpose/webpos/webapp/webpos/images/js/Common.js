@@ -108,7 +108,13 @@ function getServerError(data) {
     if (data._ERROR_MESSAGE_LIST_ != undefined) {
         serverErrorHash = data._ERROR_MESSAGE_LIST_;
         jQuery.each(serverErrorHash, function(i, error) {
-            serverError += error;
+          if (error != undefined) {
+              if (error.message != undefined) {
+                  serverError += error.message;
+              } else {
+                  serverError += error;
+              }
+            }
         });
     }
     if (data._ERROR_MESSAGE_ != undefined) {
