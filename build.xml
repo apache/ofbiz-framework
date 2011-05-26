@@ -251,19 +251,36 @@ under the License.
         <echo message="[docs-all] ========== Start Building (JavaDoc) =========="/>
 
         <mkdir dir="${site.dir}/javadocs"/>
-        <default-javadoc packagenames="org.ofbiz.*"
-                destdir="${site.dir}/javadocs"
-                maxmemory="256M"
-                windowtitle="Open for Business - API"
-                useexternalfile="yes">
-            <fileset dir="${basedir}" defaultexcludes="yes">
-                <include name="**/*.java"/>
-                <exclude name="**/ControlApplet.java"/>
-                <exclude name="**/ShipmentScaleApplet.java"/>
-                <exclude name="**/test/"/>
-            </fileset>
-        </default-javadoc>
-
+        
+        <path id="local.class.path">
+          <fileset dir="${ofbiz.home.dir}/framework/base/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/base/lib/commons" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/base/lib/j2eespecs" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/birt/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/catalina/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/entity/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/geronimo/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/guiapp/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/jetty/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/service/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/testtools/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/webapp/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/webapp/build/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/framework/webslinger/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/specialpurpose/ebaystore/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/specialpurpose/googlecheckout/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/specialpurpose/ldap/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/specialpurpose/pos/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/applications/content/lib" includes="*.jar"/>
+          <fileset dir="${ofbiz.home.dir}/applications/product/lib" includes="*.jar"/>
+        </path>
+        
+        <property name="desc" value="API"/>
+        <property name="build.dir" value="${site.dir}"/>
+        
+        <default-javadoc/>
+        
         <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
    </target>
 
