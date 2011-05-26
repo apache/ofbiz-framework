@@ -100,12 +100,7 @@ under the License.
     <!-- ================================================================== -->
 
     <target name="docs" depends="prepare-docs">
-        <default-javadoc sourcepathref="src-path">
-            <fileset dir="${src.dir}">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
-        </default-javadoc>
+        <default-javadoc/>
     </target>
 
     <macrodef name="run-junit">

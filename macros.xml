@@ -63,7 +63,6 @@ under the License.
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
  </path>
  <path id="local.class.path"/>
-
  <presetdef name="default-javac">
   <javac debug="on" deprecation="on" destdir="${build.dir}/classes" srcdir="${src.dir}" classpathref="local.class.path">
    <patternset refid="src.inc.set"/>
@@ -78,11 +77,42 @@ under the License.
  </presetdef>
 
  <presetdef name="default-javadoc">
-  <javadoc classpathref="local.class.path"
-           destdir="${build.dir}/javadocs"
-           Windowtitle="Open for Business - ${desc}">
-   <link href="http://java.sun.com/javase/6/docs/api/" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java16"/>
-  </javadoc>
+    <javadoc classpathref="local.class.path"
+             destdir="${build.dir}/javadocs"
+             windowtitle="Open for Business - ${desc}"
+             useexternalfile="yes"
+             maxmemory="256M"
+             encoding="UTF-8"
+             packagenames="org.ofbiz.*">
+      <fileset dir="${basedir}" defaultexcludes="yes">
+        <include name="**/*.java"/>
+        <exclude name="**/ControlApplet.java"/>
+        <exclude name="**/ShipmentScaleApplet.java"/>
+        <exclude name="**/test/"/>
+        <exclude name="**/cybersource/"/>
+        <exclude name="**/PayPalServices.java"/>
+        <exclude name="**/ideal/"/>
+        <exclude name="**/orbital/"/>
+        <exclude name="**/securepay/"/>
+        <exclude name="**/verisign/"/>
+        <exclude name="**/JREntityListIteratorDataSource.java"/>
+        <exclude name="**/JRMapCollectionDataSource.java"/>
+        <exclude name="**/openoffice/"/>
+        <exclude name="**/XaPoolConnectionFactory.java"/>
+        <exclude name="**/JasperReportsPdfViewHandler.java"/>
+        <exclude name="**/JasperReportsXmlViewHandler.java"/>
+        <exclude name="**/JasperReportsJXlsViewHandler.java"/>
+        <exclude name="**/JasperReportsPoiXlsViewHandler.java"/>
+        <exclude name="**/GenericViewRenderer.java"/>
+        <exclude name="**/JPublishViewHandler.java"/>
+        <exclude name="**/JPublishWrapper.java"/>
+        <exclude name="**/FopPdfViewHandler.java"/>
+        <exclude name="**/FreeMarkerViewRenderer.java"/>
+        <exclude name="**/JpCacheIncludeTransform.java"/>             
+        <exclude name="**/shark/"/>
+      </fileset>
+      <link href="http://java.sun.com/javase/6/docs/api/" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java16"/>
+    </javadoc>
  </presetdef>
 
  <macrodef name="main-jar">
