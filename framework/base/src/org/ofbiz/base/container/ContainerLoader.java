@@ -29,7 +29,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.ofbiz.base.start.Config;
-import org.ofbiz.base.start.Start;
 import org.ofbiz.base.start.StartupException;
 import org.ofbiz.base.start.StartupLoader;
 import org.ofbiz.base.util.Debug;
@@ -69,7 +68,7 @@ public class ContainerLoader implements StartupLoader {
     private boolean loaded = false;
 
     /**
-     * @see org.ofbiz.base.start.StartupLoader#load(Start.Config, String[])
+     * @see org.ofbiz.base.start.StartupLoader#load(Config, String[])
      */
     public synchronized void load(Config config, String args[]) throws StartupException {
         if (this.loaded || this.unloading) {
