@@ -347,7 +347,7 @@ under the License.
             </drop-down>
         </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
-        <field name="mimeTypeId">
+        <field name="mimeTypeId" encode-output="false">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
@@ -410,7 +410,7 @@ under the License.
                 <list-options list-name="dataCategoryList"  key-name="dataCategoryId"  description="${categoryName}"/>
             </drop-down>
         </field>
-        <field name="mimeTypeId">
+        <field name="mimeTypeId" encode-output="false">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>

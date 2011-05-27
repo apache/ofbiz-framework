@@ -35,8 +35,8 @@ under the License.
         </field>
         <field name="mimeTypeId" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId">
-                    <entity-order-by field-name="description"/>
+                <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
+                    <entity-order-by field-name="mimeTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -265,7 +265,7 @@ under the License.
         <field name="localeString">
             <lookup target-form-name="LookupLocale"></lookup>
         </field>
-        <field name="mimeTypeId">
+        <field name="mimeTypeId" encode-output="false">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
