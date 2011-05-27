@@ -73,7 +73,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="PersonTraining" default-field-type="hidden"/>
-        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}" widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
@@ -109,7 +109,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="PersonTraining" default-field-type="display"/>
-        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}" widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
@@ -136,7 +136,7 @@ under the License.
     </form>
     <form name="EditTrainingApprovals" type="single" target="updateTrainingStatus" default-map-name="personTraining">
         <auto-fields-service service-name="updateTrainingStatus" default-field-type="display"/>
-        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}"/>
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}"/>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
         <field name="approvalStatus">
             <drop-down allow-empty="false">
@@ -177,7 +177,7 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="PersonTraining" default-field-type="display"/>
-        <field name="partyId" title="${uiLabelMap.WebPosEmployee} ${uiLabelMap.CommonId}" widget-style="buttontext">
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId" from-field="partyId"/>
