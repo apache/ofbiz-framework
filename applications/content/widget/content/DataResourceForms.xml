@@ -196,7 +196,7 @@ under the License.
         <field name="localeString">
             <lookup target-form-name="LookupLocale"></lookup>
         </field>
-        <field name="mimeTypeId">
+        <field name="mimeTypeId"  encode-output="false">
             <drop-down allow-empty="true">
                 <entity-options description="${mimeTypeId} - ${description}" entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="mimeTypeId"/>
