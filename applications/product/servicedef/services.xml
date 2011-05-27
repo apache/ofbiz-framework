@@ -1607,4 +1607,10 @@ under the License.
         <attribute name="productCategoryId" mode="OUT" type="String" optional="true"/>
     </service>
     
+    <!-- Alternative URLs -->
+    <service name="createMissingCategoryAndProductAltUrls" engine="simple"
+                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="createMissingCategoryAndProductAltUrls" auth="true" use-transaction="false">
+        <description>Create missing Category and Product Alternative URLs</description>
+        <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
+    </service>
 </services>
