@@ -2197,7 +2197,7 @@
         <value xml:lang="en">Cash Flow Statement</value>
         <value xml:lang="fr">Tableau des flux de trésorerie</value>
         <value xml:lang="hi_IN">रोकड प्रवाह विवरण</value>
-        <value xml:lang="nl">Kasboek</value>		
+        <value xml:lang="nl">Kasboek</value>
         <value xml:lang="pt">Demonstração dos Fluxos de Caixa</value>
         <value xml:lang="zh_TW">現金流量表</value>
     </property>
@@ -2205,7 +2205,7 @@
         <value xml:lang="en">Chart of accounts for</value>
         <value xml:lang="fr">Plan comptable pour</value>
         <value xml:lang="hi_IN">लेखा-चित्र के लिए</value>
-        <value xml:lang="nl">Overzicht grootboekrekeningen voor</value>		
+        <value xml:lang="nl">Overzicht grootboekrekeningen voor</value>
         <value xml:lang="pt">Plano de Contas para</value>
         <value xml:lang="zh_TW">會計科目表</value>
     </property>
@@ -2498,7 +2498,7 @@
         <value xml:lang="en">Comparative Cash Flow Statement</value>
         <value xml:lang="fr">Tableau comparatif de flux de trésorerie</value>
         <value xml:lang="hi_IN">तुलनात्मक रोकड प्रवाह विवरण</value>
-        <value xml:lang="nl">Vergelijking Kasboek</value>		
+        <value xml:lang="nl">Vergelijking Kasboek</value>
         <value xml:lang="pt">Demonstração dos Fluxos de Caixa comparativo</value>
         <value xml:lang="zh_TW">比較現金流量表</value>
     </property>
@@ -2508,7 +2508,7 @@
         <value xml:lang="fr">Comparatif Compte de résultat</value>
         <value xml:lang="hi_IN">तुलनात्मक आय विवरण</value>
         <value xml:lang="it">Conto Economico Comparativo</value>
-        <value xml:lang="nl">Vergelijking Resultatenrekening</value>		
+        <value xml:lang="nl">Vergelijking Resultatenrekening</value>
         <value xml:lang="pt">Comparativo de Demonstração de Resultados</value>
         <value xml:lang="zh_TW">比較損益表</value>
     </property>
@@ -5490,7 +5490,7 @@
         <value xml:lang="de">Probebilanz</value>
         <value xml:lang="en">GL Account Trial Balance</value>
         <value xml:lang="hi_IN">जीएल(GL) खाता तलपट(Trial Balance)</value>
-        <value xml:lang="nl">Grootboekrekening Proefbalans</value>		
+        <value xml:lang="nl">Grootboekrekening Proefbalans</value>
         <value xml:lang="pt">Balancete Teste da Conta Razão</value>
         <value xml:lang="zh_TW">總帳科目試算餘額</value>
     </property>
@@ -5740,7 +5740,7 @@
     <property key="AccountingInventoryValuation">
         <value xml:lang="en">Inventory Valuation</value>
         <value xml:lang="hi_IN">वस्तु मूल्यांकन</value>
-        <value xml:lang="nl">Voorraadwaardering</value>		
+        <value xml:lang="nl">Voorraadwaardering</value>
         <value xml:lang="pt">Inventário de Avaliação</value>
         <value xml:lang="zh_TW">庫存評價表</value>
     </property>
@@ -11279,7 +11279,7 @@
     <property key="AccountingTotalEquities">
         <value xml:lang="en">Total Equities</value>
         <value xml:lang="nl">Totaal eigen vermogen</value>      
-    </property>	
+    </property>
     <property key="AccountingTotalNetSales">
         <value xml:lang="en">Total Net Sales</value>
         <value xml:lang="hi_IN">कुल शुद्ध विक्रय</value>
@@ -12853,7 +12853,7 @@
         <value xml:lang="en">Cost Centers</value>
         <value xml:lang="fr">Centres de coût</value>
         <value xml:lang="hi_IN">लागत केंद्र</value>
-        <value xml:lang="nl">Kostenplaatsen</value>		
+        <value xml:lang="nl">Kostenplaatsen</value>
         <value xml:lang="pt">Centros de custo</value>
         <value xml:lang="zh_TW">成本中心</value>
     </property>
