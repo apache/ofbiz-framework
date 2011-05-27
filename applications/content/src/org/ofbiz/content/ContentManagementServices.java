@@ -222,6 +222,10 @@ public class ContentManagementServices {
         dataResource.setPKFields(context);
         dataResource.setNonPKFields(context);
         dataResource.setAllFields(context, false, "dr", null);
+        String isPublic = (String) context.get("isPublic");
+        if(UtilValidate.isEmpty(isPublic)){
+            dataResource.set("isPublic", "N");
+        }
         context.putAll(dataResource);
         String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
