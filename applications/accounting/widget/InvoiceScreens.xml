@@ -26,7 +26,7 @@ under the License.
     <screen name="CommonInvoiceDecorator">
         <section>
             <actions>
-                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="invoices"/>
             </actions>

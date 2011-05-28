@@ -6390,6 +6390,10 @@
         <value xml:lang="zh">销售发票</value>
         <value xml:lang="zh_TW">銷售發票</value>
     </property>
+    <property key="AccountingInvoiceSaveAsTemplate">
+        <value xml:lang="en">Save Invoice As Template</value>
+        <value xml:lang="it">Salva fattura come template</value>
+    </property>
     <property key="AccountingInvoiceStatusHistory">
         <value xml:lang="ar">سوابق الوضعيات</value>
         <value xml:lang="de">Statusverlauf</value>
