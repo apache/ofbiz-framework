@@ -41,7 +41,7 @@ under the License.
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderOrderTermType}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderOrderTermValue}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderOrderTermDays}</td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.QuoteTermDescription}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${uiLabelMap.OrderQuoteTermDescription}</td>
                 <td></td>
                 <td></td>
                 <td></td>

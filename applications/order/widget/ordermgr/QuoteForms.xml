@@ -515,7 +515,7 @@ under the License.
         <alt-target use-when="quoteTerm==null" target="createQuoteTerm"/>
         <auto-fields-entity entity-name="QuoteTerm" default-field-type="edit"/>
         <field name="tabButtonItems"><hidden value="${tabButtonItem}"/></field>
-        <field name="quoteItemSeqId" tooltip="${uiLabelMap.QuoteEmpty}">
+        <field name="quoteItemSeqId" tooltip="${uiLabelMap.OrderQuoteEmpty}">
             <drop-down allow-empty="true">
                 <entity-options description="${quoteItemSeqId}" entity-name="QuoteItem">
                     <entity-constraint name="quoteId" operator="equals" value="${quoteId}"/>
