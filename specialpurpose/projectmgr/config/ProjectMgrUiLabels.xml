@@ -733,8 +733,10 @@
         <value xml:lang="fr">Heures réelles</value>
         <value xml:lang="it">Ore attuali</value>
         <value xml:lang="nl">Werk. uren</value>
+        <value xml:lang="pt_BR">Horas efetivas</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
         <value xml:lang="zh">实际工时</value>
+        <value xml:lang="zh_TW">實際工時</value>
     </property>
     <property key="ProjectMgrActualTotal">
         <value xml:lang="de">Ist-Stunden gesamt</value>
@@ -1307,8 +1309,10 @@
         <value xml:lang="fr">Heures planifiées</value>
         <value xml:lang="it">Ore pianificate</value>
         <value xml:lang="nl">Gepl. uren</value>
+        <value xml:lang="pt_BR">Horas planejadas</value>
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
         <value xml:lang="zh">已计划工时</value>
+        <value xml:lang="zh_TW">已計劃工時</value>
     </property>
     <property key="ProjectMgrPrintableNote">
         <value xml:lang="de">Druckbare Notiz</value>
@@ -1362,8 +1366,10 @@
         <value xml:lang="fr">Nom du projet</value>
         <value xml:lang="it">Nome progetto</value>
         <value xml:lang="nl">Naam</value>
+        <value xml:lang="pt_BR">Nome do projeto</value>
         <value xml:lang="th">ชื่อโปรเจค</value>
         <value xml:lang="zh">项目名称</value>
+        <value xml:lang="zh_TW">專案名稱</value>
     </property>
     <property key="ProjectMgrProjectNoNotes">
         <value xml:lang="de">Keine Notizen für dieses Projekt</value>
