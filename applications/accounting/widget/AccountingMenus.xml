@@ -312,7 +312,7 @@ under the License.
                 <parameter param-name="statusId" value="INVOICE_CANCELLED"/>
             </link>
         </menu-item>
-        <menu-item name="saveInvoiceAsTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
+        <menu-item name="saveInvoiceAsTemplate" title="${uiLabelMap.AccountingInvoiceSaveAsTemplate}">
             <condition>
                 <and>
                    <not><if-empty field="invoice.invoiceId"/></not>
