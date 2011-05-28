@@ -8602,12 +8602,20 @@
         <value xml:lang="zh">询价</value>
         <value xml:lang="zh_TW">報價</value>
     </property>
+    <property key="OrderQuoteEmpty">
+        <value xml:lang="en">Empty for total quote</value>
+        <value xml:lang="it">Totale preventivo è vuoto</value>
+    </property>
     <property key="OrderQuotePricePermissionError">
         <value xml:lang="en">Quote Price Permission Error</value>
         <value xml:lang="it">Errore permesso prezzo preventivo</value>
         <value xml:lang="pt_BR">Erro de permissão para preço de cotação</value>
         <value xml:lang="zh">询价价格权限错误</value>
         <value xml:lang="zh_TW">報價價格權限錯誤</value>
+    </property>
+    <property key="OrderQuoteTermDescription">
+        <value xml:lang="en">Term Description</value>
+        <value xml:lang="it">Descrizione termini preventivo</value>
     </property>
     <property key="OrderRanking">
         <value xml:lang="cs">Pořadí</value>
@@ -12766,11 +12774,5 @@
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
         <value xml:lang="zh_TW">瀏覽要求</value>
-    </property>
-    <property key="QuoteEmpty">
-        <value xml:lang="en">Empty for total quote</value>
-    </property>
-    <property key="QuoteTermDescription">
-        <value xml:lang="en">Term Description</value>
     </property>
 </resource>
