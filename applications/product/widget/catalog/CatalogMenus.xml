@@ -235,7 +235,7 @@ under the License.
         </menu-item>
         <menu-item name="CreateSeo" title="${uiLabelMap.ProductCatalogSeoCreate}">
             <condition>
-                <if-compare operator="equals" value="ProductCatalog" field="tabButtonItem"/>
+                <not><if-empty field="prodCatalog"/></not>
             </condition>
             <link target="CreateSeoProdCatalog">
                 <parameter param-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
