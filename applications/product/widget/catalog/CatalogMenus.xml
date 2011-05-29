@@ -234,6 +234,9 @@ under the License.
             <link target="EditProdCatalog"/>
         </menu-item>
         <menu-item name="CreateSeo" title="${uiLabelMap.ProductCatalogSeoCreate}">
+            <condition>
+                <if-compare operator="equals" value="ProductCatalog" field="tabButtonItem"/>
+            </condition>
             <link target="CreateSeoProdCatalog">
                 <parameter param-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
             </link>
