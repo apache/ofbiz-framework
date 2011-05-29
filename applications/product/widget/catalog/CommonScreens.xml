@@ -381,12 +381,15 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="ImageManagementTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                <decorator-section-include name="body"/>
+                                <container style="h1">
+                                <label text=" "/>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
                         </section>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

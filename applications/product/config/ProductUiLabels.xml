@@ -7600,6 +7600,9 @@
         <value xml:lang="en">Find Category</value>
         <value xml:lang="th">ค้นหาหมวดหมู่</value>
     </property>
+    <property key="PageTitleFindCatalog">
+        <value xml:lang="en">Find Catalog</value>
+    </property>
     <property key="PageTitleFindConfigItems">
         <value xml:lang="de">Konfigurationsposition suchen</value>
         <value xml:lang="en">Find Config Items</value>
