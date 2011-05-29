@@ -478,6 +478,54 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="ProductSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="EditProduct" title="${uiLabelMap.ProductNewProduct}" widget-style="buttontext create">
+            <link target="EditProduct"/>
+        </menu-item>
+        <menu-item name="CreateVirtualWithVariantsForm" title="${uiLabelMap.ProductNewVirtualProduct}" widget-style="buttontext create">
+            <condition>
+                <not><if-empty field="product"/></not>
+            </condition>
+            <link target="CreateVirtualWithVariantsForm">
+                <parameter param-name="product_id" from-field="productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ProductProductPage" title="${uiLabelMap.ProductProductPage}">
+            <condition>
+                <not><if-empty field="product"/></not>
+            </condition>
+            <link target="/ecommerce/control/product" url-mode="inter-app">
+                <parameter param-name="product_id" from-field="productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ProductBarCode" title="${uiLabelMap.ProductProductPage}">
+            <condition>
+                <not><if-empty field="product"/></not>
+            </condition>
+            <link target="ProductBarCode.pdf" target-window="_blank">
+                <parameter param-name="productId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ExpandAll" title="${uiLabelMap.CommonExpandAll}" widget-style="buttontext expand-all">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-compare operator="equals" value="EditProduct" field="tabButtonItem"/>
+                </and>
+            </condition>
+            <link target="javascript:expandAll(true);" url-mode="plain"/>
+        </menu-item>
+        <menu-item name="CollapseAll" title="${uiLabelMap.CommonCollapseAll}" widget-style="buttontext collapse-all">
+            <condition>
+                <and>
+                    <not><if-empty field="product"/></not>
+                    <if-compare operator="equals" value="EditProduct" field="tabButtonItem"/>
+                </and>
+            </condition>
+            <link target="javascript:expandAll(false);" url-mode="plain"/>
+        </menu-item>
+    </menu>
+
     <menu name="ConfigItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditProductConfigItem" title="${uiLabelMap.ProductConfigItem}">
             <link target="EditProductConfigItem">

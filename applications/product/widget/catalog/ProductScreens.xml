@@ -34,76 +34,49 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="pre-body">
-                        <section>
-                            <condition>
-                                    <and>
-                                        <if-has-permission permission="CATALOG" action="_VIEW"/>
-                                        <or>
-                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
-                                            <not><if-empty field="product"/></not>
-                                        </or>
-                                    </and>
-                            </condition>
-                            <widgets>
-                                <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="CATALOG" action="_ADMIN"/>
+                                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                    <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                </or>
                             </condition>
+                            <actions>
+                                <set field="productId" from-field="parameters.productId"/>
+                                <entity-one entity-name="Product" value-field="product"/>
+                            </actions>
                             <widgets>
                                 <section>
                                     <condition>
                                         <or>
-                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
                                             <not><if-empty field="product"/></not>
+                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <container>
-                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
-                                            <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content" alt="${product.internalName}"/>
-                                        </container>
-
-                                        <!-- add Create Product and View Product (in ecommerce) links -->
-                                        <container style="button-bar">
-                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext create"/>
-                                            <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext create"/>
-                                            <link target="/ecommerce/control/product" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext">
-                                                <parameter param-name="product_id" from-field="productId"/>
-                                            </link>
-                                            <link target="ProductBarCode.pdf" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext">
-                                                <parameter param-name="productId"/>
-                                            </link>
-
-                                            <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
-                                            <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext collapse-all" url-mode="plain"/>
-                                        </container>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <or>
-                                            <not><if-empty field="product"/></not>
-                                            <not><if-empty field="parameters.bypassIfNoProduct"/></not>
-                                            <if-empty field="productId"/>
-                                        </or>
-                                    </condition>
-                                    <widgets>
-                                        <decorator-section-include name="body"/>
+                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>                                        
+                                        <include-menu name="ProductSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content" alt="${product.internalName}"/>
+                                        <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                     </widgets>
                                     <fail-widgets>
-                                        <label style="h3">${uiLabelMap.ProductNoExistingProductsFound}</label>
+                                        <section>
+                                            <condition>
+                                                <if-compare operator="not-equals" value="EditProduct" field="tabButtonItem"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="ProductSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            </widgets>
+                                        </section>
                                     </fail-widgets>
                                 </section>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
@@ -129,11 +102,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext create"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindProduct" location="component://product/widget/catalog/ProductForms.xml"/>
                                     </decorator-section>
