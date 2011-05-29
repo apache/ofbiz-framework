@@ -62,7 +62,7 @@ under the License.
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="productId"><lookup target-form-name="LookupProduct"/></field>
         <field name="productCategoryId"><lookup target-form-name="LookupProductCategory"/></field>
-        <field name="automaticExtend">
+        <field name="automaticExtend" title="Automatic Extend" ><!-- TODO: ${uiLabelMap.FormFieldTitle_automaticExtend} get overwritten with the description of the field from the entitymodel-->
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
                 <option key="N" description="${uiLabelMap.CommonNo}"/>
@@ -281,13 +281,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="automaticExtend">
+        <field name="automaticExtend" title="Automatic Extend" ><!-- TODO: ${uiLabelMap.FormFieldTitle_automaticExtend} get overwritten with the description of the field from the entitymodel-->
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
                 <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
-        <field name="canclAutmExtTimeUomId">
+        <field name="canclAutmExtTime" title="Cancel time"></field>
+        <field name="canclAutmExtTimeUomId" title="Cancel UOM time">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>

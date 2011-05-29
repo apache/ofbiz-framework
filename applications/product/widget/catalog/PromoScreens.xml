@@ -27,19 +27,6 @@ under the License.
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
                     </decorator-section>                    
-                    <decorator-section name="pre-body">
-                        <section>
-                            <condition>
-                                <and>
-                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
-                                    <not><if-empty field="productPromoId"/></not>
-                                </and>
-                            </condition>
-                            <widgets>
-                                <include-menu name="PromoTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <!-- do check for CATALOG, _VIEW permission -->
@@ -50,6 +37,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field="productPromoId"/></not></condition>
                                     <widgets>
+                                        <include-menu name="PromoTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>
