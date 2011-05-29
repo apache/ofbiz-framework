@@ -522,6 +522,9 @@ under the License.
 
     <simple-method method-name="createMissingCategoryAndProductAltUrls" short-description="create missing category and product alternative urls.">
         <now-timestamp field="now"/>
+        <field-to-result field="parameters.prodCatalogId" result-name="prodCatalogId"/>
+        <set field="categoriesUpdated" value="0" type="Integer"/>
+        <set field="productsUpdated" value="0" type="Integer"/>
         <entity-and list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="false">
             <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
         </entity-and>
@@ -533,8 +536,8 @@ under the License.
             <entity-and list="productCategoryRollupList" entity-name="ProductCategoryRollup" filter-by-date="true">
                 <field-map field-name="parentProductCategoryId" from-field="rootProductCategoryId"/>
             </entity-and>
-             <set field="parameters.parentProductCategoryId" from-field="rootProductCategoryId"/>
-             <call-simple-method method-name="createMissingCategoryAltUrlInline"/>
+            <set field="parameters.parentProductCategoryId" from-field="rootProductCategoryId"/>
+            <call-simple-method method-name="createMissingCategoryAltUrlInline"/>
         </iterate>
         
         <iterate entry="productCategoryList" list="parameters.productCategories">
@@ -577,7 +580,12 @@ under the License.
                 </else>
                 </if-empty>
                 <if-not-empty field="createSimpleTextContentForCategoryCtx.text">
-                    <call-service service-name="createSimpleTextContentForCategory" in-map-name="createSimpleTextContentForCategoryCtx"/>
+                    <call-service service-name="createSimpleTextContentForCategory" in-map-name="`Ctx"/>
+                    <calculate field="$categoriesUpdated">
+                        <calcop operator="add" field="categoriesUpdated">
+                            <number value="1"/>                
+                        </calcop>
+                    </calculate>
                 </if-not-empty>
                 <check-errors/>
             </if-empty>
@@ -616,11 +624,20 @@ under the License.
                     </if-empty>
                     <if-not-empty field="createSimpleTextContentForProductCtx.text">
                         <call-service service-name="createSimpleTextContentForProduct" in-map-name="createSimpleTextContentForProductCtx"/>
+                        <calculate field="$productsUpdated">
+                            <calcop operator="add" field="productsUpdated">
+                                <number value="1"/>                
+                            </calcop>
+                        </calculate>
                     </if-not-empty>
                     <check-errors/>
                 </if-empty>
             </iterate>
         </iterate>
+        <set field="categoriesUpdatedMessage" value="Categories updated: ${categoriesUpdated}"/>
+        <field-to-list list="successMessageList" field="categoriesUpdatedMessage"/>
+        <set field="productsUpdatedMessage" value="Products updated: ${productsUpdated}"/>
+        <field-to-list list="successMessageList" field="productsUpdatedMessage"/>
     </simple-method>
     <simple-method method-name="createMissingCategoryAltUrlInline" short-description="create missing category alternative inline">
         <entity-and list="productCategoryRollups" entity-name="ProductCategoryRollup" filter-by-date="true">

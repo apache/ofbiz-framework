@@ -20,7 +20,42 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="ListProdCatalog" list-name="listIt" target="" title="" type="list" paginate-target="FindProdCatalog"
+    <form name="FindCatalog" type="single" target="FindCatalog" title="" default-map-name="catalog"
+        header-row-style="header-row" default-table-style="basic-table" >
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="prodCatalogId" title="${uiLabelMap.ProdCatalogId}"><text-find/></field>
+        <field name="prodCatalogName" title="${uiLabelMap.FormFieldTitle_prodCatalogName}"><text-find/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="ListCatalog" list-name="listIt" target="" title="" type="list" paginate-target="FindCatalog"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="entityName" value="ProdCatalog"/>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+                <field-map field-name="noConditionFind" value="Y"/>
+            </service>
+        </actions>
+        <field name="prodCatalogId" sort-field="true">
+            <hyperlink also-hidden="false" description="${prodCatalogId}" target="EditCatalog">
+                <parameter param-name="prodCatalogId"/>
+            </hyperlink>
+        </field>
+        
+        <field name="prodCatalogId" sort-field="true">
+            <hyperlink target="EditProdCatalog?prodCatalogId=${prodCatalogId}" description="${prodCatalogId}"></hyperlink>
+        </field>
+        <field name="catalogName" sort-field="true"><display/></field>
+        <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}" sort-field="true"><display/></field>
+    </form>
+    <!-- form name="ListProdCatalog" list-name="listIt" target="" title="" type="list" paginate-target="FindProdCatalog"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="parameters.sortField" from-field="parameters.sortField" default-value="prodCatalogId"/>
@@ -35,7 +70,7 @@ under the License.
         </field>
         <field name="catalogName" title="${uiLabelMap.ProductCatalogName}" sort-field="true"><display/></field>
         <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}" sort-field="true"><display/></field>
-    </form>
+    </form-->
     <form name="EditProdCatalog" type="single" target="updateProdCatalog" title="" default-map-name="prodCatalog"
         header-row-style="header-row" default-table-style="basic-table" default-entity-name="ProdCatalog">
 

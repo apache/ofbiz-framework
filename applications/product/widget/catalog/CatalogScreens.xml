@@ -20,22 +20,48 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+
+    <screen name="FindCatalog">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindCatalog"/>
+                <set field="headerItem" value="catalogs"/>
+                <set field="tabButtonItem" value="FindCatalog"/>
+                <set field="labelTitleProperty" value="ProductCatalog"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                    <decorator-section name="menu-bar">
+                                    </decorator-section>
+                                    <decorator-section name="search-options">
+                                        <include-form name="FindCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                    </decorator-section>
+                                    <decorator-section name="search-results">
+                                        <include-form name="ListCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
+                                    </decorator-section>
+                                </decorator-screen>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditProdCatalog">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCatalog"/>
-
-                <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
                 <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                           <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
-                        </container>
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalog}">
                             <label style="h3">${uiLabelMap.ProductCatalogEmptyWarning}</label>
                             <include-form name="EditProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
@@ -51,12 +77,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductCatalogCategories"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCategories"/>
-
-                <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
-
                 <entity-and entity-name="ProdCatalogCategory" list="prodCatalogCategories">
-                    <field-map field-name="prodCatalogId"/>
+                    <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
                     <order-by field-name="prodCatalogCategoryTypeId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productCategoryId"/>
@@ -68,9 +90,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                           <label style="h1">${uiLabelMap.ProductCategories} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
-                        </container>
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalogCategories}">
                             <include-form name="EditProdCatalogCategories" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
@@ -88,12 +107,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductCatalogParties"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="PartyParties"/>
-
-                <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
-
                 <entity-and entity-name="ProdCatalogRole" list="prodCatalogRoleList">
-                    <field-map field-name="prodCatalogId"/>
+                    <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="partyId"/>
                 </entity-and>
@@ -101,9 +116,6 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                           <label style="h1">${uiLabelMap.PartyParties} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
-                        </container>
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalogParties}">
                             <include-form name="UpdateProdCatalogToParty" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
@@ -121,12 +133,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductCatalogStores"/>
                 <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductStores"/>
-
-                <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
-                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
-
                 <entity-and entity-name="ProductStoreCatalog" list="productStoreCatalogList">
-                    <field-map field-name="prodCatalogId"/>
+                    <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
                     <order-by field-name="sequenceNum"/>
                     <order-by field-name="productStoreId"/>
                 </entity-and>
@@ -134,46 +142,12 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                           <label style="h1">${uiLabelMap.ProductStores} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
-                        </container>
                         <screenlet title="${uiLabelMap.PageTitleEditProductCatalogStores}">
                             <include-form name="UpdateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleAddProductCatalogStores}">
                             <include-form name="CreateProductStoreCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
                         </screenlet>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="FindProdCatalog">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleFindProductCatalog"/>
-
-                <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
-                    <order-by field-name="catalogName"/>
-                </entity-condition>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonCatalogDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
-                            <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.ProductProductCatalogsList}">
-                                    <include-form name="ListProdCatalog" location="component://product/widget/catalog/ProdCatalogForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
-                            </fail-widgets>
-                         </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
