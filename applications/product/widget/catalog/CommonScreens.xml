@@ -73,7 +73,7 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="prodCatalogId"/></not>
+                                        <not><if-empty field="prodCatalog"/></not>
                                     </condition>
                                     <widgets>
                                         <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
@@ -83,7 +83,14 @@ under the License.
                                         </container>
                                     </widgets>
                                     <fail-widgets>
-                                        <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <section>
+                                            <condition>
+                                                <if-compare operator="not-equals" value="ProductCatalog" field="tabButtonItem"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            </widgets>
+                                        </section>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
