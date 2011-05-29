@@ -498,7 +498,7 @@ under the License.
                 <parameter param-name="product_id" from-field="productId"/>
             </link>
         </menu-item>
-        <menu-item name="ProductBarCode" title="${uiLabelMap.ProductProductPage}">
+        <menu-item name="ProductBarCode" title="${uiLabelMap.ProductBarcode}">
             <condition>
                 <not><if-empty field="product"/></not>
             </condition>

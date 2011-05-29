@@ -38,11 +38,11 @@ under the License.
                                     <condition><not><if-empty field="productPromoId"/></not></condition>
                                     <widgets>
                                         <include-menu name="PromoTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                        <container>
-                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
-                                        </container>
                                         <container style="button-bar">
                                             <link target="EditProductPromo" text="${uiLabelMap.ProductNewProductPromo}" style="buttontext"/>
+                                        </container>
+                                        <container>
+                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>
                                     </widgets>
                                 </section>
