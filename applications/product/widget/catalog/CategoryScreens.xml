@@ -24,50 +24,45 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="pre-body">
-                        <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
-                            <condition>
-                                <and>
-                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
-                                    <not><if-empty field="productCategoryId"/></not>
-                                </and>
-                            </condition>
-                            <widgets>
-                                <include-menu name="CategoryTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
                     </decorator-section>
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="CATALOG" action="_ADMIN"/>
+                                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                    <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                </or>
                             </condition>
+                            <actions>
+                                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
+                                <entity-one entity-name="ProductCategory" value-field="productCategory"/>
+                            </actions>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field="productCategoryId"/></not></condition>
+                                    <condition>
+                                        <not><if-empty field="productCategory"/></not>
+                                    </condition>
                                     <widgets>
+                                        <include-menu name="CategoryTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <include-menu name="CategorySubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
                                         </container>
-
-                                        <container style="button-bar">
-                                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
-                                            <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext create">
-                                                <parameter param-name="productCategoryId"/>
-                                            </link>
-                                            <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext search">
-                                                <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
-                                            </link>
-                                            <link target="/ecommerce/control/category" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext website">
-                                                <parameter param-name="category_id" from-field="productCategoryId"/>
-                                            </link>
-                                        </container>
                                     </widgets>
+                                    <fail-widgets>
+                                        <section>
+                                            <condition>
+                                                <if-compare operator="not-equals" value="EditCategory" field="tabButtonItem"/>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="CategorySubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -95,18 +90,6 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext create"/>
-                                            <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext create">
-                                                <parameter param-name="productCategoryId"/>
-                                            </link>
-                                            <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext search">
-                                                <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
-                                            </link>
-                                            <link target="/ecommerce/control/category" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext website">
-                                                <parameter param-name="category_id" from-field="productCategoryId"/>
-                                            </link>
-                                        </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindCategory" location="component://product/widget/catalog/CategoryForms.xml"/>
@@ -241,7 +224,7 @@ under the License.
                 <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryRollup"/>
                 <set field="labelTitleProperty" value="ProductRollup"/>
-                <set field="productCategoryId" from-field="parameters.showProductCategoryId"/>
+                <set field="productCategoryId" from-field="parameters.productCategoryId"/>
 
                 <entity-condition entity-name="ProductCategoryRollup" list="currentProductCategoryRollups">
                     <condition-expr field-name="productCategoryId" from-field="productCategoryId"/>

@@ -75,7 +75,7 @@ under the License.
         </menu-item>
         <menu-item name="EditCategoryRollup" title="${uiLabelMap.ProductRollup}">
             <link target="EditCategoryRollup">
-                <parameter param-name="showProductCategoryId" from-field="productCategoryId"/>
+                <parameter param-name="productCategoryId"/>
             </link>
         </menu-item>
         <menu-item name="EditCategoryProducts" title="${uiLabelMap.ProductProducts}">
@@ -106,6 +106,36 @@ under the License.
         <menu-item name="EditProductCategoryLinks" title="${uiLabelMap.ProductCategoryLinks}">
             <link target="EditProductCategoryLinks">
                 <parameter param-name="productCategoryId"/>
+            </link>
+        </menu-item>
+    </menu>
+
+    <menu name="CategorySubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="EditCategory" title="${uiLabelMap.ProductNewCategory}" widget-style="buttontext create">
+            <link target="EditCategory"/>
+        </menu-item>
+        <menu-item name="createProductInCategoryStart" title="${uiLabelMap.ProductCreateProductInCategory}" widget-style="buttontext create">
+            <condition>
+                <not><if-empty field="productCategory"/></not>
+            </condition>
+            <link target="createProductInCategoryStart">
+                <parameter param-name="prodCatalogId"/>
+            </link>
+        </menu-item>
+        <menu-item name="AdvancedSearch" title="${uiLabelMap.ProductSearchInCategory}" widget-style="buttontext search">
+            <condition>
+                <not><if-empty field="productCategory"/></not>
+            </condition>
+            <link target="advancedsearch">
+                <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
+            </link>
+        </menu-item>
+        <menu-item name="ProductCategoryPage" title="${uiLabelMap.ProductCategoryPage}" widget-style="buttontext website">
+            <condition>
+                <not><if-empty field="productCategory"/></not>
+            </condition>
+            <link target="/ecommerce/control/category" url-mode="plain">
+                <parameter param-name="category_id" from-field="productCategoryId"/>
             </link>
         </menu-item>
     </menu>
