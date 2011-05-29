@@ -63,6 +63,8 @@ under the License.
                             <condition>
                                 <or>
                                     <if-has-permission permission="CATALOG" action="_ADMIN"/>
+                                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                    <if-has-permission permission="CATALOG" action="_UPDATE"/>
                                     <if-has-permission permission="CATALOG" action="_VIEW"/>
                                 </or>
                             </condition>
