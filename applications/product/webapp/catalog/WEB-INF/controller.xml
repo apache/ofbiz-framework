@@ -1384,14 +1384,19 @@ under the License.
     </request-map>
 
     <!-- ================ ProdCatalog Requests ================= -->
-    <request-map uri="FindProdCatalog">
+    <request-map uri="FindCatalog">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindProdCatalog"/>
+        <response name="success" type="view" value="FindCatalog"/>
     </request-map>
 
     <request-map uri="EditProdCatalog">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProdCatalog"/>
+    </request-map>
+    <request-map uri="CreateSeoProdCatalog">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createMissingCategoryAndProductAltUrls"/>
+        <response name="success" type="request-redirect" value="EditProdCatalog"/>
     </request-map>
     <request-map uri="createProdCatalog">
         <security https="true" auth="true"/>
@@ -3079,6 +3084,12 @@ under the License.
     <view-map name="exportproducts" type="screen" page="component://product/widget/catalog/FindScreens.xml#exportproducts"/>
     <view-map name="FindProductById" type="screen" page="component://product/widget/catalog/FindScreens.xml#FindProductById"/>
 
+    <view-map name="FindCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindCatalog"/>
+    <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>
+    <view-map name="EditProdCatalogCategories" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogCategories"/>
+    <view-map name="EditProdCatalogStores" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogStores"/>
+    <view-map name="EditProdCatalogParties" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogParties"/>
+
     <view-map name="FindCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#FindCategory"/>
     <view-map name="EditCategory" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategory"/>
     <view-map name="EditCategoryContent" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryContent"/>
@@ -3156,12 +3167,6 @@ under the License.
     <view-map name="CreateProductFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateProductFeature"/>
     <view-map name="ListFeaturePrice" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#ListFeaturePrice"/>
     <view-map name="CreateFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateFeature"/>
-
-    <view-map name="FindProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindProdCatalog"/>
-    <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>
-    <view-map name="EditProdCatalogCategories" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogCategories"/>
-    <view-map name="EditProdCatalogStores" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogStores"/>
-    <view-map name="EditProdCatalogParties" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogParties"/>
 
     <view-map name="FindProductPromo" type="screen" page="component://product/widget/catalog/PromoScreens.xml#FindProductPromo"/>
     <view-map name="EditProductPromo" type="screen" page="component://product/widget/catalog/PromoScreens.xml#EditProductPromo"/>

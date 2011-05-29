@@ -55,34 +55,34 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="pre-body">
-                        <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
-                            <condition>
-                                <and>
-                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
-                                    <not><if-empty field="prodCatalogId"/></not>
-                                </and>
-                            </condition>
-                            <widgets>
-                                <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
                     </decorator-section>                    
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="CATALOG" action="_ADMIN"/>
+                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                </or>
                             </condition>
+                            <actions>
+                                <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
+                                <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
+                            </actions>
                             <widgets>
-                                <container style="button-bar">
-                                    <link target="EditProdCatalog" text="${uiLabelMap.ProductNewProdCatalog}" style="buttontext create"/>
-                                </container>
-
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="prodCatalogId"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="CatalogTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <include-menu name="CatalogSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                        <container>
+                                            <label style="h1">${uiLabelMap.ProductCatalog} ${uiLabelMap.CommonFor} "${prodCatalog.catalogName}" [${prodCatalogId}]</label>
+                                        </container>
+                                    </widgets>
+                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
