@@ -9246,7 +9246,7 @@
         <value xml:lang="zh">地址</value>
         <value xml:lang="zh_TW">地址</value>
     </property>
-    <property key="ProductAdvancedSearch">Product
+    <property key="ProductAdvancedSearch">
         <value xml:lang="cs">Rozšířené hledání</value>
         <value xml:lang="de">Erweiterte Suche</value>
         <value xml:lang="en">Advanced Search</value>
