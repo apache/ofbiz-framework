@@ -1951,6 +1951,9 @@
         <value xml:lang="zh">自动批准评价</value>
         <value xml:lang="zh_TW">自動核准評論</value>
     </property>
+    <property key="FormFieldTitle_automaticExtend">
+        <value xml:lang="en">Automatic Extend</value>
+    </property>
     <property key="FormFieldTitle_autoInvoiceDigitalItems">
         <value xml:lang="de">Automatische Rechnungsstellung Digitaler Produkte</value>
         <value xml:lang="en">Auto Invoice Digital Items</value>
