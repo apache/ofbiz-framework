@@ -22,9 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindCatalog" type="single" target="FindCatalog" title="" default-map-name="catalog"
         header-row-style="header-row" default-table-style="basic-table" >
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="prodCatalogId" title="${uiLabelMap.ProdCatalogId}"><text-find/></field>
-        <field name="prodCatalogName" title="${uiLabelMap.FormFieldTitle_prodCatalogName}"><text-find/></field>
+        <field name="catalogName"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -34,8 +33,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="entityName" value="ProdCatalog"/>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="+catalogName"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="requestParameters"/>
+                <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
@@ -83,7 +83,7 @@ under the License.
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}"><text size="20" maxlength="20"/></field>
 
-        <field name="catalogName" title="${uiLabelMap.ProductCatalogName}"><text size="30" maxlength="60"/></field>
+        <field name="catalogName"><text size="30" maxlength="60"/></field>
 
         <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>

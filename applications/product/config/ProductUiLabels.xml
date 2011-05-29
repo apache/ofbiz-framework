@@ -4170,6 +4170,19 @@
         <value xml:lang="zh">产品目录分类类型标识</value>
         <value xml:lang="zh_TW">產品目錄分類類型ID</value>
     </property>
+    <property key="FormFieldTitle_prodCatalogName">
+        <value xml:lang="de">Katalogname</value>
+        <value xml:lang="en">Catalog Name</value>
+        <value xml:lang="es">Nombre de Catálogo</value>
+        <value xml:lang="fr">Nom du catalogue</value>
+        <value xml:lang="it">Nome catalogo</value>
+        <value xml:lang="nl">Catalogusnaam</value>
+        <value xml:lang="ro">Nume Catalog</value>
+        <value xml:lang="ru">Имя каталога</value>
+        <value xml:lang="th">ชื่อหมวดหมู่</value>
+        <value xml:lang="zh">目录名称</value>
+        <value xml:lang="zh_TW">目錄名稱</value>
+    </property>
     <property key="FormFieldTitle_prodSearchExcludeVariant">
         <value xml:lang="de">Produktsuche schliesst die Variante aus</value>
         <value xml:lang="en">Prod Search Exclude Variant</value>
@@ -10401,19 +10414,6 @@
         <value xml:lang="th">This application is primarily intended for those responsible for the maintenance of product catalog related information</value>
         <value xml:lang="zh">这个应用程序主要用于维护产品目录相关信息</value>
         <value xml:lang="zh_TW">這個應用程式主要用于維護產品目錄相關資訊</value>
-    </property>
-    <property key="ProductCatalogName">
-        <value xml:lang="de">Katalogname</value>
-        <value xml:lang="en">Catalog Name</value>
-        <value xml:lang="es">Nombre de Catálogo</value>
-        <value xml:lang="fr">Nom du catalogue</value>
-        <value xml:lang="it">Nome catalogo</value>
-        <value xml:lang="nl">Catalogusnaam</value>
-        <value xml:lang="ro">Nume Catalog</value>
-        <value xml:lang="ru">Имя каталога</value>
-        <value xml:lang="th">ชื่อหมวดหมู่</value>
-        <value xml:lang="zh">目录名称</value>
-        <value xml:lang="zh_TW">目錄名稱</value>
     </property>
     <property key="ProductCatalogNameId">
         <value xml:lang="de">Katalogname [ID]</value>
