@@ -669,7 +669,7 @@ public class WorkEffortServices {
                 for (GenericValue workEffort : validWorkEfforts) {
                     if (UtilValidate.isNotEmpty(workEffort.getString("tempExprId"))) {
                         // check if either the workeffort is public or the requested party is a member
-                        if (UtilValidate.isNotEmpty(partyIdsToUse) && !workEffort.getString("scopeEnumId").equals("WES_PUBLIC") && !partyIdsToUse.contains(workEffort.getString("partyId"))) {
+                        if (UtilValidate.isNotEmpty(partyIdsToUse) && !"WES_PUBLIC".equals(workEffort.getString("scopeEnumId")) && !partyIdsToUse.contains(workEffort.getString("partyId"))) {
                             continue;
                         }
                         TemporalExpression tempExpr = TemporalExpressionWorker.getTemporalExpression(delegator, workEffort.getString("tempExprId"));
