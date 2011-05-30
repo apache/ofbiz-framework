@@ -48,6 +48,7 @@ under the License.
         <attribute name="requirementId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="workEffortTypeId" optional="false"/>
         <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
@@ -77,6 +78,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="reason" type="String" mode="IN" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
     </service>
     <service name="deleteWorkEffort" default-entity-name="WorkEffort" engine="simple"
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="deleteWorkEffort">

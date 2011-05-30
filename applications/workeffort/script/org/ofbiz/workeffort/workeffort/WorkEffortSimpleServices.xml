@@ -90,6 +90,7 @@ under the License.
             <!-- update status of customer request -->
             <set field="updCustReq.custRequestId" from-field="parameters.custRequestId"/>
             <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
+            <set field="updCustReq.webSiteId" from-field="parameters.webSiteId"/>
             <call-service service-name="setCustRequestStatus" in-map-name="updCustReq"/>
             <entity-and list="custRequestContents" entity-name="CustRequestContent">
                 <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
