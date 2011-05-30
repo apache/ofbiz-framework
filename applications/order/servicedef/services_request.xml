@@ -41,6 +41,7 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="custRequestName" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
         <override name="story" allow-html="safe"/>
@@ -52,6 +53,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT"/>
         <attribute name="story" mode="IN" type="String" optional="true" allow-html="safe"/>
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="custRequestName" allow-html="safe"/>
         <override name="description" allow-html="safe"/>
     </service>
@@ -179,6 +181,7 @@ under the License.
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="fromPartyId" type="String" mode="OUT" optional="true"/><!-- for notification services -->
         <attribute name="custRequestName" type="String" mode="OUT" optional="true"/><!-- for notification services -->
+        <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
     </service>
     <service name="createCustRequestFromCommEvent" engine="simple" default-entity-name="CommunicationEvent"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCommEvent" auth="true">

@@ -80,6 +80,9 @@ under the License.
         <if-not-empty field="parameters.statusId">
             <set field="setStat.statusId" from-field="parameters.statusId"/>
             <set field="setStat.custRequestId" from-field="newEntity.custRequestId"/>
+            <if-not-empty field="parameters.webSiteId">
+                <set field="setStat.webSiteId" from-field="parameters.webSiteId"/>
+            </if-not-empty>
             <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
         </if-not-empty>
         
@@ -156,6 +159,9 @@ under the License.
                 </if-compare>
                 <!-- update status and save the changed status in the history -->
                 <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
+                <if-not-empty field="parameters.webSiteId">
+                    <set field="setStat.webSiteId" from-field="parameters.webSiteId"/>
+                </if-not-empty>
                 <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
                 <if-not-empty field="isShowEvent">
                     <clear-field field="successMessage"/>
