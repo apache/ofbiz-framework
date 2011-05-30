@@ -65,7 +65,8 @@ under the License.
         <section>
             <actions>
                 <set field="leftbarScreenName" value="leftbar"/>
-                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="MainColumnStyle" value="center"/>
+                <!--set field="MainColumnStyle" value="leftonly"/-->
 
                 <set field="titleProperty" value="PageTitleShoppingCart"/>
                 <set field="headerItem" value="Shopping Cart"/>
