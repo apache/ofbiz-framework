@@ -929,7 +929,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="entryDate">
-            <display description="${date:dateTimeStr(entryDate, timeZone, locale)}"/>
+            <display type="date"/>
         </field>
         <field name="note" widget-area-style="fieldWidth200"><display/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}"><check/></field>
