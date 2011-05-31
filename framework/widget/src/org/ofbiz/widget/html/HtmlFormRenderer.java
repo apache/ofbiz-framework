@@ -41,6 +41,8 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.StringUtil.SimpleEncoder;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.ModelWidget;
@@ -69,6 +71,7 @@ import org.ofbiz.widget.form.ModelFormField.SubmitField;
 import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
+import org.ofbiz.widget.form.UtilHelpText;
 
 import com.ibm.icu.util.Calendar;
 
@@ -1271,9 +1274,26 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String titleText = UtilHttp.encodeAmpersands(tempTitleText);
 
         if (UtilValidate.isNotEmpty(titleText)) {
-            if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
-                writer.append("<span class=\"");
-                writer.append(modelFormField.getTitleStyle());
+            // copied from MacroFormRenderer renderFieldTitle
+            String displayHelpText = UtilProperties.getPropertyValue("widget.properties", "widget.form.displayhelpText");
+            String helpText = null;
+            if ("Y".equals(displayHelpText)) {
+                Delegator delegator = WidgetWorker.getDelegator(context);
+                Locale locale = (Locale)context.get("locale");
+                String entityName = modelFormField.getEntityName();
+                String fieldName = modelFormField.getFieldName();
+                helpText = UtilHelpText.getEntityFieldDescription(entityName, fieldName, delegator, locale);
+            }
+            if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle()) || UtilValidate.isNotEmpty(helpText)) {
+                writer.append("<span");
+                if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())){
+                    writer.append(" class=\"");
+                    writer.append(modelFormField.getTitleStyle());
+                }
+                if (UtilValidate.isNotEmpty(helpText)){
+                    writer.append(" title=\"");
+                    writer.append(FreeMarkerWorker.encodeDoubleQuotes(helpText));
+                }
                 writer.append("\">");
             }
             if (" ".equals(titleText)) {
