@@ -1042,11 +1042,11 @@
     </property>
     <property key="ProjectMgrActualCompletionDateAbbr">
         <value xml:lang="en">Act.Compl.</value>
-        <value xml:lang="fr">Date fin réelle</value>
+        <value xml:lang="fr">Fin réelle</value>
     </property>
     <property key="ProjectMgrEstimatedCompletionDateAbbr">
         <value xml:lang="en">Est.Compl.</value>
-        <value xml:lang="fr">Date fin est.</value>
+        <value xml:lang="fr">Fin est.</value>
     </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="de">Filter aktivieren</value>
