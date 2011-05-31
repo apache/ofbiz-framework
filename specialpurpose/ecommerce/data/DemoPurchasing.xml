@@ -253,6 +253,12 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="orderWhenSold-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRorderWhenSold-ALT" localeString="en_US"/>
     
+    <ElectronicText dataResourceId="dropShip-ALT" textData="dropship"/>
+    <ElectronicText dataResourceId="dropShip1-ALT" textData="dropship1"/>
+    <ElectronicText dataResourceId="dropShip2-ALT" textData="dropship2"/>
+    <ElectronicText dataResourceId="dropShip3-ALT" textData="dropship3"/>
+    <ElectronicText dataResourceId="orderWhenSold-ALT" textData="order-when-sold"/>
+    
     <ElectronicText dataResourceId="DRdropShip-ALTEN" textData="dropship"/>
     <ElectronicText dataResourceId="DRdropShip1-ALTEN" textData="dropship1"/>
     <ElectronicText dataResourceId="DRdropShip2-ALTEN" textData="dropship2"/>

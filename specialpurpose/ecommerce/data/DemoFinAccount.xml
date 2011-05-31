@@ -99,6 +99,12 @@
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-50-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="FA-001-O-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRFA-001-O-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="FA-100-ALT" textData="account-activation"/>
+    <ElectronicText dataResourceId="FA-001-ALT" textData="financial-account-activation"/>
+    <ElectronicText dataResourceId="FA-001-30-ALT" textData="financial-account-activation-30"/>
+    <ElectronicText dataResourceId="FA-001-50-ALT" textData="financial-account-activation-50"/>
+    <ElectronicText dataResourceId="FA-001-O-ALT" textData="financial-account-activation-o"/>
+    
     <ElectronicText dataResourceId="DRFA-100-ALTEN" textData="account-activation"/>
     <ElectronicText dataResourceId="DRFA-001-ALTEN" textData="financial-account-activation"/>
     <ElectronicText dataResourceId="DRFA-001-30-ALTEN" textData="financial-account-activation-30"/>
