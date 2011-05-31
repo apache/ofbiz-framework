@@ -276,6 +276,32 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="PEPPERS-R-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRPEPPERS-R-ALTEN" localeString="en_US"/>
     
+    <ElectronicText dataResourceId="PC-100-ALT" textData="configurable-pcs"/>
+    <ElectronicText dataResourceId="FOOD-001-ALT" textData="configurable-foods"/>
+    <ElectronicText dataResourceId="PC001-ALT" textData="configurable-pc"/>
+    <ElectronicText dataResourceId="RAM1GB_BRAND-ALT" textData="ram-1-gb-ddr2"/>
+    <ElectronicText dataResourceId="HD250GB_BRAND-ALT" textData="hd-250-gb"/>
+    <ElectronicText dataResourceId="HD500GB_BRAND-ALT" textData="hd-450-gb"/>
+    <ElectronicText dataResourceId="ETH_BRAND-ALT" textData="ethernet-card-10-100"/>
+    <ElectronicText dataResourceId="MOD_BRAND-ALT" textData="modem-card-56k"/>
+    <ElectronicText dataResourceId="MOTHER_BOARD_ASS-ALT" textData="motherboard-assembly"/>
+    <ElectronicText dataResourceId="MOTHER_BOARD-ALT" textData="motherboard"/>
+    <ElectronicText dataResourceId="CPU-586-ALT" textData="cpu-intel-586"/>
+    <ElectronicText dataResourceId="ENCHILADAS-ALT" textData="enchiladas"/>
+    <ElectronicText dataResourceId="FAJITA_BEEF-ALT" textData="fajita-beef"/>
+    <ElectronicText dataResourceId="JALAPENOS-ALT" textData="jalapenos"/>
+    <ElectronicText dataResourceId="PIZZA-ALT" textData="pizza"/>
+    <ElectronicText dataResourceId="DOUGH-ALT" textData="dough"/>
+    <ElectronicText dataResourceId="SAUCE-ALT" textData="sauce"/>
+    <ElectronicText dataResourceId="SAUCE-TM-ALT" textData="tomato-sauce-with-mozzarella"/>
+    <ElectronicText dataResourceId="SAUCE-CM-ALT" textData="chili-sauce-with-mozzarella"/>
+    <ElectronicText dataResourceId="SAUCE-TP-ALT" textData="tomato-sauce-with-parmesan"/>
+    <ElectronicText dataResourceId="SAUCE-CP-ALT" textData="chili-sauce-with-parmesan"/>
+    <ElectronicText dataResourceId="PEPPERS-ALT" textData="pepper"/>
+    <ElectronicText dataResourceId="PEPPERS-G-ALT" textData="green-peppers"/>
+    <ElectronicText dataResourceId="PEPPERS-H-ALT" textData="hot-peppers"/>
+    <ElectronicText dataResourceId="PEPPERS-R-ALT" textData="roasted-peppers"/>
+    
     <ElectronicText dataResourceId="DRPC-100-ALTEN" textData="configurable-pcs"/>
     <ElectronicText dataResourceId="DRFOOD-001-ALTEN" textData="configurable-foods"/>
     <ElectronicText dataResourceId="DRPC001-ALTEN" textData="configurable-pc"/>

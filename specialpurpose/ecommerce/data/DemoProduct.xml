@@ -232,6 +232,16 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="20111-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DR20111-ALTEN" localeString="en_US"/>
     
+    <ElectronicText dataResourceId="100-ALT" textData="gismos"/>
+    <ElectronicText dataResourceId="101-ALT" textData="small-gizmos"/>
+    <ElectronicText dataResourceId="102-ALT" textData="large-gizmos"/>
+    <ElectronicText dataResourceId="200-ALT" textData="widgets"/>
+    <ElectronicText dataResourceId="201-ALT" textData="small-widgets"/>
+    <ElectronicText dataResourceId="202-ALT" textData="large-widgets"/>
+    <ElectronicText dataResourceId="2011-ALT" textData="mini-widgets"/>
+    <ElectronicText dataResourceId="2012-ALT" textData="other-mini-widgets"/>
+    <ElectronicText dataResourceId="20111-ALT" textData="micro-widgets"/>
+    
     <ElectronicText dataResourceId="DR100-ALTEN" textData="gismos"/>
     <ElectronicText dataResourceId="DR101-ALTEN" textData="small-gizmos"/>
     <ElectronicText dataResourceId="DR102-ALTEN" textData="large-gizmos"/>
@@ -352,6 +362,11 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-1005-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-1005-ALTEN" localeString="en_US"/>
     
+    <ElectronicText dataResourceId="GZ-1000-ALT" textData="tiny-gismo"/>
+    <ElectronicText dataResourceId="GZ-1001-ALT" textData="nan-gismo"/>
+    <ElectronicText dataResourceId="GZ-1004-ALT" textData="rainbow-gismo"/>
+    <ElectronicText dataResourceId="GZ-1005-ALT" textData="dot-net-gismo"/>
+    
     <ElectronicText dataResourceId="DRGZ-1000-ALTEN" textData="tiny-gismo"/>
     <ElectronicText dataResourceId="DRGZ-1001-ALTEN" textData="nan-gismo"/>
     <ElectronicText dataResourceId="DRGZ-1004-ALTEN" textData="rainbow-gismo"/>
@@ -444,6 +459,26 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9944-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9944-ALTEN" localeString="en_US"/>
+    
+    <ElectronicText dataResourceId="GZ-1006-ALT" textData="open-gismo"/>
+    <ElectronicText dataResourceId="GZ-1006-1-ALT" textData="open-gismo-lgpl"/>
+    <ElectronicText dataResourceId="GZ-1006-2-ALT" textData="open-gismo-gpl"/>
+    <ElectronicText dataResourceId="GZ-1006-3-ALT" textData="open-gismo-bsd"/>
+    <ElectronicText dataResourceId="GZ-1006-3-ALT" textData="open-gismo-mit"/>
+    <ElectronicText dataResourceId="GZ-2002-ALT" textData="square-gismo"/>
+    <ElectronicText dataResourceId="GZ-2644-ALT" textData="round-gizmo"/>
+    <ElectronicText dataResourceId="GZ-5005-ALT" textData="purple-gizmo"/>
+    <ElectronicText dataResourceId="GZ-7000-ALT" textData="massive-gizmo"/>
+    <ElectronicText dataResourceId="GZ-8544-ALT" textData="big-gizmo"/>
+    <ElectronicText dataResourceId="GZ-9290-ALT" textData="his-her-gizmo"/>
+    <ElectronicText dataResourceId="WG-1111-ALT" textData="micro-chrome-widget"/>
+    <ElectronicText dataResourceId="WG-5569-ALT" textData="tiny-chrome-widget"/>
+    <ElectronicText dataResourceId="WG-9943-ALT" textData="giant-widget-with-variant-explosion"/>
+    <ElectronicText dataResourceId="WG-9943-B3-ALT" textData="giant-widget-b3"/>
+    <ElectronicText dataResourceId="WG-9943-B4-ALT" textData="giant-widget-b4"/>
+    <ElectronicText dataResourceId="WG-9943-S3-ALT" textData="giant-widget-s3"/>
+    <ElectronicText dataResourceId="WG-9943-S4-ALT" textData="giant-widget-s4"/>
+    <ElectronicText dataResourceId="WG-9944-ALT" textData="giant-widget-with-feature-explosion"/>
     
     <ElectronicText dataResourceId="DRGZ-1006-ALTEN" textData="open-gismo"/>
     <ElectronicText dataResourceId="DRGZ-1006-1-ALTEN" textData="open-gismo-lgpl"/>
@@ -597,6 +632,7 @@ under the License.
     <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="5.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-NEWS-1MO-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-NEWS-1MO-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="GZ-NEWS-1MO-ALT" textData="gizmo-newsletter-1-month"/>
     <ElectronicText dataResourceId="DRGZ-NEWS-1MO-ALTEN" textData="gizmo-newsletter-1-month"/>
     <Content contentId="GZ-NEWS-1MO-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-NEWS-1MO-ALT" localeString="en"/>
     <Content contentId="CGZ-NEWS-1MO-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-NEWS-1MO-ALTEN" localeString="en_US"/>
@@ -608,6 +644,7 @@ under the License.
     <DataResource dataResourceId="GZ-DIG" dataResourceTypeId="OFBIZ_FILE_BIN" mimeTypeId="image/gif" dataResourceName="Digital Gizmo Image" objectInfo="framework/images/webapp/images/ofbiz_logo.gif"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-DIG-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="GZ-DIG-ALT" textData="digital-gizmo"/>
     <ElectronicText dataResourceId="DRGZ-DIG-ALTEN" textData="digital-gizmo"/>
     <Content contentId="GZ-DIG" contentTypeId="DOCUMENT" dataResourceId="GZ-DIG" mimeTypeId="image/gif" contentName="ofbiz_logo.gif" description="Image of Digital Gizmo (actually the OFBiz logo)"/>
     <Content contentId="GZ-DIG-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-DIG-ALT" localeString="en"/>
@@ -630,6 +667,7 @@ under the License.
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1004" productAssocTypeId="MANUF_COMPONENT" quantity="3" fromDate="2001-05-13 12:00:00.0"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-BASKET-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-BASKET-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="GZ-BASKET-ALT" textData="gizmo-basket"/>
     <ElectronicText dataResourceId="DRGZ-BASKET-ALTEN" textData="gizmo-basket"/>
     <Content contentId="GZ-BASKET-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-BASKET-ALT" localeString="en"/>
     <Content contentId="CGZ-BASKET-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRGZ-BASKET-ALTEN" localeString="en_US"/>
@@ -648,6 +686,7 @@ under the License.
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1004" productAssocTypeId="PRODUCT_COMPONENT" quantity="3" fromDate="2007-01-01 12:00:00.0"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GZ-BASKET-PICK-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGZ-BASKET-PICK-ALT" localeString="en_US"/>
+    <ElectronicText dataResourceId="GZ-BASKET-PICK-ALT" textData="gizmo-basket-assembly-pick"/>
     <ElectronicText dataResourceId="DRGZ-BASKET-PICK-ALT" textData="gizmo-basket-assembly-pick"/>
     <Content contentId="GZ-BASKET-PICK-ALT" contentTypeId="DOCUMENT" dataResourceId="GZ-BASKET-PICK-ALT" localeString="en"/>
     <Content contentId="CGZ-BASKET-PICK-ALT" contentTypeId="DOCUMENT" dataResourceId="DRGZ-BASKET-PICK-ALT" localeString="en_US"/>
@@ -667,6 +706,8 @@ under the License.
     <DataResource dataResourceId="SV-1000-ALT" dataResourceTypeId="LINK" objectInfo="service-product-SV-1000-p"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SV-1000-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSV-1000-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="SERV-001-ALT" textData="services"/>
+    <ElectronicText dataResourceId="SERV-001-ALT" textData="service-product"/>
     <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="services"/>
     <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="service-product"/>
     
@@ -1204,6 +1245,22 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="GC-001-HO-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRGC-001-HO-ALTEN" localeString="en_US"/>
     
+    <ElectronicText dataResourceId="GC-100-ALT" textData="gift-cards"/>
+    <ElectronicText dataResourceId="GC-101-ALT" textData="gift-cards-purchases"/>
+    <ElectronicText dataResourceId="GC-102-ALT" textData="gift-cards-reloads"/>
+    <ElectronicText dataResourceId="GC-002-ALT" textData="gift-card-reload"/>
+    <ElectronicText dataResourceId="GC-001-ALT" textData="gift-card-activation"/>
+    <ElectronicText dataResourceId="GC-001-C10-ALT" textData="gift-card-activation-c10"/>
+    <ElectronicText dataResourceId="GC-001-C100-ALT" textData="gift-card-activation-c100"/>
+    <ElectronicText dataResourceId="GC-001-C25-ALT" textData="gift-card-activation-c25"/>
+    <ElectronicText dataResourceId="GC-001-C50-ALT" textData="gift-card-activation-c50"/>
+    <ElectronicText dataResourceId="GC-001-CO-ALT" textData="gift-card-activation-co"/>
+    <ElectronicText dataResourceId="GC-001-H10-ALT" textData="gift-card-activation-h10"/>
+    <ElectronicText dataResourceId="GC-001-H100-ALT" textData="gift-card-activation-h100"/>
+    <ElectronicText dataResourceId="GC-001-H25-ALT" textData="gift-card-activation-h25"/>
+    <ElectronicText dataResourceId="GC-001-H50-ALT" textData="gift-card-activation-h50"/>
+    <ElectronicText dataResourceId="GC-001-HO-ALT" textData="gift-card-activation-ho"/>
+    
     <ElectronicText dataResourceId="DRGC-100-ALTEN" textData="gift-cards"/>
     <ElectronicText dataResourceId="DRGC-101-ALTEN" textData="gift-cards-purchases"/>
     <ElectronicText dataResourceId="DRGC-102-ALTEN" textData="gift-cards-reloads"/>
@@ -1412,6 +1469,15 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-9943-S4-BX5-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-9943-S4-BX5-ALT" localeString="en_US"/>
     
+    <ElectronicText dataResourceId="WG-9943-B3-BX2-ALT" textData="giant-widget-b3-bx2"/>
+    <ElectronicText dataResourceId="WG-9943-B3-BX5-ALT" textData="giant-widget-b3-bx5"/>
+    <ElectronicText dataResourceId="WG-9943-B4-BX2-ALT" textData="giant-widget-b4-bx2"/>
+    <ElectronicText dataResourceId="WG-9943-B4-BX5-ALT" textData="giant-widget-b4-bx5"/>
+    <ElectronicText dataResourceId="WG-9943-S3-BX2-ALT" textData="giant-widget-s3-bx2"/>
+    <ElectronicText dataResourceId="WG-9943-S3-BX5-ALT" textData="giant-widget-s3-bx5"/>
+    <ElectronicText dataResourceId="WG-9943-S4-BX2-ALT" textData="giant-widget-s4-bx2"/>
+    <ElectronicText dataResourceId="WG-9943-S4-BX5-ALT" textData="giant-widget-s4-bx5"/>
+    
     <ElectronicText dataResourceId="DRWG-9943-B3-BX2-ALT" textData="giant-widget-b3-bx2"/>
     <ElectronicText dataResourceId="DRWG-9943-B3-BX5-ALT" textData="giant-widget-b3-bx5"/>
     <ElectronicText dataResourceId="DRWG-9943-B4-BX2-ALT" textData="giant-widget-b4-bx2"/>
@@ -1466,6 +1532,8 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-BX2-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="WG-1111-BX4-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRWG-1111-BX4-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="WG-1111-BX2-ALT" textData="micro-chrome-widget-bx2"/>
+    <ElectronicText dataResourceId="WG-1111-BX4-ALT" textData="micro-chrome-widget-bx4"/>
     <ElectronicText dataResourceId="DRWG-1111-BX2-ALTEN" textData="micro-chrome-widget-bx2"/>
     <ElectronicText dataResourceId="DRWG-1111-BX4-ALTEN" textData="micro-chrome-widget-bx4"/>
     <Content contentId="WG-1111-BX2-ALT" contentTypeId="DOCUMENT" dataResourceId="WG-1111-BX2-ALT" localeString="en"/>

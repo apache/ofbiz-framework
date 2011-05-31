@@ -43,6 +43,8 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRBEST-SELL-1-ALTEN" localeString="en_US"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="BEST-SELL-2-ALT" localeString="en"/>
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRBEST-SELL-2-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="BEST-SELL-1-ALT" textData="best-sell-1"/>
+    <ElectronicText dataResourceId="BEST-SELL-2-ALT" textData="best-sell-2"/>
     <ElectronicText dataResourceId="DRBEST-SELL-1-ALTEN" textData="best-sell-1"/>
     <ElectronicText dataResourceId="DRBEST-SELL-2-ALTEN" textData="best-sell-2"/>
     <Content contentTypeId="DOCUMENT" localeString="en" contentId="BEST-SELL-1-ALT" dataResourceId="BEST-SELL-1-ALT"/>
