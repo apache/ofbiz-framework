@@ -118,19 +118,13 @@ if (phases) {
 
                 // dependency can only show one in the ganttchart, so onl show the latest one..
                 preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"]);
-                latestTaskId = "";
-                Timestamp latestDate = null;
+                latestTaskIds = new LinkedList();
                 preTasks.each { preTask ->
                     wf = preTask.getRelatedOne("FromWorkEffort");
-                    if (wf.estimatedStartDate) {
-                        if (!latestDate || latestDate.before(wf.estimatedStartDate)) {
-                            latestTaskId = wf.workEffortId;
-                            latestDate = wf.estimatedStartDate;
-                        }
-                    }
+                    latestTaskIds.add(wf.workEffortId);
                 }
-                if (latestDate) {
-                    taskInfo.preDecessor = latestTaskId;
+                if (UtilValidate.isNotEmpty(latestTaskIds)) {
+                    taskInfo.preDecessor = latestTaskIds;
                 }
                 ganttList.add(taskInfo);
             }
