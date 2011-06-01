@@ -386,7 +386,7 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="phaseId" parameter-name="workEffortId"><hidden/></field>
-        <field name="phaseSeqNum" parameter-name="sequenceNum"><text size="3"/></field>
+        <field name="phaseSeqNum" parameter-name="sequenceNum" title="${uiLabelMap.FormFieldTitle_sequenceNum}"><text size="3"/></field>
         <field name="phaseName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}*"><text/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
