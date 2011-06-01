@@ -64,7 +64,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="taskSeqId" entry-name="sequenceNum" parameter-name="sequenceNum"><text size="3"/></field>
+        <field name="taskSeqId" entry-name="sequenceNum" parameter-name="sequenceNum" title="${uiLabelMap.FormFieldTitle_sequenceNum}"><text size="3"/></field>
         <field name="roleTypeId" use-when="myTask!=void" title="${uiLabelMap.ProjectMgrMyRoleForThisTask}">
             <drop-down current="selected" allow-empty="false">
                     <entity-options entity-name="ProjectIdPartyRoleAndPhase" description="${description}">
@@ -136,7 +136,7 @@
         <field name="workEffortTypeId"><hidden value="PHASE"/></field>
         <field name="currentStatusId"><hidden value="_NA_"/></field>
         <field name="phaseName"  parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrPhaseName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="phaseSeqId" entry-name="sequenceNum" parameter-name="sequenceNum"><text size="3"/></field>
+        <field name="phaseSeqId" entry-name="sequenceNum" parameter-name="sequenceNum" title="${uiLabelMap.FormFieldTitle_sequenceNum}"><text size="3"/></field>
         <field name="phaseDdescription" parameter-name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonMax250Chars}"><textarea/></field>
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
