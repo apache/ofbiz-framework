@@ -35,7 +35,7 @@ var rawdata = [
             <#if (rootCat?has_content)>
                 <#list rootCat as root>
                     {
-                    "data": {"title" : unescapeHtmlText("<#if root.categoryName?exists>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"onClick" : "window.location.href='<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>'; return false;"}},
+                    "data": {"title" : unescapeHtmlText("<#if root.categoryName?exists>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"href" : "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>","onClick" : "callDocument('${root.productCategoryId}', 'catalog');"}},
                     "attr": {"id" : "${root.productCategoryId}", "rel" : "root", "isCatalog" : "${root.isCatalog?string}" ,"isCategoryType" : "${root.isCategoryType?string}"}
                     <#if root.child?exists>
                     ,"state" : "closed"
@@ -70,7 +70,10 @@ var rawdata = [
                             return { 
                                 "isCategoryType" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
                                 "isCatalog" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
-                                "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1
+                                "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
+                                "additionParam" : "','category" ,
+                                "hrefString" : "EditCategory?productCategoryId=" ,
+                                "onclickFunction" : "callDocument"
                         }; 
                     }
                 }
@@ -87,6 +90,36 @@ var rawdata = [
              }
          }
         });
+    });
+  }
+  
+  function callDocument(id,type) {
+    //jQuerry Ajax Request
+    if(type == "catalog")
+        URL = 'EditProdCatalogAjax';
+    else
+        URL = 'EditCategoryAjax';
+    jQuery.ajax({
+        url: URL,
+        type: 'POST',
+        data: {"prodCatalogId" : id, "ajaxUpdateEvent" : "Y"},
+        error: function(msg) {
+            alert("An error occured loading content! : " + msg);
+        },
+        success: function(msg) {
+            jQuery('#centerdiv').html(msg);
+        }
+    });
+    jQuery.ajax({
+        url: 'listMiniproduct',
+        type: 'POST',
+        data: {"productCategoryId" : id},
+        error: function(msg) {
+            alert("An error occured loading content! : " + msg);
+        },
+        success: function(msg) {
+            jQuery('#miniproductlist').html(msg);
+        }
     });
   }
 </script>

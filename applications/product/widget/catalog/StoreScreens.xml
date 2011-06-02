@@ -32,9 +32,6 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductProductStoreList}">
-                            <container style="button-bar">
-                                <link target="EditProductStore" text="${uiLabelMap.ProductCreateNewProductStore}" style="buttontext create"/>
-                            </container>
                             <include-form name="ListProductStore" location="component://product/widget/catalog/ProductStoreForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -73,17 +70,12 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="FindProductStoreRoles"/>
                 <set field="labelTitleProperty" value="ProductProductStoreRoles"/>
-                <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <set field="parameters.fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <entity-one entity-name="ProductStoreRole" value-field="productStoreRole" auto-field-map="true"/>
-                <set field="parameters.productStoreId" value="${groovy:parameters.noConditionFind==null || parameters.noConditionFind=='N'?'':parameters.productStoreId}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleEditProductStoreRoles}">
-                            <include-form name="EditProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
-                        </screenlet>
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
                                 <include-form name="FindProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
@@ -92,6 +84,9 @@ under the License.
                                 <include-form name="ListProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
+                        <screenlet title="${uiLabelMap.PageTitleEditProductStoreRoles}">
+                            <include-form name="EditProductStoreRole" location="component://product/widget/catalog/StoreForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -104,10 +99,6 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStorePromos"/>
                 <set field="labelTitleProperty" value="ProductPromotions"/>
-
-                <set field="productStoreId" from-field="parameters.productStoreId"/>
-                <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <set field="userEntered" from-field="parameters.userEntered"/>
                 <set field="activeOnly" from-field="parameters.activeOnly" default-value="true"/>
                 <entity-condition entity-name="ProductStorePromoAndAppl" list="productStorePromoAndAppls" filter-by-date="${activeOnly}">
@@ -202,13 +193,8 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreWebSites"/>
                 <set field="labelTitleProperty" value="ProductProductStoreWebSites"/>
-
-                <set field="productStoreId" from-field="parameters.viewProductStoreId"/>
-                <set field="productStoreId" from-field="parameters.productStoreId" default-value="${productStoreId}"/>
-                <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-
                 <entity-condition entity-name="WebSite" list="storeWebSites">
-                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="parameters.productStoreId"/>
                     <order-by field-name="siteName"/>
                 </entity-condition>
                 <entity-condition entity-name="WebSite" list="webSites">
@@ -310,10 +296,6 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ProductNewShipmentEstimate}">
-                                    <container style="button-bar">
-                                        <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
-                                        <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext collapse-all" url-mode="plain"/>
-                                    </container>
                                     <include-form name="AddShipmentCostEstimate" location="component://product/widget/catalog/ProductStoreForms.xml"/>
                                 </screenlet>
                             </widgets>

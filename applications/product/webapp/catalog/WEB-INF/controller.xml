@@ -139,6 +139,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCategory"/>
     </request-map>
+    <request-map uri="EditCategoryAjax">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCategorySection"/>
+    </request-map>
 
     <request-map uri="createProductCategory">
         <security https="true" auth="true"/>
@@ -1409,6 +1413,10 @@ under the License.
         <event type="service" path="" invoke="updateProdCatalog"/>
         <response name="success" type="view" value="EditProdCatalog"/>
         <response name="error" type="view" value="EditProdCatalog"/>
+    </request-map>
+    <request-map uri="EditProdCatalogAjax">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProdCatalogSection"/>
     </request-map>
 
     <!-- ================ ProdCatalog Categories Requests ================= -->
@@ -3072,12 +3080,17 @@ under the License.
         <event type="java" path="org.ofbiz.product.category.CategoryServices" invoke="getChildCategoryTree"/>
         <response name="success" type="none"/>
     </request-map>
+    <request-map uri="listMiniproduct">
+        <security auth="false" https="true"/>
+        <response name="success" type="view" value="listMiniproduct"/>
+    </request-map>
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://product/widget/catalog/CommonScreens.xml#main"/>
 
     <view-map name="ChooseTopCategory" type="screen" page="component://product/widget/catalog/CommonScreens.xml#ChooseTopCategory"/>
     <view-map name="FastLoadCache" type="screen" page="component://product/widget/catalog/CommonScreens.xml#FastLoadCache"/>
+    <view-map name="listMiniproduct" type="screen" page="component://product/widget/catalog/CommonScreens.xml#listMiniproduct"/>
 
     <view-map name="advancedsearch" type="screen" page="component://product/widget/catalog/FindScreens.xml#advancedsearch"/>
     <view-map name="keywordsearch" type="screen" page="component://product/widget/catalog/FindScreens.xml#keywordsearch"/>
@@ -3101,6 +3114,7 @@ under the License.
     <view-map name="EditCategoryFeatureCats" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryFeatureCats"/>
     <view-map name="EditCategoryParties" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategoryParties"/>
     <view-map name="EditProductCategoryLinks" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditProductCategoryLinks"/>
+    <view-map name="EditCategorySection" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#EditCategorySection"/>
 
     <view-map name="createProductInCategoryStart" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#createProductInCategoryStart"/>
     <view-map name="CreateProductInCategoryCheckExisting" type="screen" page="component://product/widget/catalog/CategoryScreens.xml#CreateProductInCategoryCheckExisting"/>
@@ -3114,6 +3128,7 @@ under the License.
     <view-map name="newFixedAssetProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#newFixedAssetProduct"/>
     <view-map name="ProductPriceHistory" type="screen" page="component://product/widget/catalog/ProductScreens.xml#ProductPriceHistory"/>
     <view-map name="ProductBarCode.pdf" type="screenfop" page="component://product/widget/catalog/ProductScreens.xml#ProductBarCode.fo" content-type="application/pdf" encoding="none"/>
+    
 
     <view-map name="EditProductContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContent"/>
     <view-map name="EditProductGeos" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductGeos"/>
@@ -3167,6 +3182,13 @@ under the License.
     <view-map name="CreateProductFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateProductFeature"/>
     <view-map name="ListFeaturePrice" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#ListFeaturePrice"/>
     <view-map name="CreateFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateFeature"/>
+
+    <view-map name="FindProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindProdCatalog"/>
+    <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>
+    <view-map name="EditProdCatalogCategories" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogCategories"/>
+    <view-map name="EditProdCatalogStores" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogStores"/>
+    <view-map name="EditProdCatalogParties" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogParties"/>
+    <view-map name="EditProdCatalogSection" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogSection"/>
 
     <view-map name="FindProductPromo" type="screen" page="component://product/widget/catalog/PromoScreens.xml#FindProductPromo"/>
     <view-map name="EditProductPromo" type="screen" page="component://product/widget/catalog/PromoScreens.xml#EditProductPromo"/>

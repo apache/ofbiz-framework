@@ -60,7 +60,7 @@ under the License.
                                         </or>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>                                        
+                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                         <include-menu name="ProductSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                         <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content" alt="${product.internalName}"/>
                                         <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
@@ -87,7 +87,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="FindProduct">
         <section>
             <actions>
