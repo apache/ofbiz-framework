@@ -95,14 +95,18 @@ var rawdata = [
   
   function callDocument(id,type) {
     //jQuerry Ajax Request
-    if(type == "catalog")
+    var dataSet = {};
+    if(type == "catalog") {
         URL = 'EditProdCatalogAjax';
-    else
+        dataSet = {"prodCatalogId" : id, "ajaxUpdateEvent" : "Y"};
+    } else {
         URL = 'EditCategoryAjax';
+        dataSet = {"productCategoryId" : id, "ajaxUpdateEvent" : "Y"};
+    }
     jQuery.ajax({
         url: URL,
         type: 'POST',
-        data: {"prodCatalogId" : id, "ajaxUpdateEvent" : "Y"},
+        data: dataSet,
         error: function(msg) {
             alert("An error occured loading content! : " + msg);
         },
