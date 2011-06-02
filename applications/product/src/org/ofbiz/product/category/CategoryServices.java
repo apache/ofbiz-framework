@@ -407,6 +407,10 @@ public class CategoryServices {
         String productCategoryId = request.getParameter("productCategoryId");
         String isCatalog = request.getParameter("isCatalog");
         String isCategoryType = request.getParameter("isCategoryType");
+        String onclickFunction = request.getParameter("onclickFunction");
+        String additionParam = request.getParameter("additionParam");
+        String hrefString = request.getParameter("hrefString");
+        String hrefString2 = request.getParameter("hrefString2");
         String entityName = null;
         String primaryKeyName = null;
         
@@ -471,7 +475,8 @@ public class CategoryServices {
                             title = catId.toString();
                             dataMap.put("title", catId);
                         }
-                        dataAttrMap.put("onClick","window.location.href='EditCategory?productCategoryId="+catId+"'; return false;");
+                        dataAttrMap.put("onClick", onclickFunction + "('" + catId + additionParam + "')");
+                        dataAttrMap.put("href",hrefString+catId+hrefString2);
                         
                         dataMap.put("attr", dataAttrMap);
                         josonMap.put("data", dataMap);

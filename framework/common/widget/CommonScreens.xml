@@ -149,53 +149,70 @@ under the License.
                 <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]"/>
             </actions>
             <widgets>
-                <!-- render header -->
-                <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
-                <!-- render appbar or its opening part -->
-                <section name="Render-Main-Nav">
+                <section>
                     <condition>
-                        <not><if-empty field="appbarOpenTemplateLocation"/></not>
+                        <if-empty field="parameters.ajaxUpdateEvent"/>
                     </condition>
                     <widgets>
-                        <platform-specific><html><html-template location="${appbarOpenTemplateLocation}"/></html></platform-specific>
-                    </widgets>
-                    <fail-widgets>
-                        <platform-specific><html><html-template location="${appbarTemplateLocation}"/></html></platform-specific>
-                    </fail-widgets>
-                </section>
-
-                <!-- render appheader: both menu widget style and ftl template style menus are supported-->
-                <section name="Render-App-Nav">
-                    <condition>
-                        <not><if-empty field="userLogin"/></not>
-                    </condition>
-                    <widgets>
-                        <section>
-                            <condition><not><if-empty field="appheaderTemplate"/></not></condition>
+                        <!-- render header -->
+                        <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
+                        <!-- render appbar or its opening part -->
+                        <section name="Render-Main-Nav">
+                            <condition>
+                                <not><if-empty field="appbarOpenTemplateLocation"/></not>
+                            </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
+                                <platform-specific><html><html-template location="${appbarOpenTemplateLocation}"/></html></platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <section>
-                                    <condition><not><if-empty field="parameters.applicationTitle"/></not></condition>
-                                    <widgets><label style="apptitle">${parameters.applicationTitle}</label></widgets>
-                                </section>
-                                <section>
-                                    <condition><not><if-empty field="applicationMenuLocation"/></not></condition>
-                                    <widgets><include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/></widgets>
-                                </section>
+                                <platform-specific><html><html-template location="${appbarTemplateLocation}"/></html></platform-specific>
                             </fail-widgets>
                         </section>
                     </widgets>
-                    <fail-widgets>
-                        <!-- better to just not include this, the CommonAppBarMenu doesn't show anything by default if the user isn't logged in, causing a funny empty menu: <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/> -->
-                    </fail-widgets>
                 </section>
-
+                
+                <section>
+                    <condition>
+                        <if-empty field="parameters.ajaxUpdateEvent"/>
+                    </condition>
+                    <widgets>
+                        <!-- render appheader: both menu widget style and ftl template style menus are supported-->
+                        <section name="Render-App-Nav">
+                            <condition>
+                                <not><if-empty field="userLogin"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition><not><if-empty field="appheaderTemplate"/></not></condition>
+                                    <widgets>
+                                        <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <section>
+                                            <condition><not><if-empty field="parameters.applicationTitle"/></not></condition>
+                                            <widgets><label style="apptitle">${parameters.applicationTitle}</label></widgets>
+                                        </section>
+                                        <section>
+                                            <condition><not><if-empty field="applicationMenuLocation"/></not></condition>
+                                            <widgets><include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/></widgets>
+                                        </section>
+                                    </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <!-- better to just not include this, the CommonAppBarMenu doesn't show anything by default if the user isn't logged in, causing a funny empty menu: <include-menu name="CommonAppBarMenu" location="component://common/widget/CommonMenus.xml"/> -->
+                            </fail-widgets>
+                        </section>
+                    </widgets>
+                </section>
+                
                 <!-- render the appbar closing part -->
                 <section>
                     <condition>
-                        <not><if-empty field="appbarCloseTemplateLocation"/></not>
+                        <and>
+                            <if-empty field="parameters.ajaxUpdateEvent"/>
+                            <not><if-empty field="appbarCloseTemplateLocation"/></not>
+                        </and>
                     </condition>
                     <widgets>
                         <platform-specific><html><html-template location="${appbarCloseTemplateLocation}"/></html></platform-specific>
@@ -223,7 +240,7 @@ under the License.
                                     <decorator-section-include name="left-column"/>
                                 </container>
                                 <container id="content-main-section" style="leftonly">
-                                    <container style="no-clear">
+                                    <container style="no-clear" id="centerdiv">
                                         <decorator-section-include name="body"/>
                                     </container>
                                 </container>
@@ -233,17 +250,24 @@ under the License.
                     </container>
                 </container>
 
-                <!-- render footer -->
-                <section name="Render-Footer">
+                <section>
                     <condition>
-                        <if-empty field="applicationFooterTemplate"/>
+                         <if-empty field="parameters.ajaxUpdateEvent"/>
                     </condition>
                     <widgets>
-                        <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
+                        <!-- render footer -->
+                        <section name="Render-Footer">
+                            <condition>
+                                <if-empty field="applicationFooterTemplate"/>
+                            </condition>
+                            <widgets>
+                                <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
+                            </widgets>
+                            <fail-widgets>
+                                 <platform-specific><html><html-template location="${applicationFooterTemplate}"/></html></platform-specific>
+                            </fail-widgets>
+                        </section>
                     </widgets>
-                    <fail-widgets>
-                         <platform-specific><html><html-template location="${applicationFooterTemplate}"/></html></platform-specific>
-                    </fail-widgets>
                 </section>
             </widgets>
         </section>

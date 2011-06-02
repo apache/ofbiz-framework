@@ -43,7 +43,7 @@ under the License.
                 <set field="applicationTitle" value="${uiLabelMap.ProductCatalogManagerApplication}" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/external/jquery.cookie.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jsTree/jquery.jstree.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.8.13.custom.min.js" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -114,28 +114,30 @@ under the License.
                     </decorator-section>                    
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for CATALOG, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="CATALOG" action="_ADMIN"/>
+                                    <if-has-permission permission="CATALOG" action="_CREATE"/>
+                                    <if-has-permission permission="CATALOG" action="_UPDATE"/>
+                                    <if-has-permission permission="CATALOG" action="_VIEW"/>
+                                </or>
                             </condition>
+                            <actions>
+                                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                                <entity-one entity-name="ProductStore" value-field="productStore"/>
+                            </actions>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field="productStoreId"/></not></condition>
+                                    <condition><not><if-empty field="productStore"/></not></condition>
                                     <widgets>
                                         <container>
                                             <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <section>
-                                            <widgets>
-                                                <container>
-                                                    <link target="EditProductStore" text="${uiLabelMap.ProductNewProductStore}" style="buttontext"/>
-                                                </container>                                                
-                                            </widgets>
-                                        </section>
-                                        <section>
                                             <condition>
-                                                <if-compare field="titleProperty" operator="equals" value="PageTitleEditProductStore"/>                                                
+                                                <if-compare operator="equals" value="EditProductStore" field="tabButtonItem"/>
                                             </condition>
                                             <widgets>
                                                 <container style="button-bar">
@@ -145,8 +147,17 @@ under the License.
                                             </widgets>
                                         </section>
                                     </widgets>
+                                    <fail-widgets>
+                                        <section>
+                                            <condition>
+                                                <if-compare operator="not-equals" value="EditProductStore" field="tabButtonItem"/>
+                                            </condition>
+                                            <widgets>
+	                                            <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </fail-widgets>
                                 </section>
-
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -163,6 +174,16 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <!--<decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CATALOG" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <include-menu name="ShippingTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>-->
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
                     </decorator-section>                    
@@ -227,8 +248,8 @@ under the License.
         <section>
             <widgets>
                 <include-screen name="keywordsearchbox"/>
-                <!--<include-screen name="sidecatalogs"/>
-                <include-screen name="sidedeepcategory"/>-->
+<!--                <include-screen name="sidecatalogs"/>-->
+<!--                <include-screen name="sidedeepcategory"/>-->
                 <include-screen name="categorytree"/>
                 <include-screen name="miniproductlist"/>
             </widgets>
@@ -277,12 +298,13 @@ under the License.
             </actions>
             <widgets>
                 <screenlet id="ProductCategoryProductsPanel" title="${uiLabelMap.ProductCategoryProducts}" collapsible="true">
-                    <platform-specific><html><html-template location="component://product/webapp/catalog/find/miniproductlist.ftl"/></html></platform-specific>
+                    <container id="miniproductlist">
+                        <platform-specific><html><html-template location="component://product/webapp/catalog/find/miniproductlist.ftl"/></html></platform-specific>
+                    </container>
                 </screenlet>
             </widgets>
         </section>
     </screen>
-
     <screen name="ChooseTopCategory">
         <section>
             <actions>
@@ -392,6 +414,21 @@ under the License.
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="listMiniproduct">
+        <section>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/find/miniproductlist.groovy"/>
+            </actions>
+            <widgets>
+                    <platform-specific><html><html-template location="component://product/webapp/catalog/find/miniproductlist.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
