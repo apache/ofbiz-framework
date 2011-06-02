@@ -476,7 +476,12 @@ public class CategoryServices {
                             dataMap.put("title", catId);
                         }
                         dataAttrMap.put("onClick", onclickFunction + "('" + catId + additionParam + "')");
-                        dataAttrMap.put("href",hrefString+catId+hrefString2);
+                        
+                        String hrefStr = hrefString + catId;
+                        if (UtilValidate.isNotEmpty(hrefString2)) {
+                            hrefStr = hrefStr + hrefString2;
+                        }
+                        dataAttrMap.put("href", hrefStr);
                         
                         dataMap.put("attr", dataAttrMap);
                         josonMap.put("data", dataMap);
