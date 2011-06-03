@@ -1864,6 +1864,12 @@ under the License.
         <response name="success" type="view" value="EditContentKeywords"/>
         <response name="error" type="view" value="EditContentKeywords"/>
     </request-map>
+    <request-map uri="updateContentAllKeywords">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.content.content.ContentEvents" invoke="updateAllContentKeywords"/>
+        <response name="success" type="view" value="FindContent"/>
+        <response name="error" type="view" value="FindContent"/>
+    </request-map>
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
