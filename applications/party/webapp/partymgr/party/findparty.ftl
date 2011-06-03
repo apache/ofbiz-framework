@@ -45,19 +45,6 @@ under the License.
   <#else>
       <li class="expanded"><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonHideFields}">&nbsp;</a></li>
   </#if>
-  <#if (partyListSize > 0)>
-    <#if (partyListSize > highIndex)>
-      <li><a class="nav-next" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
-    <#else>
-      <li class="disabled">${uiLabelMap.CommonNext}</li>
-    </#if>
-      <li>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</li>
-    <#if (viewIndex > 0)>
-      <li><a class="nav-previous" href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;hideFields=${hideFields}${paramList}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
-    <#else>
-      <li class="disabled">${uiLabelMap.CommonPrevious}</li>
-    </#if>
-  </#if>
     </ul>
     <br class="clear"/>
 </#if>
@@ -220,6 +207,52 @@ under the License.
       <h2>${uiLabelMap.CommonSearchResults}</h2>
     </div>
   <#if partyList?has_content>
+    <div class="nav-pager">
+        <ul>
+            <#if (viewIndex > 0)>
+                <li class="nav-first"><a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&hideFields=${hideFields}${paramList}&VIEW_INDEX=0</@ofbizUrl>">${uiLabelMap.CommonFirst}</a></li>
+            <#else>
+                <li class="nav-first-disabled"><span>${uiLabelMap.CommonFirst}</span></li>
+            </#if>
+            <#if (viewIndex > 0)>
+                <li class="nav-previous"><a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&hideFields=${hideFields}${paramList}&VIEW_INDEX=${viewIndex - 1}</@ofbizUrl>">${uiLabelMap.CommonPrevious}</a></li>
+            <#else>
+                <li class="nav-previous-disabled"><span>${uiLabelMap.CommonPrevious}</span></li>
+            </#if>
+            <li class="nav-page-select">
+            ${uiLabelMap.CommonPage}
+            <select onchange="location.href='<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&hideFields=${hideFields}${paramList}</@ofbizUrl>&VIEW_INDEX=' + this.value;" size="1" name="page">
+                <#assign indexSize = partyListSize/viewSize />
+                <#list 0..indexSize as index>
+                    <option value="${index}" <#if viewIndex == index>selected="selected"</#if>>${index+1}</option>
+                    <#assign lastIndex = index/>
+                </#list>
+            </select>
+            </li>
+            <#if (partyListSize > highIndex)>
+                <li class="nav-next"><a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&hideFields=${hideFields}${paramList}&VIEW_INDEX=${viewIndex+1}</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
+            <#else>
+                <li class="nav-next-disabled"><span>${uiLabelMap.CommonNext}</span></li>
+            </#if>
+            <#if (partyListSize > highIndex)>
+                <li class="nav-last"><a href="<@ofbizUrl>findparty?VIEW_SIZE=${viewSize}&hideFields=${hideFields}${paramList}&VIEW_INDEX=${lastIndex}</@ofbizUrl>">${uiLabelMap.CommonLast}</a></li>
+            <#else>
+                <li class="nav-last-disabled"><span>${uiLabelMap.CommonLast}</span></li>
+            </#if>
+            <li class="nav-pagesize">
+            <select name="pageSize" size="1" onchange="location.href='<@ofbizUrl>findparty?hideFields=${hideFields}${paramList}&VIEW_INDEX=0</@ofbizUrl>&VIEW_SIZE=' + this.value;">
+                <option <#if viewSize == 20>selected="selected"</#if> value="20">20</option>
+                <option <#if viewSize == 30>selected="selected"</#if> value="30">30</option>
+                <option <#if viewSize == 50>selected="selected"</#if> value="50">50</option>
+                <option <#if viewSize == 100>selected="selected"</#if> value="100">100</option>
+                <option <#if viewSize == 200>selected="selected"</#if> value="200">200</option>
+            </select> ${uiLabelMap.CommonItemsPerPage}</li>
+            <#assign lowCount = lowIndex/>
+            <#assign highCount = highIndex/>
+            <#assign total = partyListSize/>
+            <li class="nav-displaying">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${partyListSize}</li>
+        </ul>
+    </div>
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row-2">
         <td>${uiLabelMap.PartyPartyId}</td>
