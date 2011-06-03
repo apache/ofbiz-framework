@@ -43,8 +43,9 @@ under the License.
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
                                         <container style="button-bar">
-                                            <link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
-                                            <link  text="${uiLabelMap.CommonAdvancedSearch}" target="ContentSearchOptions" style="buttontext"/>
+                                            <!--<link target="EditContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/>
+                                            <link target="ContentSearchOptions" text="${uiLabelMap.CommonAdvancedSearch}" style="buttontext"/>-->
+                                            <include-menu name="contentMenu" location="component://content/widget/content/ContentMenus.xml"/>
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">

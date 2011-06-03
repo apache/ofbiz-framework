@@ -27,6 +27,9 @@
         <value xml:lang="zh">绝对地址文件</value>
         <value xml:lang="zh_TW">絕對位址文件</value>
     </property>
+    <property key="ContentAutoCreateKeywords">
+        <value xml:lang="en">Auto Create Keywords</value>
+    </property>
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
         <value xml:lang="da">Svar</value>

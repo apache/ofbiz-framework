@@ -260,4 +260,15 @@ under the License.
             <link target="showHelp?helpTopic=navigateHelp"/>
         </menu-item>
     </menu>
+    <menu name="contentMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="EditContent" title="${uiLabelMap.CommonCreateNew}" widget-style="buttontext create">
+            <link target="EditContent"/>
+        </menu-item>
+        <menu-item name="ContentSearchOptions" title="${uiLabelMap.CommonAdvancedSearch}" widget-style="buttontext">
+            <link target="ContentSearchOptions"/>
+        </menu-item>
+        <menu-item name="UpdateContentAllKeywords" title="${uiLabelMap.ContentAutoCreateKeywords}" widget-style="buttontext">
+            <link target="updateContentAllKeywords"/>
+        </menu-item>
+    </menu>
 </menus>

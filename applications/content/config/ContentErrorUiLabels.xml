@@ -19,6 +19,27 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="contentevents.error_getting_content_list">
+        <value xml:lang="en">Error getting the content list to index: ${gee}.</value>
+    </property>
+    <property key="contentevents.keyword_creation_complete_for_contents">
+        <value xml:lang="en">Keyword creation complete for ${numConts} contents.</value>
+    </property>
+    <property key="contentevents.keyword_creation_complete_for_contents_with_errors">
+        <value xml:lang="en">Keyword creation complete for ${numConts} contents, with errors in ${errConts} contents (see the log for more details).</value>
+    </property>
+    <property key="contentevents.not_sufficient_permissions">
+        <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} oder CONTENTMGR_ADMIN benötigt).</value>
+        <value xml:lang="en">You do not have sufficient permissions to ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} or CONTENTMGR_ADMIN needed).</value>
+        <value xml:lang="es">No tiene suficientes permisos para ${updateMode} se necesitan permisos de CONTENTMGR (CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN).</value>
+        <value xml:lang="fr">Vous n'avez pas les autorisations suffisantes pour ${updatemode} le CONTENTMGR (CONTENTMGR_${updateMode} ou CONTENTMGR_ADMIN requis).</value>
+        <value xml:lang="it">Non hai permessi sufficienti per ${updateMode} CONTENTMGR (permesso CONTENTMGR_${updateMode} o CONTENTMGR_ADMIN necessario).</value>
+        <value xml:lang="ro">Nu aidestule permise pentru ${updateMode} CONTENTMGR (este necesar permisul CONTENTMGR_${updateMode} sau CONTENTMGR_ADMIN).</value>
+        <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CONTENTMGR (необходимы права CONTENTMGR_${updateMode} или CONTENTMGR_ADMIN).</value>
+        <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} หรือ CONTENTMGR_ADMIN ต้องการ).</value>
+        <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
+        <value xml:lang="zh_TW">你沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
+    </property>
     <property key="dataEvents.error_call_create_service">
         <value xml:lang="da">Fejl ved kald af service createDataResource</value>
         <value xml:lang="de">Fehler beim Aufruf createDataResource Service</value>
