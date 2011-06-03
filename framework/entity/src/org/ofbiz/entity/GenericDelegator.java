@@ -73,6 +73,7 @@ import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.SequenceUtil;
+//import org.ofbiz.service.ServiceDispatcher;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -88,7 +89,6 @@ public class GenericDelegator implements Delegator {
 
     protected ModelReader modelReader = null;
     protected ModelGroupReader modelGroupReader = null;
-
     /** This flag is only here for lower level technical testing, it shouldn't be user configurable (or at least I don't think so yet); when true all operations without a transaction will be wrapped in one; seems to be necessary for some (all?) XA aware connection pools, and should improve overall stability and consistency */
     public static final boolean alwaysUseTransaction = true;
 
@@ -105,6 +105,7 @@ public class GenericDelegator implements Delegator {
     protected Map<?,?> andCacheFieldSets = FastMap.newInstance();
 
     protected DistributedCacheClear distributedCacheClear = null;
+    protected boolean enableJMS = true;    
     protected EntityEcaHandler<?> entityEcaHandler = null;
     protected SequenceUtil sequencer = null;
     protected EntityCrypto crypto = null;
@@ -308,7 +309,10 @@ public class GenericDelegator implements Delegator {
             try {
                 Class<?> eecahClass = loader.loadClass(entityEcaHandlerClassName);
                 this.entityEcaHandler = UtilGenerics.cast(eecahClass.newInstance());
+                boolean isJmsEnabled = getEnabledJMS();
+                enableJMS(!getDelegatorInfo().useDistributedCacheClear); // To avoid duplicated JMS listeners (OFBIZ-4296)
                 this.entityEcaHandler.setDelegator(this);
+               enableJMS(isJmsEnabled);
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " was not found, Entity ECA Rules will be disabled", module);
             } catch (InstantiationException e) {
@@ -2835,5 +2839,20 @@ public class GenericDelegator implements Delegator {
         } else {
             Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", module);
         }
+    }
+    
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#enableJMS()
+     */
+    public void enableJMS(boolean enable) {
+        this.enableJMS = enable;
+    }
+
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#getEnableJMS()
+     */
+    public boolean getEnabledJMS() {
+        return this.enableJMS;
     }
 }
