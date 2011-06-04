@@ -81,7 +81,7 @@ under the License.
              destdir="${build.dir}/javadocs"
              windowtitle="Open for Business - ${desc}"
              useexternalfile="yes"
-             maxmemory="256M"
+             maxmemory="512M"
              encoding="UTF-8"
              packagenames="org.ofbiz.*">
       <fileset dir="${basedir}" defaultexcludes="yes">
