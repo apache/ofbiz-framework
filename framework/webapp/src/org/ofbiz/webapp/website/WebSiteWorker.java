@@ -18,17 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.webapp.website;
 
-import java.util.Map;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -41,29 +35,10 @@ public class WebSiteWorker {
     public static final String module = WebSiteWorker.class.getName();
 
     public static String getWebSiteId(ServletRequest request) {
-        HttpSession session = ((HttpServletRequest) request).getSession();
-        Map<String, Object> requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
-        String webSiteId = null;
-        boolean fromSession = false;
+        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
 
-        // first see if a new webSiteId was specified as a parameter
-        webSiteId = (String) requestParameters.get("webSiteId");
-        // if no parameter, try from session
-        if (UtilValidate.isEmpty(webSiteId)) {
-            webSiteId = (String) session.getAttribute("webSiteId");
-            if (webSiteId != null) fromSession = true;
-        }
-        // get it from the servlet context
-        if (UtilValidate.isEmpty(webSiteId)) {
-            ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
-            if (application != null) webSiteId = application.getInitParameter("webSiteId");
-        }
-
-        if (UtilValidate.isNotEmpty(webSiteId) && !fromSession) {
-            session.setAttribute("webSiteId", webSiteId);
-        }
-
-        return webSiteId;
+        if (application == null) return null;
+        return application.getInitParameter("webSiteId");
     }
 
     public static GenericValue getWebSite(ServletRequest request) {
