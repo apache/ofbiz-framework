@@ -124,7 +124,7 @@ under the License.
                 processor-name="newAffil" in-map-name="parameters" out-map-name="af_context"/>
         <check-errors/>
         <call-service service-name="createAffiliate" in-map-name="af_context">
-            <default-message>Affiliate record successfully created.</default-message>
+            <default-message resource="EcommerceUiLabels" property="EcommerceAffiliateCreatedSuccessfully"/>
         </call-service>
 
     </simple-method>

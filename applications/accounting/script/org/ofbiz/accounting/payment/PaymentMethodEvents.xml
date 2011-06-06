@@ -26,7 +26,8 @@ under the License.
                 processor-name="deletePaymentMethod" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="deletePaymentMethod" in-map-name="context">
-            <default-message>Payment Method successfully deleted.</default-message></call-service>
+            <default-message resource="AccountingUiLabels" property="AccountingPaymentMethodDeletedSuccessfully"/>
+        </call-service>
     </simple-method>
 
     <!-- CreditCard events -->
@@ -35,7 +36,7 @@ under the License.
                 processor-name="createCreditCard" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createCreditCard" in-map-name="context">
-            <default-message>Credit Card successfully created.</default-message>
+            <default-message resource="AccountingUiLabels" property="AccountingCreditCardCreatedSuccessfully"/>
             <result-to-request result-name="paymentMethodId"/>
         </call-service>
         <if-compare field="parameters.contactMechId" operator="equals" value="_NEW_">
@@ -55,7 +56,7 @@ under the License.
                 processor-name="createCreditCard" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="updateCreditCard" in-map-name="context">
-            <default-message>Credit Card Info successfully updated.</default-message>
+            <default-message resource="AccountingUiLabels" property="AccountingCreditCardUpdatedSuccessfully"/>
             <result-to-request result-name="paymentMethodId" request-name="paymentMethodId"/>
         </call-service>
         <if-compare field="parameters.contactMechId" operator="equals" value="_NEW_">
@@ -74,7 +75,7 @@ under the License.
                 processor-name="createEftAccount" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createEftAccount" in-map-name="context">
-            <default-message>EFT Account successfully created.</default-message>
+            <default-message resource="AccountingUiLabels" property="AccountingEFTAccountCreatedSuccessfully"/>
             <result-to-request result-name="paymentMethodId"/></call-service>
     </simple-method>
     <simple-method method-name="updateEftAccount" short-description="Update EFT Account">
@@ -85,7 +86,7 @@ under the License.
                 processor-name="createEftAccount" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="updateEftAccount" in-map-name="context">
-            <default-message>EFT Account Info successfully updated.</default-message>
+            <default-message resource="AccountingUiLabels" property="AccountingEFTAccountUpdatedSuccessfully"/>
             <result-to-request result-name="paymentMethodId" request-name="paymentMethodId"/>
         </call-service>
     </simple-method>

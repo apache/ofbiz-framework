@@ -2010,6 +2010,10 @@
         <value xml:lang="zh">已创建</value>
         <value xml:lang="zh_TW">已創建</value>
     </property>
+    <property key="WorkEffortCreatedSuccessfully">
+        <value xml:lang="en">Work Effort successfully created.</value>
+        <value xml:lang="it">Impegno di lavoro creato con successo.</value>
+    </property>
     <property key="WorkEffortCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
         <value xml:lang="en">Customer Rating</value>
@@ -3015,6 +3019,10 @@
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ ${resourceDescription} คุณต้องเป็น ${roleTypeId} สถานะงาน: ${workEffortId}</value>
         <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须以${roleTypeId}角色做人工服务：${workEffortId}</value>
         <value xml:lang="zh_TW">安全錯誤：要運行${resourceDescription}，你必須以${roleTypeId}角色做工項：${workEffortId}</value>
+    </property>
+    <property key="WorkEffortNoteCreatedSuccessfully">
+        <value xml:lang="en">Note is successfully created.</value>
+        <value xml:lang="it">Nota è stato creata con successo.</value>
     </property>
     <property key="WorkEffortNoteMissing">
         <value xml:lang="de">Notiz fehlt</value>

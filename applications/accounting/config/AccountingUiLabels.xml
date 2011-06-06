@@ -2959,6 +2959,10 @@
         <value xml:lang="it">Non è possibile creare la carta di credito (fallimento durante la generazione id)</value>
         <value xml:lang="pt">Não foi possível criar o cartão de crédito (Falha ao gerar ID)</value>
     </property>
+    <property key="AccountingCreditCardCreatedSuccessfully">
+        <value xml:lang="en">Credit Card successfully created.</value>
+        <value xml:lang="it">Carta di credito creato con succcesso.</value>
+    </property>
     <property key="AccountingCreditCardCreateWriteFailure">
         <value xml:lang="de">Es konnte keine Kreditkarte angelegt werden (Schreibfehler) : </value>
         <value xml:lang="en">Could not create credit card (write failure) : </value>
@@ -3046,6 +3050,10 @@
         <value xml:lang="en">Could not get credit card to update (read error) : </value>
         <value xml:lang="it">Non è possibile leggere la carta di credito (fallimento in lettura) : </value>
         <value xml:lang="pt">Não foi possível obter o cartão de crédito para atualizar (erro de leitura):</value>
+    </property>
+    <property key="AccountingCreditCardUpdatedSuccessfully">
+        <value xml:lang="en">Credit Card Info successfully updated.</value>
+        <value xml:lang="it">Informazioni sulla carta di credito aggiornati con succcesso.</value>
     </property>
     <property key="AccountingCreditCardUpdateWithPaymentMethodId">
         <value xml:lang="en">ERROR: Could not find credit card to update with payment method id </value>
@@ -3483,6 +3491,10 @@
         <value xml:lang="zh">电子资金转账账户</value>
         <value xml:lang="zh_TW">電子資金轉賬賬戶</value>
     </property>
+    <property key="AccountingEFTAccountCreatedSuccessfully">
+        <value xml:lang="en">EFT Account successfully created.</value>
+        <value xml:lang="it">Conto EFT creato con successo.</value>
+    </property>
     <property key="AccountingEFTAccountInformation">
         <value xml:lang="de">Bankkonto Information</value>
         <value xml:lang="en">EFT Account Information</value>
@@ -3504,6 +3516,10 @@
         <value xml:lang="en">EFT Account Payment Method ID is missing</value>
         <value xml:lang="pt">ID de método Pagamento de Conta EFT está faltando</value>
         <value xml:lang="zh_TW">沒有EFT帳戶支付方式ID</value>
+    </property>
+    <property key="AccountingEFTAccountUpdatedSuccessfully">
+        <value xml:lang="en">EFT Account Info successfully updated.</value>
+        <value xml:lang="it">Informazioni sul conto EFT aggiornate con successo.</value>
     </property>
     <property key="AccountingEFTNotBelongToYou">
         <value xml:lang="de">Die angegebene Bankverbindung gehört nicht zu Ihnen. Daher dürfen Sie die Infomationen dieser Bankverbindung weder einsehen noch bearbeiten.</value>
@@ -9073,6 +9089,10 @@
         <value xml:lang="pt">Atribuir o tipo de conta a Forma de pagamento</value>
         <value xml:lang="zh">支付方法指定账户类型</value>
         <value xml:lang="zh_TW">支付方法指定賬戶類型</value>
+    </property>
+    <property key="AccountingPaymentMethodDeletedSuccessfully">
+        <value xml:lang="en">Payment Method successfully deleted.</value>
+        <value xml:lang="it">Metodo pagamento cancellato con successo.</value>
     </property>
     <property key="AccountingPaymentMethodId">
         <value xml:lang="de">Zahlungsmethode</value>
