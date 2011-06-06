@@ -20,8 +20,7 @@ under the License.
 
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
-    <tree name="FacilityTree" root-node-name="node-root" entity-name="Facility" expand-collapse-request="FacilityChildren?facilityId=${facilityId}"
-        default-render-style="expand-collapse">
+    <tree name="FacilityTree" root-node-name="node-root" entity-name="Facility" default-render-style="expand-collapse">
         <node name="node-root" render-style="simple">
             <sub-node node-name="node-body">
                 <entity-and entity-name="Facility">
