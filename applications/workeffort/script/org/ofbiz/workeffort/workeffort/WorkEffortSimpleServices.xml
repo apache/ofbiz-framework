@@ -340,14 +340,14 @@ under the License.
             <if-not-empty field="parameters.partyId">
                 <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="context"/>
                 <call-service service-name="createPartyContactMech" in-map-name="context">
-                    <default-message>Party Contact Mechanism successfully created.</default-message>
+                    <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
                 </call-service>
                 <log level="info" message="Party ContactMech created"/>
                 <else>
                     <set-service-fields service-name="createContactMech" map="parameters" to-map="context"/>
                     <call-service service-name="createContactMech" in-map-name="context">
-                        <default-message>Contact Mechanism successfully created.</default-message>
+                        <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
                         <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
                     </call-service>
                     <log level="info" message="ContactMech created"/>
@@ -426,7 +426,7 @@ under the License.
             <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createPartyPostalAddress" in-map-name="context">
-                <default-message>Party Contact Mechanism successfully created.</default-message>
+                <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
                 <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
             </call-service>
             <log level="info" message="Party ContactMech created"/>
@@ -434,7 +434,7 @@ under the License.
                 <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/ContactMechMapProcs.xml"
                     processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
                 <call-service in-map-name="context" service-name="createPostalAddress">
-                    <default-message>Postal Address successfully created</default-message>
+                    <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
                 </call-service>
             </else>
@@ -445,7 +445,7 @@ under the License.
         <set from-field="newValue.contactMechId" field="context2.contactMechId"/>
         <log level="info" message="Copied id to context2: ${context2.contactMechId}"/>
         <call-service in-map-name="context2" break-on-error="true" service-name="createWorkEffortContactMech">
-            <default-message>WorkEffort Contact Mechanism successfully created</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
         </call-service>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
@@ -456,7 +456,7 @@ under the License.
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/ContactMechMapProcs.xml"
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>
         <call-service in-map-name="context" service-name="updatePostalAddress">
-            <default-message>Postal Address successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
         </call-service>
         <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
@@ -465,7 +465,7 @@ under the License.
         <set field="context2.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
-            <default-message>WorkEffort Contact Mechanism successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
         </call-service>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
@@ -478,7 +478,7 @@ under the License.
             <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/PartyContactMechMapProcs.xml"
                 processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
             <call-service service-name="createPartyTelecomNumber" in-map-name="context">
-                <default-message>Party Contact Mechanism successfully created.</default-message>
+                <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
                 <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
             </call-service>
             <log level="info" message="Party ContactMech created"/>
@@ -486,7 +486,7 @@ under the License.
                 <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/ContactMechMapProcs.xml"
                     processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
                 <call-service in-map-name="context" service-name="createTelecomNumber">
-                    <default-message>Telecom number successfully created</default-message>
+                    <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
                     <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
                 </call-service>
             </else>
@@ -496,7 +496,7 @@ under the License.
         <set from-field="newValue.contactMechId" field="context2.contactMechId"/>
         <log level="info" message="Copied id to context2: ${context2.contactMechId}"/>
         <call-service in-map-name="context2" break-on-error="true" service-name="createWorkEffortContactMech">
-            <default-message>WorkEffort Contact Mechanism successfully created</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
         </call-service>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
@@ -507,7 +507,7 @@ under the License.
         <call-map-processor xml-resource="component://party/script/org/ofbiz/party/contact/ContactMechMapProcs.xml"
                 processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>
         <call-service in-map-name="context" service-name="updateTelecomNumber">
-            <default-message>Telecom Number successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
         </call-service>
 
@@ -517,7 +517,7 @@ under the License.
         <set field="context2.contactMechTypeId" value="TELECOM_NUMBER"/>
         <log level="info" message="Copied id to context2: ${context2.newContactMechId}"/>
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
-            <default-message>Party Contact Mechanism successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
         </call-service>
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
@@ -530,7 +530,7 @@ under the License.
         <check-errors/>
         <set field="cwecmMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createWorkEffortContactMech" in-map-name="cwecmMap">
-            <default-message>WorkEffort Contact Mechanism successfully created.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>
@@ -541,7 +541,7 @@ under the License.
         <check-errors/>
         <set field="uwecmMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updateWorkEffortContactMech" in-map-name="uwecmMap">
-            <default-message>WorkEffort Contact Mechanism successfully updated.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>

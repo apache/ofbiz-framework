@@ -25,7 +25,8 @@ under the License.
                 processor-name="assignmentMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="wfAcceptAssignment" in-map-name="context">
-            <default-message>Work Effort successfully created.</default-message></call-service>
+            <default-message resource="WorkEffortUiLabels" property="WorkEffortCreatedSuccessfully"/>
+        </call-service>
     </simple-method>
 
     <simple-method method-name="acceptRoleAssignment" short-description="Accept a ROLE Assignment">
@@ -33,14 +34,15 @@ under the License.
                 processor-name="assignmentMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="wfAcceptRoleAssignment" in-map-name="context">
-            <default-message>Work Effort successfully created.</default-message></call-service>
+            <default-message resource="WorkEffortUiLabels" property="WorkEffortCreatedSuccessfully"/>
+        </call-service>
     </simple-method>
     <simple-method method-name="createWorkEffort" short-description="Creates WorkEffort">
         <call-map-processor xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="createWorkEffortMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createWorkEffort" in-map-name="context">
-            <default-message>Work Effort successfully created.</default-message>
+            <default-message resource="WorkEffortUiLabels" property="WorkEffortCreatedSuccessfully"/>
             <result-to-request result-name="workEffortId"/>
         </call-service>
     </simple-method>
@@ -52,7 +54,7 @@ under the License.
                 processor-name="createWorkEffortAssocMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createWorkEffortAndAssoc" in-map-name="context">
-            <default-message>Work Effort successfully created.</default-message>
+            <default-message resource="WorkEffortUiLabels" property="WorkEffortCreatedSuccessfully"/>
             <result-to-request result-name="workEffortId"/>
         </call-service>
     </simple-method>
@@ -61,7 +63,7 @@ under the License.
                 processor-name="createWorkEffortNoteMap" in-map-name="parameters" out-map-name="context"/>
         <check-errors/>
         <call-service service-name="createWorkEffortNote" in-map-name="context">
-            <default-message>Note is successfully created.</default-message>
+            <default-message resource="WorkEffortUiLabels" property="WorkEffortNoteCreatedSuccessfully"/>
             <result-to-request result-name="noteId"/>
         </call-service>
     </simple-method>

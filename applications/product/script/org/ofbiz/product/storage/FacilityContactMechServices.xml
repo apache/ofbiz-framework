@@ -33,7 +33,7 @@ under the License.
             <set-service-fields service-name="createContactMech" map="parameters" to-map="createContactMechMap"/>
             <set field="createContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <call-service service-name="createContactMech" in-map-name="createContactMechMap">
-                <default-message>Contact Mechanism successfully created.</default-message>
+                <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
                 <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
             </call-service>
             <log level="info" message="ContactMech created"/>
@@ -89,7 +89,7 @@ under the License.
             <set-service-fields service-name="updateContactMech" map="parameters" to-map="updateContactMechMap"/>
             <set field="updateContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
-                <default-message property="PartyContactMechanismSuccessfullyUpdated" resource="PartyUiLabels"/>
+                <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
                 <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
             </call-service>
             <else>
@@ -164,8 +164,7 @@ under the License.
 
         <set-service-fields service-name="createPostalAddress" map="parameters" to-map="createPostalAddressMap"/>
         <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
-            <default-message>Postal Address successfully created</default-message>
-
+            <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
         </call-service>
 
@@ -175,8 +174,7 @@ under the License.
         <set-service-fields service-name="createFacilityContactMech" map="parameters" to-map="createFacilityContactMechMap"/>
 
         <call-service service-name="createFacilityContactMech" in-map-name="createFacilityContactMechMap" break-on-error="true">
-            <default-message>Facility Contact Mechanism successfully created</default-message>
-
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
         </call-service>
         <field-to-request field="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newFacilityContactMech.contactMechId" result-name="contactMechId"/>
@@ -191,7 +189,7 @@ under the License.
 
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
         <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
-            <default-message>Postal Address successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
         </call-service>
 
@@ -201,7 +199,7 @@ under the License.
         <set field="updateFacilityContactMechMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <log level="info" message="Copied id to updateFacilityContactMechMap: ${updateFacilityContactMechMap.newContactMechId}"/>
         <call-service service-name="updateFacilityContactMech" in-map-name="updateFacilityContactMechMap">
-            <default-message>Facility Contact Mechanism successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
         </call-service>
         <field-to-request field="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newFacilityContactMech.contactMechId" result-name="contactMechId"/>
@@ -216,8 +214,7 @@ under the License.
         <log level="info" message="Creating telecom number"/>
         <set-service-fields service-name="createTelecomNumber" map="parameters" to-map="createTelecomNumberMap"/>
         <call-service in-map-name="createTelecomNumberMap" service-name="createTelecomNumber">
-            <default-message>Telecom number successfully created</default-message>
-
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
         </call-service>
 
@@ -226,8 +223,7 @@ under the License.
         <log level="info" message="Copied id to createFacilityContactMechMap: ${createFacilityContactMechMap.contactMechId}"/>
 
         <call-service service-name="createFacilityContactMech" in-map-name="createFacilityContactMechMap" break-on-error="true">
-            <default-message>Facility Contact Mechanism successfully created</default-message>
-
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
         </call-service>
         <field-to-request field="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
         <field-to-result field="newFacilityContactMech.contactMechId" result-name="contactMechId"/>
@@ -242,7 +238,7 @@ under the License.
 
         <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="updateTelecomNumberMap"/>
         <call-service service-name="updateTelecomNumber" in-map-name="updateTelecomNumberMap">
-            <default-message>Telecom Number successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
             <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
         </call-service>
 
@@ -253,7 +249,7 @@ under the License.
         <log level="info" message="Copied id to updateFacilityContactMechMap: ${updateFacilityContactMechMap.newContactMechId}"/>
 
         <call-service in-map-name="updateFacilityContactMechMap" service-name="updateFacilityContactMech">
-            <default-message>Facility Contact Mechanism successfully updated</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
         </call-service>
         <log level="info" message="Setting result id: ${newFacilityContactMech.contactMechId}"/>
         <field-to-request field="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
@@ -280,8 +276,7 @@ under the License.
         <set field="createFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="createFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createFacilityContactMech" in-map-name="createFacilityContactMechMap">
-
-            <default-message>Facility Contact Mechanism successfully created.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyCreated"/>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>
@@ -306,8 +301,7 @@ under the License.
         <set field="updateFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="updateFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updateFacilityContactMech" in-map-name="updateFacilityContactMechMap">
-
-            <default-message>Facility Contact Mechanism successfully updated.</default-message>
+            <default-message resource="PartyUiLabels" property="PartyContactMechanismSuccessfullyUpdated"/>
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>

@@ -244,6 +244,10 @@
         <value xml:lang="zh">调整</value>
         <value xml:lang="zh_TW">調整</value>
     </property>
+    <property key="EcommerceAffiliateCreatedSuccessfully">
+        <value xml:lang="en">Affiliate record successfully created.</value>
+        <value xml:lang="it">Record affiliato creato con successo.</value>
+    </property>
     <property key="EcommerceAlwaysViewCartAfterAddingAnItem">
         <value xml:lang="cs">Vždy se podívat do košíku, pokud byla přidána další položka</value>
         <value xml:lang="da">Check altid indkøbskurven når der er lagt en ny vare i den</value>
