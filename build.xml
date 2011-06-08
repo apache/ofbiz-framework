@@ -75,6 +75,7 @@ under the License.
         <antcall target="clean-catalina"/>
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
+        <antcall target="clean-downloads"/>
         <antcall target="clean"/>
     </target>
 
@@ -679,8 +680,8 @@ under the License.
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
         </java>
     </target>
-    <target name="run-tests" depends="download-cobertura, build"
-          description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html. You will need a valid Internet connection to download cobertura">
+    <target name="run-tests" depends="build"
+          description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html.">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -703,6 +704,9 @@ under the License.
             </condition>
         </fail>
     </target>
+
+   <target name="run-tests-with-corbertura" depends="download-cobertura, build, run-tests"
+        description="Same as run-tests but downloads cobertura and performs code coverage. You will need a valid Internet connection to download cobertura"/>
 
     <target name="_check-separated-tests-already-setup">
         <available file="runtime/test-list-build.xml" property="_separated-tests-already-setup"/>
