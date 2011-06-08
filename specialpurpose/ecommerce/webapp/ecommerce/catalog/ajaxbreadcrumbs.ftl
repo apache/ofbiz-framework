@@ -26,7 +26,7 @@ under the License.
     <#if productCategoryTrail?exists>
         <#list productCategoryTrail as trail>
         <li>
-          <a href="<@ofbizCatalogUrl currentCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory/>" class="linktext">
+          <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
             <#if trail.title?exists>
               ${trail.title}
             <#else>
@@ -37,7 +37,7 @@ under the License.
         </#list>
     </#if>
     <li>
-      <a href="<@ofbizCatalogUrl currentCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
+      <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
         <#if currentCategoryName?exists>
           ${currentCategoryName}
         <#elseif currentCategoryDescription?exists>
