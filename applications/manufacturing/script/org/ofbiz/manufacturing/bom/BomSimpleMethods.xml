@@ -30,7 +30,7 @@ under the License.
         <set field="searchDuplicatedAncestorContext.productId" from-field="parameters.productId"/>
         <set field="searchDuplicatedAncestorContext.productIdTo" from-field="parameters.productIdTo"/>
         <if-not-empty field="parameters.fromDate">
-            <set field="searchDuplicatedAncestorContext.fromDate" from-field="parameters.fromDate"/>
+            <set field="searchDuplicatedAncestorContext.fromDate" from-field="parameters.fromDate" type="Timestamp"/>
         </if-not-empty>
         <set field="searchDuplicatedAncestorContext.productAssocTypeId" from-field="parameters.productAssocTypeId"/>
         <call-service service-name="searchDuplicatedAncestor" in-map-name="searchDuplicatedAncestorContext">
