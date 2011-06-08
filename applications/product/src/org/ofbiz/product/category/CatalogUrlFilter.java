@@ -182,7 +182,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     if (UtilValidate.isNotEmpty(productContentInfos)) {
                         for(GenericValue productContentInfo : productContentInfos){
                             String contentId = (String) productContentInfo.get("contentId");
-                            List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAndCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "drLocaleString", localeString, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                            List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAndCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)){
                                 for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
                                     GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOneCache("ElectronicText");
@@ -201,8 +201,9 @@ public class CatalogUrlFilter extends ContextFilter {
                                         }
                                     }
                                 }
-                            } else {
-                                List<GenericValue> contentDataResourceViews = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId, "statusId", "CTNT_IN_PROGRESS", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                            } 
+                            if (UtilValidate.isEmpty(productId)) {
+                                List<GenericValue> contentDataResourceViews = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId, "drDataResourceTypeId", "ELECTRONIC_TEXT"));
                                 for (GenericValue contentDataResourceView : contentDataResourceViews) {
                                     GenericValue ElectronicText = contentDataResourceView.getRelatedOneCache("ElectronicText");
                                     if (UtilValidate.isNotEmpty(ElectronicText)) {
@@ -236,7 +237,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     if (UtilValidate.isNotEmpty(productCategoryContentInfos)) {
                         for(GenericValue productCategoryContentInfo : productCategoryContentInfos){
                             String contentId = (String) productCategoryContentInfo.get("contentId");
-                            List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAndCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "drLocaleString", localeString, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                            List<GenericValue> ContentAssocDataResourceViewTos = delegator.findByAndCache("ContentAssocDataResourceViewTo", UtilMisc.toMap("contentIdStart", contentId, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)){
                                 for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
                                     GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOneCache("ElectronicText");
@@ -257,8 +258,9 @@ public class CatalogUrlFilter extends ContextFilter {
                                         }
                                     }
                                 }
-                            } else {
-                                List<GenericValue> contentDataResourceViews = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId, "statusId", "CTNT_IN_PROGRESS", "drDataResourceTypeId", "ELECTRONIC_TEXT"));
+                            } 
+                            if (UtilValidate.isEmpty(productCategoryId)) {
+                                List<GenericValue> contentDataResourceViews = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId, "drDataResourceTypeId", "ELECTRONIC_TEXT"));
                                 for (GenericValue contentDataResourceView : contentDataResourceViews) {
                                     GenericValue ElectronicText = contentDataResourceView.getRelatedOneCache("ElectronicText");
                                     if (UtilValidate.isNotEmpty(ElectronicText)) {
