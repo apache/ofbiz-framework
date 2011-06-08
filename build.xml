@@ -705,7 +705,7 @@ under the License.
         </fail>
     </target>
 
-   <target name="run-tests-with-corbertura" depends="download-cobertura, build, run-tests"
+   <target name="run-tests-with-cobertura" depends="download-cobertura, build, run-tests"
         description="Same as run-tests but downloads cobertura and performs code coverage. You will need a valid Internet connection to download cobertura"/>
 
     <target name="_check-separated-tests-already-setup">
