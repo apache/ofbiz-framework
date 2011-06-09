@@ -31,7 +31,7 @@
         <field name="partyId" use-when="myTask!=void"><hidden value="${userLogin.partyId}"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field name="workEffortParentId" use-when="myTask==void&amp;&amp;projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="workEffortParentId" use-when="myTask==void @and projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${projectId}.${sequenceNum} ${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
@@ -41,7 +41,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId" use-when="myTask==void&amp;&amp;projectId==void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="workEffortParentId" use-when="myTask==void @and projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}"> 
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
@@ -50,12 +50,12 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId" use-when="myTask!=void&amp;&amp;parameters.get(&quot;workEffortParentId&quot;)!=null" title="${uiLabelMap.ProjectMgrTaskPhase}*">
+        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)!=null" title="${uiLabelMap.ProjectMgrTaskPhase}*">
             <display-entity entity-name="WorkEffort" description="${workEffortName}[${workEffortId}]" key-field-name="workEffortId">
                 <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
             </display-entity>
         </field>
-        <field name="workEffortParentId" use-when="myTask!=void&amp;&amp;parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}" event="onchange" action="javascript:document.EditTask.submit();">
+        <field name="workEffortParentId" use-when="myTask!=void @and parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}" event="onchange" action="javascript:document.EditTask.submit();">
                 <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
