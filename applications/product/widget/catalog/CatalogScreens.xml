@@ -53,7 +53,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
-                <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCatalog"/>
                 <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
             </actions>
@@ -73,9 +72,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalog"/>
-                <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCatalog"/>
-
                 <set field="prodCatalogId" from-field="parameters.prodCatalogId"/>
                 <entity-one entity-name="ProdCatalog" value-field="prodCatalog"/>
             </actions>
@@ -98,7 +95,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalogCategories"/>
-                <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductCategories"/>
                 <entity-and entity-name="ProdCatalogCategory" list="prodCatalogCategories">
                     <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
@@ -128,7 +124,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalogParties"/>
-                <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="PartyParties"/>
                 <entity-and entity-name="ProdCatalogRole" list="prodCatalogRoleList">
                     <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
@@ -154,7 +149,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductCatalogStores"/>
-                <set field="headerItem" value="catalog"/>
                 <set field="tabButtonItem" value="ProductStores"/>
                 <entity-and entity-name="ProductStoreCatalog" list="productStoreCatalogList">
                     <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>

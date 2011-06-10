@@ -53,6 +53,9 @@ under the License.
 
     <screen name="CommonCatalogDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="catalogs"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
