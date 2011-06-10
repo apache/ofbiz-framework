@@ -22,6 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonCategoryDecorator">
         <section>
+            <actions>
+                <set field="headerItem" value="categories"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
@@ -199,7 +202,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryContent"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryContent"/>
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
 
@@ -235,7 +237,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryContentContent"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryContent"/>
                 <set field="labelTitleProperty" value="ProductCategoryContent"/>
 
@@ -282,7 +283,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryRollup"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryRollup"/>
                 <set field="labelTitleProperty" value="ProductRollup"/>
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -312,7 +312,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryProducts"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryProducts"/>
                 <set field="labelTitleProperty" value="ProductProducts"/>
 
@@ -335,7 +334,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryProductCatalogs"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryProdCatalogs"/>
                 <set field="labelTitleProperty" value="ProductCatalogs"/>
 
@@ -409,7 +407,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryParties"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryParties"/>
                 <set field="labelTitleProperty" value="PartyParties"/>
 
@@ -441,7 +438,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCategoryAttributes"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditCategoryAttributes"/>
                 <set field="labelTitleProperty" value="ProductCategoryAttributes"/>
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -490,7 +486,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateProductCategoryCheckExisting"/>
-                <set field="headerItem" value="categories"/>
                 <set field="labelTitleProperty" value="ProductCreateProductInCategory"/>
 
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
@@ -517,10 +512,8 @@ under the License.
                 <property-map resource="ProductEntityLabels" map-name="uiLabelMap" global="true"/>
             
                 <set field="titleProperty" value="PageTitleEditProductCategoryLink"/>
-                <set field="headerItem" value="categories"/>
                 <set field="tabButtonItem" value="EditProductCategoryLinks"/>
                 <set field="labelTitleProperty" value="ProductCategoryLinks"/>
-
                 <set field="productCategoryId" from-field="parameters.productCategoryId"/>
                 <set field="linkSeqId" from-field="parameters.linkSeqId"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
