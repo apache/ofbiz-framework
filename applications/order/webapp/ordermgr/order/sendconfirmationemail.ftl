@@ -85,7 +85,7 @@ under the License.
         </table>
       </form>
       <br />
-      <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
+      <a href="<@ofbizUrl>authview/${donePage}?orderId=${orderId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.sendConfirmationForm.submit()" class="buttontext">${uiLabelMap.CommonSend}</a>
     </div>
 </div>
