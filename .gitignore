@@ -1,6 +1,7 @@
 tools/build
 applications/accounting/build/
 applications/content/build/
+applications/content/index/
 applications/humanres/build/
 applications/manufacturing/build/
 applications/marketing/build/
