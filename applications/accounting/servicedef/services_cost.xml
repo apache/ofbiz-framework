@@ -91,7 +91,7 @@ under the License.
         <description>Update a Product Average Cost record on receive inventory</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="UPDATE"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantityAccepted" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityAccepted" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>

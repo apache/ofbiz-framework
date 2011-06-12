@@ -572,7 +572,7 @@ under the License.
                 <result-to-field result-name="quantityOnHandTotal"/> 
             </call-service>
             
-            <set field="oldProductQuantity" value="${quantityOnHandTotal - parameters.quantityAccepted}"/>
+            <set field="oldProductQuantity" value="${quantityOnHandTotal - parameters.quantityAccepted}" type="BigDecimal"/>
             <set field="productAverageCostMap.averageCost" value="${((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted))/(quantityOnHandTotal)}" type="BigDecimal"/>
             <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
             <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
