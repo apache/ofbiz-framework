@@ -74,7 +74,7 @@ if (shoppingListId) {
         shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
         if (shoppingListItems) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
-            shoppingListItemDatas.each { shoppingListItem ->
+            shoppingListItems.each { shoppingListItem ->
                 shoppingListItemData = [:];
                 product = shoppingListItem.getRelatedOneCache("Product");
 
