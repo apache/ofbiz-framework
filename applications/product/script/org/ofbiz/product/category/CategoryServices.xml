@@ -333,6 +333,7 @@ under the License.
         <find-by-primary-key entity-name="ProductCategoryRollup" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
+        <field-to-result field="parameters.productCategoryId" result-name="productCategoryId"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromCategory" short-description="Remove ProductCategory From Category">
         <set value="removeProductCategoryFromCategory" field="callingMethodName"/>
