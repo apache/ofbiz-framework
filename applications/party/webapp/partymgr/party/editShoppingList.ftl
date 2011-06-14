@@ -191,6 +191,10 @@ under the License.
             <td><a href="/catalog/control/EditProduct?productId=${shoppingListItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${shoppingListItem.productId} -
               ${productContentWrapper.get("PRODUCT_NAME")?default("No Name")}</a> : ${productContentWrapper.get("DESCRIPTION")?if_exists}
             </td>
+            <form method="post" action="<@ofbizUrl>removeFromShoppingList</@ofbizUrl>" name='removeform_${shoppingListItem.shoppingListItemSeqId}'>
+              <input type="hidden" name="shoppingListId" value="${shoppingListItem.shoppingListId}" />
+              <input type="hidden" name="shoppingListItemSeqId" value="${shoppingListItem.shoppingListItemSeqId}" />
+            </form>
             <form method="post" action="<@ofbizUrl>updateShoppingListItem</@ofbizUrl>" name='listform_${shoppingListItem.shoppingListItemSeqId}'>
               <input type="hidden" name="shoppingListId" value="${shoppingListItem.shoppingListId}" />
               <input type="hidden" name="shoppingListItemSeqId" value="${shoppingListItem.shoppingListItemSeqId}" />
@@ -208,7 +212,7 @@ under the License.
             <td class="align-float"><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></td>
             <td class="button-col align-float">
               <a href="javascript:document.listform_${shoppingListItem.shoppingListItemSeqId}.submit();">${uiLabelMap.CommonUpdate}</a>
-              <a href="<@ofbizUrl>removeFromShoppingList?shoppingListId=${shoppingListItem.shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItem.shoppingListItemSeqId}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
+              <a href="javascript:document.removeform_${shoppingListItem.shoppingListItemSeqId}.submit();">${uiLabelMap.CommonRemove}</a>
             </td>
           </tr>
           <#-- toggle the row color -->
