@@ -858,7 +858,7 @@ under the License.
     <service name="updateProductCategoryToCategory" engine="simple"
                 location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="updateProductCategoryToCategory" auth="true">
         <description>Update ProductCategory To Category</description>
-        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="productCategoryId" type="String" mode="INOUT" optional="false"/>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
