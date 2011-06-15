@@ -183,4 +183,43 @@ under the License.
         <set field="updateContent.localeString" from-field="parameters.localeString"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
+    
+    <simple-method method-name="createDownloadContentForCategory" short-description="Create Download Content For Category">
+        <set-service-fields service-name="createCategoryContent" map="parameters" to-map="createCategoryContent"/>
+        <!-- Create Data Resource -->
+        <set field="data.dataResourceTypeId" from-field="parameters.dataResourceTypeId"/>
+        <set field="data.dataResourceName" from-field="parameters._imageData_fileName"/>
+        <set field="data.mimeTypeId" from-field="parameters._imageData_contentType"/>
+        <set field="data.uploadedFile" from-field="parameters.imageData"/>
+        <call-service service-name="createDataResource" in-map-name="data">
+            <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
+        </call-service>
+        <!-- Create attach upload to data resource -->
+        <set-service-fields service-name="attachUploadToDataResource" map="parameters" to-map="attachMap"/>
+        <set field="attachMap.uploadedFile" from-field="parameters.imageData"/>
+        <set field="attachMap._uploadedFile_fileName" from-field="parameters._imageData_fileName"/>
+        <set field="attachMap._uploadedFile_contentType" from-field="parameters._imageData_contentType"/>
+        <call-service service-name="attachUploadToDataResource" in-map-name="attachMap"/>
+        <!-- Create content from dataResource -->
+        <set-service-fields service-name="createContentFromDataResource" map="parameters" to-map="contentMap"/>
+        <set field="contentMap.contentTypeId" value="DOCUMENT"/>
+        <call-service service-name="createContentFromDataResource" in-map-name="contentMap">
+            <result-to-field result-name="contentId" field="createCategoryContent.contentId"/>
+        </call-service>
+
+        <set field="createCategoryContent.contentId" from-field="parameters.contentId"/>
+        <call-service service-name="createCategoryContent" in-map-name="createCategoryContent"/>
+    </simple-method>
+    
+    <simple-method method-name="updateDownloadContentForCategory" short-description="Update Download Content For Category">
+        <set field="attachMap.uploadedFile" from-field="parameters.imageData"/>
+        <set field="attachMap._uploadedFile_fileName" from-field="parameters._imageData_fileName"/>
+        <set field="attachMap._uploadedFile_contentType" from-field="parameters._imageData_contentType"/>
+        <set field="attachMap.mimeTypeId" from-field="parameters._imageData_contentType"/>
+        <set field="attachMap.dataResourceId" from-field="parameters.fileDataResourceId"/>
+        <call-service service-name="attachUploadToDataResource" in-map-name="attachMap"/>
+        
+        <set-service-fields service-name="updateCategoryContent" map="parameters" to-map="updateCategoryContent"/>
+        <call-service service-name="updateCategoryContent" in-map-name="updateCategoryContent"/>
+    </simple-method>
 </simple-methods>
