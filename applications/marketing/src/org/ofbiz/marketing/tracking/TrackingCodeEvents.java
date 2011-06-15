@@ -187,7 +187,7 @@ public class TrackingCodeEvents {
 
         //persist that info by associating with the current visit
         GenericValue visit = VisitHandler.getVisit(request.getSession());
-        if (visit == null) {
+        if (visit == null && !UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visit", "false")) {
             Debug.logWarning("Could not get visit, not associating trackingCode [" + trackingCodeId + "] with visit", module);
         } else {
             GenericValue trackingCodeVisit = delegator.makeValue("TrackingCodeVisit",
@@ -311,7 +311,7 @@ public class TrackingCodeEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
         GenericValue visit = VisitHandler.getVisit(request.getSession());
-        if (visit == null) {
+        if (visit == null && !UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visit", "false")) {
             Debug.logWarning("Could not get visit, not checking trackingCode cookies to associate with visit", module);
         } else {
             // loop through cookies and look for ones with a name that starts with TKCDT_ for trackable cookies
