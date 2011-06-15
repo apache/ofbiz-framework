@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -71,6 +72,7 @@ public class CartEventListener implements HttpSessionListener {
 
             GenericValue visit = VisitHandler.getVisit(session);
             if (visit == null) {
+            if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visit", "false")) return;
                 Debug.logError("Could not get the current visit, not saving abandoned cart info.", module);
                 return;
             }
