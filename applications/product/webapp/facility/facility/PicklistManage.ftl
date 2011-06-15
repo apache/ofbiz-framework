@@ -97,7 +97,11 @@ under the License.
                             <span class="label">${uiLabelMap.ProductBinNum}</span> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
                             <#if picklistBinInfo.primaryOrderHeader?exists><span class="label">${uiLabelMap.ProductPrimaryOrderId}</span> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
                             <#if picklistBinInfo.primaryOrderItemShipGroup?exists><span class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</span> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
-                            <#if !picklistBinInfo.picklistItemInfoList?has_content><a href="<@ofbizUrl>deletePicklistBin?picklistBinId=${picklistBinInfo.picklistBin.picklistBinId}&amp;facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
+                            <#if !picklistBinInfo.picklistItemInfoList?has_content><a href="javascript:document.DeletePicklistBin_${picklistInfo_index}_${picklistBinInfo_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
+                            <form name="DeletePicklistBin_${picklistInfo_index}_${picklistBinInfo_index}" method="post" action="<@ofbizUrl>deletePicklistBin</@ofbizUrl>">
+                                <input type="hidden" name="picklistBinId" value="${picklistBinInfo.picklistBin.picklistBinId}"/>
+                                <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                            </form>
                         </div>
                         <div style="margin-left: 30px;">
                             <span class="label">${uiLabelMap.CommonUpdate} ${uiLabelMap.ProductBinNum}</span>
