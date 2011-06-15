@@ -1004,6 +1004,28 @@ under the License.
         <attribute name="localeString" type="String" mode="IN" optional="true"/>
     </service>
 
+    <service name="createDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="simple"
+        location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="createDownloadContentForCategory" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" entity-name="Content" optional="true"/>
+        <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
+        <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
+        <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
+        <attribute name="dataResourceTypeId" type="String" mode="IN" optional="true"/>
+        <override name="prodCatContentTypeId" optional="false"/>
+    </service>
+    <service name="updateDownloadContentForCategory" default-entity-name="ProductCategoryContent" engine="simple"
+        location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="updateDownloadContentForCategory" auth="true">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes mode="IN" entity-name="Content" optional="true"/>
+        <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
+        <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
+        <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
+        <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
+    </service>
+
     <!-- ProductFeatureDataResource services -->
     <service name="createProductFeatureDataResource" default-entity-name="ProductFeatureDataResource" engine="simple"
             location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="createProductFeatureDataResource" auth="true">

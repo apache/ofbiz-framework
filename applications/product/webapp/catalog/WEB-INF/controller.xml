@@ -640,7 +640,19 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContentContent"/>
     </request-map>
-
+    <request-map uri="updateDownloadContentForCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateDownloadContentForCategory"/>
+        <response name="success" type="view" value="EditCategoryContent"/>
+        <response name="error" type="view" value="EditCategoryContentContent"/>
+    </request-map>
+    <request-map uri="createDownloadContentForCategory">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createDownloadContentForCategory"/>
+        <response name="success" type="view" value="EditCategoryContent"/>
+        <response name="error" type="view" value="EditCategoryContentContent"/>
+    </request-map>
+    
     <!-- ================ Product Content Requests ================= -->
     <request-map uri="EditProductContent">
         <security https="true" auth="true"/>

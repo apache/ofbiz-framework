@@ -24366,6 +24366,10 @@
     <property key="ProductUpdateSEOContentCategory">
         <value xml:lang="en">Update SEO Content for Category</value>
     </property>
+    <property key="ProductUpdateDownloadContentCategory">
+        <value xml:lang="en">Update Download Content for Category</value>
+        <value xml:lang="th">อัพเดทวิดีโอสำหรับหมวดหมู่</value>
+    </property>
     <property key="ProductUpdateShipping">
         <value xml:lang="de">Lieferung aktualisieren</value>
         <value xml:lang="en">Update Shipping</value>

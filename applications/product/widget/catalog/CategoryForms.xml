@@ -250,7 +250,7 @@ under the License.
             </hyperlink>
         </field>
         
-        <field name="productCategoryTypeId" sort-field="true"><display/></field>
+        <field name="productCategoryTypeId" sort-field="true"><display-entity entity-name="ProductCategoryType" description="${description}"/></field>
         <field name="primaryParentCategoryId" sort-field="true"><display/></field>
         <field name="categoryName" sort-field="true"><display/></field>
         <field name="description" sort-field="true"><display/></field>
@@ -289,5 +289,32 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field use-when="content == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="content != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
+    <form name="EditCategoryContentDownload" type="upload" target="updateDownloadContentForCategory" title="${uiLabelMap.ProductUpdateDownloadContentCategory}">
+        <alt-target use-when="contentId==null" target="createDownloadContentForCategory"/>
+        <auto-fields-entity entity-name="ProductCategoryContent" map-name="productCategoryContentData"/>
+        <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
+        <field name="fromDate" use-when="contentId!=null" title="${uiLabelMap.CommonFromDate}" ><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
+        <field name="purchaseFromDate" title="${uiLabelMap.ProductPurchaseFromDate}"></field>
+        <field name="purchaseThruDate" title="${uiLabelMap.ProductPurchaseThruDate}"></field>
+        <field name="useCountLimit" title="${uiLabelMap.ProductUseCountLimit}"></field>
+        <field name="useDaysLimit" title="${uiLabelMap.ProductUseTime}"></field>
+        
+        <field name="description" title="${uiLabelMap.ProductCategoryDescription}" map-name="content"><text size="40"/></field>
+        <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
+        <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" >
+            <hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" target-type="inter-app">
+                <parameter param-name="contentId"/>
+            </hyperlink>
+        </field>
+        <field name="imageData" title="${uiLabelMap.ProductFile}"><file/></field>
+        <field name="fileDataResourceId"><hidden/></field>
+        <field name="productCategoryId"><hidden/></field>
+        <field name="prodCatContentTypeId"><hidden/></field>
+        <field name="dataResourceTypeId"><hidden/></field>
+        <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
