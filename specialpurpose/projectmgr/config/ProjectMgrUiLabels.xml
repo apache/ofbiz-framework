@@ -644,7 +644,7 @@
     <property key="PageTitleTaskAssignedToMe">
         <value xml:lang="de">Öffne die mir zugeordneten Aufgaben</value>
         <value xml:lang="en">Open Tasks Assigned to me.</value>
-        <value xml:lang="fr">Ouvrir les tâches qui me sont affectées</value>
+        <value xml:lang="fr">Tâches qui me sont affectées</value>
         <value xml:lang="it">Compiti aperti assegnati a me.</value>
         <value xml:lang="nl">Openstaande taken voor mij</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
