@@ -65,6 +65,9 @@ under the License.
     <ContactMechPurposeType contactMechPurposeTypeId="SUPPORT_EMAIL" description="Support Email"/>
     <ContactMechPurposeType contactMechPurposeTypeId="ORDER_EMAIL" description="Order Notification Email Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_WEB_URL" description="Primary Website URL"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="TWITTER_URL" description="Twitter Website URL"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="FACEBOOK_URL" description="Facebook Website URL"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="LINKEDIN_URL" description="LinkedIn Website URL"/>
 
     <ContactMechType contactMechTypeId="ELECTRONIC_ADDRESS" description="Electronic Address" hasTable="N" parentTypeId=""/>
     <ContactMechType contactMechTypeId="POSTAL_ADDRESS" description="Postal Address" hasTable="Y" parentTypeId=""/>
