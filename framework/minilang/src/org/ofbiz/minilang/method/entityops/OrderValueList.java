@@ -53,7 +53,7 @@ public class OrderValueList extends MethodOperation {
         if (toListAcsr.isEmpty()) {
             toListAcsr = listAcsr;
         }
-        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list-name"));
+        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list"), element.getAttribute("order-by-list-name"));
     }
 
     @Override
