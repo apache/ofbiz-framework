@@ -193,22 +193,28 @@ under the License.
     </service>
     <service name="getWorkEffortAssignedTasks" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedTasks">
-        <description>Get WorkEffort Assigned Tasks</description>
+        <description>Get WorkEffort Assigned Tasks : workEffort assign to userLogin.partyId and with
+            workEffortTypeId = TASK and currentStatusId not in (CAL_DECLINED, CAL_DELEGATED, CAL_COMPLETED, CAL_CANCELLED) and partyAssign.statusId != PRTYASGN_UNASSIGNED
+            OR  workEffortTypeId = PROD_ORDER_TASK and currentStatusId not in (PRUN_CANCELLED, PRUN_COMPLETED, PRUN_CLOSED)</description>
         <attribute name="tasks" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedActivities" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivities">
-        <description>Get WorkEffort Assigned Activities</description>
+        <description>Get WorkEffort Assigned Activities : workEffort assign to userLogin.partyId and with
+            workEffortTypeId = ACTIVITY and currentStatusId not in (WF_COMPLETED, WF_TERMINATED, WF_ABORTED)
+            and partyAssign.statusId not in (CAL_DECLINED, CAL_DELEGATED, CAL_COMPLETED, CAL_CANCELLED, PRTYASGN_UNASSIGNED)</description>
         <attribute name="activities" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedActivitiesByRole" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivitiesByRole">
-        <description>Get WorkEffort Assigned Activities By Role</description>
+        <description>Get WorkEffort Assigned Activities By Role : same condition as getWorkEffortAssignedActivities but on view WorkEffortPartyAssignByRole
+            to be able to have all party roles</description>
         <attribute name="roleActivities" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="getWorkEffortAssignedActivitiesByGroup" engine="java"
             location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="getWorkEffortAssignedActivitiesByGroup">
-        <description>Get WorkEffort Assigned Activities By Group</description>
+        <description>Get WorkEffort Assigned Activities By Group : same condition as getWorkEffortAssignedActivities but on view WorkEffortPartyAssignByGroup
+            to be able to have all parties associated to userLogin.partyId by PartyRelationship</description>
         <attribute name="groupActivities" type="java.util.List" mode="OUT" optional="false"/>
     </service>
 
