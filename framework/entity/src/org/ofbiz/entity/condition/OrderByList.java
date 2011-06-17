@@ -98,6 +98,7 @@ public class OrderByList implements Comparator<GenericEntity> {
         int result = 0;
         for (OrderByItem orderByItem: orderByList) {
             result = orderByItem.compare(entity1, entity2);
+            if (result != 0) break;
         }
         return result;
     }
