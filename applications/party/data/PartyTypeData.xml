@@ -106,6 +106,9 @@ under the License.
     <ContactMechTypePurpose contactMechPurposeTypeId="FAX_BILLING" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PHONE_ASSISTANT" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PRIMARY_WEB_URL" contactMechTypeId="WEB_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="TWITTER_URL" contactMechTypeId="WEB_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="FACEBOOK_URL" contactMechTypeId="WEB_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="LINKEDIN_URL" contactMechTypeId="WEB_ADDRESS"/>
     
     <!-- communication events -->
     <CommunicationEventPrpTyp communicationEventPrpTypId="ACTIVITY_REQUEST" description="Activity Request" hasTable="N" parentTypeId=""/>
