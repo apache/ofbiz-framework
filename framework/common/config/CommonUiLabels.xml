@@ -6361,7 +6361,7 @@
     </property>
     <property key="CommonPortalPagesForApplication">
         <value xml:lang="en">Portal pages for application</value>
-        <value xml:lang="fr">Pages portail pour application</value>
+        <value xml:lang="fr">Pages portail pour l'application</value>
         <value xml:lang="hi_IN">आवेदन के लिए पोर्टल पृष्ठ</value>
         <value xml:lang="it">Pagine portale per applicazione</value>
         <value xml:lang="pt_BR">As páginas do portal para o aplicativo</value>
