@@ -1300,7 +1300,7 @@ public class ModelViewEntity extends ModelEntity {
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 }
-            } else if ( value == null && (operator.equals(EntityOperator.EQUALS) || operator.equals(EntityOperator.NOT_EQUAL))) {
+            } else if ( value == null && this.relFieldName == null && (operator.equals(EntityOperator.EQUALS) || operator.equals(EntityOperator.NOT_EQUAL))) {
                 return EntityCondition.makeCondition(lhs, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), null);
             } else {
                 if (ignoreCase) {
