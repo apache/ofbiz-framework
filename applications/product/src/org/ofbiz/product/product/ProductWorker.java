@@ -460,10 +460,10 @@ public class ProductWorker {
                     }
                 }
                 featureList.add(featureData);
-                if (oldType != null) {
-                    // last map
-                    featureTypeFeatures.add(featureList);
-                }
+            }
+            if (oldType != null) {
+                // last map
+                featureTypeFeatures.add(featureList);
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
