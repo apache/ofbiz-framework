@@ -2149,6 +2149,14 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         boolean showDescription = "Y".equals(UtilProperties.getPropertyValue("widget", "widget.lookup.showDescription", "N"));
 
+        // lastViewName, used by lookup to remember the real last view name
+        String lastViewName = request.getParameter("_LAST_VIEW_NAME_"); // Try to get it from parameters firstly
+        if (UtilValidate.isEmpty(lastViewName)) { // get from session
+            lastViewName = (String) request.getSession().getAttribute("_LAST_VIEW_NAME_");
+        }
+        if (UtilValidate.isEmpty(lastViewName)) {
+            lastViewName = "";
+        }
         StringWriter sr = new StringWriter();
         sr.append("<@renderLookupField ");
         sr.append(" className=\"");
@@ -2208,6 +2216,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(showDescription));
         sr.append("\" initiallyCollapsed=\"");
         sr.append(Boolean.toString(isInitiallyCollapsed));
+        sr.append("\" lastViewName=\"");
+        sr.append(lastViewName);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
 

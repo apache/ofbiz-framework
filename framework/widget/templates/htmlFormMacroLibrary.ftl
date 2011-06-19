@@ -543,7 +543,7 @@ ${item.description}</span>
 </#if>
 </#macro>
 
-<#macro renderLookupField className alert name value size maxlength id event action readonly autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed>
+<#macro renderLookupField className alert name value size maxlength id event action readonly autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed lastViewName="main" >
 <#if ajaxEnabled?has_content && ajaxEnabled>
     <script type="text/javascript">
     jQuery(document).ready(function(){
@@ -575,11 +575,7 @@ ${item.description}</span>
     <#if ajaxEnabled?has_content && ajaxEnabled>
       <#assign defaultMinLength = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultMinLength")>
       <#assign defaultDelay = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.defaultDelay")>
-      <#if parameters?has_content && parameters._LAST_VIEW_NAME_?has_content>
-        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + parameters._LAST_VIEW_NAME_ />
-      <#else>
-        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=main"/>
-      </#if>      
+      <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
       <#if !ajaxUrl?contains("searchValueFieldName=")>
           <#if descriptionFieldName?has_content && showDescription == "true">
             <#local ajaxUrl = ajaxUrl + "&amp;searchValueFieldName=" + descriptionFieldName />
@@ -611,10 +607,8 @@ ${item.description}</span>
 <#if readonly?has_content && readonly><a id="${id}_clear" style="background:none;margin-left:5px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></#if>
 </span>
 <#if ajaxEnabled?has_content && ajaxEnabled>
-      <#if parameters?has_content && parameters._LAST_VIEW_NAME_?has_content && ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
-        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + parameters._LAST_VIEW_NAME_ />
-      <#elseif ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
-        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=main"/>
+      <#if ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
+        <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
       </#if>      
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription}, ${defaultMinLength!2}, ${defaultDelay!300});</script><#t/>
 </#if>
