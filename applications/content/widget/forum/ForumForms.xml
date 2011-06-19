@@ -148,11 +148,11 @@ under the License.
         <field name="contentAssocTypeId"><hidden value="${caContentAssocTypeId}"/></field>
         <field name="contentTypeId"><hidden/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
-        <field position="1" name="messageTitle" entry-name="description" parameter-name="description"><display/></field>
-        <field position="2" name="createdBy" entry-name="createdByUserLogin"><display/></field>
-        <field position="3" name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
-        <field position="4" name="thruDate" entry-name="caThruDate"><display description="${bsh:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
-        <field position="5" name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext"><hyperlink target="updateForumMessage">
+        <field name="messageTitle" entry-name="description" parameter-name="description"><display/></field>
+        <field name="createdBy" entry-name="createdByUserLogin"><display/></field>
+        <field name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
+        <field name="thruDate" entry-name="caThruDate"><display description="${bsh:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext"><hyperlink target="updateForumMessage">
                 <parameter param-name="forumGroupId"/>
                 <parameter param-name="forumId"/>
                 <parameter param-name="contentIdTo"/>
@@ -160,9 +160,9 @@ under the License.
                 <parameter param-name="contentAssocTypeId"/>
                 <parameter param-name="fromDate"/>
             </hyperlink></field>
-        <field position="6" name="messageText" entry-name="contentData.resultData.electronicText.textData" parameter-name="textData"><textarea rows="8"/></field>
-        <field position="7" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field position="8" name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}" widget-style="buttontext">
+        <field name="messageText" entry-name="contentData.resultData.electronicText.textData" parameter-name="textData"><textarea rows="8"/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
+        <field name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}" widget-style="buttontext">
             <hyperlink target="addForumMessage" description="${uiLabelMap.FormFieldTitle_reponse}">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="forumId" from-field="parameters.forumId"/>
