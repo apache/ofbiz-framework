@@ -543,6 +543,39 @@ ${item.description}</span>
 </#if>
 </#macro>
 
+<#--
+@renderLookupField
+
+Description: Renders a text input field as a lookup field.
+
+Parameter: className, String, optional - The CSS class name for the lookup field.
+Parameter: alert, String, optional - If "true" then the "alert" CSS class will be added to the lookup field.
+Parameter: name, String, required - The name of the lookup field.
+Parameter: value, String, optional - The value of the lookup field.
+Parameter: size, String, optional - The size of the lookup field.
+Parameter: maxlength, String or Integer, optional - The max length of the lookup field.
+Parameter: id, String or Integer, optional - The ID of the lookup field.
+Parameter: event, String, optional - The lookup field event that invokes "action". If the event parameter is not empty, then the action parameter must be specified as well.
+Parameter: action, String, optional - The action that is invoked on "event". If action parameter is not empty, then the event parameter must be specified as well.
+Parameter: readonly, boolean, optional - If true, the lookup field is made read-only.
+Parameter: autocomplete, String, optional - If not empty, autocomplete is turned off for the lookup field.
+Parameter: descriptionFieldName, String, optional - If not empty and the presentation parameter contains "window", specifies an alternate input field for updating.
+Parameter: formName, String, required - The name of the form that contains the lookup field.
+Parameter: fieldFormName, String, optional - Contains the lookup window form name, used only when the presentation parameter contains "window".
+Parameter: targetParameterIter, List, optional - Contains a list of form field names whose values will be passed to the lookup window.
+Parameter: imgSrc, Not used.
+Parameter: ajaxUrl, String, optional - Contains the Ajax URL, used only when the ajaxEnabled parameter contains true.
+Parameter: ajaxEnabled, boolean, optional - If true, invokes the Ajax auto-completer.
+Parameter: presentation, String, optional - Contains the lookup window type, either "layer" or "window".
+Parameter: width, String or Integer, optional - The width of the lookup field.
+Parameter: height, String or Integer, optional - The height of the lookup field.
+Parameter: position, String, optional - The position style of the lookup field.
+Parameter: fadeBackground, ?
+Parameter: clearText, String, optional - If the readonly parameter is true, clearText contains the text to be displayed in the field.
+Parameter: showDescription, String, optional - ? (contains "true" or "false").
+Parameter: initiallyCollapsed, Not used.
+Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true, the contents of lastViewName will be appended to the Ajax URL.
+-->
 <#macro renderLookupField className alert name value size maxlength id event action readonly autocomplete descriptionFieldName formName fieldFormName targetParameterIter imgSrc ajaxUrl ajaxEnabled presentation width height position fadeBackground clearText showDescription initiallyCollapsed lastViewName="main" >
 <#if ajaxEnabled?has_content && ajaxEnabled>
     <script type="text/javascript">
