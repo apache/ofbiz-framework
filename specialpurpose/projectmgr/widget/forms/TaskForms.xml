@@ -41,7 +41,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId" use-when="myTask==void @and projectId!=void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}"> 
+        <field name="workEffortParentId" use-when="myTask==void @and projectId==void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}"> 
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
