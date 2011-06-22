@@ -634,7 +634,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
     </#if>
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", ${showDescription}<#else>"", ""</#if>, "${presentation!}", "${defaultMinLength!2}", "${defaultDelay!300}"<#rt/>
+            new ConstructLookup("${fieldFormName}", "${id}", document.${formName?html}.${name?html}, <#if descriptionFieldName?has_content>document.${formName?html}.${descriptionFieldName}<#else>null</#if>, "${formName?html}", "${width}", "${height}", "${position}", "${fadeBackground}", <#if ajaxEnabled?has_content && ajaxEnabled>"${ajaxUrl}", ${showDescription}<#else>"", false</#if>, "${presentation!}", "${defaultMinLength!2}", "${defaultDelay!300}"<#rt/>
     <#if targetParameterIter?has_content>
       <#assign isFirst = true>
       <#lt/>, [<#rt/>
