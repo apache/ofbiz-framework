@@ -393,10 +393,6 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
     var areaArray = areaCsvString.replace(/&amp;/g, '&').split(",");
     var numAreas = parseInt(areaArray.length / 3);
     
-    if (typeof(showDescription) == "string") {
-      showDescription = showDescription == "false" ? false : true;
-    }            
-    
     for (var i = 0; i < numAreas * 3; i = i + 3) {
         var url = areaArray[i + 1] + "?" + areaArray[i + 2];
         var div = areaArray[i];
