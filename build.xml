@@ -722,7 +722,7 @@ under the License.
             <env key="LC_ALL" value="C"/>
         </java>
     </target>
-    <target name="run-single-test" depends="download-cobertura, build"
+    <target name="run-single-test" depends="build"
           description="Run a single test, syntax eg: ant run-single-test -Dtest.component=service -Dtest.case=service-soap-tests">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
@@ -746,7 +746,7 @@ under the License.
             </condition>
         </fail>
     </target>
-    <target name="run-single-test-suite" depends="download-cobertura, build"
+    <target name="run-single-test-suite" depends="build"
             description="Run a single test suite, syntax eg: ant run-single-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
