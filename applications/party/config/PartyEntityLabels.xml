@@ -411,7 +411,7 @@
         <value xml:lang="de">Fakturierung E-Mail-Adresse</value>
         <value xml:lang="en">Billing (AP) Email</value>
         <value xml:lang="es">Correo electrónico de facturación</value>
-        <value xml:lang="fr">Courriel de facturation</value>
+        <value xml:lang="fr">Adresse courriel de facturation</value>
         <value xml:lang="hi_IN">देयकांकन(बिलिंग)(एपी) ईमेल</value>
         <value xml:lang="it">Email Fatturazione (AP)</value>
         <value xml:lang="nl">Factuur e-mailadres</value>
@@ -435,6 +435,10 @@
         <value xml:lang="th">ใบเสร็จรับเงิน (AP)</value>
         <value xml:lang="zh">寄账单地址</value>
         <value xml:lang="zh_TW">寄賬單地址</value>
+    </property>
+    <property key="ContactMechPurposeType.description.FAX_BILLING">
+        <value xml:lang="en">Billing Destination Fax Number</value>
+        <value xml:lang="fr">Numéro de télécopie du service comptabilité</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_NUMBER">
         <value xml:lang="de">Haupt Faxnummer</value>
@@ -466,6 +470,10 @@
         <value xml:lang="zh">第二个传真号码</value>
         <value xml:lang="zh_TW">第二個傳真號碼</value>
     </property>
+    <property key="ContactMechPurposeType.description.FAX_SHIPPING">
+        <value xml:lang="en">Shipping Destination Fax Number</value>
+        <value xml:lang="fr">Numéro de télécopie du service expédition</value>
+    </property>
     <property key="ContactMechPurposeType.description.GENERAL_LOCATION">
         <value xml:lang="de">Allgemeine Korrespondenzadresse</value>
         <value xml:lang="en">General Correspondence Address</value>
@@ -480,6 +488,14 @@
         <value xml:lang="th">ที่อยู่ทั่วไปที่ติดต่อกันทางจดหมาย</value>
         <value xml:lang="zh">通信地址</value>
         <value xml:lang="zh_TW">通信地址</value>
+    </property>
+    <property key="ContactMechPurposeType.description.ICAL_URL">
+        <value xml:lang="en">iCalendar URL</value>
+        <value xml:lang="fr">Adresse du calendrier (URL)</value>
+    </property>
+    <property key="ContactMechPurposeType.description.MARKETING_EMAIL">
+        <value xml:lang="en">Primary Marketing Email Address</value>
+        <value xml:lang="fr">Adresse courriel du service marketing</value>
     </property>
     <property key="ContactMechPurposeType.description.ORDER_EMAIL">
         <value xml:lang="de">Auftrags-Benachrichtigungen E-Mail-Adresse</value>
@@ -515,7 +531,7 @@
         <value xml:lang="de">Zahlung E-Mail-Adresse</value>
         <value xml:lang="en">Payment (AR) Email</value>
         <value xml:lang="es">Correo electrónico de pago</value>
-        <value xml:lang="fr">Courriel de paiement</value>
+        <value xml:lang="fr">Adresse courriel de paiement</value>
         <value xml:lang="hi_IN">भुगतान (एआर) ईमेल</value>
         <value xml:lang="it">Email Pagamento (AR) </value>
         <value xml:lang="nl">Betaal emailadres</value>
@@ -529,7 +545,7 @@
         <value xml:lang="de">Zahlungsadresse</value>
         <value xml:lang="en">Payment (AR) Address</value>
         <value xml:lang="es">Dirección de pago</value>
-        <value xml:lang="fr">Adresse du service comptabilité (paiments)</value>
+        <value xml:lang="fr">Adresse du service comptabilité (paiements)</value>
         <value xml:lang="hi_IN">भुगतान (एआर) का पता</value>
         <value xml:lang="it">Indirizzo Pagamento (AR)</value>
         <value xml:lang="nl">Betaaladres</value>
@@ -571,6 +587,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_DID">
         <value xml:lang="en">Direct Inward Dialing Phone Number</value>
+        <value xml:lang="fr">Numéro de téléphone interne directe</value>
         <value xml:lang="hi_IN">डायरेक्ट आवक डायलन फोन नंबर</value>
         <value xml:lang="it">Numero telefono interno diretto per connettersi</value>
         <value xml:lang="pt_BR">Ramal</value>
@@ -623,6 +640,7 @@
     </property>
     <property key="ContactMechPurposeType.description.PHONE_QUICK">
         <value xml:lang="en">Quick Calls Phone Number</value>
+        <value xml:lang="fr">Numéro de téléphone d'appels express</value>
         <value xml:lang="hi_IN">त्वरित कॉल फ़ोन नंबर</value>
         <value xml:lang="it">Numero di telefono per chiamate veloci</value>
         <value xml:lang="pt_BR">Telefone para chamadas rápidas</value>
@@ -749,7 +767,7 @@
         <value xml:lang="de">1. Webseite URL</value>
         <value xml:lang="en">Primary Website URL</value>
         <value xml:lang="es">Sitio web principal</value>
-        <value xml:lang="fr">URL princpale du site Web</value>
+        <value xml:lang="fr">Site Web principal (URL)</value>
         <value xml:lang="hi_IN">प्राथमिक वेबसाइट यूआरएल(URL)</value>
         <value xml:lang="it">URL Primario Sito Web</value>
         <value xml:lang="nl">Website URL</value>
@@ -824,7 +842,7 @@
         <value xml:lang="de">Elektronische Adresse</value>
         <value xml:lang="en">Electronic Address</value>
         <value xml:lang="es">Dirección electrónica</value>
-        <value xml:lang="fr">(Adresse électronique)</value>
+        <value xml:lang="fr">Adresse électronique</value>
         <value xml:lang="hi_IN">इलेक्ट्रॉनिक पता</value>
         <value xml:lang="it">Indirizzo Elettronico</value>
         <value xml:lang="nl">Electronisch adres</value>
@@ -850,6 +868,10 @@
         <value xml:lang="zh">电子邮件地址</value>
         <value xml:lang="zh_TW">電子郵件地址</value>
     </property>
+    <property key="ContactMechType.description.INTERNAL_PARTYID">
+        <value xml:lang="en">Internal Party Note</value>
+        <value xml:lang="fr">Note Interne</value>
+    </property>
     <property key="ContactMechType.description.IP_ADDRESS">
         <value xml:lang="de">Internet IP Adresse</value>
         <value xml:lang="en">Internet IP Address</value>
@@ -864,6 +886,10 @@
         <value xml:lang="th">ที่อยู่ของ IP อินเทอร์เน็ต</value>
         <value xml:lang="zh">互联网IP地址</value>
         <value xml:lang="zh_TW">互聯網IP位址</value>
+    </property>
+    <property key="ContactMechType.description.LDAP_ADDRESS">
+        <value xml:lang="en">LDAP Address</value>
+        <value xml:lang="fr">Annuaire (URL)</value>
     </property>
     <property key="ContactMechType.description.POSTAL_ADDRESS">
         <value xml:lang="de">Postadresse</value>
