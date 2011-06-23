@@ -239,6 +239,7 @@ under the License.
         </if-empty>
         <field-to-result field="lookedUpValue.ownerPartyId" result-name="oldOwnerPartyId"/>
         <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <field-to-result field="lookedUpValue.productId" result-name="oldProductId"/>
         <!-- special handling for the unitCost -->
         <if-not-empty field="parameters.unitCost">
             <if-compare field="parameters.unitCost" operator="less" value="0.0" type="BigDecimal">
