@@ -82,6 +82,8 @@ public abstract class TTLObject<T> implements ObjectWrapper<T> {
     }
 
     public enum State { INVALID, REGEN, REGENERATING, GENERATE, GENERATING, GENERATING_INITIAL, VALID, ERROR, ERROR_INITIAL, SET }
+    // DO NOT REMOVE THIS VARIABLE: to dumb smart editors it looks unused; it's actually only referenced thru the field updater.
+    private volatile ValueAndState<T>  object = new StandardValueAndState<T>(this, null, null, State.INVALID, 0, null, null);
     @SuppressWarnings("unchecked")
     private static final AtomicReferenceFieldUpdater<TTLObject<?>, ValueAndState> objectAccessor = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(TTLObject.class, ValueAndState.class, "object"));
     private static final AtomicIntegerFieldUpdater<TTLObject<?>> serialAccessor = UtilGenerics.cast(AtomicIntegerFieldUpdater.newUpdater(TTLObject.class, "serial"));
