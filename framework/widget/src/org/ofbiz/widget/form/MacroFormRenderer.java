@@ -507,10 +507,11 @@ public class MacroFormRenderer implements FormStringRenderer {
                 alert = "true";
             }
         }
+        boolean useTimeDropDown = "time-dropdown".equals(dateTimeField.getInputMethod());
         String stepString = dateTimeField.getStep();
         int step = 1;
         StringBuilder timeValues = new StringBuilder();
-        if ( "time-dropdown".equals(dateTimeField.getInputMethod()) && UtilValidate.isNotEmpty(step)) {
+        if (useTimeDropDown && UtilValidate.isNotEmpty(step)) {
             try {
                 step = Integer.valueOf(stepString).intValue();
             } catch (IllegalArgumentException e) {
@@ -534,9 +535,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String localizedInputTitle = "", localizedIconTitle = "";
 
         // whether the date field is short form, yyyy-mm-dd
-        boolean shortDateInput = ("date".equals(dateTimeField.getType()) || "time-dropdown".equals(dateTimeField.getInputMethod()) ? true : false);
+        boolean shortDateInput = ("date".equals(dateTimeField.getType()) || useTimeDropDown ? true : false);
 
-        if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
+        if (useTimeDropDown) {
             name = UtilHttp.makeCompositeParam(paramName, "date");
         } else {
             name = paramName;
@@ -562,7 +563,14 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         }
 
-        String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
+        String contextValue = null;
+        //if time-dropdow desactive encodingOutput for found hour and minutes
+        boolean memEncodeOutput = modelFormField.getEncodeOutput();
+        if (useTimeDropDown) modelFormField.setEncodeOutput(false);
+        contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
+        if (useTimeDropDown) modelFormField.setEncodeOutput(memEncodeOutput);
+
+        String value = contextValue;
         if (UtilValidate.isNotEmpty(value)) {
             if (value.length() > maxlength) {
                 value = value.substring(0, maxlength);
@@ -586,7 +594,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         if (!"time".equals(dateTimeField.getType())) {
             String tempParamName;
-            if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
+            if (useTimeDropDown) {
                 tempParamName = UtilHttp.makeCompositeParam(paramName, "date");
             } else {
                 tempParamName = paramName;
@@ -597,7 +605,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         // if we have an input method of time-dropdown, then render two
         // dropdowns
-        if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
+        if (useTimeDropDown) {
             className = modelFormField.getWidgetStyle();
             classString = (className != null ? className : "");
             isTwelveHour = "12".equals(dateTimeField.getClock());
@@ -605,7 +613,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             // set the Calendar to the default time of the form or now()
             Calendar cal = null;
             try {
-                Timestamp defaultTimestamp = Timestamp.valueOf(dateTimeField.getDefaultDateTimeString(context));
+                Timestamp defaultTimestamp = Timestamp.valueOf(contextValue);
                 cal = Calendar.getInstance();
                 cal.setTime(defaultTimestamp);
             } catch (IllegalArgumentException e) {
@@ -639,7 +647,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         //check for required field style on single forms
         if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) requiredStyle = "required";            
+            if (UtilValidate.isEmpty(requiredStyle)) requiredStyle = "required";
             if (UtilValidate.isEmpty(className)) className = requiredStyle;
             else className = requiredStyle + " " + className;
         }
@@ -666,14 +674,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(value);
         sr.append("\" title=\"");
         sr.append(localizedInputTitle);
-        sr.append("\" value=\"");
-        sr.append(value);
         sr.append("\" size=\"");
         sr.append(Integer.toString(size));
         sr.append("\" maxlength=\"");
         sr.append(Integer.toString(maxlength));
-        sr.append("\" value=\"");
-        sr.append(value);
         sr.append("\" step=\"");
         sr.append(Integer.toString(step));
         sr.append("\" timeValues=\"");
