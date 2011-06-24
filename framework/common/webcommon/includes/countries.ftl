@@ -18,6 +18,9 @@ under the License.
 -->
 <#assign countries = Static["org.ofbiz.common.CommonWorkers"].getCountryList(delegator)>
 <#list countries as country>
-    <option value='${country.geoId}'>${country.get("geoName",locale)?default(country.geoId)}</option>
+    <#if defaultCountryGeoId?exists>
+        <option value='${country.geoId}' ${(country.geoId==defaultCountryGeoId)?string("selected=\"selected\"","")}>${country.get("geoName",locale)?default(country.geoId)}</option>
+    <#else>
+        <option value='${country.geoId}'>${country.get("geoName",locale)?default(country.geoId)}</option>
+    </#if>
 </#list>
-
