@@ -1550,9 +1550,11 @@ under the License.
                     <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
                     <call-service service-name="updateShipment" in-map-name="packedContext"/>
                     <!-- update the shipment status to shipped -->
-                    <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
-                    <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
-                    <call-service service-name="updateShipment" in-map-name="packedContext"/>
+                    <if-not-empty field="setPackedOnly">
+                        <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
+                        <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
+                        <call-service service-name="updateShipment" in-map-name="packedContext"/>
+                    </if-not-empty>
                   </then>
                   <else> <!-- PURCHASE_ORDER -->
                     <!-- update the shipment status to shipped -->
