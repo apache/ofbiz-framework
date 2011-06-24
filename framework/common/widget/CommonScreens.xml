@@ -31,6 +31,9 @@ under the License.
     </screen>
     <screen name="countries">
         <section>
+            <actions>
+                <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
+            </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/countries.ftl"/></html></platform-specific>
             </widgets>
