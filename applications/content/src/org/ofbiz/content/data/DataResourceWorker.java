@@ -722,7 +722,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName) && combinedName.startsWith("component://")) {
                         modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
                     } else { // stored in  a single file, long or short text
-                        Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true);
+                        Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true, true);
                         Map<String, ModelScreen> modelScreenMap = ScreenFactory.readScreenDocument(screenXml, "DataResourceId: " + dataResource.getString("dataResourceId"));
                         if (UtilValidate.isNotEmpty(modelScreenMap)) {
                             Map.Entry<String, ModelScreen> entry = modelScreenMap.entrySet().iterator().next(); // get first entry, only one screen allowed per file
