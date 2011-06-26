@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.ServerSocket;
@@ -38,20 +39,20 @@ public class Start {
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
     private static final String STATUS_COMMAND = "STATUS";
 
-    private static void help() {
-        System.out.println("");
-        System.out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
-        System.out.println("-both    -----> Run simultaneously the POS (Point of Sales) application and OFBiz standard");
-        System.out.println("-help, -? ----> This screen");
-        System.out.println("-install -----> Run install (create tables/load data)");
-        System.out.println("-pos     -----> Run the POS (Point of Sales) application");
-        System.out.println("-setup -------> Run external application server setup");
-        System.out.println("-start -------> Start the server");
-        System.out.println("-status ------> Status of the server");
-        System.out.println("-shutdown ----> Shutdown the server");
-        System.out.println("-test --------> Run the JUnit test script");
-        System.out.println("[no config] --> Use default config");
-        System.out.println("[no command] -> Start the server w/ default config");
+    private static void help(PrintStream out) {
+        out.println("");
+        out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
+        out.println("-both    -----> Run simultaneously the POS (Point of Sales) application and OFBiz standard");
+        out.println("-help, -? ----> This screen");
+        out.println("-install -----> Run install (create tables/load data)");
+        out.println("-pos     -----> Run the POS (Point of Sales) application");
+        out.println("-setup -------> Run external application server setup");
+        out.println("-start -------> Start the server");
+        out.println("-status ------> Status of the server");
+        out.println("-shutdown ----> Shutdown the server");
+        out.println("-test --------> Run the JUnit test script");
+        out.println("[no config] --> Use default config");
+        out.println("[no command] -> Start the server w/ default config");
     }
 
     public static void main(String[] args) throws IOException {
@@ -59,7 +60,7 @@ public class Start {
         Start start = new Start();
 
         if (firstArg.equals("-help") || firstArg.equals("-?")) {
-            help();
+            help(System.out);
         } else {
             // hack for the status and shutdown commands
             if (firstArg.equals("-status")) {
