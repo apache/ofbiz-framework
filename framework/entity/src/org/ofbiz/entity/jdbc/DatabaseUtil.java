@@ -42,6 +42,7 @@ import javolution.util.FastMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
@@ -232,6 +233,7 @@ public class DatabaseUtil {
             Debug.logError(message, module);
             return;
         }
+        List<Future<CreateTableCallable>> tableFutures = FastList.newInstance();
         for (ModelEntity entity: modelEntityList) {
             curEnt++;
 
@@ -420,19 +422,12 @@ public class DatabaseUtil {
 
                 if (addMissing) {
                     // create the table
-                    String errMsg = createTable(entity, modelEntities, false);
-                    if (UtilValidate.isNotEmpty(errMsg)) {
-                        message = "Could not create table [" + tableName + "]: " + errMsg;
-                        Debug.logError(message, module);
-                        if (messages != null) messages.add(message);
-                    } else {
-                        entitiesAdded.add(entity);
-                        message = "Created table [" + tableName + "]";
-                        Debug.logImportant(message, module);
-                        if (messages != null) messages.add(message);
-                    }
+                    tableFutures.add(submitWork(new CreateTableCallable(entity, modelEntities, tableName)));
                 }
             }
+        }
+        for (CreateTableCallable tableCallable: ExecutionPool.getAllFutures(tableFutures)) {
+            tableCallable.updateData(messages, entitiesAdded);
         }
 
         timer.timerString("After Individual Table/Column Check");
@@ -447,10 +442,19 @@ public class DatabaseUtil {
         // for each newly added table, add fk indices
         if (datasourceInfo.useFkIndices) {
             int totalFkIndices = 0;
+            List<Future<AbstractCountingCallable>> fkIndicesFutures = FastList.newInstance();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getRelationsOneSize() > 0) {
-                    totalFkIndices += this.createForeignKeyIndices(curEntity, datasourceInfo.constraintNameClipLength, messages);
+                    fkIndicesFutures.add(submitWork(new AbstractCountingCallable(curEntity, modelEntities) {
+                        public AbstractCountingCallable call() throws Exception {
+                            count = createForeignKeyIndices(entity, datasourceInfo.constraintNameClipLength, messages);
+                            return this;
+                        }
+                    }));
                 }
+            }
+            for (AbstractCountingCallable fkIndicesCallable: ExecutionPool.getAllFutures(fkIndicesFutures)) {
+                totalFkIndices += fkIndicesCallable.updateData(messages);
             }
             if (totalFkIndices > 0) Debug.logImportant("==== TOTAL Foreign Key Indices Created: " + totalFkIndices, module);
         }
@@ -467,10 +471,20 @@ public class DatabaseUtil {
         // for each newly added table, add declared indexes
         if (datasourceInfo.useIndices) {
             int totalDis = 0;
+            List<Future<AbstractCountingCallable>> disFutures = FastList.newInstance();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getIndexesSize() > 0) {
-                    totalDis += this.createDeclaredIndices(curEntity, messages);
+                    disFutures.add(submitWork(new AbstractCountingCallable(curEntity,  modelEntities) {
+                    public AbstractCountingCallable call() throws Exception {
+                        count = createDeclaredIndices(entity, messages);
+                        return this;
+                    }
+                }));
+
                 }
+            }
+            for (AbstractCountingCallable disCallable: ExecutionPool.getAllFutures(disFutures)) {
+                totalDis += disCallable.updateData(messages);
             }
             if (totalDis > 0) Debug.logImportant("==== TOTAL Declared Indices Created: " + totalDis, module);
         }
@@ -1188,6 +1202,17 @@ public class DatabaseUtil {
         return tableNames;
     }
 
+    private AbstractCountingCallable createPrimaryKeyFetcher(final DatabaseMetaData dbData, final String lookupSchemaName, final boolean needsUpperCase, final Map<String, Map<String, ColumnCheckInfo>> colInfo, final Collection<String> messages, final String curTable) {
+        return new AbstractCountingCallable(null, null) {
+            public AbstractCountingCallable call() throws Exception {
+                Debug.logInfo("Fetching primary keys for " + curTable, module);
+                ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
+                count = checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
+                return this;
+            }
+        };
+    }
+
     public Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages) {
         // if there are no tableNames, don't even try to get the columns
         if (tableNames.size() == 0) {
@@ -1317,10 +1342,13 @@ public class DatabaseUtil {
                     }
                     if (pkCount == 0) {
                         Debug.logInfo("Searching in " + tableNames.size() + " tables for primary key fields ...", module);
+                        List<Future<AbstractCountingCallable>> pkFetcherFutures = FastList.newInstance();
                         for (String curTable: tableNames) {
                             curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
-                            ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
-                            pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
+                            pkFetcherFutures.add(submitWork(createPrimaryKeyFetcher(dbData, lookupSchemaName, needsUpperCase, colInfo, messages, curTable)));
+                        }
+                        for (AbstractCountingCallable pkFetcherCallable: ExecutionPool.getAllFutures(pkFetcherFutures)) {
+                            pkCount += pkFetcherCallable.updateData(messages);
                         }
                     }
 
@@ -1660,6 +1688,66 @@ public class DatabaseUtil {
             }
         }
         return indexInfo;
+    }
+
+    private class CreateTableCallable implements Callable<CreateTableCallable> {
+        private final ModelEntity entity;
+        private final Map<String, ModelEntity> modelEntities;
+        private final String tableName;
+        private String message;
+        private boolean success;
+
+        protected CreateTableCallable(ModelEntity entity, Map<String, ModelEntity> modelEntities, String tableName) {
+            this.entity = entity;
+            this.modelEntities = modelEntities;
+            this.tableName = tableName;
+        }
+
+        public CreateTableCallable call() throws Exception {
+            String errMsg = createTable(entity, modelEntities, false);
+            if (UtilValidate.isNotEmpty(errMsg)) {
+                this.success = false;
+                this.message = "Could not create table [" + tableName + "]: " + errMsg;
+                Debug.logError(this.message, module);
+            } else {
+                this.success = true;
+                this.message = "Created table [" + tableName + "]";
+                Debug.logImportant(this.message, module);
+            }
+            return this;
+        }
+
+        protected void updateData(Collection<String> messages, List<ModelEntity> entitiesAdded) {
+            if (this.success) {
+                entitiesAdded.add(entity);
+                if (messages != null) {
+                    messages.add(this.message);
+                }
+            } else {
+                if (messages != null) {
+                    messages.add(this.message);
+                }
+            }
+        }
+    }
+
+    private abstract class AbstractCountingCallable<T extends AbstractCountingCallable<T>> implements Callable<T> {
+        protected final ModelEntity entity;
+        protected final Map<String, ModelEntity> modelEntities;
+        protected final List<String> messages = FastList.newInstance();
+        protected int count;
+
+        protected AbstractCountingCallable(ModelEntity entity, Map<String, ModelEntity> modelEntities) {
+            this.entity = entity;
+            this.modelEntities = modelEntities;
+        }
+
+        protected int updateData(Collection<String> messages) {
+            if (messages != null && UtilValidate.isNotEmpty(this.messages)) {
+                messages.addAll(messages);
+            }
+            return count;
+        }
     }
 
     /* ====================================================================== */
