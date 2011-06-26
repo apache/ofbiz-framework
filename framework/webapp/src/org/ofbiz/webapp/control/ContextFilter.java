@@ -273,7 +273,7 @@ public class ContextFilter implements Filter {
                 return;
             }
         }
-        
+
         // check if multi tenant is enabled
         String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
         if ("Y".equals(useMultitenant)) {
@@ -286,7 +286,7 @@ public class ContextFilter implements Filter {
                 if (UtilValidate.isNotEmpty(tenants)) {
                     GenericValue tenant = EntityUtil.getFirst(tenants);
                     String tenantId = tenant.getString("tenantId");
-                    
+
                     // if the request path is a root mount then redirect to the initial path
                     if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
                         String initialPath = tenant.getString("initialPath");
@@ -295,34 +295,34 @@ public class ContextFilter implements Filter {
                             return;
                         }
                     }
-                    
+
                     // make that tenant active, setup a new delegator and a new dispatcher
                     String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
                     httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
-                
+
                     // after this line the delegator is replaced with the new per-tenant delegator
                     delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
                     config.getServletContext().setAttribute("delegator", delegator);
-                    
+
                     // clear web context objects
                     config.getServletContext().setAttribute("authorization", null);
                     config.getServletContext().setAttribute("security", null);
                     config.getServletContext().setAttribute("dispatcher", null);
-                    
+
                     // initialize authorizer
                     getAuthz();
                     // initialize security
                     Security security = getSecurity();
                     // initialize the services dispatcher
                     LocalDispatcher dispatcher = getDispatcher(config.getServletContext());
-                    
+
                     // set web context objects
                     httpRequest.getSession().setAttribute("dispatcher", dispatcher);
                     httpRequest.getSession().setAttribute("security", security);
                     
                     request.setAttribute("tenantId", tenantId);
                 }
-                
+
                 // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 
                 // have logged in and specified a tenant, and even if no Tenant record with a matching domainName field 
                 // is found this will change the user's delegator back to the base one instead of the one for the 
@@ -362,7 +362,7 @@ public class ContextFilter implements Filter {
         }
         return dispatcher;
     }
-    
+
     /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext or anywhere else, just returns it */
     public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
         if (delegator == null) {
@@ -392,12 +392,12 @@ public class ContextFilter implements Filter {
             Debug.logError("No localDispatcherName specified in the web.xml file", module);
             dispatcherName = delegator.getDelegatorName();
         }
-        
+
         LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator, readers, null);
         if (dispatcher == null) {
             Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
         }
-        
+
         return dispatcher;
     }
 
