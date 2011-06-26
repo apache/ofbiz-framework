@@ -138,7 +138,7 @@ public class ControlServlet extends HttpServlet {
         if (Debug.timingOn()) {
             timer = new UtilTimer();
             timer.setLog(true);
-            timer.timerString("[" + rname + "] Request Begun, encoding=[" + charset + "]", module);
+            timer.timerString("[" + rname + "(Domain:" + request.getServerName() + ")] Request Begun, encoding=[" + charset + "]", module);
         }
 
         // Setup the CONTROL_PATH for JSP dispatching.
@@ -321,7 +321,7 @@ public class ControlServlet extends HttpServlet {
                 Debug.logError(t, "Error in ControlServlet saving ServerHit/Bin information; the output was successful, but can't save this tracking information. The error was: " + t.toString(), module);
             }
         }
-        if (Debug.timingOn()) timer.timerString("[" + rname + "] Request Done", module);
+        if (Debug.timingOn()) timer.timerString("[" + rname + "(Domain:" + request.getServerName() + ")] Request Done", module);
 
         // sanity check 2: make sure there are no user or session infos in the delegator, ie clear the thread
         GenericDelegator.clearUserIdentifierStack();
