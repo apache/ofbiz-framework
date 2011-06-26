@@ -63,6 +63,7 @@ runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
 runtime/data/derby/*
+runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/tempfiles/*
 debian/EncryptPassword.class
