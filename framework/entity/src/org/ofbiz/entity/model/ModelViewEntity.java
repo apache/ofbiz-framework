@@ -1118,6 +1118,10 @@ public class ModelViewEntity extends ModelEntity {
             newList.addAll(this.keyMaps);
             return newList;
         }
+
+        public ViewEntityCondition getViewEntityCondition() {
+            return this.viewEntityCondition;
+        }
     }
 
     public final class ModelConversion implements Serializable {
