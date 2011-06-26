@@ -620,26 +620,27 @@ public class ModelViewEntity extends ModelEntity {
      */
     private void expandAllAliasAlls(ModelReader modelReader) {
         for (ModelAliasAll aliasAll: aliasAlls) {
+            String entityAlias = aliasAll.getEntityAlias();
             String prefix = aliasAll.getPrefix();
             String function = aliasAll.getFunction();
             boolean groupBy = aliasAll.getGroupBy();
 
-            ModelMemberEntity modelMemberEntity = memberModelMemberEntities.get(aliasAll.getEntityAlias());
+            ModelMemberEntity modelMemberEntity = memberModelMemberEntities.get(entityAlias);
             if (modelMemberEntity == null) {
-                Debug.logError("[" + this.getEntityName() + "]: Member entity referred to in alias-all not found, ignoring: " + aliasAll.getEntityAlias(), module);
+                Debug.logError("[" + this.getEntityName() + "]: Member entity referred to in alias-all not found, ignoring: " + entityAlias, module);
                 continue;
             }
 
             String aliasedEntityName = modelMemberEntity.getEntityName();
             ModelEntity aliasedEntity = modelReader.getModelEntityNoCheck(aliasedEntityName);
             if (aliasedEntity == null) {
-                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + aliasAll.getEntityAlias() + " not found, ignoring: " + aliasedEntityName, module);
+                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + entityAlias + " not found, ignoring: " + aliasedEntityName, module);
                 continue;
             }
 
             List<String> entFieldList = aliasedEntity.getAllFieldNames();
             if (entFieldList == null) {
-                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + aliasAll.getEntityAlias() + " has no fields, ignoring: " + aliasedEntityName, module);
+                Debug.logError("[" + this.getEntityName() + "]: Entity referred to in member-entity " + entityAlias + " has no fields, ignoring: " + aliasedEntityName, module);
                 continue;
             }
 
