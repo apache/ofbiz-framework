@@ -19,18 +19,27 @@
 package org.ofbiz.base.concurrent;
 
 import java.lang.management.ManagementFactory;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.DelayQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.lang.SourceMonitored;
+import org.ofbiz.base.util.Debug;
 
 @SourceMonitored
 public final class ExecutionPool {
+    public static final String module = ExecutionPool.class.getName();
+
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
         private final String namePrefix;
@@ -87,6 +96,20 @@ public final class ExecutionPool {
     @Deprecated
     public static ScheduledExecutorService getNewOptimalExecutor(String namePrefix) {
         return getExecutor(null, namePrefix, -2, true);
+    }
+
+    public static <F> List<F> getAllFutures(Collection<Future<F>> futureList) {
+        List<F> result = FastList.newInstance();
+        for (Future<F> future: futureList) {
+            try {
+                result.add(future.get());
+            } catch (ExecutionException e) {
+                Debug.logError(e, module);
+            } catch (InterruptedException e) {
+                Debug.logError(e, module);
+            }
+        }
+        return result;
     }
 
     public static void addPulse(Pulse pulse) {
