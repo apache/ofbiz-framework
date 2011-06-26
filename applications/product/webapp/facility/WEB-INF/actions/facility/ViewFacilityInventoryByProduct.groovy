@@ -63,7 +63,7 @@ if (action) {
     }
 
     prodView.addMemberEntity("PRFA", "ProductFacility");
-    prodView.addAliasAll("PRFA", null);
+    prodView.addAliasAll("PRFA", null, null);
 
     prodView.addMemberEntity("PROD", "Product");
     prodView.addViewLink("PROD", "PRFA", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));

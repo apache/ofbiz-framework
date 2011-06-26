@@ -101,7 +101,7 @@ public class OrderLookupServices {
         // dynamic view entity
         DynamicViewEntity dve = new DynamicViewEntity();
         dve.addMemberEntity("OH", "OrderHeader");
-        dve.addAliasAll("OH", ""); // no prefix
+        dve.addAliasAll("OH", "", null); // no prefix
         dve.addRelation("one-nofk", "", "OrderType", UtilMisc.toList(new ModelKeyMap("orderTypeId", "orderTypeId")));
         dve.addRelation("one-nofk", "", "StatusItem", UtilMisc.toList(new ModelKeyMap("statusId", "statusId")));
 

@@ -37,7 +37,7 @@ try {
 
 inventoryItemAndLabelsView = new DynamicViewEntity();
 inventoryItemAndLabelsView.addMemberEntity("II", "InventoryItem");
-inventoryItemAndLabelsView.addAliasAll("II", null);
+inventoryItemAndLabelsView.addAliasAll("II", null, null);
 for (int i = 1; i <= numberOfFields; i++) {
     inventoryItemLabelId = parameters.get("inventoryItemLabelId_" + i);
     if (inventoryItemLabelId) {

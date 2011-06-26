@@ -82,7 +82,8 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         addMember(dve, table.getTableName());
         addJoined(dve, table.getTableName().getAlias(), table.getJoined());
         for (FieldAll fieldAll: selectGroup.getFieldAlls()) {
-            dve.addAliasAll(fieldAll.getAlias(), null);
+            // FIXME: handle excludes
+            dve.addAliasAll(fieldAll.getAlias(), null, null);
         }
         for (Relation relation: selectStatement.getRelations().values()) {
             dve.addRelation(relation.getType(), relation.getTitle(), relation.getEntityName(), buildKeyMaps(relation));
