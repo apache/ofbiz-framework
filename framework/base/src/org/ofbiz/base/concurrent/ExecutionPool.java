@@ -52,10 +52,17 @@ public final class ExecutionPool {
         return new ExecutionPoolThreadFactory(namePrefix);
     }
 
+    @Deprecated
     public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount) {
+        return getExecutor(namePrefix, threadCount, true);
+    }
+
+    public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount, boolean preStart) {
         ThreadFactory threadFactory = createThreadFactory(namePrefix);
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
-        executor.prestartAllCoreThreads();
+        if (preStart) {
+            executor.prestartAllCoreThreads();
+        }
         return executor;
     }
 
