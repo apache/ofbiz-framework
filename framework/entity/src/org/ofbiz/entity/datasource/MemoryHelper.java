@@ -27,12 +27,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.config.DatasourceInfo;
+import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
@@ -52,12 +58,14 @@ public class MemoryHelper implements GenericHelper {
 
     public static final String module = MemoryHelper.class.getName();
     private static Map<String, HashMap<GenericPK, GenericValue>> cache = new HashMap<String, HashMap<GenericPK, GenericValue>>();
+    private static final ThreadGroup MEMORY_HELPER_THREAD_GROUP = new ThreadGroup("MemoryHelper");
 
     public static void clearCache() {
         cache = new HashMap<String, HashMap<GenericPK, GenericValue>>();
     }
 
     private String helperName;
+    protected ExecutorService executor;
 
     private boolean addToCache(GenericValue value) {
         if (value == null) {
@@ -272,10 +280,16 @@ public class MemoryHelper implements GenericHelper {
     public MemoryHelper(String helperName) {
         this.helperName = helperName;
         modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
+        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+        this.executor = ExecutionPool.getExecutor(MEMORY_HELPER_THREAD_GROUP, "entity-datasource(" + helperName + ")", datasourceInfo.maxWorkerPoolSize, false);
     }
 
     public String getHelperName() {
         return helperName;
+    }
+
+    public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException {
+        return this.executor.submit(callable);
     }
 
     public GenericValue create(GenericValue value) throws GenericEntityException {

@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -45,6 +47,8 @@ public interface GenericHelper {
      *@return server configuration name
      */
     public String getHelperName();
+
+    public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException;
 
     /** Creates a Entity in the form of a GenericValue and write it to the database
      *@return GenericValue instance containing the new instance

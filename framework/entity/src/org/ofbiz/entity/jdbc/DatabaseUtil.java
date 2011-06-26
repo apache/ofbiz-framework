@@ -32,6 +32,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -76,12 +80,18 @@ public class DatabaseUtil {
     protected String password = null;
 
     boolean isLegacy = false;
+    protected ExecutorService executor;
 
     // OFBiz DatabaseUtil
     public DatabaseUtil(GenericHelperInfo helperInfo) {
+        this(helperInfo, null);
+    }
+
+    public DatabaseUtil(GenericHelperInfo helperInfo, ExecutorService executor) {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
         this.datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
+        this.executor = executor;
     }
 
     // Legacy DatabaseUtil
@@ -91,6 +101,31 @@ public class DatabaseUtil {
         this.userName = userName;
         this.password = password;
         this.isLegacy = true;
+    }
+
+    protected <T> Future<T> submitWork(Callable<T> callable) {
+        if (this.executor == null) {
+            FutureTask<T> task = new FutureTask<T>(callable);
+            task.run();
+            return task;
+        }
+        return this.executor.submit(callable);
+    }
+
+    protected <T> List<Future<T>> submitAll(Collection<? extends Callable<T>> tasks) {
+        List<Future<T>> futures = new ArrayList<Future<T>>(tasks.size());
+        if (this.executor == null) {
+            for (Callable<T> callable: tasks) {
+                FutureTask<T> task = new FutureTask<T>(callable);
+                task.run();
+                futures.add(task);
+            }
+            return futures;
+        }
+        for (Callable<T> callable: tasks) {
+            futures.add(this.executor.submit(callable));
+        }
+        return futures;
     }
 
     protected Connection getConnection() throws SQLException, GenericEntityException {
