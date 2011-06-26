@@ -1266,7 +1266,7 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             EntityConditionValue lhs = EntityFieldValue.makeFieldValue(this.fieldName, this.entityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
-            ModelField lhsField = this.viewEntityCondition.modelViewEntity.getField(fieldName);
+            ModelField lhsField = lhs.getModelField(this.viewEntityCondition.modelViewEntity);
             if (lhsField == null) {
                 throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]");
             }

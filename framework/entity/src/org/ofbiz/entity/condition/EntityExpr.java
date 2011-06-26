@@ -219,15 +219,16 @@ public class EntityExpr extends EntityCondition {
         }
 
         String fieldName = null;
+        ModelField curField;
         if (this.lhs instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) this.lhs;
             fieldName = efv.getFieldName();
+            curField = efv.getModelField(modelEntity);
         } else {
             // nothing to check
             return;
         }
 
-        ModelField curField = modelEntity.getField(fieldName);
         if (curField == null) {
             throw new IllegalArgumentException("FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName());
         }
@@ -263,7 +264,7 @@ public class EntityExpr extends EntityCondition {
         } else if (value instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) this.lhs;
             String rhsFieldName = efv.getFieldName();
-            ModelField rhsField = modelEntity.getField(rhsFieldName);
+            ModelField rhsField = efv.getModelField(modelEntity);
             if (rhsField == null) {
                 throw new IllegalArgumentException("FieldName " + rhsFieldName + " not found for entity: " + modelEntity.getEntityName());
             }
