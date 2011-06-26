@@ -37,7 +37,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 import javolution.util.FastList;
 
@@ -127,7 +126,7 @@ public class ContextFilter implements Filter {
      */
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponseWrapper wrapper = new HttpServletResponseWrapper((HttpServletResponse) response);
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         // Debug.logInfo("Running ContextFilter.doFilter", module);
 
@@ -185,7 +184,7 @@ public class ContextFilter implements Filter {
                 if (!redirectAllTo.toLowerCase().startsWith("http")) {
                     redirectAllTo = httpRequest.getContextPath() + redirectAllTo;
                 }
-                wrapper.sendRedirect(redirectAllTo);
+                httpResponse.sendRedirect(redirectAllTo);
                 return;
             } else {
                 httpRequest.getSession().removeAttribute("_FORCE_REDIRECT_");
@@ -261,13 +260,13 @@ public class ContextFilter implements Filter {
                         }
                     }
                     filterMessage = filterMessage + " (" + error + ")";
-                    wrapper.sendError(error, contextUri);
+                    httpResponse.sendError(error, contextUri);
                 } else {
                     filterMessage = filterMessage + " (" + redirectPath + ")";
                     if (!redirectPath.toLowerCase().startsWith("http")) {
                         redirectPath = httpRequest.getContextPath() + redirectPath;
                     }
-                    wrapper.sendRedirect(redirectPath);
+                    httpResponse.sendRedirect(redirectPath);
                 }
                 Debug.logWarning(filterMessage, module);
                 return;
