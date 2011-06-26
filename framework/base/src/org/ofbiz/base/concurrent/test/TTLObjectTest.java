@@ -53,7 +53,7 @@ public abstract class TTLObjectTest extends GenericTestCaseBase {
 
     @Override
     protected void setUp() throws InterruptedException {
-        executor = ExecutionPool.getExecutor(getName(), -1, true);
+        executor = ExecutionPool.getExecutor(new ThreadGroup("TTLObjectTest"), getName(), -1, true);
     }
 
     @Override
