@@ -1035,7 +1035,7 @@ public class CheckOutHelper {
                 Debug.logWarning(e, module);
                 throw new GeneralException("Error in authOrderPayments service: " + e.toString(), e.getNested());
             }
-            if (Debug.verboseOn()) Debug.logVerbose("Finsished w/ Payment Service", module);
+            if (Debug.verboseOn()) Debug.logVerbose("Finished w/ Payment Service", module);
 
             if (paymentResult != null && ServiceUtil.isError(paymentResult)) {
                 throw new GeneralException(ServiceUtil.getErrorMessage(paymentResult));
