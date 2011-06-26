@@ -5586,13 +5586,13 @@ public class OrderServices {
                 Debug.logError(e, module);
             }
         }
+        List<EntityExpr> orderCondList = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", "SALES_ORDER"));
+        if (!processAllOrders && orderEntryFromDateTime != null) {
+            orderCondList.add(EntityCondition.makeCondition("entryDate", EntityOperator.GREATER_THAN, orderEntryFromDateTime));
+        }
+        EntityCondition cond = EntityCondition.makeCondition(orderCondList);
         EntityListIterator eli = null;
         try {
-            List<EntityExpr> orderCondList = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", "SALES_ORDER"));
-            if (!processAllOrders && orderEntryFromDateTime != null) {
-                orderCondList.add(EntityCondition.makeCondition("entryDate", EntityOperator.GREATER_THAN, orderEntryFromDateTime));
-            }
-            EntityCondition cond = EntityCondition.makeCondition(orderCondList);
             eli = delegator.find("OrderHeader", cond, null, null, UtilMisc.toList("entryDate ASC"), null);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
