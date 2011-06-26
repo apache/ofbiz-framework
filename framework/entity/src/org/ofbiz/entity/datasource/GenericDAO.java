@@ -29,11 +29,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.ExecutorService;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -72,9 +76,11 @@ public class GenericDAO {
     public static final String module = GenericDAO.class.getName();
 
     private static final FastMap<String, GenericDAO> genericDAOs = FastMap.newInstance();
+    private static final ThreadGroup GENERIC_DAO_THREAD_GROUP = new ThreadGroup("GenericDAO");
     private final GenericHelperInfo helperInfo;
     private final ModelFieldTypeReader modelFieldTypeReader;
     private final DatasourceInfo datasourceInfo;
+    private final ExecutorService executor;
 
     public static GenericDAO getGenericDAO(GenericHelperInfo helperInfo) {
         GenericDAO newGenericDAO = genericDAOs.get(helperInfo.getHelperFullName());
@@ -90,6 +96,11 @@ public class GenericDAO {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
         this.datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperInfo.getHelperBaseName());
+        this.executor = ExecutionPool.getExecutor(GENERIC_DAO_THREAD_GROUP, "entity-datasource(" + helperInfo.getHelperFullName() + ")", datasourceInfo.maxWorkerPoolSize, false);
+    }
+
+    public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException {
+        return this.executor.submit(callable);
     }
 
     private void addFieldIfMissing(List<ModelField> fieldsToSave, String fieldName, ModelEntity modelEntity) {
@@ -1164,13 +1175,13 @@ public class GenericDAO {
     /* ====================================================================== */
 
     public void checkDb(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) {
-        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo);
+        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo, this.executor);
         dbUtil.checkDb(modelEntities, messages, addMissing);
     }
 
     /** Creates a list of ModelEntity objects based on meta data from the database */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
-        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo);
+        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo, this.executor);
         return dbUtil.induceModelFromDb(messages);
     }
 }

@@ -76,6 +76,7 @@ public class DatasourceInfo {
     public String tableType = null;
     public String characterSet = null;
     public String collate = null;
+    public int maxWorkerPoolSize = 1;
 
     public DatasourceInfo(Element element) {
         this.name = element.getAttribute("name");
@@ -110,6 +111,7 @@ public class DatasourceInfo {
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for table-type (none)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for character-set (none)", module);
             Debug.logWarning("datasource def not found with name " + this.name + ", using default for collate (none)", module);
+            Debug.logWarning("datasource def not found with name " + this.name + ", using default for max-worker-pool-size (1)", module);
         } else {
             this.schemaName = datasourceElement.getAttribute("schema-name");
             // anything but false is true
@@ -161,6 +163,16 @@ public class DatasourceInfo {
             this.tableType = datasourceElement.getAttribute("table-type");
             this.characterSet = datasourceElement.getAttribute("character-set");
             this.collate = datasourceElement.getAttribute("collate");
+            try {
+                this.maxWorkerPoolSize = Integer.parseInt(datasourceElement.getAttribute("max-worker-pool-size"));
+                if (this.maxWorkerPoolSize == 0) {
+                    this.maxWorkerPoolSize = 1;
+                } else if (this.maxWorkerPoolSize < -2) {
+                    this.maxWorkerPoolSize = -1;
+                }
+            } catch (Exception e) {
+                Debug.logWarning("Could not parse result-fetch-size value for datasource with name " + this.name + ", using JDBC driver default value", module);
+            }
         }
         if (UtilValidate.isEmpty(this.fkStyle)) this.fkStyle = "name_constraint";
         if (UtilValidate.isEmpty(this.joinStyle)) this.joinStyle = "ansi";

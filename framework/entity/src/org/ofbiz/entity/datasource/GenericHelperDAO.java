@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
@@ -52,6 +54,10 @@ public class GenericHelperDAO implements GenericHelper {
 
     public String getHelperName() {
         return this.helperInfo.getHelperFullName();
+    }
+
+    public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException {
+        return genericDAO.submitWork(callable);
     }
 
     /** Creates a Entity in the form of a GenericValue and write it to the database
