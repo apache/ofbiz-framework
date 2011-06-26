@@ -93,8 +93,10 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
                 dve.addAliasAll(fieldAll.getAlias(), null, excludes);
             }
         }
-        for (Relation relation: selectStatement.getRelations().values()) {
-            dve.addRelation(relation.getType(), relation.getTitle(), relation.getEntityName(), buildKeyMaps(relation));
+        if (selectStatement.getRelations() != null) {
+            for (Relation relation: selectStatement.getRelations().values()) {
+                dve.addRelation(relation.getType(), relation.getTitle(), relation.getEntityName(), buildKeyMaps(relation));
+            }
         }
         List<String> groupBy = selectGroup.getGroupBy();
         if (groupBy == null) {
