@@ -682,6 +682,7 @@ under the License.
     </target>
     <target name="run-tests" depends="build"
           description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html.">
+        <antcall target="tests"/>
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
