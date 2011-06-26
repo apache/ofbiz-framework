@@ -23,6 +23,13 @@ under the License.
  </condition>
  <fail unless="antatleast171" message="Please upgrade ant to at least 1.7.1"/>
 
+ <condition property="javaatleast16">
+  <not>
+   <matches pattern="^1\.[0-5]($|\..*)" string="${ant.java.version}"/>
+  </not>
+ </condition>
+ <fail unless="javaatleast16" message="Please upgrade java to at least 1.6"/>
+
  <dirname property="ofbiz.home.dir" file="${ant.file.Ant - Macros}"/>
  <macrodef name="iterate">
   <attribute name="filelist" default="subdirs"/>
