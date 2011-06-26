@@ -21,6 +21,7 @@ package org.ofbiz.entity.model;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -792,7 +793,11 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public Iterator<String> iterator() {
-            return fieldsToExclude.iterator();
+            if (this.fieldsToExclude == null) {
+                return Collections.<String>emptySet().iterator();
+            } else {
+                return fieldsToExclude.iterator();
+            }
         }
     }
 
