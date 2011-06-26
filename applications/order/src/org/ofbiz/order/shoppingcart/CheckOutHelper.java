@@ -558,7 +558,7 @@ public class CheckOutHelper {
     }
 
     public Map<String, Object> createOrder(GenericValue userLogin) {
-        return createOrder(userLogin, null, null, null, false, null, null);
+        return createOrder(userLogin, null, null, null, false, null, cart.getWebSiteId());
     }
 
     // Create order event - uses createOrder service for processing
