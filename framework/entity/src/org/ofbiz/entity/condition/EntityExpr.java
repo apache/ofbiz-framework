@@ -263,7 +263,7 @@ public class EntityExpr extends EntityCondition {
         } else if (value instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) this.lhs;
             String rhsFieldName = efv.getFieldName();
-            ModelField rhsField = modelEntity.getField(fieldName);
+            ModelField rhsField = modelEntity.getField(rhsFieldName);
             if (rhsField == null) {
                 throw new IllegalArgumentException("FieldName " + rhsFieldName + " not found for entity: " + modelEntity.getEntityName());
             }
