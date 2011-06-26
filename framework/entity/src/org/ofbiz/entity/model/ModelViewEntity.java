@@ -1291,7 +1291,7 @@ public class ModelViewEntity extends ModelEntity {
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
             Object value = this.value;
             // If IN or BETWEEN operator, see if value is a literal list and split it
-            if ((this.operator.equals(EntityOperator.IN) || this.operator.equals(EntityOperator.BETWEEN))
+            if ((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof String) {
                 String delim = null;
                 if (((String)value).indexOf("|") >= 0) {
@@ -1311,7 +1311,7 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
-            if (!((this.operator.equals(EntityOperator.IN) || this.operator.equals(EntityOperator.BETWEEN))
+            if (!((this.operator == EntityOperator.IN || this.operator == EntityOperator.BETWEEN)
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
                 value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
@@ -1326,7 +1326,7 @@ public class ModelViewEntity extends ModelEntity {
                 rhs = EntityFieldValue.makeFieldValue(this.relFieldName, this.relEntityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             }
 
-            if (this.operator.equals(EntityOperator.NOT_EQUAL) && value != null) {
+            if (this.operator == EntityOperator.NOT_EQUAL && value != null) {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
@@ -1340,7 +1340,7 @@ public class ModelViewEntity extends ModelEntity {
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 }
-            } else if ( value == null && this.relFieldName == null && (this.operator.equals(EntityOperator.EQUALS) || this.operator.equals(EntityOperator.NOT_EQUAL))) {
+            } else if ( value == null && this.relFieldName == null && (this.operator == EntityOperator.EQUALS || this.operator == EntityOperator.NOT_EQUAL)) {
                 return EntityCondition.makeCondition(lhs, this.operator, null);
             } else {
                 if (ignoreCase) {
