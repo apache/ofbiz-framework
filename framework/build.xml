@@ -33,7 +33,7 @@ under the License.
                testtools/build.xml,
                appserver/build.xml,webtools/build.xml,example/build.xml"/>
 
-    <filelist id="test-builds" dir="." files="base/build.xml,entity/build.xml"/>
+    <filelist id="test-builds" dir="." files="base/build.xml,sql/build.xml,entity/build.xml"/>
 
     <property name="memory.max.param" value="-Xmx384M"/>
 
