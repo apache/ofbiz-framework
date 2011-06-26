@@ -479,7 +479,8 @@ public class ModelViewEntity extends ModelEntity {
                 field.type = aliasedField.type;
                 field.validators = aliasedField.validators;
 
-                field.colName = alias.entityAlias + "." + SqlJdbcUtil.filterColName(aliasedField.colName);
+                field.colValue = alias.entityAlias + "." + SqlJdbcUtil.filterColName(aliasedField.colName);
+                field.colName = SqlJdbcUtil.filterColName(field.colValue);
                 if (UtilValidate.isEmpty(field.description)) {
                     field.description = aliasedField.description;
                 }

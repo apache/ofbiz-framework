@@ -165,13 +165,13 @@ public class SqlJdbcUtil {
 
                         condBuffer.append(viewLink.getEntityAlias());
                         condBuffer.append(".");
-                        condBuffer.append(filterColName(linkField.getColName()));
+                        condBuffer.append(linkField.getColName());
 
                         condBuffer.append(" = ");
 
                         condBuffer.append(viewLink.getRelEntityAlias());
                         condBuffer.append(".");
-                        condBuffer.append(filterColName(relLinkField.getColName()));
+                        condBuffer.append(relLinkField.getColName());
                     }
                     if (condBuffer.length() == 0) {
                         throw new GenericModelException("No view-link/join key-maps found for the " + viewLink.getEntityAlias() + " and the " + viewLink.getRelEntityAlias() + " member-entities of the " + modelViewEntity.getEntityName() + " view-entity.");
@@ -258,7 +258,7 @@ public class SqlJdbcUtil {
             ModelField modelField = null;
             if (item instanceof ModelField) {
                 modelField = (ModelField) item;
-                sb.append(modelField.getColName());
+                sb.append(modelField.getColValue());
                 name = modelField.getName();
             } else {
                 sb.append(item);
@@ -347,7 +347,7 @@ public class SqlJdbcUtil {
                         }
                         whereString.append(viewLink.getEntityAlias());
                         whereString.append(".");
-                        whereString.append(filterColName(linkField.getColName()));
+                        whereString.append(linkField.getColName());
 
                         // check to see whether the left or right members are optional, if so:
                         // oracle: use the (+) on the optional side
@@ -362,7 +362,7 @@ public class SqlJdbcUtil {
 
                         whereString.append(viewLink.getRelEntityAlias());
                         whereString.append(".");
-                        whereString.append(filterColName(relLinkField.getColName()));
+                        whereString.append(relLinkField.getColName());
                    }
                 }
             } else {
@@ -402,13 +402,13 @@ public class SqlJdbcUtil {
                 ModelField curField = fieldsIter.next();
                 sql.append(curField.getColValue());
                 sql.append(" AS ");
-                sql.append(filterColName(curField.getColName()));
+                sql.append(curField.getColName());
                 while (fieldsIter.hasNext()) {
                     curField = fieldsIter.next();
                     sql.append(", ");
                     sql.append(curField.getColValue());
                     sql.append(" AS ");
-                    sql.append(filterColName(curField.getColName()));
+                    sql.append(curField.getColName());
                 }
             }
             sql.append(makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
