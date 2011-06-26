@@ -53,7 +53,7 @@ public final class ExecutionPool {
     }
 
     public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount) {
-        ExecutionPoolThreadFactory threadFactory = new ExecutionPoolThreadFactory(namePrefix);
+        ThreadFactory threadFactory = createThreadFactory(namePrefix);
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
         executor.prestartAllCoreThreads();
         return executor;
