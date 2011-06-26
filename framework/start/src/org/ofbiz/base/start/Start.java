@@ -30,6 +30,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Start - OFBiz Container(s) Startup Class
@@ -56,25 +57,66 @@ public class Start {
         out.println("[no command] -> Start the server w/ default config");
     }
 
-    public static void main(String[] args) throws IOException {
-        String firstArg = args.length > 0 ? args[0] : "";
-        Start start = new Start();
+    private enum Command {
+        HELP, HELP_ERROR, STATUS, SHUTDOWN, COMMAND
+    }
 
-        if (firstArg.equals("-help") || firstArg.equals("-?")) {
-            help(System.out);
+    private static Command checkCommand(Command command, Command wanted) {
+        if (wanted == Command.HELP || wanted.equals(command)) {
+            return wanted;
+        } else if (command == null) {
+            return wanted;
         } else {
-            // hack for the status and shutdown commands
-            if (firstArg.equals("-status")) {
-                start.init(args, false);
-                System.out.println("Current Status : " + start.status());
-            } else if (firstArg.equals("-shutdown")) {
-                start.init(args, false);
-                System.out.println("Shutting down server : " + start.shutdown());
+            System.err.println("Duplicate command detected(was " + command + ", wanted " + wanted);
+            return Command.HELP_ERROR;
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Command command = null;
+        List<String> loaderArgs = new ArrayList<String>(args.length);
+        System.err.println("debug: args=" + java.util.Arrays.asList(args));
+        for (String arg: args) {
+            if (arg.equals("-help") || arg.equals("-?")) {
+                command = checkCommand(command, Command.HELP);
+            } else if (arg.equals("-status")) {
+                command = checkCommand(command, Command.STATUS);
+            } else if (arg.equals("-shutdown")) {
+                command = checkCommand(command, Command.SHUTDOWN);
+            } else if (arg.startsWith("-")) {
+                command = checkCommand(command, Command.COMMAND);
+                loaderArgs.add(arg.substring(1));
             } else {
-                // general start
-                start.init(args, true);
-                start.start();
+                command = checkCommand(command, Command.COMMAND);
+                if (command == Command.COMMAND) {
+                    loaderArgs.add(arg);
+                } else {
+                    command = Command.HELP_ERROR;
+                }
             }
+        }
+        System.err.println("debug: command=" + command);
+        System.err.println("debug: loaderArgs=" + loaderArgs);
+        if (command == null) {
+            command = Command.COMMAND;
+            loaderArgs.add("start");
+        }
+        if (command == Command.HELP) {
+            help(System.out);
+            return;
+        } else if (command == Command.HELP_ERROR) {
+            help(System.err);
+            System.exit(1);
+        }
+        Start start = new Start();
+        start.init(args, command == Command.COMMAND);
+        if (command == Command.STATUS) {
+            System.out.println("Current Status : " + start.status());
+        } else if (command == Command.SHUTDOWN) {
+            System.out.println("Shutting down server : " + start.shutdown());
+        } else {
+            // general start
+            start.start();
         }
     }
 
@@ -117,11 +159,6 @@ public class Start {
             }
         }
         this.config = Config.getInstance(args);
-
-        // parse the startup arguments
-        if (args.length > 1) {
-            this.loaderArgs.addAll(Arrays.asList(args).subList(1, args.length));
-        }
 
         if (!fullInit) {
             return;
@@ -262,15 +299,13 @@ public class Start {
     }
 
     public String status() throws IOException {
-        String status = null;
         try {
-            status = sendSocketCommand(Start.STATUS_COMMAND);
+            return sendSocketCommand(Start.STATUS_COMMAND);
         } catch (ConnectException e) {
             return "Not Running";
         } catch (IOException e) {
             throw e;
         }
-        return status;
     }
 
     public void stopServer() {
