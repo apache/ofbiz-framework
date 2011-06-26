@@ -229,7 +229,7 @@ public class DynamicViewEntity {
     }
 
     public void addAliasAll(String entityAlias, String prefix) {
-        ModelAliasAll aliasAll = new ModelAliasAll(entityAlias, prefix);
+        ModelAliasAll aliasAll = new ModelAliasAll(entityAlias, prefix, false, null, null);
         this.aliasAlls.add(aliasAll);
     }
 
