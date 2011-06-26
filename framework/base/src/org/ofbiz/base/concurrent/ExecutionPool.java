@@ -32,15 +32,17 @@ import org.ofbiz.base.lang.SourceMonitored;
 @SourceMonitored
 public final class ExecutionPool {
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
+        private final ThreadGroup group;
         private final String namePrefix;
         private int count = 0;
 
-        protected ExecutionPoolThreadFactory(String namePrefix) {
+        protected ExecutionPoolThreadFactory(ThreadGroup group, String namePrefix) {
+            this.group = group;
             this.namePrefix = namePrefix;
         }
 
         public Thread newThread(Runnable r) {
-            Thread t = new Thread(r);
+            Thread t = new Thread(group, r);
             t.setDaemon(true);
             t.setPriority(Thread.NORM_PRIORITY);
             t.setName(namePrefix + "-" + count++);
@@ -48,23 +50,28 @@ public final class ExecutionPool {
         }
     }
 
+    @Deprecated
     public static ThreadFactory createThreadFactory(String namePrefix) {
-        return new ExecutionPoolThreadFactory(namePrefix);
+        return createThreadFactory(null, namePrefix);
+    }
+
+    public static ThreadFactory createThreadFactory(ThreadGroup group, String namePrefix) {
+        return new ExecutionPoolThreadFactory(group, namePrefix);
     }
 
     @Deprecated
     public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount) {
-        return getExecutor(namePrefix, threadCount, true);
+        return getExecutor(null, namePrefix, threadCount, true);
     }
 
-    public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount, boolean preStart) {
+    public static ScheduledExecutorService getExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
         if (threadCount == 0) {
             threadCount = 1;
         } else if (threadCount < 0) {
             int numCpus = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
             threadCount = Math.abs(threadCount) * numCpus;
         }
-        ThreadFactory threadFactory = createThreadFactory(namePrefix);
+        ThreadFactory threadFactory = createThreadFactory(group, namePrefix);
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
         if (preStart) {
             executor.prestartAllCoreThreads();
@@ -74,12 +81,12 @@ public final class ExecutionPool {
 
     @Deprecated
     public static ScheduledExecutorService getNewExactExecutor(String namePrefix) {
-        return getExecutor(namePrefix, -1, true);
+        return getExecutor(null, namePrefix, -1, true);
     }
 
     @Deprecated
     public static ScheduledExecutorService getNewOptimalExecutor(String namePrefix) {
-        return getExecutor(namePrefix, -2, true);
+        return getExecutor(null, namePrefix, -2, true);
     }
 
     public static void addPulse(Pulse pulse) {
