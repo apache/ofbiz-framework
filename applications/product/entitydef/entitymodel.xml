@@ -4192,6 +4192,9 @@ under the License.
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="companyPartyId" rel-field-name="partyId"/>
       </relation>
+      <relation type="one" rel-entity-name="ShipmentMethodType">
+        <key-map field-name="shipmentMethodTypeId"/>
+      </relation>
       <relation type="one-nofk" title="Include"  rel-entity-name="Geo">
         <key-map field-name="includeGeoId" rel-field-name="geoId"/>
       </relation>
