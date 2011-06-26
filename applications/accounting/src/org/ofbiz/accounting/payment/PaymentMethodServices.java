@@ -151,8 +151,7 @@ public class PaymentMethodServices {
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
                 UtilProperties.getMessage(resource, "AccountingCreditCardNumberInvalid",
-                    UtilMisc.toMap("cardNumber", (String) context.get("cardNumber"),
-                                   "cardType", (String) context.get("cardType"),
+                    UtilMisc.toMap("cardType", (String) context.get("cardType"),
                                    "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
         }
 
@@ -301,14 +300,12 @@ public class PaymentMethodServices {
         if (updatedCardNumber.startsWith("*")) {
             // get the masked card number from the db
             String origCardNumber = creditCard.getString("cardNumber");
-            Debug.log("CCInfo: " + creditCard.toString(), module);
             String origMaskedNumber = "";
             int cardLength = origCardNumber.length() - 4;
             for (int i = 0; i < cardLength; i++) {
                 origMaskedNumber = origMaskedNumber + "*";
             }
             origMaskedNumber = origMaskedNumber + origCardNumber.substring(cardLength);
-            Debug.log(origMaskedNumber);
 
             // compare the two masked numbers
             if (updatedCardNumber.equals(origMaskedNumber)) {
@@ -320,8 +317,7 @@ public class PaymentMethodServices {
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber"))) {
             messages.add(
                 UtilProperties.getMessage(resource, "AccountingCreditCardNumberInvalid",
-                    UtilMisc.toMap("cardNumber", (String) context.get("cardNumber"),
-                                   "cardType", (String) context.get("cardType"),
+                    UtilMisc.toMap("cardType", (String) context.get("cardType"),
                                    "validCardType", UtilValidate.getCardType((String) context.get("cardNumber"))), locale));
         }
 
@@ -590,7 +586,6 @@ public class PaymentMethodServices {
         if (cardNumber.startsWith("*")) {
             // get the masked card number from the db
             String origCardNumber = giftCard.getString("cardNumber");
-            //Debug.log(origCardNumber);
             String origMaskedNumber = "";
             int cardLength = origCardNumber.length() - 4;
             if (cardLength > 0) {
