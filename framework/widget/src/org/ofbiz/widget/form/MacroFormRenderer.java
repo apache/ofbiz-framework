@@ -1490,7 +1490,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" style=\"");
         sr.append(FlexibleStringExpander.expandString(modelForm.getDefaultTableStyle(), context));
         sr.append("\" columnStyles=[");
-        sr.append(columnStyleListString);
+        if (UtilValidate.isNotEmpty(columnStyleListString)) {
+            // this is a fix for forms with no fields
+            sr.append(columnStyleListString);
+        }
         sr.append("] />");
         executeMacro(writer, sr.toString());
 
