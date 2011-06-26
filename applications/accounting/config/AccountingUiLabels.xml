@@ -3016,8 +3016,9 @@
         <value xml:lang="zh_TW">沒有建立信用卡。信用卡沒通過檢核, 認證失敗。</value>
     </property>
     <property key="AccountingCreditCardNumberInvalid">
+        <!-- FIXME: other languages(en is correct) -->
         <value xml:lang="de">${cardNumber} ist keine ${cardType}-Kreditkartennummer.</value>
-        <value xml:lang="en">${cardNumber} is not a valid ${cardType} credit card number. (It appears to be a ${validCardType}) credit card number)</value>
+        <value xml:lang="en">That is not a valid ${cardType} credit card number. (It appears to be a ${validCardType}) credit card number)</value>
         <value xml:lang="it">La carta di credito numero ${cardNumber} non è una ${cardType}. (Sembra che sia una ${validCardType})</value>
         <value xml:lang="pt">${cardNumber} não é válido ${cardType} número de cartão de crédito. (Parece ser um ${validCardType}) o número do cartão de crédito)</value>
     </property>
