@@ -29,6 +29,7 @@ import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Start - OFBiz Container(s) Startup Class
@@ -78,7 +79,7 @@ public class Start {
     }
 
     private Config config = null;
-    private String[] loaderArgs = null;
+    private List<String> loaderArgs = new ArrayList<String>();
     private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
     private boolean serverStarted = false;
     private boolean serverStopping = false;
@@ -118,9 +119,8 @@ public class Start {
         this.config = Config.getInstance(args);
 
         // parse the startup arguments
-        if (args.length > 0) {
-            this.loaderArgs = new String[args.length];
-            System.arraycopy(args, 0, this.loaderArgs, 0, this.loaderArgs.length);
+        if (args.length > 1) {
+            this.loaderArgs.addAll(Arrays.asList(args).subList(1, args.length));
         }
 
         if (!fullInit) {
@@ -172,8 +172,8 @@ public class Start {
                 try {
                     Class<?> loaderClass = classloader.loadClass(loaderClassName);
                     StartupLoader loader = (StartupLoader) loaderClass.newInstance();
-                    loader.load(config, loaderArgs);
-                    this.loaders.add(loader);
+                    loader.load(config, loaderArgs.toArray(new String[loaderArgs.size()]));
+                    loaders.add(loader);
                 } catch (Exception e) {
                     e.printStackTrace();
                     return false;
