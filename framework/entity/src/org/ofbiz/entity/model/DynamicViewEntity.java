@@ -20,6 +20,7 @@ package org.ofbiz.entity.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -228,8 +229,16 @@ public class DynamicViewEntity {
         return this.memberModelMemberEntities.entrySet().iterator();
     }
 
+    /**
+     * @deprecated use {@link #addAliasAll(String, String, Collection<String>)}
+     */
+    @Deprecated
     public void addAliasAll(String entityAlias, String prefix) {
-        ModelAliasAll aliasAll = new ModelAliasAll(entityAlias, prefix, false, null, null);
+        addAliasAll(entityAlias, prefix, null);
+    }
+
+    public void addAliasAll(String entityAlias, String prefix, Collection<String> excludes) {
+        ModelAliasAll aliasAll = new ModelAliasAll(entityAlias, prefix, false, null, excludes);
         this.aliasAlls.add(aliasAll);
     }
 

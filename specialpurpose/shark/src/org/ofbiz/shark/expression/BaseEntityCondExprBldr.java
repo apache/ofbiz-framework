@@ -164,7 +164,7 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
         Iterator aai = autoFields.iterator();
         while (aai.hasNext()) {
             String alias = (String) aai.next();
-            view.addAliasAll(alias, "");
+            view.addAliasAll(alias, "", null);
         }
 
         // create the other field aliases
