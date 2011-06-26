@@ -525,7 +525,7 @@ under the License.
     <service name="createEmailAddress" engine="simple"
             location="component://party/script/org/ofbiz/party/contact/ContactMechServices.xml" invoke="createEmailAddress" auth="true">
         <description>Create an Email Address</description>
-        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="ContactMech" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="ContactMech" include="pk" mode="OUT" optional="false"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
         <override name="infoString" optional="true"/>
