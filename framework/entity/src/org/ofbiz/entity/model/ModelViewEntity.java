@@ -699,15 +699,8 @@ public class ModelViewEntity extends ModelEntity {
                     continue;
                 }
 
-                ModelAlias expandedAlias = new ModelAlias();
-                expandedAlias.name = aliasName;
-                expandedAlias.field = fieldName;
-                expandedAlias.entityAlias = aliasAll.getEntityAlias();
-                expandedAlias.isFromAliasAll = true;
-                expandedAlias.colAlias = ModelUtil.javaNameToDbName(UtilXml.checkEmpty(expandedAlias.name));
-                expandedAlias.function = function;
-                expandedAlias.groupBy = groupBy;
-                expandedAlias.description = modelField.getDescription();
+                ModelAlias expandedAlias = new ModelAlias(aliasAll.getEntityAlias(), aliasName, fieldName, ModelUtil.javaNameToDbName(UtilXml.checkEmpty(aliasName)), null, groupBy, function, true);
+                expandedAlias.setDescription(modelField.getDescription());
 
                 aliases.add(expandedAlias);
             }
@@ -719,9 +712,9 @@ public class ModelViewEntity extends ModelEntity {
         return "ModelViewEntity[" + getEntityName() + "]";
     }
 
-    public static class ModelMemberEntity implements Serializable {
-        protected String entityAlias = "";
-        protected String entityName = "";
+    public static final class ModelMemberEntity implements Serializable {
+        protected final String entityAlias;
+        protected final String entityName;
 
         public ModelMemberEntity(String entityAlias, String entityName) {
             this.entityAlias = entityAlias;
@@ -737,19 +730,30 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ModelAliasAll implements Serializable, Iterable<String> {
-        protected String entityAlias = "";
-        protected String prefix = "";
-        protected Set<String> fieldsToExclude = null;
-        protected boolean groupBy = false;
+    public static final class ModelAliasAll implements Serializable, Iterable<String> {
+        protected final String entityAlias;
+        protected final String prefix;
+        protected final Set<String> fieldsToExclude;
+        protected final boolean groupBy;
         // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
-        protected String function = null;
+        protected final String function;
 
-        protected ModelAliasAll() {}
-
+        @Deprecated
         public ModelAliasAll(String entityAlias, String prefix) {
+            this(entityAlias, prefix, false, null, null);
+        }
+
+        public ModelAliasAll(String entityAlias, String prefix, boolean groupBy, String function, Collection<String> excludes) {
             this.entityAlias = entityAlias;
             this.prefix = prefix;
+            this.groupBy = groupBy;
+            this.function = function;
+            if (UtilValidate.isNotEmpty(excludes)) {
+                this.fieldsToExclude = new HashSet<String>(excludes.size());
+                this.fieldsToExclude.addAll(excludes);
+            } else {
+                this.fieldsToExclude = null;
+            }
         }
 
         public ModelAliasAll(Element aliasAllElement) {
@@ -764,6 +768,8 @@ public class ModelViewEntity extends ModelEntity {
                 for (Element excludeElement: excludes) {
                     this.fieldsToExclude.add(excludeElement.getAttribute("field").intern());
                 }
+            } else {
+                this.fieldsToExclude = null;
             }
 
         }
@@ -801,22 +807,20 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ModelAlias implements Serializable {
-        protected String entityAlias = "";
-        protected String name = "";
-        protected String field = "";
-        protected String colAlias = "";
+    public static final class ModelAlias implements Serializable {
+        protected final String entityAlias;
+        protected final String name;
+        protected final String field;
+        protected final String colAlias;
         // this is a Boolean object for a tri-state: null, true or false
-        protected Boolean isPk = null;
-        protected boolean groupBy = false;
+        protected final Boolean isPk;
+        protected final boolean groupBy;
         // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
-        protected String function = null;
-        protected boolean isFromAliasAll = false;
-        protected ComplexAliasMember complexAliasMember = null;
+        protected final String function;
+        protected final boolean isFromAliasAll;
+        protected ComplexAliasMember complexAliasMember;
         // The description for documentation purposes
         protected String description = "";
-
-        protected ModelAlias() {}
 
         public ModelAlias(Element aliasElement) {
             this.entityAlias = UtilXml.checkEmpty(aliasElement.getAttribute("entity-alias")).intern();
@@ -832,6 +836,7 @@ public class ModelViewEntity extends ModelEntity {
             }
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasElement.getAttribute("function")).intern();
+            this.isFromAliasAll = false;
             this.description = UtilXml.checkEmpty(UtilXml.childElementValue(aliasElement, "description")).intern();
 
             Element complexAliasElement = UtilXml.firstChildElement(aliasElement, "complex-alias");
@@ -841,6 +846,10 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function) {
+            this(entityAlias, name, field, colAlias, isPk, groupBy, function, false);
+        }
+
+        protected ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function, boolean isFromAliasAll) {
             this.entityAlias = entityAlias;
             this.name = name;
             this.field = UtilXml.checkEmpty(field, this.name);
@@ -852,6 +861,7 @@ public class ModelViewEntity extends ModelEntity {
                 this.groupBy = false;
             }
             this.function = function;
+            this.isFromAliasAll = isFromAliasAll;
         }
 
         public void setComplexAliasMember(ComplexAliasMember complexAliasMember) {
@@ -913,9 +923,9 @@ public class ModelViewEntity extends ModelEntity {
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
     }
 
-    public static class ComplexAlias implements ComplexAliasMember {
-        protected List<ComplexAliasMember> complexAliasMembers = FastList.newInstance();
-        protected String operator;
+    public static final class ComplexAlias implements ComplexAliasMember {
+        protected final List<ComplexAliasMember> complexAliasMembers = FastList.newInstance();
+        protected final String operator;
 
         public ComplexAlias(String operator) {
             this.operator = operator;
@@ -965,11 +975,11 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ComplexAliasField implements ComplexAliasMember {
-        protected String entityAlias = "";
-        protected String field = "";
-        protected String defaultValue = null;
-        protected String function = null;
+    public static final class ComplexAliasField implements ComplexAliasMember {
+        protected final String entityAlias;
+        protected final String field;
+        protected final String defaultValue;
+        protected final String function;
 
         public ComplexAliasField(Element complexAliasFieldElement) {
             this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias").intern();
@@ -1016,14 +1026,12 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ModelViewLink implements Serializable, Iterable<ModelKeyMap> {
-        protected String entityAlias = "";
-        protected String relEntityAlias = "";
-        protected boolean relOptional = false;
-        protected List<ModelKeyMap> keyMaps = FastList.newInstance();
-        protected ViewEntityCondition viewEntityCondition = null;
-
-        protected ModelViewLink() {}
+    public static final class ModelViewLink implements Serializable, Iterable<ModelKeyMap> {
+        protected final String entityAlias;
+        protected final String relEntityAlias;
+        protected final boolean relOptional;
+        protected final List<ModelKeyMap> keyMaps = FastList.newInstance();
+        protected final ViewEntityCondition viewEntityCondition;
 
         public ModelViewLink(ModelViewEntity modelViewEntity, Element viewLinkElement) {
             this.entityAlias = UtilXml.checkEmpty(viewLinkElement.getAttribute("entity-alias")).intern();
@@ -1042,6 +1050,8 @@ public class ModelViewEntity extends ModelEntity {
             Element entityConditionElement = UtilXml.firstChildElement(viewLinkElement, "entity-condition");
             if (entityConditionElement != null) {
                 this.viewEntityCondition = new ViewEntityCondition(modelViewEntity, this, entityConditionElement);
+            } else {
+                this.viewEntityCondition = null;
             }
         }
 
@@ -1064,6 +1074,8 @@ public class ModelViewEntity extends ModelEntity {
             this.relEntityAlias = relEntityAlias;
             if (relOptional != null) {
                 this.relOptional = relOptional.booleanValue();
+            } else {
+                this.relOptional = false;
             }
             this.keyMaps.addAll(keyMaps);
             this.viewEntityCondition = viewEntityCondition;
@@ -1104,11 +1116,11 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public class ModelConversion implements Serializable {
-        protected String aliasName;
-        protected ModelEntity fromModelEntity;
-        protected Map<String, String> fieldMap = FastMap.newInstance();
-        protected Set<String> wildcards = new HashSet<String>();
+    public final class ModelConversion implements Serializable {
+        protected final String aliasName;
+        protected final ModelEntity fromModelEntity;
+        protected final Map<String, String> fieldMap = FastMap.newInstance();
+        protected final Set<String> wildcards = new HashSet<String>();
 
         public ModelConversion(String aliasName, ModelEntity fromModelEntity) {
             this.aliasName = aliasName;
@@ -1167,15 +1179,16 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ViewEntityCondition {
-        protected ModelViewEntity modelViewEntity;
-        protected ModelViewLink modelViewLink;
-        protected boolean filterByDate;
-        protected boolean distinct;
-        protected List<String> orderByList;
-        protected ViewCondition whereCondition;
-        protected ViewCondition havingCondition;
+    public static final class ViewEntityCondition {
+        protected final ModelViewEntity modelViewEntity;
+        protected final ModelViewLink modelViewLink;
+        protected final boolean filterByDate;
+        protected final boolean distinct;
+        protected final List<String> orderByList;
+        protected final ViewCondition whereCondition;
+        protected final ViewCondition havingCondition;
 
+        // FIXME: add programatic constructor
         public ViewEntityCondition(ModelViewEntity modelViewEntity, ModelViewLink modelViewLink, Element element) {
             this.modelViewEntity = modelViewEntity;
             this.modelViewLink = modelViewLink;
@@ -1188,6 +1201,8 @@ public class ModelViewEntity extends ModelEntity {
                 for (Element orderByElement: orderByElementList) {
                     orderByList.add(orderByElement.getAttribute("field-name"));
                 }
+            } else {
+                orderByList = null;
             }
 
             Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
@@ -1196,11 +1211,15 @@ public class ModelViewEntity extends ModelEntity {
                 this.whereCondition = new ViewConditionExpr(this, conditionExprElement);
             } else if (conditionListElement != null) {
                 this.whereCondition = new ViewConditionList(this, conditionListElement);
+            } else {
+                this.whereCondition = null;
             }
 
             Element havingConditionListElement = UtilXml.firstChildElement(element, "having-condition-list");
             if (havingConditionListElement != null) {
                 this.havingCondition = new ViewConditionList(this, havingConditionListElement);
+            } else {
+                this.havingCondition = null;
             }
         }
 
@@ -1229,36 +1248,39 @@ public class ModelViewEntity extends ModelEntity {
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack);
     }
 
-    public static class ViewConditionExpr implements ViewCondition {
-        protected ViewEntityCondition viewEntityCondition;
-        protected String entityAlias;
-        protected String fieldName;
-        protected String operator;
-        protected String relEntityAlias;
-        protected String relFieldName;
-        protected Object value;
-        protected boolean ignoreCase;
+    public static final class ViewConditionExpr implements ViewCondition {
+        protected final ViewEntityCondition viewEntityCondition;
+        protected final String entityAlias;
+        protected final String fieldName;
+        protected final String operator;
+        protected final String relEntityAlias;
+        protected final String relFieldName;
+        protected final Object value;
+        protected final boolean ignoreCase;
 
+        // FIXME: add programatic constructor
         public ViewConditionExpr(ViewEntityCondition viewEntityCondition, Element conditionExprElement) {
             this.viewEntityCondition = viewEntityCondition;
-            this.entityAlias = conditionExprElement.getAttribute("entity-alias");
+            String entityAlias = conditionExprElement.getAttribute("entity-alias");
             this.fieldName = conditionExprElement.getAttribute("field-name");
 
             this.operator = UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals");
-            this.relEntityAlias = conditionExprElement.getAttribute("rel-entity-alias");
+            String relEntityAlias = conditionExprElement.getAttribute("rel-entity-alias");
             this.relFieldName = conditionExprElement.getAttribute("rel-field-name");
             this.value = conditionExprElement.getAttribute("value");
             this.ignoreCase = "true".equals(conditionExprElement.getAttribute("ignore-case"));
 
             // if we are in a view-link, default to the entity-alias and rel-entity-alias there
             if (this.viewEntityCondition.modelViewLink != null) {
-                if (UtilValidate.isEmpty(this.entityAlias)) {
-                    this.entityAlias = this.viewEntityCondition.modelViewLink.getEntityAlias();
+                if (UtilValidate.isEmpty(entityAlias)) {
+                    entityAlias = this.viewEntityCondition.modelViewLink.getEntityAlias();
                 }
-                if (UtilValidate.isEmpty(this.relEntityAlias)) {
-                    this.relEntityAlias = this.viewEntityCondition.modelViewLink.getRelEntityAlias();
+                if (UtilValidate.isEmpty(relEntityAlias)) {
+                    relEntityAlias = this.viewEntityCondition.modelViewLink.getRelEntityAlias();
                 }
             }
+            this.entityAlias = entityAlias;
+            this.relEntityAlias = relEntityAlias;
         }
 
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
@@ -1267,6 +1289,7 @@ public class ModelViewEntity extends ModelEntity {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + this.operator);
             }
 
+            Object value = this.value;
             // If IN or BETWEEN operator, see if value is a literal list and split it
             if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
                     && value instanceof String) {
@@ -1330,10 +1353,10 @@ public class ModelViewEntity extends ModelEntity {
         }
     }
 
-    public static class ViewConditionList implements ViewCondition {
-        protected ViewEntityCondition viewEntityCondition;
-        List<ViewCondition> conditionList = new LinkedList<ViewCondition>();
-        String combine;
+    public static final class ViewConditionList implements ViewCondition {
+        protected final ViewEntityCondition viewEntityCondition;
+        protected final List<ViewCondition> conditionList = new LinkedList<ViewCondition>();
+        protected final String combine;
 
         public ViewConditionList(ViewEntityCondition viewEntityCondition, Element conditionListElement) {
             this.viewEntityCondition = viewEntityCondition;
@@ -1348,6 +1371,14 @@ public class ModelViewEntity extends ModelEntity {
                 } else {
                     throw new IllegalArgumentException("Invalid element with name [" + subElement.getNodeName() + "] found under a condition-list element.");
                 }
+            }
+        }
+
+        public ViewConditionList(ViewEntityCondition viewEntityCondition, String combine, List<ViewCondition> conditionList) {
+            this.viewEntityCondition = viewEntityCondition;
+            this.combine = combine;
+            if (UtilValidate.isNotEmpty(conditionList)) {
+                this.conditionList.addAll(conditionList);
             }
         }
 
