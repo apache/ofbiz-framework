@@ -52,6 +52,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.config.DatasourceInfo;
@@ -177,8 +178,14 @@ public class SqlJdbcUtil {
                         throw new GenericModelException("No view-link/join key-maps found for the " + viewLink.getEntityAlias() + " and the " + viewLink.getRelEntityAlias() + " member-entities of the " + modelViewEntity.getEntityName() + " view-entity.");
                     }
 
-                    // TODO add expression from entity-condition on view-link
-
+                    ModelViewEntity.ViewEntityCondition viewEntityCondition = viewLink.getViewEntityCondition();
+                    if (viewEntityCondition != null) {
+                        EntityCondition whereCondition = viewEntityCondition.getWhereCondition(modelFieldTypeReader, null);
+                        if (whereCondition != null) {
+                            condBuffer.append(" AND ");
+                            condBuffer.append(whereCondition.makeWhereString(modelEntity, null, datasourceInfo));
+                        }
+                    }
 
                     restOfStatement.append(condBuffer.toString());
 
