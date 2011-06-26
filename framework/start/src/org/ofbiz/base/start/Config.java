@@ -270,6 +270,9 @@ public class Config {
             File files[] = libDir.listFiles();
             for (File file: files) {
                 String fileName = file.getName();
+                if (file.isHidden()) {
+                    continue;
+                }
                 // FIXME: filter out other files?
                 if (file.isDirectory() && !"CVS".equals(fileName) && !".svn".equals(fileName) && recurse) {
                     loadLibs(classPath, file.getCanonicalPath(), recurse);
