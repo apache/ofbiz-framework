@@ -81,15 +81,17 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         Table table = selectGroup.getTable();
         addMember(dve, table.getTableName());
         addJoined(dve, table.getTableName().getAlias(), table.getJoined());
-        for (FieldAll fieldAll: selectGroup.getFieldAlls()) {
-            List<String> excludes = FastList.newInstance();
-            for (String exclude: fieldAll) {
-                excludes.add(exclude);
+        if (selectGroup.getFieldAlls() != null) {
+            for (FieldAll fieldAll: selectGroup.getFieldAlls()) {
+                List<String> excludes = FastList.newInstance();
+                for (String exclude: fieldAll) {
+                    excludes.add(exclude);
+                }
+                if (excludes.isEmpty()) {
+                    excludes = null;
+                }
+                dve.addAliasAll(fieldAll.getAlias(), null, excludes);
             }
-            if (excludes.isEmpty()) {
-                excludes = null;
-            }
-            dve.addAliasAll(fieldAll.getAlias(), null, excludes);
         }
         for (Relation relation: selectStatement.getRelations().values()) {
             dve.addRelation(relation.getType(), relation.getTitle(), relation.getEntityName(), buildKeyMaps(relation));
