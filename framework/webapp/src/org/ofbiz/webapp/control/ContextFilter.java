@@ -138,7 +138,7 @@ public class ContextFilter implements Filter {
         }
 
         // set the ServletContext in the request for future use
-        request.setAttribute("servletContext", config.getServletContext());
+        httpRequest.setAttribute("servletContext", config.getServletContext());
 
         // set the webSiteId in the session
         if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))){
@@ -146,11 +146,11 @@ public class ContextFilter implements Filter {
         }
 
         // set the filesystem path of context root.
-        request.setAttribute("_CONTEXT_ROOT_", config.getServletContext().getRealPath("/"));
+        httpRequest.setAttribute("_CONTEXT_ROOT_", config.getServletContext().getRealPath("/"));
 
         // set the server root url
         StringBuffer serverRootUrl = UtilHttp.getServerRootUrl(httpRequest);
-        request.setAttribute("_SERVER_ROOT_URL_", serverRootUrl.toString());
+        httpRequest.setAttribute("_SERVER_ROOT_URL_", serverRootUrl.toString());
 
         // request attributes from redirect call
         String reqAttrMapHex = (String) httpRequest.getSession().getAttribute("_REQ_ATTR_MAP_");
@@ -159,7 +159,7 @@ public class ContextFilter implements Filter {
             Map<String, Object> reqAttrMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
             if (reqAttrMap != null) {
                 for (Map.Entry<String, Object> entry: reqAttrMap.entrySet()) {
-                    request.setAttribute(entry.getKey(), entry.getValue());
+                    httpRequest.setAttribute(entry.getKey(), entry.getValue());
                 }
             }
             httpRequest.getSession().removeAttribute("_REQ_ATTR_MAP_");
@@ -169,7 +169,7 @@ public class ContextFilter implements Filter {
         // check if we are disabled
         String disableSecurity = config.getInitParameter("disableContextSecurity");
         if (disableSecurity != null && "Y".equalsIgnoreCase(disableSecurity)) {
-            chain.doFilter(request, response);
+            chain.doFilter(httpRequest, httpResponse);
             return;
         }
 
@@ -188,7 +188,7 @@ public class ContextFilter implements Filter {
                 return;
             } else {
                 httpRequest.getSession().removeAttribute("_FORCE_REDIRECT_");
-                chain.doFilter(request, response);
+                chain.doFilter(httpRequest, httpResponse);
                 return;
             }
         }
@@ -196,7 +196,7 @@ public class ContextFilter implements Filter {
         // test to see if we have come through the control servlet already, if not do the processing
         String requestPath = null;
         String contextUri = null;
-        if (request.getAttribute(ContextFilter.FORWARDED_FROM_SERVLET) == null) {
+        if (httpRequest.getAttribute(ContextFilter.FORWARDED_FROM_SERVLET) == null) {
             // Debug.logInfo("In ContextFilter.doFilter, FORWARDED_FROM_SERVLET is NOT set", module);
             String allowedPath = config.getInitParameter("allowedPaths");
             String redirectPath = config.getInitParameter("redirectPath");
@@ -277,7 +277,7 @@ public class ContextFilter implements Filter {
         String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
         if ("Y".equals(useMultitenant)) {
             // get tenant delegator by domain name
-            String serverName = request.getServerName();
+            String serverName = httpRequest.getServerName();
             try {
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 Delegator delegator = getDelegator(config.getServletContext());
@@ -319,7 +319,7 @@ public class ContextFilter implements Filter {
                     httpRequest.getSession().setAttribute("dispatcher", dispatcher);
                     httpRequest.getSession().setAttribute("security", security);
                     
-                    request.setAttribute("tenantId", tenantId);
+                    httpRequest.setAttribute("tenantId", tenantId);
                 }
 
                 // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 
@@ -333,7 +333,7 @@ public class ContextFilter implements Filter {
         }
 
         // we're done checking; continue on
-        chain.doFilter(request, response);
+        chain.doFilter(httpRequest, httpResponse);
 
         // reset thread local security
         AbstractAuthorization.clearThreadLocal();
