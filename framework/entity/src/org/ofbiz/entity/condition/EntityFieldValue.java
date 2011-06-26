@@ -123,6 +123,14 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
 
     @Override
     public ModelField getModelField(ModelEntity modelEntity) {
+        if (this.modelViewEntity != null) {
+            if (this.entityAlias != null) {
+                ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(entityAlias);
+                return getField(memberModelEntity, fieldName);
+            } else {
+                return getField(modelViewEntity, fieldName);
+            }
+        }
         return getField(modelEntity, fieldName);
     }
 
