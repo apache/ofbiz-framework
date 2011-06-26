@@ -311,7 +311,7 @@ public class OagisServices {
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)) {
                 String errMsg = "Error creating OagisMessageInfo for the Incoming Message: "+ServiceUtil.getErrorMessage(oagisMsgInfoResult);
-                errorMapList.add(UtilMisc.toMap("description", (Object) errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
+                errorMapList.add(UtilMisc.<String, String>toMap("description", (Object) errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
             */
@@ -320,7 +320,7 @@ public class OagisServices {
             if (UtilValidate.isEmpty(dataAreaConfirmMsgList)) {
                 String errMsg = "No CONFIRMMSG elements found in Confirm BOD message: " + omiPkMap;
                 Debug.logWarning(errMsg, module);
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "NoCONFIRMMSGElements"));
+                errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "NoCONFIRMMSGElements"));
             } else {
                 Map<String, Object> originalOmiPkMap = UtilMisc.toMap("logicalId", (Object) dataAreaLogicalId, "component", dataAreaComponent,
                         "task", dataAreaTask, "referenceId", dataAreaReferenceId);
@@ -340,14 +340,14 @@ public class OagisServices {
                         Map<String, Object> oagisMsgErrorInfoResult = dispatcher.runSync("createOagisMessageErrorInfo", createOagisMessageErrorInfoForOriginal);
                         if (ServiceUtil.isError(oagisMsgErrorInfoResult)) {
                             String errMsg = "Error creating OagisMessageErrorInfo: " + ServiceUtil.getErrorMessage(oagisMsgErrorInfoResult);
-                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
+                            errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "CreateOagisMessageErrorInfoServiceError"));
                             Debug.logError(errMsg, module);
                         }
                     }
                 } else {
                     String errMsg = "No such message with an error was found; Not creating OagisMessageErrorInfo record(s) for original message, but saving info for this message anyway; ID info: " + omiPkMap;
                     Debug.logWarning(errMsg, module);
-                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "OriginalOagisMessageInfoNotFoundError"));
+                    errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "OriginalOagisMessageInfoNotFoundError"));
                 }
 
                 // now attach all of the messages to the CBOD OagisMessageInfo record
@@ -420,7 +420,7 @@ public class OagisServices {
                 dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
             } catch (GenericServiceException e) {
                 String errMsg = "Error updating OagisMessageInfo for the Incoming Message: " + e.toString();
-                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         }
@@ -511,15 +511,15 @@ public class OagisServices {
             doc = UtilXml.readXmlDocument(bis, true, "OagisMessage");
         } catch (SAXException e) {
             String errMsg = "XML Error parsing the Received Message [" + e.toString() + "]; The text received we could not parse is: [" + xmlText + "]";
-            errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SAXException"));
+            errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SAXException"));
             Debug.logError(e, errMsg, module);
         } catch (ParserConfigurationException e) {
             String errMsg = "Parser Configuration Error parsing the Received Message: " + e.toString();
-            errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
+            errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "ParserConfigurationException"));
             Debug.logError(e, errMsg, module);
         } catch (IOException e) {
             String errMsg = "IO Error parsing the Received Message: " + e.toString();
-            errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IOException"));
+            errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "IOException"));
             Debug.logError(e, errMsg, module);
         }
 
@@ -563,7 +563,7 @@ public class OagisServices {
                 String responseMsg = "Message already received with ID: " + oagisMessageInfoKey;
                 Debug.logError(responseMsg, module);
 
-                List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.toMap("reasonCode", "MessageAlreadyReceived", "description", responseMsg));
+                List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("reasonCode", "MessageAlreadyReceived", "description", responseMsg));
 
                 Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
                 sendConfirmBodCtx.put("logicalId", logicalId);
@@ -593,7 +593,7 @@ public class OagisServices {
                 dispatcher.runAsync("oagisReceiveConfirmBod", messageProcessContext, true);
             } catch (GenericServiceException e) {
                 String errMsg = "Error running service oagisReceiveConfirmBod: " + e.toString();
-                errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         } else if (bsrVerb.equalsIgnoreCase("SHOW") && bsrNoun.equalsIgnoreCase("SHIPMENT")) {
@@ -603,7 +603,7 @@ public class OagisServices {
                 dispatcher.runAsync("oagisReceiveShowShipment", messageProcessContext, true);
             } catch (GenericServiceException e) {
                 String errMsg = "Error running service oagisReceiveShowShipment: " + e.toString();
-                errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         } else if (bsrVerb.equalsIgnoreCase("SYNC") && bsrNoun.equalsIgnoreCase("INVENTORY")) {
@@ -613,7 +613,7 @@ public class OagisServices {
                 dispatcher.runAsync("oagisReceiveSyncInventory", messageProcessContext, true);
             } catch (GenericServiceException e) {
                 String errMsg = "Error running service oagisReceiveSyncInventory: " + e.toString();
-                errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                 Debug.logError(e, errMsg, module);
             }
         } else if (bsrVerb.equalsIgnoreCase("ACKNOWLEDGE") && bsrNoun.equalsIgnoreCase("DELIVERY")) {
@@ -630,7 +630,7 @@ public class OagisServices {
                     dispatcher.runAsync("oagisReceiveAcknowledgeDeliveryPo", messageProcessContext, true);
                 } catch (GenericServiceException e) {
                     String errMsg = "Error running service oagisReceiveAcknowledgeDeliveryPo: " + e.toString();
-                    errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
             } else if ("RMA".equals(docType)) {
@@ -639,7 +639,7 @@ public class OagisServices {
                     dispatcher.runAsync("oagisReceiveAcknowledgeDeliveryRma", messageProcessContext, true);
                 } catch (GenericServiceException e) {
                     String errMsg = "Error running service oagisReceiveAcknowledgeDeliveryRma: " + e.toString();
-                    errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
             } else if (UtilValidate.isEmpty(docType) && ("NotAvailableTOAvailable".equals(disposition) || "AvailableTONotAvailable".equals(disposition))) {
@@ -647,7 +647,7 @@ public class OagisServices {
                     dispatcher.runAsync("oagisReceiveAcknowledgeDeliveryStatus", messageProcessContext, true);
                 } catch (GenericServiceException e) {
                     String errMsg = "Error running service oagisReceiveAcknowledgeDeliveryStatus: " + e.toString();
-                    errorList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+                    errorList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
                     Debug.logError(e, errMsg, module);
                 }
             } else {
@@ -668,7 +668,7 @@ public class OagisServices {
             Iterator errListItr = errorList.iterator();
             while (errListItr.hasNext()) {
                 Map errorMap = (Map) errListItr.next();
-                errorMapList.add(UtilMisc.toMap("description", errorMap.get("description"), "reasonCode", errorMap.get("reasonCode")));
+                errorMapList.add(UtilMisc.<String, String>toMap("description", errorMap.get("description"), "reasonCode", errorMap.get("reasonCode")));
             }
             result.put("errorMapList", errorMapList);
         }
@@ -744,7 +744,7 @@ public class OagisServices {
                 dateTimeInvReceived = isoDateFormatNoTzValue.parse(dateString);
             } catch (ParseException e1) {
                 String errMsg = "Error parsing Date: " + e1.toString();
-                if (errorMapList != null) errorMapList.add(UtilMisc.toMap("reasonCode", "ParseException", "description", errMsg));
+                if (errorMapList != null) errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ParseException", "description", errMsg));
                 Debug.logError(e, errMsg, module);
             }
         }
