@@ -631,11 +631,23 @@ public class CatalinaContainer implements Container {
         if (webResourceInfos != null) {
             for (int i = webResourceInfos.size(); i > 0; i--) {
                 ComponentConfig.WebappInfo appInfo = webResourceInfos.get(i - 1);
-                String mount = appInfo.getContextRoot();
+                String engineName = appInfo.server;
                 List<String> virtualHosts = appInfo.getVirtualHosts();
-                if (!loadedMounts.contains(mount) || UtilValidate.isNotEmpty(virtualHosts)) {
+                String mount = appInfo.getContextRoot();
+                List<String> keys = FastList.newInstance();
+                if (UtilValidate.isEmpty(virtualHosts)) {
+                    keys.add(engineName + ":DEFAULT:" + mount);
+                } else {
+                    for (String virtualHost: virtualHosts) {
+                        keys.add(engineName + ":" + virtualHost + ":" + mount);
+                    }
+                }
+                if (!keys.removeAll(loadedMounts)) {
+                    // nothing was removed from the new list of keys; this
+                    // means there are no existing loaded entries that overlap
+                    // with the new set
                     createContext(appInfo);
-                    loadedMounts.add(mount);
+                    loadedMounts.addAll(keys);
                 } else {
                     appInfo.appBarDisplay = false; // disable app bar display on overrided apps
                     Debug.logInfo("Duplicate webapp mount; not loading : " + appInfo.getName() + " / " + appInfo.getLocation(), module);
