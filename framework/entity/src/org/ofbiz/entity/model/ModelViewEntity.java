@@ -459,6 +459,7 @@ public class ModelViewEntity extends ModelEntity {
                 field.colName = ModelUtil.javaNameToDbName(alias.name);
                 field.type = fieldTypeBuffer.toString();
                 field.isPk = false;
+                field.fieldSet = alias.getFieldSet();
             } else {
                 ModelEntity aliasedEntity = getAliasedEntity(alias.entityAlias, modelReader);
                 ModelField aliasedField = getAliasedField(aliasedEntity, alias.field, modelReader);
@@ -483,6 +484,21 @@ public class ModelViewEntity extends ModelEntity {
                 field.colName = SqlJdbcUtil.filterColName(field.colValue);
                 if (UtilValidate.isEmpty(field.description)) {
                     field.description = aliasedField.description;
+                }
+                if (UtilValidate.isEmpty(alias.getFieldSet())) {
+                    String aliasedFieldSet = aliasedField.getFieldSet();
+                    if (UtilValidate.isNotEmpty(aliasedFieldSet)) {
+                        StringBuilder fieldSetBuffer = new StringBuilder(alias.entityAlias);
+                        fieldSetBuffer.append("_");
+                        fieldSetBuffer.append(Character.toUpperCase(aliasedFieldSet.charAt(0)));
+                        fieldSetBuffer.append(aliasedFieldSet.substring(1));
+                        field.fieldSet = fieldSetBuffer.toString().intern();
+                        Debug.logInfo("[" + this.getEntityName() + "]: copied field set on [" + field.name + "]: " + field.fieldSet, module);
+                    } else {
+                        field.fieldSet = "";
+                    }
+                } else {
+                    field.fieldSet = alias.getFieldSet();
                 }
             }
 
@@ -627,6 +643,7 @@ public class ModelViewEntity extends ModelEntity {
             String prefix = aliasAll.getPrefix();
             String function = aliasAll.getFunction();
             boolean groupBy = aliasAll.getGroupBy();
+            String aliasAllFieldSet = aliasAll.getFieldSet();
 
             ModelMemberEntity modelMemberEntity = memberModelMemberEntities.get(entityAlias);
             if (modelMemberEntity == null) {
@@ -667,6 +684,27 @@ public class ModelViewEntity extends ModelEntity {
                     newAliasBuffer.append(aliasName.substring(1));
                     aliasName = newAliasBuffer.toString();
                 }
+                String fieldSet;
+                if (UtilValidate.isEmpty(aliasAllFieldSet)) {
+                    String aliasedFieldSet = modelField.getFieldSet();
+                    if (UtilValidate.isNotEmpty(aliasedFieldSet)) {
+                        StringBuilder fieldSetBuffer = new StringBuilder(entityAlias);
+                        if (UtilValidate.isNotEmpty(prefix)) {
+                            fieldSetBuffer.append(Character.toUpperCase(prefix.charAt(0)));
+                            fieldSetBuffer.append(prefix.substring(1));
+                        }
+                        fieldSetBuffer.append(Character.toUpperCase(aliasedFieldSet.charAt(0)));
+                        fieldSetBuffer.append(aliasedFieldSet.substring(1));
+                        fieldSet = fieldSetBuffer.toString();
+                    } else {
+                        fieldSet = "";
+                    }
+                } else {
+                    fieldSet = aliasAllFieldSet;
+                }
+                if (UtilValidate.isNotEmpty(fieldSet)) {
+                    Debug.logInfo("[" + this.getEntityName() + "]: set field-set on [" + aliasName + "]: " + fieldSet, module);
+                }
 
                 ModelAlias existingAlias = this.getAlias(aliasName);
                 if (existingAlias != null) {
@@ -703,7 +741,7 @@ public class ModelViewEntity extends ModelEntity {
                     continue;
                 }
 
-                ModelAlias expandedAlias = new ModelAlias(aliasAll.getEntityAlias(), aliasName, fieldName, ModelUtil.javaNameToDbName(UtilXml.checkEmpty(aliasName)), null, groupBy, function, true);
+                ModelAlias expandedAlias = new ModelAlias(aliasAll.getEntityAlias(), aliasName, fieldName, ModelUtil.javaNameToDbName(UtilXml.checkEmpty(aliasName)), null, groupBy, function, fieldSet, true);
                 expandedAlias.setDescription(modelField.getDescription());
 
                 aliases.add(expandedAlias);
@@ -741,17 +779,24 @@ public class ModelViewEntity extends ModelEntity {
         protected final boolean groupBy;
         // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
         protected final String function;
+        protected final String fieldSet;
 
         @Deprecated
         public ModelAliasAll(String entityAlias, String prefix) {
-            this(entityAlias, prefix, false, null, null);
+            this(entityAlias, prefix, false, null, null, null);
         }
 
+        @Deprecated
         public ModelAliasAll(String entityAlias, String prefix, boolean groupBy, String function, Collection<String> excludes) {
+            this(entityAlias, prefix, groupBy, function, null, excludes);
+        }
+
+        public ModelAliasAll(String entityAlias, String prefix, boolean groupBy, String function, String fieldSet, Collection<String> excludes) {
             this.entityAlias = entityAlias;
             this.prefix = prefix;
             this.groupBy = groupBy;
             this.function = function;
+            this.fieldSet = fieldSet;
             if (UtilValidate.isNotEmpty(excludes)) {
                 this.fieldsToExclude = new HashSet<String>(excludes.size());
                 this.fieldsToExclude.addAll(excludes);
@@ -765,6 +810,7 @@ public class ModelViewEntity extends ModelEntity {
             this.prefix = UtilXml.checkEmpty(aliasAllElement.getAttribute("prefix")).intern();
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasAllElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasAllElement.getAttribute("function"));
+            this.fieldSet = UtilXml.checkEmpty(aliasAllElement.getAttribute("field-set")).intern();
 
             List<? extends Element> excludes = UtilXml.childElementList(aliasAllElement, "exclude");
             if (UtilValidate.isNotEmpty(excludes)) {
@@ -794,6 +840,10 @@ public class ModelViewEntity extends ModelEntity {
             return this.function;
         }
 
+        public String getFieldSet() {
+            return this.fieldSet;
+        }
+
         public boolean shouldExclude(String fieldName) {
             if (this.fieldsToExclude == null) {
                 return false;
@@ -821,6 +871,7 @@ public class ModelViewEntity extends ModelEntity {
         protected final boolean groupBy;
         // is specified this alias is a calculated value; can be: min, max, sum, avg, count, count-distinct
         protected final String function;
+        protected final String fieldSet;
         protected final boolean isFromAliasAll;
         protected ComplexAliasMember complexAliasMember;
         // The description for documentation purposes
@@ -840,6 +891,7 @@ public class ModelViewEntity extends ModelEntity {
             }
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasElement.getAttribute("function")).intern();
+            this.fieldSet = UtilXml.checkEmpty(aliasElement.getAttribute("field-set")).intern();
             this.isFromAliasAll = false;
             this.description = UtilXml.checkEmpty(UtilXml.childElementValue(aliasElement, "description")).intern();
 
@@ -849,11 +901,16 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
+        @Deprecated
         public ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function) {
-            this(entityAlias, name, field, colAlias, isPk, groupBy, function, false);
+            this(entityAlias, name, field, colAlias, isPk, groupBy, function, null, false);
         }
 
-        protected ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function, boolean isFromAliasAll) {
+        public ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function, String fieldSet) {
+            this(entityAlias, name, field, colAlias, isPk, groupBy, function, fieldSet, false);
+        }
+
+        protected ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function, String fieldSet, boolean isFromAliasAll) {
             this.entityAlias = entityAlias;
             this.name = name;
             this.field = UtilXml.checkEmpty(field, this.name);
@@ -865,6 +922,7 @@ public class ModelViewEntity extends ModelEntity {
                 this.groupBy = false;
             }
             this.function = function;
+            this.fieldSet = UtilXml.checkEmpty(fieldSet).intern();
             this.isFromAliasAll = isFromAliasAll;
         }
 
@@ -908,6 +966,10 @@ public class ModelViewEntity extends ModelEntity {
 
         public String getFunction() {
             return this.function;
+        }
+
+        public String getFieldSet() {
+            return fieldSet;
         }
 
         public String getDescription() {

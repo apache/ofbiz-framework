@@ -238,7 +238,7 @@ public class DynamicViewEntity {
     }
 
     public void addAliasAll(String entityAlias, String prefix, Collection<String> excludes) {
-        ModelAliasAll aliasAll = new ModelAliasAll(entityAlias, prefix, false, null, excludes);
+        ModelAliasAll aliasAll = new ModelAliasAll(entityAlias, prefix, false, null, null, excludes);
         this.aliasAlls.add(aliasAll);
     }
 
@@ -252,10 +252,14 @@ public class DynamicViewEntity {
 
     /** Add an alias, full detail. All parameters can be null except entityAlias and name. */
     public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function) {
-        addAlias(entityAlias, name, field, colAlias, primKey, groupBy, function, null);
+        addAlias(entityAlias, name, field, colAlias, primKey, groupBy, function, null, null);
     }
 
     public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function, ComplexAliasMember complexAliasMember) {
+        addAlias(entityAlias, name, field, colAlias, primKey, groupBy, function, null, complexAliasMember);
+    }
+
+    public void addAlias(String entityAlias, String name, String field, String colAlias, Boolean primKey, Boolean groupBy, String function, String fieldSet, ComplexAliasMember complexAliasMember) {
         if (entityAlias == null && complexAliasMember == null) {
             throw new IllegalArgumentException("entityAlias cannot be null if this is not a complex alias in call to DynamicViewEntity.addAlias");
         }
@@ -263,7 +267,7 @@ public class DynamicViewEntity {
             throw new IllegalArgumentException("name cannot be null in call to DynamicViewEntity.addAlias");
         }
 
-        ModelAlias alias = new ModelAlias(entityAlias, name, field, colAlias, primKey, groupBy, function);
+        ModelAlias alias = new ModelAlias(entityAlias, name, field, colAlias, primKey, groupBy, function, fieldSet);
         if (complexAliasMember != null) {
             alias.setComplexAliasMember(complexAliasMember);
         }
