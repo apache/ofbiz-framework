@@ -1266,7 +1266,8 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             EntityConditionValue lhs = EntityFieldValue.makeFieldValue(this.fieldName, this.entityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
-            if (this.viewEntityCondition.modelViewEntity.getField(fieldName) == null) {
+            ModelField lhsField = this.viewEntityCondition.modelViewEntity.getField(fieldName);
+            if (lhsField == null) {
                 throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]");
             }
 
@@ -1274,7 +1275,7 @@ public class ModelViewEntity extends ModelEntity {
             if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
-                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(this.viewEntityCondition.modelViewEntity.getField(fieldName), value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
+                value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
             }
 
             if (Debug.verboseOn()) Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
