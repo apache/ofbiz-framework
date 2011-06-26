@@ -1238,7 +1238,7 @@ public class ProductSearchSession {
         List<Map<String, String>> featureCountList = FastList.newInstance();
         GenericValue searchResult = null;
         while ((searchResult = eli.next()) != null) {
-            featureCountList.add(UtilMisc.toMap("productFeatureId", (String) searchResult.get("pfacProductFeatureId"), "productFeatureTypeId", (String) searchResult.get("pfcProductFeatureTypeId"), "description", (String) searchResult.get("pfcDescription"), "featureCount", Long.toString((Long) searchResult.get("featureCount"))));
+            featureCountList.add(UtilMisc.<String, String>toMap("productFeatureId", (String) searchResult.get("pfacProductFeatureId"), "productFeatureTypeId", (String) searchResult.get("pfcProductFeatureTypeId"), "description", (String) searchResult.get("pfcDescription"), "featureCount", Long.toString((Long) searchResult.get("featureCount"))));
         }
 
         if (eli != null) {

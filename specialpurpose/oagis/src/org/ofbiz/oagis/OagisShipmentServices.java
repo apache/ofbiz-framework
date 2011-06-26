@@ -182,13 +182,13 @@ public class OagisShipmentServices {
             /* running async for better error handling
             if (ServiceUtil.isError(oagisMsgInfoResult)) {
                 String errMsg = ServiceUtil.getErrorMessage(oagisMsgInfoResult);
-                // errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
+                // errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "CreateOagisMessageInfoServiceError"));
                 Debug.logError(errMsg, module);
             }
             */
         } catch (GenericServiceException e) {
             String errMsg = "Error creating OagisMessageInfo for the Incoming Message: " + e.toString();
-            // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericServiceException"));
+            // don't pass this back, nothing they can do about it: errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericServiceException"));
             Debug.logError(e, errMsg, module);
         }
 
@@ -198,16 +198,16 @@ public class OagisShipmentServices {
         } catch (GenericEntityException e) {
             String errMsg = "Error getting Shipment from database for ID [" + shipmentId + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "GenericEntityException"));
+            errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "GenericEntityException"));
         }
 
         if (shipment == null) {
             String errMsg = "Could not find Shipment ID [" + shipmentId + "]";
-            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
+            errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "ShipmentIdNotValid"));
         } else {
             if (invalidShipmentStatusSet.contains(shipment.get("statusId"))) {
                 String errMsg = "Shipment with ID [" + shipmentId + "] is in a status [" + shipment.get("statusId") + "] that means it has been or is being shipped, so this Show Shipment message may be a duplicate.";
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentInBadStatus"));
+                errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "ShipmentInBadStatus"));
             }
         }
 
@@ -231,7 +231,7 @@ public class OagisShipmentServices {
                             "shipmentRouteSegmentId", "00001", "carrierPartyId", carrierPartyId, "trackingIdNumber", trackingNum, "userLogin", userLogin));
                     if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
+                        errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "updateShipmentRouteSegmentError"));
                         Debug.logError(errMsg, module);
                     }
                 }
@@ -255,7 +255,7 @@ public class OagisShipmentServices {
                             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                             if (product == null) {
                                 String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
-                                errorMapList.add(UtilMisc.toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
+                                errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
                                 Debug.logError(errMsg, module);
                                 foundBadProductId = true;
                                 continue;
@@ -312,7 +312,7 @@ public class OagisShipmentServices {
                                     shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId));
                                     if (UtilValidate.isEmpty(shipmentItemList)) {
                                         String errMsg = "Could not find Shipment Item for Shipment with ID [" + shipmentId + "] and Product with ID [" + productId + "].";
-                                        errorMapList.add(UtilMisc.toMap("reasonCode", "ShipmentItemForProductNotFound", "description", errMsg));
+                                        errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ShipmentItemForProductNotFound", "description", errMsg));
                                         Debug.logError(errMsg, module);
                                         continue;
                                     }
@@ -338,7 +338,7 @@ public class OagisShipmentServices {
                                 // for now just get the first item, the other scenario is not yet supported
                                 if (shipmentItemList.size() > 1) {
                                     String errMsg = "Could not find single Shipment Item for Shipment with ID [" + shipmentId + "] and Product with ID [" + productId + "], found [" + shipmentItemList.size() + "] and could not narrow down to one.";
-                                    errorMapList.add(UtilMisc.toMap("reasonCode", "SingleShipmentItemForProductNotFound", "description", errMsg));
+                                    errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "SingleShipmentItemForProductNotFound", "description", errMsg));
                                     Debug.logError(errMsg, module);
                                     continue;
                                 }
@@ -348,7 +348,7 @@ public class OagisShipmentServices {
                                 GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId)));
                                 if (orderShipment == null) {
                                     String errMsg = "Could not find Order-Shipment record for ShipmentItem with ID [" + shipmentId + "] and Item Seq-ID [" + shipmentItemSeqId + "].";
-                                    errorMapList.add(UtilMisc.toMap("reasonCode", "OrderShipmentNotFound", "description", errMsg));
+                                    errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "OrderShipmentNotFound", "description", errMsg));
                                     Debug.logError(errMsg, module);
                                     continue;
                                 }
@@ -386,7 +386,7 @@ public class OagisShipmentServices {
                                 if (UtilValidate.isNotEmpty(serialNumberList)) {
                                     if (messageQuantity.intValue() != serialNumberList.size()) {
                                         String errMsg = "Error: the quantity in the message [" + messageQuantity.intValue() + "] did not match the number of serial numbers passed [" + serialNumberList.size() + "] for ShipmentItem with ID [" + shipmentId + "] and Item Seq-ID [" + shipmentItemSeqId + "].";
-                                        errorMapList.add(UtilMisc.toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
+                                        errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "QuantitySerialMismatch", "description", errMsg));
                                         Debug.logInfo(errMsg, module);
                                         continue;
                                     }
@@ -396,7 +396,7 @@ public class OagisShipmentServices {
                                 //OrderItem than there is quantity on the current ShipmentItem
                                 if (totalReserved < messageQuantity.intValue()) {
                                     String errMsg = "Inventory reservation quantity [" + totalReserved + "] was less than the message quantity [" + messageQuantity.intValue() + "] so cannot receive against reservations for ShipmentItem with ID [" + shipmentId + ":" + shipmentItemSeqId + "], and OrderItem [" + orderShipment.getString("orderId") + ":" + orderShipment.getString("orderItemSeqId") + "]";
-                                    errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
+                                    errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SerialNumbersMissing"));
                                     Debug.logInfo(errMsg, module);
                                     continue;
                                 }
@@ -456,13 +456,13 @@ public class OagisShipmentServices {
                                                 if (OagisServices.requireSerialNumberExist.booleanValue()) {
                                                     if (inventoryItemsBySerialNumber.size() == 0) {
                                                         String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found. Product ID(s) considered are: " + productIdSet;
-                                                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
+                                                        errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SerialNumberRequiredButNotFound"));
                                                         continue;
                                                     }
                                                 } else {
                                                     if (inventoryItemsBySerialNumber.size() > 0) {
                                                         String errMsg = "Referenced serial numbers must NOT already exist, but serial number [" + serialNumber + "] already exists. Product ID(s) considered are: " + productIdSet;
-                                                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SerialNumberRequiredNotExistButFound"));
+                                                        errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SerialNumberRequiredNotExistButFound"));
                                                         continue;
                                                     }
                                                 }
@@ -475,7 +475,7 @@ public class OagisShipmentServices {
                                             Map<String, Object> resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                             if (ServiceUtil.isError(resultMap)) {
                                                 String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                                                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
+                                                errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
                                                 Debug.logError(errMsg, module);
                                             }
                                         }
@@ -485,7 +485,7 @@ public class OagisShipmentServices {
                                         Map<String, Object> resultMap = dispatcher.runSync("issueSerializedInvToShipmentPackageAndSetTracking", isitspastCtx);
                                         if (ServiceUtil.isError(resultMap)) {
                                             String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
+                                            errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "IssueSerializedInvServiceError"));
                                             Debug.logError(errMsg, module);
                                         }
                                     }
@@ -515,7 +515,7 @@ public class OagisShipmentServices {
 
                         if (shipmentItemQuantity > totalItemIssuanceQuantity) {
                             String errMsg = "ShipmentItem [" + shipmentId + ":" + shipmentItem.get("shipmentItemSeqId") + "] was not completely fulfilled; shipment item quantity was [" + shipmentItemQuantity + "], but total fulfilled is only [" + totalItemIssuanceQuantity + "]";
-                            errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "ShipmentItemNotCompletelyFulfilled"));
+                            errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "ShipmentItemNotCompletelyFulfilled"));
                             Debug.logError(errMsg, module);
                         }
                     }
@@ -526,13 +526,13 @@ public class OagisShipmentServices {
                             UtilMisc.toMap("shipmentId", shipmentId, "userLogin", userLogin));
                     if (ServiceUtil.isError(resultMap)) {
                         String errMsg = ServiceUtil.getErrorMessage(resultMap);
-                        errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
+                        errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SetShipmentStatusPackedAndShippedError"));
                         Debug.logError(errMsg, module);
                     }
                 }
             } catch (Throwable t) {
                 String errMsg = UtilProperties.getMessage(resource, "OagisErrorMessageShowShipment", UtilMisc.toMap("shipmentId", shipmentId, "omiPkMap", omiPkMap), locale);
-                errorMapList.add(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+                errorMapList.add(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
 
                 try {
                     oagisMsgInfoCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
@@ -960,7 +960,7 @@ public class OagisShipmentServices {
                     uomiCtx.put("userLogin", userLogin);
                     dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
 
-                    List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+                    List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
                     Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
@@ -1203,7 +1203,7 @@ public class OagisShipmentServices {
                     uomiCtx.put("userLogin", userLogin);
                     dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
 
-                    List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.toMap("description", errMsg, "reasonCode", "SystemError"));
+                    List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
                     Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
