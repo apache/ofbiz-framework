@@ -139,6 +139,13 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
+        <xs:attribute name="field-set" default="" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Any fields that have the same field-set will be selected together in generated queries.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="validate">
         <xs:complexType>
@@ -267,6 +274,13 @@ under the License.
         <xs:attribute name="prefix" type="xs:string"/>
         <xs:attribute name="group-by" default="false" type="boolean"/>
         <xs:attribute name="function" type="aggregate-function"/>
+        <xs:attribute name="field-set" default="" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Any fields that have the same field-set will be selected together in generated queries.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="exclude">
         <xs:complexType>
@@ -293,6 +307,13 @@ under the License.
         <xs:attribute name="prim-key" type="xs:string"/>
         <xs:attribute name="group-by" default="false" type="boolean"/>
         <xs:attribute name="function" type="aggregate-function"/>
+        <xs:attribute name="field-set" default="" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>
+                    Any fields that have the same field-set will be selected together in generated queries.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="complex-alias">
         <xs:annotation>

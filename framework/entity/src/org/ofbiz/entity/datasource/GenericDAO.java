@@ -660,18 +660,53 @@ public class GenericDAO {
         if (UtilValidate.isNotEmpty(fieldsToSelect)) {
             Set<String> tempKeys = FastSet.newInstance();
             tempKeys.addAll(fieldsToSelect);
+            Set<String> fieldSetsToInclude = FastSet.newInstance();
+            Set<String> addedFields = FastSet.newInstance();
             for (String fieldToSelect : fieldsToSelect) {
                 if (tempKeys.contains(fieldToSelect)) {
                     ModelField curField = modelEntity.getField(fieldToSelect);
                     if (curField != null) {
+                        fieldSetsToInclude.add(curField.getFieldSet());
                         selectFields.add(curField);
                         tempKeys.remove(fieldToSelect);
+                        addedFields.add(fieldToSelect);
                     }
                 }
             }
 
             if (tempKeys.size() > 0) {
                 throw new GenericModelException("In selectListIteratorByCondition invalid field names specified: " + tempKeys.toString());
+            }
+            fieldSetsToInclude.remove("");
+            if (verboseOn) {
+                Debug.logInfo("[" + modelEntity.getEntityName() + "]: field-sets to include: " + fieldSetsToInclude, module);
+            }
+            if (UtilValidate.isNotEmpty(fieldSetsToInclude)) {
+                Iterator<ModelField> fieldIter = modelEntity.getFieldsIterator();
+                Set<String> extraFields = FastSet.newInstance();
+                Set<String> reasonSets = FastSet.newInstance();
+                while (fieldIter.hasNext()) {
+                    ModelField curField = fieldIter.next();
+                    String fieldSet = curField.getFieldSet();
+                    if (UtilValidate.isEmpty(fieldSet)) {
+                        continue;
+                    }
+                    if (!fieldSetsToInclude.contains(fieldSet)) {
+                        continue;
+                    }
+                    String fieldName = curField.getName();
+                    if (addedFields.contains(fieldName)) {
+                        continue;
+                    }
+                    reasonSets.add(fieldSet);
+                    extraFields.add(fieldName);
+                    addedFields.add(fieldName);
+                    selectFields.add(curField);
+                }
+                if (verboseOn) {
+                    Debug.logInfo("[" + modelEntity.getEntityName() + "]: auto-added select fields: " + extraFields, module);
+                    Debug.logInfo("[" + modelEntity.getEntityName() + "]: auto-added field-sets: " + reasonSets, module);
+                }
             }
         } else {
             selectFields = modelEntity.getFieldsUnmodifiable();

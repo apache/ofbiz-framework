@@ -55,6 +55,9 @@ public class ModelField extends ModelChild {
     protected boolean isAutoCreatedInternal = false;
     protected boolean enableAuditLog = false;
 
+    /** when any field in the same set is selected in a query, all fields in that set will be selected */
+    protected String fieldSet = "";
+
     /** validators to be called when an update is done */
     protected List<String> validators = new ArrayList<String>();
 
@@ -85,6 +88,7 @@ public class ModelField extends ModelChild {
         this.description = UtilXml.childElementValue(fieldElement, "description");
         this.enableAuditLog = UtilXml.checkBoolean(fieldElement.getAttribute("enable-audit-log"), false);
         this.isNotNull = UtilXml.checkBoolean(fieldElement.getAttribute("not-null"), false);
+        this.fieldSet = UtilXml.checkEmpty(fieldElement.getAttribute("field-set")).intern();
 
         NodeList validateList = fieldElement.getElementsByTagName("validate");
 
@@ -182,6 +186,14 @@ public class ModelField extends ModelChild {
 
     public void setIsAutoCreatedInternal(boolean isAutoCreatedInternal) {
         this.isAutoCreatedInternal = isAutoCreatedInternal;
+    }
+
+    public String getFieldSet() {
+        return fieldSet;
+    }
+
+    public void setFieldSet(String fieldSet) {
+        this.fieldSet = fieldSet;
     }
 
     /** validators to be called when an update is done */
