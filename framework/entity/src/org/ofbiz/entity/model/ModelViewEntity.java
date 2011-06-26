@@ -1265,6 +1265,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
+            EntityConditionValue lhs = EntityFieldValue.makeFieldValue(this.fieldName, this.entityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             if (this.viewEntityCondition.modelViewEntity.getField(fieldName) == null) {
                 throw new IllegalArgumentException("Error in Entity Find: could not find field [" + fieldName + "] in entity with name [" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]");
             }
@@ -1278,7 +1279,6 @@ public class ModelViewEntity extends ModelEntity {
 
             if (Debug.verboseOn()) Debug.logVerbose("Got value for fieldName [" + fieldName + "]: " + value, module);
 
-            EntityConditionValue lhs = EntityFieldValue.makeFieldValue(this.fieldName, this.entityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             Object rhs = null;
             if (value != null) {
                 rhs = value;
