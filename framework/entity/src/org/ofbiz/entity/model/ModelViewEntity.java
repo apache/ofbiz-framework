@@ -1045,17 +1045,28 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
 
+        @Deprecated
         public ModelViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, ModelKeyMap... keyMaps) {
-            this(entityAlias, relEntityAlias, relOptional, Arrays.asList(keyMaps));
+            this(entityAlias, relEntityAlias, relOptional, null, Arrays.asList(keyMaps));
         }
 
+        @Deprecated
         public ModelViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, List<ModelKeyMap> keyMaps) {
+            this(entityAlias, relEntityAlias, relOptional, null, keyMaps);
+        }
+
+        public ModelViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, ViewEntityCondition viewEntityCondition, ModelKeyMap... keyMaps) {
+            this(entityAlias, relEntityAlias, relOptional, viewEntityCondition, Arrays.asList(keyMaps));
+        }
+
+        public ModelViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, ViewEntityCondition viewEntityCondition, List<ModelKeyMap> keyMaps) {
             this.entityAlias = entityAlias;
             this.relEntityAlias = relEntityAlias;
             if (relOptional != null) {
                 this.relOptional = relOptional.booleanValue();
             }
             this.keyMaps.addAll(keyMaps);
+            this.viewEntityCondition = viewEntityCondition;
         }
 
         public String getEntityAlias() {
