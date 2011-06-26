@@ -1252,7 +1252,7 @@ public class ModelViewEntity extends ModelEntity {
         protected final ViewEntityCondition viewEntityCondition;
         protected final String entityAlias;
         protected final String fieldName;
-        protected final String operator;
+        protected final EntityComparisonOperator operator;
         protected final String relEntityAlias;
         protected final String relFieldName;
         protected final Object value;
@@ -1264,7 +1264,12 @@ public class ModelViewEntity extends ModelEntity {
             String entityAlias = conditionExprElement.getAttribute("entity-alias");
             this.fieldName = conditionExprElement.getAttribute("field-name");
 
-            this.operator = UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals");
+            String operator = UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals");
+            try {
+                this.operator = EntityOperator.lookupComparison(operator);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + this.operator);
+            }
             String relEntityAlias = conditionExprElement.getAttribute("rel-entity-alias");
             this.relFieldName = conditionExprElement.getAttribute("rel-field-name");
             this.value = conditionExprElement.getAttribute("value");
@@ -1284,14 +1289,9 @@ public class ModelViewEntity extends ModelEntity {
         }
 
         public EntityCondition createCondition(ModelFieldTypeReader modelFieldTypeReader, List<String> entityAliasStack) {
-            EntityOperator<?,?,?> operator = EntityOperator.lookup(this.operator);
-            if (operator == null) {
-                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + this.operator);
-            }
-
             Object value = this.value;
             // If IN or BETWEEN operator, see if value is a literal list and split it
-            if ((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
+            if ((this.operator.equals(EntityOperator.IN) || this.operator.equals(EntityOperator.BETWEEN))
                     && value instanceof String) {
                 String delim = null;
                 if (((String)value).indexOf("|") >= 0) {
@@ -1311,7 +1311,7 @@ public class ModelViewEntity extends ModelEntity {
             }
 
             // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
-            if (!((operator.equals(EntityOperator.IN) || operator.equals(EntityOperator.BETWEEN))
+            if (!((this.operator.equals(EntityOperator.IN) || this.operator.equals(EntityOperator.BETWEEN))
                     && value instanceof Collection<?>)) {
                 // now to a type conversion for the target fieldName
                 value = this.viewEntityCondition.modelViewEntity.convertFieldValue(lhsField, value, modelFieldTypeReader, FastMap.<String, Object>newInstance());
@@ -1326,28 +1326,28 @@ public class ModelViewEntity extends ModelEntity {
                 rhs = EntityFieldValue.makeFieldValue(this.relFieldName, this.relEntityAlias, entityAliasStack, this.viewEntityCondition.modelViewEntity);
             }
 
-            if (operator.equals(EntityOperator.NOT_EQUAL) && value != null) {
+            if (this.operator.equals(EntityOperator.NOT_EQUAL) && value != null) {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default
                 if (ignoreCase) {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(EntityFunction.UPPER(lhs), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(rhs)),
+                            EntityCondition.makeCondition(EntityFunction.UPPER(lhs), this.operator, EntityFunction.UPPER(rhs)),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 } else {
                     return EntityCondition.makeCondition(
-                            EntityCondition.makeCondition(lhs, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), rhs),
+                            EntityCondition.makeCondition(lhs, this.operator, rhs),
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 }
-            } else if ( value == null && this.relFieldName == null && (operator.equals(EntityOperator.EQUALS) || operator.equals(EntityOperator.NOT_EQUAL))) {
-                return EntityCondition.makeCondition(lhs, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), null);
+            } else if ( value == null && this.relFieldName == null && (this.operator.equals(EntityOperator.EQUALS) || this.operator.equals(EntityOperator.NOT_EQUAL))) {
+                return EntityCondition.makeCondition(lhs, this.operator, null);
             } else {
                 if (ignoreCase) {
                     // use the stuff to upper case both sides
-                    return EntityCondition.makeCondition(EntityFunction.UPPER(lhs), UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), EntityFunction.UPPER(rhs));
+                    return EntityCondition.makeCondition(EntityFunction.UPPER(lhs), this.operator, EntityFunction.UPPER(rhs));
                 } else {
-                    return EntityCondition.makeCondition(lhs, UtilGenerics.<EntityComparisonOperator<?,?>>cast(operator), rhs);
+                    return EntityCondition.makeCondition(lhs, this.operator, rhs);
                 }
             }
         }
@@ -1356,11 +1356,16 @@ public class ModelViewEntity extends ModelEntity {
     public static final class ViewConditionList implements ViewCondition {
         protected final ViewEntityCondition viewEntityCondition;
         protected final List<ViewCondition> conditionList = new LinkedList<ViewCondition>();
-        protected final String combine;
+        protected final EntityJoinOperator operator;
 
         public ViewConditionList(ViewEntityCondition viewEntityCondition, Element conditionListElement) {
             this.viewEntityCondition = viewEntityCondition;
-            this.combine = conditionListElement.getAttribute("combine");
+            String combine = conditionListElement.getAttribute("combine");
+            try {
+                this.operator = EntityOperator.lookupJoin(combine);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + combine);
+            }
 
             List<? extends Element> subElements = UtilXml.childElementList(conditionListElement);
             for (Element subElement: subElements) {
@@ -1376,7 +1381,11 @@ public class ModelViewEntity extends ModelEntity {
 
         public ViewConditionList(ViewEntityCondition viewEntityCondition, String combine, List<ViewCondition> conditionList) {
             this.viewEntityCondition = viewEntityCondition;
-            this.combine = combine;
+            try {
+                this.operator = EntityOperator.lookupJoin(combine);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + combine);
+            }
             if (UtilValidate.isNotEmpty(conditionList)) {
                 this.conditionList.addAll(conditionList);
             }
@@ -1399,12 +1408,7 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
 
-            EntityOperator<?,?,?> operator = EntityOperator.lookup(this.combine);
-            if (operator == null) {
-                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + operator);
-            }
-
-            return EntityCondition.makeCondition(entityConditionList, UtilGenerics.<EntityJoinOperator>cast(operator));
+            return EntityCondition.makeCondition(entityConditionList, this.operator);
         }
     }
 }
