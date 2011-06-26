@@ -525,7 +525,7 @@ public class GenericDAO {
             sqlBuffer.append("*");
         }
 
-        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
+        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
         sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPkFieldsUnmodifiable(), entity, "AND", datasourceInfo.joinStyle));
 
         try {
@@ -594,7 +594,7 @@ public class GenericDAO {
         } else {
             sqlBuffer.append("*");
         }
-        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
+        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
         sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPkFieldsUnmodifiable(), entity, "AND", datasourceInfo.joinStyle));
 
         SQLProcessor sqlP = new SQLProcessor(helperInfo);
@@ -701,7 +701,7 @@ public class GenericDAO {
         }
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
-        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
+        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
 
         // WHERE clause
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();
@@ -1035,7 +1035,7 @@ public class GenericDAO {
         }
 
         // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
-        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, datasourceInfo));
+        sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
 
         // WHERE clause
         List<EntityConditionParam> whereEntityConditionParams = FastList.newInstance();

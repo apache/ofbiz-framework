@@ -76,7 +76,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
             sql.append(localModelField.getColName());
 
             // FROM clause and when necessary the JOIN or LEFT JOIN clause(s) as well
-            sql.append(SqlJdbcUtil.makeFromClause(localModelEntity, datasourceInfo));
+            sql.append(SqlJdbcUtil.makeFromClause(localModelEntity, null, datasourceInfo));
 
             // WHERE clause
             StringBuilder whereString = new StringBuilder();

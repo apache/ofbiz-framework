@@ -73,7 +73,7 @@ public class SqlJdbcUtil {
     public static final int CHAR_BUFFER_SIZE = 4096;
 
     /** Makes the FROM clause and when necessary the JOIN clause(s) as well */
-    public static String makeFromClause(ModelEntity modelEntity, DatasourceInfo datasourceInfo) throws GenericEntityException {
+    public static String makeFromClause(ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader, DatasourceInfo datasourceInfo) throws GenericEntityException {
         StringBuilder sql = new StringBuilder(" FROM ");
 
         if (modelEntity instanceof ModelViewEntity) {
@@ -119,7 +119,7 @@ public class SqlJdbcUtil {
 
                     if (i == 0) {
                         // this is the first referenced member alias, so keep track of it for future use...
-                        restOfStatement.append(makeViewTable(linkEntity, datasourceInfo));
+                        restOfStatement.append(makeViewTable(linkEntity, modelFieldTypeReader, datasourceInfo));
                         //another possible one that some dbs might need, but not sure of any yet: restOfStatement.append(" AS ");
                         restOfStatement.append(" ");
                         restOfStatement.append(viewLink.getEntityAlias());
@@ -140,7 +140,7 @@ public class SqlJdbcUtil {
                         restOfStatement.append(" INNER JOIN ");
                     }
 
-                    restOfStatement.append(makeViewTable(relLinkEntity, datasourceInfo));
+                    restOfStatement.append(makeViewTable(relLinkEntity, modelFieldTypeReader, datasourceInfo));
                     //another possible one that some dbs might need, but not sure of any yet: restOfStatement.append(" AS ");
                     restOfStatement.append(" ");
                     restOfStatement.append(viewLink.getRelEntityAlias());
@@ -198,7 +198,7 @@ public class SqlJdbcUtil {
                         if (!fromEmpty) sql.append(", ");
                         fromEmpty = false;
 
-                        sql.append(makeViewTable(fromEntity, datasourceInfo));
+                        sql.append(makeViewTable(fromEntity, modelFieldTypeReader, datasourceInfo));
                         sql.append(" ");
                         sql.append(aliasName);
                     }
@@ -213,7 +213,7 @@ public class SqlJdbcUtil {
                     String aliasName = meIter.next();
                     ModelEntity fromEntity = modelViewEntity.getMemberModelEntity(aliasName);
 
-                    sql.append(makeViewTable(fromEntity, datasourceInfo));
+                    sql.append(makeViewTable(fromEntity, modelFieldTypeReader, datasourceInfo));
                     sql.append(" ");
                     sql.append(aliasName);
                     if (meIter.hasNext()) sql.append(", ");
@@ -394,7 +394,7 @@ public class SqlJdbcUtil {
         return sql.toString();
     }
 
-    public static String makeViewTable(ModelEntity modelEntity, DatasourceInfo datasourceInfo) throws GenericEntityException {
+    public static String makeViewTable(ModelEntity modelEntity, ModelFieldTypeReader modelFieldTypeReader, DatasourceInfo datasourceInfo) throws GenericEntityException {
         if (modelEntity instanceof ModelViewEntity) {
             StringBuilder sql = new StringBuilder("(SELECT ");
             Iterator<ModelField> fieldsIter = modelEntity.getFieldsIterator();
@@ -411,7 +411,7 @@ public class SqlJdbcUtil {
                     sql.append(filterColName(curField.getColName()));
                 }
             }
-            sql.append(makeFromClause(modelEntity, datasourceInfo));
+            sql.append(makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
             String viewWhereClause = makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
             if (UtilValidate.isNotEmpty(viewWhereClause)) {
                 sql.append(" WHERE ");
