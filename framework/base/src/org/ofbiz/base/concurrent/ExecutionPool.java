@@ -58,6 +58,12 @@ public final class ExecutionPool {
     }
 
     public static ScheduledExecutorService getExecutor(String namePrefix, int threadCount, boolean preStart) {
+        if (threadCount == 0) {
+            threadCount = 1;
+        } else if (threadCount < 0) {
+            int numCpus = ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors();
+            threadCount = Math.abs(threadCount) * numCpus;
+        }
         ThreadFactory threadFactory = createThreadFactory(namePrefix);
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
         if (preStart) {
@@ -66,12 +72,14 @@ public final class ExecutionPool {
         return executor;
     }
 
+    @Deprecated
     public static ScheduledExecutorService getNewExactExecutor(String namePrefix) {
-        return getExecutor(namePrefix, ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors());
+        return getExecutor(namePrefix, -1, true);
     }
 
+    @Deprecated
     public static ScheduledExecutorService getNewOptimalExecutor(String namePrefix) {
-        return getExecutor(namePrefix, ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors() * 2);
+        return getExecutor(namePrefix, -2, true);
     }
 
     public static void addPulse(Pulse pulse) {

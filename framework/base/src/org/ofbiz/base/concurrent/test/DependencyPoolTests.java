@@ -36,7 +36,7 @@ public class DependencyPoolTests extends GenericTestCaseBase {
 
     public void testDependencyPool() throws Exception {
         // always use more threads than cpus, so that the single-cpu case can be tested
-        ScheduledExecutorService executor = ExecutionPool.getNewOptimalExecutor(getName());
+        ScheduledExecutorService executor = ExecutionPool.getExecutor(getName(), -2, true);
         DependencyPool<Integer, TestItem, String> pool = new DependencyPool<Integer, TestItem, String>(executor);
         int itemSize = 100, depMax = 5, subMax = 3;
         List<TestItem> items = new ArrayList<TestItem>(itemSize);
