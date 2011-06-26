@@ -646,7 +646,9 @@ public class CatalinaContainer implements Container {
                     // nothing was removed from the new list of keys; this
                     // means there are no existing loaded entries that overlap
                     // with the new set
-                    createContext(appInfo);
+                    if (appInfo.location != null) {
+                        createContext(appInfo);
+                    }
                     loadedMounts.addAll(keys);
                 } else {
                     appInfo.appBarDisplay = false; // disable app bar display on overrided apps
