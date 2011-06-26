@@ -93,7 +93,7 @@ public class ModelViewEntity extends ModelEntity {
     /** List of field names to group by */
     protected List<String> groupByFields = FastList.newInstance();
 
-    protected Map<String, Map<String, ModelConversion>> conversions = FastMap.newInstance();
+    protected Map<String, ModelConversion[]> conversions = FastMap.newInstance();
 
     protected ViewEntityCondition viewEntityCondition = null;
 
@@ -516,16 +516,22 @@ public class ModelViewEntity extends ModelEntity {
             throw new RuntimeException("[" + this.getEntityName() + "]: Cannot create View Entity: " + errMsg);
         }
 
-        Map<String, ModelConversion> aliasConversions = conversions.get(member.getEntityName());
-        if (aliasConversions == null) {
-            aliasConversions = FastMap.newInstance();
-            conversions.put(member.getEntityName(), aliasConversions);
+        ModelConversion[] allConversions = conversions.get(member.getEntityName());
+        if (allConversions == null) {
+            ModelConversion conversion = new ModelConversion(aliasName, member);
+            conversions.put(member.getEntityName(), new ModelConversion[] {conversion});
+            return conversion;
         }
-        ModelConversion conversion = aliasConversions.get(aliasName);
-        if (conversion == null) {
-            conversion = new ModelConversion(aliasName, member);
-            aliasConversions.put(aliasName, conversion);
+        for (ModelConversion conversion: allConversions) {
+            if (conversion.aliasName.equals(aliasName)) {
+                return conversion;
+            }
         }
+        ModelConversion[] newConversions = new ModelConversion[allConversions.length + 1];
+        System.arraycopy(allConversions, 0, newConversions, 0, allConversions.length);
+        ModelConversion conversion = new ModelConversion(aliasName, member);
+        newConversions[allConversions.length] = conversion;
+        conversions.put(member.getEntityName(), newConversions);
         return conversion;
     }
 
@@ -572,15 +578,11 @@ public class ModelViewEntity extends ModelEntity {
         int[] maxIndex = new int[conversions.size()];
         ModelConversion[][] allConversions = new ModelConversion[conversions.size()][];
         int i = 0;
-        for (Map<String, ModelConversion> aliasConversions: conversions.values()) {
+        for (ModelConversion[] aliasConversions: conversions.values()) {
             currentIndex[i] = 0;
-            maxIndex[i] = aliasConversions.size();
-            allConversions[i] = new ModelConversion[aliasConversions.size()];
-            int j = 0;
-            for (ModelConversion conversion: aliasConversions.values()) {
-                allConversions[i][j] = conversion;
-                j++;
-            }
+            maxIndex[i] = aliasConversions.length;
+            allConversions[i] = new ModelConversion[aliasConversions.length];
+            System.arraycopy(aliasConversions, 0, allConversions[i], 0, aliasConversions.length);
             i++;
         }
         int ptr = 0;
@@ -606,10 +608,10 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<Map<String, Object>> convert(String fromEntityName, Map<String, ? extends Object> data) {
-        Map<String, ModelConversion> conversions = this.conversions.get(fromEntityName);
+        ModelConversion[] conversions = this.conversions.get(fromEntityName);
         if (conversions == null) return null;
         List<Map<String, Object>> values = FastList.newInstance();
-        for (ModelConversion conversion: conversions.values()) {
+        for (ModelConversion conversion: conversions) {
             conversion.convert(values, data);
         }
         return values;
