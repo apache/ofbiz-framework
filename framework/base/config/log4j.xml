@@ -153,6 +153,18 @@
         <priority value="warn"/>
     </category>
 
+    <category name="org.apache.coyote">
+        <priority value="warn"/>
+    </category>
+
+    <category name="org.apache.jasper">
+        <priority value="warn"/>
+    </category>
+
+    <category name="org.apache.jk">
+        <priority value="warn"/>
+    </category>
+
     <!-- log4j category -->
     <category name="org.apache.log4j">
         <priority value="warn"/>
