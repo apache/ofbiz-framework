@@ -52,7 +52,7 @@ public final class SelectGroup extends Atom {
     }
 
     public Collection<FieldDef> getFieldDefs() {
-        return fieldDefs.values();
+        return fieldDefs != null ? fieldDefs.values() : null;
     }
 
     public Table getTable() {

@@ -102,8 +102,10 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
         if (groupBy == null) {
             groupBy = Collections.emptyList();
         }
-        for (FieldDef fieldDef: selectGroup.getFieldDefs()) {
-            addFieldDef(dve, groupBy, fieldDef.getAlias(), fieldDef);
+        if (selectGroup.getFieldDefs() != null) {
+            for (FieldDef fieldDef: selectGroup.getFieldDefs()) {
+                addFieldDef(dve, groupBy, fieldDef.getAlias(), fieldDef);
+            }
         }
         List<String> orderBy;
         if (selectStatement.getOrderBy() == null) {
