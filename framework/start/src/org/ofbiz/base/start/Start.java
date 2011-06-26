@@ -123,27 +123,28 @@ public class Start {
             System.arraycopy(args, 0, this.loaderArgs, 0, this.loaderArgs.length);
         }
 
-        if (fullInit) {
-            // initialize the classpath
-            initClasspath();
+        if (!fullInit) {
+            return;
+        }
+        // initialize the classpath
+        initClasspath();
 
-            // create the log directory
-            createLogDirectory();
+        // create the log directory
+        createLogDirectory();
 
-            // create the listener thread
-            createListenerThread();
+        // create the listener thread
+        createListenerThread();
 
-            // set the shutdown hook
-            if (config.useShutdownHook) {
-                Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { shutdownServer(); } });
-            } else {
-                System.out.println("Shutdown hook disabled");
-            }
+        // set the shutdown hook
+        if (config.useShutdownHook) {
+            Runtime.getRuntime().addShutdownHook(new Thread() { public void run() { shutdownServer(); } });
+        } else {
+            System.out.println("Shutdown hook disabled");
+        }
 
-            // initialize the startup loaders
-            if (!initStartLoaders()) {
-                System.exit(99);
-            }
+        // initialize the startup loaders
+        if (!initStartLoaders()) {
+            System.exit(99);
         }
     }
 
