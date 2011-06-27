@@ -78,19 +78,15 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
                     }
 
                     ServiceDispatcher sd = serviceDispatcher != null ? serviceDispatcher : ServiceDispatcher.getInstance(dispatcherName, delegator);
-                    LocalDispatcher thisDispatcher = null;
+
                     if (sd != null) {
                         dispatcher = sd.getLocalDispatcher(dispatcherName);
                     }
-                    if (thisDispatcher == null) {
+                    if (dispatcher == null) {
                         dispatcher = new GenericDispatcher(dispatcherName, delegator, readerURLs, loader, sd);
                     }
 
-                    if (dispatcher != null) {
-                        dispatcherCache.put(dispatcherName, dispatcher);
-                    } else {
-                        Debug.logError("Could not create dispatcher with name " + dispatcherName + ", constructor failed (got null value) not sure why/how.", module);
-                    }
+                    dispatcherCache.put(dispatcherName, dispatcher);
                 }
             }
         }
