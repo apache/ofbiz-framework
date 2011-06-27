@@ -35,9 +35,11 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
 
@@ -49,12 +51,14 @@ public class ProductConfigWrapper implements Serializable {
 
     public static final String module = ProductConfigWrapper.class.getName();
 
-    protected LocalDispatcher dispatcher;
+    protected transient LocalDispatcher dispatcher;
+    protected String dispatcherName;
     protected String productStoreId;
     protected String catalogId;
     protected String webSiteId;
     protected String currencyUomId;
-    protected Delegator delegator;
+    protected transient Delegator delegator;
+    protected String delegatorName = null;
     protected GenericValue product = null; // the aggregated product
     protected GenericValue autoUserLogin = null;
     protected BigDecimal listPrice = BigDecimal.ZERO;
@@ -77,12 +81,14 @@ public class ProductConfigWrapper implements Serializable {
         basePrice = pcw.basePrice;
         defaultPrice = pcw.defaultPrice;
         questions = FastList.newInstance();
-        dispatcher = pcw.dispatcher;
+        delegator = pcw.getDelegator();
+        delegatorName = delegator.getDelegatorName();
+        dispatcher = pcw.getDispatcher();
+        dispatcherName = dispatcher.getName();
         productStoreId = pcw.productStoreId;
         catalogId = pcw.catalogId;
         webSiteId = pcw.webSiteId;
         currencyUomId = pcw.currencyUomId;
-        delegator = pcw.delegator;
         autoUserLogin = pcw.autoUserLogin;
         for (ConfigItem ci: pcw.questions) {
             questions.add(new ConfigItem(ci));
@@ -95,11 +101,13 @@ public class ProductConfigWrapper implements Serializable {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
         }
         this.dispatcher = dispatcher;
+        this.dispatcherName = dispatcher.getName();
         this.productStoreId = productStoreId;
         this.catalogId = catalogId;
         this.webSiteId = webSiteId;
         this.currencyUomId = currencyUomId;
         this.delegator = delegator;
+        this.delegatorName = delegator.getDelegatorName();
         this.autoUserLogin = autoUserLogin;
 
         // get the list Price, the base Price
@@ -200,6 +208,20 @@ public class ProductConfigWrapper implements Serializable {
 
     public String getConfigId() {
         return configId;
+    }
+
+    public Delegator getDelegator() {
+        if (delegator == null) {
+            delegator = DelegatorFactory.getDelegator(delegatorName);
+        }
+        return delegator;
+    }
+
+    public LocalDispatcher getDispatcher() {
+        if (dispatcher == null) {
+            dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.getDelegator());
+        }
+        return dispatcher;
     }
 
     @Override
@@ -607,7 +629,7 @@ public class ProductConfigWrapper implements Serializable {
 
                 // Get the component's price
                 Map<String, Object> fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId, "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin, "productStoreId",productStoreId);
-                Map<String, Object> priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                Map<String, Object> priceMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
                 BigDecimal componentListPrice = (BigDecimal) priceMap.get("listPrice");
                 BigDecimal componentPrice = (BigDecimal) priceMap.get("price");
                 Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");
@@ -627,7 +649,7 @@ public class ProductConfigWrapper implements Serializable {
                     }
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
-                    Map<String, Object> purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                    Map<String, Object> purchasePriceResultMap = pcw.getDispatcher().runSync("calculateProductPrice", fieldMap);
                     BigDecimal purchaseListPrice = (BigDecimal) purchasePriceResultMap.get("listPrice");
                     BigDecimal purchasePrice = (BigDecimal) purchasePriceResultMap.get("price");
                     if (purchaseListPrice != null) {
