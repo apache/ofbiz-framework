@@ -307,4 +307,11 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="ENGL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="NIRL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="WALS"/>
+
+    <GeoWithState geoId="DEU" showStateList="1"/>
+    <GeoWithState geoId="GBR" showStateList="1"/>
+    <GeoWithState geoId="ENGL" showStateList="1"/>
+    <GeoWithState geoId="NIRL" showStateList="1"/>
+    <GeoWithState geoId="WALS" showStateList="1"/>
+    <GeoWithState geoId="SCOT" showStateList="1"/>
 </entity-engine-xml>

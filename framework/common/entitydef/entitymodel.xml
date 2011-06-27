@@ -178,6 +178,15 @@ under the License.
         <key-map field-name="geoTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="GeoWithState" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
+        title="">
+        <field name="geoId" type="id-ne"></field>
+        <field name="showStateList" type="indicator"></field>
+        <prim-key field="geoId"/>
+        <relation rel-entity-name="Geo" type="one">
+            <key-map field-name="geoId"/>
+        </relation>
+    </entity>
     <entity entity-name="GeoAssoc" package-name="org.ofbiz.common.geo"
         title="Geographic Boundary Association Entity">
       <field name="geoId" type="id-ne"></field>
@@ -213,6 +222,20 @@ under the License.
         <alias entity-alias="GA" name="geoAssocTypeId"/>
         <view-link entity-alias="GA" rel-entity-alias="GTO">
             <key-map field-name="geoIdTo" rel-field-name="geoId"/>
+        </view-link>
+    </view-entity>
+    <view-entity entity-name="GeoAssocAndGeoToWithState" package-name="org.ofbiz.common.geo">
+        <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
+        <member-entity entity-alias="GTO" entity-name="Geo"/>
+        <member-entity entity-alias="GWS" entity-name="GeoWithState"/>
+        <alias-all entity-alias="GTO"/>
+        <alias entity-alias="GA" name="geoIdFrom" field="geoId"/>
+        <alias entity-alias="GA" name="geoAssocTypeId"/>
+        <view-link entity-alias="GA"  rel-entity-alias="GTO">
+            <key-map field-name="geoIdTo"  rel-field-name="geoId"/>
+        </view-link>
+        <view-link entity-alias="GA"  rel-entity-alias="GWS">
+            <key-map field-name="geoId"  rel-field-name="geoId"/>
         </view-link>
     </view-entity>
     <entity entity-name="GeoAssocType" package-name="org.ofbiz.common.geo"
