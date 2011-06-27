@@ -36,10 +36,12 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
 /**
@@ -52,9 +54,12 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
 
     protected transient LocalDispatcher dispatcher;
     protected String dispatcherName;
+    protected transient Delegator delegator;
+    protected String delegatorName;
     protected GenericValue productConfigItem;
     protected Locale locale;
     protected String mimeTypeId;
+
 
     public static ProductConfigItemContentWrapper makeProductConfigItemContentWrapper(GenericValue productConfigItem, HttpServletRequest request) {
         return new ProductConfigItemContentWrapper(productConfigItem, request);
@@ -62,6 +67,9 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
 
     public ProductConfigItemContentWrapper(LocalDispatcher dispatcher, GenericValue productConfigItem, Locale locale, String mimeTypeId) {
         this.dispatcher = dispatcher;
+        this.dispatcherName = dispatcher.getName();
+        this.delegator = productConfigItem.getDelegator();
+        this.delegatorName = delegator.getDelegatorName();
         this.productConfigItem = productConfigItem;
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;
@@ -69,13 +77,30 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
 
     public ProductConfigItemContentWrapper(GenericValue productConfigItem, HttpServletRequest request) {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        this.dispatcherName = dispatcher.getName();
+        this.delegator = (Delegator) request.getAttribute("delegator");
+        this.delegatorName = delegator.getDelegatorName();
         this.productConfigItem = productConfigItem;
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
     }
 
     public String get(String confItemContentTypeId) {
-        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, mimeTypeId, productConfigItem.getDelegator(), dispatcher);
+        return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, mimeTypeId, getDelegator(), getDispatcher());
+    }
+
+    public Delegator getDelegator() {
+        if (delegator == null) {
+            delegator = DelegatorFactory.getDelegator(delegatorName);
+        }
+        return delegator;
+    }
+
+    public LocalDispatcher getDispatcher() {
+        if (dispatcher == null) {
+            dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, this.getDelegator());
+        }
+        return dispatcher;
     }
 
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, HttpServletRequest request) {
