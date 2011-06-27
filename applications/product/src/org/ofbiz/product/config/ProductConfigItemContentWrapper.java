@@ -50,7 +50,8 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
 
     public static final String module = ProductConfigItemContentWrapper.class.getName();
 
-    protected LocalDispatcher dispatcher;
+    protected transient LocalDispatcher dispatcher;
+    protected String dispatcherName;
     protected GenericValue productConfigItem;
     protected Locale locale;
     protected String mimeTypeId;
