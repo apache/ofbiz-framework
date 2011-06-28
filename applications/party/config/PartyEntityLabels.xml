@@ -1461,6 +1461,7 @@
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.SPOUSE">
         <value xml:lang="en">Spouse</value>
+        <value xml:lang="fr">Conjoint</value>
         <value xml:lang="hi_IN">पति या पत्नी</value>
         <value xml:lang="it">Sposo</value>
         <value xml:lang="pt_BR">Esposo</value>
@@ -1749,6 +1750,7 @@
     </property>
     <property key="RoleType.description.BCC">
         <value xml:lang="en">Blind Copy</value>
+        <value xml:lang="fr">Copie cachée"</value>
         <value xml:lang="hi_IN">ब्लाइंड कॉपी(BCC)</value>
         <value xml:lang="it">Copia nascosta</value>
         <value xml:lang="pt_BR">Cópia oculta</value>
@@ -2012,6 +2014,7 @@
     </property>
     <property key="RoleType.description.CC">
         <value xml:lang="en">Carbon Copy</value>
+        <value xml:lang="fr">Copie à</value>
         <value xml:lang="hi_IN">कार्बन कॉपी</value>
         <value xml:lang="it">Copia conoscenza</value>
         <value xml:lang="pt_BR">Cópia carbono</value>
@@ -2118,6 +2121,7 @@
     </property>
     <property key="RoleType.description.CONTENT">
         <value xml:lang="en">Content Member</value>
+        <value xml:lang="fr">Gestionnaire de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) के सदस्य</value>
         <value xml:lang="it">Membro contenuto</value>
         <value xml:lang="pt_BR">Membro de conteúdo</value>
@@ -2126,6 +2130,7 @@
     </property>
     <property key="RoleType.description.CONTENT_ADMIN">
         <value xml:lang="en">Content Administrator</value>
+        <value xml:lang="fr">Administrateur de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) प्रशासक</value>
         <value xml:lang="it">Amministratore contenuto</value>
         <value xml:lang="pt_BR">Administrador de conteúdo</value>
@@ -2134,6 +2139,7 @@
     </property>
     <property key="RoleType.description.CONTENT_AUTHOR">
         <value xml:lang="en">Content Author</value>
+        <value xml:lang="fr">Auteur de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) लेखक</value>
         <value xml:lang="it">Autore contenuto</value>
         <value xml:lang="pt_BR">Autor de conteúdo</value>
@@ -2142,6 +2148,7 @@
     </property>
     <property key="RoleType.description.CONTENT_EDITOR">
         <value xml:lang="en">Content Editor</value>
+        <value xml:lang="fr">Rédacteur de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) संपादक</value>
         <value xml:lang="it">Redattore contenuto</value>
         <value xml:lang="pt_BR">Editor de conteúdo</value>
@@ -2150,6 +2157,7 @@
     </property>
     <property key="RoleType.description.CONTENT_GUEST">
         <value xml:lang="en">Content Guest</value>
+        <value xml:lang="fr">Lecteur de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) अतिथि</value>
         <value xml:lang="it">Ospite contenuto</value>
         <value xml:lang="pt_BR">Visitante de conteúdo</value>
@@ -2158,6 +2166,7 @@
     </property>
     <property key="RoleType.description.CONTENT_PUBLISHER">
         <value xml:lang="en">Content Publisher</value>
+        <value xml:lang="fr">Editeur de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) प्रकाशक</value>
         <value xml:lang="it">Editore contenuto</value>
         <value xml:lang="pt_BR">Editor de conteúdo(Publicação)</value>
@@ -2166,6 +2175,7 @@
     </property>
     <property key="RoleType.description.CONTENT_USER">
         <value xml:lang="en">Content User</value>
+        <value xml:lang="fr">Utilisateur de document</value>
         <value xml:lang="hi_IN">सामग्री(Content) उपयोगकर्ता</value>
         <value xml:lang="it">Utente contenuto</value>
         <value xml:lang="pt_BR">Usuário de conteúdo</value>
@@ -2258,6 +2268,7 @@
     </property>
     <property key="RoleType.description.EMAIL_ADMIN">
         <value xml:lang="en">Email Administrator</value>
+        <value xml:lang="en">Administrateur des emails</value>
         <value xml:lang="hi_IN">ईमेल प्रशासक</value>
         <value xml:lang="it">Amministratore email</value>
         <value xml:lang="pt_BR">Administrador de e-mail</value>
@@ -2316,6 +2327,7 @@
     </property>
     <property key="RoleType.description.FAM_MANAGER">
         <value xml:lang="en">Maintenance Manager or Supervisor</value>
+        <value xml:lang="en">Responsable de la maintenance</value>
         <value xml:lang="hi_IN">अनुरक्षण प्रबंधक अथवा सुपरवाइजर</value>
         <value xml:lang="it">Gestione manutenzione o supervisore</value>
         <value xml:lang="pt_BR">Gerente ou supervisor de manutenção</value>
@@ -2324,6 +2336,7 @@
     </property>
     <property key="RoleType.description.FAM_SUPPLIER">
         <value xml:lang="en">Maintenance Supplier or Service</value>
+        <value xml:lang="fr">Fournisseur ou service de maintenance</value>
         <value xml:lang="hi_IN">रखरखाव प्रदायक या सेवा</value>
         <value xml:lang="it">Manutenzione fornitore o servizio</value>
         <value xml:lang="pt_BR">Fornecedor ou serviço de manutenção</value>
@@ -2332,6 +2345,7 @@
     </property>
     <property key="RoleType.description.FAM_WORKER">
         <value xml:lang="en">Maintenance Worker</value>
+        <value xml:lang="fr">Opérateur de maintenance</value>
         <value xml:lang="hi_IN">रखरखाव कार्यकर्ता</value>
         <value xml:lang="it">Impiegato manutenzione</value>
         <value xml:lang="pt_BR">Funcionário de manutenção</value>
@@ -2922,6 +2936,7 @@
     </property>
     <property key="RoleType.description.SPONSOR">
         <value xml:lang="en">Sponsor</value>
+        <value xml:lang="fr">Sponsor/Parrain</value>
         <value xml:lang="hi_IN">प्रायोजक</value>
         <value xml:lang="it">Sponsorizzatore</value>
         <value xml:lang="pt_BR">Patrocinador</value>
@@ -2930,6 +2945,7 @@
     </property>
     <property key="RoleType.description.SPOUSE">
         <value xml:lang="en">Spouse</value>
+        <value xml:lang="fr">Conjoint</value>
         <value xml:lang="hi_IN">पति या पत्नी</value>
         <value xml:lang="it">Sposo</value>
         <value xml:lang="pt_BR">Esposo</value>
@@ -3149,6 +3165,7 @@
     </property>
     <property key="TermType.description.CFR">
         <value xml:lang="en">Incoterm Cost and Freight</value>
+        <value xml:lang="fr">Incoterm : chargé dans le bateau, livraison au port de départ, sans assurance</value>
         <value xml:lang="it">Costi e spese di trasporto incoterm</value>
         <value xml:lang="pt_BR">Incoterm CFR</value>
         <value xml:lang="zh">国际贸易成本加运费价格</value>
@@ -3156,6 +3173,7 @@
     </property>
     <property key="TermType.description.CIF">
         <value xml:lang="en">Incoterm Cost, Insurance and Freight</value>
+        <value xml:lang="fr">Incoterm : chargé sur le bateau, frais jusqu'au port d'arrivée, avec assurance</value>
         <value xml:lang="it">Costi, assicurazione e spese di trasporto incoterm</value>
         <value xml:lang="pt_BR">Incoterm CIF</value>
         <value xml:lang="zh">国际贸易到岸价格（成本、保险费加运费）</value>
@@ -3163,6 +3181,7 @@
     </property>
     <property key="TermType.description.CIP">
         <value xml:lang="en">Incoterm Carriage and Insurance Paid to</value>
+        <value xml:lang="fr">Incoterm : livraison au premier transporteur, frais jusqu'au déchargement du mode de transport, avec assurance</value>
         <value xml:lang="it">Trasporto e assicurazione pagata incoterm</value>
         <value xml:lang="pt_BR">Incoterm CIP</value>
         <value xml:lang="zh">国际贸易运费、保险费付至</value>
@@ -3234,6 +3253,7 @@
     </property>
     <property key="TermType.description.DES">
         <value xml:lang="en">Incoterm Delivered Ex Ship</value>
+        <value xml:lang="fr">Incoterm : livré sur quai</value>
         <value xml:lang="it">Consegnato ex spedizione incoterm</value>
         <value xml:lang="pt_BR">Incoterm DES</value>
         <value xml:lang="zh">国际贸易目的港船上交货</value>
@@ -3256,6 +3276,7 @@
     </property>
     <property key="TermType.description.EXW">
         <value xml:lang="en">Incoterm Ex Works</value>
+        <value xml:lang="fr">Incoterm : au départ non chargé, non dédouané</value>
         <value xml:lang="it">Ex fabbrica incoterm</value>
         <value xml:lang="pt_BR">Incoterm EXW</value>
         <value xml:lang="zh">国际贸易工厂交货价</value>
@@ -3263,6 +3284,7 @@
     </property>
     <property key="TermType.description.FAS">
         <value xml:lang="en">Incoterm Free Alongside Ship</value>
+        <value xml:lang="en">Incoterm : sur le quai du port de départ</value>
         <value xml:lang="it">Gratis accanto alla spedizione incoterm</value>
         <value xml:lang="pt_BR">Incoterm FAS</value>
         <value xml:lang="zh">国际贸易(启运地)船边交货价格</value>
@@ -3270,6 +3292,7 @@
     </property>
     <property key="TermType.description.FCA">
         <value xml:lang="en">Incoterm Free Carrier</value>
+        <value xml:lang="fr">Incoterm : marchandises dédouanées et chargées dans le pays de départ</value>
         <value xml:lang="it">Gratis spedizioniere incoterm</value>
         <value xml:lang="pt_BR">Incoterm FCA</value>
         <value xml:lang="zh">国际贸易离岸价</value>
@@ -3435,6 +3458,7 @@
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_1">
         <value xml:lang="en">Payment net days, part 1</value>
+        <value xml:lang="fr">Paiement net jours, part 1</value>
         <value xml:lang="it">Pagamento netto giorni, parte 1</value>
         <value xml:lang="pt_BR">Pagamento em dias corridos, parte 1</value>
         <value xml:lang="zh">支付净天数，第一部分</value>
@@ -3442,6 +3466,7 @@
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_2">
         <value xml:lang="en">Payment net days, part 2</value>
+        <value xml:lang="fr">Paiement net jours, part 2</value>
         <value xml:lang="it">Pagamento netto giorni, parte 2</value>
         <value xml:lang="pt_BR">Pagamento em dias corridos, parte 2</value>
         <value xml:lang="zh">支付净天数，第二部分</value>
@@ -3449,6 +3474,7 @@
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_3">
         <value xml:lang="en">Payment net days, part 3</value>
+        <value xml:lang="fr">Paiement net jours, part 3</value>
         <value xml:lang="it">Pagamento netto giorni, parte 3</value>
         <value xml:lang="pt_BR">Pagamento em dias corridos, parte 3</value>
         <value xml:lang="zh">支付净天数，第三部分</value>
@@ -3456,6 +3482,7 @@
     </property>
     <property key="TermType.description.FOB">
         <value xml:lang="en">Incoterm Free On Board</value>
+        <value xml:lang="fr">Incoterm chargé sur le bateau</value>
         <value xml:lang="it">Gratis a bordo incoterm</value>
         <value xml:lang="pt_BR">Incoterm FOB</value>
         <value xml:lang="zh">国际贸易离岸价格</value>
@@ -3478,6 +3505,7 @@
     </property>
     <property key="TermType.description.INCO_TERM">
         <value xml:lang="en">Incoterm</value>
+        <value xml:lang="fr">Incoterm</value>
         <value xml:lang="it">Incoterm</value>
         <value xml:lang="pt_BR">Incoterm</value>
         <value xml:lang="zh">国际贸易</value>
@@ -3545,6 +3573,7 @@
     </property>
     <property key="TermType.description.PURCHASING">
         <value xml:lang="en">Purchasing</value>
+        <value xml:lang="fr">Achats</value>
         <value xml:lang="hi_IN">क्रय</value>
         <value xml:lang="it">Acquisto</value>
         <value xml:lang="pt_BR">Compra</value>
@@ -3553,6 +3582,7 @@
     </property>
     <property key="TermType.description.PURCH_FREIGHT">
         <value xml:lang="en">Preferred Freight</value>
+        <value xml:lang="fr">Frêt préféré</value>
         <value xml:lang="hi_IN">पसंदीदा भाड़ा</value>
         <value xml:lang="it">Spese di trasporto preferite</value>
         <value xml:lang="pt_BR">Frete preferido</value>
@@ -3561,6 +3591,7 @@
     </property>
     <property key="TermType.description.PURCH_VENDOR_ID">
         <value xml:lang="en">Vendor Customer ID</value>
+        <value xml:lang="fr">Réf client du vendeur</value>
         <value xml:lang="hi_IN">विक्रेता ग्राहक क्रमांक</value>
         <value xml:lang="it">Cliente fornitore</value>
         <value xml:lang="pt_BR">Identificação de cliente fornecedor</value>
