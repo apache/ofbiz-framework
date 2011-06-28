@@ -308,14 +308,18 @@ public class RequestHandler {
                             if (returnString.length() > 0) {
                                 request.setAttribute("_ERROR_MESSAGE_", returnString);
                             }
-                            eventReturn = "protect";
-                            // check to see if there is an "protect" response, if so it's ok else show the default_error_response_view
+                            eventReturn = null;
+                            // check to see if there is a "protect" response, if so it's ok else show the default_error_response_view
                             if (!requestMap.requestResponseMap.containsKey("protect")) {
                                 String protectView = controllerConfig.getProtectView();
                                 if (protectView != null) {
                                     overrideViewUri = protectView;
                                 } else {
                                     overrideViewUri = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
+                                    overrideViewUri = overrideViewUri.replace("view:", "");
+                                    if ("none:".equals(overrideViewUri)) {
+                                        interruptRequest = true;
+                                    }
                                 }
                             }
                         }
