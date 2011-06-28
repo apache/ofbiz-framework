@@ -233,8 +233,8 @@
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="parentProjectId" title="${uiLabelMap.ProjectMgrParentProjectName}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}" key-field-name="workEffortId">
-                <sub-hyperlink target="projectView" description="${workEffortId}" link-style="buttontext">
-                    <parameter param-name="projectId" from-field="workEffortId"/>
+                <sub-hyperlink target="projectView" description="${project.parentProjectId}" link-style="buttontext">
+                    <parameter param-name="projectId" from-field="project.parentProjectId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
