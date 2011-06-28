@@ -705,7 +705,7 @@
             <field-map field-name="statusId" from-field="project.currentStatusId"/>
         </entity-one>
         <set field="highInfo.createdDate" from-field="project.createdDate"/>
-        <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/>
+        <set field="highInfo.parentProjectId" from-field="project.workEffortParentId"/>
         <!-- loop through the related phases and tasks -->
         <get-related value-field="project" relation-name="ChildWorkEffort" list="phases"/>
         <if-not-empty field="phases">
