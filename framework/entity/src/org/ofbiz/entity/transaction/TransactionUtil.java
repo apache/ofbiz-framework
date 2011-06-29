@@ -417,8 +417,8 @@ public class TransactionUtil implements Status {
 
     public static void resume(Transaction parentTx) throws GenericTransactionException {
         if (parentTx == null) return;
+        TransactionManager txMgr = TransactionFactory.getTransactionManager();
         try {
-            TransactionManager txMgr = TransactionFactory.getTransactionManager();
             if (txMgr != null) {
                 setTransactionBeginStack(popTransactionBeginStackSave());
                 setSetRollbackOnlyCause(popSetRollbackOnlyCauseSave());
@@ -428,12 +428,12 @@ public class TransactionUtil implements Status {
         } catch (InvalidTransactionException e) {
             /* NOTE: uncomment this for Weblogic Application Server
             // this is a work-around for non-standard Weblogic functionality; for more information see: http://www.onjava.com/pub/a/onjava/2005/07/20/transactions.html?page=3
-            if (parentTx instanceof weblogic.transaction.ClientTransactionManager) {
+            if (txMgr instanceof weblogic.transaction.ClientTransactionManager) {
                 // WebLogic 8 and above
-                ((weblogic.transaction.ClientTransactionManager) parentTx).forceResume(transaction);
-            } else if (parentTx instanceof weblogic.transaction.TransactionManager) {
+                ((weblogic.transaction.ClientTransactionManager) txMgr).forceResume(parentTx);
+            } else if (txMgr instanceof weblogic.transaction.TransactionManager) {
                 // WebLogic 7
-                ((weblogic.transaction.TransactionManager) parentTx).forceResume(transaction);
+                ((weblogic.transaction.TransactionManager) txMgr).forceResume(parentTx);
             } else {
                 throw new GenericTransactionException("System error, could not resume transaction", e);
             }
