@@ -75,20 +75,32 @@ public class TransactionUtil implements Status {
     private static ThreadLocal<Timestamp> transactionStartStamp = new ThreadLocal<Timestamp>();
     private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<Timestamp>();
 
+    @Deprecated
     public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
         return inTransaction(noTransaction(callable), ifErrorMessage, 0, true).call();
     }
 
+    @Deprecated
     public static <V> V doNewTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
         return inTransaction(noTransaction(callable), ifErrorMessage, 0, printException).call();
     }
 
+    public static <V> V doNewTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
+        return inTransaction(noTransaction(callable), ifErrorMessage, timeout, printException).call();
+    }
+
+    @Deprecated
     public static <V> V doTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
         return inTransaction(callable, ifErrorMessage, 0, true).call();
     }
 
+    @Deprecated
     public static <V> V doTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
         return inTransaction(callable, ifErrorMessage, 0, printException).call();
+    }
+
+    public static <V> V doTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) throws GenericEntityException {
+        return inTransaction(callable, ifErrorMessage, timeout, printException).call();
     }
 
     public static <V> Callable<V> noTransaction(Callable<V> callable) {
