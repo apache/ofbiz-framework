@@ -23,11 +23,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
@@ -69,20 +72,28 @@ public class ServiceEcaUtil {
             return;
         }
 
-        List<List<ServiceEcaRule>> allHandlerRules = FastList.newInstance();
+        List<Future<List<ServiceEcaRule>>> futures = FastList.newInstance();
         for (Element serviceEcasElement: UtilXml.childElementList(rootElement, "service-ecas")) {
             ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceEcasElement);
-            allHandlerRules.add(getEcaDefinitions(handler));
+            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createEcaLoaderCallable(handler)));
         }
 
         // get all of the component resource eca stuff, ie specified in each ofbiz-component.xml file
         for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("eca")) {
-            allHandlerRules.add(getEcaDefinitions(componentResourceInfo.createResourceHandler()));
+            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createEcaLoaderCallable(componentResourceInfo.createResourceHandler())));
         }
 
-        for (List<ServiceEcaRule> handlerRules: allHandlerRules) {
+        for (List<ServiceEcaRule> handlerRules: ExecutionPool.getAllFutures(futures)) {
             mergeEcaDefinitions(handlerRules);
         }
+    }
+
+    protected static Callable<List<ServiceEcaRule>> createEcaLoaderCallable(final ResourceHandler handler) {
+        return new Callable<List<ServiceEcaRule>>() {
+            public List<ServiceEcaRule> call() throws Exception {
+                return getEcaDefinitions(handler);
+            }
+        };
     }
 
     public static void addEcaDefinitions(ResourceHandler handler) {
