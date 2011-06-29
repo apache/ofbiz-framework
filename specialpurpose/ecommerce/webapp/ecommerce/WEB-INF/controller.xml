@@ -1970,6 +1970,12 @@ under the License.
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    <request-map uri="stream">
+        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="error"/>
+    </request-map>
+    
     
     <!-- End of Request Mappings -->
 
