@@ -117,7 +117,9 @@ public class TransactionUtil implements Status {
             if (transactionAbortCause == null) {
                 TransactionUtil.commit(tx);
             } else {
-                if (printException) transactionAbortCause.printStackTrace();
+                if (printException) {
+                    transactionAbortCause.printStackTrace();
+                }
                 TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
             }
         }
@@ -142,9 +144,13 @@ public class TransactionUtil implements Status {
         if (ut != null) {
             try {
                 int currentStatus = ut.getStatus();
-                if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] current status : " + getTransactionStateString(currentStatus), module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[TransactionUtil.begin] current status : " + getTransactionStateString(currentStatus), module);
+                }
                 if (currentStatus == Status.STATUS_ACTIVE) {
-                    if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] active transaction in place, so no transaction begun", module);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("[TransactionUtil.begin] active transaction in place, so no transaction begun", module);
+                    }
                     return false;
                 } else if (currentStatus == Status.STATUS_MARKED_ROLLBACK) {
                     Exception e = getTransactionBeginStack();
@@ -200,12 +206,16 @@ public class TransactionUtil implements Status {
         // set the timeout for THIS transaction
         if (timeout > 0) {
             ut.setTransactionTimeout(timeout);
-            if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] set transaction timeout to : " + timeout + " seconds", module);
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("[TransactionUtil.begin] set transaction timeout to : " + timeout + " seconds", module);
+            }
         }
 
         // begin the transaction
         ut.begin();
-        if (Debug.verboseOn()) Debug.logVerbose("[TransactionUtil.begin] transaction begun", module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("[TransactionUtil.begin] transaction begun", module);
+        }
 
         // reset the timeout to the default
         if (timeout > 0) {
@@ -372,7 +382,9 @@ public class TransactionUtil implements Status {
 
                 if (status != STATUS_NO_TRANSACTION) {
                     if (status != STATUS_MARKED_ROLLBACK) {
-                        if (Debug.warningOn()) Debug.logWarning(new Exception(causeMessage), "[TransactionUtil.setRollbackOnly] Calling transaction setRollbackOnly; this stack trace shows where this is happening:", module);
+                        if (Debug.warningOn()) {
+                            Debug.logWarning(new Exception(causeMessage), "[TransactionUtil.setRollbackOnly] Calling transaction setRollbackOnly; this stack trace shows where this is happening:", module);
+                        }
                         ut.setRollbackOnly();
                         setSetRollbackOnlyCause(causeMessage, causeThrowable);
                     } else {
@@ -416,7 +428,9 @@ public class TransactionUtil implements Status {
     }
 
     public static void resume(Transaction parentTx) throws GenericTransactionException {
-        if (parentTx == null) return;
+        if (parentTx == null) {
+            return;
+        }
         TransactionManager txMgr = TransactionFactory.getTransactionManager();
         try {
             if (txMgr != null) {
@@ -580,10 +594,12 @@ public class TransactionUtil implements Status {
         clearTransactionStartStampStack();
         return num;
     }
+
     public static boolean suspendedTransactionsHeld() {
         List<Transaction> tl = suspendedTxStack.get();
         return UtilValidate.isNotEmpty(tl);
     }
+
     public static List<Transaction> getSuspendedTxStack() {
         List<Transaction> tl = suspendedTxStack.get();
         if (tl == null) {
@@ -592,6 +608,7 @@ public class TransactionUtil implements Status {
         }
         return tl;
     }
+
     public static List<Exception> getSuspendedTxLocationsStack() {
         List<Exception> tl = suspendedTxLocationStack.get();
         if (tl == null) {
@@ -600,6 +617,7 @@ public class TransactionUtil implements Status {
         }
         return tl;
     }
+
     protected static void pushSuspendedTransaction(Transaction t) {
         List<Transaction> tl = getSuspendedTxStack();
         tl.add(0, t);
@@ -608,24 +626,30 @@ public class TransactionUtil implements Status {
         // save the current transaction start stamp
         pushTransactionStartStamp(t);
     }
+
     protected static Transaction popSuspendedTransaction() {
         List<Transaction> tl = suspendedTxStack.get();
         if (UtilValidate.isNotEmpty(tl)) {
             // restore the transaction start stamp
             popTransactionStartStamp();
             List<Exception> stls = suspendedTxLocationStack.get();
-            if (UtilValidate.isNotEmpty(stls)) stls.remove(0);
+            if (UtilValidate.isNotEmpty(stls)) {
+                stls.remove(0);
+            }
             return tl.remove(0);
         } else {
             return null;
         }
     }
+
     protected static void removeSuspendedTransaction(Transaction t) {
         List<Transaction> tl = suspendedTxStack.get();
         if (UtilValidate.isNotEmpty(tl)) {
             tl.remove(t);
             List<Exception> stls = suspendedTxLocationStack.get();
-            if (UtilValidate.isNotEmpty(stls)) stls.remove(0);
+            if (UtilValidate.isNotEmpty(stls)) {
+                stls.remove(0);
+            }
             popTransactionStartStamp(t);
         }
     }
@@ -650,6 +674,7 @@ public class TransactionUtil implements Status {
         }
         ctEl.add(0, e);
     }
+
     private static Exception popTransactionBeginStackSave() {
         // do the unofficial all threads Map one first, and don't do a real return
         Long curThreadId = Thread.currentThread().getId();
@@ -666,6 +691,7 @@ public class TransactionUtil implements Status {
             return null;
         }
     }
+
     public static int getTransactionBeginStackSaveSize() {
         List<Exception> el = transactionBeginStackSave.get();
         if (el != null) {
@@ -674,18 +700,21 @@ public class TransactionUtil implements Status {
             return 0;
         }
     }
+
     public static List<Exception> getTransactionBeginStackSave() {
         List<Exception> el = transactionBeginStackSave.get();
         List<Exception> elClone = FastList.newInstance();
         elClone.addAll(el);
         return elClone;
     }
+
     public static Map<Long, List<Exception>> getAllThreadsTransactionBeginStackSave() {
         Map<Long, List<Exception>> attbssMap = allThreadsTransactionBeginStackSave;
         Map<Long, List<Exception>> attbssMapClone = FastMap.newInstance();
         attbssMapClone.putAll(attbssMap);
         return attbssMapClone;
     }
+
     public static void printAllThreadsTransactionBeginStacks() {
         if (!Debug.infoOn()) {
             return;
@@ -714,6 +743,7 @@ public class TransactionUtil implements Status {
         Exception e = new Exception("Tx Stack Placeholder");
         setTransactionBeginStack(e);
     }
+
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
             Exception e = transactionBeginStack.get();
@@ -725,6 +755,7 @@ public class TransactionUtil implements Status {
         Long curThreadId = Thread.currentThread().getId();
         allThreadsTransactionBeginStack.put(curThreadId, newExc);
     }
+
     private static Exception clearTransactionBeginStack() {
         Long curThreadId = Thread.currentThread().getId();
         allThreadsTransactionBeginStack.remove(curThreadId);
@@ -739,6 +770,7 @@ public class TransactionUtil implements Status {
             return e;
         }
     }
+
     public static Exception getTransactionBeginStack() {
         Exception e = transactionBeginStack.get();
         if (e == null) {
@@ -754,14 +786,26 @@ public class TransactionUtil implements Status {
     private static class RollbackOnlyCause {
         protected String causeMessage;
         protected Throwable causeThrowable;
+
         public RollbackOnlyCause(String causeMessage, Throwable causeThrowable) {
             this.causeMessage = causeMessage;
             this.causeThrowable = causeThrowable;
         }
-        public String getCauseMessage() { return this.causeMessage + (this.causeThrowable == null ? "" : this.causeThrowable.toString()); }
-        public Throwable getCauseThrowable() { return this.causeThrowable; }
-        public void logError(String message) { Debug.logError(this.getCauseThrowable(), (message == null ? "" : message) + this.getCauseMessage(), module); }
-        public boolean isEmpty() { return (UtilValidate.isEmpty(this.getCauseMessage()) && this.getCauseThrowable() == null); }
+        public String getCauseMessage() {
+            return this.causeMessage + (this.causeThrowable == null ? "" : this.causeThrowable.toString());
+        }
+
+        public Throwable getCauseThrowable() {
+            return this.causeThrowable;
+        }
+
+        public void logError(String message) {
+            Debug.logError(this.getCauseThrowable(), (message == null ? "" : message) + this.getCauseMessage(), module);
+        }
+
+        public boolean isEmpty() {
+            return (UtilValidate.isEmpty(this.getCauseMessage()) && this.getCauseThrowable() == null);
+        }
     }
 
     private static void pushSetRollbackOnlyCauseSave(RollbackOnlyCause e) {
@@ -772,6 +816,7 @@ public class TransactionUtil implements Status {
         }
         el.add(0, e);
     }
+
     private static RollbackOnlyCause popSetRollbackOnlyCauseSave() {
         List<RollbackOnlyCause> el = setRollbackOnlyCauseSave.get();
         if (UtilValidate.isNotEmpty(el)) {
@@ -785,6 +830,7 @@ public class TransactionUtil implements Status {
         RollbackOnlyCause roc = new RollbackOnlyCause(causeMessage, causeThrowable);
         setSetRollbackOnlyCause(roc);
     }
+
     private static void setSetRollbackOnlyCause(RollbackOnlyCause newRoc) {
         if (setRollbackOnlyCause.get() != null) {
             RollbackOnlyCause roc = setRollbackOnlyCause.get();
@@ -794,6 +840,7 @@ public class TransactionUtil implements Status {
         }
         setRollbackOnlyCause.set(newRoc);
     }
+
     private static RollbackOnlyCause clearSetRollbackOnlyCause() {
         RollbackOnlyCause roc = setRollbackOnlyCause.get();
         if (roc == null) {
@@ -844,7 +891,6 @@ public class TransactionUtil implements Status {
             Debug.logError("Error in transaction handling - no start stamp to push.", module);
         }
     }
-
 
     /**
     * Method called when the suspended stack gets cleaned by {@link #cleanSuspendedTransactions()}.

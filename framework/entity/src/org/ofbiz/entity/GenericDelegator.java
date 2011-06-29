@@ -105,7 +105,7 @@ public class GenericDelegator implements Delegator {
     protected Map<?,?> andCacheFieldSets = FastMap.newInstance();
 
     protected DistributedCacheClear distributedCacheClear = null;
-    protected boolean enableJMS = true;    
+    protected boolean enableJMS = true;
     protected EntityEcaHandler<?> entityEcaHandler = null;
     protected SequenceUtil sequencer = null;
     protected EntityCrypto crypto = null;
@@ -209,7 +209,7 @@ public class GenericDelegator implements Delegator {
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
         //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorFullName + "\".", module);
         this.setDelegatorNames(delegatorFullName);
-        
+
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
             Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
@@ -220,7 +220,7 @@ public class GenericDelegator implements Delegator {
                 throw new GenericEntityException("No Tenant record found for delegator [" + this.delegatorFullName + "] with tenantId [" + this.delegatorTenantId + "]");
             }
         }
-        
+
         this.modelReader = ModelReader.getModelReader(delegatorBaseName);
         this.modelGroupReader = ModelGroupReader.getModelGroupReader(delegatorBaseName);
 
@@ -243,8 +243,9 @@ public class GenericDelegator implements Delegator {
             GenericHelperInfo helperInfo = this.getGroupHelperInfo(groupName);
             String helperBaseName = helperInfo.getHelperBaseName();
 
-            if (Debug.infoOn()) Debug.logInfo("Delegator \"" + delegatorFullName + "\" initializing helper \"" +
-                    helperBaseName + "\" for entity group \"" + groupName + "\".", module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Delegator \"" + delegatorFullName + "\" initializing helper \"" + helperBaseName + "\" for entity group \"" + groupName + "\".", module);
+            }
             if (UtilValidate.isNotEmpty(helperInfo.getHelperFullName())) {
                 // pre-load field type defs, the return value is ignored
                 ModelFieldTypeReader.getModelFieldTypeReader(helperBaseName);
@@ -253,7 +254,9 @@ public class GenericDelegator implements Delegator {
 
                 DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperBaseName);
                 if (datasourceInfo.checkOnStart) {
-                    if (Debug.infoOn()) Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasourceInfo.addMissingOnStart, module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasourceInfo.addMissingOnStart, module);
+                    }
                     try {
                         helper.checkDataSource(this.getModelEntityMapByGroup(groupName), null, datasourceInfo.addMissingOnStart);
                     } catch (GenericEntityException e) {
@@ -302,7 +305,7 @@ public class GenericDelegator implements Delegator {
                 boolean isJmsEnabled = getEnabledJMS();
                 enableJMS(!getDelegatorInfo().useDistributedCacheClear); // To avoid duplicated JMS listeners (OFBIZ-4296)
                 this.entityEcaHandler.setDelegator(this);
-               enableJMS(isJmsEnabled);
+                enableJMS(isJmsEnabled);
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " was not found, Entity ECA Rules will be disabled", module);
             } catch (InstantiationException e) {
@@ -436,15 +439,19 @@ public class GenericDelegator implements Delegator {
     }
 
     public GenericHelperInfo getGroupHelperInfo(String entityGroupName) {
-        if (entityGroupName == null) return null;
+        if (entityGroupName == null) {
+            return null;
+        }
         String helperBaseName = this.getGroupHelperName(entityGroupName);
-        if (helperBaseName == null) return null;
+        if (helperBaseName == null) {
+            return null;
+        }
         GenericHelperInfo helperInfo = new GenericHelperInfo(entityGroupName, helperBaseName);
-        
+
         // to avoid infinite recursion, and to behave right for shared org.ofbiz.tenant entities, do nothing with the tenantId if the entityGroupName=org.ofbiz.tenant
         if (UtilValidate.isNotEmpty(this.delegatorTenantId) && !"org.ofbiz.tenant".equals(entityGroupName)) {
             helperInfo.setTenantId(this.delegatorTenantId);
-            
+
             // get the JDBC parameters from the DB for the entityGroupName and tenantId
             try {
                 // NOTE: instead of caching the GenericHelpInfo object do a cached query here and create a new object each time, will avoid issues when the database data changes during run time
@@ -456,21 +463,25 @@ public class GenericDelegator implements Delegator {
                     helperInfo.setOverrideUsername(tenantDataSource.getString("jdbcUsername"));
                     helperInfo.setOverridePassword(tenantDataSource.getString("jdbcPassword"));
                 } else {
-                    // don't log this, happens too many times: if (Debug.warningOn()) Debug.logWarning("Could not find TenantDataSource information for tenantId=[" + this.delegatorTenantId + "] and entityGroupName=[" + entityGroupName + "] in delegator [" + this.delegatorFullName + "]; will be defaulting to settings for the base delegator name [" + this.delegatorBaseName + "]", module);
+                    /* don't log this, happens too many times:
+                    if (Debug.warningOn()) {
+                        Debug.logWarning("Could not find TenantDataSource information for tenantId=[" + this.delegatorTenantId + "] and entityGroupName=[" + entityGroupName + "] in delegator [" + this.delegatorFullName + "]; will be defaulting to settings for the base delegator name [" + this.delegatorBaseName + "]", module);
+                    }
+                    */
                 }
             } catch (GenericEntityException e) {
                 // don't complain about this too much, just log the error if there is one
                 Debug.logInfo(e, "Error getting TenantDataSource info for tenantId=" + this.delegatorTenantId + ", entityGroupName=" + entityGroupName, module);
             }
-                
+
         }
         return helperInfo;
     }
-    
+
     protected GenericHelperInfo getEntityHelperInfo(String entityName) {
         return this.getGroupHelperInfo(this.getEntityGroupName(entityName));
     }
-    
+
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#getEntityHelperName(java.lang.String)
      */
@@ -482,8 +493,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#getEntityHelperName(org.ofbiz.entity.model.ModelEntity)
      */
     public String getEntityHelperName(ModelEntity entity) {
-        if (entity == null)
+        if (entity == null) {
             return null;
+        }
         return getEntityHelperName(entity.getEntityName());
     }
 
@@ -535,8 +547,9 @@ public class GenericDelegator implements Delegator {
     public Collection<String> getEntityFieldTypeNames(ModelEntity entity) throws GenericEntityException {
         String helperName = getEntityHelperName(entity);
 
-        if (helperName == null || helperName.length() <= 0)
+        if (helperName == null || helperName.length() <= 0) {
             return null;
+        }
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
 
         if (modelFieldTypeReader == null) {
@@ -1224,9 +1237,9 @@ public class GenericDelegator implements Delegator {
         value.refreshFromValue(newValue);
     }
 
-   /* (non-Javadoc)
- * @see org.ofbiz.entity.Delegator#storeByCondition(java.lang.String, java.util.Map, org.ofbiz.entity.condition.EntityCondition)
- */
+    /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#storeByCondition(java.lang.String, java.util.Map, org.ofbiz.entity.condition.EntityCondition)
+     */
     public int storeByCondition(String entityName, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
         return storeByCondition(entityName, fieldsToSet, condition, true);
     }
@@ -1510,6 +1523,7 @@ public class GenericDelegator implements Delegator {
     public GenericValue findOne(String entityName, boolean useCache, Object... fields) throws GenericEntityException {
         return findOne(entityName, UtilMisc.toMap(fields), useCache);
     }
+
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findOne(java.lang.String, java.util.Map, boolean)
      */
@@ -1684,9 +1698,7 @@ public class GenericDelegator implements Delegator {
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#find(java.lang.String, org.ofbiz.entity.condition.EntityCondition, org.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.ofbiz.entity.util.EntityFindOptions)
      */
-    public EntityListIterator find(String entityName, EntityCondition whereEntityCondition,
-            EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
-            throws GenericEntityException {
+    public EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException {
 
         // if there is no transaction throw an exception, we don't want to create a transaction here since closing it would mess up the ELI
         if (!TransactionUtil.isTransactionInPlace()) {
@@ -1713,8 +1725,7 @@ public class GenericDelegator implements Delegator {
 
         ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
         GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
-        EntityListIterator eli = helper.findListIteratorByCondition(modelEntity, whereEntityCondition,
-                havingEntityCondition, fieldsToSelect, orderBy, findOptions);
+        EntityListIterator eli = helper.findListIteratorByCondition(modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
         eli.setDelegator(this);
 
         ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
@@ -1724,9 +1735,7 @@ public class GenericDelegator implements Delegator {
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findList(java.lang.String, org.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.ofbiz.entity.util.EntityFindOptions, boolean)
      */
-    public List<GenericValue> findList(String entityName, EntityCondition entityCondition,
-            Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache)
-            throws GenericEntityException {
+    public List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache) throws GenericEntityException {
 
         EntityEcaRuleRunner<?> ecaRunner = null;
         GenericValue dummyValue = null;
@@ -1778,9 +1787,7 @@ public class GenericDelegator implements Delegator {
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#findListIteratorByCondition(org.ofbiz.entity.model.DynamicViewEntity, org.ofbiz.entity.condition.EntityCondition, org.ofbiz.entity.condition.EntityCondition, java.util.Collection, java.util.List, org.ofbiz.entity.util.EntityFindOptions)
      */
-    public EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition,
-            EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
-            throws GenericEntityException {
+    public EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions) throws GenericEntityException {
 
         // if there is no transaction throw an exception, we don't want to create a transaction here since closing it would mess up the ELI
         if (!TransactionUtil.isTransactionInPlace()) {
@@ -1904,7 +1911,9 @@ public class GenericDelegator implements Delegator {
         // put the byAndFields (if not null) into the hash map first,
         // they will be overridden by value's fields if over-specified this is important for security and cleanliness
         Map<String, Object> fields = FastMap.newInstance();
-        if (byAndFields != null) fields.putAll(byAndFields);
+        if (byAndFields != null) {
+            fields.putAll(byAndFields);
+        }
         for (int i = 0; i < relation.getKeyMapsSize(); i++) {
             ModelKeyMap keyMap = relation.getKeyMap(i);
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
@@ -1928,7 +1937,9 @@ public class GenericDelegator implements Delegator {
         // put the byAndFields (if not null) into the hash map first,
         // they will be overridden by value's fields if over-specified this is important for security and cleanliness
         Map<String, Object> fields = FastMap.newInstance();
-        if (byAndFields != null) fields.putAll(byAndFields);
+        if (byAndFields != null) {
+            fields.putAll(byAndFields);
+        }
         for (int i = 0; i < relation.getKeyMapsSize(); i++) {
             ModelKeyMap keyMap = relation.getKeyMap(i);
             fields.put(keyMap.getRelFieldName(), value.get(keyMap.getFieldName()));
@@ -2054,7 +2065,9 @@ public class GenericDelegator implements Delegator {
             throw new IllegalArgumentException("[GenericDelegator.clearCacheLine] could not find entity for entityName: " + entityName);
         }
         //if never cached, then don't bother clearing
-        if (entity.getNeverCache()) return;
+        if (entity.getNeverCache()) {
+            return;
+        }
 
         GenericValue dummyValue = GenericValue.create(this, entity, fields);
         this.clearCacheLineFlexible(dummyValue);
@@ -2096,7 +2109,9 @@ public class GenericDelegator implements Delegator {
     public void clearCacheLineByCondition(String entityName, EntityCondition condition, boolean distribute) {
         if (entityName != null) {
             //if never cached, then don't bother clearing
-            if (getModelEntity(entityName).getNeverCache()) return;
+            if (getModelEntity(entityName).getNeverCache()) {
+                return;
+            }
 
             cache.remove(entityName, condition);
 
@@ -2117,10 +2132,14 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#clearCacheLine(org.ofbiz.entity.GenericPK, boolean)
      */
     public void clearCacheLine(GenericPK primaryKey, boolean distribute) {
-        if (primaryKey == null) return;
+        if (primaryKey == null) {
+            return;
+        }
 
         //if never cached, then don't bother clearing
-        if (primaryKey.getModelEntity().getNeverCache()) return;
+        if (primaryKey.getModelEntity().getNeverCache()) {
+            return;
+        }
 
         cache.remove(primaryKey);
 
@@ -2146,10 +2165,14 @@ public class GenericDelegator implements Delegator {
         // on remove don't clear by and for new values, but do for original values
 
         // Debug.logInfo("running clearCacheLine for value: " + value + ", distribute: " + distribute, module);
-        if (value == null) return;
+        if (value == null) {
+            return;
+        }
 
         //if never cached, then don't bother clearing
-        if (value.getModelEntity().getNeverCache()) return;
+        if (value.getModelEntity().getNeverCache()) {
+            return;
+        }
 
         cache.remove(value);
 
@@ -2162,7 +2185,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#clearAllCacheLinesByDummyPK(java.util.Collection)
      */
     public void clearAllCacheLinesByDummyPK(Collection<GenericPK> dummyPKs) {
-        if (dummyPKs == null) return;
+        if (dummyPKs == null) {
+            return;
+        }
         for (GenericEntity entity: dummyPKs) {
             this.clearCacheLineFlexible(entity);
         }
@@ -2172,7 +2197,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#clearAllCacheLinesByValue(java.util.Collection)
      */
     public void clearAllCacheLinesByValue(Collection<GenericValue> values) {
-        if (values == null) return;
+        if (values == null) {
+            return;
+        }
         for (GenericValue value: values) {
             this.clearCacheLine(value);
         }
@@ -2182,7 +2209,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#getFromPrimaryKeyCache(org.ofbiz.entity.GenericPK)
      */
     public GenericValue getFromPrimaryKeyCache(GenericPK primaryKey) {
-        if (primaryKey == null) return null;
+        if (primaryKey == null) {
+            return null;
+        }
         GenericValue value = cache.get(primaryKey);
         if (value == GenericValue.NULL_VALUE) {
             return null;
@@ -2194,7 +2223,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#putInPrimaryKeyCache(org.ofbiz.entity.GenericPK, org.ofbiz.entity.GenericValue)
      */
     public void putInPrimaryKeyCache(GenericPK primaryKey, GenericValue value) {
-        if (primaryKey == null) return;
+        if (primaryKey == null) {
+            return;
+        }
 
         if (primaryKey.getModelEntity().getNeverCache()) {
             Debug.logWarning("Tried to put a value of the " + value.getEntityName() + " entity in the BY PRIMARY KEY cache but this entity has never-cache set to true, not caching.", module);
@@ -2210,7 +2241,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#putAllInPrimaryKeyCache(java.util.List)
      */
     public void putAllInPrimaryKeyCache(List<GenericValue> values) {
-        if (values == null) return;
+        if (values == null) {
+            return;
+        }
         for (GenericValue value: values) {
             this.putInPrimaryKeyCache(value.getPrimaryKey(), value);
         }
@@ -2228,7 +2261,9 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#readXmlDocument(java.net.URL)
      */
     public List<GenericValue> readXmlDocument(URL url) throws SAXException, ParserConfigurationException, java.io.IOException {
-        if (url == null) return null;
+        if (url == null) {
+            return null;
+        }
         return this.makeValues(UtilXml.readXmlDocument(url, false));
     }
 
@@ -2236,13 +2271,16 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#makeValues(org.w3c.dom.Document)
      */
     public List<GenericValue> makeValues(Document document) {
-        if (document == null) return null;
+        if (document == null) {
+            return null;
+        }
         List<GenericValue> values = FastList.newInstance();
 
         Element docElement = document.getDocumentElement();
 
-        if (docElement == null)
+        if (docElement == null) {
             return null;
+        }
         if (!"entity-engine-xml".equals(docElement.getTagName())) {
             Debug.logError("[GenericDelegator.makeValues] Root node was not <entity-engine-xml>", module);
             throw new java.lang.IllegalArgumentException("Root node was not <entity-engine-xml>");
@@ -2256,8 +2294,9 @@ public class GenericDelegator implements Delegator {
                     Element element = (Element) curChild;
                     GenericValue value = this.makeValue(element);
 
-                    if (value != null)
+                    if (value != null) {
                         values.add(value);
+                    }
                 }
             } while ((curChild = curChild.getNextSibling()) != null);
         } else {
@@ -2280,14 +2319,18 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#makeValue(org.w3c.dom.Element)
      */
     public GenericValue makeValue(Element element) {
-        if (element == null) return null;
+        if (element == null) {
+            return null;
+        }
         String entityName = element.getTagName();
 
         // if a dash or colon is in the tag name, grab what is after it
-        if (entityName.indexOf('-') > 0)
+        if (entityName.indexOf('-') > 0) {
             entityName = entityName.substring(entityName.indexOf('-') + 1);
-        if (entityName.indexOf(':') > 0)
+        }
+        if (entityName.indexOf(':') > 0) {
             entityName = entityName.substring(entityName.indexOf(':') + 1);
+        }
         GenericValue value = this.makeValue(entityName);
 
         ModelEntity modelEntity = value.getModelEntity();
@@ -2326,14 +2369,20 @@ public class GenericDelegator implements Delegator {
         }
 
         protected void evalRules(String event, String currentOperation, GenericEntity value, boolean isError) throws GenericEntityException {
-            if (entityEcaHandler == null) return;
-            //if (!"find".equals(currentOperation)) Debug.logWarning("evalRules for entity " + value.getEntityName() + ", currentOperation " + currentOperation + ", event " + event, module);
+            if (entityEcaHandler == null) {
+                return;
+            }
+            //if (!"find".equals(currentOperation)) {
+            //    Debug.logWarning("evalRules for entity " + value.getEntityName() + ", currentOperation " + currentOperation + ", event " + event, module);
+            //}
             entityEcaHandler.evalRules(currentOperation, eventMap, event, value, isError);
         }
     }
 
     protected EntityEcaRuleRunner<?> getEcaRuleRunner(String entityName) {
-        if (this.testRollbackInProgress) return createEntityEcaRuleRunner(null, null);
+        if (this.testRollbackInProgress) {
+            return createEntityEcaRuleRunner(null, null);
+        }
         return createEntityEcaRuleRunner(this.entityEcaHandler, entityName);
     }
 
@@ -2604,7 +2653,9 @@ public class GenericDelegator implements Delegator {
     }
 
     protected void absorbList(List<GenericValue> lst) {
-        if (lst == null) return;
+        if (lst == null) {
+            return;
+        }
         for (GenericValue value: lst) {
             value.setDelegator(this);
         }
@@ -2665,14 +2716,14 @@ public class GenericDelegator implements Delegator {
                 }
             }
         }
-        
-        if (!(newValueText==null ? "" : newValueText).equals((oldValueText==null ? "" : oldValueText))) {
+
+        if (!(newValueText == null ? "" : newValueText).equals((oldValueText == null ? "" : oldValueText))) {
             // only save changed values
             GenericValue entityAuditLog = this.makeValue("EntityAuditLog");
             entityAuditLog.set("auditHistorySeqId", this.getNextSeqId("EntityAuditLog"));
             entityAuditLog.set("changedEntityName", value.getEntityName());
             entityAuditLog.set("changedFieldName", mf.getName());
-            
+
             String pkCombinedValueText = value.getPkShortValueString();
             if (pkCombinedValueText.length() > 250) {
                 // uh-oh, the string is too long!
@@ -2684,7 +2735,7 @@ public class GenericDelegator implements Delegator {
             entityAuditLog.set("changedDate", nowTimestamp);
             entityAuditLog.set("changedByInfo", getCurrentUserIdentifier());
             entityAuditLog.set("changedSessionInfo", getCurrentSessionIdentifier());
-            this.create(entityAuditLog);       
+            this.create(entityAuditLog);
         }
     }
 
@@ -2764,7 +2815,9 @@ public class GenericDelegator implements Delegator {
         Debug.logInfo("Rolling back " + testOperations.size() + " entity operations", module);
         while (!this.testOperations.isEmpty()) {
             TestOperation testOperation = this.testOperations.pollLast();
-            if (testOperation == null) break;
+            if (testOperation == null) {
+                break;
+            }
             try {
                 if (testOperation.getOperation().equals(OperationType.INSERT)) {
                     this.removeValue(testOperation.getValue());
@@ -2833,7 +2886,6 @@ public class GenericDelegator implements Delegator {
             Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", module);
         }
     }
-    
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#enableJMS()
