@@ -16,4 +16,4 @@
   specific language governing permissions and limitations
   under the License.
   -->
-<img src="<@ofbizContentUrl>stream?contentId=${contentId}</@ofbizContentUrl>"/>
+<img src="<@ofbizUrl>stream?contentId=${contentId}</@ofbizUrl>"/>
