@@ -56,7 +56,7 @@ partyTasks.each { ptItem ->
 }
 
 // get this user's roles
-partyRoles = delegator.findByAnd("PartyRole", [partyId = userLogin.partyId]);
+partyRoles = delegator.findByAnd("PartyRole", [partyId : userLogin.partyId]);
 
 // build the role list
 pRolesList = [];
