@@ -1002,12 +1002,6 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
     </request-map>
-    <request-map uri="stream">
-        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
-        <response name="success" type="none"/>
-        <response name="error" type="view" value="error"/>
-    </request-map>
-
     <!-- ================ ContentOperation Requests ================= -->
     <request-map uri="EditContentOperation"><security auth="true" https="true"/><response name="success" type="view" value="EditContentOperation"/></request-map>
     <request-map uri="addContentOperation">
