@@ -24,7 +24,7 @@
     <param name="AUTOSTART" value="true" />
     <param name="AUTOPLAY" value="true" />
     <param name="KIOSKMODE" value="false" />
-    <embed src="/content/control/stream?contentId=${contentId}" width="320" height="263" scale="tofit"
+    <embed src="<@ofbizContentUrl>stream?contentId=${contentId}</@ofbizContentUrl>" width="320" height="263" scale="tofit"
         autostart="true" autoplay="true" kioskmode="false" target="quicktimeplayer"
               pluginspage="http://www.apple.com/quicktime/download/">
     </embed>
