@@ -69,24 +69,35 @@ public class ServiceEcaUtil {
             return;
         }
 
+        List<List<ServiceEcaRule>> allHandlerRules = FastList.newInstance();
         for (Element serviceEcasElement: UtilXml.childElementList(rootElement, "service-ecas")) {
             ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceEcasElement);
-            addEcaDefinitions(handler);
+            allHandlerRules.add(getEcaDefinitions(handler));
         }
 
         // get all of the component resource eca stuff, ie specified in each ofbiz-component.xml file
         for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("eca")) {
-            addEcaDefinitions(componentResourceInfo.createResourceHandler());
+            allHandlerRules.add(getEcaDefinitions(componentResourceInfo.createResourceHandler()));
+        }
+
+        for (List<ServiceEcaRule> handlerRules: allHandlerRules) {
+            mergeEcaDefinitions(handlerRules);
         }
     }
 
     public static void addEcaDefinitions(ResourceHandler handler) {
+        List<ServiceEcaRule> handlerRules = getEcaDefinitions(handler);
+        mergeEcaDefinitions(handlerRules);
+    }
+
+    private static List<ServiceEcaRule> getEcaDefinitions(ResourceHandler handler) {
+        List<ServiceEcaRule> handlerRules = FastList.newInstance();
         Element rootElement = null;
         try {
             rootElement = handler.getDocument().getDocumentElement();
         } catch (GenericConfigException e) {
             Debug.logError(e, module);
-            return;
+            return handlerRules;
         }
 
         String resourceLocation = handler.getLocation();
@@ -95,11 +106,19 @@ public class ServiceEcaUtil {
         } catch (GenericConfigException e) {
             Debug.logError(e, "Could not get resource URL", module);
         }
-
-        int numDefs = 0;
         for (Element e: UtilXml.childElementList(rootElement, "eca")) {
-            String serviceName = e.getAttribute("service");
-            String eventName = e.getAttribute("event");
+            handlerRules.add(new ServiceEcaRule(e, resourceLocation));
+        }
+        if (Debug.importantOn()) {
+            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(handlerRules.size()), 2) + "] Service ECA Rules from " + resourceLocation, module);
+        }
+        return handlerRules;
+    }
+
+    private static void mergeEcaDefinitions(List<ServiceEcaRule> handlerRules) {
+        for (ServiceEcaRule rule: handlerRules) {
+            String serviceName = rule.getServiceName();
+            String eventName = rule.getEventName();
             Map<String, List<ServiceEcaRule>> eventMap = ecaCache.get(serviceName);
             List<ServiceEcaRule> rules = null;
 
@@ -115,11 +134,7 @@ public class ServiceEcaUtil {
                     eventMap.put(eventName, rules);
                 }
             }
-            rules.add(new ServiceEcaRule(e, resourceLocation));
-            numDefs++;
-        }
-        if (Debug.importantOn()) {
-            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(numDefs), 2) + "] Service ECA Rules from " + resourceLocation, module);
+            rules.add(rule);
         }
     }
 
