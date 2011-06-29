@@ -22,15 +22,20 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import javax.wsdl.WSDLException;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
 import org.ofbiz.base.config.ResourceHandler;
@@ -290,6 +295,14 @@ public class DispatchContext implements Serializable {
         return serviceMap;
     }
 
+    private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
+        return new Callable<Map<String, ModelService>>() {
+            public Map<String, ModelService> call() throws Exception {
+                return ModelServiceReader.getModelServiceMap(handler, DispatchContext.this);
+            }
+        };
+    }
+
     private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
         if (serviceMap == null) {
@@ -307,19 +320,19 @@ public class DispatchContext implements Serializable {
                         return null;
                     }
 
+                    List<Future<Map<String, ModelService>>> futures = FastList.newInstance();
                     for (Element globalServicesElement: UtilXml.childElementList(rootElement, "global-services")) {
                         ResourceHandler handler = new MainResourceHandler(
                                 ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServicesElement);
 
-                        Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(handler, this);
-                        if (servicesMap != null) {
-                            serviceMap.putAll(servicesMap);
-                        }
+                        futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(handler)));
                     }
 
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
                     for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
-                        Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);
+                        futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
+                    }
+                    for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
                         if (servicesMap != null) {
                             serviceMap.putAll(servicesMap);
                         }
