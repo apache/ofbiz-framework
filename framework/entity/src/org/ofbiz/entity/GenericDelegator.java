@@ -240,36 +240,40 @@ public class GenericDelegator implements Delegator {
         // initialize helpers by group
         Set<String> groupNames = getModelGroupReader().getGroupNames(delegatorBaseName);
         for (String groupName: groupNames) {
-            GenericHelperInfo helperInfo = this.getGroupHelperInfo(groupName);
-            String helperBaseName = helperInfo.getHelperBaseName();
-
-            if (Debug.infoOn()) {
-                Debug.logInfo("Delegator \"" + delegatorFullName + "\" initializing helper \"" + helperBaseName + "\" for entity group \"" + groupName + "\".", module);
-            }
-            if (UtilValidate.isNotEmpty(helperInfo.getHelperFullName())) {
-                // pre-load field type defs, the return value is ignored
-                ModelFieldTypeReader.getModelFieldTypeReader(helperBaseName);
-                // get the helper and if configured, do the datasource check
-                GenericHelper helper = GenericHelperFactory.getHelper(helperInfo);
-
-                DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperBaseName);
-                if (datasourceInfo.checkOnStart) {
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasourceInfo.addMissingOnStart, module);
-                    }
-                    try {
-                        helper.checkDataSource(this.getModelEntityMapByGroup(groupName), null, datasourceInfo.addMissingOnStart);
-                    } catch (GenericEntityException e) {
-                        Debug.logWarning(e, e.getMessage(), module);
-                    }
-                }
-            }
+            initializeOneGenericHelper(groupName);
         }
 
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or something
 
         // setup the crypto class; this also after the delegator is in the cache otherwise we get infinite recursion
         this.crypto = new EntityCrypto(this);
+    }
+
+    private void initializeOneGenericHelper(String groupName) {
+        GenericHelperInfo helperInfo = this.getGroupHelperInfo(groupName);
+        String helperBaseName = helperInfo.getHelperBaseName();
+
+        if (Debug.infoOn()) {
+            Debug.logInfo("Delegator \"" + delegatorFullName + "\" initializing helper \"" + helperBaseName + "\" for entity group \"" + groupName + "\".", module);
+        }
+        if (UtilValidate.isNotEmpty(helperInfo.getHelperFullName())) {
+            // pre-load field type defs, the return value is ignored
+            ModelFieldTypeReader.getModelFieldTypeReader(helperBaseName);
+            // get the helper and if configured, do the datasource check
+            GenericHelper helper = GenericHelperFactory.getHelper(helperInfo);
+
+            DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperBaseName);
+            if (datasourceInfo.checkOnStart) {
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasourceInfo.addMissingOnStart, module);
+                }
+                try {
+                    helper.checkDataSource(this.getModelEntityMapByGroup(groupName), null, datasourceInfo.addMissingOnStart);
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e, e.getMessage(), module);
+                }
+            }
+        }
     }
 
     protected void setDelegatorNames(String delegatorFullName) {
