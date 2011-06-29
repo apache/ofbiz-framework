@@ -1619,7 +1619,7 @@ public class DatabaseUtil {
         }
     }
 
-    private abstract class AbstractCountingCallable<T extends AbstractCountingCallable<T>> implements Callable<T> {
+    private abstract class AbstractCountingCallable implements Callable<AbstractCountingCallable> {
         protected final ModelEntity entity;
         protected final Map<String, ModelEntity> modelEntities;
         protected final List<String> messages = FastList.newInstance();
