@@ -76,53 +76,33 @@ public class TransactionUtil implements Status {
     private static ThreadLocal<Timestamp> transactionLastNowStamp = new ThreadLocal<Timestamp>();
 
     public static <V> V doNewTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
-        return doNewTransaction(ifErrorMessage, true, callable);
+        return inTransaction(noTransaction(callable), ifErrorMessage, 0, true).call();
     }
 
     public static <V> V doNewTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
-        Transaction tx = TransactionUtil.suspend();
-        try {
-            return doTransaction(ifErrorMessage, printException, callable);
-        } finally {
-            TransactionUtil.resume(tx);
-        }
+        return inTransaction(noTransaction(callable), ifErrorMessage, 0, printException).call();
     }
 
     public static <V> V doTransaction(String ifErrorMessage, Callable<V> callable) throws GenericEntityException {
-        return doTransaction(ifErrorMessage, true, callable);
+        return inTransaction(callable, ifErrorMessage, 0, true).call();
     }
 
     public static <V> V doTransaction(String ifErrorMessage, boolean printException, Callable<V> callable) throws GenericEntityException {
-        boolean tx = TransactionUtil.begin();
-        Throwable transactionAbortCause = null;
-        try {
-            try {
-                return callable.call();
-            } catch (Throwable t) {
-                while (t.getCause() != null) {
-                    t = t.getCause();
-                }
-                throw t;
-            }
-        } catch (Error e) {
-            transactionAbortCause = e;
-            throw e;
-        } catch (RuntimeException e) {
-            transactionAbortCause = e;
-            throw e;
-        } catch (Throwable t) {
-            transactionAbortCause = t;
-            throw new GenericEntityException(t);
-        } finally {
-            if (transactionAbortCause == null) {
-                TransactionUtil.commit(tx);
-            } else {
-                if (printException) {
-                    transactionAbortCause.printStackTrace();
-                }
-                TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
-            }
-        }
+        return inTransaction(callable, ifErrorMessage, 0, printException).call();
+    }
+
+    public static <V> Callable<V> noTransaction(Callable<V> callable) {
+        return new NoTransaction<V>(callable);
+    }
+
+    // This syntax is groovy compatible, with the primary(callable) as the first arg.
+    // You could do:
+    // use (TransactionUtil) {
+    //   Callable callable = ....
+    //   Object result = callable.noTransaction().inTransaction(ifError, timeout, print).call()
+    // }
+    public static <V> InTransaction<V> inTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) {
+        return new InTransaction<V>(callable, ifErrorMessage, timeout, printException);
     }
 
     /** Begins a transaction in the current thread IF transactions are available; only
@@ -970,6 +950,70 @@ public class TransactionUtil implements Status {
         }
 
         public void beforeCompletion() {
+        }
+    }
+
+    public static final class NoTransaction<V> implements Callable<V> {
+        private final Callable<V> callable;
+
+        protected NoTransaction(Callable<V> callable) {
+            this.callable = callable;
+        }
+
+        public V call() throws Exception {
+            Transaction suspended = TransactionUtil.suspend();
+            try {
+                return callable.call();
+            } finally {
+                TransactionUtil.resume(suspended);
+            }
+        }
+    }
+
+    public static final class InTransaction<V> implements Callable<V> {
+        private final Callable<V> callable;
+        private final String ifErrorMessage;
+        private final int timeout;
+        private final boolean printException;
+
+        protected InTransaction(Callable<V> callable, String ifErrorMessage, int timeout, boolean printException) {
+            this.callable = callable;
+            this.ifErrorMessage = ifErrorMessage;
+            this.timeout = timeout;
+            this.printException = printException;
+        }
+
+        public V call() throws GenericEntityException {
+            boolean tx = TransactionUtil.begin(timeout);
+            Throwable transactionAbortCause = null;
+            try {
+                try {
+                    return callable.call();
+                } catch (Throwable t) {
+                    while (t.getCause() != null) {
+                        t = t.getCause();
+                    }
+                    throw t;
+                }
+            } catch (Error e) {
+                transactionAbortCause = e;
+                throw e;
+            } catch (RuntimeException e) {
+                transactionAbortCause = e;
+                throw e;
+            } catch (Throwable t) {
+                transactionAbortCause = t;
+                throw new GenericEntityException(t);
+            } finally {
+                if (transactionAbortCause == null) {
+                    TransactionUtil.commit(tx);
+                } else {
+                    if (printException) {
+                        transactionAbortCause.printStackTrace();
+                    }
+                    TransactionUtil.rollback(tx, ifErrorMessage, transactionAbortCause);
+                }
+            }
         }
     }
 }
