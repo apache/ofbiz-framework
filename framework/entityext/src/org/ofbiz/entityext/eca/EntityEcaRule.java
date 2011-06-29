@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  * EntityEcaRule
  */
 @SuppressWarnings("serial")
-public class EntityEcaRule implements java.io.Serializable {
+public final class EntityEcaRule implements java.io.Serializable {
 
     public static final String module = EntityEcaRule.class.getName();
 
@@ -47,15 +47,13 @@ public class EntityEcaRule implements java.io.Serializable {
         nameSet.add("action");
     }
 
-    protected String entityName = null;
-    protected String operationName = null;
-    protected String eventName = null;
-    protected boolean runOnError = false;
-    protected List<EntityEcaCondition> conditions = FastList.newInstance();
-    protected List<Object> actionsAndSets = FastList.newInstance();
+    protected final String entityName;
+    protected final String operationName;
+    protected final String eventName;
+    protected final boolean runOnError;
+    protected final List<EntityEcaCondition> conditions = FastList.newInstance();
+    protected final List<Object> actionsAndSets = FastList.newInstance();
     protected boolean enabled = true;
-
-    protected EntityEcaRule() {}
 
     public EntityEcaRule(Element eca) {
         this.entityName = eca.getAttribute("entity");

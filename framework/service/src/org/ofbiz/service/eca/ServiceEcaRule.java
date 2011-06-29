@@ -36,20 +36,18 @@ import org.w3c.dom.Element;
  * ServiceEcaRule
  */
 @SuppressWarnings("serial")
-public class ServiceEcaRule implements java.io.Serializable {
+public final class ServiceEcaRule implements java.io.Serializable {
 
     public static final String module = ServiceEcaRule.class.getName();
 
-    protected String serviceName = null;
-    protected String eventName = null;
-    protected boolean runOnFailure = false;
-    protected boolean runOnError = false;
-    protected List<ServiceEcaCondition> conditions = FastList.newInstance();
-    protected List<Object> actionsAndSets = FastList.newInstance();
+    protected final String serviceName;
+    protected final String eventName;
+    protected final boolean runOnFailure;
+    protected final boolean runOnError;
+    protected final List<ServiceEcaCondition> conditions = FastList.newInstance();
+    protected final List<Object> actionsAndSets = FastList.newInstance();
     protected boolean enabled = true;
-    protected String definitionLocation = null;
-
-    protected ServiceEcaRule() {}
+    protected final String definitionLocation;
 
     public ServiceEcaRule(Element eca, String definitionLocation) {
         this.definitionLocation = definitionLocation;
