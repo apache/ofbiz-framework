@@ -500,14 +500,37 @@ public class CatalinaContainer implements Container {
     }
 
     protected Context createContext(ComponentConfig.WebappInfo appInfo) throws ContainerException {
-        // webapp settings
-        Map<String, String> initParameters = appInfo.getInitParameters();
-        List<String> virtualHosts = appInfo.getVirtualHosts();
         Engine engine = engines.get(appInfo.server);
         if (engine == null) {
             Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
             return null;
         }
+        List<String> virtualHosts = appInfo.getVirtualHosts();
+        Host host;
+        if (UtilValidate.isEmpty(virtualHosts)) {
+            host = hosts.get(engine.getName() + "._DEFAULT");
+        } else {
+            // assume that the first virtual-host will be the default; additional virtual-hosts will be aliases
+            Iterator<String> vhi = virtualHosts.iterator();
+            String hostName = vhi.next();
+
+            boolean newHost = false;
+            host = hosts.get(engine.getName() + "." + hostName);
+            if (host == null) {
+                host = createHost(engine, hostName);
+                newHost = true;
+            }
+            while (vhi.hasNext()) {
+                host.addAlias(vhi.next());
+            }
+
+            if (newHost) {
+                hosts.put(engine.getName() + "." + hostName, host);
+            }
+        }
+
+        // webapp settings
+        Map<String, String> initParameters = appInfo.getInitParameters();
 
         // set the root location (make sure we set the paths correctly)
         String location = appInfo.componentConfig.getRootLocation() + appInfo.location;
@@ -589,28 +612,6 @@ public class CatalinaContainer implements Container {
             context.addParameter(entry.getKey(), entry.getValue());
         }
 
-        Host host;
-        if (UtilValidate.isEmpty(virtualHosts)) {
-            host = hosts.get(engine.getName() + "._DEFAULT");
-        } else {
-            // assume that the first virtual-host will be the default; additional virtual-hosts will be aliases
-            Iterator<String> vhi = virtualHosts.iterator();
-            String hostName = vhi.next();
-
-            boolean newHost = false;
-            host = hosts.get(engine.getName() + "." + hostName);
-            if (host == null) {
-                host = createHost(engine, hostName);
-                newHost = true;
-            }
-            while (vhi.hasNext()) {
-                host.addAlias(vhi.next());
-            }
-
-            if (newHost) {
-                hosts.put(engine.getName() + "." + hostName, host);
-            }
-        }
         context.setRealm(host.getRealm());
         host.addChild(context);
         context.getMapper().setDefaultHostName(host.getName());
