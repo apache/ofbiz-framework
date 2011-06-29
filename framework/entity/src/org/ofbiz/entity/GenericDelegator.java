@@ -2792,18 +2792,21 @@ public class GenericDelegator implements Delegator {
         this.testMode = true;
     }
 
-    public class TestOperation {
+    public final class TestOperation {
         private final OperationType operation;
-        public OperationType getOperation() {
-            return operation;
-        }
-        public GenericValue getValue() {
-            return value;
-        }
         private final GenericValue value;
+
         public TestOperation(OperationType operation, GenericValue value) {
             this.operation = operation;
             this.value = value;
+        }
+
+        public OperationType getOperation() {
+            return operation;
+        }
+
+        public GenericValue getValue() {
+            return value;
         }
     }
 
