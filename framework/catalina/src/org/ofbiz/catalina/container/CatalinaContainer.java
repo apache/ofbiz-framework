@@ -529,6 +529,10 @@ public class CatalinaContainer implements Container {
             }
         }
 
+        return configureContext(engine, host, appInfo);
+    }
+
+    private Context configureContext(Engine engine, Host host, ComponentConfig.WebappInfo appInfo) throws ContainerException {
         // webapp settings
         Map<String, String> initParameters = appInfo.getInitParameters();
 
