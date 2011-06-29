@@ -70,7 +70,9 @@ public class ServiceEcaRule implements java.io.Serializable {
             conditions.add(new ServiceEcaCondition(element, false, true));
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Conditions: " + conditions, module);
+        }
 
         Set<String> nameSet = UtilMisc.toSet("set", "action");
         for (Element actionOrSetElement: UtilXml.childElementList(eca, nameSet)) {
@@ -81,7 +83,9 @@ public class ServiceEcaRule implements java.io.Serializable {
             }
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+        }
     }
 
     public String getShortDisplayName() {
@@ -131,11 +135,15 @@ public class ServiceEcaRule implements java.io.Serializable {
         boolean allCondTrue = true;
         for (ServiceEcaCondition ec: conditions) {
             if (!ec.eval(serviceName, dctx, context)) {
-                if (Debug.infoOn()) Debug.logInfo("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got false for condition: " + ec, module);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got false for condition: " + ec, module);
+                }
                 allCondTrue = false;
                 break;
             } else {
-                if (Debug.verboseOn()) Debug.logVerbose("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got true for condition: " + ec, module);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("For Service ECA [" + this.serviceName + "] on [" + this.eventName + "] got true for condition: " + ec, module);
+                }
             }
         }
 
@@ -147,7 +155,9 @@ public class ServiceEcaRule implements java.io.Serializable {
                     // in order to enable OR logic without multiple calls to the given service,
                     // only execute a given service name once per service call phase
                     if (!actionsRun.contains(ea.serviceName)) {
-                        if (Debug.infoOn()) Debug.logInfo("Running Service ECA Service: " + ea.serviceName + ", triggered by rule on Service: " + serviceName, module);
+                        if (Debug.infoOn()) {
+                            Debug.logInfo("Running Service ECA Service: " + ea.serviceName + ", triggered by rule on Service: " + serviceName, module);
+                        }
                         if (ea.runAction(serviceName, dctx, context, result)) {
                             actionsRun.add(ea.serviceName);
                         }
@@ -172,14 +182,28 @@ public class ServiceEcaRule implements java.io.Serializable {
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaRule) {
             ServiceEcaRule other = (ServiceEcaRule) obj;
-            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) return false;
-            if (!UtilValidate.areEqual(this.eventName, other.eventName)) return false;
-            if (!this.conditions.equals(other.conditions)) return false;
-            if (!this.actionsAndSets.equals(other.actionsAndSets)) return false;
+            if (!UtilValidate.areEqual(this.serviceName, other.serviceName)) {
+                return false;
+            }
+            if (!UtilValidate.areEqual(this.eventName, other.eventName)) {
+                return false;
+            }
+            if (!this.conditions.equals(other.conditions)) {
+                return false;
+            }
+            if (!this.actionsAndSets.equals(other.actionsAndSets)) {
+                return false;
+            }
 
-            if (this.runOnFailure != other.runOnFailure) return false;
-            if (this.runOnError != other.runOnError) return false;
-            if (this.enabled != other.enabled) return false;
+            if (this.runOnFailure != other.runOnFailure) {
+                return false;
+            }
+            if (this.runOnError != other.runOnError) {
+                return false;
+            }
+            if (this.enabled != other.enabled) {
+                return false;
+            }
 
             return true;
         } else {

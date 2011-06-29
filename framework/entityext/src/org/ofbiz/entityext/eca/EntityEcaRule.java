@@ -71,7 +71,9 @@ public class EntityEcaRule implements java.io.Serializable {
             conditions.add(new EntityEcaCondition(element, false));
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Conditions: " + conditions, module);
+        }
 
         for (Element actionOrSetElement: UtilXml.childElementList(eca, nameSet)) {
             if ("action".equals(actionOrSetElement.getNodeName())) {
@@ -81,7 +83,9 @@ public class EntityEcaRule implements java.io.Serializable {
             }
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("actions and sets (intermixed): " + actionsAndSets, module);
+        }
     }
 
     public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set<String> actionsRun) throws GenericEntityException {
@@ -117,7 +121,9 @@ public class EntityEcaRule implements java.io.Serializable {
                     // in order to enable OR logic without multiple calls to the given service,
                     //only execute a given service name once per service call phase
                     if (actionsRun.add(ea.serviceName)) {
-                        if (Debug.infoOn()) Debug.logInfo("Running Entity ECA Service: " + ea.serviceName + ", triggered by rule on Entity: " + value.getEntityName(), module);
+                        if (Debug.infoOn()) {
+                            Debug.logInfo("Running Entity ECA Service: " + ea.serviceName + ", triggered by rule on Entity: " + value.getEntityName(), module);
+                        }
                         ea.runAction(dctx, context, value);
                     }
                 } else {
