@@ -86,6 +86,22 @@ public final class EntityEcaRule implements java.io.Serializable {
         }
     }
 
+    public String getEntityName() {
+        return this.entityName;
+    }
+
+    public String getOperationName() {
+        return this.operationName;
+    }
+
+    public String getEventName() {
+        return this.eventName;
+    }
+
+    public boolean getRunOnError() {
+        return this.runOnError;
+    }
+
     public void eval(String currentOperation, DispatchContext dctx, GenericEntity value, boolean isError, Set<String> actionsRun) throws GenericEntityException {
         if (!enabled) {
             Debug.logInfo("Entity ECA [" + this.entityName + "] on [" + this.eventName + "] is disabled; not running.", module);
