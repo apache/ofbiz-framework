@@ -111,9 +111,9 @@ public class GenericDelegator implements Delegator {
     protected EntityCrypto crypto = null;
 
     /** A ThreadLocal variable to allow other methods to specify a user identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
-    protected static ThreadLocal<List<Object>> userIdentifierStack = new ThreadLocal<List<Object>>();
+    protected static ThreadLocal<List<String>> userIdentifierStack = new ThreadLocal<List<String>>();
     /** A ThreadLocal variable to allow other methods to specify a session identifier (usually the visitId, though technically the Entity Engine doesn't know anything about the Visit entity) */
-    protected static ThreadLocal<List<Object>> sessionIdentifierStack = new ThreadLocal<List<Object>>();
+    protected static ThreadLocal<List<String>> sessionIdentifierStack = new ThreadLocal<List<String>>();
 
     private boolean testMode = false;
     private boolean testRollbackInProgress = false;
@@ -130,8 +130,8 @@ public class GenericDelegator implements Delegator {
         return (GenericDelegator) DelegatorFactory.getDelegator(delegatorName);
     }
 
-    protected static List<Object> getUserIdentifierStack() {
-        List<Object> curValList = userIdentifierStack.get();
+    protected static List<String> getUserIdentifierStack() {
+        List<String> curValList = userIdentifierStack.get();
         if (curValList == null) {
             curValList = FastList.newInstance();
             userIdentifierStack.set(curValList);
@@ -140,39 +140,34 @@ public class GenericDelegator implements Delegator {
     }
 
     public static String getCurrentUserIdentifier() {
-        List<Object> curValList = getUserIdentifierStack();
-        Object curVal = curValList.size() > 0 ? curValList.get(0) : null;
-        if (curVal == null) {
-            return null;
-        } else {
-            return curVal.toString();
-        }
+        List<String> curValList = getUserIdentifierStack();
+        return curValList.size() > 0 ? curValList.get(0) : null;
     }
 
     public static void pushUserIdentifier(String userIdentifier) {
         if (userIdentifier == null) {
             return;
         }
-        List<Object> curValList = getUserIdentifierStack();
+        List<String> curValList = getUserIdentifierStack();
         curValList.add(0, userIdentifier);
     }
 
     public static String popUserIdentifier() {
-        List<Object> curValList = getUserIdentifierStack();
+        List<String> curValList = getUserIdentifierStack();
         if (curValList.size() == 0) {
             return null;
         } else {
-            return (String) curValList.remove(0);
+            return curValList.remove(0);
         }
     }
 
     public static void clearUserIdentifierStack() {
-        List<Object> curValList = getUserIdentifierStack();
+        List<String> curValList = getUserIdentifierStack();
         curValList.clear();
     }
 
-    protected static List<Object> getSessionIdentifierStack() {
-        List<Object> curValList = sessionIdentifierStack.get();
+    protected static List<String> getSessionIdentifierStack() {
+        List<String> curValList = sessionIdentifierStack.get();
         if (curValList == null) {
             curValList = FastList.newInstance();
             sessionIdentifierStack.set(curValList);
@@ -181,34 +176,29 @@ public class GenericDelegator implements Delegator {
     }
 
     public static String getCurrentSessionIdentifier() {
-        List<Object> curValList = getSessionIdentifierStack();
-        Object curVal = curValList.size() > 0 ? curValList.get(0) : null;
-        if (curVal == null) {
-            return null;
-        } else {
-            return curVal.toString();
-        }
+        List<String> curValList = getSessionIdentifierStack();
+        return curValList.size() > 0 ? curValList.get(0) : null;
     }
 
     public static void pushSessionIdentifier(String sessionIdentifier) {
         if (sessionIdentifier == null) {
             return;
         }
-        List<Object> curValList = getSessionIdentifierStack();
+        List<String> curValList = getSessionIdentifierStack();
         curValList.add(0, sessionIdentifier);
     }
 
     public static String popSessionIdentifier() {
-        List<Object> curValList = getSessionIdentifierStack();
+        List<String> curValList = getSessionIdentifierStack();
         if (curValList.size() == 0) {
             return null;
         } else {
-            return (String) curValList.remove(0);
+            return curValList.remove(0);
         }
     }
 
     public static void clearSessionIdentifierStack() {
-        List<Object> curValList = getSessionIdentifierStack();
+        List<String> curValList = getSessionIdentifierStack();
         curValList.clear();
     }
 
