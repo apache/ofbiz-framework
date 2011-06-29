@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
@@ -35,6 +37,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -239,9 +242,11 @@ public class GenericDelegator implements Delegator {
 
         // initialize helpers by group
         Set<String> groupNames = getModelGroupReader().getGroupNames(delegatorBaseName);
+        List<Future<Void>> futures = FastList.newInstance();
         for (String groupName: groupNames) {
-            initializeOneGenericHelper(groupName);
+            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createHelperCallable(groupName)));
         }
+        ExecutionPool.getAllFutures(futures);
 
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or something
 
@@ -274,6 +279,15 @@ public class GenericDelegator implements Delegator {
                 }
             }
         }
+    }
+
+    protected Callable<Void> createHelperCallable(final String groupName) {
+        return new Callable<Void>() {
+            public Void call() {
+                initializeOneGenericHelper(groupName);
+                return null;
+            }
+        };
     }
 
     protected void setDelegatorNames(String delegatorFullName) {
