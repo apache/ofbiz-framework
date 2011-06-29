@@ -60,7 +60,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
     }
 
     public List<GenericValue> getAll(final Delegator delegator, final Map<String, ? extends Object> params) throws GenericEntityException {
-        return TransactionUtil.doTransaction("sql select", new Callable<List<GenericValue>>() {
+        return TransactionUtil.doTransaction(new Callable<List<GenericValue>>() {
             public List<GenericValue> call() throws Exception {
                 EntityListIterator it = null;
                 try {
@@ -70,7 +70,7 @@ public final class EntitySelectPlan extends SelectPlan<EntitySelectPlan, EntityC
                     if (it != null) it.close();
                 }
             }
-        });
+        }, "sql select", 0, true);
     }
 
     public DynamicViewEntity getDynamicViewEntity() {

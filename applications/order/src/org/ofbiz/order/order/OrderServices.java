@@ -5594,7 +5594,7 @@ public class OrderServices {
         final EntityCondition cond = EntityCondition.makeCondition(orderCondList);
         List<String> orderIds;
         try {
-            orderIds = TransactionUtil.doNewTransaction("getSalesOrderIds", new Callable<List<String>>() {
+            orderIds = TransactionUtil.doNewTransaction(new Callable<List<String>>() {
                 public List<String> call() throws Exception {
                     List<String> orderIds = new LinkedList<String>();
                     EntityListIterator eli = null;
@@ -5611,7 +5611,7 @@ public class OrderServices {
                     }
                     return orderIds;
                 }
-            });
+            }, "getSalesOrderIds", 0, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
