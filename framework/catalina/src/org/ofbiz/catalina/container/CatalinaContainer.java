@@ -202,9 +202,6 @@ public class CatalinaContainer implements Container {
             createEngine(engineProp);
         }
 
-        // load the web applications
-        loadComponents();
-
         // create the connectors
         List<ContainerConfig.Container.Property> connectorProps = cc.getPropertiesWithValue("connector");
         if (UtilValidate.isEmpty(connectorProps)) {
@@ -228,6 +225,9 @@ public class CatalinaContainer implements Container {
         } catch (LifecycleException e) {
             throw new ContainerException(e);
         }
+
+        // load the web applications
+        loadComponents();
 
         for (Connector con: embedded.findConnectors()) {
             ProtocolHandler ph = con.getProtocolHandler();
