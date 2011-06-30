@@ -72,7 +72,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="parentProjectName" parameter-name="parentProjectId">
+        <field name="parentProjectName" entry-name="parentProjectId" parameter-name="workEffortParentId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
