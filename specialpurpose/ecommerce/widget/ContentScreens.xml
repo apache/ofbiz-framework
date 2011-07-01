@@ -158,4 +158,35 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="contentInfoCategory">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/content/content_topic.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="contentViewInfo">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+                <set field="titleProperty" value="PageTitleViewContent"/>
+                <set field="headerItem" value="Content Info"/>
+                <entity-one entity-name="Content" value-field="content">
+                    <field-map field-name="contentId" from-field="parameters.contentId"/>
+                </entity-one>
+                <set field="contentDataResource" from-field="contentDataResources[0]"></set>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.EcommerceContentInformation}: ${content.contentId}">
+                            <include-form name="contentInfomation" location="component://ecommerce/widget/ContentForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

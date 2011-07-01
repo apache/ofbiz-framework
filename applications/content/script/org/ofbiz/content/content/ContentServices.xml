@@ -1277,4 +1277,76 @@
         </call-class-method>
     </simple-method>
 
+    <simple-method method-name="convertContentAltUrls" short-description="Convert Content Alternative URLs.">
+        <if-compare operator="equals" value="Y" field="parameters.allowConvert">
+            <entity-condition list="contents" entity-name="Content">
+                <condition-expr field-name="contentName" operator="not-equals" from-field="nullField"/>
+                <select-field field-name="contentId"/>
+                <select-field field-name="contentName"/>
+            </entity-condition>
+            <iterate entry="content" list="contents">
+                <set field="updateObjectInfo"/>
+                <entity-condition list="contentAssocDataResources" entity-name="ContentAssocDataResourceViewTo">
+                    <condition-list combine="and">
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="ALTERNATIVE_URL"/>
+                        <condition-expr field-name="contentIdStart" operator="equals" from-field="content.contentId"/>
+                    </condition-list>
+                    <select-field field-name="contentIdStart"/>
+                    <select-field field-name="dataResourceId"/>
+                    <select-field field-name="caFromDate"/>
+                    <select-field field-name="caThruDate"/>
+                </entity-condition>
+                <filter-list-by-date list="contentAssocDataResources" from-field-name="caFromDate" thru-field-name="caThruDate"/>
+                <if-not-empty field="contentAssocDataResources">
+                    <first-from-list entry="contentAssocDataResource" list="contentAssocDataResources"/>
+                    <entity-one value-field="electronicText" entity-name="ElectronicText">
+                        <field-map field-name="dataResourceId" from-field="contentAssocDataResource.dataResourceId"/>
+                    </entity-one>
+                    <if-compare-field operator="not-equals" field="electronicText.textData" to-field="content.contentName" type="String">
+                        <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="altUrl">
+                            <field field="content.contentName"/>
+                        </call-class-method>
+                        <set field="altUrl" value="/${altUrl}-${contentAssocDataResources.contentIdStart}-content"/>
+                        <set field="updateDataResourceCtx.dataResourceId" from-field="contentAssocDataResource.dataResourceId"/>
+                        <set field="updateDataResourceCtx.objectInfo" from-field="altUrl"/>
+                        <call-service service-name="updateDataResource" in-map-name="updateDataResourceCtx" include-user-login="true"/>
+                        
+                        <set field="electronicTextCtx.dataResourceId" from-field="contentAssocDataResource.dataResourceId"/>
+                        <set field="electronicTextCtx.textData" from-field="content.contentName"/>
+                        <call-service service-name="updateElectronicText" in-map-name="electronicTextCtx"></call-service>
+                        
+                    </if-compare-field>
+                    <else>
+                        <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="altUrl">
+                            <field field="content.contentName"/>
+                        </call-class-method>
+                        <set field="altUrl" value="/${altUrl}-${content.contentId}-content"/>
+                        <sequenced-id sequence-name="DataResource" field="createDataResourceCtx.dataResourceId"/>
+                        <set field="createDataResourceCtx.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                        <set field="createDataResourceCtx.dataTemplateTypeId" value="FTL"/>
+                        <set field="createDataResourceCtx.objectInfo" from-field="altUrl"/>
+                        <set field="createDataResourceCtx.statusId" value="CTNT_IN_PROGRESS"/>
+                        <call-service service-name="createDataResource" in-map-name="createDataResourceCtx" include-user-login="true">
+                            <result-to-field result-name="dataResourceId" field="dataResourceId"/>
+                        </call-service>
+                        <set field="electronicTextCtx.dataResourceId" from-field="dataResourceId"/>
+                        <set field="electronicTextCtx.textData" from-field="content.contentName"/>
+                        <call-service service-name="createElectronicText" in-map-name="electronicTextCtx"></call-service>
+                        
+                        <sequenced-id sequence-name="Content" field="contentCtx.contentId"/>
+                        <set field="contentCtx.contentTypeId" value="DOCUMENT"/>
+                        <set field="contentCtx.dataResourceId" from-field="dataResourceId"/>
+                        <call-service service-name="createContent" in-map-name="contentCtx" include-user-login="true">
+                            <result-to-field result-name="contentId" field="contentIdTo"/>
+                        </call-service>
+                        
+                        <set field="createContentAssocCtx.contentId" from-field="content.contentId"/>
+                        <set field="createContentAssocCtx.contentIdTo" from-field="contentIdTo"/>
+                        <set field="createContentAssocCtx.contentAssocTypeId" value="ALTERNATIVE_URL"/>
+                        <call-service service-name="createContentAssoc" in-map-name="createContentAssocCtx"/>
+                    </else>
+                </if-not-empty>
+            </iterate>
+        </if-compare>
+    </simple-method>
 </simple-methods>

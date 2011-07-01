@@ -50,6 +50,7 @@ under the License.
 
     <ContentAssocType contentAssocTypeId="COMPDOC_PART" description="Composite Document Part"/>
     <ContentAssocType contentAssocTypeId="INSTANCE" description="Instance Of"/>
+    <ContentAssocType contentAssocTypeId="ALTERNATIVE_URL" description="Alternative URL"/>
 
     <ContentAssocPredicate contentAssocPredicateId="member-of" description="The object is a member of the subject."/>
     <ContentAssocPredicate contentAssocPredicateId="defines" description="The object defines the subject."/>

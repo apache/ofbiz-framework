@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    
+    <!-- Demo Content Alternative Url -->
+    <!-- The content alternative url come from the contentName in the Content entity.-->
+    <!-- Can use convertContentAltUrls service job to create all content alternative url if the contentName is exist. -->
+    <DataResource dataResourceId="DRS_ALT_URL" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Store-Policies-2-STORE_POLICIES2-content"/>
+    <ElectronicText dataResourceId="DRS_ALT_URL" textData="Store Policies 2"/>
+    <Content contentId="CNT_ALTURL_ASSOC" contentTypeId="DOCUMENT" dataResourceId="DRS_ALT_URL" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="STORE_POLICIES2" contentIdTo="CNT_ALTURL_ASSOC" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+    
+    <DataResource dataResourceId="DRS_CNT_URL001" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Store-Policies-STORE_POLICIES-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL001" textData="Store Policies"/>
+    <Content contentId="CNT_ALTURL_001" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL001" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="STORE_POLICIES" contentIdTo="CNT_ALTURL_001" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+    
+    <DataResource dataResourceId="DRS_CNT_URL002" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Policies-POLICY-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL002" textData="Policies"/>
+    <Content contentId="CNT_ALTURL_002" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL002" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="POLICY" contentIdTo="CNT_ALTURL_002" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+
+    <DataResource dataResourceId="DRS_CNT_URL003" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Widgets-CNTWIDGETS-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL003" textData="Widgets"/>
+    <Content contentId="CNT_ALTURL_003" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL003" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="CNT_ALTURL_003" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+    
+    <DataResource dataResourceId="DRS_CNT_URL004" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Gizmos-CNTGIZMOS-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL004" textData="Gizmos"/>
+    <Content contentId="CNT_ALTURL_004" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL004" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNT_ALTURL_004" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+</entity-engine-xml>

@@ -65,6 +65,17 @@ under the License.
         <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
         <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
     </filter>
+	<filter>
+        <filter-name>ContentUrlFilter</filter-name>
+        <display-name>ContentUrlFilter</display-name>
+        <filter-class>org.ofbiz.content.content.ContentUrlFilter</filter-class>
+        <init-param>
+        	<param-name>defaultLocaleString</param-name>
+        	<param-value>en_US</param-value>
+        </init-param>
+        <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
+        <init-param><param-name>viewRequest</param-name><param-value>contentViewInfo</param-value></init-param>
+    </filter>
     <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
@@ -88,6 +99,10 @@ under the License.
     </filter>
     <filter-mapping>
         <filter-name>CatalogUrlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ContentUrlFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
