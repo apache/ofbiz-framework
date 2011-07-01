@@ -1975,8 +1975,16 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
     </request-map>
-    
-    
+
+    <!-- Content Information -->
+    <request-map uri="contentInfoCategory">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="contentInfoCategory"/>
+    </request-map>
+    <request-map uri="contentViewInfo">
+        <security https="false" auth="false"/>
+        <response name="success" type="view" value="contentViewInfo"/>
+    </request-map>
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
@@ -2133,5 +2141,7 @@ under the License.
     <!-- Product Category 's Ajax -->
     <view-map name="productCategoryList" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#productCategoryList"/>
     
+    <!-- Content Information -->
+    <view-map name="contentViewInfo" type="screen" page="component://ecommerce/widget/ContentScreens.xml#contentViewInfo"/>
     <!-- End of View Mappings -->
 </site-conf>

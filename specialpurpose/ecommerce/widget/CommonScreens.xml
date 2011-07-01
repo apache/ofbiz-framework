@@ -112,6 +112,7 @@ under the License.
                     <include-screen name="forums" location="component://ecommerce/widget/ForumScreens.xml"/>
                     <include-screen name="content_categories" location="component://ecommerce/widget/ContentScreens.xml"/>
                     <include-screen name="blogs" location="component://ecommerce/widget/blog/BlogScreens.xml"/>
+                    <include-screen name="contentInfoCategory" location="component://ecommerce/widget/ContentScreens.xml"/>
             </widgets>
         </section>
     </screen>

@@ -24,6 +24,7 @@ import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -34,19 +35,17 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.StringUtil.StringWrapper;
+import org.ofbiz.common.UrlServletHelper;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.webapp.control.ContextFilter;
-import org.ofbiz.webapp.website.WebSiteWorker;
 
 public class CatalogUrlFilter extends ContextFilter {
 
@@ -64,42 +63,12 @@ public class CatalogUrlFilter extends ContextFilter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         Delegator delegator = (Delegator) httpRequest.getSession().getServletContext().getAttribute("delegator");
-
-        // check if multi tenant is enabled
-        String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
-        if ("Y".equals(useMultitenant)) {
-            // get tenant delegator by domain name
-            String serverName = request.getServerName();
-            try {
-                // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
-                delegator = getDelegator(config.getServletContext());
-                List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition("domainName", serverName), null, UtilMisc.toList("-createdStamp"), null, false);
-                if (UtilValidate.isNotEmpty(tenants)) {
-                    GenericValue tenant = EntityUtil.getFirst(tenants);
-                    String tenantId = tenant.getString("tenantId");
-                    
-                    // make that tenant active, setup a new delegator and a new dispatcher
-                    String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
-                    httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
-                
-                    // after this line the delegator is replaced with the new per-tenant delegator
-                    delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
-                    config.getServletContext().setAttribute("delegator", delegator);
-                }
-                
-            } catch (GenericEntityException e) {
-                Debug.logWarning(e, "Unable to get Tenant", module);
-            }
-        }
-
-        // set the web context in the request for future use
-        request.setAttribute("servletContext", httpRequest.getSession().getServletContext());
-        request.setAttribute("delegator", delegator);
-
-        // set the webSiteId in the session
-        if (UtilValidate.isEmpty(httpRequest.getSession().getAttribute("webSiteId"))){
-            httpRequest.getSession().setAttribute("webSiteId", httpRequest.getSession().getServletContext().getAttribute("webSiteId"));
-        }
+        
+        //Get ServletContext
+        ServletContext servletContext = config.getServletContext();
+        
+        //Set request attribute and session
+        UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
         
         // set initial parameters
         String initDefaultLocalesString = config.getInitParameter("defaultLocaleString");
@@ -111,67 +80,10 @@ public class CatalogUrlFilter extends ContextFilter {
         if (UtilValidate.isNotEmpty(pathInfo)) {
             List<String> pathElements = StringUtil.split(pathInfo, "/");
             String alternativeUrl = pathElements.get(0);
-
-            // get web site and default locale string
-            String localeString = null;
-            String webSiteId = WebSiteWorker.getWebSiteId(request);
-            GenericValue webSite;
-            try {
-                webSite = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
-                if (UtilValidate.isNotEmpty(webSite)) {
-                    GenericValue productStore = webSite.getRelatedOne("ProductStore");
-                    if (UtilValidate.isNotEmpty(productStore)) {
-                        localeString = productStore.getString("defaultLocaleString");
-                    }
-                } else {
-                    localeString = defaultLocaleString;
-                }
-            } catch (GenericEntityException ex) {
-                Debug.logWarning(ex, module);
-            }
             
-            // get view index, view size and view sort from path info
-            String viewIndex = null;
-            String viewSize = null;
-            String viewSort = null;
-            String searchString = null;
-            
-            int queryStringIndex = pathInfo.indexOf("?");
-            if (queryStringIndex >= 0) {
-                List<String> queryStringTokens = StringUtil.split(pathInfo.substring(queryStringIndex + 1), "&");
-                for (String queryStringToken : queryStringTokens) {
-                    int equalIndex = queryStringToken.indexOf("=");
-                    String name = queryStringToken.substring(0, equalIndex - 1);
-                    String value = queryStringToken.substring(equalIndex + 1, queryStringToken.length() - 1);
-                    
-                    if ("viewIndex".equals(name)) {
-                        viewIndex = value;
-                    } else if ("viewSize".equals(name)) {
-                        viewSize = value;
-                    } else if ("viewSort".equals(name)) {
-                        viewSort = value;
-                    } else if ("searchString".equals(name)) {
-                        searchString = value;
-                    }
-                }
-            }
-            
-            if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewIndex"))) {
-                viewIndex = httpRequest.getParameter("viewIndex");
-            }
-            if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewSize"))) {
-                viewSize = httpRequest.getParameter("viewSize");
-            }
-            if (UtilValidate.isNotEmpty(httpRequest.getParameter("viewSort"))) {
-                viewSort = httpRequest.getParameter("viewSort");
-            }
-            if (UtilValidate.isNotEmpty(httpRequest.getParameter("searchString"))) {
-                searchString = httpRequest.getParameter("searchString");
-            }
-
             String productId = null;
             String productCategoryId = null;
-            
+            String urlContentId = null;
             try {
                 // look for productId
                 if (alternativeUrl.endsWith("-p")) {
@@ -188,7 +100,7 @@ public class CatalogUrlFilter extends ContextFilter {
                                     GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOneCache("ElectronicText");
                                     if (UtilValidate.isNotEmpty(ElectronicText)) {
                                         String textData = (String) ElectronicText.get("textData");
-                                        textData = invalidCharacter(textData);
+                                        textData = UrlServletHelper.invalidCharacter(textData);
                                         if (alternativeUrl.matches(textData + ".+$")) {
                                             String productIdStr = null;
                                             productIdStr = alternativeUrl.replace(textData + "-", "");
@@ -209,7 +121,7 @@ public class CatalogUrlFilter extends ContextFilter {
                                     if (UtilValidate.isNotEmpty(ElectronicText)) {
                                         String textData = (String) ElectronicText.get("textData");
                                         if (UtilValidate.isNotEmpty(textData)) {
-                                            textData = invalidCharacter(textData);
+                                            textData = UrlServletHelper.invalidCharacter(textData);
                                             if (alternativeUrl.matches(textData + ".+$")) {
                                                 String productIdStr = null;
                                                 productIdStr = alternativeUrl.replace(textData + "-", "");
@@ -244,7 +156,7 @@ public class CatalogUrlFilter extends ContextFilter {
                                     if (UtilValidate.isNotEmpty(ElectronicText)){
                                         String textData = (String) ElectronicText.get("textData");
                                         if (UtilValidate.isNotEmpty(textData)) {
-                                            textData = invalidCharacter(textData);
+                                            textData = UrlServletHelper.invalidCharacter(textData);
                                             if (alternativeUrl.matches(textData + ".+$")) {
                                                 String productCategoryStr = null;
                                                 productCategoryStr = alternativeUrl.replace(textData + "-", "");
@@ -266,7 +178,7 @@ public class CatalogUrlFilter extends ContextFilter {
                                     if (UtilValidate.isNotEmpty(ElectronicText)) {
                                         String textData = (String) ElectronicText.get("textData");
                                         if (UtilValidate.isNotEmpty(textData)) {
-                                            textData = invalidCharacter(textData);
+                                            textData = UrlServletHelper.invalidCharacter(textData);
                                             if (alternativeUrl.matches(textData + ".+$")) {
                                                 String productCategoryStr = null;
                                                 productCategoryStr = alternativeUrl.replace(textData + "-", "");
@@ -284,6 +196,7 @@ public class CatalogUrlFilter extends ContextFilter {
                         }
                     }
                 }
+
             } catch (GenericEntityException e) {
                 Debug.logWarning("Cannot look for product and product category", module);
             }
@@ -398,23 +311,6 @@ public class CatalogUrlFilter extends ContextFilter {
                     CategoryWorker.setTrail(request, trail);
                 }
 
-                if(UtilValidate.isNotEmpty(viewIndex)){
-                    urlBuilder.append("/~VIEW_INDEX=" + viewIndex);
-                    request.setAttribute("VIEW_INDEX", viewIndex);
-                }
-                if(UtilValidate.isNotEmpty(viewSize)){
-                    urlBuilder.append("/~VIEW_SIZE=" + viewSize);
-                    request.setAttribute("VIEW_SIZE", viewSize);
-                }
-                if(UtilValidate.isNotEmpty(viewSort)){
-                    urlBuilder.append("/~VIEW_SORT=" + viewSort);
-                    request.setAttribute("VIEW_SORT", viewSort);
-                }
-                if(UtilValidate.isNotEmpty(searchString)){
-                    urlBuilder.append("/~SEARCH_STRING=" + searchString);
-                    request.setAttribute("SEARCH_STRING", searchString);
-                }
-
                 request.setAttribute("productCategoryId", productCategoryId);
                 
                 if (productId != null) {
@@ -423,50 +319,17 @@ public class CatalogUrlFilter extends ContextFilter {
                 }
             }
             
-            if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId)) {
+            //Set view query parameters
+            UrlServletHelper.setViewQueryParameters(request, urlBuilder);
+            if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId) || UtilValidate.isNotEmpty(urlContentId)) {
                 Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;
             }
-
-            // check path alias
-            GenericValue pathAlias = null;
-            try {
-                pathAlias = delegator.findByPrimaryKeyCache("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-            if (pathAlias != null) {
-                String alias = pathAlias.getString("aliasTo");
-                String contentId = pathAlias.getString("contentId");
-                if (contentId == null && UtilValidate.isNotEmpty(alias)) {
-                    if (!alias.startsWith("/")) {
-                       alias = "/" + alias;
-                    }
-
-                    RequestDispatcher rd = request.getRequestDispatcher(alias);
-                    try {
-                        rd.forward(request, response);
-                        return;
-                    } catch (ServletException e) {
-                        Debug.logWarning(e, module);
-                    } catch (IOException e) {
-                        Debug.logWarning(e, module);
-                    }
-                }
-            } else {
-                // send 404 error if a URI is alias TO
-                try {
-                    List<GenericValue> aliasTos = delegator.findByAndCache("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "aliasTo", httpRequest.getRequestURI()));
-                    if (UtilValidate.isNotEmpty(aliasTos)) {
-                        httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "Not Found");
-                        return;
-                    }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                }
-            }
+            
+            //Check path alias
+            UrlServletHelper.checkPathAlias(request, httpResponse, delegator, pathInfo);
         }
         
         // we're done checking; continue on
@@ -488,7 +351,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     urlBuilder.append("/");
                 }
                 // append alternative URL
-                url = invalidCharacter(alternativeUrl.toString());
+                url = UrlServletHelper.invalidCharacter(alternativeUrl.toString());
                 urlBuilder.append(url);
                 if (UtilValidate.isNotEmpty(productCategoryId)) {
                     urlBuilder.append("-");
@@ -551,7 +414,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     urlBuilder.append("/");
                 }
                 // append alternative URL
-                url = invalidCharacter(alternativeUrl.toString());
+                url = UrlServletHelper.invalidCharacter(alternativeUrl.toString());
                 urlBuilder.append(url);
                 if (UtilValidate.isNotEmpty(productId)) {
                     urlBuilder.append("-");
@@ -568,81 +431,4 @@ public class CatalogUrlFilter extends ContextFilter {
         }
     }
     
-    public static String invalidCharacter(String str) {
-        str = str.replace("&", "-");
-        str = str.replace("\"", "-");
-        str = str.replace("×", "-");
-        str = str.replace("÷", "-");
-        str = str.replace(" ", "-");
-        str = str.replace("!", "-");
-        str = str.replace("#", "-");
-        str = str.replace("$", "-");
-        str = str.replace("%", "-");
-        str = str.replace("'", "-");
-        str = str.replace("(", "-");
-        str = str.replace(")", "-");
-        str = str.replace("*", "-");
-        str = str.replace("+", "-");
-        str = str.replace(",", "-");
-        str = str.replace(".", "-");
-        str = str.replace("/", "-");
-        str = str.replace(":", "-");
-        str = str.replace(";", "-");
-        str = str.replace("<", "-");
-        str = str.replace("=", "-");
-        str = str.replace(">", "-");
-        str = str.replace("?", "-");
-        str = str.replace("@", "-");
-        str = str.replace("[", "-");
-        str = str.replace("\\", "-");
-        str = str.replace("]", "-");
-        str = str.replace("^", "-");
-        str = str.replace("_", "-");
-        str = str.replace("`", "-");
-        str = str.replace("{", "-");
-        str = str.replace("|", "-");
-        str = str.replace("}", "-");
-        str = str.replace("~", "-");
-        str = str.replace("￠", "-");
-        str = str.replace("￡", "-");
-        str = str.replace("¤", "-");
-        str = str.replace("§", "-");
-        str = str.replace("¨", "-");
-        str = str.replace("¬", "-");
-        str = str.replace("ˉ", "-");
-        str = str.replace("°", "-");
-        str = str.replace("±", "-");
-        str = str.replace("μ", "-");
-        str = str.replace("•", "-");
-        str = str.replace("！", "-");
-        str = str.replace("￥", "-");
-        str = str.replace("……", "-");
-        str = str.replace("（", "-");
-        str = str.replace("）", "-");
-        str = str.replace("——", "-");
-        str = str.replace("【", "-");
-        str = str.replace("】", "-");
-        str = str.replace("｛", "-");
-        str = str.replace("｝", "-");
-        str = str.replace("：", "-");
-        str = str.replace("；", "-");
-        str = str.replace("“", "-");
-        str = str.replace("、", "-");
-        str = str.replace("《", "-");
-        str = str.replace("》", "-");
-        str = str.replace("，", "-");
-        str = str.replace("。", "-");
-        str = str.replace("‘", "-");
-        str = str.replace("？", "-");
-        while(str.startsWith("-")){
-            str = str.substring(1);
-        }
-        while(str.endsWith("-")){
-            str = str.substring(0,str.length() - 1);
-        }
-        while(str.indexOf("--") != -1){
-            str = str.replace("--","-");
-        }
-        return str;
-    }
 }

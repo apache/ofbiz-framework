@@ -1557,6 +1557,9 @@
         <value xml:lang="zh">明细来自购物清单；从列表页更新数量</value>
         <value xml:lang="zh_TW">明細來自購物清單; 從列表頁更新數量</value>
     </property>
+    <property key="EcommerceLanguage">
+        <value xml:lang="en">Language</value>
+    </property>
     <property key="EcommerceLastCategories">
         <value xml:lang="cs">Poslední kategorie</value>
         <value xml:lang="da">Seneste kategorier</value>
@@ -1946,6 +1949,9 @@
         <value xml:lang="th">กรุณาเลือกวิธีการขนส่งสินค้า</value>
         <value xml:lang="zh">请选择送货方法</value>
         <value xml:lang="zh_TW">請選擇送貨方法</value>
+    </property>
+    <property key="EcommerceModifyDate">
+        <value xml:lang="en">Modified Date</value>
     </property>
     <property key="EcommerceMonths">
         <value xml:lang="da">Måneder</value>
@@ -2399,6 +2405,9 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้าไม่ทำงาน</value>
         <value xml:lang="zh">订单没有激活</value>
         <value xml:lang="zh_TW">訂單沒有啟動</value>
+    </property>
+    <property key="EcommerceOwner">
+        <value xml:lang="en">Owner</value>
     </property>
     <property key="EcommerceOwningDepartment">
         <value xml:lang="da">Ejende afdeling</value>

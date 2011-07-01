@@ -1197,4 +1197,11 @@
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <attribute name="contentId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <!-- Convert Content Alternative Urls -->
+    <service name="convertContentAltUrls" engine="simple"
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="convertContentAltUrls" auth="true">
+        <description>Convert Content Alternative URL</description>
+        <attribute name="allowConvert" mode="IN" type="String" optional="false"></attribute>
+    </service>
 </services>
