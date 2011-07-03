@@ -280,7 +280,7 @@ under the License.
     <screen name="LookupDecorator">
         <section>
             <condition>
-                <if-empty field="parameters.ajaxLookup"/>
+                <not><if-compare operator="equals" value="Y" field="parameters.ajaxLookup"/></not>
             </condition>
             <widgets>
                 <section>

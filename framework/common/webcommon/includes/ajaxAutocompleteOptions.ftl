@@ -35,7 +35,9 @@ under the License.
 <script type="text/javascript">
     <#if autocompleteOptions?exists>
   var autocomp = [
-        <#assign displayReturnField = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.displayReturnField")>
+        <#if !displayReturnField?exists>
+            <#assign displayReturnField = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("widget.properties", "widget.autocompleter.displayReturnField")>
+        </#if>
         <#list autocompleteOptions as autocompleteOption>
             {
             <#assign displayString = ""/>
