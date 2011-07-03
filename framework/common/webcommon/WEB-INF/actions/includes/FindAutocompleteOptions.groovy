@@ -19,6 +19,7 @@
 
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
@@ -104,7 +105,11 @@ if (orExprs && entityName && displayFieldsSet) {
     
     def entityConditionList = EntityCondition.makeCondition(mainAndConds, EntityOperator.AND);    
     
-    Integer autocompleterViewSize = Integer.valueOf(context.autocompleterViewSize ?: 10);
+    String viewSizeStr = context.autocompleterViewSize;
+    if (viewSizeStr == null) {
+        viewSizeStr = UtilProperties.getPropertyValue("widget", "widget.autocompleter.defaultViewSize");
+    }
+    Integer autocompleterViewSize = Integer.valueOf(viewSizeStr ?: 10);
     EntityFindOptions findOptions = new EntityFindOptions();
     findOptions.setMaxRows(autocompleterViewSize);
     findOptions.setDistinct(searchDistinct);
