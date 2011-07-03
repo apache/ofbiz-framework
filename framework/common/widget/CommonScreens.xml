@@ -348,7 +348,6 @@ under the License.
                 <section>
                     <actions>
                         <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
-                        <property-to-field resource="widget" property="widget.autocompleter.defaultViewSize" field="autocompleterViewSize"/>
                         <script location="component://common/webcommon/WEB-INF/actions/includes/FindAutocompleteOptions.groovy"/>
                     </actions>
                     <widgets>
