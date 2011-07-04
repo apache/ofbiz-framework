@@ -70,11 +70,11 @@ under the License.
         <display-name>ContentUrlFilter</display-name>
         <filter-class>org.ofbiz.content.content.ContentUrlFilter</filter-class>
         <init-param>
-        	<param-name>defaultLocaleString</param-name>
-        	<param-value>en_US</param-value>
+            <param-name>defaultLocaleString</param-name>
+            <param-value>en_US</param-value>
         </init-param>
         <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
-        <init-param><param-name>viewRequest</param-name><param-value>contentViewInfo</param-value></init-param>
+        <init-param><param-name>viewRequest</param-name><param-value>ViewBlogArticle</param-value></init-param>
     </filter>
     <filter>
         <filter-name>ContextFilter</filter-name>

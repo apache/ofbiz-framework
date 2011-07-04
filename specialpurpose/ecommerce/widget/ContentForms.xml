@@ -40,13 +40,5 @@ under the License.
         <field name="dataResourceId"><display/></field>
         <field name="contentName"><display/></field>
     </form>
-    <form name="contentInfomation" target="" title="" type="single"
-        header-row-style="header-row" default-table-style="basic-table">
-        <field name="contentName"><display description="${content.contentName}"/></field>
-        <field name="description"><display description="${content.description}"/></field>
-        <field name="createdByUserLogin" title="${uiLabelMap.EcommerceOwner}"><display description="${content.createdByUserLogin}"/></field>
-        <field name="localeString" title="${uiLabelMap.CommonLanguageTitle}"><display description="${content.localeString}"/></field>
-        <field name="createdDate" title="${uiLabelMap.EcommerceModifyDate}"><display description="${content.createdDate}"/></field>
-    </form>
 </forms>
 
