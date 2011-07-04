@@ -21,29 +21,19 @@ under the License.
     
     <!-- Demo Content Alternative Url -->
     <!-- The content alternative url come from the contentName in the Content entity.-->
-    <!-- Can use convertContentAltUrls service job to create all content alternative url if the contentName is exist. -->
-    <DataResource dataResourceId="DRS_ALT_URL" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Store-Policies-2-STORE_POLICIES2-content"/>
-    <ElectronicText dataResourceId="DRS_ALT_URL" textData="Store Policies 2"/>
-    <Content contentId="CNT_ALTURL_ASSOC" contentTypeId="DOCUMENT" dataResourceId="DRS_ALT_URL" statusId="CTNT_IN_PROGRESS"/>
-    <ContentAssoc contentId="STORE_POLICIES2" contentIdTo="CNT_ALTURL_ASSOC" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+    <DataResource dataResourceId="DRS_CNT_URL005" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Cute-Kid-BLG10000-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL005" textData="Cute Kid"/>
+    <Content contentId="CNT_ALTURL_005" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL005" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="BLG10000" contentIdTo="CNT_ALTURL_005" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
     
-    <DataResource dataResourceId="DRS_CNT_URL001" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Store-Policies-STORE_POLICIES-content"/>
-    <ElectronicText dataResourceId="DRS_CNT_URL001" textData="Store Policies"/>
-    <Content contentId="CNT_ALTURL_001" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL001" statusId="CTNT_IN_PROGRESS"/>
-    <ContentAssoc contentId="STORE_POLICIES" contentIdTo="CNT_ALTURL_001" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+    <DataResource dataResourceId="DRS_CNT_URL006" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Next-Linus-BLG10010-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL006" textData="Next Linus"/>
+    <Content contentId="CNT_ALTURL_006" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL006" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="BLG10010" contentIdTo="CNT_ALTURL_006" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
     
-    <DataResource dataResourceId="DRS_CNT_URL002" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Policies-POLICY-content"/>
-    <ElectronicText dataResourceId="DRS_CNT_URL002" textData="Policies"/>
-    <Content contentId="CNT_ALTURL_002" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL002" statusId="CTNT_IN_PROGRESS"/>
-    <ContentAssoc contentId="POLICY" contentIdTo="CNT_ALTURL_002" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
+    <DataResource dataResourceId="DRS_CNT_URL007" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/2008-Elections-BLG10007-content"/>
+    <ElectronicText dataResourceId="DRS_CNT_URL007" textData="2008 Elections"/>
+    <Content contentId="CNT_ALTURL_007" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL007" statusId="CTNT_IN_PROGRESS"/>
+    <ContentAssoc contentId="BLG10007" contentIdTo="CNT_ALTURL_007" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
 
-    <DataResource dataResourceId="DRS_CNT_URL003" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Widgets-CNTWIDGETS-content"/>
-    <ElectronicText dataResourceId="DRS_CNT_URL003" textData="Widgets"/>
-    <Content contentId="CNT_ALTURL_003" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL003" statusId="CTNT_IN_PROGRESS"/>
-    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="CNT_ALTURL_003" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
-    
-    <DataResource dataResourceId="DRS_CNT_URL004" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Gizmos-CNTGIZMOS-content"/>
-    <ElectronicText dataResourceId="DRS_CNT_URL004" textData="Gizmos"/>
-    <Content contentId="CNT_ALTURL_004" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL004" statusId="CTNT_IN_PROGRESS"/>
-    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNT_ALTURL_004" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
 </entity-engine-xml>
