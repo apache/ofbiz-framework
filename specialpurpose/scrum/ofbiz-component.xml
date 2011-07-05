@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ofbiz-component name="scrum"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
+    <!-- define resource loaders; most common is to use the component resource loader -->
+    <resource-loader name="main" type="component"/>
+
+    <!-- place the config directory on the classpath to access configuration files -->
+    <classpath type="dir" location="config"/>
+    <classpath type="dir" location="dtd"/>
+
+    <!-- load single or multiple external libraries -->
+    <classpath type="jar" location="build/lib/*"/>
+    <classpath type="jar" location="lib/*"/>
+
+    <!-- entity resources: model(s), eca(s), group, and data definitions -->
+    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
+    <!-- <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/> -->
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/scrumTypeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/scrumSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/scrumHelpData.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/scrumDemoData.xml"/>
+
+    <!-- service resources: model(s), eca(s) and group definitions -->
+    <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <service-resource type="model" loader="main" location="servicedef/permissionServices.xml"/>
+    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
+    <!-- <service-resource type="group" loader="main" location="servicedef/groups.xml"/> -->
+
+    <test-suite loader="main" location="testdef/scrumTests.xml"/>
+
+    <!-- web applications; will be mounted when using the embedded container -->
+    <webapp name="scrum"
+        title="Scrum"
+        server="default-server"
+        location="webapp/scrum"
+        app-bar-display="true"
+        base-permission="SCRUM"
+        mount-point="/scrum"/>
+        
+    <webapp name="scrumdemo"
+        title="Scrumdemo"
+        server="default-server"
+        location="webapp/demotest"
+        app-bar-display="false"
+        base-permission=""
+        mount-point="/scrumdemo" />
+</ofbiz-component>
+
+

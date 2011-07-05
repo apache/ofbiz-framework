@@ -1,0 +1,52 @@
+<test-suite suite-name="scrumtests"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
+
+        <test-case case-name="scrum-tests">
+            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ScrumTests.xml"/>
+        </test-case>
+        <test-case case-name="productBacklog-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProductBacklogTest.xml"/>
+        </test-case>
+        <test-case case-name="scrumProject-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ScrumProjectTests.xml"/>
+        </test-case>
+        <test-case case-name="project-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProjectTests.xml"/>
+        </test-case>
+        <test-case case-name="sprint-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
+        </test-case>
+        <test-case case-name="sprintBacklog-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/SprintBacklogTests.xml"/>
+        </test-case>
+        <test-case case-name="dailyMeetingMinute-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/DailyMeetingMinuteTests.xml"/>
+        </test-case>
+        <test-case case-name="product-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProductTest.xml"/>
+        </test-case>
+        <test-case case-name="task-test">
+            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/TaskTests.xml"/>
+        </test-case>
+        <test-case case-name="myWork-test">
+            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/MyWorkTests.xml"/>
+        </test-case>
+        <test-case case-name="timesheet-test">
+            <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/TimesheetTests.xml"/>
+        </test-case>
+        <!-- test-case case-name="qa-tests">
+             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/QATests.xml"/>
+        </test-case-->
+        
+        <!-- Tests data load -->
+        <test-case case-name="scrum-type-data">
+            <entity-xml action="load" entity-xml-url="component://scrum/data/scrumTypeData.xml"/>
+        </test-case>
+        <test-case case-name="scrum-security-data">
+            <entity-xml action="load" entity-xml-url="component://scrum/data/scrumSecurityData.xml"/>
+        </test-case>
+        <test-case case-name="scrum-demo-data">
+            <entity-xml action="load" entity-xml-url="component://scrum/data/scrumDemoData.xml"/>
+        </test-case>
+</test-suite>

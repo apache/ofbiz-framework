@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        
+    <simple-method method-name="testCreateScrumProjectByProductOwner" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN06"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="DemoCustomer-1"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="createScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateScrumProjectByProductOwner" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN06_UPDATE"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="DemoCustomer-1"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateScrumProjectByStakeholder" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="DemoStakeholder"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_007"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN07"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="DemoStakeholder"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="createScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateScrumProjectByStakeholder" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN07_UPDATE"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="DemoStakeholder"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateScrumProjectByScrumMaster" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="DemoStakeholder"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_008"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN08"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="SCRUMASTER"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="createScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateScrumProjectByScrumMaster" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN08_UPDATE"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="SCRUMASTER"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateScrumProjectByScrumTeam" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="DemoStakeholder"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_009"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN09"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="SCRUMTEAM-1"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="createScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateScrumProjectByScrumTeam" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN09_UPDATE"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="SCRUMTEAM-1"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testCreateScrumProjectByScrumUser" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="DemoStakeholder"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_010"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN10"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="SCRUM_USER"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="createScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+    
+    <simple-method method-name="testUpdateScrumProjectByScrumUser" short-description="Test Create Scrum Project" login-required="false">
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="productowner"/>
+        </entity-one>
+        <set-current-user-login value-field="userLogin"/>
+        <set field="parameters.workEffortId" value="TEST_WE_006"/>
+        <set field="parameters.currentStatusId" value="SPJ_ACTIVE"/>
+        <set field="parameters.workEffortName" value="TEST_WEN10_UPDATE"/>
+        <set field="parameters.workEffortTypeId" value="SCRUM_PROJECT"/>
+        <set field="parameters.partyId" value="SCRUM_USER"/>
+        <set field="parameters.userLogin" from-field="userLogin"/>
+        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
+    </simple-method>
+        
+</simple-methods>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml" />
+    <include location="component://humanres/webapp/humanres/WEB-INF/controller.xml" />
+    <include
+        location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml" />
+    <description>scrum Component Site Configuration File</description>
+    <handler name="service-multi" type="request"
+        class="org.ofbiz.webapp.event.ServiceMultiEventHandler" />
+
+    <request-map uri="main">
+        <security https="false" auth="false" />
+        <response name="success" type="view" value="main" />
+    </request-map>
+    <request-map uri="demotest">
+        <security https="false" auth="false"/>
+        <event type="simple" invoke="setNewDemoUser" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" />
+        <response name="success" type="url" value="../scrum/control/main" />
+        <response name="error" type="view" value="main" />
+    </request-map>
+
+    <view-map name="main" type="screen" page="component://scrum/widget/demotest/DemotestScreen.xml#main" />
+</site-conf>

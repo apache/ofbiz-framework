@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to you under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under the
+    License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+    CONDITIONS OF ANY KIND, either express or implied. See the License for
+    the specific language governing permissions and limitations under the
+    License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5.0" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+    <title>Open Test help</title>
+    <para>This Screen shows the list of completed backlogs that's mean all implementation tasks are set to completed.
+       Select a project you want and 'Find'. After result appear Click on backlog to view backlog's details and you will see
+       the 'How to test' field that will describe how you could test the backlog. You can also make an error task on the backlog's overview screen
+       incase you found en error while you're testing. So the backlog will be disappear from the list.
+    </para>
+    <section>
+        <title>The Open test screen consists of.</title>
+        <orderedlist>
+            <listitem><para>Find Backlog</para></listitem>
+            <listitem><para>Backlog List</para></listitem>
+        </orderedlist>
+    </section>
+    <section>
+        <title>Find Backlog</title>
+        <para>
+            To find the backlog which remains the task status is "test".
+        </para>
+    </section>
+    <section>
+        <title>Backlog List</title>
+        <para>
+            On the backlog list shows Sprint Name - click on sprint's name the action will go to sprint's overview, 
+            Backlog item - click on Backlog's name the action will go to the backlog's overview, 
+            and Status - to notify the backlog's status.
+        </para>
+    </section>
+</section>
