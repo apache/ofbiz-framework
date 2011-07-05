@@ -249,7 +249,6 @@ public class PartyServices {
                     for(GenericValue userLogin : userLogins) {
                         if (!"N".equals(userLogin.getString("enabled"))) {
                             userLogin.set("enabled", "N");
-                            userLogin.set("disabledDateTime", UtilDateTime.nowTimestamp());
                             userLogin.store();
                         }
                     }

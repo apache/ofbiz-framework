@@ -888,11 +888,6 @@ public class LoginServices {
             userLoginToUpdate.set("disabledDateTime", null);
         }
 
-        // if was enabled and we are disabling it, and no disabledDateTime was passed, set it to now
-        if (wasEnabled && "N".equals(context.get("enabled")) && context.get("disabledDateTime") == null) {
-            userLoginToUpdate.set("disabledDateTime", UtilDateTime.nowTimestamp());
-        }
-
         try {
             userLoginToUpdate.store();
         } catch (GenericEntityException e) {
