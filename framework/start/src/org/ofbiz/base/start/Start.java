@@ -159,6 +159,10 @@ public class Start {
             }
         }
         this.config = Config.getInstance(args);
+        // parse the startup arguments
+        if (args.length > 1) {
+            this.loaderArgs.addAll(Arrays.asList(args).subList(1, args.length));
+        }
 
         if (!fullInit) {
             return;
