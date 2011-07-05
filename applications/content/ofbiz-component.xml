@@ -46,7 +46,6 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/WebtoolsHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ExampleHelpData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/BirtHelpData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ContentScheduleServiceData.xml"/>
 
     <entity-resource type="data" reader-name="demo" loader="main" location="data/UsersDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoBlogPubPtData.xml"/>
