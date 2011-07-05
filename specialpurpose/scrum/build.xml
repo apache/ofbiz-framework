@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="OFBiz - scrum Component" default="jar" basedir=".">
+    <import file="../../common.xml"/>
+
+    <!-- ================================================================== -->
+    <!-- Initialization of all property settings                            -->
+    <!-- ================================================================== -->
+
+    <property environment="env"/>
+    <property name="desc" value="scrum Component"/>
+    <property name="name" value="ofbiz-scrum"/>
+    <property name="component-name" value="ofbiz-scrum"/>
+    <property name="ofbiz.home.dir" value="../.."/>
+    <property name="src.dir" value="src"/>
+    <property name="dtd.dir" value="dtd"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+
+    <path id="local.class.path">
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib" includes="*.jar"/>
+        <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
+        <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entity/lib" includes="*.jar"/>
+        <fileset dir="../../framework/entity/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/security/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/service/lib" includes="*.jar"/>
+        <fileset dir="../../framework/service/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/minilang/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/widget/build/lib" includes="*.jar"/>
+        <fileset dir="../../framework/webapp/lib" includes="*.jar"/>
+        <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
+    </path>
+
+    <!-- ================================================================= -->
+    <!-- Targets to create  patch files                                    -->
+    <!-- ================================================================= -->
+
+    <target name="create-ofbiz-patches" description="Creates patch for framework, application, specialpurpose components">
+        <exec executable="svn" output="patches/framework.patch" dir="${ofbiz.home.dir}">
+            <arg value="diff"/>
+            <arg value="framework"/>
+        </exec>
+        <exec executable="svn" output="patches/applications.patch" dir="${ofbiz.home.dir}">
+            <arg value="diff"/>
+            <arg value="applications"/>
+        </exec>
+        <exec executable="svn" output="patches/specialpurpose.patch" dir="${ofbiz.home.dir}">
+            <arg value="diff"/>
+            <arg value="specialpurpose"/>
+        </exec>
+    </target>
+
+    <target name="revert-ofbiz-patches" description="Remove any local change in the files or any previously applied local patch.">
+        <exec executable="svn" dir="${ofbiz.home.dir}">
+            <arg value="revert"/>
+            <arg value="-R"/>
+            <arg value="framework"/>
+        </exec>
+        <exec executable="svn" dir="${ofbiz.home.dir}">
+            <arg value="revert"/>
+            <arg value="-R"/>
+            <arg value="applications"/>
+        </exec>
+        <exec executable="svn" dir="${ofbiz.home.dir}">
+            <arg value="revert"/>
+            <arg value="-R"/>
+            <arg value="specialpurpose"/>
+        </exec>
+    </target>
+
+    <target name="apply-ofbiz-patches" description="Apply the patch to framework, application, specialpurpose components.">
+        <fail message="Patch files not found.">
+            <condition>
+                <or>
+                    <not><isset property="component-name"/></not>
+                    <not>
+                        <resourcecount count="3">
+                            <fileset dir="patches" includes="*.patch"/>
+                        </resourcecount>
+                    </not>
+                </or>
+            </condition>
+        </fail>
+        <patch strip="0" patchfile="patches/framework.patch" dir="${ofbiz.home.dir}"/>
+        <patch strip="0" patchfile="patches/applications.patch" dir="${ofbiz.home.dir}"/>
+        <patch strip="0" patchfile="patches/specialpurpose.patch" dir="${ofbiz.home.dir}"/>
+    </target>
+
+    <target name="reapply-ofbiz-patches" description="First removes any previously applied patch and then applies the new patch">
+        <fail message="Patch files not found.">
+            <condition>
+                <or>
+                    <not><isset property="component-name"/></not>
+                    <not>
+                        <resourcecount count="3">
+                            <fileset dir="patches" includes="*.patch"/>
+                        </resourcecount>
+                    </not>
+                </or>
+            </condition>
+        </fail>
+        <antcall target="revert-ofbiz-patches"/>
+        <antcall target="apply-ofbiz-patches"/>
+    </target>
+</project>
