@@ -178,15 +178,6 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="hours" type="Double" mode="OUT" optional="true"/>
     </service>
-    
-    <!-- upgrade conversion programs -->
-    <service name="upgradeScrumR425" engine="simple" invoke="upgradeScrumR425"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" auth="true">
-    </service>
-    <service name="upgradeScrumR445" engine="simple" invoke="upgradeScrumR445"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" auth="true">
-    </service>
-    
     <service name="createDefaultTask" engine="simple" invoke="createDefaultTask" auth="true"
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml">
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
@@ -194,7 +185,6 @@
     <service name="checkSprintStatus" engine="simple" auth="true"
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="checkSprintStatus">
     </service>
-
     <service name="checkScrumPlanHour" engine="simple" auth="true" 
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="checkScrumPlanHour">
         <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
@@ -205,13 +195,6 @@
     <service name="reOrderProductBacklogItemSequenceNumber" engine="simple" auth="true" 
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="reOrderProductBacklogItemSequenceNumber">
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="cleanProductBacklogItems" engine="simple" auth="true" 
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="cleanProductBacklogItems">
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-    </service>
-    <service name="upgradeScrumR637" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="upgradeScrumR637">
     </service>
     <service name="autoCompleteBacklog" engine="simple" auth="true"
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="autoCompleteBacklog">
@@ -266,38 +249,11 @@
         <attribute name="repositoryRoot" type="String" mode="IN" optional="false"/>
     </service>
     
-    <service name="upgradeScrumR801" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="upgradeScrumR801">
-    </service>
-    
     <service name="linkToProduct" engine="java" auth="true"
         location="org.ofbiz.scrum.ScrumServices" invoke="linkToProduct">
         <description>check when a comunication event is created if the subject contains the PD# string, if so 
                 try to find the customer request and link it to the communication event..
         </description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
-    </service>
-    
-    <service name="upgradeScrumR1027" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="upgradeScrumR1027">
-    </service>
-    
-    <service name="upgradeScrumR1320" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="upgradeScrumR1320">
-    </service>
-    <service name="upgradeScrumR1476" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="upgradeScrumR1476">
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-    </service>
-    
-    <service name="createWorkEffortConvert" engine="simple" auth="true" default-entity-name="WorkEffortConvert"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="createWorkEffortConvert">
-        <auto-attributes include="pk" mode="IN" optional="true"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="upgradeScrumR1547" engine="simple" auth="true"
-        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="upgradeScrumR1547">
-        <description> The upgradeScrumR1547 service is using for convert the old data with the productId problem of 
-            workeffort entity in scrum by copy the old data to existing entity name "WorkEffortGoodStandard" </description>
     </service>
 </services>
