@@ -31,6 +31,7 @@
         ebay/build.xml,
         ebaystore/build.xml,
         projectmgr/build.xml,
+        scrum/build.xml,
         ldap/build.xml,
         crowd/build.xml,
         webpos/build.xml
