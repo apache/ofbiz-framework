@@ -42,55 +42,12 @@ under the License.
         <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
     
-    <simple-method method-name="testcreateSprintBacklogByScrumTeam" short-description="" login-required="false" user-login-name="userLogin">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="scrumteam1"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testcreateSprintBacklogByProductOwner" short-description="" login-required="false" user-login-name="userLogin">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="productowner"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
     <simple-method method-name="testdeleteSprintBacklogByAdmin" short-description="" login-required="false">
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="admin"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        
-        <set field="parameters.custRequestId" from-field="custRequestList[0].custRequestId"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="deleteSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testdeleteSprintBacklogByProductOwner" short-description="" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="productowner"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        
-        <set field="parameters.custRequestId" from-field="custRequestList[0].custRequestId"/>
+        <set field="parameters.custRequestId" value="TEST1"/>
         <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
         <call-simple-method method-name="deleteSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
@@ -100,63 +57,8 @@ under the License.
             <field-map field-name="userLoginId" value="scrummaster"/>
         </entity-one>
         <set-current-user-login value-field="userLogin"/>
-        
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        
-        <set field="parameters.custRequestId" from-field="custRequestList[0].custRequestId"/>
+        <set field="parameters.custRequestId" value="TEST2"/>
         <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
         <call-simple-method method-name="deleteSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
-    
-    <simple-method method-name="testdeleteSprintBacklogByScurmTeam" short-description="" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="scrumteam1"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        
-        <set field="parameters.custRequestId" from-field="custRequestList[0].custRequestId"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="deleteSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    <simple-method method-name="testcreateSprintBacklogSetStatus" short-description="Test Set Status Create Sprint Backlog" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="scrummaster"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintId" value="DEMO-SPRINT-1"/>
-        <call-simple-method method-name="createSprintBacklog" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testUpdateScrumProject" short-description="Test Update Scrum Project " login-required="false" user-login-name="userLogin">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="admin"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.workEffortId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.currentStatusId" value="SPJ_ACTIVE" />
-        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" />
-    </simple-method>
-    
-    <simple-method method-name="testCloseScrumProject" short-description="Test Close Scrum Project " login-required="false" user-login-name="userLogin">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="admin"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.workEffortId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.currentStatusId" value="SPJ_CLOSED" />
-        <call-simple-method method-name="updateScrumProject" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml" />
-    </simple-method>
-
 </simple-methods>
