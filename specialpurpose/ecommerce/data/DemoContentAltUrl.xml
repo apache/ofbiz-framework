@@ -21,19 +21,19 @@ under the License.
     
     <!-- Demo Content Alternative Url -->
     <!-- The content alternative url come from the contentName in the Content entity.-->
-    <DataResource dataResourceId="DRS_CNT_URL005" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Cute-Kid-BLG10000-content"/>
+    <DataResource dataResourceId="DRS_CNT_URL005" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Cute-Kid-BLG10000-content" localeString="en_US"/>
     <ElectronicText dataResourceId="DRS_CNT_URL005" textData="Cute Kid"/>
-    <Content contentId="CNT_ALTURL_005" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL005" statusId="CTNT_IN_PROGRESS"/>
+    <Content contentId="CNT_ALTURL_005" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL005" statusId="CTNT_IN_PROGRESS" localeString="en_US"/>
     <ContentAssoc contentId="BLG10000" contentIdTo="CNT_ALTURL_005" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
     
-    <DataResource dataResourceId="DRS_CNT_URL006" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Next-Linus-BLG10010-content"/>
+    <DataResource dataResourceId="DRS_CNT_URL006" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/Next-Linus-BLG10010-content" localeString="en_US"/>
     <ElectronicText dataResourceId="DRS_CNT_URL006" textData="Next Linus"/>
-    <Content contentId="CNT_ALTURL_006" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL006" statusId="CTNT_IN_PROGRESS"/>
+    <Content contentId="CNT_ALTURL_006" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL006" statusId="CTNT_IN_PROGRESS" localeString="en_US"/>
     <ContentAssoc contentId="BLG10010" contentIdTo="CNT_ALTURL_006" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
     
-    <DataResource dataResourceId="DRS_CNT_URL007" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/2008-Elections-BLG10007-content"/>
+    <DataResource dataResourceId="DRS_CNT_URL007" dataResourceTypeId="ELECTRONIC_TEXT" statusId="CTNT_IN_PROGRESS" objectInfo="/2008-Elections-BLG10007-content" localeString="en_US"/>
     <ElectronicText dataResourceId="DRS_CNT_URL007" textData="2008 Elections"/>
-    <Content contentId="CNT_ALTURL_007" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL007" statusId="CTNT_IN_PROGRESS"/>
+    <Content contentId="CNT_ALTURL_007" contentTypeId="DOCUMENT" dataResourceId="DRS_CNT_URL007" statusId="CTNT_IN_PROGRESS" localeString="en_US"/>
     <ContentAssoc contentId="BLG10007" contentIdTo="CNT_ALTURL_007" contentAssocTypeId="ALTERNATIVE_URL" fromDate="2011-06-23 01:01:01"></ContentAssoc>
 
 </entity-engine-xml>

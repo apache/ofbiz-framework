@@ -1278,39 +1278,62 @@
     </simple-method>
 
     <simple-method method-name="createContentAlternativeUrl" short-description="Create Content Alternative URLs.">
-        <set field="contentId" from-field="parameters.contentId"/>
-        <entity-one value-field="content" entity-name="Content">
-            <field-map field-name="contentId" from-field="contentId"/>
-        </entity-one>
-        <if-not-empty field="content.contentName">
-            <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="altUrl">
-                <field field="content.contentName"/>
-            </call-class-method>
-            <set field="altUrl" value="/${altUrl}-${content.contentId}-content"/>
-            <sequenced-id sequence-name="DataResource" field="createDataResourceCtx.dataResourceId"/>
-            <set field="createDataResourceCtx.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
-            <set field="createDataResourceCtx.dataTemplateTypeId" value="FTL"/>
-            <set field="createDataResourceCtx.objectInfo" from-field="altUrl"/>
-            <set field="createDataResourceCtx.statusId" value="CTNT_IN_PROGRESS"/>
-            <call-service service-name="createDataResource" in-map-name="createDataResourceCtx" include-user-login="true">
-                <result-to-field result-name="dataResourceId" field="dataResourceId"/>
-            </call-service>
-            <set field="electronicTextCtx.dataResourceId" from-field="dataResourceId"/>
-            <set field="electronicTextCtx.textData" from-field="content.contentName"/>
-            <call-service service-name="createElectronicText" in-map-name="electronicTextCtx"></call-service>
-            
-            <sequenced-id sequence-name="Content" field="contentCtx.contentId"/>
-            <set field="contentCtx.contentTypeId" value="DOCUMENT"/>
-            <set field="contentCtx.dataResourceId" from-field="dataResourceId"/>
-            <call-service service-name="createContent" in-map-name="contentCtx" include-user-login="true">
-                <result-to-field result-name="contentId" field="contentIdTo"/>
-            </call-service>
-            
-            <set field="createContentAssocCtx.contentId" from-field="content.contentId"/>
-            <set field="createContentAssocCtx.contentIdTo" from-field="contentIdTo"/>
-            <set field="createContentAssocCtx.contentAssocTypeId" value="ALTERNATIVE_URL"/>
-            <call-service service-name="createContentAssoc" in-map-name="createContentAssocCtx"/>
-        </if-not-empty>
+        <set field="defaultLocaleString" from-field="parameters.locale"/>
+        <entity-condition list="contents" entity-name="Content">
+            <condition-list combine="and">
+                <condition-expr field-name="contentName" operator="not-equals" from-field="nullField"/>
+                <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId" ignore-if-empty="true" ignore-if-null="true"/>
+            </condition-list>
+            <select-field field-name="contentId"/>
+            <select-field field-name="contentName"/>
+            <select-field field-name="localeString"/>
+        </entity-condition>
+        <iterate entry="content" list="contents">
+            <set field="localeString" from-field="content.localeString" default-value="${defaultLocaleString}"/>
+            <entity-condition list="contentAssocDataResources" entity-name="ContentAssocDataResourceViewTo">
+                <condition-list combine="and">
+                    <condition-expr field-name="caContentAssocTypeId" operator="equals" value="ALTERNATIVE_URL"/>
+                    <condition-expr field-name="contentIdStart" operator="equals" from-field="content.contentId"/>
+                    <condition-expr field-name="localeString" operator="equals" from-field="localeString"/>
+                </condition-list>
+                <select-field field-name="contentIdStart"/>
+                <select-field field-name="dataResourceId"/>
+                <select-field field-name="localeString"/>
+                <select-field field-name="caFromDate"/>
+                <select-field field-name="caThruDate"/>
+            </entity-condition>
+            <filter-list-by-date list="contentAssocDataResources" from-field-name="caFromDate" thru-field-name="caThruDate"/>
+            <if-empty field="contentAssocDataResources">
+                <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="altUrl">
+                    <field field="content.contentName"/>
+                </call-class-method>
+                <set field="altUrl" value="/${altUrl}-${content.contentId}-content"/>
+                <sequenced-id sequence-name="DataResource" field="createDataResourceCtx.dataResourceId"/>
+                <set field="createDataResourceCtx.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
+                <set field="createDataResourceCtx.dataTemplateTypeId" value="FTL"/>
+                <set field="createDataResourceCtx.localeString" from-field="localeString"/>
+                <set field="createDataResourceCtx.objectInfo" from-field="altUrl"/>
+                <set field="createDataResourceCtx.statusId" value="CTNT_IN_PROGRESS"/>
+                <call-service service-name="createDataResource" in-map-name="createDataResourceCtx" include-user-login="true">
+                    <result-to-field result-name="dataResourceId" field="dataResourceId"/>
+                </call-service>
+                <set field="electronicTextCtx.dataResourceId" from-field="dataResourceId"/>
+                <set field="electronicTextCtx.textData" from-field="content.contentName"/>
+                <call-service service-name="createElectronicText" in-map-name="electronicTextCtx"></call-service>
+                
+                <sequenced-id sequence-name="Content" field="contentCtx.contentId"/>
+                <set field="contentCtx.contentTypeId" value="DOCUMENT"/>
+                <set field="contentCtx.dataResourceId" from-field="dataResourceId"/>
+                <set field="contentCtx.localeString" from-field="localeString"/>
+                <call-service service-name="createContent" in-map-name="contentCtx" include-user-login="true">
+                    <result-to-field result-name="contentId" field="contentIdTo"/>
+                </call-service>
+                
+                <set field="createContentAssocCtx.contentId" from-field="content.contentId"/>
+                <set field="createContentAssocCtx.contentIdTo" from-field="contentIdTo"/>
+                <set field="createContentAssocCtx.contentAssocTypeId" value="ALTERNATIVE_URL"/>
+                <call-service service-name="createContentAssoc" in-map-name="createContentAssocCtx"/>
+            </if-empty>
+        </iterate>
     </simple-method>
-    
 </simple-methods>
