@@ -1201,6 +1201,6 @@
     <service name="createContentAlternativeUrl" engine="simple"
             location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAlternativeUrl" auth="true">
         <description>Create Content Alternative URL</description>
-        <attribute name="contentId" mode="IN" type="String" optional="false"></attribute>
+        <attribute name="contentId" mode="IN" type="String" optional="true"></attribute>
     </service>
 </services>

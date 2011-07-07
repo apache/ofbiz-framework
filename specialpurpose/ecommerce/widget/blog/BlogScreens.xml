@@ -676,6 +676,7 @@
                 <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" value="BLOGROOT"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="SUB_CONTENT"/>
                         <condition-list combine="or">
                             <condition-expr field-name="caFromDate" operator="equals" from-field="null"/>
                             <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp"/>

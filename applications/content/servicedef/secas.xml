@@ -180,7 +180,7 @@ under the License.
     </eca>
     
     <eca service="createContent" event="return">
+        <condition field-name="contentId" operator="is-not-empty"/>
         <action service="createContentAlternativeUrl" mode="sync" run-as-user="system"/>
     </eca>
-
 </service-eca>
