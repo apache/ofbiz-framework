@@ -25,7 +25,7 @@ under the License.
         <entity-one value-field="userLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set field="parameters.custRequestId" value="DEMO-PRODBACKLOG-1"/>
+        <set field="parameters.custRequestId" value="TEST9"/>
         <set field="parameters.estimatedMilliSeconds" value="36000000"/>
         <set field="parameters.userLogin" from-field="userLogin"/>
         <set-service-fields service-name="updateCustRequest" to-map="inMap" map="parameters"/>
@@ -41,11 +41,12 @@ under the License.
         <set field="parameters.maxNum" value="20"/>
         <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
         <set field="parameters.sprintName" value="SprintTest"/>
-        <set field="parameters.sprintDescription" value="SprintDescription"/>
+        <set field="parameters.sprintDescription" value="Test Create Sprint"/>
         <set field="parameters.sprintEstimatedStart" value="2010-07-23 11:44:08.418" type="Timestamp"/>
         <set field="parameters.sprintEstimatedEnd" value="2010-08-23 11:44:08.418" type="Timestamp"/>
         <set field="parameters.sprintBacklogs" value="1"/>
         <set field="parameters.custRequestName" value="TestSprint"/>
+        <set field="parameters.sprintDuration" value="1"/>
         <call-simple-method method-name="createSprint" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
     
@@ -54,57 +55,8 @@ under the License.
         <call-simple-method method-name="testCreateSprintByScrummaster" xml-resource="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
         
         <set field="parameters.workEffortId" from-field="parameters.sprintId"/>
-        <set field="parameters.currentStatusId" value="SPRINT_ACTIVE"/>
-        <call-simple-method method-name="updateSprintInfo" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testCreateSprintByScrumTeam" short-description="Test Create Sprint By ScrumTeam" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="scrumteam1"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.userLogin" from-field="userLogin"/>
-        <set field="parameters.maxNum" value="20"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintName" value="SprintTest"/>
-        <set field="parameters.sprintDescription" value="SprintDescription"/>
-        <set field="parameters.sprintEstimatedStart" value="2010-07-23 11:44:08.418" type="Timestamp"/>
-        <set field="parameters.sprintEstimatedEnd" value="2010-08-23 11:44:08.418" type="Timestamp"/>
-        <set field="parameters.sprintBacklogs" value="1"/>
-        <call-simple-method method-name="createSprint" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testUpdateSprintByScrumTeam" short-description="Test Update Sprint By ScrumTeam" login-required="false">
-        
-        <call-simple-method method-name="testCreateSprintByScrumTeam" xml-resource="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
-        
-        <set field="parameters.workEffortId" from-field="parameters.sprintId"/>
-        <set field="parameters.currentStatusId" value="SPRINT_ACTIVE"/>
-        <call-simple-method method-name="updateSprintInfo" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testCreateSprintByProductOwner" short-description="Test Create Sprint By ProductOwner" login-required="false">
-        <entity-one value-field="userLogin" entity-name="UserLogin">
-            <field-map field-name="userLoginId" value="productowner"/>
-        </entity-one>
-        <set-current-user-login value-field="userLogin"/>
-        <set field="parameters.userLogin" from-field="userLogin"/>
-        <set field="parameters.maxNum" value="20"/>
-        <set field="parameters.projectId" value="DEMO-PROJECT-1"/>
-        <set field="parameters.sprintName" value="SprintTest"/>
-        <set field="parameters.sprintDescription" value="SprintDescription"/>
-        <set field="parameters.sprintEstimatedStart" value="2010-07-23 11:44:08.418" type="Timestamp"/>
-        <set field="parameters.sprintEstimatedEnd" value="2010-08-23 11:44:08.418" type="Timestamp"/>
-        <set field="parameters.sprintBacklogs" value="2"/>
-        <set field="parameters.custRequestName" value="TestSprint"/>
-        <call-simple-method method-name="createSprint" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-    </simple-method>
-    
-    <simple-method method-name="testUpdateSprintByProductOwner" short-description="Test Update Sprint By ProductOwner" login-required="false">
-        
-        <call-simple-method method-name="testCreateSprintByProductOwner" xml-resource="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
-        
-        <set field="parameters.workEffortId" from-field="parameters.sprintId"/>
+        <set field="parameters.workEffortName" value="SprintTest"/>
+        <set field="parameters.actualStartDate" value="2010-07-23 11:44:08.418" type="Timestamp"/>
         <set field="parameters.currentStatusId" value="SPRINT_ACTIVE"/>
         <call-simple-method method-name="updateSprintInfo" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
@@ -123,6 +75,7 @@ under the License.
         <set field="parameters.sprintEstimatedEnd" value="2010-08-23 11:44:08.418" type="Timestamp"/>
         <set field="parameters.sprintBacklogs" value="2"/>
         <set field="parameters.custRequestName" value="TestSprint"/>
+        <set field="parameters.sprintDuration" value="1"/>
         <call-simple-method method-name="createSprint" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>
     
@@ -131,6 +84,8 @@ under the License.
         <call-simple-method method-name="testCreateSprintByAdmin" xml-resource="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
         
         <set field="parameters.workEffortId" from-field="parameters.sprintId"/>
+        <set field="parameters.workEffortName" value="SprintTest"/>
+        <set field="parameters.actualStartDate" value="2010-07-23 11:44:08.418" type="Timestamp"/>
         <set field="parameters.currentStatusId" value="SPRINT_ACTIVE"/>
         <call-simple-method method-name="updateSprintInfo" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
     </simple-method>

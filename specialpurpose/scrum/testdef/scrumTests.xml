@@ -11,9 +11,6 @@
         <test-case case-name="scrumProject-tests">
              <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ScrumProjectTests.xml"/>
         </test-case>
-        <test-case case-name="project-tests">
-             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProjectTests.xml"/>
-        </test-case>
         <test-case case-name="sprint-tests">
              <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/SprintTests.xml"/>
         </test-case>
@@ -26,9 +23,9 @@
         <test-case case-name="product-tests">
              <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/ProductTest.xml"/>
         </test-case>
-        <test-case case-name="task-test">
+        <!--<test-case case-name="task-test">
             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/TaskTests.xml"/>
-        </test-case>
+        </test-case>-->
         <test-case case-name="myWork-test">
             <simple-method-test location="component://scrum/script/org/ofbiz/scrum/test/MyWorkTests.xml"/>
         </test-case>

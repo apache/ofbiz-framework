@@ -29,159 +29,27 @@ under the License.
             <set field="parameters.userLogin" from-field="userLogin"/>
             <set field="parameters.internalName" value="Demo Product 1"/>
             <set field="parameters.longDescription" value="Demo-Create-Description"/>
+            <set field="parameters.productTypeId" value="SCRUM_ITEM"/>
+            <set field="parameters.statusId" value="PRODUCT_ACTIVE"/>
             <set field="parameters.partyId" value="DemoCustomer-1"/>
-            <set field="parameters.partyCompany" value="TesCreste[DemoScrumCompany]."/>
+            <set field="parameters.partyCompany" value="Demo Scrum Company[DemoScrumCompany] - Scrum Product Owner (DemoCustomer-1)"/>
             <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
         </simple-method>
-        
-        <simple-method method-name="testCreateProductByStakeholder" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="DemoStakeholder"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="parameters.userLogin" from-field="userLogin"/>
-            <set field="parameters.internalName" value="Demo Product 1"/>
-            <set field="parameters.longDescription" value="Demo-Create-Description"/>
-            <set field="parameters.partyId" value="DemoCustomer-1"/>
-            <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        </simple-method>
-        
-        <simple-method method-name="testCreateProductByProductOwner" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="productowner"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="parameters.userLogin" from-field="userLogin"/>
-            <set field="parameters.internalName" value="Demo Product 1"/>
-            <set field="parameters.longDescription" value="Demo-Create-Description"/>
-            <set field="parameters.partyId" value="DemoCustomer-1"/>
-            <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        </simple-method>
-        <simple-method method-name="testCreateProductByScrumMaster" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrummaster"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="parameters.userLogin" from-field="userLogin"/>
-            <set field="parameters.internalName" value="Demo Product 1"/>
-            <set field="parameters.longDescription" value="Demo-Create-Description"/>
-            <set field="parameters.partyId" value="DemoCustomer-1"/>
-            <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        </simple-method>
-        <simple-method method-name="testCreateProductByScrumTeam" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrumteam1"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="parameters.userLogin" from-field="userLogin"/>
-            <set field="parameters.internalName" value="Demo Product 1"/>
-            <set field="parameters.longDescription" value="Demo-Create-Description"/>
-            <set field="parameters.partyId" value="DemoCustomer-1"/>
-            <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        </simple-method>
-        <!--<simple-method method-name="testCreateProductByScrumUser" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrumuser"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="parameters.userLogin" from-field="userLogin"/>
-            <set field="parameters.internalName" value="Demo Product 1"/>
-            <set field="parameters.longDescription" value="Demo-Create-Description"/>
-            <set field="parameters.partyId" value="DemoCustomer-1"/>
-            <call-simple-method method-name="createProductAndRole" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        </simple-method>-->
         
         <simple-method method-name="testUpdateProductByAdmin" short-description="" login-required="false" user-login-name="userLogin">
             <entity-one value-field="userLogin" entity-name="UserLogin">
                 <field-map field-name="userLoginId" value="admin"/>
             </entity-one>
             <set-current-user-login value-field="userLogin"/>
-            <set field="update.userLogin" from-field="userLogin"/>
-            <set field="update.productId" value="DEMO-PRODUCT-1"/>
-            <if-has-permission permission="PRODUCT" action="_UPDATE">
-            <call-service service-name="updateProduct" in-map-name="update"></call-service>
-            <else>
-                <set field="_error_message_" value="You are has no permission to perform this action."/>
-                <return response-code="error"/>
-            </else>
-            </if-has-permission>
-        </simple-method>
-        
-        <simple-method method-name="testUpdateProductByStakeholer" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrumuser"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="update.userLogin" from-field="userLogin"/>
-            <set field="update.productId" value="DEMO-PRODUCT-1"/>
-            <if-has-permission permission="PRODUCT" action="_UPDATE">
-            <call-service service-name="updateProduct" in-map-name="update"></call-service>
-            <else>
-                <set field="_error_message_" value="You are has no permission to perform this action."/>
-                <return response-code="error"/>
-            </else>
-            </if-has-permission>
-        </simple-method>
-        
-        <simple-method method-name="testUpdateProductByProductOwner" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="productowner"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="update.userLogin" from-field="userLogin"/>
-            <set field="update.productId" value="DEMO-PRODUCT-1"/>
-            <if-has-permission permission="PRODUCT" action="_UPDATE">
-            <call-service service-name="updateProduct" in-map-name="update"></call-service>
-            <else>
-                <set field="_error_message_" value="You are has no permission to perform this action."/>
-                <return response-code="error"/>
-            </else>
-            </if-has-permission>
-        </simple-method>
-        <simple-method method-name="testUpdateProductByScrumMaster" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrummaster"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="update.userLogin" from-field="userLogin"/>
-            <set field="update.productId" value="DEMO-PRODUCT-1"/>
-            <if-has-permission permission="PRODUCT" action="_UPDATE">
-            <call-service service-name="updateProduct" in-map-name="update"></call-service>
-            <else>
-                <set field="_error_message_" value="You are has no permission to perform this action."/>
-                <return response-code="error"/>
-            </else>
-            </if-has-permission>
-        </simple-method>
-        <simple-method method-name="testUpdateProductByScrumTeam" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrumteam1"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="update.userLogin" from-field="userLogin"/>
-            <set field="update.productId" value="DEMO-PRODUCT-1"/>
-            <if-has-permission permission="PRODUCT" action="_UPDATE">
-            <call-service service-name="updateProduct" in-map-name="update"></call-service>
-            <else>
-                <set field="_error_message_" value="You are has no permission to perform this action."/>
-                <return response-code="error"/>
-            </else>
-            </if-has-permission>
-        </simple-method>
-        <simple-method method-name="testUpdateProductByScrumUser" short-description="" login-required="false" user-login-name="userLogin">
-            <entity-one value-field="userLogin" entity-name="UserLogin">
-                <field-map field-name="userLoginId" value="scrumuser"/>
-            </entity-one>
-            <set-current-user-login value-field="userLogin"/>
-            <set field="update.userLogin" from-field="userLogin"/>
-            <set field="update.productId" value="DEMO-PRODUCT-1"/>
-            <if-has-permission permission="PRODUCT" action="_UPDATE">
-            <call-service service-name="updateProduct" in-map-name="update"></call-service>
-            <else>
-                <set field="_error_message_" value="You are has no permission to perform this action."/>
-                <return response-code="error"/>
-            </else>
-            </if-has-permission>
+            <set field="parameters.userLogin" from-field="userLogin"/>
+            <set field="parameters.internalName" value="Demo Product 1"/>
+            <set field="parameters.longDescription" value="Demo-Create-Description"/>
+            <set field="parameters.productTypeId" value="SCRUM_ITEM"/>
+            <set field="parameters.statusId" value="PRODUCT_ACTIVE"/>
+            <set field="parameters.partyId" value="DemoCustomer-1"/>
+            <set field="parameters.partyCompany" value="Demo Scrum Company[DemoScrumCompany] - Scrum Product Owner (DemoCustomer-1)"/>
+            <set field="parameters.productId" value="DEMO-PRODUCT-1"/>
+            <call-simple-method method-name="updateProduct" xml-resource="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
         </simple-method>
         
         <!-- Billing -->

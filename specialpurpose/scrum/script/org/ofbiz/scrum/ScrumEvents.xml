@@ -4486,10 +4486,13 @@
     </simple-method>
     <simple-method method-name="getWebSiteId" short-description="Get WebSite Id">
         <!-- for notification -->
-        <call-bsh><![CDATA[
-             import org.ofbiz.webapp.website.WebSiteWorker;
-             webSiteId = WebSiteWorker.getWebSiteId(request);
-             parameters.put("webSiteId", webSiteId);
-        ]]></call-bsh>
+        <request-to-field field="request"/>
+        <if-not-empty field="request">
+            <call-bsh><![CDATA[
+                 import org.ofbiz.webapp.website.WebSiteWorker;
+                 webSiteId = WebSiteWorker.getWebSiteId(request);
+                 parameters.put("webSiteId", webSiteId);
+            ]]></call-bsh>
+        </if-not-empty>
     </simple-method>
 </simple-methods>
