@@ -1,0 +1,100 @@
+#!/bin/sh 
+
+# the userlogin the script should run under and is the home dirname, in this case /home/ofbiz/ofbiz
+OFBIZUSER="ofbiz"
+
+#============== no need to change anything below this line =======================
+
+# Start OFBiz
+start() {
+    running
+    if [ "$OFBIZ_PROCS" = "" ]; then
+        echo "Ofbiz is already running..."
+        return 0
+    fi
+    if [ "$USER" = "$OFBIZUSER" ]; then
+        echo "starting standard /home/$OFBIZUSER/ofbiz/startofbiz.sh"
+        cd /home/$OFBIZUSER/ofbiz
+        ./startofbiz.sh
+        if [ $? = 0 ]; then 
+            echo "start success"
+        else
+            echo "starting ofbiz user: $OFBIZUSER failed return code: $?"
+        fi
+        return 0
+    fi
+}
+
+stop() {
+    if [ "$USER" = "$OFBIZUSER" ]; then
+        echo "stopping standard /home/$OFBIZUSER/ofbiz/stopofbiz.sh"
+        cd /home/$OFBIZUSER/ofbiz
+	    MAXCOUNT=10
+        COUNTER=0
+        until [ $COUNTER -gt $MAXCOUNT ]; do
+             COUNTER=$((COUNTER+1))
+             echo "Attempt number: $COUNTER"
+
+            ./stopofbiz.sh
+            if [ $? = 1 ]; then
+                echo "stop success" 
+                return 0
+            fi
+            sleep 3
+        done
+        echo "stopping ofbiz from user: $OFBIZUSER failed after $MAXCOUNT attemps"
+        return 1
+    fi
+}
+
+#check for user, if wrong try to change to 'OFBIZUSER' and re-execute.
+checkUser() {
+    if [ "$USER" != "$OFBIZUSER" ]; then
+        if [ "$USER" = "" ]; then
+# mount disks if required in Amazon EC2         
+            echo "Mounting data disk at boot"
+            mount /dev/sdf /backup 
+            exec su - $OFBIZUSER -c "$0 $1 "
+	    else
+	        exec sudo -u $OFBIZUSER $0 $1 
+	    fi
+        exit $?
+    fi
+}
+
+# OFBiz processes running
+running() {
+    OFBIZ_PROCS=`/bin/ps h -o pid,args -C java -u $OFBIZUSER | /bin/grep -e "-jar ofbiz.jar" | /bin/egrep -o "^[[:space:]]*[[:digit:]]*"`
+}
+
+#========= main program ===============
+checkUser $1
+case "$1" in
+    "start")
+        start
+    ;;
+    "stop")
+        stop
+    ;;
+    "restart")
+        stop
+        start
+    ;;
+    "status")
+        running
+        if [ "$OFBIZ_PROCS" = "" ]; then
+            echo "OFBiz for user: $OFBIZUSER is stopped"
+            exit 1
+        else
+            echo "OFBiz for user: $OFBIZUSER is running"
+            exit 0
+        fi
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status|help} not: $1"
+        exit 1
+    ;;
+esac
+echo
+exit $?
+
