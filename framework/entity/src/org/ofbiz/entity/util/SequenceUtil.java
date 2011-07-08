@@ -28,6 +28,8 @@ import java.util.Map;
 import javax.transaction.Transaction;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.ConnectionFactory;
@@ -50,8 +52,9 @@ public class SequenceUtil {
     private final String tableName;
     private final String nameColName;
     private final String idColName;
+    private final boolean clustered;
 
-    public SequenceUtil(GenericHelperInfo helperInfo, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
+    public SequenceUtil(GenericDelegator delegator, GenericHelperInfo helperInfo, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
         this.helperInfo = helperInfo;
         if (seqEntity == null) {
             throw new IllegalArgumentException("The sequence model entity was null but is required.");
@@ -76,6 +79,7 @@ public class SequenceUtil {
             bankSize = seqEntity.getSequenceBankSize().longValue();
         }
         this.bankSize = bankSize;
+        clustered = delegator.useDistributedCacheClear() || "Y".equals(UtilProperties.getPropertyValue("general.properties", "clustered"));                
     }
 
     public Long getNextSeqId(String seqName, long staggerMax, ModelEntity seqModelEntity) {
@@ -182,8 +186,8 @@ public class SequenceUtil {
                         this.seqName + "; start of loop val1=" + val1 + ", val2=" + val2 + ", bankSize=" + bankSize, module);
 
                 // not sure if this synchronized block is totally necessary, the method is synchronized but it does do a wait/sleep
-                //outside of this block, and this is the really sensitive block, so making sure it is isolated; there is some overhead
-                //to this, but very bad things can happen if we try to do too many of these at once for a single sequencer
+                // outside of this block, and this is the really sensitive block, so making sure it is isolated; there is some overhead
+                // to this, but very bad things can happen if we try to do too many of these at once for a single sequencer
                 synchronized (this) {
                     Transaction suspendedTransaction = null;
                     try {
@@ -218,8 +222,11 @@ public class SequenceUtil {
                                 // we shouldn't need this, and some TX managers complain about it, so not including it: connection.setAutoCommit(false);
 
                                 stmt = connection.createStatement();
-
-                                sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+                                if (clustered) {
+                                    sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'" + " FOR UPDATE";                                    
+                                } else {
+                                    sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+                                }
                                 rs = stmt.executeQuery(sql);
                                 boolean gotVal1 = false;
                                 if (rs.next()) {
@@ -241,8 +248,12 @@ public class SequenceUtil {
                                 if (stmt.executeUpdate(sql) <= 0) {
                                     throw new GenericEntityException("[SequenceUtil.SequenceBank.fillBank] update failed, no rows changes for seqName: " + seqName);
                                 }
+                                if (clustered) {
+                                    sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'" + " FOR UPDATE";                                    
 
-                                sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+                                } else {
+                                    sql = "SELECT " + SequenceUtil.this.idColName + " FROM " + SequenceUtil.this.tableName + " WHERE " + SequenceUtil.this.nameColName + "='" + this.seqName + "'";
+                                }
                                 rs = stmt.executeQuery(sql);
                                 boolean gotVal2 = false;
                                 if (rs.next()) {
