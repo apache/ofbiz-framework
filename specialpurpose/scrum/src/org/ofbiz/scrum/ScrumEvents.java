@@ -102,15 +102,17 @@ public class ScrumEvents {
             Debug.log(EntEx.getMessage(), module);
         }
         if (UtilValidate.isNotEmpty(noTimeEntryList)) {
-            String warningData = "";
+            StringBuilder warningDataBuffer = new StringBuilder();
             int size = noTimeEntryList.size();
             for (Map<String, Object> dataMap : noTimeEntryList) {
                 if (--size == 0) {
-                    warningData += dataMap.get("timesheetId");
+                    warningDataBuffer.append(dataMap.get("timesheetId"));
                 } else {
-                    warningData += dataMap.get("timesheetId") + ", ";
+                    warningDataBuffer.append(dataMap.get("timesheetId")).append(", ");
                 }
+                warningDataBuffer.append(dataMap.get("timesheetId"));
             }
+            String warningData = warningDataBuffer.toString();
             Debug.logInfo("The following time sheet no time entry: [" + warningData + "]", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("scrumUiLabels", "ScrumTimesheetWarningMessage", UtilMisc.toMap("warningMessage", warningData), UtilHttp.getLocale(request)));
         }
