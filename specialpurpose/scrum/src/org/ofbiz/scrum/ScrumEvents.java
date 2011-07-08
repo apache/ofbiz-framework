@@ -60,23 +60,18 @@ public class ScrumEvents {
         String partyId = userLogin.getString("partyId");
         Timestamp now = UtilDateTime.nowTimestamp();
         Timestamp weekStart = UtilDateTime.getWeekStart(now);
-        
+
         if (UtilValidate.isEmpty(delegator)) {
             delegator = (Delegator) request.getAttribute("delegator");
         }
-        
+
         try {
             // should be scrum team or scrum master.
-            EntityConditionList<EntityExpr> exprOrs = EntityCondition.makeCondition(UtilMisc.toList(
-                    EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SCRUM_TEAM"),
-                    EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SCRUM_MASTER")), EntityOperator.OR);
-            EntityConditionList<EntityCondition> exprAnds = EntityCondition.makeCondition(UtilMisc.toList(
-                    exprOrs,
-                    EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId)),
-                    EntityOperator.AND);
+            EntityConditionList<EntityExpr> exprOrs = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SCRUM_TEAM"), EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SCRUM_MASTER")), EntityOperator.OR);
+            EntityConditionList<EntityCondition> exprAnds = EntityCondition.makeCondition(UtilMisc.toList(exprOrs, EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId)), EntityOperator.AND);
             List<GenericValue> partyRoleList = delegator.findList("PartyRole", exprAnds, null, null, null, false);
             if (UtilValidate.isNotEmpty(partyRoleList)) {
-                List<GenericValue> timesheetList = delegator.findByAndCache("Timesheet", UtilMisc.toMap("partyId" , partyId, "statusId", "TIMESHEET_IN_PROCESS"));
+                List<GenericValue> timesheetList = delegator.findByAndCache("Timesheet", UtilMisc.toMap("partyId", partyId, "statusId", "TIMESHEET_IN_PROCESS"));
                 if (UtilValidate.isNotEmpty(timesheetList)) {
                     for (GenericValue timesheetMap : timesheetList) {
                         String timesheetId = timesheetMap.getString("timesheetId");
@@ -88,11 +83,9 @@ public class ScrumEvents {
                             //compare week and compare date
                             if ((timesheetDate.compareTo(weekStart) <= 0) && (realTimeDate.compareTo(nowStartDate) < 0)) {
                                 //check time entry
-                                List<GenericValue> timeEntryList = timesheetMap.getRelatedByAnd("TimeEntry"
-                                        , UtilMisc.toMap("partyId", partyId, "timesheetId",timesheetId, "fromDate",realTimeDate));
+                                List<GenericValue> timeEntryList = timesheetMap.getRelatedByAnd("TimeEntry", UtilMisc.toMap("partyId", partyId, "timesheetId",timesheetId, "fromDate",realTimeDate));
                                 //check EmplLeave
-                                List<GenericValue> emplLeaveList = delegator.findByAndCache("EmplLeave"
-                                        , UtilMisc.toMap("partyId", partyId, "fromDate",realTimeDate));
+                                List<GenericValue> emplLeaveList = delegator.findByAndCache("EmplLeave", UtilMisc.toMap("partyId", partyId, "fromDate", realTimeDate));
                                 if (UtilValidate.isEmpty(timeEntryList) && UtilValidate.isEmpty(emplLeaveList)) {
                                     Map<String, Object> noEntryMap = FastMap.newInstance();
                                     noEntryMap.put("timesheetId", timesheetId);
@@ -119,8 +112,7 @@ public class ScrumEvents {
                 }
             }
             Debug.logInfo("The following time sheet no time entry: [" + warningData + "]", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("scrumUiLabels", "ScrumTimesheetWarningMessage" 
-                    ,UtilMisc.toMap("warningMessage", warningData), UtilHttp.getLocale(request)));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("scrumUiLabels", "ScrumTimesheetWarningMessage", UtilMisc.toMap("warningMessage", warningData), UtilHttp.getLocale(request)));
         }
         return "success";
     }

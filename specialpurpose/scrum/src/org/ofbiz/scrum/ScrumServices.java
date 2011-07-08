@@ -51,7 +51,7 @@ public class ScrumServices {
                 if (UtilValidate.isNotEmpty(communicationEvent)) {
                     String subject = communicationEvent.getString("subject");
                     if (UtilValidate.isNotEmpty(subject)) {
-                        int pdLocation = subject.indexOf("PD#"); 
+                        int pdLocation = subject.indexOf("PD#");
                         if (pdLocation > 0) {
                             // scan until the first non digit character
                             int nonDigitLocation = pdLocation + 3;
@@ -85,11 +85,11 @@ public class ScrumServices {
                         }
                     }
                 }
-                
+
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("find by primary key error:" + e.toString());
             }
-            
+
             Map<String, Object> result = ServiceUtil.returnSuccess();
             return result;
         } else {
@@ -97,7 +97,7 @@ public class ScrumServices {
             return result;
         }
     }
-    
+
     /**
      * viewScrumRevision
      * <p>
@@ -117,36 +117,36 @@ public class ScrumServices {
         String diffMessage = "";
         try {
             if (UtilValidate.isNotEmpty(repository) && UtilValidate.isNotEmpty(revision)) {
-               String logline = null;
-               String logCommand = "svn log -r"+revision+" "+repository;
-               Process logProcess = Runtime.getRuntime().exec(logCommand);
-               BufferedReader logIn = new BufferedReader(new InputStreamReader(logProcess.getInputStream()));
-                while ((logline = logIn.readLine()) != null) {  
+                String logline = null;
+                String logCommand = "svn log -r" + revision + " " + repository;
+                Process logProcess = Runtime.getRuntime().exec(logCommand);
+                BufferedReader logIn = new BufferedReader(new InputStreamReader(logProcess.getInputStream()));
+                while ((logline = logIn.readLine()) != null) {
                     logMessage += logline + "\n";
                 }
-               String diffline = null;
-               String diffCommand = "svn diff -r"+Integer.toString((Integer.parseInt(revision.trim()) - 1))+":"+revision+" "+repository;
-               Process diffProcess = Runtime.getRuntime().exec(diffCommand);
-               BufferedReader diffIn = new BufferedReader(new InputStreamReader(diffProcess.getInputStream()));
-               while ((diffline = diffIn.readLine()) != null) {  
-                   diffMessage += diffline + "\n";
-               }
+                String diffline = null;
+                String diffCommand = "svn diff -r" + Integer.toString((Integer.parseInt(revision.trim()) - 1)) + ":" + revision + " " + repository;
+                Process diffProcess = Runtime.getRuntime().exec(diffCommand);
+                BufferedReader diffIn = new BufferedReader(new InputStreamReader(diffProcess.getInputStream()));
+                while ((diffline = diffIn.readLine()) != null) {
+                    diffMessage += diffline + "\n";
+                }
             }
             result.put("revision", revision);
             result.put("repository", repository);
             result.put("logMessage", logMessage);
             result.put("diffMessage", diffMessage);
-        } catch (IOException e) {  
+        } catch (IOException e) {
             e.printStackTrace();
             return ServiceUtil.returnError(e.getMessage());
         }
         return result;
     }
-    
+
     /**
      * retrieveMissingScrumRevision
      * <p>
-     * Use for retrieve the missing data of the Revision 
+     * Use for retrieve the missing data of the Revision
      *
      * @param   latestRevision       The latest revision number
      * @param   repositoryRoot       The repository root url
@@ -161,14 +161,14 @@ public class ScrumServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         try {
             if (UtilValidate.isNotEmpty(repositoryRoot) && UtilValidate.isNotEmpty(latestRevision)) {
-               Integer revision = Integer.parseInt(latestRevision.trim());
-               for (int i = 1; i <= revision; i++) {
-                   String logline = null;
-                   List<String> logMessageList = FastList.newInstance();
-                   String logCommand = "svn log -r"+i+" "+repositoryRoot;
-                   Process logProcess = Runtime.getRuntime().exec(logCommand);
-                   BufferedReader logIn = new BufferedReader(new InputStreamReader(logProcess.getInputStream()));
-                    while ((logline = logIn.readLine()) != null) {  
+                Integer revision = Integer.parseInt(latestRevision.trim());
+                for (int i = 1; i <= revision; i++) {
+                    String logline = null;
+                    List<String> logMessageList = FastList.newInstance();
+                    String logCommand = "svn log -r" + i + " " + repositoryRoot;
+                    Process logProcess = Runtime.getRuntime().exec(logCommand);
+                    BufferedReader logIn = new BufferedReader(new InputStreamReader(logProcess.getInputStream()));
+                    while ((logline = logIn.readLine()) != null) {
                         logMessageList.add(logline.toString().trim());
                     }
                     if (UtilValidate.isNotEmpty(logMessageList)) {
@@ -181,14 +181,14 @@ public class ScrumServices {
                         String taskId = null;
                         char[] taskInfoList = taskInfo.toCharArray();
                         int count = 0;
-                        for(int j = 0; j < taskInfoList.length;j++) {
-                            if(Character.isDigit(taskInfoList[j])) {
+                        for (int j = 0; j < taskInfoList.length; j++) {
+                            if (Character.isDigit(taskInfoList[j])) {
                                 count = count + 1;
                             } else {
                                 count = 0;
                             }
                             if (count == 5) {
-                                taskId = taskInfo.substring(j-4, j+1);
+                                taskId = taskInfo.substring(j - 4, j + 1);
                             }
                         }
                         String revisionLink = repositoryRoot.substring(repositoryRoot.lastIndexOf("svn/") + 4, repositoryRoot.length()) + "&revision=" + i;
@@ -198,14 +198,14 @@ public class ScrumServices {
                             List <GenericValue> workeffContentList = delegator.findByAnd("WorkEffortAndContentDataResource", UtilMisc.toMap("contentName",version.trim() ,"drObjectInfo", revisionLink.trim()));
                             List<EntityCondition> exprsAnd = FastList.newInstance();
                             exprsAnd.add(EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, taskId));
-                            
+
                             List<EntityCondition> exprsOr = FastList.newInstance();
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_ERROR"));
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_TEST"));
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_IMPL"));
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_INST"));
                             exprsAnd.add(EntityCondition.makeCondition(exprsOr, EntityOperator.OR));
-                            
+
                             List<GenericValue> workEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition(exprsAnd, EntityOperator.AND), null, null, null, false);
                             if (UtilValidate.isEmpty(workeffContentList) && UtilValidate.isNotEmpty(workEffortList)) {
                                 Map inputMap = FastMap.newInstance();
@@ -220,9 +220,9 @@ public class ScrumServices {
                             }
                         }
                     }
-               }
+                }
             }
-        } catch (IOException e) {  
+        } catch (IOException e) {
             e.printStackTrace();
             return ServiceUtil.returnError(e.getMessage());
         } catch (GenericEntityException entityEx) {
@@ -232,10 +232,10 @@ public class ScrumServices {
             serviceEx.printStackTrace();
             return ServiceUtil.returnError(serviceEx.getMessage());
         }
-        
+
         return result;
     }
-    
+
     /**
      * removeDuplicateScrumRevision
      * <p>
