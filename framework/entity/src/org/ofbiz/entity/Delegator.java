@@ -1222,4 +1222,10 @@ public interface Delegator {
      */
     public boolean getEnabledJMS();
     
+    /**
+     * Get use of Distributed Cache Clear mechanism status
+     * @return boolean true if this delegator uses a Distributed Cache Clear mechanism 
+     */
+    public boolean useDistributedCacheClear();
+    
 }
