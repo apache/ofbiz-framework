@@ -1543,7 +1543,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="RequirementPartyProductCount"
             package-name="org.ofbiz.order.request"
-            title="A join on Requirement and RequirementRole to count number of distinict products required from a supplier party">
+            title="A join on Requirement and RequirementRole to count number of distinct products required from a supplier party">
       <member-entity entity-alias="RQ" entity-name="Requirement"/>
       <member-entity entity-alias="RQR" entity-name="RequirementRole"/>
       <alias entity-alias="RQ" name="requirementTypeId" group-by="false"/>

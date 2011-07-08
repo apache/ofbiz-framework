@@ -1568,7 +1568,7 @@ under the License.
     </view-link>
   </view-entity>
 
-  <view-entity entity-name="InvoiceAndType" package-name="org.ofbiz.accounting.invoice" title="Invoice and InvoiceType to be able to list invoices by invoiceParentType ie sales/purchase invoices">
+  <view-entity entity-name="InvoiceAndType" package-name="org.ofbiz.accounting.invoice" title="Invoice and InvoiceType to be able to list invoices by invoiceParentType i.e. sales/purchase invoices">
     <member-entity entity-alias="INV" entity-name="Invoice"/>
     <member-entity entity-alias="IVT" entity-name="InvoiceType"/>
     <alias-all entity-alias="INV"/>
