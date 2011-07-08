@@ -113,8 +113,8 @@ public class ScrumServices {
         String revision = (String) context.get("revision");
         String repository = (String) context.get("repository");
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        String logMessage = "";
-        String diffMessage = "";
+        StringBuilder logMessage = new StringBuilder();
+        StringBuilder diffMessage = new StringBuilder();
         try {
             if (UtilValidate.isNotEmpty(repository) && UtilValidate.isNotEmpty(revision)) {
                 String logline = null;
@@ -122,20 +122,20 @@ public class ScrumServices {
                 Process logProcess = Runtime.getRuntime().exec(logCommand);
                 BufferedReader logIn = new BufferedReader(new InputStreamReader(logProcess.getInputStream()));
                 while ((logline = logIn.readLine()) != null) {
-                    logMessage += logline + "\n";
+                    logMessage.append(logline).append("\n");
                 }
                 String diffline = null;
                 String diffCommand = "svn diff -r" + Integer.toString((Integer.parseInt(revision.trim()) - 1)) + ":" + revision + " " + repository;
                 Process diffProcess = Runtime.getRuntime().exec(diffCommand);
                 BufferedReader diffIn = new BufferedReader(new InputStreamReader(diffProcess.getInputStream()));
                 while ((diffline = diffIn.readLine()) != null) {
-                    diffMessage += diffline + "\n";
+                    diffMessage.append(diffline).append("\n");
                 }
             }
             result.put("revision", revision);
             result.put("repository", repository);
-            result.put("logMessage", logMessage);
-            result.put("diffMessage", diffMessage);
+            result.put("logMessage", logMessage.toString());
+            result.put("diffMessage", diffMessage.toString());
         } catch (IOException e) {
             e.printStackTrace();
             return ServiceUtil.returnError(e.getMessage());
