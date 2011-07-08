@@ -179,7 +179,7 @@ under the License.
         <action service="checkContentAssocIds" mode="sync"/>
     </eca>
     
-    <eca service="createContent" event="return">
+    <eca service="createContent" event="commit">
         <condition field-name="contentId" operator="is-not-empty"/>
         <action service="createContentAlternativeUrl" mode="sync" run-as-user="system"/>
     </eca>
