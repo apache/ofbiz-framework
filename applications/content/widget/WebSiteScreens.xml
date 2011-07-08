@@ -337,20 +337,33 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ContentPathAlias"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
-                <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="tabButtonItem" value="PathAlias"/>
-                <entity-and entity-name="WebSitePathAlias" list="aliases">
-                    <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
-                </entity-and>
+                <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
+                <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ContentPathAliasList}" navigation-form-name="WebSitePathAlias">
-                            <include-form name="WebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
-                        </screenlet>
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-options">
+                                <include-form name="FindWebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListWebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="WebSiteAliasesSearchResults">
+        <section>
+            <actions>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+            </actions>
+            <widgets>
+                <include-form name="ListWebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
             </widgets>
         </section>
     </screen>
