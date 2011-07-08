@@ -2465,7 +2465,7 @@ under the License.
     </entity>
     <view-entity entity-name="PartyRoleAndPartyDetail"
             package-name="org.ofbiz.party.party"
-            title="Party Role and Party Detail (Person, PartyGroup, etc) View Entity">
+            title="Party Role and Party Detail (Person, PartyGroup, etc.) View Entity">
       <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="PR" entity-name="PartyRole"/>
       <member-entity entity-alias="PERSON" entity-name="Person"/>
@@ -2500,7 +2500,7 @@ under the License.
     </view-entity>
     <view-entity entity-name="PartyRoleDetailAndPartyDetail"
         package-name="org.ofbiz.party.party"
-        title="Party Role and Party Detail (Person, PartyGroup, etc) View Entity">
+        title="Party Role and Party Detail (Person, PartyGroup, etc.) View Entity">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PR" entity-name="PartyRole"/>
         <member-entity entity-alias="RT" entity-name="RoleType"/>
@@ -2535,7 +2535,7 @@ under the License.
 
     <view-entity entity-name="PartyRoleNameDetail"
         package-name="org.ofbiz.party.party"
-        title="Party Role and Party Detail (Person, PartyGroup, etc) View Entity">
+        title="Party Role and Party Detail (Person, PartyGroup, etc.) View Entity">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PR" entity-name="PartyRole"/>
         <member-entity entity-alias="PERSON" entity-name="Person"/>

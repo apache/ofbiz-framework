@@ -919,7 +919,7 @@ under the License.
     </entity>
     <view-entity entity-name="EmplPositionFulfillmentAndReportingStruct"
             package-name="org.ofbiz.humanres.recruitment"
-            title="To view the employment details of employee">
+            title="To view the employment details of an employee">
       <member-entity entity-alias="EMPPOS" entity-name="EmplPosition"/>
       <member-entity entity-alias="EMPPOSFUL" entity-name="EmplPositionFulfillment"/>
       <member-entity entity-alias="EMPPOSREPST" entity-name="EmplPositionReportingStruct"/>     

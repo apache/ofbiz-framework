@@ -35,7 +35,7 @@ under the License.
 
   <view-entity entity-name="ProjectPartyAndPhase"
     package-name="org.ofbiz.specialpurpose.project"
-    title="To listr all the phases of project the logged user is part off">
+    title="To list all the phases of project the logged user is part off">
     <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>

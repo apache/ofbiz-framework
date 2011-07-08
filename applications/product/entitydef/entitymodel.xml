@@ -2061,7 +2061,7 @@ under the License.
       <alias entity-alias="IID" name="accountingQuantityTotal" field="accountingQuantityDiff" function="sum"/>
     </view-entity>
     <view-entity entity-name="InventoryItemDetailForSum" package-name="org.ofbiz.product.inventory"
-        title="Inventory Item  And Inventory Item Detail for Summation View Entity">
+        title="Inventory Item And Inventory Item Detail for Summation View Entity">
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias entity-alias="IID" name="quantityOnHandSum" field="quantityOnHandDiff" function="sum"/>
@@ -4601,7 +4601,7 @@ under the License.
     </entity>
     <view-entity entity-name="SubscriptionAndCommEvent"
                  package-name="org.ofbiz.product.subscription"
-                 title="Subscription And Communication Event   View Entity">
+                 title="Subscription And Communication Event View Entity">
       <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
       <alias-all entity-alias="SC"/>
