@@ -177,7 +177,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());
         }
-        if (Debug.infoOn()) Debug.logInfo(this.toString() + "[" + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), module);
+        if (Debug.infoOn()) Debug.logInfo("Job  [" + getJobName() + "] Id ["  + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), module);
     }
 
     private void createRecurrence(GenericValue job, long next) throws GenericEntityException {
