@@ -507,7 +507,7 @@ public class CatalinaContainer implements Container {
     }
 
     protected Callable<Context> createContext(final ComponentConfig.WebappInfo appInfo) throws ContainerException {
-        Debug.logInfo("createContext(" + appInfo + ")", module);
+        Debug.logInfo("createContext(" + appInfo.name + ")", module);
         final Engine engine = engines.get(appInfo.server);
         if (engine == null) {
             Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
