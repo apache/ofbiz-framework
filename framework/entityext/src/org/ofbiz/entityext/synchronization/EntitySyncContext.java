@@ -793,7 +793,7 @@ public class EntitySyncContext {
         // if nothing moved over, remove the history record, otherwise store status
         long totalRows = totalRowsToCreate + totalRowsToStore + totalRowsToRemove;
         if (totalRows == 0) {
-            String eshRemoveErrMsg = "Could not remove Entity Sync History (done becuase nothing was synced in this call), but all synchronization was successful";
+            String eshRemoveErrMsg = "Could not remove Entity Sync History (done because nothing was synced in this call), but all synchronization was successful";
             try {
                 Map<String, Object> deleteEntitySyncHistRes = dispatcher.runSync("deleteEntitySyncHistory", UtilMisc.toMap("entitySyncId", entitySyncId, "startDate", startDate, "userLogin", userLogin));
                 if (ServiceUtil.isError(deleteEntitySyncHistRes)) {
