@@ -1324,6 +1324,7 @@
     </property>
     <property key="ProjectMgrProrityAbbr">
         <value xml:lang="en">Prio.</value>
+        <value xml:lang="en">P.</value>
     </property>
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="de">Privat/Öffentlich</value>
