@@ -19,10 +19,10 @@
 package org.ofbiz.base.util;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -48,6 +48,7 @@ public class HttpClient {
     private boolean keepAlive = false;
 
     private String contentType = null;
+    private String streamCharset = null;
     private String url = null;
     private String rawStream = null;
     private String clientCertAlias = null;
@@ -181,6 +182,16 @@ public class HttpClient {
     /** Returns the content type */
     public String getContentType() {
         return this.contentType;
+    }
+    
+    /** Sets the scream charset */
+    public void setStreamCharset(String streamCharset) {
+        this.streamCharset = streamCharset;
+    }
+    
+    /** Returns the stream charset */
+    public String getStreamCharset() {
+        return this.streamCharset;
     }
 
     /** Toggle keep-alive setting */
@@ -464,11 +475,11 @@ public class HttpClient {
             }
 
             if (method.equalsIgnoreCase("post")) {
-                DataOutputStream out = new DataOutputStream(con.getOutputStream());
+                OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(), this.streamCharset != null ? this.streamCharset : "UTF-8");
                 if (Debug.verboseOn() || debug) Debug.log("Opened output stream", module);
 
                 if (arguments != null) {
-                    out.writeBytes(arguments);
+                    out.write(arguments);
                     if (Debug.verboseOn() || debug) Debug.log("Wrote arguements (parameters) : " + arguments, module);
                 }
 
