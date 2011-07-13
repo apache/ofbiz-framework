@@ -163,13 +163,15 @@ under the License.
 
         <p>En effet, OFBiz est destiné à servir de socle pour créer d'autres applications qui seront, elles, utilisées directement. OFBiz est aussi destiné aux structures qui recherchent une solution pour accompagner leurs projets. Si vous désirez plus que ce qu'un logiciel "en version boîte" va offrir, et que les coûts de déploiement et de maintenance d'un systême informatique traditionnel vous semblent injustifiés, alors Apache OFBiz est la solution qu'il vous faut.
         </p>
-        <p>Sous licence Apache 2.0, et géré par une communauté de contributeurs et utilisateurs, OFBiz propose à tous une grande flexibilité par l'accès complet au code source. La communauté autour d'OFBiz permet de ne pas rester seul, mais de travailler avec beaucoup d'autres afin de faire avancer les projets.
+        <p>Sous licence Apache 2.0, et géré par une communauté de contributeurs et utilisateurs, OFBiz propose à tous une grande flexibilité par l'accès complet au code source et la grande. La communauté autour d'OFBiz permet de ne pas rester seul, mais de travailler avec beaucoup d'autres personnes afin de faire avancer les projets.
         </p>
 
         <p>Pour plus de détails et avoir des réponses Ã  vos interrogations, vous pouvez consulter les documents suivants :
-            <a href="http://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Getting+Started">Guide de démarrage Apache OFBiz</a>,
-            <a href="http://cwiki.apache.org/confluence/x/DAFk">Nouvelles fonctionnalités (mis à jour mensuellement)</a>,
-            <a href="http://cwiki.apache.org/confluence/x/UgFk">Est-ce qu'Apache OFBiz est fait pour moi ?</a>,
+          <ul>
+            <li><a href="http://cwiki.apache.org/confluence/display/OFBADMIN/Apache+OFBiz+Getting+Started">Guide de démarrage Apache OFBiz</a>,</li>
+            <li><a href="http://cwiki.apache.org/confluence/x/DAFk">Nouvelles fonctionnalités (mis à jour mensuellement)</a>,</li>
+            <li><a href="http://cwiki.apache.org/confluence/x/UgFk">Est-ce qu'Apache OFBiz est fait pour moi ?</a>,</li>
+          </ul>
         </p>
 
         <p>Pour plus d'informations techniques, visitez la <a href="http://cwiki.apache.org/confluence/x/GoB2">documentation</a>.</p>
