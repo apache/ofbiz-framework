@@ -117,7 +117,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateShoppingListItem" engine="simple" auth="false"
+    <service name="updateShoppingListItem" engine="simple" auth="true"
             location="component://order/script/org/ofbiz/order/shoppinglist/ShoppingListServices.xml" invoke="updateShoppingListItem">
         <description>Update a shopping list item</description>
         <implements service="shoppingListItemInterface"/>
