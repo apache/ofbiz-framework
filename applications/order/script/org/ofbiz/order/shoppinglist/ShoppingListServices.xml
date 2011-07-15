@@ -20,10 +20,12 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createShoppingList" short-description="Create a ShoppingList">
+    <simple-method method-name="createShoppingList" short-description="Create a ShoppingList" login-required="false">
         <if>
             <condition>
                   <and>
+                    <not><if-empty field="userLogin"/></not>
+                    <not><if-compare field="userLogin.userLoginId" operator="equals" value="anonymous"/></not>
                     <not><if-empty field="parameters.partyId"/></not>
                     <not><if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_CREATE"/></not>
@@ -111,7 +113,7 @@ under the License.
         <remove-value value-field="shoppingList"/>
     </simple-method>
 
-    <simple-method method-name="createShoppingListItem" short-description="Create a ShoppingList Item">
+    <simple-method method-name="createShoppingListItem" short-description="Create a ShoppingList Item" login-required="false">
         <entity-and list="shoppingListItems" entity-name="ShoppingListItem">
             <field-map field-name="productId" from-field="parameters.productId"></field-map>
             <field-map field-name="shoppingListId" from-field="parameters.shoppingListId"></field-map>
@@ -155,7 +157,7 @@ under the License.
         </if-empty>
     </simple-method>
 
-    <simple-method method-name="updateShoppingListItem" short-description="Update a ShoppingListItem">
+    <simple-method method-name="updateShoppingListItem" short-description="Update a ShoppingListItem" login-required="false">
         <set field="parentMethodName" value="updateShoppingListItem"/>
         <set field="permissionAction" value="UPDATE"/>
         <call-simple-method method-name="checkShoppingListItemSecurity"/>
@@ -286,6 +288,7 @@ under the License.
         <if>
             <condition>
                 <and>
+                    <not><if-empty field="shoppingList.partyId"/></not>
                     <not><if-compare-field field="userLogin.partyId" to-field="shoppingList.partyId" operator="equals"/></not>
                     <not><if-has-permission permission="PARTYMGR" action="_${permissionAction}"/></not>
                 </and>
