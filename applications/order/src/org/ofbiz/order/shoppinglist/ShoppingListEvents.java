@@ -373,14 +373,14 @@ public class ShoppingListEvents {
         GenericValue list = null;
         // TODO: add sorting, just in case there are multiple...
         if (partyId != null) {
-        Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
-        List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap);
-        Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
-
-        if (existingLists != null && !existingLists.isEmpty()) {
-            list = EntityUtil.getFirst(existingLists);
-            autoSaveListId = list.getString("shoppingListId");
-        }
+            Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
+            List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap);
+            Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
+    
+            if (existingLists != null && !existingLists.isEmpty()) {
+                list = EntityUtil.getFirst(existingLists);
+                autoSaveListId = list.getString("shoppingListId");
+            }
         }
         if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
