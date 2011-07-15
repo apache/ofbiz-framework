@@ -1361,7 +1361,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.readOnlyCart = false;
 
         this.lastListRestore = null;
-        this.autoSaveListId = null;
 
         this.orderTermSet = false;
         this.orderTerms.clear();
@@ -1396,7 +1395,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (ul == null) {
                 ul = this.getAutoUserLogin();
             }
-
+            // autoSaveListId shouldn't be set to null for anonymous user until the list is not cleared from the database
+            if (ul != null && !"anonymous".equals(ul.getString("userLoginId"))) {
+                this.autoSaveListId = null;
+            }
             // load the auto-save list ID
             if (autoSaveListId == null) {
                 try {
