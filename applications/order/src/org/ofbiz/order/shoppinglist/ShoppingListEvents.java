@@ -249,6 +249,8 @@ public class ShoppingListEvents {
         // check if we are to clear the cart first
         if (!append) {
             cart.clear();
+            // Prevent the system from creating a new shopping list every time the cart is restored for anonymous user.
+            cart.setAutoSaveListId(shoppingListId);
         }
 
         // get the survey info for all the items
@@ -279,7 +281,7 @@ public class ShoppingListEvents {
                 }
 
                 // check if we have existing survey responses to append
-                if (shoppingListSurveyInfo.containsKey(listId + "." + itemId)) {
+                if (shoppingListSurveyInfo.containsKey(listId + "." + itemId) && UtilValidate.isNotEmpty(shoppingListSurveyInfo.get(listId + "." + itemId))) {
                     attributes.put("surveyResponses", shoppingListSurveyInfo.get(listId + "." + itemId));
                 }
 
@@ -368,18 +370,19 @@ public class ShoppingListEvents {
         }
 
         String autoSaveListId = null;
+        GenericValue list = null;
         // TODO: add sorting, just in case there are multiple...
+        if (partyId != null) {
         Map<String, Object> findMap = UtilMisc.<String, Object>toMap("partyId", partyId, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
         List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap);
         Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
 
-        GenericValue list = null;
         if (existingLists != null && !existingLists.isEmpty()) {
             list = EntityUtil.getFirst(existingLists);
             autoSaveListId = list.getString("shoppingListId");
         }
-
-        if (list == null && dispatcher != null && userLogin != null) {
+        }
+        if (list == null && dispatcher != null) {
             Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
             Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
 
@@ -397,9 +400,12 @@ public class ShoppingListEvents {
     public static void fillAutoSaveList(ShoppingCart cart, LocalDispatcher dispatcher) throws GeneralException {
         if (cart != null && dispatcher != null) {
             GenericValue userLogin = ShoppingListEvents.getCartUserLogin(cart);
-            if (userLogin == null) return; //only save carts when a user is logged in....
             Delegator delegator = cart.getDelegator();
-            String autoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
+            String autoSaveListId = cart.getAutoSaveListId();
+            if (autoSaveListId == null) {
+                autoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
+                cart.setAutoSaveListId(autoSaveListId);
+            }
 
             try {
                 String[] itemsArray = makeCartItemsArray(cart);
@@ -455,11 +461,6 @@ public class ShoppingListEvents {
             userLogin = (GenericValue) session.getAttribute("autoUserLogin");
         }
 
-        if (userLogin == null) {
-            // not logged in; cannot identify the user
-            return "success";
-        }
-
         // find the list ID
         String autoSaveListId = cart.getAutoSaveListId();
         if (autoSaveListId == null) {
@@ -469,6 +470,25 @@ public class ShoppingListEvents {
                 Debug.logError(e, module);
             }
             cart.setAutoSaveListId(autoSaveListId);
+        } else if (userLogin != null) {
+            String existingAutoSaveListId = null;
+            try {
+                existingAutoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+            }
+            if (existingAutoSaveListId != null) {
+                if (!existingAutoSaveListId.equals(autoSaveListId)) {
+                    // Replace with existing shopping list
+                    cart.setAutoSaveListId(existingAutoSaveListId);
+                    autoSaveListId = existingAutoSaveListId;
+                    cart.setLastListRestore(null);
+                } else {
+                    // CASE: User first login and logout and then re-login again. This condition does not require a restore at all
+                    // because at this point items in the cart and the items in the shopping list are same so just return.
+                    return "success";
+                }
+            }
         }
 
         // check to see if we are okay to load this list
@@ -498,7 +518,7 @@ public class ShoppingListEvents {
         if (okayToLoad) {
             String prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
             try {
-                addListToCart(delegator, dispatcher, cart, prodCatalogId, autoSaveListId, false, false, false);
+                addListToCart(delegator, dispatcher, cart, prodCatalogId, autoSaveListId, false, false, userLogin != null ? true : false);
                 cart.setLastListRestore(UtilDateTime.nowTimestamp());
             } catch (IllegalArgumentException e) {
                 Debug.logError(e, module);
