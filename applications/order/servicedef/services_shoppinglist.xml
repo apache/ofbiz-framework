@@ -143,4 +143,12 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="shoppingListItemSeqId" type="String" mode="OUT" optional="false"/>
     </service>
+
+    <service name="autoDeleteAutoSaveShoppingList" engine="java" auth="true" max-retry="3" transaction-timeout="3600"
+            location="org.ofbiz.order.shoppinglist.ShoppingListServices" invoke="autoDeleteAutoSaveShoppingList">
+            <description>
+                Automatic delete auto save shopping list for anonymous users that are not updated in last 30 days.
+                Default to 30 days unless no configuration is specified.
+            </description>
+    </service>
 </services>
