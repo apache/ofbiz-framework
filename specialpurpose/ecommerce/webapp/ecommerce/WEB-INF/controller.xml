@@ -48,6 +48,7 @@ under the License.
         <event name="autoLoginCheck" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
         <event name="checkTrackingCodeCookies" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
         <event name="setDefaultStoreSettings" type="java" path="org.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
+        <event name="restoreAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
     </firstvisit>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -58,7 +59,6 @@ under the License.
         <event name="checkTrackingCodeUrlParam" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeUrlParam"/>
         <event name="checkPartnerTrackingCodeUrlParam" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkPartnerTrackingCodeUrlParam"/>
         <event name="keepCartUpdated" type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
-        <event name="restoreAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
     </preprocessor>
 
     <!-- Events to run on every request after all other processing (chains exempt) -->
