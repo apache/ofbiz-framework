@@ -744,43 +744,9 @@ under the License.
 </xs:schema>
 <!--
     examples
-    <trees>
-        <tree name="ProductCategoryTree" root-node-name="ChildProductCategory">
-            <node name="ChildProductCategory">
-                <entity-one entity-name="ProductCategory"/>
-                <label text="${description} [${productCategoryId}]" style="tabletext"/>
-                <sub-node node-name="ChildProductCategory">
-                    <entity-and entity-name="ProductCategoryRollup">
-                        <constraint field-name="parentProductCategoryId" from-field="productCategoryId"/>
-                        <order-by field-name="sequenceNum"/>
-                    </entity-many>
-                </sub-node>
-                <out-field-map field-name="productCategoryId"/>
-            </node>
-        </tree>
-        <tree name="ProductCategoryAndProductsTree" root-node-name="ChildProductCategory">
-            <node name="ChildProductCategory">
-                <entity-one entity-name="ProductCategory"/>
-                <label text="${description} [${productCategoryId}]" style="tableheadtext"/>
-                <sub-node node-name="ChildProductCategory">
-                    <entity-and entity-name="ProductCategoryRollup">
-                        <constraint field-name="parentProductCategoryId" from-field="productCategoryId"/>
-                        <order-by field-name="sequenceNum"/>
-                    </entity-many>
-                    <out-field-map field-name="productCategoryId"/>
-                </sub-node>
-                <sub-node node-name="ChildProduct">
-                    <entity-and entity-name="ProductCategoryMember">
-                        <constraint field-name="productCategoryId"/>
-                        <order-by field-name="sequenceNum"/>
-                    </entity-many>
-                    <out-field-map field-name="productId"/>
-                </sub-node>
-            </node>
-            <node name="ChildProduct">
-                <service service-name="getProductInfo"/>
-                <label text="${productName} [${productId}] - ${price}" style="tabletext"/>
-            </node>
-        </tree>
-    </trees>
--->
+do search  xml for 
+	root-node-name
+	you will see many examples.
+	
+	
+	-->
