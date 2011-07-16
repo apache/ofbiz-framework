@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Date;
 import java.util.Map;
 
 import javolution.util.FastMap;
@@ -57,6 +58,8 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.RecurrenceInfo;
 import org.ofbiz.service.calendar.RecurrenceInfoException;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Shopping List Services
@@ -585,5 +588,63 @@ public class ShoppingListServices {
             Debug.log("updateShoppingListQuantitiesFromOrder error:"+e.getMessage());
         }
         return result;
+    }
+
+    public static Map<String,Object> autoDeleteAutoSaveShoppingList(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        List<GenericValue> shoppingList = null;
+        try {
+            EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
+                                        EntityCondition.makeCondition("partyId", null),
+                                        EntityCondition.makeCondition("shoppingListTypeId", "SLT_SPEC_PURP")), EntityOperator.AND);
+            shoppingList = delegator.findList("ShoppingList", cond, null, null, null, false);
+        } catch (GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+        }
+        String maxDaysStr = UtilProperties.getPropertyValue("order.properties", "autosave.max.age", "30");
+        int maxDays = 0;
+        try {
+            maxDays = Integer.parseInt(maxDaysStr);
+        } catch (NumberFormatException e) {
+            Debug.logError(e, "Unable to get maxDays", module);
+        }
+        for (GenericValue sl : shoppingList) {
+            if (maxDays > 0) {
+                Timestamp lastModified = sl.getTimestamp("lastAdminModified");
+                if (lastModified == null) {
+                    lastModified = sl.getTimestamp("lastUpdatedStamp");
+                }
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(lastModified.getTime());
+                cal.add(Calendar.DAY_OF_YEAR, maxDays);
+                Date expireDate = cal.getTime();
+                Date nowDate = new Date();
+                if (expireDate.equals(nowDate) || nowDate.after(expireDate)) {
+                    List<GenericValue> shoppingListItems = null;
+                    try {
+                        shoppingListItems = sl.getRelated("ShoppingListItem");
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e.getMessage(), module);
+                    }
+                    for (GenericValue sli : shoppingListItems) {
+                        try {
+                            dispatcher.runSync("removeShoppingListItem", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"),
+                                    "shoppingListItemSeqId", sli.getString("shoppingListItemSeqId"),
+                                    "userLogin", userLogin));
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e.getMessage(), module);
+                        }
+                    }
+                    try {
+                        dispatcher.runSync("removeShoppingList", UtilMisc.toMap("shoppingListId", sl.getString("shoppingListId"), "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e.getMessage(), module);
+                    }
+                }
+            }
+        }
+        return ServiceUtil.returnSuccess();
     }
 }
