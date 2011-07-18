@@ -559,6 +559,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         if (shortDateInput) {
             size = maxlength = 10;
+            if ("time".equals(dateTimeField.getType())) {
+                // the style attribute is a little bit messy but when using display:none the timepicker is shown on a wrong place
+                writer.append(" style=\"height:1px;width:1px;border:none;background-color:transparent\"");
+            }
             if (uiLabelMap != null) {
                 localizedInputTitle = uiLabelMap.get("CommonFormatDate");
             }
