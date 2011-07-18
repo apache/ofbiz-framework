@@ -3211,7 +3211,7 @@
         <value xml:lang="ar">النمط: ي ي-ش ش-ع ع ع ع</value>
         <value xml:lang="en">Format: yyyy-MM-dd</value>
         <value xml:lang="es">Formato: aaaa-MM-dd (año-mes-día)</value>
-        <value xml:lang="fr">Format: AAAA-MM-JJ</value>
+        <value xml:lang="fr">Format: JJ/MM/AAAA</value>
         <value xml:lang="hi_IN">प्रारूप: yyyy-MM-dd</value>
         <value xml:lang="it">Formato: AAAA-MM-gg</value>
         <value xml:lang="pt">Format: yyyy-MM-dd</value>
@@ -3226,7 +3226,7 @@
         <value xml:lang="de">Der Inhalt eines Datumfeldes ist fehlerhaft. Das Eingabeformat lautet tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">One of the date fields is incorrect, format must be yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="es">Uno de los campos de fecha es incorrecto; el formato debe ser AAA-mm-dd HH:mm:ss</value>
-        <value xml:lang="fr">La saisie d'un champ de date est incorrecte, le format doit-être AAAA-mm-jj HH:mm:ss</value>
+        <value xml:lang="fr">La saisie d'un champ de date est incorrecte, le format doit-être JJ/MM/AAAA hh:mm:ss</value>
         <value xml:lang="hi_IN">एक दिनांक क्षेत्र गलत है, प्रारूप yyyy-MM-dd HH: mm: ss.SSS होना चाहिए</value>
         <value xml:lang="it">Uno dei campi data non è corretto, il formato deve essere AAAA-mm-gg HH:mm:ss</value>
         <value xml:lang="nl">Een van de datumvelden in niet juist, het formaat moet JJJJ-mm-dd HH:mm:ss zijn</value>
@@ -3244,7 +3244,7 @@
         <value xml:lang="de">tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">Format: yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="es">AAAA-MM-DD hh:mm:ss</value>
-        <value xml:lang="fr">Format: AAAA-MM-JJ hh:mm:ss.sss</value>
+        <value xml:lang="fr">Format: JJ/MM/AAAA hh:mm:ss.sss</value></value>
         <value xml:lang="hi_IN">प्रारूप:yyyy-MM-dd HH: mm: ss.SSS</value>
         <value xml:lang="it">Formato: YYYY-MM-DD hh:mm:ss</value>
         <value xml:lang="nl">JJJJ-MM-DD hh:mm:ss</value>
