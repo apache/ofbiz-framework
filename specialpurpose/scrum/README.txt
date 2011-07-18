@@ -3,7 +3,6 @@ How to install the revision of task function.
 
 Server requirements
 1. subversion
-2. libapache2-mod-python
 
 Installation (On server)
 
@@ -22,20 +21,20 @@ Installation (On server)
           anywhere that you wish but should be set the path of the file in commit.py file ("CONFIG_PATH=").
           Example:
           --------------------------------------------------------------------------------
-            revision.url =https://www.antwebsystems.com/svn/
-            ofbiz.webservice.url =http://www.antwebsystems.com/webtools/control/SOAPService
-            host.name =www.antwebsystems.com
+            revision.url =www.example.com/svn/
+            ofbiz.webservice.url =http://www.example.com/webtools/control/SOAPService
+            host.name =www.example.com
             host.port =80
             
             #-- subversion admin and password
-            svn.user=harry
-            svn.password=harryssecret
+            svn.user=demoUser
+            svn.password=demoPassword
           --------------------------------------------------------------------------------
 4. Change the location path of the updateScrumRevision service in .../scrum/servicedef/services.xml file.
           Example:
           --------------------------------------------------------------------------------
           <service name="updateScrumRevision" engine="soap" export="true"
-            location="http://www.antwebsystems.com/webtools/control/SOAPService" invoke="updateScrumRevisionChange">  // the same as ofbiz.webservice.url
+            location="http://www.example.com/webtools/control/SOAPService" invoke="updateScrumRevisionChange">
             <implements service="updateScrumRevisionChange"/>
           </service>
           --------------------------------------------------------------------------------
