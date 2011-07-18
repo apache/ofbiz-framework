@@ -1150,6 +1150,17 @@ under the License.
         <response name="success" type="view" value="PartyGeoLocation"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
+    <request-map uri="addGeoLocation">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="addGeoLocation"/>
+        <response name="error" type="view" value="PartyGeoLocation"/>
+    </request-map>
+    <request-map uri="editGeoLocation">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://party/script/org/ofbiz/party/party/PartySimpleEvents.xml" invoke="editGeoLocation"/>
+        <response name="success" type="view" value="PartyGeoLocation"/>
+        <response name="error" type="view" value="PartyGeoLocation"/>
+    </request-map>
     
     <!-- ProductStoreRole -->
     <request-map uri="ViewProductStoreRoles">
@@ -1356,10 +1367,14 @@ under the License.
 
     <view-map name="UpdateCommOrders" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommOrders"/>
     <view-map name="UpdateCommProducts" type="screen" page="component://party/widget/partymgr/CommunicationEventScreens.xml#UpdateCommProducts"/>
-    
+ 
     <view-map name="ViewProductStoreRoles" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#ViewProductStoreRoles"/>
-    
+
     <!-- Billing Account-->
     <view-map name="EditBillingAccount" type="screen" page="component://party/widget/partymgr/PaymentMethodScreens.xml#EditBillingAccount"/>
+
+    <!-- GeoLocation-->
+    <view-map name="addGeoLocation" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditGeoLocation"/>
+
     <!-- end of view mappings -->
 </site-conf>
