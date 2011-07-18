@@ -216,7 +216,7 @@
     </service>
     
     <service name="updateScrumRevision" engine="soap" export="true"
-        location="http://www.antwebsystems.com/webtools/control/SOAPService" invoke="updateScrumRevisionChange">
+        location="http://www.example.com/webtools/control/SOAPService" invoke="updateScrumRevisionChange">
         <implements service="updateScrumRevisionChange"/>
     </service>
     <service name="updateScrumRevisionChange" engine="simple" export="true" validate="false" require-new-transaction="true"
