@@ -1199,7 +1199,7 @@
     </service>
 
     <service name="createContentAlternativeUrl" engine="simple"
-            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAlternativeUrl" auth="true">
+            location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createContentAlternativeUrl" auth="true" transaction-timeout="7200">
         <description>Create Content Alternative URL</description>
         <attribute name="contentId" mode="IN" type="String" optional="true"></attribute>
     </service>

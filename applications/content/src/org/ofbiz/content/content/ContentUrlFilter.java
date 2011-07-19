@@ -20,6 +20,7 @@
 package org.ofbiz.content.content;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -34,17 +35,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.UrlServletHelper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.webapp.control.ContextFilter;
-import org.ofbiz.common.UrlServletHelper;
 
 public class ContentUrlFilter extends ContextFilter {
     public final static String module = ContentUrlFilter.class.getName();
@@ -61,15 +62,13 @@ public class ContentUrlFilter extends ContextFilter {
         
         //Get ServletContext
         ServletContext servletContext = config.getServletContext();
-        
         //Set request attribute and session
         UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
         String urlContentId = null;
-        String pathInfo = httpRequest.getServletPath();
+        StringBuffer pathInfoBuffer = UtilHttp.getFullRequestUrl(httpRequest);
+        String pathInfo = pathInfoBuffer.toString();
         if (UtilValidate.isNotEmpty(pathInfo)) {
-            List<String> paths = StringUtil.split(pathInfo, "/");
-            String alternativeUrl = paths.get(0);
-            
+            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/") + 1);
             if (alternativeUrl.endsWith("-content")) {
                 try {
                     List<EntityCondition> expr = FastList.newInstance();
@@ -77,7 +76,9 @@ public class ContentUrlFilter extends ContextFilter {
                     expr.add(EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null));
                     Set<String> fieldsToSelect = UtilMisc.toSet("contentIdStart", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate");
                     List<GenericValue> contentAssocDataResources = delegator.findList("ContentAssocDataResourceViewTo", EntityCondition.makeCondition(expr), fieldsToSelect, UtilMisc.toList("-caCreatedDate"), null, true);
-                    for (GenericValue contentAssocDateResource : contentAssocDataResources) {
+                    Iterator<GenericValue> contentAssocDateResourceIter = contentAssocDataResources.iterator();
+                    while (contentAssocDateResourceIter.hasNext()) {
+                        GenericValue contentAssocDateResource = contentAssocDateResourceIter.next();
                         GenericValue electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", contentAssocDateResource.getString("dataResourceId")));
                         if (UtilValidate.isEmpty(electronicText) || UtilValidate.isEmpty(electronicText.get("textData"))) {
                             continue;
@@ -88,7 +89,7 @@ public class ContentUrlFilter extends ContextFilter {
                         }
                     }
                 } catch (Exception e) {
-                    
+                    Debug.logWarning(e.getMessage(), module);
                 }
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {
@@ -116,7 +117,6 @@ public class ContentUrlFilter extends ContextFilter {
             return null;
         }
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        
         String url = null;
         try {
             List<EntityCondition> expr = FastList.newInstance();
