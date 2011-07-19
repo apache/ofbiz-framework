@@ -17,7 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${googleMapKey?if_exists}" type="text/javascript"></script>
+<#assign defaultUrl = "https." + request.getServerName()>
+<#assign defaultGogleMapKey = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", defaultUrl)>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=${defaultGogleMapKey}" type="text/javascript"></script>
 <script type="text/javascript">
     function load() {
         if (GBrowserIsCompatible()) {

@@ -1158,7 +1158,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
                 <set field="tabButtonItem" value="PartyGeoLocation"/>
-                <property-to-field field="googleMapKey" resource="general" property="https.demo-trunk.ofbiz.apache.org"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetGeoLocation.groovy"/>
             </actions>
