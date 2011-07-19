@@ -3244,7 +3244,7 @@
         <value xml:lang="de">tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">Format: yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="es">AAAA-MM-DD hh:mm:ss</value>
-        <value xml:lang="fr">Format: JJ/MM/AAAA hh:mm:ss.sss</value></value>
+        <value xml:lang="fr">Format: JJ/MM/AAAA hh:mm:ss.sss</value>
         <value xml:lang="hi_IN">प्रारूप:yyyy-MM-dd HH: mm: ss.SSS</value>
         <value xml:lang="it">Formato: YYYY-MM-DD hh:mm:ss</value>
         <value xml:lang="nl">JJJJ-MM-DD hh:mm:ss</value>
