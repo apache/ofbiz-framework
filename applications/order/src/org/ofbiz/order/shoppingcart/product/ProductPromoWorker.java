@@ -1122,8 +1122,9 @@ public class ProductPromoWorker {
                         return false;
                     } else {
                         BigDecimal orderSubTotal = (BigDecimal) result.get("totalSubRemainingAmount");
+                        BigDecimal orderSubTotalAndCartSubTotal = orderSubTotal.add(cart.getSubTotal()); 
                         if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module);
-                        compareBase = Integer.valueOf(orderSubTotal.compareTo(new BigDecimal(condValue)));
+                        compareBase = Integer.valueOf(orderSubTotalAndCartSubTotal.compareTo(new BigDecimal(condValue)));
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);

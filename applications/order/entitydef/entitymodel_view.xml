@@ -146,9 +146,9 @@ under the License.
       <alias entity-alias="ORLE" name="partyId" group-by="true"/>
       <alias entity-alias="ORLE" name="roleTypeId" group-by="true"/>
       <alias entity-alias="OH" name="orderId"/>
-      <alias entity-alias="OH" name="orderTypeId"/>
+      <alias entity-alias="OH" name="orderTypeId" group-by="true"/>
       <alias entity-alias="OH" name="orderDate"/>
-      <alias entity-alias="OH" name="statusId"/>
+      <alias entity-alias="OH" name="statusId" group-by="true"/>
       <alias entity-alias="OH" name="totalGrandAmount" field="grandTotal" function="sum"/>
       <alias entity-alias="OH" name="totalSubRemainingAmount" field="remainingSubTotal" function="sum"/>
       <alias entity-alias="OH" name="totalOrders" field="orderId" function="count"/>
