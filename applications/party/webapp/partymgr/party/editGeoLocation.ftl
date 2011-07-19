@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAgrj58PbXr2YriiRDqbnL1RSqrCjdkglBijPNIIYrqkVvD1R4QxRl47Yh2D_0C1l5KXQJGrbkSDvXFA" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp" type="text/javascript"></script>
 <script type="text/javascript">
     function load() {
         if (GBrowserIsCompatible()) {
