@@ -51,7 +51,7 @@ under the License.
       <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
         <fieldset>
           <#assign contextPath = request.getContextPath()>
-          <input type="hidden" name="baselocation" value="${contextPath}"/>
+          <input type="hidden" name="baseLocation" value="${contextPath}"/>
           <input type="hidden" name="partyId" value="${partyId}"/>
           <input type="hidden" id="statusId" name="statusId" value="CLPT_PENDING"/>
           <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
@@ -82,7 +82,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
       <fieldset>
         <#assign contextPath = request.getContextPath()>
-        <input type="hidden" name="baselocation" value="${contextPath}"/>
+        <input type="hidden" name="baseLocation" value="${contextPath}"/>
         <input type="hidden" id="statusId" name="statusId"/>
         <div>
           <label>${uiLabelMap.EcommerceSignUpForContactListComments}</label>
