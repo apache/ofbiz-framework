@@ -6,6 +6,7 @@ import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.common.geo.*;
 
 if (partyId) {
+    context.partyId = partyId;
     latestGeoPoint = GeoWorker.findLatestGeoPoint(delegator, "PartyAndGeoPoint", "partyId", partyId, null, null);
     if (latestGeoPoint) {
         context.geoPointId = latestGeoPoint.geoPointId;
