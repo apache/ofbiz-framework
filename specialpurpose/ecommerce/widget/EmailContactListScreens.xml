@@ -26,8 +26,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EcommerceSubscriptionVerifyEmail"/>
                 <!--<set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>-->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/getContextPath.groovy"/>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${contextPath}"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baselocation}/control/"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName" auto-field-map="false">
                     <field-map field-name="partyId" from-field="contactListParty.partyId"/>
                 </entity-one>
@@ -69,8 +68,7 @@ under the License.
                 <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName"/>
                 <!--<set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>-->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/getContextPath.groovy"/>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${contextPath}"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baselocation}/control/"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListSubscribeEmail.ftl"/></html></platform-specific>
@@ -84,8 +82,7 @@ under the License.
                 <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName"/>
                 <!--<set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>-->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/getContextPath.groovy"/>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${contextPath}"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baselocation}/control/"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeVerifyEmail.ftl"/></html></platform-specific>
@@ -99,8 +96,7 @@ under the License.
                 <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName"/>
                 <!--<set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>-->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/getContextPath.groovy"/>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${contextPath}"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baselocation}/control/"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListUnsubscribeEmail.ftl"/></html></platform-specific>
@@ -114,8 +110,7 @@ under the License.
                 <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName"/>
                 <!--<set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>-->
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/getContextPath.groovy"/>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${contextPath}"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}${baselocation}/control/"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/ContactListEmailTemplate.ftl"/></html></platform-specific>

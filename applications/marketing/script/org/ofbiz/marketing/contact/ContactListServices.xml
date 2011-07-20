@@ -131,8 +131,9 @@ under the License.
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
 
         <create-value value-field="newEntity"/>
-
+        <set field="newEntity.baselocation" from-field="parameters.baselocation"/>
         <set-service-fields service-name="createContactListPartyStatus" map="newEntity" to-map="createContactListPartyStatusMap"/>
+        <set field="createContactListPartyStatusMap.baselocation" from-field="parameters.baselocation"/>
         <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
     </simple-method>
     <simple-method method-name="updateContactListParty" short-description="Update Add Party To ContactList">
@@ -196,6 +197,7 @@ under the License.
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
             <set field="updateContactListPartyMap.userLogin" from-field="systemUserLogin"/>
+            <set field="updateContactListPartyMap.baselocation" from-field="parameters.baselocation"/>
             <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
             <else>
                 <add-error><fail-message message="Invalid verify code for the ${contactList.contactListName}"/></add-error>
@@ -234,6 +236,7 @@ under the License.
             <set field="updateContactListPartyMap.preferredContactMechId" from-field="partyContactWithPurposes[0].contactMechId"/>
             <set field="updateContactListPartyMap.statusId" value="CLPT_UNSUBS_PENDING"/>
             <set field="updateContactListPartyMap.userLogin" from-field="userLogin"/>
+            <set field="updateContactListPartyMap.baselocation" from-field="parameters.baselocation"/>
             <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
             <else>
                 <add-error><fail-message message="The email address (${parameters.email}) does not have the Other Email Address as contact purpose."/></add-error>
@@ -386,7 +389,8 @@ under the License.
                 <set from-field="contactList" field="sendMailFromScreenMap.bodyParameters.contactList"/>
                 <set from-field="contactListParty" field="sendMailFromScreenMap.bodyParameters.contactListParty"/>
                 <set from-field="contactListPartyStatus" field="sendMailFromScreenMap.bodyParameters.contactListPartyStatus"/>
-
+                <set from-field="parameters.baselocation" field="sendMailFromScreenMap.bodyParameters.baselocation"/>
+                
                 <call-service service-name="sendMailFromScreen" in-map-name="sendMailFromScreenMap"/>
             </then>
             <else>
@@ -491,6 +495,7 @@ under the License.
             <set field="bodyParameters.contactList" from-field="contactList"/>
             <set field="bodyParameters.contactListParty" from-field="contactListParty"/>
             <set field="bodyParameters.contactListPartyStatus" from-field="contactListPartyStatus"/>
+            <set field="bodyParameters.baselocation" from-field="parameters.baselocation"/>
             
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
             <set field="emailParams.userLogin" from-field="userLogin"/>
@@ -566,6 +571,7 @@ under the License.
             <set field="bodyParameters.contactList" from-field="contactList"/>
             <set field="bodyParameters.contactListParty" from-field="contactListParty"/>
             <set field="bodyParameters.contactListPartyStatus" from-field="contactListPartyStatus"/>
+            <set field="bodyParameters.baselocation" from-field="parameters.baselocation"/>
             
             <set field="emailParams.webSiteId" from-field="contactList.verifyEmailWebSiteId"/>
             <set field="emailParams.bodyParameters" from-field="bodyParameters"/>

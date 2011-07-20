@@ -50,6 +50,8 @@ under the License.
     <#-- They are logged in so lets present the form to sign up with their email address -->
       <form method="post" action="<@ofbizUrl>createContactListParty</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
         <fieldset>
+          <#assign contextPath = request.getContextPath()>
+          <input type="hidden" name="baselocation" value="${contextPath}"/>
           <input type="hidden" name="partyId" value="${partyId}"/>
           <input type="hidden" id="statusId" name="statusId" value="CLPT_PENDING"/>
           <p>${uiLabelMap.EcommerceSignUpForContactListComments}</p>
@@ -79,6 +81,8 @@ under the License.
   <#-- There is no party info so just offer an anonymous (non-partyId) related newsletter sign up -->
     <form method="post" action="<@ofbizUrl>signUpForContactList</@ofbizUrl>" name="signUpForContactListForm" id="signUpForContactListForm">
       <fieldset>
+        <#assign contextPath = request.getContextPath()>
+        <input type="hidden" name="baselocation" value="${contextPath}"/>
         <input type="hidden" id="statusId" name="statusId"/>
         <div>
           <label>${uiLabelMap.EcommerceSignUpForContactListComments}</label>
