@@ -44,7 +44,7 @@ under the License.
     <input type="hidden" name="fromDate" value="${contactListParty.fromDate}" />
     <input type="hidden" name="statusId" value="CLPT_ACCEPTED" />
     <input type="hidden" name="optInVerifyCode" value="${contactListPartyStatus.optInVerifyCode?if_exists}" />
-    <input type="hidden" name="baselocation" value="${baselocation?if_exists}" />
+    <input type="hidden" name="baseLocation" value="${baseLocation?if_exists}" />
     <input type="submit" name="submitButton" value="Please click here to verify your newsletter subscription." />
   </fieldset>
 </form>

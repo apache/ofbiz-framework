@@ -101,7 +101,7 @@ public class MarketingServices {
             String contactMechId = (String) serviceResults.get("contactMechId");
             // create a new association at this fromDate to the anonymous party with status accepted
             input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"),
-                    "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baselocation", context.get("baselocation"));
+                    "partyId", partyId, "fromDate", fromDate, "statusId", "CLPT_PENDING", "preferredContactMechId", contactMechId, "baseLocation", context.get("baseLocation"));
             serviceResults = dispatcher.runSync("createContactListParty", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
