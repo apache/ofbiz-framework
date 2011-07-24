@@ -35,7 +35,11 @@ under the License.
     <#list layoutSettings.javaScripts as javaScript>
       <#if javaScriptsSet.contains(javaScript)>
         <#assign nothing = javaScriptsSet.remove(javaScript)/>
-        <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
+        <#if javaScript?starts_with("http")>
+            <script type="text/javascript" src="${StringUtil.wrapString(javaScript)}"></script>
+        <#else>
+            <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
+        </#if>
       </#if>
     </#list>
   </#if>
