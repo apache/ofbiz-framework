@@ -993,7 +993,7 @@ under the License.
     </form>
     <form name="AddPartyMainRole" type="single" title="${uiLabelMap.PartyAddToMainRole}" target="addrole/viewroles">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
-        <field name="roleTypeId" event="onChange" action="ajaxUpdateArea('addPartySecondaryRole', 'addsecondaryroles',  $('AddPartyMainRole').serialize());" entry-name="dummy">
+        <field name="roleTypeId" event="onChange" action="ajaxUpdateArea('addPartySecondaryRole', 'addsecondaryroles', jQuery('#AddPartyMainRole').serialize());" entry-name="dummy">
             <drop-down allow-empty="false">
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-constraint name="parentTypeId" value=""/>
