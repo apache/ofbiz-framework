@@ -20,18 +20,12 @@ under the License.
   <body>
     <p class="tabletext">Hello ${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}!</p>
     <p class="tabletext">Successfully subscribed from ${contactList.contactListName} contact list.</p>
-    <#assign verifyUrl = baseEcommerceSecureUrl + "updateContactListPartyNoUserLogin" />
-    <form method="post" id="contactListOptOut" action="${verifyUrl}">
-      <fieldset>
-        <input type="hidden" name="contactListId" value="${contactListParty.contactListId}" />
-        <input type="hidden" name="partyId" value="${contactListParty.partyId}" />
-        <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId?if_exists}" />
-        <input type="hidden" name="fromDate" value="${contactListParty.fromDate}" />
-        <input type="hidden" name="statusId" value="CLPT_UNSUBS_PENDING" />
-        <input type="hidden" name="optInVerifyCode" value="${contactListPartyStatus.optInVerifyCode?if_exists}" />
-        <input type="hidden" name="baseLocation" value="${baseLocation?if_exists}" />
-        <input type="submit" name="submitButton" value="Click here to unsubscribe your newsletter subscription." />
-      </fieldset>
-    </form>
+
+    <#assign verifyUrl = baseEcommerceSecureUrl +'updateContactListPartyNoUserLogin?contactListId='+contactListParty.contactListId+'&amp;partyId='+contactListParty.partyId+'&amp;fromDate='+contactListParty.fromDate+'&amp;statusId=CLPT_UNSUBS_PENDING&amp;optInVerifyCode='+contactListPartyStatus.optInVerifyCode+'&amp;baseLocation='+baseLocation?if_exists>
+    <#if (contactListParty.preferredContactMechId)?exists>
+        <#assign verifyUrl= verifyUrl+"&amp;preferredContactMechId="+contactListParty.preferredContactMechId>
+    </#if>
+    <a href="${verifyUrl}">If this was by mistake, click here to unsubscribe your subscription again.</a>
+
   </body>
 </html>

@@ -32,21 +32,12 @@ under the License.
         
         <p class="tabletext">Hello ${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}!</p>
         <p class="tabletext">We have received a request for unsubscription to the ${contactList.contactListName} contact list.</p>
-        <p class="tabletext">To complete your unsubscription use the verify form in your <a href="${baseEcommerceSecureUrl}viewprofile">online profile</a>, or use the following link:</p>
-        <#if (contactListPartyStatus.optInVerifyCode)?has_content><p class="tabletext">Your verify code is: ${contactListPartyStatus.optInVerifyCode}</p></#if>
+        <p class="tabletext">To complete your unsubscription click the on the following link:</p>
         
-        <#assign verifyUrl = baseEcommerceSecureUrl + "contactListOptOut" />
-        <form method="post" id="contactListOptOut" action="${verifyUrl}">
-          <fieldset>
-            <input type="hidden" name="communicationEventId" value="${communicationEventId}" />
-            <input type="hidden" name="contactListId" value="${contactListParty.contactListId}" />
-            <input type="hidden" name="partyId" value="${contactListParty.partyId}" />
-            <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId?if_exists}" />
-            <input type="hidden" name="fromDate" value="${contactListParty.fromDate}" />
-            <input type="hidden" name="statusId" value="CLPT_UNSUBSCRIBED" />
-            <input type="hidden" name="optInVerifyCode" value="${contactListPartyStatus.optInVerifyCode?if_exists}" />
-            <input type="submit" name="submitButton" value="Please click here to verify your newsletter unsubscription." />
-          </fieldset>
-        </form>
+        <#assign verifyUrl = baseEcommerceSecureUrl+'contactListOptOut?contactListId='+contactListParty.contactListId+'&amp;communicationEventId='+communicationEventId?if_exists+'&amp;partyId='+contactListParty.partyId+'&amp;fromDate='+contactListParty.fromDate+'&amp;statusId=CLPT_UNSUBSCRIBED&amp;optInVerifyCode='+contactListPartyStatus.optInVerifyCode>
+        <#if (contactListParty.preferredContactMechId)?exists>
+            <#assign verifyUrl= verifyUrl+"&amp;preferredContactMechId="+contactListParty.preferredContactMechId>
+        </#if>
+        <a href="${verifyUrl}">Please click here to verify your unsubscription.</a>
     </body>
 </html>
