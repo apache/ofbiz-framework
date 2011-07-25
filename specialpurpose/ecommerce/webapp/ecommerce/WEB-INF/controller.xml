@@ -1338,7 +1338,7 @@ under the License.
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
-        <security https="true" auth="false"/>
+        <security https="false" auth="false"/>
         <event type="service" invoke="updateContactListPartyNoUserLogin"/>
         <response name="success" type="view" value="ContactListOptOut"/>
     </request-map>
@@ -1593,7 +1593,7 @@ under the License.
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
     <request-map uri="updateContactListPartyNoUserLogin">
-        <security https="true" auth="false"/>
+        <security https="false" auth="false"/>
         <event type="service" invoke="updateContactListPartyNoUserLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>

@@ -32,21 +32,13 @@ under the License.
 
 <p class="tabletext">Hello ${partyName.firstName?if_exists} ${partyName.lastName?if_exists} ${partyName.groupName?if_exists}!</p>
 <p class="tabletext">We have received a request for subscription to the ${contactList.contactListName} contact list.</p>
-<p class="tabletext">To complete your subscription use the verify form in your <a href="${baseEcommerceSecureUrl}viewprofile">online profile</a>, or use the following link:</p>
-<#if (contactListPartyStatus.optInVerifyCode)?has_content><p class="tabletext">Your verify code is: ${contactListPartyStatus.optInVerifyCode}</p></#if>
+<p class="tabletext">To complete your subscription click the on the following link:</p>
 
-<#assign verifyUrl = baseEcommerceSecureUrl + "updateContactListPartyNoUserLogin" />
-<form method="post" id="updateContactListPartyNoUserLogin" action="${verifyUrl}">
-  <fieldset>
-    <input type="hidden" name="contactListId" value="${contactListParty.contactListId}" />
-    <input type="hidden" name="partyId" value="${contactListParty.partyId}" />
-    <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId?if_exists}" />
-    <input type="hidden" name="fromDate" value="${contactListParty.fromDate}" />
-    <input type="hidden" name="statusId" value="CLPT_ACCEPTED" />
-    <input type="hidden" name="optInVerifyCode" value="${contactListPartyStatus.optInVerifyCode?if_exists}" />
-    <input type="hidden" name="baseLocation" value="${baseLocation?if_exists}" />
-    <input type="submit" name="submitButton" value="Please click here to verify your newsletter subscription." />
-  </fieldset>
-</form>
+<#assign verifyUrl = baseEcommerceSecureUrl+'updateContactListPartyNoUserLogin?contactListId='+contactListParty.contactListId+'&amp;partyId='+contactListParty.partyId+'&amp;fromDate='+contactListParty.fromDate+'&amp;statusId=CLPT_ACCEPTED&amp;optInVerifyCode='+contactListPartyStatus.optInVerifyCode+'&amp;baseLocation='+baseLocation?if_exists>
+<#if (contactListParty.preferredContactMechId)?exists>
+    <#assign verifyUrl= verifyUrl+"&amp;preferredContactMechId="+contactListParty.preferredContactMechId>
+</#if>
+<a href="${verifyUrl}">Please click here to verify your subscription.</a>
+
 </body>
 </html>
