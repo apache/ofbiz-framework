@@ -29,6 +29,7 @@
     </property>
     <property key="ContentAutoCreateKeywords">
         <value xml:lang="en">Auto Create Keywords</value>
+        <value xml:lang="fr">Création automatique des mots clés</value>
     </property>
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
@@ -60,6 +61,7 @@
     </property>
     <property key="ContentAnyAssocType">
         <value xml:lang="en">Any Assoc Type</value>
+        <value xml:lang="FR">Tous types d'asso</value>
     </property>
     <property key="ContentAssoc">
         <value xml:lang="ar">ارتباط المحتوى</value>
@@ -77,18 +79,22 @@
     </property>
     <property key="ContentAssocDeactivatingError">
         <value xml:lang="en">Error in deactivating ContentAssoc. Entity is null.</value>
+        <value xml:lang="fr">Erreur dans la désactivation de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nella disattivazione dell'entità ContentAssoc che è nulla.</value>
     </property>
     <property key="ContentAssocNotFound">
         <value xml:lang="en">No association found for contentId ${activeContentId} and contentIdTo ${contentIdTo} and contentAssocTypeId ${contentAssocTypeId} and fromDate ${fromDate}</value>
+        <value xml:lang="fr">Pas d'association trouvée pour le document référencé ${activeContentId} et le document associé référencé ${contentIdTo} sous le type d'association ${contentAssocTypeId} et pour la date ${fromDate}</value>
         <value xml:lang="it">Nessuna associazione trovata per il contenuto ${activeContentId} e il contenuto a ${contentIdTo} e il tipo associazione contenuto ${contentAssocTypeId} e dalla data ${fromDate}</value>
     </property>
     <property key="ContentAssocRetrievingError">
         <value xml:lang="en">Error in retrieving Content: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans la recherche de document : ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare ContentAsssoc entity: ${errorString}</value>
     </property>
     <property key="ContentAssocUpdateError">
         <value xml:lang="en">Error in updating ContentAssoc. Entity is null.</value>
+        <value xml:lang="en">Erreur dans la mise à jour de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nell'aggiornamento dell'entità ContentAssoc che è nulla.</value>
     </property>
     <property key="ContentAssociation">
@@ -107,10 +113,12 @@
     </property>
     <property key="ContentArticleName">
         <value xml:lang="en">Article Name</value>
+        <value xml:lang="fr">Nom de l'article</value>
         <value xml:lang="th">ชื่อบทความ</value>
     </property>
     <property key="ContentArticleNameIsMissing">
         <value xml:lang="en">Article Name is missing.</value>
+        <value xml:lang="fr">Le nom de l'article est manquant.</value>
         <value xml:lang="it">Nome articolo è mancante.</value>
     </property>
     <property key="ContentAttribute">
@@ -150,7 +158,7 @@
         <value xml:lang="en">Article</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
-        <value xml:lang="nl">Artikel</value>        
+        <value xml:lang="nl">Artikel</value>
         <value xml:lang="pt_BR">Artigo</value>
         <value xml:lang="zh">文章</value>
         <value xml:lang="zh_TW">文章</value>
@@ -178,7 +186,7 @@
         <value xml:lang="en">Blog entry Id</value>
         <value xml:lang="fr">Réf. de note de blog</value>
         <value xml:lang="it">Voce blog</value>
-        <value xml:lang="nl">Blog ingave ID</value>     
+        <value xml:lang="nl">Blog ingave ID</value>
         <value xml:lang="pt_BR">ID de entrada de blog</value>
         <value xml:lang="zh">博客记录标识</value>
         <value xml:lang="zh_TW">部落格文章ID</value>
@@ -248,10 +256,12 @@
     </property>
     <property key="ContentCannotFindContextFileWithEmptyContextRoot">
         <value xml:lang="en">Cannot find CONTEXT_FILE with an empty context root!</value>
+        <value xml:lang="fr">Impossible de trouver CONTEXT_FILE avec un contexte racine vide !</value>
         <value xml:lang="it">Non è possibile trovare il CONTEXT_FILE con un contesto principale vuoto!</value>
     </property>
     <property key="ContentCannotProcessBothCharacterAndBinaryFile">
         <value xml:lang="en">Cannot process both character and binary data in the same file</value>
+        <value xml:lang="fr">Impossible de procéder avec la présence de données binaires et textuelles dans le même fichier</value>
         <value xml:lang="it">Non è possibile processare i dati di entrambi i file binari e carattere</value>
     </property>
     <property key="ContentCMS">
@@ -336,6 +346,7 @@
     </property>
     <property key="ContentClearAssociatedRenderCacheError">
         <value xml:lang="en">Unable to clear associated render cache with dataResourceId ${dataResourceId}</value>
+        <value xml:lang="fr">Impossible de nettoyer la mémoire cache pour la ressource référencée ${dataResourceId}</value>
         <value xml:lang="it">Non è possibile pulire la cache associata alla risorsa dati ${dataResourceId}</value>
     </property>
     <property key="ContentClip">
@@ -487,6 +498,7 @@
     </property>
     <property key="ContentCompDocInstanceAlreadyExists">
         <value xml:lang="en">Instance compdoc Content for ${parameters.rootInstanceContentId} already exists</value>
+        <value xml:lang="fr">L'instance de composition de document pour ${parameters.rootInstanceContentId} existe déjà</value>
         <value xml:lang="it">Istanza composizione documenti contenuto per ${parameters.rootInstanceContentId} esiste già</value>
     </property>
     <property key="ContentCompDocParentContentId">
@@ -638,14 +650,17 @@
     </property>
     <property key="ContentContentCreatingError">
         <value xml:lang="en">Error creating content in ${serviceName}</value>
+        <value xml:lang="fr">Erreur de création du document dans le service ${serviceName}</value>
         <value xml:lang="it">Errore durante la creazione del contenuto in ${serviceName}</value>
     </property>
     <property key="ContentContentNoAccessToUploadImage">
         <value xml:lang="en">no access to upload image</value>
+        <value xml:lang="fr">Pas d'accès pour charger l'image</value>
         <value xml:lang="it">nessun accesso per caricare l'immagine</value>
     </property>
     <property key="ContentContentUpdatingError">
         <value xml:lang="en">Error updating content in ${serviceName}</value>
+        <value xml:lang="fr">Erreur lors de la mise à jour du document ${serviceName}</value>
         <value xml:lang="it">Errore durante l'aggiornamento del contenuto in ${serviceName}</value>
     </property>
     <property key="ContentContentManager">
@@ -692,10 +707,12 @@
     </property>
     <property key="ContentContentToOrFromIsNull">
         <value xml:lang="en">contentTo ${contentTo}/From ${contentFrom} is null.</value>
+        <value xml:lang="fr">Document vers ${contentTo}/Depuis ${contentFrom} est inexistant.</value>
         <value xml:lang="it">Contenuto a ${contentTo}/da ${contentFrom} è nullo.</value>
     </property>
     <property key="ContentContentToOrFromErrorRetriving">
         <value xml:lang="en">Error in retrieving content To or From.</value>
+        <value xml:lang="en">Erreur dans la récupération du document de destination ou d'origine.</value>
         <value xml:lang="it">Errore nel ricavare il contenuto a o da.</value>
     </property>
     <property key="ContentContentsAssociatedToDataResource">
@@ -710,22 +727,27 @@
     </property>
     <property key="ContentContentIdOrUploadFileIsMissing">
         <value xml:lang="en">Content Id or Upload file is missing.</value>
+        <value xml:lang="fr">La référence du document ou le fichier à charger est manquant.</value>
         <value xml:lang="it">Id contenuto o file da caricare è mancante.</value>
     </property>
     <property key="ContentConvertingDocumentError">
         <value xml:lang="en">Error converting document: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans la conversion du document : ${errorString}</value>
         <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
     </property>
     <property key="ContentConvertingDocumentByteBuffer">
         <value xml:lang="en">Error converting document byte buffer: </value>
+        <value xml:lang="fr">Erreur dans la conversion de document sur les tampons de donnée : </value>
         <value xml:lang="it">Errore durante la conversione del documento in byte buffer: </value>
     </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
+        <value xml:lang="fr">Not 2 out of ContentId/To/From</value>
         <value xml:lang="it">Necessari 2 dei tre parametri ContentId/To/From necessari</value>
     </property>
     <property key="ContentCreateDateInvalidFormat">
         <value xml:lang="en">Created Date is not a valid Timestamp input format.</value>
+        <value xml:lang="fr">La date de création n'est pas dans un format valide.</value>
         <value xml:lang="it">Data creazione non è nel formato valido.</value>
     </property>
     <property key="ContentCreateFile">
@@ -839,10 +861,12 @@
     </property>
     <property key="ContentDataResourceIsNull">
         <value xml:lang="en">dataResourceId is null.</value>
+        <value xml:lang="fr">La référence de ressource est non présente.</value>
         <value xml:lang="it">dataResourceId è nullo.</value>
     </property>
     <property key="ContentDataResourceNotFound">
         <value xml:lang="en">No data resource found for ID: ${parameters.dataResourceId}</value>
+        <value xml:lang="fr">Pas de donnée trouvée pour la ressource sous la référence : ${parameters.dataResourceId}</value>
         <value xml:lang="it">Nessuna risorsa dati trovata con ID: ${parameters.dataResourceId}</value>
     </property>
     <property key="ContentDataResourceProductFeatures">
@@ -921,6 +945,7 @@
     </property>
     <property key="ContentDataTypeNotYetSupported">
         <value xml:lang="en">Data type ${dataResourceTypeId} is not yet supported!</value>
+        <value xml:lang="fr">Le type de donnée ${dataResourceTypeId} n'est pas supporté !</value>
         <value xml:lang="it">Tipo dati ${dataResourceTypeId} non è ancora supportato!</value>
     </property>
     <property key="ContentDecorator">
@@ -980,14 +1005,17 @@
     </property>
     <property key="ContentElectronicTextNotFound">
         <value xml:lang="en">Electronic Text not found.</value>
+        <value xml:lang="fr">Le texte n'a pas été trouvé.</value>
         <value xml:lang="it">Electronic Text non trovato.</value>
     </property>
     <property key="ContenCommEventContentAssocNotFoundForUpdate">
         <value xml:lang="en">CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
+        <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la mise à jour n'a pas été trouvée</value>
         <value xml:lang="it">Entità CommEventContentAssoc non trovata da aggiornare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
     </property>
     <property key="ContenCommEventContentAssocNotFoundForDelete">
-        <value xml:lang="en">CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
+        <value xml:lang="en">CommEventContentAssoc entity not found for delete, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
+        <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la suppression n'a pas été trouvée</value>
         <value xml:lang="it">Entità CommEventContentAssoc non trovata da cancellare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
     </property>
     <property key="ContentFile">
@@ -1154,7 +1182,7 @@
         <value xml:lang="en">Messages</value>
         <value xml:lang="fr">Messages</value>
         <value xml:lang="it">Messaggi</value>
-        <value xml:lang="nl">Berichten</value>    
+        <value xml:lang="nl">Berichten</value>
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="zh">消息</value>
         <value xml:lang="zh_TW">消息</value>
@@ -1179,10 +1207,12 @@
     </property>
     <property key="ContentFromDateInvalidFormat">
         <value xml:lang="en">fromDate not a valid date format</value>
+        <value xml:lang="fr">La date de début n'est pas dans un format valide</value>
         <value xml:lang="it">Data dal non è nel formato valido.</value>
     </property>
     <property key="ContentCannotGenerateBlogRssFeed">
         <value xml:lang="en">Not able to generate RSS feed for content: ${contentId}</value>
+        <value xml:lang="fr">Impossible de générer le flux RSS pour le document : ${contentId}</value>
         <value xml:lang="it">Non è possibile generare il feed RSS per il contenuto: ${contentId}</value>
     </property>
     <property key="ContentGIF">
@@ -1261,6 +1291,7 @@
     </property>
     <property key="ContentIncludeAllSubContents">
         <value xml:lang="en">Include all Sub-Contents</value>
+        <value xml:lang="fr">Inclure tous les sous doucments</value>
     </property>
     <property key="ContentIndex">
         <value xml:lang="ar">الدليل</value>
@@ -1302,6 +1333,7 @@
     </property>
     <property key="ContentIndexingTreeError">
         <value xml:lang="en">Error indexing tree: ${errorString}</value>
+        <value xml:lang="fr">Erreur dans l'indexation de l'arbre : ${errorString}</value>
         <value xml:lang="it">Errore di indicizzazione albero: ${errorString}</value>
     </property>
     <property key="ContentJPEG">
@@ -1377,10 +1409,12 @@
     </property>
     <property key="ContentLastModifiedDateInvalidFormat">
         <value xml:lang="en">Last Modified Date is not a valid Timestamp input format.</value>
+        <value xml:lang="fr">La date de dernière modification n'est pas dans un format valide.</value>
         <value xml:lang="it">Data modifica non è nel formato valido.</value>
     </property>
     <property key="ContentLastUpdatedDateFilter">
         <value xml:lang="en">Last Updated Date Filter</value>
+        <value xml:lang="fr">Dernière mise à jour du filtre de donnée</value>
     </property>
     <property key="ContentLatest">
         <value xml:lang="da">Senest</value>
@@ -1413,6 +1447,7 @@
     </property>
     <property key="ContentLocalFileDoesNotPointToAbsoluteLocation">
         <value xml:lang="en">DataResource LOCAL_FILE does not point to an absolute location</value>
+        <value xml:lang="fr">La ressource LOCAL_FILE ne doit pas indiquer un emplacement absolu</value>
         <value xml:lang="it">La risorda dati LOCAL_FILE non punta ad una posizione assoluta</value>
     </property>
     <property key="ContentMSWord">
@@ -1513,6 +1548,7 @@
     </property>
     <property key="ContentNeitherContentSupplied">
         <value xml:lang="en">Neither content nor contentId supplied.</value>
+        <value xml:lang="fr">Ni le document ni sa référence ne sont fournis.</value>
         <value xml:lang="it">Nessuno contenuto specificato.</value>
     </property>
     <property key="ContentNewContentInFolder">
@@ -1654,18 +1690,22 @@
     </property>
     <property key="ContentPermissionNotGranted">
         <value xml:lang="en">Permission not granted.</value>
+        <value xml:lang="fr">Permission non accordée.</value>
         <value xml:lang="it">Permesso non abilitato.</value>
     </property>
     <property key="ContentPrinterNotAvailable">
         <value xml:lang="en">No printer available</value>
+        <value xml:lang="fr">Pas d'imprimante disponible</value>
         <value xml:lang="it">Nessuna stampante disponibile</value>
     </property>
     <property key="ContentPrinterNotFound">
         <value xml:lang="en">No printer found with name: ${printerName}</value>
+        <value xml:lang="fr">Pas d'imprimante disponible sous le nom ${printerName}</value>
         <value xml:lang="it">Nessuna stampante trovate con il nome: ${printerName}</value>
     </property>
     <property key="ContentPrinterNotSupportDocFlavorFormat">
         <value xml:lang="en">DocFlavor ${psInFormat} not supported by printer: ${printerName}</value>
+        <value xml:lang="fr">DocFlavor ${psInFormat} n'est pas supporté par l'imprimante ${printerName}</value>
         <value xml:lang="it">Il formato Doc Flavor ${psInFormat} non è supportato dalla stampante: ${printerName}</value>
     </property>
     <property key="ContentPlainText">
@@ -1698,6 +1738,7 @@
     </property>
     <property key="ContentQuestionTypeRequiredField">
         <value xml:lang="en">Question type ${questionType} requires ${requiredField} to be set</value>
+        <value xml:lang="fr">Le type de question ${questionType} requiert le champ ${requiredField} pour être défini</value>
         <value xml:lang="it">Tipo domanda ${questionType} richiede ${requiredField} di essere impostato</value>
     </property>
     <property key="ContentQuickSubContent">
@@ -1730,10 +1771,12 @@
     </property>
     <property key="ContentRenderingError">
         <value xml:lang="en">Error rendering ${contentType}: ${errorString}</value>
+        <value xml:lang="fr">Erreur lors du rendu pour ${contentType} : ${errorString}</value>
         <value xml:lang="it">Errore di rendering ${contentType}: ${errorString}</value>
     </property>
     <property key="ContentRequiredField">
         <value xml:lang="en">Required field ${requiredField} is missing in simple method call ${resourceDescription}</value>
+        <value xml:lang="fr">Le champ requis ${requiredField} est manquant dans l'appel d'une méthode simple : ${resourceDescription}</value>
         <value xml:lang="it">Campo ${requiredField} è richiesto ed è mancante nella chiamata a ${resourceDescription}</value>
     </property>
     <property key="ContentResourceAudio">
@@ -1816,6 +1859,7 @@
     </property>
     <property key="ContentSearchContents">
         <value xml:lang="en">Search Contents</value>
+        <value xml:lang="fr">Recherche de documents</value>
     </property>
     <property key="ContentSecurityCreatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
@@ -1839,6 +1883,7 @@
     </property>
     <property key="ContentStatusUpdateError">
         <value xml:lang="en">Problem updating content Status: ${errorString}</value>
+        <value xml:lang="en">Problème lors de la mise à jour du statut du document : ${errorString}</value>
         <value xml:lang="it">Problema durante l'aggiornamento dello stato del contenuto: ${errorString}</value>
     </property>
     <property key="ContentSubContent">
@@ -1883,14 +1928,17 @@
     </property>
     <property key="ContentSurveyAlreadyResponded">
         <value xml:lang="en">You have already responded to this survey; multiple responses are not allowed</value>
+        <value xml:lang="fr">Vous avez déjà répondu au questionnaire. De multiples réponses ne sont pas autorisées</value>
         <value xml:lang="it">Tu hai già risposto a questo sondaggio; risposte multiple non sono consentite</value>
     </property>
     <property key="ContentSurveyAnonymousResponse">
         <value xml:lang="en">Anonymous response to this survey is not allowed (you must be logged in)</value>
+        <value xml:lang="fr">Les réponses anonymes ne sont pas autorisées pour ce questionnaire (Vous devez être connecté)</value>
         <value xml:lang="it">Risposta anonima per questo sondaggio non è consentita (ti devi autenticare)</value>
     </property>
     <property key="ContentSurveyAnswersNotFound">
         <value xml:lang="en">No answers were found</value>
+        <value xml:lang="fr">Pas de réponses trouvées</value>
         <value xml:lang="it">Nessuna risposta è stata trovata</value>
     </property>
     <property key="ContentSurveryCategory">
@@ -2187,38 +2235,47 @@
     </property>
     <property key="ContentSurveyQuestionRequiresAResponse">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a response.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une réponse.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una risposta.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidCreditCardNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid credit-card number.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un numéro de carte de crédit valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta di credito valida.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidCurrencyAmount">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid currency amount.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un montant valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'importo in valuta valido.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidDate">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid date string (mm/dd/yyyy).</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une date valide (mm/jj/aaaa).</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una data valida (mm/gg/aaaa).</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidDecimalNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid decimal number.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un nombre décimal.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero con decimali valido.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidEmailAddress">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid email address.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une adresse courriel valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'indirizzo e-mail valido.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidGiftCardNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid gift-card number.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un numéro de carte cadeau.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta regalo valida.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidURL">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid URL.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une URL valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un URL valido.</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidWholeNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid whole number.</value>
+        <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un nombre entier.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero intero valido.</value>
     </property>
     <property key="ContentSurveyResponse">
@@ -2235,10 +2292,12 @@
     </property>
     <property key="ContentSurveyErrorBuildingPDF">
         <value xml:lang="en">Error building PDF from SurveyResponse: </value>
+        <value xml:lang="fr">Erreur dans la construction du PDF des réponses du sondage : </value>
         <value xml:lang="it">Errore durante la creazione del PDF dalla risposta del sondaggio: </value>
     </property>
     <property key="ContentSurveyErrorSettingAcroFields">
         <value xml:lang="en">Error setting AcroFields from SurveyResponse: </value>
+        <value xml:lang="fr">Erreur dans l'enregistrement des AcroFields des réponses du sondage: </value>
         <value xml:lang="it">Errore durante l'impostazioni di AcroFields dalla risposta del sondaggio: </value>
     </property>
     <property key="ContentSurveyResponseSummary">
@@ -2427,6 +2486,7 @@
     </property>
     <property key="ContentThruDateInvalidFormat">
         <value xml:lang="en">thruDate not a valid date format</value>
+        <value xml:lang="fr">le champ thruDate n'est pas au bon format</value>
         <value xml:lang="it">Data al non è nel formato valido.</value>
     </property>
     <property key="ContentType">
@@ -2454,18 +2514,22 @@
     </property>
     <property key="ContentUnableObtainReferenceToFile">
         <value xml:lang="en">Unable to obtain a reference to file ${objectInfo}</value>
+        <value xml:lang="en">Impossible d'obtenir la référence du fichier ${objectInfo}</value>
         <value xml:lang="it">Non è possibile ottenere un riferimento al file ${objectInfo}</value>
     </property>
     <property key="ContentUnableToOpenFileForWriting">
         <value xml:lang="en">Unable to open file for writing: ${fileName}</value>
+        <value xml:lang="fr">Impossible d'ouvrir le fichier ${fileName} en écriture</value>
         <value xml:lang="it">Non è possibile aprire il file in scrittura: ${fileName}</value>
     </property>
     <property key="ContentUnableWriteBinaryDataToFile">
         <value xml:lang="en">Unable to write binary data to: ${fileName}</value>
+        <value xml:lang="fr">Impossible d'écrire les données binaires dans le fichier ${fileName}</value>
         <value xml:lang="it">Non è possibile scrivere i dati binari in: ${fileName}</value>
     </property>
     <property key="ContentUnableWriteCharacterDataToFile">
         <value xml:lang="en">Unable to write character data to: ${fileName}</value>
+        <value xml:lang="fr">Impossible d'écrire les données dans le fichier ${fileName}</value>
         <value xml:lang="it">Non è possibile scrivere i dati carattere in: ${fileName}</value>
     </property>
     <property key="ContentUpdatePermissionError">
@@ -2481,6 +2545,7 @@
     </property>
     <property key="ContentUploadFileTypeNotMatch">
         <value xml:lang="en">Upload file type not match your selected.</value>
+        <value xml:lang="fr">Le type de fichier chargé ne correspond pas avec votre selection.</value>
         <value xml:lang="it">Tipo file da caricare non corrisponde alla tua selezione.</value>
     </property>
     <property key="ContentUploadedFile">
@@ -2517,6 +2582,7 @@
     </property>
     <property key="ContentVisitedSet">
         <value xml:lang="en">visitedSet already contains: </value>
+        <value xml:lang="fr">visitedSet contient déjà : </value>
         <value xml:lang="it">visitedSet contiene già: </value>
     </property>
     <property key="ContentWebSite">
@@ -3333,6 +3399,7 @@
     <property key="FormFieldTitle_existContentId">
         <value xml:lang="da">Eksisterende indholds id</value>
         <value xml:lang="en">Existing Content Id</value>
+        <value xml:lang="fr">Document existant</value>
         <value xml:lang="it">Codice contenuto esitente</value>
     </property>
     <property key="FormFieldTitle_fileExtensionId">
@@ -3884,6 +3951,7 @@
     <property key="FormFieldTitle_pathAlias">
         <value xml:lang="da">Sti alias</value>
         <value xml:lang="en">Path Alias</value>
+        <value xml:lang="fr">Raccourci</value>
         <value xml:lang="it">Path alias</value>
         <value xml:lang="zh">路径别名</value>
         <value xml:lang="zh_TW">路徑別名</value>
@@ -3891,6 +3959,7 @@
     <property key="FormFieldTitle_pathAliasTo">
         <value xml:lang="da">Sti alias til</value>
         <value xml:lang="en">Path Alias To</value>
+        <value xml:lang="fr">Raccourci vers</value>
         <value xml:lang="it">Path alias a</value>
         <value xml:lang="zh">路径别名到</value>
         <value xml:lang="zh_TW">路徑別名到</value>
@@ -3936,6 +4005,7 @@
     <property key="FormFieldTitle_queryLine">
         <value xml:lang="da">Forespørgsel linie</value>
         <value xml:lang="en">Query Line</value>
+        <value xml:lang="fr">Ligne de requête</value>
         <value xml:lang="it">Riga query</value>
         <value xml:lang="zh">查询行</value>
         <value xml:lang="zh_TW">查詢行</value>
@@ -4036,6 +4106,7 @@
     <property key="FormFieldTitle_section">
         <value xml:lang="da">Sektion</value>
         <value xml:lang="en">section</value>
+        <value xml:lang="fr">section</value>
         <value xml:lang="it">sezione</value>
         <value xml:lang="nl">sectie</value>
         <value xml:lang="zh">节</value>
@@ -4277,6 +4348,7 @@
     <property key="FormFieldTitle_templateTree">
         <value xml:lang="da">Skabelon træ</value>
         <value xml:lang="en">Template Tree</value>
+        <value xml:lang="fr">Modèle d'arbre</value>
         <value xml:lang="it">Albero template</value>
         <value xml:lang="zh">模板树</value>
         <value xml:lang="zh_TW">範本樹</value>
@@ -4318,6 +4390,7 @@
     <property key="FormFieldTitle_updateSurveyResponse">
         <value xml:lang="da">Opdater rundspørge svar</value>
         <value xml:lang="en">Update Survey Response</value>
+        <value xml:lang="fr">Màj de la réponse du sondage</value>
         <value xml:lang="it">Aggiorna risposta sondaggio</value>
         <value xml:lang="zh">更新调查回答</value>
         <value xml:lang="zh_TW">更新調查回答</value>
@@ -4448,6 +4521,7 @@
     </property>
     <property key="PageTitleAddContentKeyword">
         <value xml:lang="en">Add Content Keyword</value>
+        <value xml:lang="fr">Ajout de mot clé document</value>
     </property>
     <property key="PageTitleAddDataResource">
         <value xml:lang="ar">إضافة مورد معلومات</value>
@@ -4774,6 +4848,7 @@
     </property>
     <property key="PageTitleEditContentKeywords">
         <value xml:lang="en">Edit Content Keywords</value>
+        <value xml:lang="fr">Édition des mots-clés document"</value>
     </property>
     <property key="PageTitleEditContentMetadata">
         <value xml:lang="ar">تعرير ميتا معلومات محتوى</value>
@@ -5592,6 +5667,7 @@
     <property key="PageTitlePleaseSelectData">
         <value xml:lang="da">Vælg data</value>
         <value xml:lang="en">Please select data</value>
+        <value xml:lang="fr">Merci de sélectionner une donnée</value>
         <value xml:lang="it">Perfacore seleziona i dati</value>
     </property>
     <property key="PageTitleSearchContent">
@@ -5704,9 +5780,11 @@
     <property key="ErrorLoadingContent">
         <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>
         <value xml:lang="en">An error occured loading content!</value>
+        <value xml:lang="fr">Erreur dans le chargement du document !</value>
     </property>
     <property key="CannotFindCmsform">
         <value xml:lang="de">Die CMS Form kann nicht gefunden werden!</value>
         <value xml:lang="en">Cannot find the cmsform!</value>
+        <value xml:lang="fr">Le formulaire CMS n'a pas été trouvé</value>
     </property>
 </resource>
