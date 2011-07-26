@@ -29,6 +29,7 @@ under the License.
         <menu-item name="ContactListParty" title="${uiLabelMap.PartyParties}">
             <link target="FindContactListParties">
                 <parameter param-name="contactListId"/>
+                <parameter param-name="hideExpired" value="Y"/>
             </link>
         </menu-item>
         <menu-item name="ContactListCommEvent" title="${uiLabelMap.PartyCommEvents}">
