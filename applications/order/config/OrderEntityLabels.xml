@@ -623,6 +623,7 @@
     </property>
     <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
         <value xml:lang="en">Return Additional Feature</value>
+        <value xml:lang="fr">Caractéristique additionnelle de retour</value>
         <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
         <value xml:lang="pt_BR">Devolução de funcionalidade adicional</value>
         <value xml:lang="zh">退货的附加特征</value>
@@ -679,6 +680,7 @@
     </property>
     <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
+        <value xml:lang="fr">Taxe de vente sur retour</value>
         <value xml:lang="it">Tasse di vendita sul reso</value>
         <value xml:lang="pt_BR">Taxa de devolução de venda</value>
         <value xml:lang="zh">退货的营业税</value>
@@ -686,6 +688,7 @@
     </property>
     <property key="ReturnAdjustmentType.description.RET_SHIPPING_ADJ">
         <value xml:lang="en">Return Shipping and Handling</value>
+        <value xml:lang="fr">Transport sur retour</value>
         <value xml:lang="it">Spese di trasporto sul reso</value>
         <value xml:lang="pt_BR">Devolução de envio e manuseio</value>
         <value xml:lang="zh">退货的装运费</value>
@@ -693,6 +696,7 @@
     </property>
     <property key="ReturnAdjustmentType.description.RET_SURCHARGE_ADJ">
         <value xml:lang="en">Return Surcharge</value>
+        <value xml:lang="fr">Supplément sur retour</value>
         <value xml:lang="it">Spese supplementari sul reso</value>
         <value xml:lang="pt_BR">Devolução de sobretaxa</value>
         <value xml:lang="zh">退货的附加费</value>
@@ -700,6 +704,7 @@
     </property>
     <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
         <value xml:lang="en">Return Warranty</value>
+        <value xml:lang="fr">Garantie sur retour</value>
         <value xml:lang="it">Garanzia sul reso</value>
         <value xml:lang="pt_BR">Devolução de garantia</value>
         <value xml:lang="zh">退货的保证条款</value>
@@ -771,6 +776,7 @@
     </property>
     <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
         <value xml:lang="en">Size Exchange</value>
+        <value xml:lang="fr">Mauvaise taille, échange</value>
         <value xml:lang="it">Cambio taglia</value>
         <value xml:lang="pt_BR">Troca de tamanho</value>
     </property>
