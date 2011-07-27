@@ -622,15 +622,14 @@ public class WorkEffortServices {
         entityExprList.addAll(periodCheckAndlList);
 
         // (non cancelled) recurring events
+        /* Commenting this out. This condition adds ALL recurring events to ALL calendars.
         List<EntityCondition> recurringEvents = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("tempExprId", EntityOperator.NOT_EQUAL, null));
         if (filterOutCanceledEvents.booleanValue()) {
             recurringEvents.addAll(cancelledCheckAndList);
         }
+        */
 
-        EntityCondition eclTotal = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND),
-                EntityCondition.makeCondition(recurringEvents, EntityJoinOperator.AND)
-                ), EntityJoinOperator.OR);
+        EntityCondition eclTotal = EntityCondition.makeCondition(entityExprList, EntityJoinOperator.AND);
 
         List<String> orderByList = UtilMisc.toList("estimatedStartDate");
         try {
