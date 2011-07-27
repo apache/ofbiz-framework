@@ -11812,7 +11812,7 @@
     </property>
     <property key="OrderUpdateReturnAdjustment">
         <value xml:lang="en">Update ReturnAdjustment with Id:${returnAdjustmentId} to amount ${amount} successfully.</value>
-        <value xml:lang=fr">La mise à jour de ligne d'ajustement de référence ${returnAdjustmentId} a été effectuée avec le montant ${amount}.</value>
+        <value xml:lang="fr">La mise à jour de ligne d'ajustement de référence ${returnAdjustmentId} a été effectuée avec le montant ${amount}.</value>
         <value xml:lang="it">Aggiornato aggiustamento reso:${returnAdjustmentId} per l'importo ${amount} con successo.</value>
         <value xml:lang="pt_BR">Atualizar ReturnAdjustment com Id: ${returnAdjustmentId} para quantia ${amount} bem sucedida.</value>
     </property>
