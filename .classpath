@@ -34,7 +34,7 @@
     <classpathentry kind="lib" path="framework/base/lib/httpcore-4.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpmime-4.1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpunit.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/icu4j-4_4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ivy-2.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
