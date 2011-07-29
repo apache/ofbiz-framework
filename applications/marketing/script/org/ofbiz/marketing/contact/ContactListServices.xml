@@ -239,10 +239,39 @@ under the License.
             <set field="updateContactListPartyMap.baseLocation" from-field="parameters.baseLocation"/>
             <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
             <else>
-                <add-error><fail-message message="The email address (${parameters.email}) does not have the Other Email Address as contact purpose."/></add-error>
-                <check-errors/>
+                <entity-and list="partyContactWithPurposes" entity-name="PartyContactWithPurpose">
+                    <field-map field-name="infoString" from-field="parameters.email"/>
+                    <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                </entity-and>
+                <filter-list-by-date list="partyContactWithPurposes" from-field-name="contactFromDate" thru-field-name="contactThruDate"/>
+                <filter-list-by-date list="partyContactWithPurposes" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
+                <if-not-empty field="partyContactWithPurposes">
+                    <set field="updateContactListPartyMap.contactListId" from-field="parameters.contactListId"/>
+                    <set field="updateContactListPartyMap.partyId" from-field="partyContactWithPurposes[0].partyId"/>
+                    <set field="updateContactListPartyMap.preferredContactMechId" from-field="partyContactWithPurposes[0].contactMechId"/>
+                    <set field="updateContactListPartyMap.statusId" value="CLPT_UNSUBS_PENDING"/>
+                    <set field="updateContactListPartyMap.userLogin" from-field="userLogin"/>
+                    <set field="updateContactListPartyMap.baseLocation" from-field="parameters.baseLocation"/>
+                    <call-service service-name="updateContactListParty" in-map-name="updateContactListPartyMap"/>
+                    <else>
+                        <add-error><fail-message message="The email address (${parameters.email}) does not have the Other Email Address as contact purpose."/></add-error>
+                        <check-errors/>
+                    </else>
+                </if-not-empty>
             </else>
         </if-not-empty>
+    </simple-method>
+    <simple-method method-name="unsubscribeContactListPartyContachMech" short-description="Find email by contactMechId then call unsubscribeContactListParty service">
+        <entity-and list="partyContactWithPurposes" entity-name="PartyContactWithPurpose">
+            <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+        </entity-and>
+        <first-from-list entry="partyContactWithPurpose" list="partyContactWithPurposes"/>
+        <set field="email" from-field="partyContactWithPurpose.infoString"/>
+        <set-service-fields service-name="unsubscribeContactListParty" to-map="unsubscribeContactListPartyCtx" map="parameters"/>
+        <set field="unsubscribeContactListPartyCtx.email" from-field="email"/>
+        <call-service service-name="unsubscribeContactListParty" in-map-name="unsubscribeContactListPartyCtx"/>
     </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>

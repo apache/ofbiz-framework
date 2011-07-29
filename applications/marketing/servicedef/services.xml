@@ -88,6 +88,14 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="baseLocation" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="unsubscribeContactListPartyContachMech" engine="simple"
+            location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="unsubscribeContactListPartyContachMech" auth="false">
+        <description>Find email by contactMechId then call unsubscribeContactListParty service.</description>
+        <attribute name="contactListId" type="String" mode="IN" optional="false"/>
+        <attribute name="preferredContactMechId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="baseLocation" type="String" mode="IN" optional="true"/>
+    </service>
 
     <!-- MarketingCampaignRole Services -->
     <service name="addRoleToMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"

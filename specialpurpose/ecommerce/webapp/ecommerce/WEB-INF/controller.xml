@@ -1337,6 +1337,12 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    <request-map uri="unsubscribeContactListPartyContachMech">
+        <security https="false" auth="false"/>
+        <event type="service" invoke="unsubscribeContactListPartyContachMech"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
     <request-map uri="contactListOptOut" track-serverhit="false" track-visit="false">
         <security https="false" auth="false"/>
         <event type="service" invoke="updateContactListPartyNoUserLogin"/>
