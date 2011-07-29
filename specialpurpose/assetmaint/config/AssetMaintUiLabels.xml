@@ -85,10 +85,12 @@
     <property key="AssetMaintProblemCallingService">
         <value xml:lang="en">Problem in calling service issueInventoryItemToFixedAssetMaint</value>
         <value xml:lang="it">Problema durante la chiamata al servizio issueInventoryItemToFixedAssetMaint</value>
+        <value xml:lang="zh">调用发送库存明细到固定资产维护（issueInventoryItemToFixedAssetMaint）服务时出错</value>
     </property>
     <property key="AssetMaintProblemGettingInventoryLevel">
         <value xml:lang="en">Problem in getting Inventory level for </value>
         <value xml:lang="it">Problema ad ottenere il livello di inventario per </value>
+        <value xml:lang="zh">获取库存水平时出错： </value>
     </property>
     <property key="AssetMaintProductMaint">
         <value xml:lang="en">Product Maint</value>
