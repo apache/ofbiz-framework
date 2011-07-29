@@ -34,6 +34,12 @@ under the License.
         document.getElementById("statusId").value = "CLPT_UNSUBS_PENDING";
         form.submit();
     }
+    function unsubscribeByContactMech() {
+        var form = document.getElementById("signUpForContactListForm");
+        form.action = "<@ofbizUrl>unsubscribeContactListPartyContachMech</@ofbizUrl>"
+        document.getElementById("statusId").value = "CLPT_UNSUBS_PENDING";
+        form.submit();
+    }
 </script>
 
 <div id="miniSignUpForContactList" class="screenlet">
@@ -67,7 +73,7 @@ under the License.
           </div>
           <div>
             <input type="submit" value="${uiLabelMap.EcommerceSubscribe}"/>
-            <input type="button" value="${uiLabelMap.EcommerceUnsubscribe}" onclick="javascript:unsubscribe();"/>
+            <input type="button" value="${uiLabelMap.EcommerceUnsubscribe}" onclick="javascript:unsubscribeByContactMech();"/>
           </div>
         </fieldset>
       </form>
