@@ -55,7 +55,7 @@ under the License.
     <service name="copyQuote" default-entity-name="Quote" engine="simple"
                 location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="copyQuote" auth="true">
         <description>Copy a Quote</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <attribute name="copyQuoteRoles" type="String" mode="IN" optional="true"/>
         <attribute name="copyQuoteAttributes" type="String" mode="IN" optional="true"/>
         <attribute name="copyQuoteCoefficients" type="String" mode="IN" optional="true"/>

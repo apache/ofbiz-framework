@@ -194,6 +194,7 @@ under the License.
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
             <result-to-field result-name="quoteId" field="quoteIdTo"/>
         </call-service>
+        <field-to-result field="quoteIdTo" result-name="quoteId"/>
         <if-compare field="parameters.copyQuoteItems" value="Y" operator="equals">
             <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
