@@ -220,4 +220,26 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
+
+    <!-- WebSite SEO Form -->
+    <form name="CreateWebsiteSEO" type="single" target="generateMissingSeoUrlForWebsite" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="webSiteId"><hidden/></field>
+        <field name="prodCatalogId" title="${uiLabelMap.Catalog}">
+            <drop-down>
+                <option key="all" description="All"/>
+                <entity-options description="${prodCatalogId}" entity-name="ProductStoreCatalog">
+                    <entity-constraint name="productStoreId" value="${webSite.productStoreId}"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="typeGenerate" title="Generate Type">
+            <check all-checked="false">
+                <option key="category" description="Category"/>
+                <option key="product" description="Product"/>
+                <option key="content" description="Content"/>
+            </check>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
 </forms>

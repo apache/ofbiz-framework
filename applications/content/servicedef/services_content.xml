@@ -324,4 +324,13 @@
         <permission-service service-name="genericContentPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="ContentRole" include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- Alternative URLs services -->
+    <service name="createMissingContentAltUrls" engine="simple"
+                location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createMissingContentAltUrls" auth="true" use-transaction="false">
+        <description>Create missing Content Alternative URLs</description>
+        <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
+        <attribute name="contentsNotUpdated" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="contentsUpdated" mode="OUT" type="Integer" optional="true"/>
+    </service>
 </services>

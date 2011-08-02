@@ -367,4 +367,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="WebSiteSEO">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleWebSiteSEO"/>
+                <set field="tabButtonItem" value="WebSiteSEO"/>
+                <set field="labelTitleProperty" value="PageTitleWebSiteSEO"/>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleWebSiteSEO}">
+                                    <include-form name="CreateWebsiteSEO" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
