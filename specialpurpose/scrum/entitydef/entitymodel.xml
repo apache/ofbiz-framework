@@ -63,11 +63,12 @@
     </view-entity>
     
     <extend-entity entity-name="CustRequest">
-        <field name="estimatedMilliSeconds" type="floating-point"/>
-        <field name="sequenceNum" type="numeric"/>
+        <field name="custEstimatedMilliSeconds" type="floating-point"/>
+        <field name="custSequenceNum" type="numeric"/>
         <field name="parentCustRequestId" type="id-ne"/>
         <field name="billed" type="indicator"/>
     </extend-entity>
+    
     <view-entity entity-name="ScrumProjectSprintBacklogAndTask"
             package-name="org.ofbiz.scrum"
             title="Project Sprint Backlog and Task View">
@@ -101,13 +102,6 @@
         </view-link>
     </view-entity>
     
-    <extend-entity entity-name="Product">
-        <field name="statusId" type="id"/>
-        <relation type="one" fk-name="PROD_STTS" rel-entity-name="StatusItem">
-          <key-map field-name="statusId"/>
-        </relation>
-    </extend-entity>
-
     <view-entity entity-name="ProjectSprintBacklogAndTask" package-name="org.ofbiz.scrum">
         <member-entity entity-alias="WE_PROJ" entity-name="WorkEffort"/>
         <member-entity entity-alias="WE_SPRI" entity-name="WorkEffort"/>
@@ -134,8 +128,8 @@
         <alias entity-alias="CR" name="custRequestTypeId" field="custRequestTypeId"/>
         <alias entity-alias="CR" name="backlogStatusId" field="statusId"/>
         <alias entity-alias="CR" name="description" field="description"/>
-        <alias entity-alias="CR" name="estimatedMilliSeconds" field="estimatedMilliSeconds"/>
-        <alias entity-alias="CR" name="sequenceNum" field="sequenceNum"/>
+        <alias entity-alias="CR" name="custEstimatedMilliSeconds" field="custEstimatedMilliSeconds"/>
+        <alias entity-alias="CR" name="custSequenceNum" field="custSequenceNum"/>
         <view-link entity-alias="WE_SPRI" rel-entity-alias="CW_SPRI">
             <key-map field-name="workEffortId"/>
         </view-link>
@@ -187,8 +181,8 @@
         <alias entity-alias="CR" field="statusId" name="custRequestStatusId"/>
         <alias entity-alias="CR" field="parentCustRequestId" name="parentCustRequestId"/>
         <alias entity-alias="CR" field="description" name="description"/>
-        <alias entity-alias="CR" field="estimatedMilliSeconds" name="estimatedMilliSeconds"/>
-        <alias entity-alias="CR" name="sequenceNum" field="sequenceNum"/>
+        <alias entity-alias="CR" field="custEstimatedMilliSeconds" name="custEstimatedMilliSeconds"/>
+        <alias entity-alias="CR" name="custSequenceNum" field="custSequenceNum"/>
         <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
         <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
         <view-link entity-alias="WE_SPRI" rel-entity-alias="CW_SPRI">
@@ -281,8 +275,8 @@
         <alias entity-alias="CR" name="custRequestId" field="custRequestId"/>
         <alias entity-alias="CR" name="custRequestTypeId" field="custRequestTypeId"/>
         <alias entity-alias="CR" name="description" field="description"/>
-        <alias entity-alias="CR" name="estimatedMilliSeconds" field="estimatedMilliSeconds"/>
-        <alias entity-alias="CR" name="sequenceNum" field="sequenceNum"/>
+        <alias entity-alias="CR" name="custEstimatedMilliSeconds" field="custEstimatedMilliSeconds"/>
+        <alias entity-alias="CR" name="custSequenceNum" field="custSequenceNum"/>
         <alias entity-alias="PS" name="partyId" field="partyId"/>
         <alias entity-alias="PS" name="firstName" field="firstName"/>
         <alias entity-alias="PS" name="lastName" field="lastName"/>
@@ -421,8 +415,9 @@
             <exclude field="statusId"/>
         </alias-all>
         <alias entity-alias="PD" name="internalName"/>
-        <alias entity-alias="PD" name="statusId"/>
         <alias entity-alias="PD" name="productTypeId"/>
+        <alias entity-alias="PD" name="introductionDate"/>
+        <alias entity-alias="PD" name="supportDiscontinuationDate"/>
         <view-link entity-alias="PR" rel-entity-alias="PD">
           <key-map field-name="productId"/>
         </view-link>
@@ -578,13 +573,10 @@
         <member-entity entity-alias="CR" entity-name="CustRequest"/>
         <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
         <member-entity entity-alias="WE" entity-name="WorkEffort"/>
-        <alias-all entity-alias="CR">
-            <exclude field="estimatedMilliSeconds"/>
-        </alias-all>
+        <alias-all entity-alias="CR"/>
         <alias-all entity-alias="CRI">
             <exclude field="statusId"/>
             <exclude field="priority"/>
-            <exclude field="sequenceNum"/>
             <exclude field="description"/>
             <exclude field="reservPersons"/>
         </alias-all>
@@ -623,13 +615,10 @@
         <alias-all entity-alias="TE">
             <exclude field="workEffortId"/>
         </alias-all>
-        <alias-all entity-alias="CR">
-            <exclude field="estimatedMilliSeconds"/>
-        </alias-all>
+        <alias-all entity-alias="CR"/>
         <alias-all entity-alias="CRI">
             <exclude field="statusId"/>
             <exclude field="priority"/>
-            <exclude field="sequenceNum"/>
             <exclude field="description"/>
             <exclude field="reservPersons"/>
         </alias-all>
@@ -666,6 +655,61 @@
         </entity-condition>
     </view-entity>
     
+    <view-entity entity-name="CancelledBacklogsTaskAndTimeEntryTimeSheet" 
+            package-name="org.ofbiz.scrum"
+            title="UnPlanned Backlog Items ->  tasks">
+        <member-entity entity-alias="CW" entity-name="CustRequestWorkEffort"/>
+        <member-entity entity-alias="CR" entity-name="CustRequest"/>
+        <member-entity entity-alias="CRI" entity-name="CustRequestItem"/>
+        <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+        <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+        <member-entity entity-alias="TS" entity-name="Timesheet"/>
+        <alias-all entity-alias="TE">
+            <exclude field="workEffortId"/>
+        </alias-all>
+        <alias-all entity-alias="CR"/>
+        <alias-all entity-alias="CRI">
+            <exclude field="statusId"/>
+            <exclude field="priority"/>
+            <exclude field="sequenceNum"/>
+            <exclude field="description"/>
+            <exclude field="reservPersons"/>
+        </alias-all>
+        <alias-all entity-alias="WE">
+            <exclude field="workEffortId"/>
+            <exclude field="priority"/>
+            <exclude field="description"/>
+            <exclude field="createdDate"/>
+            <exclude field="createdByUserLogin"/>
+            <exclude field="lastModifiedDate"/>
+            <exclude field="lastModifiedByUserLogin"/>
+            <exclude field="sequenceNum"/>
+        </alias-all>
+        <alias entity-alias="WE" field="workEffortId" name="taskId"></alias>
+        <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
+        <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
+        <view-link entity-alias="CR" rel-entity-alias="CRI" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CR" rel-entity-alias="CW" rel-optional="true">
+            <key-map field-name="custRequestId"/>
+        </view-link>
+        <view-link entity-alias="CW" rel-entity-alias="WE" rel-optional="true">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="WE"  rel-entity-alias="TE">
+            <key-map field-name="workEffortId"/>
+        </view-link>
+        <view-link entity-alias="TE" rel-entity-alias="TS">
+            <key-map field-name="timesheetId"/>
+        </view-link>
+        <entity-condition>
+            <condition-list combine="and">
+                <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG" entity-alias="CR"/>
+                <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED" entity-alias="CR"/>
+            </condition-list>
+        </entity-condition>
+    </view-entity>
     <view-entity entity-name="ScrumMemberUserLoginAndSecurityGroup"
             package-name="org.ofbiz.scrum"
             never-cache="true"

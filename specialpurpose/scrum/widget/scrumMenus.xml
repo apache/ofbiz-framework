@@ -259,7 +259,7 @@
                         <if-has-permission permission="SCRUM_ADMIN"/>
                     </or>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
@@ -274,7 +274,7 @@
                         <if-has-permission permission="SCRUM_ADMIN"/>
                     </or>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
@@ -286,7 +286,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="ViewTotalBacklog">
@@ -297,7 +297,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
                 </and>
             </condition>
@@ -313,7 +313,7 @@
                         <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
                     </or>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <not><if-empty field="unPlannedBacklogList"/></not>
                 </and>
             </condition>
@@ -330,7 +330,7 @@
                         <if-has-permission permission="SCRUM_BILLING" action="_CREATE"/>
                     </or>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link text="Billing" target="ProductBilling">
@@ -341,7 +341,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
                 </and>
             </condition>
@@ -353,7 +353,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
                 </and>
             </condition>
@@ -366,7 +366,7 @@
                 <and>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="EditProductContents">
@@ -378,7 +378,7 @@
                 <and>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="BACKLOG"/>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="ProductEmails">
@@ -400,7 +400,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <or>
                         <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
                         <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
@@ -426,7 +426,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <or>
                         <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
                         <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
@@ -443,7 +443,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <or>
                         <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
                         <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
@@ -461,7 +461,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <or>
                         <if-compare operator="equals" value="CRQ_ACCEPTED" field="custRequestMap.statusId"/>
                         <if-compare operator="equals" value="CRQ_REVIEWED" field="custRequestMap.statusId"/>
@@ -483,7 +483,7 @@
                 <and>
                     <not><if-empty field="product"/></not>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="AddProdBacklog" style="buttontext create">
@@ -495,7 +495,7 @@
                 <and>
                     <not><if-empty field="product"/></not>
                     <not><if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="ViewTotalBacklog">
@@ -506,7 +506,7 @@
             <condition>
                 <and>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-compare field="custRequestMap.billed" operator="equals" value="N"/>
                     <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                 </and>
@@ -514,6 +514,7 @@
             <link target="updateProductBacklog">
                 <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
                 <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="description" from-field="custRequestMap.description"/>
                 <parameter param-name="billed" value="Y"/>
             </link>
         </menu-item>
@@ -521,7 +522,7 @@
             <condition>
                 <and>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-compare field="custRequestMap.billed" operator="equals" value="Y"/>
                     <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
                 </and>
@@ -529,6 +530,7 @@
             <link target="updateProductBacklog">
                 <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
                 <parameter param-name="productId" from-field="parameters.productId"/>
+                <parameter param-name="description" from-field="custRequestMap.description"/>
                 <parameter param-name="billed" value="N"/>
             </link>
         </menu-item>
@@ -568,7 +570,7 @@
                         <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
                     </or>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="EditDeleteBacklogItem">
@@ -580,7 +582,7 @@
             <condition>
                 <and>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                     <if-compare field="custRequestMap.statusId" operator="equals" value="CRQ_ACCEPTED" />
                     <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
                 </and>
@@ -600,7 +602,7 @@
                         <if-compare operator="equals" value="CRQ_REOPENED" field="custRequestMap.statusId"/>
                     </or>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="editTask">
@@ -636,7 +638,7 @@
                 <and>
                     <not><if-empty field="parameters.productId"/></not>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link text="New Project" target="newScrumProject" style="buttontext create">
@@ -648,7 +650,7 @@
                 <and>
                     <if-compare field="tabButtonItem" operator="equals" value="defaultTasks"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="SPRINT"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link text="Create A Default Task" target="editDefaultTask" style="buttontext create">
@@ -660,7 +662,7 @@
                 <and>
                     <if-compare field="tabButtonItem" operator="equals" value="categories"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="PROJECT"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link text="New Category" target="EditProductBacklogCategory" style="buttontext create">
@@ -673,7 +675,7 @@
                     <not><if-empty field="parameters.productId"/></not>
                     <if-has-permission permission="SCRUM" action="_ADMIN"/>
                     <not><if-empty field="product"/></not>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link text="Close Product" style="buttontext delete" target="updateProduct" request-confirmation="true" confirmation-message="The product and all related stuff(s) will be removed, Do you want to continue?">
@@ -689,7 +691,7 @@
             <and>
                 <if-compare field="tabButtonItem" operator="equals" value="productComm"/>
                 <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
-                <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                <if-empty field="product.supportDiscontinuationDate"/>
             </and>
             </condition>
             <link target="NewProductEmail" text="${uiLabelMap.ScrumNewEmail}" style="buttontext create">
@@ -702,7 +704,7 @@
                     <if-compare field="tabButtonItem" operator="equals" value="productComm"/>
                     <if-compare-field operator="equals" field="productOwnerId" to-field="communicationEvent.partyIdFrom"/>
                     <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
-                    <if-compare operator="equals" value="PRODUCT_ACTIVE" field="product.statusId"/>
+                    <if-empty field="product.supportDiscontinuationDate"/>
                 </and>
             </condition>
             <link target="replyEmailForProduct" style="buttontext" text="${uiLabelMap.ScrumReply}">

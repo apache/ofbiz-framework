@@ -43,7 +43,7 @@ andExprs =  FastList.newInstance();
     andExprs.add(EntityCondition.makeCondition(orStsExprs, EntityOperator.OR));
     andExprs.add(EntityCondition.makeCondition(orCurentExprs, EntityOperator.OR));
 unplannedBacklogCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-unplannedBacklogList = delegator.findList("UnPlannedBacklogsAndTasks", unplannedBacklogCond, null,["-custRequestId","workEffortTypeId","sequenceNum"],null, false);
+unplannedBacklogList = delegator.findList("UnPlannedBacklogsAndTasks", unplannedBacklogCond, null,["-custRequestId","workEffortTypeId","custSequenceNum"],null, false);
 
 context.listIt = unplannedBacklogList;
 context.paraBacklogStatusId = paraBacklogStatusId;

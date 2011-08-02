@@ -67,7 +67,7 @@ andExprs =  FastList.newInstance();
     andExprs.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
     
 projectSprintCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-projectSprintList = delegator.findList("ProjectSprintBacklogAndTask", projectSprintCond, null,["sequenceNum","custRequestId","taskTypeId"],null, false);
+projectSprintList = delegator.findList("ProjectSprintBacklogAndTask", projectSprintCond, null,["custSequenceNum","custRequestId","taskTypeId"],null, false);
 
 context.listIt = projectSprintList;
 context.paraBacklogStatusId = paraBacklogStatusId;

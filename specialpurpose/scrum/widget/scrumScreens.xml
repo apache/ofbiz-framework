@@ -359,11 +359,13 @@
                 <entity-one entity-name="StatusItem" value-field="currentStatus">
                     <field-map field-name="statusId" from-field="workEffort.currentStatusId"/>
                 </entity-one>
-                <entity-and entity-name="ProductAndRole" list="productAndRoleList">
-                    <field-map field-name="productId" from-field="workEffort.productId"/>
-                    <field-map field-name="statusId" value="PRODUCT_ACTIVE"/>
-                    <field-map field-name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
-                </entity-and>
+                <entity-condition entity-name="ProductAndRole" list="productAndRoleList">
+                    <condition-list>
+                        <condition-expr field-name="productId" operator="equals" from-field="workEffort.productId"/>
+                        <condition-expr field-name="supportDiscontinuationDate" operator="equals" value=""/>
+                        <condition-expr field-name="roleTypeId" operator="equals" value="PRODUCT_OWNER_COMP"/>
+                    </condition-list>
+                </entity-condition>
                 <set field="productAndRoleMap" from-field="productAndRoleList[0]"/>
             </actions>
             <widgets>
@@ -1776,7 +1778,7 @@
                 <set field="tabButtonItem" value="billing"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one value-field="product" entity-name="Product"/>
-                <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="Y"/>
+                <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="N"/>
                 <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
                 <script location="component://scrum/webapp/scrum/WEB-INF/actions/ProductBilling.groovy"/>
                 <set field="fromDate" from-field="parameters.fromDate" default-value="${resultDate}" type="Date"/>
@@ -2627,7 +2629,7 @@
                 <set field="tabButtonItem" value="totalBilling"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one value-field="product" entity-name="Product"/>
-                <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="Y"/>
+                <set field="includeMeeting" from-field="parameters.includeMeeting" default-value="N"/>
                 <set field="organizationPartyId" from-field="userPreferences.ORGANIZATION_PARTY" default-value="${defaultOrganizationPartyId}"/>
                 <script location="component://scrum/webapp/scrum/WEB-INF/actions/ProductBilling.groovy"/>
                 <set field="fromDate" from-field="parameters.fromDate" default-value="${resultDate}" type="Date"/>

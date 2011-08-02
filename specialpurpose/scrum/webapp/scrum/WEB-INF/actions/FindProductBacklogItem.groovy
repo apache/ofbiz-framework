@@ -59,7 +59,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
     }
     
     if(!"Any".equals(parameters.statusId)){
-        orderBy = "sequenceNum";
+        orderBy = "custSequenceNum";
         conditionBacklogList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameters.statusId));
     }
     
@@ -96,14 +96,14 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
     mainConditionBacklogList.add(conditionsBacklog);
     mainConditionsBacklog = EntityCondition.makeCondition(mainConditionBacklogList, EntityOperator.AND);
     
-    backlogList = delegator.findList("CustRequestAndCustRequestItem", mainConditionsBacklog, ["custRequestId","custRequestTypeId", "sequenceNum", "statusId", "description", "estimatedMilliSeconds", "custRequestName", "parentCustRequestId","productId","billed","custRequestDate","fromPartyId"] as Set, ["-custRequestTypeId",orderBy], null, false);
+    backlogList = delegator.findList("CustRequestAndCustRequestItem", mainConditionsBacklog, ["custRequestId","custRequestTypeId", "custSequenceNum", "statusId", "description", "custEstimatedMilliSeconds", "custRequestName", "parentCustRequestId","productId","billed","custRequestDate","fromPartyId"] as Set, ["-custRequestTypeId",orderBy], null, false);
     def countSequenceBacklog = 1;
     def backlogItems = [];
     backlogList.each() { backlogItem ->
         def tempBacklog = [:];
         tempBacklog.putAll(backlogItem);
-        tempBacklog.sequenceNum = countSequenceBacklog;
-        tempBacklog.realSequenceNum = backlogItem.sequenceNum;
+        tempBacklog.custSequenceNum = countSequenceBacklog;
+        tempBacklog.realSequenceNum = backlogItem.custSequenceNum;
         // if custRequest has task then get Actual Hours
         backlogCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : backlogItem.custRequestId]);
         if (backlogCustWorkEffortList) {

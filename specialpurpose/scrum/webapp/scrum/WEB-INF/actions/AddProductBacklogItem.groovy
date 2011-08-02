@@ -40,7 +40,7 @@ if(parameters.statusId == null){
 inputFields.putAll(parameters);
 inputFields.custRequestTypeId = "RF_PROD_BACKLOG";
 performFindInMap.inputFields = inputFields;
-performFindInMap.orderBy = "sequenceNum";
+performFindInMap.orderBy = "custSequenceNum";
 def performFindResults = dispatcher.runSync("performFind", performFindInMap);
 def custRequestAndItems = performFindResults.listIt.getCompleteList();
 performFindResults.listIt.close();
@@ -51,8 +51,8 @@ def custRequestAndCustRequestItems = [];
 custRequestAndItems.each() { custRequestAndItem ->
     def tempCustRequestAndItem = [:];
     tempCustRequestAndItem.putAll(custRequestAndItem);
-    tempCustRequestAndItem.sequenceNum = countSequence;
-    tempCustRequestAndItem.realSequenceNum = custRequestAndItem.sequenceNum;
+    tempCustRequestAndItem.custSequenceNum = countSequence;
+    tempCustRequestAndItem.realSequenceNum = custRequestAndItem.custSequenceNum;
     // if custRequest has task then get Actual Hours
     custWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : custRequestAndItem.custRequestId]);
     if (custWorkEffortList) {
@@ -103,15 +103,15 @@ mainConditionList.add(orConditions);
 mainConditionList.add(conditions);
 mainConditions = EntityCondition.makeCondition(mainConditionList, EntityOperator.AND);
 
-unplannedList = delegator.findList("CustRequestAndCustRequestItem", mainConditions, ["custRequestId", "sequenceNum", "statusId", "description", "estimatedMilliSeconds", "custRequestName", "parentCustRequestId"] as Set, ["sequenceNum"], null, false);
+unplannedList = delegator.findList("CustRequestAndCustRequestItem", mainConditions, ["custRequestId", "custSequenceNum", "statusId", "description", "custEstimatedMilliSeconds", "custRequestName", "parentCustRequestId"] as Set, ["custSequenceNum"], null, false);
 
 def countSequenceUnplanned = 1;
 def unplanBacklogItems = [];
 unplannedList.each() { unplannedItem ->
     def tempUnplanned = [:];
     tempUnplanned.putAll(unplannedItem);
-    tempUnplanned.sequenceNum = countSequenceUnplanned;
-    tempUnplanned.realSequenceNum = unplannedItem.sequenceNum;
+    tempUnplanned.custSequenceNum = countSequenceUnplanned;
+    tempUnplanned.realSequenceNum = unplannedItem.custSequenceNum;
     // if custRequest has task then get Actual Hours
     unplanCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : unplannedItem.custRequestId]);
     if (unplanCustWorkEffortList) {

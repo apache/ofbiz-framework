@@ -147,7 +147,7 @@
                             <condition-expr field-name="statusId" operator="equals" value="CRQ_REOPENED"/>
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="sequenceNum"/>
+                    <order-by field-name="custSequenceNum"/>
                     <order-by field-name="custRequestId"/>
                     <order-by field-name="workEffortTypeId"/>
                 </entity-condition>

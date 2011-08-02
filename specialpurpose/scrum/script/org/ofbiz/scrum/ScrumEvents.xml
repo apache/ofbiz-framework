@@ -310,7 +310,7 @@
         <set field="custRequestResultMap.custRequestId" from-field="parameters.custRequestId"/>
         <!-- the first sequence number -->
         <if-compare operator="equals" field="getNum" value="0">
-            <set field="custRequestResultMap.sequenceNum" from-field="sequenceNumIn"/>
+            <set field="custRequestResultMap.custSequenceNum" from-field="sequenceNumIn"/>
             <else>
                 <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG">
                     <entity-condition list="custRequestList" entity-name="CustRequestAndCustRequestItem">
@@ -319,7 +319,7 @@
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_UNPLAN_BACKLOG"/>
                             <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                         </condition-list>
-                        <order-by field-name="sequenceNum"/>
+                        <order-by field-name="custSequenceNum"/>
                     </entity-condition>
                     <else>
                         <entity-condition list="custRequestList" entity-name="CustRequestAndCustRequestItem">
@@ -328,29 +328,29 @@
                                 <condition-expr field-name="custRequestTypeId" operator="not-equals" value="RF_UNPLAN_BACKLOG"/>
                                 <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                             </condition-list>
-                            <order-by field-name="sequenceNum"/>
+                            <order-by field-name="custSequenceNum"/>
                         </entity-condition>
                     </else>
                 </if-compare>
                 <set field="sequenceNumkey" from-field="sequenceNumIn" type="Integer"/>
                 <set field="productMap" from-field="custRequestList[sequenceNumkey-1]"/>
-                <set field="externalSeq" from-field="productMap.sequenceNum" type="Long"/>
+                <set field="externalSeq" from-field="productMap.custSequenceNum" type="Long"/>
                 <!-- Insert new transaction to CustRequest -->
                 <loop count="${getNum}" field="i">
-                      <set field="internalSeq" from-field="custRequestList[i].sequenceNum" type="Long" />
+                      <set field="internalSeq" from-field="custRequestList[i].custSequenceNum" type="Long" />
                      <set field="ready" value="${groovy:internalSeq&gt;=externalSeq}" type="Boolean"/>
                     <if-compare field="ready" operator="equals" value="true"  type="Boolean">
                         <set field="custRequestIdIn" from-field="custRequestList[i].custRequestId"/>
                         <entity-one value-field="custRequestMap" entity-name="CustRequest">
                             <field-map field-name="custRequestId" from-field="custRequestIdIn"/>
                         </entity-one>
-                        <set field="sequenceNum" from-field="custRequestMap.sequenceNum"/>
-                        <set field="nextSeqNum" value="${sequenceNum+1}" type="Long"/>
-                        <set field="custRequestMap.sequenceNum" from-field="nextSeqNum"/>
+                        <set field="custSequenceNum" from-field="custRequestMap.custSequenceNum"/>
+                        <set field="nextSeqNum" value="${custSequenceNum+1}" type="Long"/>
+                        <set field="custRequestMap.custSequenceNum" from-field="nextSeqNum"/>
                         <store-value value-field="custRequestMap"/>
                     </if-compare>
                 </loop>
-                <set field="custRequestResultMap.sequenceNum" from-field="externalSeq"/>
+                <set field="custRequestResultMap.custSequenceNum" from-field="externalSeq"/>
             </else>
         </if-compare>
         <!-- update Cust Request -->
@@ -614,71 +614,6 @@
             </condition>
             <then>
                 <entity-one value-field="custRequest" entity-name="CustRequest"/>
-                <!-- check related work effort -->
-                <get-related relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts" value-field="custRequest"/>
-                <entity-condition list="taskCancelledList" entity-name="ProductBacklog">
-                     <condition-list combine="and">
-                        <condition-expr field-name="custRequestId" from-field="custRequest.custRequestId"/>
-                        <condition-expr field-name="workEffortStatusId" value="STS_CANCELLED"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_ERROR"/>
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_IMPL"/>
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_INST"/>
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_TEST"/>
-                        </condition-list>
-                    </condition-list>
-                    <select-field field-name="workEffortId"/>
-                </entity-condition>
-                <set field="taskCancelCount" value="${groovy: taskCancelledList.size()}" default-value="0" type="Integer"/>
-                <set field="custCount" value="${groovy: custRequestWorkEfforts.size()}" default-value="0" type="Integer"/>
-                <!-- get actual Hours -->
-                <entity-condition list="taskList" entity-name="ProductBacklog">
-                     <condition-list combine="and">
-                        <condition-expr field-name="custRequestId" from-field="custRequest.custRequestId"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_ERROR"/>
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_IMPL"/>
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_INST"/>
-                            <condition-expr field-name="workEffortTypeId" value="SCRUM_TASK_TEST"/>
-                        </condition-list>
-                    </condition-list>
-                    <select-field field-name="workEffortId"/>
-                </entity-condition>
-                <if-not-empty field="taskList">
-                    <iterate entry="task" list="taskList">
-                        <set field="taskIdCond[+0]" from-field="task.workEffortId" />
-                    </iterate>
-                    <entity-condition list="timeEntries" entity-name="TimeEntry">
-                        <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond" />
-                        <order-by field-name="workEffortId" />
-                    </entity-condition>
-                </if-not-empty>
-                <set field="actualHours" type="Double" value="0.0" />
-                <if-not-empty field="timeEntries">
-                    <iterate entry="timeEntry" list="timeEntries">
-                        <if-not-empty field="timeEntry.hours">
-                            <calculate field="actualHours" type="Double">
-                                <calcop operator="add" field="timeEntry.hours">
-                                    <calcop operator="get" field="actualHours" />
-                                </calcop>
-                            </calculate>
-                        </if-not-empty>
-                    </iterate>
-                </if-not-empty>
-                <if>
-                    <condition>
-                        <and>
-                            <if-compare-field field="taskCancelCount" operator="not-equals" to-field="custCount"/>
-                            <if-compare field="actualHours" operator="greater" value="0"/>
-                        </and>
-                    </condition>
-                    <then>
-                        <add-error>
-                            <fail-message message="Could not delete the backlog [${custRequest.custRequestId}] because there are tasks related and the actual hours(${actualHours}) is existing."/>
-                        </add-error>
-                        <check-errors/>
-                    </then>
-                </if>
                 <!-- set default custRequestName -->
                 <if-empty field="custRequest.custRequestName">
                     <set field="custRequest.custRequestName" value="product backlog[${custRequest.custRequestId}]"/>
@@ -691,39 +626,6 @@
                     <set field="input.statusId" value="CRQ_CANCELLED"/>
                     <set field="input.webSiteId" from-field="parameters.webSiteId"/>
                     <call-service service-name="setCustRequestStatus" in-map-name="input"/>
-                </if-not-empty>
-                <!-- remove assigned task -->
-                <if-not-empty field="taskList">
-                    <iterate entry="taskMap" list="taskList">
-                        <entity-and list="assignmentList" entity-name="WorkEffortPartyAssignment">
-                            <field-map field-name="workEffortId" from-field="taskMap.workEffortId"/>
-                        </entity-and>
-                        <if-not-empty field="assignmentList">
-                            <remove-list list="assignmentList"/>
-                        </if-not-empty>
-                        <!-- remove task from sprint if applicable-->
-                        <entity-one value-field="workEffortMap" entity-name="WorkEffort">
-                            <field-map field-name="workEffortId" from-field="taskMap.workEffortId"/>
-                        </entity-one>
-                        <if-not-empty field="workEffortMap.workEffortParentId">
-                            <clear-field field="workEffortMap.workEffortParentId"/>
-                            <store-value value-field="workEffortMap"/>
-                        </if-not-empty>
-                    </iterate>
-                </if-not-empty>
-                <!-- remove the custRequest from sprint if applicable-->
-                <entity-and list="custWorkEffortList" entity-name="CustRequestWorkEffort">
-                    <field-map field-name="custRequestId" from-field="custRequest.custRequestId"/>
-                </entity-and>
-                <if-not-empty field="custWorkEffortList">
-                    <iterate entry="custWorkEffortMap" list="custWorkEffortList">
-                        <entity-one value-field="workEffortMap" entity-name="WorkEffort">
-                            <field-map field-name="workEffortId" from-field="custWorkEffortMap.workEffortId"/>
-                        </entity-one>
-                        <if-compare field="workEffortMap.workEffortTypeId" operator="equals" value="SCRUM_SPRINT" >
-                            <remove-value value-field="custWorkEffortMap"/>
-                        </if-compare>
-                    </iterate>
                 </if-not-empty>
             </then>
         <else>
@@ -755,7 +657,7 @@
                 <loop count="${rowCount}" field="j">
                     <set field="custRequestMap" value="null" type="NewMap"/>
                     <set field="custRequestMap.custRequestId" from-field="paramMap[&quot;custRequestId_o_${j}&quot;]"/>
-                    <set field="custRequestMap.sequenceNum" from-field="paramMap[&quot;realSequenceNum_o_${j}&quot;]"/>
+                    <set field="custRequestMap.custSequenceNum" from-field="paramMap[&quot;realSequenceNum_o_${j}&quot;]"/>
                     <field-to-list list="custRequestList" field="custRequestMap"/>
                     <field-to-list list="custRequestIndexList" field="paramMap[&quot;realSequenceNum_o_${j}&quot;]"/>
                 </loop>
@@ -767,10 +669,10 @@
                     <set field="oldSequenceNum" from-field="paramMap[&quot;realSequenceNum_o_${k}&quot;]"/>
                     <set field="newSequenceNum" from-field="paramMap[&quot;newSequenceNum_o_${k}&quot;]"/>
                     <if-not-empty field="newSequenceNum">
-                        <set field="custRequestMap.sequenceNum" from-field="newSequenceNum"/>
+                        <set field="custRequestMap.custSequenceNum" from-field="newSequenceNum"/>
                         <field-to-list list="custRequestListWithNewSeq" field="custRequestMap"/>
                         <else>
-                            <set field="custRequestMap.sequenceNum" from-field="oldSequenceNum"/>
+                            <set field="custRequestMap.custSequenceNum" from-field="oldSequenceNum"/>
                             <field-to-list list="newCustRequestList" field="custRequestMap"/>
                         </else>
                     </if-not-empty>
@@ -786,7 +688,7 @@
                 <iterate entry="custRequestIndexMap" list="custRequestIndexToList">
                     <set field="count" value="0" type="Integer"/>
                     <loop count="${custRequestListSize}" field="l">
-                        <if-compare-field field="custRequestList[l].sequenceNum" operator="equals" to-field="custRequestIndexMap" type="Integer">
+                        <if-compare-field field="custRequestList[l].custSequenceNum" operator="equals" to-field="custRequestIndexMap" type="Integer">
                             <set field="count" value="${count + 1}"/>
                         </if-compare-field>
                     </loop>
@@ -810,28 +712,28 @@
                         <loop count="${custRequestListSize}" field="m">
                             <if>
                                 <condition>
-                                        <if-compare-field field="custRequestList[m].sequenceNum" operator="equals" to-field="custRequestIndexMap" type="Integer"/>
+                                        <if-compare-field field="custRequestList[m].custSequenceNum" operator="equals" to-field="custRequestIndexMap" type="Integer"/>
                                 </condition>
                                 <then>  
-                                        <set field="sequenceNumIndex" value="${custRequestList[m].sequenceNum + count}" type="Integer"/>
-                                        <set field="custRequestList[m].sequenceNum" from-field="sequenceNumIndex" type="String"/>
+                                        <set field="sequenceNumIndex" value="${custRequestList[m].custSequenceNum + count}" type="Integer"/>
+                                        <set field="custRequestList[m].custSequenceNum" from-field="sequenceNumIndex" type="String"/>
                                         <entity-one value-field="newCustRequestMap" entity-name="CustRequest">
                                             <field-map field-name="custRequestId" from-field="custRequestList[m].custRequestId"/>
                                         </entity-one>
-                                        <set field="nextSeqNum" value="${custRequestList[m].sequenceNum}" type="Long"/>
-                                        <set field="newCustRequestMap.sequenceNum" from-field="nextSeqNum"/>
+                                        <set field="nextSeqNum" value="${custRequestList[m].custSequenceNum}" type="Long"/>
+                                        <set field="newCustRequestMap.custSequenceNum" from-field="nextSeqNum"/>
                                         <store-value value-field="newCustRequestMap"/>
                                         <set field="count" value="${count + 1}"/>
                                 </then>
                                 <else>
-                                    <if-compare-field field="custRequestList[m].sequenceNum" operator="greater" to-field="custRequestIndexMap" type="Integer">
+                                    <if-compare-field field="custRequestList[m].custSequenceNum" operator="greater" to-field="custRequestIndexMap" type="Integer">
                                         <set field="sequenceNumIndex" value="${custRequestIndexMap + count}" type="Integer"/>
-                                        <set field="custRequestList[m].sequenceNum" from-field="sequenceNumIndex" type="String"/>
+                                        <set field="custRequestList[m].custSequenceNum" from-field="sequenceNumIndex" type="String"/>
                                         <entity-one value-field="newCustRequestMaps" entity-name="CustRequest">
                                             <field-map field-name="custRequestId" from-field="custRequestList[m].custRequestId"/>
                                         </entity-one>
-                                        <set field="nextSeqNum" value="${custRequestList[m].sequenceNum}" type="Long"/>
-                                        <set field="newCustRequestMaps.sequenceNum" from-field="nextSeqNum"/>
+                                        <set field="nextSeqNum" value="${custRequestList[m].custSequenceNum}" type="Long"/>
+                                        <set field="newCustRequestMaps.custSequenceNum" from-field="nextSeqNum"/>
                                         <store-value value-field="newCustRequestMaps"/>
                                         <set field="count" value="${count + 1}"/>
                                     </if-compare-field>
@@ -846,20 +748,20 @@
                     <if-empty field="newCustRequestList">
                         <!-- use when all field in new sequence not empty -->
                         <loop count="${rowCount}" field="l">
-                            <set field="newSeq" from-field="custRequestListWithNewSeq[l].sequenceNum" type="Integer"/>
-                            <set field="oldSeq" from-field="custRequestList[newSeq-1].sequenceNum" type="Long"/>
+                            <set field="newSeq" from-field="custRequestListWithNewSeq[l].custSequenceNum" type="Integer"/>
+                            <set field="oldSeq" from-field="custRequestList[newSeq-1].custSequenceNum" type="Long"/>
                             <set field="custRequestId" from-field="custRequestListWithNewSeq[l].custRequestId"/>
                             <entity-one value-field="newCustRequestMap" entity-name="CustRequest">
                                 <field-map field-name="custRequestId" from-field="custRequestId"/>
                             </entity-one>
-                            <set field="newCustRequestMap.sequenceNum" from-field="oldSeq"/>
+                            <set field="newCustRequestMap.custSequenceNum" from-field="oldSeq"/>
                             <store-value value-field="newCustRequestMap"/>
                         </loop>
                         <else>
                              <!-- get size -->
                             <call-bsh><![CDATA[
                                  List custRequestSeq = custRequestListWithNewSeq;
-                                 List custRequestSeqList = org.ofbiz.base.util.UtilMisc.sortMaps(custRequestSeq, org.ofbiz.base.util.UtilMisc.toList("sequenceNum"));
+                                 List custRequestSeqList = org.ofbiz.base.util.UtilMisc.sortMaps(custRequestSeq, org.ofbiz.base.util.UtilMisc.toList("custSequenceNum"));
                                  return org.ofbiz.base.util.UtilMisc.toMap("custRequestSeqList", custRequestSeqList);
                             ]]></call-bsh>
                             <set field="custRequestListWithNewSeq" from-field="custRequestSeqList"/>
@@ -877,8 +779,8 @@
                                         <field-map field-name="custRequestTypeId" value="RF_PROD_BACKLOG"/>
                                         <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
                                         <select-field field-name="custRequestId"/>
-                                        <select-field field-name="sequenceNum"/>
-                                        <order-by field-name="sequenceNum"/>
+                                        <select-field field-name="custSequenceNum"/>
+                                        <order-by field-name="custSequenceNum"/>
                                     </entity-and>
                                     <set field="custRequestList" from-field="custRequestItemList"/>
                                     <call-object-method method-name="size" obj-field="custRequestList" ret-field="custCount"/>
@@ -888,34 +790,34 @@
                                         <field-map field-name="custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
                                         <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
                                         <select-field field-name="custRequestId"/>
-                                        <select-field field-name="sequenceNum"/>
-                                        <order-by field-name="sequenceNum"/>
+                                        <select-field field-name="custSequenceNum"/>
+                                        <order-by field-name="custSequenceNum"/>
                                     </entity-and>
                                     <set field="custRequestList" from-field="custRequestItemList"/>
                                     <call-object-method method-name="size" obj-field="custRequestList" ret-field="custCount"/>
                                     </else>
                                 </if-compare>
-                                <set field="newOfOldSeq" from-field="newCustRequestMap.sequenceNum" type="Long"/>
-                                <set field="newSeq" from-field="custRequestListWithNewSeq[l].sequenceNum" type="Long"/>
-                                <set field="oldSeq" from-field="custRequestList[newSeq-1].sequenceNum" type="Long" />
+                                <set field="newOfOldSeq" from-field="newCustRequestMap.custSequenceNum" type="Long"/>
+                                <set field="newSeq" from-field="custRequestListWithNewSeq[l].custSequenceNum" type="Long"/>
+                                <set field="oldSeq" from-field="custRequestList[newSeq-1].custSequenceNum" type="Long" />
                                 <loop count="${custCount}" field="m">
                                     <set field="newcustRequestId" from-field="custRequestList[m].custRequestId"/>
                                     <entity-one value-field="custRequestMap" entity-name="CustRequest">
                                         <field-map field-name="custRequestId" from-field="newcustRequestId"/>
                                     </entity-one>
-                                    <set field="sequenceNum" from-field="custRequestMap.sequenceNum" type="Long"/>
+                                    <set field="custSequenceNum" from-field="custRequestMap.custSequenceNum" type="Long"/>
                                     <if-compare-field field="custRequestId" operator="not-equals" to-field="newcustRequestId">
                                          <if-compare-field  field="newOfOldSeq" operator="not-equals" to-field="oldSeq" type="Long">
-                                             <set field="readyDown" value="${groovy:(newOfOldSeq&lt;oldSeq)&amp;&amp;(sequenceNum&lt;=oldSeq)&amp;&amp;(sequenceNum&gt;newOfOldSeq)}" type="Boolean"/>
-                                             <set field="readyUp" value="${groovy:(newOfOldSeq&gt;oldSeq)&amp;&amp;(sequenceNum&gt;=oldSeq)&amp;&amp;(sequenceNum&lt;newOfOldSeq)}" type="Boolean"/>
+                                             <set field="readyDown" value="${groovy:(newOfOldSeq&lt;oldSeq)&amp;&amp;(custSequenceNum&lt;=oldSeq)&amp;&amp;(custSequenceNum&gt;newOfOldSeq)}" type="Boolean"/>
+                                             <set field="readyUp" value="${groovy:(newOfOldSeq&gt;oldSeq)&amp;&amp;(custSequenceNum&gt;=oldSeq)&amp;&amp;(custSequenceNum&lt;newOfOldSeq)}" type="Boolean"/>
                                              <!-- use when number move down -->
                                              <if>
                                                 <condition>
                                                     <if-compare field="readyDown" operator="equals" value="true" type="Boolean"/>
                                                 </condition>
                                                 <then>
-                                                     <set field="nextSeqNum" value="${sequenceNum-1}" type="Long"/>
-                                                     <set field="custRequestMap.sequenceNum" from-field="nextSeqNum"/>
+                                                     <set field="nextSeqNum" value="${custSequenceNum-1}" type="Long"/>
+                                                     <set field="custRequestMap.custSequenceNum" from-field="nextSeqNum"/>
                                                      <store-value value-field="custRequestMap"/>
                                                 </then>
                                              </if>
@@ -927,15 +829,15 @@
                                                     </and>
                                                 </condition>
                                                 <then>
-                                                    <set field="nextSeqNum" value="${sequenceNum+1}" type="Long"/>
-                                                    <set field="custRequestMap.sequenceNum" from-field="nextSeqNum"/>
+                                                    <set field="nextSeqNum" value="${custSequenceNum+1}" type="Long"/>
+                                                    <set field="custRequestMap.custSequenceNum" from-field="nextSeqNum"/>
                                                     <store-value value-field="custRequestMap"/>
                                                 </then>
                                             </if>
                                          </if-compare-field>
                                     </if-compare-field>
                                 </loop>
-                                <set field="newCustRequestMap.sequenceNum" from-field="oldSeq" type="Long"/>
+                                <set field="newCustRequestMap.custSequenceNum" from-field="oldSeq" type="Long"/>
                                 <store-value value-field="newCustRequestMap"/>
                             </loop>
                         </else>
@@ -965,8 +867,8 @@
                                 <set field="estimatedHours" from-field="paramMap[&quot;estimatedHours_o_${i}&quot;]" type="Double"/>
                                 <set field="updateCustRequestInMap.custRequestId" from-field="custRequestId"/>
                                 <set field="updateCustRequestInMap.parentCustRequestId" from-field="parentCustRequestId"/>
-                                <set field="estimatedMilliSeconds" value="${estimatedHours*1000*60*60}" default-value="0" type="Double"/>
-                                <set field="updateCustRequestInMap.estimatedMilliSeconds" from-field="estimatedMilliSeconds" type="Double"/>
+                                <set field="custEstimatedMilliSeconds" value="${estimatedHours*1000*60*60}" default-value="0" type="Double"/>
+                                <set field="updateCustRequestInMap.custEstimatedMilliSeconds" from-field="custEstimatedMilliSeconds" type="Double"/>
                                 <if-not-empty field="existTasks">
                                     <log level="info" message="warningMessage====================Cannot update plan hour of backlog item[${custRequestId}] because there is existing task for that already."></log>
                                 </if-not-empty>
@@ -975,7 +877,7 @@
                         </if-compare>
                     </if-compare>
                 </loop>
-                <!-- if some backlog item be deleted then re arrange sequenceNum field -->
+                <!-- if some backlog item be deleted then re arrange custSequenceNum field -->
                 <if-compare field="beDeleted" operator="equals" value="true" type="Boolean">
                     <set field="reOrderProductBacklogItemSequenceNumberInMap.productId" from-field="parameters.productId"/>
                     <call-service service-name="reOrderProductBacklogItemSequenceNumber" in-map-name="reOrderProductBacklogItemSequenceNumberInMap"/>
@@ -1019,7 +921,7 @@
                     </add-error>
                     <check-errors/>
                 </if-empty>
-                <if-empty field="parameters.sequenceNum">
+                <if-empty field="parameters.custSequenceNum">
                         <set field="sequenceNumIn" value="1" type="Long"/>
                        <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
                            <condition-list combine="and">
@@ -1028,19 +930,19 @@
                            </condition-list>
                        </entity-count>
                     <if-compare operator="equals" value="0" field="getNum">
-                        <set field="createCustRequestInMap.sequenceNum" from-field="sequenceNumIn"/>
+                        <set field="createCustRequestInMap.custSequenceNum" from-field="sequenceNumIn"/>
                         <else>
                             <entity-condition list="custRequestList" entity-name="CustRequestAndCustRequestItem">
                                    <condition-list combine="and">
                                        <condition-expr field-name="productId" from-field="parameters.productId"/>
                                        <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                                    </condition-list>
-                                   <order-by field-name="sequenceNum"/>
+                                   <order-by field-name="custSequenceNum"/>
                              </entity-condition>
                              <set field="productMap" from-field="custRequestList[getNum-1]"/>
-                             <set field="nextSeq" from-field="productMap.sequenceNum" type="Integer"/>
+                             <set field="nextSeq" from-field="productMap.custSequenceNum" type="Integer"/>
                             <set field="newSequenceNum" value="${nextSeq+1}" type="Long"/>
-                            <set field="createCustRequestInMap.sequenceNum" from-field="newSequenceNum" />
+                            <set field="createCustRequestInMap.custSequenceNum" from-field="newSequenceNum" />
                         </else>
                     </if-compare>
                     <else>
@@ -1053,34 +955,34 @@
                        </entity-count>
                        <!-- the first sequence number -->
                        <if-compare operator="equals" field="getNum" value="0">
-                           <set field="createCustRequestInMap.sequenceNum" from-field="parameters.sequenceNum"/>
+                           <set field="createCustRequestInMap.custSequenceNum" from-field="parameters.custSequenceNum"/>
                         <else>
                                <entity-condition list="custRequestList" entity-name="CustRequestAndCustRequestItem">
                                    <condition-list combine="and">
                                        <condition-expr field-name="productId" from-field="parameters.productId"/>
                                        <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                                    </condition-list>
-                                   <order-by field-name="sequenceNum"/>
+                                   <order-by field-name="custSequenceNum"/>
                                </entity-condition>
-                               <set field="sequenceNumkey" from-field="parameters.sequenceNum" type="Integer"/>
+                               <set field="sequenceNumkey" from-field="parameters.custSequenceNum" type="Integer"/>
                                <set field="productMap" from-field="custRequestList[sequenceNumkey-1]"/>
-                               <set field="externalSeq" from-field="productMap.sequenceNum" type="Long"/>
+                               <set field="externalSeq" from-field="productMap.custSequenceNum" type="Long"/>
                                <!-- Insert new transaction to CustRequest -->
                                <loop count="${getNum}" field="j">
-                                     <set field="internalSeq" from-field="custRequestList[j].sequenceNum" type="Long" />
+                                     <set field="internalSeq" from-field="custRequestList[j].custSequenceNum" type="Long" />
                                     <set field="ready" value="${groovy:internalSeq&gt;=externalSeq}" type="Boolean"/>
                                    <if-compare field="ready" operator="equals" value="true"  type="Boolean">
                                        <set field="custRequestId" from-field="custRequestList[j].custRequestId"/>
                                        <entity-one value-field="custRequestMap" entity-name="CustRequest">
                                            <field-map field-name="custRequestId" from-field="custRequestId"/>
                                        </entity-one>
-                                       <set field="sequenceNum" from-field="custRequestMap.sequenceNum"/>
-                                       <set field="nextSeqNum" value="${sequenceNum+1}" type="Long"/>
-                                       <set field="custRequestMap.sequenceNum" from-field="nextSeqNum"/>
+                                       <set field="custSequenceNum" from-field="custRequestMap.custSequenceNum"/>
+                                       <set field="nextSeqNum" value="${custSequenceNum+1}" type="Long"/>
+                                       <set field="custRequestMap.custSequenceNum" from-field="nextSeqNum"/>
                                        <store-value value-field="custRequestMap"/>
                                    </if-compare>
                                </loop>
-                               <set field="createCustRequestInMap.sequenceNum" from-field="externalSeq"/>
+                               <set field="createCustRequestInMap.custSequenceNum" from-field="externalSeq"/>
                         </else>
                        </if-compare>
                     </else>
@@ -1088,8 +990,8 @@
                 <if-empty field="parameters.fromPartyId">
                     <set field="createCustRequestInMap.fromPartyId" from-field="userLogin.partyId"/>
                 </if-empty>
-                <set field="changeToMilliSec" value="${parameters.estimatedMilliSeconds*1000*60*60}"/>
-                <set field="createCustRequestInMap.estimatedMilliSeconds" from-field="changeToMilliSec" type="Double"/>
+                <set field="changeToMilliSec" value="${parameters.custEstimatedMilliSeconds*1000*60*60}"/>
+                <set field="createCustRequestInMap.custEstimatedMilliSeconds" from-field="changeToMilliSec" type="Double"/>
                 <set field="createCustRequestInMap.billed" from-field="parameters.billed"/>
                 <set field="createCustRequestInMap.custRequestTypeId" from-field="custRequestTypeId"/>
                 <set field="createCustRequestInMap.statusId" value="CRQ_ACCEPTED"/>
@@ -1134,9 +1036,9 @@
 
     <simple-method method-name="updateSprintBacklog" short-description="Update Sprint Backlog">
         <call-simple-method method-name="getWebSiteId"/>
-        <set field="parameters.estimatedMilliSeconds" from-field="parameters.estimatedHours" type="Float"/>
-        <calculate field="parameters.estimatedMilliSeconds" type="Float">
-            <calcop operator="multiply" field="parameters.estimatedMilliSeconds">
+        <set field="parameters.custEstimatedMilliSeconds" from-field="parameters.estimatedHours" type="Float"/>
+        <calculate field="parameters.custEstimatedMilliSeconds" type="Float">
+            <calcop operator="multiply" field="parameters.custEstimatedMilliSeconds">
                 <number value="3600000"/>
             </calcop>
         </calculate>
@@ -1169,7 +1071,7 @@
                 <condition-expr field-name="statusId" value="CRQ_ACCEPTED" />
                 <condition-expr field-name="productId" from-field="project.productId"/>
            </condition-list>
-           <order-by field-name="sequenceNum"/>
+           <order-by field-name="custSequenceNum"/>
         </entity-condition>
 
         <loop count="${parameters.sprintBacklogs}" field="i">
@@ -1329,16 +1231,6 @@
     <simple-method method-name="addScrumResource" short-description="make parties available in the Scrum.">
         <set field="userLoginIdDesc" from-field="parameters.userLoginIdDesc"/>
         <set field="userLoginId" value="${groovy:userLoginIdDesc.substring(userLoginIdDesc.indexOf(&quot;|&quot;)+1)}"/>
-        <entity-and list="listGroupId" entity-name="UserLoginSecurityGroup">
-            <field-map field-name="userLoginId" from-field="userLoginId"/>
-            <field-map field-name="groupId" value="SCRUM_ADMIN"/>
-        </entity-and>
-        <if-not-empty field="listGroupId">
-            <add-error>
-                <fail-message message="This partyId : ${parameters.partyId} , userLoginId : ${userLoginId} already have the security group SCRUM_ADMIN it not necessary to add other role."/>
-            </add-error>
-            <check-errors/>
-        </if-not-empty>
         <entity-and list="userLogins" entity-name="UserLogin">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-and>
@@ -1518,7 +1410,7 @@
                 <field-map field-name="custRequestId" from-field="formInput.formInput.custRequestId"/>
             </entity-one>
             <set field="planHoursIn" from-field="planHours" type="Double"/>
-            <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+            <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
             <store-value value-field="custRequestMap"/>
             <else>
                 <if-compare-field field="initPlanHours"  operator="greater" to-field="planHours"  type="Double">
@@ -1526,7 +1418,7 @@
                         <field-map field-name="custRequestId" from-field="formInput.formInput.custRequestId"/>
                     </entity-one>
                     <set field="planHoursIn" from-field="planHours" type="Double"/>
-                    <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+                    <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
                     <store-value value-field="custRequestMap"/>
                 </if-compare-field>
             </else>
@@ -1768,8 +1660,8 @@
                 <set field="update.description" from-field="parameters.description"/>
                 <set field="update.parentCustRequestId" from-field="parameters.parentCustRequestId"/>
                 <set-service-fields service-name="updateCustRequest" map="parameters" to-map="update"/>
-                <set field="changeToMilliSec" value="${parameters.estimatedMilliSeconds *1000*60*60}"></set>
-                <set field="update.estimatedMilliSeconds" from-field="changeToMilliSec" type="Double"/>
+                <set field="changeToMilliSec" value="${parameters.custEstimatedMilliSeconds *1000*60*60}"></set>
+                <set field="update.custEstimatedMilliSeconds" from-field="changeToMilliSec" type="Double"/>
                 <set field="update.fromPartyId" from-field="parameters.partyIdTo" default-value="${custRequest.fromPartyId}"/>
                 <set field="update.custRequestTypeId" from-field="parameters.custRequestTypeId"/>
                 <call-service service-name="updateCustRequest" in-map-name="update"/>
@@ -1829,14 +1721,15 @@
                 </or>
             </condition>
             <then>
-            <entity-one entity-name="UserLogin" value-field="sysUserLogin">
-                <field-map field-name="userLoginId" value="system"/>
-            </entity-one>
+                <now-timestamp field="nowTimestamp"/>
+                <entity-one entity-name="UserLogin" value-field="sysUserLogin">
+                    <field-map field-name="userLoginId" value="system"/>
+                </entity-one>
                 <if-not-empty field="parameters.internalName">
                     <set field="product.internalName" from-field="parameters.internalName"/>
                     <set field="product.longDescription" from-field="parameters.longDescription"/>
                     <set field="product.productTypeId" value="SCRUM_ITEM"/>
-                    <set field="product.statusId" value="PRODUCT_ACTIVE"/>
+                    <set field="product.introductionDate" from-field="nowTimestamp"/>
                     <set field="product.userLogin" from-field="sysUserLogin"/>
                     <call-service service-name="createProduct" in-map-name="product">
                         <result-to-field result-name="productId"/>
@@ -2014,7 +1907,9 @@
                     </entity-one>
                     <set field="update.productId" from-field="parameters.productId"/>
                     <set field="update.internalName" from-field="parameters.internalName"/>
-                    <set field="update.statusId" from-field="parameters.statusId"/>
+                    <if-compare field="parameters.statusId" operator="equals" value="PRODUCT_CLOSED">
+                        <set field="update.supportDiscontinuationDate" from-field="nowTimestamp"/>
+                    </if-compare>
                     <set field="update.longDescription" from-field="parameters.longDescription"/>
                     <set field="update.userLogin" from-field="sysUserLogin"/>
                     <call-service service-name="updateProduct" in-map-name="update"/>
@@ -2261,7 +2156,7 @@
                 <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
             </entity-one>
             <set field="planHoursIn" from-field="planHours" type="Double"/>
-            <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+            <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
             <store-value value-field="custRequestMap"/>
             <else>
                 <if-compare-field field="initPlanHours"  operator="greater" to-field="planHours"  type="Double">
@@ -2269,7 +2164,7 @@
                         <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                     </entity-one>
                     <set field="planHoursIn" from-field="planHours" type="Double"/>
-                    <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+                    <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
                     <store-value value-field="custRequestMap"/>
                 </if-compare-field>
             </else>
@@ -2320,7 +2215,28 @@
         <entity-one entity-name="UserLogin" value-field="sysUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-
+        <if-compare operator="equals" value="SCRUM_PRODUCT_OWNER" field="parameters.groupId">
+            <set field="parameters.roleTypeId" value="PRODUCT_OWNER"/>
+        </if-compare>
+        <if-compare operator="equals" value="SCRUM_MASTER" field="parameters.groupId">
+            <set field="parameters.roleTypeId" value="SCRUM_MASTER"/>
+        </if-compare>
+        <if-compare operator="equals" value="SCRUM_TEAM" field="parameters.groupId">
+            <set field="parameters.roleTypeId" value="SCRUM_TEAM"/>
+        </if-compare>
+        <!-- For special role -->
+        <if-compare operator="equals" value="SCRUM_STAKEHOLDER" field="parameters.groupId">
+            <set field="parameters.roleTypeId" value="STAKEHOLDER"/>
+        </if-compare>
+        <entity-and list="partyRoles" entity-name="PartyRole">
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
+        </entity-and>
+        <if-not-empty field="partyRoles">
+            <set-service-fields service-name="deletePartyRole" to-map="deletePartyRoleMap" map="parameters"/>
+            <set field="deletePartyRoleMap.userLogin" from-field="sysUserLogin"/>
+            <call-service service-name="deletePartyRole" in-map-name="deletePartyRoleMap"/>
+        </if-not-empty>
         <now-timestamp field="nowTimestamp" />
         <entity-and entity-name="UserLoginSecurityGroup" list="userLoginSecurityGroups">
             <field-map field-name="userLoginId" from-field="parameters.userLoginId"/>
@@ -3628,7 +3544,7 @@
             </condition>
             <then>
                 <!-- We should create baklog in first-->
-                <if-not-empty field="parameters.sequenceNum">
+                <if-not-empty field="parameters.custSequenceNum">
                     <!-- check duplicate data  -->
                     <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
                         <condition-list combine="and">
@@ -3638,42 +3554,42 @@
                     </entity-count>
                     <!-- the first sequence number -->
                     <if-compare operator="equals" field="getNum" value="0">
-                        <set field="createCustRequestInMap.sequenceNum" from-field="parameters.sequenceNum"/>
+                        <set field="createCustRequestInMap.custSequenceNum" from-field="parameters.custSequenceNum"/>
                         <else>
                             <entity-condition list="custRequestList" entity-name="CustRequestAndCustRequestItem">
                                 <condition-list combine="and">
                                     <condition-expr field-name="productId" from-field="parameters.productId"/>
                                     <condition-expr field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
                                 </condition-list>
-                                <order-by field-name="sequenceNum"/>
+                                <order-by field-name="custSequenceNum"/>
                             </entity-condition>
-                            <set field="sequenceNumkey" from-field="parameters.sequenceNum" type="Integer"/>
+                            <set field="sequenceNumkey" from-field="parameters.custSequenceNum" type="Integer"/>
                             <set field="productMap" from-field="custRequestList[sequenceNumkey-1]"/>
-                            <set field="externalSeq" from-field="productMap.sequenceNum" type="Long"/>
+                            <set field="externalSeq" from-field="productMap.custSequenceNum" type="Long"/>
                             <!-- Insert new transaction to CustRequest -->
                             <loop count="${getNum}" field="j">
-                                 <set field="internalSeq" from-field="custRequestList[j].sequenceNum" type="Long" />
+                                 <set field="internalSeq" from-field="custRequestList[j].custSequenceNum" type="Long" />
                                  <set field="ready" value="${groovy:internalSeq&gt;=externalSeq}" type="Boolean"/>
                                 <if-compare field="ready" operator="equals" value="true"  type="Boolean">
                                     <set field="custRequestIdIn" from-field="custRequestList[j].custRequestId"/>
                                     <entity-one value-field="custRequestMap" entity-name="CustRequest">
                                         <field-map field-name="custRequestId" from-field="custRequestIdIn"/>
                                     </entity-one>
-                                    <set field="sequenceNum" from-field="custRequestMap.sequenceNum"/>
-                                    <set field="nextSeqNum" value="${sequenceNum+1}" type="Long"/>
-                                    <set field="custRequestMap.sequenceNum" from-field="nextSeqNum"/>
+                                    <set field="custSequenceNum" from-field="custRequestMap.custSequenceNum"/>
+                                    <set field="nextSeqNum" value="${custSequenceNum+1}" type="Long"/>
+                                    <set field="custRequestMap.custSequenceNum" from-field="nextSeqNum"/>
                                     <store-value value-field="custRequestMap"/>
                                 </if-compare>
                             </loop>
-                            <set field="createCustRequestInMap.sequenceNum" from-field="externalSeq"/>
+                            <set field="createCustRequestInMap.custSequenceNum" from-field="externalSeq"/>
                         </else>
                     </if-compare>
                 </if-not-empty>
                 <if-empty field="parameters.fromPartyId">
                     <set field="createCustRequestInMap.fromPartyId" from-field="userLogin.partyId"/>
                 </if-empty>
-                <set field="changeToMilliSec" value="${parameters.estimatedMilliSeconds*1000*60*60}"/>
-                <set field="createCustRequestInMap.estimatedMilliSeconds" from-field="changeToMilliSec" type="Double"/>
+                <set field="changeToMilliSec" value="${parameters.custEstimatedMilliSeconds*1000*60*60}"/>
+                <set field="createCustRequestInMap.custEstimatedMilliSeconds" from-field="changeToMilliSec" type="Double"/>
                 <if-compare field="parameters.unplanned" operator="equals" value="Y" >
                     <set field="createCustRequestInMap.custRequestTypeId" value="RF_UNPLAN_BACKLOG"/>
                     <else>
@@ -4486,13 +4402,11 @@
     </simple-method>
     <simple-method method-name="getWebSiteId" short-description="Get WebSite Id">
         <!-- for notification -->
-        <request-to-field field="request"/>
-        <if-not-empty field="request">
-            <call-bsh><![CDATA[
-                 import org.ofbiz.webapp.website.WebSiteWorker;
-                 webSiteId = WebSiteWorker.getWebSiteId(request);
-                 parameters.put("webSiteId", webSiteId);
-            ]]></call-bsh>
+        <call-class-method method-name="getWebSiteId" class-name="org.ofbiz.webapp.website.WebSiteWorker" ret-field="webSiteId">
+            <field field="request" type="javax.servlet.ServletRequest"/>
+        </call-class-method>
+        <if-not-empty field="webSiteId">
+            <set field="parameters.webSiteId" from-field="webSiteId"/>
         </if-not-empty>
     </simple-method>
 </simple-methods>
