@@ -192,4 +192,154 @@ under the License.
             </else>
         </if-instance-of>
     </simple-method>
+
+    <!-- Generate Missing Seo URL's Services -->
+    <simple-method method-name="generateMissingSeoUrlForWebsite" short-description="Generate Missing Seo URL's for Website">
+        <set field="totalCategoriesNotUpdated" value="0" type="Integer"/>
+        <set field="totalCategoriesUpdated" value="0" type="Integer"/>
+        <set field="totalProductsNotUpdated" value="0" type="Integer"/>
+        <set field="totalProductsUpdated" value="0" type="Integer"/>
+        <set field="totalContentsNotUpdated" value="0" type="Integer"/>
+        <set field="totalContentsUpdated" value="0" type="Integer"/>
+        <entity-one entity-name="WebSite" value-field="webSite">
+            <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
+        </entity-one>
+        <!-- Create Missing Category and Product Alternative URL's -->
+        <if-compare operator="equals" value="all" field="parameters.prodCatalogId">
+            <entity-and list="productStoreCatalogs" entity-name="ProductStoreCatalog" filter-by-date="true">
+                <field-map field-name="productStoreId" from-field="webSite.productStoreId"/>
+            </entity-and>
+            <iterate entry="productStoreCatalog" list="productStoreCatalogs">
+                <iterate entry="typeGenerate" list="parameters.typeGenerate">
+                    <if-compare operator="equals" value="category" field="typeGenerate">
+                        <set field="createMissingCategoryAltUrlsMap.prodCatalogId" from-field="productStoreCatalog.prodCatalogId"/>
+                        <set field="createMissingCategoryAltUrlsMap.category" value="category"/>
+                        <call-service service-name="createMissingCategoryAndProductAltUrls" in-map-name="createMissingCategoryAltUrlsMap">
+                            <result-to-field result-name="categoriesNotUpdated" field="categoriesNotUpdated"/>
+                            <result-to-field result-name="categoriesUpdated" field="categoriesUpdated"/>
+                        </call-service>
+                        <calculate field="totalCategoriesNotUpdated" type="Integer">
+                            <calcop operator="add" field="totalCategoriesNotUpdated">
+                                <calcop operator="get" field="categoriesNotUpdated"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field="totalCategoriesUpdated" type="Integer">
+                            <calcop operator="add" field="totalCategoriesUpdated">
+                                <calcop operator="get" field="categoriesUpdated"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                    <if-compare operator="equals" value="product" field="typeGenerate">
+                        <set field="createMissingProductAltUrlsMap.prodCatalogId" from-field="productStoreCatalog.prodCatalogId"/>
+                        <set field="createMissingProductAltUrlsMap.product" value="product"/>
+                        <call-service service-name="createMissingCategoryAndProductAltUrls" in-map-name="createMissingProductAltUrlsMap">
+                            <result-to-field result-name="productsNotUpdated" field="productsNotUpdated"/>
+                            <result-to-field result-name="productsUpdated" field="productsUpdated"/>
+                        </call-service>
+                        <calculate field="totalProductsNotUpdated" type="Integer">
+                            <calcop operator="add" field="totalProductsNotUpdated">
+                                <calcop operator="get" field="productsNotUpdated"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field="totalProductsUpdated" type="Integer">
+                            <calcop operator="add" field="totalProductsUpdated">
+                                <calcop operator="get" field="productsUpdated"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                    <if-compare operator="equals" value="content" field="typeGenerate">
+                        <set field="createMissingContentAltUrlsMap.prodCatalogId" from-field="productStoreCatalog.prodCatalogId"/>
+                        <call-service service-name="createMissingContentAltUrls" in-map-name="createMissingContentAltUrlsMap">
+                            <result-to-field result-name="contentsNotUpdated" field="contentsNotUpdated"/>
+                            <result-to-field result-name="contentsUpdated" field="contentsUpdated"/>
+                        </call-service>
+                        <calculate field="totalContentsNotUpdated" type="Integer">
+                            <calcop operator="add" field="contentsNotUpdated">
+                                <calcop operator="get" field="productsNotUpdated"/>
+                            </calcop>
+                        </calculate>
+                        <calculate field="totalContentsUpdated" type="Integer">
+                            <calcop operator="add" field="totalContentsUpdated">
+                                <calcop operator="get" field="contentsUpdated"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                </iterate>
+            </iterate>
+        <else>
+            <iterate entry="typeGenerate" list="parameters.typeGenerate">
+                <if-compare operator="equals" value="category" field="typeGenerate">
+                    <set field="createMissingCategoryAltUrlsMap.prodCatalogId" from-field="parameters.prodCatalogId"/>
+                    <set field="createMissingCategoryAltUrlsMap.category" value="category"/>
+                    <call-service service-name="createMissingCategoryAndProductAltUrls" in-map-name="createMissingCategoryAltUrlsMap">
+                        <result-to-field result-name="categoriesNotUpdated" field="categoriesNotUpdated"/>
+                        <result-to-field result-name="categoriesUpdated" field="categoriesUpdated"/>
+                    </call-service>
+                    <calculate field="totalCategoriesNotUpdated" type="Integer">
+                        <calcop operator="add" field="totalCategoriesNotUpdated">
+                            <calcop operator="get" field="categoriesNotUpdated"/>
+                        </calcop>
+                    </calculate>
+                    <calculate field="totalCategoriesUpdated" type="Integer">
+                        <calcop operator="add" field="totalCategoriesUpdated">
+                            <calcop operator="get" field="categoriesUpdated"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+                <if-compare operator="equals" value="product" field="typeGenerate">
+                    <set field="createMissingProductAltUrlsMap.prodCatalogId" from-field="parameters.prodCatalogId"/>
+                    <set field="createMissingProductAltUrlsMap.product" value="product"/>
+                    <call-service service-name="createMissingCategoryAndProductAltUrls" in-map-name="createMissingProductAltUrlsMap">
+                        <result-to-field result-name="productsNotUpdated" field="productsNotUpdated"/>
+                        <result-to-field result-name="productsUpdated" field="productsUpdated"/>
+                    </call-service>
+                    <calculate field="totalProductsNotUpdated" type="Integer">
+                        <calcop operator="add" field="totalProductsNotUpdated">
+                            <calcop operator="get" field="productsNotUpdated"/>
+                        </calcop>
+                    </calculate>
+                    <calculate field="totalProductsUpdated" type="Integer">
+                        <calcop operator="add" field="totalProductsUpdated">
+                            <calcop operator="get" field="productsUpdated"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+                <if-compare operator="equals" value="content" field="typeGenerate">
+                    <set field="createMissingContentAltUrlsMap.prodCatalogId" from-field="parameters.prodCatalogId"/>
+                    <call-service service-name="createMissingContentAltUrls" in-map-name="createMissingContentAltUrlsMap">
+                        <result-to-field result-name="contentsNotUpdated" field="contentsNotUpdated"/>
+                        <result-to-field result-name="contentsUpdated" field="contentsUpdated"/>
+                    </call-service>
+                    <calculate field="totalContentsNotUpdated" type="Integer">
+                        <calcop operator="add" field="totalContentsNotUpdated">
+                            <calcop operator="get" field="contentsNotUpdated"/>
+                        </calcop>
+                    </calculate>
+                    <calculate field="totalContentsUpdated" type="Integer">
+                        <calcop operator="add" field="totalContentsUpdated">
+                            <calcop operator="get" field="contentsUpdated"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+            </iterate>
+        </else>
+        </if-compare>
+
+        <set field="generateMissingSeoUrlMessage" value="Generate missing seo url's successfully"/>
+        <field-to-list list="successMessageList" field="generateMissingSeoUrlMessage"/>
+        <iterate entry="typeGenerate" list="parameters.typeGenerate">
+            <if-compare operator="equals" value="category" field="typeGenerate">
+                <set field="categoriesMessage" value="Categories already having seo url's: ${totalCategoriesNotUpdated}, Categories with url added: ${totalCategoriesUpdated}"/>
+                <field-to-list list="successMessageList" field="categoriesMessage"/>
+            </if-compare>
+            <if-compare operator="equals" value="product" field="typeGenerate">
+                <set field="productMessage" value="Products already having seo url's: ${totalProductsNotUpdated}, Products with url added: ${totalProductsUpdated}"/>
+                <field-to-list list="successMessageList" field="productMessage"/>
+            </if-compare>
+            <if-compare operator="equals" value="content" field="typeGenerate">
+                <set field="contentMessage" value="Contents already having seo url's: ${totalContentsNotUpdated}, Contents with url added: ${totalContentsUpdated}"/>
+                <field-to-list list="successMessageList" field="contentMessage"/>
+            </if-compare>
+        </iterate>
+    </simple-method>
 </simple-methods>

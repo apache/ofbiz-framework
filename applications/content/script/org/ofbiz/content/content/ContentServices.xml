@@ -1345,8 +1345,123 @@
                         <set field="createContentAssocCtx.contentAssocTypeId" value="ALTERNATIVE_URL"/>
                         <call-service service-name="createContentAssoc" in-map-name="createContentAssocCtx" include-user-login="true" break-on-error="false"/>
                     </if-not-empty>
+                    <set field="contentCreated" value="Y"/>
+                    <field-to-result field="contentCreated" result-name="contentCreated"/>
                 </if-not-empty>
+            <else>
+                <set field="contentCreated" value="N"/>
+                <field-to-result field="contentCreated" result-name="contentCreated"/>
+            </else>
             </if-empty>
+        </iterate>
+    </simple-method>
+
+    <simple-method method-name="createMissingContentAltUrls" short-description="create missing content alternative urls.">
+        <now-timestamp field="now"/>
+        <set field="contentsNotUpdated" value="0" type="Integer"/>
+        <set field="contentsUpdated" value="0" type="Integer"/>
+        <entity-and list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="false">
+            <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
+        </entity-and>
+        
+        <!-- Get all categories -->
+        <call-class-method method-name="newInstance" class-name="javolution.util.FastList" ret-field="parameters.productCategories"/>
+        <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
+            <set field="rootProductCategoryId" from-field="prodCatalogCategory.productCategoryId"/>
+            <entity-and list="productCategoryRollupList" entity-name="ProductCategoryRollup" filter-by-date="true">
+                <field-map field-name="parentProductCategoryId" from-field="rootProductCategoryId"/>
+            </entity-and>
+            <set field="parameters.parentProductCategoryId" from-field="rootProductCategoryId"/>
+            <call-simple-method method-name="createMissingCategoryContentAltUrlInline"/>
+        </iterate>
+        
+        <iterate entry="productCategoryList" list="parameters.productCategories">
+            <!-- Create Content Alternative URLs for Product Category -->
+            <entity-condition list="productCategoryContentAndInfoList" entity-name="ProductCategoryContentAndInfo" filter-by-date="true" use-cache="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
+                    <condition-expr field-name="prodCatContentTypeId" operator="not-equals" value="ALTERNATIVE_URL"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <iterate entry="productCategoryContentAndInfo" list="productCategoryContentAndInfoList">
+                <set field="createMissingCategoryContentAltUrlsMap.contentId" from-field="productCategoryContentAndInfo.contentId"/>
+                <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingCategoryContentAltUrlsMap">
+                    <result-to-field result-name="contentCreated" field="contentCreated"/>
+                </call-service>
+                <if-compare operator="equals" value="Y" field="contentCreated">
+                    <calculate field="contentsUpdated" type="Integer">
+                        <calcop operator="add" field="contentsUpdated">
+                            <number value="1"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+                <if-compare operator="equals" value="N" field="contentCreated">
+                    <calculate field="contentsNotUpdated" type="Integer">
+                        <calcop operator="add" field="contentsNotUpdated">
+                            <number value="1"/>
+                        </calcop>
+                    </calculate>
+                </if-compare>
+            </iterate>
+            
+            <!-- Create Content Alternative URLs for Product -->
+            <entity-condition list="productCategoryMemberList" entity-name="ProductCategoryMember" filter-by-date="true" use-cache="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+            <iterate entry="productCategoryMember" list="productCategoryMemberList">
+                <set field="product.productId" from-field="productCategoryMember.productId"/>
+                <entity-condition list="productContentAndInfoList" entity-name="ProductContentAndInfo" filter-by-date="true" use-cache="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="productId" from-field="product.productId"/>
+                        <condition-expr field-name="productContentTypeId" operator="not-equals" value="ALTERNATIVE_URL"/>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+                <iterate entry="productContentAndInfo" list="productContentAndInfoList">
+                    <set field="createMissingProductContentAltUrlsMap.contentId" from-field="productContentAndInfo.contentId"/>
+                    <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingProductContentAltUrlsMap">
+                        <result-to-field result-name="contentCreated" field="contentCreated"/>
+                    </call-service>
+                    <if-compare operator="equals" value="Y" field="contentCreated">
+                        <calculate field="contentsUpdated" type="Integer">
+                            <calcop operator="add" field="contentsUpdated">
+                                <number value="1"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                    <if-compare operator="equals" value="N" field="contentCreated">
+                        <calculate field="contentsNotUpdated" type="Integer">
+                            <calcop operator="add" field="contentsNotUpdated">
+                                <number value="1"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                </iterate>
+            </iterate>
+        </iterate>
+        <field-to-result field="contentsNotUpdated" result-name="contentsNotUpdated"/>
+        <field-to-result field="contentsUpdated" result-name="contentsUpdated"/>
+    </simple-method>
+
+    <simple-method method-name="createMissingCategoryContentAltUrlInline" short-description="create missing category alternative inline">
+        <entity-and list="productCategoryRollups" entity-name="ProductCategoryRollup" filter-by-date="true">
+            <field-map field-name="parentProductCategoryId" from-field="parameters.parentProductCategoryId"/>
+        </entity-and>
+        <iterate entry="productCategoryRollup" list="productCategoryRollups">
+            <!-- append product category to list -->
+            <entity-one value-field="productCategory" entity-name="ProductCategory">
+                <field-map field-name="productCategoryId" from-field="productCategoryRollup.productCategoryId"/>
+            </entity-one>
+            <field-to-list list="parameters.productCategories" field="productCategory"/>
+            
+            <!-- find rollup product categories -->
+            <set field="parameters.parentProductCategoryId" from-field="productCategoryRollup.productCategoryId"/>
+            <call-simple-method method-name="createMissingCategoryContentAltUrlInline"/>
+            <check-errors/>
         </iterate>
     </simple-method>
 </simple-methods>

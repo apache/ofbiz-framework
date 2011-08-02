@@ -332,10 +332,13 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${${extraFunctionName}}"/>
-                                <container style="button-bar">
+                                <!--<container style="button-bar">
                                     <link  text="${uiLabelMap.ContentCreateNewWebSite}" target="EditWebSite" style="buttontext create"/>
+                                </container>-->
+                                <container>
+                                    <include-menu name="websiteMenu" location="component://content/widget/content/ContentMenus.xml"/>
                                 </container>
+                                <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${${extraFunctionName}}"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

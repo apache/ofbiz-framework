@@ -1869,6 +1869,18 @@ under the License.
         <response name="error" type="view" value="FindContent"/>
     </request-map>
     
+    <!-- ================ Generate Missing Seo URL's Requests ================= -->
+    <request-map uri="WebSiteSeo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WebSiteSEO"/>
+    </request-map>
+    <request-map uri="generateMissingSeoUrlForWebsite">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="generateMissingSeoUrlForWebsite"/>
+        <response name="success" type="view" value="WebSiteSEO"/>
+        <response name="error" type="view" value="WebSiteSEO"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
@@ -1907,6 +1919,7 @@ under the License.
     <view-map name="WebSiteCMSPathAlias" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSPathAlias" type="screen"/>
     <view-map name="WebSiteCMSNav" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSNav" type="screen"/>
     <view-map name="EditWebSiteParties" page="component://content/widget/WebSiteScreens.xml#EditWebSiteParties" type="screen"/>
+    <view-map name="WebSiteSEO" page="component://content/widget/WebSiteScreens.xml#WebSiteSEO" type="screen"/>
 
     <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
     <view-map name="EditContentRole" page="component://content/widget/content/ContentScreens.xml#EditContentRole" type="screen"/>

@@ -169,6 +169,11 @@ under the License.
                 <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
             </link>
         </menu-item>
+        <menu-item name="WebSiteSEO" title="${uiLabelMap.ContentSEO}">
+            <link target="WebSiteSeo">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="blog"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
@@ -269,6 +274,11 @@ under the License.
         </menu-item>
         <menu-item name="UpdateContentAllKeywords" title="${uiLabelMap.ContentAutoCreateKeywords}" widget-style="buttontext">
             <link target="updateContentAllKeywords"/>
+        </menu-item>
+    </menu>
+    <menu name="websiteMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="EditWebSite" title="${uiLabelMap.ContentCreateNewWebSite}" widget-style="buttontext create">
+            <link target="EditWebSite"/>
         </menu-item>
     </menu>
 </menus>

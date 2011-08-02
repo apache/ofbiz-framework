@@ -1881,6 +1881,9 @@
         <value xml:lang="zh">柔和地拒绝</value>
         <value xml:lang="zh_TW">柔和地拒絕</value>
     </property>
+    <property key="ContentSEO">
+        <value xml:lang="en">SEO</value>
+    </property>
     <property key="ContentStatusUpdateError">
         <value xml:lang="en">Problem updating content Status: ${errorString}</value>
         <value xml:lang="en">Problème lors de la mise à jour du statut du document : ${errorString}</value>
@@ -2658,6 +2661,9 @@
         <value xml:lang="th">หัวข้อเว็บไซต์</value>
         <value xml:lang="zh">网站内容</value>
         <value xml:lang="zh_TW">網站內容</value>
+    </property>
+    <property key="ContentWebSiteGenerateMissingSeoUrl">
+        <value xml:lang="en">Generate missing seo url's</value>
     </property>
     <property key="ContentWebSiteMenus">
         <value xml:lang="da">Webside menuer</value>
@@ -5776,6 +5782,9 @@
         <value xml:lang="th">หัวข้อ WebSite</value>
         <value xml:lang="zh">网站内容</value>
         <value xml:lang="zh_TW">網站內容</value>
+    </property>
+    <property key="PageTitleWebSiteSEO">
+        <value xml:lang="en">Generate Missing SEO URL's</value>
     </property>
     <property key="ErrorLoadingContent">
         <value xml:lang="de">Ein Fehler beim Laden des Inhaltes ist aufgetrete!</value>

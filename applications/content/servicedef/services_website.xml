@@ -154,4 +154,12 @@
         <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
         <attribute name="webSiteContentTypeId" type="List" mode="IN" optional="false"/>
     </service>
+
+    <service name="generateMissingSeoUrlForWebsite" engine="simple" auth="true"
+            location="component://content/script/org/ofbiz/content/website/WebSiteServices.xml" invoke="generateMissingSeoUrlForWebsite" transaction-timeout="36000000">
+        <description>Generate Missing Seo URL's for Website</description>
+        <attribute name="webSiteId" type="String" mode="IN" optional="false"/>
+        <attribute name="prodCatalogId" type="String" mode="IN" optional="false"/>
+        <attribute name="typeGenerate" type="List" mode="IN" optional="false"/>
+    </service>
 </services>
