@@ -86,7 +86,7 @@ allSprints.each { sprint ->
                //check in product.
                if (ismember == false) {
                    productAndRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                       , "roleTypeId" : "STAKEHOLDER", "statusId" : "PRODUCT_ACTIVE", "thruDate" : null]);
+                       , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null]);
                    if (productAndRoleList) {
                        ismember = true;
                    }
@@ -95,7 +95,7 @@ allSprints.each { sprint ->
                //check in product
                productRoleList = [];
                productRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                   , "roleTypeId" : "SCRUM_MASTER", "statusId" : "PRODUCT_ACTIVE", "thruDate" : null]);
+                   , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null]);
                if (productRoleList) {
                    ismember = true;
                }
@@ -168,7 +168,7 @@ allSprints.each { sprint ->
                        //check in product.
                        if (ismember == false) {
                            productAndRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                               , "roleTypeId" : "STAKEHOLDER", "statusId" : "PRODUCT_ACTIVE", "thruDate" : null]);
+                               , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null]);
                            if (productAndRoleList) {
                                ismember = true;
                            }
@@ -177,7 +177,7 @@ allSprints.each { sprint ->
                        //check in product
                        productRoleList = [];
                        productRoleList = delegator.findByAnd("ProductAndRole", ["productId" : sprint.productId, "partyId" : userLogin.partyId
-                           , "roleTypeId" : "SCRUM_MASTER", "statusId" : "PRODUCT_ACTIVE", "thruDate" : null]);
+                           , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null]);
                        if (productRoleList) {
                            ismember = true;
                        }

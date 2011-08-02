@@ -74,6 +74,7 @@ custRequestTypeCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND
 
 taskPlanList = delegator.findList("ProjectSprintBacklogTaskAndParty", custRequestTypeCond, null,["taskTypeId","projectId","sprintId"] ,null, false);
 taskPlanList.each { taskPlanMap ->
+    planMap=[:];
     if ("RF_SCRUM_MEETINGS".equals(taskPlanMap.custRequestTypeId)) {
         workEffPartyAssignedList = delegator.findByAnd("WorkEffortPartyAssignment",["partyId" : partyId, "workEffortId" : taskPlanMap.taskId]);
         workEffPartyAssignedMap = workEffPartyAssignedList[0];
@@ -82,8 +83,29 @@ taskPlanList.each { taskPlanMap ->
             taskListDropdown.add(taskPlanMap);
         }
     } else {
-        taskPartyList.add(taskPlanMap);
-        taskListDropdown.add(taskPlanMap);
+        if (taskPlanMap.projectId) {
+            taskPartyList.add(taskPlanMap);
+            taskListDropdown.add(taskPlanMap);
+        } else {
+            custRequestId = taskPlanMap.custRequestId;
+            productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"]);
+            product = delegator.findByPrimaryKey("Product",["productId":productlist[0].productId]);
+            productName = product.internalName;
+            planMap.taskId = taskPlanMap.taskId;
+            planMap.taskTypeId = taskPlanMap.taskTypeId;
+            planMap.taskName = taskPlanMap.taskName;
+            planMap.projectId = taskPlanMap.projectId;
+            planMap.projectName = taskPlanMap.projectName;
+            planMap.sprintId = taskPlanMap.sprintId;
+            planMap.sprintName = taskPlanMap.sprintName;
+            planMap.custRequestId = custRequestId;
+            planMap.description = taskPlanMap.description;
+            planMap.productId = productlist[0].productId;
+            planMap.productName = productName;
+            taskPartyList.add(planMap);
+            taskListDropdown.add(planMap);
+        }
+
     }
 }
 if (taskPartyList){

@@ -51,7 +51,7 @@
                             </condition-list>
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="sequenceNum" />
+                    <order-by field-name="custSequenceNum" />
                 </entity-condition>
                 <else>
                     <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
@@ -67,7 +67,7 @@
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
                             <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
                         </condition-list>
-                        <order-by field-name="sequenceNum" />
+                        <order-by field-name="custSequenceNum" />
                     </entity-condition>
                 </else>
             </if-compare>
@@ -75,16 +75,16 @@
                 <if-compare operator="equals" value="${parameters.custRequestId}"
                     field="custReq[i].custRequestId">
                     <if-compare operator="not-equals" value="0" field="i">
-                        <set field="temp" from-field="custReq[i].sequenceNum" /><log level="always" message="$$$$$$$$$ temp : ${temp}"></log>
-                        <set field="custReq[i].sequenceNum" from-field="custReq[i-1].sequenceNum" />
-                        <set field="custReq[i-1].sequenceNum" from-field="temp" />
+                        <set field="temp" from-field="custReq[i].custSequenceNum" /><log level="always" message="$$$$$$$$$ temp : ${temp}"></log>
+                        <set field="custReq[i].custSequenceNum" from-field="custReq[i-1].custSequenceNum" />
+                        <set field="custReq[i-1].custSequenceNum" from-field="temp" />
 
                         <entity-one value-field="firstup" entity-name="CustRequest">
                             <field-map field-name="custRequestId" from-field="custReq[i].custRequestId" />
                         </entity-one><log level="always" message="666666666666666666666 firstup : ${firstup}"></log>
-                        <set field="firstup.sequenceNum" from-field="custReq[i].sequenceNum" />
+                        <set field="firstup.custSequenceNum" from-field="custReq[i].custSequenceNum" />
                         <if-empty field="firstup">
-                            <add-error><fail-message message="Cannot find with ID [${custReq[i].custRequestId}] and sequenceNum [${custReq[i].sequenceNum}]"/></add-error>
+                            <add-error><fail-message message="Cannot find with ID [${custReq[i].custRequestId}] and custSequenceNum [${custReq[i].custSequenceNum}]"/></add-error>
                             <check-errors/>
                                 <else>
                                     <store-value value-field="firstup" />
@@ -94,9 +94,9 @@
                         <entity-one value-field="lastup" entity-name="CustRequest">
                             <field-map field-name="custRequestId" from-field="custReq[i-1].custRequestId" />
                         </entity-one>
-                        <set field="lastup.sequenceNum" from-field="custReq[i-1].sequenceNum" />
+                        <set field="lastup.custSequenceNum" from-field="custReq[i-1].custSequenceNum" />
                         <if-empty field="lastup">
-                            <add-error><fail-message message="Cannot find with ID [${custReq[i-1].custRequestId}] and sequenceNum [${custReq[i-1].sequenceNum}]"/></add-error>
+                            <add-error><fail-message message="Cannot find with ID [${custReq[i-1].custRequestId}] and custSequenceNum [${custReq[i-1].custSequenceNum}]"/></add-error>
                             <check-errors/>
                                 <else>
                                     <store-value value-field="lastup" />
@@ -132,7 +132,7 @@
                             </condition-list>
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="sequenceNum" />
+                    <order-by field-name="custSequenceNum" />
                 </entity-condition>
                 <else>
                     <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
@@ -148,7 +148,7 @@
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
                             <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
                         </condition-list>
-                        <order-by field-name="sequenceNum" />
+                        <order-by field-name="custSequenceNum" />
                     </entity-condition>
                 </else>
             </if-compare>
@@ -157,16 +157,16 @@
                     field="custReq[i].custRequestId">
                     <if-compare operator="not-equals" value="${getnum-1}"
                         field="i">
-                        <set field="temp" from-field="custReq[i].sequenceNum" />
-                        <set field="custReq[i].sequenceNum" from-field="custReq[i+1].sequenceNum" />
-                        <set field="custReq[i+1].sequenceNum" from-field="temp" />
+                        <set field="temp" from-field="custReq[i].custSequenceNum" />
+                        <set field="custReq[i].custSequenceNum" from-field="custReq[i+1].custSequenceNum" />
+                        <set field="custReq[i+1].custSequenceNum" from-field="temp" />
 
                         <entity-one value-field="first" entity-name="CustRequest">
                             <field-map field-name="custRequestId" from-field="custReq[i].custRequestId" />
                         </entity-one>
-                        <set field="first.sequenceNum" from-field="custReq[i].sequenceNum" />
+                        <set field="first.custSequenceNum" from-field="custReq[i].custSequenceNum" />
                         <if-empty field="first">
-                            <add-error><fail-message message="Cannot find with ID [${custReq[i].custRequestId}] and sequenceNum [${custReq[i].sequenceNum}]"/></add-error>
+                            <add-error><fail-message message="Cannot find with ID [${custReq[i].custRequestId}] and custSequenceNum [${custReq[i].custSequenceNum}]"/></add-error>
                             <check-errors/>
                                 <else>
                                     <store-value value-field="first" />
@@ -176,9 +176,9 @@
                         <entity-one value-field="last" entity-name="CustRequest">
                             <field-map field-name="custRequestId" from-field="custReq[i+1].custRequestId" />
                         </entity-one>
-                        <set field="last.sequenceNum" from-field="custReq[i+1].sequenceNum" />
+                        <set field="last.custSequenceNum" from-field="custReq[i+1].custSequenceNum" />
                         <if-empty field="last">
-                            <add-error><fail-message message="Cannot find with ID [${custReq[i+1].custRequestId}] and sequenceNum [${custReq[i+1].sequenceNum}]"/></add-error>
+                            <add-error><fail-message message="Cannot find with ID [${custReq[i+1].custRequestId}] and custSequenceNum [${custReq[i+1].custSequenceNum}]"/></add-error>
                             <check-errors/>
                                 <else>
                                     <store-value value-field="last" />
@@ -214,7 +214,7 @@
                             </condition-list>
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="sequenceNum" />
+                    <order-by field-name="custSequenceNum" />
                 </entity-condition>
                 <else>
                     <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
@@ -230,7 +230,7 @@
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
                             <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
                         </condition-list>
-                        <order-by field-name="sequenceNum" />
+                        <order-by field-name="custSequenceNum" />
                     </entity-condition>
                 </else>
             </if-compare>
@@ -249,10 +249,10 @@
                 <entity-one value-field="custReqBottom" entity-name="CustRequest">
                     <field-map field-name="custRequestId" from-field="custReq[j].custRequestId" />
                 </entity-one>
-                <set field="custReqBottom.sequenceNum" from-field="custReq[j+1].sequenceNum"
+                <set field="custReqBottom.custSequenceNum" from-field="custReq[j+1].custSequenceNum"
                     type="Long" />
                 <if-empty field="custReqBottom">
-                    <add-error><fail-message message="Cannot find with ID [${custReq[j].custRequestId}] and sequenceNum [${custReq[j+1].sequenceNum}]"/></add-error>
+                    <add-error><fail-message message="Cannot find with ID [${custReq[j].custRequestId}] and custSequenceNum [${custReq[j+1].custSequenceNum}]"/></add-error>
                     <check-errors/>
                         <else>
                             <store-value value-field="custReqBottom" />
@@ -263,10 +263,10 @@
             <entity-one value-field="updatetop" entity-name="CustRequest">
                 <field-map field-name="custRequestId" from-field="selectedCustReq.custRequestId" />
             </entity-one>
-            <set field="updatetop.sequenceNum" from-field="topCustReq.sequenceNum"
+            <set field="updatetop.custSequenceNum" from-field="topCustReq.custSequenceNum"
                 type="Long" />
             <if-empty field="updatetop">
-                <add-error><fail-message message="Cannot find with ID [${selectedCustReq.custRequestId}] and sequenceNum [${topCustReq.sequenceNum}]"/></add-error>
+                <add-error><fail-message message="Cannot find with ID [${selectedCustReq.custRequestId}] and custSequenceNum [${topCustReq.custSequenceNum}]"/></add-error>
                 <check-errors/>
                     <else>
                         <store-value value-field="updatetop" />
@@ -299,7 +299,7 @@
                             </condition-list>
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="sequenceNum" />
+                    <order-by field-name="custSequenceNum" />
                 </entity-condition>
                 <else>
                     <entity-count count-field="getNum" entity-name="CustRequestAndCustRequestItem">
@@ -315,7 +315,7 @@
                             <condition-expr field-name="custRequestTypeId" operator="equals" value="RF_PROD_BACKLOG"/>
                             <condition-expr field-name="statusId" from-field="parameters.statusId" ignore-if-empty="true"/>
                         </condition-list>
-                        <order-by field-name="sequenceNum" />
+                        <order-by field-name="custSequenceNum" />
                     </entity-condition>
                 </else>
             </if-compare>
@@ -331,7 +331,7 @@
                 </if-compare-field>
             </loop>
             <loop count="${diffIndex}" field="j"><log level="always" message="////////// j : ${j}"></log>
-                <set field="lowerSeqNum" from-field="custReq[j+selectedIndex].sequenceNum" />
+                <set field="lowerSeqNum" from-field="custReq[j+selectedIndex].custSequenceNum" />
 
                 <entity-one value-field="update" entity-name="CustRequest">
                     <field-map field-name="custRequestId"
@@ -343,7 +343,7 @@
                     <check-errors/>
                     -->
                     <else>
-                        <set field="update.sequenceNum" from-field="lowerSeqNum" type="Long" />
+                        <set field="update.custSequenceNum" from-field="lowerSeqNum" type="Long" />
                         <store-value value-field="update" />
                     </else>
                 </if-empty>
@@ -353,11 +353,11 @@
             </entity-one>
             <if-empty field="update2">
                 <!--
-                <add-error><fail-message message="Cannot find with ID [${selectedCustReq.custRequestId}] and sequenceNum [${bottomCustReq.sequenceNum}]"/></add-error>
+                <add-error><fail-message message="Cannot find with ID [${selectedCustReq.custRequestId}] and custSequenceNum [${bottomCustReq.custSequenceNum}]"/></add-error>
                 <check-errors/>
                 -->
                     <else>
-                        <set field="update2.sequenceNum" from-field="bottomCustReq.sequenceNum" type="Long" />
+                        <set field="update2.custSequenceNum" from-field="bottomCustReq.custSequenceNum" type="Long" />
                         <store-value value-field="update2" />
                     </else>
             </if-empty>
@@ -849,7 +849,7 @@
                         <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                     </entity-one>
                     <set field="planHoursIn" from-field="planHours" type="Double"/>
-                    <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+                    <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
                     <store-value value-field="custRequestMap"/>
                     <else>
                         <if-compare-field field="initPlanHours"  operator="greater" to-field="planHours"  type="Double">
@@ -857,7 +857,7 @@
                                 <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                             </entity-one>
                             <set field="planHoursIn" from-field="planHours" type="Double"/>
-                            <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+                            <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
                             <store-value value-field="custRequestMap"/>
                         </if-compare-field>
                     </else>
@@ -990,6 +990,28 @@
                             </entity-condition>
                         </if-not-empty>
                     </else>
+                </if-empty>
+                <if-empty field="taskIdCond">
+                    <entity-condition list="tasks" entity-name="CustRequestAndWorkEffort">
+                        <condition-list combine="and">
+                            <condition-expr field-name="custRequestId" from-field="parameters.custRequestId"/>
+                            <condition-list combine="or">
+                                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_ERROR" />
+                                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_IMPL" />
+                                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_INST" />
+                                <condition-expr field-name="workEffortTypeId" operator="equals" value="SCRUM_TASK_TEST" />
+                            </condition-list>
+                        </condition-list>
+                    </entity-condition>
+                    <if-not-empty field="tasks">
+                         <iterate entry="task" list="tasks">
+                             <set field="taskIdCond[+0]" from-field="task.workEffortId" />
+                         </iterate>
+                         <entity-condition list="timeEntries" entity-name="TimeEntry">
+                             <condition-expr field-name="workEffortId" operator="in" from-field="taskIdCond" />
+                             <order-by field-name="workEffortId" />
+                         </entity-condition>
+                     </if-not-empty>
                 </if-empty>
             </then>
         </if>
@@ -1185,6 +1207,7 @@
     </simple-method>
     <simple-method method-name="addProductTimeToNewInvoice"
         short-description="add all reported time on all completed timesheets from all workefforts for a product">
+        <set field="billingItemList" type="List"/>
         <!-- recreate the invoice if still in preparation in order to correct errors. -->
         <if-compare operator="equals" value="Y" field="parameters.reCreate">
             <entity-one entity-name="Invoice" value-field="invoice" />
@@ -1238,6 +1261,9 @@
         </if-empty>
         <if-compare field="parameters.includeMeeting" operator="equals" value="N">
             <set field="custRequestTypeId" value="RF_SCRUM_MEETINGS"/>
+            <else>
+                <set field="custRequestTypeId" value=""/>
+            </else>
         </if-compare>
         <!-- get tasks from backlog item -->
         <entity-condition entity-name="ProjectSprintBacklogTaskAndTimeEntryTimeSheet"
@@ -1246,12 +1272,23 @@
                 <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" />
                 <condition-expr field-name="invoiceId" operator="equals" from-field="nullField" />
                 <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED" />
-                <condition-expr field-name="custRequestTypeId" operator="not-equals" from-field="custRequestTypeId" ignore-if-empty="true"/>
+                <condition-expr field-name="custRequestTypeId" operator="not-equals" from-field="custRequestTypeId" ignore-if-empty="true" ignore-if-null="true"/>
                 <condition-expr field-name="fromDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true" />
                 <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true" />
                 <condition-expr field-name="partyId" operator="in" from-field="partyIdAllInCompany" />
             </condition-list>
-            <order-by field-name="productId" />
+        </entity-condition>
+        <!-- get tasks from cancelled backlog item -->
+        <entity-condition list="cancelledBacklogTasks" entity-name="CancelledBacklogsTaskAndTimeEntryTimeSheet">
+            <condition-list combine="and">
+                <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" />
+                <condition-expr field-name="invoiceId" operator="equals" from-field="nullField" />
+                <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED" />
+                <condition-expr field-name="custRequestTypeId" operator="not-equals" from-field="custRequestTypeId" ignore-if-empty="true" ignore-if-null="true"/>
+                <condition-expr field-name="fromDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true" />
+                <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true" />
+                <condition-expr field-name="partyId" operator="in" from-field="partyIdAllInCompany" />
+            </condition-list>
         </entity-condition>
         <!-- get unplanned task -->
         <entity-condition list="unplannedTasks" entity-name="UnPlannedBacklogsTaskAndTimeEntryTimeSheet">
@@ -1259,7 +1296,6 @@
                 <condition-expr field-name="productId" operator="equals" from-field="parameters.productId" />
                 <condition-expr field-name="invoiceId" operator="equals" from-field="nullField" />
                 <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED" />
-                <condition-expr field-name="custRequestTypeId" operator="not-equals" from-field="custRequestTypeId" ignore-if-empty="true"/>
                 <condition-expr field-name="fromDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-empty="true" />
                 <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true" />
                 <condition-expr field-name="partyId" operator="in" from-field="partyIdAllInCompany" />
@@ -1267,6 +1303,7 @@
         </entity-condition>
         <call-class-method class-name="javolution.util.FastList" method-name="newInstance" ret-field="tasks"/>
         <set field="isAddAll" value="${groovy:tasks.addAll(sprintTasks)}"/>
+        <set field="isAddAll" value="${groovy:tasks.addAll(cancelledBacklogTasks)}"/>
         <set field="isAddAll" value="${groovy:tasks.addAll(unplannedTasks)}"/>
         <if-empty field="tasks">
             <add-error>
@@ -1274,17 +1311,23 @@
             </add-error>
             <check-errors />
         </if-empty>
+        <set field="orderBy" value="${groovy: orderBy = ['productId','custRequestId','taskId','fromDate']}" type="List"/>
+        <call-class-method method-name="sortMaps" class-name="org.ofbiz.base.util.UtilMisc" ret-field="tasks">
+            <field field="tasks" type="List"/>
+            <field field="orderBy" type="List"/>
+        </call-class-method>
         <iterate entry="task" list="tasks">
             <if-empty field="notFirst">
                 <!-- first time so create invoice -->
-                <set-service-fields service-name="addWorkEffortTimeToNewInvoice"
+                <set-service-fields service-name="scrumAddWorkEffortTimeToNewInvoice"
                     map="parameters" to-map="addTaskToNewInvoice" />
                 <set field="addTaskToNewInvoice.workEffortId" from-field="task.taskId" />
                 <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y" />
                 <set field="addTaskToNewInvoice.thruDate" from-field="parameters.thruDate" />
-                <call-service service-name="addWorkEffortTimeToNewInvoice"
+                <call-service service-name="scrumAddWorkEffortTimeToNewInvoice"
                     in-map-name="addTaskToNewInvoice">
                     <result-to-field result-name="invoiceId" field="parameters.invoiceId" />
+                    <result-to-field result-name="billingMap" field="setBillingMap" />
                 </call-service>
                 <set field="addTaskToInvoice.combineInvoiceItem" value="Y" />
                 <field-to-result field="parameters.invoiceId"
@@ -1303,16 +1346,264 @@
                             <!-- add to created invoice -->
                             <set field="addTaskToInvoice.combineInvoiceItem" value="Y" />
                             <set field="addTaskToInvoice.invoiceId" from-field="parameters.invoiceId" />
-                            <set field="addTaskToInvoice.invoiceDate" from-field="parameters.invoiceDate" />
                             <set field="addTaskToInvoice.workEffortId" from-field="task.taskId" />
                             <set field="addTaskToInvoice.thruDate" from-field="parameters.thruDate" />
-                            <call-service service-name="addWorkEffortTimeToInvoice"
-                                in-map-name="addTaskToInvoice" />
+                            <call-service service-name="scrumAddWorkEffortTimeToInvoice"
+                                in-map-name="addTaskToInvoice">
+                                <result-to-field result-name="billingMap" field="setBillingMap" />
+                            </call-service>
                         </then>
                     </if>
                     <set field="oldWorkeffortId" from-field="task.taskId" />
                 </else>
             </if-empty>
+            <if-not-empty field="setBillingMap">
+                <field-to-list list="billingItemList" field="setBillingMap"/>
+            </if-not-empty>
+        </iterate>
+        <!-- Check the billing option in CustRequest -->
+        <set field="billingItemIndexList" type="List"/>
+        <set field="realBillingItemList" type="List"/>
+        <set field="billingItemListSize" value="${groovy: billingItemList.size();}" type="Double"/>
+        <if-not-empty field="billingItemList">
+            <iterate entry="billingItemMap" list="billingItemList">
+                <field-to-list list="billingItemIndexList" field="billingItemMap.invoiceItemSeqId"/>
+            </iterate>
+        </if-not-empty>
+        <if-not-empty field="billingItemIndexList">
+            <set field="billingItemIndexToSet" value="${groovy: import java.util.Set; new HashSet(billingItemIndexList);}"/>
+            <set field="billingItemIndexList" from-field="billingItemIndexToSet" type="List"/>
+            <iterate entry="billingItemIndexMap" list="billingItemIndexList">
+                <set field="inputMap" type="NewMap"/>
+                <loop count="${billingItemListSize}" field="i">
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare-field field="billingItemList[i].invoiceItemSeqId" operator="equals" to-field="billingItemIndexMap" type="Integer"/>
+                                <if-empty field="inputMap"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <set field="inputMap" from-field="billingItemList[i]"/>
+                            <field-to-list list="realBillingItemList" field="inputMap"/>
+                        </then>
+                    </if>
+                </loop>
+                <clear-field field="inputMap"/>
+            </iterate>
+        </if-not-empty>
+        <if-not-empty field="realBillingItemList">
+            <iterate entry="realBillingItemMap" list="realBillingItemList">
+                <entity-one value-field="custRequestMap" entity-name="CustRequest">
+                    <field-map field-name="custRequestId" from-field="realBillingItemMap.custRequestId"/>
+                </entity-one>
+                <if-compare field="custRequestMap.billed" operator="equals" value="N" type="String">
+                    <set field="invoiceItems.invoiceId" from-field="realBillingItemMap.invoiceId"/>
+                    <set field="invoiceItems.invoiceItemSeqId" from-field="realBillingItemMap.invoiceItemSeqId"/>
+                    <set field="invoiceItems.amount" value="0.0" type="BigDecimal"/>
+                    <call-service service-name="updateInvoiceItem" in-map-name="invoiceItems"/>
+                </if-compare>
+            </iterate>
+        </if-not-empty>
+    </simple-method>
+    <simple-method method-name="scrumAddWorkEffortTimeToInvoice" short-description="Scrum Add Work Effort Time to Invoice">
+        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
+            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
+        </check-permission>
+        <check-errors/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+        <if-empty field="parameters.invoiceId">
+            <set-service-fields service-name="createInvoice" map="parameters" to-map="createInvoiceMap"/>
+            <set field="createInvoiceMap.invoiceTypeId" value="SALES_INVOICE"/>
+            <set field="createInvoiceMap.statusId" value="INVOICE_IN_PROCESS"/>
+            <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
+                <result-to-field result-name="invoiceId" field="parameters.invoiceId"/>
+            </call-service>
+            <field-to-result field="parameters.invoiceId" result-name="invoiceId"/>
+        </if-empty>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <if-empty field="invoice">
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetCannotFindInvoice"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+        <entity-one entity-name="Party" value-field="party">
+            <field-map field-name="partyId" value="${invoice.partyId}"/>
+        </entity-one>
+        <if-empty field="party.preferredCurrencyUomId">
+            <property-to-field resource="general" property="currency.uom.id.default" field="party.preferredCurrencyUomId"/>
+        </if-empty>
+        <set field="updateInvoiceMap.invoiceId" from-field="parameters.invoiceId"/>
+        <set field="updateInvoiceMap.currencyUomId" from-field="party.preferredCurrencyUomId"/>
+        <if-not-empty field="parameters.invoiceDate">
+            <set field="updateInvoiceMap.invoiceDate" from-field="parameters.invoiceDate" type="Timestamp"/>
+            <else>
+                <now-timestamp field="updateInvoiceMap.invoiceDate"/>
+            </else>
+        </if-not-empty>
+        <if-empty field="updateInvoiceMap.currencyUomId">
+            <property-to-field field="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+        </if-empty>
+        <call-service service-name="updateInvoice" in-map-name="updateInvoiceMap"/>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
+        <call-simple-method method-name="scrumCreateTimeEntryInvoiceItemsInline"/>
+        <field-to-result field="setBillingMap" result-name="billingMap"/>
+    </simple-method>
+    <simple-method method-name="scrumCreateTimeEntryInvoiceItemsInline" short-description="scrumCreateTimeEntryInvoiceItemsInline">
+        <set field="orderBy[]" value="rateTypeId"/>
+        <get-related value-field="workEffort" relation-name="TimeEntry" list="timeEntryList" order-by-list="orderBy"/>
+        <set field="invoiceItemMap.invoiceId" from-field="parameters.invoiceId"/>
+        <set field="invoiceItemMap.taxableFlag" value="N"/>
+        <set field="invoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
+        <set field="invoiceItemMap.uomId" value="TF_hr"/>
+        <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
+        <get-related value-field="workEffort" relation-name="CustRequestWorkEffort" list="custRequestWorkEfforts"/>
+        <if-not-empty field="custRequestWorkEfforts">
+            <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
+            <get-related-one value-field="custRequestWorkEffort" relation-name="CustRequest" to-value-field="custRequest"/>
+            <if-not-empty field="custRequest">
+                <if-compare field="custRequest.custRequestTypeId" operator="equals" value="RF_SCRUM_MEETINGS" >
+                    <set field="invoiceItemDescription" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
+                    <else>
+                        <if-empty field="custRequest.description">
+                            <set field="invoiceItemDescription" value="[CRQ:${custRequest.custRequestId}] ${custRequest.custRequestName}"/>
+                            <else>
+                                <set field="invoiceItemDescription" value="[CRQ:${custRequest.custRequestId}] ${custRequest.description}"/>
+                            </else>
+                        </if-empty>
+                    </else>
+                </if-compare>
+                <set field="invoiceItemMap.description" value="${groovy:invoiceItemDescription.size()&gt;255?invoiceItemDescription.substring(0,251)+&quot; ...&quot;:invoiceItemDescription}"/>
+            </if-not-empty>
+        </if-not-empty>
+        <iterate entry="timeEntry" list="timeEntryList">
+            <if>
+                <condition>
+                    <or>
+                        <and>
+                            <not><if-empty field="parameters.thruDate"/></not>
+                            <if-compare-field operator="less" field="timeEntry.fromDate" to-field="parameters.thruDate"/>
+                        </and>
+                        <if-empty field="parameters.thruDate"/>
+                    </or>
+                </condition>
+                <then>
+                    <!-- check invoice -->
+                    <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS">
+                        <!-- only add to invoice if it is not already on an invoice-->
+                        <if-empty field="timeEntry.invoiceId">
+                            <!-- check if only a percentage of the hours need to be used -->
+                            <if-empty field="timeEntry.partyId">
+                                <if-not-empty field="timeEntry.timesheetId">
+                                    <entity-one entity-name="Timesheet" value-field="timesheet">
+                                        <field-map field-name="timesheetId" from-field="timeEntry.timesheetId"/>
+                                    </entity-one>
+                                    <set field="timeEntry.partyId" from-field="timesheet.partyId"/>
+                                </if-not-empty>
+                            </if-empty>
+                            <if-not-empty field="timeEntry.partyId">
+                                <entity-and entity-name="PartyRate" list="partyRates" filter-by-date="true">
+                                    <field-map field-name="rateTypeId" from-field="timeEntry.rateTypeId"/>
+                                    <field-map field-name="partyId" from-field="timeEntry.partyId"/>
+                                </entity-and>
+                                <if-not-empty field="partyRates">
+                                    <first-from-list entry="partyRate" list="partyRates"/>
+                                    <if-not-empty field="partyRate.percentageUsed">
+                                        <calculate field="timeEntry.hours" type="Double">
+                                            <calcop operator="multiply" field="timeEntry.hours">
+                                                <calcop operator="get" field="partyRate.percentageUsed"/>
+                                            </calcop>
+                                        </calculate>
+                                        <calculate field="timeEntry.hours" type="Double">
+                                            <calcop operator="divide" field="timeEntry.hours">
+                                                <number value="100"/>
+                                            </calcop>
+                                        </calculate>
+                                    </if-not-empty>
+                                </if-not-empty>
+                            </if-not-empty>
+                            <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                            <set field="getTimeEntryRate.currencyUomId" from-field="invoice.currencyUomId"/>
+                            <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
+                                <result-to-field result-name="rateAmount"/>
+                            </call-service>
+                            <!--  check if the RateTypeId changed or the first time entry record and invoice item is not exist with the same amount and description-->
+                            <entity-and list="existAmountAndDescriptionInvoiceItems" entity-name="InvoiceItem">
+                                <field-map field-name="invoiceId" from-field="invoiceItemMap.invoiceId"/>
+                                <field-map field-name="amount" from-field="rateAmount"/>
+                                <field-map field-name="description" from-field="invoiceItemMap.description"/>
+                            </entity-and>
+                            <set field="invoiceItemMap.invoiceItemSeqId" from-field="existAmountAndDescriptionInvoiceItems[0].invoiceItemSeqId"/>
+                            <if>
+                                <condition>
+                                    <and>
+                                        <or>
+                                            <if-empty field="oldRateAmount"/>
+                                            <if-compare-field field="rateAmount" operator="not-equals" to-field="oldRateAmount"/>
+                                        </or>
+                                        <if-empty field="existAmountAndDescriptionInvoiceItems"/>
+                                    </and>
+                                </condition>
+                                <then>
+                                    <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="BigDecimal"/>
+                                    <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
+                                        <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="BigDecimal"/>
+                                        <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
+                                        <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
+                                            <result-to-field result-name="invoiceItemSeqId" field="invoiceItemMap.invoiceItemSeqId"/>
+                                        </call-service>
+                                    </if-compare>
+                                    <set field="setBillingMap.custRequestId" from-field="custRequest.custRequestId"></set>
+                                    <set field="setBillingMap.invoiceId" from-field="invoiceItemMap.invoiceId"></set>
+                                    <set field="setBillingMap.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"></set>
+                                </then>
+                                <else>
+                                    <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
+                                        <!-- or combine them when it is the same rate, amount and description-->
+                                        <set field="invoiceItemMap.quantity" from-field="existAmountAndDescriptionInvoiceItems[0].quantity"/>
+                                        <calculate field="invoiceItemMap.quantity">
+                                            <calcop operator="get" field="invoiceItemMap.quantity"/>
+                                            <calcop operator="add" field="timeEntry.hours"/>
+                                        </calculate>
+                                        <call-service service-name="updateInvoiceItem" in-map-name="invoiceItemMap"/>
+                                    </if-compare>
+                                </else>
+                            </if>
+                            <set field="oldRateAmount" from-field="rateAmount"/>
+
+                            <!-- create an invoiceitem for every time entry -->
+                            <if-compare field="parameters.combineInvoiceItem" operator="not-equals" value="Y" >
+                                <set field="invoiceItemMap.description" from-field="timeEntry.comments"/>
+                                <if-empty field="invoiceItemMap.description">
+                                    <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
+                                </if-empty>
+                                <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="BigDecimal"/>
+                                <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
+                                <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
+                                    <result-to-field result-name="invoiceItemSeqId" field="invoiceItemMap.invoiceItemSeqId"/>
+                                </call-service>
+                            </if-compare>
+                            <!--  update the time entry -->
+                            <set field="updTimeEntry.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                            <set field="updTimeEntry.invoiceId" from-field="invoiceItemMap.invoiceId"/>
+                            <set field="updTimeEntry.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"/>
+                            <call-service service-name="updateTimeEntry" in-map-name="updTimeEntry"/>
+                            <!-- else>
+                                <log level="info" message="Timeentry: ${timeEntry.timeEntryId} already connected to invoiceId: ${timeEntry.invoiceId}...not added to invoiceItem"/>
+                            </else-->
+                        </if-empty>
+                        <else>
+                            <set field="errMsg" value="Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}"/>
+                            <log level="error" message="${errMsg}"/>
+                            <add-error error-list-name="errorMessageList">
+                                <fail-property resource="WorkEffortUiLabels" property="WorkEffortTimesheetInvoiceShuoldBeInProgressStatus"/>
+                            </add-error>
+                            <return response-code="error"/>
+                        </else>
+                    </if-compare>
+                </then>
+            </if>
         </iterate>
     </simple-method>
     <simple-method method-name="removeInvoiceInTimeEntry" short-description="Remove Invoice In TimeEntry">
@@ -1498,10 +1789,25 @@
             </if-not-empty>
         </else>
         </if-empty>
+        <entity-one value-field="custRequestMap" entity-name="CustRequest"/>
+        <if-compare field="custRequestMap.statusId" operator="equals" value="CRQ_ACCEPTED">
+            <get-related relation-name="CustRequestWorkEffort" list="custWorkEffList" value-field="custRequestMap"/>
+            <if-not-empty field="custWorkEffList">
+                <iterate entry="task" list="custWorkEffList">
+                    <set field="parameters.taskId" from-field="task.workEffortId" />
+                    <call-simple-method method-name="getScrumTaskPlanHour" />
+                    <calculate field="backlogPlanHours" type="Double">
+                        <calcop operator="add" field="taskPlanHours">
+                            <calcop operator="get" field="backlogPlanHours" />
+                        </calcop>
+                    </calculate>
+                </iterate>
+            </if-not-empty>
+        </if-compare>
         <!-- Check plan from backlog -->
         <if-compare field="backlogPlanHours" operator="less-equals" value="0">
             <entity-one entity-name="CustRequest" value-field="custRequest" />
-            <set field="backlogPlanHours" value="${custRequest.estimatedMilliSeconds/1000/60/60}" type="Double" />
+            <set field="backlogPlanHours" value="${custRequest.custEstimatedMilliSeconds/1000/60/60}" type="Double" />
         </if-compare>
     </simple-method>
     
@@ -1509,7 +1815,7 @@
         <!-- Get plan hours in a Backlog -->
         <set field="backlogInitPlanHours" type="Double" value="0" />
         <entity-one entity-name="CustRequest" value-field="custRequest" />
-        <set field="backlogInitPlanHours" value="${custRequest.estimatedMilliSeconds/1000/60/60}" type="Double" />
+        <set field="backlogInitPlanHours" value="${custRequest.custEstimatedMilliSeconds/1000/60/60}" type="Double" />
     </simple-method>
     
     <simple-method method-name="getScrumSprintPlanHour"
@@ -1797,11 +2103,11 @@
             </if-not-empty>
             <if-not-empty field="custRequest">
                 <calculate field="defaultBacklogPlanHours" type="Double">
-                    <calcop field="custRequest.estimatedMilliSeconds" operator="divide">
+                    <calcop field="custRequest.custEstimatedMilliSeconds" operator="divide">
                         <number value="3600000" />
                     </calcop>
                 </calculate>
-                <if-empty field="custRequest.estimatedMilliSeconds">
+                <if-empty field="custRequest.custEstimatedMilliSeconds">
                     <set field="defaultBacklogPlanHours" type="Double" value="0" />
                 </if-empty>
                 <set field="taskPlanHours" type="Double" value="0" />
@@ -1889,7 +2195,7 @@
     </simple-method>
     <simple-method method-name="reOrderProductBacklogItemSequenceNumber"
         short-description="Re-order product backlog item's sequence number">
-        <!-- get all product backlog items of product order by sequenceNum -->
+        <!-- get all product backlog items of product order by custSequenceNum -->
         <entity-condition list="custRequestAndCustRequestItems"
             entity-name="CustRequestAndCustRequestItem">
             <condition-list combine="and">
@@ -1903,12 +2209,12 @@
         <set field="newSequenceNum" value="1" type="Long" />
         <set field="sequenceNumStep" value="1" type="Long" />
         <iterate entry="custRequestAndCustRequestItem" list="custRequestAndCustRequestItems">
-            <!-- update sequenceNum field of cust request -->
+            <!-- update custSequenceNum field of cust request -->
             <entity-one value-field="custRequest" entity-name="CustRequest">
                 <field-map field-name="custRequestId"
                     from-field="custRequestAndCustRequestItem.custRequestId" />
             </entity-one>
-            <set field="custRequest.sequenceNum" from-field="newSequenceNum"
+            <set field="custRequest.custSequenceNum" from-field="newSequenceNum"
                 type="Long" />
             <store-value value-field="custRequest" />
 
@@ -2419,7 +2725,7 @@
                             <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                         </entity-one>
                         <set field="planHoursIn" from-field="planHours" type="Double"/>
-                        <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+                        <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
                         <store-value value-field="custRequestMap"/>
                         <else>
                             <if-compare-field field="initPlanHours"  operator="greater" to-field="planHours"  type="Double">
@@ -2427,7 +2733,7 @@
                                     <field-map field-name="custRequestId" from-field="custRequestWorkEffortMap.custRequestId"/>
                                 </entity-one>
                                 <set field="planHoursIn" from-field="planHours" type="Double"/>
-                                <set field="custRequestMap.estimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
+                                <set field="custRequestMap.custEstimatedMilliSeconds" value="${groovy:planHoursIn*1000*60*60}" type="Double"/>
                                 <store-value value-field="custRequestMap"/>
                             </if-compare-field>
                         </else>

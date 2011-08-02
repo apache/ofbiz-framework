@@ -128,6 +128,27 @@
         <attribute name="reCreate" type="String" mode="IN" optional="true"/>
         <attribute name="includeMeeting" type="String" mode="IN" optional="true"/>
     </service>
+    <service name="scrumAddWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
+        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
+        <description>Add WorkEffort Time to existing Invoice</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
+        <attribute name="billingMap" type="Map" mode="OUT" optional="true"/>
+    </service>
+    <service name="scrumAddWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
+        location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="scrumAddWorkEffortTimeToInvoice">
+        <description>Add WorkEffort Time to a new Invoice</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/>
+        <attribute name="billingMap" type="Map" mode="OUT" optional="true"/>
+    </service>
     <service name="removeInvoiceInTimeEntry" engine="simple" auth="true"
         location="component://scrum/script/org/ofbiz/scrum/ScrumServices.xml" invoke="removeInvoiceInTimeEntry">
         <description>Remove invoiceId in TimeEntry</description>

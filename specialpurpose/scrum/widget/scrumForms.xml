@@ -63,7 +63,7 @@
                     <condition-expr field-name="statusId" value="CRQ_ACCEPTED" />
                     <condition-expr field-name="productId" from-field="productId"/>
                 </condition-list>
-                <order-by field-name="sequenceNum"/>
+                <order-by field-name="custSequenceNum"/>
             </entity-condition>
         </actions>
         <field name="custRequestId"><hidden/></field>
@@ -113,7 +113,7 @@
             </service>
             <set field="taskActualHours" from-field="result.actualHours"/>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
-            <set field="defaultBacklogPlanHours" value="${custRequest.estimatedMilliSeconds/3600000}"/>
+            <set field="defaultBacklogPlanHours" value="${custRequest.custEstimatedMilliSeconds/3600000}"/>
             <set field="initialPlannedHours" from-field="defaultBacklogPlanHours"/>
             <entity-and entity-name="CustRequestItem" list="custRequestItems">
                 <field-map field-name="custRequestId" from-field="custRequestId"/>
@@ -478,7 +478,7 @@
         <field name="productId" title="${uiLabelMap.ScrumProductName}" use-when="workEffort==null">
             <drop-down>
                 <entity-options description="${groupName} -- ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
-                    <entity-constraint name="statusId" value="PRODUCT_ACTIVE"/>
+                    <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
                     <entity-constraint name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="internalName"/>
@@ -489,7 +489,7 @@
             <drop-down>
                 <entity-options description="${groupName} -- ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
                     <entity-constraint name="partyId" operator="equals" value="${productAndRoleMap.partyId}"/>
-                    <entity-constraint name="statusId" value="PRODUCT_ACTIVE"/>
+                    <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
                     <entity-constraint name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="internalName"/>
@@ -654,7 +654,7 @@
             <drop-down>
                 <entity-options description="${groupName}  ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
                     <entity-constraint name="partyId" operator="equals" value="${Company.partyId}"/>
-                    <entity-constraint name="statusId" value="PRODUCT_ACTIVE"/>
+                    <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
                     <entity-constraint name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="internalName"/>
@@ -690,16 +690,16 @@
         <field name="parentCustRequestId" title="${uiLabelMap.ScrumBacklogItemCategory}" use-when="custRequest!=null&amp;&amp;isTeamMember==true">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
         </field>
-        <field name="planedTime" parameter-name="estimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest==null">
+        <field name="planedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest==null">
             <text size="3"/>
         </field>
-        <field name="planedTime" parameter-name="estimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="3" default-value="${custRequest.estimatedMilliSeconds/3600000}"/></field>
-        <field name="planedTime" parameter-name="estimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display description="${custRequest.estimatedMilliSeconds/3600000}"/></field>
-        <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest==null">
+        <field name="planedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="3" default-value="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
+        <field name="planedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display description="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
+        <field name="custSequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest==null">
             <text size="3"></text>
         </field>
-        <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="3"></text></field>
-        <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
+        <field name="custSequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="3"></text></field>
+        <field name="custSequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display/></field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}" use-when="custRequest==null">
             <drop-down allow-empty="false" no-current-selected-key="Y">
                 <option key="Y" description="${uiLabelMap.CommonY}"/>
@@ -764,7 +764,7 @@
             <sort-field name="parentCustRequestId"/>
             <sort-field name="Sprint"/>
             <sort-field name="planedTime"/>
-            <sort-field name="sequenceNum"/>
+            <sort-field name="custSequenceNum"/>
             <sort-field name="billed"/>
             <sort-field name="unplannedFlag"/>
             <sort-field name="custRequestTypeId"/>
@@ -907,7 +907,7 @@
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="description" from-field="custRequest.description"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
-            <set field="estimatedHours" value="${groovy:estimatedMilliSeconds!=null?estimatedMilliSeconds/3600000:0;}"/>
+            <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
         </row-actions>
         <field name="postWorkHours"><hidden value="1"/></field>
@@ -1000,7 +1000,7 @@
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="sequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
+        <field name="custSequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
         <field name="custRequestId" position="2" title="${uiLabelMap.ScrumProductBacklogItem}">
             <hyperlink target="ViewProdBacklogItem" description="${description} [${custRequestId}]">
                 <parameter param-name="custRequestId"/>
@@ -1028,7 +1028,7 @@
         <row-actions>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="product" from-field="custRequest.description"/>
-            <set field="estimatedHours" value="${groovy:estimatedMilliSeconds!=null?estimatedMilliSeconds/3600000:0;}"/>
+            <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
         </row-actions>
         <field name="sequence"><hidden value="Y"/></field>
         <field name="custRequestCategoryGroupId"><hidden/></field>
@@ -1113,7 +1113,7 @@
                 <parameter param-name="searchOption_statusId" value="${parameters.statusId}"/>
             </hyperlink>
         </field>
-        <field name="sequenceNum" position="1" title="${uiLabelMap.ScrumSeq}"><display/></field>
+        <field name="custSequenceNum" position="1" title="${uiLabelMap.ScrumSeq}"><display/></field>
         <field name="realSequenceNum"><hidden/></field>
         <field name="custRequestId"><hidden/></field>
         <field name="backlogId" position="1" title="${uiLabelMap.ScrumBacklogId}">
@@ -1439,7 +1439,7 @@
                     <condition-expr field-name="statusId" value="CRQ_ACCEPTED" />
                     <condition-expr field-name="productId" from-field="productId"/>
                </condition-list>
-               <order-by field-name="sequenceNum"/>
+               <order-by field-name="custSequenceNum"/>
             </entity-condition>
             <set field="maxNum" value="${groovy: return productBacklog.size();}"/>
         </actions>
@@ -1460,12 +1460,16 @@
         <field name="custRequestId" title="${uiLabelMap.ScrumSprintBacklog}">
             <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${custRequestName}"></display-entity>
         </field>
-        <field name="sequenceNum"><display/></field>
-        <field name="estimatedHours" title="${uiLabelMap.ScrumPlanedHours}"><text default-value="${groovy:return custRequest.estimatedMilliSeconds/3600000}"/></field>
+        <field name="custSequenceNum"><display/></field>
+        <field name="estimatedHours" title="${uiLabelMap.ScrumPlanedHours}"><text default-value="${groovy:return custRequest.custEstimatedMilliSeconds/3600000}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
     <!-- Product -->
     <form name="EditProduct" type="single" target="createProductAndRole" default-map-name="product">
+        <actions>
+            <set field="supportDiscontinuationDate" from-field="supportDiscontinuationDate"/>
+            <set field="statusId" value="${groovy: if(supportDiscontinuationDate == null) return 'PRODUCT_ACTIVE' else return 'PRODUCT_CLOSED'}"/>
+        </actions>
         <alt-target use-when="product!=null" target="updateProduct"/>
         <field name="partyCompany"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.ScrumCompanyAndProductOwner}" tooltip="${uiLabelMap.ScrumCompanyNameShow} -- ${uiLabelMap.ScrumProductName}" event="onchange" action="javascrip:document.EditProduct.partyCompany.value=this.options[this.selectedIndex].text;" parameter-name="partyId" use-when="companyCurrent==null">
@@ -1481,7 +1485,6 @@
                 <list-options list-name="scrumRolesPersonAndCompanyList" description="${groupName}[${partyIdFrom}] - ${lastName} ${firstName} ${middleName}" key-name="partyId"/>
             </drop-down>
         </field> 
-        <field name="statusId" use-when="product==null"><hidden value="PRODUCT_ACTIVE"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="product!=null">
             <drop-down>
                 <entity-options description="${description}" entity-name="StatusItem">
@@ -1540,17 +1543,19 @@
                 <field-map field-name="partyIdFrom" from-field="productComRole[0].partyId"/>
                 <field-map field-name="partyId" from-field="productRole[0].partyId"/>
             </entity-and>
+            <set field="supportDiscontinuationDate" from-field="product.supportDiscontinuationDate"/>
+            <set field="statusMap.statusId" value="${groovy: if(supportDiscontinuationDate == null) return 'PRODUCT_ACTIVE' else return 'PRODUCT_CLOSED'}"/>
         </actions>
         <field name="productOwerId" title="${uiLabelMap.ScrumCompanyAndProductOwner}">
             <hyperlink target="viewprofile" description="${parties[0].groupName} -- ${parties[0].lastName} ${parties[0].firstName} ${parties[0].middleName}">
                 <parameter param-name="partyId" from-field="productRole[0].partyId"/>
             </hyperlink>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="product!=null">
+        <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="product!=null" map-name="statusMap">
             <display-entity entity-name="StatusItem" description="${description}"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ScrumProductName}"><display description="${product.internalName} [${product.productId}]"/></field>
-        <field name="longDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="longDescription" title="${uiLabelMap.CommonDescription}"><display /></field>
         <field name="productTypeId"><hidden value="SCRUM_ITEM"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" use-when="product==null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -1634,8 +1639,7 @@
                 <field-map field-name="productId" from-field="productId"/>
             </entity-one>
             <set field="longDescription" from-field="product.longDescription"/>
-            <set field="statusId" from-field="product.statusId"/>
-            
+            <set field="statusId" value="${groovy: if(product.supportDiscontinuationDate == null) return 'PRODUCT_ACTIVE' else return 'PRODUCT_CLOSED'}"/>
             <entity-and entity-name="PartyRelationshipAndPartyDetail" list="company">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
@@ -1688,7 +1692,7 @@
         </form>
         <form name="FindProduct" type="single" target="EditProduct">
             <field name="productId"><text></text></field>
-            <field name="internalName" title="${uiLabelMap.ScrumProductName}"><text-find/></field>
+            <field name="internalName" title="${uiLabelMap.ScrumProductName}"><text/></field>
             <field name="statusId" parameter-name="statusId">
                 <drop-down allow-empty="false">
                     <option key="Any" description="${uiLabelMap.CommonAny}"/>
@@ -1721,8 +1725,7 @@
              </entity-one>
              <set field="internalName" from-field="product.internalName"/>
              <set field="longDescription" from-field="product.longDescription"/>
-             <set field="statusId" from-field="product.statusId"/>
-             
+             <set field="statusId" value="${groovy: if(product.supportDiscontinuationDate == null) return 'PRODUCT_ACTIVE' else return 'PRODUCT_CLOSED'}"/>
              <entity-and entity-name="PartyRelationshipAndPartyDetail" list="company">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
@@ -1882,7 +1885,7 @@
         <field name="productId" title="${uiLabelMap.ScrumProductName}">
             <drop-down>
                 <entity-options description="${groupName} -- ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
-                    <entity-constraint name="statusId" value="PRODUCT_ACTIVE"/>
+                    <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
                     <entity-constraint name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="internalName"/>
@@ -1905,7 +1908,7 @@
             <set field="statusId" from-field="custRequest.statusId"/>
             <set field="openDateTime" from-field="custRequest.openDateTime"/>
             <set field="closedDateTime" from-field="custRequest.closedDateTime"/>
-            <set field="estimatedMilliSeconds" from-field="custRequest.estimatedMilliSeconds" type="String"></set>
+            <set field="custEstimatedMilliSeconds" from-field="custRequest.custEstimatedMilliSeconds" type="String"></set>
             <entity-and entity-name="CustRequestNoteView" list="custRequestNotes">
                 <field-map field-name="custRequestId" from-field="custRequestId"/>
                 <field-map field-name="noteName" value="How to test"/>
@@ -1971,9 +1974,9 @@
                 <parameter param-name="sprintId" from-field="workEffortlist[0].workEffortId"/>
             </hyperlink>
         </field>
-        <field name="estimated" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}"><display description="${custRequest.estimatedMilliSeconds/3600000}"/></field>
+        <field name="estimated" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}"><display description="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
         <field name="actualHours"><display description="${actualHours}"/></field>
-        <field name="sequenceNum"><display description="${custRequest.sequenceNum}"/></field>
+        <field name="custSequenceNum"><display description="${custRequest.custSequenceNum}"/></field>
         <field name="billed"><display description="${custRequest.billed}"/></field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumUnplanBacklog}">
             <display description="${custRequestType}"/>
@@ -1991,10 +1994,10 @@
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="description" from-field="custRequest.description"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
-            <set field="estimatedHours" value="${groovy:estimatedMilliSeconds!=null?estimatedMilliSeconds/3600000:0;}"/>
+            <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
         </row-actions>
-        <field name="sequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
+        <field name="custSequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
         <field name="custRequestId" position="2" title="${uiLabelMap.ScrumProductBacklogItem}">
             <hyperlink target="ViewProdBacklogItem" description="${description} [${custRequestId}]">
                 <parameter param-name="custRequestId"/>
@@ -2010,7 +2013,7 @@
         <field name="parentCustRequestId" position="2" title="${uiLabelMap.ScrumCategory}">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
         </field>
-        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display description="${estimatedMilliSeconds/1000/60/60}"/></field>
+        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display description="${custEstimatedMilliSeconds/1000/60/60}"/></field>
         <field name="billed" position="2" ><display></display></field>
         <field name="custRequestDate" position="2" title="${uiLabelMap.ScrumRequestDate}"><display/></field>
         <field name="fromPartyId" position="2" title="${uiLabelMap.ScrumRequesterName}">
@@ -2024,7 +2027,7 @@
         <row-actions>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="description" from-field="custRequest.description"/>
-            <set field="estimatedHours" value="${groovy:estimatedMilliSeconds!=null?estimatedMilliSeconds/3600000:0;}"/>
+            <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}" type="Boolean"/>
         </row-actions>
         <field name="productId" title="${uiLabelMap.PageTitleProduct}" position="1" use-when="showPosition1">
@@ -2034,7 +2037,7 @@
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="sequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
+        <field name="custSequenceNum" position="2" title="${uiLabelMap.ScrumSeq}"><display/></field>
         <field name="custRequestId" position="2" title="${uiLabelMap.ScrumProductBacklogItem}">
             <hyperlink target="ViewProdBacklogItem" description="${description} [${custRequestId}]">
                 <parameter param-name="custRequestId"/>
@@ -2047,7 +2050,7 @@
         <field name="parentCustRequestId" position="2" title="${uiLabelMap.ScrumCategory}">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
         </field>
-        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display description="${estimatedMilliSeconds/1000/60/60}"/></field>
+        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display description="${custEstimatedMilliSeconds/1000/60/60}"/></field>
         <field name="billed" position="2" ><display></display></field>
         <field name="custRequestDate" position="2" title="${uiLabelMap.ScrumRequestDate}"><display type="date"/></field>
     </form>
@@ -2354,7 +2357,7 @@
                 <field-map field-name="sprintId" from-field="nullField"/>
             </service>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
-            <set field="hoursLeft" value="${custRequest.estimatedMilliSeconds/1000/60/60 - resultMap.planHours}"/>
+            <set field="hoursLeft" value="${custRequest.custEstimatedMilliSeconds/1000/60/60 - resultMap.planHours}"/>
         </actions>
         <alt-target use-when="task!=null" target="createTaskForSprintBacklog"/>
         <field name="id"><hidden/></field>
@@ -2413,6 +2416,8 @@
                 else 
                     productTartget = &quot;ViewProduct&quot;
                 }"/>
+            <set field="supportDiscontinuationDate" from-field="supportDiscontinuationDate"/>
+            <set field="statusId" value="${groovy: if(supportDiscontinuationDate == null) return 'PRODUCT_ACTIVE' else return 'PRODUCT_CLOSED'}"/>
         </row-actions>
         <field name="isCurrentCompany"><hidden/></field>
         <field name="partyId"><hidden/></field>
@@ -2787,12 +2792,36 @@
         <field name="taskEstimatedStartDate" title="${uiLabelMap.CommonStartDate}" parameter-name="estimatedStartDate"><display type="date"/></field>
     </form>
     <form name="EditDeleteBacklogItem" type="single" target="deleteBacklogItem?custRequestId=${parameters.custRequestId}&amp;productId=${parameters.productId}">
+        <actions>
+            <service service-name="getScrumActualHour" result-map="resultMap">
+                <field-map field-name="custRequestId" from-field="custRequestId"/>
+            </service>
+            <set field="actualHours" from-field="resultMap.actualHours" default-value="0" type="Double"/>
+            <set field="actualHoursMessage" value="${groovy: 
+                if (actualHours > 0)
+                    actualHoursMessage = &quot;There are already &quot;+ actualHours +&quot; hours have been spent on this backlog item, Are you sure you want to delete?&quot;
+                else
+                    actualHoursMessage = &quot;Are you sure to delete selected product backlog item(s)?&quot;
+                }"/>
+        </actions>
         <field name="reason"><textarea/> </field>
-        <field name="buttonSubmit" title="${uiLabelMap.CommonSave}"><submit request-confirmation="true" confirmation-message="Are you sure you want to delete this product backlog item(s)?"/> </field>
+        <field name="buttonSubmit" title="${uiLabelMap.CommonSave}" ><submit request-confirmation="true" confirmation-message="${actualHoursMessage}"/> </field>
     </form>
     <form name="DeleteProductBacklogItem" type="single" target="deleteProductBacklogItem?productId=${parameters.productId}&amp;custRequestId=${parameters.custRequestId}&amp;statusId=${parameters.statusId}">
+        <actions>
+            <service service-name="getScrumActualHour" result-map="resultMap">
+                <field-map field-name="custRequestId" from-field="custRequestId"/>
+            </service>
+            <set field="actualHours" from-field="resultMap.actualHours" default-value="0" type="Double"/>
+            <set field="actualHoursMessage" value="${groovy: 
+                if (actualHours > 0)
+                    actualHoursMessage = &quot;There are already &quot;+ actualHours +&quot; hours have been spent on this backlog item, Are you sure you want to delete?&quot;
+                else
+                    actualHoursMessage = &quot;Are you sure to delete selected product backlog item(s)?&quot;
+                }"/>
+        </actions>
         <field name="reason"><textarea/> </field>
-        <field name="buttonSubmit" title="${uiLabelMap.CommonSave}" ><submit request-confirmation="true" confirmation-message="Are you sure you want to delete this product backlog item(s)?"/> </field>
+        <field name="buttonSubmit" title="${uiLabelMap.CommonSave}" ><submit request-confirmation="true" confirmation-message="${actualHoursMessage}"/> </field>
     </form>
     <form name="ViewBacklogStatus" type="list" extends="ViewRequestStatus" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -2821,7 +2850,7 @@
             widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
                 <entity-options description="${groupName} -- ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
-                    <entity-constraint name="statusId" value="PRODUCT_ACTIVE"/>
+                    <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
                     <entity-constraint name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="internalName"/>
@@ -2839,9 +2868,9 @@
                 <list-options key-name="custRequestId" list-name="categoryList" description="[${productId}] : ${internalName} -- [${custRequestId}] : ${custRequestName}"/>
             </drop-down>
         </field>
-        <field name="estimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}"><text size="3"></text></field>
+        <field name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}"><text size="3"></text></field>
         <field name="story" title="${uiLabelMap.ScrumStory}" ><textarea  rows="4" cols="60"/></field>
-        <field name="sequenceNum"><hidden value="1"/></field>
+        <field name="custSequenceNum"><hidden value="1"/></field>
         <field name="noteInfo" title="${uiLabelMap.ScrumHowToTest}" ><textarea  rows="4" cols="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -2900,7 +2929,7 @@
         <row-actions>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="product" from-field="custRequest.description"/>
-            <set field="estimatedHours" value="${groovy:estimatedMilliSeconds!=null?estimatedMilliSeconds/3600000:0;}"/>
+            <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
         </row-actions>
         <field name="UnplannedSequence"><hidden value="Y"/></field>
@@ -2971,7 +3000,7 @@
             </service>
             <set field="taskActualHours" from-field="result.actualHours"/>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
-            <set field="defaultBacklogPlanHours" value="${custRequest.estimatedMilliSeconds/3600000}"/>
+            <set field="defaultBacklogPlanHours" value="${custRequest.custEstimatedMilliSeconds/3600000}"/>
             <set field="initialPlannedHours" from-field="defaultBacklogPlanHours"/>
             <entity-and entity-name="CustRequestItem" list="custRequestItems">
                 <field-map field-name="custRequestId" from-field="custRequestId"/>
@@ -3108,7 +3137,7 @@
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
             <set field="description" from-field="custRequest.description"/>
             <set field="custRequestCategoryGroupId" from-field="parentCustRequestId"/>
-            <set field="estimatedHours" value="${groovy:estimatedMilliSeconds!=null?estimatedMilliSeconds/3600000:0;}"/>
+            <set field="estimatedHours" value="${groovy:custEstimatedMilliSeconds!=null?custEstimatedMilliSeconds/3600000:0;}"/>
             <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;parentCustRequestId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(parentCustRequestId)));}" type="Boolean"/>
         </row-actions>
         <!--<field name="custRequestCategoryGroupId" position="1" use-when="${groovy:showPosition1}" title="${uiLabelMap.ScrumCategory}">
@@ -3137,7 +3166,7 @@
                 <field-map field-name="sprintId" from-field="nullField"/>
             </service>
             <entity-one entity-name="CustRequest" value-field="custRequest"/>
-            <set field="hoursLeft" value="${custRequest.estimatedMilliSeconds/1000/60/60 - resultMap.planHours}"/>
+            <set field="hoursLeft" value="${custRequest.custEstimatedMilliSeconds/1000/60/60 - resultMap.planHours}"/>
         </actions>
         <alt-target use-when="task!=null" target="createTaskForUnplanBacklog?productId=${parameters.productId}"/>
         <field name="id"><ignored/></field>
@@ -3170,7 +3199,7 @@
         <field name="productId" title="${uiLabelMap.ScrumProductName}">
             <drop-down>
                 <entity-options description="${groupName} -- ${internalName}[${productId}]" entity-name="ProductAndRole" key-field-name="productId">
-                    <entity-constraint name="statusId" value="PRODUCT_ACTIVE"/>
+                    <entity-constraint name="supportDiscontinuationDate" operator="equals" value=""/>
                     <entity-constraint name="roleTypeId" value="PRODUCT_OWNER_COMP"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="internalName"/>

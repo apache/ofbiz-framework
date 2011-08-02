@@ -349,7 +349,7 @@
                 <condition-list combine="and">
                     <condition-expr field-name="thruDate" value="" operator="equals"/>
                     <condition-expr field-name="productId" operator="equals" from-field="productId"/>
-                    <condition-expr field-name="statusId" operator="equals" value="PRODUCT_ACTIVE"/>
+                    <condition-expr field-name="supportDiscontinuationDate" operator="equals" value=""/>
                     <condition-list combine="or">
                         <condition-expr field-name="roleTypeId" value="SCRUM_TEAM" operator="not-equals"/>
                         <condition-expr field-name="roleTypeId" value="SCRUM_MASTER" operator="not-equals"/>

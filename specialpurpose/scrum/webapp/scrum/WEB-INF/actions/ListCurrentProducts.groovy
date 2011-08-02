@@ -48,7 +48,11 @@ if (userLogin) {
         paramCond.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, "%" + internalName + "%"));
     }
     if(UtilValidate.isNotEmpty(statusId)){
-        paramCond.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
+        if ("PRODUCT_ACTIVE".equals(statusId)) {
+            paramCond.add(EntityCondition.makeCondition("supportDiscontinuationDate", EntityOperator.EQUALS, null));
+        } else {
+             paramCond.add(EntityCondition.makeCondition("supportDiscontinuationDate", EntityOperator.NOT_EQUAL, null));
+        }
     }
     
     paramCond.add(EntityCondition.makeCondition("productTypeId", EntityOperator.EQUALS, "SCRUM_ITEM"));
@@ -109,7 +113,7 @@ if (userLogin) {
                    //check in product.
                     if (ismember == false) {
                         productAndRoleList = delegator.findByAnd("ProductAndRole", ["productId" : product.productId, "partyId" : userLogin.partyId
-                            , "roleTypeId" : "STAKEHOLDER", "statusId" : "PRODUCT_ACTIVE", "thruDate" : null]);
+                            , "roleTypeId" : "STAKEHOLDER", "supportDiscontinuationDate" : null, "thruDate" : null]);
                         if (productAndRoleList) {
                             ismember = true;
                         }
@@ -118,7 +122,7 @@ if (userLogin) {
                     //check in product.
                     productRoleList = [];
                     productRoleList = delegator.findByAnd("ProductAndRole", ["productId" : product.productId, "partyId" : userLogin.partyId
-                        , "roleTypeId" : "SCRUM_MASTER", "statusId" : "PRODUCT_ACTIVE", "thruDate" : null]);
+                        , "roleTypeId" : "SCRUM_MASTER", "supportDiscontinuationDate" : null, "thruDate" : null]);
                     if (productRoleList) {
                         ismember = true;
                     }

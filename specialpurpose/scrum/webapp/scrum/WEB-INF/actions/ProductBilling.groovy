@@ -75,13 +75,17 @@ if ("N".equals(includeMeeting)) {
 // get sprint task list
 def sprintTasks = delegator.findList("ProjectSprintBacklogTaskAndTimeEntryTimeSheet", EntityCondition.makeCondition(taskConds), null, null, null, false);
 
+// get cancelled backlog task list
+def cancelledBacklogTasks = delegator.findList("CancelledBacklogsTaskAndTimeEntryTimeSheet", EntityCondition.makeCondition(taskConds), null, null, null, false);
+
 // get unplanned task list
 def unplannedTasks = delegator.findList("UnPlannedBacklogsTaskAndTimeEntryTimeSheet", EntityCondition.makeCondition(taskConds), null, null, null, false);
 
 def hoursNotYetBilledTasks = [];
 hoursNotYetBilledTasks.addAll(sprintTasks);
+hoursNotYetBilledTasks.addAll(cancelledBacklogTasks);
 hoursNotYetBilledTasks.addAll(unplannedTasks);
-context.hoursNotYetBilledTasks = UtilMisc.sortMaps(hoursNotYetBilledTasks, ["custRequestId","fromDate"])
+context.hoursNotYetBilledTasks = UtilMisc.sortMaps(hoursNotYetBilledTasks, ["productId","custRequestId","taskId","fromDate"])
 
 // get time entry date
 timeEntryList = UtilMisc.sortMaps(hoursNotYetBilledTasks, ["fromDate"])
