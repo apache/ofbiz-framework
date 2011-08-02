@@ -747,7 +747,10 @@ public class InvoiceServices {
             }
 
             // check for previous order payments
-            List<GenericValue> orderPaymentPrefs = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
+            List<EntityExpr> paymentPrefConds = UtilMisc.toList(
+                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
+                    EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
+            List<GenericValue> orderPaymentPrefs = delegator.findList("OrderPaymentPreference", EntityCondition.makeCondition(paymentPrefConds, EntityOperator.AND), null, null, null, false);
             List<GenericValue> currentPayments = FastList.newInstance();
             for (GenericValue paymentPref : orderPaymentPrefs) {
                 List<GenericValue> payments = paymentPref.getRelated("Payment");
@@ -755,6 +758,9 @@ public class InvoiceServices {
             }
             // apply these payments to the invoice if they have any remaining amount to apply
             for (GenericValue payment : currentPayments) {
+                if ("PMNT_VOID".equals(payment.getString("statusId")) || "PMNT_CANCELLED".equals(payment.getString("statusId"))) {
+                    continue;
+                }
                 BigDecimal notApplied = PaymentWorker.getPaymentNotApplied(payment);
                 if (notApplied.signum() > 0) {
                     Map<String, Object> appl = FastMap.newInstance();
