@@ -367,8 +367,6 @@ under the License.
     <!-- Content Types -->
     <OrderContentType description="Image" hasTable="N" parentTypeId="" orderContentTypeId="IMAGE_URL"/>
 
-    <WebSite webSiteId="OrderEntry" siteName="Order Entry Web Site" visualThemeSetId="BACKOFFICE"/>
-
     <EmailTemplateSetting
         emailTemplateSettingId="CUST_REQ_ACCEPTED"
         bodyScreenLocation="component://order/widget/ordermgr/CustRequestScreens.xml#CreateCustRequestNotification"
