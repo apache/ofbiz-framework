@@ -194,7 +194,7 @@ under the License.
     <request-map uri="updateInvoiceItem">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateInvoiceItem"/>
-        <response name="success" type="view" value="listInvoiceItems"/>
+        <response name="success" type="request-redirect" value="listInvoiceItems"/>
         <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>
     <request-map uri="removeInvoiceItem">
