@@ -308,22 +308,23 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="NIRL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="GBR" geoId="WALS"/>
 
-    <GeoWithState geoId="DEU" showStateList="1"/>
-    <GeoWithState geoId="GBR" showStateList="1"/>
-    <GeoWithState geoId="ENGL" showStateList="1"/>
-    <GeoWithState geoId="NIRL" showStateList="1"/>
-    <GeoWithState geoId="WALS" showStateList="1"/>
-    <GeoWithState geoId="SCOT" showStateList="1"/>
-    <GeoWithState geoId="USA" showStateList="1"/>
-    <GeoWithState geoId="CAN" showStateList="1"/>
-    <GeoWithState geoId="AUS" showStateList="1"/>
-    <GeoWithState geoId="BGR" showStateList="1"/>
-    <GeoWithState geoId="BRA" showStateList="1"/>
-    <GeoWithState geoId="CHN" showStateList="1"/>
-    <GeoWithState geoId="COL" showStateList="1"/>
-    <GeoWithState geoId="MEX" showStateList="1"/>
-    <GeoWithState geoId="NLD" showStateList="1"/>
-    <GeoWithState geoId="POL" showStateList="1"/>
-    <GeoWithState geoId="IND" showStateList="1"/>
-    <GeoWithState geoId="ITA" showStateList="1"/>
+    <CountryAddressFormat geoId="DEU" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="GBR" stateProvinceGeoAssocTypeId="GROUP_MEMBER" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="ENGL" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="NIRL" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="WALS" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="SCOT" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="USA" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="CAN" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="AUS" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="BGR" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="BRA" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="CHN" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="COL" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="MEX" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="NLD" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="POL" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="IND" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="ITA" stateProvinceGeoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="FRA" stateProvinceGeoAssocTypeId="null" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
 </entity-engine-xml>
