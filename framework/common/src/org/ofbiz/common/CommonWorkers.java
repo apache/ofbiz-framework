@@ -113,8 +113,6 @@ public class CommonWorkers {
             country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         }
 
-        EntityCondition stateRegionFindCond = EntityCondition.makeCondition(EntityCondition.makeCondition("geoIdFrom", country));
-
         if (UtilValidate.isEmpty(listOrderBy)) {
             listOrderBy = "geoId";
         }
@@ -122,16 +120,20 @@ public class CommonWorkers {
 
         List<GenericValue> geoList = FastList.newInstance();
         try {
+            // Check if the country is a country group and get recursively the
+            // states
+            EntityCondition stateRegionFindCond = EntityCondition.makeCondition(EntityCondition.makeCondition("geoIdFrom", country), EntityCondition.makeCondition("geoAssocTypeId", "GROUP_MEMBER"), EntityCondition.makeCondition("geoTypeId", "GROUP"));
             List<GenericValue> regionList = delegator.findList("GeoAssocAndGeoToWithState", stateRegionFindCond, null, sortList, null, true);
-            for (GenericValue region : regionList) {
-                if ("GROUP_MEMBER".equals(region.getString("geoAssocTypeId")) && "GROUP".equals(region.getString("geoTypeId")) && regionList.size() == 1) {
-                    List<GenericValue> tmpState = delegator.findList("GeoAssocAndGeoToWithState", EntityCondition.makeCondition("geoId", region.getString("geoIdFrom")), null, sortList, null, true);
+            if (regionList.size() == 1) {
+                for (GenericValue region : regionList) {
+                    List<GenericValue> tmpState = delegator.findList("GeoAssocAndGeoTo", EntityCondition.makeCondition("geoId", region.getString("geoIdFrom")), null, sortList, null, true);
                     for (GenericValue state : tmpState) {
                         geoList.addAll(getAssociatedStateList(delegator, state.getString("geoIdFrom"), listOrderBy));
                     }
                 }
             }
 
+            // get all related states
             EntityCondition stateProvinceFindCond = EntityCondition.makeCondition(
                     EntityCondition.makeCondition("geoIdFrom", country),
                     EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
