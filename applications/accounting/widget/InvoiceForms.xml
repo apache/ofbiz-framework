@@ -139,7 +139,7 @@ under the License.
         <field name="currencyUomId"><hidden/></field>
     </form>
 
-    <form name="invoiceItems" list-name="invoiceItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview"
+    <form name="invoiceItems" list-name="invoiceItems" target="" title="" type="list" separate-columns="true" paginate-target="invoiceOverview" paginate-size-field="invoiceItems_size" paginate-index-field="invoiceItems_index"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="total" value="${bsh:
@@ -209,7 +209,7 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="amountApplied" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
     </form>
-    <form name="AcctgTransAndEntries" type="list" title="Accounting Transactions" list-name="AcctgTransAndEntries"
+    <form name="AcctgTransAndEntries" type="list" title="Accounting Transactions" list-name="AcctgTransAndEntries" paginate-size-field="AcctgTransAndEntries_size" paginate-index-field="AcctgTransAndEntries_index" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>

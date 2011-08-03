@@ -996,10 +996,6 @@ under the License.
     <WorkEffort workEffortId="_NA_"/>
     <EmplPositionType emplPositionTypeId="_NA_"/>
 
-    <WebSite webSiteId="ACCOUNTING" siteName="Accounting Manager" visualThemeSetId="BACKOFFICE"/>
-    <WebSite webSiteId="ACCOUNTING_P" siteName="Account Payable Manager" visualThemeSetId="BACKOFFICE"/>
-    <WebSite webSiteId="ACCOUNTING_R" siteName="Account Receivable Manager" visualThemeSetId="BACKOFFICE"/>
-
     <!-- Points of Title Transfer -->
     <EnumerationType description="Points of Title Transfer" enumTypeId="PTSOFTTFR" hasTable="N" parentTypeId=""/>
     <Enumeration description="Desination" enumCode="DEST" enumId="POTT_DEST" sequenceId="01" enumTypeId="PTSOFTTFR"/>
