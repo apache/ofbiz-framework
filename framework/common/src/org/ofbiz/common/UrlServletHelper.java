@@ -260,6 +260,7 @@ public class UrlServletHelper extends ContextFilter {
         str = str.replace("。", "-");
         str = str.replace("‘", "-");
         str = str.replace("？", "-");
+        str = str.replace("–", "");
         while(str.startsWith("-")){
             str = str.substring(1);
         }
