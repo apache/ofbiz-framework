@@ -1328,29 +1328,62 @@
                 <select-field field-name="contentIdStart"/>
                 <select-field field-name="dataResourceId"/>
                 <select-field field-name="localeString"/>
+                <select-field field-name="drObjectInfo"/>
                 <select-field field-name="caFromDate"/>
                 <select-field field-name="caThruDate"/>
             </entity-condition>
             <filter-list-by-date list="contentAssocDataResources" from-field-name="caFromDate" thru-field-name="caThruDate"/>
             <if-empty field="contentAssocDataResources">
                 <if-not-empty field="content.contentName">
-                    <set field="createSimpleTextContentContext.localeString" from-field="localeString"/>
-                    <set field="createSimpleTextContentContext.text" from-field="content.contentName"/>
-                    <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextContentContext" include-user-login="true" break-on-error="false">
-                        <result-to-field result-name="contentId" field="contentIdTo"/>
-                    </call-service>
-                    <if-not-empty field="contentIdTo">
-                        <set field="createContentAssocCtx.contentId" from-field="content.contentId"/>
-                        <set field="createContentAssocCtx.contentIdTo" from-field="contentIdTo"/>
-                        <set field="createContentAssocCtx.contentAssocTypeId" value="ALTERNATIVE_URL"/>
-                        <call-service service-name="createContentAssoc" in-map-name="createContentAssocCtx" include-user-login="true" break-on-error="false"/>
+                    <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="uri">
+                        <field field="content.contentName"/>
+                    </call-class-method>
+                    <if-not-empty field="uri">
+                        <sequenced-id sequence-name="DataResource" field="dataResourceCtx.dataResourceId"/>
+                        <set field="dataResourceCtx.dataResourceTypeId" value="URL_RESOURCE"/>
+                        <set field="dataResourceCtx.localeString" from-field="localeString"/>
+                        <set field="dataResourceCtx.objectInfo" value="/${uri}-${content.contentId}-content"/>
+                        <set field="dataResourceCtx.statusId" value="CTNT_IN_PROGRESS"/>
+                        <call-service service-name="createDataResource" in-map-name="dataResourceCtx" break-on-error="false" include-user-login="true">
+                            <result-to-field result-name="dataResourceId" field="dataResourceId"/>
+                        </call-service>
+                        <if-not-empty field="dataResourceId">
+                            <set field="contentCtx.dataResourceId" from-field="dataResourceId"/>
+                            <set field="contentCtx.statusId" value="CTNT_IN_PROGRESS"/>
+                            <set field="contentCtx.localeString" from-field="localeString"/>
+                            <call-service service-name="createContent" in-map-name="contentCtx" break-on-error="false" include-user-login="true">
+                                <result-to-field result-name="contentId" field="contentIdTo"/>
+                            </call-service>
+                            <if-not-empty field="contentIdTo">
+                                <set field="createContentAssocCtx.contentId" from-field="content.contentId"/>
+                                <set field="createContentAssocCtx.contentIdTo" from-field="contentIdTo"/>
+                                <set field="createContentAssocCtx.contentAssocTypeId" value="ALTERNATIVE_URL"/>
+                                <call-service service-name="createContentAssoc" in-map-name="createContentAssocCtx" include-user-login="true" break-on-error="false"/>
+                            </if-not-empty>
+                        </if-not-empty>
+                        <set field="contentCreated" value="Y"/>
+                        <field-to-result field="contentCreated" result-name="contentCreated"/>
                     </if-not-empty>
-                    <set field="contentCreated" value="Y"/>
-                    <field-to-result field="contentCreated" result-name="contentCreated"/>
                 </if-not-empty>
             <else>
-                <set field="contentCreated" value="N"/>
-                <field-to-result field="contentCreated" result-name="contentCreated"/>
+                <if-empty field="contentAssocDataResources[0].drObjectInfo">
+                    <if-not-empty field="content.contentName">
+                        <call-class-method method-name="invalidCharacter" class-name="org.ofbiz.common.UrlServletHelper" ret-field="uri">
+                            <field field="content.contentName"/>
+                        </call-class-method>
+                        <if-not-empty field="uri">
+                            <set field="dataResourceCtx.dataResourceId" from-field="contentAssocDataResources[0].dataResourceId"/>
+                            <set field="dataResourceCtx.objectInfo" value="/${uri}-${content.contentId}-content"/>
+                            <call-service service-name="updateDataResource" in-map-name="dataResourceCtx" break-on-error="false" include-user-login="true"/>
+                            <set field="contentCreated" value="Y"/>
+                            <field-to-result field="contentCreated" result-name="contentCreated"/>
+                        </if-not-empty>
+                    </if-not-empty>
+                <else>
+                    <set field="contentCreated" value="N"/>
+                    <field-to-result field="contentCreated" result-name="contentCreated"/>
+                </else>
+                </if-empty>
             </else>
             </if-empty>
         </iterate>

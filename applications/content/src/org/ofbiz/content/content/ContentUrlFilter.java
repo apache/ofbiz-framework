@@ -20,7 +20,6 @@
 package org.ofbiz.content.content;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.webapp.control.ContextFilter;
+import org.owasp.esapi.errors.EncodingException;
 
 public class ContentUrlFilter extends ContextFilter {
     public final static String module = ContentUrlFilter.class.getName();
@@ -68,24 +69,16 @@ public class ContentUrlFilter extends ContextFilter {
         StringBuffer pathInfoBuffer = UtilHttp.getFullRequestUrl(httpRequest);
         String pathInfo = pathInfoBuffer.toString();
         if (UtilValidate.isNotEmpty(pathInfo)) {
-            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/") + 1);
+            String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/"));
             if (alternativeUrl.endsWith("-content")) {
                 try {
-                    List<EntityCondition> expr = FastList.newInstance();
-                    expr.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "ALTERNATIVE_URL"));
-                    expr.add(EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null));
-                    Set<String> fieldsToSelect = UtilMisc.toSet("contentIdStart", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate");
-                    List<GenericValue> contentAssocDataResources = delegator.findList("ContentAssocDataResourceViewTo", EntityCondition.makeCondition(expr), fieldsToSelect, UtilMisc.toList("-caCreatedDate"), null, true);
-                    Iterator<GenericValue> contentAssocDateResourceIter = contentAssocDataResources.iterator();
-                    while (contentAssocDateResourceIter.hasNext()) {
-                        GenericValue contentAssocDateResource = contentAssocDateResourceIter.next();
-                        GenericValue electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", contentAssocDateResource.getString("dataResourceId")));
-                        if (UtilValidate.isEmpty(electronicText) || UtilValidate.isEmpty(electronicText.get("textData"))) {
-                            continue;
-                        }
-                        if (alternativeUrl.equalsIgnoreCase(UrlServletHelper.invalidCharacter(electronicText.getString("textData")) + "-" + contentAssocDateResource.getString("contentIdStart") + "-content")) {
-                            urlContentId = contentAssocDateResource.getString("contentIdStart");
-                            break;
+                    List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl));
+                    if (contentDataResourceViews.size() > 0) {
+                        GenericValue contentDataResourceView = EntityUtil.getFirst(contentDataResourceViews);
+                        List<GenericValue> contents = EntityUtil.filterByDate(delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId"))));
+                        if (contents.size() > 0) {
+                            GenericValue content = EntityUtil.getFirst(contents);
+                            urlContentId = content.getString("contentId");
                         }
                     }
                 } catch (Exception e) {
@@ -123,19 +116,15 @@ public class ContentUrlFilter extends ContextFilter {
             expr.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "ALTERNATIVE_URL"));
             expr.add(EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null));
             expr.add(EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS, contentId));
-            Set<String> fieldsToSelect = UtilMisc.toSet("contentIdStart", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate");
-            List<GenericValue> contentAssocDataResources = delegator.findList("ContentAssocDataResourceViewTo", EntityCondition.makeCondition(expr), fieldsToSelect, UtilMisc.toList("-caCreatedDate"), null, true);
+            Set<String> fieldsToSelect = UtilMisc.toSet("contentIdStart", "drObjectInfo", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate");
+            List<GenericValue> contentAssocDataResources = delegator.findList("ContentAssocDataResourceViewTo", EntityCondition.makeCondition(expr), fieldsToSelect, UtilMisc.toList("-caFromDate"), null, true);
             if (contentAssocDataResources.size() > 0) {
                 GenericValue contentAssocDataResource = EntityUtil.getFirst(contentAssocDataResources);
-                GenericValue electronicText = delegator.findByPrimaryKey("ElectronicText", UtilMisc.toMap("dataResourceId", contentAssocDataResource.get("dataResourceId")));
-                if (UtilValidate.isNotEmpty(electronicText) || UtilValidate.isNotEmpty(electronicText.get("textData"))) {
-                    String textData = UrlServletHelper.invalidCharacter(electronicText.getString("textData")) + "-" + contentId + "-content";
-                    StringBuilder urlBuilder = new StringBuilder();
-                    urlBuilder.append(request.getSession().getServletContext().getContextPath());
-                    if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
-                        urlBuilder.append("/");
-                    }
-                    url = urlBuilder.append(textData).toString();
+                url = contentAssocDataResource.getString("drObjectInfo");
+                try {
+                    url = StringUtil.defaultWebEncoder.decodeFromURL(url);
+                } catch (EncodingException e) {
+                    Debug.logError(e, module);
                 }
             }
         } catch (Exception e) {
