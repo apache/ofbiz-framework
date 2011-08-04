@@ -279,11 +279,13 @@ public class WidgetWorker {
         writer.append("\">");
 
         for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
-            writer.append("<input name=\"");
-            writer.append(parameter.getKey());
-            writer.append("\" value=\"");
-            writer.append(parameter.getValue());
-            writer.append("\" type=\"hidden\"/>");
+            if (parameter.getValue() != null) {
+                writer.append("<input name=\"");
+                writer.append(parameter.getKey());
+                writer.append("\" value=\"");
+                writer.append(parameter.getValue());
+                writer.append("\" type=\"hidden\"/>");
+            }
         }
 
         writer.append("</form>");
