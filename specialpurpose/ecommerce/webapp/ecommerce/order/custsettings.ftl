@@ -17,6 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<p>
 <h3>${uiLabelMap.EcommerceYourNamePhoneAndEmail}</h3>
 <form id="editCustomerNamePhoneAndEmail" name="${parameters.formNameValue}" method="post" action="<@ofbizUrl>processCustomerSettings</@ofbizUrl>">
   <input type="hidden" name="partyId" value="${parameters.partyId?if_exists}"/>
@@ -119,8 +120,8 @@ under the License.
       </select>
     </span>
    </div>
-  </fieldset>
   <div class="buttons">
     <input type="submit" value="${uiLabelMap.CommonContinue}"/>
   </div>
+  </fieldset>
 </form>

@@ -21,7 +21,7 @@ function submitForm(form) {
    form.submit();
 }
 </script>
-<div class="buttons">
+<div>
     <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Personal Info</a>
     <#if (enableShippingAddress)?exists>
         <a href="<@ofbizUrl>setShipping</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Shipping Address</a>
