@@ -648,6 +648,10 @@
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh_TW">內容</value>
     </property>
+    <property key="ContentContents">
+        <value xml:lang="en">Contents</value>
+        <value xml:lang="fr">Contenus</value>
+    </property>
     <property key="ContentContentCreatingError">
         <value xml:lang="en">Error creating content in ${serviceName}</value>
         <value xml:lang="fr">Erreur de création du document dans le service ${serviceName}</value>
