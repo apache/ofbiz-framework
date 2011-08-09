@@ -261,7 +261,7 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="scheduleProject">
+            <link target="scheduleProject" request-confirmation="true" confirmation-message="${uiLabelMap.ProjectMgrConfirmationSchedule}">
                 <parameter param-name="projectId"/>
             </link>
         </menu-item>
@@ -288,7 +288,7 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="updateProject" request-confirmation="true" confirmation-message="Are you sure you want to close this project?">
+            <link target="updateProject" request-confirmation="true" confirmation-message="${uiLabelMap.ProjectMgrConfirmationClose}">
                 <parameter param-name="workEffortId" from-field="parameters.projectId"/>
                 <parameter param-name="currentStatusId" value="PRJ_CLOSED"/>
             </link>

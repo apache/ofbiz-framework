@@ -850,6 +850,14 @@
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目</value>
     </property>
+    <property key="ProjectMgrConfirmationClose">
+        <value xml:lang="en">Are you sure to close this project?</value>
+        <value xml:lang="fr">Etes vous sur de vouloir clôturer ce projet ?</value>
+    </property>
+    <property key="ProjectMgrConfirmationSchedule">
+        <value xml:lang="en">Are you sure to schedule this project?</value>
+        <value xml:lang="fr">Etes vous sûr de vouloir planifier ce projet ?</value>
+    </property>
     <property key="ProjectMgrContentList">
         <value xml:lang="de">Projektinhaltsliste</value>
         <value xml:lang="en">Project Content List</value>
