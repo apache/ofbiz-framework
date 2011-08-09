@@ -1363,7 +1363,7 @@
     <property key="ProjectMgrProjectId">
         <value xml:lang="de">Projekt ID</value>
         <value xml:lang="en">Project Id</value>
-        <value xml:lang="fr">Réf. de projet</value>
+        <value xml:lang="fr">N° de projet</value>
         <value xml:lang="it">Progetto</value>
         <value xml:lang="nl">ID</value>
         <value xml:lang="th">รหัสโปรเจค</value>
