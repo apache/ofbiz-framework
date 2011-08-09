@@ -122,7 +122,7 @@ under the License.
         <#else>
           <#assign product = orderItem.getRelatedOneCache("Product")?if_exists/> <#-- should always exist because of FK constraint, but just in case -->
           <td >
-            <a href="<@ofbizUrl fullPath="true">product?product_id=${orderItem.productId}</@ofbizUrl>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
+            <a href="<@ofbizCatalogAltUrl fullPath="true" secure="false" productId=orderItem.productId/>" class="linktext">${orderItem.productId} - ${orderItem.itemDescription?default("")}</a>
             <#if product?has_content>
               <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
                   [${uiLabelMap.OrderPieces}: ${product.piecesIncluded}]

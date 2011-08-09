@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.webapp.control.RequestHandler;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -53,11 +54,27 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
         return null;
     }
 
+    public boolean checkArg(Map args, String key, boolean defaultValue) {
+        if (!args.containsKey(key)) {
+            return defaultValue;
+        } else {
+            Object o = args.get(key);
+            if (o instanceof SimpleScalar) {
+                SimpleScalar s = (SimpleScalar) o;
+                return "true".equalsIgnoreCase(s.getAsString());
+            }
+            return defaultValue;
+        }
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, final Map args)
             throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
+        final boolean fullPath = checkArg(args, "fullPath", false);
+        final boolean secure = checkArg(args, "secure", false);
+
         return new Writer(out) {
             
             public void write(char[] cbuf, int off, int len) throws IOException {
@@ -79,6 +96,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                     
                     HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                     String url = "";
+                    StringBuilder newURL = new StringBuilder();
                     if (UtilValidate.isNotEmpty(productId)) {
                         url = CatalogUrlFilter.makeProductUrl(request, previousCategoryId, productCategoryId, productId);
                     } else {
@@ -88,7 +106,13 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         String searchString = getStringArg(args, "searchString");
                         url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                     }
-                    out.write(url);
+                    // make the link
+                    if (fullPath){
+                        String serverRootUrl = RequestHandler.getDefaultServerRootUrl(request, secure);
+                        newURL.append(serverRootUrl);
+                    }
+                    newURL.append(url);
+                    out.write(newURL.toString());
                 }
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());

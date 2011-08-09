@@ -23,13 +23,11 @@ under the License.
 </head>
 <body class="ecbody">
     <form name="tellafriend" action="<@ofbizUrl>emailFriend</@ofbizUrl>" method="post">
-      <#if requestParameters.productId?exists>
-        <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/product?product_id=${requestParameters.productId}</@ofbizUrl>" />
-      <#elseif requestParameters.categoryId?exists>
-        <input type="hidden" name="pageUrl" value="<@ofbizUrl fullPath="true" encode="false" secure="false">/category?category_id=${requestParameters.categoryId}</@ofbizUrl>" />
-      <#else>
-        <#assign cancel = "Y">
-      </#if>
+        <#if (requestParameters.productId)?exists || (requestParameters.productId)?exists>
+            <input type="hidden" name="pageUrl" value="<@ofbizCatalogAltUrl fullPath="true" secure="false" productCategoryId=requestParameters.categoryId!"" productId=requestParameters.productId!""/>" />
+        <#else>
+            <#assign cancel = "Y">
+        </#if>
       <#if !cancel?exists>
         <table>
           <tr>
