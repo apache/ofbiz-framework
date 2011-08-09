@@ -522,7 +522,7 @@ ${virtualVariantJavaScript?if_exists}
           <#-- show tell a friend details only in ecommerce application -->
           <div>&nbsp;</div>
           <div>
-              <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
+              <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}<#if categoryId?exists>&categoryId=${categoryId}/</#if></@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
           </div>
     
           <#if disFeatureList?exists && 0 &lt; disFeatureList.size()>
