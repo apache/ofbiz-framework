@@ -179,4 +179,29 @@ public class CatalogUrlServlet extends HttpServlet {
 
         return urlBuilder.toString();
     }
+
+    public static String makeCatalogUrl(String contextPath, List<String> crumb, String productId, String currentCategoryId, String previousCategoryId) {
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append(contextPath);
+        if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+            urlBuilder.append("/");
+        }
+        urlBuilder.append(CATALOG_URL_MOUNT_POINT);
+
+        if (UtilValidate.isNotEmpty(currentCategoryId)) {
+        	crumb = CategoryWorker.adjustTrail(crumb, currentCategoryId, previousCategoryId);
+            for (String trailCategoryId: crumb) {
+                if ("TOP".equals(trailCategoryId)) continue;
+                urlBuilder.append("/");
+                urlBuilder.append(trailCategoryId);
+            }
+        }
+
+        if (UtilValidate.isNotEmpty(productId)) {
+            urlBuilder.append("/p_");
+            urlBuilder.append(productId);
+        }
+
+        return urlBuilder.toString();
+    }
 }
