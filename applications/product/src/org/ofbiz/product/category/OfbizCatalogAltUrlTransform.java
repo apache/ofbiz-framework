@@ -20,11 +20,20 @@ package org.ofbiz.product.category;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+
+import org.ofbiz.base.util.template.FreeMarkerWorker;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.product.product.ProductContentWrapper;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 
 import freemarker.core.Environment;
@@ -87,34 +96,54 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
             
             public void close() throws IOException {
                 try {
-                Environment env = Environment.getCurrentEnvironment();
-                BeanModel req = (BeanModel) env.getVariable("request");
-                if (req != null) {
+                    Environment env = Environment.getCurrentEnvironment();
+                    BeanModel req = (BeanModel) env.getVariable("request");
                     String previousCategoryId = getStringArg(args, "previousCategoryId");
                     String productCategoryId = getStringArg(args, "productCategoryId");
                     String productId = getStringArg(args, "productId");
-                    
-                    HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                     String url = "";
-                    StringBuilder newURL = new StringBuilder();
-                    if (UtilValidate.isNotEmpty(productId)) {
-                        url = CatalogUrlFilter.makeProductUrl(request, previousCategoryId, productCategoryId, productId);
+                    
+                    Object prefix = env.getVariable("urlPrefix");
+                    String viewSize = getStringArg(args, "viewSize");
+                    String viewIndex = getStringArg(args, "viewIndex");
+                    String viewSort = getStringArg(args, "viewSort");
+                    String searchString = getStringArg(args, "searchString");
+                    if (req != null) {
+                        
+                        HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
+                        StringBuilder newURL = new StringBuilder();
+                        if (UtilValidate.isNotEmpty(productId)) {
+                            url = CatalogUrlFilter.makeProductUrl(request, previousCategoryId, productCategoryId, productId);
+                        } else {
+                            url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                        }
+                        // make the link
+                        if (fullPath){
+                            String serverRootUrl = RequestHandler.getDefaultServerRootUrl(request, secure);
+                            newURL.append(serverRootUrl);
+                        }
+                        newURL.append(url);
+                        out.write(newURL.toString());
+                    } else if (prefix != null) {
+                        Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
+                        LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
+                        Locale locale = (Locale) args.get("locale");
+                        if (UtilValidate.isNotEmpty(productId)) {
+                            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                            ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, "text/html");
+                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
+                        } else {
+                            GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
+                            CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, "text/html");
+                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                        }
+                        out.write(url.toString());
                     } else {
-                        String viewSize = getStringArg(args, "viewSize");
-                        String viewIndex = getStringArg(args, "viewIndex");
-                        String viewSort = getStringArg(args, "viewSort");
-                        String searchString = getStringArg(args, "searchString");
-                        url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                        out.write(buf.toString());
                     }
-                    // make the link
-                    if (fullPath){
-                        String serverRootUrl = RequestHandler.getDefaultServerRootUrl(request, secure);
-                        newURL.append(serverRootUrl);
-                    }
-                    newURL.append(url);
-                    out.write(newURL.toString());
-                }
                 } catch (TemplateModelException e) {
+                    throw new IOException(e.getMessage());
+                } catch (GenericEntityException e) {
                     throw new IOException(e.getMessage());
                 }
             }
