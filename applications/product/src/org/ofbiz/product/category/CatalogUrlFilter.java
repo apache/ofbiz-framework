@@ -341,16 +341,17 @@ public class CatalogUrlFilter extends ContextFilter {
         try {
             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
             CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
-            return makeCategoryUrl(delegator, wrapper, request.getSession().getServletContext().getContextPath(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+            List<String> trail = CategoryWorker.getTrail(request);
+            return makeCategoryUrl(delegator, wrapper, trail, request.getSession().getServletContext().getContextPath(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Cannot create category's URL for: " + productCategoryId, module);
             return redirectUrl;
         }
     }
 
-    public static String makeCategoryUrl(Delegator delegator, CategoryContentWrapper wrapper, String contextPath, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
-    	String url = "";
-    	StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL");
+    public static String makeCategoryUrl(Delegator delegator, CategoryContentWrapper wrapper, List<String> trail, String contextPath, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
+        String url = "";
+        StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL");
         
         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
             StringBuilder urlBuilder = new StringBuilder();
@@ -400,20 +401,23 @@ public class CatalogUrlFilter extends ContextFilter {
             
             url = urlBuilder.toString();
         } else {
-        	List<String> crumb = FastList.newInstance();
-        	String currentCategoryId = null;
-        	url = CatalogUrlServlet.makeCatalogUrl(contextPath, crumb, productId, currentCategoryId, previousCategoryId);
+            if(UtilValidate.isEmpty(trail)){
+                trail = FastList.newInstance();
+            }
+            url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }
-    	return url;
+        
+        return url;
     }
     
     public static String makeProductUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;
         try {
-	        GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
-	        ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
-	        url = makeProductUrl(delegator, wrapper, request.getSession().getServletContext().getContextPath(), previousCategoryId, productCategoryId, productId);
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
+            List<String> trail = CategoryWorker.getTrail(request);
+            url = makeProductUrl(delegator, wrapper, trail, request.getSession().getServletContext().getContextPath(), previousCategoryId, productCategoryId, productId);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Cannot create product's URL for: " + productId, module);
             return redirectUrl;
@@ -421,7 +425,7 @@ public class CatalogUrlFilter extends ContextFilter {
         return url;
     }
 
-    public static String makeProductUrl(Delegator delegator, ProductContentWrapper wrapper, String contextPath, String previousCategoryId, String productCategoryId, String productId) {
+    public static String makeProductUrl(Delegator delegator, ProductContentWrapper wrapper,List<String> trail, String contextPath, String previousCategoryId, String productCategoryId, String productId) {
         String url = "";
         StringWrapper alternativeUrl = wrapper.get("ALTERNATIVE_URL");
         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
@@ -440,9 +444,10 @@ public class CatalogUrlFilter extends ContextFilter {
             }
             url = urlBuilder.toString();
         } else {
-        	List<String> crumb = FastList.newInstance();
-        	String currentCategoryId = null;
-        	url = CatalogUrlServlet.makeCatalogUrl(contextPath, crumb, productId, currentCategoryId, previousCategoryId);
+            if(UtilValidate.isEmpty(trail)){
+                trail = FastList.newInstance();
+            }
+            url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }
         return url;
     }
