@@ -109,7 +109,6 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                     String viewSort = getStringArg(args, "viewSort");
                     String searchString = getStringArg(args, "searchString");
                     if (req != null) {
-                        
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                         StringBuilder newURL = new StringBuilder();
                         if (UtilValidate.isNotEmpty(productId)) {
@@ -131,11 +130,11 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         if (UtilValidate.isNotEmpty(productId)) {
                             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, "text/html");
-                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
+                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
                         } else {
                             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, "text/html");
-                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
                         out.write(url.toString());
                     } else {
