@@ -549,7 +549,7 @@
         </field>
         <field name="taskDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}"><display type="date"/></field>
+        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
         <field name="estimatedCompletionDate"><display type="date"/></field>
         <field name="actualStartDate"><display type="date"/></field>
