@@ -129,8 +129,6 @@ under the License.
     <VisualThemeSet visualThemeSetId="BACKOFFICE" description="Themes to be used for backoffice applications"/>
     <VisualThemeSet visualThemeSetId="ECOMMERCE"  description="Themes to be used for ECommerce applications"/>
 
-    <WebSite webSiteId="WEBTOOLS" siteName="Web Tools" visualThemeSetId="BACKOFFICE"/>
-
     <!-- Uom Conversion Purposes -->
     <EnumerationType enumTypeId="CONVERSION_PURPOSE" description="Conversion Purpose"/>
     <Enumeration enumId="INTERNAL_CONVERSION" enumTypeId="CONVERSION_PURPOSE" enumCode="INTERNAL" sequenceId="10" description="Internal Conversion"/>

@@ -47,6 +47,4 @@ under the License.
     <CustomMethodType customMethodTypeId="TASK_FORMULA" description="Formula for calculating time estimates for tasks"/>
     <CustomMethodType customMethodTypeId="BOM_FORMULA" description="Formula for calculating material estimates for boms"/>
 
-    <WebSite webSiteId="MANUFACTURING" siteName="Manufacturing Manager" visualThemeSetId="BACKOFFICE"/>
-
 </entity-engine-xml>

@@ -4,11 +4,6 @@
     <description>scrum Component of the Open For Business Project</description>
 
     <context-param>
-        <param-name>webSiteId</param-name>
-        <param-value>scrumSite</param-value>
-        <description>A unique ID used to look up the WebSite entity</description>
-    </context-param>
-    <context-param>
         <param-name>localDispatcherName</param-name><param-value>scrum</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
     </context-param>

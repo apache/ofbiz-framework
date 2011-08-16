@@ -230,8 +230,6 @@ under the License.
     <StatusValidChange condition="" statusId="WERV_PENDING" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
     <StatusValidChange condition="" statusId="WERV_APPROVED" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
 
-    <WebSite webSiteId="WORKEFFORT" siteName="Work Effort Manager" visualThemeSetId="BACKOFFICE"/>
-
     <!-- iCalendar Data -->
     <RoleType description="Calendar Member" hasTable="N" parentTypeId="CALENDAR_ROLE" roleTypeId="ICAL_MEMBER"/>
     <ContactMechType contactMechTypeId="LDAP_ADDRESS" parentTypeId="ELECTRONIC_ADDRESS" hasTable="N" description="LDAP URL"/>

@@ -155,8 +155,6 @@
     <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListCustomerInvoices" portletCategoryId="LIST_CUSTOMER"/>
 
-    <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE"/>
-    
     <!-- Myportal help pages -->
     <DataResource dataResourceId="HELP_MYPORTAL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
       objectInfo="specialpurpose/myportal/data/helpdata/HELP_MYPORTAL.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 

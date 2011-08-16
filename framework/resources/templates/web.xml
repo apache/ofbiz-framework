@@ -3,11 +3,11 @@
     <display-name>Open For Business - @component-resource-name@ Component</display-name>
     <description>@component-resource-name@ Component of the Open For Business Project</description>
 
-    <context-param>
+    <!-- context-param>
         <param-name>webSiteId</param-name>
         <param-value>@component-name@Site</param-value>
         <description>A unique ID used to look up the WebSite entity</description>
-    </context-param>
+    </context-param-->
     <context-param>
         <param-name>localDispatcherName</param-name><param-value>@component-name@</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>

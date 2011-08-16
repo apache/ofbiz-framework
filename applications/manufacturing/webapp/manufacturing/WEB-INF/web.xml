@@ -25,11 +25,6 @@ under the License.
     <description>Manufacturing Manager Module by TAU Informatica srl</description>
 
     <context-param>
-        <param-name>webSiteId</param-name>
-        <param-value>MANUFACTURING</param-value>
-        <description>A unique ID used to look up the WebSite entity</description>
-    </context-param>
-    <context-param>
         <param-name>entityDelegatorName</param-name>
         <param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>

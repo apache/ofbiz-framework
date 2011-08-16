@@ -76,6 +76,4 @@ under the License.
     <!-- for current installations -->
     <StatusValidChange condition="" statusId="_NA_" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
 
-    <WebSite webSiteId="PROJECTMGR" siteName="Project Manager" visualThemeSetId="BACKOFFICE"/>
-
 </entity-engine-xml>

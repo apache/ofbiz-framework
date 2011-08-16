@@ -19,5 +19,4 @@
 -->
 <entity-engine-xml>
     
-    <WebSite webSiteId="SETUP" siteName="Setup Manager" visualThemeSetId="BACKOFFICE"/>
 </entity-engine-xml>
