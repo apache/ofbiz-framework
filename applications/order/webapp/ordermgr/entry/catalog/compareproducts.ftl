@@ -21,6 +21,7 @@ under the License.
     <tr>
         <td>&nbsp;</td>
 <#list compareList as product>
+    <#assign tdWidth = 100/compareList?size />
     <#assign productData = productDataMap[product.productId]/>
     <#assign productContentWrapper = productData.productContentWrapper/>
     <#assign price = productData.priceMap/>
@@ -29,7 +30,7 @@ under the License.
     <#if smallImageUrl!?length == 0>
         <#assign smallImageUrl = "/images/defaultImage.jpg"/>
     </#if>
-        <td>
+        <td style="width:${tdWidth?c}%;">
             <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
             ${productContentWrapper.get("PRODUCT_NAME")}<br />
     <#if totalPrice?exists>
