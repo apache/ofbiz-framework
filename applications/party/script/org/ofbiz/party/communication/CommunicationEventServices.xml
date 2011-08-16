@@ -344,8 +344,9 @@ under the License.
         <if-empty field="event"><!-- the service can be called multiple times because event can have several recipients-->
             <return/><!-- ignore if already deleted -->
         </if-empty>
-        <!-- remove related links to work effort -->
+        <!-- remove related links to work effort and product -->
         <remove-related relation-name="CommunicationEventWorkEff" value-field="event"/>
+        <remove-related relation-name="CommunicationEventProduct" value-field="event"/>
         <!-- remove related links to content -->
         <get-related value-field="event" relation-name="CommEventContentAssoc" list="contentAssocs"/>
         <if-not-empty field="contentAssocs">
