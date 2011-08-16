@@ -58,9 +58,10 @@ under the License.
                 <#if thisApp == contextPath || contextPath + "/" == thisApp>
                   <#assign selected = true>
                 </#if>
+                <#assign thisApp = StringUtil.wrapString(thisApp)>
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
-                  <#assign thisURL = StringUtil.wrapString(thisURL) + "/control/main">
+                  <#assign thisURL = thisURL + "/control/main">
                 </#if>
                 <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
                   <!-- do not display this component-->
@@ -87,9 +88,10 @@ under the License.
                 <#if thisApp == contextPath || contextPath + "/" == thisApp>
                   <#assign selected = true>
                 </#if>
+                <#assign thisApp = StringUtil.wrapString(thisApp)>
                 <#assign thisURL = thisApp>
                 <#if thisApp != "/">
-                  <#assign thisURL = StringUtil.wrapString(thisURL) + "/control/main">
+                  <#assign thisURL = thisURL + "/control/main">
                 </#if>
                 <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
                   <!-- do not display this component-->
