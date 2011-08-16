@@ -358,6 +358,18 @@ under the License.
                         <iterate entry="content" list="contents">
                             <remove-related value-field="content" relation-name="ContentRole"/>
                             <remove-related value-field="content" relation-name="ContentKeyword"/>
+                            <get-related value-field="content" relation-name="FromContentAssoc" list="relatedFromContentassocs"/>
+                            <iterate entry="relatedFromContentassoc" list="relatedFromContentassocs">
+                                <set field="removeContentAndRelatedInmap.contentId" from-field="relatedFromContentassoc.contentIdTo"/>
+                                <call-service service-name="removeContentAndRelated" in-map-name="removeContentAndRelatedInmap"/>
+                            </iterate>
+                            <remove-related value-field="content" relation-name="FromContentAssoc"/>
+                            <get-related value-field="content" relation-name="ToContentAssoc" list="relatedToContentassocs"/>
+                            <iterate entry="relatedToContentassoc" list="relatedToContentassocs">
+                                <set field="removeContentAndRelatedInmap.contentId" from-field="relatedFromContentassoc.contentIdFrom"/>
+                                <call-service service-name="removeContentAndRelated" in-map-name="removeContentAndRelatedInmap"/>
+                            </iterate>
+                            <remove-related value-field="content" relation-name="ToContentAssoc"/>
                             <remove-value value-field="content"/>
                             <!-- check first if the content is used on any other communication event if yes, only delete link-->
                             <entity-and entity-name="CommEventContentAssoc" list="commEvents">
@@ -365,19 +377,8 @@ under the License.
                             </entity-and>
                             <set field="commEventsSize" value="${groovy: return(commEvents.size())}" type="Integer"/>
                             <if-compare field="commEventsSize" operator="equals" value="1">
-                                <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
-                                <if-not-empty field="dataResource">
-                                    <get-related-one value-field="dataResource" relation-name="ImageDataResource" to-value-field="imageDataResource"/>
-                                    <if-not-empty field="imageDataResource">
-                                        <remove-value value-field="imageDataResource"/>
-                                    </if-not-empty>
-                                    <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="electronicText"/>
-                                    <if-not-empty field="electronicText">
-                                        <remove-value value-field="electronicText"/>
-                                    </if-not-empty>
-                                    <remove-related value-field="dataResource" relation-name="DataResourceRole"/>
-                                    <remove-value value-field="dataResource"/>
-                                </if-not-empty>
+                                <set field="removeContentAndRelatedInmap.contentId" from-field="content.contentId"/>
+                                <call-service service-name="removeContentAndRelated" in-map-name="removeContentAndRelatedInmap"/>
                             </if-compare>
                         </iterate>
                     </if-not-empty>
