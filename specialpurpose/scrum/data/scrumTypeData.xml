@@ -80,8 +80,6 @@
     <!-- Party SVN Identification-->
     <PartyIdentificationType partyIdentificationTypeId="SVN_LOGIN" description="SVN login name"/>
     
-    <WebSite webSiteId="scrumSite" siteName="Scrum Manager" visualThemeSetId="BACKOFFICE"/>
-    
     <StatusValidChange statusId="CRQ_REVIEWED" statusIdTo="CRQ_ACCEPTED" transitionName="Accept Request"/>
     <StatusValidChange statusId="CRQ_CANCELLED" statusIdTo="CRQ_ACCEPTED" transitionName="Re-open Request"/>
     <StatusValidChange statusId="CRQ_COMPLETED" statusIdTo="CRQ_REOPENED" transitionName="Re-open Request"/>

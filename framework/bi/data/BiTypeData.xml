@@ -19,5 +19,5 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <WebSite webSiteId="BI" siteName="Business Intelligence Application" visualThemeSetId="BACKOFFICE"/>
+
 </entity-engine-xml>

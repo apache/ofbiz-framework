@@ -110,8 +110,6 @@ under the License.
     <EmplLeaveType description="Inland Restricted Holiday" hasTable="N" parentTypeId="" leaveTypeId="RESTRICTED_HOLIDAY"/>
     <EmplLeaveType description="Inland Special Day Off" hasTable="N" parentTypeId="" leaveTypeId="SPECIAL_DAY_OFF"/>
 
-    <WebSite webSiteId="HR" siteName="Human Resource Manager" visualThemeSetId="BACKOFFICE"/>
-        
     <EnumerationType description="Job Posting Types" enumTypeId="JOB_POSTING" hasTable="N" parentTypeId=""/>
     <Enumeration description="Internal Job Posting" enumCode="POSTING_INTR" enumId="JOB_POSTING_INTR" sequenceId="01" enumTypeId="JOB_POSTING"/>
     <Enumeration description="External Job Posting" enumCode="POSTING_INTR" enumId="JOB_POSTING_EXTR" sequenceId="02" enumTypeId="JOB_POSTING"/>

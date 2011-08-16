@@ -18,5 +18,5 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <WebSite webSiteId="ASSETMAINT" siteName="Asset Maintenance Application" visualThemeSetId="BACKOFFICE"/>
+
 </entity-engine-xml>
