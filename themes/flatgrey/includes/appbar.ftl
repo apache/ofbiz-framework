@@ -44,6 +44,7 @@ under the License.
           <#if thisApp == contextPath || contextPath + "/" == thisApp>
             <#assign selected = true>
           </#if>
+          <#assign thisApp = StringUtil.wrapString(thisApp)>
           <#assign thisURL = thisApp>
           <#if thisApp != "/">
             <#assign thisURL = thisURL + "/control/main">
@@ -80,6 +81,7 @@ under the License.
         <#if thisApp == contextPath || contextPath + "/" == thisApp>
           <#assign selected = true>
         </#if>
+        <#assign thisApp = StringUtil.wrapString(thisApp)>
         <#assign thisURL = thisApp>
         <#if thisApp != "/">
           <#assign thisURL = thisURL + "/control/main">
