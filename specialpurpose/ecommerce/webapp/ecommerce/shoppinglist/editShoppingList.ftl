@@ -20,12 +20,15 @@ under the License.
 <script type="text/javascript">
     <!-- function to add extra info for Timestamp format -->
     function TimestampSubmit(obj) {
-       if (obj.elements["reservStartStr"].value.length == 10) {
-           obj.elements["reservStart"].value = obj.elements["reservStartStr"].value + " 00:00:00.000000000";
+       reservStartStr = jQuery(obj).find("input[name='reservStartStr']");
+       val1 = reservStartStr.val();
+       reservStart = jQuery(obj).find("input[name='reservStart']");
+       if (reservStartStr.val().length == 10) {
+           reservStart.val(reservStartStr.val() + " 00:00:00.000000000");
        } else {
-           obj.elements["reservStart"].value = obj.elements["reservStartStr"].value;
+           reservStart.val(reservStartStr.val());
        }
-       obj.submit();
+       jQuery(obj).submit();
     }
 </script>
 <br />
@@ -423,7 +426,7 @@ under the License.
                       <div class="tabletext"><@ofbizCurrency amount=totalPrice isoCode=currencyUomId/></div>
                     </td>
                     <td align="right">
-                        <a href="javascript:TimestampSubmit(listform_${shoppingListItem.shoppingListItemSeqId});" class="buttontext">${uiLabelMap.CommonUpdate}</a>
+                        <a href="#" onclick="javascript:TimestampSubmit(listform_${shoppingListItem.shoppingListItemSeqId});" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         <a href="<@ofbizUrl>removeFromShoppingList?shoppingListId=${shoppingListItem.shoppingListId}&amp;shoppingListItemSeqId=${shoppingListItem.shoppingListItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
                       <#if isVirtual && productVariantAssocs?has_content>
                         <#assign replaceItemAction = "/replaceShoppingListItem/" + requestAttributes._CURRENT_VIEW_?if_exists>
