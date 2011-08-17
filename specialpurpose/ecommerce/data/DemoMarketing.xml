@@ -47,4 +47,7 @@ under the License.
     <TrackingCode trackingCodeId="9011" trackingCodeTypeId="EXTERNAL" description ="Affiliate 2" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
     <TrackingCode trackingCodeId="9012" trackingCodeTypeId="EXTERNAL" description ="Affiliate 3" marketingCampaignId="9002" trackableLifetime="2592000" billableLifetime="2592000"/>
 
+    <!-- Demo WebSiteContactList -->
+    <WebSiteContactList webSiteId="WebStore" contactListId="9000" fromDate="2011-08-16 17:15:20.0"/>
+    <WebSiteContactList webSiteId="WebStore" contactListId="9010" fromDate="2011-08-16 17:15:20.0"/>
 </entity-engine-xml>

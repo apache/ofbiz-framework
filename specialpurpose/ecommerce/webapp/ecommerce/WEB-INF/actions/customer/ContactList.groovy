@@ -25,9 +25,19 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
+import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.accounting.payment.PaymentWorker;
 
-publicEmailContactLists = delegator.findByAnd("ContactList", [isPublic : "Y", contactMechTypeId : "EMAIL_ADDRESS"], ["contactListName"]);
+/*publicEmailContactLists = delegator.findByAnd("ContactList", [isPublic : "Y", contactMechTypeId : "EMAIL_ADDRESS"], ["contactListName"]);
+context.publicEmailContactLists = publicEmailContactLists;*/
+
+webSiteId = WebSiteWorker.getWebSiteId(request);
+webSiteContactList = delegator.findByAnd("WebSiteContactList", [webSiteId: webSiteId]);
+publicEmailContactLists = [];
+webSiteContactList.each { webSiteContactList ->
+    temp = webSiteContactList.getRelatedOne("ContactList");
+    publicEmailContactLists.add(temp);
+}
 context.publicEmailContactLists = publicEmailContactLists;
 
 if (userLogin) {
