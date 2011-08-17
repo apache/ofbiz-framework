@@ -184,6 +184,22 @@ under the License.
         <key-map field-name="ownerPartyId" rel-field-name="partyId"/>
       </relation>
     </entity>
+    <entity entity-name="WebSiteContactList" 
+        package-name="org.ofbiz.marketing.contact" 
+        title="Web Site Contact List Entity">
+        <field name="webSiteId" type="id-ne"></field>
+        <field name="contactListId" type="id-ne"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thrudate" type="date-time"></field>
+        <prim-key field="webSiteId"/>
+        <prim-key field="contactListId"/>
+        <relation type="one" fk-name="WEB_SITE_CNTCT_LST" rel-entity-name="WebSite">
+            <key-map field-name="webSiteId"/>
+        </relation>
+        <relation type="one" fk-name="CNTCT_LST_WEB_SITE" rel-entity-name="ContactList">
+            <key-map field-name="contactListId"/>
+        </relation>
+    </entity>
     <entity entity-name="ContactListCommStatus"
             package-name="org.ofbiz.marketing.contact"
             title="Contact List Entity">
