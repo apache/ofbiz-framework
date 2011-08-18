@@ -70,9 +70,7 @@
         <remove-value value-field="content"/>
     </simple-method>
     <simple-method method-name="removeContentAndRelated" short-description="Remove a Content Record, related resource(s) and assocs.">
-        <make-value entity-name="Content" value-field="lookupKeyValue"/>
-        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        <entity-one entity-name="Content" map="lookupKeyValue" value-field="content"/>
+        <entity-one entity-name="Content" value-field="content"/> 
         <remove-related value-field="content" relation-name="ContentRole"/>
         <remove-related value-field="content" relation-name="ContentKeyword"/>
         <remove-related value-field="content" relation-name="FromContentAssoc"/>
