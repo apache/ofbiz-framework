@@ -36,8 +36,9 @@ ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #IPADDR=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 #RMIIF="-Djava.rmi.server.hostname=$IPADDR"
 MEMIF="-Xms128M -Xmx512M -XX:MaxPermSize=512m"
+#JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=33333 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 #MISC="-Duser.language=en"
-VMARGS="$MEMIF $MISC $DEBUG $RMIIF $ADMIN"
+VMARGS="$MEMIF $MISC $JMX $DEBUG $RMIIF $ADMIN"
 
 # Worldpay Config
 #VMARGS="-Xbootclasspath/p:applications/accounting/lib/cryptix.jar $VMARGS"
