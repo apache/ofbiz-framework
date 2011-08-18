@@ -1054,6 +1054,11 @@ under the License.
         <response name="success" type="view" value="EditEmplLeaveStatus"/>
         <response name="error" type="view" value="EditEmplLeaveStatus"/>
     </request-map>
+    <request-map uri="getHRChild">
+        <security auth="false" https="true"/>
+        <event type="java" path="org.ofbiz.humanres.HumanResServices" invoke="getChildHRCategoryTree"/>
+        <response name="success" type="none"/>
+    </request-map>
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>
