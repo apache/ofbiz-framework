@@ -2655,6 +2655,15 @@
         <value xml:lang="zh">附加到内容</value>
         <value xml:lang="zh_TW">附加到內容</value>
     </property>
+    <property key="ContentWebSiteContactList">
+        <value xml:lang="en">Contact Lists</value>
+    </property>
+    <property key="ContentWebSiteContactListCreate">
+        <value xml:lang="en">Create Contact List</value>
+    </property>
+    <property key="ContentWebSiteContactListView">
+        <value xml:lang="en">Contact Lists View</value>
+    </property>
     <property key="ContentWebSiteContent">
         <value xml:lang="da">Webside indhold</value>
         <value xml:lang="de">Webseite Inhalt</value>

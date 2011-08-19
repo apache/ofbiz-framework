@@ -263,6 +263,22 @@ under the License.
         <attribute name="statusId" type="String" mode="IN"/>        
     </service> 
     
+    <!-- WebSiteContactList services -->
+    <service name="createWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList" 
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createWebSiteContactList">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList" 
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updateWebSiteContactList">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteWebSiteContactList" engine="simple" default-entity-name="WebSiteContactList" 
+        location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="deleteWebSiteContactList">
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    
     <!-- TrackingCode Services -->
     <service name="createTrackingCode" default-entity-name="TrackingCode" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCode" auth="true">

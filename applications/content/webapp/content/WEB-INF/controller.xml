@@ -1880,6 +1880,29 @@ under the License.
         <response name="success" type="view" value="WebSiteSEO"/>
         <response name="error" type="view" value="WebSiteSEO"/>
     </request-map>
+    <!--  WebSiteContactList -->
+    <request-map uri="WebSiteContactList">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WebSiteContactList"/>
+    </request-map>
+    <request-map uri="createWebSiteContactList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="createWebSiteContactList"/>
+        <response name="success" type="view" value="WebSiteContactList"/>
+        <response name="error" type="view" value="WebSiteContactList"/>
+    </request-map>
+    <request-map uri="updateWebSiteContactList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="updateWebSiteContactList"/>
+        <response name="success" type="view" value="WebSiteContactList"/>
+        <response name="error" type="view" value="WebSiteContactList"/>
+    </request-map>
+    <request-map uri="deleteWebSiteContactList">
+        <security https="true" auth="false"/>
+        <event type="service" invoke="deleteWebSiteContactList"/>
+        <response name="success" type="view" value="WebSiteContactList"/>
+        <response name="error" type="view" value="WebSiteContactList"/>
+    </request-map>
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
@@ -1920,6 +1943,7 @@ under the License.
     <view-map name="WebSiteCMSNav" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSNav" type="screen"/>
     <view-map name="EditWebSiteParties" page="component://content/widget/WebSiteScreens.xml#EditWebSiteParties" type="screen"/>
     <view-map name="WebSiteSEO" page="component://content/widget/WebSiteScreens.xml#WebSiteSEO" type="screen"/>
+    <view-map name="WebSiteContactList" page="component://content/widget/WebSiteScreens.xml#WebSiteContactList" type="screen"/>
 
     <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
     <view-map name="EditContentRole" page="component://content/widget/content/ContentScreens.xml#EditContentRole" type="screen"/>

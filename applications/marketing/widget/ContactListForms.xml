@@ -614,4 +614,49 @@ under the License.
         <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
     </form>    
+    <form name="CreateWebSiteContactList" type="single" target="createWebSiteContactList" 
+            default-map-name="contactList" title="" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="fromDate" value="${groovy: import org.ofbiz.base.util.UtilDateTime; return UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+        </actions>
+        <field name="contactListId"><display/></field>
+        <field name="contactListName"><display/></field>
+        <field name="fromDate"><hidden value="${fromDate}"/></field>
+        <field name="webSiteId">
+            <drop-down allow-empty="true">
+                <entity-options description="${siteName} [${webSiteId}]" entity-name="WebSite" key-field-name="webSiteId"></entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="ViewWebSiteContactList" type="list" target="updateWebSiteContactList" list-name="webSiteContactLists" title="" 
+            header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="WebSite" value-field="webSite"/>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="WebSite" value-field="webSite">
+                <field-map field-name="webSiteId" from-field="webSiteId"/>
+            </entity-one>
+            <set field="siteName" from-field="webSite.siteName"/>
+        </row-actions>
+        <field name="contactListId"><hidden/></field>
+        <field name="webSiteId"><hidden/></field>
+        <field name="siteName">
+            <display-entity entity-name="WebSite" key-field-name="webSiteId">
+                <sub-hyperlink target="/content/control/EditWebSite" target-type="inter-app" description="[${webSiteId}]" link-style="linktext">
+                    <parameter param-name="webSiteId"/>
+                </sub-hyperlink>
+            </display-entity></field>
+        <field name="fromDate"><display type="date-time"/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteWebSiteContactList" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="webSiteId"/>
+                <parameter param-name="contactListId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
 </forms>

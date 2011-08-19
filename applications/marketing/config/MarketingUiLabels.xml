@@ -1548,6 +1548,15 @@
         <value xml:lang="zh">访问</value>
         <value xml:lang="zh_TW">訪問</value>
     </property>
+    <property key="MarketingWebSiteContactList">
+        <value xml:lang="en">WebSites</value>
+    </property>
+    <property key="MarketingWebSiteContactListCreate">
+        <value xml:lang="en">Create WebSite</value>
+    </property>
+    <property key="MarketingWebSiteContactListView">
+        <value xml:lang="en">WebSites View</value>
+    </property>
     <property key="PageTitleAccountSummary">
         <value xml:lang="en">Account Summary</value>
         <value xml:lang="fr">Résumé de compte</value>

@@ -190,9 +190,10 @@ under the License.
         <field name="webSiteId" type="id-ne"></field>
         <field name="contactListId" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
-        <field name="thrudate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
         <prim-key field="webSiteId"/>
         <prim-key field="contactListId"/>
+        <prim-key field="fromDate"/>
         <relation type="one" fk-name="WEB_SITE_CNTCT_LST" rel-entity-name="WebSite">
             <key-map field-name="webSiteId"/>
         </relation>
