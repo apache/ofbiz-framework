@@ -32,7 +32,16 @@ import org.ofbiz.accounting.payment.PaymentWorker;
 context.publicEmailContactLists = publicEmailContactLists;*/
 
 webSiteId = WebSiteWorker.getWebSiteId(request);
-webSiteContactList = delegator.findByAnd("WebSiteContactList", [webSiteId: webSiteId]);
+exprList = [];
+exprListThruDate = [];
+exprList.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId));
+exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null));
+exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
+orCond = EntityCondition.makeCondition(exprListThruDate, EntityOperator.OR);
+exprList.add(orCond);
+topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+webSiteContactList = delegator.findList("WebSiteContactList", topCond, null, null, null, false);
+
 publicEmailContactLists = [];
 webSiteContactList.each { webSiteContactList ->
     temp = webSiteContactList.getRelatedOne("ContactList");

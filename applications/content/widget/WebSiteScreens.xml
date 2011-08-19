@@ -392,4 +392,31 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="WebSiteContactList">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ContentWebSiteContactList"/>
+                <set field="tabButtonItem" value="WebSiteContactList"/>
+                <set field="labelTitleProperty" value="ContentWebSiteContactList"/>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
+                <entity-and list="webSiteContactLists" entity-name="WebSiteContactList">
+                    <field-map field-name="webSiteId" from-field="webSiteId"/>
+                    <order-by field-name="-fromDate"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ContentWebSiteContactListCreate}">
+                            <include-form location="component://content/webapp/content/website/WebSiteForms.xml" name="CreateWebSiteContactList"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ContentWebSiteContactListView} of webSiteId[${webSiteId}]">
+                            <include-form location="component://content/webapp/content/website/WebSiteForms.xml" name="ViewWebSiteContactList"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

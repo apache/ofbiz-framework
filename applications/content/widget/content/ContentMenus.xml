@@ -174,6 +174,11 @@ under the License.
                 <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
             </link>
         </menu-item>
+        <menu-item name="WebSiteContactList" title="${uiLabelMap.ContentWebSiteContactList}">
+            <link target="WebSiteContactList">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="blog"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
