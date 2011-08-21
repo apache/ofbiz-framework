@@ -2607,7 +2607,7 @@ public class OrderReturnServices {
         String serviceName = UtilValidate.isNotEmpty(orderItemSeqId) ? "createReturnItem" : "createReturnAdjustment";
         Debug.logInfo("serviceName:" + serviceName, module);
         try {
-            Map<String, Object> inMap = filterServiceContext(dctx, serviceName, context);
+            Map<String, Object> inMap = dctx.makeValidContext(serviceName, "IN", context);
             if ("createReturnItem".equals(serviceName)) {
                 // we don't want to automatically include the adjustments
                 // when the return item is created because they are selectable by the user
@@ -2630,7 +2630,7 @@ public class OrderReturnServices {
         String serviceName = UtilValidate.isEmpty(returnAdjustmentId) ? "updateReturnItem" : "updateReturnAdjustment";
         Debug.logInfo("serviceName:" + serviceName, module);
         try {
-            return dispatcher.runSync(serviceName, filterServiceContext(dctx, serviceName, context));
+            return dispatcher.runSync(serviceName, dctx.makeValidContext(serviceName, "IN", context));
         } catch (org.ofbiz.service.GenericServiceException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -2683,26 +2683,12 @@ public class OrderReturnServices {
      * @param context   context before clean up
      * @return filtered context
      * @throws GenericServiceException
+     * 
+     * @deprecated - Use DispatchContext.makeValidContext(String, String, Map) instead
      */
+    @Deprecated
     public static Map<String, Object> filterServiceContext(DispatchContext dctx, String serviceName, Map<String, ? extends Object> context) throws GenericServiceException {
-        ModelService modelService = dctx.getModelService(serviceName);
-
-        if (modelService == null) {
-            throw new GenericServiceException("Problems getting the service model");
-        }
-        Map<String, Object> serviceContext = FastMap.newInstance();
-        List<ModelParam> modelParmInList = modelService.getInModelParamList();
-        Iterator<ModelParam> modelParmInIter = modelParmInList.iterator();
-        while (modelParmInIter.hasNext()) {
-            ModelParam modelParam = modelParmInIter.next();
-            String paramName =  modelParam.name;
-
-            Object value = context.get(paramName);
-            if (value != null) {
-                serviceContext.put(paramName, value);
-            }
-        }
-        return serviceContext;
+        return dctx.makeValidContext(serviceName, "IN", context);
     }
 
     /**
