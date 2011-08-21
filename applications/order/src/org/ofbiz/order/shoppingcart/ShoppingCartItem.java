@@ -639,57 +639,80 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Clone an item. */
     public ShoppingCartItem(ShoppingCartItem item) {
+        this.delegator = item.getDelegator();
         try {
             this._product = item.getProduct();
         } catch (IllegalStateException e) {
             this._product = null;
         }
-        this.delegator = item.getDelegator();
+        try {
+            this._parentProduct = item.getParentProduct();
+        } catch (IllegalStateException e) {
+            this._parentProduct = null;
+        }
         this.delegatorName = item.delegatorName;
         this.prodCatalogId = item.getProdCatalogId();
         this.productId = item.getProductId();
+        this.supplierProductId = item.getSupplierProductId();
+        this.parentProductId = item.getParentProductId();
+        this.externalId = item.getExternalId();
         this.itemType = item.getItemType();
         this.itemGroup = item.getItemGroup();
         this.productCategoryId = item.getProductCategoryId();
-        this.quantity = item.getQuantity();
+        this.itemDescription = item.itemDescription;
         this.reservStart = item.getReservStart();
         this.reservLength = item.getReservLength();
         this.reservPersons = item.getReservPersons();
         this.accommodationMapId = item.getAccommodationMapId();
         this.accommodationSpotId = item.getAccommodationSpotId();
-        this.selectedAmount = item.getSelectedAmount();
+        this.quantity = item.getQuantity();
         this.setBasePrice(item.getBasePrice());
         this.setDisplayPrice(item.getDisplayPrice());
         this.setRecurringBasePrice(item.getRecurringBasePrice());
         this.setRecurringDisplayPrice(item.getRecurringDisplayPrice());
-        this.listPrice = item.getListPrice();
+        this.setSpecialPromoPrice(item.getSpecialPromoPrice());
         this.reserv2ndPPPerc = item.getReserv2ndPPPerc();
         this.reservNthPPPerc = item.getReservNthPPPerc();
+        this.listPrice = item.getListPrice();
+        this.setIsModifiedPrice(item.getIsModifiedPrice());
+        this.selectedAmount = item.getSelectedAmount();
         this.requirementId = item.getRequirementId();
         this.quoteId = item.getQuoteId();
         this.quoteItemSeqId = item.getQuoteItemSeqId();
         this.associatedOrderId = item.getAssociatedOrderId();
         this.associatedOrderItemSeqId = item.getAssociatedOrderItemSeqId();
         this.orderItemAssocTypeId = item.getOrderItemAssocTypeId();
-        this.isPromo = item.getIsPromo();
-        this.promoQuantityUsed = item.promoQuantityUsed;
-        this.locale = item.locale;
-        this.quantityUsedPerPromoCandidate = new HashMap<GenericPK, BigDecimal>(item.quantityUsedPerPromoCandidate);
-        this.quantityUsedPerPromoFailed = new HashMap<GenericPK, BigDecimal>(item.quantityUsedPerPromoFailed);
-        this.quantityUsedPerPromoActual = new HashMap<GenericPK, BigDecimal>(item.quantityUsedPerPromoActual);
-        this.orderItemSeqId = item.getOrderItemSeqId();
-        this.additionalProductFeatureAndAppls = item.getAdditionalProductFeatureAndAppls() == null ?
-                null : new HashMap<String, GenericValue>(item.getAdditionalProductFeatureAndAppls());
+        this.setStatusId(item.getStatusId());
+        if (UtilValidate.isEmpty(item.getOrderItemAttributes())) {
+            this.orderItemAttributes =  FastMap.<String, String>newInstance();
+            this.orderItemAttributes.putAll(item.getOrderItemAttributes());
+        }
         this.attributes = item.getAttributes() == null ? new HashMap<String, Object>() : new HashMap<String, Object>(item.getAttributes());
+        this.setOrderItemSeqId(item.getOrderItemSeqId());
+        this.locale = item.locale;
+        this.setShipBeforeDate(item.getShipBeforeDate());
+        this.setShipAfterDate(item.getShipAfterDate());
+        this.setEstimatedShipDate(item.getEstimatedShipDate());
+        this.setCancelBackOrderDate(item.getCancelBackOrderDate());
         this.contactMechIdsMap = item.getOrderItemContactMechIds() == null ? null : new HashMap<String, String>(item.getOrderItemContactMechIds());
         this.orderItemPriceInfos = item.getOrderItemPriceInfos() == null ? null : new LinkedList<GenericValue>(item.getOrderItemPriceInfos());
         this.itemAdjustments.addAll(item.getAdjustments());
-        if (this._product == null) {
-            this.itemDescription = item.getName();
+        this.isPromo = item.getIsPromo();
+        this.promoQuantityUsed = item.promoQuantityUsed;
+        this.quantityUsedPerPromoCandidate = new HashMap<GenericPK, BigDecimal>(item.quantityUsedPerPromoCandidate);
+        this.quantityUsedPerPromoFailed = new HashMap<GenericPK, BigDecimal>(item.quantityUsedPerPromoFailed);
+        this.quantityUsedPerPromoActual = new HashMap<GenericPK, BigDecimal>(item.quantityUsedPerPromoActual);
+        this.additionalProductFeatureAndAppls = item.getAdditionalProductFeatureAndAppls() == null ?
+                null : new HashMap<String, GenericValue>(item.getAdditionalProductFeatureAndAppls());
+        if (item.getAlternativeOptionProductIds() != null) {
+            List<String> tempAlternativeOptionProductIds = FastList.newInstance();
+            tempAlternativeOptionProductIds.addAll(item.getAlternativeOptionProductIds());
+            this.setAlternativeOptionProductIds(tempAlternativeOptionProductIds);
         }
         if (item.configWrapper != null) {
             this.configWrapper = new ProductConfigWrapper(item.configWrapper);
         }
+        this.featuresForSupplier.addAll(item.featuresForSupplier);
     }
 
     /** Cannot create shopping cart item with no parameters */
