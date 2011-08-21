@@ -95,7 +95,7 @@ public class SetServiceFields extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-        toMap.putAll(modelService.makeValid(fromMap, "IN", true, null, methodContext.getTimeZone(), methodContext.getLocale()));
+        toMap.putAll(modelService.makeValid(fromMap, "IN", true, messages, methodContext.getTimeZone(), methodContext.getLocale()));
 
         return true;
     }
