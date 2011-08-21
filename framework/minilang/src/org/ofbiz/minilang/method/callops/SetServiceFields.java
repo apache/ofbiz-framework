@@ -25,16 +25,12 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.w3c.dom.Element;
 
@@ -99,25 +95,7 @@ public class SetServiceFields extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-        for (ModelParam modelParam: modelService.getInModelParamList()) {
-            if (fromMap.containsKey(modelParam.name)) {
-                Object value = fromMap.get(modelParam.name);
-
-                if (UtilValidate.isNotEmpty(modelParam.type)) {
-                    try {
-                        value = ObjectType.simpleTypeConvert(value, modelParam.type, null, methodContext.getTimeZone(), methodContext.getLocale(), true);
-                    } catch (GeneralException e) {
-                        String errMsg = "Could not convert field value for the parameter/attribute: [" + modelParam.name + "] on the [" + serviceName + "] service to the [" + modelParam.type + "] type for the value [" + value + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        // add the message to the list and set the value to null - tried and failed, just leave it out
-                        messages.add(errMsg);
-                        value = null;
-                    }
-                }
-
-                toMap.put(modelParam.name, value);
-            }
-        }
+        toMap.putAll(modelService.makeValid(fromMap, "IN", true, null, methodContext.getTimeZone(), methodContext.getLocale()));
 
         return true;
     }
