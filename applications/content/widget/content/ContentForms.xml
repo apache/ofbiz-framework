@@ -495,7 +495,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListWebSites" paginate-target="ListWebSite" paginate="true" extends="ListWebSites" extends-resource="component://content/widget/website/WebSiteForms.xml">
+    <form name="ListWebSites" paginate-target="ListWebSite" paginate="true" extends="ListWebSites" extends-resource="component://content/webapp/content/website/WebSiteForms.xml">
         <field name="webSiteContentTypeId"><display-entity entity-name="WebSiteContentType" description="${description}"/></field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>

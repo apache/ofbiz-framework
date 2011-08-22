@@ -98,7 +98,7 @@ if (productionRunId) {
             Map routingTaskData = routingTask.getAllFields();
             routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis");
             routingTaskData.estimatedMilliSeconds = routingTask.getDouble("estimatedMilliSeconds");
-            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "EditProductionRunDeclRoutingTask", request, response);
+            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "EditProductionRunDeclRoutingTask", request, response);
             editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
             editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
             routingTaskData.partyId = userLogin.partyId;
@@ -116,14 +116,14 @@ if (productionRunId) {
             if (templateTask) {
                 delivProducts = EntityUtil.filterByDate(templateTask.getRelatedByAnd("WorkEffortGoodStandard", [workEffortGoodStdTypeId : "PRUNT_PROD_DELIV"]));
             }
-            HtmlFormWrapper createRoutingTaskDelivProductForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "CreateRoutingTaskDelivProduct", request, response);
+            HtmlFormWrapper createRoutingTaskDelivProductForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "CreateRoutingTaskDelivProduct", request, response);
             createRoutingTaskDelivProductForm.putInContext("formData", [productionRunId : productionRunId, workEffortId : routingTaskId]);
             context.createRoutingTaskDelivProductForm = createRoutingTaskDelivProductForm;
             context.delivProducts = delivProducts;
             // Get the list of delivered products, i.e. inventory items
             prunInventoryProduced = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : routingTaskId]);
             context.prunInventoryProduced = prunInventoryProduced;
-            HtmlFormWrapper prunInventoryProducedForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskInventoryProducedList", request, response);
+            HtmlFormWrapper prunInventoryProducedForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskInventoryProducedList", request, response);
             prunInventoryProducedForm.putInContext("prunInventoryProduced", prunInventoryProduced);
             context.prunInventoryProducedForm = prunInventoryProducedForm;
         }

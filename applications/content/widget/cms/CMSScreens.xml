@@ -43,10 +43,10 @@ under the License.
                                         <container style="button-bar"><link target="EditAddContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext create"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="findContent" location="component://content/widget/cms/CMSForms.xml"/>
+                                        <include-form name="findContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="listFindContent" location="component://content/widget/cms/CMSForms.xml"/>
+                                        <include-form name="listFindContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -100,7 +100,7 @@ under the License.
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditContent}">
-                            <include-form name="EditContent" location="component://content/widget/cms/CMSForms.xml"/>
+                            <include-form name="EditContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -140,7 +140,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSEditPage}">
                             <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                            <include-form name="EditAddContentStuff" location="component://content/widget/cms/CMSForms.xml"/>
+                            <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml"/>
                             <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
                         </screenlet>
                     </decorator-section>
@@ -175,7 +175,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSAddSubContent}">
                             <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                            <include-form name="EditAddSubContentStuff" location="component://content/widget/cms/CMSForms.xml"/>
+                            <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -200,7 +200,7 @@ under the License.
                             <platform-specific>
                                 <html><html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/></html>
                             </platform-specific>
-                            <include-form name="searchList" location="component://content/widget/cms/CMSForms.xml"/>
+                            <include-form name="searchList" location="component://content/webapp/content/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -220,8 +220,8 @@ under the License.
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentCMSSearchPage}">
-                            <include-form name="AdminIndex" location="component://content/widget/cms/CMSForms.xml"/>
-                            <include-form name="AdminIndexAll" location="component://content/widget/cms/CMSForms.xml"/>
+                            <include-form name="AdminIndex" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                            <include-form name="AdminIndexAll" location="component://content/webapp/content/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -283,7 +283,7 @@ under the License.
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentTestPermission}">
-                            <include-form name="TestPermission" location="component://content/widget/cms/CMSForms.xml"/>
+                            <include-form name="TestPermission" location="component://content/webapp/content/cms/CMSForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
