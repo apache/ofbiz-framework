@@ -25,7 +25,7 @@ taskInfos = [];
 tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRunId, workEffortTypeId : "PROD_ORDER_TASK"], ["workEffortId"]);
 tasks.each { task ->
     records = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : task.workEffortId]);
-    HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunForms.xml", "ProductionRunTaskComponents", request, response);
+    HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskComponents", request, response);
     taskForm.putInContext("records", records);
     taskInfos.add([task : task, taskForm : taskForm]);
 }
