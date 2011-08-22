@@ -348,6 +348,7 @@
     <property key="WorkEffortType.description.MILESTONE">
         <value xml:lang="en">Milestone</value>
         <value xml:lang="fr">Jalon</value>
+        <value xml:lang="zh">里程碑</value>
     </property>
     <property key="WorkEffortType.description.PERSONAL_TIMEOFF">
         <value xml:lang="en">Personal Time Off</value>
@@ -479,6 +480,7 @@
         <value xml:lang="en">Training</value>
         <value xml:lang="fr">Formation</value>
         <value xml:lang="it">Formazione</value>
+        <value xml:lang="zh">培训</value>
     </property>
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>
