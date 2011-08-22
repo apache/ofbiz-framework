@@ -1428,6 +1428,22 @@ under the License.
         <key-map field-name="noteParty" rel-field-name="partyId"/>
       </view-link>
     </view-entity>
+    <view-entity entity-name="QuoteNoteView"
+            package-name="org.ofbiz.order.quote"
+            never-cache="true"
+            title="Quote Note View Entity">
+      <member-entity entity-alias="QD" entity-name="QuoteNote"/>
+      <member-entity entity-alias="ND" entity-name="NoteData"/>
+      <alias entity-alias="QD" name="quoteId"/>
+      <alias entity-alias="ND" name="noteId"/>
+      <alias entity-alias="ND" name="noteName"/>
+      <alias entity-alias="ND" name="noteInfo"/>
+      <alias entity-alias="ND" name="noteDateTime"/>
+      <alias entity-alias="ND" name="noteParty"/>
+      <view-link entity-alias="QD" rel-entity-alias="ND">
+        <key-map field-name="noteId"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="QuoteWorkEffortView"
       package-name="org.ofbiz.order.quote"
       title="Quote And Workeffort">

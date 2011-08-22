@@ -161,6 +161,15 @@ under the License.
             </link>
         </menu-item>
 
+        <menu-item name="ListQuoteNotes" title="${uiLabelMap.OrderOrderQuoteNotes}">
+            <condition>
+                <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>
+            </condition>
+            <link target="ListQuoteNotes">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
+        </menu-item>
+
         <menu-item name="ListQuoteAttributes" title="${uiLabelMap.OrderOrderQuoteAttributes}">
             <condition>
                 <if-compare operator="equals" value="QUO_CREATED" field="quote.statusId"/>

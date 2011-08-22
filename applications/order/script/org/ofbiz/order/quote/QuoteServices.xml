@@ -972,4 +972,22 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <remove-value value-field="newEntity"/>
     </simple-method>
+    <simple-method method-name="createQuoteNote" short-description="Create a new Note associated with a Quote">
+        <set-service-fields service-name="createNote" map="parameters" to-map="createNoteMap"/>
+        <!-- passed in field will be noteInfo, which matches entity, but service expects field called note -->
+        <set field="createNoteMap.note" from-field="parameters.noteInfo"/>
+        <call-service service-name="createNote" in-map-name="createNoteMap">
+           <result-to-field result-name="noteId"/>
+       </call-service>
+       <if-empty field="noteId">
+           <add-error>
+               <fail-property resource="OrderErrorUiLabels" property="OrderProblemCreatingTheNoteNoNoteIdReturned"/>
+           </add-error>
+       </if-empty>
+       <check-errors/>
+       <make-value value-field="newQuoteNote" entity-name="QuoteNote"/>
+       <set field="newQuoteNote.quoteId" from-field="parameters.quoteId"/>
+       <set field="newQuoteNote.noteId" from-field="noteId"/>
+       <create-value value-field="newQuoteNote"/>
+   </simple-method>
 </simple-methods>
