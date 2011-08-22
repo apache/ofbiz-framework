@@ -108,6 +108,7 @@
         <value xml:lang="en">Calendar Type</value>
         <value xml:lang="fr">Type de calendrier</value>
         <value xml:lang="it">Tipo ti calendario</value>
+        <value xml:lang="zh">日历类型</value>
         <value xml:lang="zh_TW">行事曆形態</value>
     </property>
     <property key="FormFieldTitle_clientPartyId">
@@ -190,6 +191,7 @@
         <value xml:lang="en">Hide events</value>
         <value xml:lang="fr">Cacher les évènements</value>
         <value xml:lang="it">Nascondi eventi</value>
+        <value xml:lang="zh">隐藏事件</value>
     </property>
     <property key="FormFieldTitle_hours">
         <value xml:lang="de">Stunden</value>
@@ -217,6 +219,7 @@
         <value xml:lang="de">initiale Ansicht</value>
         <value xml:lang="en">Initial View</value>
         <value xml:lang="it">Vista iniziale</value>
+        <value xml:lang="zh">初始化视图</value>
     </property>
     <property key="FormFieldTitle_invoiceInfo">
         <value xml:lang="de">Rechnungs Info</value>
@@ -377,6 +380,7 @@
         <value xml:lang="en">Reminder Offset</value>
         <value xml:lang="fr">Récurrence de décalage</value>
         <value xml:lang="it">Intervallo promemoria</value>
+        <value xml:lang="zh">提醒偏移量</value>
     </property>
     <property key="FormFieldTitle_repeatInterval">
         <value xml:lang="de">Wiederholungsintervall</value>
@@ -1462,6 +1466,7 @@
         <value xml:lang="en">Add/modify a calendar event</value>
         <value xml:lang="fr">Ajouter/modifier un évènement</value>
         <value xml:lang="it">Aggiunta/Modifica evento</value>
+        <value xml:lang="zh">添加/修改一个日历事件</value>
     </property>
     <property key="WorkEffortAddChild">
         <value xml:lang="de">Neuen untergeordneten Arbeitseinsatz hinzufügen</value>
@@ -1858,14 +1863,17 @@
         <value xml:lang="en">Cancel a calendar event</value>
         <value xml:lang="fr">Annuler un évènement</value>
         <value xml:lang="it">Annulla evento calendario</value>
+        <value xml:lang="zh">取消一个日历事件</value>
     </property>
     <property key="WorkEffortCannotDeleteContactInfo">
         <value xml:lang="en">ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort</value>
         <value xml:lang="it">ERRORE: Non è possibile cancellare il contatto perchè non corrisponde all'impegno di lavoro specificato</value>
+        <value xml:lang="zh">错误：不能删除指定的联系信息，因为它没有关联到指定的人工服务</value>
     </property>
     <property key="WorkEffortCannotUpdateContactInfo">
         <value xml:lang="en">ERROR: Cannot update specified contact info because it does not correspond to the specified work effort</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare il contatto perchè non corrisponde all'impegno di lavoro specificato</value>
+        <value xml:lang="zh">错误：不能更新指定的联系信息，因为它没有关联到指定的人工服务</value>
     </property>
     <property key="WorkEffortCommEventId">
         <value xml:lang="en">Comm Event Id</value>
@@ -2013,6 +2021,7 @@
     <property key="WorkEffortCreatedSuccessfully">
         <value xml:lang="en">Work Effort successfully created.</value>
         <value xml:lang="it">Impegno di lavoro creato con successo.</value>
+        <value xml:lang="zh">成功创建人工服务。</value>
     </property>
     <property key="WorkEffortCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
@@ -2024,18 +2033,22 @@
     <property key="WorkEffortCustRequestAlreadyExists">
         <value xml:lang="en">ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] already exists</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.custRequestId}][${parameters.workEffortId}] esiste già</value>
+        <value xml:lang="zh">错误：已存在客户请求人工服务（CustRequestWorkEffort）[${parameters.custRequestId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestDoesNotExists">
         <value xml:lang="en">ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] does not exist</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.custRequestId}][${parameters.workEffortId}] non esiste</value>
+        <value xml:lang="zh">错误：不存在客户请求人工服务（CustRequestWorkEffort）[${parameters.custRequestId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestItemAlreadyExists">
         <value xml:lang="en">ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Riga richiesta impegno di lavoro [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] esiste già</value>
+        <value xml:lang="zh">错误：已存在客户请求明细人工服务（CustRequestItemWorkEffort）[${parameters.custRequestItemSeqId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortCustRequestItemDoesNotExists">
         <value xml:lang="en">ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Riga richiesta impegno di lavoro [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] non esiste</value>
+        <value xml:lang="zh">错误：不存在客户请求明细人工服务（CustRequestItemWorkEffort）[${parameters.custRequestItemSeqId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortDayView">
         <value xml:lang="de">Tagesansicht</value>
@@ -2264,10 +2277,12 @@
     <property key="WorkEffortEventRemindersRetrivingError">
         <value xml:lang="en">Error while retrieving work effort event reminders: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+        <value xml:lang="zh">获取人工服务事件提醒时出错：${errorString}</value>
     </property>
     <property key="WorkEffortEventRemindersMigrationError">
         <value xml:lang="en">Error while migrating work effort event reminders: ${errorString}</value>
         <value xml:lang="it">Errore durante la migrazione dell'impegno di lavoro promemoria eventi: ${errorString}</value>
+        <value xml:lang="zh">迁移人工服务事件提醒时出错：${errorString}</value>
     </property>
     <property key="WorkEffortEventStatus">
         <value xml:lang="en">Event Status</value>
@@ -2360,41 +2375,49 @@
         <value xml:lang="de">iCalendar hinzufügen</value>
         <value xml:lang="en">Add iCalendar</value>
         <value xml:lang="it">Aggiungi iCalendar</value>
+        <value xml:lang="zh">添加iCalendar</value>
         <value xml:lang="zh_TW">新增iCal</value>
     </property>
     <property key="WorkEffortICalendarAddFixedAsset">
         <value xml:lang="de">iCalendar Anlage hinzufügen</value>
         <value xml:lang="en">Add iCalendar Fixed Asset</value>
+        <value xml:lang="zh">添加iCalendar固定资产</value>
         <value xml:lang="zh_TW">新增iCal固定資產</value>
     </property>
     <property key="WorkEffortICalendarAddParty">
         <value xml:lang="de">iCalendar Akteur hinzufügen</value>
         <value xml:lang="en">Add iCalendar Party</value>
+        <value xml:lang="zh">添加iCalendar会员</value>
         <value xml:lang="zh_TW">新增iCal成員</value>
     </property>
     <property key="WorkEffortICalendarData">
         <value xml:lang="de">Daten</value>
         <value xml:lang="en">Data</value>
+        <value xml:lang="zh">数据</value>
         <value xml:lang="zh_TW">資料</value>
     </property>
     <property key="WorkEffortICalendarEdit">
         <value xml:lang="de">Editiere iCalendar</value>
         <value xml:lang="en">Edit iCalendar</value>
+        <value xml:lang="zh">编辑iCalendar</value>
         <value xml:lang="zh_TW">編輯iCal</value>
     </property>
     <property key="WorkEffortICalendarEditData">
         <value xml:lang="de">Editiere iCalendar Daten</value>
         <value xml:lang="en">Edit iCalendar Data</value>
+        <value xml:lang="zh">编辑iCalendar数据</value>
         <value xml:lang="zh_TW">編輯iCal資料</value>
     </property>
     <property key="WorkEffortICalendarFind">
         <value xml:lang="de">Finde iCalendars</value>
         <value xml:lang="en">Find iCalendars</value>
+        <value xml:lang="zh">查找iCalendar</value>
         <value xml:lang="zh_TW">查詢iCal</value>
     </property>
     <property key="WorkEffortICalendarHelp">
         <value xml:lang="de">iCalendar Hilfe</value>
         <value xml:lang="en">iCalendar Help</value>
+        <value xml:lang="zh">iCalendar帮助</value>
         <value xml:lang="zh_TW">iCal輔助</value>
     </property>
     <property key="WorkEffortICalendarHelpUrl">
@@ -2403,21 +2426,25 @@
     <property key="WorkEffortICalendarName">
         <value xml:lang="de">Kalendername</value>
         <value xml:lang="en">Calendar Name</value>
+        <value xml:lang="zh">日历名称</value>
         <value xml:lang="zh_TW">行事曆名稱</value>
     </property>
     <property key="WorkEffortICalendarOwner">
         <value xml:lang="de">Kalenderbesitzer</value>
         <value xml:lang="en">Calendar Owner</value>
+        <value xml:lang="zh">日历拥有者</value>
         <value xml:lang="zh_TW">行事曆擁有者</value>
     </property>
     <property key="WorkEffortICalendarUrl">
         <value xml:lang="de">iCalendar Url</value>
         <value xml:lang="en">iCalendar Url</value>
+        <value xml:lang="zh">iCalendar网址</value>
         <value xml:lang="zh_TW">iCal網址</value>
     </property>
     <property key="WorkEffortICalendarVisibility">
         <value xml:lang="de">Kalendersichtbarkeit</value>
         <value xml:lang="en">Calendar Visibility</value>
+        <value xml:lang="zh">日历可见度</value>
         <value xml:lang="zh_TW">行事曆檢視</value>
     </property>
     <property key="WorkEffortIdMissing">
@@ -2635,6 +2662,7 @@
     <property key="WorkEffortManufacturingError">
         <value xml:lang="en">Error retrieving manufacturing data for productId ${productId}: " ${errorString}</value>
         <value xml:lang="it">Errore nella ricerca dei dati per la produzione per il prodotto ${productId}: " ${errorString}</value>
+        <value xml:lang="zh">获取产品标识为 ${productId} 的制造数据时出错： " ${errorString}</value>
     </property>
     <property key="WorkEffortMaxAmount">
         <value xml:lang="de">Maximale Anzahl</value>
@@ -2652,10 +2680,12 @@
     <property key="WorkEffortMaxNumberOfEvents">
         <value xml:lang="en">Max # of Events</value>
         <value xml:lang="it">Max numero di eventi</value>
+        <value xml:lang="zh">最大事件编号</value>
     </property>
     <property key="WorkEffortMaxNumberOfPersons">
         <value xml:lang="en">Max # of Persons</value>
         <value xml:lang="it">Max numero di persone</value>
+        <value xml:lang="zh">最大人数</value>
     </property>
     <property key="WorkEffortMonthView">
         <value xml:lang="de">Monatsansicht</value>
@@ -3011,6 +3041,7 @@
     <property key="WorkEffortNotFound">
         <value xml:lang="en">Error finding desired WorkEffort records: ${errorString}</value>
         <value xml:lang="it">Errore durante la ricerca del record di impegno di lavoro desiredato: ${errorString}</value>
+        <value xml:lang="zh">查找期望的人工服务记录时出错：${errorString}</value>
     </property>
     <property key="WorkEffortNotInRolePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
@@ -3023,6 +3054,7 @@
     <property key="WorkEffortNoteCreatedSuccessfully">
         <value xml:lang="en">Note is successfully created.</value>
         <value xml:lang="it">Nota è stato creata con successo.</value>
+        <value xml:lang="zh">成功创建了便笺。</value>
     </property>
     <property key="WorkEffortNoteMissing">
         <value xml:lang="de">Notiz fehlt</value>
@@ -3081,10 +3113,12 @@
     <property key="WorkEffortOrderHeaderAlreadyExists">
         <value xml:lang="en">ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Testata ordine impegno di lavoro [${parameters.orderId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="zh">错误：已经存在订单头人工服务（OrderHeaderWorkEffort）[${parameters.orderId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortOrderHeaderDoesNotExists">
         <value xml:lang="en">ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] does not exist.</value>
         <value xml:lang="it">ERRORE: Testata ordine impegno di lavoro [${parameters.orderId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="zh">错误：不存在订单头人工服务（OrderHeaderWorkEffort）[${parameters.orderId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortOrderHeaders">
         <value xml:lang="de">Aufträge</value>
@@ -3122,6 +3156,7 @@
         <value xml:lang="en">Participants</value>
         <value xml:lang="fr">Participants</value>
         <value xml:lang="it">Partecipanti</value>
+        <value xml:lang="zh">参加者</value>
         <value xml:lang="zh_TW">參與者</value>
     </property>
     <property key="WorkEffortParties">
@@ -3160,6 +3195,7 @@
     <property key="WorkEffortPartyPermissionError">
         <value xml:lang="en">You do not have permission to view information for party with ID ${partyId}, you must be logged in as a user associated with this party, or have the WORKEFFORTMGR_VIEW or WORKEFFORTMGR_ADMIN permissions.</value>
         <value xml:lang="it">Tu non il permesso di vedere le informazioni del soggetto ${partyId}, devi essere autenticato con un'utente associato con questo soggetto, o avere i permessi WORKEFFORTMGR_VIEW o WORKEFFORTMGR_ADMIN.</value>
+        <value xml:lang="zh">你没有浏览标识为 ${partyId} 的会员信息的权限，你必须以与这个会员有关联的用户身份登录，或者必须有 WORKEFFORTMGR_VIEW 或 WORKEFFORTMGR_ADMIN 权限。</value>
     </property>
     <property key="WorkEffortPassword">
         <value xml:lang="en">Password</value>
@@ -3471,18 +3507,22 @@
     <property key="WorkEffortRequirementFulfillmentAlreadyExists">
         <value xml:lang="en">ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="zh">错误：已存在工作需求执行（WorkRequirementFulfillment）[${parameters.requirementId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortRequirementFulfillmentDoesNotExists">
         <value xml:lang="en">ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Richiesta impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="zh">错误：不存在工作需求执行（WorkRequirementFulfillment）[${parameters.requirementId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortShoppingListAlreadyExists">
         <value xml:lang="en">ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Lista d'acquisto impegno di lavoro [${parameters.shoppingListId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="zh">错误：已存在购物列表人工服务（ShoppingListWorkEffort）[${parameters.shoppingListId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortShoppingListDoesNotExists">
         <value xml:lang="en">ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Lista d'acquisto impegno di lavoro [${parameters.shoppingListId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="zh">错误：不存在购物列表人工服务（ShoppingListWorkEffort）[${parameters.shoppingListId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuantity">
         <value xml:lang="de">Anzahl</value>
@@ -3500,10 +3540,12 @@
     <property key="WorkEffortQuoteAlreadyExists">
         <value xml:lang="en">ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists.</value>
         <value xml:lang="it">ERRORE: Preventivo impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] esiste già.</value>
+        <value xml:lang="zh">错误：已存在询价人工服务（QuoteWorkEffort）[${parameters.quoteId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuoteDoesNotExists">
         <value xml:lang="en">ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exists.</value>
         <value xml:lang="it">ERRORE: Preventivo impegno di lavoro [${parameters.quoteId}][${parameters.workEffortId}] non esiste.</value>
+        <value xml:lang="zh">错误：不存在询价人工服务（QuoteWorkEffort）[${parameters.quoteId}][${parameters.workEffortId}]</value>
     </property>
     <property key="WorkEffortQuoteItems">
         <value xml:lang="en">Quote Items</value>
@@ -3921,6 +3963,7 @@
     <property key="WorkEffortStatusChangeNotValid">
         <value xml:lang="en">The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change</value>
         <value xml:lang="it">Il cambio di stato da ${lookedUpValue.currentStatusId} a ${parameters.currentStatusId} non è consentito</value>
+        <value xml:lang="zh">从 ${lookedUpValue.currentStatusId} 到 ${parameters.currentStatusId} 不是一个有效的状态改变</value>
     </property>
     <property key="WorkEffortStatusIdMissing">
         <value xml:lang="en">Current Status ID is missing.</value>
@@ -4093,14 +4136,17 @@
     <property key="WorkEffortTimesheetAlreadyExists">
         <value xml:lang="en">Time sheet already exist, not created an other one.</value>
         <value xml:lang="it">Timbratura già esistente, non crearne un'altra.</value>
+        <value xml:lang="zh">已经存在时间表，不能再建一个。</value>
     </property>
     <property key="WorkEffortTimesheetCannotFindInvoice">
         <value xml:lang="en">Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it.</value>
         <value xml:lang="it">Non trovata fattura [${invoiceId}], non verrà aggiunta alla riga di timbratura.</value>
+        <value xml:lang="zh">不能找到标识为 [${invoiceId}] 的发票，没有向它添加时间表记录。</value>
     </property>
     <property key="WorkEffortTimesheetCouldNotBeFound">
         <value xml:lang="en">Timesheet could not be found, timesheetId: ${parameters.timesheetId}</value>
         <value xml:lang="it">Timbratura ${parameters.timesheetId} non trovata</value>
+        <value xml:lang="zh">无法找到时间表，时间表标识：${parameters.timesheetId}</value>
     </property>
     <property key="WorkEffortTimesheetCreate">
         <value xml:lang="de">Erstelle Zeiterfassung</value>
@@ -4140,10 +4186,12 @@
     <property key="WorkEffortTimesheetInvoiceShuoldBeInProgressStatus">
         <value xml:lang="en">Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}</value>
         <value xml:lang="it">La fattura ${invoiceId} dovrebbe avere lo stato 'in corso', lo stato invece è: ${invoice.statusId}</value>
+        <value xml:lang="zh">发票 ${invoiceId} 应该处于'处理中'状态，然后现在状态是：${invoice.statusId}</value>
     </property>
     <property key="WorkEffortTimesheetNotInProcessStatus">
         <value xml:lang="en">Can only update Timesheet, when status is in-process...current status: ${statusItem.description}</value>
         <value xml:lang="it">La timbratura può essere aggiornata solo quanto lo stato è "in-corso"... stato corrente: ${statusItem.description}</value>
+        <value xml:lang="zh">当状态是处理中时，只能更新时间表...当前状态：${statusItem.description}</value>
     </property>
     <property key="WorkEffortTimesheetNotInRolePermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must be in ${roleTypeId} role with WorkEffort: ${workEffortId}</value>
