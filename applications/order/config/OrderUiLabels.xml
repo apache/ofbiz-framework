@@ -2821,6 +2821,9 @@
         <value xml:lang="zh_CN">新建报价项</value>
         <value xml:lang="zh_TW">新建報價明細</value>
     </property>
+    <property key="OrderCreateOrderQuoteNote">
+        <value xml:lang="en">Create New Quote Note</value>
+    </property>
     <property key="OrderCreateOrderQuoteRole">
         <value xml:lang="de">Neue Offertrolle erstellen</value>
         <value xml:lang="de_DE">Neue Angebotsrolle erstellen</value>
@@ -6950,6 +6953,12 @@
         <value xml:lang="zh">询价名称</value>
         <value xml:lang="zh_CN">报价名</value>
         <value xml:lang="zh_TW">報價名稱</value>
+    </property>
+    <property key="OrderOrderQuoteNoteList">
+        <value xml:lang="en">Quote Note List</value>
+    </property>
+    <property key="OrderOrderQuoteNotes">
+        <value xml:lang="en">Quote Notes</value>
     </property>
     <property key="OrderOrderQuotePercProfit">
         <value xml:lang="de">Prozentualer provisorischer Gewinn</value>
@@ -12872,5 +12881,8 @@
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="zh">浏览请求</value>
         <value xml:lang="zh_TW">瀏覽要求</value>
+    </property>
+    <property key="QuoteEditNote">
+        <value xml:lang="en">Update Note</value>
     </property>
 </resource>

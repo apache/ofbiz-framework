@@ -40,8 +40,8 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/OrderMenus.xml"/>
-                                        <container>
-                                            <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
+                                        <container style="page-title">
+                                            <label>${uiLabelMap[titleProperty]} [${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                         </container>
                                     </widgets>
                                 </section>
@@ -659,6 +659,10 @@ under the License.
                     <field-map field-name="quoteId"  from-field="parameters.quoteId"/>
                     <field-map field-name="quoteItemSeqId" value="_NA_"/>
                 </entity-and>
+                <entity-and entity-name="QuoteNoteView" list="quoteNotes">
+                    <field-map field-name="quoteId"  from-field="parameters.quoteId"/>
+                    <order-by field-name="-noteDateTime"/>
+                </entity-and>
             </actions>
             <widgets>
                 <container style="lefthalf">
@@ -668,6 +672,7 @@ under the License.
                     <include-screen name="quoteDate"/>
                     <include-screen name="quoteRoles"/>
                     <include-screen name="ListQuoteInfo"/>
+                    <include-screen name="ListQuoteNoteInfo"/>
                 </container>
             </widgets>
         </section>
@@ -689,6 +694,18 @@ under the License.
             <widgets>
                 <screenlet title="${uiLabelMap.OrderOrderQuoteTermList}">
                     <include-form name="ListQuoteInfo" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListQuoteNoteInfo">
+        <section>
+            <condition>
+                <not><if-empty field="quoteNotes"/></not>
+            </condition>
+            <widgets>
+                <screenlet title="${uiLabelMap.OrderOrderQuoteNotes}">
+                    <include-form name="ListQuoteNoteInfo" location="component://order/widget/ordermgr/QuoteForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -804,4 +821,84 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ListQuoteNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderOrderQuoteNoteList"/>
+                <set field="tabButtonItem" value="ListQuoteNotes"/>
+                <set field="quoteId" from-field="parameters.quoteId"/>
+                <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
+                <entity-and entity-name="QuoteNoteView" list="quoteNotes">
+                    <field-map field-name="quoteId"  from-field="parameters.quoteId"/>
+                    <order-by field-name="-noteDateTime"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonQuoteDecorator" location="${parameters.quoteDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="button-bar button-style-1">
+                            <link target="createnewquotenote" text="${uiLabelMap.OrderCreateOrderQuoteNote}">
+                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                            </link>
+                        </container>
+                        <include-form name="ListQuoteNotes" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="QuoteNewNote">
+        <section>
+            <condition>
+                <not><if-empty field="parameters.quoteId"/></not>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="OrderAddNote"/>
+                <set field="tabButtonItem" value="QuoteNotes"/>
+                <set field="target" value="createquotenote"/>
+                <set field="quoteId" from-field="parameters.quoteId"/>
+                <entity-one entity-name="Quote" value-field="quote"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonQuoteDecorator">
+                    <decorator-section name="body">
+                        <include-form name="AddOrEditQuoteNote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.OrderViewPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+    <screen name="EditQuoteNote">
+        <section>
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.noteId"/></not>
+                    <not><if-empty field="parameters.quoteId"/></not>
+                </and>
+            </condition>
+            <actions>
+                <set field="titleProperty" value="QuoteEditNote"/>
+                <set field="tabButtonItem" value="QuoteNotes"/>
+                <set field="target" value="updateQuoteNote"/>
+                <set field="quoteId" from-field="parameters.quoteId"/>
+                <set field="noteId" from-field="parameters.noteId"/>
+                <entity-one entity-name="Quote" value-field="quote"/>
+                <entity-one entity-name="QuoteNoteView" value-field="quoteNoteData"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonQuoteDecorator">
+                    <decorator-section name="body">
+                        <include-form name="AddOrEditQuoteNote" location="component://order/widget/ordermgr/QuoteForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.OrderViewPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
+
 </screens>

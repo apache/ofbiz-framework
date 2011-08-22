@@ -1383,6 +1383,9 @@ under the License.
       <relation type="one" fk-name="QUOTE_CHANNEL" title="SalesChannel" rel-entity-name="Enumeration">
         <key-map field-name="salesChannelEnumId" rel-field-name="enumId"/>
       </relation>
+      <relation type="many" rel-entity-name="QuoteNoteView">
+        <key-map field-name="quoteId"/>
+      </relation>
     </entity>
     <entity entity-name="QuoteAttribute"
             package-name="org.ofbiz.order.quote"
@@ -1463,6 +1466,21 @@ under the License.
       <relation type="one" fk-name="QUOTE_ITM_CSRITM" rel-entity-name="CustRequestItem">
         <key-map field-name="custRequestId"/>
         <key-map field-name="custRequestItemSeqId"/>
+      </relation>
+    </entity>
+    <entity entity-name="QuoteNote"
+            package-name="org.ofbiz.order.quote"
+            never-cache="true"
+            title="Quote Note Entity">
+      <field name="quoteId" type="id-ne"></field>
+      <field name="noteId" type="id-ne"></field>
+      <prim-key field="quoteId"/>
+      <prim-key field="noteId"/>
+      <relation type="one" fk-name="QUOTE_NT_QTE" rel-entity-name="Quote">
+        <key-map field-name="quoteId"/>
+      </relation>
+      <relation type="one" fk-name="QUOTE_NT_NOTE" rel-entity-name="NoteData">
+        <key-map field-name="noteId"/>
       </relation>
     </entity>
     <entity entity-name="QuoteRole"

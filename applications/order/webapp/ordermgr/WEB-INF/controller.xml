@@ -1634,6 +1634,33 @@ under the License.
         <response name="success" type="view" value="ListQuoteAdjustments"/>
     </request-map>
 
+        <!-- Quote Note Requests -->
+    <request-map uri="createnewquotenote">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="createnewquotenote"/>
+    </request-map>
+    <request-map uri="createquotenote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createQuoteNote"/>
+        <response name="success" type="view" value="ListQuoteNotes"/>
+        <response name="error" type="view" value="createnewquotenote"/>
+    </request-map>
+    <request-map uri="updateQuoteNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateNote"/>
+        <response name="success" type="request-redirect" value="ListQuoteNotes"><redirect-parameter name="quoteId"/></response>
+        <response name="error" type="view" value="ListQuoteNotes"/>
+    </request-map>
+    <request-map uri="ListQuoteNotes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListQuoteNotes"/>
+    </request-map>
+    <request-map uri="EditQuoteNote">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditQuoteNote"/>
+    </request-map>
+
+
     <!--  WorkEffort Quote request mappings -->
     <request-map uri="ListQuoteWorkEfforts">
         <security https="true" auth="true"/>
@@ -2012,6 +2039,9 @@ under the License.
     <view-map name="EditQuoteAdjustment" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteAdjustment"/>
     <view-map name="ViewQuoteProfit" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteProfit"/>
     <view-map name="EditQuoteReportMail" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteReportMail"/>
+    <view-map name="createnewquotenote" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#QuoteNewNote"/>
+    <view-map name="ListQuoteNotes" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#ListQuoteNotes"/>
+    <view-map name="EditQuoteNote" type="screen" page="component://order/widget/ordermgr/QuoteScreens.xml#EditQuoteNote"/>
 
     <view-map name="FindRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#FindRequest"/>
     <view-map name="ViewRequest" type="screen" page="component://order/widget/ordermgr/CustRequestScreens.xml#ViewRequest"/>
