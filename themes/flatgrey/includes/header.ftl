@@ -123,7 +123,8 @@ under the License.
       <#else/>
         <li>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
       </#if>
-      <#if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
+      <#---if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists-->
+      <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
         <#include "component://common/webcommon/includes/helplink.ftl" />
         <li><a <#if pageAvail?has_content>class="alert"</#if> href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
       </#if> 
