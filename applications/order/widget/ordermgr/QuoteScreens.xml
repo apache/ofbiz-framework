@@ -827,6 +827,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteNoteList"/>
                 <set field="tabButtonItem" value="ListQuoteNotes"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
+                <set field="headerRowStyle" value="header-row-2"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteNoteView" list="quoteNotes">
                     <field-map field-name="quoteId"  from-field="parameters.quoteId"/>
