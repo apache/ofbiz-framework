@@ -40,10 +40,10 @@ under the License.
                                         <container style="button-bar"><link  text="${uiLabelMap.ContentSurveyCreate}" target="EditSurvey" style="buttontext create"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="FindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        <include-form name="FindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -115,13 +115,13 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleCreateSurvey}">
-                                    <include-form name="EditSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                                    <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditSurvey} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}">
-                                    <include-form name="EditSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
-                                    <include-form name="BuildSurveyFromPdf" location="component://content/widget/survey/SurveyForms.xml"/>
+                                    <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                    <include-form name="BuildSurveyFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                 </screenlet>
                             </fail-widgets>
                         </section>
@@ -152,17 +152,17 @@ under the License.
                             <section>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.ContentSurveyEditSurveyMultiResp}">
-                                        <include-form name="EditSurveyMultiResp" location="component://content/widget/survey/SurveyForms.xml"/>
-                                        <include-form name="ListSurveyMultiRespColumns" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        <include-form name="EditSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                                        <include-form name="ListSurveyMultiRespColumns" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </screenlet>
                                     <screenlet title="${uiLabelMap.ContentSurveyAddSurveyMultiRespColumn}">
-                                        <include-form name="AddSurveyMultiRespColumn" location="component://content/widget/survey/SurveyForms.xml"/>
+                                        <include-form name="AddSurveyMultiRespColumn" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </screenlet>
                                 </widgets>
                             </section>
                         </iterate-section>
                         <screenlet title="${uiLabelMap.ContentSurveyAddSurveyMultiResp}">
-                            <include-form name="AddSurveyMultiResp" location="component://content/widget/survey/SurveyForms.xml"/>
+                            <include-form name="AddSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -188,14 +188,14 @@ under the License.
                         <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
 
                         <!-- This page is a bit of a mess, so will cleanup/modernize later...
-                        <include-form name="ListSurveyQuestions" location="component://content/widget/survey/SurveyForms.xml"/>
-                        <include-form name="CreateSurveyQuestion" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="ListSurveyQuestions" location="component://content/webapp/content/survey/SurveyForms.xml"/>
+                        <include-form name="CreateSurveyQuestion" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         -->
 
                         <screenlet id="SurveyPagePanel" title="${uiLabelMap.PageTitleEditSurveyPages} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}" collapsible="true">
-                            <include-form name="AddSurveyPage" location="component://content/widget/survey/SurveyForms.xml"/>
+                            <include-form name="AddSurveyPage" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         </screenlet>
-                        <include-form name="ListSurveyPages" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="ListSurveyPages" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -225,13 +225,13 @@ under the License.
                                     <parameter param-name="surveyId"/>
                                 </link>
                             </container>
-                            <include-form name="FindSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
+                            <include-form name="FindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ContentSurveyBuildRespondeFromPDF}">
-                            <include-form name="BuildSurveyResponseFromPdf" location="component://content/widget/survey/SurveyForms.xml"/>
+                            <include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleListSurveyResponse}">
-                            <include-form name="ListFindSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
+                            <include-form name="ListFindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -295,7 +295,7 @@ under the License.
                     <decorator-section name="body">
                         <container><label style="h1">${uiLabelMap.PageTitleEditSurveyResponse}, ${uiLabelMap.ContentSurveyResponse}: ${parameters.surveyResponseId}, ${uiLabelMap.ContentSurveySurveyId}: ${surveyId}</label></container>
                         <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyResponse.ftl"/></html></platform-specific>
-                        <include-form name="BuildSurveyResponseFromPdf" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -317,10 +317,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="lookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="listLookupSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -341,10 +341,10 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-options">
-                        <include-form name="lookupSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="lookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                     <decorator-section name="search-results">
-                        <include-form name="listLookupSurveyResponse" location="component://content/widget/survey/SurveyForms.xml"/>
+                        <include-form name="listLookupSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -361,7 +361,7 @@ under the License.
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-form name="ListFindSurvey" location="component://content/widget/survey/SurveyForms.xml"/>
+                <include-form name="ListFindSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
             </widgets>
         </section>
     </screen>

@@ -187,7 +187,7 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditWebSite" extends="EditWebSite" extends-resource="component://content/widget/website/WebSiteForms.xml">
+    <form name="EditWebSite" extends="EditWebSite" extends-resource="component://content/webapp/content/website/WebSiteForms.xml">
         <actions><set field="webSiteId" from-field="webSite.webSiteId"/></actions>
         <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="WebStore"/></field>
         <field name="siteName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>

@@ -44,10 +44,10 @@ under the License.
                                         </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
-                                        <include-form name="findLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                                        <include-form name="findLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="listFindLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                                        <include-form name="listFindLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -79,7 +79,7 @@ under the License.
                                     <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
                                 </link>
                             </container>
-                            <include-form name="listListLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                            <include-form name="listListLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -100,7 +100,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditLayout}">
-                            <include-form name="EditLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                            <include-form name="EditLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                             <link target="cloneLayout" text="${uiLabelMap.ContentCloneLayout}" style="buttontext">
                                 <parameter param-name="contentId" from-field="currentValue.contentId"/>
                             </link>
@@ -127,7 +127,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditLayoutSubContent}">
-                            <include-form name="EditLayoutSubContent" location="component://content/widget/layout/LayoutForms.xml"/>
+                            <include-form name="EditLayoutSubContent" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
@@ -148,7 +148,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <!--
-                        <include-form name="EditLayoutText" location="component://content/widget/layout/LayoutForms.xml"/>
+                        <include-form name="EditLayoutText" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         -->
                     </decorator-section>
                 </decorator-screen>
@@ -169,7 +169,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <!--
-                        <include-form name="EditLayoutHtml" location="component://content/widget/layout/LayoutForms.xml"/>
+                        <include-form name="EditLayoutHtml" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         -->
                     </decorator-section>
                 </decorator-screen>
@@ -190,7 +190,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <!--
-                        <include-form name="EditLayoutUrl" location="component://content/widget/layout/LayoutForms.xml"/>
+                        <include-form name="EditLayoutUrl" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         -->
                     </decorator-section>
                 </decorator-screen>
@@ -211,7 +211,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <!--
-                        <include-form name="EditLayoutImage" location="component://content/widget/layout/LayoutForms.xml"/>
+                        <include-form name="EditLayoutImage" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         -->
                     </decorator-section>
                 </decorator-screen>
@@ -230,7 +230,7 @@ under the License.
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleEditLayout}">
-                            <include-form name="AddLayout" location="component://content/widget/layout/LayoutForms.xml"/>
+                            <include-form name="AddLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
