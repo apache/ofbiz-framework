@@ -31,11 +31,11 @@ surveyQuestionAndApplList = delegator.findList("SurveyQuestionAndAppl", EntityCo
 surveyPageList = delegator.findList("SurveyPage", EntityCondition.makeCondition([surveyId : surveyId]), null, ['sequenceNum'], null, false);
 surveyMultiRespList = delegator.findList("SurveyMultiResp", EntityCondition.makeCondition([surveyId : surveyId]), null, ['multiRespTitle'], null, false);
 
-HtmlFormWrapper createSurveyQuestionWrapper = new HtmlFormWrapper("component://content/webapp/content/survey/SurveyForms.xml", "CreateSurveyQuestion", request, response);
+HtmlFormWrapper createSurveyQuestionWrapper = new HtmlFormWrapper("component://content/widget/survey/SurveyForms.xml", "CreateSurveyQuestion", request, response);
 createSurveyQuestionWrapper.putInContext("surveyId", surveyId);
 createSurveyQuestionWrapper.putInContext("surveyQuestion", surveyQuestion);
 
-HtmlFormWrapper createSurveyQuestionCategoryWrapper = new HtmlFormWrapper("component://content/webapp/content/survey/SurveyForms.xml", "CreateSurveyQuestionCategory", request, response);
+HtmlFormWrapper createSurveyQuestionCategoryWrapper = new HtmlFormWrapper("component://content/widget/survey/SurveyForms.xml", "CreateSurveyQuestionCategory", request, response);
 createSurveyQuestionCategoryWrapper.putInContext("surveyId", surveyId);
 
 if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(surveyQuestion.surveyQuestionTypeId)) {
@@ -43,7 +43,7 @@ if (surveyQuestion && surveyQuestion.surveyQuestionTypeId && "OPTION".equals(sur
     questionOptions = delegator.findList("SurveyQuestionOption", EntityCondition.makeCondition([surveyQuestionId : surveyQuestionId]), null, ['sequenceNum'], null, false);
     context.questionOptions = questionOptions;
 
-    HtmlFormWrapper createSurveyOptionWrapper = new HtmlFormWrapper("component://content/webapp/content/survey/SurveyForms.xml", "CreateSurveyQuestionOption", request, response);
+    HtmlFormWrapper createSurveyOptionWrapper = new HtmlFormWrapper("component://content/widget/survey/SurveyForms.xml", "CreateSurveyQuestionOption", request, response);
 
     // survey question option
     optionSeqId = parameters.surveyOptionSeqId;

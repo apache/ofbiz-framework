@@ -39,7 +39,7 @@ under the License.
                                     <container style="button-bar">
                                         <link  text="${uiLabelMap.ContentCreateNewWebSite}" target="EditWebSite" style="buttontext create"/>
                                     </container>
-                                    <include-form name="ListWebSites" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="ListWebSites" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -67,7 +67,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditWebSite}">
-                                    <include-form name="EditWebSite" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="EditWebSite" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -95,13 +95,13 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleWebSiteContent}">
-                                    <include-form name="ListWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="ListWebSiteContent" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleCreateWebSiteContent}">
-                                    <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="CreateWebSiteContent" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.PageTitleAutoCreateContentPublishPoints}">
-                                    <include-form name="AutoCreateWebsiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="AutoCreateWebsiteContent" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -128,9 +128,9 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet id="AddWebSiteRolePanel" title="${uiLabelMap.PageTitleCreateWebSiteParties}" collapsible="true">
-                                    <include-form name="CreateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="CreateWebSiteRole" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
-                                <include-form name="UpdateWebSiteRole" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                <include-form name="UpdateWebSiteRole" location="component://content/widget/website/WebSiteForms.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -346,10 +346,10 @@ under the License.
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
-                                <include-form name="FindWebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                <include-form name="FindWebSitePathAlias" location="component://content/widget/website/WebSiteForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListWebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                <include-form name="ListWebSitePathAlias" location="component://content/widget/website/WebSiteForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
@@ -363,7 +363,7 @@ under the License.
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
             </actions>
             <widgets>
-                <include-form name="ListWebSitePathAlias" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                <include-form name="ListWebSitePathAlias" location="component://content/widget/website/WebSiteForms.xml"/>
             </widgets>
         </section>
     </screen>
@@ -383,7 +383,7 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleWebSiteSEO}">
-                                    <include-form name="CreateWebsiteSEO" location="component://content/webapp/content/website/WebSiteForms.xml"/>
+                                    <include-form name="CreateWebsiteSEO" location="component://content/widget/website/WebSiteForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -409,10 +409,10 @@ under the License.
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ContentWebSiteContactListCreate}">
-                            <include-form location="component://content/webapp/content/website/WebSiteForms.xml" name="CreateWebSiteContactList"/>
+                            <include-form location="component://content/widget/website/WebSiteForms.xml" name="CreateWebSiteContactList"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ContentWebSiteContactListView} of webSiteId[${webSiteId}]">
-                            <include-form location="component://content/webapp/content/website/WebSiteForms.xml" name="ViewWebSiteContactList"/>
+                            <include-form location="component://content/widget/website/WebSiteForms.xml" name="ViewWebSiteContactList"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
