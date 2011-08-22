@@ -546,7 +546,7 @@ under the License.
         <alt-target use-when="quoteTerm==null" target="createQuoteTermFromItem"/>
     </form>
     <form name="ListQuoteNotes" target="" title="" type="list" list-name="quoteNotes"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteNotes">
+        header-row-style="${headerRowStyle}" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteNotes">
         <auto-fields-entity entity-name="QuoteNoteView" default-field-type="display"/>
         <field name="quoteId"><hidden/></field>
         <field name="noteId"><hidden/></field>
