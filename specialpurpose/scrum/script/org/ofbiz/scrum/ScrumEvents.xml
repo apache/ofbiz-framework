@@ -4402,9 +4402,11 @@
     </simple-method>
     <simple-method method-name="getWebSiteId" short-description="Get WebSite Id">
         <!-- for notification -->
-        <call-class-method method-name="getWebSiteId" class-name="org.ofbiz.webapp.website.WebSiteWorker" ret-field="webSiteId">
-            <field field="request" type="javax.servlet.ServletRequest"/>
-        </call-class-method>
+        <if-not-empty field="request">
+            <call-class-method method-name="getWebSiteId" class-name="org.ofbiz.webapp.website.WebSiteWorker" ret-field="webSiteId">
+                <field field="request" type="javax.servlet.ServletRequest"/>
+            </call-class-method>
+        </if-not-empty>
         <if-not-empty field="webSiteId">
             <set field="parameters.webSiteId" from-field="webSiteId"/>
         </if-not-empty>
