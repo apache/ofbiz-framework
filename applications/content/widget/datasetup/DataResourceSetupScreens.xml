@@ -33,9 +33,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="DataResourceTypePanel" title="${uiLabelMap.PageTitleEditDataResourceType}" collapsible="true">
-                            <include-form name="AddDataResourceType" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddDataResourceType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateDataResourceType" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateDataResourceType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -54,9 +54,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="DataResourceCharacterSetPanel" title="${uiLabelMap.PageTitleEditDataResourceCharacterSet}" collapsible="true">
-                            <include-form name="AddCharacterSet" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddCharacterSet" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateCharacterSet" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateCharacterSet" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -75,9 +75,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="DataResourceTypeAttrPanel" title="${uiLabelMap.PageTitleEditDataResourceTypeAttr}" collapsible="true">
-                            <include-form name="AddDataResourceTypeAttr" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddDataResourceTypeAttr" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateDataResourceTypeAttr" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateDataResourceTypeAttr" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -96,9 +96,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="FileExtensionPanel" title="${uiLabelMap.PageTitleEditDataResourceFileExtension}" collapsible="true">
-                            <include-form name="AddFileExtension" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddFileExtension" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateFileExtension" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateFileExtension" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -117,9 +117,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="MetaDataPredicatePanel" title="${uiLabelMap.PageTitleEditDataResourceMetaDataPredicate}" collapsible="true">
-                            <include-form name="AddMetaDataPredicate" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddMetaDataPredicate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateMetaDataPredicate" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateMetaDataPredicate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -138,9 +138,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="DataResourceMimeTypePanel" title="${uiLabelMap.PageTitleEditDataResourceMimeType}" collapsible="true">
-                            <include-form name="AddMimeType" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddMimeType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateMimeType" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateMimeType" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -159,9 +159,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="MimeTypeHtmlTemplatePanel" title="${uiLabelMap.PageTitleEditDataResourceMimeTypeHtmlTemplate}" collapsible="true">
-                            <include-form name="CreateMimeTypeHtmlTemplate" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="CreateMimeTypeHtmlTemplate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateMimeTypeHtmlTemplate" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateMimeTypeHtmlTemplate" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -181,9 +181,9 @@ under the License.
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="DataResourceCategoryPanel" title="${uiLabelMap.PageTitleEditDataResourceCategory}" collapsible="true">
-                            <include-form name="AddDataCategory" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                            <include-form name="AddDataCategory" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                         </screenlet>
-                        <include-form name="UpdateDataCategory" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
+                        <include-form name="UpdateDataCategory" location="component://content/widget/datasetup/DataSetupForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
