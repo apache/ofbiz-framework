@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <!-- WebSite Forms -->
+    <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="webSite==null" target="createWebSite"/>
+
+        <auto-fields-service service-name="updateWebSite" map-name=""/>
+
+        <field use-when="webSite!=null" name="webSiteId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field use-when="webSite==null&amp;&amp;webSiteId!=null" name="webSiteId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${webSiteId}]"><text size="20" maxlength="20"/></field>
+        <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
+        <field use-when="webSite==null&amp;&amp;webSiteId==null" name="webSiteId"><text size="20" maxlength="20"/></field>
+
+        <field name="siteName"><text size="30" maxlength="60"/></field>
+        <field name="enableHttps">
+            <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
+        </field>
+
+        <field name="productStoreId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProductStore" description="${storeName}">
+                    <entity-order-by field-name="storeName"/>
+                </entity-options>
+                <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore" description="${uiLabelMap.ContentEditProductStore}">
+                <parameter param-name="productStoreId" from-field="webSite.productStoreId"/>
+            </sub-hyperlink>
+            </drop-down>
+        </field>
+        <field name="visualThemeSetId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="VisualThemeSet" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+    <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <actions>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="-webSiteId"/>
+            <entity-condition entity-name="WebSite" list="webSites">
+                <order-by field-name="${parameters.sortField}"/>
+            </entity-condition>
+        </actions>
+        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext" sort-field="true">
+            <hyperlink description="${webSiteId}" target="EditWebSite" also-hidden="false">
+                <parameter param-name="webSiteId"/>
+            </hyperlink>
+        </field>
+        <field name="siteName" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
+        <field name="httpHost" sort-field="true"><display/></field>
+    </form>
+
+    <form name="FindWebSitePathAlias" target="WebSiteAliases" type="single" header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="webSiteId"><hidden value="${webSiteId}"/></field>
+        <field name="pathAlias"><text-find ignore-case="true"/></field>
+        <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListWebSitePathAlias" target="" title="" list-name="listIt" type="list" paginate-target="WebSiteAliases"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="WebSitePathAlias"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <field name="pathAlias" sort-field="true"><display/></field>
+        <field name="pathAliasTo" sort-field="true"><display/></field>
+        <field name="mapKey" sort-field="true"><display/></field>
+        <field name="contentId" sort-field="true">
+            <display-entity entity-name="Content" description="${contentName}">
+                <sub-hyperlink target="EditContent" description=" [${contentId}]">
+                    <parameter param-name="contentId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="WebSiteAliasesSearchResults"/>
+    </form>
+
+    <!-- WebSite Content Forms -->
+    <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent"
+        paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateWebSiteRole"/>
+        <field name="sequenceNum"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="partyId"><hidden/></field>
+
+        <field name="webSiteId"><display also-hidden="true"/></field>
+        <!--
+        <field name="contentId" title="Content ID" widget-style="linktext">
+            <hyperlink description="${contentId}" target="EditContent" also-hidden="true">
+                <parameter param-name="contentId"/>
+            </hyperlink>
+        </field>
+        -->
+        <field name="contentId">
+            <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
+                <sub-hyperlink target="EditContent" description=" [${contentId}]" link-style="linktext">
+                    <parameter param-name="contentId"/>
+                </sub-hyperlink>
+            </display-entity>
+
+        </field>
+        <field name="webSiteContentTypeId">
+            <display-entity entity-name="WebSiteContentType"/>
+        </field>
+        <field name="fromDate"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="RemoveWebSiteContent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="webSiteId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="webSiteContentTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        <sort-order>
+            <sort-field name="webSiteId"/>
+            <sort-field name="contentId"/>
+            <sort-field name="webSiteContentTypeId"/>
+            <sort-field name="fromDate"/>
+            <sort-field name="thruDate"/>
+            <sort-field name="submitButton"/>
+            <sort-field name="deleteLink"/>
+        </sort-order>
+    </form>
+    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createWebSiteContent"/>
+        <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
+        <field name="contentId"><lookup target-form-name="LookupContent"/></field>
+        <field name="webSiteContentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WebSiteContentType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <!-- WebSite Role Forms -->
+    <form name="CreateWebSiteRole" type="single" target="createWebSiteRole" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createWebSiteRole"/>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="webSiteId" map-name="webSite"><hidden/></field>
+        <field name="roleTypeId">
+            <drop-down no-current-selected-key="_NA_">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+    <form name="UpdateWebSiteRole" type="list" target="updateWebSiteRole" title="" list-name="webSiteRoleDatas"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateWebSiteRole" map-name="webSiteRole"/>
+        <field name="webSiteId"><hidden/></field>
+        <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
+        <field name="partyId" widget-style="buttontext">
+            <hyperlink target-type="inter-app" target="/partymgr/control/viewprofile" description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName} ${person.suffix} ${partyGroup.groupName} [${webSiteRole.partyId}]">
+                <parameter param-name="partyId" from-field="webSiteRole.partyId"/>
+            </hyperlink>
+        </field>
+        <field name="roleTypeId">
+            <display description="${roleType.description}"/>
+        </field>
+        <field name="fromDate" widget-style="tabletext"><display/></field>
+        <field name="thruDate"></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="removeWebSiteRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="webSiteId" from-field="webSiteRole.webSiteId"/>
+                <parameter param-name="partyId" from-field="webSiteRole.partyId"/>
+                <parameter param-name="roleTypeId" from-field="webSiteRole.roleTypeId"/>
+                <parameter param-name="fromDate" from-field="webSiteRole.fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="webSiteId"><hidden/></field>
+        <field name="webSiteContentTypeId">
+            <check all-checked="false">
+                <entity-options entity-name="WebSiteContentType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </check>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+
+    <!-- WebSite SEO Form -->
+    <form name="CreateWebsiteSEO" type="single" target="generateMissingSeoUrlForWebsite" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="webSiteId"><hidden/></field>
+        <field name="prodCatalogId" title="${uiLabelMap.Catalog}">
+            <drop-down>
+                <option key="all" description="All"/>
+                <entity-options description="${prodCatalogId}" entity-name="ProductStoreCatalog">
+                    <entity-constraint name="productStoreId" value="${webSite.productStoreId}"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="typeGenerate" title="Generate Type">
+            <check all-checked="false">
+                <option key="category" description="Category"/>
+                <option key="product" description="Product"/>
+                <option key="content" description="Content"/>
+            </check>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
+    </form>
+    <form name="CreateWebSiteContactList" type="single" target="createWebSiteContactList" 
+            default-map-name="webSite" title="" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <set field="fromDate" value="${groovy: import org.ofbiz.base.util.UtilDateTime; return UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+        </actions>
+        <field name="webSiteId"><display/></field>
+        <field name="siteName"><display/></field>
+        <field name="fromDate"><hidden value="${fromDate}"/></field>
+        <field name="contactListId">
+            <drop-down allow-empty="true">
+                <entity-options description="${contactListName} [${contactListId}]" entity-name="ContactList" key-field-name="contactListId"></entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
+    </form>
+    <form name="ViewWebSiteContactList" type="list" target="updateWebSiteContactList" list-name="webSiteContactLists" title="" 
+            header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="ContactList" value-field="contactList">
+                <field-map field-name="contactListId" from-field="contactListId"/>
+            </entity-one>
+        </actions>
+        <row-actions>
+            <entity-one entity-name="ContactList" value-field="contactList">
+                <field-map field-name="contactListId" from-field="contactListId"/>
+            </entity-one>
+            <set field="contactListName" from-field="contactList.contactListName"/>
+            <set field="description" from-field="contactList.description"/>
+        </row-actions>
+        <field name="contactListId"><hidden/></field>
+        <field name="webSiteId"><hidden/></field>
+        <field name="contactListName">
+            <display-entity entity-name="ContactList" description="${contactListName}" key-field-name="contactListId">
+                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="linktext" description="[${contactListId}]">
+                    <parameter param-name="contactListId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display type="date-time"/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+        <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteWebSiteContactList" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="webSiteId"/>
+                <parameter param-name="contactListId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>
