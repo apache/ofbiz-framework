@@ -1350,6 +1350,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         String containerStyle =  modelForm.getContainerStyle();
         String autocomplete = "";
         String name = modelForm.getCurrentFormName(context);
+        String viewIndexField = modelForm.getMultiPaginateIndexField(context);
+        String viewSizeField = modelForm.getMultiPaginateSizeField(context);
+        int viewIndex = modelForm.getViewIndex(context);
+        int viewSize = modelForm.getViewSize(context);
         boolean useRowSubmit = modelForm.getUseRowSubmit();
         if (!modelForm.getClientAutocompleteFields()) {
             autocomplete = "off";
@@ -1370,6 +1374,14 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(autocomplete);
         sr.append("\" name=\"");
         sr.append(name);
+        sr.append("\" viewIndexField=\"");
+        sr.append(viewIndexField);
+        sr.append("\" viewSizeField=\"");
+        sr.append(viewSizeField);
+        sr.append("\" viewIndex=\"");
+        sr.append(Integer.toString(viewIndex));
+        sr.append("\" viewSize=\"");
+        sr.append(Integer.toString(viewSize));
         sr.append("\" useRowSubmit=");
         sr.append(Boolean.toString(useRowSubmit));
         sr.append(" />");
@@ -3023,8 +3035,22 @@ public class MacroFormRenderer implements FormStringRenderer {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
 
         String encodedDescription = encode(description, modelFormField, context);
+        // get the parameterized pagination index and size fields
+        int paginatorNumber = WidgetWorker.getPaginatorNumber(context);
+        String viewIndexField = modelFormField.modelForm.getMultiPaginateIndexField(context);
+        String viewSizeField = modelFormField.modelForm.getMultiPaginateSizeField(context);
+        int viewIndex = modelFormField.modelForm.getViewIndex(context);
+        int viewSize = modelFormField.modelForm.getViewSize(context);
         
+        if (viewIndexField.equals("viewIndex" + "_" + paginatorNumber)) {
+            viewIndexField = "VIEW_INDEX" + "_" + paginatorNumber;
+        }
+        if (viewSizeField.equals("viewSize" + "_" + paginatorNumber)) {
+            viewSizeField = "VIEW_SIZE" + "_" + paginatorNumber;
+        }
         if ("hidden-form".equals(realLinkType)) {
+            parameterMap.put(viewIndexField, Integer.toString(viewIndex));
+            parameterMap.put(viewSizeField, Integer.toString(viewSize));
             if (modelFormField != null && "multi".equals(modelFormField.getModelForm().getType())) {
                 WidgetWorker.makeHiddenFormLinkAnchor(writer, linkStyle, encodedDescription, confirmation , modelFormField, request, response, context);
 
