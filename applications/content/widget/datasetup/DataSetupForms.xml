@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!-- DataResourceType forms -->
+    <form name="AddDataResourceType" target="addDataResourceType" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createDataResourceType"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateDataResourceType" list-name="contentList" target="updateDataResourceType" title="" type="list" paginate-target="EditDataResourceType"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+          <entity-condition entity-name="DataResourceType" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateDataResourceType"/>
+        <field name="dataResourceTypeId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceType">
+                <parameter param-name="dataResourceTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- DataResourceTypeAttr forms -->
+    <form name="AddDataResourceTypeAttr" target="addDataResourceTypeAttr" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createDataResourceTypeAttr"/>
+        <field entity-name="DataResource" name="dataResourceTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}"
+                    entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateDataResourceTypeAttr" list-name="contentList" target="updateDataResourceTypeAttr" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditDataResourceTypeAttr">
+        <actions>
+          <entity-condition entity-name="DataResourceTypeAttr" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="createDataResourceTypeAttr"/>
+        <field name="dataResourceTypeId">
+            <display/>
+        </field>
+        <field name="attrName" title="${uiLabelMap.ContentAttributeName}">
+            <display/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr">
+                <parameter param-name="dataResourceTypeId"/>
+                <parameter param-name="attrName"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- CharacterSet forms -->
+    <form name="AddCharacterSet" target="addCharacterSet" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createCharacterSet"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateCharacterSet" list-name="contentList" target="updateCharacterSet" title="" type="list" paginate-target="EditCharacterSet"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+          <entity-condition entity-name="CharacterSet" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateCharacterSet"/>
+        <field name="characterSetId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCharacterSet">
+                <parameter param-name="characterSetId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- DataCategory forms -->
+    <form name="AddDataCategory" target="addDataCategory" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createDataCategory"/>
+        <field name="parentCategoryId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="DataCategory" description="${categoryName}" key-field-name="dataCategoryId"></entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateDataCategory" list-name="dataCategoryList" target="updateDataCategory" title="" type="list" paginate-target="EditDataCategory"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="DataCategory" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateDataCategory"/>
+        <field name="dataCategoryId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="parentCategoryId">
+            <drop-down allow-empty="true">
+                <list-options list-name="dataCategoryList"
+                    key-name="dataCategoryId"  description="${categoryName}"
+                    />
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataCategory">
+                <parameter param-name="dataCategoryId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- FileExtension forms -->
+    <form name="AddFileExtension" target="addFileExtension" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createFileExtension"/>
+        <field name="mimeTypeId" title="${uiLabelMap.CommonEmptyHeader}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}"
+                    entity-name="MimeType" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateFileExtension" list-name="contentList" target="updateFileExtension" title="" type="list" paginate-target="EditFileExtension"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+          <entity-condition entity-name="FileExtension" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateFileExtension"/>
+        <field name="fileExtensionId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="mimeTypeId" title="${uiLabelMap.CommonEmptyHeader}">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}"
+                    entity-name="MimeType" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeFileExtension">
+                <parameter param-name="fileExtensionId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- MetaDataPredicate forms -->
+    <form name="AddMetaDataPredicate" target="addMetaDataPredicate" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createMetaDataPredicate"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateMetaDataPredicate" list-name="contentList" target="updateMetaDataPredicate" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="EditMetaDataPredicate">
+        <actions>
+          <entity-condition entity-name="MetaDataPredicate" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateMetaDataPredicate"/>
+        <field name="metaDataPredicateId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate">
+                <parameter param-name="metaDataPredicateId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- MimeType forms -->
+    <form name="AddMimeType" target="addMimeType" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createMimeType"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateMimeType" list-name="contentList" target="updateMimeType" title="" type="list" paginate-target="EditMimeType"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+          <entity-condition entity-name="MimeType" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateMimeType"/>
+        <field name="mimeTypeId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType">
+                <parameter param-name="mimeTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- MimeTypeHtmlTemplate Froms -->
+    <form name="CreateMimeTypeHtmlTemplate" target="createMimeTypeHtmlTemplate" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createMimeTypeHtmlTemplate"/>
+        <field name="mimeTypeId" widget-style="tabletext">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="UpdateMimeTypeHtmlTemplate" target="updateMimeTypeHtmlTemplate" title="" type="list" list-name="contentList" paginate-target="EditMimeTypeHtmlTemplate"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+          <entity-condition entity-name="MimeTypeHtmlTemplate" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateMimeTypeHtmlTemplate"/>
+        <field name="mimeTypeId" widget-style="tabletext">
+            <hyperlink target-type="intra-app" target="editMimeType" description="${mimeTypeId}">
+                <parameter param-name="mimeTypeId"/>
+            </hyperlink>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeTypeHtmlTemplate">
+                <parameter param-name="mimeTypeId"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>
