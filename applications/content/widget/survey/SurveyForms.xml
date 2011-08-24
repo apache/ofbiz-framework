@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="FindSurvey" default-map-name="survey" target="FindSurvey" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="Survey" default-field-type="find"/>
+
+        <field name="isAnonymous"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="allowMultiple"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="allowUpdate"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="acroFormContentId">
+            <lookup target-form-name="LookupContent"/>
+        </field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFindSurvey" target="" title="" list-name="listIt" type="list" paginate-target="FindSurvey"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service result-map-list="listIt" result-map="result" service-name="performFind">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Survey"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="Survey" default-field-type="display"/>
+        <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}" widget-style="buttontext" sort-field="true">
+            <hyperlink description="${surveyId}" target="EditSurvey" also-hidden="false">
+                <parameter param-name="surveyId"/>
+            </hyperlink>
+        </field>
+        <on-event-update-area event-type="paginate" area-id="search-results" area-target="ListFindSurveySearchResults"/>
+    </form>
+    <form name="EditSurvey" type="single" target="updateSurvey" title="" default-map-name="survey"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="survey==null" target="createSurvey"/>
+
+        <auto-fields-service service-name="updateSurvey"/>
+
+        <field use-when="survey!=null" name="surveyId" tooltip="${uiLabelMap.CommonNotModifRecreat}" widget-style="tabletext"><display/></field>
+        <field use-when="survey==null&amp;&amp;surveyId!=null" name="surveyId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${surveyId}]" widget-style="tabletext"><display description="" also-hidden="false"/></field>
+        <field use-when="survey==null&amp;&amp;surveyId==null" name="surveyId"><ignored/></field>
+
+        <field name="isAnonymous"><drop-down no-current-selected-key="N" allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="allowMultiple"><drop-down no-current-selected-key="N" allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="allowUpdate"><drop-down no-current-selected-key="N" allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+
+        <field name="acroFormContentId" use-when="survey!=null">
+            <lookup target-form-name="LookupContent"/>
+        </field>
+        <field name="acroFormContentId" use-when="survey==null"><ignored/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="BuildSurveyFromPdf" type="single" target="buildSurveyFromPdf" title="" default-map-name="survey"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="surveyId" map-name="survey"><hidden/></field>
+        <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">
+            <lookup target-form-name="LookupContent"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.ContentSurveyGenerateQuestions}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="BuildSurveyResponseFromPdf" type="single" target="buildSurveyResponseFromPdf" title="" default-map-name="survey"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="surveyId" map-name="parameters"><hidden/></field>
+        <field name="surveyResponseId" map-name="surveyResponse"><hidden/></field>
+        <field name="pdfFileNameIn" map-name="empty"><text/></field>
+
+        <field name="contentId" map-name="empty" title="${uiLabelMap.ContentPDF}">
+            <lookup target-form-name="LookupContent"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.ContentSurveyBuildRespondeFromPDF}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- SurveyMultiResp & SurveyMultiRespColumn -->
+    <form name="EditSurveyMultiResp" type="single" target="updateSurveyMultiResp" title="" default-map-name="surveyMultiResp"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="updateSurveyMultiResp" default-field-type="edit"/>
+
+        <field name="surveyId"><hidden/></field>
+        <field name="surveyMultiRespId" widget-style="tabletext"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListSurveyMultiRespColumns" type="list" target="updateSurveyMultiRespColumn" title="" list-name="surveyMultiRespColumnList"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="SurveyMultiRespColumn">
+                <condition-list combine="and">
+                    <condition-expr field-name="surveyId" from-field="surveyMultiResp.surveyId"/>
+                    <condition-expr field-name="surveyMultiRespId" from-field="surveyMultiResp.surveyMultiRespId"/>
+                </condition-list>
+                <order-by field-name="sequenceNum"/>
+            </entity-condition>
+        </actions>
+
+        <auto-fields-service service-name="updateSurveyMultiRespColumn" default-field-type="edit"/>
+
+        <field name="surveyId"><hidden/></field>
+        <field name="surveyMultiRespId" widget-style="tabletext"><display/></field>
+        <field name="surveyMultiRespColId" widget-style="tabletext"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddSurveyMultiRespColumn" type="single" target="createSurveyMultiRespColumn" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createSurveyMultiRespColumn" default-field-type="edit"/>
+
+        <field name="surveyId" map-name="surveyMultiResp"><hidden/></field>
+        <field name="surveyMultiRespId" map-name="surveyMultiResp"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddSurveyMultiResp" type="single" target="createSurveyMultiResp" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createSurveyMultiResp" default-field-type="edit"/>
+
+        <field name="surveyId" map-name="survey"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- SurveyPage -->
+    <form name="ListSurveyPages" type="list" target="updateSurveyPage" title="" list-name="surveyPageList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="SurveyPage">
+                <condition-expr field-name="surveyId" from-field="surveyId"/>
+                <order-by field-name="sequenceNum"/>
+            </entity-condition>
+        </actions>
+
+        <auto-fields-service service-name="updateSurveyPage" default-field-type="edit"/>
+
+        <field name="surveyId"><hidden/></field>
+        <field name="surveyPageSeqId" widget-style="tabletext"><display/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddSurveyPage" type="single" target="createSurveyPage" title="" default-map-name="surveyPage"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createSurveyPage" default-field-type="edit"/>
+
+        <field name="surveyId"><hidden/></field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <!-- UNUSED FORM
+    <form name="ListSurveyQuestions" type="list" target="updateSurveyQuestion" title="" list-name="surveyQuestionList" list-entry-name="surveyQuestion"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-service service-name="updateSurveyQuestion" map-name="surveyQuestion"/>
+
+        <field name="surveyId"><hidden/></field>
+        <field name="surveyQuestionSeqId" title="${uiLabelMap.ContentSurveyQuestionNumber}"><display/></field>
+        <field name="surveyQuestionTypeId">
+            <drop-down allow-empty="false">
+               <entity-options entity-name="SurveyQuestionType" description="${description}"/>
+            </drop-down>
+        </field>
+
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    -->
+
+    <form name="CreateSurveyQuestion" type="single" target="createSurveyQuestion" title="" default-map-name="surveyQuestion"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="surveyQuestion!=null" target="updateSurveyQuestion"/>
+        <auto-fields-service service-name="createSurveyQuestion"/>
+
+        <field use-when="surveyQuestion!=null" name="surveyQuestionId"><hidden/></field>
+        <field name="surveyId"><hidden value="${surveyId}"/></field>
+        <field name="surveyQuestionSeqId"><ignored/></field>
+        <field name="surveyQuestionCategoryId">
+            <drop-down allow-empty="false">
+               <entity-options entity-name="SurveyQuestionCategory" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="surveyQuestionTypeId">
+            <drop-down allow-empty="false">
+               <entity-options entity-name="SurveyQuestionType" description="${description}"/>
+            </drop-down>
+        </field>
+
+        <field use-when="surveyQuestion!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="CreateSurveyQuestionCategory" type="single" target="createSurveyQuestionCategory" title=""
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createSurveyQuestionCategory"/>
+        <field name="surveyId"><hidden value="${surveyId}"/></field>
+        <field name="parentCategoryId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SurveyQuestionCategory" description="${description} [${surveyQuestionCategoryId}]" key-field-name="surveyQuestionCategoryId">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="CreateSurveyQuestionOption" type="single" target="createSurveyQuestionOption" title="" default-map-name="surveyQuestionOption"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="surveyQuestionOption!=null" target="updateSurveyQuestionOption"/>
+        <auto-fields-service service-name="createSurveyQuestionOption"/>
+
+        <field name="surveyId"><hidden value="${surveyId}"/></field>
+        <field name="surveyQuestionId"><hidden value="${surveyQuestionId}"/></field>
+        <field use-when="surveyQuestionOption!=null" name="surveyOptionSeqId"><hidden/></field>
+
+        <field name="amountBaseUomId">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="durationUomId">
+            <drop-down allow-empty="true">
+               <entity-options entity-name="Uom" key-field-name="uomId" description="${description} (${abbreviation})">
+                   <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                   <entity-order-by field-name="description"/>
+               </entity-options>
+            </drop-down>
+        </field>
+
+        <field use-when="surveyQuestionOption!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="surveyQuestionOption==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="FindSurveyResponse" target="FindSurveyResponse" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="SurveyResponse" default-field-type="find"/>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListFindSurveyResponse" list-name="listIt" title="" type="list" paginate-target="FindSurveyResponse"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="SurveyResponse"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="SurveyResponse" default-field-type="display"/>
+        <field name="surveyResponseId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${surveyResponseId}" target="EditSurveyResponse">
+                <parameter param-name="surveyResponseId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="lookupSurvey" target="LookupSurvey" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="Survey" default-field-type="find"/>
+        <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}"><text-find/></field>
+        <field name="isAnonymous"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="allowMultiple"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+        <field name="allowUpdate"><drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down></field>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupSurvey" list-name="listIt" title="" type="list" paginate-target="LookupSurvey"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="Survey"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="Survey" default-field-type="display"/>
+        <field name="surveyId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${surveyId}" target="javascript:set_value('${surveyId}')"/>
+        </field>
+    </form>
+
+    <form name="lookupSurveyResponse" target="LookupSurveyResponse" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="SurveyResponse" default-field-type="find"/>
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="listLookupSurveyResponse" list-name="listIt" title="" type="list" paginate-target="LookupSurveyResponse"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="SurveyResponse"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="SurveyResponse" default-field-type="display"/>
+        <field name="surveyResponseId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${surveyResponseId}" target="javascript:set_value('${surveyResponseId}')"/>
+        </field>
+    </form>
+</forms>

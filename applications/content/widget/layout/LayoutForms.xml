@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!-- LayoutFind forms -->
+    <form name="findLayout" default-entity-name="Content" target="FindLayout" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <!--<auto-fields-entity entity-name="Content" default-field-type="find"/>-->
+        <field name="contentTypeId">
+            <hidden value="DOCUMENT"/>
+        </field>
+        <field name="contentId">
+            <text-find/>
+        </field>
+        <field name="contentName">
+            <text-find/>
+        </field>
+        <field name="description">
+            <text-find/>
+        </field>
+        <field name="createdByUserLogin">
+             <lookup target-form-name="LookupPerson"/>
+        </field>
+        <field name="createdDate">
+            <date-find/>
+        </field>
+        <field name="lastModifiedByUserLogin">
+             <lookup target-form-name="LookupParty"/>
+        </field>
+        <field name="lastModifiedDate">
+            <date-find/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <!-- LayoutEdit forms -->
+    <form name="EditLayout" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutSubContent" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="contentId" >
+            <display/>
+        </field>
+        <field name="contentIdTo" >
+            <hidden value="TEMPLATE_MASTER"/>
+        </field>
+        <field name="drDataResourceTypeId" >
+            <display/>
+        </field>
+        <field name="drMimeTypeId" >
+            <display/>
+        </field>
+        <field name="contentName" >
+            <display/>
+        </field>
+        <field name="description" >
+            <display/>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
+            <display />
+        </field>
+        <!--
+        <field name="createdByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="createdDate" position="2">
+            <display/>
+        </field>
+        <field name="lastModifiedByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="lastModifiedDate" position="2">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="1">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
+        </field>
+        -->
+    </form>
+    <form name="AddLayout" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="createLayoutSubContent" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="contentId" >
+            <text/>
+        </field>
+        <field name="drDataResourceTypeId" >
+            <drop-down no-current-selected-key="LOCAL_FILE">
+                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
+                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
+                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
+                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
+            </drop-down>
+        </field>
+        <field name="drMimeTypeId" >
+            <drop-down no-current-selected-key="text/html">
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+            </drop-down>
+        </field>
+        <field name="drDataResourceTypeId" >
+            <drop-down no-current-selected-key="LOCAL_FILE">
+                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
+                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
+                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
+                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
+            </drop-down>
+        </field>
+        <field name="drMimeTypeId" >
+            <drop-down no-current-selected-key="text/html">
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+            </drop-down>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
+            <text />
+        </field>
+        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData">
+        <textarea rows="24" cols="80"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="listFindLayout" default-entity-name="ContentDataResourceView" title="" type="list" list-name="listIt" target="" paginate-target="FindLayout"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+          <actions>
+            <set field="requestParameters.contentTypeId" value="DOCUMENT"/>
+              <service service-name="performFind" result-map="result" result-map-list="listIt">
+                  <field-map field-name="inputFields" from-field="parameters"/>
+                  <field-map field-name="entityName" value="ContentDataResourceView"/>
+                  <field-map field-name="viewIndex" from-field="viewIndex"/>
+                  <field-map field-name="viewSize" from-field="viewSize"/>
+              </service>
+          </actions>
+        <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="dummy" title="${uiLabelMap.ContentClip}" widget-style="buttontext" map-name="dummy">
+            <hyperlink also-hidden="false" description="${contentId}" target="clipFindLayout">
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="viewSize"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="entityName"/>
+            </hyperlink>
+        </field>
+        <field name="contentName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="drObjectInfo"><display/></field>
+        <!--
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
+                <parameter param-name="contentId"/>
+                <parameter param-name="contentIdTo"/>
+                <parameter param-name="contentAssocTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
+        -->
+    </form>
+
+    <form name="listListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList" target="" title="" type="list" paginate-target="FindLayout"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="contentId" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="contentName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="drObjectInfo"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
+                <parameter param-name="contentId"/>
+                <parameter param-name="contentIdTo" from-field="caContentIdTo"/>
+                <parameter param-name="contentAssocTypeId" from-field="caContentAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="caFromDate"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="LayoutSubContentMaster" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="contentId" position="1" >
+        </field>
+        <field name="contentTypeIdDisplay"  title="${uiLabelMap.ContentType}" position="2" map-name="dummy">
+            <display description="DOCUMENT"/>
+        </field>
+        <field name="contentIdToDisplay"  title="${uiLabelMap.ContentParent}" position="3" map-name="dummy">
+            <display description="${contentIdTo}"/>
+        </field>
+        <field name="mapKeyDisplay"  title="${uiLabelMap.ContentMapKey}" position="4" map-name="dummy">
+            <display description="${mapKey}"/>
+        </field>
+        <field name="contentTypeId"  >
+            <hidden value="DOCUMENT"/>
+        </field>
+        <field name="drDataResourceId" title="${uiLabelMap.FormFieldTitle_dataResourceId}" >
+            <display/>
+        </field>
+        <field name="contentName">
+            <text/>
+        </field>
+        <field name="description">
+            <text/>
+        </field>
+        <field name="contentIdTo" >
+            <hidden value="${contentIdTo}"/>
+        </field>
+        <field name="mapKey" >
+            <hidden value="${mapKey}"/>
+        </field>
+    </form>
+
+    <form name="EditLayoutHtml" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutHtml" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="currentValue==null" target="createLayoutHtml"/>
+        <field name="drDataResourceTypeId" >
+            <display description="ELECTRONIC_TEXT"/>
+        </field>
+        <field name="drMimeTypeId" >
+            <display description="text/plain"/>
+        </field>
+        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData">
+        <textarea rows="24" cols="80"/>
+        </field>
+        <field name="createdByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="createdDate" position="2">
+            <display/>
+        </field>
+        <field name="lastModifiedByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="lastModifiedDate" position="2">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="EditLayoutText" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutText" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="currentValue==null" target="createLayoutText"/>
+        <field name="drDataResourceTypeId" >
+            <display description="ELECTRONIC_TEXT"/>
+        </field>
+        <field name="drMimeTypeId" >
+            <display description="text/plain"/>
+        </field>
+        <field name="textData" title="${uiLabelMap.ContentText}" >
+        <textarea rows="24" cols="80"/>
+        </field>
+        <field name="createdByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="createdDate" position="2">
+            <display/>
+        </field>
+        <field name="lastModifiedByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="lastModifiedDate" position="2">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="EditLayoutImage" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutImage" title="" type="upload"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="drDataResourceTypeId" >
+            <display description="IMAGE_OBJECT"/>
+        </field>
+        <field name="drMimeTypeId" >
+            <drop-down>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+            </drop-down>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
+            <display description="${currentValue.drObjectInfo}"/>
+        </field>
+        <field name="imageData" entity-name="ImageDataResource" map-name="dummy">
+            <file />
+        </field>
+        <field name="createdByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="createdDate" position="2">
+            <display/>
+        </field>
+        <field name="lastModifiedByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="lastModifiedDate" position="2">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="AddLayoutImage" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="createLayoutImage" title="" type="upload"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="drDataResourceTypeId" >
+            <hidden value="IMAGE_OBJECT"/>
+        </field>
+        <field name="drDataResourceTypeIdDisplay" title="${uiLabelMap.FormFieldTitle_drDataResourceTypeId}">
+            <display description="IMAGE_OBJECT"/>
+        </field>
+        <field name="drMimeTypeId" >
+            <drop-down>
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
+            </drop-down>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
+            <display description="${currentValue.drObjectInfo}"/>
+        </field>
+        <field name="imageData" entity-name="ImageDataResource">
+            <file />
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+
+    <form name="EditLayoutUrl" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutUrl" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="currentValue==null" target="createLayoutUrl"/>
+        <field name="drDataResourceTypeId" >
+            <display description="URL_RESOURCE"/>
+        </field>
+        <field name="drMimeTypeId" >
+            <display description="text/plain"/>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.ContentUrl}">
+            <text />
+        </field>
+        <field name="createdByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="createdDate" position="2">
+            <display/>
+        </field>
+        <field name="lastModifiedByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="lastModifiedDate" position="2">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="ListRelatedLayouts" default-entity-name="ContentDataResourceView" list-name="entityList" target="" title="" type="list" paginate-target="FindLayout"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+            </hyperlink>
+        </field>
+        <field name="contentName"><display/></field>
+        <field name="description"><display/></field>
+        <field name="drObjectInfo"><display/></field>
+    </form>
+
+    <form name="EditLayoutSubContent" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="updateLayoutSubContent" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="currentValue==null" target="createLayoutSubContent"/>
+        <field name="contentIdToDisplay" title="${uiLabelMap.ContentParent}">
+           <ignored/>
+        </field>
+        <field name="mapKeyDisplay" >
+           <ignored/>
+        </field>
+
+        <field name="contentId" position="1" >
+            <display/>
+        </field>
+        <field name="contentIdTo" >
+            <text default-value="${parameters.contentIdTo}"/>
+        </field>
+        <field name="mapKey" >
+            <text default-value="${parameters.mapKey}"/>
+        </field>
+        <field name="drDataResourceTypeId" >
+            <drop-down no-current-selected-key="ELECTRONIC_TEXT">
+                <option key="LOCAL_FILE" description="${uiLabelMap.ContentAbsoluteFile}"/>
+                <option key="OFBIZ_FILE" description="${uiLabelMap.ContentFileRelToOFBizHome}"/>
+                <option key="CONTEXT_FILE" description="${uiLabelMap.ContentFileRelToWebappRoot}"/>
+                <option key="ELECTRONIC_TEXT" description="${uiLabelMap.ContentDataBaseText}"/>
+            </drop-down>
+        </field>
+        <field name="drDataTemplateTypeId" >
+            <drop-down no-current-selected-key="NONE">
+                <entity-options description="${description}"
+                    entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+            </drop-down>
+        </field>
+        <field name="drMimeTypeId">
+            <drop-down no-current-selected-key="text/html">
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
+            </drop-down>
+        </field>
+        <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
+            <text />
+        </field>
+        <field name="textData" id-name="textData" title="${uiLabelMap.FormFieldTitle_textDataTitle}">
+        <textarea rows="24" cols="80" default-value="${context.textData}"/>
+        </field>
+        <field name="createdByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="createdDate" position="2">
+            <display/>
+        </field>
+        <field name="lastModifiedByUserLogin" position="1">
+            <display/>
+        </field>
+        <field name="lastModifiedDate" position="2">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+<!--
+        <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+            use-when="!&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
+            <hyperlink target-type="plain"
+              target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'ClipBoardContent')"
+              description="${uiLabelMap.ContentPaste}"/>
+        </field>
+        <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
+            use-when="&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
+            <hyperlink target-type="plain"
+              target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'LookupListLayout')"
+              description="${uiLabelMap.ContentPaste}"/>
+        </field>
+-->
+</forms>
