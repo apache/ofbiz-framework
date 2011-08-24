@@ -22,6 +22,11 @@ under the License.
   xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
   xmlns="http://docbook.org/ns/docbook">
   <title>The Human Resources Main screen.</title>
-  <para> This is the default tab for the Human Resources Manager application. WIP, to be
-    continued...</para>
+  <para> This screen will show the the organization of your company, the top level company is defined in a system setup file: general.properties.
+        The system will list devisions and departments in the role &quot;Internal organization&quot; as defined in the party relationships 
+        as a &quot;Group member&quot; under it in as many levels as required.
+  </para>
+  <para>
+        related to an &quot;Internal Organization&quot; is an employee position which can be full filled by an employee in an employment. 
+  </para>
 </section>
