@@ -51,7 +51,7 @@ under the License.
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
 
-    <target name="classes" depends="prepare"/>
+    <!--<target name="classes" depends="prepare"/>-->
 
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->

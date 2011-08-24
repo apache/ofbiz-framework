@@ -1056,7 +1056,7 @@ under the License.
     </request-map>
     <request-map uri="getHRChild">
         <security auth="false" https="true"/>
-        <event type="java" path="org.ofbiz.humanres.HumanResServices" invoke="getChildHRCategoryTree"/>
+        <event type="java" path="org.ofbiz.humanres.HumanResEvents" invoke="getChildHRCategoryTree"/>
         <response name="success" type="none"/>
     </request-map>
     <!-- ===================Lookup Request===================== -->
