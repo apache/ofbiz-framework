@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <!-- ContentType forms -->
+    <form name="AddContentType" target="addContentType" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentType"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentType" list-name="contentList" target="updateContentType" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+          <entity-condition entity-name="ContentType" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateContentType"/>
+        <field name="contentTypeId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentType">
+                <parameter param-name="contentTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- ContentTypeAttr forms -->
+    <form name="AddContentTypeAttr" target="addContentTypeAttr" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentTypeAttr"/>
+        <field entity-name="ContentType" name="contentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}"
+                    entity-name="ContentType" key-field-name="contentTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentTypeAttr" list-name="contentList" target="updateContentTypeAttr" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+        <entity-condition entity-name="ContentTypeAttr" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="createContentTypeAttr"/>
+        <field name="contentTypeId">
+            <display/>
+        </field>
+        <field name="attrName">
+            <display/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentTypeAttr">
+                <parameter param-name="contentTypeId"/>
+                <parameter param-name="attrName"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- ContentAssocType forms -->
+    <form name="AddContentAssocType" target="addContentAssocType" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentAssocType"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentAssocType" list-name="contentList" target="updateContentAssocType" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ContentAssocType" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateContentAssocType"/>
+        <field name="contentAssocTypeId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssocType">
+                <parameter param-name="contentAssocTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- ContentPurposeType forms -->
+    <form name="AddContentPurposeType" target="addContentPurposeType" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentPurposeType"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentPurposeType" list-name="contentList" target="updateContentPurposeType" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ContentPurposeType" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateContentPurposeType"/>
+        <field name="contentPurposeTypeId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeType">
+                <parameter param-name="contentPurposeTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- ContentAssocPredicate forms -->
+   <form name="AddContentAssocPredicate" target="addContentAssocPredicate" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentAssocPredicate"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentAssocPredicate" list-name="contentList" target="updateContentAssocPredicate" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ContentAssocPredicate" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateContentAssocPredicate"/>
+        <field name="contentAssocPredicateId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssocPredicate">
+                <parameter param-name="contentAssocPredicateId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <!-- ContentOperation forms -->
+    <form name="AddContentOperation" target="addContentOperation" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentOperation"/>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentOperation" list-name="contentList" target="updateContentOperation" title="" type="list"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ContentOperation" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateContentOperation"/>
+        <field name="contentOperationId" widget-style="tabletext">
+            <display/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentOperation">
+                <parameter param-name="contentOperationId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <!-- ContentPurposeOperation forms -->
+    <form name="AddContentPurposeOperation" target="addContentPurposeOperation" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createContentPurposeOperation"/>
+        <field name="contentPurposeTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}"
+                    entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="contentOperationId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}"
+                    entity-name="ContentOperation" key-field-name="contentOperationId"/>
+            </drop-down>
+        </field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}"
+                    entity-name="RoleType" key-field-name="roleTypeId"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    <form name="UpdateContentPurposeOperation" target="" title="" type="list" list-name="contentList"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-one entity-name="ContentPurposeOperation" use-cache="false"/>
+        </actions>
+        <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
+                <parameter param-name="contentPurposeTypeId"/>
+                <parameter param-name="contentOperationId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="statusId"/>
+                <parameter param-name="privilegeEnumId"/>
+            </hyperlink>
+        </field>
+    </form>
+</forms>
