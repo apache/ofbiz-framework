@@ -495,7 +495,15 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListWebSites" paginate-target="ListWebSite" paginate="true" extends="ListWebSites" extends-resource="component://content/widget/website/WebSiteForms.xml">
+    <form name="ListWebSites"  type="list" paginate-target="ListWebSite" paginate="true" list-name="webSites"
+            odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
+        <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext" sort-field="true">
+            <hyperlink description="${webSiteId}" target="EditWebSite" also-hidden="false">
+                <parameter param-name="webSiteId"/>
+            </hyperlink>
+        </field>
+        <field name="siteName" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
+        <field name="httpHost" sort-field="true"><display/></field>
         <field name="webSiteContentTypeId"><display-entity entity-name="WebSiteContentType" description="${description}"/></field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
