@@ -1102,13 +1102,25 @@ under the License.
                 <entity-and entity-name="Enumeration" list="userPreferenceList">
                     <field-map field-name="enumTypeId" value="GLOBAL_PREFERENCES"/>
                 </entity-and>
+                <entity-and entity-name="UserLogin" list="userLogins">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonPreferences}" >
-                            <include-form name="ListPreference" location="component://party/widget/partymgr/PartyForms.xml"/>
-                        </screenlet>
+                        <iterate-section entry="userLogin" list="userLogins">
+                            <section>
+                                <actions>
+                                    <set field="userPrefUserLoginId" from-field="userLogin.userLoginId"/>
+                                </actions>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.CommonPreferences} ${uiLabelMap.CommonFor} ${userPrefUserLoginId}" >
+                                        <include-form name="ListPreference" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </iterate-section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

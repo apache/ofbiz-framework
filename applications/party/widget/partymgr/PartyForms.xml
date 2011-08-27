@@ -1025,7 +1025,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="ListPreference" type="list" target="updatePreference" list-name="userPreferenceList"
+    <form name="ListPreference" type="list" target="removePreference" list-name="userPreferenceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
         <row-actions>
             <service service-name="getUserPreference" result-map="values">
@@ -1037,20 +1037,9 @@ under the License.
         <field name="enumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="partyId"><hidden/></field>
-        <field name="userPrefValue" title="${uiLabelMap.CommonValue}" use-when="enumId.equals(&quot;ORGANIZATION_PARTY&quot;)" parameter-name="userPrefValue" >
-            <drop-down current="selected" no-current-selected-key="defaultOrganizationPartyId">
-                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>
-            </drop-down>
-        </field>
-        <field name="userPrefValue" title="${uiLabelMap.CommonValue}" use-when="enumId.equals(&quot;VISUAL_THEME&quot;)" parameter-name="userPrefValue">
-            <drop-down current="selected">
-                <entity-options key-field-name="visualThemeId" description="${visualThemeId} - ${description}" entity-name="VisualTheme">
-                    <entity-constraint name="visualThemeSetId" operator="equals" value="BACKOFFICE"/>
-                </entity-options>
-            </drop-down>
-        </field>
-
-        <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
+        <field name="userPrefUserLoginId"><hidden/></field>
+        <field name="userPrefValue" title="${uiLabelMap.CommonValue}"><display></display></field>
+        <field name="submit" title="${uiLabelMap.CommonRemove}" use-when="userPrefValue!=null"><submit/></field>
     </form>
     <form name="PartyBillingAccount" type="list" list-name="billingAccounts" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><display/></field>
