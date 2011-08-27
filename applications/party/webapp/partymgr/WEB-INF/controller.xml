@@ -1137,9 +1137,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Preferences"/>
     </request-map>
-    <request-map uri="updatePreference">
+    <request-map uri="removePreference">
         <security https="true" auth="true"/>
-        <event type="service" invoke="setUserPreference"/>
+        <event type="service" invoke="removeUserPreference"/>
         <response name="success" type="view" value="Preferences"/>
         <response name="error" type="view" value="Preferences"/>
     </request-map>
