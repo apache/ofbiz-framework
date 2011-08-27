@@ -1099,8 +1099,8 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="preferences"/>
                 <set field="partyId"  from-field="parameters.partyId"/>
-                <entity-and entity-name="Enumeration" list="userPreferenceList">
-                    <field-map field-name="enumTypeId" value="GLOBAL_PREFERENCES"/>
+                <entity-and entity-name="EnumTypeChildAndEnum" list="enumTypeChildAndEnums">
+                    <field-map field-name="parentEnumTypeId" value="USER_PREF_GROUPS"/>
                 </entity-and>
                 <entity-and entity-name="UserLogin" list="userLogins">
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
@@ -1115,7 +1115,7 @@ under the License.
                                     <set field="userPrefUserLoginId" from-field="userLogin.userLoginId"/>
                                 </actions>
                                 <widgets>
-                                    <screenlet title="${uiLabelMap.CommonPreferences} ${uiLabelMap.CommonFor} ${userPrefUserLoginId}" >
+                                    <screenlet title="${uiLabelMap.CommonPreferences} ${uiLabelMap.CommonFor} userLogin: ${userPrefUserLoginId}" >
                                         <include-form name="ListPreference" location="component://party/widget/partymgr/PartyForms.xml"/>
                                     </screenlet>
                                 </widgets>
