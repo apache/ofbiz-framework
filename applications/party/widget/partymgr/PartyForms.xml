@@ -1025,7 +1025,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="ListPreference" type="list" target="removePreference" list-name="userPreferenceList"
+    <form name="ListPreference" type="list" target="removePreference" list-name="enumTypeChildAndEnums"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
         <row-actions>
             <service service-name="getUserPreference" result-map="values">
@@ -1034,11 +1034,12 @@ under the License.
             <set field="userPrefValue" from-field="values.userPrefValue"/>
         </row-actions>
         <field name="enumId" parameter-name="userPrefTypeId"><hidden value="${enumId}"/></field>
-        <field name="enumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="childEnumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
+        <field name="childDescription" title="${uiLabelMap.CommonPreferenceGroup}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonPreferenceName}"><display/></field>
         <field name="partyId"><hidden/></field>
         <field name="userPrefUserLoginId"><hidden/></field>
-        <field name="userPrefValue" title="${uiLabelMap.CommonValue}"><display></display></field>
+        <field name="userPrefValue" title="${uiLabelMap.CommonValue}"><display/></field>
         <field name="submit" title="${uiLabelMap.CommonRemove}" use-when="userPrefValue!=null"><submit/></field>
     </form>
     <form name="PartyBillingAccount" type="list" list-name="billingAccounts" default-table-style="basic-table hover-bar">

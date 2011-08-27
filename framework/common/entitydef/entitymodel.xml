@@ -118,6 +118,24 @@ under the License.
       </relation>
     </entity>
 
+    <view-entity entity-name="EnumTypeChildAndEnum" package-name="org.ofbiz.common.enum">
+        <member-entity entity-alias="PARENT" entity-name="EnumerationType"/>
+        <member-entity entity-alias="CHILD" entity-name="EnumerationType"/>
+        <member-entity entity-alias="ENUM" entity-name="Enumeration"/>
+        <alias-all entity-alias="PARENT" prefix="parent"/>
+        <alias-all entity-alias="CHILD" prefix="child">
+            <exclude field="parentTypeId"/>
+        </alias-all>
+        <alias-all entity-alias="ENUM"/>
+        <view-link entity-alias="PARENT" rel-entity-alias="CHILD">
+            <key-map field-name="enumTypeId" rel-field-name="parentTypeId"/>
+        </view-link>
+        <view-link entity-alias="CHILD" rel-entity-alias="ENUM">
+            <key-map field-name="enumTypeId"/>
+        </view-link>
+    </view-entity>
+
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.geo -->
   <!-- ========================================================= -->

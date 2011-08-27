@@ -6420,6 +6420,12 @@
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh_TW">設置</value>
     </property>
+    <property key="CommonPreferenceGroup">
+        <value xml:lang="en">Preference Group</value>
+    </property>
+    <property key="CommonPreferenceName">
+        <value xml:lang="en">Preference Name</value>
+    </property>
     <property key="CommonPrepared">
         <value xml:lang="ar">معدة</value>
         <value xml:lang="de">Vorbereitet</value>
