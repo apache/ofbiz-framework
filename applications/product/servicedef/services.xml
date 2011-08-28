@@ -1641,4 +1641,25 @@ under the License.
         <attribute name="productsNotUpdated" mode="OUT" type="Integer" optional="true"/>
         <attribute name="productsUpdated" mode="OUT" type="Integer" optional="true"/>
     </service>
+
+   <service name="createMarketInterest" default-entity-name="MarketInterest" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Market Interest</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
+    <service name="updateMarketInterest" default-entity-name="MarketInterest" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Market Interest</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteMarketInterest" default-entity-name="MarketInterest" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Market Interest</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>
