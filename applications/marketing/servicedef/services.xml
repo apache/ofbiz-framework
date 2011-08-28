@@ -319,80 +319,79 @@ under the License.
     </service>
 
     <!-- SegmentGroup Services -->
-    <service name="createSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroup" auth="true">
-        <description>Create a SegmentGroup record</description>
+    <service name="createSegmentGroup" default-entity-name="SegmentGroup" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SegmentGroup</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroup" auth="true">
-        <description>Update a SegmentGroup record</description>
+    <service name="updateSegmentGroup" default-entity-name="SegmentGroup" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SegmentGroup</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroup" auth="true">
-        <description>Update a SegmentGroup record</description>
+    <service name="deleteSegmentGroup" default-entity-name="SegmentGroup" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SegmentGroup</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- SegmentGroupClassification -->
-    <service name="createSegmentGroupClassification" engine="simple" default-entity-name="SegmentGroupClassification"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupClassification">
-        <description>create SegmentGroupClassification</description>
+    <service name="createSegmentGroupClassification" default-entity-name="SegmentGroupClassification" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SegmentGroupClassification</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="updateSegmentGroupClassification" engine="simple" default-entity-name="SegmentGroupClassification"
-        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupClassification">
-        <description>update SegmentGroupClassification</description>
+    <service name="updateSegmentGroupClassification" default-entity-name="SegmentGroupClassification" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SegmentGroupClassification</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteSegmentGroupClassification" engine="simple" default-entity-name="SegmentGroupClassification"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupClassification">
-        <description>delete SegmentGroupClassification</description>
+    <service name="deleteSegmentGroupClassification" default-entity-name="SegmentGroupClassification" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SegmentGroupClassification</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
    <!-- SegmentGroupGeo -->
-    <service name="createSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupGeo">
-        <description>create SegmentGroupGeo</description>
+    <service name="createSegmentGroupGeo" default-entity-name="SegmentGroupGeo" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SegmentGroupGeo</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="updateSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
-        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupGeo">
-        <description>update SegmentGroupGeo</description>
+    <service name="updateSegmentGroupGeo" default-entity-name="SegmentGroupGeo" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SegmentGroupGeo</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupGeo">
-        <description>delete SegmentGroupGeo</description>
+    <service name="deleteSegmentGroupGeo" default-entity-name="SegmentGroupGeo" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SegmentGroupGeo</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
    <!-- SegmentGroupRole -->
-    <service name="createSegmentGroupRole" engine="simple" default-entity-name="SegmentGroupRole"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupRole">
-        <description>create SegmentGroupRole</description>
+    <service name="createSegmentGroupRole" default-entity-name="SegmentGroupRole" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a SegmentGroupRole</description>
+        <permission-service service-name="marketingPermissionService" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="updateSegmentGroupRole" engine="simple" default-entity-name="SegmentGroupRole"
-        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="updateSegmentGroupRole">
-        <description>update SegmentGroupRole</description>
+    <service name="updateSegmentGroupRole" default-entity-name="SegmentGroupRole" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a SegmentGroupRole</description>
+        <permission-service service-name="marketingPermissionService" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deleteSegmentGroupRole" engine="simple" default-entity-name="SegmentGroupRole"
-            location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="deleteSegmentGroupRole">
-        <description>delete SegmentGroupRole</description>
+    <service name="deleteSegmentGroupRole" default-entity-name="SegmentGroupRole" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a SegmentGroupRole</description>
+        <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-<!--         <attribute name="partyId" mode="OUT" optional="false"></attribute> -->
     </service>
 
     <!-- SegmentGroup Related Find Service -->
