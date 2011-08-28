@@ -395,23 +395,10 @@ under the License.
     </service>
 
     <!-- SegmentGroup Related Find Service -->
-    <service name="findPartiesInSegmentGroup" engine="simple"
-        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="findPartiesInSegmentGroup">
-        <description>Find Parties In a SegmentGroup</description>
-        <attribute name="segmentGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="partyIdList" type="List" mode="OUT" optional="true"/>
-    </service>
-    <service name="findSegmentGroupsOfParty" engine="simple"
-        location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="findSegmentGroupsOfParty">
-        <description>Find SegmentGroups Of a Party (that a Party is In)</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="segmentGroupIdList" type="List" mode="OUT" optional="true"/>
-    </service>
     <service name="arePartiesRelatedThroughSegmentGroup" engine="simple"
         location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="arePartiesRelatedThroughSegmentGroup">
         <description>Determine: are Parties Related Through SegmentGroup?</description>
+        <permission-service service-name="marketingPermissionService" main-action="VIEW"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="toPartyId" type="String" mode="IN" optional="false"/>

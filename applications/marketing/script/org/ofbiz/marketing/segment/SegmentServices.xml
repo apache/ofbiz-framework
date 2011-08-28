@@ -22,29 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- SegmentGroup Related Find Service -->
-    <simple-method method-name="findPartiesInSegmentGroup" short-description="Find Parties In a SegmentGroup">
-        <!--
-            Determined by:
-            SegmentGroup -> SegmentGroupRole -> Party
-            OR
-            SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
-         -->
-        <set field="securityAction" value="_VIEW"/>
-        <check-permission permission="MARKETING" action="${securityAction}">
-            <fail-property resource="MarketingUiLabels.xml" property="MarketingSegmentGroupPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-    </simple-method>
-    <simple-method method-name="findSegmentGroupsOfParty" short-description="Find SegmentGroups Of a Party (that a Party is In)">
-        <!-- Follows same path as findPartiesInSegmentGroup, but in reverse... -->
-        <set field="securityAction" value="_VIEW"/>
-        <check-permission permission="MARKETING" action="${securityAction}">
-            <fail-property resource="MarketingUiLabels.xml" property="MarketingSegmentGroupPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-    </simple-method>
     <simple-method method-name="arePartiesRelatedThroughSegmentGroup" short-description="Determine: are Parties Related Through SegmentGroup?">
         <!-- NOTE NOTE NOTE: this service is not current and needs to be updated for the new SegmentGroupViewRelatedParties view-entity def -->
 
@@ -55,12 +32,6 @@ under the License.
             OR
             Party -> SegmentGroupRole -> SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
         -->
-        <set field="securityAction" value="_VIEW"/>
-        <check-permission permission="MARKETING" action="${securityAction}">
-            <fail-property resource="MarketingUiLabels.xml" property="MarketingSegmentGroupPermissionError"/>
-        </check-permission>
-        <check-errors/>
-
         <now-timestamp field="nowTimestamp"/>
         <entity-condition entity-name="SegmentGroupViewRelatedParties" list="segmentGroupViewRelatedPartiesList">
             <condition-list combine="and">

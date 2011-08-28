@@ -892,10 +892,6 @@
         <value xml:lang="zh">分区组会员的分类组标识</value>
         <value xml:lang="zh_TW">分區組成員的分類組ID</value>
     </property>
-    <property key="MarketingSegmentGroupPermissionError">
-        <value xml:lang="en">Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission</value>
-        <value xml:lang="it">Errore di sicurezza\: per eseguire ${methodShortDescription} devi avere il permesso MARKETING${securityAction} o MARKETING_ADMIN</value>
-    </property>
     <property key="MarketingSegmentGroupProductStoreId">
         <value xml:lang="de">Produktgeschäfts-ID</value>
         <value xml:lang="en">Product Store Id</value>
