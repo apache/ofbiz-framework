@@ -88,9 +88,9 @@ under the License.
 
     <service name="duplicateWorkEffort" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="duplicateWorkEffort" auth="true">
-        <description>Duplicate a Work Effort using a new workEffortId</description>
+        <description>Duplicate a Work Effort. If workEffortId is empty a new workEffortId will be generated.</description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
-        <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
         <attribute name="oldWorkEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="duplicateWorkEffortAssocs" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateWorkEffortContents" type="String" mode="IN" optional="true"/>
@@ -100,6 +100,7 @@ under the License.
         <attribute name="removeWorkEffortContents" type="String" mode="IN" optional="true"/>
         <attribute name="removeWorkEffortNotes" type="String" mode="IN" optional="true"/>
         <attribute name="removeWorkEffortAssignmentRates" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="OUT" optional="false"/>
     </service>
 
     <!-- Communication Event WorkEffort -->

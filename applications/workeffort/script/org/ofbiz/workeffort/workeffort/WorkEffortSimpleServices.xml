@@ -1168,88 +1168,103 @@ under the License.
         <check-errors/>
     </simple-method>
 
-    <simple-method method-name="duplicateWorkEffort" short-description="Duplicate a WorkEffort" login-required="false">
-        <check-permission permission="WORKEFFORTMGR" action="_CREATE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
-        </check-permission>
-        <check-errors />
-        <check-permission permission="WORKEFFORTMGR" action="_DELETE">
-            <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
-        </check-permission>
-        <check-errors />
-        <!-- look up the old workEffort and clone it -->
+    <simple-method method-name="duplicateWorkEffort" short-description="Duplicate a WorkEffort">
+        <set field="removeWorkEffortAssocs" from-field="parameters.removeWorkEffortAssocs" default-value="N" />
+        <set field="removeWorkEffortContents" from-field="parameters.removeWorkEffortContents" default-value="N" />
+        <set field="removeWorkEffortNotes" from-field="parameters.removeWorkEffortNotes" default-value="N" />
+        <set field="removeWorkEffortAssignmentRates" from-field="parameters.removeWorkEffortAssignmentRates" default-value="N" />
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="removeWorkEffortAssocs" operator="equals" value="Y" />
+                    <if-compare field="removeWorkEffortContents" operator="equals" value="Y" />
+                    <if-compare field="removeWorkEffortNotes" operator="equals" value="Y" />
+                    <if-compare field="removeWorkEffortAssignmentRates" operator="equals" value="Y" />
+                </or>
+            </condition>
+            <then>
+                <check-permission permission="WORKEFFORTMGR" action="_DELETE">
+                    <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError" />
+                </check-permission>
+                <check-errors />
+            </then>
+        </if>
+        <set field="workEffortId" from-field="parameters.workEffortId" />
+        <if-empty field="workEffortId">
+            <sequenced-id sequence-name="WorkEffort" field="workEffortId" />
+        </if-empty>
         <entity-one entity-name="WorkEffort" value-field="oldWorkEffort">
-            <field-map field-name="workEffortId" from-field="parameters.oldWorkEffortId"/>
+            <field-map field-name="workEffortId" from-field="parameters.oldWorkEffortId" />
         </entity-one>
-        <clone-value value-field="oldWorkEffort" new-value-field="newWorkEffort"/>
-
-        <!-- set the workEffortId, and write it to the datasource -->
-        <set from-field="parameters.workEffortId" field="newWorkEffort.workEffortId"/>
-        <create-value value-field="newWorkEffort"/>
-
-        <!-- set up entity filter for workEffortAssoc-->
-        <set field="workEffortAssocFindContext.workEffortIdFrom" from-field="parameters.oldWorkEffortId"/>
-        <set field="reverseWorkEffortFindContext.workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
-        <if-not-empty field="parameters.duplicateWorkEffortAssocs">
-            <find-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext" list="foundValues"/>
+        <set-service-fields service-name="createWorkEffort" to-map="createWorkEffortCtx" map="oldWorkEffort"/>
+        <set field="createWorkEffortCtx.workEffortId" from-field="workEffortId"/>
+        <call-service service-name="createWorkEffort" in-map-name="createWorkEffortCtx"/>
+        <check-errors />
+        <entity-one entity-name="WorkEffort" value-field="newWorkEffort" />
+        <set field="workEffortAssocFindContext.workEffortIdFrom" from-field="parameters.oldWorkEffortId" />
+        <set field="reverseWorkEffortFindContext.workEffortIdTo" from-field="parameters.oldWorkEffortId" />
+        <set field="duplicateWorkEffortAssocs" from-field="parameters.duplicateWorkEffortAssocs" default-value="N" />
+        <if-compare field="duplicateWorkEffortAssocs" operator="equals" value="Y">
+            <find-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext" list="foundValues" />
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
-                <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdFrom"/>
-                <create-value value-field="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue" />
+                <set from-field="workEffortId" field="newTempValue.workEffortIdFrom" />
+                <create-value value-field="newTempValue" />
             </iterate>
             <entity-and entity-name="WorkEffortAssoc" list="foundValues">
-                <field-map field-name="workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
+                <field-map field-name="workEffortIdTo" from-field="parameters.oldWorkEffortId" />
             </entity-and>
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
-                <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdTo"/>
-                <create-value value-field="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue" />
+                <set from-field="workEffortId" field="newTempValue.workEffortIdTo" />
+                <create-value value-field="newTempValue" />
             </iterate>
-        </if-not-empty>
-
-
-        <!-- set up entity filter -->
-        <set field="workEffortFindContext.workEffortId" from-field="parameters.oldWorkEffortId"/>
-        <if-not-empty field="parameters.duplicateWorkEffortNotes">
-            <find-by-and entity-name="WorkEffortNote" map="workEffortFindContext" list="foundValues"/>
+        </if-compare>
+        <set field="workEffortFindContext.workEffortId" from-field="parameters.oldWorkEffortId" />
+        <set field="duplicateWorkEffortNotes" from-field="parameters.duplicateWorkEffortNotes" default-value="N" />
+        <if-compare field="duplicateWorkEffortNotes" operator="equals" value="Y">
+            <find-by-and entity-name="WorkEffortNote" map="workEffortFindContext" list="foundValues" />
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
-                <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
-                <create-value value-field="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue" />
+                <set from-field="workEffortId" field="newTempValue.workEffortId" />
+                <create-value value-field="newTempValue" />
             </iterate>
-        </if-not-empty>
-        <if-not-empty field="parameters.duplicateWorkEffortContents">
-            <find-by-and entity-name="WorkEffortContent" map="workEffortFindContext" list="foundValues"/>
+        </if-compare>
+        <set field="duplicateWorkEffortContents" from-field="parameters.duplicateWorkEffortContents" default-value="N" />
+        <if-compare field="duplicateWorkEffortContents" operator="equals" value="Y">
+            <find-by-and entity-name="WorkEffortContent" map="workEffortFindContext" list="foundValues" />
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
-                <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
-                <create-value value-field="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue" />
+                <set from-field="workEffortId" field="newTempValue.workEffortId" />
+                <create-value value-field="newTempValue" />
             </iterate>
-        </if-not-empty>
-        <if-not-empty field="parameters.duplicateWorkEffortAssignmentRates">
-            <find-by-and entity-name="RateAmount" map="workEffortFindContext" list="foundValuesAll"/>
-            <filter-list-by-date list="foundValuesAll" to-list="foundValues"/>
+        </if-compare>
+        <set field="duplicateWorkEffortAssignmentRates" from-field="parameters.duplicateWorkEffortAssignmentRates" default-value="N" />
+        <if-compare field="duplicateWorkEffortAssignmentRates" operator="equals" value="Y">
+            <find-by-and entity-name="RateAmount" map="workEffortFindContext" list="foundValuesAll" />
+            <filter-list-by-date list="foundValuesAll" to-list="foundValues" />
             <iterate entry="foundValue" list="foundValues">
-                <clone-value value-field="foundValue" new-value-field="newTempValue"/>
-                <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
-                <create-value value-field="newTempValue"/>
+                <clone-value value-field="foundValue" new-value-field="newTempValue" />
+                <set from-field="workEffortId" field="newTempValue.workEffortId" />
+                <create-value value-field="newTempValue" />
             </iterate>
-        </if-not-empty>
-
-        <if-not-empty field="parameters.removeWorkEffortAssocs">
-            <remove-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext"/>
+        </if-compare>
+        <if-compare field="removeWorkEffortAssocs" operator="equals" value="Y">
+            <remove-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext" />
             <!-- small difference here, also do the reverse assocs... -->
-            <remove-by-and entity-name="WorkEffortAssoc" map="reverseWorkEffortFindContext"/>
-        </if-not-empty>
-        <if-not-empty field="parameters.removeWorkEffortContents">
-            <remove-by-and entity-name="WorkEffortContent" map="workEffortFindContext"/>
-        </if-not-empty>
-        <if-not-empty field="parameters.removeWorkEffortNotes">
-            <remove-by-and entity-name="WorkEffortNote" map="workEffortFindContext"/>
-        </if-not-empty>
-        <if-not-empty field="parameters.removeWorkEffortAssignmentRates">
-            <remove-by-and entity-name="RateAmount" map="workEffortFindContext"/>
-        </if-not-empty>
+            <remove-by-and entity-name="WorkEffortAssoc" map="reverseWorkEffortFindContext" />
+        </if-compare>
+        <if-compare field="removeWorkEffortContents" operator="equals" value="Y">
+            <remove-by-and entity-name="WorkEffortContent" map="workEffortFindContext" />
+        </if-compare>
+        <if-compare field="removeWorkEffortNotes" operator="equals" value="Y">
+            <remove-by-and entity-name="WorkEffortNote" map="workEffortFindContext" />
+        </if-compare>
+        <if-compare field="removeWorkEffortAssignmentRates" operator="equals" value="Y">
+            <remove-by-and entity-name="RateAmount" map="workEffortFindContext" />
+        </if-compare>
+        <log level="info" message="workEffortId=${workEffortId}"/>
+        <field-to-result field="workEffortId"/>
     </simple-method>
 
                   <!-- WorkEffortSkillStandard Services-->
