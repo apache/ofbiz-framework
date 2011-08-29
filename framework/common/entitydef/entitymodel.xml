@@ -185,7 +185,7 @@ under the License.
     <entity entity-name="CountryAddressFormat" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="">
         <field name="geoId" type="id-ne"></field>
-        <field name="stateProvinceGeoAssocTypeId" type="id"></field>
+        <field name="stateProvncGeoAssocTypeId" type="id"></field>
         <field name="requireStateProvinceId" type="id"></field>
         <field name="requirePostalCode" type="indicator"></field>
         <field name="postalCodeRegex" type="long-varchar"></field>
@@ -197,7 +197,7 @@ under the License.
             <key-map field-name="geoId"/>
         </relation>
         <relation type="one" fk-name="CNY_ADR_GEO_TYPE" rel-entity-name="GeoAssocType" >
-            <key-map field-name="geoAssocTypeId" rel-field-name="stateProvinceGeoAssocTypeId"/>
+            <key-map field-name="stateProvncGeoAssocTypeId" rel-field-name="geoAssocTypeId"/>
         </relation>
     </entity>
     <entity entity-name="Geo" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
@@ -263,7 +263,7 @@ under the License.
         </view-link>
         <view-link entity-alias="GA"  rel-entity-alias="GWS">
             <key-map field-name="geoId"  rel-field-name="geoId"/>
-            <key-map field-name="geoAssocTypeId" rel-field-name="stateProvinceGeoAssocTypeId"/>
+            <key-map field-name="geoAssocTypeId" rel-field-name="stateProvncGeoAssocTypeId"/>
         </view-link>
     </view-entity>
     <entity entity-name="GeoAssocType" package-name="org.ofbiz.common.geo"
