@@ -200,36 +200,41 @@ under the License.
             <key-map field-name="stateProvncGeoAssocTypeId" rel-field-name="geoAssocTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="Geo" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
-        title="Geographic Boundary Entity">
-      <field name="geoId" type="id-ne"></field>
-      <field name="geoTypeId" type="id"></field>
-      <field name="geoName" type="name"></field>
-      <field name="geoCode" type="short-varchar"></field>
-      <field name="geoSecCode" type="short-varchar"></field>
-      <field name="abbreviation" type="short-varchar"></field>
-      <field name="wellKnownText" type="very-long"></field>
-      <prim-key field="geoId"/>
-      <relation type="one" fk-name="GEO_TO_TYPE" rel-entity-name="GeoType">
-        <key-map field-name="geoTypeId"/>
-      </relation>
+    <entity entity-name="Geo" package-name="org.ofbiz.common.geo"
+            default-resource-name="CommonEntityLabels"
+            title="Geographic Boundary Entity">
+        <field name="geoId" type="id-ne"></field>
+        <field name="geoTypeId" type="id"></field>
+        <field name="geoName" type="name"></field>
+        <field name="geoCode" type="short-varchar"></field>
+        <field name="geoSecCode" type="short-varchar"></field>
+        <field name="abbreviation" type="short-varchar"></field>
+        <field name="wellKnownText" type="very-long"></field>
+        <prim-key field="geoId" />
+        <relation type="one" fk-name="GEO_TO_TYPE" rel-entity-name="GeoType">
+            <key-map field-name="geoTypeId" />
+        </relation>
     </entity>
     <entity entity-name="GeoAssoc" package-name="org.ofbiz.common.geo"
-        title="Geographic Boundary Association Entity">
-      <field name="geoId" type="id-ne"></field>
-      <field name="geoIdTo" type="id-ne"></field>
-      <field name="geoAssocTypeId" type="id"></field>
-      <prim-key field="geoId"/>
-      <prim-key field="geoIdTo"/>
-      <relation type="one" fk-name="GEO_ASSC_TO_MAIN" title="Main" rel-entity-name="Geo">
-        <key-map field-name="geoId"/>
-      </relation>
-      <relation type="one" fk-name="GEO_ASSC_TO_ASSC" title="Assoc" rel-entity-name="Geo">
-        <key-map field-name="geoIdTo" rel-field-name="geoId"/>
-      </relation>
-      <relation type="one" fk-name="GEO_ASSC_TO_TYPE" rel-entity-name="GeoAssocType">
-        <key-map field-name="geoAssocTypeId"/>
-      </relation>
+            title="Geographic Boundary Association Entity">
+        <field name="geoId" type="id-ne">
+            <description>The enclosed geo</description>
+        </field>
+        <field name="geoIdTo" type="id-ne">
+            <description>The enclosing geo</description>
+        </field>
+        <field name="geoAssocTypeId" type="id"></field>
+        <prim-key field="geoId" />
+        <prim-key field="geoIdTo" />
+        <relation type="one" fk-name="GEO_ASSC_TO_MAIN" title="Main" rel-entity-name="Geo">
+            <key-map field-name="geoId" />
+        </relation>
+        <relation type="one" fk-name="GEO_ASSC_TO_ASSC" title="Assoc" rel-entity-name="Geo">
+            <key-map field-name="geoIdTo" rel-field-name="geoId" />
+        </relation>
+        <relation type="one" fk-name="GEO_ASSC_TO_TYPE" rel-entity-name="GeoAssocType">
+            <key-map field-name="geoAssocTypeId" />
+        </relation>
     </entity>
     <view-entity entity-name="GeoAssocAndGeoFrom" package-name="org.ofbiz.common.geo">
         <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
