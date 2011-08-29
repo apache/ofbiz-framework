@@ -126,14 +126,13 @@ under the License.
                 <!-- service service-name="getContentAndDataResource" result-map="contentData">
                     <field-map field-name="contentId" from-field="parameters.responseContentId"/>
                 </service -->
-                <set field="contentText" from-field="electronicText.textData"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <label style="blogheader">${uiLabelMap.EcommerceBlogFullMessage}:</label>
                         <container style="blogcontentwrapper">
-                        <label>${contentText}</label>
+                        <content content-id="${parameters.responseContentId}"/>
                         </container>
                         <section>
                             <condition>
