@@ -30,8 +30,16 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.security.Security;
+import org.ofbiz.security.SecurityConfigurationException;
+import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.testtools.OFBizTestCase;
+
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletContext;
+
 import org.w3c.dom.Element;
 
 public class SimpleMethodTest extends OFBizTestCase {
@@ -40,6 +48,9 @@ public class SimpleMethodTest extends OFBizTestCase {
 
     protected String methodLocation;
     protected String methodName;
+    
+    public static MockHttpServletRequest request = new MockHttpServletRequest();
+    public static MockHttpServletResponse response = new MockHttpServletResponse();
 
     /**
      * Tests of Simple Method
@@ -64,11 +75,17 @@ public class SimpleMethodTest extends OFBizTestCase {
     @Override
     public void run(TestResult result) {
         result.startTest(this);
-
+        
         try {
-
+            // define request
+            Security security = SecurityFactory.getInstance(delegator);
+            MockServletContext servletContext = new MockServletContext();
+            request.setAttribute("security", security);
+            request.setAttribute("servletContext", servletContext);
+            request.setAttribute("delegator", delegator);
+            request.setAttribute("dispatcher", dispatcher);
             Map<String, Object> serviceResult = SimpleMethod.runSimpleService(methodLocation, methodName, dispatcher.getDispatchContext(),
-                    UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault()));
+                    UtilMisc.toMap("test", this, "testResult", result, "locale", Locale.getDefault(), "request", request, "response", response));
 
             // do something with the errorMessage
             String errorMessage = (String) serviceResult.get(ModelService.ERROR_MESSAGE);
@@ -93,6 +110,8 @@ public class SimpleMethodTest extends OFBizTestCase {
             }
 
         } catch (MiniLangException e) {
+            result.addError(this, e);
+        } catch (SecurityConfigurationException e) {
             result.addError(this, e);
         }
 
