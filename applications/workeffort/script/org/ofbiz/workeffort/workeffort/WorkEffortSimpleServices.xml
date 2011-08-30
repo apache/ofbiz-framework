@@ -1198,6 +1198,7 @@ under the License.
         </entity-one>
         <set-service-fields service-name="createWorkEffort" to-map="createWorkEffortCtx" map="oldWorkEffort"/>
         <set field="createWorkEffortCtx.workEffortId" from-field="workEffortId"/>
+        <set field="createWorkEffortCtx.userLogin" from-field="parameters.userLogin"/>
         <call-service service-name="createWorkEffort" in-map-name="createWorkEffortCtx"/>
         <check-errors />
         <entity-one entity-name="WorkEffort" value-field="newWorkEffort" />
@@ -1263,7 +1264,6 @@ under the License.
         <if-compare field="removeWorkEffortAssignmentRates" operator="equals" value="Y">
             <remove-by-and entity-name="RateAmount" map="workEffortFindContext" />
         </if-compare>
-        <log level="info" message="workEffortId=${workEffortId}"/>
         <field-to-result field="workEffortId"/>
     </simple-method>
 
