@@ -1063,23 +1063,47 @@ public class InvoiceServices {
 
     public static Map<String, Object> createInvoicesFromShipment(DispatchContext dctx, Map<String, Object> context) {
         //Delegator delegator = dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         Locale locale = (Locale) context.get("locale");
         List<String> invoicesCreated = FastList.newInstance();
-
-        Map<String, Object> serviceContext = UtilMisc.toMap("shipmentIds", UtilMisc.toList(shipmentId), "eventDate", context.get("eventDate"), "userLogin", context.get("userLogin"));
-        try {
-            Map<String, Object> result = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
-            invoicesCreated = UtilGenerics.checkList(result.get("invoicesCreated"));
-        } catch (GenericServiceException e) {
-            Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment [" + shipmentId + "]", module);
-            return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                    "AccountingTroubleCallingCreateInvoicesFromShipmentService",
-                    UtilMisc.toMap("shipmentId", shipmentId), locale));
-        }
         Map<String, Object> response = ServiceUtil.returnSuccess();
-        response.put("invoicesCreated", invoicesCreated);
+        List<GenericValue> orderShipments = FastList.newInstance();
+        String invoicePerShipment = null;
+
+        try {
+            orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId));
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
+        GenericValue orderShipment = EntityUtil.getFirst(orderShipments);
+        if (orderShipment != null) {
+            String orderId = orderShipment.getString("orderId");
+            try {
+                GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+                invoicePerShipment = orderHeader.getString("invoicePerShipment");
+            } catch (GenericEntityException e) {
+                return ServiceUtil.returnError(e.getMessage());
+            }
+        } else {
+            invoicePerShipment = UtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment");
+        }
+
+        if ("Y".equals(invoicePerShipment)) {
+            Map<String, Object> serviceContext = UtilMisc.toMap("shipmentIds", UtilMisc.toList(shipmentId), "eventDate", context.get("eventDate"), "userLogin", context.get("userLogin"));
+            try {
+                Map<String, Object> result = dispatcher.runSync("createInvoicesFromShipments", serviceContext);
+                invoicesCreated = UtilGenerics.checkList(result.get("invoicesCreated"));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "Trouble calling createInvoicesFromShipment service; invoice not created for shipment [" + shipmentId + "]", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "AccountingTroubleCallingCreateInvoicesFromShipmentService",
+                        UtilMisc.toMap("shipmentId", shipmentId), locale));
+            }
+            response.put("invoicesCreated", invoicesCreated);
+        }
         return response;
     }
 

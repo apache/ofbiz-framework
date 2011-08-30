@@ -90,6 +90,7 @@ under the License.
     <eca service="changeOrderStatus" event="global-commit" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
+        <action service="createInvoiceFromOrder" mode="sync"/>
         <action service="resetGrandTotal" mode="sync"/>
         <action service="sendOrderCompleteNotification" mode="async" persist="true"/>
     </eca>

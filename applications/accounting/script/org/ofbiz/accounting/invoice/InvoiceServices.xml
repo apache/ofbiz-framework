@@ -883,4 +883,46 @@ under the License.
             </else>
         </if>
     </simple-method>
+
+    <simple-method method-name="createInvoiceFromOrder" short-description="Create an invoice from existing order when invoicePerShipment is N">
+        <entity-one value-field="orderHeader" entity-name="OrderHeader">
+            <field-map field-name="orderId" from-field="parameters.orderId"/>
+        </entity-one>
+        <set field="invoicePerShipment" from-field="orderHeader.invoicePerShipment"/>
+        <if-empty field="invoicePerShipment">
+            <property-to-field resource="AccountingConfig" property="create.invoice.per.shipment" field="invoicePerShipment"/>
+        </if-empty>
+        <if-compare operator="equals" value="N" field="invoicePerShipment">
+            <entity-and list="orderItemBilling" entity-name="OrderItemBilling">
+                <field-map field-name="orderId" from-field="parameters.orderId"/>
+            </entity-and>
+            <if-empty field="orderItemBilling">
+                <set field="createInvoiceContext.orderId" from-field="parameters.orderId"/>
+                <call-service service-name="createInvoiceForOrderAllItems" in-map-name="createInvoiceContext">
+                    <result-to-field result-name="invoiceId" field="invoiceId"/>
+                </call-service>
+            <else>
+                <entity-and list="orderItems" entity-name="OrderItem">
+                    <field-map field-name="orderId" from-field="parameters.orderId"/>
+                    <order-by field-name="orderItemSeqId"/>
+                </entity-and>
+                <iterate entry="orderItem" list="orderItems">
+                    <entity-and list="checkOrderItem" entity-name="OrderItemBilling">
+                        <field-map field-name="orderId" from-field="parameters.orderId"/>
+                        <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                    </entity-and>
+                    <if-empty field="checkOrderItem">
+                        <field-to-list list="billItems" field="orderItem"/>
+                    </if-empty>
+                    <set field="createInvoiceContext.orderId" from-field="parameters.orderId"/>
+                    <set field="createInvoiceContext.billItems" from-field="billItems"/>
+                </iterate>
+                <call-service service-name="createInvoiceForOrder" in-map-name="createInvoiceContext">
+                    <result-to-field result-name="invoiceId" field="invoiceId"/>
+                </call-service>
+            </else>
+            </if-empty>
+            <field-to-result field="invoiceId" result-name="invoiceId"/>
+        </if-compare>
+    </simple-method>
 </simple-methods>

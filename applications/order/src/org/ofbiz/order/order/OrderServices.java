@@ -558,6 +558,11 @@ public class OrderServices {
             orderHeader.set("createdBy", userLogin.getString("userLoginId"));
         }
 
+        String invoicePerShipment = UtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment");
+        if (UtilValidate.isNotEmpty(invoicePerShipment)) {
+            orderHeader.set("invoicePerShipment", invoicePerShipment);
+        }
+
         // first try to create the OrderHeader; if this does not fail, continue.
         try {
             delegator.create(orderHeader);

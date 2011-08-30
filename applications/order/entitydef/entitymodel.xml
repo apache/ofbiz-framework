@@ -391,6 +391,7 @@ under the License.
       <field name="remainingSubTotal" type="currency-amount"></field>
       <field name="grandTotal" type="currency-amount"></field>
       <field name="isViewed" type="indicator"></field>
+      <field name="invoicePerShipment" type="indicator"></field>
       <prim-key field="orderId"/>
       <relation type="one" fk-name="ORDER_HDR_TYPE" rel-entity-name="OrderType">
         <key-map field-name="orderTypeId"/>
