@@ -261,7 +261,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             jQuery("#" + lookupId).load(requestUrlAndArgs, function(data){ 
                 lookupFormAction = jQuery("#" + lookupId + " form:first").attr("action");
                 modifySubmitButton(lookupId);
-                jQuery(document).bind("keypress", lookup_onKeyEnter);
+                jQuery("#" + lookupId).bind("keypress", lookup_onKeyEnter);
                 // set up the window chaining
                 // if the ACTIVATED_LOOKUP var is set there have to be more than one lookup,
                 // before registrating the new lookup we store the id of the old lookup in the
@@ -279,7 +279,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             });
         },
         close: function() {
-            jQuery(document).unbind("keypress", lookup_onKeyEnter);
+            jQuery("#" + lookupId).unbind("keypress", lookup_onKeyEnter);
             //when the window is closed the prev Lookup get the focus (if exists)
             if (ACTIVATED_LOOKUP) {
                 var prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup;
@@ -324,7 +324,11 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
     );
 
     // close the dialog when clicking outside the dialog area
-    jQuery(".ui-widget-overlay").live("click", function() {  jQuery("#" + lookupId).dialog("close"); } );
+    jQuery(".ui-widget-overlay").live("click", function() {  
+        if(!ACTIVATED_LOOKUP || lookupId==ACTIVATED_LOOKUP){
+            jQuery("#" + lookupId).dialog("close");
+        }
+    });
 
 }
 
