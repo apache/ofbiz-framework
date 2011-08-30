@@ -252,8 +252,23 @@ under the License.
                     </form>
                   </td>
                 </tr>
-            <tr><td colspan="3"><hr /></td></tr>
             </#if>
+            <tr><td colspan="3"><hr /></td></tr>
+            <tr>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;Invoice Per Shipment</td>
+              <td width="5%">&nbsp;</td>
+              <td valign="top" width="80%">
+                 <form name="setInvoicePerShipment" method="post" action="<@ofbizUrl>setInvoicePerShipment</@ofbizUrl>">
+                 <input type = "hidden" name="orderId" value="${orderId}"/>
+                <select name="invoicePerShipment">
+                  <option value="Y" <#if (orderHeader.invoicePerShipment)?if_exists == "Y">selected="selected" </#if>>Y</option>
+                  <option value="N" <#if (orderHeader.invoicePerShipment)?if_exists == "N">selected="selected" </#if>>N</option>
+                </select>
+                <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}"/>
+                </form>
+              </td>
+            </tr>
+            <tr><td colspan="3"><hr /></td></tr>
             <#if orderHeader.isViewed?has_content && orderHeader.isViewed == "Y">
             <tr>
               <td class="label">${uiLabelMap.OrderViewed}</td>

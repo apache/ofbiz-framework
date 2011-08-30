@@ -371,4 +371,11 @@ under the License.
         <attribute name="errorMessage" type="String" optional="true" mode="OUT"/>
     </service>
     
+    <service name="createInvoiceFromOrder" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="createInvoiceFromOrder">
+        <description>Create an invoice from existing order when invoicePerShipment is N</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
+    </service>
+    
 </services>

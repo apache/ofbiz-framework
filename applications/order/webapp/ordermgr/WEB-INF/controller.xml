@@ -1763,6 +1763,13 @@ under the License.
         <response name="error" type="request" value="json"/>
     </request-map>
 
+    <request-map uri="setInvoicePerShipment">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateOrderHeader"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+
     <request-map uri="addShippingAddress">
         <security https="true" auth="true"/>
         <event type="service" invoke="createUpdateShippingAddress"/>
