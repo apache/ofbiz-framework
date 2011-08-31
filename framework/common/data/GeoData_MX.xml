@@ -84,4 +84,9 @@ under the License.
     <GeoAssoc geoId="MEX" geoIdTo="MX-VE" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-YU" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoId="MEX" geoIdTo="MX-ZA" geoAssocTypeId="REGIONS"/>
+    
+    <Geo abbreviation="MEXCAN" geoCode="MEXCAN" geoId="MEXCAN" geoName="Mexico/Canada" geoTypeId="GROUP"/>
+    <GeoAssoc geoId="MEX" geoIdTo="MEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    <GeoAssoc geoId="CAN" geoIdTo="MEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
+    
 </entity-engine-xml>
