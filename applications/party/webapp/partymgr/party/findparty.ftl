@@ -20,6 +20,7 @@ under the License.
 <#assign inventoryItemId = parameters.inventoryItemId?default("")>
 <#assign serialNumber = parameters.serialNumber?default("")>
 <#assign softIdentifier = parameters.softIdentifier?default("")>
+<#assign sortField = parameters.sortField?if_exists/>
 <#-- Only allow the search fields to be hidden when we have some results -->
 <#if partyList?has_content>
   <#assign hideFields = parameters.hideFields?default("N")>
@@ -40,9 +41,9 @@ under the License.
 <#if partyList?has_content>
     <ul>
   <#if hideFields == "Y">
-      <li class="collapsed"><a href="<@ofbizUrl>findparty?hideFields=N${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonShowLookupFields}">&nbsp;</a></li>
+      <li class="collapsed"><a href="<@ofbizUrl>findparty?hideFields=N&sortField=${sortField?if_exists}${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonShowLookupFields}">&nbsp;</a></li>
   <#else>
-      <li class="expanded"><a href="<@ofbizUrl>findparty?hideFields=Y${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonHideFields}">&nbsp;</a></li>
+      <li class="expanded"><a href="<@ofbizUrl>findparty?hideFields=Y&sortField=${sortField?if_exists}${paramList}</@ofbizUrl>" title="${uiLabelMap.CommonHideFields}">&nbsp;</a></li>
   </#if>
     </ul>
     <br class="clear"/>
@@ -208,7 +209,7 @@ under the License.
   <#if partyList?has_content>
     <#-- Pagination -->
     <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
-    <#assign commonUrl = "findparty?hideFields=" + hideFields + paramList + "&"/>
+    <#assign commonUrl = "findparty?hideFields=" + hideFields + paramList + "&sortField=" + sortField?if_exists + "&"/>
     <#assign viewIndexFirst = 0/>
     <#assign viewIndexPrevious = viewIndex - 1/>
     <#assign viewIndexNext = viewIndex + 1/>
@@ -242,6 +243,16 @@ under the License.
         <td>${uiLabelMap.PartyRelatedCompany}</td>
         <td>${uiLabelMap.PartyType}</td>
         <td>${uiLabelMap.PartyMainRole}</td>
+        <td>
+            <a href="<@ofbizUrl>findparty</@ofbizUrl>?<#if sortField?has_content><#if sortField == "createdDate">sortField=-createdDate<#elseif sortField == "-createdDate">sortField=createdDate<#else>sortField=createdDate</#if><#else>sortField=createdDate</#if>${paramList?if_exists}&VIEW_SIZE=${viewSize?if_exists}&VIEW_INDEX=${viewIndex?if_exists}" 
+                <#if sortField?has_content><#if sortField == "createdDate">class="sort-order-desc"<#elseif sortField == "-createdDate">class="sort-order-asc"<#else>class="sort-order"</#if><#else>class="sort-order"</#if>>${uiLabelMap.FormFieldTitle_createdDate}
+            </a>
+        </td>
+        <td>
+            <a href="<@ofbizUrl>findparty</@ofbizUrl>?<#if sortField?has_content><#if sortField == "lastModifiedDate">sortField=-lastModifiedDate<#elseif sortField == "-lastModifiedDate">sortField=lastModifiedDate<#else>sortField=lastModifiedDate</#if><#else>sortField=lastModifiedDate</#if>${paramList?if_exists}&VIEW_SIZE=${viewSize?if_exists}&VIEW_INDEX=${viewIndex?if_exists}" 
+                <#if sortField?has_content><#if sortField == "lastModifiedDate">class="sort-order-desc"<#elseif sortField == "-lastModifiedDate">class="sort-order-asc"<#else>class="sort-order"</#if><#else>class="sort-order"</#if>>${uiLabelMap.FormFieldTitle_lastModifiedDate}
+            </a>
+        </td>
         <td>&nbsp;</td>
       </tr>
     <#assign alt_row = false>
@@ -321,6 +332,9 @@ under the License.
       <#assign mainRole = dispatcher.runSync("getPartyMainRole", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRow.partyId, "userLogin", userLogin))/>
               ${mainRole.description?if_exists}
         </td>
+        <#assign partyDate = delegator.findOne("Party", {"partyId":partyRow.partyId}, true)/>
+        <td>${partyDate.createdDate?if_exists}</td>
+        <td>${partyDate.lastModifiedDate?if_exists}</td>
         <td class="button-col align-float">
           <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
       <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>

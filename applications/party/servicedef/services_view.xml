@@ -54,6 +54,7 @@ under the License.
         <attribute name="softIdentifier" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
         <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="ownerPartyIds" type="List" mode="IN" optional="true"/><!-- Lead Owners Parties -->
+        <attribute name="sortField" type="String" mode="IN" optional="true"/>
 
         <attribute name="roleTypes" type="List" mode="OUT" optional="false"/>
         <attribute name="partyTypes" type="List" mode="OUT" optional="false"/>
@@ -67,6 +68,7 @@ under the License.
         <attribute name="paramList" type="String" mode="OUT" optional="false"/>
         <attribute name="highIndex" type="Integer" mode="OUT" optional="false"/>
         <attribute name="lowIndex" type="Integer" mode="OUT" optional="false"/>
+        <attribute name="sortField" type="String" mode="OUT" optional="true"/>
     </service>
 
     <service name="getPartyContactMechValueMaps" engine="java"
