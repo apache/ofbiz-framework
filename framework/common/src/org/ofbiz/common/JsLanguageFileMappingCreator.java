@@ -119,11 +119,11 @@ public class JsLanguageFileMappingCreator {
             if (file.exists()) {
                 fileUrl = jqueryUiLocaleRelPath + jqueryUiLocalePrefix + strippedLocale + jsFilePostFix;
             } else {
-                fileName = componentRoot + jqueryUiLocaleRelPath + jqueryUiLocalePrefix + locale + jsFilePostFix;
+                fileName = componentRoot + jqueryUiLocaleRelPath + jqueryUiLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
                 file = FileUtil.getFile(fileName);
 
                 if (file.exists()) {
-                    fileUrl = jqueryUiLocaleRelPath + jqueryUiLocalePrefix + locale + jsFilePostFix;
+                    fileUrl = jqueryUiLocaleRelPath + jqueryUiLocalePrefix + modifiedDisplayCountry + jsFilePostFix;
                 }
             }
 

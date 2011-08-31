@@ -227,10 +227,10 @@ public final class JsLanguageFilesMapping {
             localeFiles.put("ca", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-ca.js");
             localeFiles.put("ca_ES", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-ca.js");
             localeFiles.put("zh", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js");
-            localeFiles.put("zh_CN", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js");
-            localeFiles.put("zh_HK", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js");
+            localeFiles.put("zh_CN", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-zh-CN.js");
+            localeFiles.put("zh_HK", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-zh-HK.js");
             localeFiles.put("zh_SG", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js");
-            localeFiles.put("zh_TW", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-en.js");
+            localeFiles.put("zh_TW", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-zh-TW.js");
             localeFiles.put("hr", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-hr.js");
             localeFiles.put("hr_HR", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-hr.js");
             localeFiles.put("cs", "/images/jquery/ui/development-bundle/ui/i18n/jquery.ui.datepicker-cs.js");
