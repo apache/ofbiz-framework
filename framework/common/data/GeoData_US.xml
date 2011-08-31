@@ -231,10 +231,6 @@ under the License.
     <GeoAssoc geoId="USA" geoIdTo="USCAN" geoAssocTypeId="GROUP_MEMBER"/>
     <GeoAssoc geoId="CAN" geoIdTo="USCAN" geoAssocTypeId="GROUP_MEMBER"/>
 
-    <Geo abbreviation="MEXCAN" geoCode="MEXCAN" geoId="MEXCAN" geoName="Mexico/Canada" geoTypeId="GROUP"/>
-    <GeoAssoc geoId="MEX" geoIdTo="MEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
-    <GeoAssoc geoId="CAN" geoIdTo="MEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
-
     <Geo abbreviation="USMEXCAN" geoCode="USMEXCAN" geoId="USMEXCAN" geoName="US/Mexico/Canada" geoTypeId="GROUP"/>
     <GeoAssoc geoId="USA" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
     <GeoAssoc geoId="MEX" geoIdTo="USMEXCAN" geoAssocTypeId="GROUP_MEMBER"/>
