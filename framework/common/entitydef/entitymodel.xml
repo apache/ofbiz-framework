@@ -197,7 +197,7 @@ under the License.
             <key-map field-name="geoId"/>
         </relation>
         <relation type="one" fk-name="CNY_ADR_GEO_TYPE" rel-entity-name="GeoAssocType" >
-            <key-map field-name="stateProvncGeoAssocTypeId" rel-field-name="geoAssocTypeId"/>
+            <key-map field-name="geoAssocTypeId" rel-field-name="stateProvncGeoAssocTypeId"/>
         </relation>
     </entity>
     <entity entity-name="Geo" package-name="org.ofbiz.common.geo"
@@ -499,7 +499,7 @@ under the License.
             <order-by field-name="sequenceId"/>
         </entity-condition>
     </view-entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.uom -->
   <!-- ========================================================= -->
@@ -521,11 +521,11 @@ under the License.
             package-name="org.ofbiz.common.uom"
             title="Unit Of Measure and Group/Type View Entity">
         <member-entity entity-alias="UOMGP" entity-name="UomGroup"/>
-        <member-entity entity-alias="UOM" entity-name="Uom"/>        
+        <member-entity entity-alias="UOM" entity-name="Uom"/>
         <member-entity entity-alias="UOMTP" entity-name="UomType"/>
         <alias-all entity-alias="UOMGP"/>
-        <alias-all entity-alias="UOM"/>        
-        <alias-all entity-alias="UOMTP" prefix="type"/>                       
+        <alias-all entity-alias="UOM"/>
+        <alias-all entity-alias="UOMTP" prefix="type"/>
         <view-link entity-alias="UOMGP" rel-entity-alias="UOM">
             <key-map field-name="uomId"/>
         </view-link>
@@ -592,7 +592,7 @@ under the License.
       <relation type="one" fk-name="UOMD_PURPOSE_ENUM" title="Purpose" rel-entity-name="Enumeration">
         <key-map field-name="purposeEnumId" rel-field-name="enumId"/>
       </relation>
-    </entity>    
+    </entity>
     <entity entity-name="UomGroup"
             package-name="org.ofbiz.common.uom"
             default-resource-name="CommonEntityLabels"
@@ -604,7 +604,7 @@ under the License.
       <relation type="one" fk-name="UOM_GROUP_UOM" rel-entity-name="Uom">
         <key-map field-name="uomId"/>
       </relation>
-    </entity>    
+    </entity>
     <entity entity-name="UomType"
             package-name="org.ofbiz.common.uom"
             default-resource-name="CommonEntityLabels"
