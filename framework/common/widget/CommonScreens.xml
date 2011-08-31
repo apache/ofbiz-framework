@@ -126,7 +126,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
 
 
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
@@ -173,7 +173,7 @@ under the License.
                         </section>
                     </widgets>
                 </section>
-                
+
                 <section>
                     <condition>
                         <if-empty field="parameters.ajaxUpdateEvent"/>
@@ -208,7 +208,7 @@ under the License.
                         </section>
                     </widgets>
                 </section>
-                
+
                 <!-- render the appbar closing part -->
                 <section>
                     <condition>
@@ -383,7 +383,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.1.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
 
