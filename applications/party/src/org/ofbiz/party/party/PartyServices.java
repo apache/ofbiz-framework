@@ -1113,6 +1113,8 @@ public class PartyServices {
             dynamicView.addAlias("PT", "partyId");
             dynamicView.addAlias("PT", "statusId");
             dynamicView.addAlias("PT", "partyTypeId");
+            dynamicView.addAlias("PT", "createdDate");
+            dynamicView.addAlias("PT", "lastModifiedDate");
             dynamicView.addRelation("one-nofk", "", "PartyType", ModelKeyMap.makeKeyMapList("partyTypeId"));
             dynamicView.addRelation("many", "", "UserLogin", ModelKeyMap.makeKeyMapList("partyId"));
 
@@ -1126,6 +1128,8 @@ public class PartyServices {
             fieldsToSelect.add("partyId");
             fieldsToSelect.add("statusId");
             fieldsToSelect.add("partyTypeId");
+            fieldsToSelect.add("createdDate");
+            fieldsToSelect.add("lastModifiedDate");
 
             // filter on parties that have relationship with logged in user
             String partyRelationshipTypeId = (String) context.get("partyRelationshipTypeId");
@@ -1433,6 +1437,11 @@ public class PartyServices {
 
             Debug.logInfo("In findParty mainCond=" + mainCond, module);
 
+            String sortField = (String) context.get("sortField");
+            if(UtilValidate.isNotEmpty(sortField)){
+                orderBy.add(sortField);
+            }
+            
             // do the lookup
             if (mainCond != null || "Y".equals(showAll)) {
                 try {
