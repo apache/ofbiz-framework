@@ -406,11 +406,21 @@ public class ShoppingListEvents {
                 autoSaveListId = getAutoSaveListId(delegator, dispatcher, null, userLogin, cart.getProductStoreId());
                 cart.setAutoSaveListId(autoSaveListId);
             }
+            GenericValue shoppingList = delegator.findByPrimaryKey("ShoppingList", UtilMisc.toMap("shoppingListId", autoSaveListId));
+            Integer currentListSize = 0;
+            if (UtilValidate.isNotEmpty(shoppingList)) {
+                List<GenericValue> shoppingListItems = shoppingList.getRelated("ShoppingListItem");
+                if (UtilValidate.isNotEmpty(shoppingListItems)) {
+                    currentListSize = shoppingListItems.size();
+                }
+            }
 
             try {
                 String[] itemsArray = makeCartItemsArray(cart);
                 if (itemsArray != null && itemsArray.length != 0) {
                     addBulkFromCart(delegator, dispatcher, cart, userLogin, autoSaveListId, null, itemsArray, false, false);
+                }else if(itemsArray.length == 0 && currentListSize != 0){
+                    clearListInfo(delegator, autoSaveListId);
                 }
             } catch (IllegalArgumentException e) {
                 throw new GeneralException(e.getMessage(), e);
