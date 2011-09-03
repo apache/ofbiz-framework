@@ -86,6 +86,33 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
+    <service name="copyWorkEffort" engine="simple" auth="true" transaction-timeout="300"
+            location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="copyWorkEffort">
+        <description>Copies an existing WorkEffort to a new WorkEffort.</description>
+        <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
+            <description>The ID of the WorkEffort to copy from.</description>
+        </attribute>
+        <attribute name="targetWorkEffortId" mode="IN" type="String" optional="true">
+            <description>The ID of the WorkEffort copy. If empty a new WorkEffort ID will be created.</description>
+        </attribute>
+        <attribute name="copyWorkEffortAssocs" mode="IN" type="String" optional="true">
+            <description>Copy WorkEffort associations (Y/N). Only child WorkEffort associations will be copied.</description>
+        </attribute>
+        <attribute name="deepCopy" mode="IN" type="String" optional="true">
+            <description>Copy associated WorkEfforts (Y/N). Used only when copyWorkEffortAssocs = Y.</description>
+        </attribute>
+        <attribute name="excludeExpiredAssocs" mode="IN" type="String" optional="true">
+            <description>Exclude expired associated WorkEfforts from copying (Y/N). Used only when copyWorkEffortAssocs = Y.</description>
+        </attribute>
+        <attribute name="copyRelatedValues" mode="IN" type="String" optional="true">
+            <description>Copy WorkEffort related values (Y/N).</description>
+        </attribute>
+        <attribute name="excludeExpiredRelations" mode="IN" type="String" optional="true">
+            <description>Exclude expired WorkEffort related values from copying (Y/N). Used only when copyRelatedValues = Y.</description>
+        </attribute>
+        <attribute name="workEffortId" mode="OUT" type="String" optional="false" />
+    </service>
+
     <service name="duplicateWorkEffort" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="duplicateWorkEffort" auth="true">
         <description>Duplicate a Work Effort. If workEffortId is empty a new workEffortId will be generated.</description>
@@ -301,6 +328,30 @@ under the License.
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <service name="copyWorkEffortAssocs" engine="simple" auth="true" transaction-timeout="300"
+            location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="copyWorkEffortAssocs">
+        <description>Copies WorkEffortAssocs from one WorkEffort to another WorkEffort. Only child WorkEffort associations will be copied.</description>
+        <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
+            <description>The ID of the WorkEffort to copy the associations from.</description>
+        </attribute>
+        <attribute name="targetWorkEffortId" mode="IN" type="String" optional="true">
+            <description>The ID of the WorkEffort to copy the associations to.</description>
+        </attribute>
+        <attribute name="deepCopy" mode="IN" type="String" optional="true">
+            <description>Copy associated WorkEfforts (Y/N).</description>
+        </attribute>
+        <attribute name="excludeExpiredAssocs" mode="IN" type="String" optional="true">
+            <description>Exclude expired WorkEffort associations from copying (Y/N).</description>
+        </attribute>
+        <attribute name="copyRelatedValues" mode="IN" type="String" optional="true">
+            <description>Copy WorkEffort related values (Y/N). Used only when deepCopy = Y.</description>
+        </attribute>
+        <attribute name="excludeExpiredRelations" mode="IN" type="String" optional="true">
+            <description>Exclude expired WorkEffort related values from copying (Y/N). Used only when deepCopy = Y.</description>
+        </attribute>
+    </service>
+
     <service name="createWorkEffortAndAssoc" engine="simple" location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortAndAssoc" auth="true">
         <description>Creates a WorkEffort entity and WorkEffortAssoc</description>
         <auto-attributes include="pk" mode="INOUT" optional="true" entity-name="WorkEffort"/>
