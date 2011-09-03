@@ -126,7 +126,7 @@
                                     <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext create">
                                         <parameter param-name="fixedAssetId"/>
                                     </link>
-                                    <link target="printFixedAssetMaint.pdf" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                                    <link target="printFixedAssetMaint.pdf" target-window="_blank" text="${uiLabelMap.CommonPrint}" style="buttontext">
                                         <parameter param-name="fixedAssetId"/>
                                         <parameter param-name="maintHistSeqId"/>
                                     </link>
