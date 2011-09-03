@@ -209,6 +209,71 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
+    <simple-method method-name="copyWorkEffort" short-description="Copy a WorkEffort">
+        <entity-one entity-name="WorkEffort" value-field="sourceWorkEffort">
+            <field-map field-name="workEffortId" from-field="parameters.sourceWorkEffortId" />
+        </entity-one>
+        <if-empty field="sourceWorkEffort">
+            <set field="errorString" value="sourceWorkEffortId = ${parameters.sourceWorkEffortId}" />
+            <add-error>
+                <fail-property resource="WorkEffortUiLabels" property="WorkEffortNotFound" />
+            </add-error>
+            <check-errors />
+        </if-empty>
+        <set field="targetWorkEffortId" from-field="parameters.targetWorkEffortId" />
+        <if-empty field="targetWorkEffortId">
+            <sequenced-id sequence-name="WorkEffort" field="targetWorkEffortId" />
+        </if-empty>
+        <set-service-fields service-name="createWorkEffort" to-map="createWorkEffortCtx" map="sourceWorkEffort" />
+        <set field="createWorkEffortCtx.workEffortId" from-field="targetWorkEffortId" />
+        <set field="createWorkEffortCtx.userLogin" from-field="parameters.userLogin" />
+        <call-service service-name="createWorkEffort" in-map-name="createWorkEffortCtx" />
+        <check-errors />
+        <entity-one entity-name="WorkEffort" value-field="targetWorkEffort">
+            <field-map field-name="workEffortId" from-field="targetWorkEffortId" />
+        </entity-one>
+        <set field="copyWorkEffortAssocs" from-field="parameters.copyWorkEffortAssocs" default-value="N" />
+        <if-compare field="copyWorkEffortAssocs" operator="equals" value="Y">
+            <set-service-fields service-name="copyWorkEffortAssocs" to-map="copyWorkEffortAssocsCtx" map="parameters" />
+            <set field="copyWorkEffortAssocsCtx.targetWorkEffortId" from-field="targetWorkEffortId" />
+            <call-service service-name="copyWorkEffortAssocs" in-map-name="copyWorkEffortAssocsCtx" />
+            <check-errors />
+        </if-compare>
+        <set field="copyRelatedValues" from-field="parameters.copyRelatedValues" default-value="N" />
+        <if-compare field="copyRelatedValues" operator="equals" value="Y">
+            <set field="excludeExpiredRelations" from-field="parameters.excludeExpiredRelations" default-value="N" />
+            <set field="modelRelationList" from-field="groovy:delegator.getModelEntity('WorkEffort').getRelationsManyList();" />
+            <iterate entry="modelRelation" list="modelRelationList">
+                <set field="relatedEntityName" from-field="groovy:modelRelation.getRelEntityName();" />
+                <if-compare field="relatedEntityName" operator="not-equals" value="WorkEffortAssoc">
+                    <set field="relationName" from-field="groovy:modelRelation.getCombinedName();" />
+                    <set field="keyMap" from-field="groovy:modelRelation.findKeyMap('workEffortId');" set-if-null="true" />
+                    <if-not-empty field="keyMap">
+                        <set field="relatedIdFieldName" from-field="groovy:keyMap.getRelFieldName();" />
+                        <get-related relation-name="${relationName}" list="relationValues" value-field="sourceWorkEffort" />
+                        <if-compare field="excludeExpiredRelations" operator="equals" value="Y">
+                            <set field="fromDateModelField" from-field="groovy:delegator.getModelEntity(relatedEntityName).getField('fromDate');" set-if-null="true" />
+                            <if-not-empty field="fromDateModelField">
+                                <filter-list-by-date list="relationValues" />
+                            </if-not-empty>
+                        </if-compare>
+                        <iterate entry="relatedValue" list="relationValues">
+                            <clone-value value-field="relatedValue" new-value-field="newRelatedValue" />
+                            <set field="newRelatedValue[relatedIdFieldName]" from-field="targetWorkEffortId" />
+                            <make-value value-field="newRelatedPks" entity-name="${relatedEntityName}" />
+                            <set-pk-fields value-field="newRelatedPks" map="newRelatedValue" />
+                            <find-by-primary-key entity-name="${relatedEntityName}" map="newRelatedPks" value-field="duplicateCheck" />
+                            <if-empty field="duplicateCheck">
+                                <create-value value-field="newRelatedValue" />
+                            </if-empty>
+                        </iterate>
+                    </if-not-empty>
+                </if-compare>
+            </iterate>
+        </if-compare>
+        <field-to-result field="targetWorkEffortId" result-name="workEffortId" />
+    </simple-method>
+
     <!-- communication event workeffort -->
     <simple-method method-name="makeCommunicationEventWorkEffort" short-description="Make a Communication Event WorkEffort">
         <make-value entity-name="CommunicationEventWorkEff" value-field="lookupMap"/>
@@ -674,6 +739,35 @@ under the License.
     <simple-method method-name="removeWorkEffortAssoc" short-description="Remove a WorkEffort association">
         <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
+    </simple-method>
+
+    <simple-method method-name="copyWorkEffortAssocs" short-description="Copy WorkEffort associations">
+        <set field="deepCopy" from-field="parameters.deepCopy" default-value="N" />
+        <set field="excludeExpiredAssocs" from-field="parameters.excludeExpiredAssocs" default-value="N" />
+        <entity-and entity-name="WorkEffortAssoc" list="workEffortAssocs">
+            <field-map field-name="workEffortIdFrom" from-field="parameters.sourceWorkEffortId" />
+        </entity-and>
+        <if-compare field="excludeExpiredAssocs" operator="equals" value="Y">
+            <filter-list-by-date list="workEffortAssocs" />
+        </if-compare>
+        <iterate entry="workEffortAssoc" list="workEffortAssocs">
+            <set field="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo" />
+            <if-compare field="deepCopy" operator="equals" value="Y">
+                <clear-field field="copyWorkEffortCtx" />
+                <set-service-fields service-name="copyWorkEffort" to-map="copyWorkEffortCtx" map="parameters" />
+                <clear-field field="copyWorkEffortCtx.targetWorkEffortId"/>
+                <set field="copyWorkEffortCtx.sourceWorkEffortId" from-field="workEffortIdTo" />
+                <set field="copyWorkEffortCtx.copyWorkEffortAssocs" value="Y" />
+                <call-service service-name="copyWorkEffort" in-map-name="copyWorkEffortCtx">
+                    <result-to-field result-name="workEffortId" field="workEffortIdTo" />
+                </call-service>
+                <check-errors />
+            </if-compare>
+            <clone-value value-field="workEffortAssoc" new-value-field="newWorkEffortAssoc" />
+            <set field="newWorkEffortAssoc.workEffortIdFrom" from-field="parameters.targetWorkEffortId" />
+            <set field="newWorkEffortAssoc.workEffortIdTo" from-field="workEffortIdTo" />
+            <create-value value-field="newWorkEffortAssoc" />
+        </iterate>
     </simple-method>
 
     <simple-method method-name="createWorkEffortGoodStandard" short-description="Create a link between a WorkEffort and a Product">
