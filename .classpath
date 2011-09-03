@@ -222,6 +222,7 @@
     <classpathentry kind="src" path="applications/party/src"/>
     <classpathentry kind="src" path="applications/product/src" excluding="ShipmentScaleApplet.java"/>
     <classpathentry kind="src" path="applications/securityext/src" excluding="org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java"/>
+    <classpathentry kind="src" path="applications/humanres/src"/>
     <classpathentry kind="src" path="applications/workeffort/src"/>
     <classpathentry kind="src" path="framework/appserver/src"/>
     <classpathentry kind="src" path="framework/base/build/gen-src/javacc"/>
