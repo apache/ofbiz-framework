@@ -89,6 +89,7 @@ under the License.
     <service name="copyWorkEffort" engine="simple" auth="true" transaction-timeout="300"
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="copyWorkEffort">
         <description>Copies an existing WorkEffort to a new WorkEffort.</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
             <description>The ID of the WorkEffort to copy from.</description>
         </attribute>
@@ -332,6 +333,7 @@ under the License.
     <service name="copyWorkEffortAssocs" engine="simple" auth="true" transaction-timeout="300"
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="copyWorkEffortAssocs">
         <description>Copies WorkEffortAssocs from one WorkEffort to another WorkEffort. Only child WorkEffort associations will be copied.</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="sourceWorkEffortId" mode="IN" type="String" optional="false">
             <description>The ID of the WorkEffort to copy the associations from.</description>
         </attribute>
