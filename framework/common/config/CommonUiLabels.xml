@@ -1153,7 +1153,8 @@
     <property key="CommonCancelled">
         <value xml:lang="ar">ملغى</value>
         <value xml:lang="de">Abgebrochen</value>
-        <value xml:lang="en">Cancelled</value>
+        <value xml:lang="en">Canceled</value>
+        <value xml:lang="en_GB">Cancelled</value>
         <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="hi_IN">रद्द</value>
@@ -4430,7 +4431,8 @@
         <value xml:lang="zh_TW">正在載入...</value>
     </property>
     <property key="CommonLocalisation">
-        <value xml:lang="en">Localisation</value>
+        <value xml:lang="en">Localization</value>
+        <value xml:lang="en_GB">Localisation</value>
         <value xml:lang="es">Opciones locales</value>
         <value xml:lang="fr">Options régionales et linguistiques</value>
         <value xml:lang="hi_IN">स्थानीयकरण</value>
@@ -8428,7 +8430,7 @@
     </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
         <value xml:lang="de">Die folgenden benötigten Felder sind leer</value>
-        <value xml:lang="en">The Following Required Fields Where Found Empty</value>
+        <value xml:lang="en">The following required fields were found empty</value>
         <value xml:lang="es">Estos campos obligatorios están vacíos</value>
         <value xml:lang="fr">Les champs suivants sont vides</value>
         <value xml:lang="hi_IN">निम्नलिखित आवश्यक क्षेत्र खाली मिले</value>
@@ -9458,7 +9460,7 @@
     <property key="CommonVolume">
         <value xml:lang="ar">الجحم</value>
         <value xml:lang="de">Volumen</value>
-        <value xml:lang="en">Volum</value>
+        <value xml:lang="en">Volume</value>
         <value xml:lang="es">Volumen</value>
         <value xml:lang="fr">Volume</value>
         <value xml:lang="hi_IN">माप</value>
