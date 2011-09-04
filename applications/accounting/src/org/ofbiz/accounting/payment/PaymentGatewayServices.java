@@ -1279,7 +1279,9 @@ public class PaymentGatewayServices {
                         captureResult.put("invoiceId", invoiceId);
                         captureResult.put("captureResult", Boolean.TRUE);
                         captureResult.put("orderPaymentPreference", paymentPref);
-                        captureResult.put("captureRefNum", ""); // FIXME: this is an hack to avoid a service validation error for processCaptureResult (captureRefNum is mandatory, but it is not used for billing accounts)
+                        if (context.get("captureRefNum") == null) {
+                            captureResult.put("captureRefNum", ""); // FIXME: this is an hack to avoid a service validation error for processCaptureResult (captureRefNum is mandatory, but it is not used for billing accounts)
+                        }                                                
 
                         // process the capture's results
                         try {
