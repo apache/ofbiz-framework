@@ -2127,14 +2127,8 @@ public class ModelFormField {
 
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
-            if (this.description != null && !this.description.isEmpty()) {
+            if (!this.description.isEmpty()) {
                 retVal = this.description.expandString(context);
-                if (retVal != null && this.getModelFormField().getEncodeOutput()) {
-                    StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
-                    if (simpleEncoder != null) {
-                        retVal = simpleEncoder.encode(retVal);
-                    }
-                }
             } else {
                 retVal = this.modelFormField.getEntry(context);
             }
@@ -2217,6 +2211,12 @@ public class ModelFormField {
                     String errMsg = "Error formatting number [" + retVal + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
+                }
+            }
+            if (!this.description.isEmpty() && retVal != null && this.getModelFormField().getEncodeOutput()) {
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    retVal = simpleEncoder.encode(retVal);
                 }
             }
             return retVal;
