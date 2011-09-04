@@ -71,7 +71,7 @@ public class FormatTag extends BodyTagSupport {
         if (type.charAt(0) == 'N' || type.charAt(0) == 'n')
             nf = NumberFormat.getNumberInstance();
         if (type.charAt(0) == 'D' || type.charAt(0) == 'd')
-            df = DateFormat.getDateInstance();
+            df = org.ofbiz.base.util.UtilDateTime.DEFAULT_DATE_FORMAT;
 
         try {
             if (nf != null) {
