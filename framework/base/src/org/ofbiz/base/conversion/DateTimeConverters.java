@@ -554,8 +554,9 @@ public class DateTimeConverters implements ConverterLoader {
                 return new java.sql.Timestamp(df.parse(str).getTime());
             } catch (ParseException e) {
                 // before throwing an exception, try a generic format first
+                df = DateFormat.getDateTimeInstance();
                 if (timeZone != null) {
-                    UtilDateTime.DEFAULT_DATE_TIME_FORMAT.setTimeZone(timeZone);
+                    df.setTimeZone(timeZone);
                 }
                 try {
                     return new java.sql.Timestamp(df.parse(str).getTime());
