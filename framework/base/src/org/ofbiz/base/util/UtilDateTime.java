@@ -69,11 +69,7 @@ public class UtilDateTime {
     /**
      * JDBC escape format for java.sql.Time conversions.
      */
-    
-    public static final String TIME_FORMAT = "HH:mm:ss";    
-    public static final DateFormat DEFAULT_DATE_TIME_FORMAT = DateFormat.getDateTimeInstance();
-    public static final DateFormat DEFAULT_DATE_FORMAT = DateFormat.getDateInstance();
-
+    public static final String TIME_FORMAT = "HH:mm:ss";
 
     public static double getInterval(Date from, Date thru) {
         return thru != null ? thru.getTime() - from.getTime() : 0;
@@ -703,7 +699,8 @@ public class UtilDateTime {
     }
 
     public static String toGmtTimestampString(Timestamp timestamp) {
-        DEFAULT_DATE_TIME_FORMAT.setTimeZone(TimeZone.getTimeZone("GMT"));
+        DateFormat df = DateFormat.getDateTimeInstance();
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
         return df.format(timestamp);
     }
 
