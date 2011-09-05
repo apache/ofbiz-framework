@@ -246,5 +246,17 @@ under the License.
             <display-entity entity-name="RoleType" description="${description}"/>
         </field>
     </form>
-    
+
+    <form name="OrderNewNote" target="createordernote" type="single">
+        <field name="orderId"><hidden/></field>
+        <field name="note" title="${uiLabelMap.OrderNote}"><textarea rows="5" cols="70"/></field>
+        <field name="internalNote" title="${uiLabelMap.OrderInternalNote}" tooltip="${uiLabelMap.OrderInternalNoteMessage}">
+            <drop-down allow-empty="true" no-current-selected-key="Y">
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
 </forms>
