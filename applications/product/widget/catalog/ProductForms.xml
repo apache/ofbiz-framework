@@ -47,7 +47,7 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-
+        <field name="productTypeId" sort-field="true"><display-entity entity-name="ProductType" description="${description}"/></field>
         <field name="internalName" sort-field="true"><display/></field>
         <field name="brandName" sort-field="true"><display/></field>
         <field name="productName" sort-field="true"><display/></field>
