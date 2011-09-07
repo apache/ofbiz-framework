@@ -1,3 +1,22 @@
+1.9.0
+---
+* Added Thai (TH) localization, fixes #85
+* Added Vietnamese (VI) localization, thanks Ngoc
+* Fixed issue #78. Error/Valid styling applies to all radio buttons of same group for required validation.
+* Don't use form.elements as that isn't supported in jQuery 1.6 anymore. Its buggy as hell anyway (IE6-8: form.elements === form).
+
+1.8.0
+---
+* Improved NL localization (http://plugins.jquery.com/node/14120)
+* Added Georgian (GE) localization, thanks Avtandil Kikabidze
+* Added Serbian (SR) localization, thanks Aleksandar Milovac
+* Added ipv4 and ipv6 to additional methods, thanks Natal Ngétal
+* Added Japanese (JA) localization, thanks Bryan Meyerovich
+* Added Catalan (CA) localization, thanks Xavier de Pedro
+* Fixed missing var statements within for-in loops
+* Fix for remote validation, where a formatted message got messed up (https://github.com/jzaefferer/jquery-validation/issues/11)
+* Bugfixes for compability with jQuery 1.5.1, while maintaining backwards-compability
+
 1.7
 ---
 * Added Lithuanian (LT) localization
