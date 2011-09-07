@@ -1,5 +1,5 @@
 /**
- * jQuery Validation Plugin 1.8.0
+ * jQuery Validation Plugin 1.8.1
  *
  * http://bassistance.de/jquery-plugins/jquery-plugin-validation/
  * http://docs.jquery.com/Plugins/Validation
@@ -238,11 +238,19 @@ $.extend($.validator, {
 			else if (element.parentNode.name in this.submitted)
 				this.element(element.parentNode);
 		},
-		highlight: function( element, errorClass, validClass ) {
-			$(element).addClass(errorClass).removeClass(validClass);
+		highlight: function(element, errorClass, validClass) {
+			if (element.type === 'radio') {
+				this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+			} else {
+				$(element).addClass(errorClass).removeClass(validClass);
+			}
 		},
-		unhighlight: function( element, errorClass, validClass ) {
-			$(element).removeClass(errorClass).addClass(validClass);
+		unhighlight: function(element, errorClass, validClass) {
+			if (element.type === 'radio') {
+				this.findByName(element.name).removeClass(errorClass).addClass(validClass);
+			} else {
+				$(element).removeClass(errorClass).addClass(validClass);
+			}
 		}
 	},
 
@@ -430,9 +438,8 @@ $.extend($.validator, {
 				rulesCache = {};
 
 			// select all valid inputs inside the form (no submit or reset buttons)
-			// workaround $Query([]).add until http://dev.jquery.com/ticket/2114 is solved
-			return $([]).add(this.currentForm.elements)
-			.filter(":input")
+			return $(this.currentForm)
+			.find("input, select, textarea")
 			.not(":submit, :reset, :image, [disabled]")
 			.not( this.settings.ignore )
 			.filter(function() {
