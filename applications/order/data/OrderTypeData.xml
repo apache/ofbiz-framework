@@ -322,6 +322,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="WARRANTY_ADJUSTMENT" returnItemTypeId="RET_WARRANTY_ADJ"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SERVICE_PRODUCT" returnItemTypeId="RET_SPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_PICK" returnItemTypeId="RET_FPROD_ITEM"/>

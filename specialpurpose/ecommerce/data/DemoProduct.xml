@@ -710,7 +710,7 @@ under the License.
     <ElectronicText dataResourceId="SERV-001-ALT" textData="service-product"/>
     <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="services"/>
     <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="service-product"/>
-    
+
     <Content contentId="SERV-001-ALT" contentTypeId="DOCUMENT" dataResourceId="SERV-001-ALT" localeString="en"/>
     <Content contentId="CSERV-001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSERV-001-ALTEN" localeString="en_US"/>
     <Content contentId="SV-1000-ALT" contentTypeId="DOCUMENT" dataResourceId="SV-1000-ALT" localeString="en"/>
@@ -719,6 +719,22 @@ under the License.
     <ContentAssoc contentId="SV-1000-ALT" contentIdTo="CSV-1000-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ProductCategoryContent productCategoryId="SERV-001" contentId="SERV-001-ALT" prodCatContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="SV-1000" contentId="SV-1000-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+
+    <!-- test for service product type which is received to- and shipped from inventory-->
+    <Product productId="SV-1001" productTypeId="SERVICE_PRODUCT" primaryProductCategoryId="SERV-001" productName="Laundry service" internalName="Service type product which is received to- and shipped from inventory" description="Service type product which is received to- and shipped from inventory for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SV-1001" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="10.99" createdDate="2011-08-02 12:00:00.0" createdByUserLogin="admin"/>
+    <ProductCategoryMember productCategoryId="SERV-001" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1001" fromDate="2011-08-02 12:00:00.0"/>
+    <DataResource dataResourceId="SV-1001-ALT" dataResourceTypeId="LINK" objectInfo="lanudry-service-SV-1001-p"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="SV-1001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSV-1001-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="SV-1001-ALT" textData="service-product"/>
+    <ElectronicText dataResourceId="DRSV-1001-ALTEN" textData="service-product"/>
+    
+    <Content contentId="SV-1001-ALT" contentTypeId="DOCUMENT" dataResourceId="SV-1001-ALT" localeString="en"/>
+    <Content contentId="CSV-1001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRSV-1001-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="SV-1001-ALT" contentIdTo="CSV-1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductContent productId="SV-1001" contentId="SV-1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2011-08-02 12:00:00.0"/>
 
     <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
@@ -975,6 +991,7 @@ under the License.
     <ProductFacility productId="GZ-1000" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="GZ-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="GZ-1004" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
+    <ProductFacility productId="SV-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
 
     <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01"/>
     <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" minimumStock="2" moveQuantity="5"/>
@@ -987,6 +1004,7 @@ under the License.
     <ProductFacilityLocation productId="GZ-1000" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" minimumStock="5" moveQuantity="20"/>
     <ProductFacilityLocation productId="GZ-1001" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" minimumStock="5" moveQuantity="20"/>
     <ProductFacilityLocation productId="GZ-1004" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
+    <ProductFacilityLocation productId="SV-1001" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
 
     <!-- some default inventory quantities, things are a bit underutilized without these... -->
     <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" datetimeReceived="2008-08-01 08:00:00.000"

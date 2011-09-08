@@ -1130,8 +1130,63 @@ public class OrderServices {
             // store line items, etc so that they will be there for the foreign key checks
             delegator.storeAll(toBeStored);
 
-            // START inventory reservation
             List<String> resErrorMessages = new LinkedList<String>();
+
+            // add a product service to inventory 
+            if (UtilValidate.isNotEmpty(orderItems)) {
+                for (GenericValue orderItem: orderItems) {
+                    String productId = (String) orderItem.get("productId");
+                    GenericValue product = delegator.getRelatedOne("Product", orderItem);
+                    
+                    if("SERVICE_PRODUCT".equals(product.get("productTypeId"))){
+                        String inventoryFacilityId = null;
+                        if ("Y".equals(productStore.getString("oneInventoryFacility"))) {
+                            inventoryFacilityId = productStore.getString("inventoryFacilityId");
+
+                            if (UtilValidate.isEmpty(inventoryFacilityId)) {
+                                Debug.logWarning("ProductStore with id " + productStoreId + " has Y for oneInventoryFacility but inventoryFacilityId is empty, returning false for inventory check", module);
+                            }
+                        } else {
+                            List<GenericValue> productFacilities = null;
+                            GenericValue productFacility = null;
+
+                            try {
+                                productFacilities = delegator.getRelatedCache("ProductFacility", product);
+                            } catch (GenericEntityException e) {
+                                Debug.logWarning(e, "Error invoking getRelatedCache in isCatalogInventoryAvailable", module);
+                            }
+
+                            if (UtilValidate.isNotEmpty(productFacilities)) {
+                                productFacility = EntityUtil.getFirst(productFacilities);
+                                inventoryFacilityId = (String) productFacility.get("facilityId");
+                            }
+                        }
+
+                        Map<String, Object> ripCtx = FastMap.newInstance();
+                        if (UtilValidate.isNotEmpty(inventoryFacilityId) && UtilValidate.isNotEmpty(productId) && orderItem.getBigDecimal("quantity").compareTo(BigDecimal.ZERO) > 0) {
+                            // do something tricky here: run as the "system" user
+                            GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+                            ripCtx.put("productId", productId);
+                            ripCtx.put("facilityId", inventoryFacilityId);
+                            ripCtx.put("inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
+                            ripCtx.put("quantityAccepted", orderItem.getBigDecimal("quantity"));
+                            ripCtx.put("quantityRejected", 0.0);
+                            ripCtx.put("userLogin", permUserLogin);
+                            try {
+                                Map<String, Object> ripResult = dispatcher.runSync("receiveInventoryProduct", ripCtx);
+                                if (ServiceUtil.isError(ripResult)) {
+                                    String errMsg = ServiceUtil.getErrorMessage(ripResult);
+                                    resErrorMessages.addAll((Collection<? extends String>) UtilMisc.<String, String>toMap("reasonCode", "ReceiveInventoryServiceError", "description", errMsg));
+                                }
+                            } catch (GenericServiceException e) {
+                                Debug.logWarning(e, "Error invoking receiveInventoryProduct service in createOrder", module);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // START inventory reservation
             try {
                 reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupInfo, dropShipGroupIds, itemValuesBySeqId,
                         orderTypeId, productStoreId, resErrorMessages);
