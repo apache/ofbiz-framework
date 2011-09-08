@@ -260,4 +260,119 @@ under the License.
         <assert><not><if-empty field="orderMap.orderId"/></not></assert>
         <check-errors/>
     </simple-method>
+    
+    <simple-method method-name="testCreateOrderServiceProduct" short-description="Test create an order using a service product" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="DemoCustomer"/>
+        </entity-one>
+        
+        <!-- Shopping Cart new Instance -->
+        <set field="delegator" from-field="parameters.delegator" type="Object"/>
+        <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
+        <set field="locale" from-field="parameters.locale" type="Object" />
+        <set field="productStoreId" value="9000" type="String"/>
+        <set field="currencyUom" value="USD" type="String"/>
+        <set field="salesChannel" value="WEB_SALES_CHANNEL" type="String"/>
+        
+        <set field="partyId" value="DemoCustomer" type="String"/>
+        
+        <create-object class-name="org.ofbiz.order.shoppingcart.ShoppingCart" field="shoppingCart">
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <field field="productStoreId" type="String"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="currencyUom" type="String"/>
+        </create-object>
+        
+        <set field="orderType" value="SALES_ORDER" type="String"/>
+        <call-object-method method-name="setOrderType" obj-field="shoppingCart">
+            <field field="orderType" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setChannelType" obj-field="shoppingCart">
+            <field field="salesChannel" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setProductStoreId" obj-field="shoppingCart">
+            <field field="productStoreId" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setBillToCustomerPartyId" obj-field="shoppingCart">
+            <field field="partyId" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setPlacingCustomerPartyId" obj-field="shoppingCart">
+            <field field="partyId" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setShipToCustomerPartyId" obj-field="shoppingCart">
+            <field field="partyId" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setEndUserCustomerPartyId" obj-field="shoppingCart">
+            <field field="partyId" type="String"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
+            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        </call-object-method>
+        
+        <set field="productId" value="SV-1001" type="String"/>
+        <set field="prodCatalogId" value="DemoCatalog" type="String"/>
+        <set field="quantity" value="1" type="BigDecimal"/>
+        
+        <call-object-method method-name="addOrIncreaseItem" obj-field="shoppingCart">
+            <field field="productId" type="String"/>
+            <field field="selectedAmount" type="BigDecimal"/>
+            <field field="quantity" type="BigDecimal"/>
+            <field field="reservStart" type="Timestamp"/>
+            <field field="reservLength" type="BigDecimal"/>
+            <field field="reservPersons" type="BigDecimal"/>
+            <field field="shipBeforeDate" type="Timestamp"/>
+            <field field="shipAfterDate" type="Timestamp"/>
+            <field field="features" type="Map"/>
+            <field field="attributes" type="Map"/>
+            <field field="prodCatalogId" type="String"/>
+            <field field="configWrapper" type="org.ofbiz.product.config.ProductConfigWrapper"/>
+            <field field="itemType" type="String"/>
+            <field field="itemGroupNumber" type="String"/>
+            <field field="parentProductId" type="String"/>
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        </call-object-method>
+        
+        <call-object-method method-name="setDefaultCheckoutOptions" obj-field="shoppingCart">
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+        </call-object-method>
+        
+        <create-object class-name="org.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
+            <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
+        </create-object>
+        
+        <call-object-method method-name="createOrder" obj-field="checkOutHelper" ret-field="orderCreateResult">
+            <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+        </call-object-method>
+        <set field="orderId" from-field="orderCreateResult.orderId" type="String"/>
+        <if-not-empty field="orderId">
+            <call-class-method method-name="approveOrder" class-name="org.ofbiz.order.order.OrderChangeHelper" ret-field="approved">
+                <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
+                <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
+                <field field="orderId" type="String"/>
+            </call-class-method>
+            <log level="info" message="======== Test order with id: [${orderId}] has been approved: [${approved}]========"/>
+            
+            <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
+            
+        <set field="quickShipEntireOrderMap.orderId" from-field="orderId"/>
+        <set field="quickShipEntireOrderMap.userLogin" from-field="systemUserLogin"/>
+        <call-service service-name="quickShipEntireOrder" in-map-name="quickShipEntireOrderMap"/>
+        <log level="info" message="========Test order with id: [${orderId}] has been shipped"/>
+        </if-not-empty>
+        
+        <assert><not><if-empty field="orderId"/></not></assert>
+        <check-errors/>
+    </simple-method>
 </simple-methods>
