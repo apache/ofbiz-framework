@@ -54,6 +54,61 @@ public class HumanResEvents {
         
         List categoryList = FastList.newInstance();
         List<GenericValue> childOfComs;
+        //check employee position
+        try {
+            List<GenericValue> isEmpl = delegator.findByAnd("EmplPosition", UtilMisc.toMap(
+                    "emplPositionId", partyId));
+            if (UtilValidate.isNotEmpty(isEmpl)) {
+                String emplId = partyId;
+                List<GenericValue> emlpfillCtxs = EntityUtil.filterByDate(delegator.findByAnd("EmplPositionFulfillment", UtilMisc.toMap(
+                        "emplPositionId", emplId)));
+                if (UtilValidate.isNotEmpty(emlpfillCtxs)) {
+                    for (GenericValue emlpfillCtx : emlpfillCtxs ) {
+                        String memberId = emlpfillCtx.getString("partyId");
+                        GenericValue memCtx = delegator.findByPrimaryKey("Person" ,UtilMisc.toMap("partyId", memberId));
+                        String title = null;
+                        if (UtilValidate.isNotEmpty(memCtx)) {
+                            String firstname = (String) memCtx.get("firstName");
+                            String lastname = (String) memCtx.get("lastName");
+                            if (UtilValidate.isEmpty(lastname)) {
+                                lastname = "";
+                            }
+                            if (UtilValidate.isEmpty(firstname)) {
+                                firstname = "";
+                            }
+                            title = firstname +" "+ lastname;
+                        }
+                        GenericValue memGroupCtx = delegator.findByPrimaryKey("PartyGroup" ,UtilMisc.toMap("partyId", memberId));
+                        if (UtilValidate.isNotEmpty(memGroupCtx)) {
+                            title = memGroupCtx.getString("groupName");
+                        }
+                        
+                        Map josonMap = FastMap.newInstance();
+                        Map dataMap = FastMap.newInstance();
+                        Map dataAttrMap = FastMap.newInstance();
+                        Map attrMap = FastMap.newInstance();
+                        
+                        dataAttrMap.put("onClick", onclickFunction + "('" + memberId + additionParam + "')");
+                        
+                        String hrefStr = hrefString + memberId;
+                        if (UtilValidate.isNotEmpty(hrefString2)) {
+                            hrefStr = hrefStr + hrefString2;
+                        }
+                        dataAttrMap.put("href", hrefStr);
+                        dataMap.put("attr", dataAttrMap);
+                        attrMap.put("id", memberId);
+                        josonMap.put("attr",attrMap);
+                        dataMap.put("title", title);
+                        josonMap.put("data", dataMap);
+                        
+                        categoryList.add(josonMap);
+                    }
+                    toJsonObjectList(categoryList,response);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         try {
             GenericValue partyGroup = delegator.findByPrimaryKey("PartyGroup" ,UtilMisc.toMap("partyId", partyId));
@@ -85,7 +140,10 @@ public class HumanResEvents {
                         //Check child existing
                         List<GenericValue> childOfSubComs = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", UtilMisc.toMap(
                                 "partyIdFrom", catId, "partyRelationshipTypeId", "GROUP_ROLLUP")));
-                        if (UtilValidate.isNotEmpty(childOfSubComs)) {
+                        //check employee position
+                        List<GenericValue> isPosition = delegator.findByAnd("EmplPosition", UtilMisc.toMap(
+                                "partyId", catId));
+                        if (UtilValidate.isNotEmpty(childOfSubComs) || UtilValidate.isNotEmpty(isPosition)) {
                             josonMap.put("state", "closed");
                         }
                         
@@ -113,6 +171,7 @@ public class HumanResEvents {
                         
                         dataMap.put("attr", dataAttrMap);
                         
+                        attrMap.put("rel", "Y");
                         attrMap.put("id", catId);
                         josonMap.put("attr",attrMap);
                         dataMap.put("title", title);
@@ -120,8 +179,47 @@ public class HumanResEvents {
                         
                         categoryList.add(josonMap);
                 }
-                    toJsonObjectList(categoryList,response);
+                    
                 }
+                
+                List<GenericValue> childOfEmpls = delegator.findByAnd("EmplPosition", UtilMisc.toMap(
+                        "partyId", partyId));
+                if (UtilValidate.isNotEmpty(childOfEmpls)) {
+                    for (GenericValue childOfEmpl : childOfEmpls ) {
+                    	Map emplMap = FastMap.newInstance();
+                        Map emplAttrMap = FastMap.newInstance();
+                        Map empldataMap = FastMap.newInstance();
+                        Map emplDataAttrMap = FastMap.newInstance();
+                        
+                        String emplId = (String) childOfEmpl.get("emplPositionId");
+                        String typeId = (String) childOfEmpl.get("emplPositionTypeId");
+                        //check child
+                        List<GenericValue> emlpfCtxs = EntityUtil.filterByDate(delegator.findByAnd("EmplPositionFulfillment", UtilMisc.toMap(
+                                "emplPositionId", emplId)));
+                        if (UtilValidate.isNotEmpty(emlpfCtxs)) {
+                            emplMap.put("state", "closed");
+                        }
+                        
+                        GenericValue emplContext = delegator.findByPrimaryKey("EmplPositionType" ,UtilMisc.toMap("emplPositionTypeId", typeId));
+                        String title = null;
+                        if (UtilValidate.isNotEmpty(emplContext)) {
+                            title = (String) emplContext.get("description") + " " +"["+ emplId +"]";
+                        }
+                        String hrefStr = "emplPositionView?emplPositionId=" + emplId;
+                        empldataMap.put("title", title);
+                        emplAttrMap.put("href", hrefStr);
+                        emplAttrMap.put("onClick", "callEmplDocument" + "('" + emplId + "')");
+                        empldataMap.put("attr", emplAttrMap);
+                        emplMap.put("data", empldataMap);
+                        emplDataAttrMap.put("id", emplId);
+                        emplDataAttrMap.put("rel", "N");
+                        emplMap.put("attr",emplDataAttrMap);
+                        emplMap.put("title",title);
+                        categoryList.add(emplMap);
+                    }
+                }
+                
+                toJsonObjectList(categoryList,response);
             }
         } catch (Exception e) {
             e.printStackTrace();

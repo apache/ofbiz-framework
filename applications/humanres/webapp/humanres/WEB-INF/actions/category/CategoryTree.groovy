@@ -38,6 +38,7 @@ import java.util.List;
 completedTree =  FastList.newInstance();
 completedTreeContext =  FastList.newInstance();
 existParties =  FastList.newInstance();
+subtopLists =  FastList.newInstance();
 
 //internalOrg list
 partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", [partyIdFrom : partyId, partyRelationshipTypeId : "GROUP_ROLLUP"]));
@@ -55,33 +56,14 @@ if (partyRelationships) {
         partyGroupMap.put("partyId", partyGroup.getString("partyId"));
         partyGroupMap.put("groupName", partyGroup.getString("groupName"));
         completedTreeContext.add(partyGroupMap);
+
+        subtopLists.addAll(partyRelationship.getString("partyIdTo"));
     }
 
     partyRootMap.put("child", completedTreeContext);
     completedTree.add(partyRootMap);
-    
+
 }
 // The complete tree list for the category tree
 context.completedTree = completedTree;
-//Filter Existing parties
-existPartiesContexts = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", [partyIdFrom : partyId]));
-if (existPartiesContexts) {
-	for(existPartiesContext in existPartiesContexts) {
-        partyGroup = delegator.findByPrimaryKey("PartyGroup", [partyId : existPartiesContext.getString("partyIdTo")]);
-        if (partyGroup) {
-        	partyGroupMap = FastMap.newInstance();
-            partyGroupMap.put("partyId", partyGroup.getString("partyId"));
-            partyGroupMap.put("name", partyGroup.getString("groupName"));
-            existParties.add(partyGroupMap);
-        }
-        person = delegator.findByPrimaryKey("Person", [partyId : existPartiesContext.getString("partyIdTo")]);
-        if (person) {
-        	personMap = FastMap.newInstance();
-        	personMap.put("partyId", person.getString("partyId"));
-        	personMap.put("name", person.getString("firstName"));
-        	existParties.add(personMap);
-        }
-    }
-}
-context.existParties = existParties;
-println'=============================================== existParties : '+existParties;
+context.subtopLists = subtopLists;
