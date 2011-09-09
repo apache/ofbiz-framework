@@ -1030,7 +1030,7 @@ public class ShipmentServices {
         // TODO: This may not need to be done asynchronously.  The reason it's done that way right now is that calling it synchronously means that
         // if we can't confirm a single shipment, then all shipment route segments in a multi-form are rolled back.
         try {
-            Map<String, String> input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "userLogin", userLogin);
+            Map<String, Object> input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "userLogin", userLogin);
             // for DHL, we just need to confirm the shipment to get the label.  Other carriers may have more elaborate requirements.
             if (carrierPartyId.equals("DHL")) {
                 dispatcher.runAsync("dhlShipmentConfirm", input);
