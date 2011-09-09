@@ -21,42 +21,58 @@ package org.ofbiz.webtools.artifactinfo;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
-
 /**
  *
  */
 public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
+
     protected ArtifactInfoFactory aif;
+    private String fullName = null;
 
     public ArtifactInfoBase(ArtifactInfoFactory aif) {
         this.aif = aif;
     }
 
+    public int compareTo(ArtifactInfoBase that) {
+        if (that == null) {
+            return -1;
+        }
+        return this.toString().compareTo(that.toString());
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ArtifactInfoBase) {
-            return this.equals(obj);
-        } else {
+        if (this == obj) {
+            return true;
+        }
+        try {
+            ArtifactInfoBase that = (ArtifactInfoBase) obj;
+            return this.toString().equals(that.toString());
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public int compareTo(ArtifactInfoBase that) {
-        if (that == null) return -1;
-        String thisName = this.getDisplayType() + ":" + this.getDisplayName();
-        String thatName = that.getDisplayType() + ":" + that.getDisplayName();
-        return thisName.compareTo(thatName);
-    }
-
     abstract public String getDisplayName();
+
     abstract public String getDisplayType();
-    abstract public String getType();
-    abstract public String getUniqueId();
+
     abstract public URL getLocationURL() throws MalformedURLException;
 
+    abstract public String getType();
 
-    //public static List<ArtifactInfoBase> sortArtifactInfoSetByDisplayName(Set<ArtifactInfoBase> artifactInfoSet) {
-        //SortedMap<String, ArtifactInfoBase> sortedMap = FastMap.newInstance();
-    //}
+    abstract public String getUniqueId();
+
+    @Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        if (this.fullName == null) {
+            this.fullName = this.getDisplayType().concat(":").concat(this.getDisplayName());
+        }
+        return this.fullName;
+    }
 }
