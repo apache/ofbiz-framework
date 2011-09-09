@@ -219,7 +219,7 @@ ${virtualVariantJavaScript?if_exists}
     }
 
     function additemSubmit(){
-        <#if product.productTypeId?if_exists == "ASSET_USAGE">
+        <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
         newdatevalue = validate(document.addform.reservStart.value);
         if (newdatevalue == false) {
             document.addform.reservStart.focus();
@@ -233,7 +233,7 @@ ${virtualVariantJavaScript?if_exists}
     }
 
     function addShoplistSubmit(){
-        <#if product.productTypeId?if_exists == "ASSET_USAGE">
+        <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
         if (document.addToShoppingList.reservStartStr.value == "") {
             document.addToShoppingList.submit();
         } else {
@@ -456,7 +456,7 @@ ${virtualVariantJavaScript?if_exists}
                 <#assign priceStyle = "regularPrice" />
               </#if>
                 ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if><span class="${priceStyle}"><@ofbizCurrency amount=price.price isoCode=price.currencyUsed /></span>
-                 <#if product.productTypeId?if_exists == "ASSET_USAGE">
+                 <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
                 <#if product.reserv2ndPPPerc?exists && product.reserv2ndPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReserv2ndPPPerc}<#if !product.reservNthPPPerc?exists || product.reservNthPPPerc == 0>${uiLabelMap.CommonUntil} ${product.reservMaxPersons?if_exists}</#if> <@ofbizCurrency amount=product.reserv2ndPPPerc*price.price/100 isoCode=price.currencyUsed /></span></#if>
                 <#if product.reservNthPPPerc?exists &&product.reservNthPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReservNthPPPerc} <#if !product.reserv2ndPPPerc?exists || product.reserv2ndPPPerc == 0>${uiLabelMap.ProductReservSecond} <#else> ${uiLabelMap.ProductReservThird} </#if> ${uiLabelMap.CommonUntil} ${product.reservMaxPersons?if_exists}, ${uiLabelMap.ProductEach}: <@ofbizCurrency amount=product.reservNthPPPerc*price.price/100 isoCode=price.currencyUsed /></span></#if>
                 <#if (!product.reserv2ndPPPerc?exists || product.reserv2ndPPPerc == 0) && (!product.reservNthPPPerc?exists || product.reservNthPPPerc == 0)><br />${uiLabelMap.ProductMaximum} ${product.reservMaxPersons?if_exists} ${uiLabelMap.ProductPersons}.</#if>
@@ -629,7 +629,7 @@ ${virtualVariantJavaScript?if_exists}
                   <span style="white-space: nowrap;"><strong>${uiLabelMap.CommonAmount}:</strong></span>&nbsp;
                   <input type="text" size="5" name="add_amount" value=""/>
                 </div>
-                <#if product.productTypeId?if_exists == "ASSET_USAGE">
+                <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
                   <div class="inline">
                     <label>Start Date(yyyy-mm-dd)</label><@htmlTemplate.renderDateTimeField event="" action="" name="reservStart" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="reservStart1" dateType="date" shortDateInput=true timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <label>End Date(yyyy-mm-dd)</label><@htmlTemplate.renderDateTimeField event="" action="" name="reservEnd" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="reservEnd1" dateType="date" shortDateInput=true timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
@@ -689,8 +689,12 @@ ${virtualVariantJavaScript?if_exists}
                 <option value="">${uiLabelMap.OrderNewShoppingList}</option>
               </select>
               &nbsp;&nbsp;
+              <#assign nowDate = Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("yyyy-MM-dd")>
               <#if product.productTypeId?if_exists == "ASSET_USAGE">
-                  &nbsp;${uiLabelMap.CommonStartDate} (yyyy-mm-dd)<input type="text" size="10" name="reservStartStr" />Number of&nbsp;days<input type="text" size="4" name="reservLength" />&nbsp;Number of&nbsp;persons<input type="text" size="4" name="reservPersons" value="1" />Qty&nbsp;<input type="text" size="5" name="quantity" value="1" />
+                  &nbsp;${uiLabelMap.CommonStartDate} (yyyy-mm-dd)<@htmlTemplate.renderDateTimeField name="reservStartStr" event="" action="" value="${nowDate}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="15" maxlength="30" id="reservStartStr" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>&nbsp;Number of&nbsp;days&nbsp;&nbsp;<input type="text" size="4" name="reservLength" />&nbsp;<br/>Number of&nbsp;persons&nbsp;&nbsp;<input type="text" size="4" name="reservPersons" value="1" />&nbsp;&nbsp;Qty&nbsp;&nbsp;<input type="text" size="5" name="quantity" value="1" />
+              <#elseif product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
+                &nbsp;${uiLabelMap.CommonStartDate} (yyyy-mm-dd)&nbsp;&nbsp;&nbsp;<@htmlTemplate.renderDateTimeField name="reservStartStr" event="" action="" value="${nowDate}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="15" maxlength="30" id="reservStartStr" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>&nbsp;&nbsp;Number of&nbsp;days&nbsp;&nbsp;<input type="text" size="4" name="reservLength" /><input type="hidden" size="4" name="reservPersons" value="1" /><br/>
+                Qty&nbsp;<input type="text" size="5" name="quantity" value="1" />
               <#else>
                   <input type="text" size="5" name="quantity" value="1" />
                   <input type="hidden" name="reservStartStr" value= "" />

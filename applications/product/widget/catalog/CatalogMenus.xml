@@ -471,7 +471,10 @@ under the License.
         </menu-item>
         <menu-item name="EditProductAssetUsage" title="${uiLabelMap.ProductAssetUsage}">
             <condition>
-                <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE"/>
+                <or>
+                    <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE"/>
+                    <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE_OUT_IN"/>
+                </or>
             </condition>
             <link target="EditProductAssetUsage">
                 <parameter param-name="productId"/>

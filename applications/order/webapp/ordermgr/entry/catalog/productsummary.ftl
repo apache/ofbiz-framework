@@ -109,6 +109,8 @@ ${virtualJavaScript?if_exists}
           <#-- check to see if the product requires an amount -->
           <#elseif product.requireAmount?exists && product.requireAmount == "Y">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderChooseAmount}...</a>
+          <#elseif product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
+            <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderRent}...</a>
           <#else>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}form" style="margin: 0;">
               <input type="hidden" name="add_product_id" value="${product.productId}"/>

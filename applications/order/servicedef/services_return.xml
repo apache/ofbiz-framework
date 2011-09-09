@@ -369,4 +369,12 @@ under the License.
         <description>Delete a ReturnContactMech</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+
+    <!-- Item Return Service -->
+    <service name="createReturnItemForRental" engine="simple"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItemForRental">
+        <description>Create the return item for rental (which items has product type is ASSET_USAGE_OUT_IN)</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="returnId" type="String" mode="OUT" optional="false"/>
+    </service>
 </services>

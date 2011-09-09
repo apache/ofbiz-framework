@@ -56,6 +56,8 @@ under the License.
     <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
     <#elseif product.productTypeId?if_exists == "ASSET_USAGE"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
+    <#elseif product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN"/>
+                <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderRent}...</a>
     <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
     <#elseif product.productTypeId?if_exists == "AGGREGATED"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
@@ -158,6 +160,8 @@ under the License.
     <#-- check to see if it is a rental item; will enter parameters on the detail screen-->
     <#elseif product.productTypeId?if_exists == "ASSET_USAGE"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
+    <#elseif product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN"/>
+                <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderRent}...</a>
     <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
     <#elseif product.productTypeId?if_exists == "AGGREGATED"/>
                 <a href="javascript:doGetViaParent('${productUrl}');" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
