@@ -246,18 +246,18 @@ under the License.
                     <td valign="top" width="80%">
                         <div>
                             <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
-                            <#-- passing the shipmentMethod value as the combination of two fields value
-                            i.e shipmentMethodTypeId & carrierPartyId and this two field values are separated bye
+                            <#-- passing the shipmentMethod value as the combination of three fields value
+                            i.e shipmentMethodTypeId & carrierPartyId & roleTypeId. Values are separated by
                             "@" symbol.
                             -->
                             <select name="shipmentMethod">
                                 <#if shipGroup.shipmentMethodTypeId?has_content>
-                                <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId?if_exists}"><#if shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId?if_exists}</#if>&nbsp;${shipmentMethodType.get("description",locale)?default("")}</option>
+                                <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId!}@${shipGroup.carrierRoleTypeId!}"><#if shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId!}</#if>&nbsp;${shipmentMethodType.get("description",locale)!}</option>
                                 <#else>
                                 <option value=""/>
                                 </#if>
                                 <#list productStoreShipmentMethList as productStoreShipmentMethod>
-                                <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId>
+                                <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId + "@" + productStoreShipmentMethod.roleTypeId>
                                 <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
                                 <option value="${shipmentMethodTypeAndParty?if_exists}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId?if_exists}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
                                 </#if>

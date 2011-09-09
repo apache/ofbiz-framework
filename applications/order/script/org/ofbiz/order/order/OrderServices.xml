@@ -783,13 +783,15 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="OrderItemShipGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <!-- splitting shipmentMethod request parameter value that contains "@" symbol
-             into "shipmentMethodTypeId" and "carrierPartyId".
+             into "shipmentMethodTypeId", "carrierPartyId" and "carrierRoleTypeId".
         -->
         <call-bsh><![CDATA[
             shipmentMethod = parameters.get("shipmentMethod");
             if(shipmentMethod != null){
-               parameters.put("shipmentMethodTypeId", shipmentMethod.substring(0, shipmentMethod.indexOf("@")));
-               parameters.put("carrierPartyId", shipmentMethod.substring(shipmentMethod.indexOf("@")+1));
+               arr = shipmentMethod.split( "@" );
+               parameters.put("shipmentMethodTypeId", arr[0]);
+               parameters.put("carrierPartyId", arr[1]);
+               parameters.put("carrierRoleTypeId", arr[2]);
             }
         ]]></call-bsh>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
