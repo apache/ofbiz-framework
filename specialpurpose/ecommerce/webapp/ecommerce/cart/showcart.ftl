@@ -117,7 +117,7 @@ function setAlternateGwp(field) {
                 <fieldset>
                 ${uiLabelMap.EcommerceProductNumber}<input type="text" class="inputBox" name="add_product_id" value="${requestParameters.add_product_id?if_exists}" />
                 <#-- check if rental data present  insert extra fields in Quick Add-->
-                <#if product?exists && product.getString("productTypeId") == "ASSET_USAGE">
+                <#if (product?exists && product.getString("productTypeId") == "ASSET_USAGE") || (product?exists && product.getString("productTypeId") == "ASSET_USAGE_OUT_IN")>
                     ${uiLabelMap.EcommerceStartDate}: <input type="text" class="inputBox" size="10" name="reservStart" value=${requestParameters.reservStart?default("")} />
                     ${uiLabelMap.EcommerceLength}: <input type="text" class="inputBox" size="2" name="reservLength" value=${requestParameters.reservLength?default("")} />
                     </div>
@@ -182,8 +182,22 @@ function setAlternateGwp(field) {
               <#else>
                 <th scope="row">&nbsp;</th>
               </#if>
-              <#if fixedAssetExist == true><td><table><tr><td class="tabletext">- ${uiLabelMap.EcommerceStartDate} -</td><td class="tabletext">- ${uiLabelMap.EcommerceNbrOfDays} -</td></tr><tr><td class="tabletext" >- ${uiLabelMap.EcommerceNbrOfPersons} -</td><td class="tabletext" >- ${uiLabelMap.CommonQuantity} -</td></tr></table></td>
-              <#else><th scope="row">${uiLabelMap.CommonQuantity}</th></#if>
+              <#if fixedAssetExist == true>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="tabletext">- ${uiLabelMap.EcommerceStartDate} -</td>
+                            <td class="tabletext">- ${uiLabelMap.EcommerceNbrOfDays} -</td>
+                        </tr>
+                        <tr>
+                            <td class="tabletext" >- ${uiLabelMap.EcommerceNbrOfPersons} -</td>
+                            <td class="tabletext" >- ${uiLabelMap.CommonQuantity} -</td>
+                        </tr>
+                    </table>
+                </td>
+              <#else>
+                <th scope="row">${uiLabelMap.CommonQuantity}</th>
+              </#if>
               <th scope="row">${uiLabelMap.EcommerceUnitPrice}</th>
               <th scope="row">${uiLabelMap.EcommerceAdjustments}</th>
               <th scope="row">${uiLabelMap.EcommerceItemTotal}</th>
@@ -304,8 +318,27 @@ function setAlternateGwp(field) {
 
             <td>
                 <#if cartLine.getIsPromo() || cartLine.getShoppingListId()?exists>
-                       <#if fixedAssetExist == true><#if cartLine.getReservStart()?exists><table ><tr><td>&nbsp;</td><td class="tabletext">${cartLine.getReservStart()?string("yyyy-mm-dd")}</td><td class="tabletext">${cartLine.getReservLength()?string.number}</td></tr><tr><td>&nbsp;</td><td class="tabletext">${cartLine.getReservPersons()?string.number}</td><td class="tabletext"><#else>
-                           <table ><tr><td >--</td><td>--</td></tr><tr><td>--</td><td class="tabletext">    </#if>
+                       <#if fixedAssetExist == true>
+                        <#if cartLine.getReservStart()?exists>
+                            <table >
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td class="tabletext">${cartLine.getReservStart()?string("yyyy-mm-dd")}</td>
+                                    <td class="tabletext">${cartLine.getReservLength()?string.number}</td></tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td class="tabletext">${cartLine.getReservPersons()?string.number}</td>
+                                    <td class="tabletext">
+                        <#else>
+                            <table >
+                                <tr>
+                                    <td >--</td>
+                                    <td>--</td>
+                                </tr>
+                                <tr>
+                                    <td>--</td>
+                                    <td class="tabletext">    
+                        </#if>
                         ${cartLine.getQuantity()?string.number}</td></tr></table>
                     <#else><#-- fixedAssetExist -->
                         ${cartLine.getQuantity()?string.number}

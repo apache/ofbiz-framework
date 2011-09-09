@@ -1562,4 +1562,16 @@ under the License.
     <ContentAssoc contentId="WG-1111-BX4-ALT" contentIdTo="CWG-1111-BX4-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-04-26 12:00:00.0"/>
     <ProductContent productId="WG-1111-BX2" contentId="WG-1111-BX2-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
     <ProductContent productId="WG-1111-BX4" contentId="WG-1111-BX4-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2001-05-13 12:00:00.0"/>
+    
+    <!-- Demo product for rental shipping -->
+    <Product productId="RentalShip" productTypeId="ASSET_USAGE_OUT_IN" primaryProductCategoryId="201" productName="Rental Shipping" internalName="Rental Shipping" description="The Product For Test Rental of an asset which is shipped from and returned to inventory" reservMaxPersons="1" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin"/>
+    <FixedAsset fixedAssetId="RentalShip" fixedAssetTypeId="PROPERTY" productionCapacity="10"/>
+    <FixedAssetProduct productId="RentalShip" fixedAssetId="RentalShip" fixedAssetProductTypeId="FAPT_USE" fromDate="2011-09-01 12:00:00.0"/>
+    <ProductPrice productId="RentalShip" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-09-01 12:00:00.0" price="15.99" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="RentalShip" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-09-01 12:00:00.0" price="15.0" createdDate="2011-09-01 12:00:00.0" createdByUserLogin="admin" lastModifiedByUserLogin="admin"/>
+    <ProductCategoryMember productCategoryId="201" productId="RentalShip" fromDate="2011-09-01 12:00:00.0"/>
+    <ProductFacility productId="RentalShip" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="15"/>
+    <ProductFacilityLocation productId="RentalShip" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" minimumStock="5" moveQuantity="20"/>
+    <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="InventoryRentalShip" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="RentalShip" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
+    <InventoryItemDetail inventoryItemId="InventoryRentalShip" inventoryItemDetailSeqId="0001" effectiveDate="2011-09-01 12:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10" accountingQuantityDiff="10"/>
 </entity-engine-xml>

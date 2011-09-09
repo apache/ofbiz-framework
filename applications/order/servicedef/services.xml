@@ -1122,4 +1122,9 @@ under the License.
         <description>Create Order Payment Application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
+    
+    <service name="createTestOrderRentalProduct" engine="simple" auth="true"
+         location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
+         <description>Create Test Order Rental of an asset which is shipped from and returned to inventory</description>
+    </service>
 </services>

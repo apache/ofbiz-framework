@@ -419,7 +419,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
         ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup, parentProduct);
-
+        
         selectedAmount = selectedAmount == null ? BigDecimal.ZERO : selectedAmount;
         unitPrice = unitPrice == null ? BigDecimal.ZERO : unitPrice;
         reservLength = reservLength == null ? BigDecimal.ZERO : reservLength;
@@ -497,7 +497,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         // check to see if the product is a rental item
-        if ("ASSET_USAGE".equals(product.getString("productTypeId"))) {
+        if ("ASSET_USAGE".equals(product.getString("productTypeId")) || "ASSET_USAGE_OUT_IN".equals(product.getString("productTypeId"))) {
             if (reservStart == null)    {
                 String excMsg = UtilProperties.getMessage(resource_error, "item.missing_reservation_starting_date",
                                               cart.getLocale());
@@ -750,6 +750,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (UtilValidate.isNotEmpty(_product.getString("productTypeId"))) {
                 if ("ASSET_USAGE".equals(_product.getString("productTypeId"))) {
                     this.itemType = "RENTAL_ORDER_ITEM";  // will create additional workeffort/asset usage records
+                } else if ("ASSET_USAGE_OUT_IN".equals(_product.getString("productTypeId"))) {
+                    this.itemType = "RENTAL_ORDER_ITEM";
                 } else {
                     this.itemType = "PRODUCT_ORDER_ITEM";
                 }

@@ -1684,7 +1684,7 @@ under the License.
       <key-map field-name="orderId"/>
     </view-link>
   </view-entity>
-  
+
     <view-entity entity-name="OrderItemBillingAndInvoiceAndItem"
           package-name="org.ofbiz.order.order" 
           title="OrderItemBilling and Invoice and InvoiceItem View Entity">
@@ -1707,7 +1707,22 @@ under the License.
         <key-map field-name="invoiceId"/>
         <key-map field-name="invoiceItemSeqId"/>
     </relation>
-    
   </view-entity>
-  
+
+  <view-entity entity-name="OrderItemAndProduct"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="OrderItem And Product View Entity">
+      <member-entity entity-alias="OI" entity-name="OrderItem"/>
+      <member-entity entity-alias="PR" entity-name="Product"/>
+      <alias-all entity-alias="OI"/>
+      <alias-all entity-alias="PR"/>
+      <view-link entity-alias="OI" rel-entity-alias="PR">
+        <key-map field-name="productId"/>
+      </view-link>
+      <relation type="one-nofk" rel-entity-name="Product">
+        <key-map field-name="productId"/>
+      </relation>
+  </view-entity>
+
 </entitymodel>

@@ -93,7 +93,7 @@ if (shoppingListId) {
                 price = calcPriceOutMap.price;
                 totalPrice = price * shoppingListItem.quantity;
                 // similar code at ShoppingCartItem.java getRentalAdjustment
-                if ("ASSET_USAGE".equals(product.productTypeId)) {
+                if ("ASSET_USAGE".equals(product.productTypeId) || "ASSET_USAGE_OUT_IN".equals(product.productTypeId)) {
                     persons = shoppingListItem.reservPersons ?: 0;
                     reservNthPPPerc = product.reservNthPPPerc ?: 0;
                     reserv2ndPPPerc = product.reserv2ndPPPerc ?: 0;

@@ -498,8 +498,9 @@ under the License.
     <ProductType description="Marketing Package: Pick Assembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="MARKETING_PKG" productTypeId="MARKETING_PKG_PICK"/>
     <ProductType description="Work In Process" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="WIP"/>
     <ProductType description="Configurable Good Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/>
+    <ProductType description="Fixed Asset Usage For Rental of an asset which is shipped from and returned to inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE_OUT_IN"/>
     <ProductType description="Service a product which is received to- and shipped from inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE_PRODUCT"/>
-
+    
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->
     <Enumeration description="No Requirement Created" enumCode="NONE" enumId="PRODRQM_NONE" sequenceId="01" enumTypeId="PROD_REQ_METHOD"/>

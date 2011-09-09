@@ -406,8 +406,31 @@ under the License.
                         <input type="hidden" name="shoppingListItemSeqId" value="${shoppingListItem.shoppingListItemSeqId}"/>
                         <input type="hidden" name="reservStart"/>
                         <div class="tabletext">
-                           <#if product.productTypeId == "ASSET_USAGE"><table border="0" width="100%"><tr><td width="1%">&nbsp;</td><td><input type="text" class="inputBox" size="10" name="reservStartStr" value="${shoppingListItem.reservStart?if_exists}"/></td><td><input type="text" class="inputBox" size="2" name="reservLength" value="${shoppingListItem.reservLength?if_exists}"/></td></tr><tr><td>&nbsp;</td><td><input type="text" class="inputBox" size="3" name="reservPersons" value="${shoppingListItem.reservPersons?if_exists}"/></td><td class="tabletext"><#else>
-                           <table width="100%"><tr><td width="62%" align="center">--</td><td align="center">--</td></tr><tr><td align="center">--</td><td class="tabletext"><input type="hidden" name="reservStartStr" value=""/>
+                           <#if product.productTypeId == "ASSET_USAGE" || product.productTypeId == "ASSET_USAGE_OUT_IN">
+                           <table border="0" width="100%">
+                                <tr>
+                                    <td width="1%">&nbsp;</td>
+                                    <td><@htmlTemplate.renderDateTimeField event="" action="" name="reservStartStr" className="inputBox" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${shoppingListItem.reservStart?if_exists}" size="15" maxlength="30" id="reservStartStr_${shoppingListItem.shoppingListItemSeqId}" dateType="date" shortDateInput=true timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/></td>
+                                    <td><input type="text" class="inputBox" size="2" name="reservLength" value="${shoppingListItem.reservLength?if_exists}"/></td>
+                                </tr>
+                                <tr>
+                                <#if product.productTypeId == "ASSET_USAGE">
+                                    <td>&nbsp;</td>
+                                    <td><input type="text" class="inputBox" size="3" name="reservPersons" value="${shoppingListItem.reservPersons?if_exists}"/></td>
+                                <#else>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </#if>
+                                    <td class="tabletext">
+                           <#else>
+                                <table width="100%">
+                                    <tr>
+                                        <td width="62%" align="center">--</td>
+                                        <td align="center">--</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">--</td>
+                                        <td class="tabletext"><input type="hidden" name="reservStartStr" value=""/>
                            </#if>
                         <input size="6" class="inputBox" type="text" name="quantity" value="${shoppingListItem.quantity?string.number}"/>
                         </td></tr></table>

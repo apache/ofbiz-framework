@@ -122,7 +122,14 @@ under the License.
                 <div><@ofbizCurrency amount=orderItem.unitPrice isoCode=orderHeader.currencyUom/></div>
               </td>
               <td>
-                <input type="text" size="8" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")?string("##0.00")}"/>
+                <#if orderItem.productId?exists>
+                  <#assign product = orderItem.getRelatedOne("Product")/>
+                  <#if product.productTypeId == "ASSET_USAGE_OUT_IN">
+                    <input type="text" size="8" name="returnPrice_o_${rowCount}" value="0.00"/>
+                  <#else>
+                    <input type="text" size="8" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")?string("##0.00")}"/>
+                  </#if>
+                </#if>
               </td>
               <td>
                 <select name="returnReasonId_o_${rowCount}">

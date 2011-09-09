@@ -212,7 +212,7 @@ ${virtualJavaScript?if_exists}
     }
 
     function additemSubmit(){
-        <#if product.productTypeId?if_exists == "ASSET_USAGE">
+        <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
         newdatevalue = validate(document.addform.reservStart.value);
         if (newdatevalue == false) {
             document.addform.reservStart.focus();
@@ -226,7 +226,7 @@ ${virtualJavaScript?if_exists}
     }
 
     function addShoplistSubmit(){
-        <#if product.productTypeId?if_exists == "ASSET_USAGE">
+        <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
         if (document.addToShoppingList.reservStartStr.value == "") {
             document.addToShoppingList.submit();
         } else {
@@ -358,7 +358,7 @@ ${virtualJavaScript?if_exists}
             <#assign priceStyle = "regularPrice">
           </#if>
             ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if><span class="${priceStyle}"><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
-             <#if product.productTypeId?if_exists == "ASSET_USAGE">
+             <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
             <#if product.reserv2ndPPPerc?exists && product.reserv2ndPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReserv2ndPPPerc}<#if !product.reservNthPPPerc?exists || product.reservNthPPPerc == 0>${uiLabelMap.CommonUntil} ${product.reservMaxPersons}</#if> <@ofbizCurrency amount=product.reserv2ndPPPerc*price.price/100 isoCode=price.currencyUsed/></span></#if>
             <#if product.reservNthPPPerc?exists &&product.reservNthPPPerc != 0><br /><span class="${priceStyle}">${uiLabelMap.ProductReservNthPPPerc} <#if !product.reserv2ndPPPerc?exists || product.reserv2ndPPPerc == 0>${uiLabelMap.ProductReservSecond} <#else> ${uiLabelMap.ProductReservThird} </#if> ${uiLabelMap.CommonUntil} ${product.reservMaxPersons}, ${uiLabelMap.ProductEach}: <@ofbizCurrency amount=product.reservNthPPPerc*price.price/100 isoCode=price.currencyUsed/></span></#if>
             <#if (!product.reserv2ndPPPerc?exists || product.reserv2ndPPPerc == 0) && (!product.reservNthPPPerc?exists || product.reservNthPPPerc == 0)><br />${uiLabelMap.ProductMaximum} ${product.reservMaxPersons} ${uiLabelMap.ProductPersons}.</#if>
@@ -529,7 +529,7 @@ ${virtualJavaScript?if_exists}
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
               <input type="text" size="5" name="add_amount" value=""/>
             </div>
-            <#if product.productTypeId?if_exists == "ASSET_USAGE">
+            <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
                 <table width="100%"><tr>
                     <@htmlTemplate.renderDateTimeField name="reservStart" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="startDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <@htmlTemplate.renderDateTimeField name="reservEnd" event="" action="" value="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="endDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
@@ -566,7 +566,7 @@ ${virtualJavaScript?if_exists}
             <option value="">${uiLabelMap.OrderNewShoppingList}</option>
           </select>
           &nbsp;&nbsp;
-          <#if product.productTypeId?if_exists == "ASSET_USAGE">
+          <#if product.productTypeId?if_exists == "ASSET_USAGE" || product.productTypeId?if_exists == "ASSET_USAGE_OUT_IN">
               <table><tr><td>&nbsp;</td><td align="right">${uiLabelMap.CommonStartDate} (yyyy-mm-dd)</td><td><input type="text" size="10" name="reservStartStr" /></td><td>Number of&nbsp;days</td><td><input type="text" size="4" name="reservLength" /></td><td>&nbsp;</td><td align="right">Number of&nbsp;persons</td><td><input type="text" size="4" name="reservPersons" value="1" /></td><td align="right">Qty&nbsp;</td><td><input type="text" size="5" name="quantity" value="1" /></td></tr></table>
           <#else>
               <input type="text" size="5" name="quantity" value="1"/>

@@ -40,7 +40,10 @@ under the License.
                 <!-- The default (main) java scripts -->
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-
+                
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.3.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.13.custom.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
 

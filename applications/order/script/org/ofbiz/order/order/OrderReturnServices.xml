@@ -1143,4 +1143,64 @@ under the License.
         </if-empty>
         <store-value value-field="returnContactMechMap"/>
      </simple-method>
+
+    <simple-method method-name="createReturnItemForRental" short-description="Create the return item for rental (which items has product type is ASSET_USAGE_OUT_IN)">
+        <entity-one entity-name="OrderHeader" value-field="orderHeader">
+            <field-map field-name="orderId" from-field="parameters.orderId"/>
+        </entity-one>
+
+        <if-compare operator="equals" value="SALES_ORDER" field="orderHeader.orderTypeId">
+            <entity-condition entity-name="OrderRole" list="orderRoles">
+                <condition-list combine="and">
+                    <condition-expr field-name="orderId" operator="equals" from-field="orderHeader.orderId"/>
+                    <condition-expr field-name="roleTypeId" operator="equals" value="BILL_TO_CUSTOMER"/>
+                </condition-list>
+            </entity-condition>
+            <first-from-list entry="orderRole" list="orderRoles"/>
+
+            <get-related-one relation-name="ProductStore" value-field="orderHeader" to-value-field="productStore"/>
+
+            <if-not-empty field="productStore.inventoryFacilityId">
+                <set field="createReturnCtx.destinationFacilityId" from-field="productStore.inventoryFacilityId"/>
+            </if-not-empty>
+
+            <if-not-empty field="productStore.reqReturnInventoryReceive">
+                <set field="updateHeaderCtx.needsInventoryReceive" from-field="productStore.reqReturnInventoryReceive"/>
+            <else>
+                <set field="updateHeaderCtx.needsInventoryReceive" value="N"/>
+            </else>
+            </if-not-empty>
+
+            <set field="createReturnCtx.orderId" from-field="orderHeader.orderId"/>
+            <set field="createReturnCtx.currencyUomId" from-field="orderHeader.currencyUom"/>
+            <set field="createReturnCtx.fromPartyId" from-field="orderRole.partyId"/>
+            <set field="createReturnCtx.toPartyId" from-field="productStore.payToPartyId"/>
+            <set field="createReturnCtx.returnHeaderTypeId" value="CUSTOMER_RETURN"/>
+            <set field="createReturnCtx.returnReasonId" value="RTN_NORMAL_RETURN"/>
+            <set field="createReturnCtx.returnTypeId" value="RTN_RENTAL"/>
+            <set field="createReturnCtx.returnItemTypeId" value="RET_FDPROD_ITEM"/>
+            <set field="createReturnCtx.expectedItemStatus" value="INV_RETURNED"/>
+            <set field="createReturnCtx.returnPrice" value="0.00" type="BigDecimal"/>
+
+            <entity-condition entity-name="OrderItemAndProduct" list="orderItems">
+                <condition-list combine="and">
+                    <condition-expr field-name="orderId" operator="equals" from-field="orderHeader.orderId"/>
+                    <condition-expr field-name="statusId" operator="equals" value="ITEM_COMPLETED"/>
+                    <condition-expr field-name="productTypeId" operator="equals" value="ASSET_USAGE_OUT_IN"/>
+                </condition-list>
+            </entity-condition>
+            <iterate entry="orderItem" list="orderItems">
+                <set field="createReturnCtx.productId" from-field="orderItem.productId"/>
+                <set field="createReturnCtx.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                <set field="createReturnCtx.description" from-field="orderItem.itemDescription"/>
+                <set field="createReturnCtx.returnQuantity" from-field="orderItem.quantity"/>
+                <call-service service-name="createReturnAndItemOrAdjustment" in-map-name="createReturnCtx" include-user-login="true">
+                    <result-to-field result-name="returnId" field="returnId"/>
+                </call-service>
+                <if-not-empty field="returnId">
+                    <set field="createReturnCtx.returnId" from-field="returnId"/>
+                </if-not-empty>
+            </iterate>
+        </if-compare>
+    </simple-method>
 </simple-methods>

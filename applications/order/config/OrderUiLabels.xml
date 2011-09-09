@@ -12885,4 +12885,7 @@
     <property key="QuoteEditNote">
         <value xml:lang="en">Update Note</value>
     </property>
+    <property key="OrderRent">
+        <value xml:lang="en">Rent</value>
+    </property>
 </resource>

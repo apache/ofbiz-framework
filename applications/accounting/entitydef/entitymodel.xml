@@ -4069,4 +4069,12 @@ under the License.
             <key-map field-name="finAccountId"/>
         </view-link>
     </view-entity>
+    
+    <!-- Extend Entity Inventory Item for relation Fix Asset -->
+    <extend-entity entity-name="InventoryItem">
+        <field name="fixedAssetId" type="id"></field>
+        <relation type="one" fk-name="FIXED_ASSET" title="FixedAsset" rel-entity-name="InventoryItem">
+            <key-map field-name="fixedAssetId" rel-field-name="inventoryItemId"/>
+        </relation>
+    </extend-entity>
 </entitymodel>

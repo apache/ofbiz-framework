@@ -301,7 +301,7 @@ public class ShoppingCartEvents {
         }
 
         // get the renting data
-        if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId))) {
+        if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId)) || "ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
             if (paramMap.containsKey("reservStart")) {
                 reservStartStr = (String) paramMap.remove("reservStart");
                 if (reservStartStr.length() == 10) // only date provided, no time string?
