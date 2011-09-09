@@ -94,7 +94,7 @@
     </property>
     <property key="ContentAssocUpdateError">
         <value xml:lang="en">Error in updating ContentAssoc. Entity is null.</value>
-        <value xml:lang="en">Erreur dans la mise à jour de l'association. Entité inexistante.</value>
+        <value xml:lang="fr">Erreur dans la mise à jour de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nell'aggiornamento dell'entità ContentAssoc che è nulla.</value>
     </property>
     <property key="ContentAssociation">
@@ -716,7 +716,7 @@
     </property>
     <property key="ContentContentToOrFromErrorRetriving">
         <value xml:lang="en">Error in retrieving content To or From.</value>
-        <value xml:lang="en">Erreur dans la récupération du document de destination ou d'origine.</value>
+        <value xml:lang="fr">Erreur dans la récupération du document de destination ou d'origine.</value>
         <value xml:lang="it">Errore nel ricavare il contenuto a o da.</value>
     </property>
     <property key="ContentContentsAssociatedToDataResource">
@@ -1890,7 +1890,7 @@
     </property>
     <property key="ContentStatusUpdateError">
         <value xml:lang="en">Problem updating content Status: ${errorString}</value>
-        <value xml:lang="en">Problème lors de la mise à jour du statut du document : ${errorString}</value>
+        <value xml:lang="fr">Problème lors de la mise à jour du statut du document : ${errorString}</value>
         <value xml:lang="it">Problema durante l'aggiornamento dello stato del contenuto: ${errorString}</value>
     </property>
     <property key="ContentSubContent">
@@ -2521,7 +2521,7 @@
     </property>
     <property key="ContentUnableObtainReferenceToFile">
         <value xml:lang="en">Unable to obtain a reference to file ${objectInfo}</value>
-        <value xml:lang="en">Impossible d'obtenir la référence du fichier ${objectInfo}</value>
+        <value xml:lang="fr">Impossible d'obtenir la référence du fichier ${objectInfo}</value>
         <value xml:lang="it">Non è possibile ottenere un riferimento al file ${objectInfo}</value>
     </property>
     <property key="ContentUnableToOpenFileForWriting">

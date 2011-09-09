@@ -2268,7 +2268,7 @@
     </property>
     <property key="RoleType.description.EMAIL_ADMIN">
         <value xml:lang="en">Email Administrator</value>
-        <value xml:lang="en">Administrateur des emails</value>
+        <value xml:lang="fr">Administrateur des emails</value>
         <value xml:lang="hi_IN">ईमेल प्रशासक</value>
         <value xml:lang="it">Amministratore email</value>
         <value xml:lang="pt_BR">Administrador de e-mail</value>
@@ -2327,7 +2327,7 @@
     </property>
     <property key="RoleType.description.FAM_MANAGER">
         <value xml:lang="en">Maintenance Manager or Supervisor</value>
-        <value xml:lang="en">Responsable de la maintenance</value>
+        <value xml:lang="fr">Responsable de la maintenance</value>
         <value xml:lang="hi_IN">अनुरक्षण प्रबंधक अथवा सुपरवाइजर</value>
         <value xml:lang="it">Gestione manutenzione o supervisore</value>
         <value xml:lang="pt_BR">Gerente ou supervisor de manutenção</value>
@@ -3284,7 +3284,7 @@
     </property>
     <property key="TermType.description.FAS">
         <value xml:lang="en">Incoterm Free Alongside Ship</value>
-        <value xml:lang="en">Incoterm : sur le quai du port de départ</value>
+        <value xml:lang="fr">Incoterm : sur le quai du port de départ</value>
         <value xml:lang="it">Gratis accanto alla spedizione incoterm</value>
         <value xml:lang="pt_BR">Incoterm FAS</value>
         <value xml:lang="zh">国际贸易(启运地)船边交货价格</value>
