@@ -148,6 +148,7 @@ public class ShoppingCartEvents {
         String shipAfterDateStr = null;
         Timestamp shipBeforeDate = null;
         Timestamp shipAfterDate = null;
+        String numberOfDay = null;
 
         // not used right now: Map attributes = null;
         String catalogId = CatalogWorker.getCurrentCatalogId(request);
@@ -299,7 +300,15 @@ public class ShoppingCartEvents {
         if (priceStr == null) {
             priceStr = "0";  // default price is 0
         }
-
+        
+        if ("ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
+            if (paramMap.containsKey("numberOfDay")) {
+                numberOfDay = (String) paramMap.remove("numberOfDay");
+                reservStart = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1);
+                reservEnd = UtilDateTime.addDaysToTimestamp(reservStart, Integer.valueOf(numberOfDay));
+            }
+        }
+        
         // get the renting data
         if ("ASSET_USAGE".equals(ProductWorker.getProductTypeId(delegator, productId)) || "ASSET_USAGE_OUT_IN".equals(ProductWorker.getProductTypeId(delegator, productId))) {
             if (paramMap.containsKey("reservStart")) {
