@@ -418,12 +418,16 @@ under the License.
         <description>Create ItemIssuanceRole</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <!-- Will check if OK to change status of shipment, so Shipment PK is needed -->
+        <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteItemIssuanceRole" default-entity-name="ItemIssuanceRole" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="deleteItemIssuanceRole" auth="true">
         <description>Delete ItemIssuanceRole</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
+        <!-- Will check if OK to change status of shipment, so Shipment PK is needed -->
+        <auto-attributes entity-name="Shipment" include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="issueOrderItemToShipment" engine="simple"
