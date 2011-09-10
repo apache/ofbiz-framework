@@ -130,7 +130,7 @@ under the License.
             <!-- Do custom conversion, if we have customMethodId -->
             <if-not-empty field="uomConversion.customMethodId">  <!-- custom conversion? -->
                 <log level="verbose" message="using custom conversion customMethodId=${uomConversion.customMethodId}"/>
-                <set field="customParms" from-field="parameters"/>
+                <set-service-fields service-name="convertUomCustom" to-map="customParms" map="parameters"/>
                 <set field="customParms.uomConversion" from-field="uomConversion"/>
                 <call-service service-name="convertUomCustom" in-map-name="customParms">
                     <result-to-field result-name="convertedValue"/>
