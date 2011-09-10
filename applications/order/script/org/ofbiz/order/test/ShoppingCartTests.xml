@@ -104,12 +104,12 @@ under the License.
             <field field="skipInventoryChecks" type="Boolean"/>
             <field field="skipProductChecks" type="Boolean"/>
         </call-object-method>
-        
+
         <set field="itemIdex" from-field="itemIdex" type="Integer"/>
         <call-object-method method-name="findCartItem" obj-field="shoppingCart" ret-field="cartItem">
             <field field="itemIdex" type="int"/>
         </call-object-method>
-        
+
         <set field="groupIdx" value="0" type="Integer"/>
         <call-object-method method-name="setItemShipGroupQty" obj-field="shoppingCart">
             <field field="cartItem" type="org.ofbiz.order.shoppingcart.ShoppingCartItem"/>
@@ -135,7 +135,7 @@ under the License.
         <set field="orderAdjustmentShipping.orderAdjustmentTypeId" value="SHIPPING_CHARGES"/>
         <set field="orderAdjustmentShipping.shipGroupSeqId" value="00001"/>
         <set field="orderAdjustmentShipping.amount" value="12.10" type="BigDecimal"/>
-        
+
         <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
             <field field="orderAdjustmentShipping" type="org.ofbiz.entity.GenericValue"/>
         </call-object-method>
@@ -260,12 +260,12 @@ under the License.
         <assert><not><if-empty field="orderMap.orderId"/></not></assert>
         <check-errors/>
     </simple-method>
-    
+
     <simple-method method-name="testCreateOrderRentalProduct" short-description="Test create order rental of product" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="DemoCustomer"/>
         </entity-one>
-        
+
         <!-- Shopping Cart new Instance -->
         <set field="delegator" from-field="parameters.delegator" type="Object"/>
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
@@ -273,51 +273,51 @@ under the License.
         <set field="productStoreId" value="9000" type="String"/>
         <set field="currencyUom" value="USD" type="String"/>
         <set field="salesChannel" value="WEB_SALES_CHANNEL" type="String"/>
-        
+
         <set field="partyId" value="DemoCustomer" type="String"/>
-        
+
         <create-object class-name="org.ofbiz.order.shoppingcart.ShoppingCart" field="shoppingCart">
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="productStoreId" type="String"/>
             <field field="locale" type="java.util.Locale"/>
             <field field="currencyUom" type="String"/>
         </create-object>
-        
+
         <set field="orderType" value="SALES_ORDER" type="String"/>
         <call-object-method method-name="setOrderType" obj-field="shoppingCart">
             <field field="orderType" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setChannelType" obj-field="shoppingCart">
             <field field="salesChannel" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setProductStoreId" obj-field="shoppingCart">
             <field field="productStoreId" type="String"/>
         </call-object-method>
-        
+
         <!-- Shopping Cart Set Billing and Ship to customers -->
         <call-object-method method-name="setBillToCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setPlacingCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setShipToCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setEndUserCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
-        
+
         <!-- Add Product Item to Shopping Cart -->
         <set field="nextDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.addDaysToTimestamp(org.ofbiz.base.util.UtilDateTime.nowTimestamp(), +1)}" type="Timestamp"/>
         <set field="prodCatalogId" value="DemoCatalog" type="String"/>
@@ -349,18 +349,18 @@ under the License.
             <field field="parentProductId" type="String"/>
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setDefaultCheckoutOptions" obj-field="shoppingCart">
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
-        
+
         <!-- Create order -->
         <create-object class-name="org.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
         </create-object>
-        
+
         <call-object-method method-name="createOrder" obj-field="checkOutHelper" ret-field="orderCreateResult">
             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
         </call-object-method>
@@ -391,12 +391,12 @@ under the License.
         <assert><not><if-empty field="orderId"/></not></assert>
         <check-errors/>
     </simple-method>
-    
+
     <simple-method method-name="testCreateOrderServiceProduct" short-description="Test create an order using a service product" login-required="false">
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="DemoCustomer"/>
         </entity-one>
-        
+
         <!-- Shopping Cart new Instance -->
         <set field="delegator" from-field="parameters.delegator" type="Object"/>
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
@@ -404,54 +404,54 @@ under the License.
         <set field="productStoreId" value="9000" type="String"/>
         <set field="currencyUom" value="USD" type="String"/>
         <set field="salesChannel" value="WEB_SALES_CHANNEL" type="String"/>
-        
+
         <set field="partyId" value="DemoCustomer" type="String"/>
-        
+
         <create-object class-name="org.ofbiz.order.shoppingcart.ShoppingCart" field="shoppingCart">
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="productStoreId" type="String"/>
             <field field="locale" type="java.util.Locale"/>
             <field field="currencyUom" type="String"/>
         </create-object>
-        
+
         <set field="orderType" value="SALES_ORDER" type="String"/>
         <call-object-method method-name="setOrderType" obj-field="shoppingCart">
             <field field="orderType" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setChannelType" obj-field="shoppingCart">
             <field field="salesChannel" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setProductStoreId" obj-field="shoppingCart">
             <field field="productStoreId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setBillToCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setPlacingCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setShipToCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setEndUserCustomerPartyId" obj-field="shoppingCart">
             <field field="partyId" type="String"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
-        
+
         <set field="productId" value="SV-1001" type="String"/>
         <set field="prodCatalogId" value="DemoCatalog" type="String"/>
         <set field="quantity" value="1" type="BigDecimal"/>
-        
+
         <call-object-method method-name="addOrIncreaseItem" obj-field="shoppingCart">
             <field field="productId" type="String"/>
             <field field="selectedAmount" type="BigDecimal"/>
@@ -470,17 +470,17 @@ under the License.
             <field field="parentProductId" type="String"/>
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
-        
+
         <call-object-method method-name="setDefaultCheckoutOptions" obj-field="shoppingCart">
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
         </call-object-method>
-        
+
         <create-object class-name="org.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
             <field field="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
             <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart"/>
         </create-object>
-        
+
         <call-object-method method-name="createOrder" obj-field="checkOutHelper" ret-field="orderCreateResult">
             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
         </call-object-method>
@@ -492,18 +492,88 @@ under the License.
                 <field field="orderId" type="String"/>
             </call-class-method>
             <log level="info" message="======== Test order with id: [${orderId}] has been approved: [${approved}]========"/>
-            
+
             <entity-one entity-name="UserLogin" value-field="systemUserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
-            
+
         <set field="quickShipEntireOrderMap.orderId" from-field="orderId"/>
         <set field="quickShipEntireOrderMap.userLogin" from-field="systemUserLogin"/>
         <call-service service-name="quickShipEntireOrder" in-map-name="quickShipEntireOrderMap"/>
         <log level="info" message="========Test order with id: [${orderId}] has been shipped"/>
         </if-not-empty>
-        
+
         <assert><not><if-empty field="orderId"/></not></assert>
         <check-errors/>
     </simple-method>
+
+    <simple-method method-name="testLoadCartFromQuote" short-description="Test loading shopping cart from quote" login-required="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+
+        <set field="createQuoteMap.userLogin" from-field="userLogin"/>
+        <set field="createQuoteMap.partyId" value="DemoCustomer"/>
+        <set field="createQuoteMap.currencyUomId" value="USD"/>
+        <set field="createQuoteMap.description" value="Test quote"/>
+        <set field="createQuoteMap.issueDate" value="2011-11-01 10:00:00.0" type="Timestamp"/>
+        <set field="createQuoteMap.productStoreId" value="9000"/>
+        <set field="createQuoteMap.quoteName" value="Test quote"/>
+        <set field="createQuoteMap.quoteTypeId" value="PRODUCT_QUOTE"/>
+        <set field="createQuoteMap.statusId" value="QUO_APPROVED"/>
+        <set field="createQuoteMap.validFromDate" value="2011-11-01 10:00:00.0"  type="Timestamp"/>
+        <call-service service-name="createQuote" in-map-name="createQuoteMap">
+            <result-to-field result-name="quoteId"/>
+        </call-service>
+        <check-errors/>
+
+        <set field="createQuoteItemMap.userLogin" from-field="userLogin"/>
+        <set field="createQuoteItemMap.quoteId" from-field="quoteId"/>
+        <set field="createQuoteItemMap.productId" value="GZ-1000"/>
+        <set field="createQuoteItemMap.quantity" value="10" type="BigDecimal"/>
+        <set field="createQuoteItemMap.quoteUnitPrice" value="15.00" type="BigDecimal"/>
+        <call-service service-name="createQuoteItem" in-map-name="createQuoteItemMap">
+            <result-to-field result-name="quoteItemSeqNo"/>
+        </call-service>
+        <check-errors/>
+
+        <set field="createQuoteAdjustmentMap.userLogin" from-field="userLogin"/>
+        <set field="createQuoteAdjustmentMap.quoteId" from-field="quoteId"/>
+        <set field="createQuoteAdjustmentMap.quoteItemSeqId" from-field="quoteItemSeqId"/>
+        <set field="createQuoteAdjustmentMap.amount" value="15.00" type="BigDecimal"/>
+        <set field="createQuoteAdjustmentMap.includeInShipping	" value="N"/>
+        <set field="createQuoteAdjustmentMap.includeInTax" value="Y"/>
+        <set field="createQuoteAdjustmentMap.quoteAdjustmentTypeId" value="SALES_TAX"/>
+        <set field="createQuoteAdjustmentMap.taxAuthGeoId" value="UT"/>
+        <set field="createQuoteAdjustmentMap.taxAuthPartyId" value="UT_TAXMAN"/>
+        <call-service service-name="createQuoteAdjustment" in-map-name="createQuoteAdjustmentMap">
+            <result-to-field result-name="quoteAdjustmentId"/>
+        </call-service>
+        <check-errors/>
+
+        <set field="loadCartFromQuoteMap.userLogin" from-field="userLogin"/>
+        <set field="loadCartFromQuoteMap.quoteId" from-field="quoteId"/>
+        <set field="loadCartFromQuoteMap.applyQuoteAdjustments" value="true"/>
+        <call-service service-name="loadCartFromQuote" in-map-name="loadCartFromQuoteMap">
+            <result-to-field result-name="shoppingCart"/>
+        </call-service>
+        <check-errors/>
+
+        <set field="expected" value="15.00" type="BigDecimal"/>
+
+        <call-object-method obj-field="shoppingCart" method-name="getTotalSalesTax" ret-field="totalSalesTax"/>
+        <assert><if-compare-field operator="equals" field="totalSalesTax" to-field="expected"/></assert>
+
+        <set field="shipGroupNumber" value="0" type="Integer"/>
+        <call-object-method obj-field="shoppingCart" method-name="getTotalSalesTax" ret-field="totalSalesTax">
+            <field field="shipGroupNumber" type="int"/>
+        </call-object-method>
+        <assert><if-compare-field operator="equals" field="totalSalesTax" to-field="expected"/></assert>
+
+        <set field="expected" value="165.00" type="BigDecimal"/>
+        <call-object-method obj-field="shoppingCart" method-name="getGrandTotal" ret-field="grandTotal"/>
+        <assert><if-compare-field operator="equals" field="grandTotal" to-field="expected"/></assert>
+        <check-errors/>
+    </simple-method>
+
 </simple-methods>
