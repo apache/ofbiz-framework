@@ -104,7 +104,7 @@ public class ImageManagementServices {
             if (!rootTargetDir.exists()) {
                 boolean created = rootTargetDir.mkdirs();
                 if (!created) {
-                    String errMsg = "Not create target directory";
+                    String errMsg = "Cannot create the target directory";
                     Debug.logFatal(errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
@@ -187,7 +187,7 @@ public class ImageManagementServices {
             if (!targetDir.exists()) {
                 boolean created = targetDir.mkdirs();
                 if (!created) {
-                    String errMsg = "Not create target directory";
+                    String errMsg = "Cannot create the target directory";
                     Debug.logFatal(errMsg, module);
                     return ServiceUtil.returnError(errMsg);
                 }
