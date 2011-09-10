@@ -201,7 +201,7 @@ public class ShoppingCartServices {
         cart.setOrderName(orderHeader.getString("orderName"));
         cart.setOrderStatusId(orderHeader.getString("statusId"));
         cart.setOrderStatusString(currentStatusString);
-        cart.setFacilityId(orderHeader.getString("originFacilityId"));        
+        cart.setFacilityId(orderHeader.getString("originFacilityId"));
 
         try {
             cart.setUserLogin(userLogin, dispatcher);
@@ -509,7 +509,7 @@ public class ShoppingCartServices {
                 try {
                     orderItemAttributesList = delegator.findByAnd("OrderItemAttribute", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
                     if (UtilValidate.isNotEmpty(orderAttributesList)) {
-                        for(GenericValue orderItemAttr : orderItemAttributesList) {
+                        for (GenericValue orderItemAttr : orderItemAttributesList) {
                             String name = orderItemAttr.getString("attrName");
                             String value = orderItemAttr.getString("attrValue");
                             cartItem.setOrderItemAttribute(name, value);
@@ -543,12 +543,7 @@ public class ShoppingCartServices {
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
                     for(GenericValue itemAdjustment : itemAdjustments) {
-                        if ("SALES_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")) ||
-                                "VAT_TAX".equals(itemAdjustment.get("orderAdjustmentTypeId")) ||
-                                "VAT_PRICE_CORRECT".equals(itemAdjustment.get("orderAdjustmentTypeId"))) {
-                            continue;
-                        }
-                        cartItem.addAdjustment(itemAdjustment);
+                        if (!isTaxAdjustment(itemAdjustment)) cartItem.addAdjustment(itemAdjustment);
                     }
                 }
             }
@@ -607,12 +602,7 @@ public class ShoppingCartServices {
                             } else {
                                 List<GenericValue> itemTaxAdj = cartShipItemInfo.itemTaxAdj;
                                 for (GenericValue shipGroupItemAdjustment : shipGroupItemAdjustments) {
-                                    if ("SALES_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId")) ||
-                                            "VAT_TAX".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId")) ||
-                                            "VAT_PRICE_CORRECT".equals(shipGroupItemAdjustment.get("orderAdjustmentTypeId"))) {
-                                        itemTaxAdj.add(shipGroupItemAdjustment);
-                                        continue;
-                                    }
+                                    if (isTaxAdjustment(shipGroupItemAdjustment)) itemTaxAdj.add(shipGroupItemAdjustment);
                                 }
                             }
                         }
@@ -748,7 +738,7 @@ public class ShoppingCartServices {
                 cart.addOrderTerm(quoteTerm.getString("termTypeId"), orderItemSeqId,termValue, termDays, quoteTerm.getString("textValue"),quoteTerm.getString("description"));
             }
         }
-        
+
         // set the attribute information
         if (UtilValidate.isNotEmpty(quoteAttributes)) {
             for(GenericValue quoteAttribute : quoteAttributes) {
@@ -892,10 +882,24 @@ public class ShoppingCartServices {
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
         if (applyQuoteAdjustments) {
             // The cart adjustments, derived from quote adjustments, are added to the cart
+
+            // Tax adjustments should be added to the shipping group and shipping group item info
+            // Other adjustments like promotional price should be added to the cart independent of
+            // the ship group.
+            // We're creating the cart right now using data from the quote, so there cannot yet be more than one ship group.
+
+            List<GenericValue> cartAdjs = cart.getAdjustments();
+            CartShipInfo shipInfo = cart.getShipInfo(0);
+
             List<GenericValue> adjs = orderAdjsMap.get(quoteId);
+
             if (adjs != null) {
-                cart.getAdjustments().addAll(adjs);
+                for (GenericValue adj : adjs) {
+                    if (isTaxAdjustment( adj )) shipInfo.shipTaxAdj.add(adj);
+                    else cartAdjs.add(adj);
+                }
             }
+
             // The cart item adjustments, derived from quote item adjustments, are added to the cart
             if (quoteItems != null) {
                 Iterator<ShoppingCartItem> i = cart.iterator();
@@ -908,11 +912,20 @@ public class ShoppingCartServices {
                         adjs = null;
                     }
                     if (adjs != null) {
-                        item.getAdjustments().addAll(adjs);
+                        for (GenericValue adj : adjs) {
+                            if (isTaxAdjustment( adj )) {
+                                CartShipItemInfo csii = shipInfo.getShipItemInfo(item);
+
+                                if (csii.itemTaxAdj == null) shipInfo.setItemInfo(item, UtilMisc.toList(adj));
+                                else csii.itemTaxAdj.add(adj);
+                            }
+                            else item.addAdjustment(adj);
+                        }
                     }
                 }
             }
         }
+
         // set the item seq in the cart
         if (nextItemSeq > 0) {
             try {
@@ -926,6 +939,12 @@ public class ShoppingCartServices {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
         return result;
+    }
+
+    private static boolean isTaxAdjustment(GenericValue cartAdj) {
+        String adjType = cartAdj.getString("orderAdjustmentTypeId");
+
+        return "SALES_TAX".equals(adjType) || "VAT_TAX".equals(adjType) || "VAT_PRICE_CORRECT".equals(adjType);
     }
 
     public static Map<String, Object>loadCartFromShoppingList(DispatchContext dctx, Map<String, Object> context) {
@@ -1034,7 +1053,7 @@ public class ShoppingCartServices {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
-                    
+
                     // set the modified price
                     if (modifiedPrice != null && modifiedPrice.doubleValue() != 0) {
                         ShoppingCartItem item = cart.findCartItem(itemIndex);
