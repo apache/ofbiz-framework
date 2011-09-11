@@ -584,8 +584,8 @@
     </property>
     <property key="WebtoolsArtifactInfo">
         <value xml:lang="de">OFBiz Elemente-Info</value>
-        <value xml:lang="en">Artifact Info</value>
-        <value xml:lang="fr">Info. sur les éléments d'OFBiz</value>
+        <value xml:lang="en">Artifact Info (may take some time to load)</value>
+        <value xml:lang="fr">Information sur les éléments d'OFBiz (cela peut prendre un certain temps à charger)</value>
         <value xml:lang="it">Informazioni sugli artefatti</value>
         <value xml:lang="pt">Info do Artefato</value>
         <value xml:lang="zh">人工程序信息</value>
