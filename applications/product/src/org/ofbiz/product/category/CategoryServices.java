@@ -123,7 +123,7 @@ public class CategoryServices {
             EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
             filterConditions.add(condition);
         }
-        if (!filterConditions.isEmpty()) {
+        if (UtilValidate.isNotEmpty(filterConditions)) {
             productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
         }
 
@@ -290,7 +290,7 @@ public class CategoryServices {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
                         filterConditions.add(condition);
                     }
-                    if (!filterConditions.isEmpty()) {
+                    if (UtilValidate.isNotEmpty(filterConditions)) {
                         productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
                     }
 

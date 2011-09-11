@@ -633,7 +633,7 @@ public class ShoppingCartServices {
 
         List<GenericValue> adjustments = orh.getOrderHeaderAdjustments();
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
-        if (!adjustments.isEmpty()) {
+        if (UtilValidate.isNotEmpty(adjustments)) {
             // The cart adjustments are added to the cart
             cart.getAdjustments().addAll(adjustments);
         }

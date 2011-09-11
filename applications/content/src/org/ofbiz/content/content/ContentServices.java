@@ -91,7 +91,7 @@ public class ContentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentAssocRetrievingError", UtilMisc.toMap("errorString", e.toString()), locale));
         }
 
-        if (targetOperations == null || targetOperations.isEmpty()) {
+        if (UtilValidate.isEmpty(targetOperations)) {
             results.put("contentList", contentList);
             return results;
         }

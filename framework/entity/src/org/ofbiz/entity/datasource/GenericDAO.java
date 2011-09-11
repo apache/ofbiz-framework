@@ -814,11 +814,11 @@ public class GenericDAO {
         }
 
         List<EntityCondition> conditions = FastList.newInstance();
-        if (whereEntityCondition != null && !whereEntityCondition.isEmpty()) {
+        if (UtilValidate.isNotEmpty(whereEntityCondition)) {
             conditions.add(whereEntityCondition);
         }
 
-        if (modelViewEntity != null && !viewWhereConditions.isEmpty()) {
+        if (UtilValidate.isNotEmpty(modelViewEntity)) {
             EntityCondition viewWhereEntityCondition = EntityCondition.makeCondition(viewWhereConditions);
             if (!viewWhereEntityCondition.isEmpty()) {
                 conditions.add(viewWhereEntityCondition);

@@ -154,7 +154,7 @@ public class TransactionUtil implements Status {
 
                     RollbackOnlyCause roc = getSetRollbackOnlyCause();
                     // do we have a cause? if so, throw special exception
-                    if (roc != null && !roc.isEmpty()) {
+                    if (UtilValidate.isNotEmpty(roc)) {
                         throw new GenericTransactionException("The current transaction is marked for rollback, not beginning a new transaction and aborting current operation; the rollbackOnly was caused by: " + roc.getCauseMessage(), roc.getCauseThrowable());
                     } else {
                         return false;

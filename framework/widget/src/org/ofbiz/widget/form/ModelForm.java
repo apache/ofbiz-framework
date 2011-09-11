@@ -2492,7 +2492,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public boolean getPaginate(Map<String, Object> context) {
-        if (this.paginate != null && !this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
+        if (UtilValidate.isNotEmpty(this.paginate) && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
             return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
         } else {
             return true;

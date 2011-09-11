@@ -108,7 +108,7 @@ public class FreeMarkerWorker {
             URL propertyURL = resources.nextElement();
             Debug.logInfo("loading properties: " + propertyURL, module);
             Properties props = UtilProperties.getProperties(propertyURL);
-            if (props == null || props.isEmpty()) {
+            if (UtilValidate.isEmpty(props)) {
                 Debug.logError("Unable to locate properties file " + propertyURL, module);
             } else {
                 loadTransforms(loader, props, newConfig);

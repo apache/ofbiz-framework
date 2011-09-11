@@ -122,7 +122,7 @@ public class VCard {
                                                         EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
                                                         EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getCountry())), EntityOperator.AND);
                     countryGeoList = delegator.findList("Geo", cond, null, null, null, true);
-                    if (!countryGeoList.isEmpty()) {
+                    if (UtilValidate.isNotEmpty(countryGeoList)) {
                         GenericValue countryGeo = EntityUtil.getFirst(countryGeoList);
                         serviceCtx.put("countryGeoId", countryGeo.get("geoId"));
                     }
@@ -131,7 +131,7 @@ public class VCard {
                             EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "STATE"),
                             EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND);
                     stateGeoList = delegator.findList("Geo", condition, null, null, null, true);
-                    if (!stateGeoList.isEmpty()) {
+                    if (UtilValidate.isNotEmpty(stateGeoList)) {
                         GenericValue stateGeo = EntityUtil.getFirst(stateGeoList);
                         serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
                     }

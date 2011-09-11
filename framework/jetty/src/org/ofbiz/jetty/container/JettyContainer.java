@@ -42,6 +42,7 @@ import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
+import org.ofbiz.base.util.UtilValidate;
 
 
 /**
@@ -116,12 +117,12 @@ public class JettyContainer implements Container {
                         context.setSessionHandler(new SessionHandler(sm));
 
                         // set the virtual hosts
-                        if (virtualHosts != null && !virtualHosts.isEmpty()) {
+                        if (UtilValidate.isNotEmpty(virtualHosts)) {
                             context.setVirtualHosts((String[]) virtualHosts.toArray());
                         }
 
                         // set the init parameters
-                        if (initParameters != null && !initParameters.isEmpty()) {
+                        if (UtilValidate.isNotEmpty(initParameters)) {
                             context.setInitParams(initParameters);
                         }
 

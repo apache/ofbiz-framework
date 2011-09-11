@@ -377,7 +377,7 @@ public class ShoppingListEvents {
             List<GenericValue> existingLists = delegator.findByAnd("ShoppingList", findMap);
             Debug.logInfo("Finding existing auto-save shopping list with:  \nfindMap: " + findMap + "\nlists: " + existingLists, module);
     
-            if (existingLists != null && !existingLists.isEmpty()) {
+            if (UtilValidate.isNotEmpty(existingLists)) {
                 list = EntityUtil.getFirst(existingLists);
                 autoSaveListId = list.getString("shoppingListId");
             }
