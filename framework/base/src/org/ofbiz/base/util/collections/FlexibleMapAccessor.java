@@ -121,7 +121,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
      * @return the found value
      */
     public T get(Map<String, ? extends Object> base, Locale locale) {
-        if (base == null || this.isEmpty()) {
+        if (UtilValidate.isEmpty(base)) {
             return null;
         }
         if (!base.containsKey(UelUtil.localizedMapLocaleKey) && locale != null) {

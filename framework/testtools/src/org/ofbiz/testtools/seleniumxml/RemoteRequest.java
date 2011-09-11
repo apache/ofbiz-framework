@@ -58,6 +58,8 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.jdom.Element;
 
+import org.ofbiz.base.util.UtilValidate;
+
 
 public class RemoteRequest {
 
@@ -114,7 +116,7 @@ public class RemoteRequest {
     public RemoteRequest(SeleniumXml parent, List<Element> children, List<Element> loginAs, String requestUrl, String hostString, String responseHandlerMode) {
 
         this(parent, children, requestUrl, hostString, responseHandlerMode);
-        if(loginAs != null && !loginAs.isEmpty()) {
+        if (UtilValidate.isNotEmpty(loginAs)) {
             Element elem = loginAs.get(0);
 
             this.loginAsUserParam = elem.getAttributeValue("username-param");

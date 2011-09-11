@@ -32,6 +32,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -310,7 +311,7 @@ public class WfApplicationServices {
 
         try {
             final List<GenericValue> assigments = delegator.findByAnd("WorkEffortPartyAssignment", expresions, orderBy);
-            if (assigments.isEmpty()) {
+            if (UtilValidate.isEmpty(assigments)) {
                 Debug.logError("No accepted activities found for the workEffortId=" + workEffortId, module);
                 throw new GenericServiceException("Can not find WorkEffortPartyAssignment for the Workflow service. WorkEffortId=" + workEffortId);
             }

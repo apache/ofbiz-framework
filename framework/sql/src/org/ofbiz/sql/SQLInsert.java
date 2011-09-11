@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilValidate;
 
 public final class SQLInsert extends SQLStatement<SQLInsert> {
     private final TableName tableName;
@@ -64,7 +65,7 @@ public final class SQLInsert extends SQLStatement<SQLInsert> {
     public StringBuilder appendTo(StringBuilder sb) {
         sb.append("INSERT INTO ");
         tableName.appendTo(sb);
-        if (columns != null && !columns.isEmpty()) {
+        if (UtilValidate.isNotEmpty(columns)) {
             sb.append(" (");
             StringUtil.append(sb, columns, null, null, ", ");
             sb.append(')');

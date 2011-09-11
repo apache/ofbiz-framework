@@ -48,6 +48,7 @@ import org.eclipse.birt.report.utility.DataUtil;
 import org.eclipse.birt.report.utility.ParameterAccessor;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.birt.container.BirtContainer;
 
 @SuppressWarnings("deprecation")
@@ -106,7 +107,7 @@ public class OFBizBirtViewerReportService extends BirtViewerReportService {
                 Debug.logError(e, module);
             }
             List<Exception> errors = this.runReport(request, runnable, outputDocName, locale, timeZone, parsedParams, displayTextMap, maxRows);
-            if (errors != null && !errors.isEmpty()) {
+            if (UtilValidate.isNotEmpty(errors)) {
                 errorList.addAll(errors);
             }
         } catch ( RemoteException e ) {

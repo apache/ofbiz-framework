@@ -3063,7 +3063,7 @@ public class ProductionRunServices {
                                  "userLogin", userLogin);
             resultService = dispatcher.runSync("getManufacturingComponents", serviceContext);
             List<Map<String, Object>> components = UtilGenerics.checkList(resultService.get("componentsMap"));
-            if (components == null || components.isEmpty()) {
+            if (UtilValidate.isEmpty(components)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound", UtilMisc.toMap("productId", inventoryItem.getString("productId")), locale));
             }
             Iterator<Map<String, Object>> componentsIt = components.iterator();

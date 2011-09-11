@@ -87,8 +87,7 @@ public class CategoryWorker {
             for (GenericValue curCat: allCategories) {
                 Collection<GenericValue> parentCats = curCat.getRelatedCache("CurrentProductCategoryRollup");
 
-                if (parentCats.isEmpty())
-                    results.add(curCat);
+                if (parentCats.isEmpty()) results.add(curCat);
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
@@ -116,8 +115,7 @@ public class CategoryWorker {
     public static void getRelatedCategories(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty) {
         List<GenericValue> categories = getRelatedCategoriesRet(request, attributeName, parentId, limitView, excludeEmpty);
 
-        if (!categories.isEmpty())
-            request.setAttribute(attributeName, categories);
+        if (!categories.isEmpty())  request.setAttribute(attributeName, categories);
     }
 
     public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView) {

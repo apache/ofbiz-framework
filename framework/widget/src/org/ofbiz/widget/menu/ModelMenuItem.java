@@ -240,9 +240,9 @@ public class ModelMenuItem {
             this.entityName = overrideMenuItem.entityName;
         if (UtilValidate.isNotEmpty(overrideMenuItem.parentPortalPageId))
             this.parentPortalPageId = overrideMenuItem.parentPortalPageId;
-        if (overrideMenuItem.title != null && !overrideMenuItem.title.isEmpty())
+        if (UtilValidate.isNotEmpty(overrideMenuItem.title))
             this.title = overrideMenuItem.title;
-        if (overrideMenuItem.tooltip != null && !overrideMenuItem.tooltip.isEmpty())
+        if (UtilValidate.isNotEmpty(overrideMenuItem.tooltip))
             this.tooltip = overrideMenuItem.tooltip;
         if (UtilValidate.isNotEmpty(overrideMenuItem.titleStyle))
             this.titleStyle = overrideMenuItem.titleStyle;
@@ -388,7 +388,7 @@ public class ModelMenuItem {
     }
 
     public String getTooltip(Map<String, Object> context) {
-        if (tooltip != null && !tooltip.isEmpty()) {
+        if (UtilValidate.isNotEmpty(tooltip)) {
             return tooltip.expandString(context);
         } else {
             return "";

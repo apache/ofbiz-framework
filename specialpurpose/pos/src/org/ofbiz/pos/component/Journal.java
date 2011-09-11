@@ -32,6 +32,7 @@ import net.xoetrope.xui.style.XStyle;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.screen.PosScreen;
 
@@ -135,7 +136,7 @@ public class Journal {
 
         PosTransaction tx = PosTransaction.getCurrentTx(pos.getSession());
         XModel jmodel = this.createModel();
-        if (tx != null && !tx.isEmpty()) {
+        if (UtilValidate.isNotEmpty(tx)) {
             tx.appendItemDataModel(jmodel);
             this.appendEmpty(jmodel);
             tx.appendTotalDataModel(jmodel);

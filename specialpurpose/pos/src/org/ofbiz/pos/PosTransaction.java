@@ -1188,7 +1188,7 @@ public class PosTransaction implements Serializable {
     public void loadSale(PosScreen pos) {
         trace("Load a sale");
         List<GenericValue> shoppingLists = createShoppingLists();
-        if (!shoppingLists.isEmpty()) {
+        if (UtilValidate.isNotEmpty(shoppingLists)) {
             Map<String, String> salesMap = createSalesMap(shoppingLists);
             if (!salesMap.isEmpty()) {
                 LoadSale loadSale = new LoadSale(salesMap, this, pos);
@@ -1204,7 +1204,7 @@ public class PosTransaction implements Serializable {
 
     public void loadOrder(PosScreen pos) {
         List<GenericValue> orders = findOrders();
-        if (!orders.isEmpty()) {
+        if (UtilValidate.isNotEmpty(orders)) {
             LoadSale loadSale = new LoadSale(createOrderHash(orders), this, pos);
             loadSale.openDlg();
         } else {
