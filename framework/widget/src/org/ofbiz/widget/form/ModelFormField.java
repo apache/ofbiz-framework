@@ -264,65 +264,32 @@ public class ModelFormField {
         if (overrideFormField == null)
             return;
         // incorporate updates for values that are not empty in the overrideFormField
-        if (UtilValidate.isNotEmpty(overrideFormField.name))
-            this.name = overrideFormField.name;
-        if (overrideFormField.mapAcsr != null && !overrideFormField.mapAcsr.isEmpty()) {
-            //Debug.logInfo("overriding mapAcsr, old=" + (this.mapAcsr==null?"null":this.mapAcsr.getOriginalName()) + ", new=" + overrideFormField.mapAcsr.getOriginalName(), module);
-            this.mapAcsr = overrideFormField.mapAcsr;
-        }
-        if (UtilValidate.isNotEmpty(overrideFormField.entityName))
-            this.entityName = overrideFormField.entityName;
-        if (UtilValidate.isNotEmpty(overrideFormField.serviceName))
-            this.serviceName = overrideFormField.serviceName;
-        if (overrideFormField.entryAcsr != null && !overrideFormField.entryAcsr.isEmpty())
-            this.entryAcsr = overrideFormField.entryAcsr;
-        if (UtilValidate.isNotEmpty(overrideFormField.parameterName))
-            this.parameterName = overrideFormField.parameterName;
-        if (UtilValidate.isNotEmpty(overrideFormField.fieldName))
-            this.fieldName = overrideFormField.fieldName;
-        if (UtilValidate.isNotEmpty(overrideFormField.attributeName))
-            this.attributeName = overrideFormField.attributeName;
-        if (overrideFormField.title != null && !overrideFormField.title.isEmpty()) // title="" can be used to override the original value
-            this.title = overrideFormField.title;
-        if (overrideFormField.tooltip != null && !overrideFormField.tooltip.isEmpty())
-            this.tooltip = overrideFormField.tooltip;
-        if (overrideFormField.requiredField != null)
-            this.requiredField = overrideFormField.requiredField;
-        if (overrideFormField.sortField != null)
-            this.sortField = overrideFormField.sortField;
-        if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle))
-            this.titleAreaStyle = overrideFormField.titleAreaStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle))
-            this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.titleStyle))
-            this.titleStyle = overrideFormField.titleStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.widgetStyle))
-            this.widgetStyle = overrideFormField.widgetStyle;
-        if (overrideFormField.position != null)
-            this.position = overrideFormField.position;
-        if (UtilValidate.isNotEmpty(overrideFormField.redWhen))
-            this.redWhen = overrideFormField.redWhen;
-        if (UtilValidate.isNotEmpty(overrideFormField.event))
-            this.event = overrideFormField.event;
-        if (overrideFormField.action != null && !overrideFormField.action.isEmpty())
-            this.action = overrideFormField.action;
-        if (overrideFormField.useWhen != null && !overrideFormField.useWhen.isEmpty())
-            this.useWhen = overrideFormField.useWhen;
-        if (overrideFormField.fieldInfo != null) {
-            this.setFieldInfo(overrideFormField.fieldInfo);
-        }
-        if (overrideFormField.fieldInfo != null) {
-            this.setHeaderLink(overrideFormField.headerLink);
-        }
-        if (UtilValidate.isNotEmpty(overrideFormField.idName)) {
-            this.idName = overrideFormField.idName;
-        }
-        if (overrideFormField.onChangeUpdateAreas != null) {
-            this.onChangeUpdateAreas = overrideFormField.onChangeUpdateAreas;
-        }
-        if (overrideFormField.onClickUpdateAreas != null) {
-            this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
-        }
+        if (UtilValidate.isNotEmpty(overrideFormField.name)) this.name = overrideFormField.name;
+        if (UtilValidate.isNotEmpty(overrideFormField.mapAcsr)) this.mapAcsr = overrideFormField.mapAcsr; //Debug.logInfo("overriding mapAcsr, old=" + (this.mapAcsr==null?"null":this.mapAcsr.getOriginalName()) + ", new=" + overrideFormField.mapAcsr.getOriginalName(), module);
+        if (UtilValidate.isNotEmpty(overrideFormField.entityName)) this.entityName = overrideFormField.entityName;
+        if (UtilValidate.isNotEmpty(overrideFormField.serviceName)) this.serviceName = overrideFormField.serviceName;
+        if (UtilValidate.isNotEmpty(overrideFormField.entryAcsr)) this.entryAcsr = overrideFormField.entryAcsr;
+        if (UtilValidate.isNotEmpty(overrideFormField.parameterName)) this.parameterName = overrideFormField.parameterName;
+        if (UtilValidate.isNotEmpty(overrideFormField.fieldName)) this.fieldName = overrideFormField.fieldName;
+        if (UtilValidate.isNotEmpty(overrideFormField.attributeName)) this.attributeName = overrideFormField.attributeName;
+        if (UtilValidate.isNotEmpty(overrideFormField.title)) this.title = overrideFormField.title; // title="" can be used to override the original value
+        if (UtilValidate.isNotEmpty(overrideFormField.tooltip)) this.tooltip = overrideFormField.tooltip;
+        if (overrideFormField.requiredField != null) this.requiredField = overrideFormField.requiredField;
+        if (overrideFormField.sortField != null) this.sortField = overrideFormField.sortField;
+        if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle)) this.titleAreaStyle = overrideFormField.titleAreaStyle;
+        if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle)) this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
+        if (UtilValidate.isNotEmpty(overrideFormField.titleStyle)) this.titleStyle = overrideFormField.titleStyle;
+        if (UtilValidate.isNotEmpty(overrideFormField.widgetStyle)) this.widgetStyle = overrideFormField.widgetStyle;
+        if (overrideFormField.position != null) this.position = overrideFormField.position;
+        if (UtilValidate.isNotEmpty(overrideFormField.redWhen)) this.redWhen = overrideFormField.redWhen;
+        if (UtilValidate.isNotEmpty(overrideFormField.event)) this.event = overrideFormField.event;
+        if (UtilValidate.isNotEmpty(overrideFormField.action)) this.action = overrideFormField.action;
+        if (UtilValidate.isNotEmpty(overrideFormField.useWhen))this.useWhen = overrideFormField.useWhen;
+        if (overrideFormField.fieldInfo != null) this.setFieldInfo(overrideFormField.fieldInfo);
+        if (overrideFormField.headerLink != null) this.setHeaderLink(overrideFormField.headerLink);
+        if (UtilValidate.isNotEmpty(overrideFormField.idName)) this.idName = overrideFormField.idName;
+        if (overrideFormField.onChangeUpdateAreas != null) this.onChangeUpdateAreas = overrideFormField.onChangeUpdateAreas;
+        if (overrideFormField.onClickUpdateAreas != null) this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
         this.encodeOutput = overrideFormField.encodeOutput;
     }
 
