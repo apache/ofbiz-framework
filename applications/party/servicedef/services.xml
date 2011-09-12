@@ -79,9 +79,11 @@ under the License.
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
-        <override name="firstName" mode="IN" type="String" optional="false"/>
-        <override name="lastName" mode="IN" type="String" optional="false"/>
-    </service>
+        <!-- First and Last names are here optional. This allows to implement simple create user login screen where user is able create account 
+            in system with username and password and then later populate rest of the account information. -->
+<!--        <override name="firstName" optional="false"/>
+        <override name="lastName" optional="false"/>
+-->    </service>
     <service name="createPersonAndUserLogin" engine="simple" require-new-transaction="true"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="createPersonAndUserLogin" auth="false">
         <description>Create a Person and UserLogin</description>
