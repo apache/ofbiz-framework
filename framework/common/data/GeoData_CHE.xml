@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <Geo abbreviation="AG" geoCode="AG" geoId="CH-AG" geoName="Aargau" geoTypeId="STATE"/>
+    <Geo abbreviation="AI" geoCode="AI" geoId="CH-AI" geoName="Appenzell Innerrhoden" geoTypeId="STATE"/>
+    <Geo abbreviation="AR" geoCode="AR" geoId="CH-AR" geoName="Appenzell Ausserrhoden" geoTypeId="STATE"/>
+    <Geo abbreviation="BE" geoCode="BE" geoId="CH-BE" geoName="Bern" geoTypeId="STATE"/>
+    <Geo abbreviation="BL" geoCode="BL" geoId="CH-BL" geoName="Basel-Landschaft" geoTypeId="STATE"/>
+    <Geo abbreviation="BS" geoCode="BS" geoId="CH-BS" geoName="Basel-Stadt" geoTypeId="STATE"/>
+    <Geo abbreviation="FR" geoCode="FR" geoId="CH-FR" geoName="Fribourg" geoTypeId="STATE"/>
+    <Geo abbreviation="GE" geoCode="GE" geoId="CH-GE" geoName="Genève" geoTypeId="STATE"/>
+    <Geo abbreviation="GL" geoCode="GL" geoId="CH-GL" geoName="Glarus" geoTypeId="STATE"/>
+    <Geo abbreviation="GR" geoCode="GR" geoId="CH-GR" geoName="Graubünden" geoTypeId="STATE"/>
+    <Geo abbreviation="JU" geoCode="JU" geoId="CH-JU" geoName="Jura" geoTypeId="STATE"/>
+    <Geo abbreviation="LU" geoCode="LU" geoId="CH-LU" geoName="Luzern" geoTypeId="STATE"/>
+    <Geo abbreviation="NE" geoCode="NE" geoId="CH-NE" geoName="Neuchâtel" geoTypeId="STATE"/>
+    <Geo abbreviation="NW" geoCode="NW" geoId="CH-NW" geoName="Nidwalden" geoTypeId="STATE"/>
+    <Geo abbreviation="OW" geoCode="OW" geoId="CH-OW" geoName="Obwalden" geoTypeId="STATE"/>
+    <Geo abbreviation="SG" geoCode="SG" geoId="CH-SG" geoName="St. Gallen" geoTypeId="STATE"/>
+    <Geo abbreviation="SH" geoCode="SH" geoId="CH-SH" geoName="Schaffhausen" geoTypeId="STATE"/>
+    <Geo abbreviation="SO" geoCode="SO" geoId="CH-SO" geoName="Solothurn" geoTypeId="STATE"/>
+    <Geo abbreviation="SZ" geoCode="SZ" geoId="CH-SZ" geoName="Schwyz" geoTypeId="STATE"/>
+    <Geo abbreviation="TG" geoCode="TG" geoId="CH-TG" geoName="Thurgau" geoTypeId="STATE"/>
+    <Geo abbreviation="TI" geoCode="TI" geoId="CH-TI" geoName="Ticino" geoTypeId="STATE"/>
+    <Geo abbreviation="UR" geoCode="UR" geoId="CH-UR" geoName="Uri" geoTypeId="STATE"/>
+    <Geo abbreviation="VD" geoCode="VD" geoId="CH-VD" geoName="Vaud" geoTypeId="STATE"/>
+    <Geo abbreviation="VS" geoCode="VS" geoId="CH-VS" geoName="Valais" geoTypeId="STATE"/>
+    <Geo abbreviation="ZG" geoCode="ZG" geoId="CH-ZG" geoName="Zug" geoTypeId="STATE"/>
+    <Geo abbreviation="ZH" geoCode="ZH" geoId="CH-ZH" geoName="Zürich" geoTypeId="STATE"/>
+
+    <GeoAssoc geoIdTo="CH-AG" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-AI" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-AR" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-BE" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-BL" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-BS" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-FR" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-GE" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-GL" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-GR" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-JU" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-LU" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-NE" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-NW" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-OW" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-SG" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-SH" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-SO" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-SZ" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-TG" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-TI" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-UR" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-VD" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-VS" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-ZG" geoId="CHE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoIdTo="CH-ZH" geoId="CHE" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
