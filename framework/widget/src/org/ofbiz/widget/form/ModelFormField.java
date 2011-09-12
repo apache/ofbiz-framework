@@ -605,27 +605,18 @@ public class ModelFormField {
      * @return returns the name of the Service Attribute 
      */
     public String getAttributeName() {
-        if (UtilValidate.isNotEmpty(this.attributeName)) {
-            return this.attributeName;
-        } else {
-            return this.name;
-        }
+        if (UtilValidate.isNotEmpty(this.attributeName)) return this.attributeName;
+        return this.name;
     }
 
     public String getEntityName() {
-        if (UtilValidate.isNotEmpty(this.entityName)) {
-            return this.entityName;
-        } else {
-            return this.modelForm.getDefaultEntityName();
-        }
+        if (UtilValidate.isNotEmpty(this.entityName)) return this.entityName;
+        return this.modelForm.getDefaultEntityName();
     }
 
     public String getEntryName() {
-        if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
-            return this.entryAcsr.getOriginalName();
-        } else {
-            return this.name;
-        }
+        if (UtilValidate.isNotEmpty(this.entryAcsr)) return this.entryAcsr.getOriginalName();
+        return this.name;
     }
 
     /**
@@ -680,7 +671,7 @@ public class ModelFormField {
                 dataMapIsContext = true;
             }
             Object retVal = null;
-            if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
+            if (UtilValidate.isNotEmpty(this.entryAcsr)) {
                 //Debug.logInfo("Getting entry, using entryAcsr for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 if (dataMap instanceof GenericEntity) {
                     GenericEntity genEnt = (GenericEntity) dataMap;
@@ -702,7 +693,7 @@ public class ModelFormField {
             if (dataMapIsContext && retVal == null && !Boolean.FALSE.equals(useRequestParameters)) {
                 Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
                 if (parameters != null) {
-                    if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
+                    if (UtilValidate.isNotEmpty(this.entryAcsr)) {
                         retVal = this.entryAcsr.get(parameters);
                     } else {
                         retVal = parameters.get(this.name);
@@ -746,7 +737,7 @@ public class ModelFormField {
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
-        if (this.mapAcsr == null || this.mapAcsr.isEmpty()) {
+        if (UtilValidate.isEmpty(this.mapAcsr)) {
             //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
             return this.modelForm.getDefaultMap(context);
         } else {
@@ -787,11 +778,8 @@ public class ModelFormField {
      * @return returns the name of the Map in the form context that contains the entry
      */
     public String getMapName() {
-        if (this.mapAcsr != null && !this.mapAcsr.isEmpty()) {
-            return this.mapAcsr.getOriginalName();
-        } else {
-            return this.modelForm.getDefaultMapName();
-        }
+        if (UtilValidate.isNotEmpty(this.mapAcsr)) return this.mapAcsr.getOriginalName();
+        return this.modelForm.getDefaultMapName();
     }
 
     public String getName() {
@@ -806,11 +794,8 @@ public class ModelFormField {
      */
     public String getParameterName(Map<String, ? extends Object> context) {
         String baseName;
-        if (UtilValidate.isNotEmpty(this.parameterName)) {
-            baseName = this.parameterName;
-        } else {
-            baseName = this.name;
-        }
+        if (UtilValidate.isNotEmpty(this.parameterName)) baseName = this.parameterName;
+        else baseName = this.name;
 
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "multi".equals(this.modelForm.getType())) {
@@ -821,11 +806,8 @@ public class ModelFormField {
     }
 
     public int getPosition() {
-        if (this.position == null) {
-            return 1;
-        } else {
-            return position.intValue();
-        }
+        if (this.position == null) return 1;
+        return position.intValue();
     }
 
     public String getRedWhen() {
@@ -838,11 +820,8 @@ public class ModelFormField {
     }
 
     public String getAction(Map<String, ? extends Object> context) {
-        if (this.action != null && !this.action.isEmpty()) {
-            return action.expandString(context);
-        } else {
-            return null;
-        }
+        if (UtilValidate.isNotEmpty(this.action)) return action.expandString(context);
+        return null;
     }
 
     /**
@@ -961,17 +940,13 @@ public class ModelFormField {
     }
 
     public String getServiceName() {
-        if (UtilValidate.isNotEmpty(this.serviceName)) {
-            return this.serviceName;
-        } else {
-            return this.modelForm.getDefaultServiceName();
-        }
+        if (UtilValidate.isNotEmpty(this.serviceName)) return this.serviceName;
+        return this.modelForm.getDefaultServiceName();
     }
 
     public String getTitle(Map<String, Object> context) {
-        if (this.title != null && !this.title.isEmpty()) {
-            return title.expandString(context);
-        } else {
+        if (UtilValidate.isNotEmpty(this.title)) return title.expandString(context);
+        else {
             // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
             if (UtilValidate.isEmpty(this.name)) {
                 // this should never happen, ie name is required
@@ -1010,64 +985,43 @@ public class ModelFormField {
     }
 
     public String getTitleAreaStyle() {
-        if (UtilValidate.isNotEmpty(this.titleAreaStyle)) {
-            return this.titleAreaStyle;
-        } else {
-            return this.modelForm.getDefaultTitleAreaStyle();
-        }
+        if (UtilValidate.isNotEmpty(this.titleAreaStyle)) return this.titleAreaStyle;
+        return this.modelForm.getDefaultTitleAreaStyle();
     }
 
     public String getTitleStyle() {
-        if (UtilValidate.isNotEmpty(this.titleStyle)) {
-            return this.titleStyle;
-        } else {
-            return this.modelForm.getDefaultTitleStyle();
-        }
+        if (UtilValidate.isNotEmpty(this.titleStyle)) return this.titleStyle;
+        return this.modelForm.getDefaultTitleStyle();
     }
 
     public String getRequiredFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.requiredFieldStyle)) {
-            return this.requiredFieldStyle;
-        } else {
-            return this.modelForm.getDefaultRequiredFieldStyle();
-        }
+        if (UtilValidate.isNotEmpty(this.requiredFieldStyle)) return this.requiredFieldStyle;
+        return this.modelForm.getDefaultRequiredFieldStyle();
     }
 
     public String getSortFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.sortFieldStyle)) {
-            return this.sortFieldStyle;
-        }
+        if (UtilValidate.isNotEmpty(this.sortFieldStyle)) return this.sortFieldStyle;
         return this.modelForm.getDefaultSortFieldStyle();
     }
 
     public String getSortFieldStyleAsc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle)) {
-            return this.sortFieldAscStyle;
-        }
+        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle)) return this.sortFieldAscStyle;
         return this.modelForm.getDefaultSortFieldAscStyle();
     }
 
     public String getSortFieldStyleDesc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle)) {
-            return this.sortFieldDescStyle;
-        }
+        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle)) return this.sortFieldDescStyle;
         return this.modelForm.getDefaultSortFieldDescStyle();
     }
 
     public String getTooltip(Map<String, Object> context) {
-        if (tooltip != null && !tooltip.isEmpty()) {
-            return tooltip.expandString(context);
-        } else {
-            return "";
-        }
+        if (UtilValidate.isNotEmpty(tooltip)) return tooltip.expandString(context);
+        return "";
     }
 
     public String getUseWhen(Map<String, Object> context) {
-        if (this.useWhen != null && !this.useWhen.isEmpty()) {
-            return this.useWhen.expandString(context);
-        } else {
-            return "";
-        }
+        if (UtilValidate.isNotEmpty(this.useWhen)) return this.useWhen.expandString(context);
+        return "";
     }
 
     public boolean getEncodeOutput() {
@@ -1075,11 +1029,8 @@ public class ModelFormField {
     }
 
     public String getIdName() {
-        if (UtilValidate.isNotEmpty(idName)) {
-            return idName;
-        } else {
-            return this.modelForm.getName() + "_" + this.getFieldName();
-        }
+        if (UtilValidate.isNotEmpty(idName)) return idName;
+        return this.modelForm.getName() + "_" + this.getFieldName();
     }
 
     public String getCurrentContainerId(Map<String, Object> context) {
@@ -2085,20 +2036,16 @@ public class ModelFormField {
         }
 
         public String getImageLocation(Map<String, Object> context){
-            if (this.imageLocation != null) {
-                return this.imageLocation.expandString(context);
-            } else {
-                return "";
-            }
+            if (this.imageLocation != null) return this.imageLocation.expandString(context);
+            return "";
         }
 
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
-            if (this.description != null && !this.description.isEmpty()) {
-                retVal = this.description.expandString(context);
-            } else {
-                retVal = this.modelFormField.getEntry(context);
-            }
+            // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
+            if (this.description != null && !this.description.isEmpty()) retVal = this.description.expandString(context);
+            else retVal = this.modelFormField.getEntry(context);
+
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
@@ -2106,9 +2053,7 @@ public class ModelFormField {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) locale = Locale.getDefault();
                 String isoCode = null;
-                if (this.currency != null && !this.currency.isEmpty()) {
-                    isoCode = this.currency.expandString(context);
-                }
+                if (UtilValidate.isNotEmpty(this.currency)) isoCode = this.currency.expandString(context);
 
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeConvert(retVal, "BigDecimal", null, null, locale, true);
@@ -2180,6 +2125,7 @@ public class ModelFormField {
                     throw new IllegalArgumentException(errMsg);
                 }
             }
+         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (this.description != null && !this.description.isEmpty() && retVal != null && this.getModelFormField().getEncodeOutput()) {
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -2275,6 +2221,7 @@ public class ModelFormField {
             this.cache = !"false".equals(element.getAttribute("cache"));
             this.size = element.getAttribute("size");
 
+         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (this.description == null || this.description.isEmpty()) {
                 this.setDescription("${description}");
             }
@@ -3168,9 +3115,7 @@ public class ModelFormField {
          * @return Default value string for date-time
          */
         public String getDefaultDateTimeString(Map<String, Object> context) {
-            if (this.defaultValue != null && !this.defaultValue.isEmpty()) {
-                return this.getDefaultValue(context);
-            }
+            if (UtilValidate.isNotEmpty(this.defaultValue)) return this.getDefaultValue(context);
 
             if ("date".equals(this.type)) {
                 return (new java.sql.Date(System.currentTimeMillis())).toString();
@@ -3533,7 +3478,7 @@ public class ModelFormField {
         }
 
         public String getValue(Map<String, Object> context) {
-            if (this.value != null && !this.value.isEmpty()) {
+            if (UtilValidate.isNotEmpty(this.value)) {
                 String valueEnc = this.value.expandString(context);
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -3928,11 +3873,8 @@ public class ModelFormField {
         }
 
         public String getValue(Map<String, Object> context) {
-            if (this.value != null && !this.value.isEmpty()) {
-                return this.value.expandString(context);
-            } else {
-                return modelFormField.getEntry(context);
-            }
+            if (UtilValidate.isNotEmpty(this.value)) return this.value.expandString(context);
+            return modelFormField.getEntry(context);
         }
 
         public void setValue(String string) {
@@ -3940,11 +3882,9 @@ public class ModelFormField {
         }
 
         public String getDescription(Map<String, Object> context) {
-            if (this.description != null && !this.description.isEmpty()) {
-                return this.description.expandString(context);
-            } else {
-                return "";
-            }
+         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
+            if (this.description != null && !this.description.isEmpty()) return this.description.expandString(context);
+            return "";
         }
 
         public void setDescription(String description) {
@@ -3952,11 +3892,8 @@ public class ModelFormField {
         }
 
         public String getAlternate(Map<String, Object> context) {
-            if (this.alternate != null && !this.alternate.isEmpty()) {
-                return this.alternate.expandString(context);
-            } else {
-                return "";
-            }
+            if (UtilValidate.isNotEmpty(this.alternate)) return this.alternate.expandString(context);
+            return "";
         }
 
         public void setAlternate(String alternate) {
