@@ -633,7 +633,7 @@ public class ShoppingCartServices {
 
         List<GenericValue> adjustments = orh.getOrderHeaderAdjustments();
         // If applyQuoteAdjustments is set to false then standard cart adjustments are used.
-        if (UtilValidate.isNotEmpty(adjustments)) {
+        if (!adjustments.isEmpty()) {
             // The cart adjustments are added to the cart
             cart.getAdjustments().addAll(adjustments);
         }
@@ -726,7 +726,7 @@ public class ShoppingCartServices {
         if (UtilValidate.isNotEmpty(quoteTerms)) {
             // create order term from quote term
             for(GenericValue quoteTerm : quoteTerms) {
-            	BigDecimal termValue = BigDecimal.ZERO;
+                    BigDecimal termValue = BigDecimal.ZERO;
                 if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))){
                     termValue = new BigDecimal(quoteTerm.getString("termValue"));
                 }
