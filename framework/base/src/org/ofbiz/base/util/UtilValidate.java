@@ -221,12 +221,12 @@ public class UtilValidate {
 
     /** Check whether charsequence c is empty. */
     public static <E> boolean isEmpty(CharSequence c) {
-        return (c == null) || (c.length() == 0);
+        return (c == null) || c.length() == 0;
     }
 
     /** Check whether string s is NOT empty. */
     public static boolean isNotEmpty(String s) {
-        return (s != null) && (s.length() > 0);
+        return (s != null) && s.length() > 0;
     }
 
     /** Check whether collection c is NOT empty. */
