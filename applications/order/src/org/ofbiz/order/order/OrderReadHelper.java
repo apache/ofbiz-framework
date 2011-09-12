@@ -2536,8 +2536,8 @@ public class OrderReadHelper {
         BigDecimal promoAdjTotal = ZERO;
 
         List<GenericValue> promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
-
-        if (!promoAdjustments.isEmpty()) {
+        
+        if (UtilValidate.isNotEmpty(promoAdjustments)) {
             Iterator<GenericValue> promoAdjIter = promoAdjustments.iterator();
             while (promoAdjIter.hasNext()) {
                 GenericValue promoAdjustment = promoAdjIter.next();
