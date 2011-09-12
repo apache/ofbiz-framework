@@ -726,7 +726,7 @@ public class ShoppingCartServices {
         if (UtilValidate.isNotEmpty(quoteTerms)) {
             // create order term from quote term
             for(GenericValue quoteTerm : quoteTerms) {
-                    BigDecimal termValue = BigDecimal.ZERO;
+                BigDecimal termValue = BigDecimal.ZERO;
                 if (UtilValidate.isNotEmpty(quoteTerm.getString("termValue"))){
                     termValue = new BigDecimal(quoteTerm.getString("termValue"));
                 }
