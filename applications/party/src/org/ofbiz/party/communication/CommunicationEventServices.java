@@ -744,7 +744,7 @@ public class CommunicationEventServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-            if (!commEvents.isEmpty()) {{
+            if (!commEvents.isEmpty()) {
                 Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                         "PartyCommEventMessageIgnoredDuplicateMessageId", locale));
