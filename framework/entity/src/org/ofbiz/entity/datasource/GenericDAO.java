@@ -818,7 +818,7 @@ public class GenericDAO {
             conditions.add(whereEntityCondition);
         }
 
-        if (UtilValidate.isNotEmpty(modelViewEntity)) {
+        if (modelViewEntity != null && !viewWhereConditions.isEmpty()) {
             EntityCondition viewWhereEntityCondition = EntityCondition.makeCondition(viewWhereConditions);
             if (!viewWhereEntityCondition.isEmpty()) {
                 conditions.add(viewWhereEntityCondition);

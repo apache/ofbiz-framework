@@ -2791,7 +2791,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         GenericValue orderTerm = this.getDelegator().makeValue("OrderTerm");
         orderTerm.put("termTypeId", termTypeId);
         if (UtilValidate.isEmpty(orderItemSeqId)) {
-                orderItemSeqId = "_NA_";
+            orderItemSeqId = "_NA_";
         }
         orderTerm.put("orderItemSeqId", orderItemSeqId);
         orderTerm.put("termValue", termValue);
