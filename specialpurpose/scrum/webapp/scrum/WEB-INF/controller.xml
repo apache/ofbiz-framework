@@ -25,11 +25,6 @@
         <event name="timeSheetChecker" type="java" path="org.ofbiz.scrum.ScrumEvents" invoke="timeSheetChecker"/>
     </after-login>
     
-     <request-map uri="logout">
-        <security https="false" auth="true"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
-        <response name="success" type="request-redirect" value="../../scrumdemo"/>
-    </request-map>
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>
