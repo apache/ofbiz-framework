@@ -20,8 +20,8 @@ under the License.
 <#list taskCosts as taskCost>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <#assign task = taskCost.task!>
-      <h3>${uiLabelMap.ManufacturingActualCosts} ${task.workEffortName?if_exists} [${task.workEffortId?if_exists}]</h3>
+      <#assign task = taskCost.task>
+      <h3>${uiLabelMap.ManufacturingActualCosts} ${task.workEffortName?if_exists} [${task.workEffortId}]</h3>
     </div>
     <div class="screenlet-body">
       <#assign costsForm = taskCost.costsForm>
