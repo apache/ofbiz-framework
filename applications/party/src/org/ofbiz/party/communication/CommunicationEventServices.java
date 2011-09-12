@@ -744,7 +744,7 @@ public class CommunicationEventServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-            if (UtilValidate.isNotEmpty(commEvents)) {
+            if (!commEvents.isEmpty()) {{
                 Debug.logInfo("Ignoring Duplicate Email: " + aboutThisEmail, module);
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                         "PartyCommEventMessageIgnoredDuplicateMessageId", locale));
@@ -756,7 +756,7 @@ public class CommunicationEventServices {
             List<Map<String, Object>> bccParties = buildListOfPartyInfoFromEmailAddresses(addressesBCC, userLogin, dispatcher);
 
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
-            if (UtilValidate.isNotEmpty(toParties)) {
+            if (!toParties.isEmpty()) {
                 Iterator<Map<String, Object>> itr = toParties.iterator();
                 Map<String, Object> firstAddressTo = itr.next();
                 partyIdTo = (String)firstAddressTo.get("partyId");

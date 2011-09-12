@@ -123,7 +123,7 @@ public class CategoryServices {
             EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
             filterConditions.add(condition);
         }
-        if (UtilValidate.isNotEmpty(filterConditions)) {
+        if (!filterConditions.isEmpty()) {
             productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
         }
 
@@ -290,7 +290,7 @@ public class CategoryServices {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("releaseDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("releaseDate", EntityOperator.LESS_THAN_EQUAL_TO, releaseDateLimit));
                         filterConditions.add(condition);
                     }
-                    if (UtilValidate.isNotEmpty(filterConditions)) {
+                    if (!filterConditions.isEmpty()) {
                         productCategoryMembers = EntityUtil.filterByCondition(productCategoryMembers, EntityCondition.makeCondition(filterConditions, EntityOperator.AND));
                     }
 
@@ -440,7 +440,7 @@ public class CategoryServices {
                     childOfCats = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", UtilMisc.toMap("prodCatalogId", productCategoryId)));
                 }
                 if (UtilValidate.isNotEmpty(childOfCats)) {
-                	
+                        
                     for (GenericValue childOfCat : childOfCats ) {
                         
                         Object catId = null;
