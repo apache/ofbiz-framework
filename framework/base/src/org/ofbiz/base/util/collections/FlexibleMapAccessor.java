@@ -23,6 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.el.PropertyNotFoundException;
 
+import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -39,7 +40,7 @@ import org.ofbiz.base.util.string.UelUtil;
  */
 @SourceMonitored
 @SuppressWarnings("serial")
-public class FlexibleMapAccessor<T> implements Serializable {
+public class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     public static final String module = FlexibleMapAccessor.class.getName();
     protected static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
     @SuppressWarnings("unchecked")
