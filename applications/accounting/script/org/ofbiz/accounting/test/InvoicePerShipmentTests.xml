@@ -31,7 +31,7 @@ under the License.
         <!-- Step 1 -->
         <call-bsh><![CDATA[
             import org.ofbiz.base.util.UtilProperties;
-            UtilProperties.setPropertyValue("AccountingConfig.properties", "create.invoice.per.shipment", "N");
+            UtilProperties.setPropertyValueInMemory("AccountingConfig", "create.invoice.per.shipment", "N");
         ]]></call-bsh>
         <log level="info" message="===== >>> Set Accounting.properties / create.invoice.per.shipment = N"/>
         <!-- Step 2 -->
@@ -146,6 +146,7 @@ under the License.
         <assert>
             <if-empty field="invoices"/>
         </assert>
+        
         <check-errors/>
     </simple-method>
     <simple-method method-name="testInvoicePerShipmentSetTrue" short-description="Test Invoice Per Shipment Set True" login-required="false">
@@ -158,7 +159,7 @@ under the License.
         <!-- Step 1 -->
         <call-bsh><![CDATA[
             import org.ofbiz.base.util.UtilProperties;
-            UtilProperties.setPropertyValue("AccountingConfig.properties", "create.invoice.per.shipment", "Y");
+            UtilProperties.setPropertyValueInMemory("AccountingConfig", "create.invoice.per.shipment", "Y");
         ]]></call-bsh>
         <log level="info" message="===== >>> Set Accounting.properties / create.invoice.per.shipment = Y"/>
         <!-- Step 2 -->
