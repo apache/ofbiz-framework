@@ -1233,29 +1233,6 @@
         <response name="success" type="request-redirect-noparam" value="FindResource"/>
         <response name="error" type="view" value="FindResource"/>
     </request-map>
-    <request-map uri="PublicHoliday">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="PublicHoliday"/>
-        <response name="error" type="view" value="PublicHoliday"/>
-    </request-map>
-    <request-map uri="createPublicHoliday">
-        <security https="true" auth="true"/>
-        <event type="simple" invoke="createPublicHoliday" path="component://scrum/script/org/ofbiz/scrum/ScrumEvents.xml"/>
-        <response name="success" type="request-redirect-noparam" value="PublicHoliday"/>
-        <response name="error" type="view-last"/>
-    </request-map>
-    <request-map uri="updatePublicHoliday">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="request-redirect-noparam" value="PublicHoliday"/>
-        <response name="error" type="view-last"/>
-    </request-map>
-    <request-map uri="deletePublicHoliday">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="view" value="PublicHoliday"/>
-        <response name="error" type="view-last"/>
-    </request-map>
     
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://scrum/widget/scrumScreens.xml#ScrumProduct"/>
@@ -1354,7 +1331,6 @@
     <view-map name="quickAddPartyRelationship" type="screen" page="component://scrum/widget/ResourceScreens.xml#QuickAddPartyRelationship"/>
     <view-map name="QuickAddPartyRate" type="screen" page="component://scrum/widget/ResourceScreens.xml#QuickAddPartyRate"/>
     <view-map name="ProductStatistics" type="screen" page="component://scrum/widget/scrumScreens.xml#ProductStatistics"/>
-    <view-map name="PublicHoliday" type="screen" page="component://scrum/widget/scrumScreens.xml#PublicHoliday"/>
     
     <!-- Unplan Backlog -->
     <view-map name="unplanBacklog" type="screen" page="component://scrum/widget/scrumScreens.xml#unplanBacklog"/>

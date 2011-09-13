@@ -28,7 +28,7 @@ while (countHoliday < dayNumber) {
     var conditionTimestampFrom = new Timestamp(actualStartDate.getTime() + (countHoliday*1000*60*60*24));
     // get public holiday
     var holidayConds = FastList.newInstance();
-    holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "SCRUM_HOLIDAY"));
+    holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "PUBLIC_HOLIDAY"));
     holidayConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.EQUALS, conditionTimestampFrom));
     var fieldsToSelect = UtilMisc.toSet("workEffortId","estimatedStartDate");
     var holidayList = delegator.findList("WorkEffort", EntityCondition.makeCondition(holidayConds), fieldsToSelect, null, null, false);
@@ -234,7 +234,7 @@ if (nowTimestamp.getTime() >= conditionTimestampFrom.getTime() &amp;&amp; nowTim
 
 // get public holiday
 var holidayConds = FastList.newInstance();
-holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "SCRUM_HOLIDAY"));
+holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "PUBLIC_HOLIDAY"));
 holidayConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.EQUALS, conditionTimestampFrom));
 var fieldsToSelect = UtilMisc.toSet("workEffortId","estimatedStartDate");
 var holidayList = delegator.findList("WorkEffort", EntityCondition.makeCondition(holidayConds), fieldsToSelect, null, null, false);

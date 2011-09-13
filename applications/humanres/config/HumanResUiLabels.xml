@@ -673,6 +673,9 @@
         <value xml:lang="zh">工作经验（年）</value>
         <value xml:lang="zh_TW">工作經驗（年）</value>
     </property>
+    <property key="HumanHolidayName">
+        <value xml:lang="en">Holiday Name</value>
+    </property>
     <property key="HumanResAddEmplLeave">
         <value xml:lang="en">Add Employee Leave</value>
         <value xml:lang="fr">Ajouter le congé</value>
@@ -2347,6 +2350,9 @@
         <value xml:lang="fr">Rechercher une demande d'emploi</value>
         <value xml:lang="pt_BR">Procurar pro petição de emrpego</value>
     </property>
+    <property key="PageTitleAddPublicHoliday">
+        <value xml:lang="en">Add Public Holiday</value>
+    </property>
     <property key="PageTitleEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
         <value xml:lang="fr">Modifier les approbations</value>
@@ -2546,6 +2552,12 @@
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
         <value xml:lang="zh">有效职责列表</value>
         <value xml:lang="zh_TW">有效職責列表</value>
+    </property>
+    <property key="PageTitlePublicHoliday">
+        <value xml:lang="en">Public Holiday</value>
+    </property>
+    <property key="PageTitlePublicHolidayList">
+        <value xml:lang="en">Public Holiday List</value>
     </property>
     <property key="PageTitleViewEmploymentApp">
         <value xml:lang="en">View Employment App</value>

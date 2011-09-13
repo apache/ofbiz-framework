@@ -270,4 +270,30 @@
             </widgets>
         </section>
     </screen>
+    <screen name="PublicHoliday">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitlePublicHoliday"/>
+                <set field="headerItem" value="GlobalHRSettings"/>
+                <set field="tabButtonItem" value="publicHoliday"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet id="addPublicHoliday" title="${uiLabelMap.PageTitleAddPublicHoliday}" collapsible="true">
+                                    <include-form name="AddPublicHoliday" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
+                                </screenlet>
+                                <screenlet id="listPublicHoliday" title="${uiLabelMap.PageTitlePublicHolidayList}" collapsible="true">
+                                    <include-form name="ListPublicHoliday" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
