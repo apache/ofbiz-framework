@@ -1108,6 +1108,29 @@ under the License.
         <event type="service" invoke="createEmplPositionFulfillment"/>
         <response name="success" type="view" value="main"/>
     </request-map>
+    <request-map uri="PublicHoliday">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PublicHoliday"/>
+        <response name="error" type="view" value="PublicHoliday"/>
+    </request-map>
+    <request-map uri="createPublicHoliday">
+        <security https="true" auth="true"/>
+        <event type="simple" path="component://humanres/script/org/ofbiz/humanres/HumanResEvents.xml" invoke="createPublicHoliday"/>
+        <response name="success" type="request-redirect-noparam" value="PublicHoliday"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="updatePublicHoliday">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffort"/>
+        <response name="success" type="request-redirect-noparam" value="PublicHoliday"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="deletePublicHoliday">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view" value="PublicHoliday"/>
+        <response name="error" type="view-last"/>
+    </request-map>
     
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
@@ -1207,6 +1230,7 @@ under the License.
     <view-map name="EditTerminationTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditTerminationTypes"/>
     <view-map name="EditTerminationReasons" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditTerminationReasons"/>
     <view-map name="EditTrainingTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditTrainingTypes"/>
+    <view-map name="PublicHoliday" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#PublicHoliday"/>
     
     <view-map name="EditPartyResumes" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyResumes"/>
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>

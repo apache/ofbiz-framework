@@ -4362,29 +4362,6 @@
         <entity-one value-field="productRoleMap" entity-name="ProductRole"/>
         <remove-value value-field="productRoleMap"/>
     </simple-method>
-    <simple-method method-name="createPublicHoliday" short-description="Create Public Holiday">
-        <if-empty field="parameters.estimatedStartDate">
-            <add-error>
-                <fail-message message="The FromDate is missing"/>
-            </add-error>
-            <check-errors/>
-        </if-empty>
-        <entity-and list="workEffortList" entity-name="WorkEffort">
-            <field-map field-name="workEffortTypeId" value="SCRUM_HOLIDAY"/>
-            <field-map field-name="estimatedStartDate" from-field="parameters.estimatedStartDate"/>
-        </entity-and>
-        <if-empty field="workEffortList">
-            <call-service service-name="createWorkEffortAndPartyAssign" in-map-name="parameters">
-                <default-message>Successfully created.</default-message>
-            </call-service>
-            <else>
-                <add-error>
-                    <fail-message message="This FromDate : ${parameters.estimatedStartDate} already exist."/>
-                </add-error>
-                <check-errors/>
-            </else>
-       </if-empty>
-    </simple-method>
     <simple-method method-name="updateNotBilledBacklog" short-description="Update Not Billed Backlog">
        <call-class-method method-name="getParameterMap" class-name="org.ofbiz.base.util.UtilHttp" ret-field="paramMap">
            <field field="request" type="javax.servlet.http.HttpServletRequest"/>

@@ -2753,35 +2753,6 @@
             </widgets>
         </section>
     </screen>
-    <screen name="PublicHoliday">
-        <section>
-            <condition>
-                <if-has-permission permission="SCRUM" action="_ADMIN"/>
-            </condition>
-            <actions>
-                <set field="titleProperty" value="PageTitlePublicHoliday"/>
-                <set field="headerItem" value="admin"/>
-                <set field="tabButtonItem" value="publicHoliday"/>
-                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <screenlet id="addPublicHoliday" title="${uiLabelMap.PageTitleAddPublicHoliday}" collapsible="true">
-                                    <include-form name="AddPublicHoliday" location="component://scrum/widget/scrumForms.xml"/>
-                                </screenlet>
-                                <screenlet id="listPublicHoliday" title="${uiLabelMap.PageTitlePublicHolidayList}" collapsible="true">
-                                    <include-form name="ListPublicHoliday" location="component://scrum/widget/scrumForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="QuickAddBacklog">
         <section>
             <condition>

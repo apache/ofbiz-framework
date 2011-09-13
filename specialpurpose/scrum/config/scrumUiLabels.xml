@@ -29,9 +29,6 @@
         <value xml:lang="nl">Alle gerapporteerde/goedgekeurde uren toevoegen aan nieuwe faktuur</value>
         <value xml:lang="zh">把全部已报告/已批准的任务时间添加到一个新的发票</value>
     </property>
-    <property key="PageTitleAddPublicHoliday">
-        <value xml:lang="en">Add Public Holiday</value>
-    </property>
     <property key="PageTitleAddSprint">
         <value xml:lang="en">Add Sprint</value>
     </property>
@@ -205,12 +202,6 @@
     </property>
     <property key="PageTitleProjectAndSprintList">
         <value xml:lang="en">Project and Sprint List</value>
-    </property>
-    <property key="PageTitlePublicHoliday">
-        <value xml:lang="en">Public Holiday</value>
-    </property>
-    <property key="PageTitlePublicHolidayList">
-        <value xml:lang="en">Public Holiday List</value>
     </property>
     <property key="PageTitleScrumDefaultTasks">
         <value xml:lang="en">Scrum Default Tasks</value>
@@ -611,9 +602,6 @@
         <value xml:lang="it">Ven</value>
         <value xml:lang="nl">Vr</value>
         <value xml:lang="zh">周五</value>
-    </property>
-    <property key="ScrumHolidayName">
-        <value xml:lang="en">Holiday Name</value>
     </property>
     <property key="ScrumHowToTest">
         <value xml:lang="en">How to test</value>

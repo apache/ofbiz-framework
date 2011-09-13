@@ -109,12 +109,6 @@
             </condition>
             <link target="ProductStatistics"/>
         </menu-item>
-        <menu-item name="publicHoliday" title="${uiLabelMap.PageTitlePublicHoliday}">
-            <condition>
-                <if-has-permission permission="SCRUM" action="_ADMIN"/>
-            </condition>
-            <link target="PublicHoliday"/>
-        </menu-item>
     </menu>
     
     <menu name="SprintMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

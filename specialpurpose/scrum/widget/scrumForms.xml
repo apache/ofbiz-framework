@@ -3208,49 +3208,4 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    <form name="AddPublicHoliday" type="single" target="createPublicHoliday" default-map-name="workEffort">
-        <alt-target use-when="workEffort!=null" target="updatePublicHoliday"/>
-        <field name="workEffortId" use-when="workEffort!=null"><hidden/></field>
-        <field name="partyId"><hidden value="${parameters.userLogin.partyId}"/></field>
-        <field name="roleTypeId" use-when="workEffort==null"><hidden value="CAL_OWNER"/></field>
-        <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
-        <field name="workEffortTypeId"><hidden value="SCRUM_HOLIDAY"/></field>
-        <field name="currentStatusId" use-when="workEffort==null"><hidden value="CAL_TENTATIVE"/></field>
-        <field name="scopeEnumId"><hidden value="WES_PUBLIC"/></field>
-        <field name="workEffortName" title="${uiLabelMap.ScrumHolidayName}" tooltip="${uiLabelMap.CommonRequired}"><text size="50"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><textarea/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time type="date"/></field>
-        <field name="addButton" use-when="workEffort==null"><submit/></field>
-        <field name="updateButton" use-when="workEffort!=null"><submit/></field>
-    </form>
-    <form name="ListPublicHoliday" type="list" target="PublicHoliday" list-name="listIt" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="hover-bar basic-table">
-        <actions>
-            <entity-and entity-name="WorkEffort" list="listIt">
-                <field-map field-name="workEffortTypeId" value="SCRUM_HOLIDAY"/>
-                <order-by field-name="-estimatedStartDate"/>
-            </entity-and>
-        </actions>
-        <row-actions>
-            <entity-and entity-name="WorkEffortPartyAssignment" list="assignmentList">
-                <field-map field-name="workEffortId" from-field="workEffortId"/>
-            </entity-and>
-            <set field="partyId" from-field="assignmentList[0].partyId"/>
-        </row-actions>
-        <field name="workEffortId"><hidden/></field>
-        <field name="workEffortTypeId"><hidden value="SCRUM_HOLIDAY"/></field>
-        <field name="scopeEnumId"><hidden value="WES_PUBLIC"/></field>
-        <field name="workEffortName" title="${uiLabelMap.ScrumHolidayName}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
-        <field name="partyId" title="${uiLabelMap.CommonBy}">
-            <display-entity entity-name="PartyNameView"  description="${lastName}, ${firstName} ${middleName}" key-field-name="partyId"/>
-        </field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
-        <field name="removeHoliday" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deletePublicHoliday">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-            </hyperlink>
-        </field>
-    </form>
 </forms>

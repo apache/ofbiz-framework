@@ -163,5 +163,7 @@ under the License.
     <PerfRatingType perfRatingTypeId="3" hasTable="N" description="Fulfilled Expectations"/>
     <PerfRatingType perfRatingTypeId="4" hasTable="N" description="Frequently Exceeds"/>
     <PerfRatingType perfRatingTypeId="5" hasTable="N" description="Consistently Exceeds"/>
-
+    
+    <!-- Public Holiday -->
+    <WorkEffortType workEffortTypeId="PUBLIC_HOLIDAY" description="Public Holiday" hasTable="N"/> 
 </entity-engine-xml>

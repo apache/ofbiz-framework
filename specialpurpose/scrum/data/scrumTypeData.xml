@@ -15,7 +15,7 @@
     <WorkEffortType workEffortTypeId="SCRUM_TASK_IMPL" parentTypeId="SCRUM_TASK" description="Implementation" hasTable="N"/>
     <WorkEffortType workEffortTypeId="SCRUM_TASK_INST" parentTypeId="SCRUM_TASK" description="Installation" hasTable="N"/>
     <WorkEffortType workEffortTypeId="SCRUM_TASK_TEST" parentTypeId="SCRUM_TASK" description="Test" hasTable="N"/>
-    <WorkEffortType workEffortTypeId="SCRUM_HOLIDAY" description="Public Holiday" hasTable="N"/> <!-- Public Holiday -->
+    
     <WorkEffortPurposeType workEffortPurposeTypeId="SCRUM_DEFAULT_TASK" description="Default Task"/>
     <WorkEffortPurposeType workEffortPurposeTypeId="SYSTEM_DEFAULT_TASK" description="System Default Task"/>
     <CustRequestType custRequestTypeId="RF_PROD_BACKLOG" hasTable="N" description="Request For Product Backlog Items"/>
