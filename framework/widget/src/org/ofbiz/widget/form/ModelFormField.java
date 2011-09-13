@@ -264,32 +264,65 @@ public class ModelFormField {
         if (overrideFormField == null)
             return;
         // incorporate updates for values that are not empty in the overrideFormField
-        if (UtilValidate.isNotEmpty(overrideFormField.name)) this.name = overrideFormField.name;
-        if (UtilValidate.isNotEmpty(overrideFormField.mapAcsr)) this.mapAcsr = overrideFormField.mapAcsr; //Debug.logInfo("overriding mapAcsr, old=" + (this.mapAcsr==null?"null":this.mapAcsr.getOriginalName()) + ", new=" + overrideFormField.mapAcsr.getOriginalName(), module);
-        if (UtilValidate.isNotEmpty(overrideFormField.entityName)) this.entityName = overrideFormField.entityName;
-        if (UtilValidate.isNotEmpty(overrideFormField.serviceName)) this.serviceName = overrideFormField.serviceName;
-        if (UtilValidate.isNotEmpty(overrideFormField.entryAcsr)) this.entryAcsr = overrideFormField.entryAcsr;
-        if (UtilValidate.isNotEmpty(overrideFormField.parameterName)) this.parameterName = overrideFormField.parameterName;
-        if (UtilValidate.isNotEmpty(overrideFormField.fieldName)) this.fieldName = overrideFormField.fieldName;
-        if (UtilValidate.isNotEmpty(overrideFormField.attributeName)) this.attributeName = overrideFormField.attributeName;
-        if (UtilValidate.isNotEmpty(overrideFormField.title)) this.title = overrideFormField.title; // title="" can be used to override the original value
-        if (UtilValidate.isNotEmpty(overrideFormField.tooltip)) this.tooltip = overrideFormField.tooltip;
-        if (overrideFormField.requiredField != null) this.requiredField = overrideFormField.requiredField;
-        if (overrideFormField.sortField != null) this.sortField = overrideFormField.sortField;
-        if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle)) this.titleAreaStyle = overrideFormField.titleAreaStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle)) this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.titleStyle)) this.titleStyle = overrideFormField.titleStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.widgetStyle)) this.widgetStyle = overrideFormField.widgetStyle;
-        if (overrideFormField.position != null) this.position = overrideFormField.position;
-        if (UtilValidate.isNotEmpty(overrideFormField.redWhen)) this.redWhen = overrideFormField.redWhen;
-        if (UtilValidate.isNotEmpty(overrideFormField.event)) this.event = overrideFormField.event;
-        if (UtilValidate.isNotEmpty(overrideFormField.action)) this.action = overrideFormField.action;
-        if (UtilValidate.isNotEmpty(overrideFormField.useWhen))this.useWhen = overrideFormField.useWhen;
-        if (overrideFormField.fieldInfo != null) this.setFieldInfo(overrideFormField.fieldInfo);
-        if (overrideFormField.headerLink != null) this.setHeaderLink(overrideFormField.headerLink);
-        if (UtilValidate.isNotEmpty(overrideFormField.idName)) this.idName = overrideFormField.idName;
-        if (overrideFormField.onChangeUpdateAreas != null) this.onChangeUpdateAreas = overrideFormField.onChangeUpdateAreas;
-        if (overrideFormField.onClickUpdateAreas != null) this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
+        if (UtilValidate.isNotEmpty(overrideFormField.name))
+            this.name = overrideFormField.name;
+        if (overrideFormField.mapAcsr != null && !overrideFormField.mapAcsr.isEmpty()) {
+            //Debug.logInfo("overriding mapAcsr, old=" + (this.mapAcsr==null?"null":this.mapAcsr.getOriginalName()) + ", new=" + overrideFormField.mapAcsr.getOriginalName(), module);
+            this.mapAcsr = overrideFormField.mapAcsr;
+        }
+        if (UtilValidate.isNotEmpty(overrideFormField.entityName))
+            this.entityName = overrideFormField.entityName;
+        if (UtilValidate.isNotEmpty(overrideFormField.serviceName))
+            this.serviceName = overrideFormField.serviceName;
+        if (overrideFormField.entryAcsr != null && !overrideFormField.entryAcsr.isEmpty())
+            this.entryAcsr = overrideFormField.entryAcsr;
+        if (UtilValidate.isNotEmpty(overrideFormField.parameterName))
+            this.parameterName = overrideFormField.parameterName;
+        if (UtilValidate.isNotEmpty(overrideFormField.fieldName))
+            this.fieldName = overrideFormField.fieldName;
+        if (UtilValidate.isNotEmpty(overrideFormField.attributeName))
+            this.attributeName = overrideFormField.attributeName;
+        if (overrideFormField.title != null && !overrideFormField.title.isEmpty()) // title="" can be used to override the original value
+            this.title = overrideFormField.title;
+        if (overrideFormField.tooltip != null && !overrideFormField.tooltip.isEmpty())
+            this.tooltip = overrideFormField.tooltip;
+        if (overrideFormField.requiredField != null)
+            this.requiredField = overrideFormField.requiredField;
+        if (overrideFormField.sortField != null)
+            this.sortField = overrideFormField.sortField;
+        if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle))
+            this.titleAreaStyle = overrideFormField.titleAreaStyle;
+        if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle))
+            this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
+        if (UtilValidate.isNotEmpty(overrideFormField.titleStyle))
+            this.titleStyle = overrideFormField.titleStyle;
+        if (UtilValidate.isNotEmpty(overrideFormField.widgetStyle))
+            this.widgetStyle = overrideFormField.widgetStyle;
+        if (overrideFormField.position != null)
+            this.position = overrideFormField.position;
+        if (UtilValidate.isNotEmpty(overrideFormField.redWhen))
+            this.redWhen = overrideFormField.redWhen;
+        if (UtilValidate.isNotEmpty(overrideFormField.event))
+            this.event = overrideFormField.event;
+        if (overrideFormField.action != null && !overrideFormField.action.isEmpty())
+            this.action = overrideFormField.action;
+        if (overrideFormField.useWhen != null && !overrideFormField.useWhen.isEmpty())
+            this.useWhen = overrideFormField.useWhen;
+        if (overrideFormField.fieldInfo != null) {
+            this.setFieldInfo(overrideFormField.fieldInfo);
+        }
+        if (overrideFormField.fieldInfo != null) {
+            this.setHeaderLink(overrideFormField.headerLink);
+        }
+        if (UtilValidate.isNotEmpty(overrideFormField.idName)) {
+            this.idName = overrideFormField.idName;
+        }
+        if (overrideFormField.onChangeUpdateAreas != null) {
+            this.onChangeUpdateAreas = overrideFormField.onChangeUpdateAreas;
+        }
+        if (overrideFormField.onClickUpdateAreas != null) {
+            this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
+        }
         this.encodeOutput = overrideFormField.encodeOutput;
     }
 
@@ -605,18 +638,27 @@ public class ModelFormField {
      * @return returns the name of the Service Attribute 
      */
     public String getAttributeName() {
-        if (UtilValidate.isNotEmpty(this.attributeName)) return this.attributeName;
-        return this.name;
+        if (UtilValidate.isNotEmpty(this.attributeName)) {
+            return this.attributeName;
+        } else {
+            return this.name;
+        }
     }
 
     public String getEntityName() {
-        if (UtilValidate.isNotEmpty(this.entityName)) return this.entityName;
-        return this.modelForm.getDefaultEntityName();
+        if (UtilValidate.isNotEmpty(this.entityName)) {
+            return this.entityName;
+        } else {
+            return this.modelForm.getDefaultEntityName();
+        }
     }
 
     public String getEntryName() {
-        if (UtilValidate.isNotEmpty(this.entryAcsr)) return this.entryAcsr.getOriginalName();
-        return this.name;
+        if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
+            return this.entryAcsr.getOriginalName();
+        } else {
+            return this.name;
+        }
     }
 
     /**
@@ -671,7 +713,7 @@ public class ModelFormField {
                 dataMapIsContext = true;
             }
             Object retVal = null;
-            if (UtilValidate.isNotEmpty(this.entryAcsr)) {
+            if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
                 //Debug.logInfo("Getting entry, using entryAcsr for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 if (dataMap instanceof GenericEntity) {
                     GenericEntity genEnt = (GenericEntity) dataMap;
@@ -693,7 +735,7 @@ public class ModelFormField {
             if (dataMapIsContext && retVal == null && !Boolean.FALSE.equals(useRequestParameters)) {
                 Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
                 if (parameters != null) {
-                    if (UtilValidate.isNotEmpty(this.entryAcsr)) {
+                    if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
                         retVal = this.entryAcsr.get(parameters);
                     } else {
                         retVal = parameters.get(this.name);
@@ -737,7 +779,7 @@ public class ModelFormField {
     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
-        if (UtilValidate.isEmpty(this.mapAcsr)) {
+        if (this.mapAcsr == null || this.mapAcsr.isEmpty()) {
             //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
             return this.modelForm.getDefaultMap(context);
         } else {
@@ -778,8 +820,11 @@ public class ModelFormField {
      * @return returns the name of the Map in the form context that contains the entry
      */
     public String getMapName() {
-        if (UtilValidate.isNotEmpty(this.mapAcsr)) return this.mapAcsr.getOriginalName();
-        return this.modelForm.getDefaultMapName();
+        if (this.mapAcsr != null && !this.mapAcsr.isEmpty()) {
+            return this.mapAcsr.getOriginalName();
+        } else {
+            return this.modelForm.getDefaultMapName();
+        }
     }
 
     public String getName() {
@@ -794,8 +839,11 @@ public class ModelFormField {
      */
     public String getParameterName(Map<String, ? extends Object> context) {
         String baseName;
-        if (UtilValidate.isNotEmpty(this.parameterName)) baseName = this.parameterName;
-        else baseName = this.name;
+        if (UtilValidate.isNotEmpty(this.parameterName)) {
+            baseName = this.parameterName;
+        } else {
+            baseName = this.name;
+        }
 
         Integer itemIndex = (Integer) context.get("itemIndex");
         if (itemIndex != null && "multi".equals(this.modelForm.getType())) {
@@ -806,8 +854,11 @@ public class ModelFormField {
     }
 
     public int getPosition() {
-        if (this.position == null) return 1;
-        return position.intValue();
+        if (this.position == null) {
+            return 1;
+        } else {
+            return position.intValue();
+        }
     }
 
     public String getRedWhen() {
@@ -820,8 +871,11 @@ public class ModelFormField {
     }
 
     public String getAction(Map<String, ? extends Object> context) {
-        if (UtilValidate.isNotEmpty(this.action)) return action.expandString(context);
-        return null;
+        if (this.action != null && !this.action.isEmpty()) {
+            return action.expandString(context);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -940,13 +994,17 @@ public class ModelFormField {
     }
 
     public String getServiceName() {
-        if (UtilValidate.isNotEmpty(this.serviceName)) return this.serviceName;
-        return this.modelForm.getDefaultServiceName();
+        if (UtilValidate.isNotEmpty(this.serviceName)) {
+            return this.serviceName;
+        } else {
+            return this.modelForm.getDefaultServiceName();
+        }
     }
 
     public String getTitle(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.title)) return title.expandString(context);
-        else {
+        if (this.title != null && !this.title.isEmpty()) {
+            return title.expandString(context);
+        } else {
             // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
             if (UtilValidate.isEmpty(this.name)) {
                 // this should never happen, ie name is required
@@ -985,43 +1043,64 @@ public class ModelFormField {
     }
 
     public String getTitleAreaStyle() {
-        if (UtilValidate.isNotEmpty(this.titleAreaStyle)) return this.titleAreaStyle;
-        return this.modelForm.getDefaultTitleAreaStyle();
+        if (UtilValidate.isNotEmpty(this.titleAreaStyle)) {
+            return this.titleAreaStyle;
+        } else {
+            return this.modelForm.getDefaultTitleAreaStyle();
+        }
     }
 
     public String getTitleStyle() {
-        if (UtilValidate.isNotEmpty(this.titleStyle)) return this.titleStyle;
-        return this.modelForm.getDefaultTitleStyle();
+        if (UtilValidate.isNotEmpty(this.titleStyle)) {
+            return this.titleStyle;
+        } else {
+            return this.modelForm.getDefaultTitleStyle();
+        }
     }
 
     public String getRequiredFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.requiredFieldStyle)) return this.requiredFieldStyle;
-        return this.modelForm.getDefaultRequiredFieldStyle();
+        if (UtilValidate.isNotEmpty(this.requiredFieldStyle)) {
+            return this.requiredFieldStyle;
+        } else {
+            return this.modelForm.getDefaultRequiredFieldStyle();
+        }
     }
 
     public String getSortFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.sortFieldStyle)) return this.sortFieldStyle;
+        if (UtilValidate.isNotEmpty(this.sortFieldStyle)) {
+            return this.sortFieldStyle;
+        }
         return this.modelForm.getDefaultSortFieldStyle();
     }
 
     public String getSortFieldStyleAsc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle)) return this.sortFieldAscStyle;
+        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle)) {
+            return this.sortFieldAscStyle;
+        }
         return this.modelForm.getDefaultSortFieldAscStyle();
     }
 
     public String getSortFieldStyleDesc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle)) return this.sortFieldDescStyle;
+        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle)) {
+            return this.sortFieldDescStyle;
+        }
         return this.modelForm.getDefaultSortFieldDescStyle();
     }
 
     public String getTooltip(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(tooltip)) return tooltip.expandString(context);
-        return "";
+        if (tooltip != null && !tooltip.isEmpty()) {
+            return tooltip.expandString(context);
+        } else {
+            return "";
+        }
     }
 
     public String getUseWhen(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.useWhen)) return this.useWhen.expandString(context);
-        return "";
+        if (this.useWhen != null && !this.useWhen.isEmpty()) {
+            return this.useWhen.expandString(context);
+        } else {
+            return "";
+        }
     }
 
     public boolean getEncodeOutput() {
@@ -1029,8 +1108,11 @@ public class ModelFormField {
     }
 
     public String getIdName() {
-        if (UtilValidate.isNotEmpty(idName)) return idName;
-        return this.modelForm.getName() + "_" + this.getFieldName();
+        if (UtilValidate.isNotEmpty(idName)) {
+            return idName;
+        } else {
+            return this.modelForm.getName() + "_" + this.getFieldName();
+        }
     }
 
     public String getCurrentContainerId(Map<String, Object> context) {
@@ -2036,16 +2118,20 @@ public class ModelFormField {
         }
 
         public String getImageLocation(Map<String, Object> context){
-            if (this.imageLocation != null) return this.imageLocation.expandString(context);
-            return "";
+            if (this.imageLocation != null) {
+                return this.imageLocation.expandString(context);
+            } else {
+                return "";
+            }
         }
 
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
-            // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
-            if (this.description != null && !this.description.isEmpty()) retVal = this.description.expandString(context);
-            else retVal = this.modelFormField.getEntry(context);
-
+            if (this.description != null && !this.description.isEmpty()) {
+                retVal = this.description.expandString(context);
+            } else {
+                retVal = this.modelFormField.getEntry(context);
+            }
             if (UtilValidate.isEmpty(retVal)) {
                 retVal = this.getDefaultValue(context);
             } else if ("currency".equals(type)) {
@@ -2053,7 +2139,9 @@ public class ModelFormField {
                 Locale locale = (Locale) context.get("locale");
                 if (locale == null) locale = Locale.getDefault();
                 String isoCode = null;
-                if (UtilValidate.isNotEmpty(this.currency)) isoCode = this.currency.expandString(context);
+                if (this.currency != null && !this.currency.isEmpty()) {
+                    isoCode = this.currency.expandString(context);
+                }
 
                 try {
                     BigDecimal parsedRetVal = (BigDecimal) ObjectType.simpleTypeConvert(retVal, "BigDecimal", null, null, locale, true);
@@ -2125,7 +2213,6 @@ public class ModelFormField {
                     throw new IllegalArgumentException(errMsg);
                 }
             }
-         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (this.description != null && !this.description.isEmpty() && retVal != null && this.getModelFormField().getEncodeOutput()) {
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -2221,7 +2308,6 @@ public class ModelFormField {
             this.cache = !"false".equals(element.getAttribute("cache"));
             this.size = element.getAttribute("size");
 
-         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
             if (this.description == null || this.description.isEmpty()) {
                 this.setDescription("${description}");
             }
@@ -3115,7 +3201,9 @@ public class ModelFormField {
          * @return Default value string for date-time
          */
         public String getDefaultDateTimeString(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.defaultValue)) return this.getDefaultValue(context);
+            if (this.defaultValue != null && !this.defaultValue.isEmpty()) {
+                return this.getDefaultValue(context);
+            }
 
             if ("date".equals(this.type)) {
                 return (new java.sql.Date(System.currentTimeMillis())).toString();
@@ -3478,7 +3566,7 @@ public class ModelFormField {
         }
 
         public String getValue(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.value)) {
+            if (this.value != null && !this.value.isEmpty()) {
                 String valueEnc = this.value.expandString(context);
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -3873,8 +3961,11 @@ public class ModelFormField {
         }
 
         public String getValue(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.value)) return this.value.expandString(context);
-            return modelFormField.getEntry(context);
+            if (this.value != null && !this.value.isEmpty()) {
+                return this.value.expandString(context);
+            } else {
+                return modelFormField.getEntry(context);
+            }
         }
 
         public void setValue(String string) {
@@ -3882,9 +3973,11 @@ public class ModelFormField {
         }
 
         public String getDescription(Map<String, Object> context) {
-         // Don't replace by UtilValidate.isNotEmpty: this.description is a FlexibleStringExpander and issues occur
-            if (this.description != null && !this.description.isEmpty()) return this.description.expandString(context);
-            return "";
+            if (this.description != null && !this.description.isEmpty()) {
+                return this.description.expandString(context);
+            } else {
+                return "";
+            }
         }
 
         public void setDescription(String description) {
@@ -3892,8 +3985,11 @@ public class ModelFormField {
         }
 
         public String getAlternate(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.alternate)) return this.alternate.expandString(context);
-            return "";
+            if (this.alternate != null && !this.alternate.isEmpty()) {
+                return this.alternate.expandString(context);
+            } else {
+                return "";
+            }
         }
 
         public void setAlternate(String alternate) {
