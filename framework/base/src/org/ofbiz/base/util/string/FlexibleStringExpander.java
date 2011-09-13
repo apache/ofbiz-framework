@@ -27,6 +27,7 @@ import java.util.TimeZone;
 
 import javax.el.PropertyNotFoundException;
 
+import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -52,7 +53,7 @@ import bsh.EvalError;
  */
 @SourceMonitored
 @SuppressWarnings("serial")
-public abstract class FlexibleStringExpander implements Serializable {
+public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
 
     public static final String module = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
