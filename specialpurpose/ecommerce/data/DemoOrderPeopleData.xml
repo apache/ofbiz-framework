@@ -61,14 +61,14 @@ under the License.
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
 
     <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="US-UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+    <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustCompany" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9010" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
 
     <ContactMech contactMechId="9014" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9014" toName="Demo Customer Company" address1="1234 Commerce Way" city="Los Angeles" stateProvinceGeoId="US-CA" postalCode="90010" countryGeoId="USA"/>
+    <PostalAddress contactMechId="9014" toName="Demo Customer Company" address1="1234 Commerce Way" city="Los Angeles" stateProvinceGeoId="CA" postalCode="90010" countryGeoId="USA"/>
     <PartyContactMech partyId="DemoCustCompany" contactMechId="9014" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustCompany" contactMechId="9014" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -85,8 +85,8 @@ under the License.
     <BillingAccount billingAccountId="9010" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
     <BillingAccountRole billingAccountId="9010" partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.000"/>
 
-    <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="US-UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.000" partyTaxId="12-3456789" isExempt="Y"/>
-    <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="US-CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
+    <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.000" partyTaxId="12-3456789" isExempt="Y"/>
+    <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
 
     <!-- DemoCustAgent -->
     <Party partyId="DemoCustAgent" partyTypeId="PERSON"/>
@@ -96,7 +96,7 @@ under the License.
     <PartyRole partyId="DemoCustAgent" roleTypeId="AGENT"/>
     <PartyRole partyId="DemoCustAgent" roleTypeId="_NA_"/>
     <ContactMech contactMechId="9011" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="US-UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+    <PostalAddress contactMechId="9011" toName="Demo Customer Agent" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="9011" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9011" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -125,7 +125,7 @@ under the License.
 
 
     <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="US-UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
+    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
