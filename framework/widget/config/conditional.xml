@@ -159,6 +159,7 @@
         <value xml:lang="zh_TW">小于等于</value>
     </property>
     <property key="not_equal">
+        <value xml:lang="de">ungleich</value>
         <value xml:lang="en">Not Equal</value>
         <value xml:lang="fr">Diff.</value>
         <value xml:lang="it">Diverso da</value>
