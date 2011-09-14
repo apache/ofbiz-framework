@@ -389,39 +389,8 @@ public class LoginWorker {
                 setupNewDelegatorEtc = true;
             }
         }
-        
-        String requirePasswordChange = request.getParameter("requirePasswordChange");
-        if ("Y".equals(requirePasswordChange)) {
-            Map<String, Object> inMap = UtilMisc.<String, Object>toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
-            inMap.put("userLoginId", username);
-            inMap.put("currentPassword", password);
-            inMap.put("newPassword", request.getParameter("newPassword"));
-            inMap.put("newPasswordVerify", request.getParameter("newPasswordVerify"));
-            Map<String, Object> result = null;
-            try {
-                result = dispatcher.runSync("updatePassword", inMap);
-            } catch (GenericServiceException e) {
-                Debug.logError(e, "Error calling updatePassword service", module);
-                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
-                request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                return "error";
-            }
-            if (ServiceUtil.isError(result)) {
-                String errorMessage = (String) result.get(ModelService.ERROR_MESSAGE);
-                if (UtilValidate.isNotEmpty(errorMessage)) {
-                    Map<String, String> messageMap = UtilMisc.toMap("errorMessage", errorMessage);
-                    String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
-                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
-                }
-                request.setAttribute("_ERROR_MESSAGE_LIST_", result.get(ModelService.ERROR_MESSAGE_LIST));
-                return "error";
-            } else {
-                password = request.getParameter("newPassword");
-            }
-        }
 
-        Map<String, Object> result = null; 
+        Map<String, Object> result = null;
         try {
             // get the visit id to pass to the userLogin for history
             String visitId = VisitHandler.getVisitId(session);
@@ -435,13 +404,53 @@ public class LoginWorker {
         }
 
         if (ModelService.RESPOND_SUCCESS.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
+            GenericValue userLogin = (GenericValue) result.get("userLogin");
+
+            if ("Y".equals(request.getParameter("requirePasswordChange"))) {
+                Map<String, Object> inMap = UtilMisc.<String, Object>toMap("login.username", username, "login.password", password, "locale", UtilHttp.getLocale(request));
+                inMap.put("userLoginId", username);
+                inMap.put("currentPassword", password);
+                inMap.put("newPassword", request.getParameter("newPassword"));
+                inMap.put("newPasswordVerify", request.getParameter("newPasswordVerify"));
+                Map<String, Object> resultPasswordChange = null;
+                try {
+                    resultPasswordChange = dispatcher.runSync("updatePassword", inMap);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Error calling updatePassword service", module);
+                    Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                    String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                    request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                    return "error";
+                }
+                if (ServiceUtil.isError(resultPasswordChange)) {
+                    String errorMessage = (String) resultPasswordChange.get(ModelService.ERROR_MESSAGE);
+                    if (UtilValidate.isNotEmpty(errorMessage)) {
+                        Map<String, String> messageMap = UtilMisc.toMap("errorMessage", errorMessage);
+                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                        request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                    }
+                    request.setAttribute("_ERROR_MESSAGE_LIST_", resultPasswordChange.get(ModelService.ERROR_MESSAGE_LIST));
+                    return "error";
+                } else {
+                    try {
+                        userLogin.refresh();
+                    }
+                    catch (GenericEntityException e) {
+                        Debug.logError(e, "Error refreshing userLogin value", module);
+                        Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                        String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                        request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                        return "error";
+                    }
+                }
+            }
+
             if (setupNewDelegatorEtc) {
                 // now set the delegator and dispatcher in a bunch of places just in case they were changed
                 setWebContextObjects(request, response, delegator, dispatcher, true);
             }
             
             // check to see if a password change is required for the user
-            GenericValue userLogin = (GenericValue) result.get("userLogin");
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
                 return "requirePasswordChange";
