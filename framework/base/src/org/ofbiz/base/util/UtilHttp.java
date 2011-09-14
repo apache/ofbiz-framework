@@ -274,8 +274,9 @@ public class UtilHttp {
     public static Map<String, Object> getJSONAttributeMap(HttpServletRequest request) {
         Map<String, Object> returnMap = FastMap.newInstance();
         Map<String, Object> attrMap = getAttributeMap(request);
-        for (String key: attrMap.keySet()) {
-            Object val = attrMap.get(key);
+        for (Map.Entry<String, Object> entry : attrMap.entrySet()) {
+            String key = entry.getKey();
+            Object val = entry.getValue();
             if (val instanceof java.sql.Timestamp) {
                 val = val.toString();
             }
@@ -1116,7 +1117,8 @@ public class UtilHttp {
         }
 
         // next put all parameters with matching N in the right map
-        for (String key: parameters.keySet()) {
+        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+            String key = entry.getKey();
             // skip keys without DELIMITER and skip ROW_SUBMIT_PREFIX
             if (key == null) continue;
             int index = key.indexOf(MULTI_ROW_DELIMITER);
@@ -1130,7 +1132,7 @@ public class UtilHttp {
 
             // get the key without the <DELIMITER>N suffix and store it and its value
             String newKey = key.substring(0, index);
-            map.put(newKey, parameters.get(key));
+            map.put(newKey, entry.getValue());
         }
         // return only the values, which is the list of maps
         return rows.values();
@@ -1142,12 +1144,13 @@ public class UtilHttp {
      */
     public static <V> Map<String, V> removeMultiFormParameters(Map<String, V> parameters) {
         FastMap<String, V> filteredParameters = new FastMap<String, V>();
-        for (String key: parameters.keySet()) {
+        for (Map.Entry<String, V> entry : parameters.entrySet()) {
+            String key = entry.getKey();
             if (key != null && (key.indexOf(MULTI_ROW_DELIMITER) != -1 || key.indexOf("_useRowSubmit") != -1 || key.indexOf("_rowCount") != -1)) {
                 continue;
             }
 
-            filteredParameters.put(key, parameters.get(key));
+            filteredParameters.put(key, entry.getValue());
         }
         return filteredParameters;
     }

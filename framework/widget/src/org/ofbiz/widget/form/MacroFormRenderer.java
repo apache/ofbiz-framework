@@ -2944,16 +2944,18 @@ public class MacroFormRenderer implements FormStringRenderer {
                 if(UtilValidate.isEmpty(ajaxParams)){
                     ajaxParams = "";
                 }
-                for (String key : parameters.keySet()) {
+                for (Map.Entry<String, String> entry : parameters.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
                     //test if ajax parameters are not already into extraParams, if so do not add it
-                    if(UtilValidate.isNotEmpty(extraParams) && extraParams.contains(parameters.get(key))){
+                    if(UtilValidate.isNotEmpty(extraParams) && extraParams.contains(value)){
                         continue;
                     }
                     if (ajaxParams.length() > 0 && ajaxParams.indexOf(key) < 0) {
                         ajaxParams += "&";
                     }
                     if (ajaxParams.indexOf(key) < 0) {
-                        ajaxParams += key + "=" + parameters.get(key);
+                        ajaxParams += key + "=" + value;
                     }
                 }
             }

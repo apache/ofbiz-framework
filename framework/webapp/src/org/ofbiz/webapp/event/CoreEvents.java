@@ -444,8 +444,9 @@ public class CoreEvents {
         Map<String, String[]> serviceFieldsToSave = checkMap(request.getParameterMap(), String.class, String[].class);
         Map<String, Object> savedFields = FastMap.newInstance();
 
-        for (String key: serviceFieldsToSave.keySet()) {
-            if (null!=serviceFieldsToSave.get(key) && request.getParameter(key).equalsIgnoreCase("on") && !key.equals("_CLEAR_PREVIOUS_PARAMS_")) {
+        for (Map.Entry<String, String[]> entry : serviceFieldsToSave.entrySet()) {
+            String key = entry.getKey();
+            if (entry.getValue() != null && "on".equalsIgnoreCase(request.getParameter(key)) && !"_CLEAR_PREVIOUS_PARAMS_".equals(key)) {
                 String[] servicePath = key.split("\\|\\|");
                 String partialKey = servicePath[servicePath.length-1];
                 savedFields.put(partialKey, getObjectFromServicePath(key ,syncServiceResult));

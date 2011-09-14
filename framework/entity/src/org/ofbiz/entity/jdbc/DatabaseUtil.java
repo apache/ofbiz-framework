@@ -393,8 +393,7 @@ public class DatabaseUtil {
                     }
 
                     // -list all fields that do not have a corresponding column
-                    for (String colName: fieldColNames.keySet()) {
-                        ModelField field = fieldColNames.get(colName);
+                    for (ModelField field : fieldColNames.values()) {
                         String message = "Field [" + field.getName() + "] of entity [" + entity.getEntityName() + "] is missing its corresponding column [" + field.getColName() + "]" + (field.getIsPk() ? " (and it is a PRIMARY KEY FIELD)" : "");
 
                         Debug.logWarning(message, module);
