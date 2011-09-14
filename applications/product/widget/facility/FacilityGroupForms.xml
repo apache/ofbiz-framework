@@ -39,7 +39,7 @@ under the License.
         <field name="facilityGroupId" use-when="facilityGroup!=null" tooltip="&amp;nbsp;${uiLabelMap.ProductNotModificationRecrationFacilityGroup}"><display/></field>
         <field name="facilityGroupId" use-when="facilityGroup==null"><hidden/></field>
         <field name="facilityGroupTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="FacilityGroupType" key-field-name="facilityGroupTypeId" description="${description}">
                 </entity-options>
             </drop-down>
@@ -139,7 +139,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeFacilityFromGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="removeFacilityFromGroup" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="facilityId"/>
                 <parameter param-name="fromDate"/>
@@ -151,7 +151,7 @@ under the License.
         <auto-fields-service service-name="addFacilityToGroup"/>
         <field name="facilityGroupId"><hidden/></field>
         <field name="facilityId">
-            <drop-down>
+            <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" description="${facilityName} [${facilityId}]">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
@@ -174,7 +174,7 @@ under the License.
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePartyFromFacilityGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="removePartyFromFacilityGroup" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="facilityGroupId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
