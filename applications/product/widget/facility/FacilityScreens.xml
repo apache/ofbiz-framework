@@ -1514,7 +1514,6 @@ under the License.
         <section>
             <actions>
                 <set field="tabButtonItem" value="EditFacilityGeoPoint"/>
-                <set field="titleProperty" value="PageTitleFacilityGeoLocation"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related-one relation-name="GeoPoint" to-value-field="geoPoint" value-field="facility"/>
@@ -1525,10 +1524,13 @@ under the License.
                 <set field="geoChart.width" value="600px"/>
                 <set field="geoChart.height" value="500px"/>
                 <set field="geoChart.points" from-field="geoPoints"/>           
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
+                <set field="title" value="${uiLabelMap.PageTitleFacilityGeoLocation} - ${facility.facilityName}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <container style="page-title"><label text="${title}"/></container>
                         <screenlet id="edit-facility-geopoint" title="${uiLabelMap.ProductEditFacilityGeoLocation}" collapsible="true" initially-collapsed="true">
                             <include-form name="EditFacilityGeoPoint" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>

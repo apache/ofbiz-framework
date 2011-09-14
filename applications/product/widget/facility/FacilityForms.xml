@@ -934,7 +934,7 @@ under the License.
     </form>
 
     <form name="EditFacilityGeoPoint" type="single" target="createUpdateFacilityGeoPoint" default-map-name="geoPoint"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        default-table-style="basic-table">
         <field name="facilityId"><hidden value="${facilityId}"/></field>
         <field name="geoPointId"><hidden/></field>
         <field name="dataSourceId">
