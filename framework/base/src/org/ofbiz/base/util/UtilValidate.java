@@ -264,31 +264,31 @@ public class UtilValidate {
     /** Removes all characters which appear in string bag from string s. */
     public static String stripCharsInBag(String s, String bag) {
         int i;
-        String returnString = "";
+        StringBuilder stringBuilder = new StringBuilder("");
 
         // Search through string's characters one by one.
         // If character is not in bag, append to returnString.
         for (i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (bag.indexOf(c) == -1) returnString += c;
+            if (bag.indexOf(c) == -1) stringBuilder.append(c);
         }
-        return returnString;
+        return stringBuilder.toString();
     }
 
     /** Removes all characters which do NOT appear in string bag from string s. */
     public static String stripCharsNotInBag(String s, String bag) {
         int i;
-        String returnString = "";
+        StringBuilder stringBuilder = new StringBuilder("");
 
         // Search through string's characters one by one.
         // If character is in bag, append to returnString.
         for (i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
 
-            if (bag.indexOf(c) != -1) returnString += c;
+            if (bag.indexOf(c) != -1) stringBuilder.append(c);
         }
-        return returnString;
+        return stringBuilder.toString();
     }
 
     /** Removes all whitespace characters from s.
