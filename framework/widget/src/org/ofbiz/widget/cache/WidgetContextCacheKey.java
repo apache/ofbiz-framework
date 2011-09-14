@@ -148,12 +148,13 @@ public class WidgetContextCacheKey {
 
     public static String printMap(Map<String, ? extends Object> map) {
         Map<String, Object> printableMap = FastMap.newInstance();
-        for (String fieldName: map.keySet()) {
+        for (Map.Entry<String, ? extends Object> entry : map.entrySet()) {
+            String fieldName = entry.getKey();
             if (!fieldNamesToSkip.contains(fieldName) &&
                     !fieldName.startsWith("javax.servlet") &&
                     !fieldName.startsWith("org.apache") &&
                     !fieldName.startsWith("_CLIENT_")) {
-                printableMap.put(fieldName, map.get(fieldName));
+                printableMap.put(fieldName, entry.getValue());
             }
         }
         return UtilMisc.printMap(printableMap);
