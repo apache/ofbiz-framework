@@ -26,7 +26,7 @@ under the License.
         <li>
           <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
           <input type="radio" id="shipping_method_${shippingMethod}" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
-          <lable for="shipping_method_${shippingMethod}">
+          <label for="shipping_method_${shippingMethod}">
             <#if shoppingCart.getShippingContactMechId()?exists>
               <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
             </#if>
@@ -74,7 +74,7 @@ under the License.
             <label far="is_gift_N">${uiLabelMap.CommonNo}</label>
           </div>
           <div>
-            <lable for="gift_message">${uiLabelMap.OrderGiftMessage}</label>
+            <label for="gift_message">${uiLabelMap.OrderGiftMessage}</label>
             <textarea class="textAreaBox" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
           </div>
         </fieldset>
