@@ -586,19 +586,19 @@ public class PaymentMethodServices {
         if (cardNumber.startsWith("*")) {
             // get the masked card number from the db
             String origCardNumber = giftCard.getString("cardNumber");
-            String origMaskedNumber = "";
+            StringBuilder origMaskedNumber = new StringBuilder("");
             int cardLength = origCardNumber.length() - 4;
             if (cardLength > 0) {
                 for (int i = 0; i < cardLength; i++) {
-                    origMaskedNumber = origMaskedNumber + "*";
+                    origMaskedNumber.append("*");
                 }
-                origMaskedNumber = origMaskedNumber + origCardNumber.substring(cardLength);
+                origMaskedNumber.append(origCardNumber.substring(cardLength));
             } else {
-                origMaskedNumber = origCardNumber;
+                origMaskedNumber.append(origCardNumber);
             }
 
             // compare the two masked numbers
-            if (cardNumber.equals(origMaskedNumber)) {
+            if (cardNumber.equals(origMaskedNumber.toString())) {
                 cardNumber = origCardNumber;
             }
         }

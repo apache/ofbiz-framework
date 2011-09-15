@@ -196,7 +196,7 @@ public class ModelRelation extends ModelChild {
     }
 
     public String keyMapString(String separator, String afterLast) {
-        String returnString = "";
+        StringBuilder stringBuilder = new StringBuilder("");
 
         if (keyMaps.size() < 1) {
             return "";
@@ -205,10 +205,12 @@ public class ModelRelation extends ModelChild {
         int i = 0;
 
         for (; i < keyMaps.size() - 1; i++) {
-            returnString = returnString + keyMaps.get(i).fieldName + separator;
+            stringBuilder.append(keyMaps.get(i).fieldName);
+            stringBuilder.append(separator);
         }
-        returnString = returnString + keyMaps.get(i).fieldName + afterLast;
-        return returnString;
+        stringBuilder.append(keyMaps.get(i).fieldName);
+        stringBuilder.append(afterLast);
+        return stringBuilder.toString();
     }
 
     public String keyMapUpperString(String separator, String afterLast) {
