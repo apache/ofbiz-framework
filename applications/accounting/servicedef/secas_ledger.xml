@@ -31,6 +31,8 @@ under the License.
     <eca service="createItemIssuance" event="commit">
         <condition field-name="orderId" operator="is-not-empty"/>
         <condition field-name="inventoryItemId" operator="is-not-empty"/>
+        <!-- Ignore the inventory shipment if the product type is service_product -->
+        <condition field-name="productTypeId" operator="not-equals" value="SERVICE_PRODUCT"/>
         <action service="createAcctgTransForSalesShipmentIssuance" mode="sync"/>
     </eca>
 
@@ -42,6 +44,8 @@ under the License.
 
     <!-- create the accounting transactions for a shipment receipt every time the inventory is received -->
     <eca service="createShipmentReceipt" event="commit">
+        <!-- Ignore the inventory shipment if the product type is service_product -->
+        <condition field-name="productTypeId" operator="not-equals" value="SERVICE_PRODUCT"/>
         <action service="createAcctgTransForShipmentReceipt" mode="sync"/>
     </eca>
 

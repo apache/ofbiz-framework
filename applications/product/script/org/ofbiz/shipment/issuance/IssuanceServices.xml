@@ -43,6 +43,11 @@ under the License.
                 <set field="updateContext.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                 <set field="updateContext.statusId" value="INV_DELIVERED"/>
                 <call-service service-name="updateInventoryItem" in-map-name="updateContext"/>
+                
+                <entity-one value-field="product" entity-name="Product">
+                    <field-map field-name="productId" from-field="inventoryItem.productId"/>
+                </entity-one>
+                <field-to-result field="product.productTypeId" result-name="productTypeId"/>
             </if-compare>
         </if-not-empty>
     </simple-method>

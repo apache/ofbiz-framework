@@ -1168,7 +1168,8 @@ public class OrderServices {
                             GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
                             ripCtx.put("productId", productId);
                             ripCtx.put("facilityId", inventoryFacilityId);
-                            ripCtx.put("inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
+                            ripCtx.put("inventoryItemTypeId", "SERIALIZED_INV_ITEM");
+                            ripCtx.put("statusId","INV_AVAILABLE");
                             ripCtx.put("quantityAccepted", orderItem.getBigDecimal("quantity"));
                             ripCtx.put("quantityRejected", 0.0);
                             ripCtx.put("userLogin", permUserLogin);
