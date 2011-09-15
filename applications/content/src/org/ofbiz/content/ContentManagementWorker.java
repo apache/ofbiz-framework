@@ -126,7 +126,7 @@ public class ContentManagementWorker {
     * @param suffix a string that can be used to distinguish the signature (probably not used).
     */
     public static String buildPKSig(GenericEntity pk, String suffix) {
-        String sig = "";
+        StringBuilder sig = new StringBuilder("");
         Collection<String> keyColl = pk.getPrimaryKey().getAllKeys();
         List<String> keyList = UtilMisc.makeListWritable(keyColl);
         Collections.sort(keyList);
@@ -135,15 +135,15 @@ public class ContentManagementWorker {
             String ky = it.next();
             String val = (String)pk.get(ky);
             if (UtilValidate.isNotEmpty(val)) {
-                if (sig.length() > 0) sig += "_";
-                sig += val;
+                if (sig.length() > 0) sig.append("_");
+                sig.append(val);
             }
         }
         if (UtilValidate.isNotEmpty(suffix)) {
-            if (sig.length() > 0) sig += "_";
-            sig += suffix;
+            if (sig.length() > 0) sig.append("_");
+            sig.append(suffix);
         }
-        return sig;
+        return sig.toString();
     }
 
     public static void setCurrentEntityMap(HttpServletRequest request, GenericEntity ent) {

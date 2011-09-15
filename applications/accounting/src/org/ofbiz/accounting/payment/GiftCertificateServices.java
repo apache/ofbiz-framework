@@ -1455,28 +1455,27 @@ public class GiftCertificateServices {
 
         Random rand = new Random();
         boolean isValid = false;
-        String number = null;
+        StringBuilder number = null;
         while (!isValid) {
-            number = "";
+            number = new StringBuilder("");
             for (int i = 0; i < length; i++) {
                 int randInt = rand.nextInt(9);
-                number = number + randInt;
+                number.append(randInt);
             }
 
             if (isId) {
-                int check = UtilValidate.getLuhnCheckDigit(number);
-                number = number + check;
+                number.append(UtilValidate.getLuhnCheckDigit(number.toString()));
 
                 // validate the number
-                if (checkCardNumber(number)) {
+                if (checkCardNumber(number.toString())) {
                     // make sure this number doens't already exist
-                    isValid = checkNumberInDatabase(delegator, number);
+                    isValid = checkNumberInDatabase(delegator, number.toString());
                 }
             } else {
                 isValid = true;
             }
         }
-        return number;
+        return number.toString();
     }
 
     private static boolean checkNumberInDatabase(Delegator delegator, String number) throws GenericEntityException {

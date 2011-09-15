@@ -167,10 +167,10 @@ public class VCard {
                         }
                         if (UtilValidate.isNotEmpty(phone)) {
                             String[] numberParts = phone.split("\\D");
-                            String telNumber = "";
+                            StringBuilder telNumber = new StringBuilder("");
                             for (String number: numberParts) {
                                 if (number != "") {
-                                    telNumber =  telNumber + number;
+                                    telNumber.append(number);
                                 }
                             }
                             serviceCtx.put("areaCode", telNumber.substring(0, 3));
