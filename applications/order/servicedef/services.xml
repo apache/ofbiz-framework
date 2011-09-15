@@ -521,8 +521,8 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shippingAmount" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    <service name="getOrderStatus" engine="simple" export="true"
-            location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="getOrderStatus" auth="false">
+    <service name="getOrderStatus" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderServices.xml"
+            invoke="getOrderStatus" auth="false">
         <description>Gets the order status</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="OUT" optional="false"/>
