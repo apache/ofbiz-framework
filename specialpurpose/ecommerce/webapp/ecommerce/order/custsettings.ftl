@@ -39,19 +39,19 @@ under the License.
       </select>
     </span>
     <span>
-      <lable for="firstName">${uiLabelMap.PartyFirstName}</label>
+      <label for="firstName">${uiLabelMap.PartyFirstName}</label>
       <input type="text" name="firstName" value="${parameters.firstName?if_exists}" /> *
     </span>
     <span>
-      <lable for="middleName">${uiLabelMap.PartyMiddleInitial}</label>
+      <label for="middleName">${uiLabelMap.PartyMiddleInitial}</label>
       <input type="text" name="middleName" value="${parameters.middleName?if_exists}" />
     </span>
     <span>
-      <lable for="lastName">${uiLabelMap.PartyLastName}</label>
+      <label for="lastName">${uiLabelMap.PartyLastName}</label>
       <input type="text" name="lastName" value="${parameters.lastName?if_exists}" /> *
     </span>
     <span>
-      <lable for="suffix">${uiLabelMap.PartySuffix}</label>
+      <label for="suffix">${uiLabelMap.PartySuffix}</label>
       <input type="text" class='inputBox' name="suffix" value="${parameters.suffix?if_exists}" />
     </span>
     </div>

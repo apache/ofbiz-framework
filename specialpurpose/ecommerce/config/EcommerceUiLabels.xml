@@ -3903,6 +3903,10 @@
         <value xml:lang="de">Ihre Bestellung wird verarbeitet, dies kann einige Minuten dauern...</value>
         <value xml:lang="en">Your order is being processed, this may take a moment...</value>
     </property>
+    <property key="EcommerceYourNamePhoneAndEmail">
+        <value xml:lang="de">Ihr Name, Telefon und E-Mail</value>
+        <value xml:lang="en">Your Name, Phone Number and E-Mail</value>
+    </property>
     <property key="EcommerceYourPinNumber">
         <value xml:lang="da">Deres PIN kode</value>
         <value xml:lang="de">Ihre Pin-Nummer</value>
