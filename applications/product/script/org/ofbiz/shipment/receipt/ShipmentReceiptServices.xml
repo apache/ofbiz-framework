@@ -45,6 +45,9 @@ under the License.
             <set field="invDet.receiptId" from-field="receiptId"/>
             <store-value value-field="invDet"/>
         </if-not-empty>
+        
+        <entity-one value-field="product" entity-name="Product"/>
+        <field-to-result field="product.productTypeId" result-name="productTypeId"/>
     </simple-method>
 
     <simple-method method-name="createShipmentReceiptRole" short-description="Create a ShipmentReceipt Role">

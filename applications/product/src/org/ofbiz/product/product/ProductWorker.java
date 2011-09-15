@@ -62,7 +62,7 @@ public class ProductWorker {
         String errMsg = "";
         if (product != null) {
             String productTypeId = product.getString("productTypeId");
-            if ("SERVICE".equals(productTypeId) || (ProductWorker.isDigital(product) && !ProductWorker.isPhysical(product))) {
+            if ("SERVICE".equals(productTypeId) || "SERVICE_PRODUCT".equals(productTypeId) || (ProductWorker.isDigital(product) && !ProductWorker.isPhysical(product))) {
                 // don't charge shipping on services or digital goods
                 return false;
             }
