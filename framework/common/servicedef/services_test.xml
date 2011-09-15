@@ -37,7 +37,7 @@ under the License.
         <attribute name="testing" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="testingNodes" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="blockingTestScv" engine="java" export="true" validate="false" require-new-transaction="true" transaction-timeout="20"
+    <service name="blockingTestScv" engine="java" validate="false" require-new-transaction="true" transaction-timeout="20"
             location="org.ofbiz.common.CommonServices" invoke="blockingTestService">
         <description>Blocking Test service</description>
         <attribute name="duration" mode="IN" type="Long" optional="true"/>
