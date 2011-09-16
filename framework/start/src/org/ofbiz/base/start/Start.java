@@ -152,10 +152,20 @@ public class Start {
     public void init(String[] args, boolean fullInit) throws IOException {
         String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
         if (globalSystemPropsFileName != null) {
+            FileInputStream stream = null;
             try {
-                System.getProperties().load(new FileInputStream(globalSystemPropsFileName));
+                stream = new FileInputStream(globalSystemPropsFileName);
+                System.getProperties().load(stream);
             } catch (IOException e) {
                 throw (IOException) new IOException("Couldn't load global system props").initCause(e);
+            } finally {
+                if (stream != null){
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        throw new IOException(e);
+                    }
+                }
             }
         }
         this.config = Config.getInstance(args);

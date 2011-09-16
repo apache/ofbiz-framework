@@ -95,16 +95,25 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         String report = request.getParameter("echo");
         if (report != null) {
+            BufferedReader reader = null;
             StringBuilder buf = new StringBuilder();
             try {
                 // read the inputstream buffer
                 String line;
-                BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+                reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
                 while ((line = reader.readLine()) != null) {
                     buf.append(line).append("\n");
                 }
             } catch (Exception e) {
                 throw new EventHandlerException(e.getMessage(), e);
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        throw new EventHandlerException(e.getMessage(), e);
+                    }
+                }
             }
             Debug.logInfo("Echo: " + buf.toString(), module);
 

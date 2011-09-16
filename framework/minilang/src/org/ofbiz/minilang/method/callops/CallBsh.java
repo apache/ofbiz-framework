@@ -88,8 +88,9 @@ public class CallBsh extends MethodOperation {
                 if (is == null) {
                     messages.add("Could not find bsh resource: " + resource);
                 } else {
+                    BufferedReader reader = null;
                     try {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                        reader = new BufferedReader(new InputStreamReader(is));
                         StringBuilder outSb = new StringBuilder();
 
                         String tempStr = null;
@@ -107,6 +108,14 @@ public class CallBsh extends MethodOperation {
                         }
                     } catch (IOException e) {
                         messages.add("IO error loading bsh resource: " + e.getMessage());
+                    } finally {
+                        if (reader != null) {
+                            try {
+                                reader.close();
+                            } catch (IOException e) {
+                                messages.add("IO error closing BufferedReader: " + e.getMessage());
+                            }
+                        }
                     }
                 }
             }
