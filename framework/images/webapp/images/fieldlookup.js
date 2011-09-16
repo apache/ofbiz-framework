@@ -472,7 +472,7 @@ function modifySubmitButton (lookupDiv) {
         //modify nav-pager
         var navPagers = jQuery("#" + lookupDiv + " .nav-pager a");
         jQuery.each(navPagers, function(navPager) {
-            jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + jQuery(navPagers[navPager]).attr("href") + "','link')");
+            jQuery(navPagers[navPager]).attr("href", "javascript:lookupPaginationAjaxRequest('" + encodeURI(jQuery(navPagers[navPager]).attr("href")) + "','link')");
         });
 
         var navPagersSelect = jQuery("#" + lookupDiv + " .nav-pager select");
