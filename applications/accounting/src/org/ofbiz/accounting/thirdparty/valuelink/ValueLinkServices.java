@@ -95,7 +95,7 @@ public class ValueLinkServices {
         byte[] testBytes = StringUtil.fromHexString(testString);
 
         // place holder
-        byte[] testEncryption = new byte[0];
+        byte[] testEncryption = null;
         String desc = "";
 
         if (mode.intValue() == 1) {

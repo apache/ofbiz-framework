@@ -297,7 +297,6 @@ public class CommonEvents {
 
         JSONObject uiLabelObject = null;
         if (UtilValidate.isNotEmpty(requiredLabels)) {
-            uiLabelObject = new JSONObject();
             // Transform JSON String to Object
             uiLabelObject = (JSONObject) JSONSerializer.toJSON(requiredLabels);
         }
@@ -336,7 +335,6 @@ public class CommonEvents {
 
         JSONObject uiLabelObject = null;
         if (UtilValidate.isNotEmpty(requiredLabels)) {
-            uiLabelObject = new JSONObject();
             // Transform JSON String to Object
             uiLabelObject = (JSONObject) JSONSerializer.toJSON(requiredLabels);
         }
