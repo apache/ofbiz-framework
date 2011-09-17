@@ -2377,7 +2377,6 @@ public class InvoiceServices {
         if (amountApplied != null) {
             context.put("amountApplied", amountApplied);
         } else {
-            amountApplied = ZERO;
             context.put("amountApplied", ZERO);
         }
 
