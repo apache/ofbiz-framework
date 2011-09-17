@@ -19,6 +19,66 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EntityImportDeletFile">
+        <value xml:lang="en">Deleting ${fileName}</value>
+        <value xml:lang="it">Stò cancellando il file ${fileName}</value>
+    </property>
+    <property key="EntityImportErrorRetrievingEntityNames">
+        <value xml:lang="en">Error retrieving entity names.</value>
+        <value xml:lang="it">Errore nell'ottenere i nome delle entità.</value>
+    </property>
+    <property key="EntityImportFailedFile">
+        <value xml:lang="en">Failed ${fileName} adding to retry list for next pass</value>
+        <value xml:lang="it">Fallita ${fileName} aggiunta alla lista di riprova al successivo passaggio</value>
+    </property>
+    <property key="EntityImportFailedFileList">
+        <value xml:lang="en">Failed Files:</value>
+        <value xml:lang="it">Lista file che hanno avuto fallimento:</value>
+    </property>
+    <property key="EntityImportFailedNumberFile">
+        <value xml:lang="en">Failed: ${failed} of ${total}</value>
+        <value xml:lang="it">Failed: ${failed} di ${total}</value>
+    </property>
+    <property key="EntityImportNoDataSourceSpecified">
+        <value xml:lang="en">Unable to locate the datasource helper for the group ${groupNameToUse}</value>
+        <value xml:lang="it">Non è possibile localizzare la sorgente dati per il gruppo ${groupNameToUse}</value>
+    </property>
+    <property key="EntityImportNoXmlFileOrTextSpecified">
+        <value xml:lang="en">No entity xml file or text specified</value>
+        <value xml:lang="it">Nessun file xml entità o testo specificato</value>
+    </property>
+    <property key="EntityImportNoXmlFileSpecified">
+        <value xml:lang="en">No filename/URL or complete XML document specified, doing nothing.</value>
+        <value xml:lang="it">Nessun nome file/URL o documento XML completo specificato, nientre verrà fatto.</value>
+    </property>
+    <property key="EntityImportNumberOfEntityToBeProcessed">
+        <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
+        <value xml:lang="it">Ottenute ${numberRead} entità da ${fileName}</value>
+    </property>
+    <property key="EntityImportParsingError">
+        <value xml:lang="en">ERROR parsing Entity Xml file: ${errorString}</value>
+        <value xml:lang="it">ERRORE di parsing file entità XML: ${errorString}</value>
+    </property>
+    <property key="EntityImportPassedFile">
+        <value xml:lang="en">Pass ${passes} complete</value>
+        <value xml:lang="it">Passati ${passes} completati</value>
+    </property>
+    <property key="EntityImportPathNotFound">
+        <value xml:lang="en">path not found or can't be read</value>
+        <value xml:lang="it">path non trovato o non può essere letto</value>
+    </property>
+    <property key="EntityImportPathNotSpecified">
+        <value xml:lang="en">No path specified, doing nothing.</value>
+        <value xml:lang="it">Nessun path specificato, non verrà fatto niente.</value>
+    </property>
+    <property key="EntityImportRowProcessed">
+        <value xml:lang="en">Got ${numberRead} entities to write to the datasource.</value>
+        <value xml:lang="it">Ottenute ${numberRead} entità da scrivere sulla sorgente dati.</value>
+    </property>
+    <property key="EntityImportSucceededNumberFile">
+        <value xml:lang="en">Succeeded: ${succeeded} of ${total}</value>
+        <value xml:lang="it">Successo: ${succeeded} di ${total}</value>
+    </property>
     <property key="FormFieldTitle_date1">
         <value xml:lang="de">Datum1</value>
         <value xml:lang="en">date1</value>
@@ -108,8 +168,8 @@
         <value xml:lang="zh_TW">整數2</value>
     </property>
     <property key="FormFieldTitle_keepRemoveInfoHours">
-        <value xml:lang="en">Keep Remove Info Hours</value>
         <value xml:lang="de">Info-Stunden beibehalten/entfernen</value>
+        <value xml:lang="en">Keep Remove Info Hours</value>
         <value xml:lang="fr">Maintenir le retrait des heures d'information</value>
         <value xml:lang="it">Mantieni gli orari delle informazioni eliminate</value>
         <value xml:lang="ro">Mentine Orariul  Informatii Sterse </value>
@@ -558,6 +618,10 @@
         <value xml:lang="zh">调整调试级别</value>
         <value xml:lang="zh_TW">調整調試級別</value>
     </property>
+    <property key="WebtoolsAdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
+    </property>
     <property key="WebtoolsAdministration">
         <value xml:lang="de">Administration</value>
         <value xml:lang="en">Administration</value>
@@ -567,10 +631,6 @@
         <value xml:lang="th">ผู้ดูแลระบบ</value>
         <value xml:lang="zh">管理</value>
         <value xml:lang="zh_TW">管理</value>
-    </property>
-    <property key="WebtoolsAdminPortalPage">
-        <value xml:lang="en">Portal page Admin.</value>
-        <value xml:lang="fr">Admin. Page portail</value>
     </property>
     <property key="WebtoolsAll">
         <value xml:lang="de">Alle</value>
@@ -1372,66 +1432,6 @@
         <value xml:lang="zh">实体引擎工具</value>
         <value xml:lang="zh_TW">實體引擎工具</value>
     </property>
-    <property key="EntityImportDeletFile">
-        <value xml:lang="en">Deleting ${fileName}</value>
-        <value xml:lang="it">Stò cancellando il file ${fileName}</value>
-    </property>
-    <property key="EntityImportErrorRetrievingEntityNames">
-        <value xml:lang="en">Error retrieving entity names.</value>
-        <value xml:lang="it">Errore nell'ottenere i nome delle entità.</value>
-    </property>
-    <property key="EntityImportFailedNumberFile">
-        <value xml:lang="en">Failed: ${failed} of ${total}</value>
-        <value xml:lang="it">Failed: ${failed} di ${total}</value>
-    </property>
-    <property key="EntityImportFailedFile">
-        <value xml:lang="en">Failed ${fileName} adding to retry list for next pass</value>
-        <value xml:lang="it">Fallita ${fileName} aggiunta alla lista di riprova al successivo passaggio</value>
-    </property>
-    <property key="EntityImportFailedFileList">
-        <value xml:lang="en">Failed Files:</value>
-        <value xml:lang="it">Lista file che hanno avuto fallimento:</value>
-    </property>
-    <property key="EntityImportNoDataSourceSpecified">
-        <value xml:lang="en">Unable to locate the datasource helper for the group ${groupNameToUse}</value>
-        <value xml:lang="it">Non è possibile localizzare la sorgente dati per il gruppo ${groupNameToUse}</value>
-    </property>
-    <property key="EntityImportNoXmlFileOrTextSpecified">
-        <value xml:lang="en">No entity xml file or text specified</value>
-        <value xml:lang="it">Nessun file xml entità o testo specificato</value>
-    </property>
-    <property key="EntityImportNoXmlFileSpecified">
-        <value xml:lang="en">No filename/URL or complete XML document specified, doing nothing.</value>
-        <value xml:lang="it">Nessun nome file/URL o documento XML completo specificato, nientre verrà fatto.</value>
-    </property>
-    <property key="EntityImportNumberOfEntityToBeProcessed">
-        <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
-        <value xml:lang="it">Ottenute ${numberRead} entità da ${fileName}</value>
-    </property>
-    <property key="EntityImportParsingError">
-        <value xml:lang="en">ERROR parsing Entity Xml file: ${errorString}</value>
-        <value xml:lang="it">ERRORE di parsing file entità XML: ${errorString}</value>
-    </property>
-    <property key="EntityImportPathNotFound">
-        <value xml:lang="en">path not found or can't be read</value>
-        <value xml:lang="it">path non trovato o non può essere letto</value>
-    </property>
-    <property key="EntityImportPathNotSpecified">
-        <value xml:lang="en">No path specified, doing nothing.</value>
-        <value xml:lang="it">Nessun path specificato, non verrà fatto niente.</value>
-    </property>
-    <property key="EntityImportPassedFile">
-        <value xml:lang="en">Pass ${passes} complete</value>
-        <value xml:lang="it">Passati ${passes} completati</value>
-    </property>
-    <property key="EntityImportRowProcessed">
-        <value xml:lang="en">Got ${numberRead} entities to write to the datasource.</value>
-        <value xml:lang="it">Ottenute ${numberRead} entità da scrivere sulla sorgente dati.</value>
-    </property>
-    <property key="EntityImportSucceededNumberFile">
-        <value xml:lang="en">Succeeded: ${succeeded} of ${total}</value>
-        <value xml:lang="it">Successo: ${succeeded} di ${total}</value>
-    </property>
     <property key="WebtoolsEntityName">
         <value xml:lang="de">Entität</value>
         <value xml:lang="en">Entity Name</value>
@@ -1924,24 +1924,6 @@
         <value xml:lang="zh">通用Java线程</value>
         <value xml:lang="zh_TW">通用Java線程</value>
     </property>
-    <property key="WebtoolsGroup">
-        <value xml:lang="de">Gruppe</value>
-        <value xml:lang="en">Group</value>
-        <value xml:lang="fr">Groupe</value>
-        <value xml:lang="it">Gruppo</value>
-        <value xml:lang="th">กลุ่ม</value>
-        <value xml:lang="zh">组</value>
-        <value xml:lang="zh_TW">組</value>
-    </property>
-    <property key="WebtoolsGroupName">
-        <value xml:lang="de">Gruppenname</value>
-        <value xml:lang="en">Group Name</value>
-        <value xml:lang="fr">Nom de groupe</value>
-        <value xml:lang="it">Nome gruppo</value>
-        <value xml:lang="th">ชื่อกลุ่ม</value>
-        <value xml:lang="zh">组名称</value>
-        <value xml:lang="zh_TW">組名稱</value>
-    </property>
     <property key="WebtoolsGeoCreateNew">
         <value xml:lang="en">Create/Edit Geo</value>
         <value xml:lang="fr">Créer/Modifier une zone géographique</value>
@@ -1949,7 +1931,7 @@
     <property key="WebtoolsGeoEdit">
         <value xml:lang="en">Create/Edit Geo</value>
         <value xml:lang="fr">Créer/Modifier la zone géographique</value>
-    </property>    
+    </property>
     <property key="WebtoolsGeoManagement">
         <value xml:lang="en">Geo Management</value>
         <value xml:lang="fr">Gestion des zones géographiques</value>
@@ -1969,6 +1951,24 @@
     <property key="WebtoolsGeosSelect">
         <value xml:lang="en">Select Geos to associate</value>
         <value xml:lang="fr">Sélectionner les zones géographiques à associer</value>
+    </property>
+    <property key="WebtoolsGroup">
+        <value xml:lang="de">Gruppe</value>
+        <value xml:lang="en">Group</value>
+        <value xml:lang="fr">Groupe</value>
+        <value xml:lang="it">Gruppo</value>
+        <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="zh">组</value>
+        <value xml:lang="zh_TW">組</value>
+    </property>
+    <property key="WebtoolsGroupName">
+        <value xml:lang="de">Gruppenname</value>
+        <value xml:lang="en">Group Name</value>
+        <value xml:lang="fr">Nom de groupe</value>
+        <value xml:lang="it">Nome gruppo</value>
+        <value xml:lang="th">ชื่อกลุ่ม</value>
+        <value xml:lang="zh">组名称</value>
+        <value xml:lang="zh_TW">組名稱</value>
     </property>
     <property key="WebtoolsHits">
         <value xml:lang="de">Besuche</value>
@@ -2088,7 +2088,7 @@
         <value xml:lang="en">Index Name</value>
         <value xml:lang="fr">Nom d'index</value>
         <value xml:lang="it">Nome indice</value>
-        <value xml:lang="pt">Nome do Ãndice</value>
+        <value xml:lang="pt">Nome do Ã&#141;ndice</value>
         <value xml:lang="th">ชื่อตัววัด</value>
         <value xml:lang="zh">索引名称</value>
         <value xml:lang="zh_TW">索引名稱</value>
@@ -2483,7 +2483,7 @@
         <value xml:lang="de">Um zu beginnen, wählen Sie eine Datei aus; danach werden alle Optionen aktiviert. Sofern kein Button erscheint, setzen Sie den Cursor in ein Feld und validieren Sie mit 'Enter'.</value>
         <value xml:lang="en">For the moment, to begin you need to choose one file, after all options are opened. Without button put the cursor in a field and validate.</value>
         <value xml:lang="fr">Pour le moment, pour commencer vous devez choisir un fichier, ensuite tout est ouvert. Si aucun bouton n'apparaît, postionnez le curseur dans un champ et validez.</value>
-    </property>    
+    </property>
     <property key="WebtoolsLabelManagerUpdate">
         <value xml:lang="de">Label aktualisieren</value>
         <value xml:lang="en">Update Label</value>
@@ -2686,6 +2686,9 @@
         <value xml:lang="zh">维护时间戳？</value>
         <value xml:lang="zh_TW">維護時間戳？</value>
     </property>
+    <property key="WebtoolsMaxInMemory">
+        <value xml:lang="en">Max In Memory</value>
+    </property>
     <property key="WebtoolsMaxMemory">
         <value xml:lang="de">Max. Speicher</value>
         <value xml:lang="en">MAX</value>
@@ -2737,9 +2740,6 @@
         <value xml:lang="th">ขนาดสูงสุด</value>
         <value xml:lang="zh">最大大小</value>
         <value xml:lang="zh_TW">最大大小</value>
-    </property>
-    <property key="WebtoolsMaxInMemory">
-        <value xml:lang="en">Max In Memory</value>
     </property>
     <property key="WebtoolsMemory">
         <value xml:lang="de">Speicher</value>
@@ -2877,6 +2877,16 @@
         <value xml:lang="zh">没有实体读</value>
         <value xml:lang="zh_TW">沒有實體讀</value>
     </property>
+    <property key="WebtoolsNoEntityRecordsFound">
+        <value xml:lang="de">Für die Entität wurden keine Datensätze gefunden</value>
+        <value xml:lang="en">No Records found for Entity</value>
+        <value xml:lang="fr">Aucun enregistrement trouvé pour l'entité</value>
+        <value xml:lang="it">Nessun records trovato per l'entità</value>
+        <value xml:lang="ro">Nici-un Record gasit pentru Entitatea WebtoolsNoUtilCacheFound=Nici-o instanta de Cache gasita</value>
+        <value xml:lang="th">ไม่พบข้อมูลที่บันทึกสำหรับเอนติตี้</value>
+        <value xml:lang="zh">没有找到实体记录</value>
+        <value xml:lang="zh_TW">沒有找到實體記錄</value>
+    </property>
     <property key="WebtoolsNoFilenameSpecified">
         <value xml:lang="de">Kein Dateiname oder keine Entitätennamen angegeben</value>
         <value xml:lang="en">No filename specified or no entity names specified, doing nothing.</value>
@@ -2895,16 +2905,6 @@
         <value xml:lang="th">ไม่ระบุค่าตัวแปร</value>
         <value xml:lang="zh">没有定义参数</value>
         <value xml:lang="zh_TW">沒有定義參數</value>
-    </property>
-    <property key="WebtoolsNoEntityRecordsFound">
-        <value xml:lang="de">Für die Entität wurden keine Datensätze gefunden</value>
-        <value xml:lang="en">No Records found for Entity</value>
-        <value xml:lang="fr">Aucun enregistrement trouvé pour l'entité</value>
-        <value xml:lang="it">Nessun records trovato per l'entità</value>
-        <value xml:lang="ro">Nici-un Record gasit pentru Entitatea WebtoolsNoUtilCacheFound=Nici-o instanta de Cache gasita</value>
-        <value xml:lang="th">ไม่พบข้อมูลที่บันทึกสำหรับเอนติตี้</value>
-        <value xml:lang="zh">没有找到实体记录</value>
-        <value xml:lang="zh_TW">沒有找到實體記錄</value>
     </property>
     <property key="WebtoolsNoRunningProcesses">
         <value xml:lang="de">Es laufen keine Prozesse</value>
@@ -3087,8 +3087,8 @@
     </property>
     <property key="WebtoolsOutToBrowser">
         <value xml:lang="de">ODER Browserausgabe</value>
-        <value xml:lang="en">OR Out to Browser</value>
-        <value xml:lang="fr">OU en dehors vers le navigateur</value>
+        <value xml:lang="en">&lt;U&gt;OR&lt;/U&gt; Out to Browser (FireFox, Safari and Opera: view source. Chrome does not work)</value>
+        <value xml:lang="fr">&lt;U&gt;OU&lt;/U&gt; dans le navigateur (FireFox, Safari  et Opera : voir le source. Chrome ne fontionne pas)</value>
         <value xml:lang="it">O output al browser</value>
         <value xml:lang="pt">Ou devolver para o navegador</value>
         <value xml:lang="th">หรืออกไปสู่ Browser</value>
@@ -4767,5 +4767,5 @@
         <value xml:lang="th">คุณสามารถที่จะสร้าง Entity ได้ ${entityName} โดยการเข้าสู่ค่าที่คุณต้องการและคลิก Create.</value>
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
         <value xml:lang="zh_TW">創建一個實體 ${entityName} ：輸入值，然後點擊新建.</value>
-    </property>    
+    </property>
 </resource>

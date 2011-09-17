@@ -82,7 +82,7 @@ under the License.
         </td>
       </tr>
       <tr>
-        <td class="label">${uiLabelMap.WebtoolsOutToBrowser}</td>
+        <td class="label">${StringUtil.wrapString(uiLabelMap.WebtoolsOutToBrowser)}</td>
         <td><input type="checkbox" name="tobrowser"<#if tobrowser?has_content> checked="checked"</#if> /></td>
       </tr>
     </table>
