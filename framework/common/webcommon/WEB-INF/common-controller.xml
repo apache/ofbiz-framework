@@ -193,6 +193,11 @@ under the License.
     </request-map>
 
     <request-map uri="showHelp">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="showHelp"/>
+    </request-map>
+
+    <request-map uri="showHelpPublic">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="showHelp"/>
     </request-map>
