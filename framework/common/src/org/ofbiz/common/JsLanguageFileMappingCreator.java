@@ -1,10 +1,8 @@
 package org.ofbiz.common;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,19 +18,18 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
-import freemarker.template.TemplateException;
-
 public class JsLanguageFileMappingCreator {
 
     private static final String module = JsLanguageFileMappingCreator.class.getName();
 
     public static Map<String, Object> createJsLanguageFileMapping(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
+        String encoding = (String) context.get("encoding"); // default value: UTF-8
+
         List<Locale> localeList = UtilMisc.availableLocales();
         Map<String, Object> jQueryLocaleFile = FastMap.newInstance();
         Map<String, String> dateJsLocaleFile = FastMap.newInstance();
         Map<String, String> validationLocaleFile = FastMap.newInstance();
-        //Map<String, String> validationMethodsLocaleFile = FastMap.newInstance();
 
         // setup some variables to locate the js files
         String componentRoot = "component://images/webapp";
@@ -147,32 +144,13 @@ public class JsLanguageFileMappingCreator {
         Writer writer = new StringWriter();
         try {
             FreeMarkerWorker.renderTemplateAtLocation(template, mapWrapper, writer);
+            // write it as a Java file
+            File file = new File(output);
+            FileUtils.writeStringToFile(file, writer.toString(), encoding);
         }
-        catch (MalformedURLException e) {
+        catch (Exception e) {
             Debug.logError(e, module);
-            return result = ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
-        }
-        catch (TemplateException e) {
-            Debug.logError(e, module);
-            return result = ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
-        }
-        catch (IOException e) {
-            Debug.logError(e, module);
-            return result = ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
-        }
-        catch (IllegalArgumentException e) {
-            Debug.logError(e, module);
-            return result = ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
-        }
-
-        // write it as a Java file
-        File file = new File(output);
-        try {
-            FileUtils.writeStringToFile(file, writer.toString(), "UTF-8");
-        }
-        catch (IOException e) {
-            Debug.logError(e, module);
-            return result = ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
+            return ServiceUtil.returnError("The Outputfile could not be created: " + e.getMessage());
         }
 
         return result;
