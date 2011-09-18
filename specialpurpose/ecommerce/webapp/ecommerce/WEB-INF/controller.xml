@@ -621,7 +621,7 @@ under the License.
     <request-map uri="quickcheckout">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.CheckOutEvents" invoke="cartNotEmpty"/>
-        <response name="success" type="view" value="quickcheckout"/>
+        <response name="success" type="view"  save-current-view="true" value="quickcheckout"/>
         <response name="error" type="view" value="main"/>
     </request-map>
 
