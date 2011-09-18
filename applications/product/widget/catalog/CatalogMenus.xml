@@ -156,7 +156,7 @@ under the License.
                 <not><if-empty field="productCategory"/></not>
             </condition>
             <link target="createProductInCategoryStart">
-                <parameter param-name="prodCatalogId"/>
+                <parameter param-name="productCategoryId"/>
             </link>
         </menu-item>
         <menu-item name="AdvancedSearch" title="${uiLabelMap.ProductSearchInCategory}" widget-style="buttontext search">
