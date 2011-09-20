@@ -299,6 +299,8 @@ under the License.
     <view-map name="LookupLeads" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupLeads"/>
     <view-map name="LookupAccounts" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupAccounts"/>
     <view-map name="LookupAccountLeads" type="screen" page="component://marketing/widget/sfa/LookupScreens.xml#LookupAccountLeads"/>
+    
+    <view-map name="ListPartyCommEvents" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#OpportunityCommEvent"/>
 
     <!-- end of view mappings -->
 </site-conf>
