@@ -453,7 +453,155 @@ under the License.
             <arg value="file=${data-file}"/>
         </java>
     </target>
-
+    <!-- =================================
+          target: run-install-tenant
+         ================================= -->
+    <target name="run-install-tenant" depends="build,run-install-tenant-all,run-install-tenant-reader,run-install-tenant-component-all,run-install-tenant-component-reader"
+            description="This loads data using tenantId, syntax eg: ant run-install-tenant -DtenantId=DEMO1 (needs multitenant=Y in general.properties)">
+    </target>
+    <target name="check-tenant-id">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="readers=tenant"/>
+        </java>
+        <condition property="hasTenant">
+            <and>
+                <length string="${tenantId}" trim="true" when="greater" length="0"/>
+                <not><contains string="${tenantId}" substring="tenantId"/></not>
+                <or>
+                    <length string="${component}" trim="true" when="equal" length="0"/>
+                    <contains string="${component}" substring="component"/>
+                </or>
+            </and>
+        </condition>
+        <condition property="hasTenantComponent">
+            <and>
+                <length string="${tenantId}" trim="true" when="greater" length="0"/>
+                <not><contains string="${tenantId}" substring="tenantId"/></not>
+                <length string="${component}" trim="true" when="greater" length="0"/>
+                <not><contains string="${component}" substring="component"/></not>
+            </and>
+        </condition>
+    </target>
+    <target name="check-tenant-reader" depends="check-tenant-id" if="hasTenant">
+        <condition property="hasReader">
+            <and>
+                <length string="${data-readers}" trim="true" when="greater" length="0"/>
+                <not><contains string="${data-readers}" substring="data-readers"/></not>
+            </and>
+        </condition>
+        <condition property="noReader">
+            <or>
+                <length string="${data-readers}" trim="true" when="equal" length="0"/>
+                <contains string="${data-readers}" substring="data-readers"/>
+            </or>
+        </condition>
+    </target>
+    <target name="run-install-tenant-all" depends="check-tenant-reader" if="noReader">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=default#${tenantId}"/>
+        </java>
+    </target>
+    <target name="run-install-tenant-reader" depends="check-tenant-reader" if="hasReader">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=default#${tenantId}"/>
+            <arg value="readers=${data-readers}"/>
+        </java>
+    </target>
+    <!-- run-install-tenant-component -->
+    <target name="run-install-tenant-component" if="hasTenantComponent" depends="check-tenant-id">
+        <condition property="hasComponentReader">
+            <and>
+                <length string="${data-readers}" trim="true" when="greater" length="0"/>
+                <not><contains string="${data-readers}" substring="data-readers"/></not>
+            </and>
+        </condition>
+        <condition property="noComponentReader">
+            <or>
+                <length string="${data-readers}" trim="true" when="equal" length="0"/>
+                <contains string="${data-readers}" substring="data-readers"/>
+            </or>
+        </condition>
+    </target>
+    <target name="run-install-tenant-component-all" depends="run-install-tenant-component" if="noComponentReader">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=default#${tenantId}"/>
+            <arg value="component=${component}"/>
+        </java>
+    </target>
+    <target name="run-install-tenant-component-reader" depends="run-install-tenant-component" if="hasComponentReader">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=default#${tenantId}"/>
+            <arg value="readers=${data-readers}"/>
+            <arg value="component=${component}"/>
+        </java>
+    </target>
+    <!-- =================================
+          target: run-install-all-tenants
+         ================================= -->
+    <target name="run-install-all-tenants" depends="build,run-install-tenants-all,run-install-tenants-reader"
+           description="This loads data all tenants, syntax eg: ant run-install-all-tenants (needs multitenant=Y in general.properties)">
+    </target>
+    <target name="check-tenants-reader">
+        <property name="delegator" value="all-tenants"/>
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="readers=tenant"/>
+        </java>
+        <condition property="hasReader">
+            <and>
+                <length string="${data-readers}" trim="true" when="greater" length="0"/>
+                <not><contains string="${data-readers}" substring="data-readers"/></not>
+            </and>
+        </condition>
+        <condition property="noReader">
+            <or>
+                <length string="${data-readers}" trim="true" when="equal" length="0"/>
+                <contains string="${data-readers}" substring="data-readers"/>
+            </or>
+        </condition>
+    </target>
+    <target name="run-install-tenants-all" depends="check-tenants-reader" if="noReader">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=${delegator}"/>
+        </java>
+    </target>
+    <target name="run-install-tenants-reader" depends="check-tenants-reader" if="hasReader">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="readers=${data-readers}"/>
+            <arg value="delegator=${delegator}"/>
+        </java>
+    </target>
     <!-- =================================
           target: run-create-tenant
          ================================= -->

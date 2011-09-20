@@ -121,4 +121,24 @@ under the License.
         <!- - NOTE: there is no FK to the UserLogin entity, which is in a higher-level component, and would normally be in a separate database - ->
     </entity>
     -->
+    <entity entity-name="Component" package-name="org.ofbiz.entity.tenant">
+        <description>Component Entity</description>
+        <field name="componentName" type="name"></field>
+        <field name="rootLocation" type="description"></field>
+        <prim-key field="componentName"/>
+    </entity>
+    <entity entity-name="TenantComponent" package-name="org.ofbiz.entity.tenant">
+        <description></description>
+        <field name="tenantId" type="id-ne"></field>
+        <field name="componentName" type="name"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <prim-key field="componentName"/>
+        <prim-key field="tenantId"/>
+        <relation type="one" fk-name="TNTCOMP_TNT" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
+        </relation>
+        <relation type="one" fk-name="COMP_CNT" rel-entity-name="Component">
+            <key-map field-name="componentName"/>
+        </relation>
+    </entity>
 </entitymodel>
