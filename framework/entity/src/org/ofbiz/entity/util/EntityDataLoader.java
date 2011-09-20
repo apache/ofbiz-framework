@@ -176,6 +176,23 @@ public class EntityDataLoader {
         return urlList;
     }
 
+    public static <E> List<URL> getUrlByComponentList(String helperName, List<String> components, List<E> readerNames) {
+        String paths = getPathsString(helperName);
+        List<URL> urlList = new LinkedList<URL>();
+        for (String component : components) {
+            urlList.addAll(getUrlList(helperName, component, readerNames));
+        }
+        return urlList;
+    }
+
+    public static List<URL> getUrlByComponentList(String helperName, List<String> components) {
+        DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
+        List<URL> urlList = new LinkedList<URL>();
+        for (String component : components) {
+            urlList.addAll(getUrlList(helperName, component));
+        }
+        return urlList;
+    }
     public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, -1);
     }
