@@ -117,4 +117,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="OpportunityCommEvent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListCommunications"/>
+                <set field="tabButtonItem" value="PartyCommEvents"/>
+                <set field="subTabButtonItem" value="CommunicationEvent"/>
+                <set field="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                <service service-name="findPartyInSalesOpportunityRole" result-map="leadPartyResult">
+                    <field-map field-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+                    <field-map field-name="roleTypeId" value="LEAD"/>
+                </service>
+                <set field="partyId" from-field="leadPartyResult.partyId" default-value="${parameters.partyId}"/>
+                <entity-and entity-name="Party" list="partyperson">
+                    <field-map field-name="partyId" from-field="partyId"/>
+                    <field-map field-name="partyTypeId" value="PERSON"/>
+                </entity-and>
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
+                    <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
+                <entity-and list="contacts" entity-name="PartyRelationship" filter-by-date="true">
+                    <field-map field-name="partyIdFrom" from-field="partyId"/>
+                    <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                    <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                    <order-by field-name="partyIdTo"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonOpportunityDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
+                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommSubTabBar"/>
+                        <screenlet title="${uiLabelMap.PageTitleListCommunications} ${partyId}">
+                            <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommEvents"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>
