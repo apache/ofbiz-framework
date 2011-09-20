@@ -35,7 +35,6 @@ public class ModelWidget implements Serializable {
     /**
      * The parameter name used to control widget boundary comments. Currently
      * set to "widgetVerbose".
-     * </code>
      */
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
     protected String name;
