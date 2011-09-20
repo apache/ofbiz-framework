@@ -646,4 +646,9 @@ if (product) {
         }
         context.productImageList = productImageList;
     }
+    
+    // get reservation start date for rental product
+    if("ASSET_USAGE".equals(productTypeId) || "ASSET_USAGE_OUT_IN".equals(productTypeId)){
+        context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0,10); // should be tomorrow.
+    }
 }
