@@ -45,9 +45,21 @@ under the License.
             <set field="invDet.receiptId" from-field="receiptId"/>
             <store-value value-field="invDet"/>
         </if-not-empty>
+        <set field="affectAccounting" type="Boolean" value="true"/>
         
         <entity-one value-field="product" entity-name="Product"/>
-        <field-to-result field="product.productTypeId" result-name="productTypeId"/>
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="product.productTypeId" operator="equals" value="SERVICE_PRODUCT"/>
+                    <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE_OUT_IN"/>
+                </or>
+            </condition>
+            <then>
+                <set field="affectAccounting" type="Boolean" value="false"/>
+            </then>
+        </if>
+        <field-to-result field="affectAccounting" result-name="affectAccounting"/>
     </simple-method>
 
     <simple-method method-name="createShipmentReceiptRole" short-description="Create a ShipmentReceipt Role">

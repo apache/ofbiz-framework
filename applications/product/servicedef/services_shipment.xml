@@ -397,7 +397,7 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="productTypeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
     </service>
     <service name="updateItemIssuance" default-entity-name="ItemIssuance" engine="simple"
             location="component://product/script/org/ofbiz/shipment/issuance/IssuanceServices.xml" invoke="updateItemIssuance" auth="true">
@@ -736,7 +736,7 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <implements service="interfaceShipmentReceipt"/>
         <attribute name="receiptId" type="String" mode="OUT" optional="false"/>
-        <attribute name="productTypeId" type="String" mode="OUT" optional="true"/>
+        <attribute name="affectAccounting" type="Boolean" mode="OUT" optional="true"/>
     </service>
     <service name="updatePurchaseShipmentFromReceipt" engine="java"
       location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="updatePurchaseShipmentFromReceipt" auth="true">
