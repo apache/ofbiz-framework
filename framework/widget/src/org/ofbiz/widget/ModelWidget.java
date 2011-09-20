@@ -34,20 +34,7 @@ public class ModelWidget implements Serializable {
 
     /**
      * The parameter name used to control widget boundary comments. Currently
-     * set to "widgetVerbose". Set the parameter to "true" to enable widget
-     * boundary comments.<br/><br/>
-     * <code>WEB-INF/web.xml</code> example:<br/><br/>
-     * <code>
-     * &lt;context-param&gt;<br/>
-     * &nbsp;&nbsp;&lt;param-name&gt;widgetVerbose&lt;/param-name&gt;<br/>
-     * &nbsp;&nbsp;&lt;param-value&gt;true&lt;/param-value&gt;<br/>
-     * &lt;/context-param&gt;
-     * </code><br/><br/>
-     * Screen widget example:<br/><br/>
-     * <code>
-     * &lt;actions&gt;<br/>
-     * &nbsp;&nbsp;&lt;set field="parameters.widgetVerbose" value="true" global="true"/&gt;<br/>
-     * &lt;/actions&gt;
+     * set to "widgetVerbose".
      * </code>
      */
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
@@ -139,14 +126,18 @@ public class ModelWidget implements Serializable {
     }
 
     /**
-     * Returns true if widget boundary comments are enabled. Widget boundary comments are
-     * enabled by setting widgetVerbose true in the context Map, or by setting
-     * widget.verbose=true in widget.properties.
+     * Returns <code>true</code> if widget boundary comments are enabled. Widget boundary comments are
+     * enabled by setting <code>widget.verbose=true</code> in the <code>widget.properties</code> file.
+     * The <code>true</code> setting can be overridden in <code>web.xml</code> or in the screen
+     * rendering context. If <code>widget.verbose</code> is set to <code>false</code> in the
+     * <code>widget.properties</code> file, then that setting will override all other settings and
+     * disable all widget boundary comments.
+     * 
      * @param context Optional context Map
      */
     public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> context) {
         boolean result = "true".equals(UtilProperties.getPropertyValue("widget", "widget.verbose"));
-        if (result == false && context != null) {
+        if (result && context != null) {
             String str = (String) context.get(enableBoundaryCommentsParam);
             if (str != null) {
                 result = "true".equals(str);
