@@ -35,6 +35,7 @@ under the License.
         </if-empty>
 
         <create-value value-field="newEntity"/>
+        <set field="affectAccounting" type="Boolean" value="true"/>
 
         <!-- if the InventoryItem issued is serialized, then change its status to DELIVERED -->
         <get-related-one value-field="newEntity" relation-name="InventoryItem" to-value-field="inventoryItem"/>
@@ -47,9 +48,20 @@ under the License.
                 <entity-one value-field="product" entity-name="Product">
                     <field-map field-name="productId" from-field="inventoryItem.productId"/>
                 </entity-one>
-                <field-to-result field="product.productTypeId" result-name="productTypeId"/>
+                <if>
+                    <condition>
+                        <or>
+                            <if-compare field="product.productTypeId" operator="equals" value="SERVICE_PRODUCT"/>
+                            <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE_OUT_IN"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <set field="affectAccounting" type="Boolean" value="false"/>
+                    </then>
+                </if>
             </if-compare>
         </if-not-empty>
+        <field-to-result field="affectAccounting" result-name="affectAccounting"/>
     </simple-method>
     <simple-method method-name="updateItemIssuance" short-description="Update ItemIssuance">
         <set value="Update ItemIssuance" field="operationName"/>
