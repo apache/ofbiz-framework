@@ -118,7 +118,7 @@ public class JettyContainer implements Container {
 
                         // set the virtual hosts
                         if (UtilValidate.isNotEmpty(virtualHosts)) {
-                            context.setVirtualHosts((String[]) virtualHosts.toArray());
+                            context.setVirtualHosts(virtualHosts.toArray(new String[virtualHosts.size()]));
                         }
 
                         // set the init parameters

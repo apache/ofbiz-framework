@@ -176,7 +176,7 @@ public class KeyStoreUtil {
             certs[0] = cert;
         } else {
             Debug.log("Certificate chain length : " + certCol.size(), module);
-            certs = (Certificate[]) certCol.toArray();
+            certs = certCol.toArray(new Certificate[certCol.size()]);
         }
 
         ks.setKeyEntry(alias, pk, keyPass.toCharArray(), certs);
