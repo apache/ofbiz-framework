@@ -99,7 +99,7 @@ public class PermissionRecorder {
     }
 
     public void setContentPurposeOperations(List<GenericValue> opList) {
-       contentPurposeOperations = (GenericValue [])opList.toArray();
+       contentPurposeOperations = opList.toArray(new GenericValue[opList.size()]);
     }
 
     public void setPrivilegeEnumId(String id) {
@@ -115,7 +115,7 @@ public class PermissionRecorder {
     }
 
     public void setStatusTargets(List<String> opList) {
-       statusTargets = (String [])opList.toArray();
+       statusTargets = opList.toArray(new String[opList.size()]);
     }
 
     public String [] getTargetOperations() {
@@ -123,7 +123,7 @@ public class PermissionRecorder {
     }
 
     public void setTargetOperations(List<String> opList) {
-       targetOperations = (String [])opList.toArray();
+       targetOperations = opList.toArray(new String[opList.size()]);
     }
 
     public void setCurrentContentId(String id) {
