@@ -71,7 +71,7 @@ public class RunningService {
     public boolean equals(Object o) {
         if (o != null && o instanceof RunningService) {
             RunningService x = (RunningService) o;
-            if (this.model.equals(x) && this.mode == x.getMode() && this.startStamp.equals(x.getStartStamp())) {
+            if (this.model.equals(x.getModelService()) && this.mode == x.getMode() && this.startStamp.equals(x.getStartStamp())) {
                 return true;
             }
         }
