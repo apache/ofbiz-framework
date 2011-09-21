@@ -1149,6 +1149,12 @@ public class CommunicationEventServices {
                             tempResults.addAll(filteredList);
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
+                        } finally {
+                            try {
+                                listIt.close();
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, module);
+                            }
                         }
                     }
                 }
