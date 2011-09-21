@@ -1310,7 +1310,7 @@ public class ProductSearch {
         @Override
         public boolean equals(Object obj) {
             ProductSearchConstraint psc = (ProductSearchConstraint) obj;
-            if (psc instanceof FeatureConstraint) {
+            if (psc instanceof FeatureSetConstraint) {
                 FeatureSetConstraint that = (FeatureSetConstraint) psc;
                 if (this.productFeatureIdSet == null) {
                     if (that.productFeatureIdSet != null) {
