@@ -193,8 +193,10 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreWebSites"/>
                 <set field="labelTitleProperty" value="ProductProductStoreWebSites"/>
+                <set field="productStoreId" from-field="parameters.viewProductStoreId"/>
+                <set field="productStoreId" from-field="parameters.productStoreId" default-value="${productStoreId}"/>
                 <entity-condition entity-name="WebSite" list="storeWebSites">
-                    <condition-expr field-name="productStoreId" from-field="parameters.productStoreId"/>
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="siteName"/>
                 </entity-condition>
                 <entity-condition entity-name="WebSite" list="webSites">
