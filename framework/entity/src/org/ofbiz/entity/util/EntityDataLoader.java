@@ -25,6 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.MainResourceHandler;
@@ -176,23 +178,33 @@ public class EntityDataLoader {
         return urlList;
     }
 
-    public static <E> List<URL> getUrlByComponentList(String helperName, List<String> components, List<E> readerNames) {
-        String paths = getPathsString(helperName);
+    public static List<URL> getUrlByComponentList(String helperName, List<String> components, List<String> readerNames) {
         List<URL> urlList = new LinkedList<URL>();
-        for (String component : components) {
-            urlList.addAll(getUrlList(helperName, component, readerNames));
+        for (String readerName:  readerNames) {
+            List<String> loadReaderNames = FastList.newInstance();
+            loadReaderNames.add(readerName);
+            for (String component : components) {
+                urlList.addAll(getUrlList(helperName, component, loadReaderNames));
+            }
         }
         return urlList;
     }
 
     public static List<URL> getUrlByComponentList(String helperName, List<String> components) {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
-        List<URL> urlList = new LinkedList<URL>();
-        for (String component : components) {
-            urlList.addAll(getUrlList(helperName, component));
+        List<String> readerNames = FastList.newInstance();
+        for (Object readerInfo :  datasourceInfo.readDatas) {
+            String readerName = null;
+            if (readerInfo instanceof Element) {
+                readerName = ((Element) readerInfo).getAttribute("reader-name");
+            } else {
+                throw new IllegalArgumentException("Reader name list does not contain String(s) or Element(s)");
+            }
+            readerNames.add(readerName);
         }
-        return urlList;
+        return getUrlByComponentList(helperName, components, readerNames);
     }
+
     public static int loadData(URL dataUrl, String helperName, Delegator delegator, List<Object> errorMessages) throws GenericEntityException {
         return loadData(dataUrl, helperName, delegator, errorMessages, -1);
     }

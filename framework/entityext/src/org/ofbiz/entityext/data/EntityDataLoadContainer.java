@@ -313,7 +313,7 @@ public class EntityDataLoadContainer implements Container {
                 List<EntityExpr> exprs = FastList.newInstance();
                 exprs.add(EntityCondition.makeCondition("rootLocation", EntityOperator.NOT_LIKE, "%hot-deploy%"));
                 EntityCondition cond = EntityCondition.makeCondition(exprs);
-                List<GenericValue> components = delegator.findList("Component", cond , null, null, null, false);
+                List<GenericValue> components = delegator.findList("Component", cond , null, UtilMisc.toList("lastUpdatedStamp"), null, false);
                 Debug.logInfo("===== Begin load specify components", module);
                 if (UtilValidate.isEmpty(this.component)) {
                     for (GenericValue component : components) {
