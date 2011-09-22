@@ -222,6 +222,7 @@
     </property>
     <property key="CommonAddAColumnToThisPortalPage">
         <value xml:lang="en">Add a new column to this portal</value>
+        <value xml:lang="fr">Ajouter une nouvelle colonne à ce portail</value>
         <value xml:lang="it">Aggiunge una nuova colonna a questa pagina</value>
         <value xml:lang="pt_BR">Adicionar uma nova coluna neste portal</value>
     </property>
@@ -2161,16 +2162,19 @@
     </property>
     <property key="CommonDeleteColumn">
         <value xml:lang="en">Delete Column</value>
+        <value xml:lang="fr">Supprimer la colonne</value>
         <value xml:lang="it">Elimina colonna</value>
         <value xml:lang="pt_BR">Excluir Coluna</value>
     </property>
     <property key="CommonDeleteThisColumn">
         <value xml:lang="en">Delete this column</value>
+        <value xml:lang="fr">Supprimer cette colonne</value>
         <value xml:lang="it">Elimina questa colonna</value>
         <value xml:lang="pt_BR">Apagar esta coluna</value>
     </property>
     <property key="CommonDeleteThisPortlet">
         <value xml:lang="en">Delete this portlet</value>
+        <value xml:lang="fr">Supprimer cette portlet</value>
         <value xml:lang="it">Elimina questo portlet</value>
         <value xml:lang="pt_BR">Excluir este portlet</value>
     </property>
@@ -5203,6 +5207,7 @@
     </property>
     <property key="CommonNewPortalPage">
         <value xml:lang="en">New Portal Page</value>
+        <value xml:lang="fr">Nouvelle page portail</value>
         <value xml:lang="it">Nuova pagina portale</value>
         <value xml:lang="pt_BR">Nova página do Portal</value>
     </property>
@@ -5416,6 +5421,7 @@
     </property>
     <property key="CommonNoPortalPageDataFound">
         <value xml:lang="en">No portal page data found. You may not have the necessary seed or other data for it.</value>
+        <value xml:lang="fr">Aucune donnée pour la page portail. Vous n'avez peut être pas chargé les données nécesaires.</value>
         <value xml:lang="it">Dati portal page non trovati.</value>
         <value xml:lang="pt_BR">Não há dados da página do portal encontrados. Você pode não ter a semente ou outros dados necessários para isso.</value>
     </property>
