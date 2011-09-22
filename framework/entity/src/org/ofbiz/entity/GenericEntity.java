@@ -814,11 +814,39 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         keyBuffer.append('.');
         keyBuffer.append(name);
         // finish off by adding the values of all PK fields
-        Iterator<ModelField> iter = modelEntity.getPksIterator();
-        while (iter != null && iter.hasNext()) {
-            ModelField curField = iter.next();
-            keyBuffer.append('.');
-            keyBuffer.append(this.get(curField.getName()));
+        if (modelEntity instanceof ModelViewEntity){
+            // retrieve pkNames of realEntity
+            ModelViewEntity modelViewEntiy = (ModelViewEntity) modelEntity;
+            List<String> pkNamesToUse = FastList.newInstance();
+            // iterate on realEntity for pkField
+            Iterator<ModelField> iter = modelEntityToUse.getPksIterator();
+            while (iter != null && iter.hasNext()) {
+                ModelField curField = iter.next();
+                String pkName = null;
+                Iterator<ModelAlias> iterAlias = modelViewEntiy.getAliasesIterator();
+                //search aliasName for pkField of realEntity
+                while (iterAlias != null && iterAlias.hasNext()) {
+                    ModelAlias aliasField = iterAlias.next();
+                    if (aliasField.getField().equals(curField.getName())){
+                        pkName = aliasField.getName();
+                        break;
+                    }
+                }
+                if (pkName == null) pkName = curField.getName();
+                pkNamesToUse.add(pkName);
+            }
+            // read value with modelEntity name of pkNames
+            for (String pkName : pkNamesToUse) {
+                keyBuffer.append('.');
+                keyBuffer.append(this.get(pkName));
+            }
+        } else {
+            Iterator<ModelField> iter = modelEntity.getPksIterator();
+            while (iter != null && iter.hasNext()) {
+                ModelField curField = iter.next();
+                keyBuffer.append('.');
+                keyBuffer.append(this.get(curField.getName()));
+            }
         }
 
         String bundleKey = keyBuffer.toString();
