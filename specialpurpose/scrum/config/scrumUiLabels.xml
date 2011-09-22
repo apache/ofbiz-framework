@@ -70,6 +70,7 @@
     </property>
     <property key="PageTitleBilling">
         <value xml:lang="en">Billing</value>
+        <value xml:lang="fr">Facturation</value>
     </property>
     <property key="PageTitleCurrentTimesheet">
         <value xml:lang="de">Aktuelle Zeiterfassung</value>
@@ -100,6 +101,7 @@
     </property>
     <property key="PageTitleEditScrumProject">
         <value xml:lang="en">Edit Project</value>
+        <value xml:lang="fr">Modifier projet</value>
     </property>
     <property key="PageTitleEditSprint">
         <value xml:lang="en">Edit Sprint</value>
