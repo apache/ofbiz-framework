@@ -236,7 +236,10 @@ public class Start {
     }
 
     private String sendSocketCommand(String command) throws IOException, ConnectException {
-        Socket socket = new Socket(config.adminAddress, config.adminPort);
+    	String response = "OFBiz Down";
+    	
+    	try {
+    	Socket socket = new Socket(config.adminAddress, config.adminPort);
 
         // send the command
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
@@ -245,7 +248,7 @@ public class Start {
 
         // read the reply
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        String response = reader.readLine();
+        response = reader.readLine();
 
         reader.close();
 
@@ -253,6 +256,9 @@ public class Start {
         writer.close();
         socket.close();
 
+        } catch (ConnectException e) {
+            System.out.println("Could not connect to " + config.adminAddress + ":" + config.adminPort);
+        }
         return response;
     }
 
