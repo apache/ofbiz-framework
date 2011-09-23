@@ -47,11 +47,26 @@ public class JmsListenerFactory implements Runnable {
     protected static Map<String, GenericMessageListener> listeners = FastMap.newInstance();
     protected static Map<String, Element> servers = FastMap.newInstance();
 
+    protected static JmsListenerFactory jlf = null;
+
     protected ServiceDispatcher dispatcher;
     protected boolean firstPass = true;
     protected int  loadable = 0;
     protected int connected = 0;
     protected Thread thread;
+
+
+    public static JmsListenerFactory getInstance(ServiceDispatcher dispatcher){
+        if (jlf == null) {
+            synchronized (JmsListenerFactory.class) {
+                if (jlf == null) {
+                    jlf = new JmsListenerFactory(dispatcher);
+                }
+            }
+        }
+
+        return jlf;
+    }
 
     public JmsListenerFactory(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;

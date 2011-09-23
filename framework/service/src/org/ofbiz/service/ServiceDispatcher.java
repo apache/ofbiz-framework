@@ -116,8 +116,8 @@ public class ServiceDispatcher {
         }
 
         // make sure we haven't disabled these features from running
-        if (enableJMS && this.delegator.getEnabledJMS()) {
-            this.jlf = new JmsListenerFactory(this);
+        if (enableJMS) {
+            this.jlf = JmsListenerFactory.getInstance(this);
         }
 
         if (enableSvcs) {

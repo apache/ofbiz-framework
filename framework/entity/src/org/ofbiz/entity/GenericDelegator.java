@@ -320,10 +320,7 @@ public class GenericDelegator implements Delegator {
             try {
                 Class<?> eecahClass = loader.loadClass(entityEcaHandlerClassName);
                 this.entityEcaHandler = UtilGenerics.cast(eecahClass.newInstance());
-                boolean isJmsEnabled = getEnabledJMS();
-                enableJMS(!getDelegatorInfo().useDistributedCacheClear); // To avoid duplicated JMS listeners (OFBIZ-4296)
                 this.entityEcaHandler.setDelegator(this);
-                enableJMS(isJmsEnabled);
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " was not found, Entity ECA Rules will be disabled", module);
             } catch (InstantiationException e) {
@@ -2881,7 +2878,7 @@ public class GenericDelegator implements Delegator {
         }
 
         // If useDistributedCacheClear is false do nothing: the distributedCacheClear member field with a null value would cause dcc code to do nothing
-        if (getDelegatorInfo().useDistributedCacheClear) {
+        if (useDistributedCacheClear()) {
             //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the distributedCacheClear mechanism
@@ -2903,20 +2900,6 @@ public class GenericDelegator implements Delegator {
         } else {
             Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", module);
         }
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#enableJMS()
-     */
-    public void enableJMS(boolean enable) {
-        this.enableJMS = enable;
-    }
-
-    /* (non-Javadoc)
-     * @see org.ofbiz.entity.Delegator#getEnableJMS()
-     */
-    public boolean getEnabledJMS() {
-        return this.enableJMS;
     }
     
     /* (non-Javadoc)
