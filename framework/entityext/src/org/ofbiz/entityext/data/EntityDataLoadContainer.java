@@ -67,7 +67,6 @@ public class EntityDataLoadContainer implements Container {
     protected String directory = null;
     protected List<String> files = FastList.newInstance();
     protected String component = null;
-    protected List<String> components = FastList.newInstance();
     protected boolean useDummyFks = false;
     protected boolean maintainTxs = false;
     protected boolean tryInserts = false;
@@ -308,6 +307,7 @@ public class EntityDataLoadContainer implements Container {
             }
         }
         // load specify components
+        List<String> loadComponents = FastList.newInstance();
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && "Y".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
             try {
                 List<EntityExpr> exprs = FastList.newInstance();
@@ -317,13 +317,13 @@ public class EntityDataLoadContainer implements Container {
                 Debug.logInfo("===== Begin load specify components", module);
                 if (UtilValidate.isEmpty(this.component)) {
                     for (GenericValue component : components) {
-                        this.components.add(component.getString("componentName"));
+                        loadComponents.add(component.getString("componentName"));
                         //Debug.logInfo("- loaded default component : " + component.getString("componentName"), module);
                     }
                     Debug.logInfo("- Loaded components by default : " + components.size() + " components", module);
                     List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"));
                     for (GenericValue tenantComponent : tenantComponents) {
-                        this.components.add(tenantComponent.getString("componentName"));
+                        loadComponents.add(tenantComponent.getString("componentName"));
                         //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);
                     }
                     Debug.logInfo("- Loaded components by tenantId : " + delegator.getDelegatorTenantId() + ", " + tenantComponents.size() + " components", module);
@@ -331,12 +331,12 @@ public class EntityDataLoadContainer implements Container {
                     List<GenericValue> tenantComponents = delegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component),
                             UtilMisc.toList("sequenceNum"));
                     for (GenericValue tenantComponent : tenantComponents) {
-                        this.components.add(tenantComponent.getString("componentName"));
+                        loadComponents.add(tenantComponent.getString("componentName"));
                         //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);
                     }
                     Debug.logInfo("- Loaded tenantId : " + delegator.getDelegatorTenantId() + " and component : " + this.component, module);
                 }
-                Debug.logInfo("===== Loaded : " + this.components.size() + " components", module);
+                Debug.logInfo("===== Loaded : " + loadComponents.size() + " components", module);
             } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
             }
@@ -418,11 +418,11 @@ public class EntityDataLoadContainer implements Container {
 
         // get the reader name URLs first
         List<URL> urlList = FastList.newInstance();
-        if (UtilValidate.isNotEmpty(this.components)) {
+        if (UtilValidate.isNotEmpty(loadComponents)) {
             if (UtilValidate.isNotEmpty(readerNames)) {
-                urlList = EntityDataLoader.getUrlByComponentList(helperInfo.getHelperBaseName(), this.components, readerNames);
+                urlList = EntityDataLoader.getUrlByComponentList(helperInfo.getHelperBaseName(), loadComponents, readerNames);
             } else if (!"none".equalsIgnoreCase(this.readers)) {
-                urlList = EntityDataLoader.getUrlByComponentList(helperInfo.getHelperBaseName(), this.components);
+                urlList = EntityDataLoader.getUrlByComponentList(helperInfo.getHelperBaseName(), loadComponents);
             }
         } else {
             if (UtilValidate.isNotEmpty(readerNames)) {
