@@ -22,10 +22,16 @@ import org.ofbiz.party.contact.ContactHelper;
 
 if (userLogin) {
     party = userLogin.getRelatedOne("Party");
-    person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
-    context.partyId = person.partyId;
-    context.firstName = person.firstName;
-    context.lastName = person.lastName;
+    context.partyId = party.partyId
+    if ("Person".equals(party.partyTypeId)) {
+        person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
+        context.firstName = person.firstName;
+        context.lastName = person.lastName;
+    } else {
+        group = delegator.findByPrimaryKey("PartyGroup", [partyId : party.partyId]);    
+        context.firstName = group.groupName;
+        context.lastName = "";    
+    }
 
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
