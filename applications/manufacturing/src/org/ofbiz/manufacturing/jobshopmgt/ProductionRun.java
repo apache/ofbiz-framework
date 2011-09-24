@@ -39,7 +39,7 @@ import org.ofbiz.service.LocalDispatcher;
 
 
 /**
- * ProductionRun Object used by the Jobshop management OFBiz comonents,
+ * ProductionRun Object used by the Jobshop management OFBiz components,
  * this object is used to find or updated an existing ProductionRun.
  *
  */
@@ -64,7 +64,7 @@ public class ProductionRun {
 
     /**
      * indicate if quantity or estimatedStartDate has been modified and
-     *  estimatedCompletionDate not yet recalculated with recalculateEstimatedCompletionDate() methode.
+     *  estimatedCompletionDate not yet recalculated with recalculateEstimatedCompletionDate() method.
      */
     private boolean updateCompletionDate = false;
     /**
@@ -274,7 +274,7 @@ public class ProductionRun {
         }
     }
     /**
-     * call recalculateEstimatedCompletionDate(0,estimatedStartDate), so recalculated for all the routingtask.
+     * call recalculateEstimatedCompletionDate(0,estimatedStartDate), so recalculated for all the routing tasks.
      */
     public Timestamp recalculateEstimatedCompletionDate() {
         this.updateCompletionDate = false;
@@ -382,7 +382,7 @@ public class ProductionRun {
 
     /**
      * clear list of all the productionRunRoutingTasks to force re-reading at the next need.
-     * This methode is used when the routingTasks ordering is changed.
+     * This method is used when the routingTasks ordering is changed.
      **/
     public void clearRoutingTasksList() {
         this.productionRunRoutingTasks = null;
