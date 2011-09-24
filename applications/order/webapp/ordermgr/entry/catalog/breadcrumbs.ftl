@@ -16,52 +16,32 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#-- variable setup and worker calls -->
-<#assign topLevelList = requestAttributes.topLevelList?if_exists>
-<#assign curCategoryId = requestAttributes.curCategoryId?if_exists>
-
-<#-- looping macro -->
-<#macro categoryList parentCategory category>
-  <#if parentCategory.productCategoryId != category.productCategoryId>
-    <#local previousCategoryId = parentCategory.productCategoryId />
-  </#if>
-
-  <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
-    <li>
-    <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists>
-      <a href="<@ofbizCatalogAltUrl productCategoryId=category.productCategoryId previousCategoryId=previousCategoryId!""/>" class="<#if curCategoryId?exists && curCategoryId == category.productCategoryId>buttontextdisabled<#else>linktext</#if>">
-        <#if catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?exists>
-          ${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")}
-        <#elseif catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
-          ${catContentWrappers[category.productCategoryId].get("DESCRIPTION")}
-        <#else>
-          ${category.description?if_exists}
-        </#if>
-      </a>
-    </#if>
-    </li>
-    <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
-    <#if subCatList?exists>
-      <#list subCatList as subCat>
-        <@categoryList parentCategory=category category=subCat/>
-      </#list>
-    </#if>
-  </#if>
-</#macro>
-
 <div class="breadcrumbs">
   <ul>
     <li>
-      <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a>
+      <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a> &gt;
     </li>
     <#-- Show the category branch -->
-    <#list topLevelList as category>
-      <@categoryList parentCategory=category category=category/>
-    </#list>
+    <#assign crumbs = Static["org.ofbiz.product.category.CategoryWorker"].getTrail(request)/>
+    <#list crumbs as crumb>
+         <#if catContentWrappers?exists && catContentWrappers[crumb]?exists>
+              <li>
+                 <a href="<@ofbizCatalogUrl currentCategoryId=crumb previousCategoryId=previousCategoryId!""/>" class="<#if crumb_has_next>linktext<#else>buttontextdisabled</#if>">
+                   <#if catContentWrappers[crumb].get("CATEGORY_NAME")?exists>
+                     ${catContentWrappers[crumb].get("CATEGORY_NAME")}
+                   <#elseif catContentWrappers[crumb].get("DESCRIPTION")?exists>
+                     ${catContentWrappers[crumb].get("DESCRIPTION")}
+                   <#else>
+                     ${crumb}
+                   </#if>
+                 </a>
+              </li>
+              <#assign previousCategoryId = crumb />
+         </#if>
+    </#list>    
     <#-- Show the product, if there is one -->
     <#if productContentWrapper?exists>
     <li>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</li>
     </#if>
-  </ul>
+  </ul>  
 </div>
-<br />
