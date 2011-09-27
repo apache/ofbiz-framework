@@ -1716,7 +1716,9 @@ under the License.
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
       <member-entity entity-alias="PR" entity-name="Product"/>
       <alias-all entity-alias="OI"/>
-      <alias-all entity-alias="PR"/>
+      <alias-all entity-alias="PR">
+        <exclude field="comments"/>
+      </alias-all>
       <view-link entity-alias="OI" rel-entity-alias="PR">
         <key-map field-name="productId"/>
       </view-link>
@@ -1724,5 +1726,4 @@ under the License.
         <key-map field-name="productId"/>
       </relation>
   </view-entity>
-
 </entitymodel>
