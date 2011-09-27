@@ -92,13 +92,22 @@ under the License.
     <view-entity entity-name="ItemIssuanceAndInventoryItem" package-name="org.ofbiz.shipment.issuance">
         <member-entity entity-alias="IISS" entity-name="ItemIssuance"/>
         <member-entity entity-alias="IITM" entity-name="InventoryItem"/>
-        <alias-all entity-alias="IISS">
-            <exclude field="fixedAssetId"/>
-        </alias-all>
         <alias-all entity-alias="IITM"/>
-        <alias name="inventoryItemDetailFixedAssetId" field="fixedAssetId" entity-alias="IISS"/>
+        <alias name="itemIssuanceId" entity-alias="IISS"/>
+        <alias name="orderId" entity-alias="IISS"/>
+        <alias name="orderItemSeqId" entity-alias="IISS"/>
+        <alias name="shipGroupSeqId" entity-alias="IISS"/>
+        <alias name="inventoryItemId" entity-alias="IISS"/>
+        <alias name="shipmentId" entity-alias="IISS"/>
+        <alias name="shipmentItemSeqId" entity-alias="IISS"/>
+        <alias name="itemIssuanceFixedAssetId" field="fixedAssetId" entity-alias="IISS"/>
+        <alias name="maintHistSeqId" entity-alias="IISS"/>
+        <alias name="issuedDateTime" entity-alias="IISS"/>
+        <alias name="issuedByUserLoginId" entity-alias="IISS"/>
+        <alias name="quantity" entity-alias="IISS"/>
+        <alias name="cancelQuantity" entity-alias="IISS"/>
         <view-link entity-alias="IISS" rel-entity-alias="IITM">
-        <key-map field-name="inventoryItemId"/>
+          <key-map field-name="inventoryItemId"/>
         </view-link>
     </view-entity>
     <entity entity-name="ItemIssuanceRole"

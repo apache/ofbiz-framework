@@ -1976,11 +1976,27 @@ under the License.
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias-all entity-alias="II"/>
-        <alias-all entity-alias="IID">
-            <exclude field="unitCost"/>
-            <exclude field="fixedAssetId"/>
-        </alias-all>
+        <alias name="inventoryItemId" entity-alias="IID"/>
+        <alias name="inventoryItemDetailSeqId" entity-alias="IID"/>
+        <alias name="effectiveDate" entity-alias="IID"/>
+        <alias name="quantityOnHandDiff" entity-alias="IID"/>
+        <alias name="availableToPromiseDiff" entity-alias="IID"/>
+        <alias name="accountingQuantityDiff" entity-alias="IID"/>
+        <alias name="orderId" entity-alias="IID"/>
+        <alias name="orderItemSeqId" entity-alias="IID"/>
+        <alias name="shipGroupSeqId" entity-alias="IID"/>
+        <alias name="shipmentId" entity-alias="IID"/>
+        <alias name="shipmentItemSeqId" entity-alias="IID"/>
+        <alias name="returnId" entity-alias="IID"/>
+        <alias name="returnItemSeqId" entity-alias="IID"/>
+        <alias name="workEffortId" entity-alias="IID"/>
         <alias name="inventoryItemDetailFixedAssetId" field="fixedAssetId" entity-alias="IID"/>
+        <alias name="maintHistSeqId" entity-alias="IID"/>
+        <alias name="itemIssuanceId" entity-alias="IID"/>
+        <alias name="receiptId" entity-alias="IID"/>
+        <alias name="physicalInventoryId" entity-alias="IID"/>
+        <alias name="reasonEnumId" entity-alias="IID"/>
+        <alias name="description" entity-alias="IID"/>
         <view-link entity-alias="II" rel-entity-alias="IID">
             <key-map field-name="inventoryItemId"/>
         </view-link>
