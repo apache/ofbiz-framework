@@ -1978,7 +1978,9 @@ under the License.
         <alias-all entity-alias="II"/>
         <alias-all entity-alias="IID">
             <exclude field="unitCost"/>
+            <exclude field="fixedAssetId"/>
         </alias-all>
+        <alias name="inventoryItemDetailFixedAssetId" field="fixedAssetId" entity-alias="IID"/>
         <view-link entity-alias="II" rel-entity-alias="IID">
             <key-map field-name="inventoryItemId"/>
         </view-link>
