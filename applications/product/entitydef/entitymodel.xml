@@ -1975,28 +1975,34 @@ under the License.
     <view-entity entity-name="InventoryItemAndDetail" package-name="org.ofbiz.product.inventory">
         <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
-        <alias-all entity-alias="II"/>
-        <alias name="inventoryItemId" entity-alias="IID"/>
-        <alias name="inventoryItemDetailSeqId" entity-alias="IID"/>
-        <alias name="effectiveDate" entity-alias="IID"/>
-        <alias name="quantityOnHandDiff" entity-alias="IID"/>
-        <alias name="availableToPromiseDiff" entity-alias="IID"/>
-        <alias name="accountingQuantityDiff" entity-alias="IID"/>
-        <alias name="orderId" entity-alias="IID"/>
-        <alias name="orderItemSeqId" entity-alias="IID"/>
-        <alias name="shipGroupSeqId" entity-alias="IID"/>
-        <alias name="shipmentId" entity-alias="IID"/>
-        <alias name="shipmentItemSeqId" entity-alias="IID"/>
-        <alias name="returnId" entity-alias="IID"/>
-        <alias name="returnItemSeqId" entity-alias="IID"/>
-        <alias name="workEffortId" entity-alias="IID"/>
-        <alias name="inventoryItemDetailFixedAssetId" field="fixedAssetId" entity-alias="IID"/>
-        <alias name="maintHistSeqId" entity-alias="IID"/>
-        <alias name="itemIssuanceId" entity-alias="IID"/>
-        <alias name="receiptId" entity-alias="IID"/>
-        <alias name="physicalInventoryId" entity-alias="IID"/>
-        <alias name="reasonEnumId" entity-alias="IID"/>
-        <alias name="description" entity-alias="IID"/>
+        <alias-all entity-alias="IID"/>
+        <alias entity-alias="II" name="inventoryItemId"/>
+        <alias entity-alias="II" name="inventoryItemTypeId"/>
+        <alias entity-alias="II" name="productId"/>
+        <alias entity-alias="II" name="partyId"/>
+        <alias entity-alias="II" name="ownerPartyId"/>
+        <alias entity-alias="II" name="statusId"/>
+        <alias entity-alias="II" name="datetimeReceived"/>
+        <alias entity-alias="II" name="datetimeManufactured"/>
+        <alias entity-alias="II" name="expireDate"/>
+        <alias entity-alias="II" name="facilityId"/>
+        <alias entity-alias="II" name="containerId"/>
+        <alias entity-alias="II" name="lotId"/>
+        <alias entity-alias="II" name="uomId"/>
+        <alias entity-alias="II" name="binNumber"/>
+        <alias entity-alias="II" name="locationSeqId"/>
+        <alias entity-alias="II" name="comments"/>
+        <alias entity-alias="II" name="quantityOnHandTotal"/>
+        <alias entity-alias="II" name="availableToPromiseTotal"/>
+        <alias entity-alias="II" name="accountingQuantityTotal"/>
+        <alias entity-alias="II" name="oldQuantityOnHand"/>
+        <alias entity-alias="II" name="oldAvailableToPromise"/>
+        <alias entity-alias="II" name="serialNumber"/>
+        <alias entity-alias="II" name="softIdentifier"/>
+        <alias entity-alias="II" name="activationNumber"/>
+        <alias entity-alias="II" name="activationValidThru"/>
+        <alias entity-alias="II" name="currencyUomId"/>
+        <alias entity-alias="II" name="inventoryItemFixedAssetId" field="fixedAssetId"/>
         <view-link entity-alias="II" rel-entity-alias="IID">
             <key-map field-name="inventoryItemId"/>
         </view-link>

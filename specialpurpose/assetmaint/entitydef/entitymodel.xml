@@ -113,9 +113,34 @@
         <member-entity entity-alias="IMIE" entity-name="ItemIssuance"/>
         <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
         <member-entity entity-alias="PT" entity-name="Product"/>
-        <alias-all entity-alias="IYIM">
-            <exclude field="facilityId"/>
-        </alias-all>
+        <alias-all entity-alias="IMIE"/>
+        <alias entity-alias="IYIM" name="inventoryItemId"/>
+        <alias entity-alias="IYIM" name="inventoryItemTypeId"/>
+        <alias entity-alias="IYIM" name="productId"/>
+        <alias entity-alias="IYIM" name="partyId"/>
+        <alias entity-alias="IYIM" name="ownerPartyId"/>
+        <alias entity-alias="IYIM" name="statusId"/>
+        <alias entity-alias="IYIM" name="datetimeReceived"/>
+        <alias entity-alias="IYIM" name="datetimeManufactured"/>
+        <alias entity-alias="IYIM" name="expireDate"/>
+        <alias entity-alias="IYIM" name="containerId"/>
+        <alias entity-alias="IYIM" name="lotId"/>
+        <alias entity-alias="IYIM" name="uomId"/>
+        <alias entity-alias="IYIM" name="binNumber"/>
+        <alias entity-alias="IYIM" name="locationSeqId"/>
+        <alias entity-alias="IYIM" name="comments"/>
+        <alias entity-alias="IYIM" name="quantityOnHandTotal"/>
+        <alias entity-alias="IYIM" name="availableToPromiseTotal"/>
+        <alias entity-alias="IYIM" name="accountingQuantityTotal"/>
+        <alias entity-alias="IYIM" name="oldQuantityOnHand"/>
+        <alias entity-alias="IYIM" name="oldAvailableToPromise"/>
+        <alias entity-alias="IYIM" name="serialNumber"/>
+        <alias entity-alias="IYIM" name="softIdentifier"/>
+        <alias entity-alias="IYIM" name="activationNumber"/>
+        <alias entity-alias="IYIM" name="activationValidThru"/>
+        <alias entity-alias="IYIM" name="unitCost"/>
+        <alias entity-alias="IYIM" name="currencyUomId"/>
+        <alias entity-alias="IYIM" name="inventoryItemFixedAssetId" field="fixedAssetId"/>
         <alias entity-alias="PT" name="productId"/>
         <alias entity-alias="PT" name="productTypeId"/>
         <alias entity-alias="PT" name="primaryProductCategoryId"/>
@@ -131,19 +156,6 @@
         <alias entity-alias="PT" name="isVariant"/>
         <alias entity-alias="PT" name="createdDate"/>
         <alias entity-alias="PT" name="createdByUserLogin"/>
-        <alias name="itemIssuanceId" entity-alias="IMIE"/>
-        <alias name="orderId" entity-alias="IMIE"/>
-        <alias name="orderItemSeqId" entity-alias="IMIE"/>
-        <alias name="shipGroupSeqId" entity-alias="IMIE"/>
-        <alias name="inventoryItemId" entity-alias="IMIE"/>
-        <alias name="shipmentId" entity-alias="IMIE"/>
-        <alias name="shipmentItemSeqId" entity-alias="IMIE"/>
-        <alias name="itemIssuanceFixedAssetId" field="fixedAssetId" entity-alias="IMIE"/>
-        <alias name="maintHistSeqId" entity-alias="IMIE"/>
-        <alias name="issuedDateTime" entity-alias="IMIE"/>
-        <alias name="issuedByUserLoginId" entity-alias="IMIE"/>
-        <alias name="quantity" entity-alias="IMIE"/>
-        <alias name="cancelQuantity" entity-alias="IMIE"/>
         <view-link entity-alias="IMIE" rel-entity-alias="IYIM">
             <key-map field-name="inventoryItemId"/>
         </view-link>
@@ -163,12 +175,34 @@
         <member-entity entity-alias="PT" entity-name="Product"/>
         <member-entity entity-alias="IYIM" entity-name="InventoryItem"/>
         <member-entity entity-alias="IMIE" entity-name="ItemIssuance"/>
-        <alias-all entity-alias="IMIE">
-            <exclude field="fixedAssetId"/>
-        </alias-all>
-        <alias-all entity-alias="IYIM">
-            <exclude field="facilityId"/>
-        </alias-all>
+        <alias-all entity-alias="IMIE"/>
+        <alias entity-alias="IYIM" name="inventoryItemId"/>
+        <alias entity-alias="IYIM" name="inventoryItemTypeId"/>
+        <alias entity-alias="IYIM" name="productId"/>
+        <alias entity-alias="IYIM" name="partyId"/>
+        <alias entity-alias="IYIM" name="ownerPartyId"/>
+        <alias entity-alias="IYIM" name="statusId"/>
+        <alias entity-alias="IYIM" name="datetimeReceived"/>
+        <alias entity-alias="IYIM" name="datetimeManufactured"/>
+        <alias entity-alias="IYIM" name="expireDate"/>
+        <alias entity-alias="IYIM" name="containerId"/>
+        <alias entity-alias="IYIM" name="lotId"/>
+        <alias entity-alias="IYIM" name="uomId"/>
+        <alias entity-alias="IYIM" name="binNumber"/>
+        <alias entity-alias="IYIM" name="locationSeqId"/>
+        <alias entity-alias="IYIM" name="comments"/>
+        <alias entity-alias="IYIM" name="quantityOnHandTotal"/>
+        <alias entity-alias="IYIM" name="availableToPromiseTotal"/>
+        <alias entity-alias="IYIM" name="accountingQuantityTotal"/>
+        <alias entity-alias="IYIM" name="oldQuantityOnHand"/>
+        <alias entity-alias="IYIM" name="oldAvailableToPromise"/>
+        <alias entity-alias="IYIM" name="serialNumber"/>
+        <alias entity-alias="IYIM" name="softIdentifier"/>
+        <alias entity-alias="IYIM" name="activationNumber"/>
+        <alias entity-alias="IYIM" name="activationValidThru"/>
+        <alias entity-alias="IYIM" name="unitCost"/>
+        <alias entity-alias="IYIM" name="currencyUomId"/>
+        <alias entity-alias="IYIM" name="inventoryItemFixedAssetId" field="fixedAssetId"/>
         <alias entity-alias="PT" name="productId"/>
         <alias entity-alias="PT" name="productTypeId"/>
         <alias entity-alias="PT" name="primaryProductCategoryId"/>
@@ -184,7 +218,6 @@
         <alias entity-alias="PT" name="isVariant"/>
         <alias entity-alias="PT" name="createdDate"/>
         <alias entity-alias="PT" name="createdByUserLogin"/>
-        <alias name="inventoryItemDetailFixedAssetId" field="fixedAssetId" entity-alias="IMIE"/>
         <view-link entity-alias="PT" rel-entity-alias="IYIM">
             <key-map field-name="productId"/>
         </view-link>
