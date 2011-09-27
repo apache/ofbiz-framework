@@ -92,8 +92,11 @@ under the License.
     <view-entity entity-name="ItemIssuanceAndInventoryItem" package-name="org.ofbiz.shipment.issuance">
         <member-entity entity-alias="IISS" entity-name="ItemIssuance"/>
         <member-entity entity-alias="IITM" entity-name="InventoryItem"/>
-        <alias-all entity-alias="IISS"/>
+        <alias-all entity-alias="IISS">
+            <exclude field="fixedAssetId"/>
+        </alias-all>
         <alias-all entity-alias="IITM"/>
+        <alias name="inventoryItemDetailFixedAssetId" field="fixedAssetId" entity-alias="IISS"/>
         <view-link entity-alias="IISS" rel-entity-alias="IITM">
         <key-map field-name="inventoryItemId"/>
         </view-link>
