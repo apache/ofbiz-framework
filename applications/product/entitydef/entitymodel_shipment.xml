@@ -92,8 +92,19 @@ under the License.
     <view-entity entity-name="ItemIssuanceAndInventoryItem" package-name="org.ofbiz.shipment.issuance">
         <member-entity entity-alias="IISS" entity-name="ItemIssuance"/>
         <member-entity entity-alias="IITM" entity-name="InventoryItem"/>
-        <alias-all entity-alias="IISS"/>
-        <alias entity-alias="IITM" name="inventoryItemId"/>
+        <alias entity-alias="IISS" name="itemIssuanceId"/> 
+        <alias entity-alias="IISS" name="orderId"/> 
+        <alias entity-alias="IISS" name="orderItemSeqId"/> 
+        <alias entity-alias="IISS" name="shipGroupSeqId"/> 
+        <alias entity-alias="IISS" name="inventoryItemId"/> 
+        <alias entity-alias="IISS" name="shipmentId"/> 
+        <alias entity-alias="IISS" name="shipmentItemSeqId"/> 
+        <alias entity-alias="IISS" name="fixedAssetId"/>
+        <alias entity-alias="IISS" name="maintHistSeqId"/>
+        <alias entity-alias="IISS" name="issuedDateTime"/>
+        <alias entity-alias="IISS" name="issuedByUserLoginId"/>
+        <alias entity-alias="IISS" name="quantity"/>
+        <alias entity-alias="IISS" name="cancelQuantity"/>
         <alias entity-alias="IITM" name="inventoryItemTypeId"/>
         <alias entity-alias="IITM" name="productId"/>
         <alias entity-alias="IITM" name="partyId"/>
