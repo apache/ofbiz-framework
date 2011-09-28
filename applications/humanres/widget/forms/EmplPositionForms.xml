@@ -98,9 +98,6 @@ under the License.
         <field name="submitButton" use-when="emplPosition==null" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="submitButton" use-when="emplPosition!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditEmplPositionFtl" type="single" extends="EditEmplPosition">
-        <alt-target use-when="emplPosition==null" target="createEmplPositionFtl"/>
-    </form>
     <form name="ListEmplPositionFulfillments" type="list" target="updateEmplPositionFulfillment" title="" paginate-target="findEmplPositionFulfillments"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -343,36 +340,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1"><display/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-    </form>
-    <form name="ListEmplPositionsFtl" extends="ListEmplPositions">
-        <field name="salaryFlag"><hidden/></field>
-        <field name="exemptFlag"><hidden/></field>
-        <field name="fulltimeFlag"><hidden/></field>
-        <field name="temporaryFlag"><hidden/></field>
-        <field name="actualFromDate"><hidden/></field>
-        <field name="actualThruDate"><hidden/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-           <hyperlink description="${uiLabelMap.CommonRemove}" target="removeEmlpPosition">
-                <parameter param-name="emplPositionId"/>
-                <parameter param-name="partyId"/>
-            </hyperlink>
-        </field>
-    </form>
-    <form name="AddEmplPositionFulfillmentFtl" type="single" target="createEmplPositionFulfillmentFtl"
-        header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createEmplPositionFulfillment"/>
-        <field name="partyId" tooltip="${uiLabelMap.CommonRequired}">
-            <drop-down allow-empty="false" >
-                <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
-                    <entity-constraint name="roleTypeId" value="EMPLOYEE"/>
-                    <entity-order-by field-name="partyId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="emplPositionId"><hidden /></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="dummy1" title="${uiLabelMap.CommonEmptyHeader}" position="1"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>

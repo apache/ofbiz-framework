@@ -137,13 +137,13 @@ var rawdata = [
                 dataSet = {"partyId" : NODE.attr("id")};
                 jQuery.ajax({
                     type: "GET",
-                    url: "EditEmlPositionFtl",
+                    url: "EditEmplPosition",
                     data: dataSet,
                     error: function(msg) {
                         alert("An error occured loading content! : " + msg);
                     },
                     success: function(msg) {
-                        jQuery('#dialog').html(msg);
+                        jQuery('div.page-container').html(msg);
                     }
                 });
             }
@@ -188,23 +188,23 @@ var rawdata = [
     if(node.attr('rel')=='N'){ 
         var items = {
             AddPerson: { 
-	            label: "Add Person",
-	            action: function (NODE, TREE_OBJ) {
-	                var dataSet = {};
-	                dataSet = {"emplPositionId" : NODE.attr("id")};
-	                jQuery.ajax({
-	                    type: "GET",
-	                    url: "EditPerson",
-	                    data: dataSet,
-	                    error: function(msg) {
-	                        alert("An error occured loading content! : " + msg);
-	                    },
-	                    success: function(msg) {
-	                        jQuery('#dialog').html(msg);
-	                    }
-	                });
-	            }
-	        }
+                label: "Add Person",
+                action: function (NODE, TREE_OBJ) {
+                    var dataSet = {};
+                    dataSet = {"emplPositionId" : NODE.attr("id")};
+                    jQuery.ajax({
+                        type: "GET",
+                        url: "EditEmplPositionFulfillments",
+                        data: dataSet,
+                        error: function(msg) {
+                            alert("An error occured loading content! : " + msg);
+                        },
+                        success: function(msg) {
+                            jQuery('div.page-container').html(msg);
+                        }
+                    });
+                }
+            }
         }
     }
 

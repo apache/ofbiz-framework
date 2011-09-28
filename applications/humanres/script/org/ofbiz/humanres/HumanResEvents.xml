@@ -48,12 +48,9 @@
             <field-map field-name="partyIdFrom" from-field="parameters.parentpartyId"/>
         </entity-and>
         <if-not-empty field="partyRelationship">
-            <set field="fromDate" from-field="partyRelationship[0].fromDate"/>
+            <set-service-fields service-name="deletePartyRelationship" map="partyRelationship[0]" to-map="deletePartyRelationship"/>
         </if-not-empty>
-        <set field="orgRelCtx.partyIdTo" from-field="parameters.partyId"/>
-        <set field="orgRelCtx.partyIdFrom" from-field="parameters.parentpartyId"/>
-        <set field="orgRelCtx.fromDate" from-field="fromDate"/>
-        <call-service service-name="deletePartyRelationship" in-map-name="orgRelCtx"></call-service>
+        <call-service service-name="deletePartyRelationship" in-map-name="deletePartyRelationship"></call-service>
     </simple-method>
     
     <!-- Public Holiday -->

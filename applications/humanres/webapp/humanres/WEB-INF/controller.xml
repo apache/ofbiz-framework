@@ -1065,48 +1065,19 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    <request-map uri="removeEmlpPosition">
-        <security https="true" auth="true"/>
-        <event type="simple" path="component://humanres/script/org/ofbiz/humanres/HumanResEvents.xml" invoke="removeEmlpPosition"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
     <request-map uri="removeInternalOrg">
         <security https="true" auth="true"/>
         <event type="simple" path="component://humanres/script/org/ofbiz/humanres/HumanResEvents.xml" invoke="removeInternalOrg"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    <request-map uri="EditEmlPositionFtl">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditEmlPositionFtl"/>
-    </request-map>
     <request-map uri="EditInternalOrgFtl">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditInternalOrgFtl"/>
     </request-map>
-    <request-map uri="RemoveEmlPositionFtl">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="RemoveEmlPositionFtl"/>
-    </request-map>
     <request-map uri="RemoveInternalOrgFtl">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="RemoveInternalOrgFtl"/>
-    </request-map>
-    <request-map uri="EditPerson">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPerson"/>
-    </request-map>
-    <request-map uri="createEmplPositionFtl">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createEmplPosition"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="EditEmplPosition"/>
-    </request-map>
-    <request-map uri="createEmplPositionFulfillmentFtl">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createEmplPositionFulfillment"/>
-        <response name="success" type="view" value="main"/>
     </request-map>
     <request-map uri="PublicHoliday">
         <security https="true" auth="true"/>
@@ -1241,11 +1212,8 @@ under the License.
     <view-map name="EditEmplLeaveReasonTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditEmplLeaveReasonTypes"/>
     <view-map name="FindLeaveApprovals" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#FindLeaveApprovals"/>
     <view-map name="EditEmplLeaveStatus" type="screen" page="component://humanres/widget/EmplLeaveScreens.xml#EditEmplLeaveStatus"/>
-    <view-map name="EditEmlPositionFtl" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditEmplPositionFtl"/>
     <view-map name="EditInternalOrgFtl" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditInternalOrgFtl"/>
-    <view-map name="RemoveEmlPositionFtl" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#RemoveEmlPositionFtl"/>
     <view-map name="RemoveInternalOrgFtl" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#RemoveInternalOrgFtl"/>
-    <view-map name="EditPerson" type="screen" page="component://humanres/widget/EmplPositionScreens.xml#EditPerson"/>
     
     <!-- ==================Recruitment View Map===================== -->
     <view-map name="FindJobRequisitions" type="screen" page="component://humanres/widget/RecruitmentScreens.xml#FindJobRequisitions"/>
