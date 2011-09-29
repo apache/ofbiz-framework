@@ -343,6 +343,11 @@ under the License.
         <if-empty field="parameters.quoteUnitPrice">
             <if-not-empty field="parameters.productId">
                 <entity-one entity-name="Product" value-field="product"/>
+                <if-compare operator="equals" value="Y" field="product.isVirtual">
+                    <add-error>
+                        <fail-property resource="OrderErrorUiLabels" property="OrderCannotAddVirtualProductToQuote"/>
+                    </add-error>
+                </if-compare>
                 <if>
                     <condition>
                         <and>

@@ -4990,4 +4990,7 @@
         <value xml:lang="zh_CN">shoppingListId 是必须的参数</value>
         <value xml:lang="zh_TW">購物列表ID是一個必須的參數。</value>
     </property>
+    <property key="OrderCannotAddVirtualProductToQuote">
+        <value xml:lang="en">You cannot add a 'Virtual' product here, select one of the related variants.</value>
+    </property>
 </resource>
