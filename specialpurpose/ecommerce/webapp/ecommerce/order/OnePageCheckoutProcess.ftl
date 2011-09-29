@@ -93,47 +93,47 @@ under the License.
                       <span>
                           <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
                               <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
-                          </label>    
-                          <input type="text" name="shipToCountryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength="3" /> -
+                          </label>
+                          <input type="text" name="shipToCountryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength="10" /> -
                       </span>
                       <span>
                           <label for="shipToAreaCode">${uiLabelMap.PartyAreaCode}*
                               <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
-                          <input type="text" name="shipToAreaCode" class="required" id="shipToAreaCode" value="${shipToTelecomNumber.areaCode?if_exists}" size="5" maxlength="3" /> -
+                          <input type="text" name="shipToAreaCode" class="required" id="shipToAreaCode" value="${shipToTelecomNumber.areaCode?if_exists}" size="5" maxlength="10" /> -
                       </span>
                       <span>
                           <label for="shipToContactNumber">${uiLabelMap.PartyContactNumber}*
                               <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
-                          <input type="text" name="shipToContactNumber" class="required" id="shipToContactNumber" value="${shipToTelecomNumber.contactNumber?if_exists}" size="10" maxlength="7" /> -
+                          <input type="text" name="shipToContactNumber" class="required" id="shipToContactNumber" value="${shipToTelecomNumber.contactNumber?if_exists}" size="10" maxlength="15" /> -
                       </span>
                       <span>
                           <label for="shipToExtension">${uiLabelMap.PartyExtension}</label>
-                          <input type="text" name="shipToExtension" id="shipToExtension" value="${shipToExtension?if_exists}" size="5" maxlength="3" />
+                          <input type="text" name="shipToExtension" id="shipToExtension" value="${shipToExtension?if_exists}" size="5" maxlength="10" />
                       </span>
                   <#else>
                       <span>
                           <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
                               <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
-                          <input type="text" name="shipToCountryCode" class="required" id="shipToCountryCode" value="${parameters.shipToCountryCode?if_exists}" size="5" maxlength="3" /> -
+                          <input type="text" name="shipToCountryCode" class="required" id="shipToCountryCode" value="${parameters.shipToCountryCode?if_exists}" size="5" maxlength="10" /> -
                       </span>
                       <span>
                           <label for="shipToAreaCode">${uiLabelMap.PartyAreaCode}*
                               <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
-                          <input type="text" name="shipToAreaCode" class="required" id="shipToAreaCode" value="${parameters.shipToAreaCode?if_exists}" size="5" maxlength="3" /> -
+                          <input type="text" name="shipToAreaCode" class="required" id="shipToAreaCode" value="${parameters.shipToAreaCode?if_exists}" size="5" maxlength="10" /> -
                       </span>
                       <span>
                           <label for="shipToContactNumber">${uiLabelMap.PartyContactNumber}*
                               <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
-                          <input type="text" name="shipToContactNumber" class="required" id="shipToContactNumber" value="${parameters.shipToContactNumber?if_exists}" size="10" maxlength="7" /> -
+                          <input type="text" name="shipToContactNumber" class="required" id="shipToContactNumber" value="${parameters.shipToContactNumber?if_exists}" size="10" maxlength="15" /> -
                       </span>
                       <span>
                           <label for="shipToExtension">${uiLabelMap.PartyExtension}</label>
-                          <input type="text" name="shipToExtension" id="shipToExtension" value="${parameters.shipToExtension?if_exists}" size="5" maxlength="3" />
+                          <input type="text" name="shipToExtension" id="shipToExtension" value="${parameters.shipToExtension?if_exists}" size="5" maxlength="10" />
                       </span>
                   </#if>
                   </div>
@@ -317,46 +317,46 @@ under the License.
                                 <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
                                     <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input type="text" name="billToCountryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength="3" /> -
+                                <input type="text" name="billToCountryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength="10" /> -
                             </span>
                             <span>
                                 <label for="billToAreaCode">${uiLabelMap.PartyAreaCode}*
                                     <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input type="text" name="billToAreaCode" class="required" id="billToAreaCode" value="${billToTelecomNumber.areaCode?if_exists}" size="5" maxlength="3" /> -
+                                <input type="text" name="billToAreaCode" class="required" id="billToAreaCode" value="${billToTelecomNumber.areaCode?if_exists}" size="5" maxlength="10" /> -
                             </span>
                             <span>
                                 <label for="billToContactNumber">${uiLabelMap.PartyContactNumber}*
                                     <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input type="text" name="billToContactNumber" class="required" id="billToContactNumber" value="${billToTelecomNumber.contactNumber?if_exists}" size="10" maxlength="7" /> -
+                                <input type="text" name="billToContactNumber" class="required" id="billToContactNumber" value="${billToTelecomNumber.contactNumber?if_exists}" size="10" maxlength="15" /> -
                             </span>
                             <span>
                                 <label for="billToExtension">${uiLabelMap.PartyExtension}</label>
-                                <input type="text" name="billToExtension" id="billToExtension" value="${billToExtension?if_exists}" size="5" maxlength="3" />
+                                <input type="text" name="billToExtension" id="billToExtension" value="${billToExtension?if_exists}" size="5" maxlength="10" />
                             </span>
                           <#else>
                             <span>
                                 <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
                                     <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input type="text" name="billToCountryCode" class="required" id="billToCountryCode" value="${parameters.billToCountryCode?if_exists}" size="5" maxlength="3" /> -
+                                <input type="text" name="billToCountryCode" class="required" id="billToCountryCode" value="${parameters.billToCountryCode?if_exists}" size="5" maxlength="10" /> -
                             </span>
                             <span>
                                 <label for="billToAreaCode">${uiLabelMap.PartyAreaCode}*
                                     <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input type="text" name="billToAreaCode" class="required" id="billToAreaCode" value="${parameters.billToAreaCode?if_exists}" size="5" maxlength="3" /> -
+                                <input type="text" name="billToAreaCode" class="required" id="billToAreaCode" value="${parameters.billToAreaCode?if_exists}" size="5" maxlength="10" /> -
                             </span>
                             <span>
                                 <label for="billToContactNumber">${uiLabelMap.PartyContactNumber}*
                                     <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
-                                <input type="text" name="billToContactNumber" class="required" id="billToContactNumber" value="${parameters.billToContactNumber?if_exists}" size="10" maxlength="7" /> -
+                                <input type="text" name="billToContactNumber" class="required" id="billToContactNumber" value="${parameters.billToContactNumber?if_exists}" size="10" maxlength="15" /> -
                             </span>
                             <span>
                                 <label for="billToExtension">${uiLabelMap.PartyExtension}</label>
-                                <input type="text" name="billToExtension" id="billToExtension" value="${parameters.billToExtension?if_exists}" size="5" maxlength="3" />
+                                <input type="text" name="billToExtension" id="billToExtension" value="${parameters.billToExtension?if_exists}" size="5" maxlength="10" />
                             </span>
                           </#if>
                         </div>
