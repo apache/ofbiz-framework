@@ -24,11 +24,13 @@ under the License.
       <a class="button" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.EcommerceEditProfile}</a>
       <h3>${uiLabelMap.PartyContactInformation}</h3>
       <label>${firstName?if_exists} ${lastName?if_exists}</label>
-      <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId}" />
-      <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress}" />
-      <label>${emailAddress}</label>
-      <a href="mailto:${emailAddress}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
-      <div id="serverError_${emailContactMechId}" class="errorMessage"></div>
+      <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
+      <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress?if_exists}" />
+      <#if emailAddress?exists>
+        <label>${emailAddress?if_exists}</label>
+        <a href="mailto:${emailAddress?if_exists}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
+      </#if>
+      <div id="serverError_${emailContactMechId?if_exists}" class="errorMessage"></div>
     </div>
     <#-- Manage Addresses -->
     <div>
