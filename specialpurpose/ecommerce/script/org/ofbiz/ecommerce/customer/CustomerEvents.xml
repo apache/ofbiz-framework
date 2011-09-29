@@ -862,6 +862,26 @@ under the License.
 
     <!-- One page checkout process  -->
     <simple-method method-name="createUpdateUserLogin" short-description="Create and update a user login" login-required="false">
+        <!-- Check if for this user still an anonymus user login exists and remove it -->
+        <session-to-field field="user" session-name="userLogin"/>
+        <session-to-field field="cart" session-name="shoppingCart"/>
+
+        <if>
+            <condition>
+                    <and>
+                        <if-compare operator="equals" value="anonymous" field="cart.userLogin.userLoginId" />
+                        <if-compare operator="equals" value="anonymous" field="user.userLoginId" />
+                        <if-compare operator="equals" value="anonymous" field="userLogin.userLoginId" />
+                    </and>
+            </condition>
+            <then>
+                <clear-field field="userLogin"/>
+                <call-object-method method-name="removeAttribute" obj-field="session">
+                    <string value="userLogin" />
+                </call-object-method>
+            </then>
+        </if>
+
         <if-empty field="parameters.partyId">
             <request-to-field request-name="partyId" field="parameters.partyId"/>
         </if-empty>
