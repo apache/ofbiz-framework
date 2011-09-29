@@ -450,6 +450,7 @@ public class DataServices {
             } else if (binData != null) {
                 try {
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
+                    out.setLength(binData.array().length);
                     out.write(binData.array());
                     out.close();
                 } catch (FileNotFoundException e) {
