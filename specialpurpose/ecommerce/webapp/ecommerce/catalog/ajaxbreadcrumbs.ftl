@@ -18,25 +18,52 @@ under the License.
 -->
 
 <div class="breadcrumbs">
+<#assign isDefaultTheme = !layoutSettings.VT_FTR_TMPLT_LOC?contains("multiflex")>        
+<#if isDefaultTheme>
+  <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a> &gt;
+<#else>
   <ul>
     <li>
       <a href="<@ofbizUrl>main</@ofbizUrl>" class="linktext">${uiLabelMap.CommonMain}</a>
     </li>
+</#if>    
     <#-- Show the category branch -->
     <#if productCategoryTrail?exists>
         <#list productCategoryTrail as trail>
-        <li>
-          <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
-            <#if trail.title?exists>
-              ${trail.title}
-            <#else>
-              ${trail.productCategoryId}
-            </#if>
-          </a>
-        </li>
+          <#if !isDefaultTheme>                 
+            <li>
+              <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
+                <#if trail.title?exists>
+                  ${trail.title}
+                <#else>
+                  ${trail.productCategoryId}
+                </#if>
+              </a>
+            </li>
+          <#else>
+            <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
+              <#if trail.title?exists>
+                ${trail.title} >
+              <#else>
+                ${trail.productCategoryId} >
+              </#if>
+            </a>
+          </#if>
         </#list>
     </#if>
-    <li>
+    <#if !isDefaultTheme>                 
+      <li>
+        <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
+          <#if currentCategoryName?exists>
+            ${currentCategoryName}
+          <#elseif currentCategoryDescription?exists>
+            ${currentCategoryDescription}
+          <#else>
+            ${currentCategoryId}
+          </#if>
+        </a>
+      </li>
+    <#else>
       <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
         <#if currentCategoryName?exists>
           ${currentCategoryName}
@@ -46,10 +73,14 @@ under the License.
           ${currentCategoryId}
         </#if>
       </a>
-    </li>
+    </#if>
     <#-- Show the product, if there is one -->
     <#if productContentWrapper?exists>
-    <li>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</li>
+      <#if isDefaultTheme>
+           &nbsp;&gt; ${productContentWrapper.get("PRODUCT_NAME")?if_exists}    
+      <#else>
+        <li>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</li>
+      </#if>
     </#if>
   </ul>
 </div>
