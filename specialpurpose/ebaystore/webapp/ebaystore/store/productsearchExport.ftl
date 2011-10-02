@@ -497,10 +497,14 @@ under the License.
                                                  <table cellspacing="0">
                                                     <tr><td>
                                                         <script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/elrte.min.js" type="text/javascript"></script>
+                                                        <#if language?has_content && language != "en">
+                                                        <script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js" type="text/javascript"></script><#rt/>
+                                                        </#if>
                                                         <link href="/images/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
                                                         <script language="javascript" type="text/javascript">
                                                                 var opts = {
                                                                     cssClass : 'el-rte',
+                                                                    lang     : '${language}',
                                                                     toolbar  : 'maxi',
                                                                     doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
                                                                     cssfiles : ['/images/jquery/plugins/elrte-1.3/css/elrte-inner.css']

@@ -186,6 +186,7 @@ under the License.
                 <entity-one entity-name="WebSite" value-field="webSite"/>
 
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
+                <set field="language" from-field="userLogin.lastLocale" default-value="en"/>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleWebSiteCMSNav}">

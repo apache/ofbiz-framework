@@ -262,6 +262,7 @@ under the License.
                     <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 </entity-one>
                 <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/PrepareProductListing.groovy"/>
+                <set field="language" from-field="userLogin.lastLocale" default-value="en"/>
             </actions>
             <widgets>
                 <decorator-screen name="permission-decorator" location="${parameters.mainDecoratorLocation}">

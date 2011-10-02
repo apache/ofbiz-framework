@@ -18,6 +18,9 @@
   -->
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/elrte-1.3/js/elrte.min.js</@ofbizContentUrl>"></script>
+<#if language?has_content && language != "en">
+<script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js" type="text/javascript"></script><#rt/>
+</#if>
 
 <link href="/images/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
 
@@ -364,6 +367,7 @@ var rawdata_errors = [
         if($('#cmseditor').length) {
             var opts = {
                 cssClass : 'el-rte',
+                lang     : '${language}',
                 height   : 350,
                 toolbar  : 'maxi',
                 doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
