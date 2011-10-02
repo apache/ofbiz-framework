@@ -490,7 +490,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append("</textarea>");
 
         if (textareaField.getVisualEditorEnable()) {
-            writer.append("<script language=\"javascript\" src=\"/images/jquery/plugins/elrteEditor/elrte.min.js\" type=\"text/javascript\"></script>");
+            writer.append("<script language=\"javascript\" src=\"/images/jquery/plugins/elrte-1.3/js/elrte.min.js\" type=\"text/javascript\"></script>");
             writer.append("<link href=\"/images/jquery/plugins/elrteEditor/css/elrte.full.css\" rel=\"stylesheet\" type=\"text/css\">");
             writer.append("<script language=\"javascript\" type=\"text/javascript\"> var opts = { cssClass : 'el-rte', toolbar : ");
             // define the toolsbar
