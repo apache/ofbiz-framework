@@ -10331,7 +10331,7 @@
         <value xml:lang="th">สาธารณะ</value>
         <value xml:lang="zh">公开吗</value>
         <value xml:lang="zh_TW">公開嗎</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
         <value xml:lang="de">Zuletzt geändert von Benutzeranmeldung</value>
