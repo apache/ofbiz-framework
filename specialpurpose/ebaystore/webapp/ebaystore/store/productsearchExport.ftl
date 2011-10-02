@@ -497,7 +497,7 @@ under the License.
                                                  <table cellspacing="0">
                                                     <tr><td>
                                                         <script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/elrte.min.js" type="text/javascript"></script>
-                                                        <link href="/images/jquery/plugins/elrte-1.3/css/elrte.full.css" rel="stylesheet" type="text/css">
+                                                        <link href="/images/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
                                                         <script language="javascript" type="text/javascript">
                                                                 var opts = {
                                                                     cssClass : 'el-rte',

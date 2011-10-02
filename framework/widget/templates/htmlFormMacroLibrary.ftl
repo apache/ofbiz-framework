@@ -85,9 +85,9 @@ under the License.
     <#if visualEditorEnable?has_content>
         <script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/elrte.min.js" type="text/javascript"></script><#rt/>
         <#if language?has_content && language != "en">
-            <script language="javascript" src="/images/jquery/plugins/elrte-1.3/i18n/elrte.${language!"en"}.js" type="text/javascript"></script><#rt/>
+            <script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/i18n/elrte.${language!"en"}.js" type="text/javascript"></script><#rt/>
         </#if>
-        <link href="/images/jquery/plugins/elrte-1.3/css/elrte.full.css" rel="stylesheet" type="text/css">
+        <link href="/images/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
         <script language="javascript" type="text/javascript">
             var opts = {
                 cssClass : 'el-rte',

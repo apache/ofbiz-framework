@@ -19,7 +19,7 @@
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/jsTree/jquery.jstree.js</@ofbizContentUrl>"></script>
 <script language="javascript" type="text/javascript" src="<@ofbizContentUrl>/images/jquery/plugins/elrte-1.3/js/elrte.min.js</@ofbizContentUrl>"></script>
 
-<link href="/images/jquery/plugins/elrte-1.3/css/elrte.full.css" rel="stylesheet" type="text/css">
+<link href="/images/jquery/plugins/elrte-1.3/css/elrte.min.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
     jQuery(document).ready(loadTrees);
