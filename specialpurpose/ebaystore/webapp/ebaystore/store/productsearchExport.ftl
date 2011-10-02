@@ -496,14 +496,14 @@ under the License.
                                             <td width="60%" valign="top">
                                                  <table cellspacing="0">
                                                     <tr><td>
-                                                        <script language="javascript" src="/images/jquery/plugins/elrteEditor/elrte.min.js" type="text/javascript"></script>
-                                                        <link href="/images/jquery/plugins/elrteEditor/css/elrte.full.css" rel="stylesheet" type="text/css">
+                                                        <script language="javascript" src="/images/jquery/plugins/elrte-1.3/js/elrte.min.js" type="text/javascript"></script>
+                                                        <link href="/images/jquery/plugins/elrte-1.3/css/elrte.full.css" rel="stylesheet" type="text/css">
                                                         <script language="javascript" type="text/javascript">
                                                                 var opts = {
                                                                     cssClass : 'el-rte',
                                                                     toolbar  : 'maxi',
                                                                     doctype  : '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', //'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">',
-                                                                    cssfiles : ['/images/jquery/plugins/elrteEditor/css/elrte-inner.css']
+                                                                    cssfiles : ['/images/jquery/plugins/elrte-1.3/css/elrte-inner.css']
                                                                 }
                                                         </script>
                                                         <textarea id="description" name="description" style="width:800px; height:300px">

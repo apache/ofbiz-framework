@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>elRTE from source</title>
+
+	<!-- jQuery and UI -->
+	<script src="../js/jquery-1.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery-ui-1.8.13.custom.min.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="../css/smoothness/jquery-ui-1.8.13.custom.css" type="text/css" media="screen" title="no title" charset="utf-8">
+
+	<!-- CSS for widgets -->
+	<link rel="stylesheet" href="ellib/css/elcommon.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="ellib/css/elcolorpicker.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="ellib/css/eldialogform.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="ellib/css/elpaddinginput.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="ellib/css/elselect.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="elrte/css/elrte.css" type="text/css" media="screen" charset="utf-8">
+
+	<!-- Common JS and widgets -->
+	<script src="ellib/js/eli18n.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ellib/js/eldialogform.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ellib/js/jquery.elcolorpicker.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ellib/js/jquery.elborderselect.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ellib/js/jquery.elpaddinginput.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ellib/js/jquery.elselect.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- elRTE core -->
+	<script src="elrte/js/elRTE.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.options.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.utils.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.DOM.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.selection.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.w3cRange.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.ui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.history.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/elRTE.filter.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- elRTE languages -->
+	<script src="elrte/js/i18n/elrte.ar.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.ca.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.cs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.da.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.de.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.en.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.es.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.fa.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.fr.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.hr.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.hu.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.it.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.jp.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.ko.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.lv.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.nl.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.pl.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.pt_BR.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.ru.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.th.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.tr.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.uk.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.vi.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.zh_CN.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/i18n/elrte.zh_TW.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- elRTE buttons -->
+	<script src="elrte/js/ui/anchor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/blockquote.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/copy.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/css.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/div.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/docstructure.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/elfinder.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/fontname.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/fontsize.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/forecolor.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/formatblock.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/fullscreen.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/horizontalrule.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/image.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/flash.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/indent.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/justifyleft.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/link.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/nbsp.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/outdent.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/pasteformattext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/pastetext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/save.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/stopfloat.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/table.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tablerm.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbcellprops.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbcellsmerge.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbcellsplit.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbcollbefore.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbcolrm.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbrowbefore.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/tbrowrm.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/unlink.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/undo.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/direction.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/smiley.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/pagebreak.js" type="text/javascript" charset="utf-8"></script>
+	<script src="elrte/js/ui/about.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- elFinder -->
+	<link rel="stylesheet" href="../../elfinder/css/elfinder.css" type="text/css" media="screen" charset="utf-8">
+	<script src="../../elfinder/js/elfinder.full.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../elfinder/js/i18n/elfinder.ru.js" type="text/javascript" charset="utf-8"></script>
+
+
+
+	<script type="text/javascript" charset="utf-8">
+		jQuery().ready(function() {
+			// Disable filtering chains
+			// elRTE.prototype.filter.prototype.chains = {	}
+
+			/* elRTE 'custom' toolbar */
+			elRTE.prototype.options.panels.custom = [
+				'bold', 'italic', 'underline', 'forecolor',
+				'fontsize', 'formatblock', 'insertorderedlist', 'insertunorderedlist', 'docstructure'
+			];
+			elRTE.prototype.options.toolbars.custom = ['custom', 'eol', 'undoredo', 'alignment', 'eol', 'links', 'images'];
+
+			var opts = {
+				// doctype  : '<!DOCTYPE html PUBLIC  "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
+				cssClass : 'el-rte',
+				//lang     : 'en',
+				height   : 350,
+
+				toolbar  : 'maxi', // custom
+				cssfiles : ['elrte/css/elrte-inner.css', 'elrte/css/inner-example.css'],
+				// elfinder
+				fmOpen   : function(callback) {
+					$('<div id="myelfinder"></div>').elfinder({
+						url : '../../elfinder/connectors/php/connector.php',
+						lang : 'en',
+						dialog : { width : 900, modal : true, title : 'Files' }, // open in dialog
+						closeOnEditorCallback : true, // close elFinder after file select
+						editorCallback : callback // pass callback to editor
+					});
+				},
+				// example of user replacement
+				// restricts edit of blocks like <!-- BEGIN MY_BLOCK -->anything<!-- END MY_BLOCK -->
+				replace : [ function(html) {
+					var self = this;
+					return html.replace(/(<!--\s*BEGIN\s*([^>]+)\s*-->([\s\S]*?)<!--\s*END\s*(\2)\s*-->)/gi, function(t, a, b, c, d) {
+
+						if (b == d) {
+							//self.rte.log([b, d]);
+							var id = 'MYTAG'+Math.random().toString().substring(2);
+							self.scripts[id] = t;
+							return '<img id="'+id+'" src="'+self.url+'pixel.gif" class="elrte-protected elrte-MYTAG">';
+						}
+						return html;
+					});
+				}],
+				restore : [ function(html) {
+					var self = this;
+					return html.replace(this.serviceClassRegExp, function(t, n, a) {
+						a = self.parseAttrs(a);
+						if (a["class"]['elrte-MYTAG']) {
+							return self.scripts[a.id] + "\n" || '';
+						}
+						return t;
+					});
+				}]
+			};
+
+			// create elRTE
+			var rte = $('#editor').elrte(opts);
+
+			// elRTE in dialog example
+			$('#dialog').click(function() { // open dialog on click
+				var dialog = $('<div/>').dialog({
+					title : 'Editor in dialog',
+					width : 600
+				});
+				// create element for elRTE
+				var rteInDialog = $('<div>Content for editor in dialog</div>');
+				// put element inside dialog
+				dialog.append(rteInDialog);
+				// create elRTE on element
+				rteInDialog.elrte(opts);
+			});
+			$('#getContent').click(function() {
+				alert($('#editor').elrte('val'));
+			});
+			$('#setContent').click(function() {
+				$('#editor').elrte('val', 'This is new <b>content</b> for editor');
+			});
+			$('#destroy').click(function() {
+				$('#editor').elrte('destroy');
+			});
+
+		});
+	</script>
+	
+	<style type="text/css" media="screen">
+		body { padding: 0 20px; }
+		.button { display:inline-block; border:1px solid #ccc; background:#eee; padding:5px; margin:10px; }
+	</style>
+
+</head>
+<body>
+	<!-- <object style="" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" height="300" width="500"><param name="quality" value="high"><param name="movie" value="http://localhost/git/elrte-stable/files/flash/500.swf"><embed pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://localhost/git/elrte-stable/files/flash/500.swf" type="application/x-shockwave-flash"></object> -->
+
+
+<!-- <object width="640" height="385"><param name="movie" value="http://www.youtube.com/v/yksg5lL6D_U?fs=1&hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/yksg5lL6D_U?fs=1&hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385"></embed></object> -->
+	<!-- <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps/ms?ie=UTF8&amp;hl=en&amp;msa=0&amp;msid=109895569633316339579.0004564e2ac5710eda622&amp;ll=7.815809,98.33674&amp;spn=0.000361,0.004838&amp;output=embed"></iframe><br /><small>View <a href="http://maps.google.com/maps/ms?ie=UTF8&amp;hl=en&amp;msa=0&amp;msid=109895569633316339579.0004564e2ac5710eda622&amp;ll=7.815809,98.33674&amp;spn=0.000361,0.004838&amp;source=embed" style="color:#0000FF;text-align:left">World Ocean Trip</a> in a larger map</small> -->
+	<form method="post" action="post.php?debug=yes">
+	<!-- <textarea id="editor2">
+		<table>
+			<tr>
+				<td>Полотенце</td>
+				<td>Полотенце, возможно, самый необходимый предмет ! для межзвездного путешественника.</td>
+			</tr>
+		</table>
+		<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+		Полотенце, возможно, самый необходимый предмет ! для межзвездного путешественника.
+	</textarea> -->
+	<!-- <textarea id="editor3"></textarea> -->
+	<div id="editor">
+<!-- BEGIN DO_NOT_EDIT -->
+	hello eldorado	<!-- BEGIN DO_NOT_INNER -->inner<!-- END DO_NOT_INNER -->
+<!-- END DO_NOT_EDIT -->
+
+<!-- BEGIN DO_NOT_WOW -->
+here is my fancy code
+<!-- END DO_NOT_WOW -->
+
+		<p>Полотенце, <a name="42"></a>возможно, <span> необходимый предмет ! </span>для межзвездного путешественника.</p> &nbsp; <br /> &nbsp;
+<br>&nbsp;&nbsp;<p>Полотенце, возможно, самый необходимый предмет ! для межзвездного путешественника.</p>
+<meta http-equiv="CONTENT-TYPE" content="text/html; charset=utf-8">
+<font color="red">empty text</font>
+<div>div'ed text</div><p>p test</p>
+<table>
+<tbody> {?foreach key=k value=v?}
+<tr><td>123</td></tr> {?/foreach?}
+</tbody>
+</table>
+<h2>ДУГЛАС АДАМС - Путеводитель "Автостопом по Галактике"<br>
+DOUGLAS ADAMS - The Hitchhiker's Guide to the Galaxy</h2>
+
+				<!-- pagebreak -->
+				<script type="text/javascript" charset="utf-8">
+					// alert('a')
+				</script>
+				<img src="elrte/images/media-director.png" alt="Marvin">
+				<!-- pagebreak -->
+<b>Вот что сообщает <a href="http://google.com">Галактический Путеводитель</a> на предмет <span style="background-color: rgb(255, 255, 153);">полотенец</span>:</b>
+Полотенце, возможно, самый необходимый предмет ! для межзвездного путешественника. Оно имеет некоторую практическую ценность - вы можете: завернуться в него, чтобы согреться, прыгая по холодным лунам Джаглан-Беты; использовать его, как подстилку,лежа на мраморном песке пляжей Сантрагинуса V и вдыхая пьянящий морской воздух;  спать на нем под огненно-красными звездами на пустынной планете Какрафун; сделать из него парус, чтобы спуститься на плоту по ленивой реке Мотт; намочить его и завязать узлом, чтобы использовать, как оружие в рукопашной; обвязать им голову, чтобы избежать ядовитого дыма или взгляда Прожорного Заглотозавера с Трааля 
+	</div>
+	<input type="submit" name="" value="go" id="">
+	</form>
+	<div id="dialog" class="button">dialog</div>
+	<div id="getContent" class="button">get content</div>
+	<div id="setContent" class="button">set content</div>
+	<div id="destroy" class="button">destroy</div>
+</body>
+</html>
