@@ -30,17 +30,20 @@ public class JsLanguageFileMappingCreator {
         Map<String, Object> jQueryLocaleFile = FastMap.newInstance();
         Map<String, String> dateJsLocaleFile = FastMap.newInstance();
         Map<String, String> validationLocaleFile = FastMap.newInstance();
+        Map<String, String> dateTimePickerLocaleFile = FastMap.newInstance();
 
         // setup some variables to locate the js files
         String componentRoot = "component://images/webapp";
         String jqueryUiLocaleRelPath = "/images/jquery/ui/development-bundle/ui/i18n/";
         String dateJsLocaleRelPath = "/images/jquery/plugins/datejs/";
         String validateRelPath = "/images/jquery/plugins/validate/localization/";
+        String dateTimePickerJsLocaleRelPath = "/images/jquery/plugins/datetimepicker/localization/";
         String jsFilePostFix = ".js";
         String dateJsLocalePrefix = "date-";
         String validateLocalePrefix = "messages_";
         //String validateMethLocalePrefix = "methods__";
         String jqueryUiLocalePrefix = "jquery.ui.datepicker-";
+        String dateTimePickerPrefix = "jquery-ui-timepicker-";
         String defaultLocaleDateJs = "en-US";
         String defaultLocaleJquery = "en";
 
@@ -129,6 +132,28 @@ public class JsLanguageFileMappingCreator {
             }
 
             jQueryLocaleFile.put(displayCountry, fileUrl);
+
+            /*
+             * Try to open the datetimepicker language file
+             */
+            file = null;
+            fileUrl = null;
+
+            fileName = componentRoot + dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + strippedLocale + jsFilePostFix;
+            file = FileUtil.getFile(fileName);
+
+            if (file.exists()) {
+                fileUrl = dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + strippedLocale + jsFilePostFix;
+            } else {
+                fileName = componentRoot + dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + modifiedDisplayCountry + jsFilePostFix;
+                file = FileUtil.getFile(fileName);
+
+                if (file.exists()) {
+                    fileUrl = dateTimePickerJsLocaleRelPath + dateTimePickerPrefix + modifiedDisplayCountry + jsFilePostFix;
+                }
+            }
+
+            dateTimePickerLocaleFile.put(displayCountry, fileUrl);
         }
 
         // check the template file
@@ -138,6 +163,7 @@ public class JsLanguageFileMappingCreator {
         mapWrapper.put("datejs", dateJsLocaleFile);
         mapWrapper.put("jquery", jQueryLocaleFile);
         mapWrapper.put("validation", validationLocaleFile);
+        mapWrapper.put("dateTime", dateTimePickerLocaleFile);
 
         // some magic to create a new java file
         // render it as FTL
