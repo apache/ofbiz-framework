@@ -491,7 +491,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         if (textareaField.getVisualEditorEnable()) {
             writer.append("<script language=\"javascript\" src=\"/images/jquery/plugins/elrte-1.3/js/elrte.min.js\" type=\"text/javascript\"></script>");
-            writer.append("<link href=\"/images/jquery/plugins/elrteEditor/css/elrte.full.css\" rel=\"stylesheet\" type=\"text/css\">");
+            writer.append("<link href=\"/images/jquery/plugins/elrte-1.3/css/elrte.min.css\" rel=\"stylesheet\" type=\"text/css\">");
             writer.append("<script language=\"javascript\" type=\"text/javascript\"> var opts = { cssClass : 'el-rte', toolbar : ");
             // define the toolsbar
             String buttons = textareaField.getVisualEditorButtons(context);
@@ -501,7 +501,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("maxi");
             }
             writer.append(", doctype  : '<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">', //'<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\">'");
-            writer.append(", cssfiles : ['/images/jquery/plugins/elrteEditor/css/elrte-inner.css'] ");
+            writer.append(", cssfiles : ['/images/jquery/plugins/elrte-1.3/css/elrte-inner.css'] ");
             writer.append("}");
             // load the wysiwyg editor
             writer.append("jQuery('#");
