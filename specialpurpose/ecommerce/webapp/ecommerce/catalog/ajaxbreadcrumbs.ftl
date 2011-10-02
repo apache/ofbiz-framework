@@ -74,14 +74,6 @@ under the License.
         </#if>
       </a>
     </#if>
-    <#-- Show the product, if there is one -->
-    <#if productContentWrapper?exists>
-      <#if isDefaultTheme>
-           &nbsp;&gt; ${productContentWrapper.get("PRODUCT_NAME")?if_exists}    
-      <#else>
-        <li>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</li>
-      </#if>
-    </#if>
   </ul>
 </div>
 <br />
