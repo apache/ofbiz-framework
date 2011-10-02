@@ -10317,6 +10317,21 @@
         <value xml:lang="zh">有数据库表</value>
         <value xml:lang="zh_TW">有資料庫表</value>
     </property>
+    <property key="FormFieldTitle_isPublic">
+        <value xml:lang="ar">جمهور</value>
+        <value xml:lang="de">Ist öffentlich</value>
+        <value xml:lang="en">Is Public</value>
+        <value xml:lang="es">Es público</value>
+        <value xml:lang="fr">Accès public</value>
+        <value xml:lang="it">E' Pubblica</value>
+        <value xml:lang="nl">Publiekelijk toegankelijk</value>
+        <value xml:lang="pt_BR">É Pulico</value>
+        <value xml:lang="ro">Este Public</value>
+        <value xml:lang="ru">Публичный?</value>
+        <value xml:lang="th">สาธารณะ</value>
+        <value xml:lang="zh">公开吗</value>
+        <value xml:lang="zh_TW">公開嗎</value>
+    </property>    
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
         <value xml:lang="de">Zuletzt geändert von Benutzeranmeldung</value>
