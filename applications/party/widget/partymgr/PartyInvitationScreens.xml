@@ -54,7 +54,10 @@ under the License.
                                         <not><if-empty field="partyInvitation"/></not>
                                     </condition>
                                     <widgets>
-                                        <container style="button-bar"><link target="editPartyInvitation" text="${uiLabelMap.PartyInvitationNewPartyInvitation}" style="buttontext create"/></container>
+                                        <container style="button-bar">
+                                            <link target="editPartyInvitation" text="${uiLabelMap.PartyInvitationNewPartyInvitation}" style="buttontext create"/>
+                                            <link target="/ordermgr/control/orderentry?partyId=${partyInvitation.partyIdFrom}" text="${uiLabelMap.PartyInvitationNewOrder}" style="buttontext create" url-mode="inter-app"/>
+                                        </container>
                                         <container style="button-bar"><label style="h1">${uiLabelMap[titleProperty]}</label><label style="h2"> ${uiLabelMap.CommonFor} "${partyInvitation.partyIdFrom}" [${partyInvitationId}]</label></container>
                                     </widgets>
                                 </section>
