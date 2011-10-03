@@ -74,6 +74,7 @@ public class ContentUrlFilter extends ContextFilter {
                 try {
                     List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl));
                     if (contentDataResourceViews.size() > 0) {
+                        contentDataResourceViews = EntityUtil.orderBy(contentDataResourceViews, UtilMisc.toList("createdDate DESC"));
                         GenericValue contentDataResourceView = EntityUtil.getFirst(contentDataResourceViews);
                         List<GenericValue> contents = EntityUtil.filterByDate(delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId"))));
                         if (contents.size() > 0) {
@@ -123,6 +124,10 @@ public class ContentUrlFilter extends ContextFilter {
                 url = contentAssocDataResource.getString("drObjectInfo");
                 try {
                     url = StringUtil.defaultWebEncoder.decodeFromURL(url);
+                    String mountPoint = request.getContextPath();
+                    if (mountPoint != "/") {
+                        url = mountPoint + url;
+                    }
                 } catch (EncodingException e) {
                     Debug.logError(e, module);
                 }

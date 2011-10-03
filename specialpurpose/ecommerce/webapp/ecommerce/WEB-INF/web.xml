@@ -65,7 +65,7 @@ under the License.
         <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
         <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
     </filter>
-	<filter>
+    <filter>
         <filter-name>ContentUrlFilter</filter-name>
         <display-name>ContentUrlFilter</display-name>
         <filter-class>org.ofbiz.content.content.ContentUrlFilter</filter-class>
