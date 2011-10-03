@@ -40,7 +40,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="showShoppingList">
         <section>
             <condition>
@@ -51,7 +51,6 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/EditShoppingList.groovy"/>
-                <set field="check" type="PlainString" value="${groovy: return request.getAttribute('checkValue');}"/>
                 <set field="visualThemeId" from-field="productStore.visualThemeId" default-value="EC_DEFAULT"/>
                 <service service-name="getVisualThemeResources">
                     <field-map field-name="visualThemeId"/>
@@ -60,49 +59,9 @@ under the License.
                 <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
             </actions>
             <widgets>
-                <section>
-                    <condition>
-                        <if-compare operator="equals" value="check" field="check" type="PlainString"/>
-                    </condition>
-                    <widgets>
-                        <label text="11111111111111111111111111"></label>
-                        <include-screen name="editShoppingList"/>
-                    </widgets>
-                    <fail-widgets>
-                        <label text="444444444444444444444444444"></label>
-<!--                        <include-screen name="category-include" share-scope="true"/>-->
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/shoppinglist/editShoppingList.ftl"/></html></platform-specific>
-                    </fail-widgets>
-                </section>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/shoppinglist/editShoppingList.ftl"/></html></platform-specific>
             </widgets>
-            <fail-widgets>
-                <section>
-                   <widgets>
-                   <label text="555555555555"></label>
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/shoppinglist/editShoppingList.ftl"/></html></platform-specific>
-                   </widgets>
-                </section>
-            </fail-widgets>
         </section>
     </screen>
     
-<!--    <screen name="editShoppingList">-->
-<!--        <section>-->
-<!--            <actions>-->
-<!--                <set field="rightbarScreenName" value="rightbar"/>-->
-<!--                <set field="MainColumnStyle" value="rightonly"/>-->
-<!---->
-<!--                <set field="titleProperty" value="PageTitleShoppingList"/>-->
-<!--                <set field="headerItem" value="Shopping List"/>-->
-<!--                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/shoppinglist/EditShoppingList.groovy"/>-->
-<!--            </actions>-->
-<!--            <widgets>-->
-<!--                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">-->
-<!--                    <decorator-section name="body">-->
-<!--                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/shoppinglist/editShoppingList.ftl"/></html></platform-specific>-->
-<!--                    </decorator-section>-->
-<!--                </decorator-screen>-->
-<!--            </widgets>-->
-<!--        </section>-->
-<!--    </screen>-->
 </screens>
