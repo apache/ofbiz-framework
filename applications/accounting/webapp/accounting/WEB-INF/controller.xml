@@ -219,7 +219,7 @@ under the License.
     </request-map>
     <request-map uri="updateInvoiceApplication">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentApplicationDef"/>
+        <event type="service" invoke="addPaymentApplication"/>
         <response name="success" type="view" value="editInvoiceApplications"/>
         <response name="error" type="view" value="editInvoiceApplications"/>
     </request-map>

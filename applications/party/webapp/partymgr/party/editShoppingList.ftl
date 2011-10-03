@@ -169,6 +169,16 @@ under the License.
   </div>
   <div class="screenlet-body">
     <#if shoppingListItemDatas?has_content>
+        <#-- Pagination -->
+        <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
+        <#assign commonUrl = "editShoppingList?partyId=" + partyId + "&"/>
+        <#assign viewIndexFirst = 0/>
+        <#assign viewIndexPrevious = viewIndex - 1/>
+        <#assign viewIndexNext = viewIndex + 1/>
+        <#assign viewIndexLast = Static["java.lang.Math"].floor(listSize/viewSize)/>
+        <#assign messageMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("lowCount", lowIndex, "highCount", highIndex, "total", listSize)/>
+        <#assign commonDisplaying = Static["org.ofbiz.base.util.UtilProperties"].getMessage("CommonUiLabels", "CommonDisplaying", messageMap, locale)/>
+        <@nextPrev commonUrl=commonUrl ajaxEnabled=false javaScriptEnabled=false paginateStyle="nav-pager" paginateFirstStyle="nav-first" viewIndex=viewIndex highIndex=highIndex listSize=listSize viewSize=viewSize ajaxFirstUrl="" firstUrl="" paginateFirstLabel="" paginatePreviousStyle="nav-previous" ajaxPreviousUrl="" previousUrl="" paginatePreviousLabel="" pageLabel="" ajaxSelectUrl="" selectUrl="" ajaxSelectSizeUrl="" selectSizeUrl="" commonDisplaying=commonDisplaying paginateNextStyle="nav-next" ajaxNextUrl="" nextUrl="" paginateNextLabel="" paginateLastStyle="nav-last" ajaxLastUrl="" lastUrl="" paginateLastLabel="" paginateViewSizeLabel="" />
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.PartyProduct}</td>
@@ -179,7 +189,7 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
-        <#list shoppingListItemDatas as shoppingListItemData>
+        <#list shoppingListItemDatas[lowIndex..highIndex-1] as shoppingListItemData>
           <#assign shoppingListItem = shoppingListItemData.shoppingListItem>
           <#assign product = shoppingListItemData.product>
           <#assign productContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(product, request)>

@@ -58,6 +58,7 @@ context.shoppingListTypes = shoppingListTypes;
 // get the shoppingListId for this reqest
 parameterMap = UtilHttp.getParameterMap(request);
 shoppingListId = parameterMap.shoppingListId ?: request.getAttribute("shoppingListId") ?: session.getAttribute("currentShoppingListId");
+context.shoppingListId = shoppingListId;
 
 // no passed shopping list id default to first list
 if (!shoppingListId) {
@@ -135,6 +136,23 @@ if (shoppingListId) {
                 shoppingListItemDatas.add(shoppingListItemData);
             }
             context.shoppingListItemDatas = shoppingListItemDatas;
+            // pagination for the shopping list
+            viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
+            viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: 20);
+            listSize = 0;
+            if (shoppingListItemDatas)
+                listSize = shoppingListItemDatas.size();
+            
+            lowIndex = (((viewIndex - 1) * viewSize) + 1);
+            highIndex = viewIndex * viewSize;
+            if (highIndex > listSize) {
+                highIndex = listSize;
+            }
+            context.viewIndex = viewIndex;
+            context.viewSize = viewSize;
+            context.listSize = listSize;
+            context.lowIndex = lowIndex;
+            context.highIndex = highIndex;
         }
 
         shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
