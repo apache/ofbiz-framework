@@ -30,8 +30,54 @@ under the License.
        }
        jQuery(obj).submit();
     }
+    
+    function callDocumentByPaginate(info) {
+        var str = info.split('~');
+        var checkUrl = '<@ofbizUrl>showShoppingListAjaxFired</@ofbizUrl>';
+        if(checkUrl.search("http"))
+            var ajaxUrl = '<@ofbizUrl>showShoppingListAjaxFired</@ofbizUrl>';
+        else
+            var ajaxUrl = '<@ofbizUrl>showShoppingListAjaxFiredSecure</@ofbizUrl>';
+        //jQuerry Ajax Request
+        jQuery.ajax({
+            url: ajaxUrl,
+            type: 'POST',
+            data: {"shoppingListId" : str[0], "VIEW_SIZE" : str[1], "VIEW_INDEX" : str[2]},
+            error: function(msg) {
+                alert("An error occured loading content! : " + msg);
+            },
+            success: function(msg) {
+                jQuery('#div3').html(msg);
+            }
+        });
+     }
 </script>
 <br />
+<#macro paginationControls>
+    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
+      <#if (viewIndexMax?int > 0)>
+        <div class="product-prevnext">
+            <#-- Start Page Select Drop-Down -->
+            <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
+                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
+                <#list 0..viewIndexMax as curViewNum>
+                     <option value="${shoppingListId?if_exists}~${viewSize}~${curViewNum?int + 1}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                </#list>
+            </select>
+            <#-- End Page Select Drop-Down -->
+            <#if (viewIndex?int > 1)>
+                <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int - 1}');" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
+            </#if>
+            <#if ((listSize?int - viewSize?int) > 0)>
+                <span>${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
+            </#if>
+            <#if highIndex?int < listSize?int>
+             | <a href="javascript: void(0);" onclick="callDocumentByPaginate('${shoppingListId?if_exists}~${viewSize}~${viewIndex?int + 1}');" class="buttontext">${uiLabelMap.CommonNext}</a>
+            </#if>
+        </div>
+    </#if>
+</#macro>
+
 <div class="screenlet">
         <div class="boxlink">
             <a href="<@ofbizUrl>createEmptyShoppingList?productStoreId=${productStoreId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonCreateNew}</a>
@@ -375,6 +421,8 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#if shoppingListItemDatas?has_content>
+            <#-- Pagination -->
+            <@paginationControls/>
             <table width="100%" cellspacing="0" cellpadding="1" border="0">
               <tr>
                 <td><div class="tabletext"><b>${uiLabelMap.OrderProduct}</b></div></td>
@@ -385,7 +433,7 @@ under the License.
                 <td>&nbsp;</td>
               </tr>
 
-              <#list shoppingListItemDatas as shoppingListItemData>
+              <#list shoppingListItemDatas[lowIndex..highIndex-1] as shoppingListItemData>
                 <#assign shoppingListItem = shoppingListItemData.shoppingListItem/>
                 <#assign product = shoppingListItemData.product/>
                 <#assign productContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(product, request)/>
