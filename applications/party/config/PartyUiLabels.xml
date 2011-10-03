@@ -6190,7 +6190,7 @@
         <value xml:lang="de">Erstellen Sie einen Auftrag von der Einladung</value>
         <value xml:lang="en">Create An Order From Invitation</value>
         <value xml:lang="es">Crear una orden de Invitación</value>
-        <value xml:lang="fr">Créer un ordre de l'invitation</value>
+        <value xml:lang="fr">Créer une commande à partir de l'invitation</value>
         <value xml:lang="it">Creare un ordine da invito</value>
         <value xml:lang="nl">Maak een Order van de Uitnodiging</value>
         <value xml:lang="pt_BR">Criar uma ordem de Convite</value>
@@ -6202,7 +6202,7 @@
         <value xml:lang="de">Dies ist keine gültige Akteur Einladung</value>
         <value xml:lang="en">This is not a valid Party Invitation</value>
         <value xml:lang="es">Esto no es una invitación de participante válida</value>
-        <value xml:lang="fr">Ceci n'est pas une invitation vlable</value>
+        <value xml:lang="fr">Ceci n'est pas une invitation valable</value>
         <value xml:lang="hi_IN">यह एक वैध पार्टी का निमंत्रण नहीं है</value>
         <value xml:lang="it">Questo non è un'Invito Soggetto valido</value>
         <value xml:lang="nl">Dit is geen valide uitnodiging</value>
