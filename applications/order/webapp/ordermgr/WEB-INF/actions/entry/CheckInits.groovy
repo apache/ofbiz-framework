@@ -24,6 +24,7 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.party.PartyWorker;
+import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.order.shoppingcart.product.ProductDisplayWorker;
@@ -50,3 +51,15 @@ context.suppliers = suppliers;
 
 organizations = delegator.findByAnd("PartyRole", [roleTypeId : "INTERNAL_ORGANIZATIO"]);
 context.organizations = organizations;
+
+// Set Shipping From the Party 
+partyId = null;
+partyId = parameters.partyId;
+if (partyId) {
+    party = delegator.findByPrimaryKey("Person", [partyId : partyId]);
+    contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
+    if (contactMech) {
+        ShoppingCart shoppingCart = ShoppingCartEvents.getCartObject(request);
+        shoppingCart.setShippingContactMechId(contactMech.contactMechId);
+    }
+}
