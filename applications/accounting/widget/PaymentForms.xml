@@ -288,6 +288,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
+        <field name="invoiceItemSeqId"><display/></field>
         <field name="amountApplied"><display/></field>
         <!-- TODO: this is commented out because updating (instead of removing and recreating) payment application can cause wrong gl postings.
         <field name="updateButton" widget-style="buttontext"><submit button-type="text-link"/></field>
