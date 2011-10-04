@@ -116,6 +116,11 @@ function lookupShipments() {
                     <#list purchaseShipmentStatuses as shipmentStatus>
                       <option value="${shipmentStatus.statusId}">${shipmentStatus.get("description",locale)}</option>
                     </#list>
+                    <option value="">---</option>
+                    <option value="">${uiLabelMap.ProductOrderReturnStatus}</option>
+                    <#list returnStatuses as returnStatus>
+                      <option value="${returnStatus.statusId}">${returnStatus.get("description",locale)}</option>
+                    </#list>
                   </select>
                 </td>
               </tr>
@@ -178,10 +183,10 @@ function lookupShipments() {
         <#if shipmentList?has_content>
           <#assign alt_row = false>
           <#list shipmentList as shipment>
-            <#assign originFacility = shipment.getRelatedOneCache("OriginFacility")?if_exists>
-            <#assign destinationFacility = shipment.getRelatedOneCache("DestinationFacility")?if_exists>
-            <#assign statusItem = shipment.getRelatedOneCache("StatusItem")?if_exists>
-            <#assign shipmentType = shipment.getRelatedOneCache("ShipmentType")?if_exists>
+            <#assign originFacility = delegator.findByPrimaryKeyCache("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", shipment.originFacilityId))?if_exists />
+            <#assign destinationFacility = delegator.findByPrimaryKeyCache("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", shipment.destinationFacilityId))?if_exists />
+            <#assign statusItem = delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", shipment.statusId))?if_exists/>
+            <#assign shipmentType = delegator.findByPrimaryKeyCache("ShipmentType", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentTypeId", shipment.shipmentTypeId))?if_exists/>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${shipment.shipmentId}</@ofbizUrl>" class="buttontext">${shipment.shipmentId}</a></td>
               <td>${(shipmentType.get("description",locale))?default(shipmentType.shipmentTypeId?default(""))}</td>
