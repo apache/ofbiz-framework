@@ -95,6 +95,7 @@ public class HumanResEvents {
                             hrefStr = hrefStr + hrefString2;
                         }
                         dataAttrMap.put("href", hrefStr);
+                        attrMap.put("rel", "P");
                         dataMap.put("attr", dataAttrMap);
                         attrMap.put("id", memberId);
                         josonMap.put("attr",attrMap);
