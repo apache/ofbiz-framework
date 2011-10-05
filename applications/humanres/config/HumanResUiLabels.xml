@@ -1226,7 +1226,7 @@
     </property>
     <property key="HumanResEmployeePosition">
         <value xml:lang="de">Stellen</value>
-        <value xml:lang="en">Employee Positions</value>
+        <value xml:lang="en">Employee Position</value>
         <value xml:lang="fr">Positions d'employé</value>
         <value xml:lang="it">Posizione Impiegato</value>
         <value xml:lang="pt_BR">Posição do empregado</value>
