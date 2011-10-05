@@ -125,7 +125,7 @@ public class ContentUrlFilter extends ContextFilter {
                 try {
                     url = StringUtil.defaultWebEncoder.decodeFromURL(url);
                     String mountPoint = request.getContextPath();
-                    if (mountPoint != "/") {
+                    if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
                         url = mountPoint + url;
                     }
                 } catch (EncodingException e) {
