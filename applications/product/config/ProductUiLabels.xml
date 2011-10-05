@@ -25062,4 +25062,14 @@
         <value xml:lang="en">Use cart quantity</value>
         <value xml:lang="fr">Utiliser la quantité du panier</value>
     </property>
+    <property key="ProductOrderReturnStatus">
+        <value xml:lang="de">Zurück Sendungsstatus</value>
+        <value xml:lang="en">Return Shipment Status</value>
+        <value xml:lang="es">Volver estado del envío</value>
+        <value xml:lang="fr">Retour d'état d'expédition</value>
+        <value xml:lang="it">Stato di spedizione di ritorno</value>
+        <value xml:lang="th">สถานะการขนส่งการคืนค่า</value>
+        <value xml:lang="zh">退運狀態</value>
+        <value xml:lang="zh_TW">退運狀態</value>
+    </property>
 </resource>
