@@ -63,7 +63,7 @@ under the License.
         <field use-when="emplPosition!=null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="emplPosition==null&amp;&amp;emplPositionId==null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><lookup target-form-name="LookupEmplPosition"/></field>
         <field use-when="emplPosition==null&amp;&amp;emplPositionId!=null" name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${emplPositionId}]"><display/></field>
-        <field name="partyId" parameter-name="partyId">
+        <field name="partyId" use-when="emplPosition!=null" parameter-name="partyId" title="organization partyId">
             <drop-down allow-empty="false">
                 <entity-options description="${partyId}" entity-name="PartyRole" key-field-name="partyId">
                     <entity-constraint name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
@@ -71,13 +71,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" use-when="emplPosition!=null" title="${uiLabelMap.PartyPartyId}">
+        <!--<field name="partyId" title="Organization PartyId">
             <display-entity description="${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
-        </field>
+        </field>-->
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
