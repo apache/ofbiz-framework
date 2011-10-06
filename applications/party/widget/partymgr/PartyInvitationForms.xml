@@ -22,12 +22,13 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindPartyInvitations" type="single" default-map-name="partyInvitations" target="partyInvitation"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="partyInvitationId"><text-find ignore-case="true"/></field>
-        <field position="1" name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="2" name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field position="1" name="emailAddress"><text-find ignore-case="true"/></field>
+        <field position="1" name="partyInvitationId"><text-find ignore-case="true"/></field>
+        <field position="2" name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
+        <field position="1" name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field position="2" name="toName"><text-find ignore-case="true"/></field>
-        <field name="statusId">
+        <field position="1" name="emailAddress"><text-find ignore-case="true"/></field>
+        <field position="2" name="datefrom" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="statusId" position="1">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
@@ -35,6 +36,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field position="2" name="dateThru" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="performSearch"><hidden value="Y"/></field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -43,6 +45,10 @@ under the License.
     <form name="ListPartyInvitations" type="list" list-name="listIt" default-entity-name="PartyInvitation"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
+            <set field="parameters.lastInviteDate_fld0_value" from-field="parameters.datefrom"/>
+            <set field="parameters.lastInviteDate_fld0_op" value="greaterThanEqualTo"/>
+            <set field="parameters.lastInviteDate" from-field="parameters.dateThru"/>
+            <set field="parameters.lastInviteDate_op" value="lessThanEqualTo"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyInvitation"/>
