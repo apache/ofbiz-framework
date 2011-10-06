@@ -119,7 +119,9 @@ function lookupShipments() {
                     <option value="">---</option>
                     <option value="">${uiLabelMap.ProductOrderReturnStatus}</option>
                     <#list returnStatuses as returnStatus>
-                      <option value="${returnStatus.statusId}">${returnStatus.get("description",locale)}</option>
+                      <#if returnStatus.statusId != "RETURN_REQUESTED">
+                        <option value="${returnStatus.statusId}">${returnStatus.get("description",locale)}</option>
+                      </#if>
                     </#list>
                   </select>
                 </td>
