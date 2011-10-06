@@ -79,7 +79,9 @@ if (destinationFacilityId) {
 if (statusId) {
     paramListBuffer.append("&statusId=");
     paramListBuffer.append(statusId);
-    findShipmentExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
+    if (!orderReturnValue) {
+        findShipmentExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
+    }
     currentStatus = delegator.findOne("StatusItem", [statusId : statusId], true);
     context.currentStatus = currentStatus;
 }
@@ -152,6 +154,9 @@ if ("Y".equals(lookupFlag)) {
         }
         
         if (orderReturnValue) {
+            returnCond = null;
+            findShipmentExprs.add(EntityCondition.makeCondition("returnStatusId", EntityOperator.EQUALS, statusId));
+            returnCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
             OrderReturnViewEntity = new DynamicViewEntity();
             OrderReturnViewEntity.addMemberEntity("SM", "Shipment");
             OrderReturnViewEntity.addMemberEntity("RH", "ReturnHeader");
@@ -162,11 +167,12 @@ if ("Y".equals(lookupFlag)) {
             OrderReturnViewEntity.addAlias("SM", "destinationFacilityId");
             OrderReturnViewEntity.addAlias("SM", "originFacilityId");
             OrderReturnViewEntity.addAlias("SM", "estimatedShipDate");
-            OrderReturnViewEntity.addAlias("RH", "statusId");
+            OrderReturnViewEntity.addAlias("SM", "statusId");
             OrderReturnViewEntity.addAlias("RH", "returnId");
             OrderReturnViewEntity.addAlias("RH", "entryDate");
+            OrderReturnViewEntity.addAlias("RH", "returnStatusId", "statusId", null, null, null, null);
             
-            orderReturnIt = delegator.findListIteratorByCondition(OrderReturnViewEntity, mainCond, null, null, null, null);
+            orderReturnIt = delegator.findListIteratorByCondition(OrderReturnViewEntity, returnCond, null, null, null, null);
             shipmentListSize = orderReturnIt.getResultsSizeAfterPartialList();
             
             if (highIndex > shipmentListSize) {
