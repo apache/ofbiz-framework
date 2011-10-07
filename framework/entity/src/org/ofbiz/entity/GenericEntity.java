@@ -744,7 +744,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             } else {
                 Debug.logWarning("The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
             }
-            fieldValue = null;
+            return null;
         }
 
         // In case of view entity first try to retrieve with View field names
@@ -816,20 +816,23 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         // finish off by adding the values of all PK fields
         if (modelEntity instanceof ModelViewEntity){
             // retrieve pkNames of realEntity
-            ModelViewEntity modelViewEntiy = (ModelViewEntity) modelEntity;
+            ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
             List<String> pkNamesToUse = FastList.newInstance();
             // iterate on realEntity for pkField
             Iterator<ModelField> iter = modelEntityToUse.getPksIterator();
             while (iter != null && iter.hasNext()) {
                 ModelField curField = iter.next();
                 String pkName = null;
-                Iterator<ModelAlias> iterAlias = modelViewEntiy.getAliasesIterator();
+                Iterator<ModelAlias> iterAlias = modelViewEntity.getAliasesIterator();
                 //search aliasName for pkField of realEntity
                 while (iterAlias != null && iterAlias.hasNext()) {
                     ModelAlias aliasField = iterAlias.next();
                     if (aliasField.getField().equals(curField.getName())){
-                        pkName = aliasField.getName();
-                        break;
+                        ModelEntity memberModelEntity = modelViewEntity.getMemberModelEntity(aliasField.getEntityAlias());
+                        if (memberModelEntity.getEntityName().equals(modelEntityToUse.getEntityName())) {
+                            pkName = aliasField.getName();
+                            break;
+                        }
                     }
                 }
                 if (pkName == null) pkName = curField.getName();
