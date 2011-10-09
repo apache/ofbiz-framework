@@ -41,7 +41,7 @@ exprList = [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, paym
 partyCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
 exprList1 = [EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_APPROVED"),
-             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_SEND"),
+             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_SENT"),
              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_READY"),
              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_RECEIVED")];
 statusCond = EntityCondition.makeCondition(exprList1, EntityOperator.OR);
