@@ -573,7 +573,7 @@
     <property key="PageTitleListTaskContent">
         <value xml:lang="de">Liste Aufgabeninhaltselemente aud</value>
         <value xml:lang="en">List Task Content Items</value>
-        <value xml:lang="fr">Voir les élements de la tâche</value>
+        <value xml:lang="fr">Voir les éléments de la tâche</value>
         <value xml:lang="it">Lista righe contenuto compito</value>
         <value xml:lang="nl">Contentitems tonen</value>
         <value xml:lang="zh">任务内容明细列表</value>
@@ -878,7 +878,7 @@
     <property key="ProjectMgrCreateByExistingTask">
         <value xml:lang="de">Mit einer existierenden Aufgabe verbinden</value>
         <value xml:lang="en">Link to an existing Task</value>
-        <value xml:lang="fr">Lien à une tâche existante</value>
+        <value xml:lang="fr">Lier à une tâche existante</value>
         <value xml:lang="it">Link ad un compito esistente</value>
         <value xml:lang="nl">Aan bestaande taak koppelen</value>
         <value xml:lang="th">เชื่อมต่อไปยังงานที่มีอยู่แล้ว</value>
@@ -1426,7 +1426,7 @@
     <property key="ProjectMgrQuickAssignPartyId">
         <value xml:lang="de">Schnell verbinden mit Akteur ID</value>
         <value xml:lang="en">Quick Assign Party Id</value>
-        <value xml:lang="fr">Affecter rapidement un Réf. d'acteurt</value>
+        <value xml:lang="fr">Affecter rapidement un acteur</value>
         <value xml:lang="it">Assegnazione veloce soggetto</value>
         <value xml:lang="nl">Snel toewijzen aan actor</value>
         <value xml:lang="th">กำหนดรหัสกลุ่มผู้ใช้อย่างรวดเร็ว</value>
@@ -1476,7 +1476,7 @@
     </property>
     <property key="ProjectMgrRequestWorkEffortList">
         <value xml:lang="en">Cust Request WorkEffort List</value>
-        <value xml:lang="fr">List des demandes de tâches client</value>
+        <value xml:lang="fr">Liste des demandes clients associées à la tâche</value>
         <value xml:lang="it">Lista impegno di lavoro richiesta</value>
         <value xml:lang="nl">Overzicht requesttaken</value>
         <value xml:lang="th">รายการงานตามคำร้องของลูกค้า</value>
@@ -1503,7 +1503,7 @@
     <property key="ProjectMgrReviewedCustomerRequestTaskList">
         <value xml:lang="de">Geprüfte aber nicht komplette Kunden Anfragen Liste mit verbundenen Aufgaben</value>
         <value xml:lang="en">Reviewed but not completed Customer Request list with task assigned'</value>
-        <value xml:lang="fr">Liste des demandes client vérifiée mais incomplète et ayant une tâche affectée</value>
+        <value xml:lang="fr">Liste des demandes client vérifiées mais incomplètes et associées à une tâche</value>
         <value xml:lang="it">Verificato ma non completato, lista richiesta cliente con il compito assegnato</value>
         <value xml:lang="nl">Overzicht requesttaken die zijn geevalueerd maar niet gecompleteerd</value>
         <value xml:lang="zh">已检查但没有完成任务指定的客户请求列表</value>
@@ -1596,7 +1596,7 @@
     <property key="ProjectMgrStatusCannotUpdate">
         <value xml:lang="de">Der Status erlaubt keine Aktualisierung</value>
         <value xml:lang="en">Status does not allow an update</value>
-        <value xml:lang="fr">CE status ne permet pas une mise à jour</value>
+        <value xml:lang="fr">Ce statut ne permet pas une mise à jour</value>
         <value xml:lang="it">Stato non permette un'aggiornamento</value>
         <value xml:lang="nl">Status laat geen wijzigingen toe</value>
         <value xml:lang="th">สถานะยังไม่อนุญาตให้อัพเดท</value>
@@ -1605,7 +1605,7 @@
     <property key="ProjectMgrStatusId">
         <value xml:lang="de">Status ID</value>
         <value xml:lang="en">Status Id</value>
-        <value xml:lang="fr">Réf. de status</value>
+        <value xml:lang="fr">Statut</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="nl">ID</value>
         <value xml:lang="th">รหัสสถานะ</value>
@@ -1623,7 +1623,7 @@
     <property key="ProjectMgrSubProjectList">
         <value xml:lang="de">Liste der Teilprojekte</value>
         <value xml:lang="en">List of SubProjects</value>
-        <value xml:lang="fr">Listes des sous-projets</value>
+        <value xml:lang="fr">Liste des sous-projets</value>
         <value xml:lang="it">Lista dei sotto-progetti</value>
         <value xml:lang="nl">Overzicht subprojecten</value>
         <value xml:lang="th">รายการของโปรเจคย่อย</value>
@@ -1818,7 +1818,7 @@
     <property key="ProjectMgrTimeEntries">
         <value xml:lang="de">Zeitbuchungen</value>
         <value xml:lang="en">Time Entries</value>
-        <value xml:lang="fr">Echéances</value>
+        <value xml:lang="fr">Temps déclaré</value>
         <value xml:lang="it">Aggiungere/Aggiornare voce orario</value>
         <value xml:lang="nl">Urenboekingen</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
@@ -1827,7 +1827,7 @@
     <property key="ProjectMgrToComplete">
         <value xml:lang="de">Fertiggestellt</value>
         <value xml:lang="en">To complete</value>
-        <value xml:lang="fr">Changer pour 'terminé'</value>
+        <value xml:lang="fr">Changer pour 'Terminé'</value>
         <value xml:lang="it">Per completare</value>
         <value xml:lang="nl">Naar gecompleteerd</value>
         <value xml:lang="th">ค้นหาโปรเจคแสดงขอบเขต</value>
