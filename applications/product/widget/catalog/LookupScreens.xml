@@ -30,7 +30,7 @@ under the License.
                 <set field="title" value="${uiLabelMap.PageTitleLookupProduct}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="entityName" value="Product"/>
-                <set field="searchFields" value="[productId, brandName, internalName]"/>
+                <set field="searchFields" value="[productId, internalName, brandName]"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
