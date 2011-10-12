@@ -824,7 +824,7 @@
     <property key="WebtoolsCheckAll">
         <value xml:lang="de">Alle auswählen</value>
         <value xml:lang="en">Check All</value>
-        <value xml:lang="fr">Sélectionner tout</value>
+        <value xml:lang="fr">Tout sélectionner</value>
         <value xml:lang="it">Seleziona tutto</value>
         <value xml:lang="pt">Selecionar todos</value>
         <value xml:lang="th">ตรวจสอบทั้งหมด</value>
@@ -1950,7 +1950,7 @@
     </property>
     <property key="WebtoolsGeosSelect">
         <value xml:lang="en">Select Geos to associate</value>
-        <value xml:lang="fr">Sélectionner les zones géographiques à associer</value>
+        <value xml:lang="fr">Sélectionnez les zones géographiques à associer</value>
     </property>
     <property key="WebtoolsGroup">
         <value xml:lang="de">Gruppe</value>

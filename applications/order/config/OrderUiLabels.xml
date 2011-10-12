@@ -10240,7 +10240,7 @@
         <value xml:lang="de">Wählen Sie eine Lieferadresse</value>
         <value xml:lang="en">Select A Shipping Address</value>
         <value xml:lang="es">Seleccione una dirección de envío</value>
-        <value xml:lang="fr">Sélectionner une adresse d'expédition</value>
+        <value xml:lang="fr">Sélectionnez une adresse d'expédition</value>
         <value xml:lang="hi_IN">माल भेजने वाला पता दिजीये</value>
         <value xml:lang="it">Seleziona un indirizzo di spedizione</value>
         <value xml:lang="ja">Select A Shipping Address</value>
@@ -10256,7 +10256,7 @@
         <value xml:lang="de">Zuerst Adresse wählen</value>
         <value xml:lang="en">Select Address First</value>
         <value xml:lang="es">Seleccione la dirección primero</value>
-        <value xml:lang="fr">Sélectionner l'adresse d'abord</value>
+        <value xml:lang="fr">Sélectionnez l'adresse d'abord</value>
         <value xml:lang="hi_IN">पहले पता चुनें</value>
         <value xml:lang="it">Seleziona l'indirizzo prima</value>
         <value xml:lang="ja">Select Address First</value>
@@ -10330,7 +10330,7 @@
         <value xml:lang="de">Wählen Sie einen Akteurtyp aus, um ihn dem Auftrag zuzuordnen</value>
         <value xml:lang="en">Select type of party to associate to order</value>
         <value xml:lang="es">Seleccione el tipo de participante a asociar al pedido</value>
-        <value xml:lang="fr">Sélectionner le type d'acteurs à associer à la commande</value>
+        <value xml:lang="fr">Sélectionnez le type d'acteurs à associer à la commande</value>
         <value xml:lang="it">Seleziona il tipo di Soggetto da associare all'ordine</value>
         <value xml:lang="nl">Select type of party to associate to bestelling</value>
         <value xml:lang="pt_BR">Selecione o tipo de participante para associar ao pedido</value>
@@ -10345,7 +10345,7 @@
         <value xml:lang="de">Zahlungsmethode wählen</value>
         <value xml:lang="en">Select Payment Method</value>
         <value xml:lang="es">Seleccionar método de pago</value>
-        <value xml:lang="fr">Sélectionner un moyen de paiement</value>
+        <value xml:lang="fr">Sélectionnez un moyen de paiement</value>
         <value xml:lang="hi_IN">भुगतान विधी चुनें</value>
         <value xml:lang="it">Seleziona metodo pagamento</value>
         <value xml:lang="ja">Select Payment Method</value>
@@ -10363,7 +10363,7 @@
         <value xml:lang="en">Please select a ship from address</value>
         <value xml:lang="en_GB">Please select a deliver from address</value>
         <value xml:lang="es">Seleccione por favor una dirección de envío</value>
-        <value xml:lang="fr">Sélectionner l'adresse d'expédition</value>
+        <value xml:lang="fr">Sélectionnez l'adresse d'expédition</value>
         <value xml:lang="it">Per favore seleziona un indirizzo di spedizione</value>
         <value xml:lang="ja">Please select a ship from address</value>
         <value xml:lang="nl">Selecteer het adres waarvandaan verstuurd zal worden</value>
@@ -10379,7 +10379,7 @@
         <value xml:lang="de">Lieferadresse auswählen</value>
         <value xml:lang="en">Select Shipping Address</value>
         <value xml:lang="es">Seleccionar dirección de envío</value>
-        <value xml:lang="fr">Sélectionner une adresse de livraison</value>
+        <value xml:lang="fr">Sélectionnez une adresse de livraison</value>
         <value xml:lang="hi_IN">माल भेजने का पता कहिए</value>
         <value xml:lang="it">Seleziona indirizzo spedizione</value>
         <value xml:lang="ja">Select Shipping Address</value>
@@ -10394,7 +10394,7 @@
         <value xml:lang="de">Versandmethode auswählen</value>
         <value xml:lang="en">Select Shipping Method</value>
         <value xml:lang="es">Seleccionar método de envñio</value>
-        <value xml:lang="fr">Sélectionner une méthode d'expédition</value>
+        <value xml:lang="fr">Sélectionnez une méthode d'expédition</value>
         <value xml:lang="hi_IN">माल भेजने का तरीका कहिए</value>
         <value xml:lang="it">Seleziona metodo spedizione</value>
         <value xml:lang="ja">Select Shipping Method</value>

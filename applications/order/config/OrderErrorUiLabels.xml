@@ -3072,7 +3072,7 @@
     <property key="OrderSelectASuplierOrAProduct">
         <value xml:lang="en">Select A Suplier Or A Product</value>
         <value xml:lang="es">Seleccione un proveedor o un producto</value>
-        <value xml:lang="fr">Sélectionner un fournisseur ou un article</value>
+        <value xml:lang="fr">Sélectionnez un fournisseur ou un article</value>
         <value xml:lang="it">Seleziona un fornitore o un prodotto</value>
         <value xml:lang="pt_BR">Selecione um fornecedor ou um produto</value>
         <value xml:lang="th">เลือกผู้จัดหาสิ่งของหรือสินค้า</value>
@@ -3082,7 +3082,7 @@
     <property key="OrderSelectOnlySupplierOrProduct">
         <value xml:lang="en">Select Only Supplier Or Product</value>
         <value xml:lang="es">Seleccione solamente el proveedor O el producto</value>
-        <value xml:lang="fr">Sélectionner seulement un fournisseur ou seulement un article</value>
+        <value xml:lang="fr">Sélectionnez seulement un fournisseur ou seulement un article</value>
         <value xml:lang="it">Seleziona solo fornitore o prodotto</value>
         <value xml:lang="pt_BR">Selecione apenas um fornecedor ou ou produto</value>
         <value xml:lang="th">เลือกเฉพาะผู้จัดหาสิ่งของหรือสินค้า</value>

@@ -10672,7 +10672,7 @@
         <value xml:lang="de">Kategorie (Kategorie auswählen und Von Datum eingeben)</value>
         <value xml:lang="en">Category (select Category and enter fromDate)</value>
         <value xml:lang="es">Categoría (seleccione Categoría y ingrese fecha de inicio)</value>
-        <value xml:lang="fr">Sélectionner la catégorie et entrer la date</value>
+        <value xml:lang="fr">Sélectionnez la catégorie et entrer la date</value>
         <value xml:lang="it">Categoria (seleziona Categoria e inserire Da Data)</value>
         <value xml:lang="ro">Categoria (selectionati Categoria si introduceti De la Data)</value>
         <value xml:lang="ru">категорию (выберите категорию и введите дату начала)</value>
@@ -21881,7 +21881,7 @@
         <value xml:lang="de">Eine Einrichtung auswählen</value>
         <value xml:lang="en">Select a Facility</value>
         <value xml:lang="es">Seleccionar un almacén</value>
-        <value xml:lang="fr">Sélectionner un service</value>
+        <value xml:lang="fr">Sélectionnez un service</value>
         <value xml:lang="it">Seleziona una Stabilimento</value>
         <value xml:lang="ro">Selectioneaza un Compartiment</value>
         <value xml:lang="ru">Выбрать объект</value>
@@ -21905,7 +21905,7 @@
         <value xml:lang="de">Lieferung wählen zum entgegennehmen</value>
         <value xml:lang="en">Select Shipment to Receive</value>
         <value xml:lang="es">Seleccione envío a recibir</value>
-        <value xml:lang="fr">Sélectionner l'expédition à recevoir</value>
+        <value xml:lang="fr">Sélectionnez l'expédition à recevoir</value>
         <value xml:lang="it">Seleziona Spedizione da Ricevere</value>
         <value xml:lang="ro">Selectioneaza Expediere de Primit</value>
         <value xml:lang="ru">Выбрать поставки для получения</value>

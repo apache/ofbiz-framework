@@ -9780,7 +9780,7 @@
         <value xml:lang="de">Kontakttyp auswählen</value>
         <value xml:lang="en">Select Contact Type</value>
         <value xml:lang="es">Seleccionar tipo de contacto</value>
-        <value xml:lang="fr">Sélectionner un type de coordonnées</value>
+        <value xml:lang="fr">Sélectionnez un type de coordonnées</value>
         <value xml:lang="hi_IN">संपर्क प्रकार चुनें</value>
         <value xml:lang="it">Seleziona tipo di contatto</value>
         <value xml:lang="ja">Select Contact Type</value>
@@ -9796,7 +9796,7 @@
     <property key="PartySelectMimeType">
         <value xml:lang="de">Mime Typ auswählen</value>
         <value xml:lang="en">Select Mime Type</value>
-        <value xml:lang="fr">Sélectionner le type Mime</value>
+        <value xml:lang="fr">Sélectionnez le type Mime</value>
         <value xml:lang="hi_IN">माइम प्रकार चुनें</value>
         <value xml:lang="it">Selezione tipo mime</value>
         <value xml:lang="nl">Selecteer mime-type</value>
@@ -9810,7 +9810,7 @@
         <value xml:lang="de">Zweck auswählen</value>
         <value xml:lang="en">Select Purpose</value>
         <value xml:lang="es">Seleccione proposito</value>
-        <value xml:lang="fr">Sélectionner le but</value>
+        <value xml:lang="fr">Sélectionnez le but</value>
         <value xml:lang="hi_IN">प्रयोजन चुनें</value>
         <value xml:lang="it">Seleziona Funzione</value>
         <value xml:lang="nl">Selecteer doel</value>
@@ -9824,7 +9824,7 @@
         <value xml:lang="de">Rolle auswählen</value>
         <value xml:lang="en">Select Role</value>
         <value xml:lang="es">Seleccione rol</value>
-        <value xml:lang="fr">Sélectionner le rôle</value>
+        <value xml:lang="fr">Sélectionnez le rôle</value>
         <value xml:lang="hi_IN">भूमिका चुनें</value>
         <value xml:lang="it">Seleziona Ruolo</value>
         <value xml:lang="nl">Selecteer rol</value>
@@ -9838,7 +9838,7 @@
         <value xml:lang="de">Rolle(n) für diesen Akteur auswählen</value>
         <value xml:lang="en">Select role(s) for this party</value>
         <value xml:lang="es">Seleccione rol(es) para este participante</value>
-        <value xml:lang="fr">Sélectionner les rôle(s) pour cet acteur</value>
+        <value xml:lang="fr">Sélectionnez les rôle(s) pour cet acteur</value>
         <value xml:lang="hi_IN">इस पार्टी के लिए भूमिका(एं) चुनें</value>
         <value xml:lang="it">Selezione ruolo(i) per questo Soggetto</value>
         <value xml:lang="nl">Selecteer rol(len) voor deze relatie</value>

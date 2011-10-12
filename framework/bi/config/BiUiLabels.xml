@@ -209,7 +209,7 @@
     </property>
     <property key="BusinessIntelligenceNote26">
         <value xml:lang="en">Just select using the checkboxes the fields (columns) you want to see in the report</value>
-        <value xml:lang="fr">Sélectionner simplement en utilisant les case à cocher des champs (colonnes) que vous voulez voir dans le rapport</value>
+        <value xml:lang="fr">Sélectionnez simplement en utilisant les case à cocher des champs (colonnes) que vous voulez voir dans le rapport</value>
         <value xml:lang="it">Seleziona i campi che vuoi vedere</value>
         <value xml:lang="th">จะต้องเลือกใช้เช็คบ็อก (คอลัมภ์) ตามที่คุณต้องการให้มีในรายงาน</value>
         <value xml:lang="zh">使用选择框选择你想在报告中看到的那些数据项(列)，</value>
@@ -342,21 +342,21 @@
     </property>
     <property key="BusinessIntelligenceReportBuilderSelectStarSchema">
         <value xml:lang="en">Select Star Schema</value>
-        <value xml:lang="fr">Sélectionner le schéma en étoile</value>
+        <value xml:lang="fr">Sélectionnez le schéma en étoile</value>
         <value xml:lang="it">Seleziona Star Schema</value>
         <value xml:lang="th">เลือกแผนผัง</value>
         <value xml:lang="zh">选择星型模型</value>
     </property>
     <property key="BusinessIntelligenceReportBuilderSelectStarSchemaFields">
         <value xml:lang="en">Select Star Schema Fields</value>
-        <value xml:lang="fr">Sélectionner les champs du schéma en étoile</value>
+        <value xml:lang="fr">Sélectionnez les champs du schéma en étoile</value>
         <value xml:lang="it">Seleziona Campi Star Schema</value>
         <value xml:lang="th">เลือกช่องแผนผัง</value>
         <value xml:lang="zh">选择星型模型数据项</value>
     </property>
     <property key="BusinessIntelligenceReportBuilderSelectTheStarSchemaReport">
         <value xml:lang="en">Select the start schema (report)</value>
-        <value xml:lang="fr">Sélectionner le schéma en étoile (rapport)</value>
+        <value xml:lang="fr">Sélectionnez le schéma en étoile (rapport)</value>
         <value xml:lang="it">Seleziona lo start schema (report)</value>
         <value xml:lang="th">เลือกแผนผัง (รายงาน)</value>
         <value xml:lang="zh">选择星型模型(报告)</value>

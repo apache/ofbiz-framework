@@ -2680,7 +2680,7 @@
     <property key="SfaSelectExistingAccountOrLeaveBlankToCreateNew">
         <value xml:lang="de">Wählen Sie ein existierendes Konto oder lassen Sie es leer um ein neues Konto zu erstellen"</value>
         <value xml:lang="en">Either select existing account or leave blank to create new account"</value>
-        <value xml:lang="fr">Sélectionner un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
+        <value xml:lang="fr">Sélectionnez un compte existant ou laissez un espace vide pour créer un nouveau compte"</value>
         <value xml:lang="it">Selezione entrambi utente esistente o lasciare vuoto per creare un nuovo utente</value>
         <value xml:lang="pt_BR">Ou selecione uma conta existente ou deixe em branco para criar uma nova conta</value>
         <value xml:lang="zh">或者选择已有账户，或者留空来新建账户</value>
