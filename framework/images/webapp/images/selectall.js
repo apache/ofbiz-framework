@@ -430,7 +430,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                 jQuery("#" + areaArray[0]).val(ui.item.value); // setting a text field   
                 jQuery("#" + areaArray[0]).trigger("lookup:changed"); // notify the field has changed
                 if (showDescription) {
-                    setLookDescription(areaArray[0], ui.item.label, areaArray[2], formName)
+                    setLookDescription(areaArray[0], ui.item.label, areaArray[2], formName, showDescription)
                 }
             }
         });
@@ -444,7 +444,7 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
     }
 }
 
-function setLookDescription(textFieldId, description, params, formName){
+function setLookDescription(textFieldId, description, params, formName, showDescription){
     if (description) {
         var start = description.lastIndexOf(' [');
         if (start != -1) {
@@ -461,7 +461,7 @@ function setLookDescription(textFieldId, description, params, formName){
         }
         var lookupWrapperEl = jQuery("#" + textFieldId).closest('.field-lookup');
         if (lookupWrapperEl.length) {
-            if (start == -1) {
+            if (start == -1 && showDescription) {
                 var start = description.indexOf(' ');
                 if (start != -1 && description.indexOf('<script type="text/javascript">') == -1) {
                     description = description.substring(start);
