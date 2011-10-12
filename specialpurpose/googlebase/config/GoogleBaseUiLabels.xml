@@ -276,6 +276,10 @@
         <value xml:lang="th">ไม่พบพารามิเตอร์รหัสหมวดหมู่สินค้า</value>
         <value xml:lang="zh">缺少productCategoryId参数</value>
     </property>
+    <property key="productsExportToGoogle.missingProduct">
+        <value xml:lang="en">You have to choose any product(s)</value>
+        <value xml:lang="fr">Vous devez choisir un ou des produits</value>
+    </property>
     <property key="productsExportToGoogle.noProductsAvailableInProductCategory">
         <value xml:lang="en">No products available in the selected productCategoryId</value>
         <value xml:lang="fr">Aucun article disponible dans la réf. de catégorie d'articles sélectionnée</value>
