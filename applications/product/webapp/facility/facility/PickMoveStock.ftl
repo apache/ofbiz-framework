@@ -16,13 +16,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <script language="JavaScript" type="text/javascript">
     function quicklookup(func, locationelement, facilityelement, productelement) {
         
         var productId = productelement.value;
+        if (productId.length == 0) {
+          alert("${StringUtil.wrapString(uiLabelMap.ProductFieldEmpty)}");
+          return;
+        }
         var facilityId = facilityelement.value;
-        var request = "LookupProductInventoryLocation?productId=" + productId + "&amp;facilityId=" + facilityId;
+        var request = "LookupProductInventoryLocation?productId=" + productId + "&facilityId=" + facilityId;
         window[func](locationelement, request);
     }
 </script>

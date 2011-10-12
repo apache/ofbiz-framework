@@ -148,8 +148,13 @@
     </property>
     <property key="ProductNotInAnyLocation">
         <value xml:lang="en">This Product is not in any Location</value>
+        <value xml:lang="fr">Ce produit ne se trouve en aucun emplacement</value>
         <value xml:lang="zh">这个产品不在任何地方</value>
         <value xml:lang="zh_TW">這個產品不在任何地方</value>
+    </property>
+    <property key="ProductFieldEmpty">
+        <value xml:lang="en">Please, fill the product field before</value>
+        <value xml:lang="fr">Sélectionnez le produit d'abord</value>
     </property>
     <property key="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet">
         <value xml:lang="en">The number of orders must not be empty. Please re-enter to print pick sheet.</value>
