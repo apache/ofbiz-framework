@@ -47,6 +47,7 @@ under the License.
     <screen name="keywordsearch">
         <section>
             <actions>
+                <property-map resource="GoogleBaseUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleSearchResults"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/keywordsearch.groovy"/>
                 <script location="component://googlebase/webapp/googlebase/WEB-INF/actions/FilterProducts.groovy"/>
