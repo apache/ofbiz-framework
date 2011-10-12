@@ -7534,7 +7534,7 @@
     </property>
     <property key="CommonSelectPortalPage">
         <value xml:lang="en">Select Portal Page...</value>
-        <value xml:lang="fr">Sélectionner la page du portail...</value>
+        <value xml:lang="fr">Sélectionnez la page du portail...</value>
         <value xml:lang="hi_IN">पोर्टल पेज चुनें</value>
         <value xml:lang="it">Seleziona pagina...</value>
         <value xml:lang="pt_BR">Selecione Página do Portal ...</value>

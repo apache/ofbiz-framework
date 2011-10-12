@@ -88,7 +88,7 @@
     </property>
     <property key="GoogleBaseExportCountryCode">
         <value xml:lang="en">Select your country destination</value>
-        <value xml:lang="fr">Sélectionner votre pays de destination</value>
+        <value xml:lang="fr">Sélectionnez votre pays de destination</value>
         <value xml:lang="it">Seleziona il paese di destinazione</value>
         <value xml:lang="th">เลือกประเทศเป้าหมายของคุณ</value>
         <value xml:lang="zh">选择你的国家和目标</value>
