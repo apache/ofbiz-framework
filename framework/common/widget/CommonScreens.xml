@@ -130,7 +130,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>
 
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
@@ -388,7 +388,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>
 
 
 
