@@ -678,7 +678,7 @@ function set_values (value, value2) {
     var target2 = obj_caller.target2;
     write_value(value, target);
     write_value(value2, target2)
-    if (SHOW_DESCRIPTION) setLookDescription(target.attr("id"), value + " " + value2, "", "");
+    if (SHOW_DESCRIPTION) setLookDescription(target.attr("id"), value + " " + value2, "", "", SHOW_DESCRIPTION);
     
     closeLookup();
 }
