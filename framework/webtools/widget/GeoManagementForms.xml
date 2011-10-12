@@ -59,11 +59,9 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListLookupGeo" extends="ListGeos">
-        <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
-            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="EditGeo">
-                <parameter param-name="geoId"/>
-            </hyperlink>
-        </field>
+        <field name="geoId" title="${uiLabelMap.CommonGeoId}" widget-style="buttontext">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}" target="javascript:set_value('${geoId}')"/>
+        </field>        
         <field name="deleteLink"><ignored/></field>        
     </form>
     
