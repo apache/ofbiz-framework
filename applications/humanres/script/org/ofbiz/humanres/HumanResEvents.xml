@@ -72,7 +72,7 @@
         </entity-and>
         <if-empty field="workEffortList">
             <call-service service-name="createWorkEffortAndPartyAssign" in-map-name="parameters">
-                <default-message>Successfully created.</default-message>
+                <default-message resource="CommonUiLabels" property="CommonSuccessfullyCreated"/>
             </call-service>
             <else>
                 <add-error>
