@@ -154,7 +154,7 @@ public class ServiceConfigUtil implements Serializable {
 
         if (node != null) {
             do {
-                if (node.getNodeType() == Node.ELEMENT_NODE && "engine".equals(node.getLocalName())) {
+                if (node.getNodeType() == Node.ELEMENT_NODE && "engine".equals(node.getNodeName())) {
                     Element engine = (Element) node;
                     if (engineName.equals(engine.getAttribute("name"))) {
                         NodeList params  = engine.getElementsByTagName("parameter");

@@ -191,12 +191,12 @@ public class ICalWorker {
                 List<Element> unSupportedProps = FastList.newInstance();
                 List<Element> propElements = helper.getFindPropsList(ResponseHelper.DAV_NAMESPACE_URI);
                 for (Element propElement : propElements) {
-                    if ("getetag".equals(propElement.getLocalName())) {
+                    if ("getetag".equals(propElement.getNodeName())) {
                         Element etagElement = helper.createElementSetValue("D:getetag", String.valueOf(System.currentTimeMillis()));
                         supportedProps.add(etagElement);
                         continue;
                     }
-                    if ("getlastmodified".equals(propElement.getLocalName())) {
+                    if ("getlastmodified".equals(propElement.getNodeName())) {
                         Date lastModified = getLastModifiedDate(request);
                         Element lmElement = helper.createElementSetValue("D:getlastmodified", WebDavUtil.formatDate(WebDavUtil.RFC1123_DATE_FORMAT, lastModified));
                         supportedProps.add(lmElement);
