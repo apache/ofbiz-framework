@@ -8,7 +8,6 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-
     http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing,
@@ -2940,6 +2939,14 @@
         <value xml:lang="it">Indice</value>
         <value xml:lang="pt_BR">Índice</value>
         <value xml:lang="zh_TW">索引</value>
+    </property>
+    <property key="CommonExternalDevice">
+        <value xml:lang="en">External Device</value>
+        <value xml:lang="fr">Mat. externe</value>
+    </property>
+    <property key="CommonExternalDeviceUserAction">
+        <value xml:lang="en">External Device User Action</value>
+        <value xml:lang="fr">Assoc Action/Utilisateur avec Mat. externe</value>
     </property>
     <property key="CommonFalse">
         <value xml:lang="ar">خطأ</value>
@@ -8234,6 +8241,10 @@
         <value xml:lang="zh_CN">小计</value>
         <value xml:lang="zh_TW">小計</value>
     </property>
+    <property key="CommonSuccessfullyCreated">
+        <value xml:lang="en">Successfully created.</value>
+        <value xml:lang="fr">Créé avec succès.</value>
+    </property>    
     <property key="CommonSummary">
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
@@ -9987,7 +9998,12 @@
     </property>
     <property key="FormFieldTitle_acceptButton">
         <value xml:lang="en">Accept</value>
+        <value xml:lang="fr">Accepter</value>
         <value xml:lang="pt_BR">Aceitar</value>
+    </property>
+    <property key="FormFieldTitle_actionEnumId">
+        <value xml:lang="en">Action</value>
+        <value xml:lang="fr">Action</value>
     </property>
     <property key="FormFieldTitle_addButton">
         <value xml:lang="ar">إضافة</value>
@@ -10057,6 +10073,10 @@
         <value xml:lang="th">ลักษณะ</value>
         <value xml:lang="zh">属性值</value>
         <value xml:lang="zh_TW">屬性值</value>
+    </property>
+    <property key="FormFieldTitle_cmdToCall">
+        <value xml:lang="en">Cmd To Call</value>
+        <value xml:lang="fr">Cmd d'appel</value>
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="ar">تعاليق</value>
@@ -10262,6 +10282,10 @@
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
+    <property key="FormFieldTitle_deviceLocation">
+        <value xml:lang="en">Device Location</value>
+        <value xml:lang="fr">Emplacement</value>
+    </property>
     <property key="FormFieldTitle_effectiveDate">
         <value xml:lang="ar">تاريخ الفاعلية</value>
         <value xml:lang="de">Effektives Datum</value>
@@ -10283,6 +10307,22 @@
         <!--value xml:lang="zh">生效日期</value-->
         <value xml:lang="zh">有效日期</value>
         <value xml:lang="zh_TW">有效日</value>
+    </property>
+    <property key="FormFieldTitle_externalDeviceId">
+        <value xml:lang="en">External Device Id</value>
+        <value xml:lang="fr">Réf. Mat. Externe</value>
+    </property>
+    <property key="FormFieldTitle_externalDeviceTypeId">
+        <value xml:lang="en">External Device Type Id</value>
+        <value xml:lang="fr">Type de Mat. Externe</value>
+    </property>
+    <property key="FormFieldTitle_extDevicePurposeActionId">
+        <value xml:lang="en">External Device Purpose Action Id</value>
+        <value xml:lang="fr">Obj. de l'action</value>
+    </property>
+    <property key="FormFieldTitle_deviceLocation">
+        <value xml:lang="en">Device Location</value>
+        <value xml:lang="fr">Emplacement</value>
     </property>
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">تاريخ البدء</value>

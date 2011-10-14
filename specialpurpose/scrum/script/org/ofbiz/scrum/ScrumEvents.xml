@@ -1293,7 +1293,7 @@
             <set field="roleData.roleTypeId" value="SCRUM_MEMBER"/>
             <set field="roleData.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="createPartyRole" in-map-name="roleData">
-                <default-message>Successfully created.</default-message>
+                <default-message resource="CommonUiLabels" property="CommonSuccessfullyCreated"/>
             </call-service>
         </if-empty>
     </simple-method>
@@ -2790,7 +2790,7 @@
                 <set field="update.currentStatusId" value="STS_COMPLETED"/>
                 <set field="update.webSiteId" from-field="parameters.webSiteId"/>
                 <call-service service-name="updateWorkEffort" in-map-name="update">
-                    <default-message>Successfully</default-message>
+                    <default-message resource="CommonUiLabels" property="CommonSuccessfullyCreated"/>
                 </call-service>
             <else>
                 <set field="create.workEffortId" from-field="parameters.workEffortId"/>
