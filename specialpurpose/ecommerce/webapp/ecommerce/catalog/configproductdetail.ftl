@@ -148,15 +148,6 @@ function getConfigDetails(event) {
             type: 'POST',
             data: jQuery('#configFormId').serialize(),
             success: function(data) {
-                if (data._ERROR_MESSAGE_LIST_ != undefined) {
-                   //console.log(data._ERROR_MESSAGE_LIST_);
-                   //alert(data._ERROR_MESSAGE_LIST_);
-                }else if (data._ERROR_MESSAGE_ != undefined) {
-                   //console.log(data._ERROR_MESSAGE_);
-                   //alert(data._ERROR_MESSAGE_);
-                }else {
-                  //console.log(data.totalPrice);
-                  //console.log(data.configId);
                   var totalPrice = data.totalPrice;
                   var configId = data.configId;
                   document.getElementById('totalPrice').innerHTML = totalPrice;
