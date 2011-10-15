@@ -826,7 +826,9 @@ under the License.
     <request-map uri="UpdateProductAssoc">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="updateProductAssoc"/>
-        <response name="success" type="view" value="EditProductAssoc"/>
+        <response name="success" type="request-redirect" value="EditProductAssoc">
+            <redirect-parameter name="productId"/>
+        </response>
         <response name="error" type="view" value="EditProductAssoc"/>
     </request-map>
 
