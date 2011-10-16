@@ -1104,8 +1104,7 @@ under the License.
     <request-map uri="UpdateFeatureCategory">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateProductFeatureCategory"/>
-        <response name="success" type="view" value="EditFeatureCategories"/>
-        <response name="error" type="view" value="EditFeatureCategories"/>
+        <response name="success" type="request-redirect-noparam" value="EditFeatureCategories"/>
     </request-map>
 
     <request-map uri="EditFeatureCategoryFeatures">
