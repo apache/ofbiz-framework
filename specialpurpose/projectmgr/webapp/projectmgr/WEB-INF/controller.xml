@@ -597,13 +597,6 @@
         <response name="success" type="view" value="listResourcesTask"/>
         <response name="error" type="view" value="listResourcesTask"/>
     </request-map>
-    <request-map uri="createnewlogin"><security https="true" auth="true"/><response name="success" type="view" value="createnewlogin"/></request-map>
-    <request-map uri="createUserLogin">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createUserLogin"/>
-        <response name="success" type="view" value="viewprofile"/>
-        <response name="error" type="view" value="createnewlogin"/>
-    </request-map>
     <request-map uri="EditPartyRates"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRates"/></request-map>
     <request-map uri="createPartyRate">
         <security https="true" auth="true"/>
