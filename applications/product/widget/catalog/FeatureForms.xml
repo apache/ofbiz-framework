@@ -292,12 +292,12 @@
 
     <form name="FindProductFeature" type="single" target="EditFeatureCategories"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="25"></text-find></field>
+        <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="20" maxlength="255"></text-find></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find size="25"></text-find></field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit find"><submit/></field>
     </form>
 
-    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories"
+    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories" target="UpdateFeatureCategory"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -314,8 +314,8 @@
                 <parameter param-name="productFeatureCategoryId"/>
             </hyperlink>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+		<field name="update" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
 
     <form name="CreateProductFeature" type="single" target="CreateFeatureCategory">

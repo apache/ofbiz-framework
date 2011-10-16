@@ -1519,7 +1519,8 @@
         <value xml:lang="zh">标准</value>
         <value xml:lang="zh_TW">標准</value>
     </property>
-    <property key="ProductFeatureCategory.description.1000">
+    <!-- this is not seed databut demo and should not be translated, otherwise it cannot be updated in the screens -->
+    <!-- property key="ProductFeatureCategory.description.1000">
         <value xml:lang="en">Hazmat Features</value>
         <value xml:lang="es">Características de Peligroso</value>
         <value xml:lang="fr">Substances dangeureuse</value>
@@ -1575,7 +1576,7 @@
         <value xml:lang="it">Caratteristiche widget</value>
         <value xml:lang="zh">预留名称特征</value>
         <value xml:lang="zh_TW">預留名稱特征</value>
-    </property>
+    </property-->
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
         <value xml:lang="de">Abhängiges Merkmal</value>
         <value xml:lang="en">Dependent Feature</value>
