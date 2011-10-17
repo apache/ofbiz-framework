@@ -577,9 +577,11 @@ under the License.
                 <screenlet title="${uiLabelMap.ProductStoreFacilityAssocList}" navigation-menu-name="ProductStoreFacility">
                     <include-menu name="ProductStoreFacility" location="component://product/widget/catalog/CatalogMenus.xml"/>
                     <container id="PrdStoreFacilityMgmtArea">
-                        <decorator-section name="body">
-                            <include-screen name="ListProductStoreFacilityFormOnly"/>
-                        </decorator-section>
+                        <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <include-screen name="ListProductStoreFacilityFormOnly"/>
+                            </decorator-section>
+                        </decorator-screen>
                     </container>
                 </screenlet>
             </widgets>
