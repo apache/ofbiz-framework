@@ -1519,64 +1519,6 @@
         <value xml:lang="zh">标准</value>
         <value xml:lang="zh_TW">標准</value>
     </property>
-    <!-- this is not seed databut demo and should not be translated, otherwise it cannot be updated in the screens -->
-    <!-- property key="ProductFeatureCategory.description.1000">
-        <value xml:lang="en">Hazmat Features</value>
-        <value xml:lang="es">Características de Peligroso</value>
-        <value xml:lang="fr">Substances dangeureuse</value>
-        <value xml:lang="it">Caratteristiche danneggiate</value>
-        <value xml:lang="th">Hazmat Features</value>
-        <value xml:lang="zh">危险品特征</value>
-        <value xml:lang="zh_TW">危險品特征</value>
-    </property>
-    <property key="ProductFeatureCategory.description.1001">
-        <value xml:lang="de">Modelljahr Merkmale</value>
-        <value xml:lang="en">Model Year Features</value>
-        <value xml:lang="it">Caratteristiche anno modello</value>
-        <value xml:lang="zh">年型号特征</value>
-        <value xml:lang="zh_TW">年型號特征</value>
-    </property>
-    <property key="ProductFeatureCategory.description.1002">
-        <value xml:lang="de">Ausrüstungsklasse Merkmale</value>
-        <value xml:lang="en">Equipment Class Features</value>
-        <value xml:lang="it">Caratteristiche classe attrezzatura</value>
-        <value xml:lang="zh">设备分类特征</value>
-        <value xml:lang="zh_TW">設備分類特征</value>
-    </property>
-    <property key="ProductFeatureCategory.description.2000">
-        <value xml:lang="de">Gutschein Merkmale</value>
-        <value xml:lang="en">Gift Card Features</value>
-        <value xml:lang="it">Caratteristiche carta regalo</value>
-        <value xml:lang="zh">礼品卡特征</value>
-        <value xml:lang="zh_TW">禮品卡特征</value>
-    </property>
-    <property key="ProductFeatureCategory.description.2100">
-        <value xml:lang="de">Konto Merkmale</value>
-        <value xml:lang="en">Account Features</value>
-        <value xml:lang="it">Caratteristiche utenza</value>
-        <value xml:lang="zh">账户特征</value>
-        <value xml:lang="zh_TW">賬戶特征</value>
-    </property>
-    <property key="ProductFeatureCategory.description.3000">
-        <value xml:lang="de">Geschmack</value>
-        <value xml:lang="en">Taste</value>
-        <value xml:lang="it">Caratteristiche gusto</value>
-        <value xml:lang="zh">味道</value>
-        <value xml:lang="zh_TW">味道</value>
-    </property>
-    <property key="ProductFeatureCategory.description.8000">
-        <value xml:lang="de">Lizenz Merkmale</value>
-        <value xml:lang="en">License Features</value>
-        <value xml:lang="it">Caratteristiche licenza</value>
-        <value xml:lang="zh">版权特征</value>
-        <value xml:lang="zh_TW">版權特征</value>
-    </property>
-    <property key="ProductFeatureCategory.description.9000">
-        <value xml:lang="en">Widget Features</value>
-        <value xml:lang="it">Caratteristiche widget</value>
-        <value xml:lang="zh">预留名称特征</value>
-        <value xml:lang="zh_TW">預留名稱特征</value>
-    </property-->
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
         <value xml:lang="de">Abhängiges Merkmal</value>
         <value xml:lang="en">Dependent Feature</value>
