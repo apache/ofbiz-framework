@@ -168,13 +168,19 @@ under the License.
       </#if>
   </div>
 </div>
+
+<!--
+*******************************************************************************
+JIRA OFBIZ-4488: BEGIN
+https://issues.apache.org/jira/browse/OFBIZ-4488
+*******************************************************************************
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.PartyPagePushFollowing}</li>
     </ul>
     <br class="clear"/>
-  </div>
+  </div>  
   <div class="screenlet-body">
       <#if security.hasPermission("SEND_CONTROL_APPLET", session)>
         <table class="basic-table" cellspacing="0">
@@ -207,3 +213,8 @@ under the License.
       </#if>
   </div>
 </div>
+*******************************************************************************
+JIRA OFBIZ-4488: END
+*******************************************************************************
+-->
+
