@@ -83,6 +83,7 @@ under the License.
 <#else>
   <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
 </#if>
+<#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl?if_exists}">
 <body>
   <div id="wait-spinner" style="display:none">
     <div id="wait-spinner-image"></div>
@@ -103,7 +104,11 @@ under the License.
         <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
       </#if>
       <#if headerImageUrl?exists>
-        <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(headerImageUrl)}</@ofbizContentUrl>"/></a></li>
+        <#if organizationLogoLinkURL?has_content>
+            <li class="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>"></a></li>
+            <#else>
+            <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(headerImageUrl)}</@ofbizContentUrl>"/></a></li>
+        </#if>
       </#if>
       <#if userLogin?exists>
         <#if layoutSettings.topLines?has_content>

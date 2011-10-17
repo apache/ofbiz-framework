@@ -5981,6 +5981,10 @@
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh_TW">訂單</value>
     </property>
+    <property key="CommonOrganizationLogo">
+        <value xml:lang="en">Organization Logo</value>
+        <value xml:lang="th">โลโก้องค์กร</value>
+    </property>
     <property key="CommonOther">
         <value xml:lang="ar">أخرى</value>
         <value xml:lang="de">Andere</value>

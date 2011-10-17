@@ -956,6 +956,20 @@ display:block;
 height:100%;
 }
 
+#org-logo-area {
+width:385px;
+height:50px;
+}
+
+#org-logo-area a{
+display:block;
+height:100%;
+}
+
+#org-logo-area img{
+height:50px;
+}
+
 #masthead {
 background: url(../images/header_top_bg.gif) repeat-x;
 font-weight: bold;

@@ -231,6 +231,16 @@ body > #wrap {height: auto; min-height: 100%;}
     background:url(../images/logo.gif) top left no-repeat;
 }
 
+#org-logo-area {
+    background:transparent;
+    height:43px;
+    left:5px;
+    position:absolute;
+    top:2px;
+    width:238px;
+    z-index:8000;
+}
+
 #shelf {
     background:transparent url(../images/shelf.jpg) no-repeat left top;
     height:119px;
