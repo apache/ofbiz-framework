@@ -1092,7 +1092,7 @@ public class DatabaseUtil {
     private AbstractCountingCallable createPrimaryKeyFetcher(final DatabaseMetaData dbData, final String lookupSchemaName, final boolean needsUpperCase, final Map<String, Map<String, ColumnCheckInfo>> colInfo, final Collection<String> messages, final String curTable) {
         return new AbstractCountingCallable(null, null) {
             public AbstractCountingCallable call() throws Exception {
-                Debug.logInfo("Fetching primary keys for " + curTable, module);
+                Debug.logVerbose("Fetching primary keys for " + curTable, module);
                 ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, curTable);
                 count = checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                 return this;
