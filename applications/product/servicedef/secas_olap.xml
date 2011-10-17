@@ -22,10 +22,10 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
     <!-- dimension entities -->
-    <eca service="createProduct" event="commit">
+    <eca service="createProduct" event="global-commit-post-run">
         <action service="loadType1ProductInProductDimension" mode="async"/>
     </eca>
-    <eca service="updateProduct" event="commit">
+    <eca service="updateProduct" event="global-commit-post-run">
         <action service="loadType2ProductInProductDimension" mode="async"/>
     </eca>
 </service-eca>
