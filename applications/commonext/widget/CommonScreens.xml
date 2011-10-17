@@ -59,6 +59,17 @@ under the License.
                         <entity-one entity-name="PartyAcctgPrefAndGroup" value-field="orgParty">
                             <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
                         </entity-one>
+                        <entity-one value-field="orgPartyLogoMap" entity-name="PartyGroup">
+                            <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
+                        </entity-one>
+                        <entity-and list="orgPartyContentMap" entity-name="PartyContent">
+                            <field-map field-name="partyId" from-field="defaultOrganizationPartyId"/>
+                            <field-map field-name="partyContentTypeId" value="LGOIMGURL"/>
+                            <order-by field-name="-fromDate"/>
+                        </entity-and>
+                        <set field="orgContentId" from-field="orgPartyContentMap[0].contentId"/>
+                        <set field="orgPartyContent" value="${groovy: orgContentId!=null?&quot;stream?contentId=&quot; + orgContentId : &quot;&quot;}"/>
+                        <set field="layoutSettings.organizationLogoLinkUrl" from-field="orgPartyContent" default-value="${orgPartyLogoMap.logoImageUrl}" global="true"/>
                         <set field="defaultOrganizationPartyCurrencyUomId" from-field="orgParty.baseCurrencyUomId" default-value="${defaultCurrencyUomId}" global="true"/>
                         <set field="defaultOrganizationPartyGroupName" from-field="orgParty.groupName" global="true"/>
                         <set field="dropdown.hiddenFieldList" from-field="hiddenFields" global="true"/>

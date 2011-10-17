@@ -277,6 +277,15 @@ font-weight: normal;
 padding: 0.1em 0.8em;
 }
 
+#masthead ul .org-logo-area {
+padding: 0.1em 0.8em;
+}
+
+#masthead ul .org-logo-area img{
+width: 50px;
+height: 22px;
+}
+
 #masthead ul a:focus {
 text-decoration: underline;
 }

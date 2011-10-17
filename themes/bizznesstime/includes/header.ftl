@@ -100,13 +100,23 @@ under the License.
         </#list>
     </#if>
 </head>
+<#if layoutSettings.headerImageLinkUrl?exists>
+  <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
+<#else>
+  <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
+</#if>
+<#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl?if_exists}">
 <body>
 <div id="wrap">
   <div id="wait-spinner" style="display:none">
     <div id="wait-spinner-image"></div>
   </div>
   <div id="header">
-    <div id="logo"></div>
+    <#if organizationLogoLinkURL?has_content>
+        <div id="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>" height="43px"></a></div>
+        <#else>
+        <div id="logo"></div>
+    </#if>
     <div id="shelf"></div>
     <div id="controls">
             <span id="prefBtn">

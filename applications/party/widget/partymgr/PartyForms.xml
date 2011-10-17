@@ -134,6 +134,7 @@ under the License.
 
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
         <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
+        <field name="logo" use-when="organizationLogoLinkURL!=null" title="${uiLabelMap.CommonOrganizationLogo}"><image alternate="${uiLabelMap.CommonOrganizationLogo}" value="${organizationLogoLinkURL}"/></field>
         <field name="partyTypeId"><ignored/></field>
         <field name="comments"><ignored/></field>
         <field name="logoImageUrl"><ignored/></field>
@@ -141,6 +142,20 @@ under the License.
         <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
         <field name="externalId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <sort-order>
+            <sort-field name="logo"/>
+            <sort-field name="partyId"/>
+            <sort-field name="groupName"/>
+            <sort-field name="groupNameLocal"/>
+            <sort-field name="officeSiteName"/>
+            <sort-field name="annualRevenue"/>
+            <sort-field name="numEmployees"/>
+            <sort-field name="tickerSymbol"/>
+            <sort-field name="description"/>
+            <sort-field name="preferredCurrencyUomId"/>
+            <sort-field name="externalId"/>
+            <sort-field name="statusId"/>
+        </sort-order>
     </form>
 
     <form name="ViewPartyPerson" type="single" default-map-name="lookupPerson">

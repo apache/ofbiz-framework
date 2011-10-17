@@ -86,6 +86,7 @@ under the License.
 <#else>
   <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
 </#if>
+<#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl?if_exists}">
 
 <#if person?has_content>
   <#assign userName = person.firstName?if_exists + " " + person.middleName?if_exists + " " + person.lastName?if_exists>
@@ -118,7 +119,12 @@ under the License.
         <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
           <li>
             <#if shortcutIcon?has_content>
-              <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" height="16px" width="16px" alt="" /></a>
+                <#if organizationLogoLinkURL?has_content>
+                    <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>" height="16px" width="16px" alt="" ></a></li>
+                    <#else>
+                    <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" height="16px" width="16px" alt="" /></a>
+                </#if>
+              
             </#if>
           </li>
         <#else>
@@ -130,7 +136,11 @@ under the License.
             <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
           </#if>
           <#if headerImageUrl?exists>
-            <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName}"><span>&nbsp;</span></a></li>
+            <#if organizationLogoLinkURL?has_content>
+                    <li id="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>"></a></li>
+                    <#else>
+                    <li id="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>" title="${layoutSettings.companyName}"><span>&nbsp;</span></a></li>
+                </#if>
           </#if>
           <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
             <li>
