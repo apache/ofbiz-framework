@@ -3085,6 +3085,9 @@
         <value xml:lang="hi_IN">जमा</value>
         <value xml:lang="pt">Cr</value>
     </property>
+    <property key="AccountingCurrenciesOfInvoiceAndPaymentNotCompatible">
+        <value xml:lang="en">Currencies of invoice and payment not compatible</value>
+    </property>
     <property key="AccountingCurrency">
         <value xml:lang="de">Währung</value>
         <value xml:lang="en">Currency</value>
@@ -8407,6 +8410,9 @@
         <value xml:lang="en">Past Due Invoices</value>
         <value xml:lang="fr">Factures en attente de règlement</value>
         <value xml:lang="pt">Faturas passdas em débito</value>
+    </property>
+    <property key="AccountingPaymentParentTypesNotCompatible">
+        <value xml:lang="en">Payment parent types not compatible for application</value>
     </property>
     <property key="AccountingPayOnlyWithBillingAccount">
         <value xml:lang="de">Bezahlung nur mit Rechnungskonto</value>

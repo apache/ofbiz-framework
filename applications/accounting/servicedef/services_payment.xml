@@ -70,12 +70,11 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
         <description>Create a payment application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
+        <attribute name="toPaymentId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="billingAccountId" type="String" mode="IN" optional="true"/>
-        <attribute name="overrideGlAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="taxAuthGeoId" type="String" mode="IN" optional="true"/>
-        <attribute name="amountApplied" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="amountApplied" type="BigDecimal" mode="INOUT" optional="true"/>
         <attribute name="paymentApplicationId" type="String" mode="OUT" optional="false"/>
         <attribute name="paymentTypeId" type="String" mode="OUT" optional="false"/>
     </service>
