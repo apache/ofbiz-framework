@@ -277,7 +277,7 @@ under the License.
         <field position="1" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="updatePaymentApplication" type="list" separate-columns="false"
+    <form name="editPaymentApplicationsInv" default-entity-name="PaymentApplication" list-name="paymentApplicationsInv" target="removePaymentApplication" type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
@@ -290,58 +290,32 @@ under the License.
         </field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="amountApplied"><display/></field>
-        <!-- TODO: this is commented out because updating (instead of removing and recreating) payment application can cause wrong gl postings.
-        <field name="updateButton" widget-style="buttontext"><submit button-type="text-link"/></field>
-        -->
-        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId"/>
-                <parameter param-name="paymentId"/>
-            </hyperlink>
-        </field>
+        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}"><submit/></field>
     </form>
-    <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="updatePaymentApplication" type="list" separate-columns="false"
+    <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="removePaymentApplication" type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
-        <field name="toPaymentId"><lookup target-form-name="LookupPayment"></lookup></field>
-        <field name="amountApplied"><text size="15"/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId"/>
-                <parameter param-name="paymentId"/>
-            </hyperlink>
-        </field>
+        <field name="toPaymentId"><display/></field>
+        <field name="amountApplied"><display/></field>
+        <field name="removeButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </form>
-    <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="updatePaymentApplication"  type="list" separate-columns="false"
+    <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="removePaymentApplication"  type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
-        <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
+        <field name="billingAccountId"><display/></field>
         <field name="invoiceId"><hidden/></field>
-        <field name="amountApplied"><text size="15"/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId"/>
-                <parameter param-name="paymentId"/>
-            </hyperlink>
-        </field>
+        <field name="amountApplied"><display/></field>
+        <field name="removeButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </form>
-    <form name="editPaymentApplicationsTax" default-entity-name="PaymentApplication" list-name="paymentApplicationsTax" target="updatePaymentApplication"  type="list" separate-columns="false"
+    <form name="editPaymentApplicationsTax" default-entity-name="PaymentApplication" list-name="paymentApplicationsTax" target="removePaymentApplication"  type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
-        <field name="taxAuthGeoId"><lookup target-form-name="LookupGeo"/></field>
-        <field name="amountApplied"><text size="15"/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId"/>
-                <parameter param-name="paymentId"/>
-            </hyperlink>
-        </field>
+        <field name="taxAuthGeoId"><display/></field>
+        <field name="amountApplied"><display/></field>
+        <field name="removeButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
     </form>
 
     <form name="listInvoicesNotApplied" type="list" list-name="invoices" target="createPaymentApplication" title=""
@@ -366,7 +340,7 @@ under the License.
 
     <form name="listInvoicesNotAppliedOtherCurrency" extends="listInvoicesNotApplied" list-name="invoicesOtherCurrency"/>
 
-    <form name="listPaymentsNotApplied" type="list" list-name="payments" target="updatePaymentApplication" title=""
+    <form name="listPaymentsNotApplied" type="list" list-name="payments" target="createPaymentApplication" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId" widget-style="buttontext">
@@ -383,7 +357,7 @@ under the License.
         </field>
     </form>
 
-    <form name="addPaymentApplication" type="single" target="updatePaymentApplication" title=""
+    <form name="addPaymentApplication" type="single" target="createPaymentApplication" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice"/></field>

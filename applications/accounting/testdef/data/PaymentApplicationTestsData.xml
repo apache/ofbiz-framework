@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- testInvoiceAppl -->
+    <Invoice invoiceId="appltest10000" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustomer" statusId="INVOICE_SENT" invoiceDate="2006-04-25 12:46:27.122" dueDate="2006-05-25 12:46:27.122" description="This is the first invoice number to AcctBuyer" currencyUomId="USD"/>
+        <InvoiceItem invoiceId="appltest10000" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" taxableFlag="Y" amount="20" description="this was e service for a product"/>
+    <Payment paymentId="appltest10000" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="DemoCustomer" partyIdTo="Company" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="20" currencyUomId="USD"/>
+
+    <!-- billing acount  -->
+    <BillingAccount billingAccountId="appltest10000" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
+    <BillingAccountRole billingAccountId="appltest10000" partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <!-- other payment -->
+    <Payment paymentId="appltest10001" paymentTypeId="CUSTOMER_REFUND" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="Company" partyIdTo="DemoCustomer" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="20" currencyUomId="USD"/>
+    <!-- Tax payment -->
+    <Payment paymentId="appltest10002" paymentTypeId="SALES_TAX_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="Company" partyIdTo="USA_IRS" statusId="PMNT_NOT_PAID" effectiveDate="2006-04-25 12:56:54.292" amount="20" currencyUomId="USD"/>
+    
+    <!-- tax geoid -->
+    
+</entity-engine-xml>

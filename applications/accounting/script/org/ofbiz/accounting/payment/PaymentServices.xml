@@ -149,7 +149,7 @@ under the License.
         <if-empty field="parameters.invoiceId">
             <if-empty field="parameters.billingAccountId">
                 <if-empty field="parameters.taxAuthGeoId">
-                    <if-empty field="parameters.overrideGlAccountId">
+                    <if-empty field="parameters.toPaymentId">
                       <add-error>
                           <fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/>
                       </add-error>
@@ -162,25 +162,121 @@ under the License.
         <make-value entity-name="PaymentApplication" value-field="paymentAppl"/>
         <set-nonpk-fields map="parameters" value-field="paymentAppl"/>
 
-        <!-- get the invoice and do some further validation against it -->
+        <entity-one entity-name="Payment" value-field="payment"/>
+        <if-empty field="payment">
+            <add-error>
+                <fail-property resource="AccountingUiLabels" property="AccountingPaymentApplicationParameterMissing"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
+ 
+        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+            <field field="payment" type="GenericValue"/>
+        </call-class-method>
+        
         <if-not-empty field="parameters.invoiceId">
+            <!-- get the invoice and do some further validation against it -->
             <entity-one entity-name="Invoice" value-field="invoice"/>
+            <!-- check the currencies if they are compatible -->           
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare-field  field="invoice.currencyUomId" operator="equals" to-field="defaultCurrencyUomId"/>
+                        <and>
+                            <if-compare-field  field="invoice.currencyUomId" operator="not-equals" to-field="defaultCurrencyUomId"/>
+                            <if-compare-field  field="invoice.currencyUomId" operator="equals" to-field="payment.actualCurrencyUomId"/>
+                        </and>
+                    </or>
+                </condition>
+                <then><!-- if required get the payment amount in foreign currency (local we already have) -->
+                    <if-compare-field  field="invoice.currencyUomId" operator="not-equals" to-field="defaultCurrencyUomId">
+                        <set field="actual" value="true" type="Boolean"/>
+                        <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+                            <field field="payment" type="GenericValue"/>
+                            <field field="actual"/>
+                        </call-class-method>
+                    </if-compare-field>
+                </then>
+                <else>
+                    <add-error>
+                        <fail-property resource="AccountingUiLabels" property="AccountingCurrenciesOfInvoiceAndPaymentNotCompatible"/>
+                    </add-error>
+                </else>
+            </if>
+            <check-errors/>
 
             <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
-            <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice)}" type="BigDecimal"/>
+            <call-class-method method-name="getInvoiceNotApplied" class-name="org.ofbiz.accounting.invoice.InvoiceWorker" ret-field="notAppliedInvoice">
+                <field field="invoice" type="GenericValue"/>
+            </call-class-method>
 
-            <!-- if the amount to apply goes over the outstanding amount, then use the notApplied amount and log a warning -->
-            <if-compare-field field="paymentAppl.amountApplied" to-field="notApplied" operator="greater" type="BigDecimal">
-                <log level="warning" message="Create Payment Application: Amount to apply [${paymentAppl.amountApplied}] is greater than the outstanding amount [${notApplied}] of the invoice [${invoice.invoiceId}]. Creating Payment Application for outstanding amount [${notApplied}] instead."/>
-                <set field="paymentAppl.amountApplied" from-field="notApplied"/>
-            </if-compare-field>
-
+            <if-empty field="paymentAppl.amountApplied">
+                <if-compare-field field="notAppliedInvoice" operator="less-equals" to-field="notAppliedPayment">
+                    <set field="paymentAppl.amountApplied" from-field="notAppliedInvoice"/>
+                    <else>
+                        <set field="paymentAppl.amountApplied" from-field="notAppliedPayment"/>
+                    </else>
+                </if-compare-field>
+            </if-empty>
+            
             <if-not-empty field="invoice.billingAccountId">
                 <set field="paymentAppl.billingAccountId" from-field="invoice.billingAccountId"/>
             </if-not-empty>
         </if-not-empty>
 
+        <if-not-empty field="parameters.toPaymentId">
+            <!-- get the to payment and check the parent types are compatible -->
+            <entity-one entity-name="Payment" value-field="toPayment">
+                <field-map field-name="paymentId" from-field="parameters.toPaymentId"/>
+            </entity-one>
+            <entity-one value-field="toPaymentType" entity-name="PaymentType">
+                <field-map field-name="paymentTypeId" from-field="toPayment.paymentTypeId"/>
+            </entity-one>
+            <entity-one entity-name="Payment" value-field="payment">
+                <field-map field-name="paymentId" from-field="parameters.paymentId"/>
+            </entity-one>
+            <entity-one value-field="paymentType" entity-name="PaymentType">
+                <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
+            </entity-one>
+            <if-compare-field operator="equals" field="toPayment.parentTypeId" to-field="payment.parentTypeId">
+                <add-error>
+                    <fail-property resource="AccountingUiLabels" property="AccountingPaymentParentTypesNotCompatible"/>
+                </add-error>
+            </if-compare-field>
+            
+            <!-- when amount not provided use the the lowest value available -->
+            <if-empty field="parameters.amountApplied">
+                <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
+                    <field field="payment" type="GenericValue"/>
+                </call-class-method>
+                <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedToPayment">
+                    <field field="toPayment" type="GenericValue"/>
+                </call-class-method>
+                <if-compare-field operator="less" field="notAppliedPayment" to-field="notAppliedToPayment">
+                    <set field="paymentAppl.amountApplied" from-field="notAppliedPayment"/>
+                    <else>
+                        <set field="paymentAppl.amountApplied" from-field="notAppliedToPayment"/>
+                    </else>
+                </if-compare-field>
+            </if-empty>
+        </if-not-empty>
+            
+        
+        <if-not-empty field="parameters.billingAccountId">
+            <if-empty field="paymentAppl.amountApplied">
+                <set field="paymentAppl.amountApplied" from-field="notAppliedPayment"/>
+            </if-empty>
+        </if-not-empty>
+        
+        <if-not-empty field="parameters.taxAuthGeoId">
+            <if-empty field="paymentAppl.amountApplied">
+                <set field="paymentAppl.amountApplied" from-field="notAppliedPayment"/>
+            </if-empty>
+        </if-not-empty>
+        
         <sequenced-id sequence-name="PaymentApplication" field="paymentAppl.paymentApplicationId"/>
+        <field-to-result field="paymentAppl.amountApplied" result-name="amountApplied"/>
         <field-to-result field="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
 
         <create-value value-field="paymentAppl"/>
