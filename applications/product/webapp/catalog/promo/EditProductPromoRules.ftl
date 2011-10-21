@@ -119,7 +119,7 @@ under the License.
       </#if>
                   <label>${uiLabelMap.OrderSelectShippingMethod}:</label>
                   <select name = "carrierShipmentMethod">
-                    <option value = "${productPromoCond.carrierShippingMethod?if_exists}">${carrierParty?if_exists}&nbsp;${description}</option>
+                    <option value = "${carrierShippingMethod?if_exists}">${carrierParty?if_exists}&nbsp;${description}</option>
                     <option value = "">&nbsp;</option>
       <#list carrierShipmentMethods as carrierShipmentMethod>
         <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOneCache("ShipmentMethodType")>
