@@ -2347,31 +2347,6 @@ public class OrderServices {
                     "OrderYouDoNotHavePermissionToChangeThisOrdersStatus",locale));
         }
 
-        if ("Y".equals(context.get("setItemStatus"))) {
-            String newItemStatusId = null;
-            if ("ORDER_APPROVED".equals(statusId)) {
-                newItemStatusId = "ITEM_APPROVED";
-            } else if ("ORDER_COMPLETED".equals(statusId)) {
-                newItemStatusId = "ITEM_COMPLETED";
-            } else if ("ORDER_CANCELLED".equals(statusId)) {
-                newItemStatusId = "ITEM_CANCELLED";
-            }
-
-            if (newItemStatusId != null) {
-                try {
-                    Map<String, Object> resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
-                    if (ServiceUtil.isError(resp)) {
-                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                                "OrderErrorCouldNotChangeItemStatus", locale) + newItemStatusId, null, null, resp);
-                    }
-                } catch (GenericServiceException e) {
-                    Debug.logError(e, "Error changing item status to " + newItemStatusId + ": " + e.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                            "OrderErrorCouldNotChangeItemStatus", locale) + newItemStatusId + ": " + e.toString());
-                }
-            }
-        }
-
         try {
             GenericValue orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
 
@@ -2381,6 +2356,7 @@ public class OrderServices {
             }
             // first save off the old status
             successResult.put("oldStatusId", orderHeader.get("statusId"));
+            successResult.put("orderTypeId", orderHeader.get("orderTypeId"));
 
             if (Debug.verboseOn()) Debug.logVerbose("[OrderServices.setOrderStatus] : From Status : " + orderHeader.getString("statusId"), module);
             if (Debug.verboseOn()) Debug.logVerbose("[OrderServices.setOrderStatus] : To Status : " + statusId, module);
@@ -2418,7 +2394,6 @@ public class OrderServices {
 
             successResult.put("needsInventoryIssuance", orderHeader.get("needsInventoryIssuance"));
             successResult.put("grandTotal", orderHeader.get("grandTotal"));
-            successResult.put("orderTypeId", orderHeader.get("orderTypeId"));
             //Debug.logInfo("For setOrderStatus orderHeader is " + orderHeader, module);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -2432,6 +2407,31 @@ public class OrderServices {
             // cancel any order processing if we are cancelled
             if ("ORDER_CANCELLED".equals(statusId)) {
                 OrderChangeHelper.abortOrderProcessing(ctx.getDispatcher(), orderId);
+            }
+        }
+
+        if ("Y".equals(context.get("setItemStatus"))) {
+            String newItemStatusId = null;
+            if ("ORDER_APPROVED".equals(statusId)) {
+                newItemStatusId = "ITEM_APPROVED";
+            } else if ("ORDER_COMPLETED".equals(statusId)) {
+                newItemStatusId = "ITEM_COMPLETED";
+            } else if ("ORDER_CANCELLED".equals(statusId)) {
+                newItemStatusId = "ITEM_CANCELLED";
+            }
+
+            if (newItemStatusId != null) {
+                try {
+                    Map<String, Object> resp = dispatcher.runSync("changeOrderItemStatus", UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", newItemStatusId, "userLogin", userLogin));
+                    if (ServiceUtil.isError(resp)) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                                "OrderErrorCouldNotChangeItemStatus", locale) + newItemStatusId, null, null, resp);
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Error changing item status to " + newItemStatusId + ": " + e.toString(), module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                            "OrderErrorCouldNotChangeItemStatus", locale) + newItemStatusId + ": " + e.toString());
+                }
             }
         }
 
