@@ -3531,17 +3531,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 if (UtilValidate.isEmpty(item.getOrderItemSeqId())) {
                     String orderItemSeqId = UtilFormatOut.formatPaddedNumber(nextItemSeq, 5);
                     item.setOrderItemSeqId(orderItemSeqId);
+                    nextItemSeq++;
                 } else {
                     try {
                         int thisSeqId = Integer.parseInt(item.getOrderItemSeqId());
                         if (thisSeqId > nextItemSeq) {
-                            nextItemSeq = thisSeqId;
+                            nextItemSeq = thisSeqId + 1;
                         }
                     } catch (NumberFormatException e) {
                         Debug.logError(e, module);
                     }
                 }
-                nextItemSeq++;
 
                 // the initial status for all item types
                 String initialStatus = "ITEM_CREATED";
