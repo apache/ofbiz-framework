@@ -646,7 +646,7 @@
     </property>
     <property key="FixedAssetType.description.GROUP_EQUIPMENT">
         <value xml:lang="en">Group of machines, used for task and routing definition</value>
-        <value xml:lang="fr">Groupe de machines, utilisé pour la définition de tâches et routages</value>
+        <value xml:lang="fr">Groupe de machines, utilisé pour la définition de tâches et de gamme de fabrication</value>
         <value xml:lang="hi_IN">मशीनों का समूह कार्य और परिभाषा अनुमार्गण के लिए प्रयोग किया जाता है</value>
         <value xml:lang="it">Gruppo di macchine, usato nelle operazioni e cicli di produzione</value>
         <value xml:lang="pt_BR">Grupo de Máquinas, usado para definição de tarefas e rota</value>
@@ -671,7 +671,7 @@
     </property>
     <property key="FixedAssetType.description.PRODUCTION_EQUIPMENT">
         <value xml:lang="en">The fixed asset used in the operation-routing definition</value>
-        <value xml:lang="fr">Actif immobilisé utilisé dans la définition de routages et tâches</value>
+        <value xml:lang="fr">Actif immobilisé utilisé dans la définition de gammes et tâches</value>
         <value xml:lang="hi_IN">आपरेशन-परिभाषा अनुमार्गण में अचल संपत्ति का उपयोग</value>
         <value xml:lang="it">Attrezzature usate nelle operazioni e cicli di produzione</value>
         <value xml:lang="pt_BR">Ativo fixo usado na definição de rota operacional</value>

@@ -2299,7 +2299,7 @@
         <value xml:lang="de">Materialien werden für aktuellen Arbeitsgang benötigt</value>
         <value xml:lang="en">Materials Required By The Running Task</value>
         <value xml:lang="es">Materiales requeridos para la tarea en ejecución</value>
-        <value xml:lang="fr">Matériaux exigé par l'opération en cours d'exécution</value>
+        <value xml:lang="fr">Matériaux exigés par l'opération en cours d'exécution</value>
         <value xml:lang="it">Materiali Richiesti dall'Operazione in Esecuzione</value>
         <value xml:lang="pt_BR">Materiais necessário para tarefa em execução</value>
         <value xml:lang="th">ข้อมูลที่ต้องการโดยการทำงานอย่างต่อเนื่อง</value>
@@ -4141,7 +4141,7 @@
         <value xml:lang="de">Zwei Arbeitsgänge mit der gleichen Folgenummer und im gleichen Zeitraum</value>
         <value xml:lang="en">Two routing task with same SeqId and same period</value>
         <value xml:lang="es">Existen dos tareas con la misma secuencia y periodo</value>
-        <value xml:lang="fr">Deux opérations de gammes avce la même réf. séq. et la même période</value>
+        <value xml:lang="fr">Deux opérations de gammes avec le même n° de séq. et la même date de début</value>
         <value xml:lang="it">Due Operazioni con stesso Codice Seq e stesso periodo</value>
         <value xml:lang="pt_BR">Existem duas tarefas de rota com o mesmo Id de sequência no mesmo intervalo de tempo</value>
         <value xml:lang="ro">Doua Operatii cu acelasi Cod Seq si aceiasi perioda </value>

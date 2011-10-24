@@ -2156,7 +2156,7 @@
         <value xml:lang="de">Aktionspreis übersteuern</value>
         <value xml:lang="en">Promo Amount Override</value>
         <value xml:lang="es">Reemplazo de precio promocional</value>
-        <value xml:lang="fr">Remplacement du prix promotionnel</value>
+        <value xml:lang="fr">Usage du prix promotionnel + valeur</value>
         <value xml:lang="it">Sostituzione importo promozione</value>
         <value xml:lang="ro">Substitutie Valoare Promotie</value>
         <value xml:lang="ru">Замещение акционного количества</value>
@@ -2214,13 +2214,13 @@
     </property>
     <property key="ProductPriceActionType.description.PRICE_POWHS">
         <value xml:lang="en">Percent Of Wholesale</value>
-        <value xml:lang="fr">Pourcentage de la vente en gros</value>
+        <value xml:lang="fr">Pourcentage du prix de gros</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_WFLAT">
         <value xml:lang="de">Grosshandelspreis übersteuern</value>
         <value xml:lang="en">Wholesale Amount Override</value>
         <value xml:lang="es">Reemplazo de la cantidad de venta</value>
-        <value xml:lang="fr">Remplacement de la quantité en gros</value>
+        <value xml:lang="fr">Usage du prix de gros + valeur</value>
         <value xml:lang="it">Sostituzione importo all'ingrosso</value>
         <value xml:lang="ro">Substitutie Valoare la Intrare</value>
         <value xml:lang="ru">Замещение оптового количества</value>
