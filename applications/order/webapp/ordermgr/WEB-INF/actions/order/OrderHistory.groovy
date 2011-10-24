@@ -44,12 +44,14 @@ if (orderHeader) {
         orderShipmentHistory = [:];
         if ("shipmentMethodTypeId".equals(shipmentMethodHistory.changedFieldName)) {
             shipmentMethodType = delegator.findOne("ShipmentMethodType", ["shipmentMethodTypeId" : shipmentMethodHistory.newValueText], false);
-            carrierPartyHistories.each { carrierPartyHistory ->
-                if (carrierPartyHistory.lastUpdatedTxStamp == shipmentMethodHistory.lastUpdatedTxStamp) {
-                    if ("_NA_".equals(carrierPartyHistory.newValueText)) {
-                        orderShipmentHistory.shipmentMethod = shipmentMethodType.description;
-                    } else {
-                        orderShipmentHistory.shipmentMethod = carrierPartyHistory.newValueText + " " + shipmentMethodType.description;
+            if (shipmentMethodType != null){
+                carrierPartyHistories.each { carrierPartyHistory ->
+                    if (carrierPartyHistory.lastUpdatedTxStamp == shipmentMethodHistory.lastUpdatedTxStamp) {
+                        if ("_NA_".equals(carrierPartyHistory.newValueText)) {
+                            orderShipmentHistory.shipmentMethod = shipmentMethodType.description;
+                        } else {
+                            orderShipmentHistory.shipmentMethod = carrierPartyHistory.newValueText + " " + shipmentMethodType.description;
+                        }
                     }
                 }
             }
