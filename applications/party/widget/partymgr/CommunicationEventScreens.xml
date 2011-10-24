@@ -586,12 +586,7 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.communicationEventDecoratorLocation}">
                     <decorator-section name="body">
                             <screenlet title="${uiLabelMap.PartyCommEventPurposes}">
-                                <container style="button-bar">
-                                    <link style="smallSubmit" target="AddCommContent" text="${uiLabelMap.PartyNewCommPurpose}">
-                                        <parameter param-name="communicationEventId"/>
-                                        <parameter param-name="partyId"/>
-                                    </link>
-                                </container>
+                                <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="AddEventPurpose"/>
                                 <include-form location="component://party/widget/partymgr/CommunicationEventForms.xml" name="ListCommPurposes"/>
                             </screenlet>
                     </decorator-section>
