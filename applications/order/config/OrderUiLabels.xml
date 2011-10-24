@@ -1078,7 +1078,7 @@
         <value xml:lang="de">Anzahl Paletten</value>
         <value xml:lang="en">Skids Pallets</value>
         <value xml:lang="es">Número de palés</value>
-        <value xml:lang="fr">Pallettes</value>
+        <value xml:lang="fr">Palettes</value>
         <value xml:lang="it">Numero di Pallets</value>
         <value xml:lang="nl">Aantal pallets</value>
         <value xml:lang="pt_BR">Deslizador de Pallets</value>
@@ -1824,7 +1824,7 @@
         <value xml:lang="de">Genehmigt</value>
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobada</value>
-        <value xml:lang="fr">Approuvées</value>
+        <value xml:lang="fr">Approuvée</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt_BR">Aprovado</value>
@@ -1839,7 +1839,7 @@
         <value xml:lang="de">Produktbedarf bestätigen</value>
         <value xml:lang="en">Approved Product Requirements</value>
         <value xml:lang="es">Aprobados requisitos de producto</value>
-        <value xml:lang="fr">Besoins approuvées</value>
+        <value xml:lang="fr">Besoins approuvés</value>
         <value xml:lang="it">Fabbisogni Prodotto Approvati</value>
         <value xml:lang="nl">Goedgekeurde productbehoeften</value>
         <value xml:lang="pt_BR">Requisitos do produto aprovados</value>
@@ -2512,7 +2512,7 @@
         <value xml:lang="de">Abgeschlossen</value>
         <value xml:lang="en">Completed</value>
         <value xml:lang="es">Terminado</value>
-        <value xml:lang="fr">Terminées</value>
+        <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="nl">Afgehandeld</value>
         <value xml:lang="pt_BR">Concluído</value>
@@ -2687,7 +2687,7 @@
         <value xml:lang="de">Erstellt</value>
         <value xml:lang="en">Created</value>
         <value xml:lang="es">Creado</value>
-        <value xml:lang="fr">Création</value>
+        <value xml:lang="fr">Créée</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="nl">Aangemaakt op</value>
         <value xml:lang="ro">Creat</value>
@@ -3237,7 +3237,7 @@
     </property>
     <property key="OrderDoNotInclude">
         <value xml:lang="en">Do Not Include</value>
-        <value xml:lang="fr">N'est pas inclu</value>
+        <value xml:lang="fr">N'est pas inclus</value>
         <value xml:lang="it">Non includere</value>
         <value xml:lang="pt_BR">Não incluir</value>
     </property>
@@ -7427,7 +7427,7 @@
         <value xml:lang="de">Hängige Aufträge</value>
         <value xml:lang="en">Orders Pending</value>
         <value xml:lang="es">Pedidos de venta pendientes</value>
-        <value xml:lang="fr">Commande de vente en attente</value>
+        <value xml:lang="fr">Commandes de vente en attente</value>
         <value xml:lang="it">Ordini Sospesi</value>
         <value xml:lang="nl">Orders in behandeling</value>
         <value xml:lang="pt_BR">Pedidos pendentes</value>
@@ -8897,7 +8897,7 @@
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazada</value>
-        <value xml:lang="fr">Rejeté</value>
+        <value xml:lang="fr">Rejetée</value>
         <value xml:lang="it">Scartato</value>
         <value xml:lang="nl">Rejected</value>
         <value xml:lang="pt_BR">Rejeitado</value>
@@ -8994,7 +8994,7 @@
         <value xml:lang="de">Einkäufe pro Organisation Bericht</value>
         <value xml:lang="en">Purchases by Organization Report</value>
         <value xml:lang="es">Informe de compras por organización</value>
-        <value xml:lang="fr">Etat des achats par organisations</value>
+        <value xml:lang="fr">Etat des achats par organisation</value>
         <value xml:lang="it">Report Acquisti per Organizzazione</value>
         <value xml:lang="nl">Purchases by Organization Report</value>
         <value xml:lang="pt_BR">Relatório de compras por organização</value>
@@ -9008,7 +9008,7 @@
         <value xml:lang="de">Einkäufe pro Zahlungsmethode Bericht</value>
         <value xml:lang="en">Purchases by Payment Method Report</value>
         <value xml:lang="es">Informe de compras por método de pago</value>
-        <value xml:lang="fr">Etat des achats par modes de paiement</value>
+        <value xml:lang="fr">Etat des achats par mode de paiement</value>
         <value xml:lang="it">Report Acquisti per Metodo di Pagamento</value>
         <value xml:lang="nl">Purchases by Payment Method Report</value>
         <value xml:lang="pt_BR">Relatório de compras por métodos de pagamentos </value>
@@ -9036,7 +9036,7 @@
         <value xml:lang="de">Verkäufe pro Laden Bericht</value>
         <value xml:lang="en">Sales by Store Report</value>
         <value xml:lang="es">Informe de ventas por tienda</value>
-        <value xml:lang="fr">Etat des ventes par centres de profit</value>
+        <value xml:lang="fr">Etat des ventes par centre de profit</value>
         <value xml:lang="it">Report Vendite per Negozio</value>
         <value xml:lang="nl">Sales by Store Report</value>
         <value xml:lang="pt_BR">Relatório de vendas por loja</value>
@@ -11081,7 +11081,7 @@
         <value xml:lang="de">Pallette</value>
         <value xml:lang="en">Skids Pallets</value>
         <value xml:lang="es">Paletas</value>
-        <value xml:lang="fr">Pallettes</value>
+        <value xml:lang="fr">Palettes</value>
         <value xml:lang="it">Pallets</value>
         <value xml:lang="pt_BR">Pallets</value>
         <value xml:lang="th">Skids Pallets</value>

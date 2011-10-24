@@ -4740,7 +4740,7 @@
         <value xml:lang="de">Wiederbestellung Menge</value>
         <value xml:lang="en">Reorder Quantity</value>
         <value xml:lang="es">Cantidad para repetición de pedido</value>
-        <value xml:lang="fr">Commander à nouveau la quantité</value>
+        <value xml:lang="fr">Quantité de ré-approvisionnement</value>
         <value xml:lang="it">Quantità Riordino</value>
         <value xml:lang="ru">Количество для перезаказа</value>
         <value xml:lang="th">จำนวนการสั่งสินค้าอีกครั้ง</value>
@@ -10186,7 +10186,7 @@
         <value xml:lang="de">Nach Datum</value>
         <value xml:lang="en">By Date</value>
         <value xml:lang="es">Por fecha</value>
-        <value xml:lang="fr">Par dates</value>
+        <value xml:lang="fr">Par date</value>
         <value xml:lang="it">Per Data</value>
         <value xml:lang="th">โดยวันที่</value>
         <value xml:lang="zh">按日期</value>
@@ -10196,7 +10196,7 @@
         <value xml:lang="de">Nach Bestandsposition</value>
         <value xml:lang="en">By Inventory Item</value>
         <value xml:lang="es">Por ítem de inventario</value>
-        <value xml:lang="fr">Par lignes de stock</value>
+        <value xml:lang="fr">Par ligne de stock</value>
         <value xml:lang="it">Per Riga Inventario</value>
         <value xml:lang="th">โดยรายการสินค้าคงเหลือ</value>
         <value xml:lang="zh">按库存明细</value>
@@ -10206,7 +10206,7 @@
         <value xml:lang="de">Nach Produkt</value>
         <value xml:lang="en">By Product</value>
         <value xml:lang="es">Por producto</value>
-        <value xml:lang="fr">Par articles</value>
+        <value xml:lang="fr">Par article</value>
         <value xml:lang="it">Per Prodotto</value>
         <value xml:lang="th">โดยสินค้า</value>
         <value xml:lang="zh">按产品</value>
@@ -14743,6 +14743,10 @@
     <property key="ProductInventoryItemATPIsNotSufficient">
         <value xml:lang="en">The request transfer amount is not available, the available to promise ${atp} is not sufficient for the desired transfer quantity ${xferQty} on the Inventory Item with ID ${inventoryItemId}</value>
         <value xml:lang="it">La richiesta di trasferimento non è disponibile, la disponibilità promessa ${atp} non è sufficiente per la quantità desiderata di trasferimento ${xferQty} sulla riga inventario ${inventoryItemId}</value>
+    </property>
+    <property key="ProductInventoryItemInitialQuantity">
+        <value xml:lang="en">Initiale Qty</value>
+        <value xml:lang="fr">Qté Ini.</value>
     </property>
     <property key="ProductInventoryItemLookupProblem">
         <value xml:lang="en">Inventory Item/Transfer lookup problem: ${errorString}</value>

@@ -1085,7 +1085,7 @@
     <property key="MarketingTrackingCodeDefaultProdCatalogId">
         <value xml:lang="en">Default Product Catalog Id</value>
         <value xml:lang="es">Catálogo</value>
-        <value xml:lang="fr">Réf. du catalogue produit par défault</value>
+        <value xml:lang="fr">Catalogue produit par défaut</value>
         <value xml:lang="it">Codice Catalogo Default</value>
         <value xml:lang="nl">Standaard catalogus</value>
         <value xml:lang="pt_BR">ID do Catálogo de Produtos Padrão</value>
