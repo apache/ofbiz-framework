@@ -5553,6 +5553,7 @@
     </property>
     <property key="PartyFindCommunicationsByOrder">
         <value xml:lang="en">Find Communications by Order</value>
+        <value xml:lang="fr">Communications liées à une commande</value>
         <value xml:lang="zh_TW">以訂單查詢通訊</value>
     </property>
     <property key="PartyFindParty">
