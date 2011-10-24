@@ -198,7 +198,7 @@ under the License.
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText"><display/></field>
         <field name="newValueText"><display/></field>
-        <field name="changedDate"><display/></field>
+        <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
     </form>
     <form name="ReturnReasonHistory" type="list" list-name="orderReturnItemHistories"

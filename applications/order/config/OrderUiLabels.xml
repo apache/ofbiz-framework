@@ -2279,6 +2279,10 @@
         <value xml:lang="zh">纸箱</value>
         <value xml:lang="zh_TW">紙箱</value>
     </property>
+    <property key="OrderChangedByUser">
+        <value xml:lang="en">Changed by user</value>
+        <value xml:lang="fr">Par l'utilisateur</value>
+    </property>
     <property key="OrderCheckout">
         <value xml:lang="cs">Objednávka</value>
         <value xml:lang="de">Bestellung</value>
