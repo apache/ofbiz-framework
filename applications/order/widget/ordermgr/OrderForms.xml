@@ -151,9 +151,9 @@ under the License.
 
     <form name="OrderShipmentMethodHistory" type="list" list-name="orderShipmentHistories"
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <field name="shipmentMethod"><display/></field>
-        <field name="changedDate"><display/></field>
-        <field name="changedByUser"><display/></field>
+        <field name="shipmentMethod" title="${uiLabelMap.ProductShipmentMethod}"><display/></field>
+        <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
+        <field name="changedByUser" title="${uiLabelMap.OrderChangedByUser}"><display/></field>
     </form>
 
     <form name="OrderUnitPriceHistory" type="list" list-name="orderUnitPriceHistories"
@@ -161,8 +161,8 @@ under the License.
         <field name="productId"><display/></field>
         <field name="oldValue"><display type="currency"/></field>
         <field name="newValue"><display type="currency"/></field>
-        <field name="changedDate"><display/></field>
-        <field name="changedByUser"><display/></field>
+        <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
+        <field name="changedByUser" title="${uiLabelMap.OrderChangedByUser}"><display/></field>
     </form>
 
     <form name="OrderQuantityHistory" type="list" list-name="orderQuantityHistories"
@@ -170,8 +170,8 @@ under the License.
         <field name="productId"><display/></field>
         <field name="oldValue"><display/></field>
         <field name="newValue"><display/></field>
-        <field name="changedDate"><display/></field>
-        <field name="changedByUser"><display/></field>
+        <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
+        <field name="changedByUser" title="${uiLabelMap.OrderChangedByUser}"><display/></field>
     </form>
     
     <!-- Forms Specific to portlet -->
