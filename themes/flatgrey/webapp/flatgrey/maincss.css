@@ -681,11 +681,13 @@ width: 100%;
 display: inline; /* IE Fix */
 }
 
-.button-bar a,
-.button-bar form,
 .button-bar ul li ul li {
 float: left;
 font-weight: bold;
+}
+
+.button-bar ul .opposed {
+float: right;
 }
 
 .button-bar ul a {
@@ -706,8 +708,6 @@ float: right;
 display: table;
 }
 
-.button-style-1 a,
-.button-style-1 form,
 .button-style-1 ul li ul li {
 margin-right: 0.5em;
 margin-bottom: 0.5em;
@@ -717,8 +717,6 @@ margin-bottom: 0.5em;
 display: table;
 }
 
-.button-style-2 a,
-.button-style-2 form,
 .button-style-2 ul li ul li {
 margin-right: 0.5em;
 margin-bottom: 0.5em;
