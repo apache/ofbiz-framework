@@ -19816,6 +19816,10 @@
         <value xml:lang="en">: is not a valid promo code; must be between 1 and 20 characters</value>
         <value xml:lang="it">: non è un codice promozione valido; deve essere fra 1 e 20 caratteri</value>
     </property>
+    <property key="ProductPromoCodeLength">
+        <value xml:lang="de">Aktionscodelänge</value>
+        <value xml:lang="en">product promo code length</value>
+    </property>
     <property key="ProductPromoCodeParties">
         <value xml:lang="de">Aktionscode Akteure</value>
         <value xml:lang="en">Promo Code Parties</value>
@@ -19908,6 +19912,26 @@
         <value xml:lang="th">ผู้ใช้กรอก</value>
         <value xml:lang="zh">用户输入</value>
         <value xml:lang="zh_TW">用戶輸入</value>
+    </property>
+    <property key="ProductPromoLayoutSmart">
+        <value xml:lang="de">clever</value>
+        <value xml:lang="en">smart</value>
+    </property>
+    <property key="ProductPromoLayoutNormal">
+        <value xml:lang="de">normal</value>
+        <value xml:lang="en">normal</value>
+    </property>
+    <property key="ProductPromoLayoutSeqNum">
+        <value xml:lang="de">Sequenz</value>
+        <value xml:lang="en">sequence</value>
+    </property>
+    <property key="ProductPromoCodeLayout">
+        <value xml:lang="de">Aussehen vom Aktionscode</value>
+        <value xml:lang="en">Promo code layout</value>
+    </property>
+    <property key="ProductPromoCodeLayoutTooltip">
+        <value xml:lang="de">"clever": Vermeidet ähnliche Zeichen (0 und O, ...) | "normal": Alphanummerisch | "sequenz": Laufnummer</value>
+        <value xml:lang="en">"smart": Avoids equal Chars (0 and O, ...) | "normal": alphanumeric | "sequence": Sequence Number</value>
     </property>
     <property key="ProductPromos">
         <value xml:lang="de">Aktionen</value>
