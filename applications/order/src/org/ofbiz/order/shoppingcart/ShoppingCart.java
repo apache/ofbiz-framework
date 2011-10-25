@@ -231,6 +231,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         while (itIt.hasNext()) {
             cartLines.add(new ShoppingCartItem(itIt.next()));
         }
+        
+        this.facilityId = cart.facilityId;
+        this.webSiteId = cart.webSiteId;
     }
 
     /** Creates new empty ShoppingCart object. */
@@ -262,6 +265,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 // since default cart is of type SALES_ORDER, set to store's payToPartyId
                 this.billFromVendorPartyId = productStore.getString("payToPartyId");
             }
+            this.facilityId = productStore.getString("inventoryFacilityId");
         }
 
     }
