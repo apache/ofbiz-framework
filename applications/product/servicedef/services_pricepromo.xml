@@ -270,6 +270,8 @@ under the License.
             <exclude field-name="lastModifiedByUserLogin"/>
         </auto-attributes>
         <attribute name="quantity" type="Long" mode="IN" optional="false"/>
+        <attribute name="codeLength" type="Integer" mode="IN" optional="true" default-value="8"/>
+        <attribute name="promoCodeLayout" type="String" mode="IN" optional="true" default-value="sequence"/>
     </service>
 
     <service name="createProductPromoCond" default-entity-name="ProductPromoCond" engine="simple"
