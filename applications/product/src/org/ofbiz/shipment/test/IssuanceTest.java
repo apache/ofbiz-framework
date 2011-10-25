@@ -78,7 +78,7 @@ public class IssuanceTest extends OFBizTestCase {
         assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L))==0);
 
         // Test the ItemIssuances are correct
-        List<GenericValue> itemIssuances = delegator.getRelated("ItemIssuance", null, null, orderHeader);        
+        List<GenericValue> itemIssuances = delegator.getRelated("ItemIssuance", null, UtilMisc.toList("itemIssuanceId"), orderHeader);
         assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
         assertEquals( "Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
         
