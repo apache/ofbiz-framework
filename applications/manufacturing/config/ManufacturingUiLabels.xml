@@ -142,7 +142,7 @@
         <value xml:lang="de">Freitagskapazität</value>
         <value xml:lang="en">Friday Capacity</value>
         <value xml:lang="es">Capacidad para viernes</value>
-        <value xml:lang="fr">Capacité de vendredi</value>
+        <value xml:lang="fr">Capacité du vendredi</value>
         <value xml:lang="it">Venerdì  Capacità</value>
         <value xml:lang="pt_BR">Capacidade para Sexta-feira</value>
         <value xml:lang="th">การปฎิบัติหน้าที่ในวันศุกร์</value>
@@ -153,7 +153,7 @@
         <value xml:lang="de">Freitagsstartzeit</value>
         <value xml:lang="en">Friday Start Time</value>
         <value xml:lang="es">Hora de comienzo para viernes</value>
-        <value xml:lang="fr">Heure de départ, vendredi</value>
+        <value xml:lang="fr">Heure de début du vendredi</value>
         <value xml:lang="it">Venerdì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início para sexta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันศุกร์</value>
@@ -227,7 +227,7 @@
         <value xml:lang="de">Montagskapazität</value>
         <value xml:lang="en">Monday Capacity</value>
         <value xml:lang="es">Capacidad para lunes</value>
-        <value xml:lang="fr">Capacité de lundi</value>
+        <value xml:lang="fr">Capacité du lundi</value>
         <value xml:lang="it">Lunedì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de segunda-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันจันทร์</value>
@@ -238,7 +238,7 @@
         <value xml:lang="de">Montagsstartzeit</value>
         <value xml:lang="en">Monday Start Time</value>
         <value xml:lang="es">Hora de comienzo para lunes</value>
-        <value xml:lang="fr">Heure de départ, lundi</value>
+        <value xml:lang="fr">Heure de début du lundi</value>
         <value xml:lang="it">Lunedì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início de segunda-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันจันทร์</value>
@@ -391,7 +391,7 @@
         <value xml:lang="de">Samstagskapazität</value>
         <value xml:lang="en">Saturday Capacity</value>
         <value xml:lang="es">Capacidad para sábado</value>
-        <value xml:lang="fr">Capacité de samedi</value>
+        <value xml:lang="fr">Capacité du samedi</value>
         <value xml:lang="it">Sabato Capacità</value>
         <value xml:lang="pt_BR">Capacidade de sábado</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันเสาร์</value>
@@ -435,7 +435,7 @@
         <value xml:lang="de">Sonntagskapazität</value>
         <value xml:lang="en">Sunday Capacity</value>
         <value xml:lang="es">Capacidad para domingo</value>
-        <value xml:lang="fr">capacité du dimanche</value>
+        <value xml:lang="fr">Capacité du dimanche</value>
         <value xml:lang="it">Domenica Capacità</value>
         <value xml:lang="pt_BR">Capacidade de domingo</value>
         <value xml:lang="th">การปฏิบัติงานในวันอาทิตย์</value>
@@ -457,7 +457,7 @@
         <value xml:lang="de">Donnerstagskapazität</value>
         <value xml:lang="en">Thursday Capacity</value>
         <value xml:lang="es">Capacidad para jueves</value>
-        <value xml:lang="fr">Capacité de jeudi</value>
+        <value xml:lang="fr">Capacité du jeudi</value>
         <value xml:lang="it">Giovedì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de quinta-feira</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันพฤหัสบดี</value>
@@ -515,7 +515,7 @@
         <value xml:lang="de">Dienstagskapazität</value>
         <value xml:lang="en">Tuesday Capacity</value>
         <value xml:lang="es">Cantidad total planificada</value>
-        <value xml:lang="fr">Capacité de jeudi</value>
+        <value xml:lang="fr">Capacité du mardi</value>
         <value xml:lang="it">Martedì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de terça-feira</value>
         <value xml:lang="th">การปฏิบัติงานในวันอังคาร</value>
@@ -526,7 +526,7 @@
         <value xml:lang="de">Dienstagssstartzeit</value>
         <value xml:lang="en">Tuesday Start Time</value>
         <value xml:lang="es">Hora de comienzo para martes</value>
-        <value xml:lang="fr">Heure de début du jeudi</value>
+        <value xml:lang="fr">Heure de début du mardi</value>
         <value xml:lang="it">Martedì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início da terça-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอังคาร</value>
@@ -561,7 +561,7 @@
         <value xml:lang="de">Mittwochskapazität</value>
         <value xml:lang="en">Wednesday Capacity</value>
         <value xml:lang="es">Capacidad pra miércoles</value>
-        <value xml:lang="fr">Capacité de vendredi</value>
+        <value xml:lang="fr">Capacité du mercredi</value>
         <value xml:lang="it">Mercoledì Capacità</value>
         <value xml:lang="pt_BR">Capacidade de quarta-feira</value>
         <value xml:lang="th">กรปฏิบัติงานในวันพุธ</value>
@@ -572,7 +572,7 @@
         <value xml:lang="de">Mittwochsstartzeit</value>
         <value xml:lang="en">Wednesday Start Time</value>
         <value xml:lang="es">Hora de comienzo para miércoles</value>
-        <value xml:lang="fr">Heure de début du vendredi</value>
+        <value xml:lang="fr">Heure de début du mercredi</value>
         <value xml:lang="it">Mercoledì Tempo Inizio</value>
         <value xml:lang="pt_BR">Hora de início de quarta-feira</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
