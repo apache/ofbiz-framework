@@ -131,7 +131,7 @@ public class ProductionRun {
             try {
                 productionRun.store();
                 if (quantityIsUpdated) {
-                    productionRunProduct.set("estimatedQuantity",this.quantity);
+                    productionRunProduct.set("estimatedQuantity",this.quantity.doubleValue());
                     productionRunProduct.store();
                     quantityIsUpdated = false;
                 }
@@ -204,7 +204,7 @@ public class ProductionRun {
         for (Iterator<GenericValue> iter = productionRunComponents.iterator(); iter.hasNext();) {
             GenericValue component = iter.next();
             componentQuantity = component.getBigDecimal("estimatedQuantity");
-            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, BigDecimal.ROUND_HALF_UP).multiply(newQuantity));
+            component.set("estimatedQuantity", componentQuantity.divide(previousQuantity, 10, BigDecimal.ROUND_HALF_UP).multiply(newQuantity).doubleValue());
         }
     }
     /**
