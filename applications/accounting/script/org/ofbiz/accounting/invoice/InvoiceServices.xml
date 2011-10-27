@@ -720,6 +720,25 @@ under the License.
         </iterate>
     </simple-method>
 
+    <simple-method method-name="resetOrderItemBillingAndOrderAdjustmentBillingOnCancelInvoice"
+        short-description="Reset OrderItemBilling and OrderAdjustmentBilling records on cancel invoice, so it is isn't considered invoiced any more by createInvoiceForOrder service">
+        <entity-and entity-name="OrderItemBilling" list="orderItemBillings">
+            <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+        </entity-and>
+        <iterate entry="orderItemBilling" list="orderItemBillings">
+            <set field="orderItemBilling.quantity" value="0" type="BigDecimal"/>
+            <store-value value-field="orderItemBilling"/>
+        </iterate>
+
+        <entity-and entity-name="OrderAdjustmentBilling" list="orderAdjustmentBillings">
+            <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
+        </entity-and>
+        <iterate entry="orderAdjustmentBilling" list="orderAdjustmentBillings">
+            <set field="orderAdjustmentBilling.amount" value="0" type="BigDecimal"/>
+            <store-value value-field="orderAdjustmentBilling"/>
+        </iterate>
+    </simple-method>
+
     <simple-method method-name="massChangeInvoiceStatus" short-description="Service set status of Invoices in bulk.">
         <iterate list="parameters.invoiceIds" entry="invoiceId">
             <set field="setInvoiceStatusMap.invoiceId" from-field="invoiceId"/>

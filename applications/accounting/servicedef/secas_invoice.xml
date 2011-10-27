@@ -32,6 +32,10 @@ under the License.
         <action service="removeInvoiceItemAssocOnCancelInvoice" mode="sync"/>
     </eca>
 
+    <eca service="cancelInvoice" event="commit">
+        <action service="resetOrderItemBillingAndOrderAdjustmentBillingOnCancelInvoice" mode="sync"/>
+    </eca>
+
     <eca service="setInvoiceStatus" event="commit">
         <condition operator="equals" field-name="statusId" value="INVOICE_APPROVED"/>
         <condition operator="not-equals" field-name="oldStatusId" value="INVOICE_APPROVED"/>
