@@ -170,12 +170,8 @@ if (orderHeader) {
     context.itemIssuancesPerItem = itemIssuancesPerItem;
 
     // get a list of all invoices
-    allInvoices = new HashSet();
     orderBilling = delegator.findByAnd("OrderItemBilling", [orderId : orderId], ["invoiceId"]);
-    orderBilling.each { billingGv ->
-        allInvoices.add(billingGv.invoiceId);
-    }
-    context.invoices = allInvoices;
+    context.invoices = orderBilling*.invoiceId.unique();
 
     ecl = EntityCondition.makeCondition([
                                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
