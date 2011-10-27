@@ -363,6 +363,12 @@ under the License.
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="resetOrderItemBillingAndOrderAdjustmentBillingOnCancelInvoice" engine="simple"
+            location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="resetOrderItemBillingAndOrderAdjustmentBillingOnCancelInvoice" auth="true">
+        <description>Reset OrderItemBilling and OrderAdjustmentBilling records on cancel invoice, so it is isn't considered invoiced any more by createInvoiceForOrder service</description>
+        <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
+    </service>
+
     <service name="massChangeInvoiceStatus" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="massChangeInvoiceStatus" auth="true">
         <description>Set status of invoices in bulk.</description>
