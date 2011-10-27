@@ -22,7 +22,7 @@
     <property key="loginevents.error_accessing_password">
         <value xml:lang="de">Fehler beim Zugriff auf Passwort: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password: ${errorMessage}.</value>
-        <value xml:lang="es">Error con password : ${errorMessage}.</value>
+        <value xml:lang="es">Error accediendo a la clave: ${errorMessage}.</value>
         <value xml:lang="fr">Erreur concernant le mot de passe: ${errorMessage}.</value>
         <value xml:lang="it">Errore accesso password:: ${errorMessage}.</value>
         <value xml:lang="nl">Fout bij toegang verkrijgen tot wachtwoord: ${errorMessage}.</value>
@@ -36,6 +36,7 @@
     <property key="loginevents.error_accessing_password_change_history">
         <value xml:lang="de">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password change history: ${errorMessage}.</value>
+        <value xml:lang="es">Error accediendo al histórico de cambios de la clave: ${errorMessage}.</value>
         <value xml:lang="fr">Erreur lors de l'accès à l'historique des mots de passe : ${errorMessage}.</value>
         <value xml:lang="it">Errore di accesso alla storia dei cambi password: ${errorMessage}.</value>
         <value xml:lang="nl">Fout bij toegang verkrijgen tot wachtwoord wijzigingsgeschiedenis: ${errorMessage}.</value>
@@ -47,7 +48,7 @@
     <property key="loginevents.error_saving_new_password_email_not_correct_password">
         <value xml:lang="de">Fehler beim Speichern des neuen Passworts, die E-Mail, die sie erhalten wird nicht das korrekte Passwort enthalten, das alte Passwort ist weiterhin gültig: ${errorMessage}.</value>
         <value xml:lang="en">Error saving new password, the email that you receive will not have the correct password in it, your old password is still being used: ${errorMessage}.</value>
-        <value xml:lang="es">Error al grabar nuevo password: el email que recibirá no tendrá el password correcto; se seguirá usando el password anterior</value>
+        <value xml:lang="es">Error al grabar la nueva clave: el email que recibirá no tendrá la clave correcta; se seguirá usando la clave anterior</value>
         <value xml:lang="fr">Erreur survenue pendant l'enregistrement du nouveau mot de passe, le courriel que vous allez recevoir ne comportera pas le mot de passe correct, votre ancien mot de passe est toujours valide: ${errorMessage}.</value>
         <value xml:lang="it">Errore nel salvataggio della nuova password, l'email che riceverai non ha una password corretta, la tua vecchia password è ancora valida: ${errorMessage}.</value>
         <value xml:lang="nl">Fout bij het opslaan van het nieuwe wachtwoord, de email die u zal ontvangen bevat niet het correcte wachtwoord, uw oude wachtwoord is nog geldig: ${errorMessage}.</value>
@@ -60,7 +61,7 @@
     <property key="loginevents.error_unable_email_password_contact_customer_service">
         <value xml:lang="de">Fehler: Passwort konnte nicht per E-Mail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice.</value>
         <value xml:lang="en">Error occurred: unable to email password.  Please try again later or contact customer service.</value>
-        <value xml:lang="es">Error: no se pudo enviar password por correo. Intente nuevamente o contacte el servicio a cliente</value>
+        <value xml:lang="es">Error: no se pudo enviar la clave por correo. Intente nuevamente o contacte el servicio de soporte</value>
         <value xml:lang="fr">Erreur : impossible d'envoyer le mot de passe par courriel. Merci de réessayer ultérieurement ou de contacter votre service commercial.</value>
         <value xml:lang="it">Errore: non è possibile mandare la password per e-mail. Riprovare più tardi o contattare il servizio clienti.</value>
         <value xml:lang="nl">Fout: het nieuwe wachtwoord kan niet gemaild worden. Probeert u het later a.u.b. of neem contact op met de klantenservice.</value>
@@ -74,7 +75,7 @@
     <property key="loginevents.error_unable_email_password_contact_customer_service_errorwas">
         <value xml:lang="de">Fehler: Passwort konnte nicht per E-Mail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice. (Fehler war: ${errorMessage}).</value>
         <value xml:lang="en">Error occurred: unable to email password.  Please try again later or contact customer service. (error was: ${errorMessage}).</value>
-        <value xml:lang="es">Error occurred: unable to email password.  Please try again later or contact customer service.</value>
+        <value xml:lang="es">Error: no se pudo enviar la clave por correo. Intente nuevamente o contacte el servicio de soporte. (el error fue: ${errorMessage}).</value>
         <value xml:lang="fr">Erreur : impossible d'envoyer le mot de passe par courriel. Merci de réessayer ultérieurement ou de contacter votre service commercial. (erreur: ${errorMessage}).</value>
         <value xml:lang="it">Errore: non è possibile mandare la password per e-mail. Riprovare più tardi o contattare il servizio clienti. (errore: ${errorMessage})</value>
         <value xml:lang="nl">Fout: het nieuwe wachtwoord kan niet gemaild worden. Probeert u het later a.u.b. of neem contact op met de klantenservice.(fout is ${errorMessage}).</value>
@@ -88,7 +89,7 @@
     <property key="loginevents.following_error_occurred_during_login">
         <value xml:lang="de">${errorMessage}</value>
         <value xml:lang="en">following error occurred during login: ${errorMessage}</value>
-        <value xml:lang="es">Error al hacer login</value>
+        <value xml:lang="es">Error al conectar: ${errorMessage}</value>
         <value xml:lang="fr">${errorMessage}</value>
         <value xml:lang="it">${errorMessage}</value>
         <value xml:lang="nl">De volgende fout kwam voor tijdens het inloggen: ${errorMessage}</value>
@@ -102,7 +103,7 @@
     <property key="loginevents.new_password_createdandsent_check_email">
         <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen Sie bitte Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">A new password has been created and sent to you. Please check your Email.</value>
-        <value xml:lang="es">Un nuevo password ha sido creado y enviado. Por favor revise su e-mail</value>
+        <value xml:lang="es">Una nuevoa clave ha sido creada y enviada. Por favor revise su correo.</value>
         <value xml:lang="fr">Un nouveau mot de passe a été crée et envoyé. Merci de vérifier votre courriel.</value>
         <value xml:lang="it">Una nuova password è stata creata ed inviata. Controlla le email.</value>
         <value xml:lang="nl">Er is een nieuw wachtwoord naar uw emailadres verzonden.</value>
@@ -116,7 +117,7 @@
     <property key="loginevents.new_password_sent_check_email">
         <value xml:lang="de">Ihr Passwort wurde Ihnen per E-Mail zugeschickt. Überprüfen sie Ihren E-Mail-Eingang.</value>
         <value xml:lang="en">Your password has been sent to you. Please check your Email.</value>
-        <value xml:lang="es">Su password ha sido enviado. Revise su e-mail</value>
+        <value xml:lang="es">Su clave ha sido enviada. Revise su correo.</value>
         <value xml:lang="fr">Votre nouveau mot de passe vous a été envoyé. Merci de vérifier votre courriel.</value>
         <value xml:lang="it">La tua password ti è stata inviata. Controlla le email.</value>
         <value xml:lang="nl">Er is een nieuw wachtwoord naar uw emailadres verzonden.</value>
@@ -130,7 +131,7 @@
     <property key="loginevents.no_password_hint_specified_try_password_emailed">
         <value xml:lang="de">Es wurde kein Passwort-Hinweis angegeben, versuchen Sie sich das Passwort zumailen zu lassen.</value>
         <value xml:lang="en">No password hint was specified, try having the password emailed instead.</value>
-        <value xml:lang="es">No se especificó una pista para el password.</value>
+        <value xml:lang="es">No se especificó una pista para la clave.</value>
         <value xml:lang="fr">Aucune spécification de mot de passé n'a été spécifiée, essayez de le recevoir par courriel.</value>
         <value xml:lang="it">Nessun suggerimento password è stato specificato, provare a richiedere l'invio della password per e-mail.</value>
         <value xml:lang="nl">Er is geen wachtwoord hint opgegeven, u kunt proberen een nieuw wachtwoord via de email op te vragen.</value>
@@ -144,7 +145,7 @@
     <property key="loginevents.no_primary_email_address_set_contact_customer_service">
         <value xml:lang="de">Es wurde keine primäre E-Mailadresse vergeben, bitte wenden Sie sich an den Kundenservice.</value>
         <value xml:lang="en">No Primary Email Address has been set, please contact customer service.</value>
-        <value xml:lang="es">No se ha actualizado dirección e-mail.</value>
+        <value xml:lang="es">No se ha actualizado la dirección de correo.</value>
         <value xml:lang="fr">Pas d'adresse courriel créée, merci de contacter votre service commercial.</value>
         <value xml:lang="it">Indirizzo email primario non impostato, prego contattare il servizio clienti.</value>
         <value xml:lang="nl">Er is geen primair emailadres ingesteld, neem a.u.b. contact op met de klantenservice.</value>
@@ -158,7 +159,7 @@
     <property key="loginevents.password_hint_is">
         <value xml:lang="de">Der Passwort-Hinweis ist: ${passwordHint}.</value>
         <value xml:lang="en">The Password Hint is: ${passwordHint}.</value>
-        <value xml:lang="es">Su pista de password es:</value>
+        <value xml:lang="es">Su pista para la clave es:</value>
         <value xml:lang="fr">La description du mot de passe est: ${passwordHint}.</value>
         <value xml:lang="it">Il suggerimento password è: ${passwordHint}.</value>
         <value xml:lang="nl">Uw wachtwoord hint is: ${passwordHint}.</value>
@@ -172,6 +173,7 @@
     <property key="loginevents.password_was_changed_with_success">
         <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert</value>
         <value xml:lang="en">Your password has been changed successfully</value>
+        <value xml:lang="es">Su clave se ha cambiado correctamente</value>
         <value xml:lang="fr">Votre mot de passe a été changé avec succès</value>
         <value xml:lang="it">La password è stata cambiata con successo</value>
         <value xml:lang="nl">Uw wachtwoord is aangepast</value>
@@ -181,7 +183,7 @@
     <property key="loginevents.password_was_empty_reenter">
         <value xml:lang="de">Es wurde kein Passwort eingegeben.</value>
         <value xml:lang="en">password was empty reenter</value>
-        <value xml:lang="es">El password no puede ser vacío</value>
+        <value xml:lang="es">La clave no puede ser vacía</value>
         <value xml:lang="fr">Le mot de passe était vide, SVP recommencez.</value>
         <value xml:lang="it">La password è vuota, prego inserirla di nuovo.</value>
         <value xml:lang="nl">Het wachtwoord is leeg, toets a.u.b. opnieuw in.</value>
@@ -195,7 +197,7 @@
     <property key="loginevents.problems_with_configuration_contact_customer_service">
         <value xml:lang="de">Fehler bei der Konfiguration; bitte wenden Sie sich an den Kundenservice.</value>
         <value xml:lang="en">Problems with configuration; please contact customer service.</value>
-        <value xml:lang="es">Problemas con configuración. Contacte el servicio al cliente</value>
+        <value xml:lang="es">Problemas con configuración. Contacte con el servicio de soporte.</value>
         <value xml:lang="fr">Problèmes avec la connexion, merci de contacter votre service commercial.</value>
         <value xml:lang="it">Problemi con la configurazione; per favore contattare il servizio clienti.</value>
         <value xml:lang="nl">Er is een probleem opgetreden met de configuratie. Neem a.u.b. contact op met de klantenservice.</value>
@@ -208,13 +210,14 @@
     </property>
     <property key="loginevents.unable_to_login_tenant">
         <value xml:lang="en">You cannot login to this tenant</value>
+        <value xml:lang="es">No puede conectarse con esta organización</value>
         <value xml:lang="pt_BR">Você não pode acessar este inquilino</value>
         <value xml:lang="zh_TW">無法登入使用此承租戶</value>
     </property>
     <property key="loginevents.unable_to_login_this_application">
         <value xml:lang="de">Anmeldung bei der Anwendung nicht erfolgreich</value>
         <value xml:lang="en">You cannot login to this application</value>
-        <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
+        <value xml:lang="es">No puede conectarse a esta aplicación (faltan permisos)</value>
         <value xml:lang="fr">Impossible de se connecter à cette application.</value>
         <value xml:lang="it">L'autenticazione per questa applicazione non è stata completata (permessi non sufficienti).</value>
         <value xml:lang="nl">Het inloggen kan niet voltooid worden (niet bevoegd)</value>
@@ -284,7 +287,7 @@
     <property key="loginmapprocs.new_password_missing">
         <value xml:lang="de">Das neue Passwort fehlt.</value>
         <value xml:lang="en">New Password is missing.</value>
-        <value xml:lang="es">Falta nuevo password</value>
+        <value xml:lang="es">Falta nueva clave.</value>
         <value xml:lang="fr">Le nouveau mot de passe manque</value>
         <value xml:lang="it">La nuova password è mancante.</value>
         <value xml:lang="nl">Het nieuwe wachtwoord is leeg</value>
@@ -298,7 +301,7 @@
     <property key="loginmapprocs.new_password_verify_missing">
         <value xml:lang="de">Das Bestätigungspasswort fehlt.</value>
         <value xml:lang="en">New Password Verify is missing</value>
-        <value xml:lang="es">Falta verificación de nuevo password</value>
+        <value xml:lang="es">Falta verificación de nueva clave</value>
         <value xml:lang="fr">La vérification du nouveau mot de passe manque</value>
         <value xml:lang="it">La verifica della nuova password è mancante</value>
         <value xml:lang="nl">Nieuw verificatie wachtwoord is leeg</value>
@@ -312,7 +315,7 @@
     <property key="loginmapprocs.old_password_missing">
         <value xml:lang="de">Das (alte) Passwort fehlt.</value>
         <value xml:lang="en">The (old) Password is missing.</value>
-        <value xml:lang="es">Falta antiguo password</value>
+        <value xml:lang="es">Falta clave antigua.</value>
         <value xml:lang="fr">L'ancien mot de passe manque</value>
         <value xml:lang="it">La vecchia password è mancante.</value>
         <value xml:lang="nl">Het oude wachtwoord is leeg</value>
@@ -326,7 +329,7 @@
     <property key="loginmapprocs.password_not_equal_verfiy_password">
         <value xml:lang="de">Das neue Passwort ist nicht identisch mit dem Bestätigungspasswort</value>
         <value xml:lang="en">New Password does not equal Verify Password</value>
-        <value xml:lang="es">Los passwords no concuerdan</value>
+        <value xml:lang="es">Las claves no coinciden</value>
         <value xml:lang="fr">Le nouveau mot de passe ne correspond pas à la vérification de ce nouveau mot de passe</value>
         <value xml:lang="it">La nuova password non è ugugale alla password di verifica</value>
         <value xml:lang="nl">Het nieuwe wachtwoord komt niet overeen met het verificatie wachtwoord</value>
@@ -340,7 +343,7 @@
     <property key="loginmapprocs.password_successfully_updated">
         <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert.</value>
         <value xml:lang="en">Password successfully updated.</value>
-        <value xml:lang="es">Password actualizado</value>
+        <value xml:lang="es">Clave actualizada.</value>
         <value xml:lang="fr">Mot de passe mis à jour.</value>
         <value xml:lang="it">Password aggiornta con successo.</value>
         <value xml:lang="nl">Wachtwoord met succes veranderd.</value>
@@ -354,7 +357,7 @@
     <property key="loginservices.account_for_user_login_id_disabled">
         <value xml:lang="de">Das Konto mit dem Benutzernamen "${username}" wurde gesperrt</value>
         <value xml:lang="en">The account for user login id "${username}" has been disabled.</value>
-        <value xml:lang="es">La cuenta  "${username}" ha sido deshabilitada</value>
+        <value xml:lang="es">La cuenta "${username}" ha sido deshabilitada.</value>
         <value xml:lang="fr">Le compte de l'utilisateur "${username}" a été neutralisé.</value>
         <value xml:lang="it">L'utente "${username}" è stato disabilitato</value>
         <value xml:lang="nl">De gebruikersnaam: "${username}" is geblokkeerd.</value>
@@ -368,7 +371,7 @@
     <property key="loginservices.could_not_change_password_read_failure">
         <value xml:lang="de">Das Passwort konnte nicht geändert werden (Lesefehler): ${errorMessage}.</value>
         <value xml:lang="en">Could not change password (read failure): ${errorMessage}.</value>
-        <value xml:lang="es">No se pudo cambiar el password. Error de lectura ${errorMessage}.</value>
+        <value xml:lang="es">No se pudo cambiar la clave. Error de lectura ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de changer le mot de passe (erreur de lecture) : ${errormessage}.</value>
         <value xml:lang="it">Non è possibile cambiare la password (lettura fallita): ${errorMessage}.</value>
         <value xml:lang="nl">Het wachtwoord kan niet veranderd worden (leesfout): ${errorMessage}.</value>
@@ -382,7 +385,7 @@
     <property key="loginservices.could_not_change_password_userlogin_with_id_not_exist">
         <value xml:lang="de">Passwort konnte nicht geändert werden, Benutzername mit der ID "${userLoginId}" existiert nicht.</value>
         <value xml:lang="en">Could not change password, UserLogin with ID "${userLoginId}" does not exist.</value>
-        <value xml:lang="es">No se pudo cambiar el password. El usuario con Id "${userLoginId}"  no existe</value>
+        <value xml:lang="es">No se pudo cambiar la clave. El usuario con Id "${userLoginId}" no existe.</value>
         <value xml:lang="fr">Impossible de changer le mot de passe, l'identifiant de connexion "${userLoginId}" n'existe pas.</value>
         <value xml:lang="it">Non è possibile cambiare la password, l'utente "${userLoginId}" non esiste.</value>
         <value xml:lang="nl">Het wachtwoord kan niet veranderd worden. De gebruikersnaam met "${userLoginId}" bestaat niet.</value>
@@ -396,7 +399,7 @@
     <property key="loginservices.could_not_change_password_write_failure">
         <value xml:lang="de">Das Passwort konnte nicht geändert werden (Schreibfehler): ${errorMessage}.</value>
         <value xml:lang="en">Could not change password (write failure): ${errorMessage}.</value>
-        <value xml:lang="es">No se puede cambiar password.${errorMessage}.</value>
+        <value xml:lang="es">No se puede cambiar la clave: ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de changer le mot de passe (erreur d'écriture) : ${errormessage}.\r\n</value>
         <value xml:lang="it">Non è possibile cambiare la password (scrittura fallita): ${errorMessage}.</value>
         <value xml:lang="nl">Het wachtwoord kan niet veranderd worden. (schrijffout): ${errorMessage}.</value>
@@ -410,7 +413,7 @@
     <property key="loginservices.could_not_create_login_user_read_failure">
         <value xml:lang="de">Konnte user-login nicht erstellen (Lesefehler): ${errorMessage}.</value>
         <value xml:lang="en">Could not create login user (read failure): ${errorMessage}.</value>
-        <value xml:lang="es">No se pudo crear usuario. ${errorMessage}.</value>
+        <value xml:lang="es">No se pudo crear el usuario: ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de créer l'utilisateur (erreur de lecture) : ${errormessage}.</value>
         <value xml:lang="it">Non è possibile creare l'utente (lettura fallita): ${errorMessage}.</value>
         <value xml:lang="nl">De gebruikersnaam kan niet worden aangemaakt. (leesfout): ${errorMessage}.</value>
@@ -438,7 +441,7 @@
     <property key="loginservices.could_not_create_login_user_write_failure">
         <value xml:lang="de">Konnte user-login nicht erstellen (Schreibfehler): ${errorMessage}.</value>
         <value xml:lang="en">Couldn't create login user (write failure): ${errorMessage}.</value>
-        <value xml:lang="es">No se pudo crear usuario. Error de escritura ${errorMessage}.</value>
+        <value xml:lang="es">No se pudo crear usuario. Error de escritura: ${errorMessage}.</value>
         <value xml:lang="fr">Impossible de créer l'utilisateur (erreur d'écriture) : ${errormessage}.</value>
         <value xml:lang="it">Non è possibile creare l'utente (scrittura fallita): ${errorMessage}.</value>
         <value xml:lang="nl">De gebruikersnaam kan niet worden aangemaakt (schrijffout): ${errorMessage}.</value>
@@ -452,7 +455,7 @@
     <property key="loginservices.could_not_disable_old_login_user_write_failure">
         <value xml:lang="de">Vorheriger Benutzername konnte nicht gesperrt werden (Schreibfehler): ${errorMessage}.</value>
         <value xml:lang="en">Couldn't disable old login user (write failure): ${errorMessage}.</value>
-        <value xml:lang="es">No se pudo deshabilitar usuario.${errorMessage}.</value>
+        <value xml:lang="es">No se pudo deshabilitar el usuario ${errorMessage}.</value>
         <value xml:lang="fr">Impossible d'annuler l'ancien compte utilisateur (erreur d'écriture) : ${errorMessage}.</value>
         <value xml:lang="it">Non è possibile disabilitare l'utente (scrittura fallita): ${errorMessage}.</value>
         <value xml:lang="nl">De oude gebruikersnaam kan niet geblokkeerd worden (schrijffout): ${errorMessage}.</value>
@@ -466,6 +469,7 @@
     <property key="loginservices.ldap_authentication_failed">
         <value xml:lang="de">LDAP Anmeldung nicht möglich</value>
         <value xml:lang="en">LDAP authentication failed.</value>
+        <value xml:lang="es">Autentificación LDAP fallida.</value>
         <value xml:lang="fr">L'authentification LDAP a échouée.</value>
         <value xml:lang="it">Autenticazione LDAP fallita.</value>
         <value xml:lang="nl">LDAP authenticatie mislukt.</value>
@@ -504,6 +508,7 @@
     <property key="loginservices.new_password_is_equal_to_old_password">
         <value xml:lang="de">Das neue Passwort darf nicht identisch mit dem alten Passwort sein.</value>
         <value xml:lang="en">The new password must be different from the old one.</value>
+        <value xml:lang="es">La nueva clave debe ser diferente a la anterior.</value>
         <value xml:lang="fr">Le nouveau mot de passe doit être différent de l'ancien.</value>
         <value xml:lang="it">La nuova password deve essere diversa dalla vecchia.</value>
         <value xml:lang="nl">Uw nieuwe wachtwoord moet verschillen van het oude wachtwoord.</value>
@@ -515,7 +520,7 @@
     <property key="loginservices.not_have_permission_update_password_for_user_login">
         <value xml:lang="de">Sie verfügen nicht über die erforderliche Berechtigungen um das Passwort für diesen Benutzernamen zu ändern.</value>
         <value xml:lang="en">You do not have permission to update the password for this user login.</value>
-        <value xml:lang="es">No tiene permisos para modificar el password para este usuario</value>
+        <value xml:lang="es">No tiene permisos para modificar la clave para este usuario.</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de mettre à jour le mot de passe pour ce compte utilisateur.</value>
         <value xml:lang="it">Non sei autorizzato ad aggiornare la password per questo utente.</value>
         <value xml:lang="nl">U heeft geen toegang tot het aanpassen van het wachtwoord van deze gebruikersnaam.</value>
@@ -529,7 +534,7 @@
     <property key="loginservices.not_permission_update_security_info_for_user_login">
         <value xml:lang="de">Sie verfügen nicht über die erforderlichen Berechtigungen die Sicherheitsinformationen für diese Benutzeranmeldung zu ändern.</value>
         <value xml:lang="en">You do not have permission to update the security info for this user login.</value>
-        <value xml:lang="es">Usted no cuenta con permisos para actualizar la información de este usuario.</value>
+        <value xml:lang="es">No tiene permisos para actualizar la información de este usuario.</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de mettre à jour l'information de sécurité pour ce compte utilisateur.</value>
         <value xml:lang="it">Tu non sei autorizzato ad aggiornare le informazioni sulla sicurezza per questo utente.</value>
         <value xml:lang="nl">U heeft geen toegang tot het aanpassen van de veiligheidsinformatie van deze gebruikersnaam.</value>
@@ -557,7 +562,7 @@
     <property key="loginservices.old_password_not_correct_reenter">
         <value xml:lang="de">Das alte Passwort ist falsch, bitte erneut eingeben.</value>
         <value xml:lang="en">Old Password was not correct, please re-enter.</value>
-        <value xml:lang="es">El password antiguo no es correcto, por favor ingreselo nuevamente</value>
+        <value xml:lang="es">La clave antigua no es correcta, por favor introdúzcala nuevamente</value>
         <value xml:lang="fr">L'ancien mot de passe n'est pas correct, réessayez SVP.</value>
         <value xml:lang="it">La vecchia password non è corretta, riprovare prego.</value>
         <value xml:lang="nl">Het oude wachtwoord is niet juist, geef het a.u.b. opnieuw in.</value>
@@ -599,7 +604,7 @@
     <property key="loginservices.password_did_not_match_verify_password">
         <value xml:lang="de">Das Passwort stimmt nicht mit der zweiten Eingabe des Passwortes überein.</value>
         <value xml:lang="en">Password did not match verify password.</value>
-        <value xml:lang="es">Los passwords no concuerdan, verificar</value>
+        <value xml:lang="es">Las claves no coinciden, verificar.</value>
         <value xml:lang="fr">Le nouveau mot de passe ne correspond pas à sa vérification.</value>
         <value xml:lang="it">La password non corrisponde alla password di verifica.</value>
         <value xml:lang="nl">Wachtwoorden komen niet overeen.</value>
@@ -613,7 +618,7 @@
     <property key="loginservices.password_hint_may_not_contain_password">
         <value xml:lang="de">Der Passwort-Hinweis darf nicht das Passwort enthalten.</value>
         <value xml:lang="en">Password hint may not contain the password.</value>
-        <value xml:lang="es">Su pista no puede contener el password</value>
+        <value xml:lang="es">Su pista no puede contener la clave.</value>
         <value xml:lang="fr">L'indication d'aide au mot de passe ne peut pas contenir le mot de passe.</value>
         <value xml:lang="it">Il suggerimento password non può contenere la password.</value>
         <value xml:lang="nl">Wachtwoord hint mag het wachtwoord niet bevatten.</value>
@@ -627,7 +632,7 @@
     <property key="loginservices.password_incorrect">
         <value xml:lang="de">Das Passwort ist falsch</value>
         <value xml:lang="en">Password incorrect.</value>
-        <value xml:lang="es">Password incorrecto</value>
+        <value xml:lang="es">Clave incorrecta.</value>
         <value xml:lang="fr">Mot de passe incorrect.</value>
         <value xml:lang="it">Password non corretta.</value>
         <value xml:lang="nl">Wachtwoord is niet juist.</value>
@@ -641,7 +646,7 @@
     <property key="loginservices.password_may_not_equal_username">
         <value xml:lang="de">Das Passwort darf nicht mit dem Benutzernamen übereinstimmen.</value>
         <value xml:lang="en">Password may not equal the Username.</value>
-        <value xml:lang="es">El password no puede ser igual al nombre de usuario</value>
+        <value xml:lang="es">La clave no puede ser igual al nombre de usuario</value>
         <value xml:lang="fr">Le mot de passe ne peut pas être identique au nom d'utilisateur.0</value>
         <value xml:lang="it">La password non può essere uguale al Nome Utente.</value>
         <value xml:lang="nl">Wachtwoord mag niet hetzelfde zijn als gebruikersnaam.</value>
@@ -655,7 +660,7 @@
     <property key="loginservices.password_missing">
         <value xml:lang="de">Passwort fehlt.</value>
         <value xml:lang="en">Password missing.</value>
-        <value xml:lang="es">Falta password</value>
+        <value xml:lang="es">Falta clave.</value>
         <value xml:lang="fr">Le mot de passe manque</value>
         <value xml:lang="it">Password mancante.</value>
         <value xml:lang="nl">Wachtwoord is leeg.</value>
@@ -669,6 +674,7 @@
     <property key="loginservices.password_must_be_different_from_last_passwords">
         <value xml:lang="de">Das Passwort darf nicht eines Ihrer letzen ${passwordChangeHistoryLimit} Passwörter sein.</value>
         <value xml:lang="en">Password cannot be one of your last ${passwordChangeHistoryLimit} passwords.</value>
+        <value xml:lang="es">La clave no puede ser igual a las últimas ${passwordChangeHistoryLimit} claves.</value>
         <value xml:lang="fr">Le mot de passe ne peut être un de vos derniers ${passwordChangeHistoryLimit} mots de passe.</value>
         <value xml:lang="it">La password non può essere una delle tue ultime ${passwordChangeHistoryLimit} password.</value>
         <value xml:lang="nl">Het wachtwoord mag niet overeenkomen met uw laatste ${passwordChangeHistoryLimit} wachtwoorden.</value>
@@ -680,7 +686,7 @@
     <property key="loginservices.password_must_be_least_characters_long">
         <value xml:lang="de">Das Passwort muß aus mindestens ${minPasswordLength} Zeichen bestehen.</value>
         <value xml:lang="en">Password must be at least ${minPasswordLength} characters long.</value>
-        <value xml:lang="es">El password debe tener al menos ${minPasswordLength} caracteres</value>
+        <value xml:lang="es">La clave debe tener al menos ${minPasswordLength} caracteres.</value>
         <value xml:lang="fr">Le mot de passe doit être d'au moins ${minPasswordLength} caractères.</value>
         <value xml:lang="it">La password deve essere lunga almeno ${minPasswordLength} caratteri.</value>
         <value xml:lang="nl">Wachtwoord moet op zijn minst ${minPasswordLength} karakters lang zijn.</value>
@@ -694,7 +700,7 @@
     <property key="loginservices.password_or_verify_missing">
         <value xml:lang="de">Das Passwort oder zweite Eingabe des Passwortes fehlt.</value>
         <value xml:lang="en">Password or verify password missing.</value>
-        <value xml:lang="es">Falta password o verificación de password</value>
+        <value xml:lang="es">Falta clave o verificación de clave.</value>
         <value xml:lang="fr">Le mot de passe ou la vérification de mot de passe manque</value>
         <value xml:lang="it">La password o verifica password è mancante.</value>
         <value xml:lang="nl">Wachtwoord of herhaal wachtwoord is leeg</value>
@@ -708,7 +714,7 @@
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>
         <value xml:lang="en">since ${disabledDateTime}.</value>
-        <value xml:lang="es">A partir de la fecha</value>
+        <value xml:lang="es">A partir de la fecha ${disabledDateTime}.</value>
         <value xml:lang="fr">depuis ${disabledDateTime}.</value>
         <value xml:lang="it">dal ${disabledDateTime}.</value>
         <value xml:lang="nl">sinds ${disabledDateTime}.</value>
@@ -722,7 +728,7 @@
     <property key="loginservices.user_not_found">
         <value xml:lang="de">Benutzer konnte nicht gefunden werden</value>
         <value xml:lang="en">User not found.</value>
-        <value xml:lang="es">Usuario no encontrado</value>
+        <value xml:lang="es">Usuario no encontrado.</value>
         <value xml:lang="fr">Utilisateur non trouvé.</value>
         <value xml:lang="it">Utente non trovato.</value>
         <value xml:lang="nl">Gebruikersnaam niet gevonden.</value>
@@ -736,7 +742,7 @@
     <property key="loginservices.username_missing">
         <value xml:lang="de">Benutzername fehlt.</value>
         <value xml:lang="en">Username missing.</value>
-        <value xml:lang="es">Falta usuario</value>
+        <value xml:lang="es">Falta usuario.</value>
         <value xml:lang="fr">Le nom d'utilisateur manque.</value>
         <value xml:lang="it">Nome Utente mancante.</value>
         <value xml:lang="nl">Gebruikersnaam is leeg.</value>
