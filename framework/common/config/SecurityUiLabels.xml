@@ -53,6 +53,7 @@
     </property>
     <property key="AddProtectedViewToSecurityGroup">
         <value xml:lang="en">Add a Protected View to SecurityGroup</value>
+        <value xml:lang="es">Añadir una vista protegida a grupo de seguridad</value>
         <value xml:lang="fr">Ajouter une vue protégée à ce groupe de sécurité</value>
         <value xml:lang="hi_IN">सुरक्षा समूह में सुरक्षित दृष्टिकोण जोड़ें</value>
         <value xml:lang="it">Aggiungi una vista protetta al gruppo sicurezza</value>
@@ -91,6 +92,7 @@
     </property>
     <property key="CertDetails">
         <value xml:lang="en">Cert Details</value>
+        <value xml:lang="es">Detalles del certificado</value>
         <value xml:lang="pt_BR">Detalhes do certificado</value>
     </property>
     <property key="CertImportIssuer">
@@ -109,7 +111,7 @@
     <property key="CertInvalid">
         <value xml:lang="de">Ungültiges Zertifikat</value>
         <value xml:lang="en">Invalid certificate</value>
-        <value xml:lang="es">Certificado inválido</value>
+        <value xml:lang="es">Certificado no válido</value>
         <value xml:lang="fr">Certificat irrecevable</value>
         <value xml:lang="hi_IN">अमान्य प्रमाणपत्र</value>
         <value xml:lang="it">Certificato Invalido</value>
@@ -149,7 +151,7 @@
     <property key="CertKeyStore">
         <value xml:lang="de">KeyStore</value>
         <value xml:lang="en">Keystore</value>
-        <value xml:lang="es">Fondo de claves</value>
+        <value xml:lang="es">Almacén de claves</value>
         <value xml:lang="fr">Clé de magasin</value>
         <value xml:lang="hi_IN">कुंजीस्टोर</value>
         <value xml:lang="it">Keystore</value>
@@ -175,7 +177,7 @@
     <property key="CertSaveToKeyStore">
         <value xml:lang="de">Im KeyStore speichern</value>
         <value xml:lang="en">Save to Keystore</value>
-        <value xml:lang="es">Guardar en el fondo de claves</value>
+        <value xml:lang="es">Guardar en el almacén de claves</value>
         <value xml:lang="fr">Sauver dans le magasin de clés</value>
         <value xml:lang="hi_IN">कुंजीस्टोर में सहेजें</value>
         <value xml:lang="it">Salva sul KeyStore</value>
@@ -228,6 +230,7 @@
     </property>
     <property key="FindUserLogin">
         <value xml:lang="en">Find User Login</value>
+        <value xml:lang="es">Buscar nombre de usuario</value>
         <value xml:lang="it">Ricerca utenti</value>
         <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
     </property>
@@ -263,6 +266,7 @@
     </property>
     <property key="FormFieldTitle_disabledDateTime">
         <value xml:lang="en">Disabled Date Time</value>
+        <value xml:lang="es">Deshabilitado el</value>
         <value xml:lang="it">Disabilitato dal</value>
     </property>
     <property key="FormFieldTitle_enabled">
@@ -285,14 +289,17 @@
     </property>
     <property key="FormFieldTitle_externalAuthId">
         <value xml:lang="en">External Auth Id</value>
+        <value xml:lang="es">Código de autentificación externa</value>
         <value xml:lang="it">Codice autenticazione esterna</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
         <value xml:lang="en">Has Logged Out</value>
+        <value xml:lang="es">Se ha desconectado</value>
         <value xml:lang="it">Uscito dal sistema</value>
     </property>
     <property key="FormFieldTitle_maxHits">
         <value xml:lang="en">Maximum number of visits</value>
+        <value xml:lang="es">Número máximo de visitas</value>
         <value xml:lang="fr">Nombre maximum de visites</value>
         <value xml:lang="hi_IN">यात्राओं(visits) की अधिकतम संख्या</value>
         <value xml:lang="it">Massimo numero di visite</value>
@@ -303,6 +310,7 @@
     </property>
     <property key="FormFieldTitle_maxHitsDuration">
         <value xml:lang="en">Duration during which the visits are considered (in seconds)</value>
+        <value xml:lang="es">Período durante el que las visitas son consideradas (en segundos)</value>
         <value xml:lang="fr">Durée pendant laquelle les visites sont considérées (en secondes)</value>
         <value xml:lang="hi_IN">अवधि जिसके दौरान यात्राओं पर विचार कर रहे हैं (सेकंड में)</value>
         <value xml:lang="it">Durata nella quale le visite sono considerate (in secondi)</value>
@@ -341,10 +349,12 @@
     </property>
     <property key="FormFieldTitle_passwordHint">
         <value xml:lang="en">Password Hint</value>
+        <value xml:lang="es">Pista para la clave</value>
         <value xml:lang="it">Suggerimento password</value>
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
         <value xml:lang="en">Require Password Change</value>
+        <value xml:lang="es">Debe cambiar la clave</value>
         <value xml:lang="fr">Changement mot de passe obligatoire</value>
         <value xml:lang="hi_IN">पासवर्ड परिवर्तित किया जाना चाहिए</value>
         <value xml:lang="it">Richiesto cambio password</value>
@@ -354,10 +364,12 @@
     </property>
     <property key="FormFieldTitle_successiveFailedLogins">
         <value xml:lang="en">Successive Failed Logins</value>
+        <value xml:lang="es">Intentos de acceso fallidos</value>
         <value xml:lang="it">Accessi falliti consecutivi</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
         <value xml:lang="en">Duration during which the view will not be accessible (in seconds)</value>
+        <value xml:lang="es">Período durante el cual la vista no será accesible (en segundos)</value>
         <value xml:lang="fr">Durée pendant laquelle la vue ne sera plus accessible (en secondes)</value>
         <value xml:lang="hi_IN">अवधि जिसके दौरान देखना सुलभ नहीं होगा (सेकंड में)</value>
         <value xml:lang="it">Tempo durante il quale la vista non è accessibile (in secondi)</value>
@@ -394,6 +406,7 @@
     </property>
     <property key="FormFieldTitle_viewNameId">
         <value xml:lang="en">View Name</value>
+        <value xml:lang="es">Nombre de la vista</value>
         <value xml:lang="fr">Nom de la vue</value>
         <value xml:lang="hi_IN">नाम देखें</value>
         <value xml:lang="it">Nome della vista</value>
@@ -403,6 +416,7 @@
     </property>
     <property key="LookupUserLogin">
         <value xml:lang="en">Lookup User Login</value>
+        <value xml:lang="es">Buscar nombre de usuario</value>
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
     </property>
     <property key="NewSecurityGroup">
@@ -558,6 +572,7 @@
     </property>
     <property key="ProtectedViews">
         <value xml:lang="en">Protected Views</value>
+        <value xml:lang="es">Vistas protegidas</value>
         <value xml:lang="fr">Vues protégées</value>
         <value xml:lang="hi_IN">संरक्षित दृश्य</value>
         <value xml:lang="it">Viste protette</value>
@@ -615,6 +630,7 @@
     </property>
     <property key="UserLogin">
         <value xml:lang="en">User Login</value>
+        <value xml:lang="es">Nombre de usuario</value>
         <value xml:lang="it">Utente</value>
         <value xml:lang="pt_BR">Nome de Usuário</value>
     </property>
@@ -636,6 +652,7 @@
     <property key="UserLoginUpdateSecuritySettings">
         <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
         <value xml:lang="en">Update User Login Security Settings</value>
+        <value xml:lang="es">Actualizar los parámetros de seguridad de conexión</value>
         <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
         <value xml:lang="hi_IN">प्रयोक्ता लॉगिन सुरक्षा सेटिंग्स नवीनतम करे</value>
         <value xml:lang="it">Aggiorna impostazioni sicurezza utente</value>
