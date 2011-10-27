@@ -117,6 +117,7 @@ under the License.
     <Geo abbreviation="GLP" geoCode="GP" geoId="GLP" geoName="Guadeloupe" geoSecCode="312" geoTypeId="COUNTRY"/>
     <Geo abbreviation="GUM" geoCode="GU" geoId="GUM" geoName="Guam" geoSecCode="316" geoTypeId="COUNTRY"/>
     <Geo abbreviation="GTM" geoCode="GT" geoId="GTM" geoName="Guatemala" geoSecCode="320" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="GGY" geoCode="GG" geoId="GGY" geoName="Guernsey" geoSecCode="831" geoTypeId="COUNTRY"/>
     <Geo abbreviation="GIN" geoCode="GN" geoId="GIN" geoName="Guinea" geoSecCode="324" geoTypeId="COUNTRY"/>
     <Geo abbreviation="GNB" geoCode="GW" geoId="GNB" geoName="Guinea-bissau" geoSecCode="624" geoTypeId="COUNTRY"/>
     <Geo abbreviation="GUY" geoCode="GY" geoId="GUY" geoName="Guyana" geoSecCode="328" geoTypeId="COUNTRY"/>
@@ -136,6 +137,7 @@ under the License.
     <Geo abbreviation="ITA" geoCode="IT" geoId="ITA" geoName="Italy" geoSecCode="380" geoTypeId="COUNTRY"/>
     <Geo abbreviation="JAM" geoCode="JM" geoId="JAM" geoName="Jamaica" geoSecCode="388" geoTypeId="COUNTRY"/>
     <Geo abbreviation="JPN" geoCode="JP" geoId="JPN" geoName="Japan" geoSecCode="392" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="JEY" geoCode="JE" geoId="JEY" geoName="Jersey" geoSecCode="832" geoTypeId="COUNTRY"/>
     <Geo abbreviation="JOR" geoCode="JO" geoId="JOR" geoName="Jordan" geoSecCode="400" geoTypeId="COUNTRY"/>
     <Geo abbreviation="KAZ" geoCode="KZ" geoId="KAZ" geoName="Kazakhstan" geoSecCode="398" geoTypeId="COUNTRY"/>
     <Geo abbreviation="KEN" geoCode="KE" geoId="KEN" geoName="Kenya" geoSecCode="404" geoTypeId="COUNTRY"/>
