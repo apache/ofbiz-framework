@@ -50,7 +50,7 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/><!-- for notification services -->
         <override name="workEffortTypeId" optional="false"/>
-        <override name="workEffortName" optional="false"/>
+        <override name="workEffortName" optional="false" allow-html="safe"/>
         <override name="currentStatusId" optional="false"/>
         <override name="description" allow-html="safe"/>
     </service>
