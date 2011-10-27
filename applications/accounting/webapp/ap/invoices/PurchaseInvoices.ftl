@@ -29,7 +29,7 @@ function toggleInvoiceId(master) {
 }
 
 function getInvoiceRunningTotal() {
-    var invoices = jQuery("#listPurchaseInvoices: checkbox[name='invoiceIds']");
+    var invoices = jQuery("#listPurchaseInvoices :checkbox[name='invoiceIds']");
 
     //test if all checkboxes are checked
     var allChecked = true;
@@ -67,7 +67,7 @@ function getInvoiceRunningTotal() {
         });
 
         if(jQuery('#serviceName').val() != "") {
-            jQuery('#submitButton').attr('disabled', '');
+            jQuery('#submitButton').removeAttr('disabled');
         }
 
     } else {
@@ -79,8 +79,7 @@ function getInvoiceRunningTotal() {
 function setServiceName(selection) {
     if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToReceive' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
         document.listPurchaseInvoices.action = jQuery('#invoiceStatusChange').value;
-    }
-    else {
+    } else {
         document.listPurchaseInvoices.action = selection.value;
     }
     if (selection.value == 'massInvoicesToApprove') {
@@ -96,10 +95,10 @@ function setServiceName(selection) {
     }else if (selection.value == 'massInvoicesToCancel') {
         jQuery('#statusId').val("INVOICE_CANCELLED");
     }
-    if (jQuery('#processMassCheckRun').is(':selected')) {
-        jQuery('#issueChecks').fadeOut('slow');
-    } else {
+    if (selection.value.indexOf('processMassCheckRun') >= 0) {
         jQuery('#issueChecks').fadeIn('slow');
+    } else {
+        jQuery('#issueChecks').fadeOut('slow');
     }
 
     var invoices = jQuery("#listPurchaseInvoices :checkbox[name='invoiceIds']");
@@ -113,7 +112,7 @@ function setServiceName(selection) {
     });
 
     if(anyChecked && (jQuery('#serviceName').val() != "")) {
-            jQuery('#submitButton').attr('disabled', '');
+            jQuery('#submitButton').removeAttr('disabled');
     }
 }
 
