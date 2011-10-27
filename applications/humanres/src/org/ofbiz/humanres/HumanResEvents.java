@@ -32,10 +32,15 @@ import javolution.util.FastMap;
 import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
 public class HumanResEvents {
@@ -183,11 +188,21 @@ public class HumanResEvents {
                     
                 }
                 
-                List<GenericValue> childOfEmpls = delegator.findByAnd("EmplPosition", UtilMisc.toMap(
-                        "partyId", partyId));
-                if (UtilValidate.isNotEmpty(childOfEmpls)) {
-                    for (GenericValue childOfEmpl : childOfEmpls ) {
-                    	Map emplMap = FastMap.newInstance();
+                List<EntityExpr> exprs = FastList.newInstance();
+                exprs.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
+                exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "EMPL_POS_INACTIVE"));
+        
+                List<GenericValue> isEmpls = null;
+                try {
+                    isEmpls = delegator.findList("EmplPosition", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, false);
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+                
+                isEmpls = EntityUtil.filterByDate(isEmpls, UtilDateTime.nowTimestamp(), "actualFromDate", "actualThruDate", true);
+                if (UtilValidate.isNotEmpty(isEmpls)) {
+                    for (GenericValue childOfEmpl : isEmpls ) {
+                        Map emplMap = FastMap.newInstance();
                         Map emplAttrMap = FastMap.newInstance();
                         Map empldataMap = FastMap.newInstance();
                         Map emplDataAttrMap = FastMap.newInstance();
