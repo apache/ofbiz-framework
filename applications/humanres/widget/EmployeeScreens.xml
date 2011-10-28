@@ -297,4 +297,29 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="PayrollHistory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResPayRollHistory"/>
+                <set field="tabButtonItem" value="PayrollHistory"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="parameters.sortField" from-field="parameters.sortField" default-value="invoiceDate DESC"/>
+                <entity-condition list="payroll" entity-name="InvoiceAndType">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" from-field="partyId"/>
+                        <condition-expr field-name="invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/>
+                    </condition-list>
+                    <order-by field-name="${parameters.sortField}"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="PayrollHistoryList" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

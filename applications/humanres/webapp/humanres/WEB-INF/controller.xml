@@ -1103,6 +1103,12 @@ under the License.
         <response name="error" type="view-last"/>
     </request-map>
     
+    <!--==============PayRoll History Requests==================-->
+    <request-map uri="PayrollHistory">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PayrollHistory"/>
+    </request-map>
+    
     <!-- ===================Lookup Request===================== -->
     <request-map uri="LookupPartyName"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPayment"><security auth="true" https="true"/><response name="success" type="view" value="LookupPayment"/></request-map>
@@ -1233,4 +1239,7 @@ under the License.
     <view-map name="FindTrainingApprovals" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#FindTrainingApprovals"/>
     <view-map name="EditTrainingApprovals" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#EditTrainingApprovals"/>
     <view-map name="LookupTraining" type="screen" page="component://humanres/widget/LookupScreens.xml#LookupTraining"/>
+    
+    <!-- ==================PayRoll History View Map===================== -->
+    <view-map name="PayrollHistory" type="screen" page="component://humanres/widget/EmployeeScreens.xml#PayrollHistory"/>
 </site-conf>
