@@ -2050,6 +2050,9 @@
         <value xml:lang="zh">薪水历史</value>
         <value xml:lang="zh_TW">薪水歷史</value>
     </property>
+    <property key="HumanResPayRollHistory">
+        <value xml:lang="en">PayRoll History</value>
+    </property>
     <property key="HumanResPayRollPreferences">
         <value xml:lang="en">PayRoll Preferences</value>
         <value xml:lang="fr">Préférences de registre du personnel</value>
