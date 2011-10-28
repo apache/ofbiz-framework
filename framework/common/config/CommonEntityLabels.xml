@@ -22,6 +22,7 @@
     <property key="CustomMethod.description.6000">
         <value xml:lang="de">Beispiel Formel für Aufgabe (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="en">Example task formula (qty * estimatedMilliSeconds * 10)</value>
+        <value xml:lang="es">Ejemplo de fórmula de tarea (cant * milisegundosEstimados * 10)</value>
         <value xml:lang="fr">Exemple de formule de tâche (qté * millisecondes estimées * 10)</value>
         <value xml:lang="it">Esempio formula compito (qnt * Milli Secondi Stimati * 10)</value>
         <value xml:lang="pt">Example de fórmula para tarefa(qty * miliSegundosEstimados * 10)</value>
@@ -35,6 +36,7 @@
     <property key="CustomMethod.description.6001">
         <value xml:lang="de">Beispiel Formel für Stückliste (qty * k)</value>
         <value xml:lang="en">Example bom formula (qty * k)</value>
+        <value xml:lang="es">Ejemplo de fórmula (cant * k)</value>
         <value xml:lang="fr">Exemple de formule de nomenclature (qté * k)</value>
         <value xml:lang="it">Esempio formula distinta base (qnt * k)</value>
         <value xml:lang="pt">Fórmula Bom exemplo (qty * k)</value>
@@ -48,6 +50,7 @@
     <property key="CustomMethod.description.6002">
         <value xml:lang="de">Stücklisten Formel für lineare Komponenten</value>
         <value xml:lang="en">Bom formula for linear components</value>
+        <value xml:lang="es">Ejemplo de fórmula para componentes lineales</value>
         <value xml:lang="fr">Formule de nomenclature pour composants linéaires</value>
         <value xml:lang="it">Formula distinta base per componenti lineari</value>
         <value xml:lang="pt">Fórmula Bom para operações lineares</value>
@@ -74,6 +77,7 @@
     </property>
     <property key="DataSource.description.ECOMMERCE_SITE">
         <value xml:lang="en">ECOMMERCE_SITE</value>
+        <value xml:lang="es">Tienda online</value>
         <value xml:lang="fr">Site de commerce électronique</value>
         <value xml:lang="it">Sito ecommerce</value>
         <value xml:lang="pt_BR">Site de comércio eletrônico</value>
@@ -83,6 +87,7 @@
     </property>
     <property key="DataSource.description.GENERAL_MAILING">
         <value xml:lang="en">GENERAL_MAILING</value>
+        <value xml:lang="es">Mailing</value>
         <value xml:lang="fr">Mailing</value>
         <value xml:lang="it">Posta generale</value>
         <value xml:lang="pt_BR">Correio</value>
@@ -92,6 +97,7 @@
     </property>
     <property key="DataSource.description.LEAD_COLDCALL">
         <value xml:lang="en">LEAD_COLDCALL</value>
+        <value xml:lang="es">Telemárketing</value>
         <value xml:lang="fr">Télémarketing</value>
         <value xml:lang="it">Telefonata leader</value>
         <value xml:lang="pt_BR">Diretriz de Telefonema de venda</value>
@@ -101,6 +107,7 @@
     </property>
     <property key="DataSource.description.LEAD_CONFERENCE">
         <value xml:lang="en">LEAD_CONFERENCE</value>
+        <value xml:lang="es">Conferencia</value>
         <value xml:lang="fr">Conférence</value>
         <value xml:lang="it">Conferenza leader</value>
         <value xml:lang="pt_BR">Diretriz de Conferência</value>
@@ -110,6 +117,7 @@
     </property>
     <property key="DataSource.description.LEAD_DIRECTMAIL">
         <value xml:lang="en">LEAD_DIRECTMAIL</value>
+        <value xml:lang="es">Correo directo</value>
         <value xml:lang="fr">Courriel</value>
         <value xml:lang="it">Email diretta al leader</value>
         <value xml:lang="pt_BR">Diretriz para e-mail direto</value>
@@ -119,6 +127,7 @@
     </property>
     <property key="DataSource.description.LEAD_EMPLOYEE">
         <value xml:lang="en">LEAD_EMPLOYEE</value>
+        <value xml:lang="es">Empleado</value>
         <value xml:lang="fr">Employé</value>
         <value xml:lang="it">Impiegato del leader</value>
         <value xml:lang="pt_BR">Empregado padrão</value>
@@ -128,6 +137,7 @@
     </property>
     <property key="DataSource.description.LEAD_EXISTCUST">
         <value xml:lang="en">LEAD_EXISTCUST</value>
+        <value xml:lang="es">Cliente existente</value>
         <value xml:lang="fr">Client existant</value>
         <value xml:lang="it">Leader cliente esistente</value>
         <value xml:lang="pt_BR">Cliente existente padrão</value>
@@ -137,6 +147,7 @@
     </property>
     <property key="DataSource.description.LEAD_OTHER">
         <value xml:lang="en">LEAD_OTHER</value>
+        <value xml:lang="es">Otro</value>
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro leader</value>
         <value xml:lang="pt_BR">Outro</value>
@@ -146,6 +157,7 @@
     </property>
     <property key="DataSource.description.LEAD_PARTNER">
         <value xml:lang="en">LEAD_PARTNER</value>
+        <value xml:lang="es">Partner</value>
         <value xml:lang="fr">Partenaire</value>
         <value xml:lang="it">Leader del socio</value>
         <value xml:lang="pt_BR">Parceiro padrão</value>
@@ -155,6 +167,7 @@
     </property>
     <property key="DataSource.description.LEAD_PR">
         <value xml:lang="en">LEAD_PR</value>
+        <value xml:lang="es">Relaciones públicas</value>
         <value xml:lang="fr">Relations publiques</value>
         <value xml:lang="it">Pubbliche relazioni leader</value>
         <value xml:lang="pt_BR">Relações públicas padrão</value>
@@ -164,6 +177,7 @@
     </property>
     <property key="DataSource.description.LEAD_SELFGEN">
         <value xml:lang="en">LEAD_SELFGEN</value>
+        <value xml:lang="es">Interno</value>
         <value xml:lang="fr">Généré en interne</value>
         <value xml:lang="it">Generato internamente</value>
         <value xml:lang="pt_BR">Gerado internamente</value>
@@ -173,6 +187,7 @@
     </property>
     <property key="DataSource.description.LEAD_TRADESHOW">
         <value xml:lang="en">LEAD_TRADESHOW</value>
+        <value xml:lang="es">Demostración</value>
         <value xml:lang="fr">Démo commerciale</value>
         <value xml:lang="it">Dimostrazione commerciale</value>
         <value xml:lang="pt_BR">Demonstração comercial</value>
@@ -182,6 +197,7 @@
     </property>
     <property key="DataSource.description.LEAD_WEBSITE">
         <value xml:lang="en">LEAD_WEBSITE</value>
+        <value xml:lang="es">Página web</value>
         <value xml:lang="fr">Site Web</value>
         <value xml:lang="it">Sito web leader</value>
         <value xml:lang="pt_BR">Web site</value>
@@ -191,6 +207,7 @@
     </property>
     <property key="DataSource.description.LEAD_WORDOFMOUTH">
         <value xml:lang="en">LEAD_WORDOFMOUTH</value>
+        <value xml:lang="es">Boca a oreja</value>
         <value xml:lang="fr">Bouche à oreille</value>
         <value xml:lang="it">Parola del mese leader</value>
         <value xml:lang="th">LEAD_WORDOFMOUTH</value>
@@ -200,6 +217,7 @@
     <property key="Enumeration.description.AFFIL_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: Mitglieder</value>
         <value xml:lang="en">Affiliate Channel</value>
+        <value xml:lang="es">Canal de afiliados</value>
         <value xml:lang="fr">Canal de vente : affilié</value>
         <value xml:lang="it">Canale affiliato</value>
         <value xml:lang="pt">Canal Parceiros</value>
@@ -212,6 +230,7 @@
     </property>
     <property key="Enumeration.description.BANKING_IN_REASON">
         <value xml:lang="en">Banking during the day</value>
+        <value xml:lang="es">Cobro por banco</value>
         <value xml:lang="fr">Opération banquaire</value>
         <value xml:lang="it">Motivazione ingresso in banca</value>
         <value xml:lang="pt_BR">Operação Bancária durante o dia</value>
@@ -220,6 +239,7 @@
     </property>
     <property key="Enumeration.description.BANKING_OUT_REASON">
         <value xml:lang="en">Banking during the day</value>
+        <value xml:lang="es">Pago por banco</value>
         <value xml:lang="fr">Opération banquaire</value>
         <value xml:lang="it">Motivazione uscita dalla banca</value>
         <value xml:lang="pt_BR">Operação Bancária durante o dia</value>
@@ -228,6 +248,7 @@
     </property>
     <property key="Enumeration.description.CASH_IN_REASON">
         <value xml:lang="en">Petty Cash Paid into Till</value>
+        <value xml:lang="es">Cobro por caja</value>
         <value xml:lang="fr">Entrée d'espèces dans la caisse</value>
         <value xml:lang="it">Contanti messi in cassa</value>
         <value xml:lang="pt_BR">Dinheiro de caixa pago pelo balcão</value>
@@ -236,6 +257,7 @@
     </property>
     <property key="Enumeration.description.CASH_OUT_REASON">
         <value xml:lang="en">Petty Cash out</value>
+        <value xml:lang="es">Pago por caja</value>
         <value xml:lang="fr">Sortie d'espèces de la caisse</value>
         <value xml:lang="it">Contanti usciti dalla cassa</value>
         <value xml:lang="pt_BR">Valor descontado do caixa</value>
@@ -244,6 +266,7 @@
     </property>
     <property key="Enumeration.description.CHANGE_IN_REASON">
         <value xml:lang="en">Change added to Till's float</value>
+        <value xml:lang="es">Cambio</value>
         <value xml:lang="fr">Monnaie ajoutée à l'encours de caisse</value>
         <value xml:lang="it">Cambio aggiunti alla cassa</value>
         <value xml:lang="pt_BR">Alterar adicionado fluxo do balcão</value>
@@ -252,6 +275,7 @@
     </property>
     <property key="Enumeration.description.CNT_PRV_BRONZE">
         <value xml:lang="en">CNT_PRV_BRONZE</value>
+        <value xml:lang="es">Bronce</value>
         <value xml:lang="fr">Niveau Bronze</value>
         <value xml:lang="it">Bronzo</value>
         <value xml:lang="pt_BR">Nível bronze</value>
@@ -261,6 +285,7 @@
     </property>
     <property key="Enumeration.description.CNT_PRV_GOLD">
         <value xml:lang="en">CNT_PRV_GOLD</value>
+        <value xml:lang="es">Oro</value>
         <value xml:lang="fr">Niveau Or</value>
         <value xml:lang="it">Oro</value>
         <value xml:lang="pt_BR">Nível Ouro</value>
@@ -270,6 +295,7 @@
     </property>
     <property key="Enumeration.description.CNT_PRV_NA_">
         <value xml:lang="en">CNT_PRV_NA_</value>
+        <value xml:lang="es">No aplica</value>
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="pt_BR">Não se aplica</value>
@@ -279,6 +305,7 @@
     </property>
     <property key="Enumeration.description.CNT_PRV_SILVER">
         <value xml:lang="en">CNT_PRV_SILVER</value>
+        <value xml:lang="es">Plata</value>
         <value xml:lang="fr">Niveau argent</value>
         <value xml:lang="it">Argento</value>
         <value xml:lang="pt_BR">Nivel Prata</value>
@@ -289,6 +316,7 @@
     <property key="Enumeration.description.COGS_AVG_COST">
         <value xml:lang="de">Durchschnittliche Kosten</value>
         <value xml:lang="en">Average Cost</value>
+        <value xml:lang="es">Coste medio</value>
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo medio</value>
         <value xml:lang="pt">Custo Médio</value>
@@ -301,6 +329,7 @@
     <property key="Enumeration.description.COGS_FIFO">
         <value xml:lang="de">FIFO (erster rein - erster raus)</value>
         <value xml:lang="en">FIFO</value>
+        <value xml:lang="es">FIFO</value>
         <value xml:lang="fr">FIFO (premier entré, premier sorti)</value>
         <value xml:lang="it">FIFO</value>
         <value xml:lang="pt">FIFO</value>
@@ -314,6 +343,7 @@
     <property key="Enumeration.description.COGS_LIFO">
         <value xml:lang="de">LIFO (zuletzt herein - zuerst hinaus)</value>
         <value xml:lang="en">LIFO</value>
+        <value xml:lang="es">LIFO</value>
         <value xml:lang="fr">LIFO (Dernier entré, premier sorti)</value>
         <value xml:lang="it">LIFO</value>
         <value xml:lang="pt">LIFO</value>
@@ -327,6 +357,7 @@
     <property key="Enumeration.description.EBAY_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: eBay</value>
         <value xml:lang="en">eBay Channel</value>
+        <value xml:lang="es">eBay</value>
         <value xml:lang="fr">Canal de vente : eBay</value>
         <value xml:lang="it">Canale eBay</value>
         <value xml:lang="pt">Canal eBay</value>
@@ -337,6 +368,7 @@
     <property key="Enumeration.description.EMAIL_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: E-Mail</value>
         <value xml:lang="en">E-Mail Channel</value>
+        <value xml:lang="es">Correo electrónico</value>
         <value xml:lang="fr">Canal de vente : e-mail</value>
         <value xml:lang="it">Canale email</value>
         <value xml:lang="pt">Canal E-Mail</value>
@@ -349,6 +381,7 @@
     </property>
     <property key="Enumeration.description.ESIA_ALWAYS">
         <value xml:lang="en">ESIA_ALWAYS</value>
+        <value xml:lang="es">Incluir siempre</value>
         <value xml:lang="fr">Toujours inclure</value>
         <value xml:lang="it">Sempre</value>
         <value xml:lang="pt_BR">Invcluir sempre</value>
@@ -358,6 +391,7 @@
     </property>
     <property key="Enumeration.description.ESIA_EXCLUDE">
         <value xml:lang="en">ESIA_EXCLUDE</value>
+        <value xml:lang="es">Excluir</value>
         <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escluso</value>
         <value xml:lang="pt_BR">Excluído</value>
@@ -367,6 +401,7 @@
     </property>
     <property key="Enumeration.description.ESIA_INCLUDE">
         <value xml:lang="en">ESIA_INCLUDE</value>
+        <value xml:lang="es">Incluido</value>
         <value xml:lang="fr">Inclure</value>
         <value xml:lang="it">Incluso</value>
         <value xml:lang="pt_BR">Incluso</value>
@@ -377,6 +412,7 @@
     <property key="Enumeration.description.FAC_BOAT">
         <value xml:lang="de">Boot</value>
         <value xml:lang="en">Boat</value>
+        <value xml:lang="es">Barco</value>
         <value xml:lang="fr">Bateau</value>
         <value xml:lang="it">Barca</value>
         <value xml:lang="pt">Boat</value>
@@ -390,6 +426,7 @@
     <property key="Enumeration.description.FAC_COMPRESSOR">
         <value xml:lang="de">Kompressor</value>
         <value xml:lang="en">Compressor</value>
+        <value xml:lang="es">Compresor</value>
         <value xml:lang="fr">Compresseur</value>
         <value xml:lang="it">Compressore</value>
         <value xml:lang="pt">Compressor</value>
@@ -402,6 +439,7 @@
     <property key="Enumeration.description.FAC_DIGGER">
         <value xml:lang="de">Bagger</value>
         <value xml:lang="en">Digger</value>
+        <value xml:lang="es">Excavadora</value>
         <value xml:lang="fr">Pelleteuse</value>
         <value xml:lang="it">Escavatore</value>
         <value xml:lang="pt">Digger</value>
@@ -415,6 +453,7 @@
     <property key="Enumeration.description.FAC_FORKLIFT">
         <value xml:lang="de">Gabelstapler</value>
         <value xml:lang="en">Forklift</value>
+        <value xml:lang="es">Carretilla elevadora</value>
         <value xml:lang="fr">Chariot élévateur à fourche</value>
         <value xml:lang="it">Carrello elevatore</value>
         <value xml:lang="pt">Forklift</value>
@@ -428,6 +467,7 @@
     <property key="Enumeration.description.FAC_MANLIFT">
         <value xml:lang="de">Hubarbeitsbühne</value>
         <value xml:lang="en">Manlift</value>
+        <value xml:lang="es">Ascensor</value>
         <value xml:lang="fr">Ascenseur</value>
         <value xml:lang="it">Ascensore</value>
         <value xml:lang="pt">Manlift</value>
@@ -440,6 +480,7 @@
     <property key="Enumeration.description.FAC_MOBILE">
         <value xml:lang="de">Mobil</value>
         <value xml:lang="en">Mobile</value>
+        <value xml:lang="es">Móvil</value>
         <value xml:lang="fr">Mobile</value>
         <value xml:lang="it">Mobile</value>
         <value xml:lang="pt">Mobile</value>
@@ -452,6 +493,7 @@
     <property key="Enumeration.description.FAC_PASSENGER">
         <value xml:lang="de">Personenfahrzeug</value>
         <value xml:lang="en">Passenger Vehicle</value>
+        <value xml:lang="es">Vehículo de pasajeros</value>
         <value xml:lang="fr">Passager du véhicule</value>
         <value xml:lang="it">Passeggero veicolo</value>
         <value xml:lang="pt">Passneger Vehicle</value>
@@ -464,6 +506,7 @@
     </property>
     <property key="Enumeration.description.FAC_PULLER">
         <value xml:lang="en">Puller</value>
+        <value xml:lang="es">Extractor</value>
         <value xml:lang="fr">Extracteur</value>
         <value xml:lang="it">Tenditore</value>
         <value xml:lang="pt">Puller</value>
@@ -476,6 +519,7 @@
     </property>
     <property key="Enumeration.description.FAC_REEL_STAND">
         <value xml:lang="en">Reel Stand</value>
+        <value xml:lang="es">Bobina</value>
         <value xml:lang="fr">Dérouleur</value>
         <value xml:lang="it">Bobina</value>
         <value xml:lang="pt">Reel Stand</value>
@@ -488,6 +532,7 @@
     </property>
     <property key="Enumeration.description.FAC_SERVICE_BODY">
         <value xml:lang="en">Service Body</value>
+        <value xml:lang="es">Cuerpo de servicio</value>
         <value xml:lang="fr">Organisme de services</value>
         <value xml:lang="it">Servizio corpo</value>
         <value xml:lang="pt">Service Body</value>
@@ -501,6 +546,7 @@
     <property key="Enumeration.description.FAC_TANKER">
         <value xml:lang="de">Tankwagen</value>
         <value xml:lang="en">Tanker</value>
+        <value xml:lang="es">Camión cisterna</value>
         <value xml:lang="fr">Camion citerne</value>
         <value xml:lang="it">Cisterna</value>
         <value xml:lang="pt">Tanker</value>
@@ -514,6 +560,7 @@
     <property key="Enumeration.description.FAC_TRACTOR">
         <value xml:lang="de">Traktor</value>
         <value xml:lang="en">Tractor</value>
+        <value xml:lang="es">Tractor</value>
         <value xml:lang="fr">Tracteur</value>
         <value xml:lang="it">Trattore</value>
         <value xml:lang="pt">Tractor</value>
@@ -527,6 +574,7 @@
     <property key="Enumeration.description.FAC_TRENCHER">
         <value xml:lang="de">Grabenzieher</value>
         <value xml:lang="en">Trencher</value>
+        <value xml:lang="es">Triturador</value>
         <value xml:lang="fr">Tranchoir</value>
         <value xml:lang="it">Trinciatore</value>
         <value xml:lang="pt">Trencher</value>
@@ -540,6 +588,7 @@
     <property key="Enumeration.description.FAX_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: Fax</value>
         <value xml:lang="en">Fax Channel</value>
+        <value xml:lang="es">Fax</value>
         <value xml:lang="fr">Canal de vente : fax</value>
         <value xml:lang="it">Canale fax</value>
         <value xml:lang="pt">Canal Fax</value>
@@ -553,6 +602,7 @@
     <property key="Enumeration.description.FLT_BULK">
         <value xml:lang="de">Masse (oder Volumen)</value>
         <value xml:lang="en">Bulk</value>
+        <value xml:lang="es">Granel</value>
         <value xml:lang="fr">Masse (ou volume)</value>
         <value xml:lang="it">Giacenza</value>
         <value xml:lang="pt">Parte de Edifício</value>
@@ -566,6 +616,7 @@
     <property key="Enumeration.description.FLT_PICKLOC">
         <value xml:lang="de">Auswahl/Erste</value>
         <value xml:lang="en">Pick/Primary</value>
+        <value xml:lang="es">Picking</value>
         <value xml:lang="fr">Choix/Primaire</value>
         <value xml:lang="it">Prelievo/Primaria</value>
         <value xml:lang="pt">Recolher/Primária</value>
@@ -578,6 +629,7 @@
     </property>
     <property key="Enumeration.description.GC_ACTIVATE">
         <value xml:lang="en">GC_ACTIVATE</value>
+        <value xml:lang="es">Activar</value>
         <value xml:lang="fr">Activer</value>
         <value xml:lang="it">Attiva</value>
         <value xml:lang="pt_BR">Ativar</value>
@@ -587,6 +639,7 @@
     </property>
     <property key="Enumeration.description.GC_RELOAD">
         <value xml:lang="en">GC_RELOAD</value>
+        <value xml:lang="es">Recargar</value>
         <value xml:lang="fr">Recharger</value>
         <value xml:lang="it">Ricaricata</value>
         <value xml:lang="pt_BR">Recarregar</value>
@@ -596,6 +649,7 @@
     </property>
     <property key="Enumeration.description.IND_AEROSPACE">
         <value xml:lang="en">IND_AEROSPACE</value>
+        <value xml:lang="es">Indutria aeroespacial</value>
         <value xml:lang="fr">AEROSPACIATIALE</value>
         <value xml:lang="it">Spazio aereo</value>
         <value xml:lang="pt_BR">Espaço aéreo</value>
@@ -605,6 +659,7 @@
     </property>
     <property key="Enumeration.description.IND_DISTRIBUTION">
         <value xml:lang="en">IND_DISTRIBUTION</value>
+        <value xml:lang="es">Distribución</value>
         <value xml:lang="fr">DISTRIBUTION</value>
         <value xml:lang="it">In distribuzione</value>
         <value xml:lang="pt_BR">Distribuição</value>
@@ -614,6 +669,7 @@
     </property>
     <property key="Enumeration.description.IND_FINANCE">
         <value xml:lang="en">IND_FINANCE</value>
+        <value xml:lang="es">Finanzas</value>
         <value xml:lang="fr">FINANCE</value>
         <value xml:lang="it">Finanza</value>
         <value xml:lang="pt_BR">Financeira</value>
@@ -623,6 +679,7 @@
     </property>
     <property key="Enumeration.description.IND_GEN_SERVICES">
         <value xml:lang="en">IND_GEN_SERVICES</value>
+        <value xml:lang="es">Servicios generales</value>
         <value xml:lang="fr">SERVICES GENERAUX</value>
         <value xml:lang="it">Servizi generale</value>
         <value xml:lang="pt_BR">Serviços Gerais</value>
@@ -632,6 +689,7 @@
     </property>
     <property key="Enumeration.description.IND_HARDWARE">
         <value xml:lang="en">IND_HARDWARE</value>
+        <value xml:lang="es">Material</value>
         <value xml:lang="fr">MATERIEL</value>
         <value xml:lang="it">Hardware</value>
         <value xml:lang="pt_BR">Hardware</value>
@@ -641,6 +699,7 @@
     </property>
     <property key="Enumeration.description.IND_HEALTH_CARE">
         <value xml:lang="en">IND_HEALTH_CARE</value>
+        <value xml:lang="es">Salud</value>
         <value xml:lang="fr">SANTE</value>
         <value xml:lang="it">Sicurezza sulla salutea</value>
         <value xml:lang="pt_BR">Saúde</value>
@@ -650,6 +709,7 @@
     </property>
     <property key="Enumeration.description.IND_INSURANCE">
         <value xml:lang="en">IND_INSURANCE</value>
+        <value xml:lang="es">Seguros</value>
         <value xml:lang="fr">ASSURANCE</value>
         <value xml:lang="it">Assicurazione</value>
         <value xml:lang="pt_BR">Seguros</value>
@@ -659,6 +719,7 @@
     </property>
     <property key="Enumeration.description.IND_MANUFACTURING">
         <value xml:lang="en">IND_MANUFACTURING</value>
+        <value xml:lang="es">Manufactura</value>
         <value xml:lang="fr">FABRICATION</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="pt_BR">Produção</value>
@@ -668,6 +729,7 @@
     </property>
     <property key="Enumeration.description.IND_MEDIA">
         <value xml:lang="en">IND_MEDIA</value>
+        <value xml:lang="es">Media</value>
         <value xml:lang="fr">MEDIA</value>
         <value xml:lang="it">Media</value>
         <value xml:lang="th">มีเดีย</value>
@@ -676,6 +738,7 @@
     </property>
     <property key="Enumeration.description.IND_NON_PROFIT">
         <value xml:lang="en">IND_NON_PROFIT</value>
+        <value xml:lang="es">Sin ánimo de lucro</value>
         <value xml:lang="fr">NON LUCRATIF</value>
         <value xml:lang="it">Senza profitto</value>
         <value xml:lang="pt_BR">Sem fins lucrativos</value>
@@ -685,6 +748,7 @@
     </property>
     <property key="Enumeration.description.IND_REAL_ESTATE">
         <value xml:lang="en">IND_REAL_ESTATE</value>
+        <value xml:lang="es">Inmobiliaria</value>
         <value xml:lang="fr">IMMOBILIER</value>
         <value xml:lang="it">Immobili</value>
         <value xml:lang="pt_BR">Imobiliária</value>
@@ -694,6 +758,7 @@
     </property>
     <property key="Enumeration.description.IND_RETAIL">
         <value xml:lang="en">IND_RETAIL</value>
+        <value xml:lang="es">Venta al por menor</value>
         <value xml:lang="fr">VENTE AU DETAIL</value>
         <value xml:lang="it">Al dettaglio</value>
         <value xml:lang="pt_BR">Varejo</value>
@@ -703,6 +768,7 @@
     </property>
     <property key="Enumeration.description.IND_SOFTWARE">
         <value xml:lang="en">IND_SOFTWARE</value>
+        <value xml:lang="es">Software</value>
         <value xml:lang="fr">LOGICIEL</value>
         <value xml:lang="it">Software</value>
         <value xml:lang="pt_BR">Software</value>
@@ -712,6 +778,7 @@
     </property>
     <property key="Enumeration.description.IND_TELECOM">
         <value xml:lang="en">IND_TELECOM</value>
+        <value xml:lang="es">Telecomunicaciones</value>
         <value xml:lang="fr">TELECOM</value>
         <value xml:lang="it">Telefono</value>
         <value xml:lang="pt_BR">Telefonia</value>
@@ -722,6 +789,7 @@
     <property key="Enumeration.description.INVRO_FIFO_EXP">
         <value xml:lang="de">FIFO ablaufen</value>
         <value xml:lang="en">FIFO Expire</value>
+        <value xml:lang="es">Expedición FIFO</value>
         <value xml:lang="fr">FIFO expiré</value>
         <value xml:lang="it">FIFO scaduto</value>
         <value xml:lang="pt">FIFO Expira</value>
@@ -735,6 +803,7 @@
     <property key="Enumeration.description.INVRO_FIFO_REC">
         <value xml:lang="de">FIFO erhalten</value>
         <value xml:lang="en">FIFO Received</value>
+        <value xml:lang="es">Recepción FIFO</value>
         <value xml:lang="fr">FIFO reçu</value>
         <value xml:lang="it">FIFO ricevuto</value>
         <value xml:lang="pt">FIFO Recebido</value>
@@ -747,6 +816,7 @@
     <property key="Enumeration.description.INVRO_GUNIT_COST">
         <value xml:lang="de">Grössere Einheit Kosten</value>
         <value xml:lang="en">Greater Unit Cost</value>
+        <value xml:lang="es">Precio de coste máximo</value>
         <value xml:lang="fr">Coût supérieur</value>
         <value xml:lang="it">Maggiore del costo unitario</value>
         <value xml:lang="pt">Maior Unidade de Custo</value>
@@ -760,6 +830,7 @@
     <property key="Enumeration.description.INVRO_LIFO_EXP">
         <value xml:lang="de">LIFO ablaufen</value>
         <value xml:lang="en">LIFO Expire</value>
+        <value xml:lang="es">Expedición LIFO</value>
         <value xml:lang="fr">LIFO expiré</value>
         <value xml:lang="it">LIFO scaduto</value>
         <value xml:lang="pt">LIFO Expira</value>
@@ -772,6 +843,7 @@
     <property key="Enumeration.description.INVRO_LIFO_REC">
         <value xml:lang="de">LIFO erhalten</value>
         <value xml:lang="en">LIFO Received</value>
+        <value xml:lang="es">Recepción LIFO</value>
         <value xml:lang="fr">LIFO reçu</value>
         <value xml:lang="it">LIFO ricevuto</value>
         <value xml:lang="pt">LIFO Recebido</value>
@@ -784,6 +856,7 @@
     <property key="Enumeration.description.INVRO_LUNIT_COST">
         <value xml:lang="de">Kleinere Einheit Kosten</value>
         <value xml:lang="en">Less Unit Cost</value>
+        <value xml:lang="es">Precio de coste mínimo</value>
         <value xml:lang="fr">Coût inférieur</value>
         <value xml:lang="it">Minore del costo unitario</value>
         <value xml:lang="pt">Menor Unidade de Custo</value>
@@ -797,6 +870,7 @@
     <property key="Enumeration.description.INVSQ_ENF_SEQ">
         <value xml:lang="de">Fortlaufende Folgenummer (keine Lücken, pro Organisation)</value>
         <value xml:lang="en">Enforced Sequence (no gaps, per organization)</value>
+        <value xml:lang="es">Secuencial (sin huecos, por organización)</value>
         <value xml:lang="fr">Ordre imposé (aucun saut, par organisation)</value>
         <value xml:lang="it">Sequenza forzata (nessuna pausa, per organizzazione)</value>
         <value xml:lang="pt">Sequência Forçada (sem intervalos, por organização)</value>
@@ -810,6 +884,7 @@
     <property key="Enumeration.description.INVSQ_RESTARTYR">
         <value xml:lang="de">Neubeginn mit Finanzjahr (keine Lücken, pro Organisation, wird jedes Finanzjahr auf 1. zurückgesetzt)</value>
         <value xml:lang="en">Restart on Fiscal Year (no gaps, per org, reset to 1 each year)</value>
+        <value xml:lang="es">Por ejercicio (sin huecos, por organiz., resetear a 1 cada año)</value>
         <value xml:lang="fr">Reprendre sur l'année fiscale(aucun saut, par organisation, remise à 1 chaque année)</value>
         <value xml:lang="it">Riavvio ad anno fiscale (nessuna pausa, per organizzazione, azzeramento ad ogni anno)</value>
         <value xml:lang="pt">Recomeçar no Ano Fiscal (sem intervalos, por org, reset para 1 cada ano)</value>
@@ -823,6 +898,7 @@
     <property key="Enumeration.description.INVSQ_STANDARD">
         <value xml:lang="de">Standart (effizienter, kann Lücken haben, pro System)</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
+        <value xml:lang="es">Estándar (rápido, puede tener huecos, global del sistema)</value>
         <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, fait par le système)</value>
         <value xml:lang="it">Normale (più veloce, potrebbe esserci pause, per il sistema)</value>
         <value xml:lang="pt">Standard (mais rápido, pode ter intervalos, por sistema)</value>
@@ -836,6 +912,7 @@
     <property key="Enumeration.description.KOTT_AURL">
         <value xml:lang="de">Komplette URL</value>
         <value xml:lang="en">Absolute URL</value>
+        <value xml:lang="es">URL absoluta</value>
         <value xml:lang="fr">URL (lien internet) absolue</value>
         <value xml:lang="it">URL assoluto</value>
         <value xml:lang="pt">URL Absoluto</value>
@@ -849,6 +926,7 @@
     <property key="Enumeration.description.KOTT_OFBURL">
         <value xml:lang="de">OFBiz URL</value>
         <value xml:lang="en">OFBiz URL</value>
+        <value xml:lang="es">URL OFBiz</value>
         <value xml:lang="fr">URL (lien internet) au sein d'OFBiz</value>
         <value xml:lang="it">URL OFBiz</value>
         <value xml:lang="pt">URL OFBiz</value>
@@ -861,6 +939,7 @@
     <property key="Enumeration.description.KOTT_PRODCAT">
         <value xml:lang="de">Produktkategorie</value>
         <value xml:lang="en">Product Category</value>
+        <value xml:lang="es">Categoría de producto</value>
         <value xml:lang="fr">Catégorie d'article</value>
         <value xml:lang="it">Categoria prodotto</value>
         <value xml:lang="pt">Categoria do Produto</value>
@@ -874,6 +953,7 @@
     <property key="Enumeration.description.KOTT_PRODUCT">
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Produit</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="pt">Produto</value>
@@ -916,7 +996,7 @@
     <property key="Enumeration.description.KWTR_LANG_FR">
         <value xml:lang="de">Sprache: Französisch</value>
         <value xml:lang="en">Lang: French</value>
-        <value xml:lang="es">Idioma: Francés</value>
+        <value xml:lang="es">Idioma: francés</value>
         <value xml:lang="fr">Langue : français</value>
         <value xml:lang="it">Lingua: Francese</value>
         <value xml:lang="nl">Taal: Frans</value>
@@ -931,6 +1011,7 @@
     <property key="Enumeration.description.KWTR_LANG_NL">
         <value xml:lang="de">Sprache: Niederländisch</value>
         <value xml:lang="en">Lang: NL</value>
+        <value xml:lang="es">Idioma: holandés</value>
         <value xml:lang="fr">Langue : hollandais</value>
         <value xml:lang="it">Lingua: Olandese</value>
         <value xml:lang="nl">Taal: Nederlands</value>
@@ -942,7 +1023,7 @@
     <property key="Enumeration.description.KWTR_LANG_SP">
         <value xml:lang="de">Sprache: Spanisch</value>
         <value xml:lang="en">Lang: Spanish</value>
-        <value xml:lang="es">Idioma: Español</value>
+        <value xml:lang="es">Idioma: español</value>
         <value xml:lang="fr">Langue : espagnol</value>
         <value xml:lang="it">Lingua: Spagnola</value>
         <value xml:lang="nl">Taal: Spaans</value>
@@ -1029,7 +1110,7 @@
     <property key="Enumeration.description.KWTR_USE">
         <value xml:lang="de">Als Ersatz für</value>
         <value xml:lang="en">Use Instead</value>
-        <value xml:lang="es">Use en lugar de</value>
+        <value xml:lang="es">Usado en lugar de</value>
         <value xml:lang="fr">Utilisation à la place</value>
         <value xml:lang="it">Usa invece</value>
         <value xml:lang="nl">Gebruik inplaats van</value>
@@ -1043,7 +1124,7 @@
     </property>
     <property key="Enumeration.description.KW_THES_REL">
         <value xml:lang="en">Lang: FR</value>
-        <value xml:lang="es">Idioma: Francés</value>
+        <value xml:lang="es">Idioma: francés</value>
         <value xml:lang="fr">Langue : Français</value>
         <value xml:lang="it">Lingua : Francese</value>
         <value xml:lang="pt_BR">Língua: FR</value>
@@ -1054,6 +1135,7 @@
     <property key="Enumeration.description.ODRSQ_ENF_SEQ">
         <value xml:lang="de">Fortlaufende Folgenummer (keine Lücken, pro Organisation)</value>
         <value xml:lang="en">Enforced Sequence (no gaps, per organization)</value>
+        <value xml:lang="es">Secuencial (sin huecos, por organización)</value>
         <value xml:lang="fr">Ordre imposé (aucun saut, par organisation)</value>
         <value xml:lang="it">Sequenza forzata (nessuna pausa, per organizzazione)</value>
         <value xml:lang="pt">Sequência Forçada (sem intervalos, por organização)</value>
@@ -1067,6 +1149,7 @@
     <property key="Enumeration.description.ODRSQ_STANDARD">
         <value xml:lang="de">Standart (effizienter, kann Lücken aufweisen, pro System)</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
+        <value xml:lang="es">Estándar (rápido, puede tener huecos, global del sistema)</value>
         <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, générés par le système)</value>
         <value xml:lang="it">Normale (più veloce, potrebbe esserci pause, per il sistema)</value>
         <value xml:lang="pt">Standard (mas rápido, pode ter intervalos, por sistema)</value>
@@ -1080,6 +1163,7 @@
     <property key="Enumeration.description.PGT_AUTHORIZE">
         <value xml:lang="de">Autorisieren</value>
         <value xml:lang="en">Authorize</value>
+        <value xml:lang="es">Autorizar</value>
         <value xml:lang="fr">Autorisation</value>
         <value xml:lang="it">Autorizza</value>
         <value xml:lang="pt">Autorizar</value>
@@ -1092,6 +1176,7 @@
     <property key="Enumeration.description.PGT_CAPTURE">
         <value xml:lang="de">Abbuchen (Capture)</value>
         <value xml:lang="en">Capture</value>
+        <value xml:lang="es">Capturar</value>
         <value xml:lang="fr">Prélèvement</value>
         <value xml:lang="it">Cattura</value>
         <value xml:lang="pt">Capturar</value>
@@ -1104,6 +1189,7 @@
     <property key="Enumeration.description.PGT_CREDIT">
         <value xml:lang="de">Guthaben</value>
         <value xml:lang="en">Credit</value>
+        <value xml:lang="es">Crédito</value>
         <value xml:lang="fr">Crédit</value>
         <value xml:lang="it">Credito</value>
         <value xml:lang="pt">Creditar</value>
@@ -1117,6 +1203,7 @@
     <property key="Enumeration.description.PGT_REFUND">
         <value xml:lang="de">Rückerstattung</value>
         <value xml:lang="en">Refund</value>
+        <value xml:lang="es">Devolución</value>
         <value xml:lang="fr">Remboursement</value>
         <value xml:lang="it">Rimborso</value>
         <value xml:lang="pt">Reembolsar</value>
@@ -1130,6 +1217,7 @@
     <property key="Enumeration.description.PGT_RELEASE">
         <value xml:lang="de">Freigabe</value>
         <value xml:lang="en">Release</value>
+        <value xml:lang="es">Pago</value>
         <value xml:lang="fr">Abandon</value>
         <value xml:lang="it">Rilascia</value>
         <value xml:lang="pt">Libertar</value>
@@ -1143,6 +1231,7 @@
     <property key="Enumeration.description.PHONE_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: Telefon</value>
         <value xml:lang="en">Phone Channel</value>
+        <value xml:lang="es">Teléfono</value>
         <value xml:lang="fr">Canal de vente : téléphonique</value>
         <value xml:lang="it">Canale telefonico</value>
         <value xml:lang="pt">Canal Telefone</value>
@@ -1156,6 +1245,7 @@
     <property key="Enumeration.description.POS_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: POS</value>
         <value xml:lang="en">POS Channel</value>
+        <value xml:lang="es">Punto de venta</value>
         <value xml:lang="fr">Canal de vente : Point de Vente</value>
         <value xml:lang="it">Canale POS</value>
         <value xml:lang="pt">Canal POS</value>
@@ -1169,6 +1259,7 @@
     <property key="Enumeration.description.POTT_CFR">
         <value xml:lang="de">Kosten und Fracht</value>
         <value xml:lang="en">Cost and Freight</value>
+        <value xml:lang="es">Costo y flete (CFR)</value>
         <value xml:lang="fr">Coût et frêt</value>
         <value xml:lang="it">Costo e spese di trasporto</value>
         <value xml:lang="pt">Cost and Freight</value>
@@ -1182,6 +1273,7 @@
     <property key="Enumeration.description.POTT_CIF">
         <value xml:lang="de">Kosten, Versicherung und Fracht</value>
         <value xml:lang="en">Cost, Insurance and Freight</value>
+        <value xml:lang="es">Costo, seguro y flete (CIF)</value>
         <value xml:lang="fr">Coût, assurance et frêt</value>
         <value xml:lang="it">Costo, assicurazione e spese di trasporto</value>
         <value xml:lang="pt">Cost, Insurance and Freight</value>
@@ -1195,6 +1287,7 @@
     <property key="Enumeration.description.POTT_CIP">
         <value xml:lang="de">Fracht, Porto und Versicherung bezahlt bis</value>
         <value xml:lang="en">Carriage and Insurance Paid To</value>
+        <value xml:lang="es">Transporte y seguro pagados hasta (CIP)</value>
         <value xml:lang="fr">Transport et assurance payée à</value>
         <value xml:lang="it">Trasporto e assicurazione pagate Da</value>
         <value xml:lang="pt">Carriage and Insurance Paid To</value>
@@ -1208,6 +1301,7 @@
     <property key="Enumeration.description.POTT_CPT">
         <value xml:lang="de">Fracht, Porto bezahlt bis</value>
         <value xml:lang="en">Carriage Paid To</value>
+        <value xml:lang="es">Transporte pagado hasta (CPT)</value>
         <value xml:lang="fr">Transport payé à</value>
         <value xml:lang="it">Trasporto pagato da</value>
         <value xml:lang="pt">Carriage Paid To</value>
@@ -1221,6 +1315,7 @@
     <property key="Enumeration.description.POTT_DAF">
         <value xml:lang="de">frei Grenze</value>
         <value xml:lang="en">Delivered At Frontier</value>
+        <value xml:lang="es">Entregadas en frontera (DAF)</value>
         <value xml:lang="fr">Livré à la frontière</value>
         <value xml:lang="it">Consegnato alla frontiera</value>
         <value xml:lang="pt">Delivered At Frontier</value>
@@ -1234,6 +1329,7 @@
     <property key="Enumeration.description.POTT_DDP">
         <value xml:lang="de">verzollt</value>
         <value xml:lang="en">Delivered Duty Paid</value>
+        <value xml:lang="es">Entregadas derechos pagados (DDP)</value>
         <value xml:lang="fr">Livré dédouané</value>
         <value xml:lang="it">Consegnato dazio pagato</value>
         <value xml:lang="pt">Delivered Duty Paid</value>
@@ -1247,6 +1343,7 @@
     <property key="Enumeration.description.POTT_DDQ">
         <value xml:lang="de">frei unverzollt</value>
         <value xml:lang="en">Delivered Duty Unpaid</value>
+        <value xml:lang="es">Entregadas derechos no pagados (DDU)</value>
         <value xml:lang="fr">Livré droit de douane impayé</value>
         <value xml:lang="it">Consegnato dazio non pagato</value>
         <value xml:lang="pt">Delivered Duty Unpaid</value>
@@ -1260,6 +1357,7 @@
     <property key="Enumeration.description.POTT_DEQ">
         <value xml:lang="de">frei ab Kai</value>
         <value xml:lang="en">Delivered Ex Quay</value>
+        <value xml:lang="es">Entregadas en muelle (DEQ)</value>
         <value xml:lang="fr">Livré à quai</value>
         <value xml:lang="it">Consegnato in banchina</value>
         <value xml:lang="pt">Delivered Ex Quay</value>
@@ -1273,6 +1371,7 @@
     <property key="Enumeration.description.POTT_DES">
         <value xml:lang="de">frei ab Schiff</value>
         <value xml:lang="en">Delivered Ex Ship</value>
+        <value xml:lang="es">Entregadas sobre buque (DES)</value>
         <value xml:lang="fr">Livré à bord</value>
         <value xml:lang="it">Consegnato per nave</value>
         <value xml:lang="pt">Delivered Ex Ship</value>
@@ -1285,6 +1384,7 @@
     </property>
     <property key="Enumeration.description.POTT_DEST">
         <value xml:lang="en">Destination</value>
+        <value xml:lang="es">Destino</value>
         <value xml:lang="fr">Destination</value>
         <value xml:lang="it">Destinazione</value>
         <value xml:lang="pt">Destino</value>
@@ -1297,6 +1397,7 @@
     <property key="Enumeration.description.POTT_EXW">
         <value xml:lang="de">ab Werk</value>
         <value xml:lang="en">EX-Works</value>
+        <value xml:lang="es">En fábrica (EXW)</value>
         <value xml:lang="fr">Départ usine</value>
         <value xml:lang="it">Per fabbrica</value>
         <value xml:lang="pt">EX-Works</value>
@@ -1309,6 +1410,7 @@
     <property key="Enumeration.description.POTT_FAS">
         <value xml:lang="de">frei längseits Schiff</value>
         <value xml:lang="en">Free Alongside Ship</value>
+        <value xml:lang="es">Libre al costado del buque (FAS)</value>
         <value xml:lang="fr">Franco à quai</value>
         <value xml:lang="it">Porto franco sulla nave</value>
         <value xml:lang="pt">Free Alongside Ship</value>
@@ -1322,6 +1424,7 @@
     <property key="Enumeration.description.POTT_FCA">
         <value xml:lang="de">frei Spediteur</value>
         <value xml:lang="en">Free Carrier</value>
+        <value xml:lang="es">Libre transportista (FCA)</value>
         <value xml:lang="fr">Transport gratuit</value>
         <value xml:lang="it">Trasporto gratis</value>
         <value xml:lang="pt">Free Carrier</value>
@@ -1335,6 +1438,7 @@
     <property key="Enumeration.description.POTT_FOB">
         <value xml:lang="de">frei an Bord</value>
         <value xml:lang="en">Free On Board</value>
+        <value xml:lang="es">Libre a bordo (FOB)</value>
         <value xml:lang="fr">Franco à bord</value>
         <value xml:lang="it">Porto franco a bordo</value>
         <value xml:lang="pt">Free On Board</value>
@@ -1347,6 +1451,7 @@
     </property>
     <property key="Enumeration.description.POTT_INTR">
         <value xml:lang="en">In Transit</value>
+        <value xml:lang="es">En tránsito</value>
         <value xml:lang="fr">En transit</value>
         <value xml:lang="it">In transito</value>
         <value xml:lang="pt">Em Trânsito</value>
@@ -1358,6 +1463,7 @@
     </property>
     <property key="Enumeration.description.POTT_ORIG">
         <value xml:lang="en">Origin</value>
+        <value xml:lang="es">Origen</value>
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
         <value xml:lang="pt">Origem</value>
@@ -1370,6 +1476,7 @@
     <property key="Enumeration.description.PPC_EQ">
         <value xml:lang="de">Ist</value>
         <value xml:lang="en">Is</value>
+        <value xml:lang="es">Es igual</value>
         <value xml:lang="fr">Est</value>
         <value xml:lang="it">E'</value>
         <value xml:lang="pt">É</value>
@@ -1382,6 +1489,7 @@
     <property key="Enumeration.description.PPC_GT">
         <value xml:lang="de">Ist grösser als</value>
         <value xml:lang="en">Is Greater Than</value>
+        <value xml:lang="es">Mayor que</value>
         <value xml:lang="fr">Est plus grand que</value>
         <value xml:lang="it">E' maggiore di</value>
         <value xml:lang="pt">É Maior Que</value>
@@ -1394,6 +1502,7 @@
     <property key="Enumeration.description.PPC_GTE">
         <value xml:lang="de">Ist grösser oder gleich als</value>
         <value xml:lang="en">Is Greater Than or Equal To</value>
+        <value xml:lang="es">Mayor o igual que</value>
         <value xml:lang="fr">Est plus grand ou égal  à</value>
         <value xml:lang="it">E' maggiore di o uguale a</value>
         <value xml:lang="pt">É Maior ou Igual A</value>
@@ -1406,6 +1515,7 @@
     <property key="Enumeration.description.PPC_LT">
         <value xml:lang="de">Ist kleiner als</value>
         <value xml:lang="en">Is Less Than</value>
+        <value xml:lang="es">Menor que</value>
         <value xml:lang="fr">Est plus petit que</value>
         <value xml:lang="it">E' minore di</value>
         <value xml:lang="pt">É Menos Que</value>
@@ -1418,6 +1528,7 @@
     <property key="Enumeration.description.PPC_LTE">
         <value xml:lang="de">Ist kleiner oder gleich als</value>
         <value xml:lang="en">Is Less Than or Equal To</value>
+        <value xml:lang="es">Menor o igual que</value>
         <value xml:lang="fr">Est plus petit ou égal à</value>
         <value xml:lang="it">E' minore di o uguale a</value>
         <value xml:lang="pt">É Menos Que ou Igual A</value>
@@ -1431,6 +1542,7 @@
     <property key="Enumeration.description.PPC_NEQ">
         <value xml:lang="de">Ist nicht</value>
         <value xml:lang="en">Is Not</value>
+        <value xml:lang="es">No es igual</value>
         <value xml:lang="fr">N'est pas</value>
         <value xml:lang="it">Non e'</value>
         <value xml:lang="pt">Não É</value>
@@ -1443,6 +1555,7 @@
     <property key="Enumeration.description.PPIP_NEW_ACCT">
         <value xml:lang="de">Konto Tage seit Erstellung</value>
         <value xml:lang="en">Account Days Since Created</value>
+        <value xml:lang="es">Días desde la creación de la cuenta</value>
         <value xml:lang="fr">Jours comptabilisés depuis la création</value>
         <value xml:lang="it">Giorni dalla creazione conto</value>
         <value xml:lang="pt">Dias Desde Criação da Conta</value>
@@ -1456,6 +1569,7 @@
     <property key="Enumeration.description.PPIP_ORDER_TOTAL">
         <value xml:lang="de">Warenkorb Zwischentotal</value>
         <value xml:lang="en">Cart Sub-total</value>
+        <value xml:lang="es">Subtotal del pedido</value>
         <value xml:lang="fr">Sous-total du panier</value>
         <value xml:lang="it">Sub-totale carrello</value>
         <value xml:lang="pt">Sub-total do Carrinho</value>
@@ -1468,6 +1582,7 @@
     <property key="Enumeration.description.PPIP_ORST_HIST">
         <value xml:lang="de">Bestellung Zwischentotal X in den letzten Y Monaten</value>
         <value xml:lang="en">Order sub-total X in last Y Months</value>
+        <value xml:lang="es">Subtotal del pedido X en los últimos Y meses</value>
         <value xml:lang="fr">Sous-total X commandé dans les Y derniers mois</value>
         <value xml:lang="it">Sub-totale ordine X negli ultimi Y Mesi</value>
         <value xml:lang="pt">Sub-total da Encomenda X nos últimos Y Meses</value>
@@ -1480,6 +1595,7 @@
     </property>
     <property key="Enumeration.description.PPIP_ORST_LAST_YEAR">
         <value xml:lang="en">Order sub-total X last year</value>
+        <value xml:lang="es">Subtotal X de los pedidos del año pasado</value>
         <value xml:lang="fr">Sous-total X commandé l'année dernière</value>
         <value xml:lang="it">Sub-totale ordine X ultimo anno</value>
         <value xml:lang="pt_BR">Sub-total X dos pedidos no ano passado</value>
@@ -1488,6 +1604,7 @@
     </property>
     <property key="Enumeration.description.PPIP_ORST_YEAR">
         <value xml:lang="en">Order sub-total X since beginning of current year</value>
+        <value xml:lang="es">Subtotal X de los pedidos desde inicio de año</value>
         <value xml:lang="fr">Sous-total X commandé depuis le début de l'année</value>
         <value xml:lang="it">Sub-totale ordine X dall'inizio dell'anno corrente</value>
         <value xml:lang="pt_BR">Sub-total X de pedidos desde o início do ano em curso</value>
@@ -1497,6 +1614,7 @@
     <property key="Enumeration.description.PPIP_PARTY_CLASS">
         <value xml:lang="de">Akteur Klassifizierung</value>
         <value xml:lang="en">Party Classification</value>
+        <value xml:lang="es">Clasificación participante</value>
         <value xml:lang="fr">Classification des acteurs</value>
         <value xml:lang="it">Classificazione soggetto</value>
         <value xml:lang="pt">Classificação do Participante</value>
@@ -1510,6 +1628,7 @@
     <property key="Enumeration.description.PPIP_PARTY_GRP_MEM">
         <value xml:lang="de">Akteurgruppe Mitglied</value>
         <value xml:lang="en">Party Group Member</value>
+        <value xml:lang="es">Miembro de grupo de participantes</value>
         <value xml:lang="fr">Membre d'un groupe d'acteur</value>
         <value xml:lang="it">Gruppo membro soggetto</value>
         <value xml:lang="pt">=Membro de Grupo de Participante</value>
@@ -1523,6 +1642,7 @@
     <property key="Enumeration.description.PPIP_PARTY_ID">
         <value xml:lang="de">Akteur</value>
         <value xml:lang="en">Party</value>
+        <value xml:lang="es">Participante</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="pt">Participante</value>
@@ -1535,6 +1655,7 @@
     <property key="Enumeration.description.PPIP_PRODUCT_AMOUNT">
         <value xml:lang="de">X Betrag vom Produkt</value>
         <value xml:lang="en">X Amount of Product</value>
+        <value xml:lang="es">Cantidad X de producto</value>
         <value xml:lang="fr">Quantité X de l'article</value>
         <value xml:lang="it">X importo del prodotto</value>
         <value xml:lang="pt">X Quantia do Produto</value>
@@ -1548,6 +1669,7 @@
     <property key="Enumeration.description.PPIP_PRODUCT_QUANT">
         <value xml:lang="de">X Menge vom Produkt</value>
         <value xml:lang="en">X Quantity of Product</value>
+        <value xml:lang="es">Cantidad X del producto</value>
         <value xml:lang="fr">Quantité X d'article(s)</value>
         <value xml:lang="it">X quantità del prodotto</value>
         <value xml:lang="pt">X Quantia do Produto</value>
@@ -1561,6 +1683,7 @@
     <property key="Enumeration.description.PPIP_PRODUCT_TOTAL">
         <value xml:lang="de">Total Betrag vom Produkt</value>
         <value xml:lang="en">Total Amount of Product</value>
+        <value xml:lang="es">Cantidad total de producto</value>
         <value xml:lang="fr">Quantité totale d'article(s)</value>
         <value xml:lang="it">Totale importo prodotto</value>
         <value xml:lang="pt">Quantia Total do Produto</value>
@@ -1574,6 +1697,7 @@
     <property key="Enumeration.description.PPIP_ROLE_TYPE">
         <value xml:lang="de">Rollen Typ</value>
         <value xml:lang="en">Role Type</value>
+        <value xml:lang="es">Tipo de rol</value>
         <value xml:lang="fr">Type de rôle</value>
         <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="pt">Tipo de Papel</value>
@@ -1586,6 +1710,7 @@
     <property key="Enumeration.description.PPPA_ALWAYS">
         <value xml:lang="de">Immer enthalten</value>
         <value xml:lang="en">Always Include</value>
+        <value xml:lang="es">Siempre incluye</value>
         <value xml:lang="fr">Toujours inclure</value>
         <value xml:lang="it">Includi sempre</value>
         <value xml:lang="pt">Incluir Sempre</value>
@@ -1599,6 +1724,7 @@
     <property key="Enumeration.description.PPPA_EXCLUDE">
         <value xml:lang="de">Ausgeschlossen</value>
         <value xml:lang="en">Exclude</value>
+        <value xml:lang="es">Excluye</value>
         <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escludi</value>
         <value xml:lang="pt">Excluir</value>
@@ -1611,6 +1737,7 @@
     <property key="Enumeration.description.PPPA_INCLUDE">
         <value xml:lang="de">Enthalten</value>
         <value xml:lang="en">Include</value>
+        <value xml:lang="es">Incluye</value>
         <value xml:lang="fr">Inclure</value>
         <value xml:lang="it">Includi</value>
         <value xml:lang="pt">Incluir</value>
@@ -1623,6 +1750,7 @@
     <property key="Enumeration.description.PRC_EQ">
         <value xml:lang="de">Ist</value>
         <value xml:lang="en">Is</value>
+        <value xml:lang="es">Es igual</value>
         <value xml:lang="fr">est</value>
         <value xml:lang="it">E'</value>
         <value xml:lang="pt">É</value>
@@ -1635,6 +1763,7 @@
     <property key="Enumeration.description.PRC_GT">
         <value xml:lang="de">Ist grösser als</value>
         <value xml:lang="en">Is Greater Than</value>
+        <value xml:lang="es">Es mayor que</value>
         <value xml:lang="fr">est plus grand que</value>
         <value xml:lang="it">E' maggiore di</value>
         <value xml:lang="pt">É Maior Que</value>
@@ -1647,6 +1776,7 @@
     <property key="Enumeration.description.PRC_GTE">
         <value xml:lang="de">Ist grösser oder gleich als</value>
         <value xml:lang="en">Is Greater Than or Equal To</value>
+        <value xml:lang="es">Es mayor o igual que</value>
         <value xml:lang="fr">est plus grand ou égal à</value>
         <value xml:lang="it">E' maggiore di o uguale a</value>
         <value xml:lang="pt">É Maior Que ou Igual A</value>
@@ -1660,6 +1790,7 @@
     <property key="Enumeration.description.PRC_LT">
         <value xml:lang="de">Ist kleiner als</value>
         <value xml:lang="en">Is Less Than</value>
+        <value xml:lang="es">Es menor que</value>
         <value xml:lang="fr">est moins que</value>
         <value xml:lang="it">E' minore di</value>
         <value xml:lang="pt">É Menor Que</value>
@@ -1673,6 +1804,7 @@
     <property key="Enumeration.description.PRC_LTE">
         <value xml:lang="de">Ist kleiner oder gleich als</value>
         <value xml:lang="en">Is Less Than or Equal To</value>
+        <value xml:lang="es">Es menor o igual que</value>
         <value xml:lang="fr">est moins que ou égal à</value>
         <value xml:lang="it">E' minore di o uguale a</value>
         <value xml:lang="pt">É Menor Que ou Igual A</value>
@@ -1686,6 +1818,7 @@
     <property key="Enumeration.description.PRC_NEQ">
         <value xml:lang="de">Ist nicht</value>
         <value xml:lang="en">Is Not</value>
+        <value xml:lang="es">No es igual</value>
         <value xml:lang="fr">n'est pas</value>
         <value xml:lang="it">Non è</value>
         <value xml:lang="pt">Não É</value>
@@ -1698,6 +1831,7 @@
     <property key="Enumeration.description.PRDR_FLAT">
         <value xml:lang="de">Bewertung übersteuern</value>
         <value xml:lang="en">Rating Override</value>
+        <value xml:lang="es">Sobreescribir clasificación</value>
         <value xml:lang="fr">Remplacement du classement</value>
         <value xml:lang="it">Classificazione sostituita</value>
         <value xml:lang="pt">Sobrescrever Classificação</value>
@@ -1711,6 +1845,7 @@
     <property key="Enumeration.description.PRDR_MAX">
         <value xml:lang="de">Maximale Bewertung</value>
         <value xml:lang="en">Max Rating</value>
+        <value xml:lang="es">Clasificación máxima</value>
         <value xml:lang="fr">Classement maxi</value>
         <value xml:lang="it">Classificazione massima</value>
         <value xml:lang="pt">Classificação Max</value>
@@ -1724,6 +1859,7 @@
     <property key="Enumeration.description.PRDR_MIN">
         <value xml:lang="de">Minimale Bewertung</value>
         <value xml:lang="en">Min Rating</value>
+        <value xml:lang="es">Clasificación mínima</value>
         <value xml:lang="fr">Classement mini</value>
         <value xml:lang="it">Classificazione minima</value>
         <value xml:lang="pt">Classificação Min</value>
@@ -1737,6 +1873,7 @@
     <property key="Enumeration.description.PRDS_CUST_REGISTER">
         <value xml:lang="de">Registrierung</value>
         <value xml:lang="en">Registration</value>
+        <value xml:lang="es">Registro</value>
         <value xml:lang="fr">Enregistrement</value>
         <value xml:lang="it">Registrazione</value>
         <value xml:lang="pt">Registo</value>
@@ -1750,6 +1887,7 @@
     <property key="Enumeration.description.PRDS_GC_PURCHASE">
         <value xml:lang="de">Gutschein Einkauf</value>
         <value xml:lang="en">Gift-Card Purchase</value>
+        <value xml:lang="es">Comprar tarjeta regalo</value>
         <value xml:lang="fr">Achat d'une carte-cadeau</value>
         <value xml:lang="it">Acquisto carta-omaggio</value>
         <value xml:lang="pt">Compra de Cartão-de-Oferta</value>
@@ -1763,6 +1901,7 @@
     <property key="Enumeration.description.PRDS_GC_RELOAD">
         <value xml:lang="de">Gutschein aufladen</value>
         <value xml:lang="en">Gift-Card Reload</value>
+        <value xml:lang="es">Recargar tarjeta regalo</value>
         <value xml:lang="fr">Recharge d'une carte-cadeau</value>
         <value xml:lang="it">Ricarcia carta-omaggio</value>
         <value xml:lang="pt">Regarregar Cartão-de-Oferta</value>
@@ -1776,6 +1915,7 @@
     <property key="Enumeration.description.PRDS_ODR_BACKORDER">
         <value xml:lang="de">Auftragsrückstand</value>
         <value xml:lang="en">Back-Order</value>
+        <value xml:lang="es">Devolución</value>
         <value xml:lang="fr">Commande en attente</value>
         <value xml:lang="it">Back-Order</value>
         <value xml:lang="pt">Encomenda em Aberto</value>
@@ -1789,6 +1929,7 @@
     <property key="Enumeration.description.PRDS_ODR_CHANGE">
         <value xml:lang="de">Auftrag geändert</value>
         <value xml:lang="en">Order Change</value>
+        <value xml:lang="es">Modificación de pedido</value>
         <value xml:lang="fr">Changement de commande</value>
         <value xml:lang="it">Cambio ordine</value>
         <value xml:lang="pt">Alteração de Encomenda</value>
@@ -1802,6 +1943,7 @@
     <property key="Enumeration.description.PRDS_ODR_COMPLETE">
         <value xml:lang="de">Abgeschlossen</value>
         <value xml:lang="en">Complete</value>
+        <value xml:lang="es">Completo</value>
         <value xml:lang="fr">Accompli</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt">Completo</value>
@@ -1814,6 +1956,7 @@
     <property key="Enumeration.description.PRDS_ODR_CONFIRM">
         <value xml:lang="de">Bestätigt</value>
         <value xml:lang="en">Confirmation</value>
+        <value xml:lang="es">Confirmación</value>
         <value xml:lang="fr">Confirmation</value>
         <value xml:lang="it">Conferma</value>
         <value xml:lang="pt">Confirmação</value>
@@ -1826,6 +1969,7 @@
     <property key="Enumeration.description.PRDS_ODR_PAYRETRY">
         <value xml:lang="de">Zahlung erneut versuchen</value>
         <value xml:lang="en">Payment Retry</value>
+        <value xml:lang="es">Reintentar pago</value>
         <value xml:lang="fr">Nouvelle tentative de paiement</value>
         <value xml:lang="it">Riprova pagamento</value>
         <value xml:lang="pt">Nova Tentativa de Pagamento</value>
@@ -1838,12 +1982,14 @@
     </property>
     <property key="Enumeration.description.PRDS_ODR_SHIP_COMPLT">
         <value xml:lang="en">Shipment Complete</value>
+        <value xml:lang="es">Envío completo</value>
         <value xml:lang="it">Spedizione completata</value>
         <value xml:lang="pt_BR">Envio Completado</value>
     </property>
     <property key="Enumeration.description.PRDS_PAY_AUTH">
         <value xml:lang="de">Zahlung Autorisierungs Dienst</value>
         <value xml:lang="en">Payment Authorization Service</value>
+        <value xml:lang="es">Servicio de autorización de pagos</value>
         <value xml:lang="fr">Autorisation du paiement</value>
         <value xml:lang="it">Pagamento servizio autorizzazione</value>
         <value xml:lang="pt">Serviço de Autorização de Pagamento</value>
@@ -1856,6 +2002,7 @@
     <property key="Enumeration.description.PRDS_PAY_AUTH_VERIFY">
         <value xml:lang="de">Zahlung Autorisierung Überprüfungs Dienst</value>
         <value xml:lang="en">Payment Auth Verification Service</value>
+        <value xml:lang="es">Servicio de verificación de pagos</value>
         <value xml:lang="fr">Vérification de l'authenticité du paiement</value>
         <value xml:lang="it">Pagamento servizio verifica autorizzazione</value>
         <value xml:lang="pt">Serviço de Verificação de Autenticação de Pagamento</value>
@@ -1868,6 +2015,7 @@
     <property key="Enumeration.description.PRDS_PAY_CAPTURE">
         <value xml:lang="de">Zahlung Abbuchung Dienst</value>
         <value xml:lang="en">Payment Capture Service</value>
+        <value xml:lang="es">Servicio de recepción de pagos</value>
         <value xml:lang="fr">Saisie du paiement</value>
         <value xml:lang="it">Pagamento servizio di cattura</value>
         <value xml:lang="pt">Serviço de Captura de Pagamento</value>
@@ -1881,6 +2029,7 @@
     <property key="Enumeration.description.PRDS_PAY_CREDIT">
         <value xml:lang="de">Zahlung Guthaben Dienst</value>
         <value xml:lang="en">Payment Credit Service</value>
+        <value xml:lang="es">Servicio de pagos a crédito</value>
         <value xml:lang="fr">Paiement par crédit</value>
         <value xml:lang="it">Pagamento servizio credito</value>
         <value xml:lang="pt">Serviço de Pagamento a Crédito</value>
@@ -1893,6 +2042,7 @@
     <property key="Enumeration.description.PRDS_PAY_EXTERNAL">
         <value xml:lang="de">Zahlung extern (Kein Dienst)</value>
         <value xml:lang="en">External Payment (No Service)</value>
+        <value xml:lang="es">Pago externo (ningún servicio)</value>
         <value xml:lang="fr">Paiment externe (aucun service)</value>
         <value xml:lang="it">Pagamento esterno (Nessun servizio)</value>
         <value xml:lang="pt">Pagamaneto Externo (Sem Serviço)</value>
@@ -1906,6 +2056,7 @@
     <property key="Enumeration.description.PRDS_PAY_REAUTH">
         <value xml:lang="de">Zahlung Re-Autorisierungs Dienst</value>
         <value xml:lang="en">Payment Re-Authorization Service</value>
+        <value xml:lang="es">Servicio de reautorización de pagos</value>
         <value xml:lang="fr">Ré-autorisation du paiement</value>
         <value xml:lang="it">Pagamento servizio ri-autorizzazione</value>
         <value xml:lang="pt">Serviço de Re-Autorização de Pagamento</value>
@@ -1919,6 +2070,7 @@
     <property key="Enumeration.description.PRDS_PAY_REFUND">
         <value xml:lang="de">Zahlung Rückerstattung Dienst</value>
         <value xml:lang="en">Payment Refund Service</value>
+        <value xml:lang="es">Servicio de devolución de pagos</value>
         <value xml:lang="fr">Remboursement</value>
         <value xml:lang="it">Pagamento servizio rimborso</value>
         <value xml:lang="pt">Serviço de Reembolso de Pagamento</value>
@@ -1931,6 +2083,7 @@
     <property key="Enumeration.description.PRDS_PAY_RELEASE">
         <value xml:lang="de">Zahlung Freigabe Autorisierung Dienst</value>
         <value xml:lang="en">Payment Release Authorization Service</value>
+        <value xml:lang="es">Servicio de autorización y liberación de pagos</value>
         <value xml:lang="fr">Déclencher l'autorisation de paiement</value>
         <value xml:lang="it">Pagamento servizio rilascio autorizzazione</value>
         <value xml:lang="pt">Serviço de Autorização de Libertaçaõde Pagamento</value>
@@ -1944,6 +2097,7 @@
     <property key="Enumeration.description.PRDS_PWD_RETRIEVE">
         <value xml:lang="de">Passwort wiederherstellen</value>
         <value xml:lang="en">Retrieve Password</value>
+        <value xml:lang="es">Recuperar clave</value>
         <value xml:lang="fr">Récupération du mot de passe</value>
         <value xml:lang="it">Ricava password</value>
         <value xml:lang="pt">Obter Password</value>
@@ -1958,6 +2112,7 @@
         <value xml:lang="de">Offerte Bestätigung</value>
         <value xml:lang="de_DE">Angebotsbestätigung</value>
         <value xml:lang="en">Quote Confirmation</value>
+        <value xml:lang="es">Confirmación de presupuesto</value>
         <value xml:lang="fr">Confirmation de devis</value>
         <value xml:lang="it">Conferma preventivo</value>
         <value xml:lang="pt">Confirmação de Quotação</value>
@@ -1970,12 +2125,14 @@
     </property>
     <property key="Enumeration.description.PRDS_QUO_CREATED">
         <value xml:lang="en">Quote Created</value>
+        <value xml:lang="es">Presupuesto creado</value>
         <value xml:lang="it">Creazione preventivo</value>
         <value xml:lang="pt_BR">Cotação criada</value>
     </property>
     <property key="Enumeration.description.PRDS_RTN_ACCEPT">
         <value xml:lang="de">Retoure angenommen</value>
         <value xml:lang="en">Return Accepted</value>
+        <value xml:lang="es">Devolución aceptada</value>
         <value xml:lang="fr">Retour accepté</value>
         <value xml:lang="it">Reso accettato</value>
         <value xml:lang="pt">Devolução Aceite</value>
@@ -1989,6 +2146,7 @@
     <property key="Enumeration.description.PRDS_RTN_CANCEL">
         <value xml:lang="de">Retoure annulliert</value>
         <value xml:lang="en">Return Cancelled</value>
+        <value xml:lang="es">Devolución cancelada</value>
         <value xml:lang="fr">Retour annulé</value>
         <value xml:lang="it">Reso cancellato</value>
         <value xml:lang="pt">Devolução Cancelada</value>
@@ -2001,6 +2159,7 @@
     <property key="Enumeration.description.PRDS_RTN_COMPLETE">
         <value xml:lang="de">Retoure abgeschlossen</value>
         <value xml:lang="en">Return Completed</value>
+        <value xml:lang="es">Devolución completada</value>
         <value xml:lang="fr">Retour Accompli</value>
         <value xml:lang="it">Reso completato</value>
         <value xml:lang="pt">Devolução Completa</value>
@@ -2013,6 +2172,7 @@
     </property>
     <property key="Enumeration.description.PRDS_TELL_FRIEND">
         <value xml:lang="en">Tell-A-Friend</value>
+        <value xml:lang="es">Díselo a un amigo</value>
         <value xml:lang="fr">Le dire à un ami</value>
         <value xml:lang="it">Dillo ad un'amico</value>
         <value xml:lang="pt">Dize-A-Um-Amigo</value>
@@ -2026,6 +2186,7 @@
     <property key="Enumeration.description.PRIP_CURRENCY_UOMID">
         <value xml:lang="de">Währung UomId</value>
         <value xml:lang="en">Currency UomId</value>
+        <value xml:lang="es">Moneda</value>
         <value xml:lang="fr">Devise utilisée</value>
         <value xml:lang="it">Udm Valuta</value>
         <value xml:lang="pt">Moeda UomId</value>
@@ -2038,6 +2199,7 @@
     <property key="Enumeration.description.PRIP_LIST_PRICE">
         <value xml:lang="de">Listenpreis</value>
         <value xml:lang="en">List Price</value>
+        <value xml:lang="es">Lista de precios</value>
         <value xml:lang="fr">Prix public</value>
         <value xml:lang="it">Prezzo di listino</value>
         <value xml:lang="pt">Lista de Preços</value>
@@ -2051,6 +2213,7 @@
     <property key="Enumeration.description.PRIP_PARTY_CLASS">
         <value xml:lang="de">Akteur Klassifizierung</value>
         <value xml:lang="en">Party Classification</value>
+        <value xml:lang="es">Clasificación de participantes</value>
         <value xml:lang="fr">Classification d'acteurs</value>
         <value xml:lang="it">Classificazione soggetto</value>
         <value xml:lang="pt">Classificação de Participante</value>
@@ -2063,6 +2226,7 @@
     <property key="Enumeration.description.PRIP_PARTY_GRP_MEM">
         <value xml:lang="de">Akteurgruppe Mitglied</value>
         <value xml:lang="en">Party Group Member</value>
+        <value xml:lang="es">Miembro de grupo de marticipantes</value>
         <value xml:lang="fr">Membre d'un groupe d'acteurs</value>
         <value xml:lang="it">Gruppo membro soggetto</value>
         <value xml:lang="pt">Membro de Grupo de Participante</value>
@@ -2076,6 +2240,7 @@
     <property key="Enumeration.description.PRIP_PARTY_ID">
         <value xml:lang="de">Akteur</value>
         <value xml:lang="en">Party</value>
+        <value xml:lang="es">Participante</value>
         <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="pt">Participante</value>
@@ -2088,6 +2253,7 @@
     <property key="Enumeration.description.PRIP_PRODUCT_ID">
         <value xml:lang="de">Produkte</value>
         <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="pt">Produto</value>
@@ -2100,6 +2266,7 @@
     <property key="Enumeration.description.PRIP_PROD_CAT_ID">
         <value xml:lang="de">Produktkategorie</value>
         <value xml:lang="en">Product Category</value>
+        <value xml:lang="es">Categoría de producto</value>
         <value xml:lang="fr">Catégorie d'articles</value>
         <value xml:lang="it">Categoria prodotto</value>
         <value xml:lang="pt">Categoria de Produto</value>
@@ -2113,6 +2280,7 @@
     <property key="Enumeration.description.PRIP_PROD_CLG_ID">
         <value xml:lang="de">Produktkatalog</value>
         <value xml:lang="en">Product Catalog</value>
+        <value xml:lang="es">Catálogo de productos</value>
         <value xml:lang="fr">Catalogue d'articles</value>
         <value xml:lang="it">Catalogo prodotto</value>
         <value xml:lang="pt">Catálogo de Produtos</value>
@@ -2125,6 +2293,7 @@
     <property key="Enumeration.description.PRIP_PROD_SGRP_ID">
         <value xml:lang="de">Lagergruppe</value>
         <value xml:lang="en">Product Store Group</value>
+        <value xml:lang="es">Grupo de productos de la tienda</value>
         <value xml:lang="fr">Groupe de centres de profit</value>
         <value xml:lang="it">Gruppo negozio prodotto</value>
         <value xml:lang="pt">Grupo/Família de Produtos</value>
@@ -2138,6 +2307,7 @@
     <property key="Enumeration.description.PRIP_QUANTITY">
         <value xml:lang="de">Menge</value>
         <value xml:lang="en">Quantity</value>
+        <value xml:lang="es">Cantidad</value>
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Quantità</value>
         <value xml:lang="pt">Quantidade</value>
@@ -2150,6 +2320,7 @@
     <property key="Enumeration.description.PRIP_ROLE_TYPE">
         <value xml:lang="de">Rollen Typ</value>
         <value xml:lang="en">Role Type</value>
+        <value xml:lang="es">Tipo de rol</value>
         <value xml:lang="fr">Type de rôle</value>
         <value xml:lang="it">Tipo ruolo</value>
         <value xml:lang="pt">Tipo de Papel</value>
@@ -2162,6 +2333,7 @@
     <property key="Enumeration.description.PRIP_WEBSITE_ID">
         <value xml:lang="de">Webseite</value>
         <value xml:lang="en">Website</value>
+        <value xml:lang="es">Página web</value>
         <value xml:lang="fr">Site web</value>
         <value xml:lang="it">Sito web</value>
         <value xml:lang="pt">Website</value>
@@ -2173,6 +2345,7 @@
     </property>
     <property key="Enumeration.description.PRODRQM_ATP">
         <value xml:lang="en">Requirement for order when ATP Reaches Minimum Stock for Product-Facility</value>
+        <value xml:lang="es">Solicitud de pedido cuando la cantidad disponible (ATP) alcanza el mínimo del producto por almacén</value>
         <value xml:lang="fr">Besoin créé quand la quantité disponible (ATP) atteint le stock minimum fixé</value>
         <value xml:lang="it">Fabbisogno per un'ordine quando ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="pt_BR">Requisição para pedido quando o estoque alcançar o mínimo de produtos por instalação</value>
@@ -2182,6 +2355,7 @@
     <property key="Enumeration.description.PRODRQM_AUTO">
         <value xml:lang="de">Automatisch für jeden Verkaufsauftrag</value>
         <value xml:lang="en">Automatic For Every Sales Order</value>
+        <value xml:lang="es">Automático para cada pedido de venta</value>
         <value xml:lang="fr">Automatique pour chaque ordre de Vente</value>
         <value xml:lang="it">Automatico per ogni ordine di vendita</value>
         <value xml:lang="pt">Automático Para Cada Encomenda</value>
@@ -2194,6 +2368,7 @@
     </property>
     <property key="Enumeration.description.PRODRQM_DS">
         <value xml:lang="en">Drop-ship only</value>
+        <value xml:lang="es">Solo envío directo</value>
         <value xml:lang="fr">Expédition par un tiers seulement</value>
         <value xml:lang="it">Solo spedizione conto terzi</value>
         <value xml:lang="pt_BR">Apenas Drop-Ship</value>
@@ -2202,6 +2377,7 @@
     </property>
     <property key="Enumeration.description.PRODRQM_DSATP">
         <value xml:lang="en">Auto drop-ship on low quantity</value>
+        <value xml:lang="es">Envío directo automático para pequeñas cantidades</value>
         <value xml:lang="fr">Expédition par un tiers automatique sur faible quantité</value>
         <value xml:lang="it">Spedizione conto terzi automatica sulla bassa quantità</value>
         <value xml:lang="pt_BR">Drop-ship automático para pequenas quantidades</value>
@@ -2211,6 +2387,7 @@
     <property key="Enumeration.description.PRODRQM_NONE">
         <value xml:lang="de">Kein Bedarf erstellt</value>
         <value xml:lang="en">No Requirement Created</value>
+        <value xml:lang="es">No genera solicitud</value>
         <value xml:lang="fr">Aucun besoin créé</value>
         <value xml:lang="it">Nessun fabbisogno creato</value>
         <value xml:lang="pt">Nenhuma Requisição Criada</value>
@@ -2224,6 +2401,7 @@
     <property key="Enumeration.description.PRODRQM_STOCK">
         <value xml:lang="de">Wenn QOH (Quantity on Hand) den Minimum Lagerbestand für den Produkt-Standort (Facility) erreicht</value>
         <value xml:lang="en">When QOH Reaches Minimum Stock for Product-Facility</value>
+        <value xml:lang="es">Cuando la cantidad disponible (QOH) alcanza el mínimo del producto por almacén</value>
         <value xml:lang="fr">Quand la quantité existante (QOH) atteint le stock minimum fixé</value>
         <value xml:lang="it">Quando la QOH raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="pt">Quando QOH (quantidade em espera) Atinge o Stock Mínimo para Produto-Armazém</value>
@@ -2237,6 +2415,7 @@
     <property key="Enumeration.description.PRODRQM_STOCK_ATP">
         <value xml:lang="de">Wenn ATP (available to promise) den minimum Lagerbestand für den Produkt-Standort (Facility) erreicht</value>
         <value xml:lang="en">When ATP Reaches Minimum Stock for Product-Facility</value>
+        <value xml:lang="es">Cuando la cantidad disponible (ATP) alcanza el mínimo del producto por almacén</value>
         <value xml:lang="fr">Quand la quantité disponible (ATP) atteint le stock minimum fixé</value>
         <value xml:lang="it">Quando la ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="pt">Quando ATP Atinge o Stock Mínimo para Produto-Armazém</value>
@@ -2250,6 +2429,7 @@
     <property key="Enumeration.description.PROMO_FREE_SHIPPING">
         <value xml:lang="de">Gratis Lieferung</value>
         <value xml:lang="en">Free Shipping</value>
+        <value xml:lang="es">Envío gratuito</value>
         <value xml:lang="fr">Expédition gratuite</value>
         <value xml:lang="it">Spedizione gratuita</value>
         <value xml:lang="pt">Envio Grátis</value>
@@ -2263,6 +2443,7 @@
     <property key="Enumeration.description.PROMO_GWP">
         <value xml:lang="de">Geschenk beim Einkauf</value>
         <value xml:lang="en">Gift With Purchase</value>
+        <value xml:lang="es">Regalo con compra</value>
         <value xml:lang="fr">Cadeau lors d'un achat</value>
         <value xml:lang="it">Omaggio con acquisto</value>
         <value xml:lang="pt">Oferta com Compra</value>
@@ -2276,6 +2457,7 @@
     <property key="Enumeration.description.PROMO_ORDER_AMOUNT">
         <value xml:lang="de">Auftrag Betrag Netto</value>
         <value xml:lang="en">Order Amount Flat</value>
+        <value xml:lang="es">Importe en pedido</value>
         <value xml:lang="fr">Montant de commande</value>
         <value xml:lang="it">Importo fisso ordine</value>
         <value xml:lang="pt">Quantia de Encomenda</value>
@@ -2345,7 +2527,7 @@
     <property key="Enumeration.description.PROMO_PROD_SPPRC">
         <value xml:lang="de">Produkt zum [Spezial Aktions] Preis</value>
         <value xml:lang="en">Product for [Special Promo] Price</value>
-        <value xml:lang="es">Producto para</value>
+        <value xml:lang="es">Producto por precio [promoción especial]</value>
         <value xml:lang="fr">Un article au prix [spécial promo]</value>
         <value xml:lang="it">Prodotto per promozione speciale prezzo</value>
         <value xml:lang="pt">Produto para [Promo Especial] Preço</value>
@@ -2359,7 +2541,7 @@
     <property key="Enumeration.description.QTESQ_ENF_SEQ">
         <value xml:lang="de">Fortlaufende Folgenummer (keine Lücken, pro Organisation)</value>
         <value xml:lang="en">Enforced Sequence (no gaps, per organization)</value>
-        <value xml:lang="es">Secuencia forzada</value>
+        <value xml:lang="es">Secuencia forzada (sin huecos, por organización)</value>
         <value xml:lang="fr">Ordre imposé (aucun saut, par organisation)</value>
         <value xml:lang="it">Sequenza forzata (nessuna pausa, per organizzazione)</value>
         <value xml:lang="pt">Sequência Forçada (sem intervalos, por organização)</value>
@@ -2431,6 +2613,7 @@
     <property key="Enumeration.description.TKCDSRC_COOKIE">
         <value xml:lang="de">Cookie</value>
         <value xml:lang="en">Cookie</value>
+        <value xml:lang="es">Cookie</value>
         <value xml:lang="fr">Cookie</value>
         <value xml:lang="it">Cookie</value>
         <value xml:lang="pt">Cookie</value>
@@ -2442,7 +2625,7 @@
     <property key="Enumeration.description.TKCDSRC_URL_PARAM">
         <value xml:lang="de">URL Prameter</value>
         <value xml:lang="en">URL Parameter</value>
-        <value xml:lang="es">Parámetro de Url</value>
+        <value xml:lang="es">Parámetro de URL</value>
         <value xml:lang="fr">Paramètre d'URL (lien internet)</value>
         <value xml:lang="it">Parametro URL</value>
         <value xml:lang="pt">Parâmetro de URL</value>
@@ -2468,7 +2651,7 @@
     </property>
     <property key="Enumeration.description.WAM_AUTOMATIC">
         <value xml:lang="en">WAM_AUTOMATIC</value>
-        <value xml:lang="es">automático</value>
+        <value xml:lang="es">Automático</value>
         <value xml:lang="fr">Mode automatique</value>
         <value xml:lang="it">Automatico</value>
         <value xml:lang="pt_BR">Automático</value>
@@ -2478,7 +2661,7 @@
     </property>
     <property key="Enumeration.description.WAM_MANUAL">
         <value xml:lang="en">WAM_MANUAL</value>
-        <value xml:lang="es">manual</value>
+        <value xml:lang="es">Manual</value>
         <value xml:lang="fr">Mode manuel</value>
         <value xml:lang="it">Manuale</value>
         <value xml:lang="pt_BR">Modo Manual</value>
@@ -2488,7 +2671,7 @@
     </property>
     <property key="Enumeration.description.WAT_LOOP">
         <value xml:lang="en">WAT_LOOP</value>
-        <value xml:lang="es">bucle</value>
+        <value xml:lang="es">Bucle</value>
         <value xml:lang="fr">Implémentation de boucle</value>
         <value xml:lang="it">Loop</value>
         <value xml:lang="pt_BR">Implmentação de laço</value>
@@ -2498,7 +2681,7 @@
     </property>
     <property key="Enumeration.description.WAT_NO">
         <value xml:lang="en">WAT_NO</value>
-        <value xml:lang="es">no</value>
+        <value xml:lang="es">Ninguno</value>
         <value xml:lang="fr">Pas d'implémentation</value>
         <value xml:lang="it">Nessuno</value>
         <value xml:lang="pt_BR">Nenhum</value>
@@ -2538,7 +2721,7 @@
     </property>
     <property key="Enumeration.description.WDT_ARRAY">
         <value xml:lang="en">ARRAY</value>
-        <value xml:lang="es">arreglo</value>
+        <value xml:lang="es">Tabla</value>
         <value xml:lang="fr">Tableau - type complexe</value>
         <value xml:lang="it">Tabella</value>
         <value xml:lang="pt_BR">Tabela</value>
@@ -2548,7 +2731,7 @@
     </property>
     <property key="Enumeration.description.WDT_BOOLEAN">
         <value xml:lang="en">BOOLEAN</value>
-        <value xml:lang="es">booleano</value>
+        <value xml:lang="es">Booleano</value>
         <value xml:lang="fr">Booléen - type simple</value>
         <value xml:lang="it">Booleano</value>
         <value xml:lang="pt_BR">Booleano</value>
@@ -2788,7 +2971,7 @@
     </property>
     <property key="Enumeration.description.WFI_MULTIPLE">
         <value xml:lang="en">WFI_MULTIPLE</value>
-        <value xml:lang="es">múltiples</value>
+        <value xml:lang="es">Múltiples</value>
         <value xml:lang="fr">L'activité peut être instanciée plusieurs fois</value>
         <value xml:lang="it">Multiplo</value>
         <value xml:lang="pt_BR">Múltiplo</value>
@@ -2798,7 +2981,7 @@
     </property>
     <property key="Enumeration.description.WFI_ONCE">
         <value xml:lang="en">WFI_ONCE</value>
-        <value xml:lang="es">una vez</value>
+        <value xml:lang="es">Una vez</value>
         <value xml:lang="fr">L'activité ne peut être instanciée qu'une seule fois (valeur par défaut)</value>
         <value xml:lang="it">Una volta</value>
         <value xml:lang="pt_BR">Uma vez</value>
@@ -2808,6 +2991,7 @@
     </property>
     <property key="Enumeration.description.WGC_FULL_BLOCKED">
         <value xml:lang="en">WGC_FULL_BLOCKED</value>
+        <value xml:lang="es">Completamente bloqueado</value>
         <value xml:lang="fr">Structure de réseau limitée à l'emboîtement approprié de SPLIT/JOIN et de boucle (LOOP)</value>
         <value xml:lang="it">Completamente bloccato</value>
         <value xml:lang="pt_BR">Completamente Bloqueado</value>
@@ -2817,7 +3001,7 @@
     </property>
     <property key="Enumeration.description.WGC_LOOP_BLOCKED">
         <value xml:lang="en">WGC_LOOP_BLOCKED</value>
-        <value xml:lang="es">bucle bloqueado</value>
+        <value xml:lang="es">Bucle bloqueado</value>
         <value xml:lang="fr">Structure de réseau limitée à l'emboîtement approprié de boucle (LOOP)</value>
         <value xml:lang="it">Loop bloccato</value>
         <value xml:lang="pt_BR">Loop bloqueado</value>
@@ -2827,7 +3011,7 @@
     </property>
     <property key="Enumeration.description.WGC_NON_BLOCKED">
         <value xml:lang="en">WGC_NON_BLOCKED</value>
-        <value xml:lang="es">no bloqueado</value>
+        <value xml:lang="es">No bloqueado</value>
         <value xml:lang="fr">Pas de restriction sur la structure de réseau (valeur par défaut)</value>
         <value xml:lang="it">Non bloccato</value>
         <value xml:lang="pt_BR">Não bloqueado</value>
@@ -2837,7 +3021,7 @@
     </property>
     <property key="Enumeration.description.WJT_AND">
         <value xml:lang="en">WJT_AND</value>
-        <value xml:lang="es">y</value>
+        <value xml:lang="es">Y</value>
         <value xml:lang="fr">Synchronisez toutes les transitions entrantes (les attendre toutes)</value>
         <value xml:lang="it">E</value>
         <value xml:lang="pt_BR">E</value>
@@ -2847,7 +3031,7 @@
     </property>
     <property key="Enumeration.description.WJT_XOR">
         <value xml:lang="en">WJT_XOR</value>
-        <value xml:lang="es">o exclusivo</value>
+        <value xml:lang="es">O exclusivo</value>
         <value xml:lang="fr">Aucune synchronisation entrante exigée (départ à la première)</value>
         <value xml:lang="it">X-or</value>
         <value xml:lang="pt_BR">Ou Exclusivo</value>
@@ -2857,7 +3041,7 @@
     </property>
     <property key="Enumeration.description.WLK_REPEAT_UNTIL">
         <value xml:lang="en">WLK_REPEAT_UNTIL</value>
-        <value xml:lang="es">repetir hasta</value>
+        <value xml:lang="es">Repetir hasta</value>
         <value xml:lang="fr">Boucle de répétition "jusqu'à ce que" : continuer jusqu'à ce que la condition d'évaluation soit vérifiée</value>
         <value xml:lang="it">Ripeti fino a</value>
         <value xml:lang="pt_BR">Repetir até</value>
@@ -2867,7 +3051,7 @@
     </property>
     <property key="Enumeration.description.WLK_WHILE">
         <value xml:lang="en">WLK_WHILE</value>
-        <value xml:lang="es">mientras</value>
+        <value xml:lang="es">Mientras</value>
         <value xml:lang="fr">Boucle de répétition "tant que" : continuer tant que la condition d'évaluation n'est pas vérifiée</value>
         <value xml:lang="it">Mentre</value>
         <value xml:lang="pt_BR">Enquanto (While)</value>
@@ -2877,7 +3061,7 @@
     </property>
     <property key="Enumeration.description.WPM_IN">
         <value xml:lang="en">WPM_IN</value>
-        <value xml:lang="es">parámetro de entrada</value>
+        <value xml:lang="es">Parámetro de entrada</value>
         <value xml:lang="fr">Paramètre d'entrée</value>
         <value xml:lang="it">Parametro in ingresso</value>
         <value xml:lang="pt_BR">Parâmetro de entrada</value>
@@ -2887,7 +3071,7 @@
     </property>
     <property key="Enumeration.description.WPM_INOUT">
         <value xml:lang="en">WPM_INOUT</value>
-        <value xml:lang="es">parámetro de entrada-salida</value>
+        <value xml:lang="es">Parámetro de entrada-salida</value>
         <value xml:lang="fr">Paramètre utilisé pour l'entrée et la sortie</value>
         <value xml:lang="it">Parametro in entrata e uscita</value>
         <value xml:lang="pt_BR">Parâmetro de entrada-saída</value>
@@ -2897,7 +3081,7 @@
     </property>
     <property key="Enumeration.description.WPM_OUT">
         <value xml:lang="en">WPM_OUT</value>
-        <value xml:lang="es">parámetro de salida</value>
+        <value xml:lang="es">Parámetro de salida</value>
         <value xml:lang="fr">Paramètre de sortie</value>
         <value xml:lang="it">Parametro in uscita</value>
         <value xml:lang="pt_BR">Parâmetro de saída</value>
@@ -2907,7 +3091,7 @@
     </property>
     <property key="Enumeration.description.WSE_ASYNCHR">
         <value xml:lang="en">WSE_ASYNCHR</value>
-        <value xml:lang="es">asíncrono</value>
+        <value xml:lang="es">Asíncrono</value>
         <value xml:lang="fr">Exécution synchrone</value>
         <value xml:lang="it">Esecuzione asincrona</value>
         <value xml:lang="pt_BR">Assíncrono</value>
@@ -2917,7 +3101,7 @@
     </property>
     <property key="Enumeration.description.WSE_SYNCHR">
         <value xml:lang="en">WSE_SYNCHR</value>
-        <value xml:lang="es">síncrono</value>
+        <value xml:lang="es">Síncrono</value>
         <value xml:lang="fr">Exécution synchrone</value>
         <value xml:lang="it">Esecuzione sincrona</value>
         <value xml:lang="pt_BR">Síncrono</value>
@@ -2987,7 +3171,7 @@
     </property>
     <property key="Enumeration.description.WTL_TOLOOP">
         <value xml:lang="en">WTL_TOLOOP</value>
-        <value xml:lang="es">Hacia bucle</value>
+        <value xml:lang="es">Hasta bucle</value>
         <value xml:lang="fr">Vers une boucle</value>
         <value xml:lang="it">Al loop</value>
         <value xml:lang="pt_BR">Até o laço</value>
@@ -3046,7 +3230,7 @@
     <property key="EnumerationType.description.COGS_METHODS">
         <value xml:lang="de">Methode COGS (Kosten der verkauften Waren)</value>
         <value xml:lang="en">COGS Methods</value>
-        <value xml:lang="es">Métodos de coste de artículos vendidos</value>
+        <value xml:lang="es">Métodos de coste de productos vendidos</value>
         <value xml:lang="fr">Méthodes COGS (coût des biens vendus)</value>
         <value xml:lang="it">Metodi COGS</value>
         <value xml:lang="pt">Métodos de Custo das Matérias-Primas</value>
@@ -3173,7 +3357,7 @@
     <property key="EnumerationType.description.PGT_CODE">
         <value xml:lang="de">Zahlungs-Gateway Transaktions Code</value>
         <value xml:lang="en">Payment Gateway Transaction Code</value>
-        <value xml:lang="es">Código de transacción del gateway de pago</value>
+        <value xml:lang="es">Código de transacción de la pasarela de pago</value>
         <value xml:lang="fr">Code de transaction de la plateforme de paiement</value>
         <value xml:lang="it">Codice transazione pagamento gateway</value>
         <value xml:lang="pt">Código de Transacção do Gateway de Pagamento</value>
@@ -7141,7 +7325,7 @@
     </property>
     <property key="StatusItem.description.BLOG_REJECTED">
         <value xml:lang="en">BLOG_REJECTED</value>
-        <value xml:lang="es">Descripción</value>
+        <value xml:lang="es">Desechado</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato dal blog</value>
         <value xml:lang="pt_BR">Rejeitado</value>
@@ -7250,6 +7434,7 @@
     </property>
     <property key="StatusItem.description.CAL_IN_PLANNING">
         <value xml:lang="en">In Planning</value>
+        <value xml:lang="es">En planificación</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">In pianificazione</value>
         <value xml:lang="nl">Wordt gepland</value>
@@ -7274,6 +7459,7 @@
     </property>
     <property key="StatusItem.description.CAL_PLANNED">
         <value xml:lang="en">Planned</value>
+        <value xml:lang="es">Planificado</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Pianificato</value>
         <value xml:lang="nl">Gepland</value>
@@ -7325,6 +7511,7 @@
     </property>
     <property key="StatusItem.description.CLPT_IN_USE">
         <value xml:lang="en">In Use</value>
+        <value xml:lang="es">En uso</value>
         <value xml:lang="fr">En cours d'utilisation</value>
         <value xml:lang="it">In uso</value>
         <value xml:lang="pt_BR">Em Uso</value>
@@ -7361,6 +7548,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="pt_BR">Aprovado</value>
@@ -7369,6 +7557,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_IN_PROCESS">
         <value xml:lang="en">Approval In Process</value>
+        <value xml:lang="es">Aprobación en curso</value>
         <value xml:lang="fr">Approbation en cours</value>
         <value xml:lang="it">Approvazione in corso</value>
         <value xml:lang="pt_BR">Aprovação em processo</value>
@@ -7377,6 +7566,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_NOT_READY">
         <value xml:lang="en">Not Ready for Approval</value>
+        <value xml:lang="es">No preparado para aprobación</value>
         <value xml:lang="fr">Non prêt pour approbation</value>
         <value xml:lang="it">Non pronto per l'approvazione</value>
         <value xml:lang="pt_BR">Não está pronto para aprovação</value>
@@ -7385,6 +7575,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_READY">
         <value xml:lang="en">Ready for Approval</value>
+        <value xml:lang="es">Preparado para aprobación</value>
         <value xml:lang="fr">Prêt pour approbation</value>
         <value xml:lang="it">Pronto per l'approvazione</value>
         <value xml:lang="pt_BR">Pronto para aprovação</value>
@@ -7393,6 +7584,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_REJECTED">
         <value xml:lang="en">Rejected</value>
+        <value xml:lang="es">Rechazado</value>
         <value xml:lang="fr">Refusé</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="pt_BR">Rejeitado</value>
@@ -7401,6 +7593,7 @@
     </property>
     <property key="StatusItem.description.CNTAP_SOFT_REJ">
         <value xml:lang="en">Soft Rejected</value>
+        <value xml:lang="es">Rechazado (admite mejoras)</value>
         <value xml:lang="it">Rifiutato leggermente</value>
         <value xml:lang="pt_BR">Rejeitado para melhorias (Soft rejected)</value>
         <value xml:lang="zh">已婉拒</value>
@@ -7502,6 +7695,7 @@
     </property>
     <property key="StatusItem.description.COM_ROLE_COMPLETED">
         <value xml:lang="en">Closed</value>
+        <value xml:lang="es">Cerrado</value>
         <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="pt_BR">Fechado</value>
@@ -7510,6 +7704,7 @@
     </property>
     <property key="StatusItem.description.COM_ROLE_CREATED">
         <value xml:lang="en">Created</value>
+        <value xml:lang="es">Creado</value>
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="pt_BR">Criado em</value>
@@ -7586,12 +7781,14 @@
     </property>
     <property key="StatusItem.description.CRQ_DRAFT">
         <value xml:lang="en">Draft</value>
+        <value xml:lang="es">Esbozo</value>
         <value xml:lang="fr">Brouillon</value>
         <value xml:lang="pt_BR">Projeto</value>
         <value xml:lang="zh_TW">初稿</value>
     </property>
     <property key="StatusItem.description.CRQ_PENDING">
         <value xml:lang="en">Pending Cust.</value>
+        <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="pt_BR">Pendente</value>
         <value xml:lang="zh_TW">等待客戶</value>
@@ -7639,6 +7836,7 @@
     </property>
     <property key="StatusItem.description.CTNT_AVAILABLE">
         <value xml:lang="en">Available</value>
+        <value xml:lang="es">Disponible</value>
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="pt_BR">Disponível</value>
@@ -7730,6 +7928,7 @@
     </property>
     <property key="StatusItem.description.EMPL_POS_ACTIVE">
         <value xml:lang="en">Active/Open</value>
+        <value xml:lang="es">Activo/Abierto</value>
         <value xml:lang="fr">Actif / Ouvert</value>
         <value xml:lang="it">Attivo/Aperto</value>
         <value xml:lang="pt_BR">Ativo / Aberto</value>
@@ -7738,6 +7937,7 @@
     </property>
     <property key="StatusItem.description.EMPL_POS_INACTIVE">
         <value xml:lang="en">Inactive/Closed</value>
+        <value xml:lang="es">Inactivo/Cerrado</value>
         <value xml:lang="fr">Inactif / Fermé</value>
         <value xml:lang="it">Inattivo/Chiuso</value>
         <value xml:lang="pt_BR">Inativo / Fechado</value>
@@ -7746,6 +7946,7 @@
     </property>
     <property key="StatusItem.description.EMPL_POS_PLANNEDFOR">
         <value xml:lang="en">Planned For</value>
+        <value xml:lang="es">Planificado para</value>
         <value xml:lang="fr">Prévu pour</value>
         <value xml:lang="it">Pianificato per</value>
         <value xml:lang="pt_BR">Planejado para</value>
@@ -7824,6 +8025,7 @@
     </property>
     <property key="StatusItem.description.EXST_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="pt_BR">Aprovado</value>
@@ -7832,6 +8034,7 @@
     </property>
     <property key="StatusItem.description.EXST_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt_BR">Cancelado</value>
@@ -7840,6 +8043,7 @@
     </property>
     <property key="StatusItem.description.EXST_COMPLETE">
         <value xml:lang="en">Complete</value>
+        <value xml:lang="es">Completo</value>
         <value xml:lang="fr">Achevé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt_BR">Completo</value>
@@ -7848,6 +8052,7 @@
     </property>
     <property key="StatusItem.description.EXST_DEFINED">
         <value xml:lang="en">Defined</value>
+        <value xml:lang="es">Definido</value>
         <value xml:lang="fr">Paramétré</value>
         <value xml:lang="it">Definito</value>
         <value xml:lang="pt_BR">Definido</value>
@@ -7856,6 +8061,7 @@
     </property>
     <property key="StatusItem.description.EXST_IMPLEMENTED">
         <value xml:lang="en">Implemented</value>
+        <value xml:lang="es">Implementado</value>
         <value xml:lang="fr">Implémenté</value>
         <value xml:lang="it">Implementato</value>
         <value xml:lang="pt_BR">Implementado</value>
@@ -7864,6 +8070,7 @@
     </property>
     <property key="StatusItem.description.EXST_IN_DESIGN">
         <value xml:lang="en">In Design</value>
+        <value xml:lang="es">En proyecto</value>
         <value xml:lang="fr">En projet</value>
         <value xml:lang="it">In progettazione</value>
         <value xml:lang="pt_BR">Em projeto</value>
@@ -7872,6 +8079,7 @@
     </property>
     <property key="StatusItem.description.EXST_TESTED">
         <value xml:lang="en">Tested</value>
+        <value xml:lang="es">Probado</value>
         <value xml:lang="fr">Testé</value>
         <value xml:lang="it">Testato</value>
         <value xml:lang="pt_BR">Testado</value>
@@ -7946,6 +8154,7 @@
     </property>
     <property key="StatusItem.description.FA_ASGN_ASSIGNED">
         <value xml:lang="en">Assigned</value>
+        <value xml:lang="es">Asignado</value>
         <value xml:lang="fr">Affecté</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="pt_BR">Atribuído</value>
@@ -7954,6 +8163,7 @@
     </property>
     <property key="StatusItem.description.FA_ASGN_DENIED">
         <value xml:lang="en">Request Denied</value>
+        <value xml:lang="es">Solicitud denegada</value>
         <value xml:lang="fr">Demande refusée</value>
         <value xml:lang="it">Richiesta negata</value>
         <value xml:lang="pt_BR">Pedido negado</value>
@@ -7962,6 +8172,7 @@
     </property>
     <property key="StatusItem.description.FA_ASGN_REQUESTED">
         <value xml:lang="en">Requested</value>
+        <value xml:lang="es">Solicitado</value>
         <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="pt_BR">Solicitado</value>
@@ -7970,6 +8181,7 @@
     </property>
     <property key="StatusItem.description.FNACT_ACTIVE">
         <value xml:lang="en">Active</value>
+        <value xml:lang="es">Activo</value>
         <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attivo</value>
         <value xml:lang="pt_BR">Ativo</value>
@@ -7978,6 +8190,7 @@
     </property>
     <property key="StatusItem.description.FNACT_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt_BR">Cancelado</value>
@@ -7986,6 +8199,7 @@
     </property>
     <property key="StatusItem.description.FNACT_MANFROZEN">
         <value xml:lang="en">Manually Frozen</value>
+        <value xml:lang="es">Bloqueo manual</value>
         <value xml:lang="fr">Bloqué manuellement</value>
         <value xml:lang="it">Congelato manualmente</value>
         <value xml:lang="pt_BR">Bloqueado Manualmente</value>
@@ -7994,6 +8208,7 @@
     </property>
     <property key="StatusItem.description.FNACT_NEGPENDREPL">
         <value xml:lang="en">Negative Pending Replenishment</value>
+        <value xml:lang="es">Negativo pendiente de reposición</value>
         <value xml:lang="it">Rifornimento in attesa negativo</value>
         <value xml:lang="pt_BR">Reposição pendente Negativa</value>
         <value xml:lang="zh">消极等待补货</value>
@@ -8001,6 +8216,7 @@
     </property>
     <property key="StatusItem.description.HR_DS_COMPLETE">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="es">Completo</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt_BR">Concluída</value>
@@ -8009,6 +8225,7 @@
     </property>
     <property key="StatusItem.description.HR_DS_DEFERRED">
         <value xml:lang="en">Deferred</value>
+        <value xml:lang="es">Diferido</value>
         <value xml:lang="fr">Reporté</value>
         <value xml:lang="it">Rinviato</value>
         <value xml:lang="pt_BR">Diferido</value>
@@ -8017,6 +8234,7 @@
     </property>
     <property key="StatusItem.description.HR_DS_INCOMPLETE">
         <value xml:lang="en">Incomplete</value>
+        <value xml:lang="es">Incompleto</value>
         <value xml:lang="fr">Incomplet</value>
         <value xml:lang="it">Incompleto</value>
         <value xml:lang="pt_BR">Incompleto</value>
@@ -8025,6 +8243,7 @@
     </property>
     <property key="StatusItem.description.HR_JS_CONTRACTOR">
         <value xml:lang="en">Contractor</value>
+        <value xml:lang="es">Contratante</value>
         <value xml:lang="it">Imprenditore</value>
         <value xml:lang="pt_BR">Contratante</value>
         <value xml:lang="zh">合同工</value>
@@ -8032,6 +8251,7 @@
     </property>
     <property key="StatusItem.description.HR_JS_FULLTIME">
         <value xml:lang="en">Full time</value>
+        <value xml:lang="es">Tiempo completo</value>
         <value xml:lang="fr">Temps plein</value>
         <value xml:lang="it">Tempo pieno</value>
         <value xml:lang="pt_BR">Tempo integral</value>
@@ -8040,6 +8260,7 @@
     </property>
     <property key="StatusItem.description.HR_JS_PARTTIME">
         <value xml:lang="en">Part time</value>
+        <value xml:lang="es">Tiempo parcial</value>
         <value xml:lang="fr">Temps partiel</value>
         <value xml:lang="it">Part time</value>
         <value xml:lang="pt_BR">Tempo parcial</value>
@@ -8168,6 +8389,7 @@
     </property>
     <property key="StatusItem.description.INV_ACTIVATED">
         <value xml:lang="en">Activated</value>
+        <value xml:lang="es">Activado</value>
         <value xml:lang="fr">Activé</value>
         <value xml:lang="it">Attivato</value>
         <value xml:lang="pt_BR">Ativado</value>
@@ -8217,6 +8439,7 @@
     </property>
     <property key="StatusItem.description.INV_DEACTIVATED">
         <value xml:lang="en">Deactivated</value>
+        <value xml:lang="es">Desactivado</value>
         <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disattivato</value>
         <value xml:lang="pt_BR">Desativado</value>
@@ -8251,6 +8474,7 @@
     </property>
     <property key="StatusItem.description.INV_NS_DEFECTIVE">
         <value xml:lang="en">Defective (Non-Serialized)</value>
+        <value xml:lang="es">Defectuoso (no serializado)</value>
         <value xml:lang="fr">Défectueux (non sérialisable)</value>
         <value xml:lang="it">Difettoso (non-serializzato)</value>
         <value xml:lang="pt_BR">Defeituosos (não-serializado)</value>
@@ -8259,6 +8483,7 @@
     </property>
     <property key="StatusItem.description.INV_NS_ON_HOLD">
         <value xml:lang="en">On Hold (Non-Serialized)</value>
+        <value xml:lang="es">Retenido (no serializado)</value>
         <value xml:lang="fr">En attente (non sérialisable)</value>
         <value xml:lang="it">In attesa (non-serializzato)</value>
         <value xml:lang="pt_BR">Em espera (não-serializado)</value>
@@ -8461,6 +8686,7 @@
     </property>
     <property key="StatusItem.description.LEAD_ASSIGNED">
         <value xml:lang="en">Assigned</value>
+        <value xml:lang="es">Asignado</value>
         <value xml:lang="fr">Affecté</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="pt_BR">Atribuído</value>
@@ -8469,6 +8695,7 @@
     </property>
     <property key="StatusItem.description.LEAD_CONVERTED">
         <value xml:lang="en">Converted</value>
+        <value xml:lang="es">Convertido</value>
         <value xml:lang="fr">Converti</value>
         <value xml:lang="it">Convertito</value>
         <value xml:lang="pt_BR">Convertidos</value>
@@ -8477,6 +8704,7 @@
     </property>
     <property key="StatusItem.description.LEAD_QUALIFIED">
         <value xml:lang="en">Qualified</value>
+        <value xml:lang="es">Cualificado</value>
         <value xml:lang="fr">Qualifié</value>
         <value xml:lang="it">Qualificato</value>
         <value xml:lang="pt_BR">Qualificado</value>
@@ -8570,6 +8798,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_ERRCONFSENT">
         <value xml:lang="en">Error Confirm Sent</value>
+        <value xml:lang="es">Confirmación de error enviada</value>
         <value xml:lang="fr">Confirmation d'erreur envoyée</value>
         <value xml:lang="it">Errore conferma inviata</value>
         <value xml:lang="pt_BR">Confirmação de erro enviada</value>
@@ -8578,6 +8807,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_ERROR">
         <value xml:lang="en">Out Generated - Error</value>
+        <value xml:lang="es">Salida generada - Error</value>
         <value xml:lang="fr">Sortie générée - Erreur</value>
         <value xml:lang="it">Errore genereato fuori</value>
         <value xml:lang="pt_BR">Criação interna - Erro</value>
@@ -8586,6 +8816,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_SUCCESS">
         <value xml:lang="en">Out Generated - Success</value>
+        <value xml:lang="es">Salida generada - Correcto</value>
         <value xml:lang="fr">Sortie générée - Succès</value>
         <value xml:lang="it">Successo genereato fuori</value>
         <value xml:lang="pt_BR">Criação interna - Sucesso</value>
@@ -8594,6 +8825,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_PROC_ERROR">
         <value xml:lang="en">In Processed - Error</value>
+        <value xml:lang="es">Procesando - Error</value>
         <value xml:lang="fr">Erreur pendant l'exécution</value>
         <value xml:lang="it">Errore durante l'esecuzione</value>
         <value xml:lang="pt_BR">Em processamento - Erro</value>
@@ -8602,6 +8834,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_PROC_SUCCESS">
         <value xml:lang="en">In Processed - Success</value>
+        <value xml:lang="es">Procesando - Correcto</value>
         <value xml:lang="fr">Exécuté avec succès</value>
         <value xml:lang="it">Successo durante l'esecuzione</value>
         <value xml:lang="pt_BR">Em processamento - Sucesso</value>
@@ -8610,6 +8843,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_RECEIVED">
         <value xml:lang="en">In Message Received</value>
+        <value xml:lang="es">Mensaje de entrada recibido</value>
         <value xml:lang="fr">Message reçu</value>
         <value xml:lang="it">Ricevuto messaggo in entrata</value>
         <value xml:lang="pt_BR">Mensagem de entrada recebida</value>
@@ -8618,6 +8852,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_REC_ERR_CON">
         <value xml:lang="en">Received Error Confirm</value>
+        <value xml:lang="es">Recibida confirmación de error</value>
         <value xml:lang="fr">Confirmation d'erreur reçue</value>
         <value xml:lang="it">Conferma errore ricevuto</value>
         <value xml:lang="pt_BR">Confirmação de erro recebida</value>
@@ -8626,6 +8861,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_REC_SUC_CON">
         <value xml:lang="en">Received Success Confirm</value>
+        <value xml:lang="es">Recibida confirmación de completada</value>
         <value xml:lang="fr">Confirmation de succès reçue</value>
         <value xml:lang="it">Conferma successo ricevuto</value>
         <value xml:lang="pt_BR">Confirmação de sucesso recebida</value>
@@ -8634,6 +8870,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_SEND_ERROR">
         <value xml:lang="en">Out Message Send Error</value>
+        <value xml:lang="es">Error de envío del mensaje</value>
         <value xml:lang="fr">Message d'erreur envoyé</value>
         <value xml:lang="it">Errore invio messaggio all'esterno</value>
         <value xml:lang="pt_BR">Erro no envio de mensagem externa</value>
@@ -8642,6 +8879,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_SENT">
         <value xml:lang="en">Out Message Sent</value>
+        <value xml:lang="es">Mensaje enviado</value>
         <value xml:lang="fr">Message envoyé</value>
         <value xml:lang="it">Messaggio inviato all'esterno</value>
         <value xml:lang="pt_BR">Mensagem externa enviada</value>
@@ -8650,6 +8888,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_SYS_ERROR">
         <value xml:lang="en">System Error</value>
+        <value xml:lang="es">Error del sistema</value>
         <value xml:lang="fr">Erreur système</value>
         <value xml:lang="it">Errore di sistema</value>
         <value xml:lang="pt_BR">Erro de sistema</value>
@@ -8658,6 +8897,7 @@
     </property>
     <property key="StatusItem.description.OAGMP_TRIGGERED">
         <value xml:lang="en">Out Message Triggered</value>
+        <value xml:lang="es">Mensaje externo disparado</value>
         <value xml:lang="fr">Message en sortie déclenché</value>
         <value xml:lang="it">Intercettato messaggio dall'esterno</value>
         <value xml:lang="pt_BR">Mensagem exteran disparada</value>
@@ -8852,6 +9092,7 @@
     </property>
     <property key="StatusItem.description.PARTYINV_ACCEPTED">
         <value xml:lang="en">Invitation Accepted</value>
+        <value xml:lang="es">Invitación aceptada</value>
         <value xml:lang="fr">Invitation acceptée</value>
         <value xml:lang="it">Invito accettato</value>
         <value xml:lang="pt_BR">Convite aceito</value>
@@ -8860,6 +9101,7 @@
     </property>
     <property key="StatusItem.description.PARTYINV_CANCELLED">
         <value xml:lang="en">Invitation Cancelled</value>
+        <value xml:lang="es">Invitación cancelada</value>
         <value xml:lang="fr">Invitation annulée</value>
         <value xml:lang="it">Invito cancellato</value>
         <value xml:lang="pt_BR">Convite Cancelado</value>
@@ -8868,6 +9110,7 @@
     </property>
     <property key="StatusItem.description.PARTYINV_DECLINED">
         <value xml:lang="en">Invitation Declined</value>
+        <value xml:lang="es">Invitación rechazada</value>
         <value xml:lang="fr">Invitation refusée</value>
         <value xml:lang="it">Invito declinato</value>
         <value xml:lang="pt_BR">Convite recusado</value>
@@ -8876,6 +9119,7 @@
     </property>
     <property key="StatusItem.description.PARTYINV_PENDING">
         <value xml:lang="en">Invitation Pending</value>
+        <value xml:lang="es">Invitación pendiente</value>
         <value xml:lang="fr">Invitation en attente</value>
         <value xml:lang="it">Invito in attesa</value>
         <value xml:lang="pt_BR">Convite pendente</value>
@@ -8884,6 +9128,7 @@
     </property>
     <property key="StatusItem.description.PARTYINV_SENT">
         <value xml:lang="en">Invitation Sent</value>
+        <value xml:lang="es">Invitación enviada</value>
         <value xml:lang="fr">Invitation envoyée</value>
         <value xml:lang="it">Invito inviato</value>
         <value xml:lang="pt_BR">Convite enviado</value>
@@ -8892,6 +9137,7 @@
     </property>
     <property key="StatusItem.description.PARTY_DISABLED">
         <value xml:lang="en">Disabled</value>
+        <value xml:lang="es">Desactivado</value>
         <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disabilitato</value>
         <value xml:lang="pt_BR">Desativado</value>
@@ -8900,6 +9146,7 @@
     </property>
     <property key="StatusItem.description.PARTY_ENABLED">
         <value xml:lang="en">Enabled</value>
+        <value xml:lang="es">Activo</value>
         <value xml:lang="fr">Activé</value>
         <value xml:lang="it">Abilitato</value>
         <value xml:lang="pt_BR">Habilitado</value>
@@ -9014,6 +9261,7 @@
     </property>
     <property key="StatusItem.description.PAYMENT_REFUNDED">
         <value xml:lang="en">Refunded</value>
+        <value xml:lang="es">Devuelto</value>
         <value xml:lang="fr">Remboursé</value>
         <value xml:lang="it">Rimborsato</value>
         <value xml:lang="nl">Terug betaald</value>
@@ -9038,6 +9286,7 @@
     </property>
     <property key="StatusItem.description.PICKITEM_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="pt_BR">Cancelado</value>
@@ -9046,6 +9295,7 @@
     </property>
     <property key="StatusItem.description.PICKITEM_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="es">Completado</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completata</value>
         <value xml:lang="pt_BR">Concluído</value>
@@ -9054,6 +9304,7 @@
     </property>
     <property key="StatusItem.description.PICKITEM_PENDING">
         <value xml:lang="en">Pending</value>
+        <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="pt_BR">Pendente</value>
@@ -9117,6 +9368,7 @@
     </property>
     <property key="StatusItem.description.PICKLIST_PRINTED">
         <value xml:lang="en">Printed</value>
+        <value xml:lang="es">Impreso</value>
         <value xml:lang="fr">Imprimée</value>
         <value xml:lang="it">Stampata</value>
         <value xml:lang="pt_BR">Impresso</value>
@@ -9215,6 +9467,7 @@
     </property>
     <property key="StatusItem.description.POSTX_PAID_IN">
         <value xml:lang="en">PaidIn</value>
+        <value xml:lang="es">Cobrado</value>
         <value xml:lang="fr">Paiement reçu</value>
         <value xml:lang="it">Pagamento in entrata</value>
         <value xml:lang="pt_BR">Entrada de pagamento</value>
@@ -9223,6 +9476,7 @@
     </property>
     <property key="StatusItem.description.POSTX_PAID_OUT">
         <value xml:lang="en">PaidOut</value>
+        <value xml:lang="es">Pagado</value>
         <value xml:lang="fr">Paiement en sortie</value>
         <value xml:lang="it">Pagamento in uscita</value>
         <value xml:lang="pt_BR">Pagamento de saída</value>
@@ -9261,6 +9515,7 @@
     </property>
     <property key="StatusItem.description.PQV_NOT_VERIFIED">
         <value xml:lang="en">Not verified</value>
+        <value xml:lang="es">No verificado</value>
         <value xml:lang="fr">Non vérifié</value>
         <value xml:lang="it">Non verificato</value>
         <value xml:lang="pt_BR">Não verificado</value>
@@ -9269,6 +9524,7 @@
     </property>
     <property key="StatusItem.description.PQV_VERIFIED">
         <value xml:lang="en">Verified</value>
+        <value xml:lang="es">Verificado</value>
         <value xml:lang="fr">Vérifié</value>
         <value xml:lang="it">Verificato</value>
         <value xml:lang="pt_BR">Verificado</value>
@@ -9277,6 +9533,7 @@
     </property>
     <property key="StatusItem.description.PRJ_ACTIVE">
         <value xml:lang="en">Active</value>
+        <value xml:lang="es">Activo</value>
         <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attivo</value>
         <value xml:lang="pt_BR">Ativo</value>
@@ -9285,6 +9542,7 @@
     </property>
     <property key="StatusItem.description.PRJ_CLOSED">
         <value xml:lang="en">Closed</value>
+        <value xml:lang="es">Cerrado</value>
         <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="pt_BR">Fechado</value>
@@ -9293,6 +9551,7 @@
     </property>
     <property key="StatusItem.description.PRR_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Validé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="pt_BR">Aprovado</value>
@@ -9447,6 +9706,7 @@
     </property>
     <property key="StatusItem.description.PRUN_SCHEDULED">
         <value xml:lang="en">Scheduled</value>
+        <value xml:lang="es">Planificado</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Schedulato</value>
         <value xml:lang="pt_BR">Agendado</value>
@@ -9516,7 +9776,7 @@
     <property key="StatusItem.description.PTS_ON_HOLD">
         <value xml:lang="de">On Hold</value>
         <value xml:lang="en">On Hold</value>
-        <value xml:lang="es">Detenido</value>
+        <value xml:lang="es">Retenido</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="pt_BR">Em Espera</value>
@@ -9725,6 +9985,7 @@
     </property>
     <property key="StatusItem.description.RETURN_MAN_REFUND">
         <value xml:lang="en">Manual Refund Required</value>
+        <value xml:lang="es">Requerida devolución manual</value>
         <value xml:lang="fr">Remboursement manuel nécessaire</value>
         <value xml:lang="it">Reso manual richiesto</value>
         <value xml:lang="pt_BR">Restituição manual necessária</value>
@@ -9831,6 +10092,7 @@
     </property>
     <property key="StatusItem.description.SERVICE_QUEUED">
         <value xml:lang="en">Queued</value>
+        <value xml:lang="es">Encolado</value>
         <value xml:lang="fr">Placé dans la file d'attente</value>
         <value xml:lang="it">In coda</value>
         <value xml:lang="pt_BR">Enfileirado</value>
@@ -9839,6 +10101,7 @@
     </property>
     <property key="StatusItem.description.SERVICE_RUNNING">
         <value xml:lang="en">Running</value>
+        <value xml:lang="es">Ejecutando</value>
         <value xml:lang="fr">En cours d'éxécution</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="pt_BR">Em execução</value>
@@ -9980,6 +10243,7 @@
     </property>
     <property key="StatusItem.description.SUP_RETURN_ACCEPTED">
         <value xml:lang="en">Accepted</value>
+        <value xml:lang="es">Aceptado</value>
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="pt_BR">Aceito</value>
@@ -9988,6 +10252,7 @@
     </property>
     <property key="StatusItem.description.SUP_RETURN_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt_BR">Cancelado</value>
@@ -9996,6 +10261,7 @@
     </property>
     <property key="StatusItem.description.SUP_RETURN_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="es">Completo</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt_BR">Concluído</value>
@@ -10004,6 +10270,7 @@
     </property>
     <property key="StatusItem.description.SUP_RETURN_REQUESTED">
         <value xml:lang="en">Requested</value>
+        <value xml:lang="es">Solicitado</value>
         <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesto</value>
         <value xml:lang="pt_BR">Solicitado</value>
@@ -10012,6 +10279,7 @@
     </property>
     <property key="StatusItem.description.SUP_RETURN_SHIPPED">
         <value xml:lang="en">Shipped</value>
+        <value xml:lang="es">Enviado</value>
         <value xml:lang="fr">Expédié</value>
         <value xml:lang="it">Spedito</value>
         <value xml:lang="pt_BR">Comercializado</value>
@@ -10034,6 +10302,7 @@
     </property>
     <property key="StatusItem.description.TIMESHEET_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvée</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="nl">Goedgekeurd</value>
@@ -10043,6 +10312,7 @@
     </property>
     <property key="StatusItem.description.TIMESHEET_COMPLETED">
         <value xml:lang="en">Completed</value>
+        <value xml:lang="es">Completo</value>
         <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="pt_BR">Concluído</value>
@@ -10051,6 +10321,7 @@
     </property>
     <property key="StatusItem.description.TIMESHEET_IN_PROCESS">
         <value xml:lang="en">In-Process</value>
+        <value xml:lang="es">En curso</value>
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="nl">Onder handen</value>
@@ -10060,6 +10331,7 @@
     </property>
     <property key="StatusItem.description.TRAINING_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvée</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="nl">Goedgekeurd</value>
@@ -10091,6 +10363,7 @@
     </property>
     <property key="StatusItem.description.WEFA_AVAILABLE">
         <value xml:lang="en">Available</value>
+        <value xml:lang="es">Disponible</value>
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="pt_BR">Disponível</value>
@@ -10099,6 +10372,7 @@
     </property>
     <property key="StatusItem.description.WEFA_IN_USE">
         <value xml:lang="en">In Use</value>
+        <value xml:lang="es">En uso</value>
         <value xml:lang="fr">En cours d'utilisation</value>
         <value xml:lang="it">In uso</value>
         <value xml:lang="pt_BR">Em Uso</value>
@@ -10107,6 +10381,7 @@
     </property>
     <property key="StatusItem.description.WEGS_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt_BR">Cancelado</value>
@@ -10123,6 +10398,7 @@
     </property>
     <property key="StatusItem.description.WEGS_CREATED">
         <value xml:lang="en">Created</value>
+        <value xml:lang="es">Creado</value>
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="pt_BR">Criado</value>
@@ -10131,6 +10407,7 @@
     </property>
     <property key="StatusItem.description.WEPA_AV_AVAILABLE">
         <value xml:lang="en">Available</value>
+        <value xml:lang="es">Disponible</value>
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="pt_BR">Disponível</value>
@@ -10139,6 +10416,7 @@
     </property>
     <property key="StatusItem.description.WEPA_AV_AWAY">
         <value xml:lang="en">Away</value>
+        <value xml:lang="es">Esperando</value>
         <value xml:lang="fr">Distant</value>
         <value xml:lang="it">Lontano</value>
         <value xml:lang="pt_BR">Distante</value>
@@ -10147,6 +10425,7 @@
     </property>
     <property key="StatusItem.description.WEPA_AV_BUSY">
         <value xml:lang="en">Busy</value>
+        <value xml:lang="es">Ocupado</value>
         <value xml:lang="fr">Occupé</value>
         <value xml:lang="it">Occupato</value>
         <value xml:lang="pt_BR">Ocupado</value>
@@ -10155,6 +10434,7 @@
     </property>
     <property key="StatusItem.description.WEPR_CANCELLED">
         <value xml:lang="en">Cancelled</value>
+        <value xml:lang="es">Cancelado</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt_BR">Cancelado</value>
@@ -10163,6 +10443,7 @@
     </property>
     <property key="StatusItem.description.WEPR_COMPLETE">
         <value xml:lang="en">Complete</value>
+        <value xml:lang="es">Completo</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completo</value>
         <value xml:lang="pt_BR">Completado</value>
@@ -10171,6 +10452,7 @@
     </property>
     <property key="StatusItem.description.WEPR_IN_PROGRESS">
         <value xml:lang="en">In Progress</value>
+        <value xml:lang="es">En curso</value>
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="pt_BR">Em Andamento</value>
@@ -10179,6 +10461,7 @@
     </property>
     <property key="StatusItem.description.WEPR_ON_HOLD">
         <value xml:lang="en">On Hold</value>
+        <value xml:lang="es">En espera</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="pt_BR">Em Espera</value>
@@ -10187,6 +10470,7 @@
     </property>
     <property key="StatusItem.description.WEPR_PLANNING">
         <value xml:lang="en">Planning</value>
+        <value xml:lang="es">Planificado</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Pianificato</value>
         <value xml:lang="pt_BR">Planejamento</value>
@@ -10195,6 +10479,7 @@
     </property>
     <property key="StatusItem.description.WERV_APPROVED">
         <value xml:lang="en">Approved</value>
+        <value xml:lang="es">Aprobado</value>
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="pt_BR">Aprovado</value>
@@ -10203,6 +10488,7 @@
     </property>
     <property key="StatusItem.description.WERV_DELETED">
         <value xml:lang="en">Deleted</value>
+        <value xml:lang="es">Borrado</value>
         <value xml:lang="fr">Supprimé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="pt_BR">Excluído</value>
@@ -10211,6 +10497,7 @@
     </property>
     <property key="StatusItem.description.WERV_PENDING">
         <value xml:lang="en">Pending</value>
+        <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="pt_BR">Pendente</value>
@@ -10424,6 +10711,7 @@
     <property key="StatusType.description.CALENDAR_STATUS">
         <value xml:lang="de">Kalender</value>
         <value xml:lang="en">Calendar</value>
+        <value xml:lang="es">Calendario</value>
         <value xml:lang="fr">Calendrier</value>
         <value xml:lang="it">Calendario</value>
         <value xml:lang="nl">Kalender</value>
@@ -10518,7 +10806,7 @@
     <property key="StatusType.description.INVENTORY_ITEM_STTS">
         <value xml:lang="de">Lagerbestand Element</value>
         <value xml:lang="en">Inventory Item</value>
-        <value xml:lang="es">Ítem de inventario</value>
+        <value xml:lang="es">Producto inventario</value>
         <value xml:lang="fr">Ligne de stock</value>
         <value xml:lang="it">Riga inventario</value>
         <value xml:lang="pt">Item de Inventário</value>
@@ -10558,7 +10846,7 @@
     </property>
     <property key="StatusType.description.INV_NON_SER_STTS">
         <value xml:lang="en">Non-Serialized Inventory Item</value>
-        <value xml:lang="es">Ítem de inventario sin número de serie</value>
+        <value xml:lang="es">Producto sin número de serie</value>
         <value xml:lang="fr">Ligne de stock sans n° de série</value>
         <value xml:lang="it">Riga inventario non serializzata</value>
         <value xml:lang="pt">Item de Inventário não Serializado</value>
@@ -10571,7 +10859,7 @@
     </property>
     <property key="StatusType.description.INV_SERIALIZED_STTS">
         <value xml:lang="en">Serialized Inventory Item</value>
-        <value xml:lang="es">Ítem de inventario con número de serie</value>
+        <value xml:lang="es">Producto con número de serie</value>
         <value xml:lang="fr">Ligne de stock avec n° de série</value>
         <value xml:lang="it">Riga inventario serializzata</value>
         <value xml:lang="pt">Item de Inventário Serializado</value>
@@ -10613,7 +10901,7 @@
     <property key="StatusType.description.ORDER_ITEM_STATUS">
         <value xml:lang="de">Auftragselement</value>
         <value xml:lang="en">Order Item</value>
-        <value xml:lang="es">Ítem de pedido</value>
+        <value xml:lang="es">Producto pedido</value>
         <value xml:lang="fr">Ligne de commande</value>
         <value xml:lang="it">Riga ordine</value>
         <value xml:lang="nl">Bestelling regel</value>
@@ -11446,7 +11734,7 @@
         <value xml:lang="th">ประกาศเอกสารฉบับร่างสุดท้าย</value>
         <value xml:lang="zh">最终定稿已发布</value>
         <value xml:lang="zh_TW">最終定稿已發布</value>
-    </property>
+    </property>    
     <property key="StatusValidChange.transitionName.CTNT_INITIAL_DRAFT.CTNT_PUBLISHED">
         <value xml:lang="de">Erster Entwurf publiziert</value>
         <value xml:lang="en">Initial draft Publised</value>
@@ -12131,7 +12419,7 @@
     <property key="StatusValidChange.transitionName.ITEM_APPROVED.ITEM_CANCELLED">
         <value xml:lang="de">Element annullieren</value>
         <value xml:lang="en">Cancel Item</value>
-        <value xml:lang="es">Cancelar ítem</value>
+        <value xml:lang="es">Cancelar producto</value>
         <value xml:lang="fr">Annuler l'article</value>
         <value xml:lang="it">Cancella riga</value>
         <value xml:lang="nl">Annuleren regel</value>
@@ -12145,7 +12433,7 @@
     <property key="StatusValidChange.transitionName.ITEM_APPROVED.ITEM_COMPLETED">
         <value xml:lang="de">Element abschliessen</value>
         <value xml:lang="en">Complete Item</value>
-        <value xml:lang="es">Completar ítem</value>
+        <value xml:lang="es">Completar producto</value>
         <value xml:lang="fr">Compléter l'article</value>
         <value xml:lang="it">Completa riga</value>
         <value xml:lang="nl">Gereedmaken regel</value>
@@ -12160,7 +12448,7 @@
     <property key="StatusValidChange.transitionName.ITEM_CREATED.ITEM_APPROVED">
         <value xml:lang="de">Element genehmigen</value>
         <value xml:lang="en">Approve Item</value>
-        <value xml:lang="es">Aprobar ítem</value>
+        <value xml:lang="es">Aprobar producto</value>
         <value xml:lang="fr">Approuver l'article</value>
         <value xml:lang="it">Approva riga</value>
         <value xml:lang="nl">Goedkeuren regel</value>
@@ -12174,7 +12462,7 @@
     <property key="StatusValidChange.transitionName.ITEM_CREATED.ITEM_CANCELLED">
         <value xml:lang="de">Element annullieren</value>
         <value xml:lang="en">Cancel Item</value>
-        <value xml:lang="es">Cancelar ítem</value>
+        <value xml:lang="es">Cancelar producto</value>
         <value xml:lang="fr">Annuler l'article</value>
         <value xml:lang="it">Cancella riga</value>
         <value xml:lang="nl">Annuleren regel</value>
@@ -12188,7 +12476,7 @@
     <property key="StatusValidChange.transitionName.ITEM_CREATED.ITEM_REJECTED">
         <value xml:lang="de">Element ablehnen</value>
         <value xml:lang="en">Reject Item</value>
-        <value xml:lang="es">Rechazar ítem</value>
+        <value xml:lang="es">Rechazar producto</value>
         <value xml:lang="fr">Rejeter l'article</value>
         <value xml:lang="it">Rifiuta riga</value>
         <value xml:lang="nl">Afwijzen regel</value>
@@ -12841,6 +13129,7 @@
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_ASSIGNED.PICKLIST_PRINTED">
         <value xml:lang="en">Printed</value>
+        <value xml:lang="es">Impreso</value>
         <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Stampa</value>
         <value xml:lang="pt_BR">Impresso</value>
@@ -12886,18 +13175,21 @@
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_INPUT.PICKLIST_PRINTED">
         <value xml:lang="en">Print</value>
+        <value xml:lang="es">Imprimir</value>
         <value xml:lang="fr">Imprimer</value>
         <value xml:lang="it">Stampa</value>
         <value xml:lang="pt_BR">Imprimir</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_CANCELLED">
         <value xml:lang="en">Cancel</value>
+        <value xml:lang="es">Cancelar</value>
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="pt_BR">Cancelar</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_PICKED">
         <value xml:lang="en">Pick</value>
+        <value xml:lang="es">Recoger</value>
         <value xml:lang="fr">Prélevé</value>
         <value xml:lang="it">Preleva</value>
         <value xml:lang="pt_BR">Recolher</value>
@@ -13581,6 +13873,7 @@
     <property key="Uom.description.ADP">
         <value xml:lang="de">Peseta Andorra</value>
         <value xml:lang="en">Andoran peseta</value>
+        <value xml:lang="es">Peseta Andorra</value>
         <value xml:lang="fr">Pesetas d'Andorran</value>
         <value xml:lang="it">Peseta Andorra</value>
         <value xml:lang="pt">Andoran peseta</value>
@@ -13839,6 +14132,7 @@
     <property key="Uom.description.AREA_yd2">
         <value xml:lang="de">Quadratyard (Fläche)</value>
         <value xml:lang="en">Square Yard</value>
+        <value xml:lang="es">Yarda cuadrada</value>
         <value xml:lang="fr">Yard carré (0,9144 m²)</value>
         <value xml:lang="it">Iarda quadrato</value>
         <value xml:lang="nl">Vierkante yard (0,9144 m²)</value>
@@ -16112,6 +16406,7 @@
     </property>
     <property key="Uom.description.OTH_pp">
         <value xml:lang="en">Per Person</value>
+        <value xml:lang="es">Por persona</value>
         <value xml:lang="fr">Par personne</value>
         <value xml:lang="it">Per persona</value>
         <value xml:lang="pt_BR">Por Pessoa</value>
@@ -17761,31 +18056,37 @@
     </property>
     <property key="VisualTheme.description.BIZZNESS_TIME">
         <value xml:lang="en">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
+        <value xml:lang="es">Bizzness, es hora de bizzness.  No lo podría haber dicho mejor. Este tema lo consigue</value>
         <value xml:lang="fr">Bizzness : menu principal vertical</value>
         <value xml:lang="pt_BR">É Bizzness, é hora Bizzness. Eu não poderia ter dito melhor sozinho. Este tema fica para baixo</value>
     </property>
     <property key="VisualTheme.description.BLUELIGHT">
         <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
+        <value xml:lang="es">BlueLight: Migas de pan, menús desplegables y las esquinas redondeadas</value>
         <value xml:lang="fr">BlueLight Theme: fil d'ariane, menus déroulants et coins arrondis</value>
         <value xml:lang="pt_BR">Bluelight Tema: Breadcrumbs, menus drop-down e cantos arredondados</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
         <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
+        <value xml:lang="es">Dropping Crumbs: Evolución de BlueLight, incluye un menú desplegable incrustado en la barra de migas de pan</value>
         <value xml:lang="fr">Dropping Crumbs: déclinaison de Bluelight, plus sobre, menu déroulant intégré dans la barre du fil d'ariane</value>
         <value xml:lang="pt_BR">Descartando Migalhas: Evolução da azul-luz, inclui um menu drop-down incorporado na barra de farinha de rosca</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
         <value xml:lang="en">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
+        <value xml:lang="es">Flat Grey - Diseño flotante, accesible para personas con discapacidad visual, bidireccional</value>
         <value xml:lang="fr">Flat Grey : mise en page dynamique, accessibilité, support de texte bidirectionnel</value>
         <value xml:lang="pt_BR">Apartamento Grey - Layout padrão antigo OFBiz flutuante</value>
     </property>
     <property key="VisualTheme.description.MULTIFLEX">
         <value xml:lang="en">Alternative VisualTheme for Ecommerce</value>
+        <value xml:lang="es">Tema visual alternativo para comercio electrónico</value>
         <value xml:lang="fr">Une alternative pour le theme de base du module de commerce électronique</value>
         <value xml:lang="pt_BR">Alternativa para VisualTheme Ecommerce</value>
     </property>
     <property key="VisualTheme.description.TOMAHAWK">
         <value xml:lang="en">Tomahawk: the evolution of the Dropping Crumbs theme</value>
+        <value xml:lang="es">Tomahawk: la evolución del tema Dropping Crumbs</value>
         <value xml:lang="fr">Tomahawk: évolution de Dropping Crumbs dans les tons noir et orange</value>
         <value xml:lang="pt_BR">Tomahawk: a evolução do tema Migalhas Descartando</value>
     </property>
