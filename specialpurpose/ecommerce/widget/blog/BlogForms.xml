@@ -101,7 +101,7 @@
         <field name="statusId">
             <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
                 <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
-                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.EcommerceBlogPreview}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
             </radio>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
@@ -168,7 +168,7 @@
         <field name="statusId">
             <radio no-current-selected-key="CTNT_INITIAL_DRAFT">
                 <option key="CTNT_PUBLISHED" description="${uiLabelMap.ContentBlogPost}"/>
-                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.EcommerceBlogPreview}"/>
+                <option key="CTNT_INITIAL_DRAFT" description="${uiLabelMap.ContentBlogPreview}"/>
             </radio>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">

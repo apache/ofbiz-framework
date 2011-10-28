@@ -425,46 +425,6 @@
         <value xml:lang="zh">提交</value>
         <value xml:lang="zh_TW">提交</value>
     </property>
-    <property key="EcommerceBlogPreview">
-        <value xml:lang="da">Vis</value>
-        <value xml:lang="en">Preview</value>
-        <value xml:lang="fr">Visionner</value>
-        <value xml:lang="it">Anteprima</value>
-        <value xml:lang="nl">Bekijken</value>       
-        <value xml:lang="pt_BR">Pré-visualizar</value>
-        <value xml:lang="zh">预览</value>
-        <value xml:lang="zh_TW">預覽</value>
-    </property>
-    <property key="EcommerceBlogPublish">
-        <value xml:lang="da">Publicer</value>
-        <value xml:lang="en">Publish</value>
-        <value xml:lang="fr">Publier</value>
-        <value xml:lang="it">Pubblica</value>
-        <value xml:lang="nl">Publiceren</value>     
-        <value xml:lang="pt_BR">Publicar</value>
-        <value xml:lang="zh">发布</value>
-        <value xml:lang="zh_TW">發佈</value>
-    </property>
-    <property key="EcommerceBlogTopCenter">
-        <value xml:lang="da">Midt for i toppen</value>
-        <value xml:lang="en">Top Center</value>
-        <value xml:lang="fr">En haut au centre</value>
-        <value xml:lang="it">Alto al centro</value>
-        <value xml:lang="nl">Boven in het midden</value>        
-        <value xml:lang="pt_BR">Centralizado no topo</value>
-        <value xml:lang="zh">顶部居中</value>
-        <value xml:lang="zh_TW">上方居中</value>
-    </property>
-    <property key="EcommerceBlogTopLeft">
-        <value xml:lang="da">Til venstre i toppen</value>
-        <value xml:lang="en">Top Left</value>
-        <value xml:lang="fr">En haut à gauche</value>
-        <value xml:lang="it">Alto a sinistra</value>
-        <value xml:lang="nl">Boven rechts</value>       
-        <value xml:lang="pt_BR">No topo à esquerda</value>
-        <value xml:lang="zh">顶部居左</value>
-        <value xml:lang="zh_TW">上方居左</value>
-    </property>
     <property key="EcommerceBlogViewArticle">
         <value xml:lang="da">Vis blog artikel</value>
         <value xml:lang="en">View Blog Article</value>
