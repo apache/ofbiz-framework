@@ -1410,7 +1410,7 @@ public class ModelViewEntity extends ModelEntity {
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 }
-            } else if ( value == null && this.relFieldName == null && (this.operator == EntityOperator.EQUALS || this.operator == EntityOperator.NOT_EQUAL)) {
+            } else if (value == null && UtilValidate.isEmpty(this.relFieldName) && (this.operator == EntityOperator.EQUALS || this.operator == EntityOperator.NOT_EQUAL)) {
                 return EntityCondition.makeCondition(lhs, this.operator, null);
             } else {
                 if (ignoreCase) {
