@@ -6318,7 +6318,7 @@
         <value xml:lang="ru">Личность</value>
         <value xml:lang="th">บุคคล</value>
         <value xml:lang="zh">人员</value>
-        <value xml:lang="zh_CN">人</value>
+        <value xml:lang="zh_CN">人员</value>
         <value xml:lang="zh_TW">人員</value>
     </property>
     <property key="CommonPingDatasourceCannotConnect">
