@@ -40,21 +40,6 @@ pageTitle = null;
 metaDescription = null;
 metaKeywords = null;
 
-/*
- * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
- *
-if (productId) {
-    previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
-    if (previousParams) {
-        previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, ["product_id"]);
-        previousParams += "&product_id=" + productId;
-    } else {
-        previousParams = "product_id=" + productId;
-    }
-    session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
-    context.previousParams = previousParams;
-}*/
-
 // get the product entity
 if (productId) {
     product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
@@ -122,15 +107,18 @@ if (productId) {
             context.metaKeywords = metaKeywords.textData;
         } else {
             keywords = [];
-            keywords.add(product.productName);
+            keywords.add(contentWrapper.get("PRODUCT_NAME"));
             keywords.add(catalogName);
             members = delegator.findByAndCache("ProductCategoryMember", [productId : productId]);
             members.each { member ->
                 category = member.getRelatedOneCache("ProductCategory");
                 if (category.description) {
-                    keywords.add(category.description);
+                    categoryContentWrapper = new CategoryContentWrapper(category, request);
+                    categoryDescription = categoryContentWrapper.DESCRIPTION;
+                    if (categoryDescription) {
+                            keywords.add(categoryDescription);
+                    }
                 }
-            }
             context.metaKeywords = StringUtil.join(keywords, ", ");
         }
 
