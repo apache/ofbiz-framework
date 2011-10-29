@@ -44,6 +44,7 @@ under the License.
             <exclude field-name="availableToPromiseTotal"/>
             <exclude field-name="quantityOnHandTotal"/>
         </auto-attributes>
+        <attribute name="isReturned" mode="IN" type="String" default-value="N" />
         <override name="inventoryItemTypeId" optional="false"/>
         <override name="productId" optional="false"/>
         <override name="facilityId" optional="false"/>
@@ -164,6 +165,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <attribute name="lotId" mode="IN" type="String" optional="true"/>
         <attribute name="quantityOnHandTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToPromiseTotal" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="useCache" type="Boolean" mode="IN" optional="true"/>
@@ -330,6 +332,7 @@ under the License.
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
+        <attribute name="lotId" mode="IN" type="String" optional="true" />
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByFacility" engine="simple"
@@ -350,6 +353,7 @@ under the License.
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="priority" type="String" mode="IN"  optional="true"/>
+        <attribute name="lotId" type="String" mode="IN" optional="true" />
     </service>
     <service name="reserveProductInventoryByContainer" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">

@@ -1116,6 +1116,26 @@
         <value xml:lang="zh">创建快速添加变型数据时发生交易错误：${errMessage}。</value>
         <value xml:lang="zh_TW">創建快速添加變型資料時發生交易錯誤: ${errMessage}。</value>
     </property>
+    <property key="PicklistManageTooMuchQuantity">
+        <value xml:lang="en">The quantity entered (${parameters.quantity}) is higher than the quantity expected (${picklistItem.quantity}).</value>
+        <value xml:lang="fr">La quantitÃƒÂ© entrÃƒÂ©e (${parameters.quantity}) est supÃƒÂ©rieure ÃƒÂ  la quantitÃƒÂ© attendue (${picklistItem.quantity}).</value>
+    </property>
+    <property key="PicklistManageNoLinkProductAndLot">
+        <value xml:lang="en">There is no link between the lot ${parameters.lotId} and the product ${parameters.productId}.</value>
+        <value xml:lang="fr">Il n'y a pas de lien entre le lot ${parameters.lotId} et le produit ${parameters.productId}.</value>
+    </property>
+    <property key="PicklistManageStockLow">
+        <value xml:lang="en">Not enough stock for this lot.</value>
+        <value xml:lang="fr">Pas assez de stock pour ce lot.</value>
+    </property>
+    <property key="ProductLotIdMandatory">
+        <value xml:lang="en">The lotId is mandatory for the product ${parameters.productId}.</value>
+        <value xml:lang="fr">Le numÃƒÂ©ro de lot est obligatoire pour ce produit ${parameters.productId}.</value>
+    </property>
+    <property key="ProductLotIdForbidden">
+        <value xml:lang="en">The lotId is forbidden for the product ${parameters.productId}.</value>
+        <value xml:lang="fr">Le numÃƒÂ©ro de lot est interdit pour ce produit ${parameters.productId}.</value>
+    </property>
     <property key="variantevents.variantProductId_required_but_missing_enter_an_id">
         <value xml:lang="de">variantProductId wir benötigt fehlt aber, bitte geben Sie eine ID für die neue Produktvariante an.</value>
         <value xml:lang="en">variantProductId is required but missing, please enter an id for the new variant product.</value>

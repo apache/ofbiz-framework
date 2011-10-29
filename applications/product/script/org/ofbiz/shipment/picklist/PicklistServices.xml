@@ -917,6 +917,208 @@ under the License.
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
+    
+    <!-- Service which edit a PicklistItem when a preparator choose a specified lot for one line order
+        This service is called by the request :
+            - editPicklistItem 
+    -->
+    <simple-method method-name="editPicklistItem" short-description="Edit a Picklist Item">
+        <log level="info"><string>Edit a Picklist Item</string></log>
+        
+        <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
+        <find-by-primary-key map="lookupPKMap" value-field="picklistItem"/>
+        
+        <!-- Error if the specified quantity is greater than the picklistItem quantity -->
+        <if-compare-field operator="greater" to-field="picklistItem.quantity" field="parameters.quantity" type="Integer">
+            <add-error>
+                <fail-property resource="ProductErrorUiLabels" property="PicklistManageTooMuchQuantity"/>
+            </add-error>
+        </if-compare-field>
+        
+        <!-- In order to check if there is a link between the lot and the productId,
+            we retrieve all the inventoryItems with this lotId ... -->
+        <entity-condition list="inventoryItemList" entity-name="InventoryItem">
+            <condition-expr field-name="lotId" from-field="parameters.lotId" operator="equals"/>
+        </entity-condition>
+        
+        <set value="ko" field="linkProductAndLot"/>
+        
+        <!-- ... and check if one of the inventoryItems have this productId -->
+        <iterate entry="inventoryItem" list="inventoryItemList">
+            <if-compare-field operator="equals" to-field="inventoryItem.productId" field="parameters.productId">
+                <set value="ok" field="linkProductAndLot"/>
+            </if-compare-field>
+        </iterate>
+        
+        <if-compare field="linkProductAndLot" operator="equals" value="ko">
+            <add-error>
+                <fail-property resource="ProductErrorUiLabels" property="PicklistManageNoLinkProductAndLot"/>
+            </add-error>
+        </if-compare>
+        
+        <check-errors />
+        
+        <set field="inputMap.productId" from-field="parameters.productId"/>
+        <set field="inputMap.facilityId" from-field="parameters.facilityId"/>
+        <set field="inputMap.lotId" from-field="parameters.lotId"/>
+        
+        <!-- Check the stock of this lot -->
+        <call-service service-name="getInventoryAvailableByFacility" in-map-name="inputMap">
+           <result-to-field field="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+           <result-to-field field="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
+        </call-service>
+        
+        <if>
+            <condition>
+                <if-compare-field operator="greater" field="parameters.quantity" to-field="availableToPromiseTotal" type="Integer"/>
+            </condition>
+            <then>
+                <add-error>
+                    <fail-property resource="ProductErrorUiLabels" property="PicklistManageStockLow"/>
+                </add-error>
+            </then>
+        </if>
+        
+        <check-errors />
+        
+           <!-- Retreive the informations about the OrderItemShipGrpInvRes of the edited PicklistItem -->
+           <entity-one value-field="oisgir" entity-name="OrderItemShipGrpInvRes">
+               <field-map from-field="parameters.orderId" field-name="orderId"/>
+               <field-map from-field="parameters.shipGroupSeqId" field-name="shipGroupSeqId"/>
+               <field-map from-field="parameters.orderItemSeqId" field-name="orderItemSeqId"/>
+               <field-map from-field="parameters.inventoryItemId" field-name="inventoryItemId"/>
+           </entity-one>
+           
+           <!-- We remove the edited PicklistItem ... -->
+           <remove-value value-field="picklistItem"/>
+           
+           <!-- ... and its OrderItemShipGrpInvRes -->
+           <set-service-fields map="parameters" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
+           <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
+           
+           <clear-field field="inputMap"/>
+           
+           <!-- We create new(s) OrderItemShipGrpInvRes with the new InventoryItem (with the specified lot) -->
+           <set from-field="parameters.orderId" field="inputMap.orderId"/>
+           <set from-field="parameters.shipGroupSeqId" field="inputMap.shipGroupSeqId"/>
+           <set from-field="parameters.orderItemSeqId" field="inputMap.orderItemSeqId"/>
+           <set from-field="parameters.productId" field="inputMap.productId"/>
+           <set from-field="parameters.quantity" field="inputMap.quantity"/>
+           <set from-field="parameters.facilityId" field="inputMap.facilityId" />
+           <set value="Y" field="inputMap.requireInventory"/>
+           <set from-field="oisgir.reserveOrderEnumId" field="inputMap.reserveOrderEnumId"/>
+           <set from-field="parameters.lotId" field="inputMap.lotId"/>
+           
+           <call-service service-name="reserveProductInventoryByFacility" in-map-name="inputMap" />
+           
+           <!-- If the new OrderItemShipGrpInvRes don't contains all of the item, we recreate OrderItemShipGrpInvRes
+               with the previous parameters -->
+           <if-compare-field operator="less" field="parameters.quantity" to-field="picklistItem.quantity" type="Integer">
+               <clear-field field="inputMap"/>
+               
+               <set from-field="parameters.orderId" field="inputMap.orderId"/>
+               <set from-field="parameters.shipGroupSeqId" field="inputMap.shipGroupSeqId"/>
+               <set from-field="parameters.orderItemSeqId" field="inputMap.orderItemSeqId"/>
+               <set from-field="parameters.productId" field="inputMap.productId"/>
+               <set from-field="parameters.facilityId" field="inputMap.facilityId" />
+               
+               <if-not-empty field="parameters.oldLotId">
+                   <set from-field="parameters.oldLotId" field="inputMap.lotId" />
+               </if-not-empty>
+               
+               <calculate field="quantity">
+                   <calcop operator="subtract" field="picklistItem.quantity">
+                       <calcop operator="get" field="parameters.quantity"/>
+                   </calcop>
+               </calculate>
+               
+               <set from-field="quantity" field="inputMap.quantity"/>
+               <set value="Y" field="inputMap.requireInventory"/>
+               <set from-field="oisgir.reserveOrderEnumId" field="inputMap.reserveOrderEnumId"/>
+               
+               <call-service service-name="reserveProductInventoryByFacility" in-map-name="inputMap"/>
+           </if-compare-field>
+           
+           <entity-condition list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+               <condition-list>
+                <condition-expr from-field="parameters.orderId" field-name="orderId" operator="equals"/>
+                <condition-expr from-field="parameters.shipGroupSeqId" field-name="shipGroupSeqId" operator="equals"/>
+                <condition-expr from-field="parameters.orderItemSeqId" field-name="orderItemSeqId" operator="equals"/>
+               </condition-list>
+           </entity-condition>
+           
+           <set from-field="picklistItem.picklistBinId" field="picklistBinId"/>
+           
+           <entity-condition list="picklistItemList" entity-name="PicklistItem">
+               <condition-list>
+                <condition-expr from-field="parameters.orderId" field-name="orderId" operator="equals"/>
+                <condition-expr from-field="parameters.shipGroupSeqId" field-name="shipGroupSeqId" operator="equals"/>
+                <condition-expr from-field="parameters.orderItemSeqId" field-name="orderItemSeqId" operator="equals"/>
+                <condition-expr from-field="picklistBinId" field-name="picklistBinId" operator="equals" />
+               </condition-list>
+           </entity-condition>
+           
+           <clear-field field="inputMap"/>
+           
+           <!-- We create the PicklistItem who correspond at the new(s) OrderItemShipGrpInvRes -->
+           <iterate entry="oisgir" list="oisgirs">
+               
+               <!-- actionOnPli can have 3 values :
+                   - new : the picklistItem has never existed and is created by this service
+                   - edit : the picklistItem exists but we need to modify its quantity
+                   - none : the picklistItem exists and this service haven't to touch at this one. -->
+               <set field="actionOnPli" value="new" />
+               
+               <if-not-empty field="oisgir.quantityNotAvailable">
+                   <calculate field="quantity">
+                       <calcop operator="subtract" field="oisgir.quantity">
+                           <calcop operator="get" field="oisgir.quantityNotAvailable"/>
+                       </calcop>
+                   </calculate>
+                   <else>
+                       <set field="quantity" from-field="oisgir.quantity"/>
+                   </else>
+               </if-not-empty>
+               
+               <iterate entry="pli" list="picklistItemList">
+                   <if-compare-field operator="equals" field="pli.inventoryItemId" to-field="oisgir.inventoryItemId">
+                       <if-compare-field operator="equals" field="pli.quantity" to-field="quantity">
+                           <set field="actionOnPli" value="none" />
+                           <else>
+                               <set field="actionOnPli" value="edit" />
+                               <set field="currentPli" value="pli"/>
+                           </else>
+                       </if-compare-field>
+                   </if-compare-field>
+               </iterate>
+               
+               <if-compare operator="equals" value="new" field="actionOnPli">
+                   
+                   <set from-field="oisgir.inventoryItemId" field="inputMap.inventoryItemId" />
+                   <set from-field="oisgir.orderId" field="inputMap.orderId" />
+                   <set from-field="oisgir.orderItemSeqId" field="inputMap.orderItemSeqId" />
+                   <set from-field="picklistBinId" field="inputMap.picklistBinId" />
+                   <set from-field="quantity" field="inputMap.quantity" />
+                   <set from-field="oisgir.shipGroupSeqId" field="inputMap.shipGroupSeqId" />
+                   
+                   <call-service service-name="createPicklistItem" in-map-name="inputMap" />
+               </if-compare>
+               
+               <if-compare operator="equals" value="edit" field="actionOnPli">
+                   <set from-field="oisgir.inventoryItemId" field="inputMap.inventoryItemId" />
+                   <set from-field="oisgir.orderId" field="inputMap.orderId" />
+                   <set from-field="oisgir.orderItemSeqId" field="inputMap.orderItemSeqId" />
+                   <set from-field="picklistBinId" field="inputMap.picklistBinId" />
+                   <set from-field="quantity" field="inputMap.quantity" />
+                   <set from-field="oisgir.shipGroupSeqId" field="inputMap.shipGroupSeqId" />
+                   
+                   <call-service service-name="updatePicklistItem" in-map-name="inputMap" />
+               </if-compare>
+           </iterate>
+        
+    </simple-method>
+    
     <simple-method method-name="setPicklistItemToComplete" short-description="Set the status of a pick list item to completed">
         <check-permission permission="FACILITY" action="_UPDATE">
             <fail-property resource="ProductUiLabels" property="ProductFacilityUpdatePermissionError"/>
@@ -1217,6 +1419,7 @@ under the License.
             <clear-field field="picklistBinInfo"/>
             <get-related-one value-field="picklistBin" relation-name="PrimaryOrderHeader" to-value-field="picklistBinInfo.primaryOrderHeader"/>
             <get-related-one value-field="picklistBin" relation-name="PrimaryOrderItemShipGroup" to-value-field="picklistBinInfo.primaryOrderItemShipGroup"/>
+            <get-related-one value-field="picklistBinInfo.primaryOrderHeader" relation-name="ProductStore" to-value-field="picklistBinInfo.productStore" />
 
             <clear-field field="picklistItemInfoList"/>
             <get-related value-field="picklistBin" relation-name="PicklistItem" list="picklistItemList" use-cache="true"/>

@@ -31,4 +31,19 @@ under the License.
     <Content contentId="IMAGEMANAGEMENT_MAIN" contentTypeId="DOCUMENT" contentName="Image Management" templateDataResourceId="HELP_TEMPL" dataResourceId="IMAGEMANAGEMENT_MAIN" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
     <ContentAssoc contentId="PRODCATALOG_main" contentIdTo="IMAGEMANAGEMENT_MAIN" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="01" mapKey="PRODUCT_Imagemanagement"/>
 
+    <!-- Facility help pages -->
+    <DataResource dataResourceId="HELP_FACILITY" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/product/data/helpdata/HELP_FACILITY.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="Help system Facility" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_FACILITY" contentTypeId="DOCUMENT" contentName="Facility" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_FACILITY" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_FACILITY" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="HELP_FACILITY_Tracking" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_FACILITY_Tracking.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Facility Tracking" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_FACILITY_Tracking" contentTypeId="DOCUMENT" localeString="en" contentName="Facility Tracking" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_FACILITY_Tracking" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_FACILITY" contentIdTo="HELP_FACILITY_Tracking" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="FACILITY_Tracking"/>
+    
+    <DataResource dataResourceId="HELP_FACILITY_PicklistManage" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/product/data/helpdata/HELP_FACILITY_PicklistManage.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system Facility PicklistManage" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_FACILITY_PicklistManage" contentTypeId="DOCUMENT" localeString="en" contentName="Facility PicklistManage" templateDataResourceId="HELP_TEMPL" dataResourceId="HELP_FACILITY_PicklistManage" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_FACILITY" contentIdTo="HELP_FACILITY_PicklistManage" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum="000" mapKey="FACILITY_PicklistManage"/>
 </entity-engine-xml>

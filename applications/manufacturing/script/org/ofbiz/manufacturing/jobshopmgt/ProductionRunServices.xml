@@ -105,6 +105,13 @@ under the License.
             <field-to-list field="orderByString" list="orderByList"/>
             <set from-field="productId" field="lookupFieldMap.productId"/>
             <set from-field="workEffort.facilityId" field="lookupFieldMap.facilityId"/>
+            
+            <!-- if lotId is passed, failIfItemsAreNotAvailable is set to automatically set to "Y" -->
+            <if-not-empty field="parameters.lotId">
+                <set field="parameters.failIfItemsAreNotAvailable" value="Y"/>
+                <set field="lookupFieldMap.lotId" from-field="parameters.lotId"/>
+            </if-not-empty>
+            
             <!-- if locationSeqId is passed, then only the inventory items in the location are considered -->
             <if-not-empty field="parameters.locationSeqId">
                 <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>

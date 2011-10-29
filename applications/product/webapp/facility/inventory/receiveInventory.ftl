@@ -38,6 +38,7 @@ under the License.
               <td>${uiLabelMap.ProductPo}</td>
               <td>${uiLabelMap.ProductLine}</td>
               <td>${uiLabelMap.ProductProductId}</td>
+              <td>${uiLabelMap.ProductLotId}</td>
               <td>${uiLabelMap.ProductPerUnitPrice}</td>
               <td>${uiLabelMap.CommonRejected}</td>
               <td>${uiLabelMap.CommonAccepted}</td>
@@ -55,6 +56,7 @@ under the License.
                   <td><a href="/ordermgr/control/orderview?orderId=${item.orderId}" class="buttontext">${item.orderId}</a></td>
                   <td>${item.orderItemSeqId}</td>
                   <td>${item.productId?default("Not Found")}</td>
+                  <td>${item.lotId?default("")}</td>
                   <td>${item.unitCost?default(0)?string("##0.00")}</td>
                   <td>${item.quantityRejected?default(0)?string.number}</td>
                   <td>${item.quantityAccepted?string.number}</td>
@@ -449,7 +451,17 @@ under the License.
                             <input type="text" name="quantityRejected_o_${rowCount}" value="0" size="6"/>
                           </td>
                           <tr>
-                            <td colspan="4" align="right">${uiLabelMap.OrderQtyOrdered} :</td>
+                            <td>&nbsp;</td>
+                            <#if !product.lotIdFilledIn?has_content || product.lotIdFilledIn != "Forbidden">
+                              <td align="right">${uiLabelMap.ProductLotId}</td>
+                              <td align="right">
+                                <input type="text" name="lotId_o_${rowCount}" size="20" />
+                              </td>
+                            <#else />
+                              <td align="right">&nbsp;</td>
+                              <td align="right">&nbsp;</td>
+                            </#if>
+                            <td align="right">${uiLabelMap.OrderQtyOrdered} :</td>
                             <td align="right">
                               <input type="text" class="inputBox" name="quantityOrdered" value="${orderItem.quantity}" size="6" maxlength="20" disabled="disabled" />
                             </td>
@@ -473,7 +485,7 @@ under the License.
                               ${currencyUomId?if_exists}
                             </td>
                           <#else>
-                            <td>${uiLabelMap.ProductPerUnitPrice}:</td>
+                            <td align="right">${uiLabelMap.ProductPerUnitPrice}:</td>
                             <td align="right">
                               <input type="hidden" name="currencyUomId_o_${rowCount}" value="${currencyUomId?if_exists}" />
                               <input type="text" name="unitCost_o_${rowCount}" value="${itemCost}" size="6" maxlength="20" />

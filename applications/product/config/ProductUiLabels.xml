@@ -24879,6 +24879,50 @@
         <value xml:lang="zh">警告：订单类型是</value>
         <value xml:lang="zh_TW">警告：訂單類型是</value>
     </property>
+    <property key="Tracking">
+        <value xml:lang="en">Tracking</value>
+        <value xml:lang="fr">TraÃƒÂ§abilitÃƒÂ©</value>
+    </property>
+    <property key="SearchTracking">
+        <value xml:lang="en">Search of a tracking</value>
+        <value xml:lang="fr">Recherche d'un suivi</value>
+    </property>
+    <property key="ResultTracking">
+        <value xml:lang="en">Search result</value>
+        <value xml:lang="fr">RÃƒÂ©sultat de la recherche</value>
+    </property>
+    <property key="TrackingType">
+        <value xml:lang="en">Type of tracking</value>
+        <value xml:lang="fr">Type de suivi</value>
+    </property>
+    <property key="TrackingTypeSale">
+        <value xml:lang="en">Sale</value>
+        <value xml:lang="fr">Vente</value>
+    </property>
+    <property key="TrackingTypeDownstream">
+        <value xml:lang="en">Downstream</value>
+        <value xml:lang="fr">Aval</value>
+    </property>
+    <property key="TrackingTypeUpstream">
+        <value xml:lang="en">Upstream</value>
+        <value xml:lang="fr">Amont</value>
+    </property>
+    <property key="lotIdFilledInForbidden">
+        <value xml:lang="en">Forbidden</value>
+        <value xml:lang="fr">Interdit</value>
+    </property>
+    <property key="lotIdFilledInAllowed">
+        <value xml:lang="en">Allowed</value>
+        <value xml:lang="fr">Facultatif</value>
+    </property>
+    <property key="lotIdFilledInMandatory">
+        <value xml:lang="en">Mandatory</value>
+        <value xml:lang="fr">Obligatoire</value>
+    </property>
+    <property key="ProductManagedByLot">
+        <value xml:lang="en">Lots managing</value>
+        <value xml:lang="fr">Gestion des lots</value>
+    </property>
     <property key="ProductWarningProductNotVirtual">
         <value xml:lang="en">This product is not a virtual product, variants will not generally be used.</value>
         <value xml:lang="es">Este producto no es virtual, generalmente no se usan variantes.</value>

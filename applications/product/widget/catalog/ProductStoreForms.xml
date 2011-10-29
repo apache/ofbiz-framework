@@ -237,6 +237,12 @@
             </drop-down>
         </field>
         <field name="oldStyleSheet"><hidden/></field>
+        <field name="managedByLot" title="${uiLabelMap.ProductManagedByLot}">
+            <drop-down allow-empty="false" no-current-selected-key="N">
+                <option key="Y" description="${uiLabelMap.CommonY}"/>
+                <option key="N" description="${uiLabelMap.CommonN}"/>
+            </drop-down>
+        </field>
         <field name="oldHeaderLogo"><hidden/></field>
         <field name="oldHeaderMiddleBackground"><hidden/></field>
         <field name="oldHeaderRightBackground"><hidden/></field>
@@ -330,7 +336,8 @@
                 <sort-field name="reserveInventory"/>
                 <sort-field name="reserveOrderEnumId"/>
                 <sort-field name="balanceResOnOrderCreation"/>
-                <sort-field name="showOutOfStockProducts"/>                                
+                <sort-field name="showOutOfStockProducts"/>   
+                <sort-field name="managedByLot"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
                 <sort-field name="viewCartOnAdd"/>
