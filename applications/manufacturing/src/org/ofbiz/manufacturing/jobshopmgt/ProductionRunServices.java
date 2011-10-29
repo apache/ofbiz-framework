@@ -1864,6 +1864,8 @@ public class ProductionRunServices {
         String currencyUomId = (String)context.get("currencyUomId");
         BigDecimal unitCost = (BigDecimal)context.get("unitCost");
         String inventoryItemTypeId = (String)context.get("inventoryItemTypeId");
+        String lotId = (String)context.get("lotId");
+        String isReturned = (String)context.get("isReturned");
 
         // The default is non-serialized inventory item
         if (UtilValidate.isEmpty(inventoryItemTypeId)) {
@@ -1890,7 +1892,9 @@ public class ProductionRunServices {
                         serviceContext.put("unitCost", unitCost);
                         serviceContext.put("currencyUomId", currencyUomId);
                     }
+                    serviceContext.put("lotId",    lotId);
                     serviceContext.put("userLogin", userLogin);
+                    serviceContext.put("isReturned", isReturned);
                     Map<String, Object> resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                     String inventoryItemId = (String)resultService.get("inventoryItemId");
                     serviceContext.clear();
@@ -1926,7 +1930,9 @@ public class ProductionRunServices {
                     serviceContext.put("unitCost", unitCost);
                     serviceContext.put("currencyUomId", currencyUomId);
                 }
+                serviceContext.put("lotId", lotId);
                 serviceContext.put("userLogin", userLogin);
+                serviceContext.put("isReturned", isReturned);
                 Map<String, Object> resultService = dispatcher.runSync("createInventoryItem", serviceContext);
                 String inventoryItemId = (String)resultService.get("inventoryItemId");
 
@@ -1965,6 +1971,7 @@ public class ProductionRunServices {
         String productId = (String)context.get("productId");
         // Optional input fields
         BigDecimal quantity = (BigDecimal)context.get("quantity");
+        String lotId = (String)context.get("lotId");
         Locale locale = (Locale) context.get("locale");
         if (quantity == null || quantity.compareTo(ZERO) == 0) {
             return ServiceUtil.returnSuccess();
@@ -2009,7 +2016,7 @@ public class ProductionRunServices {
         try {
             Map<String, Object> inventoryResult = dispatcher.runSync("productionRunTaskProduce", 
                     UtilMisc.<String, Object>toMap("workEffortId", productionRunTaskId,
-                            "productId", productId, "quantity", quantity,
+                            "productId", productId, "quantity", quantity, "lotId", lotId, "isReturned", "Y",
                             "inventoryItemTypeId", inventoryItemTypeId, "userLogin", userLogin));
             if (ServiceUtil.isError(inventoryResult)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskProduceError" + ServiceUtil.getErrorMessage(inventoryResult), locale));

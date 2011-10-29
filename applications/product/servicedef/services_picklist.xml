@@ -163,6 +163,16 @@ under the License.
         <description>Delete PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    <service name="editPicklistItem" default-entity-name="PicklistItem" engine="simple"
+            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="editPicklistItem" auth="true">
+        <description>Edit PicklistItem</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="lotId" mode="IN" type="String" optional="false" />
+        <attribute name="quantity" mode="IN" type="BigDecimal" optional="false" />
+        <attribute name="productId" mode="IN" type="String" optional="false" />
+        <attribute name="facilityId" mode="IN" type="String" optional="false" />
+        <attribute name="oldLotId" mode="IN" type="String" optional="true" />
+    </service>
     <service name="setPicklistItemToComplete" default-entity-name="PicklistItem" engine="simple"
             location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="setPicklistItemToComplete" auth="true">
         <description>Update PicklistItem's Status to COMPLETE</description>

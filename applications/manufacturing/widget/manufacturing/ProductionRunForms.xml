@@ -434,6 +434,9 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="lotId">
+            <text />
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="ListReturnProductionRunDeclComponents" type="multi" use-row-submit="true" target="productionRunTaskReturnMaterials?productionRunId=${productionRunId}" title="" list-name="productionRunComponentsAlreadyIssued"
@@ -451,6 +454,7 @@ under the License.
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
         <field name="returnedQuantity" title="${uiLabelMap.ManufacturingReturnedQuantity}"><display also-hidden="false"/></field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><text /></field>
         <field name="quantity" title="${uiLabelMap.CommonQuantity}"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
@@ -541,6 +545,9 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()==0}"><lookup target-form-name="LookupProduct"/></field>
         <field name="quantity" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
             <text/>
+        </field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}">
+            <text />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}">
             <submit button-type="button"/>
@@ -965,6 +972,9 @@ under the License.
         </field>
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
+        </field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}">
+            <text />
         </field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">

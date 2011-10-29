@@ -123,6 +123,14 @@ under the License.
         </field>
         <field name="inventoryMessage" title="${uiLabelMap.ProductInventoryMessage}"><text size="20" maxlength="255"/></field>
 
+        <field name="lotIdFilledIn" title="${uiLabelMap.ProductLotId}">
+            <drop-down allow-empty="false">
+                <option key="Allowed" description="${uiLabelMap.lotIdFilledInAllowed}"/>
+                <option key="Mandatory" description="${uiLabelMap.lotIdFilledInMandatory}"/>
+                <option key="Forbidden" description="${uiLabelMap.lotIdFilledInForbidden}"/>
+            </drop-down>
+        </field>
+
         <field position="1" name="ratingTypeEnum" title="${uiLabelMap.ProductRatingTypeEnum}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
@@ -290,6 +298,7 @@ under the License.
                 <sort-field name="requirementMethodEnumId"/>
                 <sort-field name="requireInventory"/>
                 <sort-field name="inventoryMessage"/>
+                <sort-field name="lotIdFilledIn"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonRate}" collapsible="true" initially-collapsed="true">
                 <sort-field name="ratingTypeEnum"/>

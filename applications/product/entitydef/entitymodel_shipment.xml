@@ -436,6 +436,7 @@ under the License.
       <alias entity-alias="II" name="quantityOnHandTotal"/>
       <alias entity-alias="II" name="availableToPromiseTotal"/>
       <alias entity-alias="II" name="unitCost"/>
+      <alias entity-alias="II" name="lotId"/>
       <view-link entity-alias="SR" rel-entity-alias="II">
         <key-map field-name="inventoryItemId"/>
       </view-link>

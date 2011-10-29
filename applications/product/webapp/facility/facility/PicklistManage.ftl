@@ -173,6 +173,56 @@ under the License.
                                 </#list>
                                 </table>
                             </div>
+                            <#if picklistBinInfo.productStore.managedByLot?exists && picklistBinInfo.productStore.managedByLot = "Y">
+                              <div style="margin-left: 30px;">
+                                <table class="basic-table" cellspacing="0">
+                                  <tr class="header-row"
+                                    <td>${uiLabelMap.ProductOrderId}</td>
+                                    <td>${uiLabelMap.ProductOrderShipGroupId}</td>
+                                    <td>${uiLabelMap.ProductOrderItem}</td>
+                                    <td>${uiLabelMap.ProductProduct}</td>
+                                    <td>${uiLabelMap.ProductInventoryItem}</td>
+                                    <td>${uiLabelMap.ProductLotId}</td>
+                                    <td>${uiLabelMap.ProductQuantity}</td>
+                                    <td>&nbsp;</td>
+                                    </tr>
+                                    <#assign alt_row = false>
+                                    <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
+                                      <#assign picklistItem = picklistItemInfo.picklistItem>
+                                      <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
+                                      <#if !picklistItemInfo.product.lotIdFilledIn?has_content || picklistItemInfo.product.lotIdFilledIn != "Forbidden">
+                                        <form name="editPicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${picklistItemInfo_index}" method="post" action="<@ofbizUrl>editPicklistItem</@ofbizUrl>">
+                                          <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
+                                            <td>${picklistItem.orderId}</td>
+                                            <td>${picklistItem.shipGroupSeqId}</td>
+                                            <td>${picklistItem.orderItemSeqId}</td>
+                                            <td>${picklistItemInfo.orderItem.productId}<#if picklistItemInfo.orderItem.productId != inventoryItemAndLocation.productId>&nbsp;[${inventoryItemAndLocation.productId}]</#if></td>
+                                            <td>${inventoryItemAndLocation.inventoryItemId}</td>
+                                            <td><input type="text" name="lotId" <#if inventoryItemAndLocation.lotId?has_content>value="${inventoryItemAndLocation.lotId}"</#if> /></td>
+                                            <td><input type="text" name="quantity" value="${picklistItem.quantity}" /></td>
+                                            <td>
+                                              <input type="hidden" name="picklistBinId" value="${picklistItemInfo.picklistItem.picklistBinId}"/>
+                                              <input type="hidden" name="orderId" value= "${picklistItemInfo.picklistItem.orderId}"/>
+                                              <input type="hidden" name="orderItemSeqId" value="${picklistItemInfo.picklistItem.orderItemSeqId}"/>
+                                              <input type="hidden" name="shipGroupSeqId" value="${picklistItemInfo.picklistItem.shipGroupSeqId}"/>
+                                              <input type="hidden" name="inventoryItemId" value="${picklistItemInfo.picklistItem.inventoryItemId}"/>
+                                              <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                                              <input type="hidden" name="productId" value="${picklistItemInfo.orderItem.productId}" />
+                                              <#if inventoryItemAndLocation.lotId?has_content>
+                                              <input type="hidden" name="oldLotId" value="${inventoryItemAndLocation.lotId}" />
+                                              </#if>
+                                              <a href='javascript:document.editPicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${picklistItemInfo_index}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonEdit}&nbsp;</a>
+                                            </td>
+                                          </tr>
+                                        </form>
+                                        <#-- toggle the row color -->
+                                        <#assign alt_row = !alt_row>
+                                      </#if>
+                                    </#list>
+                                </table>
+                              </div>
+                            </#if>
+                            </#if>
                         </#if>
                     </#if>
                 </#list>
