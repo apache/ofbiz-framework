@@ -20,7 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AP">
         <value xml:lang="en">AP</value>
-        <value xml:lang="es">CC.P.</value>
+        <value xml:lang="es">Compras</value>
         <value xml:lang="fr">Cpt. fourn.</value>
         <value xml:lang="hi_IN">लेखा देय</value>
         <value xml:lang="it">AP</value>
@@ -32,7 +32,7 @@
     <property key="AR">
         <value xml:lang="de">Forderungen</value>
         <value xml:lang="en">AR</value>
-        <value xml:lang="es">CC.C.</value>
+        <value xml:lang="es">Ventas</value>
         <value xml:lang="fr">Cpt. clients</value>
         <value xml:lang="hi_IN">लेखा प्राप्य</value>
         <value xml:lang="it">AR</value>
@@ -115,6 +115,7 @@
     </property>
     <property key="CommonAbort">
         <value xml:lang="en">Abort</value>
+        <value xml:lang="es">Cancelar</value>
     </property>
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
@@ -221,12 +222,14 @@
     </property>
     <property key="CommonAddAColumnToThisPortalPage">
         <value xml:lang="en">Add a new column to this portal</value>
+        <value xml:lang="es">Añadir nueva columna a este portal</value>
         <value xml:lang="fr">Ajouter une nouvelle colonne à ce portail</value>
         <value xml:lang="it">Aggiunge una nuova colonna a questa pagina</value>
         <value xml:lang="pt_BR">Adicionar uma nova coluna neste portal</value>
     </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
+        <value xml:lang="es">Añadir un portlet...</value>
         <value xml:lang="fr">Ajouter un portlet...</value>
         <value xml:lang="hi_IN">एक Portlet जोड़ें...</value>
         <value xml:lang="it">Aggiungi un portlet...</value>
@@ -237,6 +240,7 @@
     </property>
     <property key="CommonAddColumn">
         <value xml:lang="en">Add Column</value>
+        <value xml:lang="es">Añadir columna</value>
         <value xml:lang="fr">Ajouter une colonne</value>
         <value xml:lang="hi_IN">कॉलम जोड़ें</value>
         <value xml:lang="it">Aggiungi una colonna</value>
@@ -302,6 +306,7 @@
     </property>
     <property key="CommonAddPortletToPage">
         <value xml:lang="en">Add a portlet to portal page</value>
+        <value xml:lang="es">Añadir un portlet a la página</value>
         <value xml:lang="fr">Ajouter une portlet à la page</value>
         <value xml:lang="it">Aggiunge un portlet in questa colonna</value>
         <value xml:lang="pt_BR">Adicionar um portlet à página do portal</value>
@@ -378,6 +383,7 @@
     <property key="CommonAddressNotFound">
         <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
         <value xml:lang="en">Address not found.</value>
+        <value xml:lang="es">Dirección no encontrada.</value>
     </property>
     <property key="CommonAddresses">
         <value xml:lang="ar">عناوين</value>
@@ -398,6 +404,7 @@
     </property>
     <property key="CommonAdvancedFeatures">
         <value xml:lang="en">Advanced Features</value>
+        <value xml:lang="en">Características avanzadas</value>
         <value xml:lang="fr">Caractéristiques avancées</value>
         <value xml:lang="hi_IN">उन्नत सुविधाएँ</value>
         <value xml:lang="it">Caratteristiche avanzate</value>
@@ -529,7 +536,7 @@
         <value xml:lang="cs">a</value>
         <value xml:lang="de">und</value>
         <value xml:lang="en">And</value>
-        <value xml:lang="es">y</value>
+        <value xml:lang="es">Y</value>
         <value xml:lang="fr">et</value>
         <value xml:lang="hi_IN">और</value>
         <value xml:lang="it">e</value>
@@ -863,9 +870,11 @@
     </property>
     <property key="CommonAuthenticate">
         <value xml:lang="en">Authenticate</value>
+        <value xml:lang="es">Autentificar</value>
     </property>
     <property key="CommonAuthorise">
         <value xml:lang="en">Authorise</value>
+        <value xml:lang="es">Autorizar</value>
     </property>
     <property key="CommonAutoAssignedId">
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
@@ -897,6 +906,7 @@
     </property>
     <property key="CommonAvailablePortlets">
         <value xml:lang="en">Available Portlets</value>
+        <value xml:lang="es">Portlets disponibles</value>
         <value xml:lang="it">Portlet disponibili</value>
         <value xml:lang="pt_BR">Portlets Disponíveis</value>
     </property>
@@ -1082,18 +1092,22 @@
     </property>
     <property key="CommonCDyneAddressError">
         <value xml:lang="en">Got AddressError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
+        <value xml:lang="es">Se obtuvo AddressError=true del servicio CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="it">Ottenuto AddressError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
     </property>
     <property key="CommonCDyneCallingError">
         <value xml:lang="en">Error calling CDyne service at URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="es">Error al llamar al servicio CDyne en la URL ${serviceUrl}: ${errorString}</value>
         <value xml:lang="it">Errore durante la chiamata del servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
     </property>
     <property key="CommonCDyneParsingError">
         <value xml:lang="en">Error parsing XML result from CDyne service at URL ${serviceUrl}: ${errorString}</value>
+        <value xml:lang="es">Error al analizar el XML devuelto por el servicio CDyne en la URL ${serviceUrl}: ${errorString}</value>
         <value xml:lang="it">Errore di parsing XML risposta dal servizio CDyne dell'URL ${serviceUrl}: ${errorString})</value>
     </property>
     <property key="CommonCDyneServiceError">
         <value xml:lang="en">Got ServiceError=true from CDyne ReturnCityState service; zipcode=${zipcode}</value>
+        <value xml:lang="es">Se obtuvo ServiceError=true del servicio CDyne ReturnCityState; zipcode=${zipcode}</value>
         <value xml:lang="it">Ottenuto ServiceError=true dal servizio CDyne ReturnCityState; zipcode=${zipcode}</value>
     </property>
     <property key="CommonCancel">
@@ -1180,6 +1194,7 @@
     </property>
     <property key="CommonCaptchaCode">
         <value xml:lang="en">Captcha Code</value>
+        <value xml:lang="es">Código captcha</value>
         <value xml:lang="pt_BR">Código Captcha</value>
     </property>
     <property key="CommonChange">
@@ -1202,6 +1217,7 @@
     <property key="CommonCharactorsLeft">
         <value xml:lang="de">Zeichen übrig.</value>
         <value xml:lang="en">charactors left.</value>
+        <value xml:lang="es">caracteres restantes.</value>
         <value xml:lang="pt_BR">Caracteres sobrando.</value>
     </property>
     <property key="CommonChart">
@@ -1368,6 +1384,7 @@
     </property>
     <property key="CommonClearCurrent">
         <value xml:lang="en">Clear Current</value>
+        <value xml:lang="es">Limpiar actual</value>
         <value xml:lang="fr">Vider l'en cours</value>
         <value xml:lang="hi_IN">वर्तमान को साफ़ करें</value>
         <value xml:lang="it">Pulisci attuale</value>
@@ -1397,6 +1414,7 @@
     </property>
     <property key="CommonClickHereForFieldLookup">
         <value xml:lang="en">Click here For Field Lookup</value>
+        <value xml:lang="es">Haga click aquí para buscar por el campo</value>
         <value xml:lang="fr">Cliquez ici pour une recherche sur ce champ</value>
         <value xml:lang="hi_IN">फील्ड लुकअप के लिए यहाँ क्लिक करें</value>
         <value xml:lang="it">Clicca qui per la ricerca sul campo</value>
@@ -1451,7 +1469,7 @@
     </property>
     <property key="CommonCollapseAll">
         <value xml:lang="en">Collapse all</value>
-        <value xml:lang="es">Colapsar</value>
+        <value xml:lang="es">Colapsar todo</value>
         <value xml:lang="fr">Tout replier</value>
         <value xml:lang="hi_IN">सभी को संक्षिप्त करें</value>
         <value xml:lang="it">Collassato</value>
@@ -1552,6 +1570,7 @@
     </property>
     <property key="CommonConfigure">
         <value xml:lang="en">Configure:</value>
+        <value xml:lang="es">Configurar:</value>
         <value xml:lang="fr">Configurer:</value>
         <value xml:lang="hi_IN">कॉन्फ़िगर:</value>
         <value xml:lang="it">Configura:</value>
@@ -1561,6 +1580,7 @@
     </property>
     <property key="CommonConfirm">
         <value xml:lang="en">Do you confirm ?</value>
+        <value xml:lang="es">¿Está seguro?</value>
         <value xml:lang="fr">Vous confirmez ?</value>
         <value xml:lang="it">Confermi ?</value>
         <value xml:lang="pt_BR">Você confirma?</value>
@@ -1724,6 +1744,7 @@
     </property>
     <property key="CommonCopyright">
         <value xml:lang="en">Copyright</value>
+        <value xml:lang="es">Copyright</value>
         <value xml:lang="fr">Droit d'auteur</value>
         <value xml:lang="hi_IN">कॉपीराइट</value>
         <value xml:lang="it">Copyright</value>
@@ -1967,6 +1988,7 @@
     </property>
     <property key="CommonDashboard">
         <value xml:lang="en">Dashboard</value>
+        <value xml:lang="es">Panel de control</value>
         <value xml:lang="fr">Tableau de bord</value>
         <value xml:lang="hi_IN">डैशबोर्ड</value>
         <value xml:lang="it">Cruscotto</value>
@@ -2029,6 +2051,7 @@
     </property>
     <property key="CommonDates">
         <value xml:lang="en">Dates</value>
+        <value xml:lang="es">Fechas</value>
         <value xml:lang="fr">Dates</value>
         <value xml:lang="hi_IN">तिथियाँ</value>
         <value xml:lang="it">Date</value>
@@ -2073,6 +2096,7 @@
     </property>
     <property key="CommonDeactivate">
         <value xml:lang="en">Deactivate, set thruDate to Now</value>
+        <value xml:lang="en">Desactivar, establecer fecha actual como fecha final</value>
         <value xml:lang="fr">Désactiver, mettre la date du jour comme date de fin</value>
         <value xml:lang="pt_BR">Desativar, para definir thruDate para agora</value>
     </property>
@@ -2080,7 +2104,7 @@
         <value xml:lang="ar">دين</value>
         <value xml:lang="de">Belastung</value>
         <value xml:lang="en">Debit</value>
-        <value xml:lang="es">Debe</value>
+        <value xml:lang="es">Débito</value>
         <value xml:lang="fr">Débit</value>
         <value xml:lang="hi_IN">नामे</value>
         <value xml:lang="it">Debito</value>
@@ -2112,6 +2136,7 @@
     </property>
     <property key="CommonDefaultOrganizationPartyId">
         <value xml:lang="en">Default Organization</value>
+        <value xml:lang="es">Organización por defecto</value>
         <value xml:lang="fr">Organisation utilisée par défault</value>
         <value xml:lang="hi_IN">डिफ़ॉल्ट संगठन</value>
         <value xml:lang="it">Organizzazione di default</value>
@@ -2161,18 +2186,21 @@
     </property>
     <property key="CommonDeleteColumn">
         <value xml:lang="en">Delete Column</value>
+        <value xml:lang="es">Eliminar columna</value>
         <value xml:lang="fr">Supprimer la colonne</value>
         <value xml:lang="it">Elimina colonna</value>
         <value xml:lang="pt_BR">Excluir Coluna</value>
     </property>
     <property key="CommonDeleteThisColumn">
         <value xml:lang="en">Delete this column</value>
+        <value xml:lang="es">Eliminar esta columna</value>
         <value xml:lang="fr">Supprimer cette colonne</value>
         <value xml:lang="it">Elimina questa colonna</value>
         <value xml:lang="pt_BR">Apagar esta coluna</value>
     </property>
     <property key="CommonDeleteThisPortlet">
         <value xml:lang="en">Delete this portlet</value>
+        <value xml:lang="es">Eliminar este portlet</value>
         <value xml:lang="fr">Supprimer cette portlet</value>
         <value xml:lang="it">Elimina questo portlet</value>
         <value xml:lang="pt_BR">Excluir este portlet</value>
@@ -2250,6 +2278,7 @@
     </property>
     <property key="CommonDimension">
         <value xml:lang="en">Dimension</value>
+        <value xml:lang="es">Dimensión</value>
         <value xml:lang="fr">Dimension</value>
         <value xml:lang="hi_IN">आयाम</value>
         <value xml:lang="it">Dimensione</value>
@@ -2318,6 +2347,7 @@
     <property key="CommonDownloaded">
         <value xml:lang="de">Daten empfangen.</value>
         <value xml:lang="en">Downloaded.</value>
+        <value xml:lang="es">Descargado.</value>
         <value xml:lang="pt_BR">Transferido.</value>
     </property>
     <property key="CommonDuplicate">
@@ -2357,6 +2387,7 @@
     </property>
     <property key="CommonEditPortletAttributes">
         <value xml:lang="en">Edit Attributes for Portlet</value>
+        <value xml:lang="en">Modificar atributos del portlet</value>
         <value xml:lang="fr">Modifier les attributs du portlet </value>
         <value xml:lang="hi_IN">Portlet के गुण संपादित करें</value>
         <value xml:lang="it">Modifica attributi portlet</value>
@@ -2383,6 +2414,7 @@
     </property>
     <property key="CommonElevation">
         <value xml:lang="en">Elevation: </value>
+        <value xml:lang="es">Elevación: </value>
         <value xml:lang="fr">Altitude/Hauteur :</value>
         <value xml:lang="hi_IN">ऊंचाई: </value>
         <value xml:lang="it">Altitudine: </value>
@@ -2408,18 +2440,22 @@
     </property>
     <property key="CommonEmailAlreadyExist">
         <value xml:lang="en">Email already exist</value>
+        <value xml:lang="es">Correo electrónico ya existe</value>
         <value xml:lang="pt_BR">E-mail já existe</value>
     </property>
     <property key="CommonEmailDeliveryFailed">
+        <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
     </property>
     <property key="CommonEmailDeliveryOriginalMessage">
         <value xml:lang="en">----- Original message -----</value>
+        <value xml:lang="es">----- Mensaje original -----</value>
         <value xml:lang="it">----- messaggio originale -----</value>
     </property>
     <property key="CommonEmailNotValid">
         <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
+        <value xml:lang="es">Id de participante: ${parameters.partyIdTo} no tiene dirección de correo electrónico válida!</value>
         <value xml:lang="it">Id soggetto: ${parameters.partyIdTo} non ha un'indirizzo e-mail valido!</value>
         <value xml:lang="pt_BR">ID de Participante (PartyId): ${parameters.partyIdTo} não tem endereço de email válido!</value>
     </property>
@@ -2444,50 +2480,62 @@
     </property>
     <property key="CommonEmailSendAddressError">
         <value xml:lang="en">[ADDRERR] Address error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="es">[ADDRERR] Error en la dirección al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
         <value xml:lang="it">[ADDRERR] Errore indirizzo durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
     <property key="CommonEmailSendConnectionError">
         <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="es">[CON] Error de conexión al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
         <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
     <property key="CommonEmailSendError">
         <value xml:lang="en">Error send email: ${errorString}</value>
+        <value xml:lang="es">Error enviando correo electrónico: ${errorString}</value>
         <value xml:lang="it">Errore invio email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendGettingError">
         <value xml:lang="en">Error getting content: ${errorString}</value>
+        <value xml:lang="es">Error obteniendo contenido: ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
     </property>
     <property key="CommonEmailSendIOException">
         <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="es">IOException creando el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
         <value xml:lang="it">IOException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
     <property key="CommonEmailSendMalformedUrl">
         <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
+        <value xml:lang="es">URL mal formada: ${bodyUrl}; el error fue: ${errorString}</value>
         <value xml:lang="it">URL malformato : ${bodyUrl}; errore era: ${errorString}</value>
     </property>
     <property key="CommonEmailSendMessagingException">
         <value xml:lang="en">MessagingException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
+        <value xml:lang="es">MessagingException creando el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
         <value xml:lang="it">MessagingException durante la creazione del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
     </property>
     <property key="CommonEmailSendMissingParameterSendVia">
         <value xml:lang="en">Parameter sendVia is required when sendType is not mail.smtp.host</value>
+        <value xml:lang="es">El parámetro sendVia debe indicarse cuando sendType no es mail.smtp.host</value>
         <value xml:lang="it">Parametro sendVia è richiesto quando sendType non è mail.smtp.host</value>
     </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
         <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
+        <value xml:lang="es">Error componiendo pantalla para el correo electrónico: ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione videata per email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendRenderingScreenPdfError">
         <value xml:lang="en">Error rendering PDF attachment for email: ${errorString}</value>
+        <value xml:lang="es">Error componiendo el PDF para adjuntar por correo electrónico: ${errorString}</value>
         <value xml:lang="it">Errore di visualizzazione allegato PDF per email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendUndeliveredMail">
         <value xml:lang="en">Undelivered Mail Returned to Sender</value>
+        <value xml:lang="es">Correo electrónico que no puede ser entregado devuelto al remitente</value>
         <value xml:lang="it">Mail non consegnabile restituita a colui che l'ha inviata</value>
     </property>
     <property key="CommonEmailShouldBeSpecified">
         <value xml:lang="en">PartyId or Email Address (sendTo) should be specified!</value>
+        <value xml:lang="es">Debe especificarse el código de participante o la dirección de correo electrónico de destino!</value>
         <value xml:lang="it">Id soggetto o indirizzo e-mail (inviare a) deve essere specificato!</value>
         <value xml:lang="pt_BR">ID de participante (PartyId) ou E-mail (SendTo) deve ser especificado!</value>
     </property>
@@ -2551,6 +2599,7 @@
     </property>
     <property key="CommonEnable">
         <value xml:lang="en">Enable</value>
+        <value xml:lang="es">Habilitar</value>
         <value xml:lang="th">เปิดใช้งาน</value>
     </property>
     <property key="CommonEnabled">
@@ -2610,7 +2659,7 @@
     <property key="CommonEntityChildren">
         <value xml:lang="ar">الفروع</value>
         <value xml:lang="en">Children</value>
-        <value xml:lang="es">Niños</value>
+        <value xml:lang="es">Hijos</value>
         <value xml:lang="fr">Descendant</value>
         <value xml:lang="hi_IN">निचले स्तर पर(Children)</value>
         <value xml:lang="it">Figli</value>
@@ -2623,6 +2672,7 @@
     </property>
     <property key="CommonEntityTestFailure">
         <value xml:lang="en">Unable to create test entity</value>
+        <value xml:lang="es">No se puede crear la entidad de prueba</value>
         <value xml:lang="it">Non è possibile creare un test entità</value>
     </property>
     <property key="CommonEntries">
@@ -2722,6 +2772,7 @@
     </property>
     <property key="CommonErrorStatusNotValid">
         <value xml:lang="en">Error: status of ${entity} is not valid, it is: ${lookedUpValue.statusId} but should be: ${goodStatusId}.</value>
+        <value xml:lang="es">Error: el estado de ${entity} no es válido, es: ${lookedUpValue.statusId} pero debería ser: ${goodStatusId}.</value>
         <value xml:lang="fr">Erreur: le status de ${entity} n'est pas valide : ${lookedUpValue.statusId} devrait être ${goodStatusId}.</value>
         <value xml:lang="hi_IN">त्रुटि: ${entity} की स्थिति मान्य नहीं है, यह : ${lookedUpValue.statusId} है पर होना : ${goodStatusId} चाहिए</value>
         <value xml:lang="it">Errore: stato di ${entity} non èp valido, questo è: ${lookedUpValue.statusId} ma dovrebbe essere: ${goodStatusId}.</value>
@@ -2732,6 +2783,7 @@
     <property key="CommonErrorSubmittingForm">
         <value xml:lang="de">Ein Fehler beim abschicken der Form ist aufgetreten.</value>
         <value xml:lang="en">An error occurred submitting form.</value>
+        <value xml:lang="es">Ocurrió un error enviando el formulario.</value>
     </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
@@ -2915,37 +2967,44 @@
     </property>
     <property key="CommonExtHelpDefinition">
         <value xml:lang="en">Definition, what is it?</value>
+        <value xml:lang="es">Definición, ¿qué és?</value>
         <value xml:lang="it">Definizione, che cose'è ?</value>
         <value xml:lang="pt_BR">Definição, o que é isso?</value>
     </property>
     <property key="CommonExtHelpOnScreen">
         <value xml:lang="en">What's on the screen?</value>
+        <value xml:lang="es">¿Qué hay en la plantalla?</value>
         <value xml:lang="it">Che cosa ci sarà in questa videata ?</value>
         <value xml:lang="pt_BR">O que está na tela?</value>
     </property>
     <property key="CommonExtHelpTitle">
         <value xml:lang="en">Help screen.</value>
+        <value xml:lang="es">Pantalla de ayuda.</value>
         <value xml:lang="fr">Ecran d'aide</value>
         <value xml:lang="it">Videata di aiuto.</value>
         <value xml:lang="pt_BR">Tela de Ajuda.</value>
     </property>
     <property key="CommonExtHelpUsedFor">
         <value xml:lang="en">What is it used for?</value>
+        <value xml:lang="es">¿Para qué se usa?</value>
         <value xml:lang="it">Per cosa verrà usato ?</value>
         <value xml:lang="pt_BR">Para que é usado?</value>
     </property>
     <property key="CommonExtIndex">
         <value xml:lang="en">Index</value>
+        <value xml:lang="es">Índice</value>
         <value xml:lang="it">Indice</value>
         <value xml:lang="pt_BR">Índice</value>
         <value xml:lang="zh_TW">索引</value>
     </property>
     <property key="CommonExternalDevice">
         <value xml:lang="en">External Device</value>
+        <value xml:lang="es">Dispositivo externo</value>
         <value xml:lang="fr">Mat. externe</value>
     </property>
     <property key="CommonExternalDeviceUserAction">
         <value xml:lang="en">External Device User Action</value>
+        <value xml:lang="es">Acción del usuario del dispositivo externo</value>
         <value xml:lang="fr">Assoc Action/Utilisateur avec Mat. externe</value>
     </property>
     <property key="CommonFalse">
@@ -3044,6 +3103,7 @@
     <property key="CommonFinAccounts">
         <value xml:lang="de">Finanzkonti</value>
         <value xml:lang="en">Fin Accts</value>
+        <value xml:lang="es">Cuentas financieras</value>
         <value xml:lang="fr">Comptes financiers</value>
         <value xml:lang="hi_IN">वित्तीय लेखा</value>
         <value xml:lang="it">Conti finanziari</value>
@@ -3108,14 +3168,17 @@
     </property>
     <property key="CommonFindErrorPreparingConditions">
         <value xml:lang="en">Error preparing conditions: ${errorString}</value>
+        <value xml:lang="es">Error preparando las condiciones: ${errorString}</value>
         <value xml:lang="it">Errore duranta la preparazione delle condizioni di ricerca: ${errorString}</value>
     </property>
     <property key="CommonFindErrorRetrieveIterator">
         <value xml:lang="en">Error finding iterator: ${errorString}</value>
+        <value xml:lang="es">Error buscando iterador: ${errorString}</value>
         <value xml:lang="it">Errore duranta la ricerca, iterator non restituito: ${errorString}</value>
     </property>
     <property key="CommonFindErrorRunning">
         <value xml:lang="en">Error running Find on the ${entityName} entity: ${errorString}</value>
+        <value xml:lang="es">Error buscando en la entidad ${entityName}: ${errorString}</value>
         <value xml:lang="it">Errore duranta la ricerca sull'entità ${entityName}: ${errorString}</value>
     </property>
     <property key="CommonFinishDate">
@@ -3139,6 +3202,7 @@
     <property key="CommonFirst">
         <value xml:lang="de">Erster</value>
         <value xml:lang="en">First</value>
+        <value xml:lang="es">Primero</value>
         <value xml:lang="fr">Premier</value>
         <value xml:lang="hi_IN">प्रथम</value>
         <value xml:lang="it">Primo</value>
@@ -3222,7 +3286,7 @@
     <property key="CommonFormatDate">
         <value xml:lang="ar">النمط: ي ي-ش ش-ع ع ع ع</value>
         <value xml:lang="en">Format: yyyy-MM-dd</value>
-        <value xml:lang="es">Formato: aaaa-MM-dd (año-mes-día)</value>
+        <value xml:lang="es">Formato: dd/mm/aaaa</value>
         <value xml:lang="fr">Format: JJ/MM/AAAA</value>
         <value xml:lang="hi_IN">प्रारूप: yyyy-MM-dd</value>
         <value xml:lang="it">Formato: AAAA-MM-gg</value>
@@ -3237,7 +3301,7 @@
         <value xml:lang="ar">أحد حقول التاريخ خاطئ, النمط يجت أن يكون  ي ي-ش ش-ع ع ع ع    س س:د د:ث ث:</value>
         <value xml:lang="de">Der Inhalt eines Datumfeldes ist fehlerhaft. Das Eingabeformat lautet tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">One of the date fields is incorrect, format must be yyyy-MM-dd HH:mm:ss.SSS</value>
-        <value xml:lang="es">Uno de los campos de fecha es incorrecto; el formato debe ser AAA-mm-dd HH:mm:ss</value>
+        <value xml:lang="es">Uno de los campos de fecha es incorrecto; el formato debe ser dd/mm/aaaa hh:mm:ss</value>
         <value xml:lang="fr">La saisie d'un champ de date est incorrecte, le format doit-être JJ/MM/AAAA hh:mm:ss</value>
         <value xml:lang="hi_IN">एक दिनांक क्षेत्र गलत है, प्रारूप yyyy-MM-dd HH: mm: ss.SSS होना चाहिए</value>
         <value xml:lang="it">Uno dei campi data non è corretto, il formato deve essere AAAA-mm-gg HH:mm:ss</value>
@@ -3255,7 +3319,7 @@
         <value xml:lang="ar">النمط: ي ي-ش ش-ع ع ع ع  س س:د د:ث ث</value>
         <value xml:lang="de">tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">Format: yyyy-MM-dd HH:mm:ss.SSS</value>
-        <value xml:lang="es">AAAA-MM-DD hh:mm:ss</value>
+        <value xml:lang="es">dd/MM/yyyy HH:mm:ss</value>
         <value xml:lang="fr">Format: JJ/MM/AAAA hh:mm:ss.sss</value>
         <value xml:lang="hi_IN">प्रारूप:yyyy-MM-dd HH: mm: ss.SSS</value>
         <value xml:lang="it">Formato: YYYY-MM-DD hh:mm:ss</value>
@@ -3272,7 +3336,7 @@
     <property key="CommonFormatTime">
         <value xml:lang="ar">النمط: س س:د د:ث ث</value>
         <value xml:lang="en">Format: HH:mm:ss.SSS</value>
-        <value xml:lang="es">Formato: HH.mm:ss.SSS (hora.minuto.segundo.milisegundos)</value>
+        <value xml:lang="es">Formato: HH:mm:ss.SSS</value>
         <value xml:lang="fr">Format: hh:mm:ss</value>
         <value xml:lang="hi_IN">प्रारूप:HH: mm: ss.SSS</value>
         <value xml:lang="it">Formato: HH:mm:ss.SSS</value>
@@ -3480,31 +3544,38 @@
     </property>
     <property key="CommonFtpConnectionRefused">
         <value xml:lang="en">connection refused</value>
+        <value xml:lang="es">conexión rechazada</value>
         <value xml:lang="it">connessione rifiutata</value>
     </property>
     <property key="CommonFtpFileCannotBeOpen">
         <value xml:lang="en">ERROR: Could not open local file</value>
+        <value xml:lang="es">Error: no se puede abrir el fichero local</value>
         <value xml:lang="it">ERRORE: Non è possibile aprire il file locale</value>
     </property>
     <property key="CommonFtpFileNotSentSuccesfully">
         <value xml:lang="en">File not sent succesfully: ${replyString}</value>
+        <value xml:lang="es">Fichero no enviado correctamente: ${replyString}</value>
         <value xml:lang="it">File non inviato con successo: ${replyString}</value>
     </property>
     <property key="CommonFtpLoginFailure">
         <value xml:lang="en">Login failed (${username}, ${password})</value>
+        <value xml:lang="es">Fallo de conexión (${username}, ${password})</value>
         <value xml:lang="it">Login fallito (${username}, ${password})</value>
     </property>
     <property key="CommonFtpProblemWithTransfer">
         <value xml:lang="en">Problem with FTP transfer: ${errorString}</value>
+        <value xml:lang="es">Problema con la transferencia FTP: ${errorString}</value>
         <value xml:lang="it">Problema durante il trasferimento FTP: ${errorString}</value>
     </property>
     <property key="CommonFtpSiteCommandFailed">
         <value xml:lang="en">SITE command ${command} failed: ${replyString}</value>
+        <value xml:lang="es">Ha fallado el comando ${command}: ${replyString}</value>
         <value xml:lang="it">Comando sito ${command} fallito: ${replyString}</value>
     </property>
     <property key="CommonGenericPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen, müssen Sie eine der folgenden Berechtigungen besitzen: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="en">Security Error: To run ${resourceDescription} you must have the one of the following permissions: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
+        <value xml:lang="es">Error de seguridad: Para ejecutar ${resourceDescription} debe tener uno de los siguientes permisos: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir une des autorisations suivantes : ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="hi_IN">सुरक्षा त्रुटि: ${resourceDescription} चलाने के लिए आप के पास निम्न में से एक अनुमतियाँ हो: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="it">Errore sicurezza: per eseguire ${resourceDescription} tu devi avere uno dei seguenti permessi: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -3517,11 +3588,13 @@
     </property>
     <property key="CommonGenericServiceErrorMessage">
         <value xml:lang="en">Error while executing service</value>
+        <value xml:lang="es">Error ejecutando el servicio</value>
         <value xml:lang="fr">Erreur lors de l'exécution du service</value>
         <value xml:lang="pt_BR">Erro ao executar serviço</value>
     </property>
     <property key="CommonGenericServiceSuccessMessage">
         <value xml:lang="en">Service executed successfully</value>
+        <value xml:lang="es">Servicio ejecutado correctamente</value>
         <value xml:lang="fr">Service exécuté avec succès</value>
         <value xml:lang="pt_BR">Serviço executado com sucesso</value>
     </property>
@@ -3553,6 +3626,7 @@
     </property>
     <property key="CommonGeoAssocTypeId">
         <value xml:lang="en">Geo Assoc Type ID</value>
+        <value xml:lang="es">Tipo de código de ubicación</value>
         <value xml:lang="fr">Type d'assocation entre zones</value>
         <value xml:lang="pt_BR">Tipo de ID de associação geo referencial</value>
     </property>
@@ -3582,6 +3656,7 @@
     </property>
     <property key="CommonGeoLocation">
         <value xml:lang="en">Geo Location</value>
+        <value xml:lang="es">Ubicación geográfica</value>
         <value xml:lang="fr">Géolocalisation</value>
         <value xml:lang="hi_IN">भू स्थान</value>
         <value xml:lang="it">Localizzazione geografica</value>
@@ -3627,6 +3702,7 @@
     </property>
     <property key="CommonGeoWellKnownText">
         <value xml:lang="en">Well Known Text</value>
+        <value xml:lang="es">Texto conocido</value>
         <value xml:lang="fr">Texte connu</value>
         <value xml:lang="pt_BR">Texto bem conhecido</value>
     </property>
@@ -3648,7 +3724,7 @@
         <value xml:lang="cs">Upozornění k heslu</value>
         <value xml:lang="de">Passwort Hinweis</value>
         <value xml:lang="en">Get Password Hint</value>
-        <value xml:lang="es">Obtener pista de password</value>
+        <value xml:lang="es">Obtener pista de clave</value>
         <value xml:lang="fr">Voir votre aide pour le mot de passe</value>
         <value xml:lang="hi_IN">पासवर्ड सुझाव पाएँ</value>
         <value xml:lang="it">Suggerisci password</value>
@@ -3811,6 +3887,7 @@
     </property>
     <property key="CommonHelpNotFound">
         <value xml:lang="en">Help file or URL not found</value>
+        <value xml:lang="es">Fichero de ayuda o URL no encontrada</value>
         <value xml:lang="hi_IN">सहायता फ़ाइल या URL नहीं मिला</value>
         <value xml:lang="it">File di aiuto o URL non trovato</value>
         <value xml:lang="pt_BR">Arquivo de Ajuda ou URL não encontrado</value>
@@ -3844,6 +3921,7 @@
     </property>
     <property key="CommonHome">
         <value xml:lang="en">Home</value>
+        <value xml:lang="es">Inicio</value>
         <value xml:lang="fr">Point de départ</value>
         <value xml:lang="hi_IN">घर</value>
         <value xml:lang="it">Principale</value>
@@ -3973,6 +4051,7 @@
     </property>
     <property key="CommonImage">
         <value xml:lang="en">Image</value>
+        <value xml:lang="es">Imagen</value>
         <value xml:lang="th">รูปภาพ</value>
     </property>
     <property key="CommonIn">
@@ -4168,7 +4247,7 @@
         <value xml:lang="ar">سطر</value>
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Item</value>
-        <value xml:lang="es">Ítem</value>
+        <value xml:lang="es">Producto</value>
         <value xml:lang="fr">Ligne</value>
         <value xml:lang="hi_IN">मद</value>
         <value xml:lang="it">Riga</value>
@@ -4185,7 +4264,7 @@
         <value xml:lang="ar">أسطر</value>
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Items</value>
-        <value xml:lang="es">Ítems</value>
+        <value xml:lang="es">Productos</value>
         <value xml:lang="fr">Lignes</value>
         <value xml:lang="hi_IN">मदे</value>
         <value xml:lang="it">Righe</value>
@@ -4202,6 +4281,7 @@
     <property key="CommonItemsPerPage">
         <value xml:lang="de">Elemente pro Seite</value>
         <value xml:lang="en">Items per page</value>
+        <value xml:lang="es">Productos por página</value>
         <value xml:lang="fr">Éléments par page</value>
         <value xml:lang="it">Righe per pagina</value>
         <value xml:lang="pt_BR">Itens por página</value>
@@ -4309,6 +4389,7 @@
     </property>
     <property key="CommonLastSytemNotes">
         <value xml:lang="en">Last system notes</value>
+        <value xml:lang="es">Últimas notas del sistema</value>
         <value xml:lang="fr">Dernières tâches affectées</value>
         <value xml:lang="it">Ultime note di sistema</value>
         <value xml:lang="pt_BR">Últimas notas do sistema</value>
@@ -4334,6 +4415,7 @@
     </property>
     <property key="CommonLatitude">
         <value xml:lang="en">Latitude: </value>
+        <value xml:lang="es">Latitud: </value>
         <value xml:lang="fr">Latitude : </value>
         <value xml:lang="hi_IN">अक्षांश：</value>
         <value xml:lang="it">Latitudine: </value>
@@ -4343,6 +4425,7 @@
     </property>
     <property key="CommonLength">
         <value xml:lang="en">Length</value>
+        <value xml:lang="es">Longitud</value>
         <value xml:lang="fr">Longueur</value>
         <value xml:lang="hi_IN">लंबाई</value>
         <value xml:lang="it">Lunghezza</value>
@@ -4434,6 +4517,7 @@
     <property key="CommonLoading">
         <value xml:lang="de">Empfange Daten ...</value>
         <value xml:lang="en">Loading...</value>
+        <value xml:lang="es">Cargando...</value>
         <value xml:lang="fr">Chargement...</value>
         <value xml:lang="hi_IN">लोड हो रहा है...</value>
         <value xml:lang="it">Attendere...</value>
@@ -4514,6 +4598,7 @@
     </property>
     <property key="CommonLongitude">
         <value xml:lang="en">Longitude: </value>
+        <value xml:lang="es">Longitud: </value>
         <value xml:lang="fr">Longitude : </value>
         <value xml:lang="hi_IN">देशांतर ：</value>
         <value xml:lang="it">Longitudine: </value>
@@ -4542,6 +4627,7 @@
     </property>
     <property key="CommonLookupAnywho">
         <value xml:lang="en">lookup:anywho.com</value>
+        <value xml:lang="es">Buscar: anywho.com</value>
         <value xml:lang="fr">A qui est ce n° ?</value>
         <value xml:lang="hi_IN">लुकअप : anywho.com</value>
         <value xml:lang="it">lookup:anywho.com</value>
@@ -4551,12 +4637,14 @@
     </property>
     <property key="CommonLookupAnywhoLink">
         <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
+        <value xml:lang="es">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
         <value xml:lang="hi_IN">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="it">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
     <property key="CommonLookupLocale">
         <value xml:lang="en">Lookup Locale</value>
+        <value xml:lang="es">Buscar Locale</value>
     </property>
     <property key="CommonLookupWhitepages">
         <value xml:lang="en">Look up White pages</value>
@@ -4572,6 +4660,7 @@
     </property>
     <property key="CommonLookupWhitepagesAddressLink">
         <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
+        <value xml:lang="es">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
         <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
         <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a&amp;s_n=${addressNum}&amp;s_a=${addressOther}&amp;c=${postalAddress.city}&amp;s=${postalAddress.stateProvinceGeoId}&amp;x=29 y=18</value>
@@ -4579,11 +4668,13 @@
     </property>
     <property key="CommonLookupWhitepagesTelNumberLink">
         <value xml:lang="en">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
+        <value xml:lang="es">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
         <value xml:lang="it">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
     </property>
     <property key="CommonLow">
         <value xml:lang="en">Low</value>
+        <value xml:lang="es">Bajo</value>
         <value xml:lang="fr">Bas</value>
         <value xml:lang="hi_IN">नीचा</value>
         <value xml:lang="it">Bassa</value>
@@ -4629,10 +4720,12 @@
     </property>
     <property key="CommonManage">
         <value xml:lang="en">Manage</value>
+        <value xml:lang="es">Gestionar</value>
         <value xml:lang="th">จัดการ</value>
     </property>
     <property key="CommonManagePortalPages">
         <value xml:lang="en">Manage Portal Pages...</value>
+        <value xml:lang="es">Gestionar las páginas del portal...</value>
         <value xml:lang="fr">Gérez les pages du portail...</value>
         <value xml:lang="hi_IN">पोर्टल पेज प्रबंधन...</value>
         <value xml:lang="it">Gestione pagine...</value>
@@ -4713,6 +4806,7 @@
     </property>
     <property key="CommonMax250Chars">
         <value xml:lang="en">250 Chars Maximum</value>
+        <value xml:lang="es">250 caracteres máximo</value>
         <value xml:lang="hi_IN">अधिकतम 250 वर्ण</value>
         <value xml:lang="it">250 caratteri al massimo</value>
         <value xml:lang="pt_BR">Máximo de 250 caracteres</value>
@@ -4773,6 +4867,7 @@
     </property>
     <property key="CommonMeasures">
         <value xml:lang="en">Measures</value>
+        <value xml:lang="es">Medidas</value>
         <value xml:lang="fr">Mesures</value>
         <value xml:lang="hi_IN">नाप</value>
         <value xml:lang="it">Misure</value>
@@ -4816,6 +4911,7 @@
     </property>
     <property key="CommonMessageMissing">
         <value xml:lang="en">Message is missing</value>
+        <value xml:lang="es">Falta el mensaje</value>
         <value xml:lang="pt_BR">A Mensagem está faltando</value>
     </property>
     <property key="CommonMessages">
@@ -4864,7 +4960,7 @@
         <value xml:lang="ar">بدقة</value>
         <value xml:lang="de">Jede Minute</value>
         <value xml:lang="en">Minute</value>
-        <value xml:lang="es">Cada minuto</value>
+        <value xml:lang="es">Minuto</value>
         <value xml:lang="fr">Chaque minute</value>
         <value xml:lang="hi_IN">मिनट</value>
         <value xml:lang="it">Minuto</value>
@@ -4893,6 +4989,7 @@
     </property>
     <property key="CommonMiscellaneous">
         <value xml:lang="en">Miscellaneous</value>
+        <value xml:lang="es">Varios</value>
         <value xml:lang="fr">Divers</value>
         <value xml:lang="hi_IN">विविध</value>
         <value xml:lang="it">Varie</value>
@@ -5015,6 +5112,7 @@
     </property>
     <property key="CommonMovePortletBottom">
         <value xml:lang="en">Move Portlet at the Bottom</value>
+        <value xml:lang="es">Mover el Portlet abajo del todo</value>
         <value xml:lang="fr">Déplacer le portlet tout en bas</value>
         <value xml:lang="hi_IN">Portlet को तल पर स्थानांतरित करे</value>
         <value xml:lang="it">Sposta il portlet in fondo</value>
@@ -5024,6 +5122,7 @@
     </property>
     <property key="CommonMovePortletDown">
         <value xml:lang="en">Move Portlet Down</value>
+        <value xml:lang="es">Mover el Portlet hacia abajo</value>
         <value xml:lang="fr">Déplacer le portlet en bas</value>
         <value xml:lang="hi_IN">Portlet नीचे ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet in basso</value>
@@ -5033,6 +5132,7 @@
     </property>
     <property key="CommonMovePortletLeft">
         <value xml:lang="en">Move Portlet Left</value>
+        <value xml:lang="es">Mover el Portlet hacia la izquierda</value>
         <value xml:lang="fr">Déplacer le portlet à gauche</value>
         <value xml:lang="hi_IN">Portlet बाएं ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet a sinistra</value>
@@ -5042,6 +5142,7 @@
     </property>
     <property key="CommonMovePortletRight">
         <value xml:lang="en">Move Portlet Right</value>
+        <value xml:lang="es">Mover el Portlet hacia la derecha</value>
         <value xml:lang="fr">Déplacer le portlet à droite</value>
         <value xml:lang="hi_IN">Portlet दाएं ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet a destra</value>
@@ -5051,6 +5152,7 @@
     </property>
     <property key="CommonMovePortletTop">
         <value xml:lang="en">Move Portlet at the Top</value>
+        <value xml:lang="es">Mover el Portlet arriba del todo</value>
         <value xml:lang="fr">Déplacer le portlet tout en haut</value>
         <value xml:lang="hi_IN">Portlet शीर्ष पर ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet in cima</value>
@@ -5060,6 +5162,7 @@
     </property>
     <property key="CommonMovePortletUp">
         <value xml:lang="en">Move Portlet Up</value>
+        <value xml:lang="es">Mover el Portlet hacia arriba</value>
         <value xml:lang="fr">Déplacer le portlet en haut</value>
         <value xml:lang="hi_IN">Portlet ऊपर की ओर ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet in alto</value>
@@ -5069,6 +5172,7 @@
     </property>
     <property key="CommonMoveToPortalPage">
         <value xml:lang="en">Move to Portal Page...</value>
+        <value xml:lang="es">Mover a la página del portal...</value>
         <value xml:lang="fr">Aller à la page "portail"</value>
         <value xml:lang="hi_IN">Portlet में ले जाएँ</value>
         <value xml:lang="it">Sposta nella pagina...</value>
@@ -5078,6 +5182,7 @@
     </property>
     <property key="CommonMyPersonalPage">
         <value xml:lang="en">My Personal Page</value>
+        <value xml:lang="es">Mi página personal</value>
         <value xml:lang="fr">Ma propre page</value>
         <value xml:lang="hi_IN">मेरा व्यक्तिगत पेज</value>
         <value xml:lang="it">Mia pagina personale</value>
@@ -5214,6 +5319,7 @@
     </property>
     <property key="CommonNewPortalPage">
         <value xml:lang="en">New Portal Page</value>
+        <value xml:lang="es">Nueva página del portal</value>
         <value xml:lang="fr">Nouvelle page portail</value>
         <value xml:lang="it">Nuova pagina portale</value>
         <value xml:lang="pt_BR">Nova página do Portal</value>
@@ -5373,6 +5479,7 @@
     </property>
     <property key="CommonNoDetailImageAvailableToDisplay">
         <value xml:lang="en">No detail image available to display.</value>
+        <value xml:lang="es">Ninguna imagen de detalles para visualizar.</value>
         <value xml:lang="fr">Aucune image détaillée à afficher.</value>
         <value xml:lang="it">Nessuna immagine digitale disponibile da visualizzare.</value>
         <value xml:lang="pt_BR">Nenhuma imagem de detalhes disponível para exibir.</value>
@@ -5396,6 +5503,7 @@
     </property>
     <property key="CommonNoGeolocationAvailable">
         <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profile)</value>
+        <value xml:lang="es">Localización geográfica no disponible (para demostración debe usar el perfil del participante DemoCustomer)</value>
         <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
         <value xml:lang="hi_IN">भू स्थान उपलब्ध नहीं है (एक डेमो के लिए आप DemoCustomer पार्टी प्रोफ़ाइल का उपयोग करने का प्रयास कर सकते हैं)</value>
         <value xml:lang="it">Nessuna locazione geografica disponibile (per un dimostrazione tu puoi usare il soggetto DemoCustomer)</value>
@@ -5405,6 +5513,7 @@
     </property>
     <property key="CommonNoOptions">
         <value xml:lang="en">No options: _NA_</value>
+        <value xml:lang="es">Sin opciones: _NA_</value>
         <value xml:lang="fr">Aucun option: _NA_</value>
         <value xml:lang="pt_BR">Sem opções: _NA_</value>
     </property>
@@ -5428,12 +5537,14 @@
     </property>
     <property key="CommonNoPortalPageDataFound">
         <value xml:lang="en">No portal page data found. You may not have the necessary seed or other data for it.</value>
+        <value xml:lang="es">Datos de la página del portal no encontrados.</value>
         <value xml:lang="fr">Aucune donnée pour la page portail. Vous n'avez peut être pas chargé les données nécesaires.</value>
         <value xml:lang="it">Dati portal page non trovati.</value>
         <value xml:lang="pt_BR">Não há dados da página do portal encontrados. Você pode não ter a semente ou outros dados necessários para isso.</value>
     </property>
     <property key="CommonNoPortletsInCategory">
         <value xml:lang="en">Please, choose new category again, No portlet in this category.</value>
+        <value xml:lang="es">No hay portlets en esta categoría, escoja nuevamente otra categoría.</value>
         <value xml:lang="it">Nessun portlet in questa categoria.</value>
         <value xml:lang="pt_BR">Por favor, escolha uma nova categoria de novo, sem portlet nesta categoria.</value>
     </property>
@@ -5471,11 +5582,13 @@
     </property>
     <property key="CommonNoStatesProvinces">
         <value xml:lang="en">No States/Provinces exist: _NA_</value>
+        <value xml:lang="es">No existen provincias: _NA_</value>
         <value xml:lang="fr">Aucun état ou province: _NA_</value>
         <value xml:lang="pt_BR">Nenhum estados/municípios existem: _NA_</value>
     </property>
     <property key="CommonNoStatesProvincesExists">
         <value xml:lang="en">No States/Provinces exist</value>
+        <value xml:lang="es">No existen provincias</value>
         <value xml:lang="fr">Aucun état ou province</value>
         <value xml:lang="pt_BR">Nenhum estados/municípios existem</value>
     </property>
@@ -5533,6 +5646,7 @@
     </property>
     <property key="CommonNormal">
         <value xml:lang="en">Normal</value>
+        <value xml:lang="es">Normal</value>
         <value xml:lang="fr">Normal</value>
         <value xml:lang="hi_IN">सामान्य</value>
         <value xml:lang="it">Normale</value>
@@ -5562,6 +5676,7 @@
     <property key="CommonNotAssigned">
         <value xml:lang="de">Nicht zugewiesen</value>
         <value xml:lang="en">Not Assigned</value>
+        <value xml:lang="es">No asignado</value>
         <value xml:lang="fr">Non attribué</value>
         <value xml:lang="hi_IN">निर्दिष्ट नहीं </value>
         <value xml:lang="pt_BR">Não Atribuído</value>
@@ -5673,6 +5788,7 @@
     </property>
     <property key="CommonNoteCannotBeUpdated">
         <value xml:lang="en">Could update note data (write failure): ${errorString}</value>
+        <value xml:lang="es">No se pueden actualizar los datos de la nota (fallo de escritura): ${errorString}</value>
         <value xml:lang="it">Non è possibile aggiornare i dati della nota (scrittura fallita): ${errorString}</value>
     </property>
     <property key="CommonNotes">
@@ -5694,26 +5810,32 @@
     </property>
     <property key="CommonNotifyEmailDeliveryError">
         <value xml:lang="en">Email delivery error, see error log</value>
+        <value xml:lang="es">Error en el envío de correo electrónico, verifique el log</value>
         <value xml:lang="it">Email delivery error, see error log</value>
     </property>
     <property key="CommonNotifyEmailInvalidBody">
         <value xml:lang="en">Invalid email body; null is not allowed</value>
+        <value xml:lang="es">Contenido del correo electrónico no válido; no se permite null</value>
         <value xml:lang="it">Corpo email invalido; null non è consentito</value>
     </property>
     <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
         <value xml:lang="en">Message body generated successfully</value>
+        <value xml:lang="es">Contenido del correo electrónico generado correctamente</value>
         <value xml:lang="it">Corpo messaggio generato con successo</value>
     </property>
     <property key="CommonNotifyEmailProblemFindingTemplate">
         <value xml:lang="en">Problem finding template; see logs</value>
+        <value xml:lang="es">Problema localizando la plantilla; verifique el log</value>
         <value xml:lang="it">Problema nella ricerca del template; controllare i logs</value>
     </property>
     <property key="CommonNotifyEmailProblemProcessingTemplate">
         <value xml:lang="en">Template processing problem, see error logs</value>
+        <value xml:lang="es">Problema accediendo a la plantilla, verifique el log de errores</value>
         <value xml:lang="it">Problema nell'esecuzione del template; controllare gli errori nei logs</value>
     </property>
     <property key="CommonNotifyEmailProblemReadingTemplate">
         <value xml:lang="en">Template reading problem, see error logs</value>
+        <value xml:lang="es">Problema leyendo la plantilla, verifique el log de errores</value>
         <value xml:lang="it">Problema nella lettura del template; controllare gli errori nei logs</value>
     </property>
     <property key="CommonNovember">
@@ -5967,7 +6089,7 @@
         <value xml:lang="ar">طلبيات</value>
         <value xml:lang="de">Bestellungen</value>
         <value xml:lang="en">Orders</value>
-        <value xml:lang="es">Órdenes</value>
+        <value xml:lang="es">Pedidos</value>
         <value xml:lang="fr">Commandes</value>
         <value xml:lang="hi_IN">आदेश</value>
         <value xml:lang="it">Ordini</value>
@@ -5983,6 +6105,7 @@
     </property>
     <property key="CommonOrganizationLogo">
         <value xml:lang="en">Organization Logo</value>
+        <value xml:lang="es">Logo de la organización</value>
         <value xml:lang="th">โลโก้องค์กร</value>
     </property>
     <property key="CommonOther">
@@ -6072,7 +6195,7 @@
     </property>
     <property key="CommonParent">
         <value xml:lang="en">Parent</value>
-        <value xml:lang="es">Precursor</value>
+        <value xml:lang="es">Padre</value>
         <value xml:lang="fr">Parent</value>
         <value xml:lang="hi_IN">पेरेंट</value>
         <value xml:lang="it">Padre</value>
@@ -6147,7 +6270,7 @@
         <value xml:lang="cs">Heslo</value>
         <value xml:lang="de">Passwort</value>
         <value xml:lang="en">Password</value>
-        <value xml:lang="es">Contraseña</value>
+        <value xml:lang="es">Clave</value>
         <value xml:lang="fr">Mot de passe</value>
         <value xml:lang="hi_IN">पासवर्ड</value>
         <value xml:lang="it">Password</value>
@@ -6176,6 +6299,7 @@
     </property>
     <property key="CommonPayment">
         <value xml:lang="en">Payment</value>
+        <value xml:lang="es">Pago</value>
     </property>
     <property key="CommonPaymentMethodType">
         <value xml:lang="ar">نوع طريقة التسديد</value>
@@ -6323,36 +6447,44 @@
     </property>
     <property key="CommonPingDatasourceCannotConnect">
         <value xml:lang="en">Unable to connect to datasource!</value>
+        <value xml:lang="es">No se puede conectar a la fuente de datos!</value>
         <value xml:lang="it">Non è possibile connettersi al datasource!</value>
     </property>
     <property key="CommonPingDatasourceInvalidCount">
         <value xml:lang="en">Invalid count returned from database</value>
+        <value xml:lang="es">No es válido el contador devuelto por la base de datos</value>
         <value xml:lang="it">Contantore invalido restituito dal database</value>
     </property>
     <property key="CommonPleaseEnterValidNumberInThisField">
         <value xml:lang="en">Please enter a valid number in this field.</value>
+        <value xml:lang="es">Por favor, introduzca un número válido en este campo.</value>
         <value xml:lang="pt_BR">Por favor insira um número válido neste campo.</value>
     </property>
     <property key="CommonPleaseSelect">
         <value xml:lang="de">Bitte wählen</value>
         <value xml:lang="en">please select</value>
+        <value xml:lang="es">Por favor, seleccione</value>
         <value xml:lang="pt_BR">Por favor, selecione</value>
     </property>
     <property key="CommonPleaseSelectAllFeaturesFirst">
         <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
         <value xml:lang="en">Please select all features first.</value>
+        <value xml:lang="es">Por favor, seleccione todas las características primero.</value>
     </property>
     <property key="CommonPleaseSelectAllRequiredOptions">
         <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
         <value xml:lang="en">Please select all of the required options.</value>
+        <value xml:lang="es">Pro favor, seleccione todas las opciones requeridas.</value>
     </property>
     <property key="CommonPleaseWait">
         <value xml:lang="de">Bitte warten Sie ...</value>
         <value xml:lang="en">please wait ...</value>
+        <value xml:lang="es">Por favor, espere ...</value>
         <value xml:lang="pt_BR">por favor aguarde ...</value>
     </property>
     <property key="CommonPortalCategoryPage">
         <value xml:lang="en">Category of portlet pages for application</value>
+        <value xml:lang="es">Categoría de páginas de portlets para la aplicación</value>
         <value xml:lang="fr">Catégorie de page portlet pour application</value>
         <value xml:lang="hi_IN">आवेदन के लिए portlet पृष्ठों की श्रेणी</value>
         <value xml:lang="it">Categoria di pagine portale per applicazione</value>
@@ -6362,6 +6494,7 @@
     </property>
     <property key="CommonPortalEditPage">
         <value xml:lang="en">Edit portal page</value>
+        <value xml:lang="es">Editar página del portal</value>
         <value xml:lang="fr">Modifier la page portail</value>
         <value xml:lang="hi_IN">पोर्टल पृष्ठ संपादित करें</value>
         <value xml:lang="it">Aggiorna pagina portale</value>
@@ -6371,6 +6504,7 @@
     </property>
     <property key="CommonPortalNewPage">
         <value xml:lang="en">Add a new portal Page</value>
+        <value xml:lang="es">Añadir una nueva página del portal</value>
         <value xml:lang="fr">Ajouter une nouvelle page portail</value>
         <value xml:lang="hi_IN">एक नया पोर्टल पेज जोड़ें</value>
         <value xml:lang="it">Aggiungi una nuova pagina portale</value>
@@ -6380,6 +6514,7 @@
     </property>
     <property key="CommonPortalPagesForApplication">
         <value xml:lang="en">Portal pages for application</value>
+        <value xml:lang="es">Páginas del portal para la aplicación</value>
         <value xml:lang="fr">Pages portail pour l'application</value>
         <value xml:lang="hi_IN">आवेदन के लिए पोर्टल पृष्ठ</value>
         <value xml:lang="it">Pagine portale per applicazione</value>
@@ -6421,6 +6556,7 @@
     </property>
     <property key="CommonPoweredBy">
         <value xml:lang="en">Powered by</value>
+        <value xml:lang="es">Powered by</value>
         <value xml:lang="fr">Fonctionne grâce à </value>
         <value xml:lang="hi_IN">द्वारा संचालित</value>
         <value xml:lang="it">Realizzato con</value>
@@ -6441,9 +6577,11 @@
     </property>
     <property key="CommonPreferenceGroup">
         <value xml:lang="en">Preference Group</value>
+        <value xml:lang="es">Grupo de preferencias</value>
     </property>
     <property key="CommonPreferenceName">
         <value xml:lang="en">Preference Name</value>
+        <value xml:lang="es">Nombre de la preferencia</value>
     </property>
     <property key="CommonPrepared">
         <value xml:lang="ar">معدة</value>
@@ -6464,6 +6602,7 @@
     </property>
     <property key="CommonPreview">
         <value xml:lang="en">Preview</value>
+        <value xml:lang="es">Vista previa</value>
         <value xml:lang="th">แสดงตัวอย่าง</value>
     </property>
     <property key="CommonPrevious">
@@ -6487,7 +6626,7 @@
     <property key="CommonPrimaryApps">
         <value xml:lang="de">Primäranwendungen</value>
         <value xml:lang="en">Primary Apps</value>
-        <value xml:lang="es">Apps primario</value>
+        <value xml:lang="es">Aplicaciones principales</value>
         <value xml:lang="fr">Applications principales</value>
         <value xml:lang="hi_IN">प्राथमिक एप्प्लिकेशन्स</value>
         <value xml:lang="it">Apps primario</value>
@@ -6687,7 +6826,7 @@
         <value xml:lang="cs">Poznámka / záznam</value>
         <value xml:lang="de">Vermerk</value>
         <value xml:lang="en">Qualifier</value>
-        <value xml:lang="es">Calificador</value>
+        <value xml:lang="es">Qualificador</value>
         <value xml:lang="fr">Qualifiant</value>
         <value xml:lang="hi_IN">योग्यतापूर्ण</value>
         <value xml:lang="it">Qualificatore</value>
@@ -7005,14 +7144,16 @@
     </property>
     <property key="CommonRelease">
         <value xml:lang="en">Release</value>
+        <value xml:lang="es">Distribución</value>
     </property>
     <property key="CommonReleaseDate">
         <value xml:lang="en">Release Date</value>
+        <value xml:lang="es">Fecha distribución</value>
         <value xml:lang="pt_BR">Data de Lançamento</value>
     </property>
     <property key="CommonReleaseVersion">
         <value xml:lang="en">Release Version</value>
-        <value xml:lang="es">Versión oficial</value>
+        <value xml:lang="es">Versión distribución</value>
         <value xml:lang="fr">Version officiellement distribuée</value>
         <value xml:lang="hi_IN">रिलीज संस्करणः</value>
         <value xml:lang="it">Versione release</value>
@@ -7024,6 +7165,7 @@
     </property>
     <property key="CommonReloadCaptchaCode">
         <value xml:lang="en">Reload Captcha Code</value>
+        <value xml:lang="es">Recargar código captcha</value>
         <value xml:lang="pt_BR">Recarregar Código Captcha</value>
     </property>
     <property key="CommonRemove">
@@ -7063,6 +7205,7 @@
     </property>
     <property key="CommonRemovePortlet">
         <value xml:lang="en">Remove Portlet</value>
+        <value xml:lang="es">Eliminar portlet</value>
         <value xml:lang="fr">Supprimer le portlet</value>
         <value xml:lang="hi_IN">Portlet हटाये</value>
         <value xml:lang="it">Rimuovi il portlet</value>
@@ -7072,6 +7215,7 @@
     </property>
     <property key="CommonReport">
         <value xml:lang="en">Report</value>
+        <value xml:lang="es">Informe</value>
         <value xml:lang="fr">Etat</value>
         <value xml:lang="pt_BR">Relatório</value>
     </property>
@@ -7095,6 +7239,7 @@
     <property key="CommonRequery">
         <value xml:lang="de">Erneute Abfrage</value>
         <value xml:lang="en">Requery</value>
+        <value xml:lang="es">Reconsulta</value>
     </property>
     <property key="CommonRequired">
         <value xml:lang="ar">إلزامي</value>
@@ -7203,6 +7348,7 @@
     </property>
     <property key="CommonRevertPortalPage">
         <value xml:lang="en">revert to original</value>
+        <value xml:lang="es">Restaurar a la original</value>
         <value xml:lang="fr">Revenir à l'original</value>
         <value xml:lang="hi_IN">वापस मूल पर</value>
         <value xml:lang="it">Riporta all'originale</value>
@@ -7396,6 +7542,7 @@
         <value xml:lang="ar">ثانيا</value>
         <value xml:lang="de">Zweiter</value>
         <value xml:lang="en">Second</value>
+        <value xml:lang="es">Segundo</value>
         <value xml:lang="fr">Seconde</value>
         <value xml:lang="hi_IN">सेकंड</value>
         <value xml:lang="it">Secondo</value>
@@ -7411,7 +7558,7 @@
     <property key="CommonSecondaryApps">
         <value xml:lang="de">Sekundäranwendungen</value>
         <value xml:lang="en">Secondary Apps</value>
-        <value xml:lang="es">Apps secundario</value>
+        <value xml:lang="es">Aplicaciones auxiliares</value>
         <value xml:lang="fr">Applications secondaires</value>
         <value xml:lang="hi_IN">द्वितीयक एप्प्लिकेशन्स</value>
         <value xml:lang="it">Apps secondario</value>
@@ -7545,6 +7692,7 @@
     </property>
     <property key="CommonSelectPortalPage">
         <value xml:lang="en">Select Portal Page...</value>
+        <value xml:lang="es">Seleccione página del portal...</value>
         <value xml:lang="fr">Sélectionnez la page du portail...</value>
         <value xml:lang="hi_IN">पोर्टल पेज चुनें</value>
         <value xml:lang="it">Seleziona pagina...</value>
@@ -7554,6 +7702,7 @@
     </property>
     <property key="CommonSelectPortletToHelp">
         <value xml:lang="en">Select a portlet you would like to have help on....</value>
+        <value xml:lang="es">Seleccione un portlet del que desee obtener ayuda....</value>
         <value xml:lang="fr">Liste des portlets contenues dans cette page, sélectionnez celle pour laquelle vous souhaitez de l'aide</value>
     </property>
     <property key="CommonSelected">
@@ -7632,7 +7781,7 @@
         <value xml:lang="ar">إرسال البريد الإلكتروني</value>
         <value xml:lang="de">E-Mail senden</value>
         <value xml:lang="en">send email</value>
-        <value xml:lang="es">Enviar e-mail</value>
+        <value xml:lang="es">Enviar correo electrónico</value>
         <value xml:lang="fr">Envoyer le courriel</value>
         <value xml:lang="hi_IN">ईमेल भेजे</value>
         <value xml:lang="it">invia email</value>
@@ -7666,7 +7815,7 @@
         <value xml:lang="ar">إرسال التقرير عبر البريد</value>
         <value xml:lang="de">Bericht als E-Mail versenden</value>
         <value xml:lang="en">Send Report By Mail</value>
-        <value xml:lang="es">Enviar informe por correo</value>
+        <value xml:lang="es">Enviar informe por correo electrónico</value>
         <value xml:lang="fr">Envoyer l'état par courriel</value>
         <value xml:lang="hi_IN">रिपोर्ट मेल से भेजें</value>
         <value xml:lang="it">Invio stampa per email</value>
@@ -7699,7 +7848,7 @@
         <value xml:lang="ar">سبتمبر</value>
         <value xml:lang="de">September</value>
         <value xml:lang="en">September</value>
-        <value xml:lang="es">Setiembre</value>
+        <value xml:lang="es">Septiembre</value>
         <value xml:lang="fr">septembre</value>
         <value xml:lang="hi_IN">सितम्बर</value>
         <value xml:lang="it">Settembre</value>
@@ -7749,11 +7898,13 @@
     </property>
     <property key="CommonServiceReturnError">
         <value xml:lang="en">Return Error Service : Returning Error</value>
+        <value xml:lang="es">El servicio ha devuelto un error: Devolviendo error</value>
         <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
     </property>
     <property key="CommonSessionTimeoutPleaseLogIn">
         <value xml:lang="de">Sie sind nicht mehr angemeldet. Bitte melden Sie sich erneut an.</value>
         <value xml:lang="en">You are not logged in. Please login again.</value>
+        <value xml:lang="es">No está conectado. Por favor, vuelva a conectarse.</value>
     </property>
     <property key="CommonSet">
         <value xml:lang="ar">وضع</value>
@@ -7774,6 +7925,7 @@
     </property>
     <property key="CommonSetAsCurrent">
         <value xml:lang="en">Set As Current</value>
+        <value xml:lang="es">Establecer como actual</value>
         <value xml:lang="fr">Définir en tant qu'actuel</value>
         <value xml:lang="hi_IN">वर्तमान के रूप में स्थापित करे</value>
         <value xml:lang="it">Imposta Come Attuale</value>
@@ -7784,6 +7936,7 @@
     </property>
     <property key="CommonSetColumnWidth">
         <value xml:lang="en">Set Column Width</value>
+        <value xml:lang="es">Establecer ancho de columna</value>
         <value xml:lang="fr">Définir la largeur de colonne ...</value>
         <value xml:lang="hi_IN">कॉलम की चौड़ाई स्थापित करे...</value>
         <value xml:lang="it">Imposta larghezza colonna</value>
@@ -7811,6 +7964,7 @@
     </property>
     <property key="CommonShipping">
         <value xml:lang="en">Shipping</value>
+        <value xml:lang="es">Envío</value>
         <value xml:lang="fr">Expédition</value>
         <value xml:lang="hi_IN">परिवहन</value>
         <value xml:lang="it">Spedizioni</value>
@@ -7821,6 +7975,7 @@
     </property>
     <property key="CommonShoppingCart">
         <value xml:lang="en">ShoppingCart</value>
+        <value xml:lang="es">Cesta de la compra</value>
         <value xml:lang="fr">Panier</value>
         <value xml:lang="hi_IN">शॉपिंगकार्ट</value>
         <value xml:lang="it">Carrello</value>
@@ -7918,6 +8073,7 @@
     </property>
     <property key="CommonSize">
         <value xml:lang="en">Size</value>
+        <value xml:lang="es">Talla</value>
         <value xml:lang="th">ขนาด</value>
     </property>
     <property key="CommonSkipNavigation">
@@ -7954,7 +8110,7 @@
         <value xml:lang="cs">Litujeme, ale tuto stránku nemůžete odeslat příteli. Prosíme vyberte si jinou v náhledu produktů či kategorií.</value>
         <value xml:lang="de">Leider können Sie diese Seite nicht weiterempfehlen. Wählen Sie bitte aus einer Kategorie oder einem Artikel.</value>
         <value xml:lang="en">Sorry, you cannot send this page to a friend.  Select rather from a category or an item</value>
-        <value xml:lang="es">Lo siento, no puede enviar esta página a un amigo. Seleccione a partir de una categoría o un ítem.</value>
+        <value xml:lang="es">Lo siento, no puede enviar esta página a un amigo. Seleccione a partir de una categoría o un producto.</value>
         <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Sélectionnez plutôt à partir d'un catégorie ou d'un article</value>
         <value xml:lang="hi_IN">क्षमा करें, आप इस पृष्ठ को अपने मित्र को नहीं भेज सकते, बल्कि एक वर्ग या एक मद में से चुनें</value>
         <value xml:lang="it">Spiacente, non è possibile inviare questa pagina ad un'amico.  Seleziona da una categoria o una riga</value>
@@ -8142,6 +8298,7 @@
     </property>
     <property key="CommonStatusMandatory">
         <value xml:lang="en">Parameter statusTypeIds can not be null and must contain at least one element</value>
+        <value xml:lang="es">El parámetro statusTypeIds no puede ser nulo, debe contener al menos un elemento</value>
         <value xml:lang="it">Parametro statusTypeIds non può essere nullo e deve contenere almeno un'elemento</value>
     </property>
     <property key="CommonStatustoComplete">
@@ -8247,6 +8404,7 @@
     </property>
     <property key="CommonSuccessfullyCreated">
         <value xml:lang="en">Successfully created.</value>
+        <value xml:lang="es">Creado correctamente.</value>
         <value xml:lang="fr">Créé avec succès.</value>
     </property>    
     <property key="CommonSummary">
@@ -8379,7 +8537,7 @@
         <value xml:lang="cs">Informovat přítele</value>
         <value xml:lang="de">Diese Seite empfehlen</value>
         <value xml:lang="en">Tell-A-Friend</value>
-        <value xml:lang="es">Contar a un amigo</value>
+        <value xml:lang="es">Díselo a un amigo</value>
         <value xml:lang="fr">Dites-le à un ami</value>
         <value xml:lang="hi_IN">मित्र को बताएँ</value>
         <value xml:lang="it">Invia questa pagina ad un'amico</value>
@@ -8395,6 +8553,7 @@
     </property>
     <property key="CommonTenantId">
         <value xml:lang="en">Tenant ID</value>
+        <value xml:lang="es">Identificador organización</value>
         <value xml:lang="fr">Instance</value>
         <value xml:lang="pt_BR">ID de Inquilino</value>
     </property>
@@ -8419,6 +8578,7 @@
     </property>
     <property key="CommonTestRollingBack">
         <value xml:lang="en">Rolling back!</value>
+        <value xml:lang="es">Restableciendo!</value>
         <value xml:lang="it">Rolling back!</value>
     </property>
     <property key="CommonText">
@@ -8518,7 +8678,7 @@
         <value xml:lang="ar">التاريخ النهائي</value>
         <value xml:lang="de">Bis Datum</value>
         <value xml:lang="en">Thru Date</value>
-        <value xml:lang="es">hasta la fecha</value>
+        <value xml:lang="es">Hasta la fecha</value>
         <value xml:lang="fr">Jusqu'à la date</value>
         <value xml:lang="hi_IN">दिनांक तक</value>
         <value xml:lang="it">Fino alla data</value>
@@ -8537,7 +8697,7 @@
         <value xml:lang="ar">التاريخ/الوقت النهائي</value>
         <value xml:lang="de">Bis Datum  Zeit</value>
         <value xml:lang="en">Thru Date  Time</value>
-        <value xml:lang="es">hasta la fecha y hora</value>
+        <value xml:lang="es">Hasta la fecha y hora</value>
         <value xml:lang="fr">jusqu'à la date et l'heure</value>
         <value xml:lang="hi_IN">दिनांक समय तक</value>
         <value xml:lang="it">Fino alla data e ora</value>
@@ -8966,12 +9126,13 @@
     <property key="CommonUnspecifiedErrorOccurred">
         <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
         <value xml:lang="en">An unspecified error occurred!</value>
+        <value xml:lang="es">Ha ocurrido un error no contemplado!</value>
     </property>
     <property key="CommonUntil">
         <value xml:lang="ar">حتى</value>
         <value xml:lang="de">Bis</value>
         <value xml:lang="en">Until</value>
-        <value xml:lang="es">hasta</value>
+        <value xml:lang="es">Hasta</value>
         <value xml:lang="fr">jusqu'à</value>
         <value xml:lang="hi_IN">जब तक</value>
         <value xml:lang="it">Fino al</value>
@@ -9322,6 +9483,7 @@
     </property>
     <property key="CommonVerifyCaptchaCode">
         <value xml:lang="en">Verify Captcha Code</value>
+        <value xml:lang="es">Verifique el código captcha</value>
         <value xml:lang="pt_BR">Verifique o Código Captcha</value>
     </property>
     <property key="CommonView">
@@ -9345,6 +9507,7 @@
     </property>
     <property key="CommonViewBlocked">
         <value xml:lang="en">Access to this view has been blocked.</value>
+        <value xml:lang="es">El acceso a esta vista ha sido bloqueado.</value>
         <value xml:lang="fr">L'accès à cette page a été bloqué.</value>
         <value xml:lang="hi_IN">इसे देखने के लिए प्रतिबंधित कर दिया गया है.</value>
         <value xml:lang="it">L'accesso a questa vista verrà bloccato.</value>
@@ -9455,7 +9618,7 @@
     </property>
     <property key="CommonVisualThemeSelected">
         <value xml:lang="en">Selected Visual Theme</value>
-        <value xml:lang="es">Tema visual seleciconado</value>
+        <value xml:lang="es">Tema visual seleccionado</value>
         <value xml:lang="fr">Charte graphique sélectionnée</value>
         <value xml:lang="hi_IN">चयनित दृश्य शैली(VisualTheme)</value>
         <value xml:lang="it">Tema grafico selezionato</value>
@@ -9465,6 +9628,7 @@
     </property>
     <property key="CommonVisualThemeUsage">
         <value xml:lang="en">Click on an image to have a preview, on a link to select a theme, and then on Done to validate your choice</value>
+        <value xml:lang="es">Click en una imagen para obtener una vista previa, en un enlace para seleccionar un tema, y después en Hecho para validar la elección</value>
         <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
     </property>
     <property key="CommonVisualThemes">
@@ -9601,6 +9765,7 @@
     </property>
     <property key="CommonWelcomeToTheOFBizDashboard">
         <value xml:lang="en">Welcome to the OFBiz dashboard</value>
+        <value xml:lang="es">Bienvenido al panel de control de OFBiz</value>
         <value xml:lang="fr">Bienvenue sur le tableau de bord d'OFBiz</value>
         <value xml:lang="hi_IN">OFBiz डैशबोर्ड पर आपका स्वागत है</value>
         <value xml:lang="it">Benvenuto al cruscotto di OFBiz</value>
@@ -9755,7 +9920,7 @@
         <value xml:lang="cs">Vaše E-mailová adresa</value>
         <value xml:lang="de">Ihre E-Mail</value>
         <value xml:lang="en">Your email</value>
-        <value xml:lang="es">Su e-mail</value>
+        <value xml:lang="es">Su correo electrónico</value>
         <value xml:lang="fr">Votre courriel</value>
         <value xml:lang="hi_IN">आपका ईमेल</value>
         <value xml:lang="it">La tua email</value>
@@ -10002,11 +10167,13 @@
     </property>
     <property key="FormFieldTitle_acceptButton">
         <value xml:lang="en">Accept</value>
+        <value xml:lang="es">Aceptar</value>
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="pt_BR">Aceitar</value>
     </property>
     <property key="FormFieldTitle_actionEnumId">
         <value xml:lang="en">Action</value>
+        <value xml:lang="es">Acción</value>
         <value xml:lang="fr">Action</value>
     </property>
     <property key="FormFieldTitle_addButton">
@@ -10044,6 +10211,7 @@
     </property>
     <property key="FormFieldTitle_approve">
         <value xml:lang="en">Approve</value>
+        <value xml:lang="es">Aprobar</value>
         <value xml:lang="th">อนุมัติ</value>
     </property>
     <property key="FormFieldTitle_attrName">
@@ -10080,6 +10248,7 @@
     </property>
     <property key="FormFieldTitle_cmdToCall">
         <value xml:lang="en">Cmd To Call</value>
+        <value xml:lang="es">Comando a llamar</value>
         <value xml:lang="fr">Cmd d'appel</value>
     </property>
     <property key="FormFieldTitle_comments">
@@ -10100,13 +10269,14 @@
     </property>
     <property key="FormFieldTitle_confirmButton">
         <value xml:lang="en">Confirm</value>
+        <value xml:lang="es">Confirmar</value>
         <value xml:lang="th">ยืนยัน</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
         <value xml:lang="ar">دليل مكانزمة الصلة</value>
         <value xml:lang="de">Kontaktmechanismus ID</value>
         <value xml:lang="en">Contact Mech Id</value>
-        <value xml:lang="es">Código Mecanismo de contacto</value>
+        <value xml:lang="es">Código de mecanismo de contacto</value>
         <value xml:lang="fr">Coordonnées</value>
         <value xml:lang="hi_IN">संपर्क तंत्र क्रमांक(Contact Mech Id)</value>
         <value xml:lang="it">Contatto</value>
@@ -10170,6 +10340,7 @@
     </property>
     <property key="FormFieldTitle_createdByUserLoginId">
         <value xml:lang="en">Created By User Login Id</value>
+        <value xml:lang="es">Creado por código de usuario</value>
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="hi_IN">उपयोगकर्ता लॉगिन द्वारा निर्मित क्रमांक</value>
         <value xml:lang="it">Creato dall'utente</value>
@@ -10195,6 +10366,7 @@
     </property>
     <property key="FormFieldTitle_createdTxStamp">
         <value xml:lang="en">Created Tx Stamp</value>
+        <value xml:lang="es">Fecha de creación Tx</value>
         <value xml:lang="fr">Estampille temporelle de transaction créée</value>
         <value xml:lang="hi_IN">निर्मित TX स्टाम्प</value>
         <value xml:lang="it">Data/ora creazione</value>
@@ -10220,6 +10392,7 @@
     </property>
     <property key="FormFieldTitle_currentRecurrenceCount">
         <value xml:lang="en">Current Recurrence Count</value>
+        <value xml:lang="es">Número recurrencias actuales</value>
         <value xml:lang="fr">Nombre de récurrences courant</value>
         <value xml:lang="hi_IN">वर्तमान पुनरावृत्ति गणना</value>
         <value xml:lang="it">Numero di ricorrenze attuale</value>
@@ -10230,7 +10403,7 @@
     <property key="FormFieldTitle_currentStatusId">
         <value xml:lang="de">Aktuelle Status ID</value>
         <value xml:lang="en">Current Status Id</value>
-        <value xml:lang="es">Código Estado actual</value>
+        <value xml:lang="es">Código estado actual</value>
         <value xml:lang="fr">Statut actuel</value>
         <value xml:lang="hi_IN">वर्तमान स्थिति क्रमांक</value>
         <value xml:lang="it">Stato attuale</value>
@@ -10288,6 +10461,7 @@
     </property>
     <property key="FormFieldTitle_deviceLocation">
         <value xml:lang="en">Device Location</value>
+        <value xml:lang="es">Emplazamiento dispositivo</value>
         <value xml:lang="fr">Emplacement</value>
     </property>
     <property key="FormFieldTitle_effectiveDate">
@@ -10314,18 +10488,22 @@
     </property>
     <property key="FormFieldTitle_externalDeviceId">
         <value xml:lang="en">External Device Id</value>
+        <value xml:lang="es">Código dispositivo externo</value>
         <value xml:lang="fr">Réf. Mat. Externe</value>
     </property>
     <property key="FormFieldTitle_externalDeviceTypeId">
         <value xml:lang="en">External Device Type Id</value>
+        <value xml:lang="es">Código tipo dispositivo externo</value>
         <value xml:lang="fr">Type de Mat. Externe</value>
     </property>
     <property key="FormFieldTitle_extDevicePurposeActionId">
         <value xml:lang="en">External Device Purpose Action Id</value>
+        <value xml:lang="es">Código acción dispositivo externo</value>
         <value xml:lang="fr">Obj. de l'action</value>
     </property>
     <property key="FormFieldTitle_deviceLocation">
         <value xml:lang="en">Device Location</value>
+        <value xml:lang="es">Emplazamiento dispositivo</value>
         <value xml:lang="fr">Emplacement</value>
     </property>
     <property key="FormFieldTitle_fromDate">
@@ -10410,6 +10588,7 @@
     </property>
     <property key="FormFieldTitle_lastUpdatedTxStamp">
         <value xml:lang="en">Last Updated Tx Stamp</value>
+        <value xml:lang="es">Última fecha modificación Tx</value>
         <value xml:lang="fr">Dernière mise à jour d'estampille temporelle de transaction créée</value>
         <value xml:lang="hi_IN">अंतिम बार अद्यतित TX स्टाम्प</value>
         <value xml:lang="it">Ultimo aggiornamento data/ora</value>
@@ -10435,6 +10614,7 @@
     </property>
     <property key="FormFieldTitle_maxRecurrenceCount">
         <value xml:lang="en">Max Recurrence Count</value>
+        <value xml:lang="es">Número máximo de recurrencias</value>
         <value xml:lang="fr">Nombre max de récurrences</value>
         <value xml:lang="hi_IN">अधिकतम पुनरावृत्ति गणना</value>
         <value xml:lang="it">Numero massimo di ricorrenze</value>
@@ -10444,6 +10624,7 @@
     </property>
     <property key="FormFieldTitle_modifiedByUserLoginId">
         <value xml:lang="en">Modified By User Login Id</value>
+        <value xml:lang="es">Modificado por el código de usuario</value>
         <value xml:lang="fr">Modifié par l'identifiant de connexion</value>
         <value xml:lang="hi_IN">उपयोगकर्ता लॉगिन क्रमांक द्वारा संशोधित</value>
         <value xml:lang="it">Modificato dall'utente</value>
@@ -10453,28 +10634,33 @@
     </property>
     <property key="FormFieldTitle_originalPortalPageId">
         <value xml:lang="en">original page</value>
+        <value xml:lang="es">Página original</value>
         <value xml:lang="fr">Page d'orig.</value>
         <value xml:lang="it">Codice pagina portale originale</value>
         <value xml:lang="pt_BR">Página original</value>
     </property>
     <property key="FormFieldTitle_ownerUserLoginId">
         <value xml:lang="en">Owner User Login ID</value>
+        <value xml:lang="es">Código de usuario del propietario</value>
         <value xml:lang="fr">Propri.</value>
         <value xml:lang="it">Codice login proprietario</value>
         <value xml:lang="pt_BR">Proprietário Login User ID</value>
     </property>
     <property key="FormFieldTitle_parentPortalPageId">
         <value xml:lang="en">Parent page</value>
+        <value xml:lang="es">Página padre</value>
         <value xml:lang="fr">Page père</value>
         <value xml:lang="it">Pagina portale padre</value>
         <value xml:lang="pt_BR">Página superior</value>
     </property>
     <property key="FormFieldTitle_pending">
         <value xml:lang="en">Pending</value>
+        <value xml:lang="es">Pendiente</value>
         <value xml:lang="th">รอดำเนินการ</value>
     </property>
     <property key="FormFieldTitle_portalPageName">
         <value xml:lang="en">Portal page name</value>
+        <value xml:lang="es">Nombre de la página del portal</value>
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome pagina portale</value>
         <value xml:lang="pt_BR">Nome da página do Portal</value>
@@ -10513,6 +10699,7 @@
     <property key="FormFieldTitle_rejectButton">
         <value xml:lang="ar">إضافة</value>
         <value xml:lang="en">Reject</value>
+        <value xml:lang="es">Rechazar</value>
         <value xml:lang="fr">Refuser</value>
         <value xml:lang="hi_IN">अस्वीकार</value>
         <value xml:lang="it">Rifiuta</value>
@@ -10538,6 +10725,7 @@
     </property>
     <property key="FormFieldTitle_saveButton">
         <value xml:lang="en">Save</value>
+        <value xml:lang="es">Guardar</value>
         <value xml:lang="fr">Conserver</value>
         <value xml:lang="hi_IN">सुरक्षित करे</value>
         <value xml:lang="it">Salva</value>
@@ -10575,6 +10763,7 @@
     </property>
     <property key="FormFieldTitle_sendNotificationEmail">
         <value xml:lang="en">Send Notification Email</value>
+        <value xml:lang="es">Enviar notificación por correo electrónico</value>
         <value xml:lang="fr">Envoyer le courriel de notification</value>
         <value xml:lang="hi_IN">अधिसूचना ईमेल भेजें</value>
         <value xml:lang="it">Invia notifica per email</value>
@@ -10634,7 +10823,7 @@
     <property key="FormFieldTitle_taxAuthGeoId">
         <value xml:lang="ar">الرمز الجغرافي للسلطة الضريبية</value>
         <value xml:lang="en">Tax Auth Geo ID</value>
-        <value xml:lang="es">Código Geo Autoridad Tributaria</value>
+        <value xml:lang="es">Código geográfico autoridad tributaria</value>
         <value xml:lang="fr">Réf. géo. d'administration fiscale</value>
         <value xml:lang="hi_IN">टैक्स प्राधिकरण भू क्रमांक</value>
         <value xml:lang="it">Codice autorità tasse geografia</value>
@@ -10649,6 +10838,7 @@
     </property>
     <property key="FormFieldTitle_tempExprId">
         <value xml:lang="en">Temporal Expression</value>
+        <value xml:lang="es">Expresión temporal</value>
         <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="hi_IN">अस्थायी अभिव्यक्ति</value>
         <value xml:lang="it">Espressione temporale</value>
@@ -10779,7 +10969,7 @@
         <value xml:lang="ar">تصنيع</value>
         <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Manufacturing</value>
-        <value xml:lang="es">Manufactura</value>
+        <value xml:lang="es">Fabricación</value>
         <value xml:lang="fr">Fabrication</value>
         <value xml:lang="hi_IN">विनिर्माण</value>
         <value xml:lang="it">Produzione</value>
@@ -10812,6 +11002,7 @@
     </property>
     <property key="MyPortal">
         <value xml:lang="en">My Portal</value>
+        <value xml:lang="es">Mi portal</value>
         <value xml:lang="fr">Mon portail</value>
         <value xml:lang="hi_IN">मेरा पोर्टल</value>
         <value xml:lang="it">Mio portale</value>
@@ -10822,6 +11013,7 @@
     </property>
     <property key="OFBiz Site">
         <value xml:lang="en">OFBiz Site</value>
+        <value xml:lang="es">Página web de OFBiz</value>
         <value xml:lang="fr">Site officiel d'OFBiz</value>
         <value xml:lang="hi_IN">OFBiz साइट</value>
         <value xml:lang="it">Sito di OFBiz</value>
@@ -10898,7 +11090,7 @@
         <value xml:lang="da">Kategori side</value>
         <value xml:lang="de">Kategorie Seite</value>
         <value xml:lang="en">Category Page</value>
-        <value xml:lang="es">Página de Categoría</value>
+        <value xml:lang="es">Página de categoría</value>
         <value xml:lang="fr">Page catégorie</value>
         <value xml:lang="hi_IN">श्रेणी पृष्ठ</value>
         <value xml:lang="it">Pagina categoria</value>
@@ -10916,7 +11108,7 @@
         <value xml:lang="da">Muligheder for udcheckning</value>
         <value xml:lang="de">Bestelloptionen</value>
         <value xml:lang="en">Checkout Options</value>
-        <value xml:lang="es">Opciones De la Comprobación</value>
+        <value xml:lang="es">Opciones del checkout</value>
         <value xml:lang="fr">Options de paiement</value>
         <value xml:lang="it">Opzioni pagamento</value>
         <value xml:lang="ja">チェックアウトオプション</value>
@@ -10930,6 +11122,7 @@
     </property>
     <property key="PageTitleCommonGeoLocation">
         <value xml:lang="en">Geo Location of requested element</value>
+        <value xml:lang="es">Ubicación geográfica del elemento solicitado</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
         <value xml:lang="hi_IN">अनुरोधित एलेमेन्ट का भू स्थान</value>
         <value xml:lang="it">Posizione geografica dell'elemento richiesto</value>
@@ -11013,7 +11206,7 @@
         <value xml:lang="cs">přihlášení</value>
         <value xml:lang="de">Anmeldung</value>
         <value xml:lang="en">Login</value>
-        <value xml:lang="es">Entrada</value>
+        <value xml:lang="es">Conexión</value>
         <value xml:lang="fr">Connexion</value>
         <value xml:lang="hi_IN">लॉगइन</value>
         <value xml:lang="it">Accedi</value>
@@ -11029,6 +11222,7 @@
     </property>
     <property key="PageTitleLookupGeo">
         <value xml:lang="en">Lookup Geo</value>
+        <value xml:lang="es">Buscar zonas geográficas</value>
         <value xml:lang="fr">Recherche une ou des zones géographiques</value>
         <value xml:lang="it">Ricerca Geografia</value>
         <value xml:lang="pt_BR">Buscar localização</value>
@@ -11040,7 +11234,7 @@
         <value xml:lang="cs">úvodní strana</value>
         <value xml:lang="de">Startseite</value>
         <value xml:lang="en">Main Page</value>
-        <value xml:lang="es">Página Principal</value>
+        <value xml:lang="es">Página principal</value>
         <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="hi_IN">मुख्य पृष्ठ</value>
         <value xml:lang="it">Pagina principale</value>
@@ -11059,7 +11253,7 @@
         <value xml:lang="da">Produktside</value>
         <value xml:lang="de">Produkt Seite</value>
         <value xml:lang="en">Product Page</value>
-        <value xml:lang="es">Página de Productos</value>
+        <value xml:lang="es">Página de productos</value>
         <value xml:lang="fr">Page des articles</value>
         <value xml:lang="hi_IN">सामान पृष्ठ</value>
         <value xml:lang="it">Pagina prodotto</value>
@@ -11077,7 +11271,7 @@
         <value xml:lang="da">Tilføj hurtigt</value>
         <value xml:lang="de">Schnelleingabe</value>
         <value xml:lang="en">Quick Add</value>
-        <value xml:lang="es">Añadir Rápido</value>
+        <value xml:lang="es">Añadir rápido</value>
         <value xml:lang="fr">Ajout rapide</value>
         <value xml:lang="hi_IN">जल्द जोड़ें</value>
         <value xml:lang="it">Aggiunta veloce</value>
@@ -11092,6 +11286,7 @@
     </property>
     <property key="PageTitleViewBlocked">
         <value xml:lang="en">View Blocked</value>
+        <value xml:lang="es">Página bloqueada</value>
         <value xml:lang="fr">Page bloquée</value>
         <value xml:lang="hi_IN">पृष्ठ अवरुद्ध</value>
         <value xml:lang="it">Pagina bloccata</value>
@@ -11118,6 +11313,7 @@
     </property>
     <property key="PortalPageNotFound">
         <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
+        <value xml:lang="es">Esta página (${parameters.portalPageId}) no se ha encontrado!</value>
         <value xml:lang="fr">Impossible de trouver la page : (${parameters.portalPageId}) !</value>
         <value xml:lang="hi_IN">यह पृष्ठ (${parameters.portalPageId}) नहीं मिला !</value>
         <value xml:lang="it">Questa pagina (${parameters.portalPageId}) non può essere trovata!</value>
@@ -11127,6 +11323,7 @@
     </property>
     <property key="PortalPageNotOwned">
         <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
+        <value xml:lang="es">La página '${portalPage.portalPageName}' [${portalPage.portalPageId}] no es suya, por lo tanto no puede modificarla!</value>
         <value xml:lang="fr">La page : '${portalPage.portalPageName}' [${portalPage.portalPageId}] ne vous appartient pas, vous ne pouvez la changer !</value>
         <value xml:lang="hi_IN">यह पृष्ठ '${portalPage.portalPageName}' [${portalPage.portalPageId}] नहीं मिला,आपके द्वारा नहीं है, तो बदला नहीं जा सकता!</value>
         <value xml:lang="it">La pagina '${portalPage.portalPageName}' [${portalPage.portalPageId}] non ti appartiene, così non può essere cambiata!</value>
@@ -11160,7 +11357,7 @@
     <property key="Shark">
         <value xml:lang="de">Shark</value>
         <value xml:lang="en">Shark</value>
-        <value xml:lang="es">Procesos de Trabajo</value>
+        <value xml:lang="es">Procesos de trabajo</value>
         <value xml:lang="fr">Shark (WorkFlow)</value>
         <value xml:lang="it">Flussi di lavoro</value>
         <value xml:lang="pt">Shark</value>
@@ -11173,6 +11370,7 @@
     </property>
     <property key="Web Pos">
         <value xml:lang="en">Web Pos</value>
+        <value xml:lang="es">POS web</value>
         <value xml:lang="fr">POS Web</value>
         <value xml:lang="hi_IN">वेब Pos</value>
         <value xml:lang="it">POS web</value>
@@ -11184,7 +11382,7 @@
         <value xml:lang="ar">أدوات</value>
         <value xml:lang="de">Web-Werkzeuge</value>
         <value xml:lang="en">Web Tools</value>
-        <value xml:lang="es">Herramientas Web</value>
+        <value xml:lang="es">Herramientas web</value>
         <value xml:lang="fr">Adm. Sys.</value>
         <value xml:lang="hi_IN">वेब टूल्स</value>
         <value xml:lang="it">Strumenti web</value>
@@ -11266,6 +11464,7 @@
         <value xml:lang="da">Dansk</value>
         <value xml:lang="de">Dänisch</value>
         <value xml:lang="en">Danish</value>
+        <value xml:lang="es">Danés</value>
         <value xml:lang="fr">Danois</value>
         <value xml:lang="fy">Danysk</value>
         <value xml:lang="pt_BR">Dinamarquês</value>
@@ -11366,6 +11565,7 @@
         <value xml:lang="da">Frisisk</value>
         <value xml:lang="de">Friesisch</value>
         <value xml:lang="en">Frisian</value>
+        <value xml:lang="es">Frisio</value>
         <value xml:lang="fr">Frison</value>
         <value xml:lang="fy">Frysk</value>
         <value xml:lang="pt_BR">Frísio</value>
@@ -11392,6 +11592,7 @@
         <value xml:lang="ar">إيطالية</value>
         <value xml:lang="de">Italienisch</value>
         <value xml:lang="en">Italian</value>
+        <value xml:lang="es">Italiano</value>
         <value xml:lang="fr">Italien</value>
         <value xml:lang="hi_IN">इतालवी</value>
         <value xml:lang="it">Italiano</value>
