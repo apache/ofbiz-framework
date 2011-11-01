@@ -119,6 +119,7 @@ if (productId) {
                             keywords.add(categoryDescription);
                     }
                 }
+            }
             context.metaKeywords = StringUtil.join(keywords, ", ");
         }
 
