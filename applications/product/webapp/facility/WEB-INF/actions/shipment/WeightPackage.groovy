@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.order.order.OrderReadHelper;
