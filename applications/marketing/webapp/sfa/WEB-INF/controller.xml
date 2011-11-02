@@ -56,6 +56,12 @@ under the License.
         <response name="success" type="request" value="ViewSalesOpportunity"/>
         <response name="error" type="view" value="EditSalesOpportunity"/>
     </request-map>
+    <request-map uri="closeSalesOpportunity">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateSalesOpportunity"/>
+        <response name="success" type="request" value="FindSalesOpportunity"/>
+        <response name="error" type="view" value="FindSalesOpportunity"/>
+    </request-map>
 
     <!-- Account Entry Requests -->
     <request-map uri="FindAccounts">

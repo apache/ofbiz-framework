@@ -55,6 +55,9 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
+        <row-actions>
+            <set field="isDateAfterNow" value="${groovy:org.ofbiz.base.util.UtilValidate.isDateAfterNow(estimatedCloseDate)}" type="Boolean"/>
+        </row-actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
             <hyperlink target="ViewSalesOpportunity" description="${opportunityName}[${salesOpportunityId}]">
@@ -65,9 +68,10 @@ under the License.
         <field name="nextStep"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="estimatedCloseDate" title="${uiLabelMap.SfaCloseDate}"><display/></field>
-        <field name="editButton" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink target="EditSalesOpportunity" description="${uiLabelMap.CommonEdit}">
+        <field name="editButton" title="${uiLabelMap.CommonClose}" use-when="${groovy: estimatedCloseDate == null || isDateAfterNow == true || opportunityStageId != &quot;SOSTG_CLOSED&quot;}" widget-style="buttontext">
+            <hyperlink target="closeSalesOpportunity" description="${uiLabelMap.CommonClose}">
                 <parameter param-name="salesOpportunityId"/>
+                <parameter param-name="opportunityStageId" value="SOSTG_CLOSED"/>
             </hyperlink>
         </field>
     </form>

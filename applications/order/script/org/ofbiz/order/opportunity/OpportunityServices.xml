@@ -114,6 +114,14 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     </simple-method>
     <simple-method method-name="updateSalesOpportunity" short-description="Update an Sales opportunity">
         <entity-one entity-name="SalesOpportunity" value-field="lookedUpValue"/>
+        <if-compare field="parameters.opportunityStageId" operator="equals" value="SOSTG_CLOSED">
+            <if-empty field="parameters.estimatedCloseDate">
+                <now-timestamp field="nowTimestamp"/>
+                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="parameters.estimatedCloseDate">
+                    <field field="nowTimestamp" type="java.sql.Timestamp"/>
+                </call-class-method>
+            </if-empty>
+        </if-compare>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
