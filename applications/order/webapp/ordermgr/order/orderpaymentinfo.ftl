@@ -71,6 +71,21 @@ under the License.
            </tr>
          </#list>
        </#list>
+       <#-- invoices -->
+       <#if invoices?has_content>
+         <tr><td colspan="4"><hr /></td></tr>
+         <tr>
+           <td align="right" valign="top" width="29%">&nbsp;<span class="label">${uiLabelMap.OrderInvoices}</span></td>
+           <td width="1%">&nbsp;</td>
+           <td valign="top" width="60%">
+             <#list invoices as invoice>
+               <div>${uiLabelMap.CommonNbr}<a href="/accounting/control/invoiceOverview?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${invoice}</a>
+               (<a target="_BLANK" href="/accounting/control/invoice.pdf?invoiceId=${invoice}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">PDF</a>)</div>
+             </#list>
+           </td>
+           <td width="10%">&nbsp;</td>
+         </tr>
+       </#if>
      <#else>
      
      <#-- order payment status -->
