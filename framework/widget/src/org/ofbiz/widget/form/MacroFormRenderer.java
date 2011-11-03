@@ -564,11 +564,16 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
 
         String contextValue = null;
-        //if time-dropdow desactive encodingOutput for found hour and minutes
+        // If time-dropdown deactivate encodingOutput for found hour and minutes
         boolean memEncodeOutput = modelFormField.getEncodeOutput();
-        if (useTimeDropDown) modelFormField.setEncodeOutput(false);
+        if (useTimeDropDown)
+            // FIXME: This is not thread-safe! Never modify a model's state!
+            modelFormField.setEncodeOutput(false);
+        // FIXME: modelFormField.getEntry ignores shortDateInput when converting Date objects to Strings.
+        // Object type conversion should be done by the renderer, not by the model.
         contextValue = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
-        if (useTimeDropDown) modelFormField.setEncodeOutput(memEncodeOutput);
+        if (useTimeDropDown)
+            modelFormField.setEncodeOutput(memEncodeOutput);
 
         String value = contextValue;
         if (UtilValidate.isNotEmpty(value)) {
