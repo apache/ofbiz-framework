@@ -240,9 +240,25 @@ under the License.
                             <include-form name="ListProductionRunDeclRoutingTasks" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingProductionRunDeclaration}">
-                            <platform-specific>
-                                <html><html-template location="component://manufacturing/webapp/manufacturing/jobshopmgt/ProductionRunDeclaration.ftl"/></html>
-                            </platform-specific>
+                          <section>
+                            <condition>
+                              <not><if-empty field="parameters.routingTaskId"/></not>
+                            </condition>
+                            <widgets>
+                              <container style="lefthalf">
+                                <include-form name="EditProductionRunDeclRoutingTask" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                              </container>
+                              <container style="righthalf">
+                                <include-form name="CreateRoutingTaskDelivProduct" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                <section>
+                                  <condition><not><if-empty field="prunInventoryProduced"/></not></condition>
+                                  <widgets>
+                                    <include-form name="ProductionRunTaskInventoryProducedList" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                                  </widgets>
+                                </section>
+                              </container>
+                            </widgets>
+                          </section>
                         </screenlet>
                         <screenlet title="${uiLabelMap.ManufacturingMaterialsRequiredByRunningTask}">
                             <include-form name="ListIssueProductionRunDeclComponents" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
