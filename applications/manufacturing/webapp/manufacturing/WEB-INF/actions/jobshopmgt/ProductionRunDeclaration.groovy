@@ -98,11 +98,8 @@ if (productionRunId) {
             Map routingTaskData = routingTask.getAllFields();
             routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis");
             routingTaskData.estimatedMilliSeconds = routingTask.getDouble("estimatedMilliSeconds");
-            HtmlFormWrapper editPrRoutingTaskWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "EditProductionRunDeclRoutingTask", request, response);
-            editPrRoutingTaskWrapper.putInContext("routingTaskData", routingTaskData);
-            editPrRoutingTaskWrapper.putInContext("actionForm", "UpdateRoutingTask");
+            context.routingTaskData = routingTaskData;
             routingTaskData.partyId = userLogin.partyId;
-            context.editPrRoutingTaskWrapper = editPrRoutingTaskWrapper;
             context.routingTaskId = routingTaskId;
             // Get the list of deliverable products, i.e. the WorkEffortGoodStandard entries
             // with workEffortGoodStdTypeId = "PRUNT_PROD_DELIV":
@@ -116,16 +113,10 @@ if (productionRunId) {
             if (templateTask) {
                 delivProducts = EntityUtil.filterByDate(templateTask.getRelatedByAnd("WorkEffortGoodStandard", [workEffortGoodStdTypeId : "PRUNT_PROD_DELIV"]));
             }
-            HtmlFormWrapper createRoutingTaskDelivProductForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "CreateRoutingTaskDelivProduct", request, response);
-            createRoutingTaskDelivProductForm.putInContext("formData", [productionRunId : productionRunId, workEffortId : routingTaskId]);
-            context.createRoutingTaskDelivProductForm = createRoutingTaskDelivProductForm;
             context.delivProducts = delivProducts;
             // Get the list of delivered products, i.e. inventory items
             prunInventoryProduced = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : routingTaskId]);
             context.prunInventoryProduced = prunInventoryProduced;
-            HtmlFormWrapper prunInventoryProducedForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskInventoryProducedList", request, response);
-            prunInventoryProducedForm.putInContext("prunInventoryProduced", prunInventoryProduced);
-            context.prunInventoryProducedForm = prunInventoryProducedForm;
         }
 
         //  RoutingTasks list

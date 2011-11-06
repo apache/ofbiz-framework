@@ -536,7 +536,7 @@ under the License.
     <form name="CreateRoutingTaskDelivProduct" type="single" target="createProductionRunTaskProduct" title="" default-map-name="formData"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productionRunId"><hidden/></field>
-        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortId"><hidden value="${routingTaskId}"/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()>0}">
             <drop-down allow-empty="false">
                 <list-options list-name="delivProducts" key-name="productId" description="${productId}"/>
