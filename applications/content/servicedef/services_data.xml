@@ -38,6 +38,7 @@
         <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <override name="objectInfo" allow-html="safe"/>
+        <override name="dataResourceName" allow-html="safe"/>
     </service>
     <service name="createDataResourceAndAssocToContent" default-entity-name="DataResource" engine="simple"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="createDataResourceAndAssocToContent" auth="true">
@@ -59,6 +60,7 @@
         <attribute name="dataResourceId" type="String" mode="OUT" optional="false"/>
         <attribute name="dataResource" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <override name="objectInfo" allow-html="safe"/>
+        <override name="dataResourceName" allow-html="safe"/>
     </service>
     <service name="removeDataResource" engine="simple" default-entity-name="DataResource" auth="true"
             location="component://content/script/org/ofbiz/content/data/DataServices.xml" invoke="deleteDataResource">

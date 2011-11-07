@@ -120,6 +120,7 @@ under the License.
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <override name="groupName" optional="false"/>
+        <override name="comments" allow-html="safe"/>
     </service>
     <service name="updatePartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.ofbiz.party.party.PartyServices" invoke="updatePartyGroup" auth="true">
@@ -132,6 +133,7 @@ under the License.
         <attribute name="preferredCurrencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
+        <override name="comments" allow-html="safe"/>
     </service>
 
     <service name="savePartyNameChange" engine="simple"
