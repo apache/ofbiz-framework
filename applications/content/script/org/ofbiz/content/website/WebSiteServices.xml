@@ -248,6 +248,7 @@ under the License.
                         </calculate>
                     </if-compare>
                     <if-compare operator="equals" value="content" field="typeGenerate">
+                        <set field="createMissingContentAltUrlsMap.webSiteId" from-field="parameters.webSiteId"/>
                         <set field="createMissingContentAltUrlsMap.prodCatalogId" from-field="productStoreCatalog.prodCatalogId"/>
                         <call-service service-name="createMissingContentAltUrls" in-map-name="createMissingContentAltUrlsMap">
                             <result-to-field result-name="contentsNotUpdated" field="contentsNotUpdated"/>
@@ -305,6 +306,7 @@ under the License.
                     </calculate>
                 </if-compare>
                 <if-compare operator="equals" value="content" field="typeGenerate">
+                    <set field="createMissingContentAltUrlsMap.webSiteId" from-field="parameters.webSiteId"/>
                     <set field="createMissingContentAltUrlsMap.prodCatalogId" from-field="parameters.prodCatalogId"/>
                     <call-service service-name="createMissingContentAltUrls" in-map-name="createMissingContentAltUrlsMap">
                         <result-to-field result-name="contentsNotUpdated" field="contentsNotUpdated"/>

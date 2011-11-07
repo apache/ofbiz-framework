@@ -341,6 +341,7 @@
                 location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="createMissingContentAltUrls" auth="true" use-transaction="false">
         <description>Create missing Content Alternative URLs</description>
         <attribute name="prodCatalogId" mode="IN" type="String" optional="false"/>
+        <attribute name="webSiteId" mode="IN" type="String" optional="true"/>
         <attribute name="contentsNotUpdated" mode="OUT" type="Integer" optional="true"/>
         <attribute name="contentsUpdated" mode="OUT" type="Integer" optional="true"/>
     </service>
