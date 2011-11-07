@@ -947,6 +947,7 @@ text-align: center;
 /* ==================================== */
 #logo-area {
 background: url(../images/ofbiz_logo.png) no-repeat;
+width:385px;
 height:50px;
 }
 
@@ -956,6 +957,7 @@ height:100%;
 }
 
 #org-logo-area {
+width:385px;
 height:50px;
 }
 
