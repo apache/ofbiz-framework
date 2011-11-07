@@ -1430,7 +1430,7 @@
         </iterate>
         
         <iterate entry="productCategoryList" list="parameters.productCategories">
-            <!-- Create Content Alternative URLs for Product Category -->
+            <!-- Create Content Alternative URLs for Product Category Content -->
             <entity-condition list="productCategoryContentAndInfoList" entity-name="ProductCategoryContentAndInfo" filter-by-date="true" use-cache="true">
                 <condition-list combine="and">
                     <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
@@ -1459,7 +1459,7 @@
                 </if-compare>
             </iterate>
             
-            <!-- Create Content Alternative URLs for Product -->
+            <!-- Create Content Alternative URLs for Product Content -->
             <entity-condition list="productCategoryMemberList" entity-name="ProductCategoryMember" filter-by-date="true" use-cache="true">
                 <condition-list combine="and">
                     <condition-expr field-name="productCategoryId" from-field="productCategoryList.productCategoryId"/>
@@ -1497,6 +1497,45 @@
                 </iterate>
             </iterate>
         </iterate>
+        
+        <!-- Create Content Alternative URLs for Website Content (webSiteContentTypeId=BLOG_ROOT) -->
+        <entity-and list="webSiteContents" entity-name="WebSiteContent" filter-by-date="true">
+            <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
+            <field-map field-name="webSiteContentTypeId" value="BLOG_ROOT"/>
+        </entity-and>
+        <first-from-list entry="webSiteContent" list="webSiteContents"/>
+        <if-not-empty field="webSiteContent">
+            <entity-and list="blogContents" entity-name="ContentAssoc" filter-by-date="true">
+                <field-map field-name="contentId" from-field="webSiteContent.contentId"/>
+                <field-map field-name="contentAssocTypeId" value="SUB_CONTENT"/>
+            </entity-and>
+            <iterate entry="blogContent" list="blogContents">
+                <entity-and list="contentAssocs" entity-name="ContentAssoc" filter-by-date="true">
+                    <field-map field-name="contentId" from-field="blogContent.contentIdTo"/>
+                    <field-map field-name="contentAssocTypeId" value="PUBLISH_LINK"/>
+                </entity-and>
+                <iterate entry="contentAssoc" list="contentAssocs">
+                    <set field="createMissingContentAltUrlsMap.contentId" from-field="contentAssoc.contentIdTo"/>
+                    <call-service service-name="createContentAlternativeUrl" in-map-name="createMissingContentAltUrlsMap">
+                        <result-to-field result-name="contentCreated" field="contentCreated"/>
+                    </call-service>
+                    <if-compare operator="equals" value="Y" field="contentCreated">
+                        <calculate field="contentsUpdated" type="Integer">
+                            <calcop operator="add" field="contentsUpdated">
+                                <number value="1"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                    <if-compare operator="equals" value="N" field="contentCreated">
+                        <calculate field="contentsNotUpdated" type="Integer">
+                            <calcop operator="add" field="contentsNotUpdated">
+                                <number value="1"/>
+                            </calcop>
+                        </calculate>
+                    </if-compare>
+                </iterate>
+            </iterate>
+        </if-not-empty>
         <field-to-result field="contentsNotUpdated" result-name="contentsNotUpdated"/>
         <field-to-result field="contentsUpdated" result-name="contentsUpdated"/>
     </simple-method>
