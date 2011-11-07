@@ -66,7 +66,7 @@
     <property key="FormFieldTitle_mailingListEmail">
         <value xml:lang="de">Mailing List E-Mail</value>
         <value xml:lang="en">Mailing List E-mail</value>
-        <value xml:lang="fr">Adresse de la liste de diffusion</value>
+        <value xml:lang="fr">Liste de diffusion mél</value>
         <value xml:lang="nl">Mailinglijst E-mail</value>
         <value xml:lang="th">E-mail สำหรับ Mailing List</value>
     </property>
@@ -89,6 +89,7 @@
     <property key="FormFieldTitle_originalActualHours">
         <value xml:lang="de">Ursprüngliche Ist-Stunden</value>
         <value xml:lang="en">Original Actual Hours</value>
+        <value xml:lang="fr">Heures réelles brut</value>
         <value xml:lang="it">Ore attuali originali</value>
         <value xml:lang="nl">Originele werk. uren</value>
         <value xml:lang="zh">原始实际工时</value>
@@ -802,10 +803,12 @@
     </property>
     <property key="ProjectMgrCannotAddToTimesheet">
         <value xml:lang="en">Cannot add to timesheet ${timesheet.timesheetId} because the status does not allow additions or modifications.</value>
+        <value xml:lang="fr">Impossible d'ajouter à la feuille d'activité ${timesheet.timesheetId}, car son statut ne permet pas les ajouts ou modifications.</value>
         <value xml:lang="it">Non è possibile aggiungerlo alla timbratura ${timesheet.timesheetId} perchè lo stato non permette aggiunte o modifiche.</value>
     </property>
     <property key="ProjectMgrCannotAddInvoiceToTimesheet">
         <value xml:lang="en">Invoice with ID ${parameters.invoiceId}, has the wrong status, not adding Timesheet Entries to it.</value>
+        <value xml:lang="fr">La facture n° ${parameters.invoiceId}, n'a pas un statut permettant de lui ajouter cette feuille d'activité.</value>
         <value xml:lang="it">Fattura con ID ${parameters.invoiceId}, ha lo stato errato, non aggiungerlo alla riga timbratura.</value>
     </property>
     <property key="ProjectMgrCheckComplete">
@@ -978,6 +981,7 @@
     </property>
     <property key="ProjectMgrErrorProjectNotFound">
         <value xml:lang="en">Project: ${parameters.projectId} not found</value>
+        <value xml:lang="fr">Projet: ${parameters.projectId} non trouvé</value>
         <value xml:lang="it">Progetto: ${parameters.projectId} non trovato</value>
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
@@ -1220,6 +1224,7 @@
     </property>
     <property key="ProjectMgrNoTimeentryItemsFound">
         <value xml:lang="en">No timeentry items found</value>
+        <value xml:lang="fr">Aucune feuille d'activité trouvée</value>
         <value xml:lang="it">Nessuna riga timbratura trovata</value>
     </property>
     <property key="ProjectMgrParentProjectName">
