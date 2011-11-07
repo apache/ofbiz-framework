@@ -194,7 +194,7 @@ under the License.
                         <set field="actual" value="true" type="Boolean"/>
                         <call-class-method method-name="getPaymentNotApplied" class-name="org.ofbiz.accounting.payment.PaymentWorker" ret-field="notAppliedPayment">
                             <field field="payment" type="GenericValue"/>
-                            <field field="actual"/>
+                            <field field="actual" type="Boolean"/>
                         </call-class-method>
                     </if-compare-field>
                 </then>
