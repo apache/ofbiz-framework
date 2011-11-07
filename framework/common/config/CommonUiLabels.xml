@@ -4807,6 +4807,7 @@
     <property key="CommonMax250Chars">
         <value xml:lang="en">250 Chars Maximum</value>
         <value xml:lang="es">250 caracteres máximo</value>
+        <value xml:lang="fr">250 caractères max.</value>
         <value xml:lang="hi_IN">अधिकतम 250 वर्ण</value>
         <value xml:lang="it">250 caratteri al massimo</value>
         <value xml:lang="pt_BR">Máximo de 250 caracteres</value>
