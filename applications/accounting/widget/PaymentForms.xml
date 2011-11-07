@@ -290,7 +290,7 @@ under the License.
         </field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="amountApplied"><display/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}"><submit/></field>
+        <field name="removeButton"><submit/></field>
     </form>
     <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="removePaymentApplication" type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -298,7 +298,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId"><display/></field>
         <field name="amountApplied"><display/></field>
-        <field name="removeButton" title="${uiLabelMap.CommonRemove}"><submit/></field>
+        <field name="removeButton"><submit/></field>
     </form>
     <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="removePaymentApplication"  type="list" separate-columns="false"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
