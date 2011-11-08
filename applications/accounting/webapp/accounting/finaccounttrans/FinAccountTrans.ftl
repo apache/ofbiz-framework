@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script language="JavaScript" type="text/javascript">
-<!--
 function togglefinAccountTransId(master) {
     var form = document.selectAllForm;
     var finAccountTransList = form.elements.length;
@@ -38,7 +37,7 @@ function getFinAccountTransRunningTotalAndBalances() {
     var isAllSelected = true;
     for (var i = 0; i < finAccountTransList; i++) {
         var element = form.elements[i];
-        if (element.name.startsWith("_rowSubmit_o_")) {
+        if (jQuery(element[name^="_rowSubmit_o_"])) {
             if (element.checked) {
                 isSingle = false;
             } else {
@@ -52,7 +51,7 @@ function getFinAccountTransRunningTotalAndBalances() {
         jQuery('#checkAllTransactions').attr('checked', false);
     }
     if (!isSingle) {
-        jQuery('#submitButton').attr('disabled', '');
+        jQuery('#submitButton').removeAttr('disabled');
         if (jQuery('#showFinAccountTransRunningTotal').length) {
             jQuery.ajax({
                 url: 'getFinAccountTransRunningTotalAndBalances',
@@ -75,10 +74,9 @@ function getFinAccountTransRunningTotalAndBalances() {
             jQuery('#endingBalance').html(jQuery('#endingBalanceInput').val());
 
         }
-        jQuery('#submitButton').attr('disabled', '');
+        jQuery('#submitButton').attr('disabled', 'disabled');
     }
 }
--->
 </script>
 
 <div class="screenlet screenlet-body">
@@ -323,7 +321,7 @@ function getFinAccountTransRunningTotalAndBalances() {
         </tr>
         <tr>
           <td>
-            <span id="finAccountTransRunningTotal"></span> / 
+            <span id="finAccountTransRunningTotal"></span> /
             <span id="numberOfFinAccountTransaction"></span>
           </td>
           <td><@ofbizCurrency amount=glReconciliation.openingBalance?default('0')/></td>
@@ -334,6 +332,6 @@ function getFinAccountTransRunningTotalAndBalances() {
       </table>
     </#if>
   <#else>
-    <h2>${uiLabelMap.CommonNoRecordFound}</h2>  
+    <h2>${uiLabelMap.CommonNoRecordFound}</h2>
   </#if>
 </div>

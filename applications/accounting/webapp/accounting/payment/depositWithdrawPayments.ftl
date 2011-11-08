@@ -18,7 +18,6 @@ under the License.
 -->
 
 <script language="JavaScript" type="text/javascript">
-<!-- //
 function togglePaymentId(master) {
     var form = document.depositWithdrawPaymentsForm;
     var payments = form.elements.length;
@@ -45,13 +44,14 @@ function getPaymentRunningTotal() {
             }
         }
     }
+
     if (isAllSelected) {
         jQuery('#checkAllPayments').attr('checked', true);
     } else {
         jQuery('#checkAllPayments').attr('checked', false);
     }
     if (!isSingle) {
-        jQuery('#submitButton').attr('disabled', '');
+        jQuery('#submitButton').removeAttr('disabled');
         jQuery.ajax({
             url: 'getPaymentRunningTotal',
             async: false,
@@ -63,10 +63,10 @@ function getPaymentRunningTotal() {
         });
     } else {
         jQuery('#showPaymentRunningTotal').html("");
-        jQuery('#submitButton').attr('disabled', '');
+        jQuery('#submitButton').attr('disabled', 'disabled');
     }
 }
-// -->
+
 
 </script>
 <div class="screenlet">
