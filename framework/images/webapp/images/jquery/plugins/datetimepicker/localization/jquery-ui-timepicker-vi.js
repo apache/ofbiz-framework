@@ -7,10 +7,13 @@
 		hourText: 'Giờ',
 		minuteText: 'Phút',
 		secondText: 'Giây',
+		millisecText: 'Phần nghìn giây',
 		timezoneText: 'Múi giờ',
 		currentText: 'Hiện thời',
 		closeText: 'Đóng'
 		timeFormat: 'h:m',
+		amNames: ['SA', 'AM', 'A'],
+		pmNames: ['CH', 'PM', 'P'],
 		ampm: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['vi']);

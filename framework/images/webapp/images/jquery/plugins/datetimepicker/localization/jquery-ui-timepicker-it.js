@@ -7,10 +7,13 @@
         hourText: 'Ora',
         minuteText: 'Minuto',
         secondText: 'Secondo',
+        millisecText: 'Millisecondo',
         timezoneText: 'Fuso orario',
         currentText: 'Adesso',
         closeText: 'Chiudi',
         timeFormat: 'hh:mm',
+        amNames: ['m.', 'AM', 'A'],
+        pmNames: ['p.', 'PM', 'P'],
         ampm: false
     };
     $.timepicker.setDefaults($.timepicker.regional['it']);
