@@ -198,7 +198,7 @@ public class ContentKeywordIndex {
         }
 
         List<GenericValue> toBeStored = FastList.newInstance();
-        int keywordMaxLength = Integer.parseInt(UtilProperties.getPropertyValue("keywordsearch", "keyword.max.length"));
+        int keywordMaxLength = Integer.parseInt(UtilProperties.getPropertyValue("contentsearch", "content.keyword.max.length"));
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
                 GenericValue contentKeyword = delegator.makeValue("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
