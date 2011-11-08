@@ -22,7 +22,6 @@ under the License.
   ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
   ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderitems")}
   <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.EcommerceContinueShopping}</a>
-  <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.EcommerceContinueShopping}</a>
 <#else>
   <h3>${uiLabelMap.OrderSpecifiedNotFound}.</h3>
 </#if>
