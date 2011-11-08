@@ -60,8 +60,10 @@
         <value xml:lang="zh">创建时间</value>
     </property>
     <property key="FormFieldTitle_firstResource">
+        <value xml:lang="de">Erste Ressource</value>
         <value xml:lang="en">First Resource</value>
         <value xml:lang="fr">1ère ressource</value>
+        <value xml:lang="nl">Eerste resource</value>
     </property>
     <property key="FormFieldTitle_mailingListEmail">
         <value xml:lang="de">Mailing List E-Mail</value>
@@ -159,8 +161,10 @@
         <value xml:lang="zh">任务</value>
     </property>
     <property key="FormFieldTitle_milestone">
+        <value xml:lang="de">Meilenstein</value>
         <value xml:lang="en">Milestone</value>
         <value xml:lang="fr">Jalon</value>
+        <value xml:lang="nl">Mijlpaal</value>
     </property>
     <property key="FormFieldTitle_taskName">
         <value xml:lang="de">Aufgabenname</value>
@@ -179,8 +183,10 @@
         <value xml:lang="zh">模板Id</value>
     </property>
     <property key="FormFieldTitle_timesheetPartyId">
+        <value xml:lang="de">Zugeordnet zu</value>
         <value xml:lang="en">Associated to</value>
         <value xml:lang="fr">Associée à</value>
+        <value xml:lang="nl">Gekoppeld aan</value>
     </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="de">Neue wöchentliche Zeiterfassung hinzufügen</value>
@@ -683,6 +689,7 @@
         <value xml:lang="en">Timesheet</value>
         <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Timbratura</value>
+        <value xml:lang="nl">Urenstaat</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">时间表</value>
     </property>
@@ -802,14 +809,18 @@
         <value xml:lang="zh">账单</value>
     </property>
     <property key="ProjectMgrCannotAddToTimesheet">
+        <value xml:lang="de">Hinzfügen zur Zeiterfassung: ${timesheet.timesheetId} ist nicht erlaubt, da der Status Modifiaktionen und Erweiterungen verbietet.</value>
         <value xml:lang="en">Cannot add to timesheet ${timesheet.timesheetId} because the status does not allow additions or modifications.</value>
         <value xml:lang="fr">Impossible d'ajouter à la feuille d'activité ${timesheet.timesheetId}, car son statut ne permet pas les ajouts ou modifications.</value>
         <value xml:lang="it">Non è possibile aggiungerlo alla timbratura ${timesheet.timesheetId} perchè lo stato non permette aggiunte o modifiche.</value>
+        <value xml:lang="nl">Uren kunnen niet aan urenstaat ${timesheet.timesheetId} worden toegevoegd, want de status staat geen wijzigingen toe.</value>
     </property>
     <property key="ProjectMgrCannotAddInvoiceToTimesheet">
+        <value xml:lang="de">Die Rechnung: ${parameters.invoiceId}, hat einen falschen Status, Zeiterfassungseinträge können nicht hinzugefügt werden.</value>
         <value xml:lang="en">Invoice with ID ${parameters.invoiceId}, has the wrong status, not adding Timesheet Entries to it.</value>
         <value xml:lang="fr">La facture n° ${parameters.invoiceId}, n'a pas un statut permettant de lui ajouter cette feuille d'activité.</value>
         <value xml:lang="it">Fattura con ID ${parameters.invoiceId}, ha lo stato errato, non aggiungerlo alla riga timbratura.</value>
+        <value xml:lang="nl">Factuur ${parameters.invoiceId} heeft niet de juiste status. Uren worden niet eraan toegevoegd.</value>
     </property>
     <property key="ProjectMgrCheckComplete">
         <value xml:lang="de">Markieren wenn Fertiggestellt</value>
@@ -854,12 +865,16 @@
         <value xml:lang="zh">项目</value>
     </property>
     <property key="ProjectMgrConfirmationClose">
+        <value xml:lang="de">Sind Sie sich sicher dieses Projekt zu schlißen?</value>
         <value xml:lang="en">Are you sure to close this project?</value>
         <value xml:lang="fr">Etes vous sur de vouloir clôturer ce projet ?</value>
+        <value xml:lang="nl">Weet U zeker dat dit project afgesloten moet worden?</value>
     </property>
     <property key="ProjectMgrConfirmationSchedule">
+        <value xml:lang="de">Sind Sie sich sicher dieses Projekt zeitlich einzuplanen?</value>
         <value xml:lang="en">Are you sure to schedule this project?</value>
         <value xml:lang="fr">Etes vous sûr de vouloir planifier ce projet ?</value>
+        <value xml:lang="nl">Weet u zeker dat u dit project wilt inplannen?</value>
     </property>
     <property key="ProjectMgrContentList">
         <value xml:lang="de">Projektinhaltsliste</value>
@@ -905,9 +920,11 @@
         <value xml:lang="zh">请求分类标识</value>
     </property>
     <property key="ProjectMgrCustRequestWorkEffort">
+        <value xml:lang="de">Kunden Anfrage WorkEffort</value>
         <value xml:lang="en">CustRequest WorkEffort</value>
         <value xml:lang="fr">Créer une tâche depuis une demande client</value>
         <value xml:lang="it">Impegno di lavoro richiesta</value>
+        <value xml:lang="nl">Verzoek werk</value>
         <value xml:lang="th">งานคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求的工作任务</value>
     </property>
@@ -980,9 +997,11 @@
         <value xml:lang="zh">编辑任务</value>
     </property>
     <property key="ProjectMgrErrorProjectNotFound">
+        <value xml:lang="de">Projekt: ${parameters.projectId} nicht gefunden</value>
         <value xml:lang="en">Project: ${parameters.projectId} not found</value>
         <value xml:lang="fr">Projet: ${parameters.projectId} non trouvé</value>
         <value xml:lang="it">Progetto: ${parameters.projectId} non trovato</value>
+        <value xml:lang="nl">Project: ${parameters.projectId} werd niet gevonden</value>
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
         <value xml:lang="de">Kundenanfrage: ${parameters.custRequestId} wurde nicht gefunden</value>
@@ -1053,12 +1072,16 @@
         <value xml:lang="zh">评估人力</value>
     </property>
     <property key="ProjectMgrActualCompletionDateAbbr">
+        <value xml:lang="de">Ist Fertigs.</value>
         <value xml:lang="en">Act.Compl.</value>
         <value xml:lang="fr">Fin réelle</value>
+        <value xml:lang="nl">Werk. gereed</value>
     </property>
     <property key="ProjectMgrEstimatedCompletionDateAbbr">
+        <value xml:lang="de">Soll Fertigs.</value>
         <value xml:lang="en">Est.Compl.</value>
         <value xml:lang="fr">Fin est.</value>
+        <value xml:lang="nl">Geschat gereed</value>
     </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="de">Filter aktivieren</value>
@@ -1223,9 +1246,11 @@
         <value xml:lang="zh">创建新的</value>
     </property>
     <property key="ProjectMgrNoTimeentryItemsFound">
+        <value xml:lang="de">Es wurden keine Zeiterfassungseinträge gefunden.</value>
         <value xml:lang="en">No timeentry items found</value>
         <value xml:lang="fr">Aucune feuille d'activité trouvée</value>
         <value xml:lang="it">Nessuna riga timbratura trovata</value>
+        <value xml:lang="nl">Geen urenregels gevonden</value>
     </property>
     <property key="ProjectMgrParentProjectName">
         <value xml:lang="de">Name des übergeordneten Projektes</value>
@@ -1338,6 +1363,7 @@
     <property key="ProjectMgrProrityAbbr">
         <value xml:lang="en">Prio.</value>
         <value xml:lang="fr">P.</value>
+        <value xml:lang="nl">Prio</value>
     </property>
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="de">Privat/Öffentlich</value>
@@ -1906,8 +1932,10 @@
         <value xml:lang="zh">你至少需要有PROJECTMGR_READ权限才能查看本页</value>
     </property>
     <property key="ProjectMgrAdminViewPermissionError">
+        <value xml:lang="de">Es werden mindestens PROJECT_ADMIN Rechte benötigt um diese Seite anzuzeigen.</value>
         <value xml:lang="en">You need at least a PROJECT_ADMIN permission to view this screen</value>
         <value xml:lang="fr">Il vous faut au moins l'autorisation PROJECTMGR_ADMIN pour voir cet écran</value>
+        <value xml:lang="nl">Om dit scherm te zien is permissie PROJECT_ADMIN noodzakelijk.</value>
     </property>
     <property key="ProjectMgrWeek">
         <value xml:lang="de">Woche</value>
