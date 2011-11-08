@@ -118,16 +118,16 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true"/>
 
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.7.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jquery.maskedinput-1.2.2.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.13.custom.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.16.custom.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jeditable/jquery.jeditable.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
 
 
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.7.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>
@@ -379,13 +379,13 @@ under the License.
                 <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true"/>
 
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.13.custom.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.7.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.16.custom.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jeditable/jquery.jeditable.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.6.2.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.7.min.js" global="true"/>
                     <!-- jQuery CSSs -->
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>

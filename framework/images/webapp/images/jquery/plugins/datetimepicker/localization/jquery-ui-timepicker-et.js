@@ -7,10 +7,13 @@
 		hourText: 'Tund',
 		minuteText: 'Minut',
 		secondText: 'Sekund',
+		millisecText: 'Millisekundis',
 		timezoneText: 'Ajavöönd',
 		currentText: 'Praegu',
 		closeText: 'Valmis',
 		timeFormat: 'hh:mm tt',
+		amNames: ['AM', 'A'],
+		pmNames: ['PM', 'P'],
 		ampm: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['et']);

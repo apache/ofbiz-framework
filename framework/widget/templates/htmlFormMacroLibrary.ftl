@@ -164,6 +164,7 @@ under the License.
               <#else>
                  jQuery("#${id}").datetimepicker({
                     showSecond: true,
+                    <#-- showMillisec: true, -->
                     timeFormat: 'hh:mm:ss',
                     stepHour: 1,
                     stepMinute: 1,
@@ -325,7 +326,7 @@ ${item.description}</span>
     <#if containerId?has_content && hasRequiredField?has_content>
       <script type="text/javascript">
           jQuery("#${containerId}").validate({
-             submitHandler: 
+             submitHandler:
                  function(form) {
                  form.submit();
              }
@@ -463,6 +464,7 @@ ${item.description}</span>
           <#else>
              jQuery("#${name?html}_fld0_value").datetimepicker({
                 showSecond: true,
+                <#-- showMillisec: true, -->
                 timeFormat: 'hh:mm:ss',
                 stepHour: 1,
                 stepMinute: 5,
@@ -498,6 +500,7 @@ ${item.description}</span>
           <#else>
              jQuery("#${name?html}_fld1_value").datetimepicker({
                 showSecond: true,
+                <#-- showMillisec: true, -->
                 timeFormat: 'hh:mm:ss',
                 stepHour: 1,
                 stepMinute: 5,
@@ -668,7 +671,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 <#if ajaxEnabled?has_content && ajaxEnabled>
       <#if ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
-      </#if>      
+      </#if>
     <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}', ${showDescription}, ${defaultMinLength!2}, ${defaultDelay!300});</script><#t/>
 </#if>
 </#macro>

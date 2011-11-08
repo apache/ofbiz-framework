@@ -7,10 +7,13 @@
 		hourText: 'Часы',
 		minuteText: 'Минуты',
 		secondText: 'Секунды',
+		millisecText: 'Миллисекунды',
 		timezoneText: 'Время зоны',
 		currentText: 'Теперь',
 		closeText: 'Закрыть',
 		timeFormat: 'hh:mm tt',
+		amNames: ['AM', 'A'],
+		pmNames: ['PM', 'P'],
 		ampm: false
 	};
 	$.timepicker.setDefaults($.timepicker.regional['ru']);
