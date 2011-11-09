@@ -134,7 +134,7 @@ under the License.
 
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
         <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
-        <field name="logo" use-when="organizationLogoLinkURL!=null" title="${uiLabelMap.CommonOrganizationLogo}"><image alternate="${uiLabelMap.CommonOrganizationLogo}" value="${organizationLogoLinkURL}"/></field>
+        <field name="logo" use-when="partyGroupLogoLinkUrl!=null" title="${uiLabelMap.CommonOrganizationLogo}"><image alternate="${uiLabelMap.CommonOrganizationLogo}" value="${partyGroupLogoLinkUrl}"/></field>
         <field name="partyTypeId"><ignored/></field>
         <field name="comments"><ignored/></field>
         <field name="logoImageUrl"><ignored/></field>
@@ -571,6 +571,7 @@ under the License.
         <!-- <auto-fields-entity entity-name="Content"/> -->
 
         <field name="partyId" map-name="parameters"><hidden/></field>
+        <field name="dataResourceId" map-name="dataResource" use-when="content!=null"><hidden/></field>
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="partyContentTypeId">
             <drop-down allow-empty="false">
@@ -620,6 +621,12 @@ under the License.
                     <entity-order-by field-name="categoryName"/>
                 </entity-options>
                <entity-options description="${categoryName}" entity-name="DataCategory"/>
+            </drop-down>
+        </field>
+        <field name="isPublic" title="${uiLabelMap.PartyIsPublic}" map-name="dataResource">
+            <drop-down no-current-selected-key="N">
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
             </drop-down>
         </field>
         <field name="createButton" use-when="content==null"><submit button-type="button"/></field>
