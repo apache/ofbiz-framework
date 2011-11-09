@@ -27,6 +27,7 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.order.order.OrderReadHelper;
 import java.sql.Timestamp;
+import org.ofbiz.party.content.PartyContentWrapper;
 
 orderHeader = parameters.orderHeader;
 orderId = parameters.orderId;
@@ -118,8 +119,17 @@ if (!partyId) {
 
 // the logo
 partyGroup = delegator.findByPrimaryKey("PartyGroup", [partyId : partyId]);
-if (partyGroup?.logoImageUrl) {
-    logoImageUrl = partyGroup.logoImageUrl;
+if (partyGroup) {
+    partyContentWrapper = new PartyContentWrapper(partyGroup, request);
+    partyContent = partyContentWrapper.getFirstPartyContentByType(partyGroup.partyId , partyGroup, "LGOIMGURL", delegator);
+    if (partyContent) {
+        logoImageUrl = "/content/control/stream?contentId="+partyContent.contentId;
+    }
+}
+if(logoImageUrl == null){
+    if (partyGroup?.logoImageUrl) {
+        logoImageUrl = partyGroup.logoImageUrl;
+    }
 }
 context.logoImageUrl = logoImageUrl;
 
