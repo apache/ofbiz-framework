@@ -89,7 +89,7 @@ under the License.
              <field field="formInput" type="java.util.Map"/>
         </call-class-method>
 
-        <set-service-fields service-name="createPartyContent" map="formInput.formInput" to-map="partyContentMap"/>
+        <set-service-fields service-name="uploadPartyContentFile" map="formInput.formInput" to-map="partyContentMap"/>
         <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
         <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
@@ -115,11 +115,8 @@ under the License.
            >
              <field field="formInput" type="java.util.Map"/>
          </call-class-method >
-         <set-service-fields service-name="updatePartyContent" map="formInput.formInput" to-map="partyContentMap"/>
-         <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
-         <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
-         <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-         <call-service service-name="updatePartyContent" in-map-name="partyContentMap" break-on-error="false" >
+         <set-service-fields service-name="updateContentAndUploadedFile" map="formInput.formInput" to-map="partyContentMap"/>
+         <call-service service-name="updateContentAndUploadedFile" in-map-name="partyContentMap" break-on-error="false">
             <result-to-field result-name="contentId" field="contentId"/>
          </call-service>
         <!-- set the partyId in the request -->
