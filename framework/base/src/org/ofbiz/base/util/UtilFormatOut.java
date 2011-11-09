@@ -22,7 +22,9 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * General output formatting functions - mainly for helping in JSPs
@@ -303,11 +305,12 @@ public class UtilFormatOut {
         return orgBuf.toString();
     }
 
-
     // ------------------- date handlers -------------------
-    /** Formats a String timestamp into a nice string
-     * @param timestamp String timestamp to be formatted
-     * @return A String with the formatted date/time
+
+    /** Formats a <code>Timestamp</code> into a date-time <code>String</code> using the default locale and time zone.
+     * Returns an empty <code>String</code> if <code>timestamp</code> is <code>null</code>.
+     * @param timestamp The <code>Timestamp</code> to format
+     * @return A <code>String</code> with the formatted date/time, or an empty <code>String</code> if <code>timestamp</code> is <code>null</code>
      */
     public static String formatDate(java.sql.Timestamp timestamp) {
         if (timestamp == null)
@@ -315,6 +318,34 @@ public class UtilFormatOut {
         DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.FULL);
         java.util.Date date = timestamp;
         return df.format(date);
+    }
+
+    /** Formats a <code>Date</code> into a date-only <code>String</code> using the specified locale and time zone,
+     * or using the specified format.
+     *
+     * @param date The date to format
+     * @param dateTimeFormat Optional format string
+     * @param locale The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
+     * @param timeZone The format time zone
+     * @return <code>date</code> formatted as a date-only <code>String</code>
+     * @throws NullPointerException if any required parameter is <code>null</code>
+     */
+    public static String formatDate(Date date, String dateTimeFormat, Locale locale, TimeZone timeZone) {
+        return UtilDateTime.toDateFormat(dateTimeFormat, timeZone, locale).format(date);
+    }
+
+    /** Formats a <code>Date</code> into a date-time <code>String</code> using the specified locale and time zone,
+     * or using the specified format.
+     *
+     * @param date The date to format
+     * @param dateTimeFormat Optional format string
+     * @param locale The format locale - can be <code>null</code> if <code>dateFormat</code> is not <code>null</code>
+     * @param timeZone The format time zone
+     * @return <code>date</code> formatted as a date-time <code>String</code>
+     * @throws NullPointerException if any required parameter is <code>null</code>
+     */
+    public static String formatDateTime(Date date, String dateTimeFormat, Locale locale, TimeZone timeZone) {
+        return UtilDateTime.toDateTimeFormat(dateTimeFormat, timeZone, locale).format(date);
     }
 
     // ------------------- null string handlers -------------------
