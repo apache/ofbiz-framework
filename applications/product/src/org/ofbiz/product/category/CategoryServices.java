@@ -238,11 +238,11 @@ public class CategoryServices {
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
-        int viewIndex = 1;
+        int viewIndex = 0;
         try {
             viewIndex = Integer.valueOf((String) context.get("viewIndexString")).intValue();
         } catch (Exception e) {
-            viewIndex = 1;
+            viewIndex = 0;
         }
 
         int viewSize = defaultViewSize;
@@ -266,8 +266,8 @@ public class CategoryServices {
 
         if (limitView) {
             // get the indexes for the partial list
-            lowIndex = (((viewIndex - 1) * viewSize) + 1);
-            highIndex = viewIndex * viewSize;
+            lowIndex = ((viewIndex * viewSize) + 1);
+            highIndex = (viewIndex + 1) * viewSize;
         } else {
             lowIndex = 0;
             highIndex = 0;

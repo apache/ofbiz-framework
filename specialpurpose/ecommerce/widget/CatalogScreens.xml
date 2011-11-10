@@ -211,6 +211,7 @@ under the License.
                     <field-map field-name="productCategoryId" from-field="productCategoryId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
+                <set field="paginateEcommerceStyle" value="Y"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/categorydetail.ftl"/></html></platform-specific>
