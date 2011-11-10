@@ -52,13 +52,13 @@ under the License.
                 </#list>
             </select -->
             <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
-                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
+                <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int + 1} ${uiLabelMap.CommonOf} ${viewIndexMax + 1}</option>
                 <#list 0..viewIndexMax as curViewNum>
-                     <option value="${productCategoryId}~${viewSize}~${curViewNum?int + 1}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                     <option value="${productCategoryId}~${viewSize}~${curViewNum?int}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
                 </#list>
             </select>
             <#-- End Page Select Drop-Down -->
-            <#if (viewIndex?int > 1)>
+            <#if (viewIndex?int > 0)>
                 <#-- a href="<@ofbizUrl>category/~category_id=${productCategoryId}/~VIEW_SIZE=${viewSize}/~VIEW_INDEX=${viewIndex?int - 1}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonPrevious}</a --> |
                 <a href="javascript: void(0);" onclick="callDocumentByPaginate('${productCategoryId}~${viewSize}~${viewIndex?int - 1}');" class="buttontext">${uiLabelMap.CommonPrevious}</a> |
             </#if>
@@ -122,7 +122,21 @@ under the License.
 </#if>
 
 <#if productCategoryMembers?has_content>
-    <@paginationControls/>
+    <#-- Pagination -->
+    <#if paginateEcommerceStyle?exists>
+        <@paginationControls/>
+    <#else>
+        <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
+        <#assign commonUrl = "category?category_id="+ parameters.category_id?if_exists + "&"/>
+        <#--assign viewIndex = viewIndex - 1/-->
+        <#assign viewIndexFirst = 0/>
+        <#assign viewIndexPrevious = viewIndex - 1/>
+        <#assign viewIndexNext = viewIndex + 1/>
+        <#assign viewIndexLast = Static["java.lang.Math"].floor(listSize/viewSize)/>
+        <#assign messageMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("lowCount", lowIndex, "highCount", highIndex, "total", listSize)/>
+        <#assign commonDisplaying = Static["org.ofbiz.base.util.UtilProperties"].getMessage("CommonUiLabels", "CommonDisplaying", messageMap, locale)/>
+        <@nextPrev commonUrl=commonUrl ajaxEnabled=false javaScriptEnabled=false paginateStyle="nav-pager" paginateFirstStyle="nav-first" viewIndex=viewIndex highIndex=highIndex listSize=listSize viewSize=viewSize ajaxFirstUrl="" firstUrl="" paginateFirstLabel="" paginatePreviousStyle="nav-previous" ajaxPreviousUrl="" previousUrl="" paginatePreviousLabel="" pageLabel="" ajaxSelectUrl="" selectUrl="" ajaxSelectSizeUrl="" selectSizeUrl="" commonDisplaying=commonDisplaying paginateNextStyle="nav-next" ajaxNextUrl="" nextUrl="" paginateNextLabel="" paginateLastStyle="nav-last" ajaxLastUrl="" lastUrl="" paginateLastLabel="" paginateViewSizeLabel="" />
+    </#if>
       <#assign numCol = numCol?default(1)>
       <#assign numCol = numCol?number>
       <#assign tabCol = 1>
@@ -156,7 +170,9 @@ under the License.
         </table>
       </#if>
       </div>
-    <@paginationControls/>
+    <#if paginateEcommerceStyle?exists>
+        <@paginationControls/>
+    </#if>
 <#else>
     <hr />
     <div>${uiLabelMap.ProductNoProductsInThisCategory}</div>

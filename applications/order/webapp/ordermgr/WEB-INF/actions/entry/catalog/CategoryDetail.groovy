@@ -37,7 +37,7 @@ viewIndex = parameters.VIEW_INDEX;
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
 
 // set the default view size
-defaultViewSize = request.getAttribute("defaultViewSize") ?: 10;
+defaultViewSize = request.getAttribute("defaultViewSize") ?: 20;
 context.defaultViewSize = defaultViewSize;
 
 // set the limit view
