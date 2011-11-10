@@ -420,7 +420,7 @@ under the License.
                               <input id="billToAddress1" name="billToAddress1" class="required" size="30" type="text" value="${billToAddress1?if_exists}" />
                           </div>
                           <div>
-                              <label for="billToAddress2" style="margin-top: 9px;">${uiLabelMap.PartyAddressLine2}</label>
+                              <label for="billToAddress2">${uiLabelMap.PartyAddressLine2}</label>
                               <input id="billToAddress2" name="billToAddress2" type="text" value="${billToAddress2?if_exists}" size="30" />
                           </div>
                           <div>
