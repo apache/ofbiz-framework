@@ -969,7 +969,7 @@ public class UtilDateTime {
      */
     public static DateFormat toDateFormat(String dateFormat, TimeZone tz, Locale locale) {
         DateFormat df = null;
-        if (dateFormat == null) {
+        if (UtilValidate.isEmpty(dateFormat)) {
             df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         } else {
             df = new SimpleDateFormat(dateFormat);
@@ -987,7 +987,7 @@ public class UtilDateTime {
      */
     public static DateFormat toDateTimeFormat(String dateTimeFormat, TimeZone tz, Locale locale) {
         DateFormat df = null;
-        if (dateTimeFormat == null) {
+        if (UtilValidate.isEmpty(dateTimeFormat)) {
             df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
         } else {
             df = new SimpleDateFormat(dateTimeFormat);
@@ -1005,7 +1005,7 @@ public class UtilDateTime {
      */
     public static DateFormat toTimeFormat(String timeFormat, TimeZone tz, Locale locale) {
         DateFormat df = null;
-        if (timeFormat == null) {
+        if (UtilValidate.isEmpty(timeFormat)) {
             df = DateFormat.getTimeInstance(DateFormat.MEDIUM, locale);
         } else {
             df = new SimpleDateFormat(timeFormat);
