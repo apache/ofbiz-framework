@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_addNote">
+        <value xml:lang="de">Notiz hinzufügen</value>
         <value xml:lang="en">Add Note</value>
         <value xml:lang="fr">Ajouter une note</value>
         <value xml:lang="it">Aggiungi nota</value>
@@ -67,6 +68,7 @@
         <value xml:lang="zh_TW">賬單記入客戶成員ID</value>
     </property>
     <property key="FormFieldTitle_cancelBackOrderDate">
+        <value xml:lang="de">Datum des Lieferrücksstands annullieren</value>
         <value xml:lang="en">Cancel Back Order Date</value>
         <value xml:lang="fr">Date d'annulation de la commande</value>
         <value xml:lang="it">Cancella data back order</value>
@@ -126,6 +128,7 @@
         <value xml:lang="zh_TW">關閉日期</value>
     </property>
     <property key="FormFieldTitle_completionDate">
+        <value xml:lang="de">Abschlussdatum</value>
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data completamento</value>
@@ -134,6 +137,7 @@
         <value xml:lang="zh_TW">完成日期</value>
     </property>
     <property key="FormFieldTitle_configId">
+        <value xml:lang="de">Konfigurations-ID</value>
         <value xml:lang="en">Config Id</value>
         <value xml:lang="fr">Réf. de configuration</value>
         <value xml:lang="it">Configurazione</value>
@@ -170,6 +174,7 @@
         <value xml:lang="zh_TW">幣別</value>
     </property>
     <property key="FormFieldTitle_custRequestId">
+        <value xml:lang="de">Kundenanfrage-ID</value>
         <value xml:lang="en">Cust Request Id</value>
         <value xml:lang="fr">Réf. de demande client</value>
         <value xml:lang="it">Codice richiesta</value>
@@ -305,6 +310,7 @@
         <value xml:lang="zh_TW">預計就緒日期</value>
     </property>
     <property key="FormFieldTitle_expectedItemStatus">
+        <value xml:lang="de">Erwarteter Positionsstatus</value>
         <value xml:lang="en">Expected Item Status</value>
         <value xml:lang="fr">Statut des lignes en exception</value>
         <value xml:lang="it">Stato riga atteso</value>
@@ -516,6 +522,7 @@
         <value xml:lang="zh_TW">需要庫房交付</value>
     </property>
     <property key="FormFieldTitle_needsInventoryReceive">
+        <value xml:lang="de">Braucht Bestandseingang</value>
         <value xml:lang="en">Needs Inventory Receive</value>
         <value xml:lang="fr">Nécessite une réception d'inventaire</value>
         <value xml:lang="it">Necessario ricevere inventario</value>
@@ -525,6 +532,7 @@
         <value xml:lang="zh_TW">需要庫房接收</value>
     </property>
     <property key="FormFieldTitle_newCreditCard">
+        <value xml:lang="de">Neue Kreditkarte</value>
         <value xml:lang="en">New Credit Card</value>
         <value xml:lang="fr">Nouvelle carte de crédit</value>
         <value xml:lang="it">Nuova carta di credito</value>
@@ -533,6 +541,7 @@
         <value xml:lang="zh_TW">新建信用卡</value>
     </property>
     <property key="FormFieldTitle_noteDateTime">
+        <value xml:lang="de">Notizdatumszeit</value>
         <value xml:lang="en">Note Date Time</value>
         <value xml:lang="">Date de la note</value>
         <value xml:lang="it">Data ora nota</value>
@@ -732,6 +741,7 @@
         <value xml:lang="zh_TW">優先級</value>
     </property>
     <property key="FormFieldTitle_quantityPurchased">
+        <value xml:lang="de">Menge gekauft</value>
         <value xml:lang="en">Quantity Purchased</value>
         <value xml:lang="fr">Quantité achetée</value>
         <value xml:lang="it">Quantità acquistata</value>
@@ -955,6 +965,7 @@
         <value xml:lang="zh_TW">預訂開始時間</value>
     </property>
     <property key="FormFieldTitle_returnHeaderTypeId">
+        <value xml:lang="de">Retouren HeaderType Id</value>
         <value xml:lang="en">Return HeaderType Id</value>
         <value xml:lang="fr">Réf. de type d'en-tête de retour</value>
         <value xml:lang="it">Tipo testata reso</value>
@@ -963,6 +974,7 @@
         <value xml:lang="zh_TW">退貨標頭類型ID</value>
     </property>
     <property key="FormFieldTitle_salesChannelEnumId">
+        <value xml:lang="de">Verkaufskanal Id</value>
         <value xml:lang="en">Sales Channel Enum Id</value>
         <value xml:lang="fr">Canal de vente</value>
         <value xml:lang="it">Canale di vendita</value>
@@ -1089,6 +1101,7 @@
         <value xml:lang="zh_TW">活動托盤</value>
     </property>
     <property key="FormFieldTitle_startDate">
+        <value xml:lang="de">Startdatum</value>
         <value xml:lang="en">Start Date</value>
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data inizio</value>
@@ -1389,6 +1402,7 @@
         <value xml:lang="zh_TW">拜訪者ID</value>
     </property>
     <property key="OrderActions">
+        <value xml:lang="de">Aktionen</value>
         <value xml:lang="en">Actions</value>
         <value xml:lang="es">Acciones</value>
         <value xml:lang="fr">Actions</value>
@@ -1452,6 +1466,7 @@
         <value xml:lang="zh_TW">增加促銷碼</value>
     </property>
     <property key="OrderAddGiftCertificate">
+        <value xml:lang="de">Gutschein hinzufügen</value>
         <value xml:lang="en">Add Gift Certificate</value>
         <value xml:lang="fr">Ajouter carte cadeau</value>
         <value xml:lang="nl">Toevoegen cadeaubon</value>
@@ -1474,6 +1489,7 @@
         <value xml:lang="zh_TW">添加便箋</value>
     </property>
     <property key="OrderAddOrderToShoppingList">
+        <value xml:lang="de">Bestellpositionen zur Einkaufsliste hinzufügen</value>
         <value xml:lang="en">Add Order Items to Shopping List</value>
         <value xml:lang="es">Agregar ítems del pedido a la lista de compras</value>
         <value xml:lang="fr">Ajouter les lignes de commande à la liste d'achat</value>
@@ -1488,6 +1504,7 @@
         <value xml:lang="zh_TW">把訂單明細添加到購物列表</value>
     </property>
     <property key="OrderAddQntToOrder">
+        <value xml:lang="de">zur Bestellung</value>
         <value xml:lang="en">to Order</value>
         <value xml:lang="fr">à la commande</value>
         <value xml:lang="it">all'ordine</value>
@@ -1548,6 +1565,7 @@
         <value xml:lang="zh_TW">添加到購物列表中</value>
     </property>
     <property key="OrderAddedItemToOrder">
+        <value xml:lang="de">Artikel hinzugefügt zu Bestellung: </value>
         <value xml:lang="en">Added item to order: </value>
         <value xml:lang="es">Ítem añadido al pedido:</value>
         <value xml:lang="fr">Article ajouté à la commande : </value>
@@ -1572,6 +1590,7 @@
         <value xml:lang="zh_TW">位址</value>
     </property>
     <property key="OrderAddressVerification">
+        <value xml:lang="de">Bestätigung der Addresse (AVS)</value>
         <value xml:lang="en">Address Verification (AVS)</value>
         <value xml:lang="fr">Vérification d'adresse (AVS)</value>
         <value xml:lang="it">Verifica indirizzo (AVS)</value>
@@ -1625,6 +1644,7 @@
         <value xml:lang="zh_TW">調整</value>
     </property>
     <property key="OrderAffiliate">
+        <value xml:lang="de">Affiliate</value>
         <value xml:lang="en">Affiliate</value>
         <value xml:lang="fr">Affilié</value>
         <value xml:lang="it">Affiliato</value>
@@ -1683,6 +1703,7 @@
         <value xml:lang="zh_TW">允許分拆</value>
     </property>
     <property key="OrderAlwaysList">
+        <value xml:lang="de">Immer auflisten</value>
         <value xml:lang="en">Always List</value>
         <value xml:lang="es">Listar siempre</value>
         <value xml:lang="fr">Toujours lister</value>
@@ -1850,12 +1871,14 @@
         <value xml:lang="zh_TW">已批准的產品需求</value>
     </property>
     <property key="OrderAssociatedProducts">
+        <value xml:lang="de">Authentifizierungsservice</value>
         <value xml:lang="en">Associated Products</value>
         <value xml:lang="fr">Produits associés</value>
         <value xml:lang="pt_BR">Produtos relacionado</value>
         <value xml:lang="zh_TW">關連的產品</value>
     </property>
     <property key="OrderAuthService">
+        <value xml:lang="de">Automatisch zuordnen</value>
         <value xml:lang="en">Auth Service</value>
         <value xml:lang="es">Servicio de autentificación</value>
         <value xml:lang="fr">Service d'authentification</value>
@@ -1867,6 +1890,7 @@
         <value xml:lang="zh_TW">授權服務</value>
     </property>
     <property key="OrderAutoAssign">
+        <value xml:lang="de">Automatisch zuordnen</value>
         <value xml:lang="en">Auto Assign</value>
         <value xml:lang="es">Asignar automáticamente</value>
         <value xml:lang="fr">Assignation automatique</value>
@@ -1911,6 +1935,7 @@
         <value xml:lang="zh_TW">平均稅率</value>
     </property>
     <property key="OrderAvs">
+        <value xml:lang="de">AVS</value>
         <value xml:lang="en">AVS</value>
         <value xml:lang="es">AVS</value>
         <value xml:lang="fr">AVS</value>
@@ -1952,6 +1977,7 @@
         <value xml:lang="zh_TW">缺貨通知單</value>
     </property>
     <property key="OrderBackToOrder">
+        <value xml:lang="de">Zurück zur Bestellung</value>
         <value xml:lang="en">Back to order</value>
         <value xml:lang="fr">Retour à la commande</value>
         <value xml:lang="it">Torna indietro all'ordine</value>
@@ -2028,6 +2054,7 @@
         <value xml:lang="zh_TW">寄賬單位址</value>
     </property>
     <property key="OrderBoxNumber">
+        <value xml:lang="de">Kistennummer</value>
         <value xml:lang="en">Box Number</value>
         <value xml:lang="fr">Numéro de caisse</value>
         <value xml:lang="it">Scatola numero</value>
@@ -2066,6 +2093,7 @@
         <value xml:lang="zh_TW">已計算的毛利</value>
     </property>
     <property key="OrderCalculatedOffline">
+        <value xml:lang="de">Offline berechnen</value>
         <value xml:lang="en">Calculated Offline</value>
         <value xml:lang="es">Calculado sin conexión</value>
         <value xml:lang="fr">Calculé en différé</value>
@@ -2108,6 +2136,7 @@
         <value xml:lang="zh_TW">取消全部明細</value>
     </property>
     <property key="OrderCancelledItemToOrder">
+        <value xml:lang="de">Anullierter Artikel der Bestellung: </value>
         <value xml:lang="en">Cancelled item to order: </value>
         <value xml:lang="fr">Lignes annulées sur la commande : </value>
     </property>
@@ -2124,12 +2153,14 @@
         <value xml:lang="zh_TW">取消訂單</value>
     </property>
     <property key="OrderCancelRemainingPOItems">
+        <value xml:lang="de">Übrige Bestellartikel abbestellen</value>
         <value xml:lang="en">Cancel Remaining PO Items</value>
         <value xml:lang="it">Cancella righe rimaste ordine acquisto</value>
         <value xml:lang="pt_BR">Cancelar o restante dos itens</value>
         <value xml:lang="zh_TW">取消剩下的PO項目</value>
     </property>
     <property key="OrderCancelSelectedItems">
+        <value xml:lang="de">Ausgewählte Artikel abbestellen</value>
         <value xml:lang="en">Cancel Selected Items</value>
         <value xml:lang="fr">Annuler les articles sélectionnés</value>
         <value xml:lang="it">Cancella righe selezionate</value>
@@ -2152,6 +2183,7 @@
         <value xml:lang="zh_TW">已取消</value>
     </property>
     <property key="OrderCancelledMyCustomerRequests">
+        <value xml:lang="de">Meine annullierten Kundenanfragen</value>
         <value xml:lang="en">My Cancelled Customer Requests</value>
         <value xml:lang="it">Proprie richieste cliente cancellate</value>
         <value xml:lang="pt_BR">Minhas solicitações de clientes canceladas</value>
@@ -2173,6 +2205,7 @@
         <value xml:lang="zh_TW">(不清除訂單的話不能修改。)</value>
     </property>
     <property key="OrderCannotCancelRequestAlreadyWorkedOn">
+        <value xml:lang="de">Sie können diese Kundenanfrage nicht abbrechen, die Arbeit hat bereits begonnen.</value>
         <value xml:lang="en">You cannot cancel this customer request, work has already started on it.</value>
         <value xml:lang="fr">Vous ne pouvez pas annuler cette demande, elle est en cours de traitement.</value>
         <value xml:lang="it">Tu non puoi cancellare questo cliente, lavoro già iniziato.</value>
@@ -2192,6 +2225,7 @@
         <value xml:lang="zh_TW">對不起，你不能修改促銷明細${productName}的數量(產品ID：${productId}，沒有設置數量。)</value>
     </property>
     <property key="OrderCaptureService">
+        <value xml:lang="de">Abbuchungsservice</value>
         <value xml:lang="en">Service capture</value>
         <value xml:lang="es">Servicio de captura de pedido</value>
         <value xml:lang="fr">Service de prélèvement</value>
@@ -2203,6 +2237,7 @@
         <value xml:lang="zh_TW">捕獲服務</value>
     </property>
     <property key="OrderCardSecurityCode">
+        <value xml:lang="de">Sicherheitscode der Karte</value>
         <value xml:lang="en">Card Security Code</value>
         <value xml:lang="es">Código de seguridad de tarjeta</value>
         <value xml:lang="fr">Code de sécurité de la carte</value>
@@ -2429,6 +2464,7 @@
         <value xml:lang="zh_TW">清除搜索歷史記錄</value>
     </property>
     <property key="OrderClearSearchHistoryNote">
+        <value xml:lang="de">Such-Historie löschen</value>
         <value xml:lang="en">Clear Search History Note</value>
         <value xml:lang="es">Limpiar historial</value>
         <value xml:lang="fr">Note au sujet de l'effacement l'historique de recherche</value>
@@ -2524,6 +2560,7 @@
         <value xml:lang="zh_TW">已完成</value>
     </property>
     <property key="OrderCompletedMyCustomerRequests">
+        <value xml:lang="de">Meine abgeschlossenen Kundenanfragen</value>
         <value xml:lang="en">My Completed customer requests</value>
         <value xml:lang="fr">Mes demandes terminées</value>
         <value xml:lang="it">Proprie richieste cliente completate</value>
@@ -2635,6 +2672,7 @@
         <value xml:lang="zh_TW">複製報價</value>
     </property>
     <property key="OrderCreateTestSalesOrderSingleError">
+        <value xml:lang="de">Keine Produkte gefunden in Kategorie ${productCategoryId}; Bestellungen werden nicht erstellt</value>
         <value xml:lang="en">No products found in category ${productCategoryId}; no orders will be created</value>
         <value xml:lang="fr">Pas de produits trouvés dans la catégorie ${productCategoryId}, aucune commande ne peut être créée</value>
         <value xml:lang="it">Nessun prodotto trovato nella categoria ${productCategoryId}; nessun ordine verrà creato</value>
@@ -2696,6 +2734,7 @@
         <value xml:lang="zh">已创建</value>
     </property>
     <property key="OrderCreateExchangeOrder">
+        <value xml:lang="de">Ersatzauftrag erstellen</value>
         <value xml:lang="en">Create Exchange Order</value>
         <value xml:lang="fr">Créer une commande d'échange</value>
         <value xml:lang="it">Creare ordine di cambio</value>
@@ -2830,6 +2869,7 @@
         <value xml:lang="zh_TW">新建報價角色</value>
     </property>
     <property key="OrderCreateOrderQuoteTerm">
+        <value xml:lang="de">Neue Bedingung für Angebot erstellen</value>
         <value xml:lang="en">Create New Quote Term</value>
         <value xml:lang="fr">Créer une condition de réglement de devis</value>
     </property>
@@ -2931,18 +2971,21 @@
         <value xml:lang="zh_TW">建立退貨</value>
     </property>
     <property key="OrderCreateReturnAdjustment">
+        <value xml:lang="de">Anpassung der Retoure mit Id:${seqId} erfolgreich erstellt.</value>
         <value xml:lang="en">Create ReturnAdjustment with Id:${seqId} successfully.</value>
         <value xml:lang="fr">La création d'une ligne d'ajustement a été réalisé sous la référence ${seqId}.</value>
         <value xml:lang="it">Creato aggiustamento reso:${seqId} con successo.</value>
         <value xml:lang="pt_BR">Criado ajuste de devolução com ID:${seqId} bem sucedida</value>
     </property>
     <property key="OrderCreateReturnAdjustmentFailed">
+        <value xml:lang="de">Speichern der Anpassung der Retoure nicht erfolgreich</value>
         <value xml:lang="en">Failed to store returnAdjustment</value>
         <value xml:lang="fr">Échec de l'enregistrement de l'ajustement</value>
         <value xml:lang="it">Fallito la creazione degli aggiustamenti reso</value>
         <value xml:lang="pt_BR">Falha ao armazenar ajuste de devolução</value>
     </property>
     <property key="OrderCreateReturnAdjustmentNotFoundOrderAdjustment">
+        <value xml:lang="de">Anpassung der Bestellung mit ID ${orderAdjustmentId} nicht gefunden</value>
         <value xml:lang="en">orderAdjustment ${orderAdjustmentId} not found</value>
         <value xml:lang="it">Aggiustamento ordine ${orderAdjustmentId} non trovato</value>
         <value xml:lang="pt_BR">Ajuste de Pedido ${orderAdjustmentId} não encontrado</value>
@@ -2958,6 +3001,7 @@
         <value xml:lang="zh_TW">建立退貨貨運</value>
     </property>
     <property key="OrderCreateShipGroup">
+        <value xml:lang="de">Neue Versandgruppe erstellen</value>
         <value xml:lang="en">Create New Ship Group</value>
         <value xml:lang="fr">Créer un nouveau groupe d'expédition</value>
         <value xml:lang="it">Creare Nuovo Gruppo di Spedizione</value>
@@ -3004,6 +3048,7 @@
         <value xml:lang="zh_TW">目前狀態</value>
     </property>
     <property key="OrderCustRequestNotificationMailCompleted">
+        <value xml:lang="de">Benachrichtigungsmail für Kundenanfrage komplett</value>
         <value xml:lang="en">Customer Request Completed Notification Mai</value>
         <value xml:lang="fr">La création de la demande est terminée, une notification a été envoyée</value>
         <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
@@ -3012,6 +3057,7 @@
         <value xml:lang="zh_TW">要求完成的通知郵件</value>
     </property>
     <property key="OrderCustRequestNotificationMailCreation">
+        <value xml:lang="de">Benachrichtigungsmail für Kundenanfrage erstellt</value>
         <value xml:lang="en">Customer Request Creation Notification Mail</value>
         <value xml:lang="fr">Création d'une notification par mail de la demande</value>
         <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
@@ -3020,6 +3066,7 @@
         <value xml:lang="zh_TW">要求建立的通知郵件</value>
     </property>
     <property key="OrderCustRequestNotificationMailNoteAdded">
+        <value xml:lang="de">Notiz zur Benachrichtungsmail für Kundenanfrage hinzugefügt</value>
         <value xml:lang="en">Customer Request Note added Notification</value>
         <value xml:lang="fr">Une note de demande a été associée</value>
         <value xml:lang="it">Notifica nota richiesta cliente aggiunta</value>
@@ -3027,17 +3074,20 @@
         <value xml:lang="zh_TW">要求註記的通知</value>
     </property>
     <property key="OrderCustRequestShouldHaveCustRequestNameIfNotDraft">
+        <value xml:lang="de">Kundenfrage sollte einen 'Namen' haben, falls nicht im Entwurfsstatus</value>
         <value xml:lang="en">Customer Request should have a 'Name' if not in the draft status</value>
         <value xml:lang="fr">La demande doit avoir un nom si elle n'est pas au statut Brouillon</value>
         <value xml:lang="pt_BR">Requisição de cliente deveria ter um 'Nome' se não for rascunho</value>
         <value xml:lang="zh_TW">如果不是草稿狀態, 要求必須要有名稱</value>
     </property>
     <property key="OrderCustRequestShouldHaveFromPartyIdIfNotDraft">
+        <value xml:lang="de">Kundenanfrage sollte eine 'von' partyId haben, falls nicht im Entwurfsstatus</value>
         <value xml:lang="en">Customer Request should have a 'from' partyId if not in the draft status</value>
         <value xml:lang="fr">La demande doit avoir un acteur d'origine si elle n'est pas au statut Brouillon</value>
         <value xml:lang="pt_BR">Requisição de cliente deveria ter um partyId de origem se não for rascunho</value>
     </property>
     <property key="OrderCustRequestStatusList">
+        <value xml:lang="de">Kundenanfragen Statusliste</value>
         <value xml:lang="en">Customer Request Status List</value>
         <value xml:lang="fr">Statut de la demande</value>
         <value xml:lang="it">Lista stato richiesta cliente</value>
@@ -3199,6 +3249,7 @@
         <value xml:lang="zh_TW">目的地</value>
     </property>
     <property key="OrderDigitalProductFiles">
+        <value xml:lang="de">Digitale Produktdateien</value>
         <value xml:lang="en">Digital Product Files</value>
         <value xml:lang="fr">Fichier numérique</value>
         <value xml:lang="it">Files prodotto digitale</value>
@@ -3236,6 +3287,7 @@
         <value xml:lang="zh_TW">對不起，我們沒有足夠的庫存(你要求${requestedQuantity})產品${productName} (產品ID：${productId})，所以沒有添加到購物車。請用小一些的數量試一試，稍後再試，或打客戶服務電話獲取更多資訊。</value>
     </property>
     <property key="OrderDoNotInclude">
+        <value xml:lang="de">Nicht einschließen</value>
         <value xml:lang="en">Do Not Include</value>
         <value xml:lang="fr">N'est pas inclus</value>
         <value xml:lang="it">Non includere</value>
@@ -3468,6 +3520,7 @@
         <value xml:lang="zh_TW">已輸入的代碼</value>
     </property>
     <property key="OrderEntityExceptionSeeLogs">
+        <value xml:lang="de">Entity Exception, Aufzeichnungen kontrollieren</value>
         <value xml:lang="en">Entity Exception See Logs</value>
         <value xml:lang="fr">Exception sur les données, voir les journaux système</value>
         <value xml:lang="it">Eccezione entità, controllare i logs</value>
@@ -4014,6 +4067,7 @@
         <value xml:lang="zh_TW">你可能還會對下列產品感興趣：</value>
     </property>
     <property key="OrderHistoryNotAvailable">
+        <value xml:lang="de">Verlauf nicht verfügbar</value>
         <value xml:lang="en">History not available</value>
         <value xml:lang="fr">Historique non disponible</value>
         <value xml:lang="it">Storia non disponibile</value>
@@ -4147,6 +4201,7 @@
         <value xml:lang="zh_TW">包括</value>
     </property>
     <property key="OrderIncomingCustRequests">
+        <value xml:lang="de">Eingehende Kundenanfragen</value>
         <value xml:lang="en">Incoming customer requests</value>
         <value xml:lang="fr">Nouvelles demandes utilisateur</value>
         <value xml:lang="it">Nuove richieste cliente</value>
@@ -4420,11 +4475,13 @@
         <value xml:lang="zh_TW">明細 #</value>
     </property>
     <property key="OrderItemDescriptionCannotBeEmpty">
+        <value xml:lang="de">Artikelbeschreibung darf nicht leer sein</value>
         <value xml:lang="en">Item description must not be empty</value>
         <value xml:lang="fr">La description de la ligne ne doit pas être vide</value>
         <value xml:lang="it">Descrizione riga ordine non può essere vuota</value>
     </property>
     <property key="OrderItemQtyMustBePositive">
+        <value xml:lang="de">Menge muss größer als 0 sein, benutzen Sie Artikel abbestellen um komplett abzubestellen!</value>
         <value xml:lang="en">Quantity must be >0, use cancel item to cancel completely!</value>
         <value xml:lang="fr">La quantité doit être supérieure à zéro, utiliser "Annuler la ligne" pour l'annuler complètement !</value>
         <value xml:lang="it">Quantità deve essere maggiore di zero, usare le righe cancellate per cancellare completamente l'ordine!</value>
@@ -4585,18 +4642,21 @@
         <value xml:lang="zh_TW">最近使用的搜索</value>
     </property>
     <property key="OrderLimitPerCustomer">
+        <value xml:lang="de">Limit ${limit} pro Kunde. </value>
         <value xml:lang="en">Limit ${limit} per customer. </value>
         <value xml:lang="fr">Limiter à ${limit} par client. </value>
         <value xml:lang="it">Limite ${limit} per cliente. </value>
         <value xml:lang="pt_BR">Limite de ${limit} por cliente. </value>
     </property>
     <property key="OrderLimitPerOrder">
+        <value xml:lang="de">Limit ${limit} pro Bestellung. </value>
         <value xml:lang="en">Limit ${limit} per order. </value>
         <value xml:lang="fr">Limiter à ${limit} par commande. </value>
         <value xml:lang="it">Limite ${limit} per ordine. </value>
         <value xml:lang="pt_BR">Limite de ${limit} por pedido. </value>
     </property>
     <property key="OrderLimitPerPromotion">
+        <value xml:lang="de">Limit ${limit} pro Aktion. </value>
         <value xml:lang="en">Limit ${limit} per promotion. </value>
         <value xml:lang="fr">Limiter à ${limit} par promotion. </value>
         <value xml:lang="it">Limite ${limit} per promozione. </value>
@@ -4783,6 +4843,7 @@
         <value xml:lang="zh_TW">手動促銷</value>
     </property>
     <property key="OrderMarkViewed">
+        <value xml:lang="de">Als gesehen markieren</value>
         <value xml:lang="en">Mark Viewed</value>
         <value xml:lang="fr">Marquer comme vu</value>
         <value xml:lang="it">Marca come visionato</value>
@@ -4790,6 +4851,7 @@
         <value xml:lang="zh_TW">標示已檢視</value>
     </property>
     <property key="OrderMarketingPackageComposedBy">
+        <value xml:lang="de">Marketing Paket zusammengestellt von:</value>
         <value xml:lang="en">Marketing Package Composed by:</value>
         <value xml:lang="fr">La composition commerciale comprend </value>
         <value xml:lang="pt_BR">Pacote de marketing composto por:</value>
@@ -5109,6 +5171,7 @@
         <value xml:lang="zh_TW">替本組建新的貨單</value>
     </property>
     <property key="OrderNewShippingAddress">
+        <value xml:lang="de">Neue Versandadresse</value>
         <value xml:lang="en">New Shipping Address</value>
         <value xml:lang="fr">Nouvelle adresse d'expedition</value>
         <value xml:lang="it">Nuovo indirizzo di spedizione</value>
@@ -5180,6 +5243,7 @@
         <value xml:lang="zh_TW">無通路</value>
     </property>
     <property key="OrderNoGiftCertificatesFound">
+        <value xml:lang="de">Keine Gutscheine gefunden</value>
         <value xml:lang="en">No Gift Certificates Found</value>
         <value xml:lang="fr">Pas de carte cadeau trouvée</value>
         <value xml:lang="pt_BR">Nenhum certificado de presente</value>
@@ -5305,6 +5369,7 @@
         <value xml:lang="zh_TW">沒有與這個訂單關聯的支付優先方式。</value>
     </property>
     <property key="OrderNoProductStoreFinAccountSettingsFound">
+        <value xml:lang="de">Keine Product Store FinAcccount Einstellungen gefunden</value>
         <value xml:lang="en">No Product Store FinAcccount Settings found</value>
         <value xml:lang="fr">Pas de configuration de compte financier trouvée sur le centre de profit</value>
         <value xml:lang="pt_BR">Nenhuma configuração de para conta de financiamento de produtos encontrada</value>
@@ -5789,6 +5854,7 @@
         <value xml:lang="zh_TW">促銷</value>
     </property>
     <property key="OrderOnlineUPSShippingEstimates">
+        <value xml:lang="de">Online UPS Versandschätzungen basieren auf dem Gewicht und den Maßen des Pakets</value>
         <value xml:lang="en">Online UPS Shipping estimates based on weight and dimensions of packages</value>
         <value xml:lang="fr">Estimation d'expédition UPS en ligne basé sur le poids et les dimensions des colis</value>
         <value xml:lang="it">Stima spedizione online UPS basata su peso e dimensione dei pacchi</value>
@@ -5796,6 +5862,7 @@
         <value xml:lang="zh_TW">線上UPS貨運評估是基於貨品的重量與尺寸</value>
     </property>
     <property key="OrderOnlyInclude">
+        <value xml:lang="de">Schließt nur ein</value>
         <value xml:lang="en">Only Include</value>
         <value xml:lang="fr">Inclus seulement</value>
         <value xml:lang="it">Includi solo</value>
@@ -5803,6 +5870,7 @@
         <value xml:lang="zh_TW">只包含</value>
     </property>
     <property key="OrderOpenCollequeCustomerRequests">
+        <value xml:lang="de">Offene Kundenanfragen von meinen Kollegen</value>
         <value xml:lang="en">Open Customer requests from my Colleques</value>
         <value xml:lang="fr">Demandes ouvertes de mes collègues</value>
         <value xml:lang="it">Richieste cliente aperte dai miei colleghi</value>
@@ -5810,6 +5878,7 @@
         <value xml:lang="zh_TW">開啟我整理的客戶要求</value>
     </property>
     <property key="OrderOpenCompanyCustomerRequests">
+        <value xml:lang="de">Weitere Kundenanfragen vom gleichen Unternehmen</value>
         <value xml:lang="en">Other Customer Requests from the same company</value>
         <value xml:lang="fr">Autres demandes de la même société</value>
         <value xml:lang="it">Altre richieste cliente per la stessa azienda</value>
@@ -5818,6 +5887,7 @@
         <value xml:lang="zh_TW">來自同一個公司的要求</value>
     </property>
     <property key="OrderOpenMyCustomerRequests">
+        <value xml:lang="de">Meine offenen Kundenanfragen</value>
         <value xml:lang="en">My Open Customer Requests</value>
         <value xml:lang="fr">Mes demandes de clients en-cours</value>
         <value xml:lang="it">Proprie richieste clienti aperte</value>
@@ -5827,6 +5897,7 @@
         <value xml:lang="zh_TW">我開啟的要求</value>
     </property>
     <property key="OrderOpportunities">
+        <value xml:lang="de">Opportunitäten</value>
         <value xml:lang="en">Opportunities</value>
         <value xml:lang="fr">Opportunités</value>
         <value xml:lang="it">Opportunità</value>
@@ -6079,6 +6150,7 @@
         <value xml:lang="zh_TW">訂單頭資訊</value>
     </property>
     <property key="OrderOrderHistory">
+        <value xml:lang="de">Verlauf der Bestellung</value>
         <value xml:lang="en">Order History</value>
         <value xml:lang="fr">Historique de la commande</value>
         <value xml:lang="it">Storia ordine</value>
@@ -6192,31 +6264,37 @@
         <value xml:lang="zh_TW">需要注意的訂單</value>
     </property>
     <property key="OrderOrderExternalFulfillmentError">
+        <value xml:lang="de">Fehler während des Ausführens von externen Erfüllungsservices </value>
         <value xml:lang="en">Error running external fulfillment service</value>
         <value xml:lang="fr">Erreur lors de l'appel du service de traitement externe</value>
         <value xml:lang="it">Errore durante l'esecuzione del servizio esterno di avanzamento ordine</value>
     </property>
     <property key="OrderOrderContachMechNotFound">
+        <value xml:lang="de">FEHLER: Probleme beim Kontaktieren: ${errorString}</value>
         <value xml:lang="en">ERROR: Problems getting contact mech: ${errorString}</value>
         <value xml:lang="fr">ERREUR: Problème de récupération du contact : ${errorString}</value>
         <value xml:lang="it">ERRORE: Problema nel ricavare il contatto: ${errorString}</value>
     </property>
     <property key="OrderOrderNoteCannotBeCreated">
+        <value xml:lang="de">Problem beim Verbinden von Notiz und Bestellung: ${errorString}</value>
         <value xml:lang="en">Problem associating note with order: ${errorString}</value>
         <value xml:lang="fr">Problème lors de l'association de la note à la commande : ${errorString}</value>
         <value xml:lang="it">Problema nella creazione della note ordine: ${errorString}</value>
     </property>
     <property key="OrderOrderNotFound">
+        <value xml:lang="de">Konnte OrderHeader mit ID ${orderId} nicht finden</value>
         <value xml:lang="en">Could not find OrderHeader with ID ${orderId}</value>
         <value xml:lang="fr">Aucun entête de commande trouvé avec la référence ${orderId}</value>
         <value xml:lang="it">Non è possibile trovare l'ordine ${orderId}</value>
     </property>
     <property key="OrderOrderWithoutWebSite">
+        <value xml:lang="de">Keine Website zur Bestellung verbunden; kann keine Benachrichtigung erstellen ${orderId}</value>
         <value xml:lang="en">No website attached to order; cannot generate notification ${orderId}</value>
         <value xml:lang="fr">Pas de site attaché à la commande ${orderId}, impossible de générer la notification</value>
         <value xml:lang="it">Nessun sito web legato all'ordine; non possibile generare la notifica ordine ${orderId}</value>
     </property>
     <property key="OrderOrderWithoutEmailAddress">
+        <value xml:lang="de">Kunde ist nicht fähig, E-Mails zu empfangen; keine Addresse gefunden ${orderId}</value>
         <value xml:lang="en">Customer is not setup to receive emails; no address(s) found ${orderId}</value>
         <value xml:lang="fr">Le client sur la commande ${orderId} n'a pas d'email pour recevoir la notification</value>
         <value xml:lang="it">Il cliente non è abilitato a ricevere email; nessun indirizzo email trovato ${orderId}</value>
@@ -6252,66 +6330,79 @@
         <value xml:lang="zh_TW">訂單選項設置</value>
     </property>
     <property key="OrderOrderPaymentPreferencesCannotGetPaymentMethodTypes">
+        <value xml:lang="de">Probleme beim empfangen der PaymentMethodTypes: ${errorString}</value>
         <value xml:lang="en">Problems getting PaymentMethodTypes: ${errorString}</value>
         <value xml:lang="fr">Problème dans la récupération des types de paiement : ${errorString}</value>
         <value xml:lang="it">Problema nel ricavare i tipi metodo di pagamento: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentGatewayResponseCannotBeCreated">
+        <value xml:lang="de">Unfähig, die PaymentGatewayResponse zu erstellen</value>
         <value xml:lang="en">Unable to create PaymentGatewayResponse record</value>
         <value xml:lang="fr">Échec de la création de la réponse de l'interface de paiement</value>
         <value xml:lang="it">Non è possibile creare il record di risposta al gateway dei pagamenti</value>
     </property>
     <property key="OrderOrderPaymentPreferencesCannotBeCreated">
+        <value xml:lang="de">FEHLER: Konnte OrderPaymentPreference nicht erstellen: ${errorString}</value>
         <value xml:lang="en">ERROR: Could not create OrderPaymentPreference: ${errorString}</value>
         <value xml:lang="fr">ERREUR lors de la création de la préférence de paiement : ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare le preferenze pagamenti ordine: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentFailed">
+        <value xml:lang="de">Problem beim Erstellen der Bezahlung: ${errorString}</value>
         <value xml:lang="en">Problem creating Payment: ${errorString}</value>
         <value xml:lang="fr">Problème lors de la création du paiement : ${errorString}</value>
         <value xml:lang="it">Fallita creazione Pagamento: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentApplicationFailed">
+        <value xml:lang="de">Problem beim Erstellen von PaymentApplication: ${errorString}</value>
         <value xml:lang="en">Problem creating PaymentApplication: ${errorString}</value>
         <value xml:lang="fr">Problème lors de la création de l'association du paiement à une facture : ${errorString}</value>
         <value xml:lang="it">Fallita creazione PaymentApplication: ${errorString}</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreated">
+        <value xml:lang="de">Fehler beim Erstellen der Bezahlung: OrderPaymentPreference mit orderPaymentPreferenceId kann nicht gefunden werden: ${orderPaymentPreferenceId}</value>
         <value xml:lang="en">Failed to create Payment: Cannot find OrderPaymentPreference with orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
         <value xml:lang="fr">Échec de la création du paiement : aucune préférence de paiement trouvée sous la référence : ${orderPaymentPreferenceId}</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare OrderPaymentPreference con orderPaymentPreferenceId: ${orderPaymentPreferenceId}</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedPayToPartyIdNotSet">
+        <value xml:lang="de">Fehler beim Erstellen der Bezahlung: payToPartyId in ProductStore nicht gesetzt</value>
         <value xml:lang="en">Failed to create Payment: payToPartyId not set in ProductStore</value>
         <value xml:lang="fr">Échec de la création du paiement : l'acteur créditeur n'est pas défini sur le centre de profit</value>
         <value xml:lang="it">Fallita creazione Pagamento: pagare a non impostato sul negozio</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedWithRelatedOrderHeader">
+        <value xml:lang="de">Fehler beim Erstellen der Bezahlung: Kann OrderHeader von den Zahlungseinstellungen nicht erfassen</value>
         <value xml:lang="en">Failed to create Payment: Cannot get related OrderHeader from payment preference</value>
         <value xml:lang="fr">Échec de la création du paiement : impossible de retrouver l'entête de commande depuis la préférence de paiement</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare la testata ordine relazionata alle preferenza pagamento</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedWithRelatedProductStore">
+        <value xml:lang="de">Fehler beim Erstellen der Bezahlung: Kann ProductStore für den order header nicht erreichen</value>
         <value xml:lang="en">Failed to create Payment: Cannot get the ProductStore for the order header</value>
         <value xml:lang="fr">Échec de la création du paiement : le centre de profit n'a pas été trouvé depuis l'entête de commande</value>
         <value xml:lang="it">Fallita creazione Pagamento: Non è possibile trovare il negozio relazionato alla testata ordine</value>
     </property>
     <property key="OrderOrderCancelRemainingPurchaseOrderItemsError">
+        <value xml:lang="de">Fehler während cancelRemainingPurchaseOrderItems bei Bestellung: </value>
         <value xml:lang="en">Error cancelRemainingPurchaseOrderItems for order: </value>
         <value xml:lang="fr">Erreur dans l'annulation des lignes d'achat restantes  pour la commande </value>
         <value xml:lang="it">Errore durante la cancellazione delle rimanenza ordini d'acquisto dagli ordini: </value>
     </property>
     <property key="OrderOrderCheckOrderItemStatusError">
+        <value xml:lang="de">Fehler checkOrderItemStatus bei Bestellung: </value>
         <value xml:lang="en">Error checkOrderItemStatus for order: </value>
         <value xml:lang="fr">Erreur dans la vérification des statuts des lignes de la commande : </value>
         <value xml:lang="it">Errore durante la verifica dello stato riga ordine dagli ordini: </value>
     </property>
     <property key="OrderOrderCreatingDropShipmentsError">
+        <value xml:lang="de">Der folgende Fehler trat während des Erstellens von Direktlieferungen bei Bestellung ${orderId} auf: ${errorString}</value>
         <value xml:lang="en">The following error occurred creating drop shipments for order ${orderId}: ${errorString}</value>
         <value xml:lang="fr">Les erreurs suivantes ont été soulevées lors de la création de la commande de tiers ${orderId}: ${errorString}</value>
         <value xml:lang="it">Il seguente error è accaduto durante la creazione delle spedizioni conto terzi per l'ordine ${orderId}: ${errorString}</value>
     </property>
     <property key="OrderOrderPickingListCreationError">
+        <value xml:lang="de">Fehler beim Erstellen des Komissionierscheins von Bestellung:</value>
         <value xml:lang="en">Error creating picklist from orders: </value>
         <value xml:lang="fr">Erreur dans la création de la liste de prélèvement pour la commande : </value>
         <value xml:lang="it">Errore durante la creazione della lista di prelievo dagli ordini: </value>
@@ -6346,6 +6437,7 @@
         <value xml:lang="zh_TW">訂購數量</value>
     </property>
     <property key="OrderOrderQuickShipEntireOrderError">
+        <value xml:lang="de">Fehler während des Schnellversands bei Bestellung: </value>
         <value xml:lang="en">Error quickShipEntireOrder for order: </value>
         <value xml:lang="fr">Erreur dans l'expédition expresse pour la commande : </value>
         <value xml:lang="it">Errore durante spedizione veloce intero ordine: </value>
@@ -6486,11 +6578,13 @@
         <value xml:lang="zh_TW">平均成本</value>
     </property>
     <property key="OrderOrderQuoteCannotBeFound">
+        <value xml:lang="de">Konnte Angebot mit ID ${quoteId} nicht finden</value>
         <value xml:lang="en">Could not find Quote with ID ${quoteId}</value>
         <value xml:lang="fr">Devis non trouvé sous la référence ${quoteId}</value>
         <value xml:lang="it">Non è possibile trovare il preventivo ${quoteId}</value>
     </property>
     <property key="OrderOrderQuoteCannotBeStored">
+        <value xml:lang="de">Konnte Angebot nicht speichern</value>
         <value xml:lang="en">Could not storing Quote</value>
         <value xml:lang="fr">Enregistrement du devis impossible</value>
         <value xml:lang="it">Non è possibile registrare il preventivo</value>
@@ -6692,6 +6786,7 @@
         <value xml:lang="zh_TW">修改報價角色</value>
     </property>
         <property key="OrderOrderQuoteEditTerm">
+        <value xml:lang="de">Angebotsbedingung bearbeiten</value>
         <value xml:lang="en">Edit Quote Term</value>
         <value xml:lang="fr">Editer les conditions de réglement du devis</value>
     </property>
@@ -6909,6 +7004,7 @@
         <value xml:lang="zh_TW">列出報價角色</value>
     </property>
         <property key="OrderOrderQuoteListTerms">
+        <value xml:lang="de">Liste der Angebotsbedingungen</value>
         <value xml:lang="en">List Quote Terms</value>
         <value xml:lang="fr">Liste des conditions de règlement du devis</value>
     </property>
@@ -7058,10 +7154,12 @@
         <value xml:lang="zh_TW">報價技能類型ID</value>
     </property>
     <property key="OrderOrderQuoteTerms">
+        <value xml:lang="de">Angebotsbedingung</value>
         <value xml:lang="en">Quote Term</value>
         <value xml:lang="fr">Conditions de règlement du devis</value>
     </property>
     <property key="OrderOrderQuoteTermList">
+        <value xml:lang="de">Liste der Angebotsbedingungen</value>
         <value xml:lang="en">Quote Term List</value>
         <value xml:lang="fr">Liste de conditions de règlement de devis</value>
     </property>
@@ -7206,6 +7304,7 @@
         <value xml:lang="zh_TW">報價</value>
     </property>
     <property key="OrderOrderReceivedOn">
+        <value xml:lang="de">Bestellungen erhalten am</value>
         <value xml:lang="en">Order Received On</value>
         <value xml:lang="fr">Commandes reçues le</value>
         <value xml:lang="it">Ordini ricevuti il</value>
@@ -7439,6 +7538,7 @@
         <value xml:lang="zh_TW">扣留的訂單</value>
     </property>
     <property key="OrderOrderShipEstimate">
+        <value xml:lang="de">Geschätzter Versandbetrag</value>
         <value xml:lang="en">Shipping estimate amount</value>
         <value xml:lang="fr">Montant d'expédition estimé</value>
     </property>
@@ -7710,6 +7810,7 @@
         <value xml:lang="zh_TW">離線支付：支票/現金訂單</value>
     </property>
     <property key="OrderPaymentProcessorAuthService">
+        <value xml:lang="de">Prozessor Authentifizierungsservice</value>
         <value xml:lang="en">Processor Auth Service</value>
         <value xml:lang="es">Servicio procesador de autentificación de pago</value>
         <value xml:lang="fr">Service d'autorisation de paiement</value>
@@ -7721,6 +7822,7 @@
         <value xml:lang="zh_TW">處理程式授權服務</value>
     </property>
     <property key="OrderPaymentProcessorCaptureService">
+        <value xml:lang="de">Prozessor Abbuchung Service</value>
         <value xml:lang="en">Processor Capture Service</value>
         <value xml:lang="es">Servicio procesador de captura de pago</value>
         <value xml:lang="fr">Service de prélèvement du paiement</value>
@@ -7732,6 +7834,7 @@
         <value xml:lang="zh_TW">處理程式捕獲服務</value>
     </property>
     <property key="OrderPaymentProcessorPropertiesURL">
+        <value xml:lang="de">Prozessor Properties URL</value>
         <value xml:lang="en">Processor Properties URL</value>
         <value xml:lang="es">Dirección URL de las propiedades del procesador de pago</value>
         <value xml:lang="fr">URL du service de paiement</value>
@@ -7743,6 +7846,7 @@
         <value xml:lang="zh_TW">處理程式屬性網址</value>
     </property>
     <property key="OrderPaymentProcessorReAuthService">
+        <value xml:lang="de">Prozessor Re Auth Service</value>
         <value xml:lang="en">Processor Re Auth Service</value>
         <value xml:lang="es">Servicio procesador de reautentificación de pago</value>
         <value xml:lang="fr">Service de ré-autorisation de paiement</value>
@@ -7754,6 +7858,7 @@
         <value xml:lang="zh_TW">處理程式再授權服務</value>
     </property>
     <property key="OrderPaymentProcessorRefundService">
+        <value xml:lang="de">Prozessor Rückerstattungsservice</value>
         <value xml:lang="en">Processor Refund Service</value>
         <value xml:lang="es">Servicio procesador de reembolso</value>
         <value xml:lang="fr">Service de remboursement</value>
@@ -7765,6 +7870,7 @@
         <value xml:lang="zh_TW">處理程式退款服務</value>
     </property>
     <property key="OrderPaymentProcessorSetup">
+        <value xml:lang="de">Konfiguration des Prozessors</value>
         <value xml:lang="en">Processor Setup</value>
         <value xml:lang="es">Configuración del procesador de pago</value>
         <value xml:lang="fr">Configuration du service de paiement</value>
@@ -7776,6 +7882,7 @@
         <value xml:lang="zh_TW">處理程式設置</value>
     </property>
     <property key="OrderPaymentSetup">
+        <value xml:lang="de">Konfiguration der Bezahlung</value>
         <value xml:lang="en">Payment Setup</value>
         <value xml:lang="es">Configuración de pagos</value>
         <value xml:lang="fr">Configuration du paiement</value>
@@ -7802,6 +7909,7 @@
         <value xml:lang="zh_TW">支付類型</value>
     </property>
     <property key="OrderPaymentUpdateSetting">
+        <value xml:lang="de">Update der Einstellungen für Bezahlung</value>
         <value xml:lang="en">Payment Update Setting</value>
         <value xml:lang="es">Actualización de configuración</value>
         <value xml:lang="fr">Configuration de la mise à jour de paiement</value>
@@ -7868,6 +7976,7 @@
         <value xml:lang="zh_TW">分揀訂單</value>
     </property>
     <property key="OrderPickedBy">
+        <value xml:lang="de">Komissioniert von</value>
         <value xml:lang="en">Picked By</value>
         <value xml:lang="fr">Prélevé par</value>
         <value xml:lang="it">Prelevato da</value>
@@ -8117,11 +8226,13 @@
         <value xml:lang="zh_TW">處理轉換</value>
     </property>
     <property key="OrderProcessOrderPayments">
+        <value xml:lang="de">Fehler beim Bearbeiten der Bezahlungen:</value>
         <value xml:lang="en">Error processing payments:</value>
         <value xml:lang="fr">Erreur dans l'exécution du paiement :</value>
         <value xml:lang="it">Errore durante l'esecuzione dei pagamenti:</value>
     </property>
     <property key="OrderProcessOrderPaymentsStatusInvalid">
+        <value xml:lang="de">FEHLER: Der Auftragsstatus ist </value>
         <value xml:lang="en">ERROR: the Order status is </value>
         <value xml:lang="fr">ERREUR : la commande est au status </value>
         <value xml:lang="it">ERRORE: lo stato ordine è </value>
@@ -8177,6 +8288,7 @@
         <value xml:lang="zh_TW">用於促銷的產品</value>
     </property>
     <property key="OrderPromotion">
+        <value xml:lang="de">Aktionen</value>
         <value xml:lang="en">Promotion</value>
         <value xml:lang="fr">Promotion</value>
         <value xml:lang="it">Promozione</value>
@@ -8461,6 +8573,7 @@
         <value xml:lang="zh_TW">取消的數量</value>
     </property>
     <property key="OrderQuantityHistory">
+        <value xml:lang="de">Verlauf der Artikelmenge</value>
         <value xml:lang="en">Item Quantity History</value>
         <value xml:lang="fr">Historique quantité d'article</value>
         <value xml:lang="it">Storia quantità riga</value>
@@ -8668,11 +8781,13 @@
         <value xml:lang="zh_TW">報價</value>
     </property>
     <property key="OrderQuoteEmpty">
+        <value xml:lang="de">Leer für gesamtes Angebot</value>
         <value xml:lang="en">Empty for total quote</value>
         <value xml:lang="fr">Le total du devis est vide</value>
         <value xml:lang="it">Totale preventivo è vuoto</value>
     </property>
     <property key="OrderQuotePricePermissionError">
+        <value xml:lang="de">Angebotspreis Berechtigungsfehler</value>
         <value xml:lang="en">Quote Price Permission Error</value>
         <value xml:lang="fr">Pas d'autorisation sur la modification des prix devis</value>
         <value xml:lang="it">Errore permesso prezzo preventivo</value>
@@ -8681,6 +8796,7 @@
         <value xml:lang="zh_TW">報價價格權限錯誤</value>
     </property>
     <property key="OrderQuoteTermDescription">
+        <value xml:lang="de">Bedingungsbeschreibung</value>
         <value xml:lang="en">Term Description</value>
         <value xml:lang="fr">Description de la cond. de réglement</value>
         <value xml:lang="it">Descrizione termini preventivo</value>
@@ -8735,6 +8851,7 @@
         <value xml:lang="zh_TW">評級</value>
     </property>
     <property key="OrderReAuthService">
+        <value xml:lang="de">Re Authentifizierungsservice</value>
         <value xml:lang="en">Re Auth Service</value>
         <value xml:lang="es">Servicio de reautentificación</value>
         <value xml:lang="fr">Service de ré-autorisation de paiement</value>
@@ -8838,6 +8955,7 @@
         <value xml:lang="zh_TW">在其他交付訂單上</value>
     </property>
     <property key="OrderReceivedQtyHistory">
+        <value xml:lang="de">Verlauf erhaltene Menge</value>
         <value xml:lang="en">Received Quantity History</value>
         <value xml:lang="fr">Historique des quantités reçues</value>
         <value xml:lang="it">Storia quantità ricevuta</value>
@@ -8845,12 +8963,14 @@
         <value xml:lang="zh_TW">收貨數量歷史</value>
     </property>
     <property key="OrderRecipientEmailAdd">
+        <value xml:lang="de">E-Mail vom Empfänger:</value>
         <value xml:lang="en">Recipient's Email:</value>
         <value xml:lang="fr">Courriel du réceptionniste ajouté :</value>
         <value xml:lang="pt_BR">Email do receptador:</value>
         <value xml:lang="zh_TW">收件者電子郵件:</value>
     </property>
     <property key="OrderRecipientName">
+        <value xml:lang="de">Name des Empfängers:</value>
         <value xml:lang="en">Recipient's Name:</value>
         <value xml:lang="fr">Nom du réceptionniste :</value>
         <value xml:lang="pt_BR">Nome do receptador:</value>
@@ -9132,6 +9252,7 @@
         <value xml:lang="zh_TW">要求日期</value>
     </property>
     <property key="OrderRequestInformation">
+        <value xml:lang="de">Information anfragen</value>
         <value xml:lang="en">Request Information</value>
         <value xml:lang="fr">Information de la demande</value>
         <value xml:lang="it">Informazioni sulla richiesta</value>
@@ -9174,6 +9295,7 @@
         <value xml:lang="zh_TW">報價</value>
     </property>
     <property key="OrderRequestItemWorkEffort">
+        <value xml:lang="de">Abeitsaufwand für Artikel anfordern</value>
         <value xml:lang="en">Request Item WorkEffort</value>
         <value xml:lang="fr">Demande de ligne de tâche</value>
         <value xml:lang="it">Impegni di lavoro riga richiesta</value>
@@ -9423,6 +9545,7 @@
         <value xml:lang="zh_TW">按日期的生產需求</value>
     </property>
     <property key="OrderRequirementDoesNotExists">
+        <value xml:lang="de">Bedarf mit ID ${requirementId} existiert nicht.</value>
         <value xml:lang="en">Requirement with id ${requirementId} doesn't exist.</value>
         <value xml:lang="it">Fabbisogno ${requirementId} non esiste</value>
     </property>
@@ -9524,6 +9647,7 @@
         <value xml:lang="zh_TW">需求列表</value>
     </property>
     <property key="OrderRequiresCodeToUse">
+        <value xml:lang="de">Code zum Benutzen benötigt. </value>
         <value xml:lang="en">Requires code to use. </value>
         <value xml:lang="fr">Nécessite un code. </value>
         <value xml:lang="it">Richiesto codice da usare. </value>
@@ -9560,6 +9684,7 @@
         <value xml:lang="zh_TW">退貨訂單調整來自訂單</value>
     </property>
     <property key="OrderReturnCannotBeChanged">
+        <value xml:lang="de">Kann nicht ohne Neuanlage der Retoure geändert werden.</value>
         <value xml:lang="en">This cannot be changed without re-creating the Return.</value>
         <value xml:lang="fr">Changement impossible sans recréation du retour</value>
         <value xml:lang="it">Questo non può essere modificato senza ri-creare il reso.</value>
@@ -9568,6 +9693,7 @@
         <value xml:lang="zh_TW">沒有重建退貨的話就不能修改這個。</value>
     </property>
     <property key="OrderReturnCannotBeFound">
+        <value xml:lang="de">Kann Retoure mit ID nicht finden</value>
         <value xml:lang="en">Could not find Return with ID</value>
         <value xml:lang="fr">Impossible de trouver un retour avec cette réf.</value>
         <value xml:lang="it">Non è possibile trovare il reso</value>
@@ -9590,6 +9716,7 @@
         <value xml:lang="zh_TW">目的場所</value>
     </property>
     <property key="OrderReturnedItemRaNumber">
+        <value xml:lang="de">Retoure Artikel RA#</value>
         <value xml:lang="en">Returned Item RA#</value>
         <value xml:lang="fr">Retour, autorisation n°</value>
         <value xml:lang="zh_TW">退貨項目RA#</value>
@@ -9680,6 +9807,7 @@
         <value xml:lang="zh_TW">退貨頭</value>
     </property>
     <property key="OrderReturnHistory">
+        <value xml:lang="de">Retouren Historie</value>
         <value xml:lang="en">Return History</value>
         <value xml:lang="fr">Historique des retours</value>
         <value xml:lang="it">Storia resi</value>
@@ -9753,6 +9881,7 @@
         <value xml:lang="zh_TW">來自訂單的退貨明細</value>
     </property>
     <property key="OrderReturnLabelEmailSuccessful">
+        <value xml:lang="de">Retouren Aufkleber in E-Mail erfolgreich versandt</value>
         <value xml:lang="en">Return shipping label email successfully sent</value>
         <value xml:lang="fr">Envoi de l'email de confirmation de réception du retour effectué</value>
         <value xml:lang="it">Email etichetta reso spedizione inviata con successo</value>
@@ -9787,6 +9916,7 @@
         <value xml:lang="zh_TW">訂單手動退貨調整</value>
     </property>
     <property key="OrderReturnNecessaryReceiveInventoryMessage">
+        <value xml:lang="de">Wenn es Y ist, dann wird die Retoure automatisch komplettiert, wenn sie akzeptiert wird und der Erhalten-Status wird übersprungen.</value>
         <value xml:lang="en">If this is Y then the return will be automatically Completed when it is Accepted, skipping the Received status and process.</value>
         <value xml:lang="fr">Si positif (Y) alors le retour sera automatiquement terminée dès qu'accepté (laissant de coté le status reçu)</value>
         <value xml:lang="it">Se questo è a Y all i resi saranno automaticamente completati quando verrà accettato, saltando il processo e gli stati della ricezione.</value>
@@ -9795,6 +9925,7 @@
         <value xml:lang="zh_TW">如果這是Y，那麼當退貨被接受時它會自動完成，會跳過已接收狀態及處理。</value>
     </property>
     <property key="OrderReturnNeedsAutoReceive">
+        <value xml:lang="de">Auto-Erhalten bei ACCEPT</value>
         <value xml:lang="en">Auto-Receive On ACCEPT</value>
         <value xml:lang="es">Recibir automáticamente al aceptar</value>
         <value xml:lang="fr">Recevoir automatiquement sur acceptation</value>
@@ -9836,6 +9967,7 @@
         <value xml:lang="zh_TW">退貨價格</value>
     </property>
     <property key="OrderReturnPriceHistory">
+        <value xml:lang="de">Retouren Preishistorie</value>
         <value xml:lang="en">Return Price History</value>
         <value xml:lang="fr">Historique des prix de retour</value>
         <value xml:lang="it">Storia prezzi reso</value>
@@ -9871,6 +10003,7 @@
         <value xml:lang="zh_TW">退貨數量</value>
     </property>
     <property key="OrderReturnQtyHistory">
+        <value xml:lang="de">Retouren Mengenhistorie</value>
         <value xml:lang="en">Return Quantity History</value>
         <value xml:lang="fr">Historique des quantités de retour</value>
         <value xml:lang="it">Storia quantità resa</value>
@@ -9892,6 +10025,7 @@
         <value xml:lang="zh_TW">原因</value>
     </property>
     <property key="OrderReturnReasonHistory">
+        <value xml:lang="de">Retouren Grundhistorie</value>
         <value xml:lang="en">Return Reason History</value>
         <value xml:lang="fr">Historique des raisons de retour</value>
         <value xml:lang="it">Storia motivazione reso</value>
@@ -10031,6 +10165,7 @@
         <value xml:lang="zh_TW">類型</value>
     </property>
     <property key="OrderReturnTypeHistory">
+        <value xml:lang="de">Retouren Typhistorie</value>
         <value xml:lang="en">Return Type History</value>
         <value xml:lang="fr">Historique des types de retour</value>
         <value xml:lang="it">Storia tipo reso</value>
@@ -10053,6 +10188,7 @@
         <value xml:lang="zh_TW">已退貨</value>
     </property>
     <property key="OrderReturnsCurrent">
+        <value xml:lang="de">Aktuelle Retouren</value>
         <value xml:lang="en">Current Returns</value>
         <value xml:lang="fr">Retours en cours</value>
         <value xml:lang="it">Resi Attuali</value>
@@ -10144,6 +10280,7 @@
         <value xml:lang="zh_TW">銷售訂單</value>
     </property>
     <property key="OrderSalesOrderLookupFailed">
+        <value xml:lang="de">Suche nach Kundenauftrag fehlgeschlagne</value>
         <value xml:lang="en">Sales Order Lookup Failed</value>
         <value xml:lang="fr">Échec de la recherche des commandes de vente</value>
         <value xml:lang="it">Ricerca ordini di vendita fallita</value>
@@ -10152,6 +10289,7 @@
         <value xml:lang="zh_TW">銷售訂單查詢失敗</value>
     </property>
     <property key="OrderSalesReps">
+        <value xml:lang="de">Vertreter</value>
         <value xml:lang="en">Sales Reps</value>
         <value xml:lang="fr">Responsable des ventes</value>
         <value xml:lang="it">Venditori</value>
@@ -10177,6 +10315,7 @@
         <value xml:lang="zh_TW">營業稅</value>
     </property>
     <property key="OrderSalesTaxIncluded">
+        <value xml:lang="de">Mehrwertsteuer inklusive</value>
         <value xml:lang="en">Of which Sales Tax included</value>
         <value xml:lang="en_GB">Of which VAT included</value>
         <value xml:lang="fr">Dont TVA incluse </value>
@@ -10232,6 +10371,7 @@
         <value xml:lang="zh_TW">計分</value>
     </property>
     <property key="OrderSelAmount">
+        <value xml:lang="de">Sel. Betrag</value>
         <value xml:lang="en">Sel. amount</value>
         <value xml:lang="es">Cantidad sel.</value>
         <value xml:lang="fr">Montant sélectionné</value>
@@ -10288,6 +10428,7 @@
         <value xml:lang="zh_TW">為這個訂單選擇一個合同</value>
     </property>
     <property key="OrderSelectAgreementRoles">
+        <value xml:lang="de">Vereinbarungs-Rolle auswählen</value>
         <value xml:lang="en">Select order agreement Roles</value>
         <value xml:lang="fr">Choisir les rôles d'accords commerciaux sur commande</value>
         <value xml:lang="it">Seleziona Ruoli accordi ordine</value>
@@ -10326,6 +10467,7 @@
         <value xml:lang="zh_TW">或者為這個訂單設置幣種</value>
     </property>
     <property key="OrderSelectGiftAmount">
+        <value xml:lang="de">Wählen Sie den Geschenkbetrag</value>
         <value xml:lang="en">Select The Gift Amount</value>
         <value xml:lang="fr">Sélectionnez le montant cadeau</value>
         <value xml:lang="pt_BR">Selecione a quantia para presente</value>
@@ -10410,6 +10552,7 @@
         <value xml:lang="zh_TW">選擇送貨方法</value>
     </property>
     <property key="OrderSelectSupplier">
+        <value xml:lang="de">Wählen Sie den Lieferant aus</value>
         <value xml:lang="en">Select Supplier</value>
         <value xml:lang="fr">Selectionner le fournisseur</value>
         <value xml:lang="it">Seleziona fornitore</value>
@@ -10604,6 +10747,7 @@
         <value xml:lang="zh_TW">請把支付發送到</value>
     </property>
     <property key="OrderSenderName">
+        <value xml:lang="de">Name des Absenders:</value>
         <value xml:lang="en">Sender's Name:</value>
         <value xml:lang="fr">Nom de l'expéditeur :</value>
         <value xml:lang="pt_BR">Nome do remetente:</value>
@@ -10728,6 +10872,7 @@
         <value xml:lang="zh_TW">遞送群組序列ID</value>
     </property>
     <property key="OrderShipGroupSeqIdInvalid">
+        <value xml:lang="de">Ungültige shipGroupSeqId ${shipGroupSeqId}</value>
         <value xml:lang="en">Invalid shipGroupSeqId ${shipGroupSeqId}</value>
         <value xml:lang="fr">Le groupe d'expédition sous la référence ${shipGroupSeqId} est invalide</value>
         <value xml:lang="it">Gruppo spedizione ${shipGroupSeqId} invalido</value>
@@ -10818,6 +10963,7 @@
         <value xml:lang="zh_TW">運送至其他成員</value>
     </property>
     <property key="OrderShipToCountry">
+        <value xml:lang="de">Versende in Land</value>
         <value xml:lang="en">Ship to Country</value>
         <value xml:lang="fr">Expédier vers le pays</value>
         <value xml:lang="it">Spedisci al paese</value>
@@ -10867,6 +11013,7 @@
         <value xml:lang="zh_TW">貨運資訊</value>
     </property>
     <property key="OrderShipmentMethodHistory">
+        <value xml:lang="de">Versandart Verlauf</value>
         <value xml:lang="en">Shipment Method History</value>
         <value xml:lang="fr">Historique de l'expedition</value>
         <value xml:lang="it">Storia metodi di spedizione</value>
@@ -11008,11 +11155,13 @@
         <value xml:lang="zh_TW">購物車是空的</value>
     </property>
     <property key="OrderRunSubscriptionAutoReorders">
+        <value xml:lang="de">runSubscriptionAutoReorders fertig, ${count} Abonnement verlängert.</value>
         <value xml:lang="en">runSubscriptionAutoReorders finished, ${count} subscription extended.</value>
         <value xml:lang="fr">Le réabonnement automatique a été effectué, ${count} abonnement(s) prolongé(s).</value>
         <value xml:lang="it">runSubscriptionAutoReorders completato, ${count} abbonamenti estesi.</value>
     </property>
     <property key="OrderShoppingListCreationError">
+        <value xml:lang="de">Fehler während der Erstellung einer neuen Einkaufsliste, basiert auf automatischer Neubestellung ${errorString}</value>
         <value xml:lang="en">Error while creating new shopping list based automatic reorder ${errorString}</value>
         <value xml:lang="fr">Erreur lors de la création d'une liste d'achat : ${errorString}</value>
         <value xml:lang="it">Error durante la creazione di una nuova lista d'acquisto basata sui ri-ordini automatici ${errorString}</value>
@@ -11395,6 +11544,7 @@
         <value xml:lang="zh_TW">本訂單不是禮品</value>
     </property>
     <property key="OrderThisOrderDoesNotHaveShippingInstructions">
+        <value xml:lang="de">Diese Bestellung hat keine Versandinformationen</value>
         <value xml:lang="en">This order does not have shipping instructions</value>
         <value xml:lang="fr">Cette commande n'a pas d'instructions de livraison</value>
         <value xml:lang="it">Quest'ordine non ha istruzioni di spedizione</value>
@@ -11514,6 +11664,7 @@
         <value xml:lang="zh_TW">應付款合計</value>
     </property>
     <property key="OrderTotalNoOfItems">
+        <value xml:lang="de">Gesamte Artikelanzahl</value>
         <value xml:lang="en">Total No. of Items</value>
         <value xml:lang="fr">Nb total de lignes</value>
         <value xml:lang="it">Totale numero di righe</value>
@@ -11744,6 +11895,7 @@
         <value xml:lang="zh_TW">含稅單價</value>
     </property>
     <property key="OrderUnitPriceHistory">
+        <value xml:lang="de">Preisentwicklung</value>
         <value xml:lang="en">Item Unit Price History</value>
         <value xml:lang="fr">Historique prix unitaire d'article</value>
         <value xml:lang="it">Storia prezzo unitario riga</value>
@@ -12011,6 +12163,7 @@
         <value xml:lang="zh_TW">檢視訂單</value>
     </property>
     <property key="OrderViewOrderHistory">
+        <value xml:lang="de">Verlauf der Bestellung anzeigen</value>
         <value xml:lang="en">View Order History</value>
         <value xml:lang="fr">Voir l'historique de la commande</value>
         <value xml:lang="it">Mostra storia ordine</value>
@@ -12080,6 +12233,7 @@
         <value xml:lang="zh_TW">瀏覽要求</value>
     </property>
     <property key="OrderViewed">
+        <value xml:lang="de">Gesehen</value>
         <value xml:lang="en">Viewed</value>
         <value xml:lang="fr">Vu</value>
         <value xml:lang="it">Visionato</value>
@@ -12294,6 +12448,7 @@
         <value xml:lang="zh_TW">你的價格</value>
     </property>
     <property key="PageTitleApprovedProductRequirements">
+        <value xml:lang="de">Genehmigter Produktbedarf</value>
         <value xml:lang="en">Approved Product Requirements</value>
         <value xml:lang="fr">Approbation des besoins produits</value>
         <value xml:lang="it">Approva fabbisogni prodotto</value>
@@ -12302,6 +12457,7 @@
         <value xml:lang="zh_TW">已批准的產品需求</value>
     </property>
     <property key="PageTitleApprovedProductRequirementsByVendor">
+        <value xml:lang="de">Genehmigter Produktbedarf nach Hersteller</value>
         <value xml:lang="en">Approved Product Requirements By Vendor</value>
         <value xml:lang="fr">Approbation des besoins produit par le fournisseur</value>
         <value xml:lang="it">Approva fabbisogni prodotto per fornitore</value>
@@ -12325,6 +12481,7 @@
         <value xml:lang="zh_TW">建立報價及明細的要求</value>
     </property>
     <property key="PageTitleEditOrderHeader">
+        <value xml:lang="de">Bestellungskopf bearbeiten</value>
         <value xml:lang="en">Edit Order Header</value>
         <value xml:lang="fr">Éditer l'entête de commande</value>
         <value xml:lang="it">Aggiorna testata ordine</value>
@@ -12348,6 +12505,7 @@
         <value xml:lang="zh_TW">修改報價明細的要求</value>
     </property>
     <property key="PageTitleEditRequestContent">
+        <value xml:lang="de">Anfrageninhalt bearbeiten</value>
         <value xml:lang="en">Edit Request Content</value>
         <value xml:lang="fr">Modifier les documents de la demande</value>
         <value xml:lang="it">Aggiorna contenuto richiesta</value>
@@ -12409,6 +12567,7 @@
         <value xml:lang="zh_TW">修改需求</value>
     </property>
     <property key="PageTitleEditRequirementRole">
+        <value xml:lang="de">Bedarfsfunktion bearbeiten</value>
         <value xml:lang="en">Edit Requirement Role</value>
         <value xml:lang="fr">Modifier le rôle du besoin</value>
         <value xml:lang="it">Aggiorna ruolo fabbisogno</value>
@@ -12696,6 +12855,7 @@
         <value xml:lang="zh_TW">顯示購物車</value>
     </property>
     <property key="PageTitleProjectInformation">
+        <value xml:lang="de">Projektinformation</value>
         <value xml:lang="en">Project Information</value>
         <value xml:lang="fr">Informations du projet</value>
         <value xml:lang="it">Informazione progetto</value>
@@ -12819,6 +12979,7 @@
         <value xml:lang="zh_TW">退貨列表</value>
     </property>
     <property key="PageTitleShoppingListItem">
+        <value xml:lang="de">Einkaufliste Artikel</value>
         <value xml:lang="en">Shopping List Item</value>
         <value xml:lang="it">Riga lista d'acquisto</value>
         <value xml:lang="pt_BR">Item da lista de compras</value>
