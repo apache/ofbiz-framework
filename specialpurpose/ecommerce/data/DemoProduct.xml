@@ -708,6 +708,7 @@ under the License.
     <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRSV-1000-ALTEN" localeString="en_US"/>
     <ElectronicText dataResourceId="SERV-001-ALT" textData="services"/>
     <ElectronicText dataResourceId="SERV-001-ALT" textData="service-product"/>
+    <ElectronicText dataResourceId="SV-1000-ALT"  textData="SV 1000 ALT"/>
     <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="services"/>
     <ElectronicText dataResourceId="DRSERV-001-ALTEN" textData="service-product"/>
 
