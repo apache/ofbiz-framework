@@ -75,7 +75,9 @@ under the License.
         <antcall target="clean-catalina"/>
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
-        <antcall target="clean-downloads"/>
+        <!-- FIXME: clean-downloads introduces some issues: with cobertura (on Windows can't be deleted, not sure why), 
+                    but especially with postgresql drivers -->
+        <!-- antcall target="clean-downloads"/ -->   
         <antcall target="clean"/>
     </target>
 
