@@ -28,22 +28,6 @@ under the License.
   <#if shortcutIcon?has_content>
     <link rel="shortcut icon" href="<@ofbizContentUrl>${StringUtil.wrapString(shortcutIcon)}</@ofbizContentUrl>" />
   </#if>
-  <#if layoutSettings.javaScripts?has_content>
-    <#--layoutSettings.javaScripts is a list of java scripts. -->
-    <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
-    <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
-    <#list layoutSettings.javaScripts as javaScript>
-      <#if javaScriptsSet.contains(javaScript)>
-        <#assign nothing = javaScriptsSet.remove(javaScript)/>
-        <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
-      </#if>
-    </#list>
-  </#if>
-  <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
-    <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
-      <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
-    </#list>
-  </#if>
   <#if layoutSettings.styleSheets?has_content>
     <#--layoutSettings.styleSheets is a list of style sheets. So, you can have a user-specified "main" style sheet, AND a component style sheet.-->
     <#list layoutSettings.styleSheets as styleSheet>
@@ -66,13 +50,6 @@ under the License.
       <link rel="stylesheet" href="<@ofbizContentUrl>${StringUtil.wrapString(styleSheet)}</@ofbizContentUrl>" type="text/css"/>
     </#list>
   </#if>
-  ${layoutSettings.extraHead?if_exists}
-  <#if layoutSettings.VT_EXTRA_HEAD?has_content>
-    <#list layoutSettings.VT_EXTRA_HEAD as extraHead>
-      ${extraHead}
-    </#list>
-  </#if>
-
   <#-- Append CSS for catalog -->
   <#if catalogStyleSheet?exists>
     <link rel="stylesheet" href="${StringUtil.wrapString(catalogStyleSheet)}" type="text/css"/>
@@ -81,6 +58,29 @@ under the License.
   <#if sessionAttributes.overrideCss?exists>
     <link rel="stylesheet" href="${StringUtil.wrapString(sessionAttributes.overrideCss)}" type="text/css"/>
   </#if>
+  <#if layoutSettings.javaScripts?has_content>
+    <#--layoutSettings.javaScripts is a list of java scripts. -->
+    <#-- use a Set to make sure each javascript is declared only once, but iterate the list to maintain the correct order -->
+    <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
+    <#list layoutSettings.javaScripts as javaScript>
+      <#if javaScriptsSet.contains(javaScript)>
+        <#assign nothing = javaScriptsSet.remove(javaScript)/>
+        <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
+      </#if>
+    </#list>
+  </#if>
+  <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
+    <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
+      <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
+    </#list>
+  </#if>
+  ${layoutSettings.extraHead?if_exists}
+  <#if layoutSettings.VT_EXTRA_HEAD?has_content>
+    <#list layoutSettings.VT_EXTRA_HEAD as extraHead>
+      ${extraHead}
+    </#list>
+  </#if>
+
   <#-- Meta tags if defined by the page action -->
   <#if metaDescription?exists>
     <meta name="description" content="${metaDescription}"/>
