@@ -24,7 +24,7 @@ under the License.
                <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
             </#if>
             <#assign orderType = orderHeader.getRelatedOne("OrderType")/>
-            <li class="h3">&nbsp;${orderType?if_exists.get("description", locale)?default(uiLabelMap.OrderOrder)}&nbsp;${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
+            <li class="h3">&nbsp;${orderType?if_exists.get("description", locale)?default(uiLabelMap.OrderOrder)}&nbsp;${uiLabelMap.CommonNbr}&nbsp;<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
             <#if currentStatus.statusId == "ORDER_APPROVED" && orderHeader.orderTypeId == "SALES_ORDER">
               <li class="h3"><a target="_BLANK" href="javascript:document.PrintOrderPickSheet.submit()">${uiLabelMap.FormFieldTitle_printPickSheet}</a>
               <form name="PrintOrderPickSheet" method="post" action="<@ofbizUrl>orderPickSheet.pdf</@ofbizUrl>">
@@ -83,7 +83,7 @@ under the License.
                 <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
               </li>
-            </#if>             
+            </#if>
             <#if setOrderCompleteOption>
               <li><a href="javascript:document.OrderCompleteOrder.submit()">${uiLabelMap.OrderCompleteOrder}</a>
               <form name="OrderCompleteOrder" method="post" action="<@ofbizUrl>changeOrderStatus</@ofbizUrl>">
@@ -117,7 +117,7 @@ under the License.
                     <#assign loopStatusItem = orderHeaderStatus.getRelatedOne("StatusItem")>
                     <#assign userlogin = orderHeaderStatus.getRelatedOne("UserLogin")>
                     <div>
-                      ${loopStatusItem.get("description",locale)} - ${orderHeaderStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
+                      ${loopStatusItem.get("description",locale)} <#if orderHeaderStatus.statusDatetime?has_content>- ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeaderStatus.statusDatetime, "", locale, timeZone)?default("0000-00-00 00:00:00")}</#if>
                       &nbsp;
                       ${uiLabelMap.CommonBy} - <#--${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, userlogin.getString("partyId"), true)}--> [${orderHeaderStatus.statusUserLogin}]
                     </div>
@@ -129,7 +129,7 @@ under the License.
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderDateOrdered}</td>
               <td width="5%">&nbsp;</td>
-              <td valign="top" width="80%">${orderHeader.orderDate.toString()}</td>
+              <td valign="top" width="80%"><#if orderHeader.orderDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeader.orderDate, "", locale, timeZone)!}</#if></td>
             </tr>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
@@ -199,7 +199,7 @@ under the License.
               <tr>
                 <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_cancelBackOrderDate}</td>
                 <td width="5%">&nbsp;</td>
-                <td valign="top" width="80%">${orderItem.cancelBackOrderDate?if_exists}</td>
+                <td valign="top" width="80%"><#if orderItem.cancelBackOrderDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderItem.cancelBackOrderDate, "", locale, timeZone)!}</#if></td>
               </tr>
             </#if>
             <#if distributorId?exists>
@@ -261,8 +261,8 @@ under the License.
                  <form name="setInvoicePerShipment" method="post" action="<@ofbizUrl>setInvoicePerShipment</@ofbizUrl>">
                  <input type = "hidden" name="orderId" value="${orderId}"/>
                 <select name="invoicePerShipment">
-                  <option value="Y" <#if (orderHeader.invoicePerShipment)?if_exists == "Y">selected="selected" </#if>>Y</option>
-                  <option value="N" <#if (orderHeader.invoicePerShipment)?if_exists == "N">selected="selected" </#if>>N</option>
+                  <option value="Y" <#if (orderHeader.invoicePerShipment)?if_exists == "Y">selected="selected" </#if>>${uiLabelMap.CommonYes}</option>
+                  <option value="N" <#if (orderHeader.invoicePerShipment)?if_exists == "N">selected="selected" </#if>>${uiLabelMap.CommonNo}</option>
                 </select>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonUpdate}"/>
                 </form>

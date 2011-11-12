@@ -183,7 +183,7 @@ under the License.
             </#if>
             <#assign productStore = orderHeader.getRelatedOneCache("ProductStore")?if_exists />
             <tr>
-              <td>${orderHeader.orderDate.toString()}</td>
+              <td><#if orderHeader.orderDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeader.orderDate, "", locale, timeZone)!}</#if></td>
               <td>
                 <a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
               </td>

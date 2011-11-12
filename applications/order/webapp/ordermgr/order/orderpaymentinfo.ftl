@@ -40,7 +40,7 @@ under the License.
   </div>
   <div class="screenlet-body">
      <table class="basic-table" cellspacing='0'>
-     <#assign orderTypeId = orderReadHelper.getOrderTypeId()> 
+     <#assign orderTypeId = orderReadHelper.getOrderTypeId()>
      <#if orderTypeId == "PURCHASE_ORDER">
        <tr>
          <th>${uiLabelMap.AccountingPaymentID}</th>
@@ -54,13 +54,13 @@ under the License.
            <#assign statusItem = payment.getRelatedOne("StatusItem")>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : payment.partyIdTo}, true)>
            <tr>
-             <#if security.hasPermission("PAY_INFO_VIEW", session) || security.hasPermission("PAY_INFO_ADMIN", session)> 
+             <#if security.hasPermission("PAY_INFO_VIEW", session) || security.hasPermission("PAY_INFO_ADMIN", session)>
                <td><a href="/accounting/control/paymentOverview?paymentId=${payment.paymentId}">${payment.paymentId}</a></td>
              <#else>
                <td>${payment.paymentId}</td>
              </#if>
              <td>${partyName.groupName?if_exists}${partyName.lastName?if_exists} ${partyName.firstName?if_exists} ${partyName.middleName?if_exists}
-             <#if security.hasPermission("PARTYMGR_VIEW", session) || security.hasPermission("PARTYMGR_ADMIN", session)> 
+             <#if security.hasPermission("PARTYMGR_VIEW", session) || security.hasPermission("PARTYMGR_ADMIN", session)>
                [<a href="/partymgr/control/viewprofile?partyId=${partyId}">${partyId}</a>]
              <#else>
                [${partyId}]
@@ -87,7 +87,7 @@ under the License.
          </tr>
        </#if>
      <#else>
-     
+
      <#-- order payment status -->
      <tr>
        <td align="center" valign="top" width="29%" class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
@@ -99,7 +99,7 @@ under the License.
              <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem")?if_exists>
              <#if statusItem?has_content>
                 <div>
-                  ${statusItem.get("description",locale)} - ${orderPaymentStatus.statusDatetime?default("0000-00-00 00:00:00")?string}
+                  ${statusItem.get("description",locale)} <#if orderPaymentStatus.statusDatetime?has_content>- ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderPaymentStatus.statusDatetime, "", locale, timeZone)!}</#if>
                   &nbsp;
                   ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin?if_exists}]
                 </div>
@@ -166,7 +166,7 @@ under the License.
                         <#list gatewayResponses as gatewayResponse>
                           <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
                           ${(transactionCode.get("description",locale))?default("Unknown")}:
-                          ${gatewayResponse.transactionDate.toString()}
+                          <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                           <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
                           (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
                           <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
@@ -326,7 +326,7 @@ under the License.
                       <#list gatewayResponses as gatewayResponse>
                         <#assign transactionCode = gatewayResponse.getRelatedOne("TranCodeEnumeration")>
                         ${(transactionCode.get("description",locale))?default("Unknown")}:
-                        ${gatewayResponse.transactionDate.toString()}
+                        <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                         <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
                         (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
                         <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
