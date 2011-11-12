@@ -2,14 +2,14 @@
 /* Written by Leon Sun */
 (function($) {
     $.timepicker.regional['zh-CN'] = {
-        timeOnlyTitle: 'é€‰æ‹©æ—¶é—´',
-        timeText: 'æ—¶é—´',
-        hourText: 'æ—¶',
-        minuteText: 'åˆ†',
-        secondText: 'ç§’',
-        timezoneText: 'æ—¶åŒº',
-        currentText: 'çŽ°åœ¨',
-        closeText: 'å®Œæˆ',
+        timeOnlyTitle: '选择时间',
+        timeText: '时间',
+        hourText: '时',
+        minuteText: '分',
+        secondText: '秒',
+        timezoneText: '时区',
+        currentText: '现在',
+        closeText: '完成',
         timeFormat: 'hh:mm',
         ampm: false
     };

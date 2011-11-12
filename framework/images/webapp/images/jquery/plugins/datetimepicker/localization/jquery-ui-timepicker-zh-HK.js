@@ -2,14 +2,14 @@
 /* Written by Leon Sun */
 (function($) {
     $.timepicker.regional['zh-HK'] = {
-        timeOnlyTitle: 'é¸æ“‡æ™‚é–“',
-        timeText: 'æ™‚é–“',
-        hourText: 'æ™‚',
-        minuteText: 'åˆ†',
-        secondText: 'ç§’',
-        timezoneText: 'æ™‚å€',
-        currentText: 'ç¾åœ¨',
-        closeText: 'å®Œæˆ',
+        timeOnlyTitle: '選擇時間',
+        timeText: '時間',
+        hourText: '時',
+        minuteText: '分',
+        secondText: '秒',
+        timezoneText: '時區',
+        currentText: '現在',
+        closeText: '完成',
         timeFormat: 'hh:mm',
         ampm: false
     };
