@@ -27,7 +27,7 @@
         <value xml:lang="hi_IN">EFT ख़ाता: AHC/ Electronic जान्च</value>
         <value xml:lang="it">Conto EFT: AHC/Assegni elettronici</value>
         <value xml:lang="ja">EFT Account: AHC/Electronic Check </value>
-        <value xml:lang="nl">Bankrekening: AHC/Electronic Check </value>
+        <value xml:lang="nl">Bankrekening: AHC/Electronic Check</value>
         <value xml:lang="pt">Conta de EFT: AHC/cheques eletrônicos</value>
         <value xml:lang="ro">Cont EFT : AHC/Cecuri Electronice</value>
         <value xml:lang="ru">Текущий счет</value>
@@ -110,12 +110,14 @@
     <property key="AccountingAccountNumberMissing">
         <value xml:lang="de">Kontonummer fehlt</value>
         <value xml:lang="en">Account Number is missing</value>
+        <value xml:lang="nl">Rekeningnummer ontbreekt</value>
         <value xml:lang="pt">Número de Conta está vazio</value>
         <value xml:lang="zh_TW">沒有科目號碼</value>
     </property>
     <property key="AccountingAccountTransactionId">
         <value xml:lang="en">Account Transaction Id</value>
         <value xml:lang="hi_IN">लेखा गतिविधि क्रमांक</value>
+        <value xml:lang="nl">Transactie Id</value>
         <value xml:lang="pt">Id da transação de Conta</value>
         <value xml:lang="zh_TW">科目交易ID</value>
     </property>
@@ -141,6 +143,7 @@
     <property key="AccountingAccountTypeMissing">
         <value xml:lang="de">Kontotyp fehlt</value>
         <value xml:lang="en">Account Type is missing</value>
+        <value xml:lang="nl">Rekening type ontbreekt</value>
         <value xml:lang="pt">Tipo de Conta está vazio</value>
         <value xml:lang="zh_TW">沒有科目類型</value>
     </property>
@@ -223,12 +226,14 @@
     <property key="AccountingAcctgTransEntriesFor">
         <value xml:lang="en">Accounting Transaction Entries For</value>
         <value xml:lang="hi_IN">लेखा गतिविधि प्रविष्टियों के लिए</value>
+        <value xml:lang="nl">Boekingsregels voor</value>
         <value xml:lang="pt">Entradas de transações Contábeis para</value>
         <value xml:lang="zh_TW">交易記帳帳目: </value>
     </property>
     <property key="AccountingAcctgTransFor">
         <value xml:lang="en">Accounting Transactions For</value>
         <value xml:lang="hi_IN">लेखा गतिविधि के लिए</value>
+        <value xml:lang="nl">Boekhoudtransacties voor</value>
         <value xml:lang="pt">Transações Contábeis para</value>
         <value xml:lang="zh_TW">交易記帳: </value>
     </property>
