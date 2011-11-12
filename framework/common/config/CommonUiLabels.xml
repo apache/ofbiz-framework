@@ -404,7 +404,7 @@
     </property>
     <property key="CommonAdvancedFeatures">
         <value xml:lang="en">Advanced Features</value>
-        <value xml:lang="en">Características avanzadas</value>
+        <value xml:lang="es">Características avanzadas</value>
         <value xml:lang="fr">Caractéristiques avancées</value>
         <value xml:lang="hi_IN">उन्नत सुविधाएँ</value>
         <value xml:lang="it">Caratteristiche avanzate</value>
@@ -2096,7 +2096,7 @@
     </property>
     <property key="CommonDeactivate">
         <value xml:lang="en">Deactivate, set thruDate to Now</value>
-        <value xml:lang="en">Desactivar, establecer fecha actual como fecha final</value>
+        <value xml:lang="es">Desactivar, establecer fecha actual como fecha final</value>
         <value xml:lang="fr">Désactiver, mettre la date du jour comme date de fin</value>
         <value xml:lang="pt_BR">Desativar, para definir thruDate para agora</value>
     </property>
@@ -2387,7 +2387,7 @@
     </property>
     <property key="CommonEditPortletAttributes">
         <value xml:lang="en">Edit Attributes for Portlet</value>
-        <value xml:lang="en">Modificar atributos del portlet</value>
+        <value xml:lang="es">Modificar atributos del portlet</value>
         <value xml:lang="fr">Modifier les attributs du portlet </value>
         <value xml:lang="hi_IN">Portlet के गुण संपादित करें</value>
         <value xml:lang="it">Modifica attributi portlet</value>
@@ -10501,11 +10501,6 @@
         <value xml:lang="en">External Device Purpose Action Id</value>
         <value xml:lang="es">Código acción dispositivo externo</value>
         <value xml:lang="fr">Obj. de l'action</value>
-    </property>
-    <property key="FormFieldTitle_deviceLocation">
-        <value xml:lang="en">Device Location</value>
-        <value xml:lang="es">Emplazamiento dispositivo</value>
-        <value xml:lang="fr">Emplacement</value>
     </property>
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">تاريخ البدء</value>
