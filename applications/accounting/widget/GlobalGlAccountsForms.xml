@@ -73,6 +73,7 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
+                <field-map field-name="orderBy" value="glAccountId"/>
                 <field-map field-name="noConditionFind" value="Y"/>
             </service>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
