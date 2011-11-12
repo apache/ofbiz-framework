@@ -35,7 +35,6 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -1258,7 +1257,7 @@ public class ModelViewEntity extends ModelEntity {
         protected final ViewCondition whereCondition;
         protected final ViewCondition havingCondition;
 
-        // FIXME: add programatic constructor
+        // TODO: add programatic constructor
         public ViewEntityCondition(ModelViewEntity modelViewEntity, ModelViewLink modelViewLink, Element element) {
             this.modelViewEntity = modelViewEntity;
             this.modelViewLink = modelViewLink;
@@ -1328,7 +1327,7 @@ public class ModelViewEntity extends ModelEntity {
         protected final Object value;
         protected final boolean ignoreCase;
 
-        // FIXME: add programatic constructor
+        // TODO: add programatic constructor
         public ViewConditionExpr(ViewEntityCondition viewEntityCondition, Element conditionExprElement) {
             this.viewEntityCondition = viewEntityCondition;
             String entityAlias = conditionExprElement.getAttribute("entity-alias");
@@ -1341,8 +1340,18 @@ public class ModelViewEntity extends ModelEntity {
                 throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + this.operator);
             }
             String relEntityAlias = conditionExprElement.getAttribute("rel-entity-alias");
-            this.relFieldName = conditionExprElement.getAttribute("rel-field-name");
-            this.value = conditionExprElement.getAttribute("value");
+            String relFieldNameStr = conditionExprElement.getAttribute("rel-field-name");
+            if (UtilValidate.isEmpty(relFieldNameStr)) {
+                this.relFieldName = null;
+            } else {
+                this.relFieldName = relFieldNameStr;
+            }
+            String valueStr = conditionExprElement.getAttribute("value");
+            if (UtilValidate.isEmpty(valueStr)) {
+                this.value = null;
+            } else {
+                this.value = valueStr;
+            }
             this.ignoreCase = "true".equals(conditionExprElement.getAttribute("ignore-case"));
 
             // if we are in a view-link, default to the entity-alias and rel-entity-alias there
@@ -1410,7 +1419,7 @@ public class ModelViewEntity extends ModelEntity {
                             EntityOperator.OR,
                             EntityCondition.makeCondition(lhs, EntityOperator.EQUALS, null));
                 }
-            } else if (value == null && UtilValidate.isEmpty(this.relFieldName) && (this.operator == EntityOperator.EQUALS || this.operator == EntityOperator.NOT_EQUAL)) {
+            } else if ( value == null && this.relFieldName == null && (this.operator == EntityOperator.EQUALS || this.operator == EntityOperator.NOT_EQUAL)) {
                 return EntityCondition.makeCondition(lhs, this.operator, null);
             } else {
                 if (ignoreCase) {
