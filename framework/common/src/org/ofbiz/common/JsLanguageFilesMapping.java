@@ -566,10 +566,10 @@ public final class JsLanguageFilesMapping {
             localeFiles.put("ca", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
             localeFiles.put("ca_ES", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
             localeFiles.put("zh", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
-            localeFiles.put("zh_CN", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
-            localeFiles.put("zh_HK", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
+            localeFiles.put("zh_CN", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-zh-CN.js");
+            localeFiles.put("zh_HK", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-zh-HK.js");
             localeFiles.put("zh_SG", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
-            localeFiles.put("zh_TW", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
+            localeFiles.put("zh_TW", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-zh-TW.js");
             localeFiles.put("hr", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
             localeFiles.put("hr_HR", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js");
             localeFiles.put("cs", "/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-cs.js");
