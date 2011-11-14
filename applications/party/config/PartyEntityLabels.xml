@@ -117,6 +117,7 @@
         <value xml:lang="zh_TW">工作</value>
     </property>
     <property key="AgreementType.description.EULA">
+        <value xml:lang="de">Endbenutzer-Lizenzvertrag</value>
         <value xml:lang="en">End User License Agreement</value>
         <value xml:lang="hi_IN">उपयोगकर्ता लाइसेंस अनुबंध</value>
         <value xml:lang="it">Contratto licenza utente finale</value>
@@ -408,7 +409,7 @@
         <value xml:lang="zh_TW">網站</value>
     </property>
     <property key="ContactMechPurposeType.description.BILLING_EMAIL">
-        <value xml:lang="de">Fakturierung E-Mail-Adresse</value>
+        <value xml:lang="de">Rechnungs E-Mail-Adresse</value>
         <value xml:lang="en">Billing (AP) Email</value>
         <value xml:lang="es">Correo electrónico de facturación</value>
         <value xml:lang="fr">Adresse courriel de facturation</value>
@@ -422,7 +423,7 @@
         <value xml:lang="zh_TW">寄賬單電子郵件</value>
     </property>
     <property key="ContactMechPurposeType.description.BILLING_LOCATION">
-        <value xml:lang="de">Fakturierungsadresse</value>
+        <value xml:lang="de">Rechnungsadresse</value>
         <value xml:lang="en">Billing (AP) Address</value>
         <value xml:lang="es">Dirección de facturación</value>
         <value xml:lang="fr">Adresse de facturation</value>
@@ -437,6 +438,7 @@
         <value xml:lang="zh_TW">寄賬單地址</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_BILLING">
+        <value xml:lang="de">Rechnungs Faxnumer</value>
         <value xml:lang="en">Billing Destination Fax Number</value>
         <value xml:lang="fr">Numéro de télécopie du service comptabilité</value>
     </property>
@@ -471,6 +473,7 @@
         <value xml:lang="zh_TW">第二個傳真號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_SHIPPING">
+        <value xml:lang="de">Liefer Faxnumer</value>
         <value xml:lang="en">Shipping Destination Fax Number</value>
         <value xml:lang="fr">Numéro de télécopie du service expédition</value>
     </property>

@@ -800,7 +800,7 @@
     </property>
     <property key="CommonAt">
         <value xml:lang="ar">في</value>
-        <value xml:lang="de">Zu</value>
+        <value xml:lang="de">Am</value>
         <value xml:lang="en">At</value>
         <value xml:lang="es">En</value>
         <value xml:lang="fr">à</value>
@@ -3911,6 +3911,7 @@
         <value xml:lang="zh_TW">隱藏域</value>
     </property>
     <property key="CommonHigh">
+        <value xml:lang="de">Hoch</value>
         <value xml:lang="en">High</value>
         <value xml:lang="fr">Haut</value>
         <value xml:lang="hi_IN">ऊँचा</value>
@@ -4673,6 +4674,7 @@
         <value xml:lang="it">http://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
     </property>
     <property key="CommonLow">
+        <value xml:lang="de">Niedrig</value>
         <value xml:lang="en">Low</value>
         <value xml:lang="es">Bajo</value>
         <value xml:lang="fr">Bas</value>
@@ -5646,6 +5648,7 @@
         <value xml:lang="zh_TW">無</value>
     </property>
     <property key="CommonNormal">
+        <value xml:lang="de">Normal</value>
         <value xml:lang="en">Normal</value>
         <value xml:lang="es">Normal</value>
         <value xml:lang="fr">Normal</value>
@@ -9201,7 +9204,7 @@
     <property key="CommonUpdate">
         <value xml:lang="ar">تحديث</value>
         <value xml:lang="cs">Atualizovat</value>
-        <value xml:lang="de">Aktualisierung</value>
+        <value xml:lang="de">aktualisieren</value>
         <value xml:lang="en">Update</value>
         <value xml:lang="es">Actualizar</value>
         <value xml:lang="fr">Màj</value>
