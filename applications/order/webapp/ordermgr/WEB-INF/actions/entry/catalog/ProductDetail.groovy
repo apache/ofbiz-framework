@@ -91,6 +91,10 @@ if (product) {
     productId = product.productId;
     context.product_id = productId;
     productTypeId = product.productTypeId;
+
+    boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");
+    context.isMarketingPackage = (isMarketingPackage? "true": "false");
+
     featureTypes = [:];
     featureOrder = [];
 
@@ -548,14 +552,21 @@ if (product) {
         }
     }
 
-    //get last inventory count from product facility for the product
-    facilities = delegator.findList("ProductFacility", EntityCondition.makeCondition([productId : product.productId]), null, null, null, false);
     availableInventory = 0.0;
-    if(facilities) {
-        facilities.each { facility ->
-            lastInventoryCount = facility.lastInventoryCount;
-            if (lastInventoryCount != null && availableInventory.compareTo(lastInventoryCount) != 0) {
-                availableInventory += lastInventoryCount;
+
+    // if the product is a MARKETING_PKG_AUTO/PICK, then also get the quantity which can be produced from components
+    if (isMarketingPackage) {
+        resultOutput = dispatcher.runSync("getMktgPackagesAvailable", [productId : productId]);
+        availableInventory = resultOutput.availableToPromiseTotal;
+    } else {
+        //get last inventory count from product facility for the product
+        facilities = delegator.findList("ProductFacility", EntityCondition.makeCondition([productId : product.productId]), null, null, null, false)
+        if(facilities) {
+            facilities.each { facility ->
+                lastInventoryCount = facility.lastInventoryCount;
+                if (lastInventoryCount != null) {
+                    availableInventory += lastInventoryCount;
+                }
             }
         }
     }
