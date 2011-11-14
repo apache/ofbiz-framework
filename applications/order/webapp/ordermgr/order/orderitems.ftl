@@ -62,7 +62,7 @@ under the License.
                                             ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
                                             <#if (product.salesDiscontinuationDate)?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
                                                 <br />
-                                                <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${product.salesDiscontinuationDate}</span>
+                                                <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(product.salesDiscontinuationDate, "", locale, timeZone)!}</span>
                                             </#if>
                                         <#elseif orderItemType?exists>
                                             ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
@@ -71,7 +71,7 @@ under the License.
                                         </#if>
                                     </div>
                                     <div style="float:right;">
-                                        <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
+                                        <a href="/catalog/control/EditProduct?productId=${productId}${externalKeyParam}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                                         <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
                                         <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
                                             <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>"
@@ -108,7 +108,7 @@ under the License.
                                                         <tr>
                                                             <td style="text-align: right; padding-bottom: 10px;">
                                                                 <a class="buttontext"
-                                                                   href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y&amp;externalLoginKey=${externalLoginKey}"
+                                                                   href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y${externalKeyParam}"
                                                                    target="_blank">${uiLabelMap.ProductInventory}</a>
                                                             </td>
                                                             <td>&nbsp;</td>
@@ -184,7 +184,7 @@ under the License.
                                             <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                             <#list orderItemStatuses as orderItemStatus>
                                                 <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem")>
-                                                ${(orderItemStatus.statusDatetime.toString())?if_exists}&nbsp;&nbsp;${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
+                                                <#if orderItemStatus.statusDatetime?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderItemStatus.statusDatetime, "", locale, timeZone)!}&nbsp;&nbsp;</#if>${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}
                                             </#list>
                                         </div>
                                     </div>
@@ -317,8 +317,8 @@ under the License.
                                             ${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}
                                         <#else>
                                             ${uiLabelMap.CommonFrom}
-                                            : ${workEffort.estimatedStartDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonTo}
-                                            : ${workEffort.estimatedCompletionDate?string("yyyy-MM-dd")} ${uiLabelMap.OrderNumberOfPersons}
+                                            : <#if workEffort.estimatedStartDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(workEffort.estimatedStartDate, "", locale, timeZone)!}</#if> ${uiLabelMap.CommonTo}
+                                            : <#if workEffort.estimatedCompletionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(workEffort.estimatedCompletionDate, "", locale, timeZone)!}</#if> ${uiLabelMap.OrderNumberOfPersons}
                                             : ${workEffort.reservPersons?default("")}
                                         </#if>
                                     </td>
@@ -474,7 +474,7 @@ under the License.
                         <#if orderItem.estimatedShipDate?exists>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>&nbsp;${orderItem.estimatedShipDate?string.short}
+                                    <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.estimatedShipDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -482,7 +482,7 @@ under the License.
                         <#if orderItem.estimatedDeliveryDate?exists>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>&nbsp;${orderItem.estimatedDeliveryDate?string.short}
+                                    <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.estimatedDeliveryDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -490,7 +490,7 @@ under the License.
                         <#if orderItem.shipAfterDate?exists>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderShipAfterDate}</span>&nbsp;${orderItem.shipAfterDate?string.short}
+                                    <span class="label">${uiLabelMap.OrderShipAfterDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.shipAfterDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -498,7 +498,7 @@ under the License.
                         <#if orderItem.shipBeforeDate?exists>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderShipBeforeDate}</span>&nbsp;${orderItem.shipBeforeDate?string.short}
+                                    <span class="label">${uiLabelMap.OrderShipBeforeDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.shipBeforeDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -623,7 +623,7 @@ under the License.
                                                href="/facility/control/ViewShipment?shipmentId=${shipmentReceipt.shipmentId}&amp;externalLoginKey=${externalLoginKey}"
                                                class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
                                         </#if>
-                                        &nbsp;${shipmentReceipt.datetimeReceived}&nbsp;
+                                        &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
                                         <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}"
                                            class="buttontext">${shipmentReceipt.inventoryItemId}</a>

@@ -6357,6 +6357,10 @@
         <value xml:lang="zh">支付</value>
         <value xml:lang="zh_TW">支付</value>
     </property>
+    <property key="AccountingInvoicePerShipment">
+        <value xml:lang="de">Rechnung pro Lieferung</value>
+        <value xml:lang="en">Invoice Per Shipment</value>
+    </property>
     <property key="AccountingInvoicePurchase">
         <value xml:lang="ar">فاتورة الشراء</value>
         <value xml:lang="de">Einkaufsrechnung</value>
