@@ -120,15 +120,14 @@ if (!partyId) {
 // the logo
 partyGroup = delegator.findByPrimaryKey("PartyGroup", [partyId : partyId]);
 if (partyGroup) {
-    partyContentWrapper = new PartyContentWrapper(partyGroup, request);
+    partyContentWrapper = new PartyContentWrapper(dispatcher, partyGroup, locale, "text/html");
     partyContent = partyContentWrapper.getFirstPartyContentByType(partyGroup.partyId , partyGroup, "LGOIMGURL", delegator);
     if (partyContent) {
         logoImageUrl = "/content/control/stream?contentId="+partyContent.contentId;
-    }
-}
-if(logoImageUrl == null){
-    if (partyGroup?.logoImageUrl) {
-        logoImageUrl = partyGroup.logoImageUrl;
+    } else {
+        if (partyGroup?.logoImageUrl) {
+            logoImageUrl = partyGroup.logoImageUrl;
+        }
     }
 }
 context.logoImageUrl = logoImageUrl;
