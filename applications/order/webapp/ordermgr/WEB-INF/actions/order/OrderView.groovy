@@ -270,7 +270,8 @@ if (orderHeader) {
     context.mktgPkgQOHMap = inventorySummary.mktgPkgQOHMap;
 
     // get inventory summary with respect to facility
-    productStore = orderHeader.getRelatedOne("ProductStore");
+    productStore = orderReadHelper.getProductStore();
+    context.productStore = productStore;
     if (productStore) {
         facility = productStore.getRelatedOne("Facility");
         inventorySummaryByFacility = dispatcher.runSync("getProductInventorySummaryForItems", [orderItems : orderItems, facilityId : facility.facilityId]);
@@ -309,7 +310,6 @@ if (orderHeader) {
     if ("SALES_ORDER".equals(orderType)) {
         context.returnHeaderTypeId = "CUSTOMER_RETURN";
         // also set the product store facility Id for sales orders
-        productStore = orderHeader.getRelatedOne("ProductStore");
         if (productStore) {
             context.storeFacilityId = productStore.inventoryFacilityId;
             if (productStore.reqReturnInventoryReceive) {

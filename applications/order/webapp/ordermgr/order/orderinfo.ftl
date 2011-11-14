@@ -159,18 +159,16 @@ under the License.
               </td>
             </tr>
             <tr><td colspan="3"><hr /></td></tr>
-            <tr>
-              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderProductStore}</td>
-              <td width="5%">&nbsp;</td>
-              <td valign="top" width="80%">
-                  <#if orderHeader.productStoreId?has_content>
-                    <a href="/catalog/control/EditProductStore?productStoreId=${orderHeader.productStoreId}${externalKeyParam}" target="catalogmgr" class="buttontext">${orderHeader.productStoreId}</a>
-                  <#else>
-                    ${uiLabelMap.CommonNA}
-                  </#if>
-              </td>
-            </tr>
-            <tr><td colspan="3"><hr /></td></tr>
+            <#if productStore?has_content>
+              <tr>
+                <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderProductStore}</td>
+                <td width="5%">&nbsp;</td>
+                <td valign="top" width="80%">
+                  ${productStore.storeName!}&nbsp;<a href="/catalog/control/EditProductStore?productStoreId=${productStore.productStoreId}${externalKeyParam}" target="catalogmgr" class="buttontext">(${productStore.productStoreId})</a>
+                </td>
+              </tr>
+              <tr><td colspan="3"><hr /></td></tr>
+            </#if>
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderOriginFacility}</td>
               <td width="5%">&nbsp;</td>
@@ -255,7 +253,7 @@ under the License.
             </#if>
             <tr><td colspan="3"><hr /></td></tr>
             <tr>
-              <td align="right" valign="top" width="15%" class="label">&nbsp;Invoice Per Shipment</td>
+              <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.AccountingInvoicePerShipment}</td>
               <td width="5%">&nbsp;</td>
               <td valign="top" width="80%">
                  <form name="setInvoicePerShipment" method="post" action="<@ofbizUrl>setInvoicePerShipment</@ofbizUrl>">

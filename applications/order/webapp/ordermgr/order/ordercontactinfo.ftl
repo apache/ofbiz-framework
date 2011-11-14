@@ -84,7 +84,7 @@ under the License.
                 ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
               </#if>
               <#if partyId?exists>
-                &nbsp;(<a href="${customerDetailLink}${partyId}" target="partymgr" class="buttontext">${partyId}</a>)
+                &nbsp;(<a href="${customerDetailLink}${partyId}${externalKeyParam}" target="partymgr" class="buttontext">${partyId}</a>)
                 <br/>
                 <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
                 <div>
@@ -106,7 +106,6 @@ under the License.
         <#list orderContactMechValueMaps as orderContactMechValueMap>
           <#assign contactMech = orderContactMechValueMap.contactMech>
           <#assign contactMechPurpose = orderContactMechValueMap.contactMechPurposeType>
-          <#--<#assign partyContactMech = orderContactMechValueMap.partyContactMech>-->
           <tr><td colspan="3"><hr /></td></tr>
           <tr>
             <td align="right" valign="top" width="19%">
