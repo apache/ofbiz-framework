@@ -4137,6 +4137,7 @@
         <value xml:lang="zh_TW">主要商店群組ID</value>
     </property>
     <property key="FormFieldTitle_printPickSheet">
+        <value xml:lang="de">Drucke Artikelliste</value>
         <value xml:lang="en">Print Pick Sheet</value>
         <value xml:lang="fr">Liste de prélevement</value>
         <value xml:lang="it">Stampa lista di prelievo</value>
@@ -4905,7 +4906,7 @@
         <value xml:lang="zh_TW">補貨方式</value>
     </property>
     <property key="FormFieldTitle_reserveInventory">
-        <value xml:lang="de">Lagerreservation</value>
+        <value xml:lang="de">Lagerreservierung</value>
         <value xml:lang="en">Reserve Inventory</value>
         <value xml:lang="es">Reservar stock</value>
         <value xml:lang="fr">Réserver le stock</value>

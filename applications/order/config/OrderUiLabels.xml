@@ -2141,7 +2141,7 @@
         <value xml:lang="fr">Lignes annulées sur la commande : </value>
     </property>
     <property key="OrderCancelOrder">
-        <value xml:lang="de">Auftrag annullieren</value>
+        <value xml:lang="de">Auftrag stornieren</value>
         <value xml:lang="en">Cancel Order</value>
         <value xml:lang="es">Anular pedido</value>
         <value xml:lang="fr">Annuler la commande</value>
@@ -7326,7 +7326,7 @@
         <value xml:lang="zh">退货</value>
         <value xml:lang="zh_CN">退货单</value>
         <value xml:lang="zh_TW">退貨</value>
-    </property>    
+    </property>
     <property key="OrderOrderReturns">
         <value xml:lang="de">Retouren</value>
         <value xml:lang="en">Returns</value>
@@ -9215,7 +9215,7 @@
         <value xml:lang="pt_BR">Conteúdo</value>
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh_TW">內容</value>
-    </property>    
+    </property>
     <property key="OrderRequestCreatedDate">
         <value xml:lang="de">Erstellungsdatum</value>
         <value xml:lang="en">Created Date</value>
@@ -9235,7 +9235,7 @@
         <value xml:lang="de">Aus dem Einkaufswagen erstellte Anfrage</value>
         <value xml:lang="en">Request created from shopping cart</value>
         <value xml:lang="fr">Demande de devis créée depuis le panier</value>
-    </property>    
+    </property>
     <property key="OrderRequestDate">
         <value xml:lang="de">Anfragedatum</value>
         <value xml:lang="en">Request Date</value>
