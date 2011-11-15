@@ -78,11 +78,9 @@ public class ContentDocument {
         doc = new Document();
         String contentId = content.getString("contentId");
         doc.add(new Field("contentId", contentId, Store.YES, Index.NOT_ANALYZED, TermVector.NO));
-        // Add the last modified date of the file a field named "modified". Use
-        // a
+        // Add the last modified date of the file a field named "modified". Use a
         // Keyword field, so that it's searchable, but so that no attempt is
-        // made
-        // to tokenize the field into words.
+        // made to tokenize the field into words.
         Timestamp modDate = (Timestamp) content.get("lastModifiedDate");
         if (modDate == null) {
             modDate = (Timestamp) content.get("createdDate");
