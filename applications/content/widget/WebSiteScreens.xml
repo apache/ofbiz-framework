@@ -219,12 +219,16 @@ under the License.
                 </entity-one>
                 
                 <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
-                <entity-one entity-name="ContentAssoc" value-field="assoc">
-                    <field-map field-name="contentId" from-field="parameters.contentIdFrom"/>
-                    <field-map field-name="contentIdTo" from-field="parameters.contentId"/>
-                    <field-map field-name="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
-                    <field-map field-name="fromDate" from-field="parameters.fromDate"/>
-                </entity-one>
+                <entity-condition list="assocs" entity-name="ContentAssoc">
+                    <condition-list>
+                        <condition-expr field-name="contentId" from-field="parameters.contentIdFrom"/>
+                        <condition-expr field-name="contentIdTo" from-field="parameters.contentId"/>
+                        <condition-expr field-name="fromDate" from-field="parameters.fromDate" ignore-if-empty="true"/>
+                        <condition-expr field-name="contentAssocTypeId" from-field="parameters.contentAssocTypeId" ignore-if-empty="true"/>
+                    </condition-list>
+                    <order-by field-name="-fromDate"/>
+                </entity-condition>
+                <set field="assoc" value="${assocs[0]}"/>
                 <entity-and entity-name="ContentPurpose" list="currentPurposes">
                     <field-map field-name="contentId" from-field="contentId"/>
                 </entity-and>
