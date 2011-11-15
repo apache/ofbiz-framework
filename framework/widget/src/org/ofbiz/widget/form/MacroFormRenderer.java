@@ -2637,10 +2637,12 @@ public class MacroFormRenderer implements FormStringRenderer {
             alternate = description;
         }
         if (UtilValidate.isNotEmpty(value)) {
-            StringBuilder buffer = new StringBuilder();
-            ContentUrlTag.appendContentPrefix(request, buffer);
-            buffer.append(value);
-            value = buffer.toString();
+            if (!value.startsWith("http")) {
+                StringBuilder buffer = new StringBuilder();
+                ContentUrlTag.appendContentPrefix(request, buffer);
+                buffer.append(value);
+                value = buffer.toString();
+            }
         } else if (value == null) {
             value = "";
         }
