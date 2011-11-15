@@ -180,9 +180,7 @@ public class ContentDocument {
             return false;
         }
         List<String> featureList = FastList.newInstance();
-        Iterator<GenericValue> iter = featureDataResourceList.iterator();
-        while (iter.hasNext()) {
-            GenericValue productFeatureDataResource = iter .next();
+        for (GenericValue productFeatureDataResource : featureDataResourceList) {
             String feature = productFeatureDataResource.getString("productFeatureId");
             featureList.add(feature);
         }
