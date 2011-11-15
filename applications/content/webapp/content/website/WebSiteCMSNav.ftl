@@ -46,84 +46,87 @@
     }
 
 <#-- creating the JSON Data -->
+<#macro fillTreeSubsites assocList>
+      <#if (assocList?has_content)>
+        <#list assocList as assoc>
+            <#assign content = assoc.getRelatedOne("ToContent")/>
+            {
+            "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', jQuery('#${assoc.contentIdTo}'), '');"}},
+           
+            <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
+                "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}", "contentAssocTypeId" : "${assoc.contentAssocTypeId}"}
+            <#if assocChilds?has_content>
+                ,"children": [
+                    <@fillTreeSubsites assocList = assocChilds/>
+                ]
+            </#if>
+            <#if assoc_has_next>
+            },
+            <#else>
+            }
+            </#if>
+        </#list>
+      </#if>
+</#macro>
+<#macro fillTreeMenus assocList>
+      <#if (assocList?has_content)>
+        <#list assocList as assoc>
+            <#assign content = assoc.getRelatedOne("ToContent")/>
+            {
+            "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
+            <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
+                "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
+            <#if assocChilds?has_content>
+                ,"children": [
+                    <@fillTreeMenus assocList = assocChilds/>
+                ]
+            </#if>
+            <#if assoc_has_next>
+            },
+            <#else>
+            }
+            </#if>
+        </#list>
+      </#if>
+</#macro>
+
+<#macro fillTreeError assocList>
+      <#if (assocList?has_content)>
+        <#list assocList as assoc>
+            <#assign content = assoc.getRelatedOne("ToContent")/>
+            {
+            "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
+            <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
+                "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
+            <#if assocChilds?has_content>
+                ,"children": [
+                    <@fillTreeError assocList = assocChilds/>
+                ]
+            </#if>
+            <#if assoc_has_next>
+            },
+            <#else>
+            }
+            </#if>
+        </#list>
+      </#if>
+</#macro>
+
 var rawdata_subsites = [
     <#if (subsites?has_content)>
-        <@fillTree assocList = subsites/>
-        <#macro fillTree assocList>
-              <#if (assocList?has_content)>
-                <#list assocList as assoc>
-                    <#assign content = assoc.getRelatedOne("ToContent")/>
-                    {
-                    "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
-                    <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
-                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
-                    <#if assocChilds?has_content>
-                        ,"children": [
-                            <@fillTree assocList = assocChilds/>
-                        ]
-                    </#if>
-                    <#if assoc_has_next>
-                    },
-                    <#else>
-                    }
-                    </#if>
-                </#list>
-              </#if>
-        </#macro>
+        <@fillTreeSubsites assocList = subsites/>
     </#if>
 ];
 
 var rawdata_menus = [
     <#if (menus?has_content)>
-        <@fillTree assocList = menus/>
-        <#macro fillTree assocList>
-              <#if (assocList?has_content)>
-                <#list assocList as assoc>
-                    <#assign content = assoc.getRelatedOne("ToContent")/>
-                    {
-                    "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
-                    <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
-                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
-                    <#if assocChilds?has_content>
-                        ,"children": [
-                            <@fillTree assocList = assocChilds/>
-                        ]
-                    </#if>
-                    <#if assoc_has_next>
-                    },
-                    <#else>
-                    }
-                    </#if>
-                </#list>
-              </#if>
-        </#macro>
+        <@fillTreeMenus assocList = menus/>
     </#if>
 ];
 
 var rawdata_errors = [
     <#if (errors?has_content)>
-        <@fillTree assocList = errors/>
-        <#macro fillTree assocList>
-              <#if (assocList?has_content)>
-                <#list assocList as assoc>
-                    <#assign content = assoc.getRelatedOne("ToContent")/>
-                    {
-                    "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
-                    <#assign assocChilds  = content.getRelated("FromContentAssoc")?if_exists/>
-                        "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
-                    <#if assocChilds?has_content>
-                        ,"children": [
-                            <@fillTree assocList = assocChilds/>
-                        ]
-                    </#if>
-                    <#if assoc_has_next>
-                    },
-                    <#else>
-                    }
-                    </#if>
-                </#list>
-              </#if>
-        </#macro>
+        <@fillTreeError assocList = errors/>
     </#if>
 ];
 
@@ -342,6 +345,11 @@ var rawdata_errors = [
         } else {
             if (contentId != null && contentId.length) {
                 ctx['contentId'] = contentId;
+            }
+            if (objstr) {
+                ctx['contentIdFrom'] = objstr.attr('contentid');
+                ctx['fromDate'] = objstr.attr('fromdate');
+                ctx['contentAssocTypeId'] = objstr.attr('contentassoctypeid');
             }
         }
 

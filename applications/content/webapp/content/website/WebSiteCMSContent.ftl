@@ -164,7 +164,6 @@
     <form name="cmsform" enctype="multipart/form-data" method="post" action="<@ofbizUrl>${formAction}</@ofbizUrl>" style="margin: 0;">
         <#if (content?has_content)>
             <input type="hidden" name="dataResourceId" value="${(dataResource.dataResourceId)?if_exists}"/>
-            <input type="hidden" name="mimeTypeId" value="${content.mimeTypeId?default(mimeTypeId)}"/>
             <input type="hidden" name="contentId" value="${content.contentId}"/>
 
             <#list requestParameters.keySet() as paramName>
@@ -176,10 +175,18 @@
             <input type="hidden" name="contentAssocTypeId" value="${contentAssocTypeId?default('SUBSITE')}"/>
             <input type="hidden" name="ownerContentId" value="${contentIdFrom?default(contentRoot)}"/>
             <input type="hidden" name="contentIdFrom" value="${contentIdFrom?default(contentRoot)}"/>
+        </#if>
+        <#if (dataResourceTypeId != 'IMAGE_OBJECT' && dataResourceTypeId != 'OTHER_OBJECT' && dataResourceTypeId != 'LOCAL_FILE' &&
+            dataResourceTypeId != 'OFBIZ_FILE' && dataResourceTypeId != 'VIDEO_OBJECT' && dataResourceTypeId != 'AUDIO_OBJECT')>
             <input type="hidden" name="mimeTypeId" value="${mimeTypeId}"/>
         </#if>
         <#if (dataResourceTypeId != 'NONE')>
+        <#if (dataResourceTypeId == 'IMAGE_OBJECT' || dataResourceTypeId == 'OTHER_OBJECT' || dataResourceTypeId == 'LOCAL_FILE' ||
+                dataResourceTypeId == 'OFBIZ_FILE' || dataResourceTypeId == 'VIDEO_OBJECT' || dataResourceTypeId == 'AUDIO_OBJECT')>
+            <input type="hidden" name="dataResourceTypeId" value="IMAGE_OBJECT"/>
+        <#else>
             <input type="hidden" name="dataResourceTypeId" value="${dataResourceTypeId}"/>
+        </#if>
         </#if>
         <input type="hidden" name="webSiteId" value="${webSiteId}"/>
         <input type="hidden" name="dataResourceName" value="${(dataResource.dataResourceName)?if_exists}"/>
@@ -331,10 +338,11 @@
           </tr>
 
           <#-- this all depends on the dataResourceTypeId which was selected -->
-          <#if (dataResourceTypeId == 'IMAGE_OBJECT' || dataResourceTypeId == 'OTHER_OBJECT' ||
-                dataResourceTypeId == 'VIDEO_OBJECT' || dataResourceTypeId == 'AUDIO_OBJECT')>
+          <#if (dataResourceTypeId == 'IMAGE_OBJECT' || dataResourceTypeId == 'OTHER_OBJECT' || dataResourceTypeId == 'LOCAL_FILE' ||
+                dataResourceTypeId == 'OFBIZ_FILE' || dataResourceTypeId == 'VIDEO_OBJECT' || dataResourceTypeId == 'AUDIO_OBJECT')>
             <tr>
-              <td colspan="2" align="right">
+              <td class="label"></td>
+              <td>
                 <#if ((content.contentId)?has_content)>
                     <@renderContentAsText contentId="${content.contentId}" ignoreTemplate="true"/>
                 </#if>
