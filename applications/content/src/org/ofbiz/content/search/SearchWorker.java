@@ -20,7 +20,6 @@ package org.ofbiz.content.search;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -65,17 +64,13 @@ public class SearchWorker {
         List<GenericValue> siteList = ContentWorker.getAssociatedContent(content, "To", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
 
         if (siteList != null) {
-            Iterator<GenericValue> iter = siteList.iterator();
-            while (iter.hasNext()) {
-                GenericValue siteContent = iter.next();
+            for (GenericValue siteContent : siteList) {
                 String siteContentId = siteContent.getString("contentId");
                 List<GenericValue> subContentList = ContentWorker.getAssociatedContent(siteContent, "To", UtilMisc.toList("SUBSITE", "PUBLISH_LINK", "SUB_CONTENT"), null, UtilDateTime.nowTimestamp().toString(), null);
 
                 if (subContentList != null) {
                     List<String> contentIdList = FastList.newInstance();
-                    Iterator<GenericValue> iter2 = subContentList.iterator();
-                    while (iter2.hasNext()) {
-                        GenericValue subContent = iter2.next();
+                    for (GenericValue subContent : subContentList) {
                         contentIdList.add(subContent.getString("contentId"));
                     }
 
@@ -108,7 +103,6 @@ public class SearchWorker {
         if (Debug.infoOn()) Debug.logInfo("in indexContent, indexAllPath: " + directory.toString(), module);
         GenericValue content = null;
         // Delete existing documents
-        Iterator<String> iter = null;
         List<GenericValue> contentList = null;
         IndexReader reader = null;
         try {
@@ -118,9 +112,7 @@ public class SearchWorker {
         }
 
         contentList = FastList.newInstance();
-        iter = idList.iterator();
-        while (iter.hasNext()) {
-            String id = iter.next();
+        for (String id : idList) {
             if (Debug.infoOn()) Debug.logInfo("in indexContent, id:" + id, module);
             try {
                 content = delegator.findByPrimaryKeyCache("Content", UtilMisc .toMap("contentId", id));
@@ -146,10 +138,8 @@ public class SearchWorker {
             writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
         }
 
-        Iterator<GenericValue> contentListIter = contentList.iterator();
-        while (contentListIter.hasNext()) {
-            content = contentListIter.next();
-            indexContent(dispatcher, delegator, context, content, writer);
+        for (GenericValue gv : contentList) {
+            indexContent(dispatcher, delegator, context, gv, writer);
         }
         writer.optimize();
         writer.close();
