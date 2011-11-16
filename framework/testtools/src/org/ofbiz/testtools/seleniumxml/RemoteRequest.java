@@ -58,6 +58,7 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.util.EntityUtils;
 import org.jdom.Element;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 
 
@@ -128,8 +129,10 @@ public class RemoteRequest {
         this.host = hostString;
         this.children = children;
         this.responseHandlerMode = (HttpHandleMode.equals(responseHandlerMode)) ? HttpHandleMode : JsonHandleMode;
-        System.out.println("RemoteRequest, requestUrl: " + this.requestUrl);
-        System.out.println("RemoteRequest, host: " + this.host);
+        if(Debug.infoOn()) {
+            Debug.logInfo("RemoteRequest, requestUrl: " + this.requestUrl, module);
+            Debug.logInfo("RemoteRequest, host: " + this.host, module);
+        }
         initData();
     }
 
@@ -143,7 +146,8 @@ public class RemoteRequest {
             if (nm.equals("param-in")) {
                 name = elem.getAttributeValue("name");
                 value = this.parent.replaceParam(elem.getAttributeValue("value"));
-                System.out.println("RemoteRequest, param-in, name: " + name + ", value: " + value);
+                if(Debug.infoOn()) Debug.logInfo("RemoteRequest, param-in, name: " + name
+                        + ", value: " + value, module);
                 this.inMap.put(name, value);
             } else if (nm.equals("param-out")) {
                 name = elem.getAttributeValue("result-name");
@@ -180,7 +184,7 @@ public class RemoteRequest {
                 String loginAsParamString = "?" + this.loginAsUserParam + "&" + this.loginAsPasswordParam;
 
                 HttpGet req2 = new HttpGet ( loginAsUri + loginAsParamString );
-                System.out.println("loginAsUrl:" + loginAsUri + loginAsParamString);
+                if(Debug.infoOn()) Debug.logInfo("loginAsUrl:" + loginAsUri + loginAsParamString, module);
 
                 req2.setHeader("Connection","Keep-Alive");
                 HttpResponse rsp = client.execute(req2, localContext);
@@ -191,12 +195,12 @@ public class RemoteRequest {
                     if (headerValue.startsWith("JSESSIONID")) {
                         sessionHeader = hdr;
                     }
-                    System.out.println("login: " + hdr.getName() + " : " + hdr.getValue());
+                    if(Debug.infoOn()) Debug.logInfo("login: " + hdr.getName() + " : " + hdr.getValue(), module);
                 }
                 List<Cookie> cookies = cookieStore.getCookies();
-                System.out.println("cookies.size(): " + cookies.size());
+                if(Debug.infoOn()) Debug.logInfo("cookies.size(): " + cookies.size(), module);
                 for (Cookie cookie : cookies) {
-                    System.out.println("Local cookie(0): " + cookie);
+                    if(Debug.infoOn()) Debug.logInfo("Local cookie(0): " + cookie, module);
                 }
             }
 
@@ -218,7 +222,7 @@ public class RemoteRequest {
             } else {
                 thisUri = this.host + this.requestUrl + "?" + paramString;
             }
-            System.out.println("thisUri: " + thisUri);
+            if(Debug.infoOn()) Debug.logInfo("thisUri: " + thisUri, module);
 
             HttpGet req = new HttpGet ( thisUri );
             if(sessionHeader != null) {
@@ -309,7 +313,8 @@ public class RemoteRequest {
             for (Map.Entry<String, String> paramPair : paramSet) {
                 if (jsonObject.containsKey(paramPair.getKey())) {
                    Object obj = jsonObject.get(paramPair.getKey());
-                   System.out.println("RemoteRequest, param-out, name: " + paramPair.getKey() + ", value: " + obj);
+                    if(Debug.infoOn()) Debug.logInfo("RemoteRequest, param-out, name: " + paramPair.getKey()
+                            + ", value: " + obj, module);
                    parentDataMap.put(paramPair.getKey(), obj);
                 }
             }
