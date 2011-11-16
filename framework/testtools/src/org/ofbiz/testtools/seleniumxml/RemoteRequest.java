@@ -22,7 +22,6 @@ package org.ofbiz.testtools.seleniumxml;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -187,8 +186,7 @@ public class RemoteRequest {
                 HttpResponse rsp = client.execute(req2, localContext);
 
                 Header[] headers = rsp.getAllHeaders();
-                for (int i=0; i<headers.length; i++) {
-                    Header hdr = headers[i];
+                for (Header hdr : headers) {
                     String headerValue = hdr.getValue();
                     if (headerValue.startsWith("JSESSIONID")) {
                         sessionHeader = hdr;
@@ -197,8 +195,8 @@ public class RemoteRequest {
                 }
                 List<Cookie> cookies = cookieStore.getCookies();
                 System.out.println("cookies.size(): " + cookies.size());
-                for (int i = 0; i < cookies.size(); i++) {
-                    System.out.println("Local cookie(0): " + cookies.get(i));
+                for (Cookie cookie : cookies) {
+                    System.out.println("Local cookie(0): " + cookie);
                 }
             }
 
@@ -307,10 +305,8 @@ public class RemoteRequest {
                 throw new HttpResponseException(0, e.getMessage());
             }
             Set<Map.Entry<String, String>> paramSet = this.parentRemoteRequest.outMap.entrySet();
-            Iterator<Map.Entry<String, String>> paramIter = paramSet.iterator();
             Map<String, Object> parentDataMap = this.parentRemoteRequest.parent.getMap();
-            while (paramIter.hasNext()) {
-                Map.Entry<String, String> paramPair = paramIter.next();
+            for (Map.Entry<String, String> paramPair : paramSet) {
                 if (jsonObject.containsKey(paramPair.getKey())) {
                    Object obj = jsonObject.get(paramPair.getKey());
                    System.out.println("RemoteRequest, param-out, name: " + paramPair.getKey() + ", value: " + obj);
