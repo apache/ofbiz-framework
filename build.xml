@@ -75,6 +75,7 @@ under the License.
         <antcall target="clean-catalina"/>
         <antcall target="clean-cache"/>
         <antcall target="clean-tempfiles"/>
+        <antcall target="clean-lucene-index"/>
         <!-- FIXME: clean-downloads introduces some issues: with cobertura (on Windows can't be deleted, not sure why), 
                     but especially with postgresql drivers -->
         <!-- antcall target="clean-downloads"/ -->   
@@ -137,6 +138,13 @@ under the License.
           description="Remove files located in runtime/tempfiles (captcha, etc...)">
         <subant target="clean-tempfiles">
             <filelist dir="." files="framework/build.xml"/>
+        </subant>
+    </target>
+
+    <target name="clean-lucene-index"
+          description="Removes lucene indexes created in applications/content/index">
+        <subant target="clean-lucene-index">
+            <filelist dir="." files="applications/content/build.xml"/>
         </subant>
     </target>
 

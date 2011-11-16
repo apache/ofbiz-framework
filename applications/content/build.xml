@@ -59,4 +59,12 @@ under the License.
         <main-jar/>
         <test-jar/>
     </target>
+
+    <target name="clean-lucene-index">
+        <delete verbose="on">
+            <fileset dir="index/" includes="*">
+                <exclude name="indexhere.txt"/>
+            </fileset>
+        </delete>
+    </target>
 </project>
