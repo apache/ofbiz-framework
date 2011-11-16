@@ -45,7 +45,7 @@ import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.scheme.SocketFactory;
+import org.apache.http.conn.scheme.SchemeSocketFactory;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -56,6 +56,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.util.EntityUtils;
 import org.jdom.Element;
 
 import org.ofbiz.base.util.UtilValidate;
@@ -101,8 +102,8 @@ public class RemoteRequest {
 
         // Register the "http" protocol scheme, it is required
         // by the default operator to look up socket factories.
-        SocketFactory sf = PlainSocketFactory.getSocketFactory();
-        supportedSchemes.register(new Scheme("http", sf, 80));
+        SchemeSocketFactory sf = PlainSocketFactory.getSocketFactory();
+        supportedSchemes.register(new Scheme("http", 80, sf));
 
         // prepare parameters
         HttpParams params = new BasicHttpParams();
@@ -164,8 +165,7 @@ public class RemoteRequest {
 
     public void runTest() {
 
-        ClientConnectionManager ccm =
-            new ThreadSafeClientConnManager(defaultParameters, supportedSchemes);
+        ClientConnectionManager ccm = new ThreadSafeClientConnManager(supportedSchemes);
         //  new SingleClientConnManager(getParams(), supportedSchemes);
 
         DefaultHttpClient client = new DefaultHttpClient(ccm, defaultParameters);
@@ -295,7 +295,7 @@ public class RemoteRequest {
             // if there is no entity, the connection is already released
             try {
               if (entity != null)
-                entity.consumeContent(); // release connection gracefully
+                EntityUtils.consume(entity); // release connection gracefully
             } catch(IOException e) {
                 System.out.println("in 'finally'  " + e.getMessage());
             }
@@ -367,9 +367,8 @@ public class RemoteRequest {
             super();
             this.parentRemoteRequest = parentRemoteRequest;
         }
-        public String handleResponse(org.apache.http.HttpResponse response)
-            throws HttpResponseException, IOException {
 
+        public String handleResponse(org.apache.http.HttpResponse response) throws IOException {
             String bodyString = super.handleResponse(response);
             JSONObject jsonObject = null;
             try {
