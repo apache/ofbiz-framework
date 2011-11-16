@@ -68,13 +68,11 @@ public class RemoteRequest {
 
     /**
      * The default parameters.
-     * Instantiated in {@link #setup setup}.
      */
     private static HttpParams defaultParameters = null;
 
     /**
      * The scheme registry.
-     * Instantiated in {@link #setup setup}.
      */
     private static SchemeRegistry supportedSchemes;
     final private static String JsonHandleMode = "JSON_HANDLE";
@@ -110,7 +108,6 @@ public class RemoteRequest {
         HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
         HttpProtocolParams.setContentCharset(params, "UTF-8");
         HttpProtocolParams.setUseExpectContinue(params, true);
-        //HttpClientParams.setAuthenticating(params, true);
         defaultParameters = params;
 
     }
@@ -166,15 +163,11 @@ public class RemoteRequest {
     public void runTest() {
 
         ClientConnectionManager ccm = new ThreadSafeClientConnManager(supportedSchemes);
-        //  new SingleClientConnManager(getParams(), supportedSchemes);
-
         DefaultHttpClient client = new DefaultHttpClient(ccm, defaultParameters);
         client.setKeepAliveStrategy(new DefaultConnectionKeepAliveStrategy());
 
-        //
         // We first try to login with the loginAs to set the session.
         // Then we call the remote service.
-        //
         HttpEntity entity = null;
         ResponseHandler <String> responseHandler = null;
         try {
@@ -211,30 +204,7 @@ public class RemoteRequest {
                     System.out.println("Local cookie(0): " + cookies.get(i));
                 }
             }
-            //String paramString2 = "USERNAME=" + this.parent.getUserName()
-            //                   + "&PASSWORD=" + this.parent.getPassword();
-            //String thisUri2 = this.host + "/eng/control/login?" + paramString2;
-            //HttpGet req2 = new HttpGet ( thisUri2 );
-            //req2.setHeader("Connection","Keep-Alive");
-            //HttpResponse rsp = client.execute(req2, localContext);
 
-            //Header sessionHeader = null;
-            //Header[] headers = rsp.getAllHeaders();
-            //for (int i=0; i<headers.length; i++) {
-            //    Header hdr = headers[i];
-            //    String headerValue = hdr.getValue();
-            //    if (headerValue.startsWith("JSESSIONID")) {
-            //        sessionHeader = hdr;
-            //    }
-            //    System.out.println(headers[i]);
-            //    System.out.println(hdr.getName() + " : " + hdr.getValue());
-            //}
-
-            //List<Cookie> cookies = cookieStore.getCookies();
-            //System.out.println("cookies.size(): " + cookies.size());
-            //for (int i = 0; i < cookies.size(); i++) {
-            //    System.out.println("Local cookie(0): " + cookies.get(i));
-            //}
             if (HttpHandleMode.equals(this.responseHandlerMode)) {
 
             } else {
@@ -253,13 +223,6 @@ public class RemoteRequest {
             } else {
                 thisUri = this.host + this.requestUrl + "?" + paramString;
             }
-            //String sessionHeaderValue = sessionHeader.getValue();
-            //int pos1 = sessionHeaderValue.indexOf("=");
-            //int pos2 = sessionHeaderValue.indexOf(";");
-            //String sessionId = sessionHeaderValue.substring(pos1 + 1, pos2);
-            //System.out.println("sessionId: " + sessionId);
-            //String thisUri = this.host + this.requestUrl + ";jsessionid=" + sessionId + "?"  + paramString;
-            //String thisUri = this.host + this.requestUrl + "?"  + paramString;
             System.out.println("thisUri: " + thisUri);
 
             HttpGet req = new HttpGet ( thisUri );
@@ -268,21 +231,6 @@ public class RemoteRequest {
             }
 
             String responseBody = client.execute( req, responseHandler, localContext);
-            /*
-            entity = rsp.getEntity();
-
-            System.out.println("----------------------------------------");
-            System.out.println(rsp.getStatusLine());
-            Header[] headers = rsp.getAllHeaders();
-            for (int i=0; i<headers.length; i++) {
-                System.out.println(headers[i]);
-            }
-            System.out.println("----------------------------------------");
-
-            if (entity != null) {
-                System.out.println(EntityUtils.toString(rsp.getEntity()));
-            }
-            */
         } catch(HttpResponseException e) {
             System.out.println(e.getMessage());
         } catch(IOException e) {
