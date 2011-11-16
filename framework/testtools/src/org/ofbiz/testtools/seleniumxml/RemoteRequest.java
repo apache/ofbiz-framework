@@ -92,8 +92,6 @@ public class RemoteRequest {
     private String loginAsUserParam;
     private String loginAsPasswordParam;
 
-    private int currentRowIndx;
-
     static {
 
         supportedSchemes = new SchemeRegistry();
@@ -157,7 +155,6 @@ public class RemoteRequest {
                 this.outMap.put(name, fieldName);
             }
         }
-        return;
     }
 
     public void runTest() {
@@ -249,7 +246,6 @@ public class RemoteRequest {
             }
 
         }
-        return;
     }
 
         /** URL Encodes a Map of arguements */
