@@ -304,20 +304,6 @@ public class RemoteRequest {
         return;
     }
 
-    private void login(DefaultHttpClient client, BasicHttpContext localContext) throws IOException{
-
-        String paramString = "USERNAME=" + this.parent.getUserName()
-                           + "&PASSWORD=" + this.parent.getPassword();
-        String thisUri = this.host + "/eng/control/login?" + paramString;
-        HttpGet req = new HttpGet ( thisUri );
-        req.setHeader("Connection","Keep-Alive");
-        client.execute(req, localContext);
-
-        //client.getCredentialsProvider().setCredentials(new AuthScope("localhost", 8080),
-        //        new UsernamePasswordCredentials(this.parent.getUserName(),                        this.parent.getPassword()));
-
-        return;
-    }
         /** URL Encodes a Map of arguements */
     public static String urlEncodeArgs(Map<String, ? extends Object> args, boolean useExpandedEntites) {
         StringBuilder buf = new StringBuilder();
