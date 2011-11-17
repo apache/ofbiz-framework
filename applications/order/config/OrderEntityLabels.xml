@@ -622,6 +622,7 @@
         <value xml:lang="zh_TW">作業需求</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
+        <value xml:lang="de">Retoure Zusatzmerkmal</value>
         <value xml:lang="en">Return Additional Feature</value>
         <value xml:lang="fr">Caractéristique additionnelle de retour</value>
         <value xml:lang="it">Caratteristiche aggiuntive sul reso</value>
@@ -630,6 +631,7 @@
         <value xml:lang="zh_TW">退貨的附加特征</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
+        <value xml:lang="de">Retourenrabatt</value>
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="it">Sconto sul reso</value>
         <value xml:lang="pt_BR">Desconto por devolução</value>
@@ -637,6 +639,7 @@
         <value xml:lang="zh_TW">退貨的折扣</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_FEE_ADJ">
+        <value xml:lang="de">Retourengebühr</value>
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="it">Commissioni sul reso</value>
         <value xml:lang="pt_BR">Taxa de devolução</value>
@@ -644,6 +647,7 @@
         <value xml:lang="zh_TW">退貨的費用</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
+        <value xml:lang="de">Retoure manuelle Anpassung</value>
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="it">Aggiustamento manuale sul reso</value>
         <value xml:lang="pt_BR">Ajuste manual sobre devolução</value>
@@ -651,6 +655,7 @@
         <value xml:lang="zh_TW">退貨的手冊調整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MISC_ADJ">
+        <value xml:lang="de">Retoure sonstige Gebühren</value>
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="it">Ricarichi vari sul reso</value>
         <value xml:lang="pt_BR">Taxas diversas sobre devolução</value>
@@ -658,6 +663,7 @@
         <value xml:lang="zh_TW">退貨的雜費</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
+        <value xml:lang="de">Retoure Marketing Packet Anpassung</value>
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
         <value xml:lang="pt_BR">Ajuste sobre a a devolução de pacote de marketing</value>
@@ -665,6 +671,7 @@
         <value xml:lang="zh_TW">退貨的行銷包裝調整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
+        <value xml:lang="de">Retoure Aktion</value>
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="it">Promozione reso</value>
         <value xml:lang="pt_BR">Promoção devolução</value>
@@ -672,6 +679,7 @@
         <value xml:lang="zh_TW">退貨的促銷</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
+        <value xml:lang="de">Retoure Ersatz</value>
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="it">Reso in sostituzione</value>
         <value xml:lang="pt_BR">Devolução de reposição</value>
@@ -679,6 +687,7 @@
         <value xml:lang="zh_TW">退貨的替代</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
+        <value xml:lang="de">Retoure MwSt.</value>
         <value xml:lang="en">Return Sales Tax</value>
         <value xml:lang="fr">Taxe de vente sur retour</value>
         <value xml:lang="it">Tasse di vendita sul reso</value>
@@ -687,6 +696,7 @@
         <value xml:lang="zh_TW">退貨的營業稅</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SHIPPING_ADJ">
+        <value xml:lang="de">Retoure Versandkosten</value>
         <value xml:lang="en">Return Shipping and Handling</value>
         <value xml:lang="fr">Transport sur retour</value>
         <value xml:lang="it">Spese di trasporto sul reso</value>
@@ -695,6 +705,7 @@
         <value xml:lang="zh_TW">退貨的裝運費</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SURCHARGE_ADJ">
+        <value xml:lang="de">Retoure Zuschlag</value>
         <value xml:lang="en">Return Surcharge</value>
         <value xml:lang="fr">Supplément sur retour</value>
         <value xml:lang="it">Spese supplementari sul reso</value>
@@ -703,6 +714,7 @@
         <value xml:lang="zh_TW">退貨的附加費</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
+        <value xml:lang="de">Retoure Garantie</value>
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="fr">Garantie sur retour</value>
         <value xml:lang="it">Garanzia sul reso</value>
@@ -775,6 +787,7 @@
         <value xml:lang="zh_TW">不需要明細</value>
     </property>
     <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
+        <value xml:lang="de">Umtausch Größe</value>
         <value xml:lang="en">Size Exchange</value>
         <value xml:lang="fr">Mauvaise taille, échange</value>
         <value xml:lang="it">Cambio taglia</value>
