@@ -67,6 +67,7 @@ under the License.
         <set field="createUpdatePartyTelecomNumberCtx.partyId" from-field="partyId"/>
         <set field="createUpdatePartyTelecomNumberCtx.roleTypeId" value="CUSTOMER"/>
         <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
+        <set field="createUpdatePartyTelecomNumberCtx.contactMechId" from-field="parameters.shipToPhoneContactMechId" />
         <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="shipToPhoneContactMechId"/>
             <result-to-result result-name="contactMechId" service-result-name="shipToPhoneContactMechId"/>
@@ -160,6 +161,7 @@ under the License.
         <set field="createUpdatePartyTelecomNumberCtx.partyId" from-field="partyId"/>
         <set field="createUpdatePartyTelecomNumberCtx.roleTypeId" value="CUSTOMER"/>
         <set field="createUpdatePartyTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
+        <set field="createUpdatePartyTelecomNumberCtx.contactMechId" from-field="parameters.billToPhoneContactMechId" />
         <call-service service-name="createUpdatePartyTelecomNumber" in-map-name="createUpdatePartyTelecomNumberCtx">
             <result-to-field result-name="contactMechId" field="billToPhoneContactMechId"/>
             <result-to-result result-name="contactMechId" service-result-name="billToPhoneContactMechId"/>

@@ -263,7 +263,7 @@ function createUpdateCustomerAndShippingAddress() {
                     jQuery('#shipToPartyId').val(json.partyId);
                     jQuery('#billToPartyId').val(json.partyId);
                     jQuery('#shipToContactMechId').val(json.contactMechId);
-                    jQuery('#shipToPhoneContactMechId').val(json.phoneContactMechId);
+                    jQuery('#shipToPhoneContactMechId').val(json.shipToPhoneContactMechId);
                     jQuery('#emailContactMechId').val(json.emailContactMechId);
                     //jQuery('#completedShippingMethod').html(json.shippingDescription);
                     updateShippingSummary();
@@ -394,7 +394,7 @@ function processBillingAndPayment() {
                     isBillStepValidate = true;
                     jQuery('#billToContactMechId').val(json.contactMechId);
                     jQuery('#paymentMethodId').val(json.paymentMethodId);
-                    jQuery('#billToPhoneContactMechId').val(json.phoneContactMechId);
+                    jQuery('#billToPhoneContactMechId').val(json.billToPhoneContactMechId);
                     updateBillingSummary();
                     result = true;
                 } else {

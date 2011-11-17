@@ -62,8 +62,10 @@ under the License.
                   <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${shipToContactMechId?if_exists}" />
                   <input type="hidden" id="billToContactMechIdInShipingForm" name="billToContactMechId" value="${billToContactMechId?if_exists}" />
                   <input type="hidden" id="shipToPartyId" name="partyId" value="${partyId?if_exists}" />
-                  <input type="hidden" id="shipToPhoneContactMechId" name="phoneContactMechId" value="${(shipToTelecomNumber.contactMechId)?if_exists}" />
+                  <input type="hidden" id="shipToPhoneContactMechId" name="shipToPhoneContactMechId" value="${(shipToTelecomNumber.contactMechId)?if_exists}" />
                   <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
+                  <input type="hidden" name="shipToName" value="${shipToName?if_exists}" />
+                  <input type="hidden" name="shipToAttnName" value="${shipToAttnName?if_exists}" />
                   <#if userLogin?exists>
                     <input type="hidden" name="keepAddressBook" value="Y" />
                     <input type="hidden" name="setDefaultShipping" value="Y" />
@@ -287,7 +289,9 @@ under the License.
                   <input type="hidden" id="paymentMethodTypeId" name="paymentMethodTypeId" value="${paymentMethodTypeId?default("CREDIT_CARD")}" />
                   <input type="hidden" id="billToPartyId" name="partyId" value="${parameters.partyId?if_exists}" />
                   <input type="hidden" name="expireDate" value="${expireDate?if_exists}" />
-                  <input type="hidden" id="billToPhoneContactMechId" name="phoneContactMechId" value="${(billToTelecomNumber.contactMechId)?if_exists}" />
+                  <input type="hidden" id="billToPhoneContactMechId" name="billToPhoneContactMechId" value="${(billToTelecomNumber.contactMechId)?if_exists}" />
+                  <input type="hidden" name="billToName" value="${billToName?if_exists}" />
+                  <input type="hidden" name="billToAttnName" value="${billToAttnName?if_exists}" />
                   <#if userLogin?exists>
                     <input type="hidden" name="keepAddressBook" value="Y" />
                     <input type="hidden" name="setDefaultBilling" value="Y" />
