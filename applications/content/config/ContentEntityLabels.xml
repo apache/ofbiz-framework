@@ -28,6 +28,7 @@
         <value xml:lang="it">ISO-8859-1</value>
         <value xml:lang="pt">ISO-8859-1</value>
         <value xml:lang="th">ISO-8859-1</value>
+        <value xml:lang="zh">ISO-8859-1</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-10">
         <value xml:lang="da">ISO-8859-10</value>
@@ -38,6 +39,7 @@
         <value xml:lang="it">ISO-8859-10</value>
         <value xml:lang="pt">ISO-8859-10</value>
         <value xml:lang="th">ISO-8859-10</value>
+        <value xml:lang="zh">ISO-8859-10</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-2">
         <value xml:lang="da">ISO-8859-2</value>
@@ -48,6 +50,7 @@
         <value xml:lang="it">ISO-8859-2</value>
         <value xml:lang="pt">ISO-8859-2</value>
         <value xml:lang="th">ISO-8859-2</value>
+        <value xml:lang="zh">ISO-8859-2</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-3">
         <value xml:lang="da">ISO-8859-3</value>
@@ -58,6 +61,7 @@
         <value xml:lang="it">ISO-8859-3</value>
         <value xml:lang="pt">ISO-8859-3</value>
         <value xml:lang="th">ISO-8859-3</value>
+        <value xml:lang="zh">ISO-8859-3</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-4">
         <value xml:lang="da">ISO-8859-4</value>
@@ -68,6 +72,7 @@
         <value xml:lang="it">ISO-8859-4</value>
         <value xml:lang="pt">ISO-8859-4</value>
         <value xml:lang="th">ISO-8859-4</value>
+        <value xml:lang="zh">ISO-8859-4</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-5">
         <value xml:lang="da">ISO-8859-5</value>
@@ -78,6 +83,7 @@
         <value xml:lang="it">ISO-8859-5</value>
         <value xml:lang="pt">ISO-8859-5</value>
         <value xml:lang="th">ISO-8859-5</value>
+        <value xml:lang="zh">ISO-8859-5</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-6">
         <value xml:lang="da">ISO-8859-6</value>
@@ -88,6 +94,7 @@
         <value xml:lang="it">ISO-8859-6</value>
         <value xml:lang="pt">ISO-8859-6</value>
         <value xml:lang="th">ISO-8859-6</value>
+        <value xml:lang="zh">ISO-8859-6</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-7">
         <value xml:lang="da">ISO-8859-7</value>
@@ -98,6 +105,7 @@
         <value xml:lang="it">ISO-8859-7</value>
         <value xml:lang="pt">ISO-8859-7</value>
         <value xml:lang="th">ISO-8859-7</value>
+        <value xml:lang="zh">ISO-8859-7</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-8">
         <value xml:lang="da">ISO-8859-8</value>
@@ -108,6 +116,7 @@
         <value xml:lang="it">ISO-8859-8</value>
         <value xml:lang="pt">ISO-8859-8</value>
         <value xml:lang="th">ISO-8859-8</value>
+        <value xml:lang="zh">ISO-8859-8</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-9">
         <value xml:lang="da">ISO-8859-9</value>
@@ -118,6 +127,7 @@
         <value xml:lang="it">ISO-8859-9</value>
         <value xml:lang="pt">ISO-8859-9</value>
         <value xml:lang="th">ISO-8859-9</value>
+        <value xml:lang="zh">ISO-8859-9</value>
     </property>
     <property key="CharacterSet.description.US-ASCII">
         <value xml:lang="da">US-ASCII</value>
@@ -128,6 +138,7 @@
         <value xml:lang="it">US-ASCII</value>
         <value xml:lang="pt">US-ASCII</value>
         <value xml:lang="th">US-ASCII</value>
+        <value xml:lang="zh">US-ASCII</value>
     </property>
     <property key="CharacterSet.description.UTF-16">
         <value xml:lang="da">UTF-16</value>
@@ -138,6 +149,7 @@
         <value xml:lang="it">UTF-16</value>
         <value xml:lang="pt">UTF-16</value>
         <value xml:lang="th">UTF-16</value>
+        <value xml:lang="zh">UTF-16</value>
     </property>
     <property key="CharacterSet.description.UTF-8">
         <value xml:lang="da">UTF-8</value>
@@ -148,6 +160,7 @@
         <value xml:lang="it">UTF-8</value>
         <value xml:lang="pt">UTF-8</value>
         <value xml:lang="th">UTF-8</value>
+        <value xml:lang="zh">UTF-8</value>
     </property>
     <property key="ContentAssocPredicate.description.categorizes">
         <value xml:lang="da">kategorier</value>
@@ -1822,6 +1835,7 @@
         <value xml:lang="it">Manifesto</value>
         <value xml:lang="pt">Manifeso</value>
         <value xml:lang="th">รายการสินค้า</value>
+        <value xml:lang="zh">MANIFEST</value>
     </property>
     <property key="DocumentType.description.OTHER_SHIP_DOCUMENT">
         <value xml:lang="da">Andet forsendelsesdokument</value>
@@ -2952,26 +2966,31 @@
         <value xml:lang="en">Blog Root</value>
         <value xml:lang="fr">Racine du blog</value>
         <value xml:lang="pt">Raiz do Blog</value>
+        <value xml:lang="zh">博客根</value>
     </property>
     <property key="WebSiteContentType.description.DEFAULT_PAGE">
         <value xml:lang="en">Default Page</value>
         <value xml:lang="fr">Page par défaut</value>
         <value xml:lang="pt">Página padrão</value>
+        <value xml:lang="zh">缺省页面</value>
     </property>
     <property key="WebSiteContentType.description.ERROR_ROOT">
         <value xml:lang="en">Error Root</value>
         <value xml:lang="fr">Erreur</value>
         <value xml:lang="pt">Raiz de erro</value>
+        <value xml:lang="zh">错误根</value>
     </property>
     <property key="WebSiteContentType.description.FORUM_ROOT">
         <value xml:lang="en">Forum Root</value>
         <value xml:lang="fr">Racine du forum</value>
         <value xml:lang="pt">Raiz do Fórum</value>
+        <value xml:lang="zh">论坛根</value>
     </property>
     <property key="WebSiteContentType.description.MENU_ROOT">
         <value xml:lang="en">Menu Root</value>
         <value xml:lang="fr">Racine du menu</value>
         <value xml:lang="pt">Menu raiz</value>
+        <value xml:lang="zh">菜单根</value>
     </property>
     <property key="WebSiteContentType.description.PUBLISH_POINT">
         <value xml:lang="da">Udgivelsespunkt</value>

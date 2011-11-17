@@ -34,7 +34,7 @@
         <value xml:lang="it">Percentuale Pagata Attualmente all'Impiegato</value>
         <value xml:lang="pt_BR">Porcentagem efetivamente paga ao empregado</value>
         <value xml:lang="th">เปอร์เซ็นต์ที่ผู้ว่าจ้างจ่ายจริง</value>
-        <value xml:lang="zh">员工支付部分百分比</value>
+        <value xml:lang="zh">实际雇主支付百分比</value>
         <value xml:lang="zh_TW">員工支付部分百分比</value>
     </property>
     <property key="FormFieldTitle_actualFromDate">
@@ -89,16 +89,19 @@
     <property key="FormFieldTitle_approvalStatus">
         <value xml:lang="en">Approver Status</value>
         <value xml:lang="fr">Etat d'approbation</value>
+        <value xml:lang="zh">批准人状态</value>
     </property>
     <property key="FormFieldTitle_approverId">
         <value xml:lang="en">Approver Party</value>
         <value xml:lang="fr">Approbateur</value>
         <value xml:lang="pt_BR">Participante responsável</value>
+        <value xml:lang="zh">批准人会员</value>
     </property>
     <property key="FormFieldTitle_approverPartyId">
         <value xml:lang="en">Approver Party</value>
         <value xml:lang="fr">Approbateur</value>
         <value xml:lang="pt_BR">Participante responsável</value>
+        <value xml:lang="zh">批准人会员</value>
     </property>
     <property key="FormFieldTitle_bankName">
         <value xml:lang="en">Bank Name</value>
@@ -190,6 +193,7 @@
         <value xml:lang="en">Leave Reason Type</value>
         <value xml:lang="fr">Raison du congé</value>
         <value xml:lang="pt_BR">Tipo da razão de licença</value>
+        <value xml:lang="zh">离职原因类型</value>
     </property>
     <property key="FormFieldTitle_emplPositionId">
         <value xml:lang="de">Anstellungspositions-ID</value>
@@ -266,6 +270,7 @@
     <property key="FormFieldTitle_examTypeEnumId">
         <value xml:lang="en">Exam Type Enum Id</value>
         <value xml:lang="fr">Type d'examen</value>
+        <value xml:lang="zh">考试类型枚举标识</value>
     </property>
     <property key="FormFieldTitle_exemptFlag">
         <value xml:lang="en">Exempt Flag</value>
@@ -280,11 +285,13 @@
         <value xml:lang="en">Experience in months</value>
         <value xml:lang="fr">Expérience en mois</value>
         <value xml:lang="it">Esperienza in mesi</value>
+        <value xml:lang="zh">按月计算的经验</value>
     </property>
     <property key="FormFieldTitle_experienceYears">
         <value xml:lang="en">Experience in years</value>
         <value xml:lang="fr">Expérience en années</value>
         <value xml:lang="it">Esperienza in anni</value>
+        <value xml:lang="zh">按年计算的经验</value>
     </property>
     <property key="FormFieldTitle_flatAmount">
         <value xml:lang="en">Flat Amount</value>
@@ -308,21 +315,25 @@
         <value xml:lang="en">Job Location</value>
         <value xml:lang="fr">Lieu de travail</value>
         <value xml:lang="it">Luogo di lavoro</value>
+        <value xml:lang="zh">工作地点</value>
     </property>
     <property key="FormFieldTitle_jobPostingEnumId">
         <value xml:lang="en">Job Posting Enum Id</value>
         <value xml:lang="fr">Référence d'offre d'emploi</value>
         <value xml:lang="it">Codice offerta di impiego</value>
+        <value xml:lang="zh">工作公告枚举标识</value>
     </property>
     <property key="FormFieldTitle_jobPostingTypeEnumId">
         <value xml:lang="en">Job Posting Type</value>
         <value xml:lang="fr">Type d'offre d'emploi</value>
         <value xml:lang="it">Tipo di offerta di impiego</value>
+        <value xml:lang="zh">工作公告类型</value>
     </property>
     <property key="FormFieldTitle_jobRequisitionId">
         <value xml:lang="en">Job Requisition Id</value>
         <value xml:lang="fr">Demande d'emploi</value>
         <value xml:lang="pt_BR">Id de requisição de emprego</value>
+        <value xml:lang="zh">工作单标识</value>
     </property>
     <property key="FormFieldTitle_justification">
         <value xml:lang="en">Justification</value>
@@ -337,6 +348,7 @@
         <value xml:lang="en">Leave Status</value>
         <value xml:lang="fr">Etat de congé</value>
         <value xml:lang="pt_BR">Estado da licença</value>
+        <value xml:lang="zh">离职状态</value>
     </property>
     <property key="FormFieldTitle_leaveTypeId">
         <value xml:lang="en">Leave Type Id</value>
@@ -624,6 +636,7 @@
     <property key="FormFieldTitle_title">
         <value xml:lang="en">Title</value>
         <value xml:lang="fr">Titre</value>
+        <value xml:lang="zh">标题</value>
     </property>
     <property key="FormFieldTitle_trainingClassTypeId">
         <value xml:lang="en">Training Class Type Id</value>
@@ -636,6 +649,7 @@
     <property key="FormFieldTitle_trainingRequestId">
         <value xml:lang="en">Training Request Id</value>
         <value xml:lang="fr">Approbation</value>
+        <value xml:lang="zh">培训请求标识</value>
     </property>
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
@@ -675,6 +689,7 @@
     </property>
     <property key="HumanHolidayName">
         <value xml:lang="en">Holiday Name</value>
+        <value xml:lang="zh">假日名称</value>
     </property>
     <property key="HumanResAddEmplLeave">
         <value xml:lang="en">Add Employee Leave</value>
@@ -688,6 +703,7 @@
         <value xml:lang="en">Add Employee Leave Reason</value>
         <value xml:lang="fr">Ajouter un type de congé</value>
         <value xml:lang="pt_BR">Adicionar razão para licença de empregado</value>
+        <value xml:lang="zh">添加雇员离职原因</value>
     </property>
     <property key="HumanResAddEmplLeaveType">
         <value xml:lang="en">Add EmplLeave Types</value>
@@ -717,6 +733,7 @@
         <value xml:lang="en">Add Job Interview Type</value>
         <value xml:lang="fr">Ajouter un type d'entretien</value>
         <value xml:lang="pt_BR">Adicionar tipo de entrevista de emprego</value>
+        <value xml:lang="zh">添加工作面试类型</value>
     </property>
     <property key="HumanResAddPartyBenefit">
         <value xml:lang="en">Add Party Benefit</value>
@@ -861,6 +878,7 @@
         <value xml:lang="en">Approval</value>
         <value xml:lang="fr">Approbation</value>
         <value xml:lang="pt_BR">Aprovação</value>
+        <value xml:lang="zh">批准</value>
     </property>
     <property key="HumanResBudgetID">
         <value xml:lang="en">Budget ID</value>
@@ -918,6 +936,7 @@
         <value xml:lang="en">Edit Approval Status</value>
         <value xml:lang="fr">Modifier un status d'approbation</value>
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
+        <value xml:lang="zh">编辑批准状态</value>
     </property>
     <property key="HumanResEditEmplLeave">
         <value xml:lang="en">Edit Empl Leave</value>
@@ -982,15 +1001,18 @@
         <value xml:lang="en">Edit Job Interview</value>
         <value xml:lang="fr">Modifier un entretien</value>        
         <value xml:lang="pt_BR">Editar entrevista de emprego</value>
+        <value xml:lang="zh">编辑工作面试</value>
     </property>
     <property key="HumanResEditJobRequisition">
         <value xml:lang="en">Edit Job Requisition</value>
         <value xml:lang="fr">Editer une demande de poste</value>
         <value xml:lang="pt_BR">Editar requisição de emprego</value>
+        <value xml:lang="zh">编辑工作单</value>
     </property>
     <property key="HumanResEditLeaveApprovalStatus">
         <value xml:lang="en">Edit Leave Approval Status</value>
         <value xml:lang="pt_BR">Editar Estado de aprovação de licença</value>
+        <value xml:lang="zh">编辑离职批准状态</value>
     </property>
     <property key="HumanResEditPartyBenefit">
         <value xml:lang="en">Party Benefits</value>
@@ -1196,6 +1218,7 @@
     <property key="HumanResEmplReasonType">
         <value xml:lang="en">EmplLeave Reason Type</value>
         <value xml:lang="pt_BR">Tipo de razão de licença de empregado</value>
+        <value xml:lang="zh">员工离职原因类型</value>
     </property>
     <property key="HumanResEmployee">
         <value xml:lang="en">an employee</value>
@@ -1210,10 +1233,12 @@
         <value xml:lang="en">Employee Leave</value>
         <value xml:lang="fr">Congés d'employés</value>
         <value xml:lang="pt_BR">Licença de empregado</value>
+        <value xml:lang="zh">员工离职</value>
     </property>
     <property key="HumanResEmployeeLeaveType">
         <value xml:lang="en">Leave Type</value>
         <value xml:lang="pt_BR">Tipo de Licença</value>
+        <value xml:lang="zh">离职类型</value>
     </property>
     <property key="HumanResEmployeePartyIdTo">
         <value xml:lang="en">Employee Party Id</value>
@@ -1255,6 +1280,7 @@
     <property key="HumanResEmployeeType">
         <value xml:lang="en">Reason Type</value>
         <value xml:lang="pt_BR">Tipo de razão</value>
+        <value xml:lang="zh">原因类型</value>
     </property>
     <property key="HumanResEmployees">
         <value xml:lang="de">Angestellte</value>
@@ -1423,35 +1449,42 @@
     <property key="HumanResIJPStatus">
         <value xml:lang="en">IJP Status</value>
         <value xml:lang="pt_BR">Estado de IJP</value>
+        <value xml:lang="zh">内部职位公开招聘状态</value>
     </property>
     <property key="HumanResInternalJobPosting">
         <value xml:lang="en">Internal Job Posting</value>
         <value xml:lang="fr">Offre d'emploi interne</value>
         <value xml:lang="pt_BR">Oferta interna de emprego</value>
+        <value xml:lang="zh">内部职位公开招聘</value>
     </property>
     <property key="HumanResJobInterview">
         <value xml:lang="en">Job Interview</value>
         <value xml:lang="fr">Entretien</value>
         <value xml:lang="pt_BR">Entrevista de emprego</value>
+        <value xml:lang="zh">工作面试</value>
     </property>
     <property key="HumanResJobInterviewType">
         <value xml:lang="en">Job Interview Type</value>
         <value xml:lang="fr">Type d'entretien</value>
         <value xml:lang="pt_BR">Tipo de entrevista de emprego</value>
+        <value xml:lang="zh">工作面试类型</value>
     </property>
     <property key="HumanResJobRequisition">
         <value xml:lang="en">Job Requisition</value>
         <value xml:lang="fr">Demande de poste</value>
         <value xml:lang="pt_BR">Petição de emprego</value>
+        <value xml:lang="zh">工作单</value>
     </property>
     <property key="HumanResLeaveApproval">
         <value xml:lang="en">Leave Approval</value>
         <value xml:lang="fr">Approbation de congés</value>
         <value xml:lang="pt_BR">Aprovação de licença</value>
+        <value xml:lang="zh">批准离职</value>
     </property>
     <property key="HumanResLeaveStatus">
         <value xml:lang="en">Leave</value>
         <value xml:lang="pt_BR">Licença</value>
+        <value xml:lang="zh">离职</value>
     </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
@@ -1779,16 +1812,19 @@
         <value xml:lang="en">New Internal Job Posting</value>
         <value xml:lang="fr">Nouvelle offre d'emploi interne</value>
         <value xml:lang="pt_BR">Nova oferta interna de emprego</value>
+        <value xml:lang="zh">新建内部职位公开招聘</value>
     </property>
     <property key="HumanResNewJobInterview">
         <value xml:lang="en">New Job Interview</value>
         <value xml:lang="fr">Nouvel entretien</value>
         <value xml:lang="pt_BR">Nova entrevista de emprego</value>
+        <value xml:lang="zh">新建工作面试</value>
     </property>
     <property key="HumanResNewJobRequisition">
         <value xml:lang="en">New Job Requisition</value>
         <value xml:lang="fr">Nouvelle demande de poste</value>
         <value xml:lang="pt_BR">Nova petição de emprego</value>
+        <value xml:lang="zh">新建工作单</value>
     </property>
     <property key="HumanResNewLeave">
         <value xml:lang="en">New Leave</value>
@@ -2012,6 +2048,7 @@
     <property key="HumanResPartySkillsAlreadyExists">
         <value xml:lang="en">Record with the selected combination already exists.Please try with Other combination.</value>
         <value xml:lang="it">Un record con la combinazione selezionata esiste già.Per favore provare con altre combinazioni.</value>
+        <value xml:lang="zh">带有所选组合的记录已经存在。请尝试其它组合。</value>
     </property>
     <property key="HumanResPayGrade">
         <value xml:lang="de">Lohnstufen</value>
@@ -2052,6 +2089,7 @@
     </property>
     <property key="HumanResPayRollHistory">
         <value xml:lang="en">PayRoll History</value>
+        <value xml:lang="zh">薪水支付历史</value>
     </property>
     <property key="HumanResPayRollPreferences">
         <value xml:lang="en">PayRoll Preferences</value>
@@ -2099,16 +2137,19 @@
     <property key="HumanResPreRequisiteSkill">
         <value xml:lang="en">Pre Requisite Skill</value>
         <value xml:lang="pt_BR">Pré-requisitos de habilidade</value>
+        <value xml:lang="zh">必备技能</value>
     </property>
     <property key="HumanResRecruitment">
         <value xml:lang="en">Recruitment</value>
         <value xml:lang="fr">Recrutement</value>
         <value xml:lang="it">Reclutamento</value>
         <value xml:lang="pt_BR">Recrutamento</value>
+        <value xml:lang="zh">招聘</value>
     </property>
     <property key="HumanResRelocation">
         <value xml:lang="en">Relocation</value>
         <value xml:lang="pt_BR">Realocação</value>
+        <value xml:lang="zh">再分配</value>
     </property>
     <property key="HumanResReportedTo">
         <value xml:lang="en">ReportedTo</value>
@@ -2308,30 +2349,35 @@
         <value xml:lang="en">Training Approvals</value>
         <value xml:lang="fr">Accords de formation</value>
         <value xml:lang="pt_BR">Aprovações de treinamento</value>
+        <value xml:lang="zh">批准培训</value>
         <value xml:lang="zh_TW">訓練核准</value>
     </property>
     <property key="HumanResTrainingClassType">
         <value xml:lang="en">Training Class Type</value>
         <value xml:lang="fr">Catégorie de formation</value>
         <value xml:lang="pt_BR">Tipo de aula de treinamento</value>
+        <value xml:lang="zh">培训课程类型</value>
         <value xml:lang="zh_TW">訓練類別型態</value>
     </property>
     <property key="HumanResTrainingStatus">
         <value xml:lang="en">Training Status</value>
         <value xml:lang="fr">Etat de la formation</value>
         <value xml:lang="pt_BR">Estado do treinamento</value>
+        <value xml:lang="zh">培训状态</value>
         <value xml:lang="zh_TW">訓練狀態</value>
     </property>
     <property key="HumanResTrainingTypes">
         <value xml:lang="en">Training Types</value>
         <value xml:lang="fr">Types de formation</value>
         <value xml:lang="pt_BR">Tipos de treinamento</value>
+        <value xml:lang="zh">培训类型</value>
         <value xml:lang="zh_TW">訓練型態</value>
     </property>
     <property key="HumanResTrainings">
         <value xml:lang="en">Training</value>
         <value xml:lang="fr">Formation</value>
         <value xml:lang="pt_BR">Treinamento</value>
+        <value xml:lang="zh">培训</value>
         <value xml:lang="zh_TW">訓練</value>
     </property>
     <property key="HumanResViewPermissionError">
@@ -2347,19 +2393,23 @@
         <value xml:lang="en">LookUp Job Interview</value>
         <value xml:lang="fr">Rechercher un entretien d'embauche</value>
         <value xml:lang="pt_BR">Procurar por entrevista de emprego</value>
+        <value xml:lang="zh">查找工作面试</value>
     </property>
     <property key="LookupJobReq">
         <value xml:lang="en">LookUp Job Requisition</value>
         <value xml:lang="fr">Rechercher une demande d'emploi</value>
         <value xml:lang="pt_BR">Procurar pro petição de emrpego</value>
+        <value xml:lang="zh">查找工作单</value>
     </property>
     <property key="PageTitleAddPublicHoliday">
         <value xml:lang="en">Add Public Holiday</value>
+        <value xml:lang="zh">添加公众假日</value>
     </property>
     <property key="PageTitleEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
         <value xml:lang="fr">Modifier les approbations</value>
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
+        <value xml:lang="zh">编辑批准状态</value>
     </property>
     <property key="PageTitleEditEmplPosition">
         <value xml:lang="en">Edit Empl Position</value>
@@ -2374,24 +2424,28 @@
         <value xml:lang="en">Edit Internal JobPosting</value>
         <value xml:lang="fr">Modifier une offre de travail interne</value>
         <value xml:lang="pt_BR">Editar oferta interna de emprego</value>
+        <value xml:lang="zh">编辑内部职位公开招聘</value>
         <value xml:lang="zh_TW">編輯內部工作告示</value>
     </property>
     <property key="PageTitleEditJobInterview">
         <value xml:lang="en">Edit Interview</value>
         <value xml:lang="fr">Modifier un entretien</value>
         <value xml:lang="pt_BR">Editar entrevista</value>
+        <value xml:lang="zh">编辑面试</value>
         <value xml:lang="zh_TW">編輯面試</value>
     </property>
     <property key="PageTitleEditJobInterviewType">
         <value xml:lang="en">Edit Job Interview Type</value>
         <value xml:lang="fr">Modifier les types d'entretiens</value>
         <value xml:lang="pt_BR">Editar tipo de entrevista de emprego</value>
+        <value xml:lang="zh">编辑工作面试类型</value>
         <value xml:lang="zh_TW">編輯工作面試型態</value>
     </property>
     <property key="PageTitleEditJobRequisition">
         <value xml:lang="en">Edit JobRequisition</value>
         <value xml:lang="fr">Modifier une demande de poste</value>
         <value xml:lang="pt_BR">Editar petição de emprego</value>
+        <value xml:lang="zh">编辑工作单</value>
         <value xml:lang="zh_TW">編輯工作申請</value>
     </property>
     <property key="PageTitleEditPartyReview">
@@ -2432,6 +2486,7 @@
     <property key="PageTitleEditTrainingTypes">
         <value xml:lang="en">Edit Training Types</value>
         <value xml:lang="pt_BR">Editar tipos de treinamento</value>
+        <value xml:lang="zh">编辑培训类型</value>
     </property>
     <property key="PageTitleEditValidResponsibility">
         <value xml:lang="en">Edit ValidResponsibility</value>
@@ -2446,25 +2501,30 @@
         <value xml:lang="en">Find Approvals</value>
         <value xml:lang="fr">Rechercher des approbations</value>
         <value xml:lang="pt_BR">Procurar aprovações</value>
+        <value xml:lang="zh">查找批准</value>
     </property>
     <property key="PageTitleFindInternalJobPosting">
         <value xml:lang="en">Find Internal Job Posting</value>
         <value xml:lang="fr">Rechercher des offres d'emploi internes</value>
         <value xml:lang="pt_BR">Procurar oferta interna de emprego</value>
+        <value xml:lang="zh">查找内部岗位公开招聘</value>
     </property>
     <property key="PageTitleFindJobInterviewDetails">
         <value xml:lang="en">Find Interview Details</value>
         <value xml:lang="fr">Rechercher des détails d'entretiens</value>
         <value xml:lang="pt_BR">Procurar detalhes de entrevista</value>
+        <value xml:lang="zh">查找面试详细信息</value>
     </property>
     <property key="PageTitleFindJobRequisition">
         <value xml:lang="en">Find Job Requisition</value>
         <value xml:lang="fr">Rechercher une demande de poste</value>
         <value xml:lang="pt_BR">Procurar petição de emprego</value>
+        <value xml:lang="zh">查找工作单</value>
     </property>
     <property key="PageTitleFindRelocationDetails">
         <value xml:lang="en">Find Relocation Details</value>
         <value xml:lang="pt_BR">Procurar detalhes de realocação</value>
+        <value xml:lang="zh">查找再分配详细信息</value>
     </property>
     <property key="PageTitleFindResponsibilityType">
         <value xml:lang="en">Find Responsibility Type</value>
@@ -2478,11 +2538,13 @@
         <value xml:lang="en">Find Training Approvals</value>
         <value xml:lang="fr">Rechercher des accords de formation</value>
         <value xml:lang="pt_BR">Procurar aprovações de treinamento</value>
+        <value xml:lang="zh">查找培训批准</value>
     </property>
     <property key="PageTitleFindTrainingStatus">
         <value xml:lang="en">Find Training Status</value>
         <value xml:lang="fr">Rechercher les états de formation</value>
         <value xml:lang="pt_BR">Procurar estados de treinamento</value>
+        <value xml:lang="zh">查找培训状态</value>
     </property>
     <property key="PageTitleListEmplPosition">
         <value xml:lang="en">List EmplPosition</value>
@@ -2558,9 +2620,11 @@
     </property>
     <property key="PageTitlePublicHoliday">
         <value xml:lang="en">Public Holiday</value>
+        <value xml:lang="zh">公众假日</value>
     </property>
     <property key="PageTitlePublicHolidayList">
         <value xml:lang="en">Public Holiday List</value>
+        <value xml:lang="zh">公众假日列表</value>
     </property>
     <property key="PageTitleViewEmploymentApp">
         <value xml:lang="en">View Employment App</value>
