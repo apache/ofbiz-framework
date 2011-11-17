@@ -124,7 +124,53 @@ under the License.
           <#if !paymentMethod?has_content>
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType")>
             <#if paymentMethodType.paymentMethodTypeId == "EXT_BILLACT">
-              <#assign outputted = "false">
+                <#assign outputted = "false">
+                <#-- billing account -->
+                <#if billingAccount?exists>
+                  <#if outputted?default("false") == "true">
+                    <tr><td colspan="4"><hr /></td></tr>
+                  </#if>
+                  <tr>
+                    <td align="right" valign="top" width="29%">
+                      <#-- billing accounts require a special OrderPaymentPreference because it is skipped from above section of OPPs -->
+                      <div>&nbsp;<span class="label">${uiLabelMap.AccountingBillingAccount}</span>&nbsp;
+                          <#if billingAccountMaxAmount?has_content>
+                          <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=billingAccountMaxAmount?default(0.00) isoCode=currencyUomId/>
+                          </#if>
+                          </div>
+                    </td>
+                    <td width="1%">&nbsp;</td>
+                    <td valign="top" width="60%">
+                        <table class="basic-table" cellspacing='0'>
+                            <tr>
+                                <td valign="top">
+                                    ${uiLabelMap.CommonNbr}<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
+                                </td>
+                                <td valign="top" align="right">
+                                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED" && orderPaymentPreference.statusId != "PAYMENT_RECEIVED">
+                                        <a href="<@ofbizUrl>receivepayment?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.AccountingReceivePayment}</a>
+                                    </#if>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="10%">
+                        <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
+                            <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
+                              <div>
+                                <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                                <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
+                                  <input type="hidden" name="orderId" value="${orderId}" />
+                                  <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
+                                  <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
+                                  <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                                </form>
+                              </div>
+                            </#if>
+                        </#if>
+                    </td>
+                  </tr>
+                </#if>
             <#elseif paymentMethodType.paymentMethodTypeId == "FIN_ACCOUNT">
               <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount")?if_exists/>
               <#if (finAccount?has_content)>
@@ -503,27 +549,6 @@ under the License.
           </#if>
         </#list>
 
-        <#-- billing account -->
-        <#if billingAccount?exists>
-          <#if outputted?default("false") == "true">
-            <tr><td colspan="4"><hr /></td></tr>
-          </#if>
-          <tr>
-            <td align="right" valign="top" width="29%">
-              <#-- billing accounts require a special OrderPaymentPreference because it is skipped from above section of OPPs -->
-              <div>&nbsp;<span class="label">${uiLabelMap.AccountingBillingAccount}</span>&nbsp;
-                  <#if billingAccountMaxAmount?has_content>
-                  <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=billingAccountMaxAmount?default(0.00) isoCode=currencyUomId/>
-                  </#if>
-                  </div>
-            </td>
-            <td width="1%">&nbsp;</td>
-            <td valign="top" width="60%">
-                ${uiLabelMap.CommonNbr}<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
-            </td>
-            <td width="10%">&nbsp;</td>
-          </tr>
-        </#if>
         <#if customerPoNumber?has_content>
           <tr><td colspan="4"><hr /></td></tr>
           <tr>
