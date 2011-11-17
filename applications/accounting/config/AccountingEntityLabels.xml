@@ -3562,6 +3562,7 @@
         <value xml:lang="nl">eBay</value>
         <value xml:lang="pt">eBay</value>
         <value xml:lang="th">อีเบย์</value>
+        <value xml:lang="zh">eBay</value>
     </property>
     <property key="PaymentMethodType.description.EXT_OFFLINE">
         <value xml:lang="de">Zahlung nicht im Netz</value>

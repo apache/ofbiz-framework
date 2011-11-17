@@ -22,14 +22,17 @@
     <property key="contentevents.error_getting_content_list">
         <value xml:lang="en">Error getting the content list to index: ${gee}.</value>
         <value xml:lang="pt">Erro ao obter a lista de conteúdo ao índice: ${gee}.</value>
+        <value xml:lang="zh">获取内容列表来进行索引时出错：${gee}。</value>
     </property>
     <property key="contentevents.keyword_creation_complete_for_contents">
         <value xml:lang="en">Keyword creation complete for ${numConts} contents.</value>
         <value xml:lang="pt">Criação de palavras-chave completa para conteúdo de ${numConts}.</value>
+        <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建。</value>
     </property>
     <property key="contentevents.keyword_creation_complete_for_contents_with_errors">
         <value xml:lang="en">Keyword creation complete for ${numConts} contents, with errors in ${errConts} contents (see the log for more details).</value>
         <value xml:lang="pt">Criação de palavras-chave concluída para o conteúdo de ${numConts}, com erros no conteúdo de ${errConts} (veja o log para mais detalhes).</value>
+        <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建，${errConts} 个内容的关键字出错（详见日志）。</value>
     </property>
     <property key="contentevents.not_sufficient_permissions">
         <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} oder CONTENTMGR_ADMIN benötigt).</value>

@@ -24,18 +24,21 @@
         <value xml:lang="en">Cannot find the cmsform!</value>
         <value xml:lang="fr">Le formulaire CMS n'a pas été trouvé</value>
         <value xml:lang="pt">Não é possível localizar o cmsform!</value>
+        <value xml:lang="zh">无法找到cmsform！</value>
     </property>
     <property key="ContenCommEventContentAssocNotFoundForDelete">
         <value xml:lang="en">CommEventContentAssoc entity not found for delete, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
         <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la suppression n'a pas été trouvée</value>
         <value xml:lang="it">Entità CommEventContentAssoc non trovata da cancellare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
         <value xml:lang="pt">Entity CommEventContentAssoc não encontrada para excluir, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
+        <value xml:lang="zh">没有找到要删除的沟通事件内容关联（CommEventContentAssoc）实体，沟通事件标识（communicationEventId）：${parameters.communicationEventId}， 内容标识（contentId）：${parameters.contentId}</value>
     </property>
     <property key="ContenCommEventContentAssocNotFoundForUpdate">
         <value xml:lang="en">CommEventContentAssoc entity not found for update, communicationEventId: ${parameters.communicationEventId} and contentId: ${parameters.contentId}</value>
         <value xml:lang="fr">L'association avec la communication ${parameters.communicationEventId} et le document ${parameters.contentId} pour la mise à jour n'a pas été trouvée</value>
         <value xml:lang="it">Entità CommEventContentAssoc non trovata da aggiornare, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
         <value xml:lang="pt">Entity CommEventContentAssoc não encontrada para atualização, communicationEventId: ${parameters.communicationEventId} e contentId: ${parameters.contentId}</value>
+        <value xml:lang="zh">没有找到要更新的沟通事件内容关联（CommEventContentAssoc）实体，沟通事件标识（communicationEventId）：${parameters.communicationEventId}， 内容标识（contentId）：${parameters.contentId}</value>
     </property>
     <property key="ContentAbsoluteFile">
         <value xml:lang="da">Absolut fil</value>
@@ -80,18 +83,21 @@
         <value xml:lang="FR">Tous types d'asso</value>
         <value xml:lang="en">Any Assoc Type</value>
         <value xml:lang="pt">Qualquer tipo de associação</value>
+        <value xml:lang="zh">任一关联类型</value>
     </property>
     <property key="ContentArticleName">
         <value xml:lang="en">Article Name</value>
         <value xml:lang="fr">Nom de l'article</value>
         <value xml:lang="pt">Nome do artigo</value>
         <value xml:lang="th">ชื่อบทความ</value>
+        <value xml:lang="zh">文章名称</value>
     </property>
     <property key="ContentArticleNameIsMissing">
         <value xml:lang="en">Article Name is missing.</value>
         <value xml:lang="fr">Le nom de l'article est manquant.</value>
         <value xml:lang="it">Nome articolo è mancante.</value>
         <value xml:lang="pt">O nome do artigo está faltando.</value>
+        <value xml:lang="zh">缺少文章名称。</value>
     </property>
     <property key="ContentAssoc">
         <value xml:lang="ar">ارتباط المحتوى</value>
@@ -113,24 +119,28 @@
         <value xml:lang="fr">Erreur dans la désactivation de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nella disattivazione dell'entità ContentAssoc che è nulla.</value>
         <value xml:lang="pt">Erro na desativação de ContentAssoc. Entidade é nula.</value>
+        <value xml:lang="zh">让内容关联（ContentAssoc）失效时出错。实体是空的（null）。</value>
     </property>
     <property key="ContentAssocNotFound">
         <value xml:lang="en">No association found for contentId ${activeContentId} and contentIdTo ${contentIdTo} and contentAssocTypeId ${contentAssocTypeId} and fromDate ${fromDate}</value>
         <value xml:lang="fr">Pas d'association trouvée pour le document référencé ${activeContentId} et le document associé référencé ${contentIdTo} sous le type d'association ${contentAssocTypeId} et pour la date ${fromDate}</value>
         <value xml:lang="it">Nessuna associazione trovata per il contenuto ${activeContentId} e il contenuto a ${contentIdTo} e il tipo associazione contenuto ${contentAssocTypeId} e dalla data ${fromDate}</value>
         <value xml:lang="pt">Nenhuma associação encontrada para contentId ${activeContentId}, contentIdTo ${contentIdTo}, contentAssocTypeId ${contentAssocTypeId} e fromDate ${fromDate}</value>
+        <value xml:lang="zh">没有找到关联：内容标识（contentId） ${activeContentId}， 内容标识到（contentIdTo） ${contentIdTo}，内容关联类型标识（contentAssocTypeId） ${contentAssocTypeId}，开始日期（fromDate） ${fromDate}</value>
     </property>
     <property key="ContentAssocRetrievingError">
         <value xml:lang="en">Error in retrieving Content: ${errorString}</value>
         <value xml:lang="fr">Erreur dans la recherche de document : ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare ContentAsssoc entity: ${errorString}</value>
         <value xml:lang="pt">Erro na recuperação de conteúdo: ${errorString}</value>
+        <value xml:lang="zh">获取内容（Content）时出错：${errorString}</value>
     </property>
     <property key="ContentAssocUpdateError">
         <value xml:lang="en">Error in updating ContentAssoc. Entity is null.</value>
         <value xml:lang="fr">Erreur dans la mise à jour de l'association. Entité inexistante.</value>
         <value xml:lang="it">Errore nell'aggiornamento dell'entità ContentAssoc che è nulla.</value>
         <value xml:lang="pt">Erro ao atualizar o ContentAssoc. Entidade é nula.</value>
+        <value xml:lang="zh">更新内容关联（ContentAssoc）时出错。实体是空的（null）。</value>
     </property>
     <property key="ContentAssociation">
         <value xml:lang="ar">إرتباط</value>
@@ -176,6 +186,7 @@
         <value xml:lang="en">Auto Create Keywords</value>
         <value xml:lang="fr">Création automatique des mots clés</value>
         <value xml:lang="pt">Auto criar palavras-chave</value>
+        <value xml:lang="zh">自动创建关键字</value>
     </property>
     <property key="ContentBlog">
         <value xml:lang="da">Blog</value>
@@ -399,18 +410,21 @@
         <value xml:lang="fr">Impossible de trouver CONTEXT_FILE avec un contexte racine vide !</value>
         <value xml:lang="it">Non è possibile trovare il CONTEXT_FILE con un contesto principale vuoto!</value>
         <value xml:lang="pt">Não é possível encontrar CONTEXT_FILE com uma raiz de contexto vazio!</value>
+        <value xml:lang="zh">不能用一个空的Context根找到Context文件（CONTEXT_FILE）！</value>
     </property>
     <property key="ContentCannotGenerateBlogRssFeed">
         <value xml:lang="en">Not able to generate RSS feed for content: ${contentId}</value>
         <value xml:lang="fr">Impossible de générer le flux RSS pour le document : ${contentId}</value>
         <value xml:lang="it">Non è possibile generare il feed RSS per il contenuto: ${contentId}</value>
         <value xml:lang="pt">Não é possível gerar RSS feed para conteúdo: ${contentId}</value>
+        <value xml:lang="zh">无法为内容生成RSS：${contentId}</value>
     </property>
     <property key="ContentCannotProcessBothCharacterAndBinaryFile">
         <value xml:lang="en">Cannot process both character and binary data in the same file</value>
         <value xml:lang="fr">Impossible de procéder avec la présence de données binaires et textuelles dans le même fichier</value>
         <value xml:lang="it">Non è possibile processare i dati di entrambi i file binari e carattere</value>
         <value xml:lang="pt">Não é possível processar caracteres e dados binários no mesmo arquivo</value>
+        <value xml:lang="zh">不能在同一个文件中既有字符数据，又有二进制数据</value>
     </property>
     <property key="ContentCategory">
         <value xml:lang="ar">الفئة</value>
@@ -447,6 +461,7 @@
         <value xml:lang="fr">Impossible de nettoyer la mémoire cache pour la ressource référencée ${dataResourceId}</value>
         <value xml:lang="it">Non è possibile pulire la cache associata alla risorsa dati ${dataResourceId}</value>
         <value xml:lang="pt">Não é possível limpar cache de processamento associado com dataResourceId ${dataResourceId}</value>
+        <value xml:lang="zh">不能用数据资源标识（dataResourceId）${dataResourceId} 清除相关缓存</value>
     </property>
     <property key="ContentClip">
         <value xml:lang="da">Klip</value>
@@ -616,6 +631,7 @@
         <value xml:lang="fr">L'instance de composition de document pour ${parameters.rootInstanceContentId} existe déjà</value>
         <value xml:lang="it">Istanza composizione documenti contenuto per ${parameters.rootInstanceContentId} esiste già</value>
         <value xml:lang="pt">Instância do conteúdo de Compdoc para ${parameters.rootInstanceContentId} já existe</value>
+        <value xml:lang="zh">对应${parameters.rootInstanceContentId}的实例compdoc内容已经存在</value>
     </property>
     <property key="ContentCompDocParentContentId">
         <value xml:lang="da">Forældre inholds id</value>
@@ -782,12 +798,14 @@
         <value xml:lang="fr">Erreur de création du document dans le service ${serviceName}</value>
         <value xml:lang="it">Errore durante la creazione del contenuto in ${serviceName}</value>
         <value xml:lang="pt">Erro ao criar conteúdo em ${serviceName}</value>
+        <value xml:lang="zh">在${serviceName}中创建内容时出错</value>
     </property>
     <property key="ContentContentIdOrUploadFileIsMissing">
         <value xml:lang="en">Content Id or Upload file is missing.</value>
         <value xml:lang="fr">La référence du document ou le fichier à charger est manquant.</value>
         <value xml:lang="it">Id contenuto o file da caricare è mancante.</value>
         <value xml:lang="pt">ID de conteúdo ou envio de arquivo está faltando.</value>
+        <value xml:lang="zh">无权上传图片</value>
     </property>
     <property key="ContentContentManager">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
@@ -824,6 +842,7 @@
         <value xml:lang="fr">Pas d'accès pour charger l'image</value>
         <value xml:lang="it">nessun accesso per caricare l'immagine</value>
         <value xml:lang="pt">Sem acesso para enviar imagem</value>
+        <value xml:lang="zh">无权上传图片</value>
     </property>
     <property key="ContentContentSetup">
         <value xml:lang="ar">إعداد المحتوى</value>
@@ -845,23 +864,27 @@
         <value xml:lang="fr">Erreur dans la récupération du document de destination ou d'origine.</value>
         <value xml:lang="it">Errore nel ricavare il contenuto a o da.</value>
         <value xml:lang="pt">Erro ao recuperar conteúdo para ou a partir de.</value>
+        <value xml:lang="zh">获取内容到或内容自时出错</value>
     </property>
     <property key="ContentContentToOrFromIsNull">
         <value xml:lang="en">contentTo ${contentTo}/From ${contentFrom} is null.</value>
         <value xml:lang="fr">Document vers ${contentTo}/Depuis ${contentFrom} est inexistant.</value>
         <value xml:lang="it">Contenuto a ${contentTo}/da ${contentFrom} è nullo.</value>
         <value xml:lang="pt">contentTo ${contentTo} / De ${contentFrom} é nula.</value>
+        <value xml:lang="zh">内容到（contentTo） ${contentTo}/内容自（contentFrom） ${contentFrom} 是空的（null）</value>
     </property>
     <property key="ContentContentUpdatingError">
         <value xml:lang="en">Error updating content in ${serviceName}</value>
         <value xml:lang="fr">Erreur lors de la mise à jour du document ${serviceName}</value>
         <value xml:lang="it">Errore durante l'aggiornamento del contenuto in ${serviceName}</value>
         <value xml:lang="pt">Erro ao atualizar o conteúdo em ${serviceName}</value>
+        <value xml:lang="zh">在${serviceName}中更新内容时出错</value>
     </property>
     <property key="ContentContents">
         <value xml:lang="en">Contents</value>
         <value xml:lang="fr">Contenus</value>
         <value xml:lang="pt">Conteúdo</value>
+        <value xml:lang="zh">内容</value>
     </property>
     <property key="ContentContentsAssociatedToDataResource">
         <value xml:lang="da">Indholdselementer tilknyttet til denne data ressource</value>
@@ -879,24 +902,28 @@
         <value xml:lang="fr">Erreur dans la conversion de document sur les tampons de donnée : </value>
         <value xml:lang="it">Errore durante la conversione del documento in byte buffer: </value>
         <value xml:lang="pt">Erro ao converter buffer de bytes do documento: </value>
+        <value xml:lang="zh">转换文档字节缓存时出错：</value>
     </property>
     <property key="ContentConvertingDocumentError">
         <value xml:lang="en">Error converting document: ${errorString}</value>
         <value xml:lang="fr">Erreur dans la conversion du document : ${errorString}</value>
         <value xml:lang="it">Errore durante la conversione del documento: ${errorString}</value>
         <value xml:lang="pt">Erro ao converter o documento: ${errorString}</value>
+        <value xml:lang="zh">转换文档时出错：${errorString}</value>
     </property>
     <property key="ContentCreateContentAssocMethodError">
         <value xml:lang="en">Not 2 out of ContentId/To/From</value>
         <value xml:lang="fr">Not 2 out of ContentId/To/From</value>
         <value xml:lang="it">Necessari 2 dei tre parametri ContentId/To/From necessari</value>
         <value xml:lang="pt">Não 2 de ContentId/To/From</value>
+        <value xml:lang="zh">内容到和内容自的内容标识不是2个</value>
     </property>
     <property key="ContentCreateDateInvalidFormat">
         <value xml:lang="en">Created Date is not a valid Timestamp input format.</value>
         <value xml:lang="fr">La date de création n'est pas dans un format valide.</value>
         <value xml:lang="it">Data creazione non è nel formato valido.</value>
         <value xml:lang="pt">Data de criação não é um formato de entrada de Timestamp válido.</value>
+        <value xml:lang="zh">创建日期不是有效的Timestamp输入格式。</value>
     </property>
     <property key="ContentCreateFile">
         <value xml:lang="da">Opret fil</value>
@@ -946,6 +973,7 @@
         <value xml:lang="it">Nuovo sito web</value>
         <value xml:lang="nl">Aanmaken nieuwe website</value>
         <value xml:lang="pt">Criar novo site</value>
+        <value xml:lang="zh">创建新网站</value>
     </property>
     <property key="ContentDataBaseText">
         <value xml:lang="da">Database tekst</value>
@@ -1022,12 +1050,14 @@
         <value xml:lang="fr">La référence de ressource est non présente.</value>
         <value xml:lang="it">dataResourceId è nullo.</value>
         <value xml:lang="pt">dataResourceId é nulo.</value>
+        <value xml:lang="zh">数据资源标识（dataResourceId）是空的（null）。</value>
     </property>
     <property key="ContentDataResourceNotFound">
         <value xml:lang="en">No data resource found for ID: ${parameters.dataResourceId}</value>
         <value xml:lang="fr">Pas de donnée trouvée pour la ressource sous la référence : ${parameters.dataResourceId}</value>
         <value xml:lang="it">Nessuna risorsa dati trovata con ID: ${parameters.dataResourceId}</value>
         <value xml:lang="pt">Nenhum recurso de dados encontrados para ID: ${parameters.dataResourceId}</value>
+        <value xml:lang="zh">没有找到数据资源，标识：${parameters.dataResourceId}</value>
     </property>
     <property key="ContentDataResourceProductFeatures">
         <value xml:lang="ar">سمات المنتوج</value>
@@ -1081,6 +1111,7 @@
         <value xml:lang="it">Carica</value>
         <value xml:lang="nl">Upload</value>
         <value xml:lang="pt">Carregar</value>
+        <value xml:lang="zh">上传</value>
     </property>
     <property key="ContentDataSetup">
         <value xml:lang="ar">إعداد مورد المعلومات</value>
@@ -1114,6 +1145,7 @@
         <value xml:lang="fr">Le type de donnée ${dataResourceTypeId} n'est pas supporté !</value>
         <value xml:lang="it">Tipo dati ${dataResourceTypeId} non è ancora supportato!</value>
         <value xml:lang="pt">Tipo de dados ${dataResourceTypeId} ainda não é suportado!</value>
+        <value xml:lang="zh">还不支持数据类型${dataResourceTypeId}！</value>
     </property>
     <property key="ContentDecorator">
         <value xml:lang="da">Dekoration</value>
@@ -1151,6 +1183,7 @@
         <value xml:lang="it">Scarica</value>
         <value xml:lang="nl">Download</value>
         <value xml:lang="pt">Download</value>
+        <value xml:lang="zh">下载</value>
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
@@ -1181,6 +1214,7 @@
         <value xml:lang="fr">Le texte n'a pas été trouvé.</value>
         <value xml:lang="it">Electronic Text non trovato.</value>
         <value xml:lang="pt">Texto eletrônico não foi encontrado.</value>
+        <value xml:lang="zh">没有找到电子文本。</value>
     </property>
     <property key="ContentFile">
         <value xml:lang="ar">ملف</value>
@@ -1391,6 +1425,7 @@
         <value xml:lang="fr">La date de début n'est pas dans un format valide</value>
         <value xml:lang="it">Data dal non è nel formato valido.</value>
         <value xml:lang="pt">fromDate não é um formato de data válido</value>
+        <value xml:lang="zh">开始日期（fromDate）不是有效的日期格式</value>
     </property>
     <property key="ContentGIF">
         <value xml:lang="da">GIF</value>
@@ -1398,6 +1433,7 @@
         <value xml:lang="fr">GIF</value>
         <value xml:lang="it">GIF</value>
         <value xml:lang="pt">GIF</value>
+        <value xml:lang="zh">GIF</value>
     </property>
     <property key="ContentGoToContent">
         <value xml:lang="da">Gå til indhold</value>
@@ -1477,6 +1513,7 @@
         <value xml:lang="en">Include all Sub-Contents</value>
         <value xml:lang="fr">Inclure tous les sous doucments</value>
         <value xml:lang="pt">Incluir todos os subconteúdos</value>
+        <value xml:lang="zh">包含全部子内容</value>
     </property>
     <property key="ContentIndex">
         <value xml:lang="ar">الدليل</value>
@@ -1524,6 +1561,7 @@
         <value xml:lang="fr">Erreur dans l'indexation de l'arbre : ${errorString}</value>
         <value xml:lang="it">Errore di indicizzazione albero: ${errorString}</value>
         <value xml:lang="pt">Erro ao indexar árvore: ${errorString}</value>
+        <value xml:lang="zh">索引树时出错：${errorString}</value>
     </property>
     <property key="ContentJPEG">
         <value xml:lang="da">JPEG</value>
@@ -1531,6 +1569,7 @@
         <value xml:lang="fr">JPG</value>
         <value xml:lang="it">JPEG</value>
         <value xml:lang="pt">JPEG</value>
+        <value xml:lang="zh">JPEG</value>
     </property>
     <property key="ContentKeyword">
         <value xml:lang="de">Schlüsselwörter</value>
@@ -1607,11 +1646,13 @@
         <value xml:lang="fr">La date de dernière modification n'est pas dans un format valide.</value>
         <value xml:lang="it">Data modifica non è nel formato valido.</value>
         <value xml:lang="pt">Data da última modificação não é um formato de entrada de Timestamp válido.</value>
+        <value xml:lang="zh">最后修改日期不是有效的Timestamp格式。</value>
     </property>
     <property key="ContentLastUpdatedDateFilter">
         <value xml:lang="en">Last Updated Date Filter</value>
         <value xml:lang="fr">Dernière mise à jour du filtre de donnée</value>
         <value xml:lang="pt">Filtro de última data de atualização</value>
+        <value xml:lang="zh">最后更新日期过滤器</value>
     </property>
     <property key="ContentLatest">
         <value xml:lang="da">Senest</value>
@@ -1650,6 +1691,7 @@
         <value xml:lang="fr">La ressource LOCAL_FILE ne doit pas indiquer un emplacement absolu</value>
         <value xml:lang="it">La risorda dati LOCAL_FILE non punta ad una posizione assoluta</value>
         <value xml:lang="pt">DataResource LOCAL_FILE não aponta para um local absoluto</value>
+        <value xml:lang="zh">数据资源（DataResource）本地文件（LOCAL_FILE）没有指向一个绝对位置</value>
     </property>
     <property key="ContentMSWord">
         <value xml:lang="da">MS Word</value>
@@ -1657,6 +1699,7 @@
         <value xml:lang="fr">MS Word</value>
         <value xml:lang="it">MS Word</value>
         <value xml:lang="pt">MS Word</value>
+        <value xml:lang="zh">微软Word</value>
     </property>
     <property key="ContentMain">
         <value xml:lang="ar">الرئيسية</value>
@@ -1761,6 +1804,7 @@
         <value xml:lang="fr">Ni le document ni sa référence ne sont fournis.</value>
         <value xml:lang="it">Nessuno contenuto specificato.</value>
         <value xml:lang="pt">Nem Conteúdo nem contentId fornecido.</value>
+        <value xml:lang="zh">没有提供内容或内容标识</value>
     </property>
     <property key="ContentNewContentInFolder">
         <value xml:lang="da">Nyt indhold i folder</value>
@@ -1788,26 +1832,31 @@
         <value xml:lang="en">No file content passed for: ${fileName}</value>
         <value xml:lang="it">Nessun file contenuto passato per:  ${fileName}</value>
         <value xml:lang="pt">Nenhum conteúdo de arquivo passado para: ${nome}</value>
+        <value xml:lang="zh">没有传递文件内容：${fileName}</value>
     </property>
     <property key="ContentNoContentFound">
         <value xml:lang="en">Content record not found for ID ${contentId}</value>
         <value xml:lang="it">Contenuto non trovato ${contentId}</value>
         <value xml:lang="pt">Registro de conteúdo não encontrado para o ID ${contentId}</value>
+        <value xml:lang="zh">没有找到内容记录，标识：${contentId}</value>
     </property>
     <property key="ContentNoQuestionsSurveyFound">
         <value xml:lang="en">No questions found for survey ID: ${survey.surveyId}</value>
         <value xml:lang="it">Nessuna domanda sondaggio trovata con ID: ${surveyLookup.surveyId}</value>
         <value xml:lang="pt">Nenhuma pergunta encontrada para pesquisa com ID: ${survey.surveyId}</value>
+        <value xml:lang="zh">没有找到问题，调查标识：${survey.surveyId}</value>
     </property>
     <property key="ContentNoSurveyFound">
         <value xml:lang="en">No survey found for survey ID: ${surveyLookup.surveyId}</value>
         <value xml:lang="it">Nessun sondaggio trovato con ID: ${surveyLookup.surveyId}</value>
         <value xml:lang="pt">Nenhuma pesquisa encontrada para ID de pesquisa: ${surveyLookup.surveyId}</value>
+        <value xml:lang="zh">没有找到调查，调查标识：${surveyLookup.surveyId}</value>
     </property>
     <property key="ContentNoUploadedContentFound">
         <value xml:lang="en">No uploaded content found in context</value>
         <value xml:lang="it">Nessun contenuto caricato trovato</value>
         <value xml:lang="pt">Nenhum conteúdo carregado encontrado no contexto</value>
+        <value xml:lang="zh">Context中没有找到要上传的内容</value>
     </property>
     <property key="ContentOtherLayout">
         <value xml:lang="ar">الوضعيات الأخرى المستعملة لهذا المحتوى التحتي</value>
@@ -1857,6 +1906,7 @@
         <value xml:lang="en">Error generating PDF: ${errorString}</value>
         <value xml:lang="it">Errore di generazione PDF: ${errorString}</value>
         <value xml:lang="pt">Erro ao gerar PDF: ${errorString}</value>
+        <value xml:lang="zh">生成PDF时出错：${errorString}</value>
     </property>
     <property key="ContentPDFSurveyName">
         <value xml:lang="da">Rundspørge navn</value>
@@ -1873,6 +1923,7 @@
         <value xml:lang="fr">PNG</value>
         <value xml:lang="it">PNG</value>
         <value xml:lang="pt">PNG</value>
+        <value xml:lang="zh">PNG</value>
     </property>
     <property key="ContentParent">
         <value xml:lang="da">Forældre indhold</value>
@@ -1922,6 +1973,7 @@
         <value xml:lang="fr">Permission non accordée.</value>
         <value xml:lang="it">Permesso non abilitato.</value>
         <value xml:lang="pt">Permissão não concedida.</value>
+        <value xml:lang="zh">没有授权。</value>
     </property>
     <property key="ContentPlainText">
         <value xml:lang="da">Klartekst</value>
@@ -1937,18 +1989,21 @@
         <value xml:lang="fr">Pas d'imprimante disponible</value>
         <value xml:lang="it">Nessuna stampante disponibile</value>
         <value xml:lang="pt">Não existe uma impressora disponível</value>
+        <value xml:lang="zh">没有可用的打印机</value>
     </property>
     <property key="ContentPrinterNotFound">
         <value xml:lang="en">No printer found with name: ${printerName}</value>
         <value xml:lang="fr">Pas d'imprimante disponible sous le nom ${printerName}</value>
         <value xml:lang="it">Nessuna stampante trovate con il nome: ${printerName}</value>
         <value xml:lang="pt">Nenhuma impressora encontrada com nome: ${printerName}</value>
+        <value xml:lang="zh">没有找到打印机，名称：${printerName}</value>
     </property>
     <property key="ContentPrinterNotSupportDocFlavorFormat">
         <value xml:lang="en">DocFlavor ${psInFormat} not supported by printer: ${printerName}</value>
         <value xml:lang="fr">DocFlavor ${psInFormat} n'est pas supporté par l'imprimante ${printerName}</value>
         <value xml:lang="it">Il formato Doc Flavor ${psInFormat} non è supportato dalla stampante: ${printerName}</value>
         <value xml:lang="pt">DocFlavor ${psInFormat} não suportada pela impressora: ${printerName}</value>
+        <value xml:lang="zh">打印机不支持 DocFlavor ${psInFormat} ：${printerName}</value>
     </property>
     <property key="ContentPublishToContent">
         <value xml:lang="da">Udgiv til indhold</value>
@@ -1977,6 +2032,7 @@
         <value xml:lang="fr">Le type de question ${questionType} requiert le champ ${requiredField} pour être défini</value>
         <value xml:lang="it">Tipo domanda ${questionType} richiede ${requiredField} di essere impostato</value>
         <value xml:lang="pt">Pergunta tipo ${questionType} requer ${requiredField} para ser definido</value>
+        <value xml:lang="zh">问题类型 ${questionType} 需要设置 ${requiredField}</value>
     </property>
     <property key="ContentQuickSubContent">
         <value xml:lang="da">Hurtig sub indhold</value>
@@ -2014,12 +2070,14 @@
         <value xml:lang="fr">Erreur lors du rendu pour ${contentType} : ${errorString}</value>
         <value xml:lang="it">Errore di rendering ${contentType}: ${errorString}</value>
         <value xml:lang="pt">Erro ao renderizar ${contentType}: ${errorString}</value>
+        <value xml:lang="zh">生成${contentType}是出错：${errorString}</value>
     </property>
     <property key="ContentRequiredField">
         <value xml:lang="en">Required field ${requiredField} is missing in simple method call ${resourceDescription}</value>
         <value xml:lang="fr">Le champ requis ${requiredField} est manquant dans l'appel d'une méthode simple : ${resourceDescription}</value>
         <value xml:lang="it">Campo ${requiredField} è richiesto ed è mancante nella chiamata a ${resourceDescription}</value>
         <value xml:lang="pt">Campo obrigatório ${requiredField} está ausente na chamada do método simples ${resourceDescription}</value>
+        <value xml:lang="zh">在用简单方法调用 ${resourceDescription} 时，缺少必须的数据项 ${requiredField}</value>
     </property>
     <property key="ContentResourceAudio">
         <value xml:lang="da">Audio</value>
@@ -2110,26 +2168,31 @@
     <property key="ContentSEO">
         <value xml:lang="en">SEO</value>
         <value xml:lang="pt">SEO</value>
+        <value xml:lang="zh">搜索引擎优化</value>
     </property>
     <property key="ContentSearchContents">
         <value xml:lang="en">Search Contents</value>
         <value xml:lang="fr">Recherche de documents</value>
         <value xml:lang="pt">Pesquisar conteúdos</value>
+        <value xml:lang="zh">搜索内容</value>
     </property>
     <property key="ContentSecurityCreatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_CREATE o CONTENTMGR_ADMIN</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_CREATE ou CONTENTMGR_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 CONTENTMGR_CREATE 或 CONTENTMGR_ADMIN 权限</value>
     </property>
     <property key="ContentSecurityDeletePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_DELETE o CONTENTMGR_ADMIN</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_DELETE ou CONTENTMGR_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 CONTENTMGR_DELETE 或 CONTENTMGR_ADMIN 权限</value>
     </property>
     <property key="ContentSecurityUpdatePermission">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso CONTENTMGR_UPDATE o CONTENTMGR_ADMIN</value>
         <value xml:lang="pt">Erro de segurança: para executar o ${resourceDescription} você deve ter a permissão de CONTENTMGR_UPDATE ou CONTENTMGR_ADMIN</value>
+        <value xml:lang="zh">安全错误：要运行${resourceDescription}，你必须有 CONTENTMGR_UPDATE 或 CONTENTMGR_ADMIN 权限</value>
     </property>
     <property key="ContentSoftRejected">
         <value xml:lang="da">Soft afvist</value>
@@ -2145,6 +2208,7 @@
         <value xml:lang="fr">Problème lors de la mise à jour du statut du document : ${errorString}</value>
         <value xml:lang="it">Problema durante l'aggiornamento dello stato del contenuto: ${errorString}</value>
         <value xml:lang="pt">Problema ao atualizar o Status do conteúdo: ${errorString}</value>
+        <value xml:lang="zh">更新内容状态时出错：${errorString}</value>
     </property>
     <property key="ContentSubContent">
         <value xml:lang="ar">محتوى تحتي</value>
@@ -2249,18 +2313,21 @@
         <value xml:lang="fr">Vous avez déjà répondu au questionnaire. De multiples réponses ne sont pas autorisées</value>
         <value xml:lang="it">Tu hai già risposto a questo sondaggio; risposte multiple non sono consentite</value>
         <value xml:lang="pt">Você já respondeu a esta pesquisa; múltiplas respostas não são permitidas.</value>
+        <value xml:lang="zh">你已经回答这个调查了；不允许多个回答</value>
     </property>
     <property key="ContentSurveyAnonymousResponse">
         <value xml:lang="en">Anonymous response to this survey is not allowed (you must be logged in)</value>
         <value xml:lang="fr">Les réponses anonymes ne sont pas autorisées pour ce questionnaire (Vous devez être connecté)</value>
         <value xml:lang="it">Risposta anonima per questo sondaggio non è consentita (ti devi autenticare)</value>
         <value xml:lang="pt">Respostas anônimas para esta pesquisa não são permitidas (você precisa estar logado)</value>
+        <value xml:lang="zh">不允许对这个调查匿名回答（你必须登录）</value>
     </property>
     <property key="ContentSurveyAnswersNotFound">
         <value xml:lang="en">No answers were found</value>
         <value xml:lang="fr">Pas de réponses trouvées</value>
         <value xml:lang="it">Nessuna risposta è stata trovata</value>
         <value xml:lang="pt">Não foram encontradas respostas</value>
+        <value xml:lang="zh">没有找到回答</value>
     </property>
     <property key="ContentSurveyApplyQuestionFromCategory">
         <value xml:lang="ar">تكبيق الأسئلة من الفئة</value>
@@ -2387,12 +2454,14 @@
         <value xml:lang="fr">Erreur dans la construction du PDF des réponses du sondage : </value>
         <value xml:lang="it">Errore durante la creazione del PDF dalla risposta del sondaggio: </value>
         <value xml:lang="pt">Erro ao criar PDF de SurveyResponse: </value>
+        <value xml:lang="zh">从调查回答（SurveyResponse）生成PDF时出错：</value>
     </property>
     <property key="ContentSurveyErrorSettingAcroFields">
         <value xml:lang="en">Error setting AcroFields from SurveyResponse: </value>
         <value xml:lang="fr">Erreur dans l'enregistrement des AcroFields des réponses du sondage: </value>
         <value xml:lang="it">Errore durante l'impostazioni di AcroFields dalla risposta del sondaggio: </value>
         <value xml:lang="pt">Erro ao definir o AcroFields a partir de SurveyResponse: </value>
+        <value xml:lang="zh">根据调查回答（SurveyResponse）设置AcroFields时出错：</value>
     </property>
     <property key="ContentSurveyFindResponse">
         <value xml:lang="ar">إيجاد جواب</value>
@@ -2519,60 +2588,70 @@
         <value xml:lang="fr">Question n°</value>
         <value xml:lang="it">Domanda #</value>
         <value xml:lang="pt">Pergunta #</value>
+        <value xml:lang="zh">问题 #</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAResponse">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a response.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une réponse.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una risposta.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma resposta.</value>
+        <value xml:lang="zh">必须回答问题${surveyQuestionAndAppl.question}。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidCreditCardNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid credit-card number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un numéro de carte de crédit valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta di credito valida.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número de cartão de crédito válido.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的信用卡号码回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidCurrencyAmount">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid currency amount.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un montant valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'importo in valuta valido.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma quantidade de moeda válida.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的金额回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidDate">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid date string (mm/dd/yyyy).</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une date valide (mm/jj/aaaa).</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una data valida (mm/gg/aaaa).</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma Cadeia de caracteres válida de data (dd/mm/aaaa).</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的日期字符串（mm/dd/yyyy, 说明：按月/日/年的格式）回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidDecimalNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid decimal number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un nombre décimal.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero con decimali valido.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número decimal válido.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效数字回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidEmailAddress">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid email address.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une adresse courriel valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un'indirizzo e-mail valido.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um endereço de e-mail válido.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的电子邮件地址回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidGiftCardNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid gift-card number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un numéro de carte cadeau.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede una carta regalo valida.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número válido de cartão de presente.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的礼品卡号回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidURL">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid URL.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite une URL valide.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un URL valido.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer uma URL válida.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的网址回答。</value>
     </property>
     <property key="ContentSurveyQuestionRequiresAValidWholeNumber">
         <value xml:lang="en">The question ${surveyQuestionAndAppl.question} requires a valid whole number.</value>
         <value xml:lang="fr">La question ${surveyQuestionAndAppl.question} nécessite un nombre entier.</value>
         <value xml:lang="it">La domanda ${surveyQuestionAndAppl.question} richiede un numero intero valido.</value>
         <value xml:lang="pt">A pergunta ${surveyQuestionAndAppl.question} requer um número inteiro válido.</value>
+        <value xml:lang="zh">问题${surveyQuestionAndAppl.question}必须用一个有效的整数回答。</value>
     </property>
     <property key="ContentSurveyQuestions">
         <value xml:lang="ar">أسئلة</value>
@@ -2675,6 +2754,7 @@
         <value xml:lang="fr">TIFF</value>
         <value xml:lang="it">TIFF</value>
         <value xml:lang="pt">TIFF</value>
+        <value xml:lang="zh">TIFF</value>
     </property>
     <property key="ContentTemplate">
         <value xml:lang="ar">نموذج</value>
@@ -2795,6 +2875,7 @@
         <value xml:lang="fr">le champ thruDate n'est pas au bon format</value>
         <value xml:lang="it">Data al non è nel formato valido.</value>
         <value xml:lang="pt">thruDate não um formato de data válida</value>
+        <value xml:lang="zh">截止日期（thruDate）不是一个有效的日期格式</value>
     </property>
     <property key="ContentTree">
         <value xml:lang="ar">شجرة</value>
@@ -2839,24 +2920,28 @@
         <value xml:lang="fr">Impossible d'obtenir la référence du fichier ${objectInfo}</value>
         <value xml:lang="it">Non è possibile ottenere un riferimento al file ${objectInfo}</value>
         <value xml:lang="pt">Não é possível obter uma referência ao arquivo ${objectInfo}</value>
+        <value xml:lang="zh">无法获得到文件${objectInfo}的引用</value>
     </property>
     <property key="ContentUnableToOpenFileForWriting">
         <value xml:lang="en">Unable to open file for writing: ${fileName}</value>
         <value xml:lang="fr">Impossible d'ouvrir le fichier ${fileName} en écriture</value>
         <value xml:lang="it">Non è possibile aprire il file in scrittura: ${fileName}</value>
         <value xml:lang="pt">Não é possível abrir o arquivo para gravação: ${nome}</value>
+        <value xml:lang="zh">无法打开文件来写入：${fileName}</value>
     </property>
     <property key="ContentUnableWriteBinaryDataToFile">
         <value xml:lang="en">Unable to write binary data to: ${fileName}</value>
         <value xml:lang="fr">Impossible d'écrire les données binaires dans le fichier ${fileName}</value>
         <value xml:lang="it">Non è possibile scrivere i dati binari in: ${fileName}</value>
         <value xml:lang="pt">Não é possível gravar dados binários para: ${nome}</value>
+        <value xml:lang="zh">无法把二进制数据写到：${fileName}</value>
     </property>
     <property key="ContentUnableWriteCharacterDataToFile">
         <value xml:lang="en">Unable to write character data to: ${fileName}</value>
         <value xml:lang="fr">Impossible d'écrire les données dans le fichier ${fileName}</value>
         <value xml:lang="it">Non è possibile scrivere i dati carattere in: ${fileName}</value>
         <value xml:lang="pt">Não é possível gravar dados de caracteres para: ${nome}</value>
+        <value xml:lang="zh">无法把字符数据写到：${fileName}</value>
     </property>
     <property key="ContentUpdatePermissionError">
         <value xml:lang="ar">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>
@@ -2875,6 +2960,7 @@
         <value xml:lang="fr">Le type de fichier chargé ne correspond pas avec votre selection.</value>
         <value xml:lang="it">Tipo file da caricare non corrisponde alla tua selezione.</value>
         <value xml:lang="pt">Tipo de arquivo do upload não coincide com o selecionado.</value>
+        <value xml:lang="zh">上传文件类型与你选择的不符。</value>
     </property>
     <property key="ContentUploadedFile">
         <value xml:lang="da">Uploadet fil</value>
@@ -2916,6 +3002,7 @@
         <value xml:lang="fr">visitedSet contient déjà : </value>
         <value xml:lang="it">visitedSet contiene già: </value>
         <value xml:lang="pt">visitedSet já contém: </value>
+        <value xml:lang="zh">访问设置（visitedSet）已包含：</value>
     </property>
     <property key="ContentWebSite">
         <value xml:lang="ar">موقع الويب</value>
@@ -2989,14 +3076,17 @@
     <property key="ContentWebSiteContactList">
         <value xml:lang="en">Contact Lists</value>
         <value xml:lang="pt">Listas de contatos</value>
+        <value xml:lang="zh">联系方式列表</value>
     </property>
     <property key="ContentWebSiteContactListCreate">
         <value xml:lang="en">Create Contact List</value>
         <value xml:lang="pt">Criar lista de contatos</value>
+        <value xml:lang="zh">创建联系方式列表</value>
     </property>
     <property key="ContentWebSiteContactListView">
         <value xml:lang="en">Contact Lists View</value>
         <value xml:lang="pt">Visualizar lista de contatos</value>
+        <value xml:lang="zh">联系方式列表视图</value>
     </property>
     <property key="ContentWebSiteContent">
         <value xml:lang="da">Webside indhold</value>
@@ -3013,6 +3103,7 @@
     <property key="ContentWebSiteGenerateMissingSeoUrl">
         <value xml:lang="en">Generate missing seo url's</value>
         <value xml:lang="pt">Gerar urls necessárias para SEO</value>
+        <value xml:lang="zh">生成缺失的搜索引擎优化的网址</value>
     </property>
     <property key="ContentWebSiteMenus">
         <value xml:lang="da">Webside menuer</value>
@@ -3055,6 +3146,7 @@
         <value xml:lang="en">An error occured loading content!</value>
         <value xml:lang="fr">Erreur dans le chargement du document !</value>
         <value xml:lang="pt">Um erro ocorreu ao carregar conteúdo!</value>
+        <value xml:lang="zh">载入内容时发生错误！</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
         <value xml:lang="ar">AcroForm (PDF) Content ID</value>
@@ -3154,6 +3246,7 @@
         <value xml:lang="it">Data creazione</value>
         <value xml:lang="nl">Datum aangemaakt</value>
         <value xml:lang="pt">Data de criação</value>
+        <value xml:lang="zh">CA创建日期</value>
     </property>
     <property key="FormFieldTitle_caFromDate">
         <value xml:lang="da">Fra dato og tid</value>
@@ -3443,6 +3536,7 @@
         <value xml:lang="it">Stato</value>
         <value xml:lang="nl">Status ID</value>
         <value xml:lang="pt">Id de status</value>
+        <value xml:lang="zh">状态标识</value>
     </property>
     <property key="FormFieldTitle_contentType">
         <value xml:lang="ar">نوع المحتوى</value>
@@ -3822,6 +3916,7 @@
         <value xml:lang="fr">Document existant</value>
         <value xml:lang="it">Codice contenuto esitente</value>
         <value xml:lang="pt">Id do conteúdo existente</value>
+        <value xml:lang="zh">现有内容标识</value>
     </property>
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
@@ -4179,6 +4274,7 @@
         <value xml:lang="it">Azione Principale</value>
         <value xml:lang="pt">Ação principal</value>
         <value xml:lang="th">หลักการปฏิบัติ</value>
+        <value xml:lang="zh">主操作</value>
     </property>
     <property key="FormFieldTitle_mapKey">
         <value xml:lang="ar">مفتاح التوافق</value>
@@ -5037,6 +5133,7 @@
         <value xml:lang="en">Add Content Keyword</value>
         <value xml:lang="fr">Ajout de mot clé document</value>
         <value xml:lang="pt">Adicionar palavra-chave de conteúdo</value>
+        <value xml:lang="zh">添加内容关键字</value>
     </property>
     <property key="PageTitleAddDataResource">
         <value xml:lang="ar">إضافة مورد معلومات</value>
@@ -5056,6 +5153,7 @@
         <value xml:lang="en">Add DataResource From Content</value>
         <value xml:lang="fr">Ajouter une ressource de données pour un contenu</value>
         <value xml:lang="pt">Adicionar Recurso de dados de conteúdo</value>
+        <value xml:lang="zh">从内容（Content）添加数据资源（DataResource）</value>
     </property>
     <property key="PageTitleAddDataResourceText">
         <value xml:lang="ar">إضافة نص مورد معلومات</value>
@@ -5393,6 +5491,7 @@
         <value xml:lang="en">Edit Content Keywords</value>
         <value xml:lang="fr">Édition des mots-clés document</value>
         <value xml:lang="pt">Editar conteúdo palavras-chave</value>
+        <value xml:lang="zh">编辑内容关键字</value>
     </property>
     <property key="PageTitleEditContentMetadata">
         <value xml:lang="ar">تعرير ميتا معلومات محتوى</value>
@@ -6282,6 +6381,7 @@
         <value xml:lang="fr">Merci de sélectionner une donnée</value>
         <value xml:lang="it">Perfacore seleziona i dati</value>
         <value xml:lang="pt">Por favor selecionar dados</value>
+        <value xml:lang="zh">请选择数据</value>
     </property>
     <property key="PageTitleSearchContent">
         <value xml:lang="da">Søg indhold</value>
@@ -6404,5 +6504,6 @@
     <property key="PageTitleWebSiteSEO">
         <value xml:lang="en">Generate Missing SEO URL's</value>
         <value xml:lang="pt">Gerar URL's faltantes para SEO</value>
+        <value xml:lang="zh">生成缺失的搜索引擎优化的网址</value>
     </property>
 </resource>

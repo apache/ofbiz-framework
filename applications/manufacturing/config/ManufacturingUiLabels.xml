@@ -803,34 +803,42 @@
     <property key="ManufacturingBomErrorCreatingBillOfMaterialsTree">
         <value xml:lang="en">Error creating bill of materials tree: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'albero dei materiali: ${errorString}</value>
+        <value xml:lang="zh">创建物料清单树时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorLoadingShipmentItems">
         <value xml:lang="en">Error loading the ShipmentItems</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentItems</value>
+        <value xml:lang="zh">载入送货明细时出错</value>
     </property>
     <property key="ManufacturingBomErrorLoadingShipmentPackages">
         <value xml:lang="en">Error loading the ShipmentPackages</value>
         <value xml:lang="it">Errore durante il caricamento di ShipmentPackages</value>
+        <value xml:lang="zh">载入送货包装时出错</value>
     </property>
     <property key="ManufacturingBomErrorRunningDuplicatedAncestorSearch">
         <value xml:lang="en">Error running duplicated ancestor search: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione della ricerca duplicati antenato: ${errorString}</value>
+        <value xml:lang="zh">查找重复的根时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningInitLowLevelCode">
         <value xml:lang="en">Error running initLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di initLowLevelCode: ${errorString}</value>
+        <value xml:lang="zh">运行低层代码初始化时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningMaxDethAlgorithm">
         <value xml:lang="en">Error running max depth algorithm: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione dell'algoritmo massima profondità: ${errorString}</value>
+        <value xml:lang="zh">运行最大深度算法时出错：${errorString}</value>
     </property>
     <property key="ManufacturingBomErrorRunningUpdateLowLevelCode">
         <value xml:lang="en">Error running updateLowLevelCode: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione di updateLowLevelCode: ${errorString}</value>
+        <value xml:lang="zh">运行更新低层代码（updateLowLevelCode）时发生错误：${errorString}</value>
     </property>
     <property key="ManufacturingBomPackageAlreadyFound">
         <value xml:lang="en">Packages already found.</value>
         <value xml:lang="it">Pacchi già trovati.</value>
+        <value xml:lang="zh">已经找到包装了。</value>
     </property>
     <property key="ManufacturingBomSimulation">
         <value xml:lang="de">Stücklistensimulation</value>
@@ -1258,6 +1266,7 @@
     <property key="ManufacturingCreateDependentProductionRuns">
         <value xml:lang="en">Create Dependent Production Runs</value>
         <value xml:lang="it">Crea ordini di produzione dipendenti</value>
+        <value xml:lang="zh">创建相关生产运行</value>
     </property>
     <property key="ManufacturingCreateMachineGroup">
         <value xml:lang="de">Anlagengruppe erstellen</value>
@@ -1831,6 +1840,7 @@
         <value xml:lang="en">Generate Production Runs</value>
         <value xml:lang="it">Genera ordini di produzione</value>
         <value xml:lang="pt_BR">Gerar execuções de produção</value>
+        <value xml:lang="zh">生成生产运行</value>
     </property>
     <property key="ManufacturingImplosion">
         <value xml:lang="de">Zusammenfalten</value>
@@ -2322,74 +2332,92 @@
     <property key="ManufacturingMrpCannotCountRecords">
         <value xml:lang="en">Unable to count MrpEvent records.</value>
         <value xml:lang="it">Non è possibile contare i records da  i records da MrpEvent.</value>
+        <value xml:lang="zh">无法统计生产资源计划事件（MrpEvent）记录数。</value>
     </property>
     <property key="ManufacturingMrpCannotFindCustomTimePeriod">
         <value xml:lang="en">Problem, we can not find CustomTimePeriod, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare CustomTimePeriod, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="zh">问题：我们不能找到定制时间段（CustomTimePeriod），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindProductFacility">
         <value xml:lang="en">Unable to retrieve ProductFacility records.</value>
         <value xml:lang="it">Non è possibile ricavare i records da ProductFacility.</value>
+        <value xml:lang="zh">无法获取产品设施（ProductFacility）记录。</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecasts">
         <value xml:lang="en">Problem, we can not find SalesForecasts, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare SalesForecasts, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="zh">问题：我们不能找到销售预测（SalesForecasts），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindSalesForecastDetails">
         <value xml:lang="en">Problem, we can not find SalesForecastDetails, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare SalesForecastDetails, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="zh">问题：我们不能找到销售预测详细信息（SalesForecastDetails），详见日志</value>
     </property>
     <property key="ManufacturingMrpCannotFindProductForEvent">
         <value xml:lang="en">Problem, can not find the product for a event, for more detail look at the log</value>
         <value xml:lang="it">Problema, non è possibile trovare il prodotto per un'evento, più dettagli possono essere trovati nel log</value>
+        <value xml:lang="zh">问题：不能找到一个事件的产品，详见日志</value>
     </property>
     <property key="ManufacturingMrpCreateOrUpdateEvent">
         <value xml:lang="en">Error during creation or update MrpEvent, parameters: ${parameters}</value>
         <value xml:lang="it">Errore durante la creazione o aggiornamento MrpEvent, parametri: ${parameters}</value>
+        <value xml:lang="zh">创建或更新生产资源计划事件（MrpEvent）时出错，参数：${parameters}</value>
     </property>
     <property key="ManufacturingMrpErrorForBomLevel">
         <value xml:lang="en">MRP Error retieving MRP event for the bom level: ${bomLevel}. Error: ${errorString}</value>
         <value xml:lang="it">Errore MRP ricavando l'evento MRP per il livello di distinta base: ${bomLevel}. Errore: ${errorString}</value>
+        <value xml:lang="zh">获取物料清单层的生产资源计划事件时出错，物料清单层：${bomLevel}，错误：${errorString}</value>
     </property>
     <property key="ManufacturingMrpErrorExplodingProduct">
         <value xml:lang="en">An error occurred exploding the product ${productId}</value>
         <value xml:lang="it">E' successo un'errore durante l'espolosizione del prodotto ${productId}</value>
+        <value xml:lang="zh">分解产品时出错：${productId}</value>
     </property>
     <property key="ManufacturingMrpErrorRunningInitMrpEvents">
         <value xml:lang="en">Error running the initMrpEvents service: ${errorString}</value>
         <value xml:lang="it">Errore durante l'esecuzione del servizio initMrpEvents: ${errorString}</value>
+        <value xml:lang="zh">运行初始化生产资源计划事件（initMrpEvents）服务时出错：${errorString}</value>
     </property>
     <property key="ManufacturingMrpEventFindError">
         <value xml:lang="en">Problem, we can not find all the items of MrpEvent, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo trovare tutte le righe di MrpEvent, per più dettagli controllare il log</value>
+        <value xml:lang="zh">问题：我们无法找到生产资源计划事件（MrpEvent）的全部明细，详见日志</value>
     </property>
     <property key="ManufacturingMrpEventProblemInitializing">
         <value xml:lang="en">Problem initializing the MrpEvent entity (${mrpEventTypeId})</value>
         <value xml:lang="it">Problema di inizializzazione entità MrpEvent (${mrpEventTypeId})</value>
+        <value xml:lang="zh">初始化生产资源计划事件（MrpEvent）实体（${mrpEventTypeId}）时出问题了</value>
     </property>
     <property key="ManufacturingMrpEventRemoveError">
         <value xml:lang="en">Problem, we can not remove the MrpEvent items, for more detail look at the log</value>
         <value xml:lang="it">Problema, non possaimo rimuovere le righe di MrpEvent, per più dettagli controllare il log</value>
+        <value xml:lang="zh">问题：我们不能删除生产资源计划事件（MrpEvent）的明细，详见日志</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupCannotBeLoad">
         <value xml:lang="en">Problem loading facility group information: ${errorString}</value>
         <value xml:lang="it">Problema durante il caricamento delle informazioni relative al gruppo stabilimento: ${errorString}</value>
+        <value xml:lang="zh">载入场所组信息时出错：${errorString}</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupIsNotAssociatedToFacility">
         <value xml:lang="en">No facility associated to facilityGroupId ${facilityGroupId}</value>
         <value xml:lang="it">Nessuna stabilimento associato al gruppo stabilimento ${facilityGroupId}</value>
+        <value xml:lang="zh">没有场所关联到场所组标识（facilityGroupId）${facilityGroupId}</value>
     </property>
     <property key="ManufacturingMrpFacilityGroupIsNotValid">
         <value xml:lang="en">facilityGroupId ${facilityGroupId} is not valid</value>
         <value xml:lang="it">Gruppo stabilimento ${facilityGroupId} non è valido</value>
+        <value xml:lang="zh">场所组标识（facilityGroupId）${facilityGroupId} 无效</value>
     </property>
     <property key="ManufacturingMrpFacilityNotAvailable">
         <value xml:lang="en">facilityId and facilityGroupId cannot be both null</value>
         <value xml:lang="it">Stabilimento e gruppo stabilimento non possono essere entrambi nulli</value>
+        <value xml:lang="zh">场所标识（facilityId）和场所组标识（facilityGroupId）不能都为空（null）</value>
     </property>
     <property key="ManufacturingMrpFacilityOrManufacturingFacilityNotAvailable">
         <value xml:lang="en">facilityId and manufacturingFacilityId cannot be null</value>
         <value xml:lang="it">Stabilimento e stabilimento di produzione non possono essere nulli</value>
+        <value xml:lang="zh">场所标识（facilityId）和生产场所标识（manufacturingFacilityId）不能为空</value>
     </property>
     <property key="ManufacturingMrpInitialisation">
         <value xml:lang="de">MRP-Initialisierung</value>
@@ -2878,18 +2906,22 @@
     <property key="ManufacturingProductionRunCannotBeCancelled">
         <value xml:lang="en">Cannot cancel productionRun, not in a valid status</value>
         <value xml:lang="it">Non è possibile cancellare l'ordin di produzione, non è in uno stato valido</value>
+        <value xml:lang="zh">无法取消生产运行（productionRun），状态无效</value>
     </property>
      <property key="ManufacturingProductionRunCannotDecomposingInventoryItem">
         <value xml:lang="en">Error decomposing inventory item: inventory item with id ${inventoryItemId} not found.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: riga inventario ${inventoryItemId} non trovata.</value>
+        <value xml:lang="zh">分解库存明细时出错：没有找到标识为 ${inventoryItemId} 的库存明细</value>
     </property>
     <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoComponentsFound">
         <value xml:lang="en">Error decomposing inventory item: no components found for marketing package ${productId}.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun componente trovato per il pacco di vendita ${productId}.</value>
+        <value xml:lang="zh">分解库存明细时出错：没有找到促销包 ${productId} 的组件。</value>
     </property>
     <property key="ManufacturingProductionRunCannotDecomposingInventoryItemNoMarketingPackagesFound">
         <value xml:lang="en">Error decomposing inventory item: no marketing packages found in inventory item ${inventoryItemId}.</value>
         <value xml:lang="it">Errore duranta la decomposizione della riga inventario: nessun pacco di vendita trovato nella riga di inventario ${inventoryItemId}.</value>
+        <value xml:lang="zh">分解库存明细时出错：没有在库存明细 ${inventoryItemId} 中找到促销包。</value>
     </property>
     <property key="ManufacturingProductionRunClose">
         <value xml:lang="de">Produktionsauftrag abschließen</value>
@@ -2952,6 +2984,7 @@
     <property key="ManufacturingProductionRunErrorRunningSetEstimatedDeliveryDates">
         <value xml:lang="en">Problem running the setEstimatedDeliveryDates service</value>
         <value xml:lang="it">Problema di esecuzione del servizio setEstimatedDeliveryDates</value>
+        <value xml:lang="zh">运行设置预计交货日期（setEstimatedDeliveryDates）服务时出错</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
@@ -3032,14 +3065,17 @@
     <property key="ManufacturingProductionRunForMarketingPackagesCreationError">
         <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: ${errorString}</value>
         <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: ${errorString}</value>
+        <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：${errorString}</value>
     </property>
     <property key="ManufacturingProductionRunForMarketingPackagesOrderItemNotFound">
         <value xml:lang="en">Error creating a production run for marketing package for order ${orderId} ${orderItemSeqId}: order item not found.</value>
         <value xml:lang="it">Errore durante la creazione dell'ordine di produzione per il pacco di vendita per l'ordine ${orderId} ${orderItemSeqId}: riga ordine non trovata.</value>
+        <value xml:lang="zh">为订单 ${orderId} ${orderItemSeqId} 的促销包创建一个生产运行时出错：没有找到订单明细</value>
     </property>
     <property key="ManufacturingProductionRunFromConfigurationNotYetImplemented">
         <value xml:lang="en">Operation not yet implemented</value>
         <value xml:lang="it">Operazione non è ancora implementata</value>
+        <value xml:lang="zh">还没有完成操作</value>
     </property>
     <property key="ManufacturingProductionRunFromConfigurationNotValid">
         <value xml:lang="en">Product Configuration Not Valid</value>
