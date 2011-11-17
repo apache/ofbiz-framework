@@ -543,7 +543,7 @@
     <property key="FormFieldTitle_noteDateTime">
         <value xml:lang="de">Notizdatumszeit</value>
         <value xml:lang="en">Note Date Time</value>
-        <value xml:lang="">Date de la note</value>
+        <value xml:lang="fr">Date de la note</value>
         <value xml:lang="it">Data ora nota</value>
         <value xml:lang="nl">Notitiedatum-tijd</value>
         <value xml:lang="pt_BR">Data e hora da nota</value>
@@ -1065,6 +1065,7 @@
         <value xml:lang="zh_TW">採購列表ID</value>
     </property>
     <property key="FormFieldTitle_shoppingListItemSeqId">
+        <value xml:lang="de">Folgenummer Einkaufslistenposition</value>
         <value xml:lang="en">Shopping List Item Seq Id</value>
         <value xml:lang="fr">Ligne de liste d'achat</value>
         <value xml:lang="it">Seq. riga lista d'acquisto</value>
@@ -2315,6 +2316,7 @@
         <value xml:lang="zh_TW">紙箱</value>
     </property>
     <property key="OrderChangedByUser">
+        <value xml:lang="de">Von Benutzer geändert</value>
         <value xml:lang="en">Changed by user</value>
         <value xml:lang="fr">Par l'utilisateur</value>
     </property>
@@ -2530,7 +2532,8 @@
         <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
     </property>
     <property key="OrderCompleteOrder">
-        <value xml:lang="de">Auftrag abschliessen</value>
+        <value xml:lang="de">Auftrag abschließen</value>
+        <value xml:lang="de_CH">Auftrag abschliessen</value>
         <value xml:lang="en">Complete Order</value>
         <value xml:lang="es">Cerrar el pedido</value>
         <value xml:lang="fr">Terminer la commande</value>
@@ -2850,6 +2853,8 @@
         <value xml:lang="zh_TW">新建報價明細</value>
     </property>
     <property key="OrderCreateOrderQuoteNote">
+        <value xml:lang="de">Neue Anmerkung zu Angebot erstellen</value>
+        <value xml:lang="de_CH">Neue Anmerkung zu Offerte erstellen</value>
         <value xml:lang="en">Create New Quote Note</value>
     </property>
     <property key="OrderCreateOrderQuoteRole">
@@ -5213,6 +5218,7 @@
         <value xml:lang="zh_TW">沒有有效位址</value>
     </property>
     <property key="OrderNoAgreementFoundWithIdNotDoingPromotions">
+        <value xml:lang="de">Keine Vereinbarung mit dieser ID gefunden. Es werden keine Aktion angewendet</value>
         <value xml:lang="en">No Agreement Found With Id Not Doing Promotions</value>
         <value xml:lang="fr">Pas d'accord trouvé avec cette référence. Aucune promotion activée</value>
         <value xml:lang="it">Nessun contratto trovato con questo id nessuna promozione verrà creata</value>
@@ -5221,6 +5227,7 @@
         <value xml:lang="zh_TW">找不到帶有不做促銷ID的合同</value>
     </property>
     <property key="OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions">
+        <value xml:lang="de">Kein Vereinbarungselement mit dieser ID gefunden. Es werden keine Aktion angewendet</value>
         <value xml:lang="en">No Agreement Item Found With Id Not Doing Promotions</value>
         <value xml:lang="fr">Pas ligne d'accord trouvée avec cette référence. Aucune promotion activée</value>
         <value xml:lang="it">Nessuna riga contratto trovata con questo id nessuna promozione verrà creata</value>
@@ -5430,7 +5437,7 @@
     </property>
     <property key="OrderNoQuoteFound">
         <value xml:lang="de">Keine Angebote gefunden</value>
-        <value xml:lang="de_DE">Keine Angebote gefunden</value>
+        <value xml:lang="de_CH">Keine Offerten gefunden</value>
         <value xml:lang="en">No Quotes Found</value>
         <value xml:lang="es">No se ha enontrado un presupuesto.</value>
         <value xml:lang="fr">Aucun devis trouvé</value>
@@ -8170,7 +8177,7 @@
         <value xml:lang="zh_TW">這個訂單當前處于『有效』狀態。</value>
     </property>
     <property key="OrderProcessingInHold">
-        <value xml:lang="de">Dieser Auftrag ist aktuel im 'Warten' Status. Die Aktivität wurde ausgesetzt.</value>
+        <value xml:lang="de">Dieser Auftrag ist aktuell im 'Warten' Status. Die Aktivität wurde ausgesetzt.</value>
         <value xml:lang="en">This order is currently in a 'Hold' state. The activity has been suspended.</value>
         <value xml:lang="es">Este pedido se encuentra en estado 'En espera'</value>
         <value xml:lang="fr">Cette commande est actuellement dans un état «Bloquée». L'activité a été suspendue.</value>
@@ -10683,7 +10690,7 @@
         <value xml:lang="zh_TW">收件人</value>
     </property>
     <property key="OrderSendConfirmationEmailSubject">
-        <value xml:lang="de">Thema</value>
+        <value xml:lang="de">Betreff</value>
         <value xml:lang="en">Subject</value>
         <value xml:lang="es">Asunto</value>
         <value xml:lang="fr">Objet</value>
@@ -11099,6 +11106,7 @@
         <value xml:lang="zh_TW">遞送資訊</value>
     </property>
     <property key="OrderShippingNotes">
+        <value xml:lang="de">Anmerkungen zum Versand</value>
         <value xml:lang="en">Shipping Notes</value>
         <value xml:lang="fr">Note d'expédition</value>
         <value xml:lang="it">Note di spedizione</value>
@@ -11637,7 +11645,7 @@
         <value xml:lang="zh_TW">合計</value>
     </property>
     <property key="OrderTotalCubicSize">
-        <value xml:lang="de">Total Volumen</value>
+        <value xml:lang="de">Gesamtvolumen</value>
         <value xml:lang="en">Total Cubic Size</value>
         <value xml:lang="es">Volumen total</value>
         <value xml:lang="fr">Volume total</value>
@@ -11687,7 +11695,7 @@
         <value xml:lang="zh_TW">其他訂單調整合計</value>
     </property>
     <property key="OrderTotalQty">
-        <value xml:lang="de">Total Menge</value>
+        <value xml:lang="de">Gesamtmenge</value>
         <value xml:lang="en">Total Qty</value>
         <value xml:lang="es">Cant. Total</value>
         <value xml:lang="fr">Qté totale</value>
@@ -11808,7 +11816,7 @@
         <value xml:lang="zh_TW">發貨和包裝合計</value>
     </property>
     <property key="OrderTotalWeight">
-        <value xml:lang="de">Total Gewicht</value>
+        <value xml:lang="de">Gesamtgewicht</value>
         <value xml:lang="en">Total  Weight</value>
         <value xml:lang="es">Peso total</value>
         <value xml:lang="fr">Poids total</value>
@@ -11961,6 +11969,7 @@
         <value xml:lang="zh_TW">更新明細</value>
     </property>
     <property key="OrderUpdateReturnAdjustment">
+        <value xml:lang="de">Retourenanpassung mit Id:${returnAdjustmentId} zu Betrag ${amount} erfolgreich geändert.</value>
         <value xml:lang="en">Update ReturnAdjustment with Id:${returnAdjustmentId} to amount ${amount} successfully.</value>
         <value xml:lang="fr">La mise à jour de ligne d'ajustement de référence ${returnAdjustmentId} a été effectuée avec le montant ${amount}.</value>
         <value xml:lang="it">Aggiornato aggiustamento reso:${returnAdjustmentId} per l'importo ${amount} con successo.</value>
@@ -11999,7 +12008,7 @@
         <value xml:lang="zh_TW">作為下一條記錄的預設評論</value>
     </property>
     <property key="OrderUseDefaultDesiredDeliveryDate">
-        <value xml:lang="de">Als voreingestellten gewünschten Liefertermin für den nächsten EIntrag verwenden</value>
+        <value xml:lang="de">Als voreingestellten gewünschten Liefertermin für den nächsten Eintrag verwenden</value>
         <value xml:lang="en">Use as default desired delivery date for next entry</value>
         <value xml:lang="es">Usar como fecha de envío deseada por defecto para los siguientes ítems</value>
         <value xml:lang="fr">Utiliser par défaut la date d'expédition souhaitée pour les autres lignes</value>
@@ -12356,7 +12365,7 @@
         <value xml:lang="zh_TW">使用代碼</value>
     </property>
     <property key="OrderWorkEffortRequirements">
-        <value xml:lang="de">Bedürfnisse</value>
+        <value xml:lang="de">Bedarfe</value>
         <value xml:lang="en">Requirements</value>
         <value xml:lang="es">Requisitos</value>
         <value xml:lang="fr">Besoins</value>
@@ -12637,6 +12646,7 @@
         <value xml:lang="zh_TW">查詢退貨</value>
     </property>
     <property key="PageTitleListOrderHeaders">
+        <value xml:lang="de">Auftragsköpfe anzeigen</value>
         <value xml:lang="en">List Order Headers</value>
         <value xml:lang="fr">Liste des entêtes de commande</value>
         <value xml:lang="it">Lista testate ordini</value>
@@ -13033,9 +13043,11 @@
         <value xml:lang="zh_TW">瀏覽要求</value>
     </property>
     <property key="QuoteEditNote">
+        <value xml:lang="de">Anmerkung bearbeiten</value>
         <value xml:lang="en">Update Note</value>
     </property>
     <property key="OrderRent">
+        <value xml:lang="de">Miete</value>
         <value xml:lang="en">Rent</value>
     </property>
 </resource>
