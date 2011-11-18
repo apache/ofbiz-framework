@@ -247,7 +247,9 @@ under the License.
                                     (1) the previous picklist was cancelled, or
                                     (2) the previous picklist was picked or packed, and there is still an OrderItemShipGrpInvRes, which means that some of the order item must not
                                     have shipped yet.  (OrderItemShipGrpInvRes is removed when an order item has been fully shipped.
-                                    We are using entity-condition instead of get-related because we want to exclude some picklists by status -->
+                                    We are using entity-condition instead of get-related because we want to exclude some picklists by status.
+                                    ** Calculate the total pick list items for this order and then subtracting it from the order item quantity 
+                                    which is reserved while placing order results in remaining quantity of that order item which still has to be pick. -->
                                 <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
                                     <condition-list combine="and">
                                         <condition-expr field-name="orderId" from-field="orderItemShipGrpInvRes.orderId"/>
@@ -259,8 +261,27 @@ under the License.
                                     </condition-list>
                                 </entity-condition>
                                 <log level="info" message="Pick list ITEMS - ${picklistItemList}"/>
-                                <!-- if all picklistItemList are not empty, don't include order as a pick candidate; keep a flag to see -->
-                                <if-empty field="picklistItemList">
+                                
+                                <set field="pickedItemQuantity" value="0" type="BigDecimal"/>
+                                <iterate list="picklistItemList" entry="picklistItem">
+                                    <calculate field="pickedItemQuantity">
+                                        <calcop operator="add" field="pickedItemQuantity">
+                                            <calcop operator="get" field="picklistItem.quantity"/>
+                                        </calcop>
+                                    </calculate>
+                                </iterate>
+                                <calculate field="remainingQuantityToBePicked" type="BigDecimal">
+                                    <calcop operator="subtract">
+                                        <calcop operator="get" field="orderItemShipGrpInvRes.quantity"/>
+                                        <calcop operator="get" field="pickedItemQuantity"/>
+                                    </calcop>
+                                </calculate>
+                                
+                                <!-- if the remaining quantity is greater than ZERO i.e. few quantity of the item is still not picked, then the
+                                     order will get included in the list and only that item will get included which is having some quantity to 
+                                     pick not other items which were already picked -->
+                                <if-compare field="remainingQuantityToBePicked" operator="greater" value="0" type="BigDecimal">
+                                    <set field="orderItemShipGrpInvRes.quantity" from-field="remainingQuantityToBePicked"/>
                                     <log level="info" message="The pick list item list is empty!"/>
                                     <!-- note that this is separate because we can't really use it as a break condition, must check all of them before any useful information is to be had -->
                                     <set value="N" field="allPickStarted"/>
@@ -318,9 +339,10 @@ under the License.
                                             <set from-field="facilityLocation" field="orderItemShipGrpInvResInfo.facilityLocation"/>
                                             <field-to-list field="orderItemShipGrpInvResInfo" list="orderItemShipGrpInvResInfoList"/>
                                             <clear-field field="orderItemShipGrpInvResInfo"/>
+                                            <field-to-list field="orderItemShipGrpInvRes" list="finalOrderItemShipGrpInvResList"/>
                                         </else>
                                     </if>
-                                </if-empty>
+                                </if-compare>
                             </if-compare>
                         </iterate>
 
@@ -357,7 +379,7 @@ under the License.
                                 <set from-field="orderHeader" field="orderHeaderInfo.orderHeader"/>
                                 <set from-field="orderItemShipGroup" field="orderHeaderInfo.orderItemShipGroup"/>
                                 <set from-field="orderItemAndShipGroupAssocList" field="orderHeaderInfo.orderItemAndShipGroupAssocList"/>
-                                <set from-field="orderItemShipGrpInvResList" field="orderHeaderInfo.orderItemShipGrpInvResList"/>
+                                <set from-field="finalOrderItemShipGrpInvResList" field="orderHeaderInfo.orderItemShipGrpInvResList"/>
                                 <set from-field="orderItemShipGrpInvResInfoList" field="orderHeaderInfo.orderItemShipGrpInvResInfoList"/>
 
                                 <!-- pick now, or needs stock move first? -->
@@ -395,6 +417,7 @@ under the License.
 
                         <clear-field field="orderItemAndShipGroupAssocList"/>
                         <clear-field field="orderItemShipGrpInvResInfoList"/>
+                        <clear-field field="finalOrderItemShipGrpInvResList"/>
                     </then>
                     <else>
                         <log level="info" message="Order is not a member of the requested shipment method: ${parameters.shipmentMethodTypeId}"/>
