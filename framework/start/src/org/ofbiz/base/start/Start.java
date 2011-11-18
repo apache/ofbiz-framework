@@ -236,7 +236,7 @@ public class Start {
     }
 
     private String sendSocketCommand(String command) throws IOException, ConnectException {
-    	String response = "OFBiz Down";
+    	String response = "OFBiz is Down";
     	
     	try {
     	Socket socket = new Socket(config.adminAddress, config.adminPort);
