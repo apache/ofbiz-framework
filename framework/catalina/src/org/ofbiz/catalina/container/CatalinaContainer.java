@@ -38,20 +38,26 @@ import javolution.util.FastList;
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Context;
 import org.apache.catalina.Engine;
+import org.apache.catalina.Globals;
 import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Manager;
-import org.apache.catalina.ServerFactory;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardEngine;
+import org.apache.catalina.core.StandardHost;
 import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.core.StandardWrapper;
+import org.apache.catalina.deploy.FilterDef;
+import org.apache.catalina.deploy.FilterMap;
+import org.apache.catalina.filters.RequestDumperFilter;
 import org.apache.catalina.ha.tcp.ReplicationValve;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
+import org.apache.catalina.loader.WebappLoader;
 import org.apache.catalina.realm.MemoryRealm;
 import org.apache.catalina.session.StandardManager;
-import org.apache.catalina.startup.Embedded;
+import org.apache.catalina.startup.ContextConfig;
+import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.tribes.group.GroupChannel;
 import org.apache.catalina.tribes.membership.McastService;
 import org.apache.catalina.tribes.transport.MultiPointSender;
@@ -59,9 +65,11 @@ import org.apache.catalina.tribes.transport.ReplicationTransmitter;
 import org.apache.catalina.tribes.transport.nio.NioReceiver;
 import org.apache.catalina.util.ServerInfo;
 import org.apache.catalina.valves.AccessLogValve;
-import org.apache.catalina.valves.RequestDumperValve;
 import org.apache.coyote.ProtocolHandler;
 import org.apache.coyote.http11.Http11Protocol;
+import org.apache.tomcat.JarScanner;
+import org.apache.tomcat.util.IntrospectionUtils;
+import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.container.ClassLoaderContainer;
@@ -148,7 +156,7 @@ public class CatalinaContainer implements Container {
     }
 
     protected Delegator delegator = null;
-    protected Embedded embedded = null;
+    protected Tomcat tomcat = null;
     protected Map<String, ContainerConfig.Container.Property> clusterConfig = new HashMap<String, ContainerConfig.Container.Property>();
     protected Map<String, Engine> engines = new HashMap<String, Engine>();
     protected Map<String, Host> hosts = new HashMap<String, Host>();
@@ -184,19 +192,24 @@ public class CatalinaContainer implements Container {
         this.catalinaRuntimeHome = ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina");
 
         // set catalina_home
-        System.setProperty("catalina.home", System.getProperty("ofbiz.home") + "/" + this.catalinaRuntimeHome);
+        System.setProperty(Globals.CATALINA_HOME_PROP, System.getProperty("ofbiz.home") + "/" + this.catalinaRuntimeHome);
+        System.setProperty(Globals.CATALINA_BASE_PROP, System.getProperty(Globals.CATALINA_HOME_PROP));
+
+        // create the instance of embedded Tomcat
+        System.setProperty("catalina.useNaming", String.valueOf(useNaming));
+        tomcat = new Tomcat();
+        tomcat.setBaseDir(System.getProperty("ofbiz.home"));
+        if (useNaming) {
+            tomcat.enableNaming();
+        }
 
         // configure JNDI in the StandardServer
-        StandardServer server = (StandardServer) ServerFactory.getServer();
+        StandardServer server = (StandardServer) tomcat.getServer();
         try {
             server.setGlobalNamingContext(new InitialContext());
         } catch (NamingException e) {
             throw new ContainerException(e);
         }
-
-        // create the instance of Embedded
-        embedded = new Embedded();
-        embedded.setUseNaming(useNaming);
 
         // create the engines
         List<ContainerConfig.Container.Property> engineProps = cc.getPropertiesWithValue("engine");
@@ -215,18 +228,12 @@ public class CatalinaContainer implements Container {
         for (ContainerConfig.Container.Property connectorProp: connectorProps) {
             createConnector(connectorProp);
         }
-
-        try {
-            embedded.initialize();
-        } catch (LifecycleException e) {
-            throw new ContainerException(e);
-        }
     }
 
     public boolean start() throws ContainerException {
-        // Start the embedded server
+        // Start the Tomcat server
         try {
-            embedded.start();
+            tomcat.getServer().start();
         } catch (LifecycleException e) {
             throw new ContainerException(e);
         }
@@ -234,11 +241,11 @@ public class CatalinaContainer implements Container {
         // load the web applications
         loadComponents();
 
-        for (Connector con: embedded.findConnectors()) {
+        for (Connector con: tomcat.getService().findConnectors()) {
             ProtocolHandler ph = con.getProtocolHandler();
             if (ph instanceof Http11Protocol) {
                 Http11Protocol hph = (Http11Protocol) ph;
-                Debug.logInfo("Connector " + hph.getProtocols() + " @ " + hph.getPort() + " - " +
+                Debug.logInfo("Connector " + hph.getName() + " @ " + hph.getPort() + " - " +
                     (hph.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
             } else {
                 Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
@@ -250,8 +257,8 @@ public class CatalinaContainer implements Container {
     }
 
     protected Engine createEngine(ContainerConfig.Container.Property engineConfig) throws ContainerException {
-        if (embedded == null) {
-            throw new ContainerException("Cannot create Engine without Embedded instance!");
+        if (tomcat == null) {
+            throw new ContainerException("Cannot create Engine without Tomcat instance!");
         }
 
         ContainerConfig.Container.Property defaultHostProp = engineConfig.getProperty("default-host");
@@ -262,7 +269,7 @@ public class CatalinaContainer implements Container {
         String engineName = engineConfig.name;
         String hostName = defaultHostProp.value;
 
-        StandardEngine engine = (StandardEngine) embedded.createEngine();
+        StandardEngine engine = new StandardEngine();
         engine.setName(engineName);
         engine.setDefaultHost(hostName);
 
@@ -273,7 +280,7 @@ public class CatalinaContainer implements Container {
         }
 
         // create the default realm -- TODO: make this configurable
-        String dbConfigPath = "catalina-users.xml";
+        String dbConfigPath = new File(System.getProperty("catalina.home"), "catalina-users.xml").getAbsolutePath();
         MemoryRealm realm = new MemoryRealm();
         realm.setPathname(dbConfigPath);
         engine.setRealm(realm);
@@ -295,13 +302,6 @@ public class CatalinaContainer implements Container {
             ContainerConfig.Container.Property clusterProp = clusterProps.get(0);
             createCluster(clusterProp, host);
             clusterConfig.put(engineName, clusterProp);
-        }
-
-        // request dumper valve
-        boolean enableRequestDump = ContainerConfig.getPropertyValue(engineConfig, "enable-request-dump", false);
-        if (enableRequestDump) {
-            RequestDumperValve rdv = new RequestDumperValve();
-            engine.addValve(rdv);
         }
 
         // configure the CrossSubdomainSessionValve
@@ -361,17 +361,19 @@ public class CatalinaContainer implements Container {
             engine.addValve(al);
         }
 
-        embedded.addEngine(engine);
+        tomcat.getService().setContainer(engine);
         return engine;
     }
 
     protected Host createHost(Engine engine, String hostName) throws ContainerException {
         Debug.logInfo("createHost(" + engine + ", " + hostName + ")", module);
-        if (embedded == null) {
-            throw new ContainerException("Cannot create Host without Embedded instance!");
+        if (tomcat == null) {
+            throw new ContainerException("Cannot create Host without Tomcat instance!");
         }
 
-        Host host = embedded.createHost(hostName, CATALINA_HOSTS_HOME);
+        Host host = new StandardHost();
+        host.setAppBase(CATALINA_HOSTS_HOME);
+        host.setName(hostName);
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
@@ -471,8 +473,8 @@ public class CatalinaContainer implements Container {
     }
 
     protected Connector createConnector(ContainerConfig.Container.Property connectorProp) throws ContainerException {
-        if (embedded == null) {
-            throw new ContainerException("Cannot create Connector without Embedded instance!");
+        if (tomcat == null) {
+            throw new ContainerException("Cannot create Connector without Tomcat instance!");
         }
 
         // need some standard properties
@@ -492,13 +494,56 @@ public class CatalinaContainer implements Container {
 
         Connector connector = null;
         if (UtilValidate.isNotEmpty(connectorProp.properties)) {
-            connector = embedded.createConnector(address, port, protocol);
+            if (address != null) {
+                /*
+                 * InetAddress.toString() returns a string of the form
+                 * "<hostname>/<literal_IP>". Get the latter part, so that the
+                 * address can be parsed (back) into an InetAddress using
+                 * InetAddress.getByName().
+                 */
+                int index = address.indexOf('/');
+                if (index != -1) {
+                    address = address.substring(index + 1);
+                }
+            }
+
+            Debug.logInfo("Creating connector for address='" +
+                          ((address == null) ? "ALL" : address) +
+                          "' port='" + port + "' protocol='" + protocol + "'", module);
+
+            try {
+
+                if (protocol.equals("ajp")) {
+                    connector = new Connector("org.apache.coyote.ajp.AjpProtocol");
+                } else if (protocol.equals("memory")) {
+                    connector = new Connector("org.apache.coyote.memory.MemoryProtocolHandler");
+                } else if (protocol.equals("http")) {
+                    connector = new Connector();
+                } else if (protocol.equals("https")) {
+                    connector = new Connector();
+                    connector.setScheme("https");
+                    connector.setSecure(true);
+                    connector.setProperty("SSLEnabled","true");
+                    // FIXME !!!! SET SSL PROPERTIES
+                } else {
+                    connector = new Connector(protocol);
+                }
+
+                if (address != null) {
+                    IntrospectionUtils.setProperty(connector, "address", "" + address);
+                }
+                IntrospectionUtils.setProperty(connector, "port", "" + port);
+
+            } catch (Exception e) {
+                Debug.logError(e, "Couldn't create connector.", module);
+            }
+            
             try {
                 for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
                     connector.setProperty(prop.name, prop.value);
                     //connector.setAttribute(prop.name, prop.value);
                 }
-                embedded.addConnector(connector);
+                tomcat.getService().addConnector(connector);
             } catch (Exception e) {
                 throw new ContainerException(e);
             }
@@ -536,6 +581,13 @@ public class CatalinaContainer implements Container {
             if (newHost) {
                 hosts.put(engine.getName() + "." + hostName, host);
             }
+        }
+        
+        if (host instanceof StandardHost) {
+            // set the catalina's work directory to the host
+            StandardHost standardHost = (StandardHost) host;
+            standardHost.setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP)
+                    , "work" + File.separator + engine.getName() + File.separator + host.getName()).getAbsolutePath());
         }
 
         return new Callable<Context>() {
@@ -581,13 +633,27 @@ public class CatalinaContainer implements Container {
         }
 
         // create the web application context
-        StandardContext context = (StandardContext) embedded.createContext(mount, location);
+        StandardContext context = new StandardContext();
+        context.setParent(host);
+        context.setDocBase(location);
+        context.setPath(mount);
+        context.addLifecycleListener(new ContextConfig());
+        
+        JarScanner jarScanner = context.getJarScanner();
+        if (jarScanner instanceof StandardJarScanner) {
+            StandardJarScanner standardJarScanner = (StandardJarScanner) jarScanner;
+            standardJarScanner.setScanClassPath(false);
+        }
+        
+        Engine egn = (Engine) context.getParent().getParent();
+        egn.setService(tomcat.getService());
+        
         Debug.logInfo("host[" + host + "].addChild(" + context + ")", module);
         //context.setDeployOnStartup(false);
         //context.setBackgroundProcessorDelay(5);
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
-        context.setLoader(embedded.createLoader(ClassLoaderContainer.getClassLoader()));
+        context.setLoader(new WebappLoader(ClassLoaderContainer.getClassLoader()));
 
         context.setCookies(appInfo.isSessionCookieAccepted());
         context.addParameter("cookies", appInfo.isSessionCookieAccepted() ? "true" : "false");
@@ -604,8 +670,22 @@ public class CatalinaContainer implements Container {
         context.getServletContext().setAttribute("_serverId", appInfo.server);
         context.getServletContext().setAttribute("componentName", appInfo.componentConfig.getComponentName());
 
+        // request dumper filter
+        String enableRequestDump = initParameters.get("enableRequestDump");
+        if ("true".equals(enableRequestDump)) {
+            // create the Requester Dumper Filter instance
+            FilterDef requestDumperFilterDef = new FilterDef();
+            requestDumperFilterDef.setFilterClass(RequestDumperFilter.class.getName());
+            requestDumperFilterDef.setFilterName("RequestDumper");
+            FilterMap requestDumperFilterMap = new FilterMap();
+            requestDumperFilterMap.setFilterName("RequestDumper");
+            requestDumperFilterMap.addURLPattern("*");
+            context.addFilterMap(requestDumperFilterMap);
+        }
+
         // create the Default Servlet instance to mount
         StandardWrapper defaultServlet = new StandardWrapper();
+        defaultServlet.setParent(context);
         defaultServlet.setServletClass("org.apache.catalina.servlets.DefaultServlet");
         defaultServlet.setServletName("default");
         defaultServlet.setLoadOnStartup(1);
@@ -617,6 +697,7 @@ public class CatalinaContainer implements Container {
 
         // create the Jasper Servlet instance to mount
         StandardWrapper jspServlet = new StandardWrapper();
+        jspServlet.setParent(context);
         jspServlet.setServletClass("org.apache.jasper.servlet.JspServlet");
         jspServlet.setServletName("jsp");
         jspServlet.setLoadOnStartup(1);
@@ -643,8 +724,8 @@ public class CatalinaContainer implements Container {
     }
 
     protected void loadComponents() throws ContainerException {
-        if (embedded == null) {
-            throw new ContainerException("Cannot load web applications without Embedded instance!");
+        if (tomcat == null) {
+            throw new ContainerException("Cannot load web applications without Tomcat instance!");
         }
 
         // load the applications
@@ -692,7 +773,7 @@ public class CatalinaContainer implements Container {
 
     public void stop() throws ContainerException {
         try {
-            embedded.stop();
+            tomcat.stop();
         } catch (LifecycleException e) {
             // don't throw this; or it will kill the rest of the shutdown process
             Debug.logVerbose(e, module); // happens usually when running tests, disabled unless in verbose
