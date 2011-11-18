@@ -405,6 +405,7 @@
         <value xml:lang="zh_TW">無法選擇另一個禮品，沒有找到用于 # ${alternateGwpLine} 的購物車行明細。 </value>
     </property>
     <property key="OrderCreateCommunicationEventProductPermissionError">
+        <value xml:lang="de">Berechtigungsfehler bei Produkt-Kommunikations-Ereignis</value>
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
         <value xml:lang="fr">Permission refusée sur la création d'une communication relative à un produit</value>
         <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
@@ -413,6 +414,7 @@
         <value xml:lang="zh_TW">創建溝通事件時出現產品權限錯誤</value>
     </property>
     <property key="OrderDispatcherOrDelegatorOrCartArgumentIsNull">
+        <value xml:lang="de">Dispatcher, Delegator oder Warenkorb ist null</value>
         <value xml:lang="en">Dispatcher or Delegator or Cart argument is null</value>
         <value xml:lang="es">El argumento del despachador, el delegador o el carro es nulo</value>
         <value xml:lang="fr">L'argument du dispatcher, du delegator ou du panier est nul</value>
@@ -425,6 +427,7 @@
         <value xml:lang="zh_TW">調度程式或代表程式或購物車參數是 null</value>
     </property>
     <property key="OrderDoesNotAppearToBeAValidPromotionalGift">
+        <value xml:lang="de">kein gültiges Aktions-Geschenk. </value>
         <value xml:lang="en">does not appear to be a valid promotional gift. </value>
         <value xml:lang="es">no parece ser un regalo promocional válido.</value>
         <value xml:lang="fr">ne semble pas être un cadeau promotionnel valable.</value>
@@ -438,6 +441,7 @@
         <value xml:lang="zh_TW">看起來不是一個有效的促銷禮品 </value>
     </property>
     <property key="OrderEmailFulfillmentTypeNotYetImplemented">
+        <value xml:lang="de">Email-Typ Fulfillment noch nicht implementiert</value>
         <value xml:lang="en">Email Fulfillment type not yet implemented</value>
         <value xml:lang="es">Tipo de realización de emails aún no implementado</value>
         <value xml:lang="fr">Type d'accomplissement des courriels non encore mis en oeuvre</value>
@@ -451,6 +455,7 @@
         <value xml:lang="zh_TW">電子郵件執行類型還沒有實現</value>
     </property>
     <property key="OrderError">
+        <value xml:lang="de">FEHLER : </value>
         <value xml:lang="en">ERROR : </value>
         <value xml:lang="es">ERROR:</value>
         <value xml:lang="fr">Erreur : </value>
@@ -464,18 +469,21 @@
         <value xml:lang="zh_TW">錯誤：</value>
     </property>
     <property key="OrderErrorAllItemsOfOrderAreAlreadyVerified">
+        <value xml:lang="de">FEHLER: Alle Positionen von Auftrag ${orderId} wurden schon geprüft</value>
         <value xml:lang="en">ERROR: All items of order #${orderId} are already verified</value>
         <value xml:lang="fr">ERREUR : Toutes les lignes de la commande ${orderId} sont déjà vérifiées</value>
         <value xml:lang="nl">Fout: Alle regels van de bestelling met nummer #${orderId} zijn al gevalideerd</value>
         <value xml:lang="pt_BR">ERRO: Todos os itens do pedido #${orderId} já foram verificados</value>
     </property>
     <property key="OrderErrorAttemptToVerifyOrderFailed">
+        <value xml:lang="de">FEHLER: Der Versuch Auftrag #${orderId} zu prüfen schlug fehl</value>
         <value xml:lang="en">ERROR: Attempt to verify order #${orderId} failed</value>
         <value xml:lang="fr">ERREUR : La vérification de la commande ${orderId} a échoué</value>
         <value xml:lang="nl">Fout Poging om bestelling met nummer #${orderId} te controleren is mislukt</value>
         <value xml:lang="pt_BR">ERRO: Tentativa de verificar pedido #${orderId} falhou</value>
     </property>
     <property key="OrderErrorCallingCountProductQuantityOrderedService">
+        <value xml:lang="de">Fehler beim Aufruf des countProductQuantityOrdered Service : </value>
         <value xml:lang="en">Error calling countProductQuantityOrdered service : </value>
         <value xml:lang="es">Error al llamar al servicio countProductQuantityOrdered:</value>
         <value xml:lang="fr">Erreur lors de l'appel de countProductQuantityOrdered : </value>
@@ -489,6 +497,7 @@
         <value xml:lang="zh_TW">調用 countProductQuantityOrdered 服務時出錯： </value>
     </property>
     <property key="OrderErrorCallingCreateOrderAdjustmentService">
+        <value xml:lang="de">Fehler beim Aufruf des createOrderAdjustment Service : </value>
         <value xml:lang="en">Error calling createOrderAdjustment service</value>
         <value xml:lang="es">Error de invocación del servicio createOrderAdjustment</value>
         <value xml:lang="fr">Erreur lors de l'appel du service de createOrderAdjustment</value>
@@ -501,6 +510,7 @@
         <value xml:lang="zh_TW">調用 createOrderAdjustment 服務時出錯</value>
     </property>
     <property key="OrderErrorCannotCancelItemItemNotFound">
+        <value xml:lang="de">FEHLER : Position kann nicht storniert werden; Position nicht gefunden : ${itemMsgInfo}</value>
         <value xml:lang="en">ERROR : Cannot cancel item; item not found : ${itemMsgInfo}</value>
         <value xml:lang="es">ERROR: No se puede cancelar el ítem; ítem no encontrado: ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : Ne peut pas annuler l'article; article non trouvé : ${itemMsgInfo}</value>
@@ -514,6 +524,7 @@
         <value xml:lang="zh_TW">錯誤：無法取消明細；沒有找到明細：${itemMsgInfo}</value>
     </property>
     <property key="OrderErrorCannotChangeItemStatusItemNotFound">
+        <value xml:lang="de">FEHLER : Status der Position kann nicht geändert werden; Position nicht gefunden</value>
         <value xml:lang="en">ERROR : Cannot change item status; item not found. </value>
         <value xml:lang="es">ERROR: No se pudo cambiar el estado; ítem no encontrado.</value>
         <value xml:lang="fr">Erreur : Ne peut pas changer le status de l'article; article non trouvé.</value>
@@ -527,6 +538,7 @@
         <value xml:lang="zh_TW">錯誤：無法修改明細狀態；沒有找到明細。 </value>
     </property>
     <property key="OrderErrorCannotCheckForFulfillmentItemNotFound">
+        <value xml:lang="de">FEHLER : Fulfillment kann nicht geprüft werden; Position nicht gefunden</value>
         <value xml:lang="en">ERROR : Cannot check for fulfillment; item not found. </value>
         <value xml:lang="es">ERROR: No se pudo comprobar la realización; ítem no encontrado.</value>
         <value xml:lang="fr">Erreur : Ne peut pas vérifier l'exécution; article non trouvé.</value>
@@ -540,6 +552,7 @@
         <value xml:lang="zh_TW">錯誤：無法檢查執行；沒有找到明細。 </value>
     </property>
     <property key="OrderErrorCannotCheckForFulfillmentProductNotFound">
+        <value xml:lang="de">FEHLER : Fulfillment kann nicht geprüft werden; Produkt nicht gefunden</value>
         <value xml:lang="en">ERROR: Cannot check for fulfillment; product not found. </value>
         <value xml:lang="es">ERROR: No se pudo comprobar la realización; producto no encontrado.</value>
         <value xml:lang="fr">Erreur : Ne peut pas vérifier l'exécution; article non trouvé.</value>
@@ -553,6 +566,7 @@
         <value xml:lang="zh_TW">錯誤：無法檢查執行；沒有找到產品。 </value>
     </property>
     <property key="OrderErrorCannotCreateAdjustment">
+        <value xml:lang="de">FEHLER : Anpassung kann nicht erstellt werden</value>
         <value xml:lang="en">ERROR : Cannot create adjustment</value>
         <value xml:lang="es">ERROR: No puede crear el ajuste</value>
         <value xml:lang="fr">Erreur : Ne peut pas créer l'ajustement : </value>
@@ -566,6 +580,7 @@
         <value xml:lang="zh_TW">錯誤：無法創建調整</value>
     </property>
     <property key="OrderErrorCannotGetOrderHeaderEntity">
+        <value xml:lang="de">FEHLER : Auftragskopf kann nicht gelesen werden : </value>
         <value xml:lang="en">ERROR : Cannot get OrderHeader entity : </value>
         <value xml:lang="es">ERROR: No puede obtener la entidad del encabezado del pedido:</value>
         <value xml:lang="fr">Erreur : Ne peut pas obtenir l'entité de l'en-tête de la commande : </value>
@@ -579,6 +594,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得 訂單頭 實體： </value>
     </property>
     <property key="OrderErrorCannotGetOrderItemAssocEntity">
+        <value xml:lang="de">FEHLER : Auftragsposition-Zuordnung kann nicht gelesen werden : ${itemMsgInfo}</value>
         <value xml:lang="en">ERROR : Cannot get OrderItem Assoc entity : ${itemMsgInfo}</value>
         <value xml:lang="es">ERROR: No puede obtener la entidad de la asociación de los ítems del pedido ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité d'association des articles de la commande ${itemMsgInfo}</value>
@@ -592,6 +608,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得 訂單明細關聯 實體：${itemMsgInfo}</value>
     </property>
     <property key="OrderErrorCannotGetOrderItemEntity">
+        <value xml:lang="de">FEHLER : Auftragsposition kann nicht gelesen werden : </value>
         <value xml:lang="en">ERROR: Cannot get OrderItem entity :</value>
         <value xml:lang="es">ERROR: No puede obtener la entidad de los ítems del pedido :</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité des articles de la commande : </value>
@@ -605,6 +622,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得 訂單明細 實體：</value>
     </property>
     <property key="OrderErrorCannotGetOrderRoleEntity">
+        <value xml:lang="de">FEHLER : Auftrags-Rolle kann nicht gelesen werden : ${itemMsgInfo}</value>
         <value xml:lang="en">ERROR : Cannot get OrderRole entity : ${itemMsgInfo}</value>
         <value xml:lang="es">ERROR: No puede obtener la entidad del rol del pedido : ${itemMsgInfo}</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité du rôle de la commande ${itemMsgInfo}</value>
@@ -618,6 +636,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得 訂單角色 實體：${itemMsgInfo}</value>
     </property>
     <property key="OrderErrorCannotGetProductEntity">
+        <value xml:lang="de">FEHLER : Produkt kann nicht gelesen werden : </value>
         <value xml:lang="en">ERROR : Cannot get Product entity : </value>
         <value xml:lang="es">ERROR: No se pudo obtener la entidad del producto:</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité Product</value>
@@ -631,6 +650,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得 產品 實體： </value>
     </property>
     <property key="OrderErrorCannotHaveUomWithoutDefaultUom">
+        <value xml:lang="de">Fehler:  Maßeinheit ohne Voreinstellung nicht möglich</value>
         <value xml:lang="en">Error:  Cannot  Have  Uom  Without  Default  Uom</value>
         <value xml:lang="es">Error: No puede tener una unidad de medida si el ítem no tiene una unidad de medida por defecto</value>
         <value xml:lang="fr">Erreur : impossible d'avoir une unité de mesure sans valeur par défaut</value>
@@ -642,6 +662,7 @@
         <value xml:lang="zh_TW">錯誤：沒有缺省度量單位的話就不能有度量單位</value>
     </property>
     <property key="OrderErrorCannotResetOrderTotals">
+        <value xml:lang="de">FEHLER : Auftragssumme kann nicht zurückgesetzt werden - ${orderId} : ${resetResult}</value>
         <value xml:lang="en">ERROR : Cannot reset order totals - ${orderId} : ${resetResult}</value>
         <value xml:lang="es">ERROR: No puede volver a poner los totales del pedido - ${orderId} : ${resetResult}</value>
         <value xml:lang="fr">Erreur : impossible de remettre à zéro les totaux de la commande - ${orderId} : ${resetResult}</value>
@@ -654,6 +675,7 @@
         <value xml:lang="zh_TW">錯誤：無法重置訂單合計 - ${orderId} : ${resetResult}</value>
     </property>
     <property key="OrderErrorCannotStoreStatusChanges">
+        <value xml:lang="de">FEHLER : Statusänderungen können nicht gespeichert werden : </value>
         <value xml:lang="en">ERROR : Cannot store status changes : </value>
         <value xml:lang="es">ERROR: No puede almacenar los cambios de estado:</value>
         <value xml:lang="fr">Erreur : impossible d'enregistrer les changements de statut : </value>
@@ -666,6 +688,7 @@
         <value xml:lang="zh_TW">錯誤：無法存儲狀態修改： </value>
     </property>
     <property key="OrderErrorCouldNotChangeItemStatus">
+        <value xml:lang="de">FEHLER: Positionsstatus konnte nicht geändert werden : </value>
         <value xml:lang="en">ERROR: Could not change item status : </value>
         <value xml:lang="es">Error: No puede cambiar el estado del ítem</value>
         <value xml:lang="fr">Erreur : impossible de changer le status de l'article : </value>
@@ -678,6 +701,7 @@
         <value xml:lang="zh_TW">錯誤：無法修改明細狀態： </value>
     </property>
     <property key="OrderErrorCouldNotChangeOrderStatus">
+        <value xml:lang="de">FEHLER: Auftragsstatus konnte nicht geändert werden</value>
         <value xml:lang="en">ERROR : Could not change order status (</value>
         <value xml:lang="es">ERROR: No puede cambiar el estado del pedido (</value>
         <value xml:lang="fr">Impossible de changer le statut de la commande (</value>
@@ -690,11 +714,13 @@
         <value xml:lang="zh_TW">錯誤：無法修改訂單狀態 (</value>
     </property>
     <property key="OrderErrorCouldNotChangeOrderStatusFromTo">
+        <value xml:lang="de">Status ist keine gültige Änderung: von ${custRequest.statusId} nach ${parameters.statusId}</value>
         <value xml:lang="en">Status is not a valid change: from ${custRequest.statusId} to ${parameters.statusId}</value>
         <value xml:lang="fr">Le changement de statut de ${custRequest.statusId} à ${parameters.statusId} n'est pas autorisé</value>
         <value xml:lang="it">Cambio di stato non è valido: da ${custRequest.statusId} a ${parameters.statusId}</value>
     </property>
     <property key="OrderErrorCouldNotChangeOrderStatusOrderCannotBeFound">
+        <value xml:lang="de">FEHLER: Auftragsstatus konnte nicht geändert werden, Auftrag nicht gefunden</value>
         <value xml:lang="en">ERROR : Could not change order status; order cannot be found.</value>
         <value xml:lang="es">ERROR: No puede cambiar el estado del pedido; el pedido no se encuentra.</value>
         <value xml:lang="fr">Erreur : impossible de changer le statut de la commande; commande introuvable. </value>
@@ -707,6 +733,7 @@
         <value xml:lang="zh_TW">錯誤：無法修改訂單狀態；沒有找到訂單。</value>
     </property>
     <property key="OrderErrorCouldNotChangeOrderStatusStatusIsNotAValidChange">
+        <value xml:lang="de">FEHLER: Auftragsstatus konnte nicht geändert werden, Status ist keine gültige Änderung</value>
         <value xml:lang="en">ERROR : Could not change order status; status is not a valid change. </value>
         <value xml:lang="es">ERROR: No puede cambiar el estado del pedido; el estado no puede cambiarse.</value>
         <value xml:lang="fr">Erreur : impossible de changer le statut de la commande; le statut ne peut pas être changé.</value>
@@ -719,6 +746,7 @@
         <value xml:lang="zh_TW">錯誤：無法修改訂單狀態；狀態不是一個有效的修改。 </value>
     </property>
     <property key="OrderErrorCouldNotCreateOrderPaymentPreferenceIdGenerationFailure">
+        <value xml:lang="de">FEHLER : Zahlungspräferenz für Auftrag konnte nicht erstellt werden (Id-Erstellung schlug fehl)</value>
         <value xml:lang="en">ERROR : Could not create OrderPaymentPreference (id generation failure)</value>
         <value xml:lang="es">ERROR: No puede crear la preferencia de pago del pedido (fallo de la generación de código)</value>
         <value xml:lang="fr">Erreur : impossible de créer la préférence de paiement de la commande (échec de l'identifiant de la génération)</value>
