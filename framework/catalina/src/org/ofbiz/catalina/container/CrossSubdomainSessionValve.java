@@ -23,9 +23,9 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 
-import org.apache.catalina.Globals;
 import org.apache.catalina.connector.Request;
 import org.apache.catalina.connector.Response;
+import org.apache.catalina.core.ApplicationSessionCookieConfig;
 import org.apache.catalina.valves.ValveBase;
 import org.apache.tomcat.util.buf.MessageBytes;
 import org.apache.tomcat.util.http.MimeHeaders;
@@ -48,11 +48,11 @@ public class CrossSubdomainSessionValve extends ValveBase {
         request.getSession(true);
 
         // replace any Tomcat-generated session cookies with our own
-        Cookie[] cookies = response.getCookies();
+        Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
                 Cookie cookie = cookies[i];
-                if (Globals.SESSION_COOKIE_NAME.equals(cookie.getName())) {
+                if (ApplicationSessionCookieConfig.getSessionCookieName(null).equals(cookie.getName())) {
                     replaceCookie(request, response, cookie);
                 }
             }
@@ -107,7 +107,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
             }
 
             // find the Set-Cookie header for the existing cookie and replace its value with new cookie
-            MimeHeaders mimeHeaders = response.getCoyoteResponse().getMimeHeaders();
+            MimeHeaders mimeHeaders = request.getCoyoteRequest().getMimeHeaders();
             for (int i = 0, size = mimeHeaders.size(); i < size; i++) {
                 if (mimeHeaders.getName(i).equals("Set-Cookie")) {
                     MessageBytes value = mimeHeaders.getValue(i);

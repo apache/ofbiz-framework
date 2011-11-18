@@ -44,18 +44,12 @@ public class OfbizStore extends StoreBase implements Store {
     public static final String module = OfbizStore.class.getName();
     public static final String entityName = "CatalinaSession";
 
-    protected static String info = "OfbizStore/1.0";
     protected static String storeName = "OfbizStore";
 
     protected Delegator delegator = null;
 
     public OfbizStore(Delegator delegator) {
         this.delegator = delegator;
-    }
-
-    @Override
-    public String getInfo() {
-        return info;
     }
 
     @Override
