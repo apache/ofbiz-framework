@@ -179,6 +179,11 @@ under the License.
                 <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
             </link>
         </menu-item>
+        <menu-item name="WebAnalytics" title="${uiLabelMap.CatalogWebAnalytics}">
+            <link target="WebAnalytics">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
+        </menu-item>
     </menu>
     <menu name="blog"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
@@ -285,5 +290,18 @@ under the License.
         <menu-item name="EditWebSite" title="${uiLabelMap.ContentCreateNewWebSite}" widget-style="buttontext create">
             <link target="EditWebSite"/>
         </menu-item>
+    </menu>
+    <!-- Web Analytics -->
+    <menu name="WebAnalyticsConfigButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
+        <menu-item name="EditWebAnalyticsConfig" title="${uiLabelMap.CommonCreate}">
+            <link target="EditWebAnalyticsConfig" style="buttontext create">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
+        </menu-item>
+        <!--<menu-item name="WebAnalyticsTypes" title="Create ${uiLabelMap.CatalogWebAnalyticsTypes}">
+            <link target="EditWebAnalyticsType" style="buttontext create">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
+        </menu-item>-->
     </menu>
 </menus>

@@ -31,7 +31,6 @@ under the License.
         <menu-item name="configs" title="${uiLabelMap.ProductConfigItems}"><link target="FindProductConfigItems"/></menu-item>
         <menu-item name="Subscription" title="${uiLabelMap.ProductSubscriptions}"><link target="FindSubscription"/></menu-item>
         <menu-item name="shipping" title="${uiLabelMap.ProductShipping}"><link target="ListShipmentMethodTypes"/></menu-item>
-        <menu-item name="WebAnalytics" title="${uiLabelMap.CatalogWebAnalytics}"><link target="WebAnalytics"/></menu-item>
         <menu-item name="Imagemanagement" title="${uiLabelMap.ImageManagement}"><link target="Imagemanagement"/></menu-item>
     </menu>
 
@@ -576,24 +575,6 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="WebAnalyticsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="WebAnalyticsConfigs" title="${uiLabelMap.CatalogWebAnalyticsConfigs}">
-            <link target="WebAnalyticsConfigs"/>
-        </menu-item>
-        <menu-item name="WebAnalyticsTypes" title="${uiLabelMap.CatalogWebAnalyticsTypes}">
-            <link target="WebAnalyticsTypes"/>
-        </menu-item>
-    </menu>
-
-    <menu name="WebAnalyticsConfigButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
-        <menu-item name="FindWebAnalyticsConfigs" title="${uiLabelMap.CommonFind}"><link target="FindWebAnalyticsConfigs"/></menu-item>
-        <menu-item name="EditWebAnalyticsConfig" title="${uiLabelMap.CommonNew}"><link target="EditWebAnalyticsConfig"/></menu-item>
-    </menu>
-
-    <menu name="WebAnalyticsTypeButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
-        <menu-item name="FindWebAnalyticsTypes" title="${uiLabelMap.CommonFind}"><link target="FindWebAnalyticsTypes"/></menu-item>
-        <menu-item name="EditWebAnalyticsType" title="${uiLabelMap.CommonNew}"><link target="EditWebAnalyticsType"/></menu-item>
-    </menu>
 
      <menu name="ImageManagementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="userTabButtonImage">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">

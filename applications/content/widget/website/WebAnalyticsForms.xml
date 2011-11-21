@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="ListWebAnalyticsConfig" type="list" list-name="listIt" paginate-target="FindWebAnalyticsConfigs" default-entity-name="WebAnalyticsConfig" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="webAnalyticsConfigCtx"/>
+                <field-map field-name="entityName" value="WebAnalyticsConfig"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="WebAnalyticsConfig" default-field-type="display"/>
+        <field name="webAnalyticsTypeId" title="${uiLabelMap.CommonType}">
+            <display-entity entity-name="WebAnalyticsType" description="${description} [${webAnalyticsTypeId}]"/>
+        </field>
+        <field name="webAnalyticsCode">
+            <hyperlink target="EditWebAnalyticsConfig" description="${webAnalyticsCode}">
+                <parameter param-name="productStoreId"/>
+                <parameter param-name="webAnalyticsTypeId"/>
+                <parameter param-name="webSiteId"/>
+            </hyperlink>
+        </field>
+        <field name="webSiteId"><hidden value="${webSiteId}"/></field>
+        <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
+            <hyperlink target="deleteWebAnalyticsConfig" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="webSiteId"/>
+                <parameter param-name="webAnalyticsTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+
+    <form name="EditWebAnalyticsConfig" type="single" target="updateWebAnalyticsConfig" title="" default-map-name="webAnalyticsConfig"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="webAnalyticsConfig==null" target="createWebAnalyticsConfig"/>
+        <auto-fields-service service-name="updateWebAnalyticsConfig" map-name="webAnalyticsConfig"/>
+        <field use-when="webAnalyticsConfig!=null" name="webAnalyticsTypeId" tooltip="${uiLabelMap.CommonNotModifRecreat}" title="${uiLabelMap.CatalogWebAnalyticsType}">
+            <display-entity entity-name="WebAnalyticsType"/>
+        </field>
+        <field use-when="webAnalyticsConfig==null&amp;&amp;webAnalyticsTypeId==null" name="webAnalyticsTypeId" title="${uiLabelMap.CatalogWebAnalyticsType}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="WebAnalyticsType" description="${description}">
+                    <entity-order-by field-name="webAnalyticsTypeId"/>
+                </entity-options>
+            </drop-down>
+         </field>
+         <field use-when="webAnalyticsConfig==null&amp;&amp;webAnalyticsTypeId!=null" name="webAnalyticsTypeId" title="${uiLabelMap.CatalogWebAnalyticsType}" tooltip="${uiLabelMap.CommonCannotBeFound}:[${webAnalyticsTypeId}]">
+            <text size="20" maxlength="20"/>
+        </field>
+        <field name="webSiteId" title="${uiLabelMap.CommonWebsite}"><hidden value="${parameters.webSiteId}"/></field>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        <field use-when="webAnalyticsConfig!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="webAnalyticsConfig==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+</forms>

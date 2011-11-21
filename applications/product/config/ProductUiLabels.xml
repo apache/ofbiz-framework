@@ -24,19 +24,26 @@
         <value xml:lang="en">Add new Product Feature to current product</value>
     </property>
     <property key="CatalogWebAnalytics">
+        <value xml:lang="de">Web Analytik</value>
         <value xml:lang="en">Web Analytics</value>
         <value xml:lang="it">Analisi Web</value>
         <value xml:lang="zh_TW">網站分析</value>
     </property>
     <property key="CatalogWebAnalyticsConfigs">
+        <value xml:lang="de">Web Analytik Konfiguration</value>
         <value xml:lang="en">Web Analytics Configuration</value>
         <value xml:lang="it">Configurazione analisi Web</value>
         <value xml:lang="zh_TW">網站分析配置</value>
     </property>
     <property key="CatalogWebAnalyticsTypes">
+        <value xml:lang="de">Web Analytik Typen</value>
         <value xml:lang="en">Web Analytics Types</value>
         <value xml:lang="it">Tipi di analisi Web</value>
         <value xml:lang="zh_TW">網站分析型態</value>
+    </property>
+    <property key="CatalogWebAnalyticsType">
+        <value xml:lang="de">Web Analytik Typ</value>
+        <value xml:lang="en">Web Analytics Type</value>
     </property>
     <property key="CreateNewProductFeatureType">
         <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
@@ -5755,6 +5762,10 @@
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh_TW">視覺風格</value>
     </property>
+    <property key="FormFieldTitle_webAnalyticsCode">
+        <value xml:lang="de">Web Analytik Code</value>
+        <value xml:lang="en">Web Analytics Code</value>
+    </property>
     <property key="FormFieldTitle_weightBreakId">
         <value xml:lang="de">Gewicht Sprung ID</value>
         <value xml:lang="en">Weight Break Id</value>
@@ -7576,11 +7587,18 @@
         <value xml:lang="zh">编辑经销商产品</value>
         <value xml:lang="zh_TW">編輯經銷商產品</value>
     </property>
+    <property key="PageTitleEditWebAnalyticsConfig">
+        <value xml:lang="de">Web Analytik Konfiguration</value>
+        <value xml:lang="en">Edit Web Analytics Configuration</value>
+        <value xml:lang="it">Aggiorna configurazione analisi Web</value>
+    </property>
     <property key="PageTitleEditWebAnalyticsConfigs">
+        <value xml:lang="de">Web Analytik Konfiguration bearbeiten</value>
         <value xml:lang="en">Edit Web Analytics Configuration</value>
         <value xml:lang="it">Aggiorna configurazione analisi Web</value>
     </property>
     <property key="PageTitleEditWebAnalyticsTypes">
+        <value xml:lang="de">Web Analytik Typ bearbeiten</value>
         <value xml:lang="en">Edit Web Analytics Types</value>
         <value xml:lang="it">Aggiorna tipi di analisi Web</value>
     </property>
@@ -7595,6 +7613,7 @@
         <value xml:lang="en">Facility Geo Location</value>
     </property>
     <property key="PageTitleFindCategory">
+        <value xml:lang="de">Kategorie suchen</value>
         <value xml:lang="en">Find Category</value>
         <value xml:lang="th">ค้นหาหมวดหมู่</value>
     </property>
@@ -7797,10 +7816,12 @@
         <value xml:lang="zh_TW">查找訂閱資源</value>
     </property>
     <property key="PageTitleFindWebAnalyticsConfigs">
+        <value xml:lang="de">Web Analytik Einstellungen suchen</value>
         <value xml:lang="en">Find Web Analytics Configuration</value>
         <value xml:lang="it">Ricerca configurazioni analisi Web</value>
     </property>
     <property key="PageTitleFindWebAnalyticsTypes">
+        <value xml:lang="de">Web Analytik Typen suchen</value>
         <value xml:lang="en">Find Web Analytics Types</value>
         <value xml:lang="it">Ricerca tipi di analisi Web</value>
     </property>
