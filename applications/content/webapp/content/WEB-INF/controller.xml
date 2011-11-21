@@ -1904,6 +1904,51 @@ under the License.
         <response name="error" type="view" value="WebSiteContactList"/>
     </request-map>
     
+    <!-- Web Analytics Request Mappings -->
+    <request-map uri="WebAnalytics">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsConfigs"/>
+        <response name="error" type="view" value="FindWebAnalyticsConfigs"/>
+    </request-map>
+    <request-map uri="WebAnalyticsConfigs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsConfigs"/>
+        <response name="error" type="view" value="FindWebAnalyticsConfigs"/>
+    </request-map>
+    <request-map uri="FindWebAnalyticsConfigs">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindWebAnalyticsConfigs"/>
+        <response name="error" type="view" value="FindWebAnalyticsConfigs"/>
+    </request-map>
+    <request-map uri="EditWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditWebAnalyticsConfig"/>
+        <response name="error" type="view" value="EditWebAnalyticsConfig"/>
+    </request-map>
+    <request-map uri="createWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWebAnalyticsConfig"/>
+        <response name="success" type="request-redirect" value="FindWebAnalyticsConfigs">
+            <redirect-parameter name="webSiteId"/>
+        </response>
+        <response name="error" type="view" value="EditWebAnalyticsConfig"/>
+    </request-map>
+    <request-map uri="updateWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWebAnalyticsConfig"/>
+        <response name="success" type="request-redirect" value="FindWebAnalyticsConfigs">
+            <redirect-parameter name="webSiteId"/>
+        </response>
+        <response name="error" type="view" value="EditWebAnalyticsConfig"/>
+    </request-map>
+    <request-map uri="deleteWebAnalyticsConfig">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWebAnalyticsConfig"/>
+        <response name="success" type="request-redirect" value="FindWebAnalyticsConfigs">
+            <redirect-parameter name="webSiteId"/>
+        </response>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
@@ -2085,6 +2130,10 @@ under the License.
     <!-- content keyword search view -->
     <view-map name="ContentSearchOptions" type="screen" page="component://content/widget/content/ContentScreens.xml#ContentSearchOptions"/>
     <view-map name="ContentSearchResults" type="screen" page="component://content/widget/content/ContentScreens.xml#ContentSearchResults"/>
+    
+    <!-- Web Analytics View -->
+    <view-map name="FindWebAnalyticsConfigs" type="screen" page="component://content/widget/WebAnalyticsScreens.xml#FindWebAnalyticsConfigs"/>
+    <view-map name="EditWebAnalyticsConfig" type="screen" page="component://content/widget/WebAnalyticsScreens.xml#EditWebAnalyticsConfig"/>
     
     <!-- end of view mappings -->
 </site-conf>

@@ -4787,40 +4787,6 @@ under the License.
       <prim-key field="supplierRatingTypeId"/>
     </entity>
     
-    <entity entity-name="WebAnalyticsConfig"
-            package-name="org.ofbiz.product.catalog"
-            title="Web Analytics Configuration">
-        <field name="productStoreId" type="id-ne"></field> 
-        <field name="webAnalyticsTypeId" type="id-ne"></field>
-        <field name="webSiteId" type="id"></field>
-        <field name="webAnalyticsCode" type="very-long"><description>copy in here the analitics javascript code without the beginning- and end&lt;script&gt; tags</description></field>
-        <field name="isEnabled" type="indicator"></field>
-        <field name="description" type="description"></field>
-        <prim-key field="productStoreId"/>
-        <prim-key field="webAnalyticsTypeId"/>      
-        <relation type="one" fk-name="WANA_PROD_STORE" rel-entity-name="ProductStore">
-            <key-map field-name="productStoreId"/>
-        </relation>
-        <relation type="one" fk-name="WANA_TYPE" rel-entity-name="WebAnalyticsType">
-          <key-map field-name="webAnalyticsTypeId"/>
-        </relation>
-        <relation type="one" fk-name="WANA_WEBSITE" rel-entity-name="WebSite">
-            <key-map field-name="webSiteId"/>
-        </relation>
-    </entity>
-
-    <entity entity-name="WebAnalyticsType" package-name="org.ofbiz.product.catalog"
-        title="Web Analytics Type Entity">
-        <field name="webAnalyticsTypeId" type="id-ne"></field>
-        <field name="parentTypeId" type="id"></field>
-        <field name="hasTable" type="indicator"></field>
-        <field name="description" type="description"></field>
-        <prim-key field="webAnalyticsTypeId"/>
-        <relation type="one" fk-name="WANA_TYP_PARENT" title="Parent" rel-entity-name="WebAnalyticsType">
-            <key-map field-name="parentTypeId" rel-field-name="webAnalyticsTypeId"/>
-        </relation>
-    </entity>
-
     <entity entity-name="ProductPromoContent"
             package-name="org.ofbiz.product.promo"
             title="Product Promo Content Entity">
