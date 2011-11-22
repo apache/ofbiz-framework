@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testGroupOrderLimitReached" short-description="Test GroupOrder the limit is reached" login-required="false">
+        <!-- Test GroupOrder the limit is reached
+             Step 1) Create GroupOrder .
+             Step 2) Create order.
+             Step 3) Check soldOrderQty is added.
+             Step 4) Check Order Item should approved.
+        -->
+        <!-- Step 1 -->
+        <now-timestamp field="nowTimestamp"/>
+        <set field="days" value="1" type="Integer"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="thruDate">
+            <field field="nowTimestamp" type="java.sql.Timestamp"/>
+            <field field="days" type="int"/>
+        </call-class-method>
+        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="createGroupOrderMap.userLogin" from-field="systemUserLogin"/>
+        <set field="createGroupOrderMap.productId" value="GZ-1000"/>
+        <set field="createGroupOrderMap.fromDate" from-field="nowTimestamp"/>
+        <set field="createGroupOrderMap.thruDate" from-field="thruDate"/>
+        <set field="createGroupOrderMap.reqOrderQty" value="1" type="BigDecimal"/>
+        <set field="createGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
+        <call-service service-name="createGroupOrder" in-map-name="createGroupOrderMap"/>
+        <!-- Step 2 -->
+        <field-to-session field="nullField" session-name="orderMode"/>
+        <set field="request" from-field="parameters.request"/>
+        <set field="response" from-field="parameters.response"/>
+        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <call-bsh><![CDATA[
+            request.setParameter("orderMode", "SALES_ORDER");
+            request.setParameter("productStoreId", "9000");
+            request.setParameter("partyId", "DemoCustomer");
+            request.setParameter("currencyUom", "USD");
+            session = request.getSession();
+            session.setAttribute("userLogin", userLogin);
+        ]]></call-bsh>
+        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("add_product_id", "GZ-1000");
+        ]]></call-bsh>
+        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("checkoutpage", "quick");
+            request.setParameter("shipping_contact_mech_id", "9015");
+            request.setParameter("shipping_method", "GROUND@UPS");
+            request.setParameter("checkOutPaymentId", "EXT_PAYPAL");
+            request.setParameter("is_gift", "false");
+            request.setParameter("may_split", "false");
+        ]]></call-bsh>
+        <field-to-request field="nullField" request-name="shoppingCart"/>
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
+        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
+        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
+        <call-service-asynch service-name="sendOrderConfirmation"/>
+        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
+        <!-- Step 3 -->
+        <entity-condition entity-name="GroupOrder" list="groupOrders">
+            <condition-expr field-name="productId" value="GZ-1000"/>
+            <order-by field-name="-groupOrderId"/>
+        </entity-condition>
+        <first-from-list entry="groupOrder" list="groupOrders"/>
+        <assert>
+            <if-compare field="groupOrder.soldOrderQty" operator="not-equals" value="0"/>
+        </assert>
+        <!-- Step 4 -->
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
+            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+            <order-by field-name="-orderDate"/>
+        </entity-condition>
+        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <entity-and entity-name="OrderItem" list="orderItems">
+            <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+            <field-map field-name="productId" value="GZ-1000"/>
+        </entity-and>
+        <first-from-list entry="orderItem" list="orderItems"/>
+        <assert>
+            <if-compare field="orderItem.statusId" operator="equals" value="ITEM_APPROVED"/>
+        </assert>
+        
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testGroupOrderLimitNotReached" short-description="Test GroupOrder the limit is not reached" login-required="false">
+        <!-- Test GroupOrder the limit is not reached
+             Step 1) Create GroupOrder.
+             Step 2) Create order.
+             Step 2) Check GroupOrder expired.
+             Step 3) Check Order Item should cancelled.
+        -->
+        <!-- Step 1 -->
+        <now-timestamp field="nowTimestamp"/>
+        <set field="days" value="1" type="Integer"/>
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="thruDate">
+            <field field="nowTimestamp" type="java.sql.Timestamp"/>
+            <field field="days" type="int"/>
+        </call-class-method>
+        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="createGroupOrderMap.userLogin" from-field="systemUserLogin"/>
+        <set field="createGroupOrderMap.productId" value="GZ-1000"/>
+        <set field="createGroupOrderMap.fromDate" from-field="nowTimestamp"/>
+        <set field="createGroupOrderMap.thruDate" from-field="thruDate"/>
+        <set field="createGroupOrderMap.reqOrderQty" value="2" type="BigDecimal"/>
+        <set field="createGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
+        <call-service service-name="createGroupOrder" in-map-name="createGroupOrderMap"/>
+        <!-- Step 2 -->
+        <field-to-session field="nullField" session-name="orderMode"/>
+        <set field="request" from-field="parameters.request"/>
+        <set field="response" from-field="parameters.response"/>
+        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="admin"/>
+        </entity-one>
+        <call-bsh><![CDATA[
+            request.setParameter("orderMode", "SALES_ORDER");
+            request.setParameter("productStoreId", "9000");
+            request.setParameter("partyId", "DemoCustomer");
+            request.setParameter("currencyUom", "USD");
+            session = request.getSession();
+            session.setAttribute("userLogin", userLogin);
+        ]]></call-bsh>
+        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("add_product_id", "GZ-1000");
+        ]]></call-bsh>
+        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
+        <call-bsh><![CDATA[
+            request.setParameter("checkoutpage", "quick");
+            request.setParameter("shipping_contact_mech_id", "9015");
+            request.setParameter("shipping_method", "GROUND@UPS");
+            request.setParameter("checkOutPaymentId", "EXT_PAYPAL");
+            request.setParameter("is_gift", "false");
+            request.setParameter("may_split", "false");
+        ]]></call-bsh>
+        <field-to-request field="nullField" request-name="shoppingCart"/>
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
+        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : createOrder, Response : ${result}"/>
+        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
+        <call-service-asynch service-name="sendOrderConfirmation"/>
+        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
+        <!-- Step 3 -->
+        <entity-condition entity-name="GroupOrder" list="groupOrders">
+            <condition-expr field-name="productId" value="GZ-1000"/>
+            <order-by field-name="-groupOrderId"/>
+        </entity-condition>
+        <first-from-list entry="groupOrder" list="groupOrders"/>
+        <set field="checkGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
+        <set field="checkGroupOrderExpiredMap.groupOrderId" from-field="groupOrder.groupOrderId"/>
+        <call-service service-name="checkGroupOrderExpired" in-map-name="checkGroupOrderExpiredMap"/>
+        <!-- Step 4 -->
+        <entity-condition entity-name="OrderHeader" list="orderHeaders">
+            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+            <order-by field-name="-orderDate"/>
+        </entity-condition>
+        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <entity-and entity-name="OrderItem" list="orderItems">
+            <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+            <field-map field-name="productId" value="GZ-1000"/>
+        </entity-and>
+        <first-from-list entry="orderItem" list="orderItems"/>
+        <assert>
+            <if-compare field="orderItem.statusId" operator="equals" value="ITEM_CANCELLED"/>
+        </assert>
+        
+        <check-errors/>
+    </simple-method>
+</simple-methods>

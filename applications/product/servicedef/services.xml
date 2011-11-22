@@ -1662,4 +1662,50 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <service name="updateGroupOrder" default-entity-name="GroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateGroupOrder" auth="true">
+        <description>Update a Group Order</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- Product GroupOrder Services -->
+    <service name="createGroupOrder" default-entity-name="GroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createGroupOrder" auth="true">
+        <description>Create GroupOrder</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="soldOrderQty" mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="reqOrderQty" mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="groupOrderId" mode="OUT" type="String" optional="true"/>
+    </service>
+
+    <service name="updateGroupOrder" default-entity-name="GroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateGroupOrder" auth="true">
+        <description>Update GroupOrder</description>
+        <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
+        <attribute name="reqOrderQty" mode="IN" type="BigDecimal" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
+    </service>
+
+    <service name="deleteGroupOrder" default-entity-name="GroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="deleteGroupOrder" auth="true">
+        <description>Delete GroupOrder</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="checkOrderItemForGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkOrderItemForGroupOrder" auth="true">
+        <description>Check Order Item For GroupOrder</description>
+        <attribute name="orderId" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="checkGroupOrderExpired" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkGroupOrderExpired" auth="true">
+        <description>Check GroupOrder Expired</description>
+        <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
+    </service>
+
 </services>

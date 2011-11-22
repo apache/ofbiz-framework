@@ -1384,4 +1384,51 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ViewProductGroupOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProductGroupOrder"/>
+                <set field="tabButtonItem" value="ViewProductGroupOrder"/>
+                <set field="labelTitleProperty" value="ProductGroupOrder"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-and entity-name="GroupOrder" list="groupOrders">
+                    <field-map field-name="productId" from-field="productId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ProductGroupOrder}">
+                            <include-form name="ListProductGroupOrder" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.ProductAddGroupOrder}">
+                            <include-form name="CreateProductGroupOrder" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditProductGroupOrder">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditProductGroupOrder"/>
+                <set field="tabButtonItem" value="EditProductGroupOrder"/>
+                <set field="labelTitleProperty" value="ProductGroupOrder"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <entity-one entity-name="GroupOrder" value-field="groupOrder"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.ProductEditGroupOrder}">
+                            <include-form name="EditProductGroupOrder" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

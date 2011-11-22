@@ -430,4 +430,10 @@ under the License.
         <condition field-name="paymentId" operator="is-not-empty"/>
         <action service="createOrderPaymentApplication" mode="sync"/>
     </eca>
+
+    <!-- Group Buying -->
+    <eca service="storeOrder" event="commit">
+        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
+        <action service="checkOrderItemForGroupOrder" mode="sync"/>
+    </eca>
 </service-eca>
