@@ -123,7 +123,7 @@
     <classpathentry kind="lib" path="framework/birt/lib/saaj.jar"/>
     <classpathentry kind="lib" path="framework/birt/lib/scriptapi.jar"/>
     <classpathentry kind="lib" path="framework/birt/lib/viewservlets.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/ecj-3.3.1.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/ecj-3.7.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.22-tomcat-juli-adapters.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.22-tomcat-juli.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.22.catalina-ant.jar"/>
