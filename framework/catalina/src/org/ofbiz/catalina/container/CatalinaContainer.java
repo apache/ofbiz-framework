@@ -291,6 +291,7 @@ public class CatalinaContainer implements Container {
         // create a default virtual host; others will be created as needed
         Host host = createHost(engine, hostName);
         hosts.put(engineName + "._DEFAULT", host);
+        engine.addChild(host);
 
         // configure clustering
         List<ContainerConfig.Container.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
@@ -378,7 +379,6 @@ public class CatalinaContainer implements Container {
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
         host.setRealm(engine.getRealm());
-        engine.addChild(host);
         hosts.put(engine.getName() + hostName, host);
 
         return host;
@@ -580,6 +580,7 @@ public class CatalinaContainer implements Container {
 
             if (newHost) {
                 hosts.put(engine.getName() + "." + hostName, host);
+                engine.addChild(host);
             }
         }
         
