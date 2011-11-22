@@ -1392,7 +1392,7 @@ under the License.
                 <set field="tabButtonItem" value="ViewProductGroupOrder"/>
                 <set field="labelTitleProperty" value="ProductGroupOrder"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-and entity-name="GroupOrder" list="groupOrders">
+                <entity-and entity-name="ProductGroupOrder" list="productGroupOrders">
                     <field-map field-name="productId" from-field="productId"/>
                 </entity-and>
             </actions>
@@ -1418,7 +1418,7 @@ under the License.
                 <set field="tabButtonItem" value="EditProductGroupOrder"/>
                 <set field="labelTitleProperty" value="ProductGroupOrder"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-one entity-name="GroupOrder" value-field="groupOrder"/>
+                <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">

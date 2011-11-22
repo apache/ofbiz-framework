@@ -70,4 +70,9 @@ under the License.
         <condition field-name="availableToPromiseDiff" operator="not-equals" value="0" type="BigDecimal"/>
         <action service="setLastInventoryCount" mode="sync"/>
     </eca>
+
+    <!-- Product GroupOrder ECAs -->
+    <eca entity="ProductGroupOrder" operation="create" event="return">
+        <action service="createJobForProductGroupOrder" mode="sync"/>
+    </eca>
 </entity-eca>

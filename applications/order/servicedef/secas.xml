@@ -434,6 +434,6 @@ under the License.
     <!-- Group Buying -->
     <eca service="storeOrder" event="commit">
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
-        <action service="checkOrderItemForGroupOrder" mode="sync"/>
+        <action service="checkOrderItemForProductGroupOrder" mode="sync"/>
     </eca>
 </service-eca>
