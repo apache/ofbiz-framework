@@ -1045,12 +1045,14 @@ public class ModelViewEntity extends ModelEntity {
         protected final String field;
         protected final String defaultValue;
         protected final String function;
+        protected final String value;
 
         public ComplexAliasField(Element complexAliasFieldElement) {
             this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias").intern();
             this.field = complexAliasFieldElement.getAttribute("field").intern();
             this.defaultValue = complexAliasFieldElement.getAttribute("default-value").intern();
             this.function = complexAliasFieldElement.getAttribute("function").intern();
+            this.value = complexAliasFieldElement.getAttribute("value").intern();
         }
 
         public ComplexAliasField(String entityAlias, String field, String defaultValue, String function) {
@@ -1058,35 +1060,48 @@ public class ModelViewEntity extends ModelEntity {
             this.field = field;
             this.defaultValue = defaultValue;
             this.function = function;
+            this.value = null;
+        }
+        public ComplexAliasField(String entityAlias, String field, String defaultValue, String function, String value) {
+            this.entityAlias = entityAlias;
+            this.field = field;
+            this.defaultValue = defaultValue;
+            this.function = function;
+            this.value = value;
         }
 
         /**
          * Make the alias as follows: function(coalesce(entityAlias.field, defaultValue))
          */
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
-            ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
-            ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
-
-            String colName = entityAlias + "." + modelField.getColName();
-
-            if (UtilValidate.isNotEmpty(defaultValue)) {
-                colName = "COALESCE(" + colName + "," + defaultValue + ")";
+            if(UtilValidate.isEmpty(entityAlias) 
+                    && UtilValidate.isEmpty(field) 
+                    && UtilValidate.isNotEmpty(value)){
+                colNameBuffer.append(value);
             }
-
-            if (UtilValidate.isNotEmpty(function)) {
-                String prefix = functionPrefixMap.get(function);
-                if (prefix == null) {
-                    Debug.logWarning("[" + modelViewEntity.getEntityName() + "]: Specified alias function [" + function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", module);
-                } else {
-                    colName = prefix + colName + ")";
+            else {
+                ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
+                ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
+                String colName = entityAlias + "." + modelField.getColName();
+    
+                if (UtilValidate.isNotEmpty(defaultValue)) {
+                    colName = "COALESCE(" + colName + "," + defaultValue + ")";
                 }
-            }
-
-            colNameBuffer.append(colName);
-
-            //set fieldTypeBuffer if not already set
-            if (fieldTypeBuffer.length() == 0) {
-                fieldTypeBuffer.append(modelField.type);
+    
+                if (UtilValidate.isNotEmpty(function)) {
+                    String prefix = functionPrefixMap.get(function);
+                    if (prefix == null) {
+                        Debug.logWarning("[" + modelViewEntity.getEntityName() + "]: Specified alias function [" + function + "] not valid; must be: min, max, sum, avg, count or count-distinct; using a column name with no function function", module);
+                    } else {
+                        colName = prefix + colName + ")";
+                    }
+                }
+    
+                colNameBuffer.append(colName);
+                //set fieldTypeBuffer if not already set
+                if (fieldTypeBuffer.length() == 0) {
+                    fieldTypeBuffer.append(modelField.type);
+                }
             }
         }
     }

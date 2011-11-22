@@ -346,9 +346,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.complex-alias-field">
-        <xs:attribute name="entity-alias" type="xs:string" use="required"/>
-        <xs:attribute name="field" type="xs:string" use="required"/>
+        <xs:attribute name="entity-alias" type="xs:string"/>
+        <xs:attribute name="field" type="xs:string"/>
         <xs:attribute name="default-value" type="xs:string"/>
+        <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="function" type="aggregate-function"/>
     </xs:attributeGroup>
     <xs:element name="view-link">
