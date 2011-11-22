@@ -8887,6 +8887,9 @@
         <value xml:lang="zh">添加总账账户</value>
         <value xml:lang="zh_TW">添加總賬賬戶</value>
     </property>
+    <property key="ProductAddGroupOrder">
+        <value xml:lang="en">Add GroupOrder</value>
+    </property>
     <property key="ProductAddItemsFromInventory">
         <value xml:lang="de">Positionen vom Bestand hinzufügen</value>
         <value xml:lang="en">Add Items From Inventory</value>
@@ -11972,6 +11975,15 @@
         <value xml:lang="zh">货运天数</value>
         <value xml:lang="zh_TW">貨運天數</value>
     </property>
+    <property key="ProductDealEndDate">
+        <value xml:lang="en">Deal End Date</value>
+    </property>
+    <property key="ProductDealQuantity">
+        <value xml:lang="en">Deal Quantity</value>
+    </property>
+    <property key="ProductDealStartDate">
+        <value xml:lang="en">Deal Start Date</value>
+    </property>
     <property key="ProductDefaultAmount">
         <value xml:lang="de">Standart Betrag</value>
         <value xml:lang="en">Default Amount</value>
@@ -12441,6 +12453,9 @@
         <value xml:lang="th">แก้ไขลักษณะด้วยรหัสหมวดหมู่</value>
         <value xml:lang="zh">编辑特征：特征分类</value>
         <value xml:lang="zh_TW">特性分類的特性修改</value>
+    </property>
+    <property key="ProductEditGroupOrder">
+        <value xml:lang="en">Edit GroupOrder</value>
     </property>
     <property key="ProductEditInventoryItemWithId">
         <value xml:lang="de">Bestandsposition bearbeiten mit der ID</value>
@@ -14107,6 +14122,9 @@
         <value xml:lang="th">การรักษาสภาพกลุ่มสมาชิก</value>
         <value xml:lang="zh">组成员维护</value>
         <value xml:lang="zh_TW">組成員維護</value>
+    </property>
+    <property key="ProductGroupOrder">
+        <value xml:lang="en">GroupOrder</value>
     </property>
     <property key="ProductGroupRollupChildGroupsAdd">
         <value xml:lang="de">Gruppe Rollup: Untergeordnete Gruppe hinzufügen</value>
@@ -23033,6 +23051,9 @@
         <value xml:lang="th">ไม่เคร่งครัดการระบุ</value>
         <value xml:lang="zh">软标识</value>
         <value xml:lang="zh_TW">軟式ID</value>
+    </property>
+    <property key="ProductSoldQuantity">
+        <value xml:lang="en">Sold Quantity</value>
     </property>
     <property key="ProductSortOrder">
         <value xml:lang="cs">Pořadí řazení</value>

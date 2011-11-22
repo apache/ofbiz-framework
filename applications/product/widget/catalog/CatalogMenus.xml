@@ -502,6 +502,11 @@ under the License.
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
+        <menu-item name="ViewProductGroupOrder" title="${uiLabelMap.ProductGroupOrder}">
+            <link target="ViewProductGroupOrder">
+                <parameter param-name="productId"/>
+            </link>
+        </menu-item>
     </menu>
 
     <menu name="ProductSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
