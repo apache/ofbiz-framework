@@ -4810,9 +4810,9 @@ under the License.
       </relation>
     </entity>
 
-    <entity entity-name="GroupOrder"
+    <entity entity-name="ProductGroupOrder"
             package-name="org.ofbiz.product.product"
-            title="Group Order Entity">
+            title="Product Group Order Entity">
       <field name="groupOrderId" type="id-ne"></field>
       <field name="productId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
@@ -4821,10 +4821,10 @@ under the License.
       <field name="soldOrderQty" type="fixed-point"></field>
       <field name="jobId" type="id-ne"></field>
       <prim-key field="groupOrderId"/>
-      <relation type="one" fk-name="GROUP_ORDER" rel-entity-name="Product">
+      <relation type="one" fk-name="PROD_GROUP_ORDER" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
-      <relation type="one" fk-name="GROUP_ORDER_JOB" rel-entity-name="JobSandbox">
+      <relation type="one" fk-name="PROD_GROUP_ORDER_JOB" rel-entity-name="JobSandbox">
         <key-map field-name="jobId"/>
       </relation>
     </entity>

@@ -2111,7 +2111,7 @@ under the License.
         <field name="changedDate"><display/></field>
     </form>
 
-    <form name="ListProductGroupOrder" type="list" target="" title="" list-name="groupOrders"
+    <form name="ListProductGroupOrder" type="list" target="" title="" list-name="productGroupOrders"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="groupOrderId"><display/></field>
@@ -2119,21 +2119,21 @@ under the License.
         <field name="soldOrderQty" title="${uiLabelMap.ProductSoldQuantity}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.ProductDealStartDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.ProductDealEndDate}"><display/></field>
-        <field name="editLink" use-when="${groovy: return reqOrderQty.compareTo(soldOrderQty)!= 0;}" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="editLink" use-when="${groovy: return reqOrderQty.compareTo(soldOrderQty)!= 0;}&amp;&amp;${groovy: return thruDate.compareTo(org.ofbiz.base.util.UtilDateTime.nowTimestamp()) == 1}" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductGroupOrder" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="productId"/>
                 <parameter param-name="groupOrderId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteGroupOrder" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="deleteProductGroupOrder" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productId"/>
                 <parameter param-name="groupOrderId"/>
             </hyperlink>
         </field>
     </form>
 
-    <form name="CreateProductGroupOrder" type="single" target="createGroupOrder" title=""
+    <form name="CreateProductGroupOrder" type="single" target="createProductGroupOrder" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productId"><hidden/></field>
         <field name="soldOrderQty"><hidden value="0"/></field>
@@ -2143,7 +2143,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="EditProductGroupOrder" type="single" target="updateGroupOrder" title="" default-map-name="groupOrder"
+    <form name="EditProductGroupOrder" type="single" target="updateProductGroupOrder" title="" default-map-name="productGroupOrder"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="groupOrderId"><hidden/></field>
         <field name="productId"><hidden/></field>
@@ -2153,4 +2153,3 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
  </forms>
- 

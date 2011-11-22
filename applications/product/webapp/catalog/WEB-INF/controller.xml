@@ -2990,7 +2990,7 @@ under the License.
         <response name="success" type="view" value="listMiniproduct"/>
     </request-map>
 
-    <!-- ================ Product GroupOrder  Requests ================= -->
+    <!-- ================ Product GroupOrder Requests ================= -->
     <request-map uri="ViewProductGroupOrder">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewProductGroupOrder"/>
@@ -3001,23 +3001,23 @@ under the License.
         <response name="success" type="view" value="EditProductGroupOrder"/>
     </request-map>
 
-    <request-map uri="createGroupOrder">
+    <request-map uri="createProductGroupOrder">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createGroupOrder"/>
+        <event type="service" invoke="createProductGroupOrder"/>
         <response name="success" type="view" value="ViewProductGroupOrder"/>
         <response name="error" type="view" value="ViewProductGroupOrder"/>
     </request-map>
 
-    <request-map uri="updateGroupOrder">
+    <request-map uri="updateProductGroupOrder">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateGroupOrder"/>
+        <event type="service" invoke="updateProductGroupOrder"/>
         <response name="success" type="view" value="ViewProductGroupOrder"/>
         <response name="error" type="view" value="EditProductGroupOrder"/>
     </request-map>
 
-    <request-map uri="deleteGroupOrder">
+    <request-map uri="deleteProductGroupOrder">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteGroupOrder"/>
+        <event type="service" invoke="deleteProductGroupOrder"/>
         <response name="success" type="view" value="ViewProductGroupOrder"/>
         <response name="error" type="view" value="ViewProductGroupOrder"/>
     </request-map>

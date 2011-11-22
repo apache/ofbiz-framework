@@ -1662,17 +1662,10 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="updateGroupOrder" default-entity-name="GroupOrder" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateGroupOrder" auth="true">
-        <description>Update a Group Order</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-
     <!-- Product GroupOrder Services -->
-    <service name="createGroupOrder" default-entity-name="GroupOrder" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createGroupOrder" auth="true">
-        <description>Create GroupOrder</description>
+    <service name="createProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createProductGroupOrder" auth="true">
+        <description>Create ProductGroupOrder</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="soldOrderQty" mode="IN" type="BigDecimal" optional="false"/>
         <attribute name="reqOrderQty" mode="IN" type="BigDecimal" optional="false"/>
@@ -1681,30 +1674,37 @@ under the License.
         <attribute name="groupOrderId" mode="OUT" type="String" optional="true"/>
     </service>
 
-    <service name="updateGroupOrder" default-entity-name="GroupOrder" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateGroupOrder" auth="true">
-        <description>Update GroupOrder</description>
+    <service name="updateProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateProductGroupOrder" auth="true">
+        <description>Update ProductGroupOrder</description>
         <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
         <attribute name="reqOrderQty" mode="IN" type="BigDecimal" optional="false"/>
         <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
         <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
     </service>
 
-    <service name="deleteGroupOrder" default-entity-name="GroupOrder" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="deleteGroupOrder" auth="true">
-        <description>Delete GroupOrder</description>
+    <service name="deleteProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="deleteProductGroupOrder" auth="true">
+        <description>Delete ProductGroupOrder</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="checkOrderItemForGroupOrder" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkOrderItemForGroupOrder" auth="true">
-        <description>Check Order Item For GroupOrder</description>
+    <service name="createJobForProductGroupOrder" default-entity-name="ProductGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createJobForProductGroupOrder" auth="true">
+        <description>Create Job For ProductGroupOrder</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="checkOrderItemForProductGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkOrderItemForProductGroupOrder" auth="true">
+        <description>Check Order Item For ProductGroupOrder</description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
 
-    <service name="checkGroupOrderExpired" engine="simple"
-        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkGroupOrderExpired" auth="true">
-        <description>Check GroupOrder Expired</description>
+    <service name="checkProductGroupOrderExpired" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkProductGroupOrderExpired" auth="true">
+        <description>Check ProductGroupOrder Expired</description>
         <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
     </service>
 

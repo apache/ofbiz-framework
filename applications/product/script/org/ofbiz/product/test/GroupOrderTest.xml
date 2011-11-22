@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="testGroupOrderLimitReached" short-description="Test GroupOrder the limit is reached" login-required="false">
         <!-- Test GroupOrder the limit is reached
-             Step 1) Create GroupOrder .
+             Step 1) Create ProductGroupOrder .
              Step 2) Create order.
              Step 3) Check soldOrderQty is added.
              Step 4) Check Order Item should approved.
@@ -38,13 +38,15 @@ under the License.
         <entity-one value-field="systemUserLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set field="createGroupOrderMap.userLogin" from-field="systemUserLogin"/>
-        <set field="createGroupOrderMap.productId" value="GZ-1000"/>
-        <set field="createGroupOrderMap.fromDate" from-field="nowTimestamp"/>
-        <set field="createGroupOrderMap.thruDate" from-field="thruDate"/>
-        <set field="createGroupOrderMap.reqOrderQty" value="1" type="BigDecimal"/>
-        <set field="createGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
-        <call-service service-name="createGroupOrder" in-map-name="createGroupOrderMap"/>
+        <set field="createProductGroupOrderMap.userLogin" from-field="systemUserLogin"/>
+        <set field="createProductGroupOrderMap.productId" value="GZ-1000"/>
+        <set field="createProductGroupOrderMap.fromDate" from-field="nowTimestamp"/>
+        <set field="createProductGroupOrderMap.thruDate" from-field="thruDate"/>
+        <set field="createProductGroupOrderMap.reqOrderQty" value="1" type="BigDecimal"/>
+        <set field="createProductGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
+        <call-service service-name="createProductGroupOrder" in-map-name="createProductGroupOrderMap">
+            <result-to-field result-name="groupOrderId" field="groupOrderId"/>
+        </call-service>
         <!-- Step 2 -->
         <field-to-session field="nullField" session-name="orderMode"/>
         <set field="request" from-field="parameters.request"/>
@@ -114,13 +116,11 @@ under the License.
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
         <!-- Step 3 -->
-        <entity-condition entity-name="GroupOrder" list="groupOrders">
-            <condition-expr field-name="productId" value="GZ-1000"/>
-            <order-by field-name="-groupOrderId"/>
-        </entity-condition>
-        <first-from-list entry="groupOrder" list="groupOrders"/>
+        <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder">
+            <field-map field-name="groupOrderId" from-field="groupOrderId"/>
+        </entity-one>
         <assert>
-            <if-compare field="groupOrder.soldOrderQty" operator="not-equals" value="0"/>
+            <if-compare field="productGroupOrder.soldOrderQty" operator="not-equals" value="0"/>
         </assert>
         <!-- Step 4 -->
         <entity-condition entity-name="OrderHeader" list="orderHeaders">
@@ -142,9 +142,9 @@ under the License.
 
     <simple-method method-name="testGroupOrderLimitNotReached" short-description="Test GroupOrder the limit is not reached" login-required="false">
         <!-- Test GroupOrder the limit is not reached
-             Step 1) Create GroupOrder.
+             Step 1) Create ProductGroupOrder.
              Step 2) Create order.
-             Step 2) Check GroupOrder expired.
+             Step 2) Check ProductGroupOrder expired.
              Step 3) Check Order Item should cancelled.
         -->
         <!-- Step 1 -->
@@ -157,13 +157,15 @@ under the License.
         <entity-one value-field="systemUserLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <set field="createGroupOrderMap.userLogin" from-field="systemUserLogin"/>
-        <set field="createGroupOrderMap.productId" value="GZ-1000"/>
-        <set field="createGroupOrderMap.fromDate" from-field="nowTimestamp"/>
-        <set field="createGroupOrderMap.thruDate" from-field="thruDate"/>
-        <set field="createGroupOrderMap.reqOrderQty" value="2" type="BigDecimal"/>
-        <set field="createGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
-        <call-service service-name="createGroupOrder" in-map-name="createGroupOrderMap"/>
+        <set field="createProductGroupOrderMap.userLogin" from-field="systemUserLogin"/>
+        <set field="createProductGroupOrderMap.productId" value="GZ-1000"/>
+        <set field="createProductGroupOrderMap.fromDate" from-field="nowTimestamp"/>
+        <set field="createProductGroupOrderMap.thruDate" from-field="thruDate"/>
+        <set field="createProductGroupOrderMap.reqOrderQty" value="2" type="BigDecimal"/>
+        <set field="createProductGroupOrderMap.soldOrderQty" value="0" type="BigDecimal"/>
+        <call-service service-name="createProductGroupOrder" in-map-name="createProductGroupOrderMap">
+            <result-to-field result-name="groupOrderId" field="groupOrderId"/>
+        </call-service>
         <!-- Step 2 -->
         <field-to-session field="nullField" session-name="orderMode"/>
         <set field="request" from-field="parameters.request"/>
@@ -233,14 +235,12 @@ under the License.
         </call-class-method>
         <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
         <!-- Step 3 -->
-        <entity-condition entity-name="GroupOrder" list="groupOrders">
-            <condition-expr field-name="productId" value="GZ-1000"/>
-            <order-by field-name="-groupOrderId"/>
-        </entity-condition>
-        <first-from-list entry="groupOrder" list="groupOrders"/>
-        <set field="checkGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
-        <set field="checkGroupOrderExpiredMap.groupOrderId" from-field="groupOrder.groupOrderId"/>
-        <call-service service-name="checkGroupOrderExpired" in-map-name="checkGroupOrderExpiredMap"/>
+        <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder">
+            <field-map field-name="groupOrderId" from-field="groupOrderId"/>
+        </entity-one>
+        <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
+        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+        <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
         <!-- Step 4 -->
         <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>

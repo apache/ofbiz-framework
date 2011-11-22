@@ -1047,54 +1047,21 @@ under the License.
     </simple-method>
 
     <!-- Product GroupOrder Services -->
-    <simple-method method-name="createGroupOrder" short-description="Create GroupOrder">
-        <!-- Create Job For GroupOrder -->
-        <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
-        <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
-        <set field="jobId" from-field="jobSandbox.jobId"/>
-        <set field="jobSandbox.jobName" value="Check GroupOrder Expired"/>
-        <set field="jobSandbox.runTime" from-field="parameters.thruDate"/>
-        <set field="jobSandbox.poolId" value="pool"/>
-        <set field="jobSandbox.statusId" value="SERVICE_PENDING"/>
-        <set field="jobSandbox.serviceName" value="checkGroupOrderExpired"/>
-        <set field="jobSandbox.runAsUser" value="system"/>
-        <set field="jobSandbox.runtimeDataId" from-field="runtimeData.runtimeDataId"/>
-        <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
-        <create-value value-field="jobSandbox"/>
-        
-        <!-- Create GroupOrder -->
-        <make-value entity-name="GroupOrder" value-field="groupOrder"/>
-        <make-next-seq-id value-field="groupOrder" seq-field-name="groupOrderId"/>
-        <set field="groupOrderId" from-field="groupOrder.groupOrderId"/>
-        <set-nonpk-fields value-field="groupOrder" map="parameters"/>
-        <set field="groupOrder.jobId" from-field="jobId"/>
-        <create-value value-field="groupOrder"/>
-        
-        <!-- Create RuntimeData For GroupOrder -->
-        <set field="runtimeDataMap.groupOrderId" from-field="groupOrderId"/>
-        <call-class-method class-name="org.ofbiz.entity.serialize.XmlSerializer" method-name="serialize"  ret-field="runtimeInfo">
-            <field field="runtimeDataMap" type="Object"/>
-        </call-class-method>
-        <make-value entity-name="RuntimeData" value-field="runtimeData"/>
-        <sequenced-id sequence-name="RuntimeData" field="runtimeData.runtimeDataId"/>
-        <set field="runtimeDataId" from-field="runtimeData.runtimeDataId"/>
-        <set field="runtimeData.runtimeInfo" from-field="runtimeInfo"/>
-        <create-value value-field="runtimeData"/>
-        
-        <entity-one entity-name="JobSandbox" value-field="updateJobSandbox">
-            <field-map field-name="jobId" from-field="jobId"/>
-        </entity-one>
-        <set field="updateJobSandbox.runtimeDataId" from-field="runtimeDataId"/>
-        <store-value value-field="updateJobSandbox"/>
+    <simple-method method-name="createProductGroupOrder" short-description="Create ProductGroupOrder">
+        <make-value entity-name="ProductGroupOrder" value-field="newEntity"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="groupOrderId"/>
+        <field-to-result field="newEntity.groupOrderId" result-name="groupOrderId"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
-    <simple-method method-name="updateGroupOrder" short-description="Update GroupOrder">
-        <entity-one entity-name="GroupOrder" value-field="groupOrder"/>
-        <set-nonpk-fields value-field="groupOrder" map="parameters"/>
-        <store-value value-field="groupOrder"/>
+    <simple-method method-name="updateProductGroupOrder" short-description="Update ProductGroupOrder">
+        <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
+        <set-nonpk-fields value-field="productGroupOrder" map="parameters"/>
+        <store-value value-field="productGroupOrder"/>
         
         <entity-one entity-name="JobSandbox" value-field="jobSandbox">
-            <field-map field-name="jobId" from-field="groupOrder.jobId"/>
+            <field-map field-name="jobId" from-field="productGroupOrder.jobId"/>
         </entity-one>
         <if-not-empty field="jobSandbox">
             <set field="jobSandbox.runTime" from-field="parameters.thruDate"/>
@@ -1104,23 +1071,54 @@ under the License.
         <entity-one value-field="systemUserLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
-        <if-compare field="groupOrder.soldOrderQty" operator="equals" value="${groupOrder.reqOrderQty}">
-            <set field="checkGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
-            <set field="checkGroupOrderExpiredMap.groupOrderId" from-field="groupOrder.groupOrderId"/>
-            <call-service service-name="checkGroupOrderExpired" in-map-name="checkGroupOrderExpiredMap"/>
+        <if-compare field="productGroupOrder.soldOrderQty" operator="equals" value="${productGroupOrder.reqOrderQty}">
+            <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
+            <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+            <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
             
             <set field="cancelScheduledJobMap.userLogin" from-field="systemUserLogin"/>
-            <set field="cancelScheduledJobMap.jobId" from-field="groupOrder.jobId"/>
+            <set field="cancelScheduledJobMap.jobId" from-field="productGroupOrder.jobId"/>
             <call-service service-name="cancelScheduledJob" in-map-name="cancelScheduledJobMap"/>
         </if-compare>
     </simple-method>
 
-    <simple-method method-name="deleteGroupOrder" short-description="Delete GroupOrder">
-        <entity-one entity-name="GroupOrder" value-field="groupOrder"/>
-        <remove-value value-field="groupOrder"/>
+    <simple-method method-name="deleteProductGroupOrder" short-description="Delete ProductGroupOrder">
+        <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
+        <remove-value value-field="productGroupOrder"/>
     </simple-method>
 
-    <simple-method method-name="checkOrderItemForGroupOrder" short-description="Check Order Item For GroupOrder">
+    <simple-method method-name="createJobForProductGroupOrder" short-description="Create ProductGroupOrder">
+        <!-- Create RuntimeData For ProductGroupOrder -->
+        <set field="runtimeDataMap.groupOrderId" from-field="parameters.groupOrderId"/>
+        <call-class-method class-name="org.ofbiz.entity.serialize.XmlSerializer" method-name="serialize"  ret-field="runtimeInfo">
+            <field field="runtimeDataMap" type="Object"/>
+        </call-class-method>
+        <make-value entity-name="RuntimeData" value-field="runtimeData"/>
+        <sequenced-id sequence-name="RuntimeData" field="runtimeData.runtimeDataId"/>
+        <set field="runtimeDataId" from-field="runtimeData.runtimeDataId"/>
+        <set field="runtimeData.runtimeInfo" from-field="runtimeInfo"/>
+        <create-value value-field="runtimeData"/>
+        
+        <!-- Create Job For ProductGroupOrder -->
+        <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
+        <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
+        <set field="jobId" from-field="jobSandbox.jobId"/>
+        <set field="jobSandbox.jobName" value="Check Product GroupOrder Expired"/>
+        <set field="jobSandbox.runTime" from-field="parameters.thruDate"/>
+        <set field="jobSandbox.poolId" value="pool"/>
+        <set field="jobSandbox.statusId" value="SERVICE_PENDING"/>
+        <set field="jobSandbox.serviceName" value="checkProductGroupOrderExpired"/>
+        <set field="jobSandbox.runAsUser" value="system"/>
+        <set field="jobSandbox.runtimeDataId" from-field="runtimeDataId"/>
+        <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
+        <create-value value-field="jobSandbox"/>
+        
+        <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
+        <set field="productGroupOrder.jobId" from-field="jobId"/>
+        <store-value value-field="productGroupOrder"/>
+    </simple-method>
+
+    <simple-method method-name="checkOrderItemForProductGroupOrder" short-description="Check Order Item For ProductGroupOrder">
         <entity-one value-field="systemUserLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -1128,25 +1126,25 @@ under the License.
             <field-map field-name="orderId" from-field="parameters.orderId"/>
         </entity-and>
         <iterate entry="orderItem" list="orderItems">
-            <entity-and entity-name="GroupOrder" list="groupOrders" filter-by-date="true">
+            <entity-and entity-name="ProductGroupOrder" list="productGroupOrders" filter-by-date="true">
                 <field-map field-name="productId" from-field="orderItem.productId"/>
             </entity-and>
-            <iterate entry="groupOrder" list="groupOrders">
-                <if-compare field="groupOrder.soldOrderQty" operator="less" value="${groupOrder.reqOrderQty}">
-                    <calculate field="groupOrder.soldOrderQty">
-                        <calcop field="groupOrder.soldOrderQty" operator="add">
+            <iterate entry="productGroupOrder" list="productGroupOrders">
+                <if-compare field="productGroupOrder.soldOrderQty" operator="less" value="${productGroupOrder.reqOrderQty}">
+                    <calculate field="productGroupOrder.soldOrderQty">
+                        <calcop field="productGroupOrder.soldOrderQty" operator="add">
                             <calcop field="orderItem.quantity" operator="get"/>
                         </calcop>
                     </calculate>
-                    <store-value value-field="groupOrder"/>
+                    <store-value value-field="productGroupOrder"/>
                     
-                    <if-compare field="groupOrder.soldOrderQty" operator="equals" value="${groupOrder.reqOrderQty}">
-                        <set field="checkGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
-                        <set field="checkGroupOrderExpiredMap.groupOrderId" from-field="groupOrder.groupOrderId"/>
-                        <call-service service-name="checkGroupOrderExpired" in-map-name="checkGroupOrderExpiredMap"/>
+                    <if-compare field="productGroupOrder.soldOrderQty" operator="equals" value="${productGroupOrder.reqOrderQty}">
+                        <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
+                        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+                        <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
                         
                         <set field="cancelScheduledJobMap.userLogin" from-field="systemUserLogin"/>
-                        <set field="cancelScheduledJobMap.jobId" from-field="groupOrder.jobId"/>
+                        <set field="cancelScheduledJobMap.jobId" from-field="productGroupOrder.jobId"/>
                         <call-service service-name="cancelScheduledJob" in-map-name="cancelScheduledJobMap"/>
                     </if-compare>
                 </if-compare>
@@ -1154,9 +1152,9 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="checkGroupOrderExpired" short-description="Check GroupOrder Expired">
-        <entity-one entity-name="GroupOrder" value-field="groupOrder"/>
-        <if-compare field="groupOrder.soldOrderQty" operator="equals" value="${groupOrder.reqOrderQty}">
+    <simple-method method-name="checkProductGroupOrderExpired" short-description="Check ProductGroupOrder Expired">
+        <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
+        <if-compare field="productGroupOrder.soldOrderQty" operator="equals" value="${productGroupOrder.reqOrderQty}">
             <set field="newItemStatusId" value="ITEM_APPROVED"/>
         <else>
             <set field="newItemStatusId" value="ITEM_CANCELLED"/>
@@ -1164,7 +1162,7 @@ under the License.
         </if-compare>
         <entity-condition entity-name="OrderItem" list="orderItems">
             <condition-list combine="and">
-                <condition-expr field-name="productId" operator="equals" from-field="groupOrder.productId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="productGroupOrder.productId"/>
                 <condition-list combine="or">
                     <condition-expr field-name="statusId" operator="equals" value="ITEM_CREATED"/>
                     <condition-expr field-name="statusId" operator="equals" value="ITEM_APPROVED"/>
@@ -1179,8 +1177,8 @@ under the License.
                 <condition>
                     <and>
                         <if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER"/>
-                        <if-compare field="orderHeader.orderDate" operator="greater-equals" value="${groupOrder.fromDate}"/>
-                        <if-compare field="orderHeader.orderDate" operator="less" value="${groupOrder.thruDate}"/>
+                        <if-compare field="orderHeader.orderDate" operator="greater-equals" value="${productGroupOrder.fromDate}"/>
+                        <if-compare field="orderHeader.orderDate" operator="less" value="${productGroupOrder.thruDate}"/>
                     </and>
                 </condition>
                 <then>
