@@ -1127,4 +1127,21 @@ under the License.
          location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
          <description>Create Test Order Rental of an asset which is shipped from and returned to inventory</description>
     </service>
+    
+    <!-- Order Item Attribute -->
+    <service name="createOrderItemAttribute" engine="entity-auto" default-entity-name="OrderItemAttribute" invoke="create" auth="true">
+        <description>Create Order Item Attribute</description>
+        <auto-attributes mode="IN" entity-name="OrderItemAttribute" include="pk" optional="false"/>
+        <auto-attributes mode="IN" entity-name="OrderItemAttribute" include="nonpk" optional="true"/>
+    </service>
+    <service name="updateOrderItemAttribute" engine="entity-auto" default-entity-name="OrderItemAttribute" invoke="update" auth="true">
+        <description>Update Order Item Attribute</description>
+        <auto-attributes mode="IN" entity-name="OrderItemAttribute" include="pk" optional="false"/>
+        <auto-attributes mode="IN" entity-name="OrderItemAttribute" include="nonpk" optional="true"/>
+    </service>
+    <service name="deleteOrderItemAttribute" engine="entity-auto" default-entity-name="OrderItemAttribute" invoke="delete" auth="true">
+        <description>Delete Order Item Attribute</description>
+        <auto-attributes mode="IN" entity-name="OrderItemAttribute" include="pk" optional="false"/>
+    </service>
+    
 </services>
