@@ -759,6 +759,7 @@
         <value xml:lang="zh_TW">錯誤：無法創建 訂單支付優先OrderPaymentPreference (生成ID時失敗)</value>
     </property>
     <property key="OrderErrorCouldNotCreateOrderWriteError">
+        <value xml:lang="de">FEHLER : Auftrag konnte nicht erstellt werden (Schreibfehler : </value>
         <value xml:lang="en">ERROR : Could not create order (write error : </value>
         <value xml:lang="es">ERROR: No se puede crear el pedido (error de escritura) :</value>
         <value xml:lang="fr">Erreur : impossible de créer la commande (erreur d'écriture : </value>
@@ -771,6 +772,7 @@
         <value xml:lang="zh_TW">錯誤：無法創建訂單 (寫錯誤： </value>
     </property>
     <property key="OrderErrorCouldNotFindConversion">
+        <value xml:lang="de">Fehler: Umrechnung konnte nicht gefunden werden</value>
         <value xml:lang="en">Error  Could  Not  Find  Conversion</value>
         <value xml:lang="es">ERROR: No se pudo obtener un conversión entre ${uomid} y ${uomidto}</value>
         <value xml:lang="fr">Erreur:  impossible de trouver la conversion</value>
@@ -781,6 +783,7 @@
         <value xml:lang="zh_TW">錯誤：無法找到轉換方法</value>
     </property>
     <property key="OrderErrorCouldNotFindProductStoreWithID">
+        <value xml:lang="de">FEHLER : Laden mit ID [ ${productStoreId} ] konnte nicht gefunden werden</value>
         <value xml:lang="en">ERROR : Could not find ProductStore with ID [ ${productStoreId} ]</value>
         <value xml:lang="es">ERROR: No se pudo obtener una tienda con código [ ${productStoreId} ]</value>
         <value xml:lang="fr">Erreur : impossible de trouver le dépôt d'article avec l'identifiant [ ${productStoreId} ]</value>
@@ -793,6 +796,7 @@
         <value xml:lang="zh_TW">錯誤：無法找到商品商店ID  [ ${productStoreId} ]</value>
     </property>
     <property key="OrderErrorCouldNotGetNextSequenceIdForOrderAdjustmentCannotCreateOrder">
+        <value xml:lang="de">FEHLER : Nächste Sequenz-ID für Auftragsanpassung konnte nicht ermittelt werden, Auftrag wurde nicht erstellt.</value>
         <value xml:lang="en">ERROR : Could not get next sequence id for OrderAdjustment, cannot create order.</value>
         <value xml:lang="es">ERROR: No se pudo obtener el código de la secuencia siguiente para el ajuste del pedido, no puede crear el pedido.</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'identifiant de la séquence suivante pour l'ajustement de la commande, impossible de créer la commande.</value>
@@ -805,6 +809,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得用於訂單調整的下一個序列ID， 無法創建訂單。</value>
     </property>
     <property key="OrderErrorCouldNotGetNextSequenceIdForOrderItemPriceInfoCannotCreateOrder">
+        <value xml:lang="de">FEHLER : Nächste Sequenz-ID für Auftragspositionspreisinformation konnte nicht ermittelt werden, Auftrag wurde nicht erstellt.</value>
         <value xml:lang="en">ERROR : Could not get next sequence id for OrderItemPriceInfo, cannot create order.</value>
         <value xml:lang="es">ERROR: No se pudo obtener el código de la secuencia siguiente para la información sobre los precios de los ítems encargados, no puede crear el pedido.</value>
         <value xml:lang="fr">Erreur : impossible d'obtenir l'identifiant de la séquence suivante pour les informations sur les prix des articles commandés, impossible de créer la commande.</value>
@@ -817,6 +822,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得用于訂單明細價格資訊的下一個序列ID，無法創建訂單。</value>
     </property>
     <property key="OrderErrorCouldNotGetOrderInformation">
+        <value xml:lang="de">FEHLER : Auftrag konnte nicht gelesen werden (</value>
         <value xml:lang="en">ERROR : Could not get order information (</value>
         <value xml:lang="es">ERROR: No se pudo obtener información del pedido (</value>
         <value xml:lang="fr">Erreur : impossible d'otenir les informations de la commande (</value>
@@ -829,31 +835,37 @@
         <value xml:lang="zh_TW">錯誤：無法獲得訂單資訊 (</value>
     </property>
     <property key="OrderErrorCreateReturnHeaderWithoutId">
+        <value xml:lang="de">Bei der Erstellung der Retoure wurde keine gültige Retouren-Id zurückgegeben</value>
         <value xml:lang="en">Create return did not return a valid return id</value>
         <value xml:lang="fr">La création du retour n'a pas retourné une référence valide</value>
         <value xml:lang="it">Creazione testata reso non ha ristituito in numero di reso</value>
     </property>
     <property key="OrderErrorCreateReturnItemWithoutId">
+        <value xml:lang="de">Bei der Erstellung der Retourenposition wurde keine gültige Sequenz-Id zurückgegeben</value>
         <value xml:lang="en">Create return item did not return a valid sequence id</value>
         <value xml:lang="fr">La création d'une ligne de retour n'a pas retourné une référence valide</value>
         <value xml:lang="it">Creazione riga reso non ha ristituito un numero di riga reso</value>
     </property>
     <property key="OrderErrorCreatePermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour effectuer ${resourceDescription} vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
     </property>
     <property key="OrderErrorUpdatePermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour effectuer ${resourceDescription} vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
     </property>
     <property key="OrderErrorDeletePermissionError">
+        <value xml:lang="de">Berechtigungsfehler: Um ${resourceDescription} auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour effectuer ${resourceDescription} vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore di sicurezza: per eseguire ${resourceDescription} devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
     </property>
     <property key="OrderErrorCustRequestWithIdDoesntExist">
+        <value xml:lang="de">Fehler : Kundenanfrage mit Id [ ${custRequestId} ] existiert nicht. </value>
         <value xml:lang="en">Error : CustRequest with id [ ${custRequestId} ] doesn't exist. </value>
         <value xml:lang="es">ERROR: La petición de cliente con código [ ${custRequestId} ] no existe.</value>
         <value xml:lang="fr">Erreur : la requête de client avec réf. [ ${custRequestId} ] n'existe pas.(</value>
@@ -866,11 +878,13 @@
         <value xml:lang="zh_TW">錯誤：不存在ID為 [ ${custRequestId} ] 的客戶要求。 </value>
     </property>
     <property key="OrderErrorCustRequestNotFound">
+        <value xml:lang="de">Kundenanfrage nicht gefunden, statusId Id: ${custRequest.statusId} </value>
         <value xml:lang="en">CustRequest not found, statusId Id: ${custRequest.statusId}</value>
         <value xml:lang="fr">Demande non trouvée, statut : ${custRequest.statusId}</value>
         <value xml:lang="it">Richiesta non trovata, lo stato è : ${custRequest.statusId}</value>
     </property>
     <property key="OrderErrorGettingNextOrderIdWhileCreatingOrder">
+        <value xml:lang="de">Fehler beim Ermitteln der nächsten Order-Id</value>
         <value xml:lang="en">Error getting next order Id while creating order </value>
         <value xml:lang="fr">Erreur lors de l'acquisition de la prochaine réf. de commande durant sa création </value>
         <value xml:lang="pt_BR">Erro ao obter próximo ID ao criar pedido </value>
@@ -878,6 +892,7 @@
         <value xml:lang="zh_TW">在創建訂單時發生無法獲得下一個訂單ID的錯誤</value>
     </property>
     <property key="OrderErrorGettingOrderHeaderInformationNull">
+        <value xml:lang="de">Fehler beim Lesen des Auftragskopfes; null</value>
         <value xml:lang="en">Error getting order header information; null</value>
         <value xml:lang="es">Error obteniendo información del encabezado del pedido; nulo</value>
         <value xml:lang="fr">Erreur en obtenant les informations de l'en-tête de commande; nul</value>
@@ -890,6 +905,7 @@
         <value xml:lang="zh_TW">獲取訂單頭資訊事出錯；null</value>
     </property>
     <property key="OrderErrorGettingReturnHeaderItemInformation">
+        <value xml:lang="de">Fehler beim Lesen der Retoure; null</value>
         <value xml:lang="en">Error getting ReturnHeader/Item information</value>
         <value xml:lang="es">Error obteniendo la información del encabezado o los ítems de la devolución</value>
         <value xml:lang="fr">Erreur en obtenant les informations de l'en-tête de retour/article</value>
@@ -902,6 +918,7 @@
         <value xml:lang="zh_TW">獲取退貨頭/明細資訊時出錯</value>
     </property>
     <property key="OrderErrorInvalidOrderTypeWithID">
+        <value xml:lang="de">FEHLER : Ungültige Auftragsart : ${orderTypeId}</value>
         <value xml:lang="en">ERROR : Invalid OrderType with ID : ${orderTypeId}</value>
         <value xml:lang="es">ERROR: Es inválido el tipo de pedido con el código:</value>
         <value xml:lang="fr">Erreur : Le type de commande est irrecevable avec l'identifiant : ${orderTypeId}</value>
@@ -914,6 +931,7 @@
         <value xml:lang="zh_TW">錯誤：無效的訂單類型ID: ${orderTypeId}</value>
     </property>
     <property key="OrderErrorNoOrderItemsFound">
+        <value xml:lang="de">FEHLER : Keine Auftragspositionen vorhanden. </value>
         <value xml:lang="en">ERROR : No order items found. </value>
         <value xml:lang="es">ERROR: No se han encontrado ítems del pedido.</value>
         <value xml:lang="fr">Erreur : Aucun articles de la commande trouvés. </value>
@@ -926,6 +944,7 @@
         <value xml:lang="zh_TW">錯誤：沒有找到訂單明細。 </value>
     </property>
     <property key="OrderErrorNoValidOrderHeaderFoundForOrderId">
+        <value xml:lang="de">FEHLER : Kein gültiger Auftragskopf für Auftrag : ${orderId}</value>
         <value xml:lang="en">ERROR : No valid order header found for orderId : ${orderId}</value>
         <value xml:lang="es">ERROR: No se encontró encabezado válido para el pedido : ${orderId}</value>
         <value xml:lang="fr">Erreur : Aucun en-tête de commande trouvé pour l'identifiant de commande : ${orderId}</value>
@@ -938,11 +957,13 @@
         <value xml:lang="zh_TW">錯誤：沒有為訂單ID：${orderId} 找到有效的訂單頭 </value>
     </property>
     <property key="OrderErrorOrderHasBeenAlreadyVerified">
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} wurde schon geprüft, wechseln Sie zum Abwiegen zur weiteren Verarbeitung</value>
         <value xml:lang="en">ERROR: Order #${orderId} has been already verified, go to Weigh Package Only screen for further processing</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} a déjà été vérifiée, Allez dans l'écran Pesée pour les prochaines opérations</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} já foi verificado, acesse a tela Pesar Pacote Apenas para mais processamento</value>
     </property>
     <property key="OrderErrorOrderIdNotFound">
+        <value xml:lang="de">FEHLER: Auftrag mit ID [${orderId}] nicht gefunden</value>
         <value xml:lang="en">ERROR: Order with ID [${orderId}] not found</value>
         <value xml:lang="fr">Erreur : la commande avec la réf. [${orderId}] n'a pas été trouvé</value>
         <value xml:lang="it">ERRORE: Ordine ${orderId} non trovato</value>
@@ -953,6 +974,7 @@
         <value xml:lang="zh_TW">錯誤：沒有找到ID為${orderId}的訂單 </value>
     </property>
     <property key="OrderErrorOrderItemAndOrOrderHeaderDontExist">
+        <value xml:lang="de">FEHLER : Auftragsposition und/oder Auftragskopf nicht vorhanden</value>
         <value xml:lang="en">ERROR : OrderItem and/or OrderHeader don't exist</value>
         <value xml:lang="es">ERROR: El artículo o encabezado del pedido no existe</value>
         <value xml:lang="fr">Erreur : en-tête et article de la commande non trouvés</value>
@@ -965,6 +987,7 @@
         <value xml:lang="zh_TW">錯誤：訂單明細和/或訂單頭不存在</value>
     </property>
     <property key="OrderErrorOrderItemCantBeModified">
+        <value xml:lang="de">FEHLER : Auftragsposition kann nicht geändert werden</value>
         <value xml:lang="en">ERROR : OrderItem can't be modified</value>
         <value xml:lang="es">ERROR: El artículo no puede ser modificado</value>
         <value xml:lang="fr">Erreur : article de la commande ne peut pas être modifié</value>
@@ -977,6 +1000,7 @@
         <value xml:lang="zh_TW">錯誤：無法修改訂單明細</value>
     </property>
     <property key="OrderErrorOrderItemNotFound">
+        <value xml:lang="de">FEHLER: Auftragsposition mit ID [${orderId}] und Positionsnummer [${orderItemSeqId}] nicht gefunden</value>
         <value xml:lang="en">ERROR: Order item with ID [${orderId}] and orderItemSeqId [${orderItemSeqId}] not found</value>
         <value xml:lang="fr">Erreur : la ligne de commande avec la réf. [${orderId}] et la réf. séq. de ligne de commande [${orderItemSeqId}] n'a pas été trouvée</value>
         <value xml:lang="it">ERRORE: ordine ${orderId} e riga ordine ${orderItemSeqId} non trovata</value>
@@ -987,16 +1011,19 @@
         <value xml:lang="zh_TW">錯誤：沒有找到ID為[${orderId}]、訂單明細序列號為[${orderItemSeqId}]的訂單明細 </value>
     </property>
     <property key="OrderErrorOrderNotApprovedForPacking">
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} nicht zum Verpacken freigegeben</value>
         <value xml:lang="en">ERROR: Order #${orderId} is not approved for packing</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas approuvée, le colisage n'est pas autorisé</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não está liberado para empacotamento</value>
     </property>
     <property key="OrderErrorOrderNotApprovedForPicking">
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} nicht zum Kommisionieren freigegeben</value>
         <value xml:lang="en">ERROR: Order #${orderId} is not approved for picking</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas approuvée, le prélèvement n'est pas autorisé</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não está liberado para recolhimento</value>
     </property>
     <property key="OrderErrorOrderNotPurchaseOrder">
+        <value xml:lang="de">Auftrag ${orderId} ist kein Einkaufsauftrag</value>
         <value xml:lang="en">Order ${orderId} is not a Purchase Order</value>
         <value xml:lang="es">El pedido ${orderId} no es un pedido de compra</value>
         <value xml:lang="fr">La commande ${orderId} n'est pas une commande d'achat</value>
@@ -1008,16 +1035,19 @@
         <value xml:lang="zh_TW">訂單${orderId}不是一個採購訂單</value>
     </property>
     <property key="OrderErrorOrderNotVerified">
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} wurde nicht geprüft, betätigen Sie den 'Auftrag verpacken' Button anstatt 'Verpackung wiegen' für die weitere Verarbeitung</value>
         <value xml:lang="en">ERROR: Order #${orderId} is not verified, click Pack Order button instead of Weigh Package Only for further processing</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas vérifiée, effectuez le colisage à la place de la pesée</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não foi verificado, clique no botão Empacotar Pedido ao invés de Apenas Pesar Pacote para mais processamento</value>
     </property>
     <property key="OrderErrorOrderNotVerifiedForPacking">
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} wurde nicht für die Kommissionierung grprüft</value>
         <value xml:lang="en">ERROR: Order #${orderId} is not verified for packing</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas vérifiée, colisage non autorisé</value>
         <value xml:lang="pt_BR">ERRO: Pedido #${orderId} não foi verificado para empacotamento</value>
     </property>
     <property key="OrderErrorOrderTypeLookupFailed">
+        <value xml:lang="de">FEHLER : Suche nach Auftragsart fehlgeschlagen : </value>
         <value xml:lang="en">ERROR : OrderType lookup failed : </value>
         <value xml:lang="es">ERROR: La búsqueda ha fallado :</value>
         <value xml:lang="fr">Erreur : La consultation du type de commande a échouée : </value>
@@ -1030,6 +1060,7 @@
         <value xml:lang="zh_TW">錯誤：查找訂單類型失敗： </value>
     </property>
     <property key="OrderErrorProcessingOfflinePayments">
+        <value xml:lang="de">Fehler bei der Verarbeitung der 'offline'-Zahlung. </value>
         <value xml:lang="en">Error processing offline payments. </value>
         <value xml:lang="es">Error al procesar pagos fuera de línea</value>
         <value xml:lang="fr"> Erreur en traitant les paiements autonomes. </value>
@@ -1042,6 +1073,7 @@
         <value xml:lang="zh_TW">處理離線支付時出錯。 </value>
     </property>
     <property key="OrderErrorReturnHeaderItemStatusNotChangedIsNotAValidChange">
+        <value xml:lang="de">Status der Retoure nicht geändert ${statusId} -&gt; ${statusIdTo} ist kein gültige Änderung. </value>
         <value xml:lang="en">Return status not changed ${statusId} -&gt; ${statusIdTo} is not a valid change. </value>
         <value xml:lang="es">El estado de la devolución no ha cambiado. ${statusId} -&gt; ${statusIdTo} no es un cambio válido.</value>
         <value xml:lang="fr">Le statut du retour n'a pas été changé : ${statusId} -&gt; ${statusIdTo} ce changement n'est pas valide.</value>
@@ -1052,6 +1084,7 @@
         <value xml:lang="zh_TW">退貨狀態沒有改變，從${statusId} -&gt; ${statusIdTo}不是一個可行的改變。</value>
     </property>
     <property key="OrderErrorTheProductStoreIdCanOnlyBeNullForPurchaseOrders">
+        <value xml:lang="de">FEHLER: Die Laden-Id darf nur bei Beschaffungsaufträgen leer sein</value>
         <value xml:lang="en">ERROR: The productStoreId can only be null for purchase orders</value>
         <value xml:lang="es">ERROR: El código de la tienda no puede ser null para pedidos de compra</value>
         <value xml:lang="fr">Erreur : L'identifiant du dépôt d'article peut seulement être nul pour les bons de commande</value>
@@ -1064,16 +1097,19 @@
         <value xml:lang="zh_TW">錯誤：對于購物訂單，產品商店ID只能是 null</value>
     </property>
     <property key="OrderErrorUnableToCreateReturnHeader">
+        <value xml:lang="de">Fehler beim Erstellen des Retouren-Kopfes</value>
         <value xml:lang="en">Unable to create return header</value>
         <value xml:lang="fr">Impossible de créer un retour</value>
         <value xml:lang="it">Non è possibile creare la testata del reso</value>
     </property>
     <property key="OrderErrorUnableToCreateReturnItem">
+        <value xml:lang="de">Fehler beim Erstellen der Retouren-Position</value>
         <value xml:lang="en">Unable to create return item</value>
         <value xml:lang="fr">Impossible de créer une ligne de retour</value>
         <value xml:lang="it">Non è possibile creare la riga del reso</value>
     </property>
     <property key="OrderErrorUnableToCreateReturnStatusHistory">
+        <value xml:lang="de">Fehler beim Erstellen des Retouren-Status-Verlaufes</value>
         <value xml:lang="en">ERROR : Unable to create ReturnStatus history</value>
         <value xml:lang="es">ERROR: No se puedo crear historial para estado de devlución</value>
         <value xml:lang="fr">Erreur : Impossible de créer l'historique des statut de retour</value>
@@ -1086,6 +1122,7 @@
         <value xml:lang="zh_TW">錯誤：不能創建退貨狀態歷史記錄</value>
     </property>
     <property key="OrderErrorUnableToFindOrderHeader">
+        <value xml:lang="de">FEHLER : Auftragskopf konnte nicht gefunden werden. </value>
         <value xml:lang="en">ERROR : Unable to find order header. </value>
         <value xml:lang="es">ERROR: No se pudo encontrar encabezado del pedido</value>
         <value xml:lang="fr">Erreur : Impossible de trouver l'en-tête de la commande. </value>
@@ -1098,6 +1135,7 @@
         <value xml:lang="zh_TW">錯誤：無法找到訂單頭。 </value>
     </property>
     <property key="OrderErrorUnableToGetOrderAdjustmentsFromItem">
+        <value xml:lang="de">FEHLER : Auftragsanpassungen konnten nicht von der Position ermittelt werden</value>
         <value xml:lang="en">ERROR : Unable to get order adjustments from item</value>
         <value xml:lang="es">ERROR: No se pudo obtener ajustes para el ítem</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir les ajustements de commande de l'article</value>
@@ -1110,6 +1148,7 @@
         <value xml:lang="zh_TW">錯誤：無法從明細獲得訂單調整</value>
     </property>
     <property key="OrderErrorUnableToGetOrderHeaderForOrderId">
+        <value xml:lang="de">FEHLER : Auftragskopf zu Auftrag ${orderId} konnte nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get OrderHeader for orderId : ${orderId}</value>
         <value xml:lang="es">ERROR: No se puedo obtener encabezado para el pedido : ${orderId}</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir l'en-tête de commande pour l'identifiant de la commande : ${orderId}</value>
@@ -1122,6 +1161,7 @@
         <value xml:lang="zh_TW">錯誤：無法為訂單ID ${orderId} 獲得訂單頭 </value>
     </property>
     <property key="OrderErrorUnableToGetOrderHeaderFromReturnItem">
+        <value xml:lang="de">FEHLER : Auftragskopf zu Retourenposition konnte nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get OrderHeader from ReturnItem</value>
         <value xml:lang="es">ERROR: No se puedo obtener encabezado de pedido para el ítem devuelto</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir l'en-tête de commande du retour d'article</value>
@@ -1134,6 +1174,7 @@
         <value xml:lang="zh_TW">錯誤：無法從退貨明細獲得訂單頭</value>
     </property>
     <property key="OrderErrorUnableToGetOrderInformation">
+        <value xml:lang="de">FEHLER : Auftragsinformation konnte nicht gelesen werden.</value>
         <value xml:lang="en">ERROR : Unable to get order information.</value>
         <value xml:lang="es">ERROR: No se pudo obtener información del pedido</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir les informations de la commande. </value>
@@ -1146,6 +1187,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得訂單資訊。</value>
     </property>
     <property key="OrderErrorUnableToGetOrderItemInformation">
+        <value xml:lang="de">FEHLER : Auftragspositionsinformation konnte nicht gelesen werden.</value>
         <value xml:lang="en">ERROR : Unable to get order item information.</value>
         <value xml:lang="es">ERROR: No se puedo obtener información del ítem</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir les informations de l'article de la commande. </value>
@@ -1158,6 +1200,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得訂單明細資訊。</value>
     </property>
     <property key="OrderErrorUnableToGetOrderItemListForOrderId">
+        <value xml:lang="de">FEHLER : Auftragspositionsliste zu Auftrag ${orderId} konnte nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get OrderItem list for orderId : ${orderId}</value>
         <value xml:lang="es">ERROR: No se pudo obtener la lista de los ítems para el identificador del pedido:</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir la liste des articles de la commande pour l'identifiant de la commande : ${orderId}</value>
@@ -1170,6 +1213,7 @@
         <value xml:lang="zh_TW">錯誤：無法為訂單ID${orderId} 獲得訂單明細列表</value>
     </property>
     <property key="OrderErrorUnableToGetReturnHeaderForID">
+        <value xml:lang="de">FEHLER : Retouren-Kopf ${returnId} konnte nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get ReturnHeader for ID : ${returnId}</value>
         <value xml:lang="es">ERROR: No se pudo obtener el encabezado para la devolución: ${returnid}</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir le retour d'en-tête pour l'identifiant : ${returnId}</value>
@@ -1182,6 +1226,7 @@
         <value xml:lang="zh_TW">錯誤：無法為ID${returnId} 獲得退貨頭</value>
     </property>
     <property key="OrderErrorUnableToGetReturnHeaderFromItem">
+        <value xml:lang="de">FEHLER : Retouren-Kopf zu Position konnte nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get return header from item</value>
         <value xml:lang="es">ERROR: No se puedo obtener encabezado de devolución para el ítem</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir le retour de l'en-tête de l'article</value>
@@ -1194,6 +1239,7 @@
         <value xml:lang="zh_TW">錯誤：無法從明細獲得退貨頭</value>
     </property>
     <property key="OrderErrorUnableToGetReturnItemInformation">
+        <value xml:lang="de">FEHLER : Retouren-Position-Information konnte nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get return item information</value>
         <value xml:lang="es">ERROR: No se puedo obtener información del ítem</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir les informations du retour d'article</value>
@@ -1206,6 +1252,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得退貨明細資訊</value>
     </property>
     <property key="OrderErrorUnableToGetReturnItemRecordsFromReturnHeader">
+        <value xml:lang="de">FEHLER : Retouren-Positionen zu Retouren-Kopf konnten nicht gelesen werden</value>
         <value xml:lang="en">ERROR : Unable to get ReturnItem records from ReturnHeader</value>
         <value xml:lang="es">ERROR: No se pudo obtener los registros de los ítems a partir del encabezado de la devolución</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir les enregistrements des retours d'articles du retour d'en-tête</value>
@@ -1218,6 +1265,7 @@
         <value xml:lang="zh_TW">錯誤：無法從退貨頭獲得退貨明細記錄</value>
     </property>
     <property key="OrderErrorUnableToGetTheItemReturnableProduct">
+        <value xml:lang="de">FEHLER : Produkt zu Retouren-Position konnte nicht gelesen werden.</value>
         <value xml:lang="en">ERROR : Unable to get the item returnable product.</value>
         <value xml:lang="fr">ERREUR : Impossible de récupérer le produit à retourner.</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere il prodotto riga resa.</value>
@@ -1226,6 +1274,7 @@
         <value xml:lang="zh_TW">錯誤：無法獲得明細的可退貨產品</value>
     </property>
     <property key="OrderErrorUnableToGetTheItemReturnableQuantity">
+        <value xml:lang="de">FEHLER : Menge zu Retouren-Position konnte nicht gelesen werden.</value>
         <value xml:lang="en">ERROR : Unable to get the item returnable quantity.</value>
         <value xml:lang="es">ERROR: No se pudo obtener la cantidad de ítem retornable.</value>
         <value xml:lang="fr">Erreur : Impossible d'obtenir la quantité d'article restituable. </value>
@@ -1238,16 +1287,19 @@
         <value xml:lang="zh_TW">錯誤：無法獲得明細的可退貨數量。</value>
     </property>
     <property key="OrderErrorUnableToUpdateReturnHeaderStatusWithoutUserLogin">
+        <value xml:lang="de">Fehler bei Retourenänderung wegen fehlender Benutzeranmeldung</value>
         <value xml:lang="en">Unable to look up UserLogin from database</value>
         <value xml:lang="fr">Impossible de récupérer l'utilisateur depuis la base de données</value>
         <value xml:lang="it">Non è possibile trovare l'utente dal database</value>
     </property>
     <property key="OrderErrorUnableToUpdateReturnHeaderStatus">
+        <value xml:lang="de">Status des Retourenkopfes konnte nicht geändert werden</value>
         <value xml:lang="en">Unable to update return header status</value>
         <value xml:lang="fr">Impossible de mettre à jour le statut du retour</value>
         <value xml:lang="it">Non è possibile aggiornare lo stato della testata del reso</value>
     </property>
     <property key="OrderErrorWithCreateBillingAccount">
+        <value xml:lang="de">Fehler bei Erstellung des Rechnungskontos: </value>
         <value xml:lang="en">Error with createBillingAccount : </value>
         <value xml:lang="es">Error en la creación de la cuenta de facturación:</value>
         <value xml:lang="fr">Erreur avec la création du compte de facturation : </value>
@@ -1260,6 +1312,7 @@
         <value xml:lang="zh_TW">創建賬單賬戶時出錯： </value>
     </property>
     <property key="OrderErrorWithCreateBillingAccountRole">
+        <value xml:lang="de">Fehler bei Erstellung der Rechnungskonto-Rolle: </value>
         <value xml:lang="en">Error with createBillingAccountRole : </value>
         <value xml:lang="es">Error en la creación del rol de cuenta de facturación:</value>
         <value xml:lang="fr">Erreur avec la création du rôle de compte de facturation : </value>
@@ -1272,6 +1325,7 @@
         <value xml:lang="zh_TW">創建賬單賬戶角色時出錯：</value>
     </property>
     <property key="OrderErrorWritingRecordsToTheDatabase">
+        <value xml:lang="de">Fehler beim Schreiben in der Datenbank</value>
         <value xml:lang="en">Error writing record(s) to the database</value>
         <value xml:lang="es">Error de escritura de registro(s) en la base de datos</value>
         <value xml:lang="fr">Erreur d'écriture de rapport(s) dans la base de données</value>
@@ -1284,6 +1338,7 @@
         <value xml:lang="zh_TW">把記錄寫到資料庫時出錯</value>
     </property>
     <property key="OrderFailed">
+        <value xml:lang="de">Fehlgeschlagen</value>
         <value xml:lang="en">Failed</value>
         <value xml:lang="es">Fallado</value>
         <value xml:lang="fr">Echec</value>
@@ -1320,6 +1375,7 @@
         <value xml:lang="zh_TW">啟動 wfDelegateAndAcceptAssignment 服務時失敗。 </value>
     </property>
     <property key="OrderFixedAssetNotFoundFixedAssetId">
+        <value xml:lang="de">Anlage ${fixedAssetId} nicht gefunden</value>
         <value xml:lang="en">fixed_Asset_not_found. Fixed AssetId : ${fixedAssetId}</value>
         <value xml:lang="es">Activo fijo no encontrado. Código: ${fixedAssetId}</value>
         <value xml:lang="fr">Fixed Asset non trouvé. Identifiant du Fixet Asset : ${fixedAssetId}</value>
@@ -1332,6 +1388,7 @@
         <value xml:lang="zh_TW">沒有找到固定資產，固定資產ID：${fixedAssetId}</value>
     </property>
     <property key="OrderFrequencyOrIntervalWasNotSpecified">
+        <value xml:lang="de">Frequenz oder Intervall nicht angegeben</value>
         <value xml:lang="en">Frequency or interval was not specified</value>
         <value xml:lang="es">Frecuencia o intervalo no ha sido especificado</value>
         <value xml:lang="fr">Fréquence ou intervalle non spécifiés</value>
@@ -1344,6 +1401,7 @@
         <value xml:lang="zh_TW">沒有指定頻率或間隔</value>
     </property>
     <property key="OrderIdAlreadyExistsPleaseChooseAnother">
+        <value xml:lang="de">Auftragsnummer schon vorhanden, bitte eine andere angeben </value>
         <value xml:lang="en">Order Id already exists please choose another </value>
         <value xml:lang="fr">Cette réf. de commande existe déjà, SVP chjoisissez en une autre </value>
         <value xml:lang="pt_BR">ID de pedido já existe por favor escolha outro </value>
@@ -1351,6 +1409,7 @@
         <value xml:lang="zh_TW">訂單ID已經存在了，請另外選擇一個</value>
     </property>
     <property key="OrderIllegalCharacterInSelectedItemField">
+        <value xml:lang="de">Ungültiges Zeichen im Auswahlfeld</value>
         <value xml:lang="en">Illegal character in selectedItem field</value>
         <value xml:lang="es">Caracter ilegal en el campo del ítem seleccionado</value>
         <value xml:lang="fr">Caractère illégal dans le champ d'article sélectionné</value>
@@ -1363,6 +1422,7 @@
         <value xml:lang="zh_TW">在選擇的明細域中有非法字符</value>
     </property>
     <property key="OrderIllegalReturnItemTypePassed">
+        <value xml:lang="de">Ungülter Retouren-Positions-Typ: Entweder wurde Position ${orderItemSeqId} von Auftrag ${orderId} komplett zurück gegebenoder eine andere als manuelle Anpassung wurde zur Retourenposition hinzugefügt </value>
         <value xml:lang="en">Illegal returnItemType: either order ${orderId} item ${orderItemSeqId} has been returned in full, or a return item other than Manual Adjustment or Shipping was being added to the return </value>
         <value xml:lang="es">El último tipo de ítem de devolución es ilegal</value>
         <value xml:lang="fr">Le type de retour d'article passé est illégal. </value>
