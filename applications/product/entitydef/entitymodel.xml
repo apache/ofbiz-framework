@@ -4824,7 +4824,7 @@ under the License.
       <relation type="one" fk-name="PROD_GROUP_ORDER" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
-      <relation type="one" fk-name="PROD_GROUP_ORDER_JOB" rel-entity-name="JobSandbox">
+      <relation type="one" fk-name="GROUP_ORDER_JOB" rel-entity-name="JobSandbox">
         <key-map field-name="jobId"/>
       </relation>
     </entity>
