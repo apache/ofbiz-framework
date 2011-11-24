@@ -155,7 +155,7 @@ under the License.
       <field name="description" type="description"></field>
       <field name="comments" type="comment"></field>
       <field name="isPublic" type="indicator"></field>
-      <field name="singleUse" type="indicator"><description>Wether members of the list should be contacted only once.</description></field>
+      <field name="singleUse" type="indicator"><description>Whether members of the list should be contacted only once.</description></field>
       <field name="ownerPartyId" type="id"></field>      
       <field name="verifyEmailFrom" type="long-varchar"></field>
       <field name="verifyEmailScreen" type="long-varchar"></field>
