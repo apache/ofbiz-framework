@@ -823,6 +823,9 @@ public class UtilDateTime {
     }
 
     public static Timestamp getDayEnd(Timestamp stamp, Long daysLater, TimeZone timeZone, Locale locale) {
+    	if (daysLater == null) {
+    		daysLater = Long.valueOf(0);
+    	}
         Calendar tempCal = toCalendar(stamp, timeZone, locale);
         tempCal.set(tempCal.get(Calendar.YEAR), tempCal.get(Calendar.MONTH), tempCal.get(Calendar.DAY_OF_MONTH), 23, 59, 59);
         tempCal.add(Calendar.DAY_OF_MONTH, daysLater.intValue());
