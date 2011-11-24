@@ -613,19 +613,17 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     fullUrlString = request.getRequestURI() + "?" + queryString;
                 }
             }
-            if (!collapsed) {
-                StringWriter sb = new StringWriter();
-                if (navMenu != null) {
-                    MenuStringRenderer savedRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
-                    MenuStringRenderer renderer = new ScreenletMenuRenderer(request, response);
-                    context.put("menuStringRenderer", renderer);
-                    navMenu.renderWidgetString(sb, context, this);
-                    context.put("menuStringRenderer", savedRenderer);
-                } else if (navForm != null) {
-                    renderScreenletPaginateMenu(sb, context, navForm);
-                }
-                menuString = sb.toString();
+            StringWriter sb = new StringWriter();
+            if (navMenu != null) {
+                MenuStringRenderer savedRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
+                MenuStringRenderer renderer = new ScreenletMenuRenderer(request, response);
+                context.put("menuStringRenderer", renderer);
+                navMenu.renderWidgetString(sb, context, this);
+                context.put("menuStringRenderer", savedRenderer);
+            } else if (navForm != null) {
+                renderScreenletPaginateMenu(sb, context, navForm);
             }
+            menuString = sb.toString();
         }
 
         Map<String, Object> parameters = FastMap.newInstance();
