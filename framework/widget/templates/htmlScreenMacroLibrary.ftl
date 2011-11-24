@@ -157,9 +157,12 @@ expanded"><a <#if javaScriptEnabled>onclick="javascript:toggleScreenlet(this, '$
 </#if>
 >&nbsp;</a></li>
 </#if>
+<#--
 <#if !collapsed>
 ${menuString}
 </#if>
+ -->
+${menuString}
 </ul><br class="clear" /></div>
 </#if>
 <div <#if collapsibleAreaId?has_content> id="${collapsibleAreaId}" <#if collapsed> style="display: none;"</#if></#if><#if padded> class="screenlet-body"<#else> class="screenlet-body no-padding"</#if>>
