@@ -964,24 +964,6 @@ under the License.
         </if-empty>
     </simple-method>
 
-    <simple-method method-name="setAnonUserLogin" short-description="Set user login in the session" login-required="false">
-        <if-empty field="userLogin">
-            <entity-one entity-name="UserLogin" value-field="userLogin">
-                <field-map field-name="userLoginId" value="anonymous"/>
-            </entity-one>
-            <set field="userLogin.partyId" from-field="partyId"/>
-            <set-current-user-login value-field="userLogin"/>
-        <else>
-            <!-- If an anonymous vistor is coming back, update the party id in the userLogin object -->
-            <if-compare field="userLogin.userLoginId" operator="equals" value="anonymous">
-                <set field="userLogin.partyId" from-field="partyId"/>
-            </if-compare>
-        </else>
-        </if-empty>
-        <field-to-request field="userLogin" request-name="userLogin"/>
-        <log level="info" message="userLogin is ${userLogin}"/>
-    </simple-method>
-
     <simple-method method-name="getShipOptions" short-description="Get shipping options" login-required="false">
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
