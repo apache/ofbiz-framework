@@ -99,6 +99,13 @@ under the License.
             <script src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
     </#if>
+    <#if layoutSettings.WEB_ANALYTICS?has_content>
+      <script language="JavaScript" type="text/javascript">
+        <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
+          ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
+        </#list>
+      </script>
+    </#if>
 </head>
 <#if layoutSettings.headerImageLinkUrl?exists>
   <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">

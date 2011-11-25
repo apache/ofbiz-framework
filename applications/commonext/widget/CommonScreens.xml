@@ -49,6 +49,9 @@ under the License.
                 <entity-and list="pageAvail" entity-name="ContentAssoc">
                     <field-map field-name="mapKey" from-field="helpTopic"/>
                 </entity-and>
+                <entity-and list="layoutSettings.WEB_ANALYTICS" entity-name="WebAnalyticsConfig">
+                    <field-map field-name="webAnalyticsTypeId" value="BACKEND_ANALYTICS"/>
+                </entity-and>
             </actions>
             <widgets>
                 <section>
