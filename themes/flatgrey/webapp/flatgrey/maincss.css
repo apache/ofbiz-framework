@@ -259,7 +259,7 @@ color: #ccc;
 font-size: 1em;
 font-weight: normal;
 min-height: 26px; /* Setting must be in px */
-height: 2.6em;
+height: auto;
 overflow: auto;
 }
 
@@ -273,6 +273,16 @@ color: #ccc;
 font-weight: normal;
 }
 
+.last-system-msg{
+color: #FFFFFF;
+font-size: 0.9em;
+padding-left:10px;
+}
+
+.preference-area{
+float: right !important;
+}
+
 #masthead ul .logo-area {
 padding: 0.1em 0.8em;
 }
@@ -282,7 +292,7 @@ padding: 0.1em 0.8em;
 }
 
 #masthead ul .org-logo-area img{
-width: 50px;
+width: auto;
 height: 22px;
 }
 
