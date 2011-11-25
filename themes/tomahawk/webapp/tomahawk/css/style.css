@@ -957,7 +957,7 @@ height:100%;
 }
 
 #org-logo-area {
-width:385px;
+width:auto;
 height:50px;
 }
 
@@ -2137,7 +2137,7 @@ display: none;
 #masthead ul li.last-system-msg{
 color:#FFFFFF;
 padding-left:10px;
-float: right;
+float: left;
 margin-right: 20px;
 }
 

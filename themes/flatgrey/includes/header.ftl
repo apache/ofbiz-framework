@@ -117,29 +117,43 @@ under the License.
             <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(headerImageUrl)}</@ofbizContentUrl>"/></a></li>
         </#if>
       </#if>
-      <#if userLogin?exists>
-        <#if layoutSettings.topLines?has_content>
-          <#list layoutSettings.topLines as topLine>
-            <#if topLine.text?exists>
-              <li>${topLine.text}<a href="${StringUtil.wrapString(topLine.url?if_exists)}&amp;externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></li>
-            <#elseif topLine.dropDownList?exists>
-              <li><#include "component://common/webcommon/includes/insertDropDown.ftl"/></li>
-            <#else>
-              <li>${topLine?if_exists}</li>
-            </#if>
-          </#list>
-        <#else>
-          <li>${userLogin.userLoginId}</li>
-        </#if>
-        <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
-      <#else/>
-        <li>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+      <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
+        <li>
+        <div class="last-system-msg">
+        <center>${layoutSettings.middleTopHeader?if_exists}</center>
+        <a href="${layoutSettings.middleTopLink1?if_exists}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
+        <a href="${layoutSettings.middleTopLink2?if_exists}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
+        <a href="${layoutSettings.middleTopLink3?if_exists}">${layoutSettings.middleTopMessage3?if_exists}</a>
+        </div>
+        </li>
       </#if>
-      <#---if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists-->
-      <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
-        <#include "component://common/webcommon/includes/helplink.ftl" />
-        <li><a <#if pageAvail?has_content>class="alert"</#if> href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
-      </#if> 
+      <li class="preference-area">
+          <ul>
+          <#if userLogin?exists>
+            <#if layoutSettings.topLines?has_content>
+              <#list layoutSettings.topLines as topLine>
+                <#if topLine.text?exists>
+                  <li>${topLine.text}<a href="${StringUtil.wrapString(topLine.url?if_exists)}&amp;externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></li>
+                <#elseif topLine.dropDownList?exists>
+                  <li><#include "component://common/webcommon/includes/insertDropDown.ftl"/></li>
+                <#else>
+                  <li>${topLine?if_exists}</li>
+                </#if>
+              </#list>
+            <#else>
+              <li>${userLogin.userLoginId}</li>
+            </#if>
+            <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
+          <#else/>
+            <li>${uiLabelMap.CommonWelcome}! <a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
+          </#if>
+          <#---if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists-->
+          <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
+            <#include "component://common/webcommon/includes/helplink.ftl" />
+            <li><a <#if pageAvail?has_content>class="alert"</#if> href="javascript:lookup_popup2('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);">${uiLabelMap.CommonHelp}</a></li>
+          </#if>
+          </ul>
+      </li>
     </ul>
   </div>
   <#--<br class="clear" />-->
