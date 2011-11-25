@@ -324,7 +324,7 @@
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="ProjectMember"/>
+                <set field="headerItem" value="myProfile"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="Person" value-field="lookupPerson"/>

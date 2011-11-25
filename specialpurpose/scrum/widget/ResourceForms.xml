@@ -160,25 +160,25 @@
         </field>
     </form>
     <form name="ListPreference" type="multi" target="updatePreference?partyId=${parameters.partyId}" list-name="userPreferenceList"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
             <service service-name="getUserPreference" result-map="values">
                 <field-map field-name="userPrefTypeId" from-field="enumId"/>
             </service>
-            <set field="userPrefValue" from-field="values.userPrefValue"/>
+            <set field="userPrefValue" from-field="values.userPrefValue" default-value="Y"/>
             <entity-and entity-name="UserLogin" list="userLogins">
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
+                <field-map field-name="userLoginId" from-field="userLogin.userLoginId"/>
             </entity-and>
             <set field="userLoginId" from-field="userLogins[0].userLoginId"/>
         </row-actions>
-        <field name="_rowSubmit"><hidden value="Y"/></field>
         <field name="enumId" parameter-name="userPrefTypeId"><hidden value="${enumId}"/></field>
         <field name="enumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="userLoginId"><hidden/></field>
         <field name="userPrefValue" title="Enable">
-            <drop-down>
+            <drop-down allow-empty="false" no-current-selected-key="Y">
                 <option key="N" description="No"/>
                 <option key="Y" description="Yes"/>
             </drop-down>
@@ -186,6 +186,7 @@
         <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="ListPreferenceNoAction" extends="ListPreference">
+        <field name="userPrefValue" title="Enable"><display/></field>
         <field name="submit"><hidden/></field>
     </form>
     <form name="FindPartyRevision" type="single" target="findPartyRevision">

@@ -54,6 +54,11 @@
                </condition>
                <link target="adminScrum"/>
         </menu-item>
+        <menu-item name="myProfile" title="${uiLabelMap.ScrumMyProfile}">
+            <link target="viewprofile">
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+            </link>
+        </menu-item>
     </menu>
     
     <menu name="ScrumAdminSubMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -721,32 +726,52 @@
             </link>
         </menu-item>
         <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}">
+            <condition>
+                <and>
+                    <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+                    <if-compare-field field="userLogin.partyId" operator="equals" to-field="partyId"/>
+                </and>
+            </condition>
             <link target="Preferences">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        
         <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
             <link target="viewroles">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="listResourcesProject" title="${uiLabelMap.ScrumProjects}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="VIEW" resource-description="BACKLOG"/>
+            </condition>
             <link target="listResourcesProject">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="listResourcesTask"  title="${uiLabelMap.ScrumTasks}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
             <link target="listResourcesTask">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
+            <condition>
+                <if-has-permission permission="SCRUM" action="_ADMIN"/>
+            </condition>
             <link target="EditPartyRates">
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="findPartyRevision"  title="${uiLabelMap.ScrumRevisions}">
+            <condition>
+                <if-service-permission service-name="scrumPermissionCheck" main-action="UPDATE" resource-description="TASK"/>
+            </condition>
             <link target="findPartyRevision">
                 <parameter param-name="partyId"/>
             </link>
@@ -873,7 +898,7 @@
                     <if-has-permission permission="SCRUM" action="_ADMIN"/>
                 </and>
             </condition>
-            <link target="setTaskStatus">
+           <link target="setTaskStatus">
                 <parameter param-name="workEffortId" from-field="parameters.taskId"/>
                 <parameter param-name="taskId" from-field="parameters.taskId"/>
                 <parameter param-name="currentStatusId" value="STS_CANCELLED"/>
