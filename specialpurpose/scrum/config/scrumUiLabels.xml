@@ -671,6 +671,9 @@
     <property key="ScrumMoveToUnplannedSprint">
         <value xml:lang="en">Move to unplanned sprint</value>
     </property>
+    <property key="ScrumMyProfile">
+        <value xml:lang="en">My Profile</value>
+    </property>
     <property key="ScrumMyWork">
         <value xml:lang="en">My Work</value>
     </property>

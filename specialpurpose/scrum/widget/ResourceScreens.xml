@@ -209,12 +209,14 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartyPreferences"/>
-                <set field="headerItem" value="projectMember"/>
                 <set field="tabButtonItem" value="preferences"/>
                 <set field="partyId"  from-field="parameters.partyId"/>
-                <entity-and entity-name="Enumeration" list="userPreferenceList">
-                    <field-map field-name="enumTypeId" value="SCRUM_PREFERENCE"/>
+                <entity-and entity-name="UserLogin" list="userLogins">
+                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="userLoginId" from-field="userLogin.userLoginId"/>
                 </entity-and>
+                <set field="userLoginId" from-field="userLogins[0].userLoginId"/>
+                <script location="component://scrum/webapp/scrum/WEB-INF/actions/ListScrumPreferenceSecurityGroup.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -223,12 +225,12 @@ under the License.
                             <condition>
                                 <and>
                                     <not><if-empty field="partyId"></if-empty></not>
-                                    <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="MEMBER"/>
+                                    <!-- <if-service-permission service-name="scrumPermissionCheck" main-action="CREATE" resource-description="BACKLOG"/> -->
                                     <if-compare-field field="partyId" operator="equals" to-field="userLogin.partyId"/>
                                 </and>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.CommonPreferences}" >
+                                <screenlet title="${uiLabelMap.CommonPreferences} : ${userLoginId}" >
                                     <include-form name="ListPreference" location="component://scrum/widget/ResourceForms.xml"/>
                                 </screenlet>
                             </widgets>
