@@ -36,6 +36,7 @@ under the License.
   <!--  - org.ofbiz.order.request -->
   <!--  - org.ofbiz.order.shoppingcart -->
   <!--  - org.ofbiz.order.shoppinglist -->
+  <!--  - org.ofbiz.order.communication -->
   <!-- ========================================================= -->
 
 
@@ -1589,22 +1590,9 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.order.opportunity -->
+  <!-- org.ofbiz.order.communication -->
   <!-- ========================================================= -->
 
-    <view-entity entity-name="SalesForecastAndCustomTimePeriod"
-            package-name="org.ofbiz.order.opportunity"
-            title="View for selecting the forecast with its time period.">
-      <member-entity entity-alias="SF" entity-name="SalesForecast"/>
-      <member-entity entity-alias="CTP" entity-name="CustomTimePeriod"/>
-      <alias-all entity-alias="SF"/>
-      <alias-all entity-alias="CTP">
-          <exclude field="organizationPartyId"/>
-      </alias-all>
-      <view-link entity-alias="SF" rel-entity-alias="CTP">
-        <key-map field-name="customTimePeriodId"/>
-      </view-link>
-    </view-entity>
     <view-entity entity-name="CommunicationEventAndOrder"
                  package-name="org.ofbiz.order.communication"
                  title="Communication Event And Order View Entity">

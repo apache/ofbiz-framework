@@ -34,6 +34,7 @@ under the License.
   <!--  - org.ofbiz.marketing.contact -->
   <!--  - org.ofbiz.marketing.segment -->
   <!--  - org.ofbiz.marketing.tracking -->
+  <!--  - org.ofbiz.marketing.opportunity -->
   <!-- ========================================================= -->
 
 
@@ -643,4 +644,300 @@ under the License.
             <key-map field-name="orderId"/>
         </view-link>
     </view-entity>
+  <!-- ========================================================= -->
+  <!-- org.ofbiz.marketing.opportunity -->
+  <!-- ========================================================= -->
+
+    <entity entity-name="SalesOpportunity"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Main entity of information about sales opportunities">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="opportunityName" type="name"></field>
+        <field name="description" type="very-long"/>
+        <field name="nextStep" type="very-long"/>
+        <field name="nextStepDate" type="date-time"/>
+        <field name="estimatedAmount" type="currency-amount"/>
+        <field name="estimatedProbability" type="fixed-point"/>
+        <field name="currencyUomId" type="id-ne"/>
+        <field name="marketingCampaignId" type="id-ne"/>
+        <field name="dataSourceId" type="id-ne"/>
+        <field name="estimatedCloseDate" type="date-time"/>
+        <field name="opportunityStageId" type="id-ne"/>
+        <field name="typeEnumId" type="id-ne"/>
+        <field name="createdByUserLogin" type="id-vlong"/>
+        <prim-key field="salesOpportunityId"/>
+        <relation fk-name="SLSOPP_CRNCY_UOM" rel-entity-name="Uom" type="one">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation fk-name="SLSOPP_STAGE" rel-entity-name="SalesOpportunityStage" type="one">
+            <key-map field-name="opportunityStageId"/>
+        </relation>
+        <relation title="Type" fk-name="SLSOPP_TYP_ENUM" rel-entity-name="Enumeration" type="one">
+            <key-map field-name="typeEnumId" rel-field-name="enumId"/>
+        </relation>
+        <relation fk-name="SLSOPP_MKTGCMPG" rel-entity-name="MarketingCampaign" type="one">
+            <key-map field-name="marketingCampaignId"/>
+        </relation>
+        <relation fk-name="SLSOPP_USRLGN" rel-entity-name="UserLogin" type="one">
+            <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="SalesOpportunityHistory"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Tracks a history of sales opportunity information">
+        <field name="salesOpportunityHistoryId" type="id-ne"></field>
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="description" type="very-long"/>
+        <field name="nextStep" type="very-long"/>
+        <field name="estimatedAmount" type="currency-amount"/>
+        <field name="estimatedProbability" type="fixed-point"/>
+        <field name="currencyUomId" type="id-ne"/>
+        <field name="estimatedCloseDate" type="date-time"/>
+        <field name="opportunityStageId" type="id-ne"/>
+        <field name="changeNote" type="very-long">
+            <description>Used to track a reason for this change</description> <!-- maybe one day this should be a link to NoteData -->
+        </field>
+        <field name="modifiedByUserLogin" type="id-vlong"/>
+        <field name="modifiedTimestamp" type="date-time"/>
+        <prim-key field="salesOpportunityHistoryId"/>
+        <relation fk-name="SLOPHI_CRNCY_UOM" rel-entity-name="Uom" type="one">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation fk-name="SLOPHI_STAGE" rel-entity-name="SalesOpportunityStage" type="one">
+            <key-map field-name="opportunityStageId"/>
+        </relation>
+        <relation fk-name="SLOPHI_SLSOPP" rel-entity-name="SalesOpportunity" type="one">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+        <relation fk-name="SLOPHI_USRLGN" rel-entity-name="UserLogin" type="one">
+            <key-map field-name="modifiedByUserLogin" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="SalesOpportunityRole"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Describes roles of different parties involved in a sales opportunity">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="partyId" type="id-ne"></field>
+        <field name="roleTypeId" type="id-ne"/>
+        <!-- it may be nice to add fromDate and thruDate at some point to track changing roles if that's ever important -->
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="partyId"/>
+        <prim-key field="roleTypeId"/>
+        <relation fk-name="SLSOPPRL_SLSOPP" rel-entity-name="SalesOpportunity" type="one">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+        <relation fk-name="SLSOPPRL_PARTY" rel-entity-name="Party" type="one">
+            <key-map field-name="partyId"/>
+        </relation>
+        <relation fk-name="SLSOPPRL_ROLETYPE" rel-entity-name="RoleType" type="one">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation fk-name="SLSOPPRL_PTYROLE" rel-entity-name="PartyRole" type="one"> <!-- make sure the party actually is in the role specified -->
+            <key-map field-name="partyId"/>
+            <key-map field-name="roleTypeId"/>
+        </relation>
+    </entity>
+
+    <view-entity entity-name="SalesOpportunityAndRole" package-name="org.ofbiz.marketing.opportunity" title="SalesOpportunity And Role View Entity">
+      <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
+      <member-entity entity-alias="SR" entity-name="SalesOpportunityRole"/>
+      <alias-all entity-alias="SO"/>
+      <alias name="partyId" entity-alias="SR"/>
+      <alias name="roleTypeId" entity-alias="SR"/>
+      <view-link entity-alias="SO" rel-entity-alias="SR">
+        <key-map field-name="salesOpportunityId"/>
+      </view-link>
+    </view-entity>
+
+    <entity entity-name="SalesOpportunityStage"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Describes stages of a sales opportunity with associated probability factors.">
+        <field name="opportunityStageId" type="id-ne"></field>
+        <field name="description" type="description"/>
+        <field name="defaultProbability" type="fixed-point"/>
+        <field name="sequenceNum" type="numeric"/>
+        <prim-key field="opportunityStageId"/>
+    </entity>
+
+    <entity entity-name="SalesOpportunityWorkEffort"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Relates sales opportunities to their work efforts.">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="workEffortId" type="id-ne"></field>
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="workEffortId"/>
+        <relation type="one" fk-name="SOPPWEFF_SOPP" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+        <relation type="one" fk-name="SOPPWEFF_WEFF" rel-entity-name="WorkEffort">
+            <key-map field-name="workEffortId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="SalesOpportunityQuote"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Relates sales opportunities to their quotes.">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="quoteId" type="id-ne"></field>
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="quoteId"/>
+        <relation type="one" fk-name="SOPPQTE_SOPP" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+        <relation type="one" fk-name="SOPPQTE_QTE" rel-entity-name="Quote">
+            <key-map field-name="quoteId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="SalesForecast"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Stores sales forecast data for sales opportunities.">
+        <field name="salesForecastId" type="id-ne"></field>
+        <field name="parentSalesForecastId" type="id"></field>
+        <field name="organizationPartyId" type="id"></field>
+        <field name="internalPartyId" type="id"></field>
+        <field name="customTimePeriodId" type="id"></field>
+        <field name="currencyUomId" type="id"></field>
+        <field name="quotaAmount" type="currency-amount"></field>
+        <field name="forecastAmount" type="currency-amount"></field>
+        <field name="bestCaseAmount" type="currency-amount"></field>
+        <field name="closedAmount" type="currency-amount"/>
+        <field name="percentOfQuotaForecast" type="fixed-point"/>
+        <field name="percentOfQuotaClosed" type="fixed-point"/>
+        <field name="pipelineAmount" type="currency-amount"></field>
+        <field name="createdByUserLoginId" type="id-vlong"></field>
+        <field name="modifiedByUserLoginId" type="id-vlong"></field>
+        <prim-key field="salesForecastId"/>
+        <relation type="one" fk-name="SALES4C_PARENT" title="Parent" rel-entity-name="SalesForecast">
+            <key-map field-name="parentSalesForecastId" rel-field-name="salesForecastId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4C_ORG_PARTY" title="Organization" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4C_INT_PARTY" title="Internal" rel-entity-name="Party">
+            <key-map field-name="internalPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4C_TIME_PER" rel-entity-name="CustomTimePeriod">
+            <key-map field-name="customTimePeriodId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4C_CUR_UOM" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4C_CRT_USER" title="CreatedBy" rel-entity-name="UserLogin">
+            <key-map field-name="createdByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4C_MOD_USER" title="ModifiedBy" rel-entity-name="UserLogin">
+            <key-map field-name="modifiedByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="SalesForecastDetail"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Stores Details of Resourses of Sales Forecast for simulation of MRP">
+        <field name="salesForecastId" type="id-ne"/>
+        <field name="salesForecastDetailId" type="id-ne"/>
+        <field name="amount" type="currency-amount"/>
+        <field name="quantityUomId" type="id"/>
+        <field name="quantity" type="fixed-point"/>
+        <field name="productId" type="id"/>
+        <field name="productCategoryId" type="id"/>
+        <prim-key field="salesForecastId"/>
+        <prim-key field="salesForecastDetailId"/>
+        <relation type="one" fk-name="SALES4CDTL_SALES4C" rel-entity-name="SalesForecast">
+            <key-map field-name="salesForecastId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CDTL_QTY_UOM" title="Quantity" rel-entity-name="Uom">
+            <key-map field-name="quantityUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CDTL_PROD" rel-entity-name="Product">
+            <key-map field-name="productId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CDTL_PCTGRY" rel-entity-name="ProductCategory">
+            <key-map field-name="productCategoryId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="SalesForecastHistory"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Keeps a record of changes to a sales forecast.">
+        <field name="salesForecastHistoryId" type="id-ne"></field>
+        <field name="salesForecastId" type="id-ne"></field>
+        <field name="parentSalesForecastId" type="id"></field>
+        <field name="organizationPartyId" type="id"></field>
+        <field name="internalPartyId" type="id"></field>
+        <field name="customTimePeriodId" type="id"></field>
+        <field name="currencyUomId" type="id"></field>
+        <field name="quotaAmount" type="currency-amount"></field>
+        <field name="forecastAmount" type="currency-amount"></field>
+        <field name="bestCaseAmount" type="currency-amount"></field>
+        <field name="closedAmount" type="currency-amount"/>
+        <field name="percentOfQuotaForecast" type="fixed-point"/>
+        <field name="percentOfQuotaClosed" type="fixed-point"/>
+        <field name="changeNote" type="very-long">
+            <description>Used to track a reason for this change</description> <!-- maybe one day this should be a link to NoteData -->
+        </field>
+        <field name="modifiedByUserLoginId" type="id-vlong"></field>
+        <field name="modifiedTimestamp" type="date-time"/>
+        <prim-key field="salesForecastHistoryId"/>
+        <relation type="one" fk-name="SALES4CH_SALES4C" rel-entity-name="SalesForecast">
+            <key-map field-name="salesForecastId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CH_ORG_PARTY" title="Organization" rel-entity-name="Party">
+            <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CH_INT_PARTY" title="Internal" rel-entity-name="Party">
+            <key-map field-name="internalPartyId" rel-field-name="partyId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CH_TIME_PER" rel-entity-name="CustomTimePeriod">
+            <key-map field-name="customTimePeriodId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CH_CUR_UOM" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="SALES4CH_MOD_USER" title="ModifiedBy" rel-entity-name="UserLogin">
+            <key-map field-name="modifiedByUserLoginId" rel-field-name="userLoginId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SalesOpportunityCompetitor"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Sales opportunity competitors record">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="competitorPartyId" type="id-ne"></field>
+        <field name="positionEnumId" type="id-ne"></field>
+        <field name="strengths" type="very-long"></field>
+        <field name="weaknesses" type="very-long"></field>
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="competitorPartyId"/>
+        <relation type="one" fk-name="SOPPCOMP_SOPP" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+    </entity>
+    <entity entity-name="SalesOpportunityTrckCode"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="Sales opportunity traking code">
+        <field name="salesOpportunityId" type="id-ne"></field>
+        <field name="trackingCodeId" type="id-ne"></field>
+        <field name="receivedDate" type="date-time"></field>
+        <prim-key field="salesOpportunityId"/>
+        <prim-key field="trackingCodeId"/>
+        <relation type="one" fk-name="SOPPTRKCD_SOPP" rel-entity-name="SalesOpportunity">
+            <key-map field-name="salesOpportunityId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="SalesForecastAndCustomTimePeriod"
+            package-name="org.ofbiz.marketing.opportunity"
+            title="View for selecting the forecast with its time period.">
+      <member-entity entity-alias="SF" entity-name="SalesForecast"/>
+      <member-entity entity-alias="CTP" entity-name="CustomTimePeriod"/>
+      <alias-all entity-alias="SF"/>
+      <alias-all entity-alias="CTP">
+          <exclude field="organizationPartyId"/>
+      </alias-all>
+      <view-link entity-alias="SF" rel-entity-alias="CTP">
+        <key-map field-name="customTimePeriodId"/>
+      </view-link>
+    </view-entity>
+    
 </entitymodel>

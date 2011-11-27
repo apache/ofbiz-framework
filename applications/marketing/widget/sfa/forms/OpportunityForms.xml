@@ -44,13 +44,13 @@ under the License.
     </form>
 
     <form name="ListSalesOpportunity" type="list" list-name="listIt" paginate-target="FindSalesOpportunity" view-size="20"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalesOpportunity"/>
-                <field-map field-name="orderBy" value="salesOpportunityId"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
@@ -67,6 +67,7 @@ under the License.
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
         <field name="nextStep"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
+        <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}" sort-field="true"><display/></field>
         <field name="estimatedCloseDate" title="${uiLabelMap.SfaCloseDate}"><display/></field>
         <field name="editButton" title="${uiLabelMap.CommonClose}" use-when="${groovy: estimatedCloseDate == null || isDateAfterNow == true || opportunityStageId != &quot;SOSTG_CLOSED&quot;}" widget-style="buttontext">
             <hyperlink target="closeSalesOpportunity" description="${uiLabelMap.CommonClose}">
@@ -79,21 +80,20 @@ under the License.
     <form name="EditSalesOpportunity" type="single" target="updateSalesOpportunity" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="salesOpportunity==null" target="createSalesOpportunity"/>
-        <auto-fields-service service-name="createSalesOpportunity"/>
         <field name="salesOpportunityId" use-when="salesOpportunity!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="salesOpportunityId" use-when="salesOpportunity==null&amp;&amp;salesOpportunityId==null"><text/></field>
         <field name="salesOpportunityId" use-when="salesOpportunity==null&amp;&amp;salesOpportunityId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${salesOpportunityId}]"><display/></field>
-       
-        <field name="opportunityName" use-when="communicationEvent==null&amp;&amp;salesOpportunityId==null" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="25"/></field>
-        <field name="opportunityName" use-when="communicationEvent!=null" title="${uiLabelMap.SfaOpportunityName}"><text default-value="${communicationEvent.subject}" size="30"/></field>
-       
-        <field name="leadPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupLeads" default-value="${leadPartyId}"/></field>
-        <field name="leadPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupLeads" default-value="${communicationEvent.partyIdFrom}"/></field>
-        <field name="accountPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccounts" default-value="${accountPartyId}"/></field>
-        <field name="accountPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccounts" default-value="${accountPartyId}"/></field>
-        <field name="typeEnumId" title="${uiLabelMap.SfaType}"></field>
-     
+        <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}"><text default-value="${communicationEvent.subject}" size="30"/></field>
+        <field name="description" title="${uiLabelMap.MarketingSegmentGroupDescription}"><textarea default-value="${communicationEvent.content}"/></field>
+        <field name="nextStep" title="${uiLabelMap.SfaNextStep}"><textarea/></field>
         <field name="estimatedAmount" position="1" title="${uiLabelMap.SfaEstimatedAmount}"><text size="25"/></field>
+        <field name="estimatedProbability" position="2" title="${uiLabelMap.SfaProbability}"><text size="25"/></field>
+        <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}">
+            <drop-down allow-empty="true">
+                <entity-options description="${campaignName}" entity-name="MarketingCampaign" key-field-name="marketingCampaignId">
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="currencyUomId" position="2" title="${uiLabelMap.CommonCurrency}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${description} - ${abbreviation}" entity-name="Uom">
@@ -102,8 +102,23 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><text size="25"/></field>
+        <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}"><date-time/></field>
         <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}" widget-style="required"><date-time/></field>
+        <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
+            <drop-down>
+                <entity-options description="${description}" entity-name="SalesOpportunityStage">
+                    <entity-order-by field-name="sequenceNum"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="typeEnumId" position="2" title="${uiLabelMap.SfaType}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                    <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="dataSourceId" use-when="communicationEvent==null" position="1" title="${uiLabelMap.SfaDataSourceLabel}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
@@ -120,49 +135,31 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
-            <drop-down>
-                <entity-options description="${description}" entity-name="SalesOpportunityStage">
-                    <entity-order-by field-name="sequenceNum"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="typeEnumId" position="2" title="${uiLabelMap.SfaType}">
-            <drop-down allow-empty="true">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
-                    <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}">
-            <drop-down allow-empty="true">
-                <entity-options description="${campaignName}" entity-name="MarketingCampaign" key-field-name="marketingCampaignId">
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="description" use-when="communicationEvent!=null" title="${uiLabelMap.MarketingSegmentGroupDescription}"><textarea default-value="${communicationEvent.content}"/></field>
-        <field name="description" use-when="communicationEvent==null" title="${uiLabelMap.MarketingSegmentGroupDescription}"><textarea/></field>
-        <field name="nextStep" title="${uiLabelMap.SfaNextStep}"><textarea/></field>
+        <field name="accountPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccounts" default-value="${accountPartyId}"/></field>
+        <field name="accountPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaInitialAccount}" ><lookup target-form-name="LookupAccounts" default-value="${accountPartyId}"/></field>
+        <field name="leadPartyId" use-when="communicationEvent==null" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupLeads" default-value="${leadPartyId}"/></field>
+        <field name="leadPartyId" use-when="communicationEvent!=null" title="${uiLabelMap.SfaLead}" widget-style="required"><lookup target-form-name="LookupLeads" default-value="${communicationEvent.partyIdFrom}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesOpportunity==null"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesOpportunity!=null"><submit button-type="button"/></field>
     </form>
 
     <form name="ViewSalesOpportunity" type="single" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="salesOpportunityId"><hidden/></field>
+        <field name="salesOpportunityId"><display/></field>
         <field name="opportunityName" position="1" title="${uiLabelMap.SfaOpportunityName}"><display/></field>
         <field name="accountPartyId" position="1" title="${uiLabelMap.SfaInitialAccount}" map-name="accountParty" field-name="partyId"><display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView"/></field>
         <field name="leadPartyId" position="1" title="${uiLabelMap.SfaLead}" map-name="leadParty" field-name="partyId"><display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView"/></field>
         <field name="estimatedAmount" position="1" title="${uiLabelMap.SfaEstimatedAmount} ${currencyUomId}"><display/></field>
-        <field name="typeEnumId" position="1" title="${uiLabelMap.SfaType}"><display/></field>
-        <field name="estimatedCloseDate" position="1" title="${uiLabelMap.SfaCloseDate}"><display/></field>
-        <field name="opportunityStageId" position="2" title="${uiLabelMap.SfaInitialStage}">
+        <field name="estimatedProbability" position="2" title="${uiLabelMap.SfaProbability}"><display/></field>
+        <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}"><display/></field>
+        <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}"><display/></field>
+        <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}">
             <display-entity entity-name="SalesOpportunityStage" description="${description}"/>
         </field>
-        <field name="estimatedProbability" position="1" title="${uiLabelMap.SfaProbability}"><display/></field>
-        <field name="dataSourceId" position="2" title="${uiLabelMap.SfaDataSourceLabel}"><display/></field>
+        <field name="typeEnumId" position="2" title="${uiLabelMap.SfaType}"><display/></field>
         <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}"><display/></field>
+        <field name="currencyUomId" position="2" title="${uiLabelMap.CommonCurrency}"><display/></field>
+        <field name="dataSourceId" position="1" title="${uiLabelMap.SfaDataSourceLabel}"><display/></field>
         <field name="description" position="1" title="${uiLabelMap.MarketingSegmentGroupDescription}"><display/></field>
         <field name="nextStep" position="1" title="${uiLabelMap.SfaNextStep}"><display/></field>
     </form>
