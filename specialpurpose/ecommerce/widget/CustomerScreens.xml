@@ -476,9 +476,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="newcustomer">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleNewCustomer"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/NewCustomer.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/newcustomer.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="viewprofile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewProfile"/>
+
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <entity-one entity-name="Party" value-field="party"/>
+                <entity-one entity-name="Person" value-field="person"/>
+                <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
+
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/ViewProfile.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/viewprofile.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <!-- To use new pages uncomment following screens i.e. newcustomer and viewprofile and comment existing newcustomer and viewprofile screens above -->
 
-    <screen name="newcustomer">
+    <!--screen name="newcustomer">
         <section>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -519,7 +555,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>
+    </screen-->
 
 
     <screen name="EditProfile">
