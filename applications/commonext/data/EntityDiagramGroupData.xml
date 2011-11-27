@@ -197,8 +197,8 @@ under the License.
     <EntityGroup entityGroupId="6440" entityGroupName="Detail Order: Return"/>
     <EntityGroupEntry entityGroupId="6440" entityOrPackage="org.ofbiz.order.return" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6440" entityOrPackage="OrderItem" applEnumId="ESIA_INCLUDE"/>
-    <EntityGroup entityGroupId="6450" entityGroupName="Detail Order: Opportunity, Shopping List"/>
-    <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.order.opportunity" applEnumId="ESIA_INCLUDE"/>
+    <EntityGroup entityGroupId="6450" entityGroupName="Detail Order: Opportunity, Shopping List, Shopping Cart"/>
+    <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.marketing.opportunity" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.order.shoppinglist" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.order.shoppingcart" applEnumId="ESIA_INCLUDE"/>
 

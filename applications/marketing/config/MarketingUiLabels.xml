@@ -2583,6 +2583,9 @@
         <value xml:lang="zh">下一步</value>
         <value xml:lang="zh_TW">下一步</value>
     </property>
+    <property key="SfaNextStepDate">
+        <value xml:lang="en">Next Step Date</value>
+    </property>
     <property key="SfaNoLeadsSelectedToMerged">
         <value xml:lang="en">No leads selected to merge</value>
         <value xml:lang="fr">Aucun prospect sélectionné pour la fusion</value>
