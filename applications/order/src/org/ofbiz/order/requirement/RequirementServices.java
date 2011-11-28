@@ -211,6 +211,10 @@ public class RequirementServices {
         try {
             GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             GenericValue productStore = order.getRelatedOneCache("ProductStore");
+            if (productStore == null) {
+                Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", module);
+                return ServiceUtil.returnSuccess();
+            }
             String facilityId = productStore.getString("inventoryFacilityId");
             List<GenericValue> orderItems = order.getRelated("OrderItem");
             for (Iterator<GenericValue> iter = orderItems.iterator(); iter.hasNext();) {
@@ -267,6 +271,10 @@ public class RequirementServices {
         try {
             GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
             GenericValue productStore = order.getRelatedOneCache("ProductStore");
+            if (productStore == null) {
+                Debug.logInfo("ProductStore for order ID " + orderId + " not found, ATP requirements not created", module);
+                return ServiceUtil.returnSuccess();
+            }
             String facilityId = productStore.getString("inventoryFacilityId");
             List<GenericValue> orderItems = order.getRelated("OrderItem");
             for (Iterator<GenericValue> iter = orderItems.iterator(); iter.hasNext();) {
