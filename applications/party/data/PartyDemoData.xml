@@ -23,7 +23,6 @@
     <Party partyId="admin"/>
     <Party partyId="Company"/>
     <Party partyId="DemoEmployee"/>
-    <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
     <PartyRole partyId="admin" roleTypeId="IMAGEAPPROVER"/>
     <PartyRole partyId="Company" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
@@ -49,6 +48,8 @@
     <EmailTemplateSetting emailTemplateSettingId="PARTY_REGISTER" bodyScreenLocation="component://party/widget/partymgr/PartyScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@example.com" fromAddress="ofbiztest@example.com"/>
 
 	<!-- make admin an employee of Company -->
-	<PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="admin" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
+    <PartyRole partyId="admin" roleTypeId="CONTACT"/>
+    <PartyRole partyId="Company" roleTypeId="ACCOUNT"/>
+    <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="ACCOUNT" partyIdTo="admin" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
 	
 </entity-engine-xml>
