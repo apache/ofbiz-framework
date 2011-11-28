@@ -1082,6 +1082,7 @@ under the License.
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
+        <field name="opportunityStageId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
         <field name="estimatedAmount"><display/></field>
         <field name="partyId"><display/></field>
     </form>
