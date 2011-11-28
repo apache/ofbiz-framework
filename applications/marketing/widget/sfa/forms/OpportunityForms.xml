@@ -47,6 +47,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
+            <set field="opportunityStageId" from-field="parameters.opportunityStageId"/>
+            <set field="parameters.opportunityStageId" value="${groovy:opportunityStageId==null?&quot;SOSTG_CLOSED&quot;:opportunityStageId}"/>
+            <set field="parameters.opportunityStageId_op" value="${groovy:opportunityStageId==null?&quot;notEqual&quot;:&quot;equals&quot;}"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="SalesOpportunity"/>
