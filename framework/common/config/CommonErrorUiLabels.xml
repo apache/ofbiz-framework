@@ -19,6 +19,10 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="CommonErrorDublicateKey">
+        <value xml:lang="de">Doppelter Primärschlüssel. Der Primärschlüssel existiert bereits.</value>
+        <value xml:lang="en">Dublicate Key. The Key already exist.</value>
+    </property>
     <property key="ImageTransform.error_occurs_during_reading">
         <value xml:lang="da">Der opstår en fejl under læsning</value>
         <value xml:lang="en">An error occurs during reading</value>

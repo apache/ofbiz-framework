@@ -35,7 +35,12 @@ under the License.
             <sequenced-id sequence-name="Product" field="newEntity.productId"/>
         <else>
             <check-id field="newEntity.productId"/>
-            <check-errors/>
+            <check-errors />
+            <entity-one value-field="dummyProduct" entity-name="Product"><field-map field-name="productId" from-field="parameters.productId"/></entity-one>
+            <if-not-empty field="dummyProduct">
+                <add-error ><fail-property resource="CommonErrorUiLabels" property="CommonErrorDublicateKey" /></add-error>
+            </if-not-empty>
+            <check-errors />
         </else>
         </if-empty>
         <field-to-result field="newEntity.productId" result-name="productId"/>
@@ -1059,7 +1064,7 @@ under the License.
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
         <set-nonpk-fields value-field="productGroupOrder" map="parameters"/>
         <store-value value-field="productGroupOrder"/>
-        
+
         <entity-one entity-name="JobSandbox" value-field="jobSandbox">
             <field-map field-name="jobId" from-field="productGroupOrder.jobId"/>
         </entity-one>
@@ -1067,7 +1072,7 @@ under the License.
             <set field="jobSandbox.runTime" from-field="parameters.thruDate"/>
             <store-value value-field="jobSandbox"/>
         </if-not-empty>
-        
+
         <entity-one value-field="systemUserLogin" entity-name="UserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -1075,7 +1080,7 @@ under the License.
             <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
             <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
             <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
-            
+
             <set field="cancelScheduledJobMap.userLogin" from-field="systemUserLogin"/>
             <set field="cancelScheduledJobMap.jobId" from-field="productGroupOrder.jobId"/>
             <call-service service-name="cancelScheduledJob" in-map-name="cancelScheduledJobMap"/>
@@ -1098,7 +1103,7 @@ under the License.
         <set field="runtimeDataId" from-field="runtimeData.runtimeDataId"/>
         <set field="runtimeData.runtimeInfo" from-field="runtimeInfo"/>
         <create-value value-field="runtimeData"/>
-        
+
         <!-- Create Job For ProductGroupOrder -->
         <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
         <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
@@ -1112,7 +1117,7 @@ under the License.
         <set field="jobSandbox.runtimeDataId" from-field="runtimeDataId"/>
         <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
         <create-value value-field="jobSandbox"/>
-        
+
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
         <set field="productGroupOrder.jobId" from-field="jobId"/>
         <store-value value-field="productGroupOrder"/>
@@ -1137,12 +1142,12 @@ under the License.
                         </calcop>
                     </calculate>
                     <store-value value-field="productGroupOrder"/>
-                    
+
                     <if-compare field="productGroupOrder.soldOrderQty" operator="equals" value="${productGroupOrder.reqOrderQty}">
                         <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
                         <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
                         <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
-                        
+
                         <set field="cancelScheduledJobMap.userLogin" from-field="systemUserLogin"/>
                         <set field="cancelScheduledJobMap.jobId" from-field="productGroupOrder.jobId"/>
                         <call-service service-name="cancelScheduledJob" in-map-name="cancelScheduledJobMap"/>
