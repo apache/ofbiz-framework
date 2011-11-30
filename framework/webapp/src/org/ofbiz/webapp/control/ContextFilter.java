@@ -249,7 +249,7 @@ public class ContextFilter implements Filter {
             // check to make sure the requested url is allowed
             if (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath())) {
                 String filterMessage = "[Filtered request]: " + contextUri;
-
+                
                 if (redirectPath == null) {
                     int error = 404;
                     if (UtilValidate.isNotEmpty(errorCode)) {
@@ -261,6 +261,7 @@ public class ContextFilter implements Filter {
                     }
                     filterMessage = filterMessage + " (" + error + ")";
                     httpResponse.sendError(error, contextUri);
+                    request.setAttribute("filterRequestUriError", contextUri);
                 } else {
                     filterMessage = filterMessage + " (" + redirectPath + ")";
                     if (!redirectPath.toLowerCase().startsWith("http")) {

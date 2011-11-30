@@ -63,7 +63,6 @@ under the License.
         <display-name>CatalogUrlFilter</display-name>
         <filter-class>org.ofbiz.product.category.CatalogUrlFilter</filter-class>
         <init-param><param-name>defaultLocaleString</param-name><param-value>en_US</param-value></init-param>
-        <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
     </filter>
     <filter>
         <filter-name>ContentUrlFilter</filter-name>
@@ -73,7 +72,6 @@ under the License.
             <param-name>defaultLocaleString</param-name>
             <param-value>en_US</param-value>
         </init-param>
-        <init-param><param-name>redirectUrl</param-name><param-value>/control/main</param-value></init-param>
         <init-param><param-name>viewRequest</param-name><param-value>ViewBlogArticle</param-value></init-param>
     </filter>
     <filter>
@@ -88,14 +86,6 @@ under the License.
             <param-name>allowedPaths</param-name>
             <param-value>/error:/control:/products:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
         </init-param>
-        <init-param>
-            <param-name>errorCode</param-name>
-            <param-value>403</param-value>
-        </init-param>
-        <init-param>
-            <param-name>redirectPath</param-name>
-            <param-value>/control/main</param-value>
-        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>CatalogUrlFilter</filter-name>
@@ -109,6 +99,11 @@ under the License.
         <filter-name>ContextFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
 
     <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
