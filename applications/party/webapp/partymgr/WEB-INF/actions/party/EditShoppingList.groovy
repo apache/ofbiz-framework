@@ -66,6 +66,7 @@ if (!shoppingListId) {
 if (shoppingListId) {
     shoppingList = delegator.findByPrimaryKey("ShoppingList", [shoppingListId : shoppingListId]);
     context.shoppingList = shoppingList;
+    context.shoppingListId = shoppingListId;
 
     if (shoppingList) {
         shoppingListItemTotal = 0.0;
@@ -105,10 +106,10 @@ if (shoppingListId) {
             listSize = 0;
             if (shoppingListItemDatas)
                 listSize = shoppingListItemDatas.size();
-            
-            lowIndex = viewIndex * viewSize + 1;
+
+            lowIndex = (viewIndex * viewSize) + 1;
             highIndex = (viewIndex + 1) * viewSize;
-            
+
             if (highIndex > listSize) {
                 highIndex = listSize;
             }

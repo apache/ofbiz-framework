@@ -43,6 +43,7 @@ under the License.
             <option value="${list.shoppingListId}">${list.listName}</option>
           </#list>
         </select>
+        <input type="hidden" name="partyId" value="${partyId?if_exists}" />
         <a href="javascript:document.selectShoppingList.submit();" class="smallSubmit">${uiLabelMap.CommonEdit}</a>
       </form>
     <#else>
@@ -57,7 +58,13 @@ under the License.
     <ul>
       <li class="h3">${uiLabelMap.PartyShoppingListDetail} - ${shoppingList.listName}</li>
       <li><a href="javascript:document.updateList.submit();">${uiLabelMap.CommonSave}</a></li>
-      <li><a href="/ordermgr/control/createQuoteFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}&amp;applyStorePromotions=N">${uiLabelMap.PartyCreateNewQuote}</a></li>
+      <li>
+      <form method="post" name="createQuoteFromShoppingListForm" action="/ordermgr/control/createQuoteFromShoppingList">
+        <input type= "hidden" name= "applyStorePromotions" value= "N"/>
+        <input type= "hidden" name= "shoppingListId" value= "${shoppingList.shoppingListId?if_exists}"/>
+      </form>
+      <a href="javascript:document.createQuoteFromShoppingListForm.submit()">${uiLabelMap.PartyCreateNewQuote}</a>
+      </li>
       <li><a href="/ordermgr/control/createCustRequestFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.PartyCreateNewCustRequest}</a></li>
       <li><a href="/ordermgr/control/loadCartFromShoppingList?shoppingListId=${shoppingList.shoppingListId?if_exists}">${uiLabelMap.OrderNewOrder}</a></li>
     </ul>
@@ -171,7 +178,7 @@ under the License.
     <#if shoppingListItemDatas?has_content>
         <#-- Pagination -->
         <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
-        <#assign commonUrl = "editShoppingList?partyId=" + partyId + "&"/>
+        <#assign commonUrl = "editShoppingList?partyId=" + partyId + "&shoppingListId="+shoppingListId?if_exists+"&"/>
         <#assign viewIndexFirst = 0/>
         <#assign viewIndexPrevious = viewIndex - 1/>
         <#assign viewIndexNext = viewIndex + 1/>
@@ -189,7 +196,7 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <#assign alt_row = false>
-        <#list shoppingListItemDatas[lowIndex..highIndex-1] as shoppingListItemData>
+        <#list shoppingListItemDatas[lowIndex-1..highIndex-1] as shoppingListItemData>
           <#assign shoppingListItem = shoppingListItemData.shoppingListItem>
           <#assign product = shoppingListItemData.product>
           <#assign productContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(product, request)>
