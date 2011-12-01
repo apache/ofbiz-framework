@@ -318,7 +318,7 @@ under the License.
         </field>
         <field name="description" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementCaption}"><text/></field>
         <field name="sequenceNum" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementSortOrder}"><text maxlength="2" size="5"/></field>
-        <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.CommonEnable}"><check/></field>
+        <field name="drIsPublic" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementPublic}"><check/></field>
         <field name="defaultImage" use-when="${groovy: return context.statusId == 'IM_APPROVED';}" title="${uiLabelMap.ImageManagementDefaultImage}" widget-style="buttontext">
             <hyperlink target="setDefaultImage" description="${uiLabelMap.ImageManagementSetDefault}">
                 <parameter param-name="productId"/>

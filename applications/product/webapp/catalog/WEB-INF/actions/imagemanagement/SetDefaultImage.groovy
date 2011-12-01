@@ -105,7 +105,12 @@ if (fileType) {
     }
 
     defaultFileName = "temp_" + dataResourceName;
-    BufferedImage bufImg = ImageIO.read(new File(imageManagementPath + "/" + productId + "/" + dataResourceName));
+    checkPathFile = imageManagementPath + "/" + productId + "/" + dataResourceName;
+    if (checkPathFile.equals(productContentList.get(0).drObjectInfo)) {
+        BufferedImage bufImg = ImageIO.read(new File(imageManagementPath + "/" + productId + "/" + dataResourceName));
+    } else {
+        BufferedImage bufImg = ImageIO.read(new File(productContentList.get(0).drObjectInfo)));
+    }
     ImageIO.write((RenderedImage) bufImg, "jpg", new File(imageManagementPath + "/" + productId + "/" + defaultFileName));
 
     clientFileName = dataResourceName;

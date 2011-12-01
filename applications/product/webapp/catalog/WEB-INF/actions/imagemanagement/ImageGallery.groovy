@@ -28,7 +28,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 
 productImageList = [];
-productContentAndInfoImageManamentList = delegator.findByAnd("ProductContentAndInfo", ["productId": productId, productContentTypeId : "IMAGE", "statusId" : "IM_APPROVED", "drIsPublic" : "Y"], ["sequenceNum"]);
+productContentAndInfoImageManamentList = delegator.findByAnd("ProductContentAndInfo", ["productId": productId, productContentTypeId : "IMAGE", "statusId" : "IM_APPROVED"], ["sequenceNum"]);
 if(productContentAndInfoImageManamentList) {
     productContentAndInfoImageManamentList.each { productContentAndInfoImageManament ->
         contentAssocThumbList = delegator.findByAnd("ContentAssoc", [contentId : productContentAndInfoImageManament.contentId, contentAssocTypeId : "IMAGE_THUMBNAIL"]);

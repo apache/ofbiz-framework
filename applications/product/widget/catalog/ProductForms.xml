@@ -590,6 +590,7 @@ under the License.
         <field name="useTime"><display/></field>
         <field name="useTimeUomId"><display/></field>
         <field name="useRoleTypeId"><display/></field>
+        <field name="sequenceNum"><display/></field>
         <field name="editContent" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
             <hyperlink target="/content/control/EditContent" target-type="inter-app" description="${contentId}" also-hidden="false">
                 <parameter param-name="contentId"/>
