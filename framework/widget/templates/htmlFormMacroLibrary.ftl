@@ -137,17 +137,23 @@ under the License.
 
                   jQuery("#${id}").change(function() {
                       var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
-                      var dateObj = Date.parseExact(this.value, ofbizTime);
-                      var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
-                      var formatedObj = dateObj.toString(dateFormat);
-                      jQuery("#${id}_i18n").val(formatedObj);
+                      var newValue = ""
+                      if (this.value != "") {
+                          var dateObj = Date.parseExact(this.value, ofbizTime);
+                          var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
+                          newValue = dateObj.toString(dateFormat);
+                      }
+                      jQuery("#${id}_i18n").val(newValue);
                   });
                   jQuery("#${id}_i18n").change(function() {
                       var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
-                      var dateObj = Date.parseExact(this.value, dateFormat);
-                      var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
-                      var formatedObj = dateObj.toString(ofbizTime);
-                      jQuery("#${id}").val(formatedObj);
+                      var newValue = ""
+                      if (this.value != "") {
+                          var dateObj = Date.parseExact(this.value, dateFormat);
+                          var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
+                          newValue = dateObj.toString(ofbizTime);
+                      }
+                      jQuery("#${id}").val(newValue);
                   });
               } else {
                   <#-- fallback if no language specific js date file is found -->
