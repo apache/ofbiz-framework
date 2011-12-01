@@ -5919,6 +5919,10 @@
         <value xml:lang="en">Opacity</value>
         <value xml:lang="th">ความทึบแสง</value>
     </property>
+    <property key="ImageManagementPublic">
+        <value xml:lang="en">Public</value>
+        <value xml:lang="th">สาธารณะ</value>
+    </property>
     <property key="ImageManagementRecentlyApproved">
         <value xml:lang="en">Recently Approved</value>
         <value xml:lang="th">อนุมัติล่าสุด</value>
