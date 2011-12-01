@@ -104,102 +104,145 @@ under the License.
         </section>
     </screen>
 
-    <!-- Global decorator for General Screens/Pages -->
-    <screen name="GlobalDecorator">
+    <!-- Global screen rendering context initialization, intended to be included in screen decorators. Devs - please keep this simple and generic. -->
+    <screen name="GlobalActions">
         <section>
             <actions>
                 <!-- The default (global) java scripts -->
-                    <!-- jQuery part -->
+                <!-- jQuery part -->
                 <!-- Load available JS Language Files -->
-                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}"/>
-                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.datejs.getFilePath(initialLocaleComplete)}" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true"/>
-
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.7.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jquery.maskedinput-1.2.2.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.16.custom.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jeditable/jquery.jeditable.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js" global="true"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true"/>
-
-
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.7.min.js" global="true"/>
-                    <!-- jQuery CSSs -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true"/>
-                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true"/>
-
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/getDependentDropdownValues.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/selectMultipleRelatedValues.js" global="true"/>
-
-                <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
-                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true"/>
+                <set field="initialLocaleComplete" type="String" value="${groovy:parameters?.userLogin?.lastLocale}" default-value="${groovy:locale.toString()}" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.datejs.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.jquery.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.validation.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="${groovy: org.ofbiz.common.JsLanguageFilesMapping.dateTime.getFilePath(initialLocaleComplete)}" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.7.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jquery.maskedinput-1.2.2.min.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/js/jquery-ui-1.8.16.custom.min.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/jeditable/jquery.jeditable.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/validate/jquery.validate.min.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/plugins/fjTimer/jquerytimer-min.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/ui/development-bundle/ui/jquery.ui.datepicker.js" global="true" />
+                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.7.min.js" global="true" />
+                <!-- jQuery CSSs -->
+                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" global="true" />
+                <set field="layoutSettings.styleSheets[+0]" value="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon-0.9.6.css" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/GooglemapMarkers.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/getDependentDropdownValues.js" global="true" />
+                <set field="layoutSettings.javaScripts[]" value="/images/selectMultipleRelatedValues.js" global="true" />
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" global="true" />
                 <service service-name="getVisualThemeResources">
-                    <field-map field-name="visualThemeId"/>
-                    <field-map field-name="themeResources" from-field="layoutSettings"/>
+                    <field-map field-name="visualThemeId" />
+                    <field-map field-name="themeResources" from-field="layoutSettings" />
                 </service>
-                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
-                <set field="iconsLocation" from-field="layoutSettings.VT_ICONS_LOC[0]" default-value="/images/icons/famfamfam" global="true"/>
-                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]"/>
-                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]"/>
-                <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]"/>
-                <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT[0]"/>
-                <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT[0]"/>
-                <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]"/>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true" />
             </actions>
+            <widgets />
+        </section>
+    </screen>
+
+    <!-- Global decorator for General Screens/Pages -->
+    <screen name="GlobalDecorator">
+        <section>
             <widgets>
+                <include-screen name="GlobalActions" />
+                <section>
+                    <actions>
+                        <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true" />
+                        <set field="iconsLocation" from-field="layoutSettings.VT_ICONS_LOC[0]" default-value="/images/icons/famfamfam" global="true" />
+                        <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" />
+                        <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" />
+                        <set field="appbarTemplateLocation" from-field="layoutSettings.VT_NAV_TMPLT_LOC[0]" />
+                        <set field="appbarOpenTemplateLocation" from-field="layoutSettings.VT_NAV_OPEN_TMPLT[0]" />
+                        <set field="appbarCloseTemplateLocation" from-field="layoutSettings.VT_NAV_CLOSE_TMPLT[0]" />
+                        <set field="messagesTemplateLocation" from-field="layoutSettings.VT_MSG_TMPLT_LOC[0]" />
+                    </actions>
+                    <widgets />
+                </section>
                 <section>
                     <condition>
-                        <if-empty field="parameters.ajaxUpdateEvent"/>
+                        <if-empty field="parameters.ajaxUpdateEvent" />
                     </condition>
                     <widgets>
                         <!-- render header -->
-                        <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
+                        <platform-specific>
+                            <html>
+                                <html-template location="${headerTemplateLocation}" />
+                            </html>
+                        </platform-specific>
                         <!-- render appbar or its opening part -->
                         <section name="Render-Main-Nav">
                             <condition>
-                                <not><if-empty field="appbarOpenTemplateLocation"/></not>
+                                <not>
+                                    <if-empty field="appbarOpenTemplateLocation" />
+                                </not>
                             </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="${appbarOpenTemplateLocation}"/></html></platform-specific>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${appbarOpenTemplateLocation}" />
+                                    </html>
+                                </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                <platform-specific><html><html-template location="${appbarTemplateLocation}"/></html></platform-specific>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${appbarTemplateLocation}" />
+                                    </html>
+                                </platform-specific>
                             </fail-widgets>
                         </section>
                     </widgets>
                 </section>
-
                 <section>
                     <condition>
-                        <if-empty field="parameters.ajaxUpdateEvent"/>
+                        <if-empty field="parameters.ajaxUpdateEvent" />
                     </condition>
                     <widgets>
                         <!-- render appheader: both menu widget style and ftl template style menus are supported-->
                         <section name="Render-App-Nav">
                             <condition>
-                                <not><if-empty field="userLogin"/></not>
+                                <not>
+                                    <if-empty field="userLogin" />
+                                </not>
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field="appheaderTemplate"/></not></condition>
+                                    <condition>
+                                        <not>
+                                            <if-empty field="appheaderTemplate" />
+                                        </not>
+                                    </condition>
                                     <widgets>
-                                        <platform-specific><html><html-template location="${appheaderTemplate}"/></html></platform-specific>
+                                        <platform-specific>
+                                            <html>
+                                                <html-template location="${appheaderTemplate}" />
+                                            </html>
+                                        </platform-specific>
                                     </widgets>
                                     <fail-widgets>
                                         <section>
-                                            <condition><not><if-empty field="parameters.applicationTitle"/></not></condition>
-                                            <widgets><label style="apptitle">${parameters.applicationTitle}</label></widgets>
+                                            <condition>
+                                                <not>
+                                                    <if-empty field="parameters.applicationTitle" />
+                                                </not>
+                                            </condition>
+                                            <widgets>
+                                                <label style="apptitle">${parameters.applicationTitle}</label>
+                                            </widgets>
                                         </section>
                                         <section>
-                                            <condition><not><if-empty field="applicationMenuLocation"/></not></condition>
-                                            <widgets><include-menu name="${applicationMenuName}" location="${applicationMenuLocation}"/></widgets>
+                                            <condition>
+                                                <not>
+                                                    <if-empty field="applicationMenuLocation" />
+                                                </not>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="${applicationMenuName}" location="${applicationMenuLocation}" />
+                                            </widgets>
                                         </section>
                                     </fail-widgets>
                                 </section>
@@ -210,43 +253,50 @@ under the License.
                         </section>
                     </widgets>
                 </section>
-
                 <!-- render the appbar closing part -->
                 <section>
                     <condition>
                         <and>
-                            <if-empty field="parameters.ajaxUpdateEvent"/>
-                            <not><if-empty field="appbarCloseTemplateLocation"/></not>
+                            <if-empty field="parameters.ajaxUpdateEvent" />
+                            <not>
+                                <if-empty field="appbarCloseTemplateLocation" />
+                            </not>
                         </and>
                     </condition>
                     <widgets>
-                        <platform-specific><html><html-template location="${appbarCloseTemplateLocation}"/></html></platform-specific>
+                        <platform-specific>
+                            <html>
+                                <html-template location="${appbarCloseTemplateLocation}" />
+                            </html>
+                        </platform-specific>
                     </widgets>
                 </section>
-
                 <!-- render messages -->
-                <platform-specific><html><html-template location="${messagesTemplateLocation}"/></html></platform-specific>
-
+                <platform-specific>
+                    <html>
+                        <html-template location="${messagesTemplateLocation}" />
+                    </html>
+                </platform-specific>
                 <!-- render content area -->
                 <container style="contentarea">
-                    <decorator-section-include name="pre-body"/>
+                    <decorator-section-include name="pre-body" />
                     <container id="column-container">
                         <section>
                             <condition>
-                                <if-empty-section section-name="left-column"/>
+                                <if-empty-section section-name="left-column" />
                             </condition>
                             <widgets>
                                 <container id="content-main-section">
-                                    <decorator-section-include name="body"/>
+                                    <decorator-section-include name="body" />
                                 </container>
                             </widgets>
                             <fail-widgets>
                                 <container style="left">
-                                    <decorator-section-include name="left-column"/>
+                                    <decorator-section-include name="left-column" />
                                 </container>
                                 <container id="content-main-section" style="leftonly">
                                     <container style="no-clear" id="centerdiv">
-                                        <decorator-section-include name="body"/>
+                                        <decorator-section-include name="body" />
                                     </container>
                                 </container>
                             </fail-widgets>
@@ -254,22 +304,29 @@ under the License.
                         <container style="clear"></container>
                     </container>
                 </container>
-
                 <section>
                     <condition>
-                         <if-empty field="parameters.ajaxUpdateEvent"/>
+                        <if-empty field="parameters.ajaxUpdateEvent" />
                     </condition>
                     <widgets>
                         <!-- render footer -->
                         <section name="Render-Footer">
                             <condition>
-                                <if-empty field="applicationFooterTemplate"/>
+                                <if-empty field="applicationFooterTemplate" />
                             </condition>
                             <widgets>
-                                <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${footerTemplateLocation}" />
+                                    </html>
+                                </platform-specific>
                             </widgets>
                             <fail-widgets>
-                                 <platform-specific><html><html-template location="${applicationFooterTemplate}"/></html></platform-specific>
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="${applicationFooterTemplate}" />
+                                    </html>
+                                </platform-specific>
                             </fail-widgets>
                         </section>
                     </widgets>
