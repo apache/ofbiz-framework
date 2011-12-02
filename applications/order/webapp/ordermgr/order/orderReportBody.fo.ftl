@@ -19,7 +19,8 @@ under the License.
 <#escape x as x?xml>
     <#if orderHeader?has_content>
         <fo:table border-spacing="3pt">
-            <fo:table-column column-width="4in"/>
+            <fo:table-column column-width="3in"/>
+            <fo:table-column column-width="1in"/>
             <fo:table-column column-width="1in"/>
             <fo:table-column column-width="1in"/>
             <fo:table-column column-width="1in"/>
@@ -28,6 +29,7 @@ under the License.
                     <fo:table-cell>
                         <fo:block font-weight="bold">${uiLabelMap.OrderProduct}</fo:block>
                     </fo:table-cell>
+                    <fo:table-cell></fo:table-cell>
                     <fo:table-cell text-align="right">
                         <fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block>
                     </fo:table-cell>
@@ -45,6 +47,7 @@ under the License.
                     <#assign productId = orderItem.productId?if_exists>
                     <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                     <#assign itemAdjustment = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false)>
+                    <#assign internalImageUrl = Static["org.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId)?if_exists>
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
@@ -56,6 +59,13 @@ under the License.
                                     ${orderItemType.get("description",locale)} - ${orderItem.itemDescription?if_exists}
                                 <#else>
                                     ${orderItem.itemDescription?if_exists}
+                                </#if>
+                            </fo:block>
+                        </fo:table-cell>
+                        <fo:table-cell>
+                            <fo:block>
+                                <#if internalImageUrl?has_content>
+                                    <fo:external-graphic src="${internalImageUrl}" overflow="hidden" content-width="100"/>
                                 </#if>
                             </fo:block>
                         </fo:table-cell>
@@ -109,6 +119,7 @@ under the License.
                 <#-- summary of order amounts -->
                 <fo:table-row>
                     <fo:table-cell></fo:table-cell>
+                    <fo:table-cell></fo:table-cell>
                     <fo:table-cell number-columns-spanned="2">
                         <fo:block font-weight="bold">${uiLabelMap.OrderItemsSubTotal}</fo:block>
                     </fo:table-cell>
@@ -118,6 +129,7 @@ under the License.
                 </fo:table-row>
                 <#if otherAdjAmount != 0>
                     <fo:table-row>
+                        <fo:table-cell></fo:table-cell>
                         <fo:table-cell></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalOtherOrderAdjustments}</fo:block>
@@ -130,6 +142,7 @@ under the License.
                 <#if shippingAmount != 0>
                     <fo:table-row>
                         <fo:table-cell></fo:table-cell>
+                        <fo:table-cell></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalShippingAndHandling}</fo:block>
                         </fo:table-cell>
@@ -141,6 +154,7 @@ under the License.
                 <#if taxAmount != 0>
                     <fo:table-row>
                         <fo:table-cell></fo:table-cell>
+                        <fo:table-cell></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalSalesTax}</fo:block>
                         </fo:table-cell>
@@ -151,6 +165,7 @@ under the License.
                 </#if>
                 <#if grandTotal != 0>
                     <fo:table-row>
+                        <fo:table-cell></fo:table-cell>
                         <fo:table-cell></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2" background-color="#EEEEEE">
                             <fo:block font-weight="bold">${uiLabelMap.OrderTotalDue}</fo:block>
