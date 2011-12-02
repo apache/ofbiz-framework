@@ -28,10 +28,14 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="queryString" from-field="result.queryString"/>
                 <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
                 <set field="title" value="${uiLabelMap.SfaFindLeads}"/>
                 <set field="partyTypeId" value="PERSON"/>
                 <set field="currentUrl" value="LookupLeads"/>
+                <set field="entityName" value="PartyRoleAndContactMechDetail"/>
+                <set field="searchFields" value="[partyId, firstName, lastName, middleName, groupName]"/>
+                <set field="searchDistinct" value="true"/>
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
@@ -53,10 +57,14 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="queryString" from-field="result.queryString"/>
                 <set field="partyRelationshipTypeId" value="ACCOUNT"/>
                 <set field="title" value="${uiLabelMap.SfaFindAccounts}"/>
                 <set field="partyTypeId" value="PARTY_GROUP"/>
                 <set field="currentUrl" value="LookupAccounts"/>
+                <set field="entityName" value="PartyRoleAndContactMechDetail"/>
+                <set field="searchFields" value="[partyId, firstName, lastName, middleName, groupName]"/>
+                <set field="searchDistinct" value="true"/>
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
@@ -78,10 +86,14 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="queryString" from-field="result.queryString"/>
                 <set field="partyRelationshipTypeId" value="ACCOUNT"/>
                 <set field="title" value="${uiLabelMap.SfaFindAccountLeads}"/>
                 <set field="partyTypeId" value="PARTY_GROUP"/>
                 <set field="currentUrl" value="LookupAccountLeads"/>
+                <set field="entityName" value="PartyRoleAndContactMechDetail"/>
+                <set field="searchFields" value="[partyId, firstName, lastName, middleName, groupName]"/>
+                <set field="searchDistinct" value="true"/>
                 <service service-name="findParty" auto-field-map="true"/>
             </actions>
             <widgets>
