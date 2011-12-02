@@ -123,7 +123,7 @@ under the License.
             <#if picklistBinInfo.picklistItemInfoList?has_content>
               <div style="margin-left: 30px;">
                 <table class="basic-table" cellspacing="0">
-                  <tr class="header-row"
+                  <tr class="header-row">
                     <td>${uiLabelMap.ProductOrderId}</td>
                     <td>${uiLabelMap.ProductOrderShipGroupId}</td>
                     <td>${uiLabelMap.ProductOrderItem}</td>
