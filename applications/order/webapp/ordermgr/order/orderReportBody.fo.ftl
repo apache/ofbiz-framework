@@ -64,8 +64,10 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block>
-                                <#if internalImageUrl?has_content>
-                                    <fo:external-graphic src="${internalImageUrl}" overflow="hidden" content-width="100"/>
+                                <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
+                                    <#if internalImageUrl?has_content>
+                                        <fo:external-graphic src="${internalImageUrl}" overflow="hidden" content-width="100"/>
+                                    </#if>
                                 </#if>
                             </fo:block>
                         </fo:table-cell>
@@ -101,6 +103,7 @@ under the License.
                     <#assign adjustmentAmount = Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
                         <fo:table-row>
+                            <fo:table-cell></fo:table-cell>
                             <fo:table-cell></fo:table-cell>
                             <fo:table-cell number-columns-spanned="2">
                                 <fo:block font-weight="bold">
