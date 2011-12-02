@@ -40,7 +40,7 @@ under the License.
     <Content contentId="GZ-2644-Add3-CTNT-T" contentTypeId="DOCUMENT" contentName="web_browser4.png" dataResourceId="GZ-2644-Add3-T" statusId="CTNT_IN_PROGRESS"/>
     <ContentAssoc contentId="GZ-2644-Add3-CTNT" contentIdTo="GZ-2644-Add3-CTNT-T" contentAssocTypeId="IMAGE_THUMBNAIL" fromDate="2001-05-13 12:00:00.0"/>
 
-    <DataResource dataResourceId="GZ-2644-Add4" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser5.png" objectInfo="/images/products/GZ-2644/web_browser5.png" isPublic="Y"/>
+    <DataResource dataResourceId="GZ-2644-Add4" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser5.png" objectInfo="/images/products/GZ-2644/web_browser5.png" isPublic="N"/>
     <Content contentId="GZ-2644-Add4-CTNT" contentTypeId="DOCUMENT" contentName="web_browser5.png" dataResourceId="GZ-2644-Add4" statusId="IM_APPROVED"/>
     <ProductContent productId="GZ-2644" contentId="GZ-2644-Add4-CTNT" productContentTypeId="IMAGE" fromDate="2001-05-13 12:00:00.0"/>
     <DataResource dataResourceId="GZ-2644-Add1-T" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="web_browser5.png" objectInfo="/images/products/GZ-2644/web_browser5.png" isPublic="Y"/>
