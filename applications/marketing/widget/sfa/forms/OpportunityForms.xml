@@ -25,6 +25,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaFindOpportunities}"><text-find size="25"></text-find></field>
+        <field name="partyId" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLeads"/></field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="SalesOpportunityStage">
@@ -32,7 +33,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="type" title="${uiLabelMap.SfaType}">
+        <field name="typeEnumId" title="${uiLabelMap.SfaType}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
                     <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
@@ -50,16 +51,21 @@ under the License.
             <set field="opportunityStageId" from-field="parameters.opportunityStageId"/>
             <set field="parameters.opportunityStageId" value="${groovy:opportunityStageId==null?&quot;SOSTG_CLOSED&quot;:opportunityStageId}"/>
             <set field="parameters.opportunityStageId_op" value="${groovy:opportunityStageId==null?&quot;notEqual&quot;:&quot;equals&quot;}"/>
+            <set field="parameters.roleTypeId" value="LEAD"/>
+            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;salesOpportunityId&quot;,&quot;opportunityStageId&quot;,&quot;typeEnumId&quot;]}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="SalesOpportunity"/>
+                <field-map field-name="entityName" value="SalesOpportunityAndRole"/>
                 <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
+                <field-map field-name="distinct" value="Y"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <row-actions>
             <set field="isDateAfterNow" value="${groovy:org.ofbiz.base.util.UtilValidate.isDateAfterNow(estimatedCloseDate)}" type="Boolean"/>
+            <entity-one entity-name="SalesOpportunity"/>
         </row-actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
@@ -68,6 +74,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
+        <field name="partyId" title="${uiLabelMap.SfaLead}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${middleName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink target="viewprofile" description=" [${partyId}]">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
+            </display-entity> 
+        </field>
         <field name="nextStep"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}" sort-field="true"><display/></field>
