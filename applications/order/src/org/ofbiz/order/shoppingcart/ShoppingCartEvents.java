@@ -1411,7 +1411,7 @@ public class ShoppingCartEvents {
                 Debug.logError(e, module);
             }
             for (long itr = 1; itr <= groupIndex; itr++) {
-                shipGroupSeqId = UtilFormatOut.formatPaddedNumber(1, 5);
+                shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
                 List<GenericValue> duplicateAdjustmentList = new ArrayList<GenericValue>();
                 for (GenericValue adjustment: orderAdjustmentList) {
                     if ("PROMOTION_ADJUSTMENT".equals(adjustment.get("orderAdjustmentTypeId"))) {
