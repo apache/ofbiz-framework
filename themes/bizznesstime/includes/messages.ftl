@@ -36,20 +36,30 @@ under the License.
 
 <#-- display the error messages -->
 <#if (errorMessage?has_content || errorMessageList?has_content)>
-<script type="text/javascript">
-    document.observe('dom:loaded', function() {
-        humanMsg.displayMsg('<div class="errorMessage"><#if errorMessage?has_content><p>${errorMessage}</p></#if><#if errorMessageList?has_content><#list errorMessageList as errorMsg><p>${errorMsg}</p></#list></#if></p></div>');
-        return false;
-    });
-</script>
+  <div id="content-messages" class="content-messages errorMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
+    <p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p>
+    <#if errorMessage?has_content>
+      <p>${errorMessage}</p>
+    </#if>
+    <#if errorMessageList?has_content>
+      <#list errorMessageList as errorMsg>
+        <p>${errorMsg}</p>
+      </#list>
+    </#if>
+  </div>
 </#if>
 
 <#-- display the event messages -->
 <#if (eventMessage?has_content || eventMessageList?has_content)>
-<script type="text/javascript">
-    document.observe('dom:loaded', function() {
-        humanMsg.displayMsg('<div class="eventMessage"><#if eventMessage?has_content><p>${eventMessage}</p></#if><#if eventMessageList?has_content><#list eventMessageList as eventMsg><p>${eventMsg}</p></#list></#if></div>');
-        return false;
-    });
-</script>
+  <div id="content-messages" class="content-messages eventMessage" onclick="document.getElementById('content-messages').parentNode.removeChild(this)">
+    <p>${uiLabelMap.CommonFollowingOccurred}:</p>
+    <#if eventMessage?has_content>
+      <p>${eventMessage}</p>
+    </#if>
+    <#if eventMessageList?has_content>
+      <#list eventMessageList as eventMsg>
+        <p>${eventMsg}</p>
+      </#list>
+    </#if>
+  </div>
 </#if>
