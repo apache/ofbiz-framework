@@ -1073,7 +1073,7 @@ under the License.
             <store-value value-field="jobSandbox"/>
         </if-not-empty>
 
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <if-compare field="productGroupOrder.soldOrderQty" operator="equals" value="${productGroupOrder.reqOrderQty}">
@@ -1089,50 +1089,74 @@ under the License.
 
     <simple-method method-name="deleteProductGroupOrder" short-description="Delete ProductGroupOrder">
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
+        <entity-one entity-name="JobSandbox" value-field="jobSandbox">
+            <field-map field-name="jobId" from-field="productGroupOrder.jobId"/>
+        </entity-one>
+        <entity-one entity-name="RuntimeData" value-field="runtimeData">
+            <field-map field-name="runtimeDataId" from-field="jobSandbox.runtimeDataId"/>
+        </entity-one>
+        
         <remove-value value-field="productGroupOrder"/>
+        <remove-value value-field="jobSandbox"/>
+        <remove-value value-field="runtimeData"/>
     </simple-method>
 
     <simple-method method-name="createJobForProductGroupOrder" short-description="Create ProductGroupOrder">
-        <!-- Create RuntimeData For ProductGroupOrder -->
-        <set field="runtimeDataMap.groupOrderId" from-field="parameters.groupOrderId"/>
-        <call-class-method class-name="org.ofbiz.entity.serialize.XmlSerializer" method-name="serialize"  ret-field="runtimeInfo">
-            <field field="runtimeDataMap" type="Object"/>
-        </call-class-method>
-        <make-value entity-name="RuntimeData" value-field="runtimeData"/>
-        <sequenced-id sequence-name="RuntimeData" field="runtimeData.runtimeDataId"/>
-        <set field="runtimeDataId" from-field="runtimeData.runtimeDataId"/>
-        <set field="runtimeData.runtimeInfo" from-field="runtimeInfo"/>
-        <create-value value-field="runtimeData"/>
-
-        <!-- Create Job For ProductGroupOrder -->
-        <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
-        <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
-        <set field="jobId" from-field="jobSandbox.jobId"/>
-        <set field="jobSandbox.jobName" value="Check Product GroupOrder Expired"/>
-        <set field="jobSandbox.runTime" from-field="parameters.thruDate"/>
-        <set field="jobSandbox.poolId" value="pool"/>
-        <set field="jobSandbox.statusId" value="SERVICE_PENDING"/>
-        <set field="jobSandbox.serviceName" value="checkProductGroupOrderExpired"/>
-        <set field="jobSandbox.runAsUser" value="system"/>
-        <set field="jobSandbox.runtimeDataId" from-field="runtimeDataId"/>
-        <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
-        <create-value value-field="jobSandbox"/>
-
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder"/>
-        <set field="productGroupOrder.jobId" from-field="jobId"/>
-        <store-value value-field="productGroupOrder"/>
+        <if-empty field="productGroupOrder.jobId">
+            <!-- Create RuntimeData For ProductGroupOrder -->
+            <set field="runtimeDataMap.groupOrderId" from-field="parameters.groupOrderId"/>
+            <call-class-method class-name="org.ofbiz.entity.serialize.XmlSerializer" method-name="serialize"  ret-field="runtimeInfo">
+                <field field="runtimeDataMap" type="Object"/>
+            </call-class-method>
+            <make-value entity-name="RuntimeData" value-field="runtimeData"/>
+            <sequenced-id sequence-name="RuntimeData" field="runtimeData.runtimeDataId"/>
+            <set field="runtimeDataId" from-field="runtimeData.runtimeDataId"/>
+            <set field="runtimeData.runtimeInfo" from-field="runtimeInfo"/>
+            <create-value value-field="runtimeData"/>
+
+             <!-- Create Job For ProductGroupOrder -->
+            <make-value entity-name="JobSandbox" value-field="jobSandbox"/>
+            <sequenced-id sequence-name="JobSandbox" field="jobSandbox.jobId"/>
+            <set field="jobId" from-field="jobSandbox.jobId"/>
+            <set field="jobSandbox.jobName" value="Check Product GroupOrder Expired"/>
+            <set field="jobSandbox.runTime" from-field="parameters.thruDate"/>
+            <set field="jobSandbox.poolId" value="pool"/>
+            <set field="jobSandbox.statusId" value="SERVICE_PENDING"/>
+            <set field="jobSandbox.serviceName" value="checkProductGroupOrderExpired"/>
+            <set field="jobSandbox.runAsUser" value="system"/>
+            <set field="jobSandbox.runtimeDataId" from-field="runtimeDataId"/>
+            <set field="jobSandbox.maxRecurrenceCount" value="1" type="Long"/>
+            <create-value value-field="jobSandbox"/>
+
+            <set field="productGroupOrder.jobId" from-field="jobId"/>
+            <store-value value-field="productGroupOrder"/>
+        </if-empty>
     </simple-method>
 
-    <simple-method method-name="checkOrderItemForProductGroupOrder" short-description="Check Order Item For ProductGroupOrder">
-        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+    <simple-method method-name="checkOrderItemForProductGroupOrder" short-description="Check OrderItem For ProductGroupOrder">
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <entity-and entity-name="OrderItem" list="orderItems">
             <field-map field-name="orderId" from-field="parameters.orderId"/>
         </entity-and>
         <iterate entry="orderItem" list="orderItems">
-            <entity-and entity-name="ProductGroupOrder" list="productGroupOrders" filter-by-date="true">
+            <set field="productId" from-field="orderItem.productId"/>
+            <entity-one entity-name="Product" value-field="product">
                 <field-map field-name="productId" from-field="orderItem.productId"/>
+            </entity-one>
+            <if-compare field="product.isVariant" operator="equals" value="Y">
+                <entity-and entity-name="ProductAssoc" list="variantProductAssocs" filter-by-date="true">
+                    <field-map field-name="productIdTo" from-field="orderItem.productId"/>
+                    <field-map field-name="productAssocTypeId" value="PRODUCT_VARIANT"/>
+                </entity-and>
+                <first-from-list entry="variantProductAssoc" list="variantProductAssocs"/>
+                <set field="productId" from-field="variantProductAssoc.productId"/>
+            </if-compare>
+
+            <entity-and entity-name="ProductGroupOrder" list="productGroupOrders" filter-by-date="true">
+                <field-map field-name="productId" from-field="productId"/>
             </entity-and>
             <iterate entry="productGroupOrder" list="productGroupOrders">
                 <if-compare field="productGroupOrder.soldOrderQty" operator="less" value="${productGroupOrder.reqOrderQty}">
@@ -1165,9 +1189,36 @@ under the License.
             <set field="newItemStatusId" value="ITEM_CANCELLED"/>
         </else>
         </if-compare>
+
+        <entity-one entity-name="Product" value-field="product">
+            <field-map field-name="productId" from-field="productGroupOrder.productId"/>
+        </entity-one>
+        <if-compare field="product.isVirtual" operator="equals" value="Y">
+            <entity-and entity-name="ProductAssoc" list="variantProductAssocs" filter-by-date="true">
+                <field-map field-name="productId" from-field="productGroupOrder.productId"/>
+                <field-map field-name="productAssocTypeId" value="PRODUCT_VARIANT"/>
+            </entity-and>
+            <iterate entry="variantProductAssoc" list="variantProductAssocs">
+                <set field="findOrderItemMap.productId" from-field="variantProductAssoc.productIdTo"/>
+                <set field="findOrderItemMap.newItemStatusId" from-field="newItemStatusId"/>
+                <set field="findOrderItemMap.fromDate" from-field="productGroupOrder.fromDate"/>
+                <set field="findOrderItemMap.thruDate" from-field="productGroupOrder.thruDate"/>
+                <call-service service-name="findOrderItemForProductGroupOrder" in-map-name="findOrderItemMap"/>
+            </iterate>
+        <else>
+            <set field="findOrderItemMap.productId" from-field="productGroupOrder.productId"/>
+            <set field="findOrderItemMap.newItemStatusId" from-field="newItemStatusId"/>
+            <set field="findOrderItemMap.fromDate" from-field="productGroupOrder.fromDate"/>
+            <set field="findOrderItemMap.thruDate" from-field="productGroupOrder.thruDate"/>
+            <call-service service-name="findOrderItemForProductGroupOrder" in-map-name="findOrderItemMap"/>
+        </else>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="findOrderItemForProductGroupOrder" short-description="Find OrderItem For ProductGroupOrder">
         <entity-condition entity-name="OrderItem" list="orderItems">
             <condition-list combine="and">
-                <condition-expr field-name="productId" operator="equals" from-field="productGroupOrder.productId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
                 <condition-list combine="or">
                     <condition-expr field-name="statusId" operator="equals" value="ITEM_CREATED"/>
                     <condition-expr field-name="statusId" operator="equals" value="ITEM_APPROVED"/>
@@ -1182,14 +1233,14 @@ under the License.
                 <condition>
                     <and>
                         <if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER"/>
-                        <if-compare field="orderHeader.orderDate" operator="greater-equals" value="${productGroupOrder.fromDate}"/>
-                        <if-compare field="orderHeader.orderDate" operator="less" value="${productGroupOrder.thruDate}"/>
+                        <if-compare field="orderHeader.orderDate" operator="greater-equals" value="${parameters.fromDate}"/>
+                        <if-compare field="orderHeader.orderDate" operator="less" value="${parameters.thruDate}"/>
                     </and>
                 </condition>
                 <then>
                     <set field="changeOrderItemStatusMap.orderId" from-field="orderItem.orderId"/>
                     <set field="changeOrderItemStatusMap.orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
-                    <set field="changeOrderItemStatusMap.statusId" from-field="newItemStatusId"/>
+                    <set field="changeOrderItemStatusMap.statusId" from-field="parameters.newItemStatusId"/>
                     <call-service service-name="changeOrderItemStatus" in-map-name="changeOrderItemStatusMap"/>
                 </then>
             </if>
