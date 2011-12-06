@@ -1698,7 +1698,7 @@ under the License.
 
     <service name="checkOrderItemForProductGroupOrder" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkOrderItemForProductGroupOrder" auth="true">
-        <description>Check Order Item For ProductGroupOrder</description>
+        <description>Check OrderItem For ProductGroupOrder</description>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
 
@@ -1706,6 +1706,15 @@ under the License.
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="checkProductGroupOrderExpired" auth="true">
         <description>Check ProductGroupOrder Expired</description>
         <attribute name="groupOrderId" mode="IN" type="String" optional="false"/>
+    </service>
+
+    <service name="findOrderItemForProductGroupOrder" engine="simple"
+        location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="findOrderItemForProductGroupOrder" auth="true">
+        <description>Find OrderItem For ProductGroupOrder</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="newItemStatusId" mode="IN" type="String" optional="false"/>
+        <attribute name="fromDate" mode="IN" type="Timestamp" optional="false"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="false"/>
     </service>
 
 </services>
