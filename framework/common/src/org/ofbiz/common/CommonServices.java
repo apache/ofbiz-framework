@@ -184,7 +184,7 @@ public class CommonServices {
                 partyId = userLogin.getString("partyId");
         }
 
-        Map<String, String> fields = UtilMisc.toMap("noteId", noteId, "noteName", noteName, "noteInfo", note,
+        Map<String, Object> fields = UtilMisc.toMap("noteId", noteId, "noteName", noteName, "noteInfo", note,
                 "noteParty", partyId, "noteDateTime", noteDate);
 
         try {

@@ -49,7 +49,7 @@ public class OFBizSecurity implements Security {
 
     protected Delegator delegator = null;
 
-    protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
+    protected static final Map<String, Map<String, Object>> simpleRoleEntity = UtilMisc.toMap(
         "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
         "FACILITY", UtilMisc.toMap("name", "FacilityParty", "pkey", "facilityId"),
         "MARKETING", UtilMisc.toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
@@ -208,10 +208,10 @@ public class OFBizSecurity implements Security {
             if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
         }
 
-        Map<String, String> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
+        Map<String, Object> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
         if (simpleRoleMap != null && roles != null) {
-            entityName = simpleRoleMap.get("name");
-            String pkey = simpleRoleMap.get("pkey");
+            entityName = (String) simpleRoleMap.get("name");
+            String pkey = (String) simpleRoleMap.get("pkey");
             if (pkey != null) {
                 List<EntityExpr> expressions = new ArrayList<EntityExpr>();
                 for (String role: roles) {
