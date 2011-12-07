@@ -91,7 +91,7 @@
     <property key="FormFieldTitle_approvedByUserLoginId">
         <value xml:lang="de">Genehmigt von Benutzer ID</value>
         <value xml:lang="en">Approved By User Login Id</value>
-        <value xml:lang="fr">Approuvé par la réf. d'utilisateur de connexion</value>
+        <value xml:lang="fr">Approuvé par</value>
         <value xml:lang="it">Approvato dall'utente</value>
         <value xml:lang="zh">批准者用户登录标识</value>
         <value xml:lang="zh_TW">核准使用者登入ID</value>
@@ -1325,7 +1325,7 @@
     <property key="PageTitleListWorkEffortTimeEntries">
         <value xml:lang="en">Work Effort Time Entries</value>
         <value xml:lang="es">Entradas de tiempo</value>
-        <value xml:lang="fr">Planifications horaires de la tâche</value>
+        <value xml:lang="fr">Détails des temps passés sur la tâche</value>
         <value xml:lang="it">Pianificazione oraria dell'impegno di lavoro</value>
         <value xml:lang="nl">Activiteit Time Entries</value>
         <value xml:lang="ro">Introducere Sarcina de Lucru Timp</value>
