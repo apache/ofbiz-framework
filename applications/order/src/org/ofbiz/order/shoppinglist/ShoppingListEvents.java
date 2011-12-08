@@ -24,7 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -626,5 +628,81 @@ public class ShoppingListEvents {
             arr[i] = Integer.toString(i);
         }
         return arr;
+    }
+    
+    /**
+     * Create the guest cookies for a shopping list
+     */
+    public static String createGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response){
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession(true);
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        Properties systemProps = System.getProperties();
+        String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name");
+        String productStoreId = ProductStoreWorker.getProductStoreId(request);
+        int cookieAge = (60 * 60 * 24 * 30);
+        String autoSaveListId = null;
+        Cookie[] cookies = request.getCookies();
+        
+        // check userLogin
+        if (UtilValidate.isNotEmpty(userLogin)) {
+            String partyId = userLogin.getString("partyId");
+            if (UtilValidate.isEmpty(partyId)) {
+                return "success";
+            }
+        }
+        
+        // find shopping list ID
+        if (cookies != null) {
+            for (Cookie cookie: cookies) {
+                if (cookie.getName().equals(guestShoppingUserName)) {
+                    autoSaveListId = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        
+        // clear the auto-save info
+        if (ProductStoreWorker.autoSaveCart(delegator, productStoreId)) {
+            if (UtilValidate.isEmpty(autoSaveListId)) {
+                try {
+                    Map<String, Object> listFields = UtilMisc.<String, Object>toMap("userLogin", userLogin, "productStoreId", productStoreId, "shoppingListTypeId", "SLT_SPEC_PURP", "listName", PERSISTANT_LIST_NAME);
+                    Map<String, Object> newListResult = dispatcher.runSync("createShoppingList", listFields);
+                    if (newListResult != null) {
+                        autoSaveListId = (String) newListResult.get("shoppingListId");
+                    }
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                }
+                Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, autoSaveListId);
+                guestShoppingListCookie.setMaxAge(cookieAge);
+                guestShoppingListCookie.setPath("/");
+                response.addCookie(guestShoppingListCookie);
+            } 
+        }
+        if (UtilValidate.isNotEmpty(autoSaveListId)) {
+            if (UtilValidate.isNotEmpty(cart)) {
+                cart.setAutoSaveListId(autoSaveListId);
+            } else {
+                cart = ShoppingCartEvents.getCartObject(request);
+                cart.setAutoSaveListId(autoSaveListId);
+            }
+        }
+        return "success";
+    }
+    
+    /**
+     * Clear the guest cookies for a shopping list
+     */
+    public static String clearGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response){
+        Properties systemProps = System.getProperties();
+        String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name");
+        Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, null);
+        guestShoppingListCookie.setMaxAge(0);
+        guestShoppingListCookie.setPath("/");
+        response.addCookie(guestShoppingListCookie);
+        return "success";
     }
 }
