@@ -48,6 +48,7 @@ under the License.
         <event name="autoLoginCheck" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
         <event name="checkTrackingCodeCookies" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
         <event name="setDefaultStoreSettings" type="java" path="org.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
+        <event name="createGuestShoppingListCookies" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="createGuestShoppingListCookies"/>
         <event name="restoreAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
     </firstvisit>
 
@@ -75,6 +76,7 @@ under the License.
         <event name="restoreAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
         <!-- after login and restoring from the auto-save list, save everything to the auto-save list to handle anything that may have already been in the cart before login -->
         <event name="saveCartToAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="saveCartToAutoSaveList"/>
+        <event name="clearGuestShoppingListCookies" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="clearGuestShoppingListCookies"/>
     </after-login>
 
     <!-- default request; call into CMS -->
