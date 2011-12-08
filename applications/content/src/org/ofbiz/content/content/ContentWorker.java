@@ -1435,13 +1435,10 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         thisNode.put("isReturnAfterPick", Boolean.FALSE);
         thisNode.put("isPick", Boolean.TRUE);
         thisNode.put("isFollow", Boolean.TRUE);
-        try {
+        if (thisContent.getModelEntity().getField("caContentAssocTypeId") != null) {
             thisNode.put("contentAssocTypeId", thisContent.get("caContentAssocTypeId"));
             thisNode.put("mapKey", thisContent.get("caMapKey"));
             thisNode.put("fromDate", thisContent.get("caFromDate"));
-            thisNode.put("contentAssocTypeId", thisContent.get("caContentAssocTypeId"));
-        } catch (Exception e) {
-            // This ignores the case when thisContent does not have ContentAssoc values
         }
         return thisNode;
     }
