@@ -49,6 +49,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * Shopping Cart Object
@@ -489,6 +490,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                String accommodationMapId, String accommodationSpotId,
             Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, String prodCatalogId,
             ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
+            return addOrIncreaseItem(productId, selectedAmount, quantity, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, features, attributes, null, prodCatalogId, configWrapper, itemType, itemGroupNumber, parentProductId, dispatcher);
+    }
+
+    /** add rental (with accommodation) item to cart and order item attributes*/
+    public int addOrIncreaseItem(String productId, BigDecimal selectedAmount, BigDecimal quantity, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
+               String accommodationMapId, String accommodationSpotId,
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map<String, GenericValue> features, Map<String, Object> attributes, Map<String, String> orderItemAttributes, String prodCatalogId,
+            ProductConfigWrapper configWrapper, String itemType, String itemGroupNumber, String parentProductId, LocalDispatcher dispatcher) throws CartItemModifyException, ItemNotFoundException {
         if (isReadOnlyCart()) {
            throw new CartItemModifyException("Cart items cannot be changed");
         }
@@ -504,7 +513,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             ShoppingCartItem sci = cartLines.get(i);
 
 
-            if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
+            if (sci.equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, features, attributes, orderItemAttributes, prodCatalogId,selectedAmount, configWrapper, itemType, itemGroup, false)) {
                 BigDecimal newQuantity = sci.getQuantity().add(quantity);
                 try {
                     BigDecimal minQuantity = getMinimumOrderQuantity(getDelegator(),sci.getBasePrice(), productId);
@@ -542,11 +551,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
         // Add the new item to the shopping cart if it wasn't found.
+        ShoppingCartItem item = null;
         if (getOrderType().equals("PURCHASE_ORDER")) {
             //GenericValue productSupplier = null;
             supplierProduct = getSupplierProduct(productId, quantity, dispatcher);
             if (supplierProduct != null || "_NA_".equals(this.getPartyId())) {
-                 return this.addItem(0, ShoppingCartItem.makePurchaseOrderItem(Integer.valueOf(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate));
+                 item = ShoppingCartItem.makePurchaseOrderItem(Integer.valueOf(0), productId, selectedAmount, quantity, features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher, this, supplierProduct, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
             } else {
                 throw new CartItemModifyException("SupplierProduct not found");
             }
@@ -559,11 +569,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            return this.addItem(0, ShoppingCartItem.makeItem(Integer.valueOf(0), productId, selectedAmount, quantity, null,
+            item = ShoppingCartItem.makeItem(Integer.valueOf(0), productId, selectedAmount, quantity, null,
                     reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
                     features, attributes, prodCatalogId, configWrapper, itemType, itemGroup, dispatcher,
-                    this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE));
+                    this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE);
         }
+        // add order item attributes
+        for (Entry<String, String> entry : orderItemAttributes.entrySet()) {
+            item.setOrderItemAttribute(entry.getKey(), entry.getValue());
+        }
+
+        return this.addItem(0, item);
+
     }
 
     /** Add a non-product item to the shopping cart.

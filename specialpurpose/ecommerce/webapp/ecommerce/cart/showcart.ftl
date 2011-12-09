@@ -272,7 +272,17 @@ function setAlternateGwp(field) {
                     <#-- this is a non-product item -->
                     ${cartLine.getItemTypeDescription()?if_exists}: ${cartLine.getName()?if_exists}
                   </#if>
-
+                  <#assign attrs = cartLine.getOrderItemAttributes()/>
+                  <#if attrs?has_content>
+                    <#assign attrEntries = attrs.entrySet()/>
+                    <ul>
+                    <#list attrEntries as attrEntry>
+                        <li>
+                            ${attrEntry.getKey()} : ${attrEntry.getValue()}
+                        </li>
+                    </#list>
+                    </ul>
+                  </#if>
                 <#if (cartLine.getIsPromo() && cartLine.getAlternativeOptionProductIds()?has_content)>
                   <#-- Show alternate gifts if there are any... -->
                   <div class="tableheadtext">${uiLabelMap.OrderChooseFollowingForGift}:</div>

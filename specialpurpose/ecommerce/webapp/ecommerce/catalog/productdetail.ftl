@@ -541,6 +541,11 @@ ${virtualVariantJavaScript?if_exists}
           <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="addform"  style="margin: 0;">
           <fieldset>
             <#assign inStock = true />
+            <#assign commentEnable = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("order.properties", "order.item.comment.enable")>
+            <#if commentEnable.equals("Y")>
+                <#assign orderItemAttr = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("order.properties", "order.item.attr.prefix")>
+                ${uiLabelMap.CommonComment}&nbsp;<input type="text" name="${orderItemAttr}comment"/>
+            </#if>
             <#-- Variant Selection -->
             <#if product.isVirtual?if_exists?upper_case == "Y">
               <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
