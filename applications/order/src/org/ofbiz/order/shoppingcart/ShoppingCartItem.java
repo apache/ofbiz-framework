@@ -2360,6 +2360,13 @@ public class ShoppingCartItem implements java.io.Serializable {
     public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
             Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, String prodCatalogId, BigDecimal selectedAmount,
             ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
+        return equals(productId, reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, additionalProductFeatureAndAppls, attributes, null, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, isPromo);
+    }
+
+    /** Compares the specified object order item attributes. */
+    public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
+            Map<String, GenericValue> additionalProductFeatureAndAppls, Map<String, Object> attributes, Map<String, String> orderItemAttributes, String prodCatalogId, BigDecimal selectedAmount,
+            ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         if (this.productId == null || productId == null) {
             // all non-product items are unique
             return false;
@@ -2437,6 +2444,12 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         if (requirementId != null) {
             // all items linked to a requirement are unique
+            return false;
+        }
+
+        if ((this.orderItemAttributes == null && UtilValidate.isNotEmpty(orderItemAttributes)) || (UtilValidate.isNotEmpty(this.orderItemAttributes) && orderItemAttributes == null) ||
+                (this.orderItemAttributes != null && orderItemAttributes != null && (this.orderItemAttributes.size() != orderItemAttributes.size() || !(this.orderItemAttributes.equals(orderItemAttributes))))) {
+            // order item attribute unique
             return false;
         }
 

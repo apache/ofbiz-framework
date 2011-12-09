@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javolution.util.FastMap;
@@ -229,6 +230,15 @@ public class ShoppingCartHelper {
             }
         }
 
+        // get order item attributes
+        Map<String, String> orderItemAttributes = FastMap.newInstance();
+        String orderItemAttributePrefix = UtilProperties.getPropertyValue("order.properties", "order.item.attr.prefix");
+        for (Entry<String, ? extends Object> entry : context.entrySet()) {
+            if (entry.getKey().toString().contains(orderItemAttributePrefix) && UtilValidate.isNotEmpty(entry.getValue())) {
+                orderItemAttributes.put(entry.getKey().replaceAll(orderItemAttributePrefix, ""), entry.getValue().toString());
+            }
+        }
+
         // add or increase the item to the cart
         int itemId = -1;
         try {
@@ -236,7 +246,7 @@ public class ShoppingCartHelper {
 
                        itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength,
                                                 reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes,
-                                                catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
+                                                orderItemAttributes, catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
 
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);

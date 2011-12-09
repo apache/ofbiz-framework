@@ -69,6 +69,16 @@ under the License.
                                         <#else>
                                             ${orderItem.itemDescription?if_exists}
                                         </#if>
+                                        <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute")/>
+                                        <#if orderItemAttributes?has_content>
+                                            <ul>
+                                            <#list orderItemAttributes as orderItemAttribute>
+                                                <li>
+                                                    ${orderItemAttribute.attrName} : ${orderItemAttribute.attrValue}
+                                                </li>
+                                            </#list>
+                                            </ul>
+                                        </#if>
                                     </div>
                                     <div style="float:right;">
                                         <a href="/catalog/control/EditProduct?productId=${productId}${externalKeyParam}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
@@ -718,4 +728,3 @@ under the License.
         </div>
     </div>
 </#if>
-
