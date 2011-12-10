@@ -223,14 +223,13 @@ public class StringUtil {
     /**
      * Creates a Map from an encoded name/value pair string
      * @param str The string to decode and format
-     * @param delim the delimiter character(s) to join on (null will split on whitespace)
      * @param trim Trim whitespace off fields
      * @return a Map of name/value pairs
      */
-    public static Map<String, String> strToMap(String str, String delim, boolean trim) {
+    public static Map<String, String> strToMap(String str, boolean trim) {
         if (str == null) return null;
         Map<String, String> decodedMap = FastMap.newInstance();
-        List<String> elements = split(str, delim);
+        List<String> elements = split(str, "|");
 
         for (String s: elements) {
             List<String> e = split(s, "=");
@@ -264,16 +263,7 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str) {
-        return strToMap(str, "|", false);
-    }
-
-    /**
-     * Creates a Map from an encoded name/value pair string
-     * @param str The string to decode and format
-     * @return a Map of name/value pairs
-     */
-    public static Map<String, String> strToMap(String str, String delim) {
-        return strToMap(str, delim, false);
+        return strToMap(str, false);
     }
 
     /**
