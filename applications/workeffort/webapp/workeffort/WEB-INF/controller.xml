@@ -604,6 +604,7 @@ under the License.
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
     <request-map uri="LookupContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactMech"/></request-map>
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
+    <request-map uri="LookupContactList"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactList"/></request-map>
 
     <request-map uri="LookupProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupVariantProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
@@ -748,6 +749,7 @@ under the License.
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupContactMech" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContactMech"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
+    <view-map name="LookupContactList" type="screen" page="component://party/widget/partymgr/PartyContactListScreens.xml#ListLookupContactList"/>
 
     <view-map name="EditAgreementWorkEffortApplics" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortApplics"/>
     <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
