@@ -2040,6 +2040,7 @@
         <value xml:lang="zh_TW">獲得訂單明細記錄時出現問題</value>
     </property>
     <property key="OrderProblemGettingProductStoreRecords">
+        <value xml:lang="de">Problem beim lesen der Laden-Informationen</value>
         <value xml:lang="en">Problem getting ProductStore records</value>
         <value xml:lang="es">Hay un problema al obtener entradas de tienda</value>
         <value xml:lang="fr">Problème à l'obtention des données du centre de profit</value>
@@ -2051,6 +2052,7 @@
         <value xml:lang="zh_TW">獲得產品店鋪記錄時出錯</value>
     </property>
     <property key="OrderProblemGettingTheRecordIterator">
+        <value xml:lang="de">Problem mit dem 'Record Iterator'</value>
         <value xml:lang="en">Problem getting the Record Iterator</value>
         <value xml:lang="es">Problema obteniendo el iterador de registro</value>
         <value xml:lang="fr">Problème en obtenant le rapport Iterator</value>
@@ -2063,6 +2065,7 @@
         <value xml:lang="zh_TW">獲得記錄迭代器時出現問題</value>
     </property>
     <property key="OrderProblemOccurredInTaxService">
+        <value xml:lang="de">Problem beim Steuer-Serviceprogramm</value>
         <value xml:lang="en">Problem occurred in tax service</value>
         <value xml:lang="es">Problema ocurrido en servicio de impuestos</value>
         <value xml:lang="fr">Problème est arrivé dans le service fiscal</value>
@@ -2075,6 +2078,7 @@
         <value xml:lang="zh_TW">稅務服務里發生問題</value>
     </property>
     <property key="OrderProblemSendingEmail">
+        <value xml:lang="de">Problem beim senden von Email</value>
         <value xml:lang="en">Problem sending email</value>
         <value xml:lang="es">Problema enviando email</value>
         <value xml:lang="fr">Problème en envoyant des messages</value>
@@ -2087,6 +2091,7 @@
         <value xml:lang="zh_TW">發送電子郵件時出現問題</value>
     </property>
     <property key="OrderProblemStoringReceivedPaymentInformation">
+        <value xml:lang="de"> Problem beim speichern von erhaltenen Zahlungeinformationen.</value>
         <value xml:lang="en"> Problem storing received payment information.</value>
         <value xml:lang="es"> Problema almacenando la información recibida del pago.</value>
         <value xml:lang="fr"> Problème en enregistrant les informations de paiement recus. </value>
@@ -2099,6 +2104,7 @@
         <value xml:lang="zh_TW"> 存儲接收到的支付資訊時出現問題。</value>
     </property>
     <property key="OrderProblemStoringReturnItemUpdates">
+        <value xml:lang="de">Problem beim speichern von Retourenpositionen</value>
         <value xml:lang="en">Problem storing ReturnItem updates</value>
         <value xml:lang="es">Problema almacenando actualizaciones de los ítems de devolución</value>
         <value xml:lang="fr">Problème en enregistrant les mises à jour des retours d'articles</value>
@@ -2123,6 +2129,7 @@
         <value xml:lang="zh_TW">更新退貨明細 (returnItemResponseId) 時出現問題</value>
     </property>
     <property key="OrderProblemWithEntityLookup">
+        <value xml:lang="de">Problem beim lesen von der Datenbank</value>
         <value xml:lang="en">Problem with entity lookup</value>
         <value xml:lang="es">Problema con la consulta de entidades</value>
         <value xml:lang="fr">Problème avec la consultation d'entités</value>
@@ -2135,6 +2142,7 @@
         <value xml:lang="zh_TW">查找實體時出現問題</value>
     </property>
     <property key="OrderProblemWithEntityLookupSeeErrorLog">
+        <value xml:lang="de">Problem beim lesen von der Datenbank, siehe Error-Log</value>
         <value xml:lang="en">Problem with entity lookup, see error log</value>
         <value xml:lang="es">Problema con la consulta de entidades, observe los registros de errores</value>
         <value xml:lang="fr">Problème avec la consultation d'entités, regardez les logs d'erreurs</value>
@@ -2147,6 +2155,7 @@
         <value xml:lang="zh_TW">查找實體事出現問題，參見錯誤日誌</value>
     </property>
     <property key="OrderProblemWithInvoiceCreationDigitalItemsNotFulfilled">
+        <value xml:lang="de">Problem bei der Rechnungserstellung; Digitale Artikel konnten nicht ausgeliefert werden. </value>
         <value xml:lang="en">Problem with invoice creation; digital items not fulfilled. </value>
         <value xml:lang="es">Problema con la creación de una factura; artículos digitales no realizados</value>
         <value xml:lang="fr">Problème avec la création d'une facture; articles digitaux non accomplis. </value>
@@ -2159,6 +2168,7 @@
         <value xml:lang="zh_TW">創建發票時出現問題；數字明細沒有執行。 </value>
     </property>
     <property key="OrderProblemWithInvoiceCreationServiceItems">
+        <value xml:lang="de">Problem bei der Rechnungserstellung mit Service-Positionen</value>
         <value xml:lang="en">Problem with invoice creation service items</value>
         <value xml:lang="fr">Problème dans la génération de la facture sur les lignes de service</value>
         <value xml:lang="it">Problema con il servizio di creazione righe fattura</value>
@@ -2167,6 +2177,7 @@
         <value xml:lang="zh_TW">隨發票創建服務明細時出錯</value>
     </property>
     <property key="OrderProblemsAddingItemFromListToCart">
+        <value xml:lang="de">Problem beim hinzufügen einer Position aus der Liste zum Warenkorb</value>
         <value xml:lang="en">Problems adding item from list to cart</value>
         <value xml:lang="es">Problemas agregando ítem de una lista hacia el carro</value>
         <value xml:lang="fr">Problèmes en ajoutant un article dans le chariot</value>
@@ -2179,6 +2190,7 @@
         <value xml:lang="zh_TW">把明細從列表添加到購物車時出現問題</value>
     </property>
     <property key="OrderProblemsCreatingBillingAccount">
+        <value xml:lang="de">Problem bei der Erstellung des Rechnungskontos</value>
         <value xml:lang="en">Problems creating billing account</value>
         <value xml:lang="es">Problemas creando cuenta de facturación</value>
         <value xml:lang="fr">Problèmes en créant le compte de facturation</value>
@@ -2191,11 +2203,13 @@
         <value xml:lang="zh_TW">創建賬單賬戶時出現問題</value>
     </property>
     <property key="OrderProblemsCreatingFinAccountForStore">
+        <value xml:lang="de">Problem bei der Erstellung des Finanzkontos für den Laden</value>
         <value xml:lang="en">Problems creating FinAccount for Store</value>
         <value xml:lang="fr">Problème lors de la création du compte financier pour le magasin</value>
         <value xml:lang="pt_BR">Problemas ao criar FinAccount (Conta de financiamento) para loja</value>
     </property>
     <property key="OrderProblemsCreatingReturnItemResponseEntity">
+        <value xml:lang="de">Problem bei der Erstellung einer Retouren-Positions-Antwort</value>
         <value xml:lang="en">Problems creating ReturnItemResponse entity</value>
         <value xml:lang="es">Problemas creando la entidad de respuesta de devolución de ítem</value>
         <value xml:lang="fr">Problèmes en créant l'entité de réponse de retour d'article</value>
@@ -2208,6 +2222,7 @@
         <value xml:lang="zh_TW">創建退貨明細回答實體時出現問題</value>
     </property>
     <property key="OrderProblemsGettingContactMechFromOrderContactMech">
+        <value xml:lang="de">Problem beim ermitteln einer Kontaktinformation von der Auftrags-Kontaktinformation</value>
         <value xml:lang="en">Problems getting contact mech from order contact mech</value>
         <value xml:lang="es">Problemas obteniendo método de contacto del método de contacto del pedido</value>
         <value xml:lang="fr">Problèmes en obtenant le contact mech du contact mech de la commande</value>
@@ -2220,6 +2235,7 @@
         <value xml:lang="zh_TW">從訂單聯系方式獲得聯系方式時出現問題</value>
     </property>
     <property key="OrderProblemsGettingOrderContactMechs">
+        <value xml:lang="de">Problem beim ermitteln der Auftrags-Kontaktinformation</value>
         <value xml:lang="en">Problems getting order contact mechs</value>
         <value xml:lang="es">Problemas obteniendo métodos de contacto del pedido</value>
         <value xml:lang="fr">Problèmes en obtenant les contact mechs de la commande</value>
@@ -2232,6 +2248,7 @@
         <value xml:lang="zh_TW">獲得訂單聯系方式時出現問題</value>
     </property>
     <property key="OrderProblemsGettingOrderItemTypeFor">
+        <value xml:lang="de">Problem bei der Ermittlung der Auftrags-Positions-Art für : ${orderItemTypeId}</value>
         <value xml:lang="en">Problems getting OrderItemType for : ${orderItemTypeId}</value>
         <value xml:lang="es">Problemas obteniendo el tipo de ítem de pedido para: ${orderItemTypeId}</value>
         <value xml:lang="fr">Problèmes en obtenant le type d'article de la commande pour : ${orderItemTypeId}</value>
@@ -2244,6 +2261,7 @@
         <value xml:lang="zh_TW">獲得訂單明細類型時出錯：${orderItemTypeId}</value>
     </property>
     <property key="OrderProblemsGettingPartyRecord">
+        <value xml:lang="de">Problem beim lesen des Akteurs</value>
         <value xml:lang="en">Problems getting Party record</value>
         <value xml:lang="es">Problemas obteniendo registro de participante</value>
         <value xml:lang="fr">Problèmes en obtenant l'enregistrement de l'acteur</value>
@@ -2256,6 +2274,7 @@
         <value xml:lang="zh_TW">獲得會員記錄時出現問題</value>
     </property>
     <property key="OrderProblemsGettingTheCartItemByIndex">
+        <value xml:lang="de">Problem beim ermitteln der Warenkorb-Position per Index</value>
         <value xml:lang="en">Problems getting the cart item by index</value>
         <value xml:lang="es">Problemas obteniendo el ítem del carro por el índice</value>
         <value xml:lang="fr">Problèmes en obtenant l'article du chariot par l'index</value>
@@ -2268,6 +2287,7 @@
         <value xml:lang="zh_TW">通過索引獲得購物車明細時出現問題</value>
     </property>
     <property key="OrderProblemsInvokingTheCompleteAssignmentService">
+        <value xml:lang="de">Problem beim ausführen vom gesamten Zuweisungs-Services</value>
         <value xml:lang="en">Problems invoking the complete assignment service</value>
         <value xml:lang="es">Problemas invocando el servicio completo de asignación</value>
         <value xml:lang="fr">Problèmes à l'invocation du service d'achèvement d'affectation</value>
@@ -2280,6 +2300,7 @@
         <value xml:lang="zh_TW">啟動完成分派服務時出現問題</value>
     </property>
     <property key="OrderProblemsPaymentParsingAmount">
+        <value xml:lang="de"> Probleme beim verarbeiten des Zahlungsbetrages. </value>
         <value xml:lang="en"> Problems payment parsing amount. </value>
         <value xml:lang="es"> Problemas de pago analizando monto.</value>
         <value xml:lang="fr"> Problèmes de paiement en faisant l'analyse syntaxique de quantité. </value>
@@ -2292,6 +2313,7 @@
         <value xml:lang="zh_TW"> 解析支付金額時出現問題。 </value>
     </property>
     <property key="OrderProblemsReadingOrderHeaderInformation">
+        <value xml:lang="de"> Problem beim lesen des Auftragskopfes.</value>
         <value xml:lang="en"> Problems reading order header information.</value>
         <value xml:lang="es"> Problemas leyendo la información del encabezado del pedido.</value>
         <value xml:lang="fr"> Problèmes en lisant les informations de l'en-tête de commande</value>
@@ -2304,11 +2326,13 @@
         <value xml:lang="zh_TW"> 讀取訂單頭資訊時出現問題。</value>
     </property>
     <property key="OrderProblemsReadingOrderItemInformation">
+        <value xml:lang="de">Fehler beim lesen der Auftragsposition: ${errorString}</value>
         <value xml:lang="en">Error reading the OrderItem: ${errorString}</value>
         <value xml:lang="fr">Erreur lors de la lecture de la ligne de commande : ${errorString}</value>
         <value xml:lang="it">Errore durante la lettura informazioni della riga ordine: ${errorString}</value>
     </property>
     <property key="OrderProblemsStoringOrderEmailContactInformation">
+        <value xml:lang="de">Problem beim speichern der Email-Kontaktinformationen</value>
         <value xml:lang="en">Problems storing order email contact information</value>
         <value xml:lang="es">Problemas almacenando la información del contacto de email</value>
         <value xml:lang="fr">Problèmes en stockant les informations des contacts mail</value>
@@ -2321,6 +2345,7 @@
         <value xml:lang="zh_TW">存儲訂單電子郵件聯系資訊時出現問題</value>
     </property>
     <property key="OrderProblemsWithCheckPaymentAmountForRefund">
+        <value xml:lang="de">Problem mit dem Betrag der Scheckzahlung für die Rückerstattung </value>
         <value xml:lang="en">Problems with check payment amount for refund</value>
         <value xml:lang="fr">Problème avec la vérification du montant du paiement pour le remboursement</value>
         <value xml:lang="it">Problema nel controllo importo pagamento per reso</value>
@@ -2329,6 +2354,7 @@
         <value xml:lang="zh_TW">檢查退款支付金額時出現問題</value>
     </property>
     <property key="OrderProblemsWithGetPartyAcctgPreferences">
+        <value xml:lang="de">Problem beim lesen der Akteurs-Konteneinstellungen. </value>
         <value xml:lang="en">Problems with getting PartyAcctgPreference. </value>
         <value xml:lang="es">Hay problemas al obtener preferencias de contabilidad de participante.</value>
         <value xml:lang="fr">Problème à l'obtention des préférences comptabilité de l'acteur</value>
@@ -2338,6 +2364,7 @@
         <value xml:lang="zh_TW">獲取會員優先使用的賬戶時出現問題</value>
     </property>
     <property key="OrderProblemsWithGetReturnAmountByOrder">
+        <value xml:lang="de">Problem beim ermitteln der Retourenmenge zum Auftrag</value>
         <value xml:lang="en">Problems with getting return amount by order</value>
         <value xml:lang="fr">Problème avec la récupération du montant du retour par commande</value>
         <value xml:lang="it">Problema nell'ottenere importo reso dell'ordine</value>
@@ -2346,6 +2373,7 @@
         <value xml:lang="zh_TW">按訂單獲取退貨金額時出現問題</value>
     </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
+        <value xml:lang="de">Problem mit Zahlungsart-Suchhilfe. </value>
         <value xml:lang="en">Problems with PaymentType lookup. </value>
         <value xml:lang="es">Problemas con la consulta del tipo de pago.</value>
         <value xml:lang="fr">Problèmes à la consultation du type de paiement. </value>
@@ -2358,6 +2386,7 @@
         <value xml:lang="zh_TW">查找支付類型時出現問題。 </value>
     </property>
     <property key="OrderProblemsWithTheRefundSeeLogs">
+        <value xml:lang="de">Probleme mit Rückerstattung; siehe Logs</value>
         <value xml:lang="en">Problems with the refund; see logs</value>
         <value xml:lang="es">Problemas con el reembolso; observe los registros</value>
         <value xml:lang="fr">Problèmes au remboursement; voir les logs</value>
@@ -2370,6 +2399,7 @@
         <value xml:lang="zh_TW">退款時出現問題；參見日誌</value>
     </property>
     <property key="OrderProductNotExist">
+        <value xml:lang="de">Produkt existiert nicht</value>
         <value xml:lang="en">Product not exist</value>
         <value xml:lang="es">Producto inexistente</value>
         <value xml:lang="fr">Article inexistant</value>
@@ -2382,6 +2412,7 @@
         <value xml:lang="zh_TW">產品不存在</value>
     </property>
     <property key="OrderProductNotFound">
+        <value xml:lang="de">Produkt nicht gefunden ! </value>
         <value xml:lang="en">Product not found ! </value>
         <value xml:lang="es">Producto no encontrado !</value>
         <value xml:lang="fr">Article introuvable ! </value>
@@ -2394,6 +2425,7 @@
         <value xml:lang="zh_TW">產品沒有找到！ </value>
     </property>
     <property key="OrderProductStoreNotExist">
+        <value xml:lang="de">Laden existiert nicht</value>
         <value xml:lang="en">Product store not exist</value>
         <value xml:lang="es">Tienda inexistente</value>
         <value xml:lang="fr">Centre de profit inexistant</value>
@@ -2406,6 +2438,7 @@
         <value xml:lang="zh_TW">產品店鋪不存在</value>
     </property>
     <property key="OrderQuickAddOrderItemError">
+        <value xml:lang="de">Schnelles Hinzufügen von Auftragspositionen</value>
         <value xml:lang="en">Quick  Add  Order  Item</value>
         <value xml:lang="es">Agregar rápidamente ítems a el pedido</value>
         <value xml:lang="fr">Ajout rapide d'une ligne de commande</value>
@@ -2416,6 +2449,7 @@
         <value xml:lang="zh_TW">快速添加訂單明細</value>
     </property>
     <property key="OrderQuotePercent">
+        <value xml:lang="de">Angebotsprozente</value>
         <value xml:lang="en">Quote Percent</value>
         <value xml:lang="es">Porcentaje de presupuesto</value>
         <value xml:lang="fr">Pourcentage de devis</value>
@@ -2426,26 +2460,31 @@
         <value xml:lang="zh_TW">詢價百分比</value>
     </property>
     <property key="OrderQuoteStatusChangeIsNotValid">
+        <value xml:lang="de">Die Statusänderung von ${quote.statusId} nach ${parameters.statusId} ist kein gültiger Wechsel</value>
         <value xml:lang="en">The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change</value>
         <value xml:lang="fr">Le changement de statut de ${quote.statusId} à ${parameters.statusId} n'est pas autorisé</value>
         <value xml:lang="it">Il cambio di stato da ${quote.statusId} a ${parameters.statusId} non è consentito</value>
     </property>
     <property key="OrderQuoteNotARequest">
+        <value xml:lang="de">FEHLER: Kundenanfrage ${custRequest.custRequestId} ist keine Angebotsanfrage.</value>
         <value xml:lang="en">ERROR: CustRequest ${custRequest.custRequestId} is not a request for quote.</value>
         <value xml:lang="fr">ERREUR : La demande ${custRequest.custRequestId} n'est pas prévue pour générer un devis.</value>
         <value xml:lang="it">ERRORE: Richiesta ${custRequest.custRequestId} non è richiesta di preventivo.</value>
     </property>
     <property key="OrderQuoteNotAWorkEffort">
+        <value xml:lang="de">FEHLER: Arbeitsaufwand für Angebot ${parameters.quoteId} ${parameters.workEffortId} ist schon vorhanden.</value>
         <value xml:lang="en">ERROR: QuoteWorkEffort ${parameters.quoteId} ${parameters.workEffortId} already exists.</value>
         <value xml:lang="fr">ERREUR : La tâche de devis ${parameters.quoteId} ${parameters.workEffortId} existe déjà.</value>
         <value xml:lang="it">ERRORE: Impegno di lavoro ${parameters.quoteId} ${parameters.workEffortId} non è preventivo di impegno di lavoro.</value>
     </property>
     <property key="OrderQuoteWorkEffortDoesNotExists">
+        <value xml:lang="de">FEHLER: Arbeitsaufwand für Angebot ${parameters.quoteId} ${parameters.workEffortId} ist nicht vorhanden.</value>
         <value xml:lang="en">ERROR: QuoteWorkEffort ${parameters.quoteId} ${parameters.workEffortId} does not exist.</value>
         <value xml:lang="fr">ERREUR : La tâche de devis ${parameters.quoteId} ${parameters.workEffortId} n'existe pas.</value>
         <value xml:lang="it">ERRORE: Impegno di lavoro ${parameters.quoteId} ${parameters.workEffortId} non esiste.</value>
     </property>
     <property key="OrderReceivedNullForOrderItemRecordsOrderId">
+        <value xml:lang="de">Angebotsposition zu Auftrag ${orderId} ist NULL</value>
         <value xml:lang="en">Received NULL for OrderItem records orderId : ${orderId}</value>
         <value xml:lang="es">Se recibió nulo para los registros de ítems del pedido con código: ${orderId}</value>
         <value xml:lang="fr">Reception nulle pour les enregistrements d'article de la commande de l'identifiant : ${orderId}</value>
@@ -2458,6 +2497,7 @@
         <value xml:lang="zh_TW">接收到的訂單ID為 ${orderId} 的訂單明細記錄是 NULL</value>
     </property>
     <property key="OrderRefundAmountExceedsOrderTotal">
+        <value xml:lang="de">Rückerstattungsbetrag übersteigt Auftragssumme</value>
         <value xml:lang="en">Refund Amount Exceeds Order Total</value>
         <value xml:lang="fr">Le montant de remboursement dépasse le montant de la commande</value>
         <value xml:lang="it">Importo restituito eccede il totale ordine</value>
@@ -2466,6 +2506,7 @@
         <value xml:lang="zh_TW">退款金額超出訂單總額</value>
     </property>
     <property key="OrderRemoveCommunicationEventOrderPermissionError">
+        <value xml:lang="de">Berechtigungsfehler bei löschen eines Kommunikationsereignisses</value>
         <value xml:lang="en">Remove Communication Event Order Permission Error</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à supprimer une communication associée à une commande</value>
         <value xml:lang="it">Errore permesso durante la rimozione di un'evento comunicazione</value>
@@ -2474,6 +2515,7 @@
         <value xml:lang="zh_TW">刪除溝通事件時發生訂單權限錯誤</value>
     </property>
     <property key="OrderRentalOrderItems">
+        <value xml:lang="de">Auftrag enthält Miet-Positionen, jedoch keine Arbeitsaufwände mit Start- und End-Datum mit Personen</value>
         <value xml:lang="en">Rental order items in the order, however no workEfforts with start/end date and number of persons</value>
         <value xml:lang="es">Ítems de alquiler en el pedido</value>
         <value xml:lang="fr">Articles de la commande louée</value>
@@ -2486,6 +2528,7 @@
         <value xml:lang="zh_TW">訂單中的租賃訂單明細，其中的人工服務沒有開始/結束日期和人員數量</value>
     </property>
     <property key="OrderRequestedReturnQuantityNotAvailablePreviousReturnsMayExist">
+        <value xml:lang="de">Geforderte Retourenmenge [ ${parameters.returnQuantity} ] ist nicht verfügbar; es könnten vorherige Retouren vorhanden sein [ ${returnableQuantity} ].</value>
         <value xml:lang="en">Requested return quantity [ ${parameters.returnQuantity} ] not available; previous returns may exist [ ${returnableQuantity} ].</value>
         <value xml:lang="es">Cantidad de devolución  [ ${parameters.returnQuantity} ]no disponible; pueden existir devoluciones previas [ ${returnableQuantity} ].</value>
         <value xml:lang="fr">Quantité de retour demandé [ ${parameters.returnQuantity} ] non disponibles; des précédents retours peuvent exister [ ${returnableQuantity} ]. </value>
@@ -2498,6 +2541,7 @@
         <value xml:lang="zh_TW">請求的退貨數量 [ ${parameters.returnQuantity} ] 無效；可能存在以前的退貨 [ ${returnableQuantity} ]。</value>
     </property>
     <property key="OrderReservationLengthShouldBeAPositiveNumber">
+        <value xml:lang="de">Reservierungsdauer sollte eine positive Zahl sein</value>
         <value xml:lang="en">Reservation length should be a positive number</value>
         <value xml:lang="es">La longitud de la reserva debería ser un número positivo</value>
         <value xml:lang="fr">La longueur de la réservation doit être un nombre positif</value>
@@ -2510,16 +2554,19 @@
         <value xml:lang="zh_TW">預定長度應該是一個正數</value>
     </property>
     <property key="OrderReturnItemTypeIsNotDefined">
+        <value xml:lang="de">Retourenpositionsart ist für diese Position nicht definiert; oder es wurde keine Zuordnung gefunden.</value>
         <value xml:lang="en">Return Item Type is not defined for this item; or no mapping was found.</value>
         <value xml:lang="fr">Le type de retour n'est pas défini pour cette ligne.</value>
         <value xml:lang="it">Tipo riga reso non è definita per questa riga.</value>
     </property>
     <property key="OrderReturnItemTypeOrderItemNoMatching">
+        <value xml:lang="de">Keine Zuordnung der Retourenpositionsart für diese Auftragsposition gefunden: ${orderItem}</value>
         <value xml:lang="en">No matching return item type map found for order item: ${orderItem}</value>
         <value xml:lang="fr">Pas de correspondance dans le type de ligne de retour sur la ligne de commande ${orderItem}</value>
         <value xml:lang="it">Nessuna corrispondenza trovata fra il tipo riga reso e la riga ordine: ${orderItem}</value>
     </property>
     <property key="OrderReturnPaymentMethodNeededForThisTypeOfReturn">
+        <value xml:lang="de">Es muss eine Zahlungsart für diese Retourenart festgelegt werden</value>
         <value xml:lang="en">A payment method must be set for this type of return</value>
         <value xml:lang="es">Hay que fijar un método de pago para este tipo de devolución</value>
         <value xml:lang="fr">Une méthode de paiement doit être bien déterminé pour ce type de retour</value>
@@ -2531,6 +2578,7 @@
         <value xml:lang="zh_TW">必須為這個退貨類型設置支付方法</value>
     </property>
     <property key="OrderReturnPriceCannotExceedTheOrderTotal">
+        <value xml:lang="de">Der Gesamtbetrag aller Retourenpositionen [${returnTotal}] darf nicht die Auftragssumme übersteigen [ ${orderTotal} ].</value>
         <value xml:lang="en">Return total of all return items [${returnTotal}] cannot exceed the order total of [ ${orderTotal} ].</value>
         <value xml:lang="es">El precio de retorno  [ ${parameters.returnPrice} ] no puede exceder el total del pedido  [ ${orderTotal} ]  con todos los totales.</value>
         <value xml:lang="fr">Le total des retours de tous les articles [${returnTotal}] ne doit pas excéder le total de la commande de [ ${orderTotal} ].</value>
@@ -2543,6 +2591,7 @@
         <value xml:lang="zh_TW">全部退貨明細的退貨合計 [${returnTotal}] 不能超過訂單合計 [ ${orderTotal} ]。</value>
     </property>
     <property key="OrderReturnPriceCannotExceedThePurchasePrice">
+        <value xml:lang="de">Retourenpreis [ ${parameters.returnPrice} ] darf nicht den Kaufpreis übersteigen [ ${returnablePrice} ].</value>
         <value xml:lang="en">Return price [ ${parameters.returnPrice} ] cannot exceed the purchase price [ ${returnablePrice} ].</value>
         <value xml:lang="es">El precio de retorno  [ ${parameters.returnPrice} ] no puede exceder el precio de compra  [ ${returnablePrice} ].</value>
         <value xml:lang="fr">Le prix retourné [ ${parameters.returnPrice} ] ne peut pas excéder le prix d'achat [ ${returnablePrice} ]. </value>
@@ -2555,6 +2604,7 @@
         <value xml:lang="zh_TW">退貨價格 [ ${parameters.returnPrice} ] 不能超過購買價格 [ ${returnablePrice} ]。</value>
     </property>
     <property key="OrderReturnQuantityCannotExceedTheOrderedQuantity">
+        <value xml:lang="de">Retourenmenge [${parameters.returnQuantity}] darf nicht die bestellte Menge [ ${orderItem.quantity} ].</value>
         <value xml:lang="en">Return quantity [ ${parameters.returnQuantity} ] cannot exceed the ordered quantity [ ${orderItem.quantity} ]. </value>
         <value xml:lang="es">La cantidad de retorno  [ ${parameters.returnQuantity} ] no puede exceder [ ${orderItem.quantity} ]</value>
         <value xml:lang="fr">La quantité retournée [ ${parameters.returnQuantity} ] ne peut pas excéder la quantité commandée [ ${orderItem.quantity} ]. </value>
@@ -2567,16 +2617,19 @@
         <value xml:lang="zh_TW">退貨數量 [ ${parameters.returnQuantity} ] 不能超過訂單數量 [ ${orderItem.quantity} ]。 </value>
     </property>
     <property key="OrderReturnRequestPartyRoleInternalOrg">
+        <value xml:lang="de">Fehler: eine Retoure muss an einen Akteur in der Rolle 'interne Organisation' gehen</value>
         <value xml:lang="en">Error: a return must be to a party in the role of internal organization</value>
         <value xml:lang="fr">Erreur : le retour doit avoir un acteur avec le rôle d'organisation interne</value>
         <value xml:lang="it">Errore: un reso deve avere un soggetto con ruolo organizzazione interna</value>
     </property>
     <property key="OrderReturnRequestPartyRoleSupplier">
+        <value xml:lang="de">Fehler: eine Retoure muss an einen Akteur in der Rolle 'Lieferant' gehen</value>
         <value xml:lang="en">Error: a return must be to a party in the role of supplier</value>
         <value xml:lang="fr">Erreur : le retour doit avoir un acteur avec le rôle de fournisseur</value>
         <value xml:lang="it">Errore: un reso deve avere un soggetto con ruolo fornitore</value>
     </property>
     <property key="OrderReturnTotalCannotLessThanZero">
+        <value xml:lang="de">Der Gesamtbetrag der Retoure [${returnTotalAmount}] kann nicht kleiner Null sein.</value>
         <value xml:lang="en">Return total [${returnTotalAmount}] can not less than zero.</value>
         <value xml:lang="es">Total de la devolución [${returnTotalAmount}] no puede ser menor a cero</value>
         <value xml:lang="fr">Total du retour [${returnTotalAmount}] ne peut pas être à zéro</value>
@@ -2589,6 +2642,7 @@
         <value xml:lang="zh_TW">退貨合計 [${returnTotalAmount}] 不能小于零。</value>
     </property>
     <property key="OrderRunServiceGetInventoryAvailableByFacilityError">
+        <value xml:lang="de">Fehler beim ausführen des Service [getInventoryAvailableByFacility] :</value>
         <value xml:lang="en">Run service [getInventoryAvailableByFacility] error :</value>
         <value xml:lang="es">Ejecutar el servicio [getInventoryAvailableByFacility] da error :</value>
         <value xml:lang="fr">Erreur à l'exécution du service [getInventoryAvailableByFacility] : </value>
@@ -2600,6 +2654,7 @@
         <value xml:lang="zh_TW">運行服務 [getInventoryAvailableByFacility] 出錯：</value>
     </property>
     <property key="OrderRunServiceGetSuppliersForProductError">
+        <value xml:lang="de">Fehler beim ausführen des Service [getSuppliersForProduct] :</value>
         <value xml:lang="en">Run service [getSuppliersForProduct] error :</value>
         <value xml:lang="es">Error al ejecutar el servicio [getSuppliersForProduct] :</value>
         <value xml:lang="fr">Erreur à l'exécution du service [getSuppliersForProduct] : </value>
