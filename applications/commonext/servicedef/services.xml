@@ -47,6 +47,9 @@ under the License.
         <attribute name="lastSystemInfoNote1" type="GenericValue" mode="OUT" optional="true"/>
         <attribute name="lastSystemInfoNote2" type="GenericValue" mode="OUT" optional="true"/>
         <attribute name="lastSystemInfoNote3" type="GenericValue" mode="OUT" optional="true"/>
+        <attribute name="lastSystemInfoLink1" type="String" mode="OUT" optional="true"/>
+        <attribute name="lastSystemInfoLink2" type="String" mode="OUT" optional="true"/>
+        <attribute name="lastSystemInfoLink3" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getSystemInfoStatus" engine="simple" auth="true"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getSystemInfoStatus">
