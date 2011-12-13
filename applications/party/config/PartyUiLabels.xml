@@ -1196,6 +1196,9 @@
         <value xml:lang="zh">称谓</value>
         <value xml:lang="zh_TW">稱謂</value>
     </property>
+    <property key="FormFieldTitle_personalImage">
+        <value xml:lang="en">Personal Image</value>
+    </property>
     <property key="FormFieldTitle_preferredContactMechId">
         <value xml:lang="de">Bevorzugter Kontaktmechanismus ID</value>
         <value xml:lang="en">Preferred Contact Mech Id</value>
