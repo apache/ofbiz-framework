@@ -26,6 +26,7 @@
 
 # the userlogin the script should run under and is the home dirname, in this case /home/ofbiz/ofbiz
 OFBIZUSER="ofbiz"
+OFBIZDIR=""ofbiz"
 
 #============== no need to change anything below this line =======================
 
@@ -37,13 +38,13 @@ start() {
         return 0
     fi
     if [ "$USER" = "$OFBIZUSER" ]; then
-        echo "starting standard /home/$OFBIZUSER/ofbiz/startofbiz.sh"
-        cd /home/$OFBIZUSER/ofbiz
+        echo "starting standard /home/$OFBIZUSER/$OFBIZDIR/startofbiz.sh"
+        cd /home/$OFBIZUSER/$OFBIZDIR
         ./startofbiz.sh
         if [ $? = 0 ]; then 
             echo "start success"
         else
-            echo "starting ofbiz user: $OFBIZUSER failed return code: $?"
+            echo "starting ofbiz user: $OFBIZUSER in dir: $OFBIZDIR failed return code: $?"
         fi
         return 0
     fi
@@ -51,8 +52,8 @@ start() {
 
 stop() {
     if [ "$USER" = "$OFBIZUSER" ]; then
-        echo "stopping standard /home/$OFBIZUSER/ofbiz/stopofbiz.sh"
-        cd /home/$OFBIZUSER/ofbiz
+        echo "stopping standard /home/$OFBIZUSER/$OFBIZDIR/stopofbiz.sh"
+        cd /home/$OFBIZUSER/$OFBIZDIR
 	    MAXCOUNT=10
         COUNTER=0
         until [ $COUNTER -gt $MAXCOUNT ]; do
@@ -107,10 +108,10 @@ case "$1" in
     "status")
         running
         if [ "$OFBIZ_PROCS" = "" ]; then
-            echo "OFBiz for user: $OFBIZUSER is stopped"
+            echo "OFBiz for user: $OFBIZUSER in dir: $OFBIZDIR is stopped"
             exit 1
         else
-            echo "OFBiz for user: $OFBIZUSER is running"
+            echo "OFBiz for user: $OFBIZUSER in dir: $OFBIZDIR is running"
             exit 0
         fi
     ;;
