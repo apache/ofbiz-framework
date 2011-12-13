@@ -20,6 +20,7 @@ package org.ofbiz.order.shoppingcart;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -575,8 +576,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     this, Boolean.TRUE, Boolean.TRUE, parentProductId, Boolean.FALSE, Boolean.FALSE);
         }
         // add order item attributes
-        for (Entry<String, String> entry : orderItemAttributes.entrySet()) {
-            item.setOrderItemAttribute(entry.getKey(), entry.getValue());
+        if (UtilValidate.isNotEmpty(orderItemAttributes)) {
+            for (Entry<String, String> entry : orderItemAttributes.entrySet()) {
+                item.setOrderItemAttribute(entry.getKey(), entry.getValue());
+            }
         }
 
         return this.addItem(0, item);
