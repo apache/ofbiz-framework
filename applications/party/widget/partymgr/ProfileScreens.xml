@@ -43,6 +43,7 @@
                 <set field="partyContentId" from-field="partyContentList[0].contentId"/>
                 <set field="partyContent" value="${groovy: partyContentId!=null?&quot;/content/control/stream?contentId=&quot; + partyContentId : &quot;&quot;}"/>
                 <set field="partyGroupLogoLinkUrl" from-field="partyContent" default-value="${lookupGroup.logoImageUrl}" global="true"/>
+                <set field="personalImage" from-field="partyContent"/>
             </actions>
             <widgets>
                 <section>
