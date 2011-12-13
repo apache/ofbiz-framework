@@ -76,9 +76,8 @@ stop() {
 checkUser() {
     if [ "$USER" != "$OFBIZUSER" ]; then
         if [ "$USER" = "" ]; then
-# mount disks if required in Amazon EC2         
-            echo "Mounting data disk at boot"
-            mount /dev/sdf /backup 
+#           echo "Mounting data disk at boot"
+#           mount /dev/sdf /backup 
             exec su - $OFBIZUSER -c "$0 $1 "
 	    else
 	        exec sudo -u $OFBIZUSER $0 $1 
