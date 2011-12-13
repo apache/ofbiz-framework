@@ -191,6 +191,12 @@ under the License.
 
     <!--  WorkEffort CommunicationEvents requests -->
     <request-map uri="ListWorkEffortCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortCommEvents"/></request-map>
+    <request-map uri="createCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEventWorkEff"/>
+        <response name="success" type="view" value="ListWorkEffortCommEvents"/>
+        <response name="error" type="view" value="ListWorkEffortCommEvents"/>
+    </request-map>
     <request-map uri="createWorkEffortCommEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEventWorkEff"/>
