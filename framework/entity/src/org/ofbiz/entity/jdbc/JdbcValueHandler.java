@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Reader;
+import java.nio.ByteBuffer;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -324,16 +325,20 @@ public abstract class JdbcValueHandler<T> {
         }
         @Override
         protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Object obj) throws SQLException {
-            try {
-                // FIXME: This is here for backwards compatibility. Client code
-                // that uses a Blob java-type for a byte array should use a
-                // byte[] java-type instead.
-                byte[] bytes = (byte[]) obj;
-                Debug.logWarning("Blob java-type used for byte array. Use byte[] java-type instead.", module);
-                ps.setBytes(parameterIndex, bytes);
-                return;
-            } catch (ClassCastException e) {}
-            ps.setBlob(parameterIndex, (Blob) obj);
+            // FIXME: This is here for backwards compatibility. Client code
+            // that uses a Blob java-type for a byte array should use a
+            // byte[] java-type instead.
+            if (obj instanceof Blob) {
+                ps.setBlob(parameterIndex, (Blob)obj);
+            } else if (obj instanceof byte[]) {
+                ps.setBytes(parameterIndex, (byte[]) obj);
+            } else if (obj instanceof ByteBuffer) {
+                ps.setBytes(parameterIndex, ((ByteBuffer)obj).array());
+            } else {
+                Debug.logError("JdbcValueHandler.castAndSetValue(): Unexpected type found. type=" + obj.getClass().getName(), module);
+                throw new IllegalArgumentException(obj.getClass().getName());
+            }
+            return;
         }
         @Override
         public Object getValue(ResultSet rs, int columnIndex) throws SQLException {
