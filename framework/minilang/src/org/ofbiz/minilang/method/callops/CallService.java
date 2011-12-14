@@ -26,6 +26,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -321,11 +322,28 @@ public class CallService extends MethodOperation {
         String messagePrefixStr = messagePrefix.getMessage(methodContext.getLoader(), methodContext);
         String messageSuffixStr = messageSuffix.getMessage(methodContext.getLoader(), methodContext);
 
-        String errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, errorPrefixStr, errorSuffixStr);
-        if (UtilValidate.isNotEmpty(errorMessage) && breakOnError) {
-            errorMessage += UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
+        String errorMessage = null;
+        List<String> errorMessageList = null;
+        // See if there is a single message
+        if (result.containsKey(ModelService.ERROR_MESSAGE)) {
+            errorMessage = ServiceUtil.makeErrorMessage(result, messagePrefixStr, messageSuffixStr, errorPrefixStr, errorSuffixStr);
+        } else if (result.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
+            errorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
+        }
+
+        if ((UtilValidate.isNotEmpty(errorMessage) || UtilValidate.isNotEmpty(errorMessageList)) && breakOnError) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
+                if (UtilValidate.isNotEmpty(errorMessage)){
+                    if (Debug.verboseOn()){
+                        errorMessage += UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
+                    }
+                    methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
+                } else {
+                    if (Debug.verboseOn()){
+                        errorMessageList.add(UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
+                    }
+                    methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), errorMessageList);
+                }
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
                 ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()),
                         UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
@@ -344,7 +362,7 @@ public class CallService extends MethodOperation {
         }
 
         String defaultMessageStr = defaultMessage.getMessage(methodContext.getLoader(), methodContext);
-        if (UtilValidate.isEmpty(errorMessage) && UtilValidate.isEmpty(successMessage) && UtilValidate.isNotEmpty(defaultMessageStr)) {
+        if (UtilValidate.isEmpty(errorMessage) && UtilValidate.isEmpty(errorMessageList) && UtilValidate.isEmpty(successMessage) && UtilValidate.isNotEmpty(defaultMessageStr)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventEventMessageName(), defaultMessageStr);
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
