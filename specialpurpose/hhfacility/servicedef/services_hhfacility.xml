@@ -33,7 +33,7 @@ under the License.
         <description>Receive Product Qty to Facility</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="productQty" type="Double" mode="IN" optional="false"/>
+        <attribute name="productQty" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="productLocation" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -57,7 +57,7 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="Double" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="locationSeqIdNew" type="String" mode="IN" optional="true"/>
     </service>
 
