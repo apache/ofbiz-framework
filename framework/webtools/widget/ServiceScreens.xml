@@ -167,7 +167,7 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleScheduleJob}">
                             <platform-specific>
-                                <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameter.ftl"/></html>
+                                <html><html-template location="component://webtools/webapp/webtools/service/setServiceParameterSync.ftl"/></html>
                             </platform-specific>
                         </screenlet>
                     </decorator-section>
