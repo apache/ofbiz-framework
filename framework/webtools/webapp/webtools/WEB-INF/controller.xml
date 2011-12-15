@@ -59,11 +59,6 @@ under the License.
         <response name="error" type="none"/>
         <response name="success" type="none"/>
     </request-map>
-    <request-map uri="runService">
-        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="runService"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
 
     <request-map uri="ping">
         <event type="service" invoke="ping"/>
@@ -315,6 +310,13 @@ under the License.
         <response name="success" type="view" value="FindJob"/>
         <response name="sync_success" type="view" value="serviceResult"/>
         <response name="error" type="view" value="scheduleJob"/>
+    </request-map>
+    <request-map uri="scheduleServiceSync">
+        <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="scheduleService"/>
+        <response name="success" type="view" value="serviceResult"/>
+        <response name="sync_success" type="view" value="serviceResult"/>
+        <response name="error" type="view" value="runService"/>
     </request-map>
     <request-map uri="serviceResult">
         <security https="true" auth="true"/>
