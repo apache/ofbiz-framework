@@ -29,8 +29,7 @@
 
     <test-case case-name="accounting-tests"><junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/></test-case>
 
-    <!-- commented out for now...test data seems to be missing and i wondered if theyu ever worked, went back to rev: 903431 and ever there the same problem -->
-    <!-- test-case case-name="auto-accounting-transaction-tests">
+    <test-case case-name="auto-accounting-transaction-tests">
         <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml"/>
-    </test-case-->
+    </test-case>
 </test-suite>
