@@ -2884,6 +2884,37 @@ public class OrderReadHelper {
        return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
    }
 
+    public static String getOrderItemAttribute(GenericValue orderItem, String attributeName) {
+        String attributeValue = null;
+        if (orderItem != null) {
+            try {
+                GenericValue orderItemAttribute = EntityUtil.getFirst(orderItem.getRelatedByAnd("OrderItemAttribute", UtilMisc.toMap("attrName", attributeName)));
+                if (orderItemAttribute != null) {
+                    attributeValue = orderItemAttribute.getString("attrValue");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        return attributeValue;
+    }
+
+    public String getOrderAttribute(String attributeName) {
+        String attributeValue = null;
+        if (orderHeader != null) {
+            try {
+                GenericValue orderAttribute = EntityUtil.getFirst(orderHeader.getRelatedByAnd("OrderAttribute", UtilMisc.toMap("attrName", attributeName)));
+                if (orderAttribute != null) {
+                    attributeValue = orderAttribute.getString("attrValue");
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        return attributeValue;
+    }
+    
+
    public static Map<String, Object> getOrderTaxByTaxAuthGeoAndParty(List<GenericValue> orderAdjustments) {
        BigDecimal taxGrandTotal = BigDecimal.ZERO;
        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
