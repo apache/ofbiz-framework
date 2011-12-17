@@ -18,33 +18,33 @@ under the License.
 -->
 
 <script language="JavaScript" type="text/javascript">
-    function editInstruction() {
-        jQuery('#shippingInstructions').css({display:'block'});
-        jQuery('#saveInstruction').css({display:'inline'});
-        jQuery('#editInstruction').css({display:'none'});
-        jQuery('#instruction').css({display:'none'});
+    function editInstruction(shipGroupSeqId) {
+        jQuery('#shippingInstructions_' + shipGroupSeqId).css({display:'block'});
+        jQuery('#saveInstruction_' + shipGroupSeqId).css({display:'inline'});
+        jQuery('#editInstruction_' + shipGroupSeqId).css({display:'none'});
+        jQuery('#instruction_' + shipGroupSeqId).css({display:'none'});
     }
-    function addInstruction() {
-        jQuery('#shippingInstructions').css({display:'block'});
-        jQuery('#saveInstruction').css({display:'inline'});
-        jQuery('#addInstruction').css({display:'none'});
+    function addInstruction(shipGroupSeqId) {
+        jQuery('#shippingInstructions_' + shipGroupSeqId).css({display:'block'});
+        jQuery('#saveInstruction_' + shipGroupSeqId).css({display:'inline'});
+        jQuery('#addInstruction_' + shipGroupSeqId).css({display:'none'});
     }
-    function saveInstruction() {
-        document.updateShippingInstructionsForm.submit();
+    function saveInstruction(shipGroupSeqId) {
+        jQuery("#updateShippingInstructionsForm_" + shipGroupSeqId).submit();
     }
-    function editGiftMessage() {
-        jQuery('#giftMessage').css({display:'block'});
-        jQuery('#saveGiftMessage').css({display:'inline'});
-        jQuery('#editGiftMessage').css({display:'none'});
-        jQuery('#message').css({display:'none'});
+    function editGiftMessage(shipGroupSeqId) {
+        jQuery('#giftMessage_' + shipGroupSeqId).css({display:'block'});
+        jQuery('#saveGiftMessage_' + shipGroupSeqId).css({display:'inline'});
+        jQuery('#editGiftMessage_' + shipGroupSeqId).css({display:'none'});
+        jQuery('#message_' + shipGroupSeqId).css({display:'none'});
     }
-    function addGiftMessage() {
-        jQuery('#giftMessage').css({display:'block'});
-        jQuery('#saveGiftMessage').css({display:'inline'});
-        jQuery('#addGiftMessage').css({display:'none'});
+    function addGiftMessage(shipGroupSeqId) {
+        jQuery('#giftMessage_' + shipGroupSeqId).css({display:'block'});
+        jQuery('#saveGiftMessage_' + shipGroupSeqId).css({display:'inline'});
+        jQuery('#addGiftMessage_' + shipGroupSeqId).css({display:'none'});
     }
-    function saveGiftMessage() {
-        document.setGiftMessageForm.submit();
+    function saveGiftMessage(shipGroupSeqId) {
+        jQuery("#setGiftMessageForm_" + shipGroupSeqId).submit();
     }
 </script>
 
@@ -491,7 +491,7 @@ under the License.
           <td width="5">&nbsp;</td>
           <td align="left" valign="top" width="80%">
             <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
-              <form name="updateShippingInstructionsForm" method="post" action="<@ofbizUrl>setShippingInstructions</@ofbizUrl>">
+              <form id="updateShippingInstructionsForm_${shipGroup.shipGroupSeqId}" name="updateShippingInstructionsForm" method="post" action="<@ofbizUrl>setShippingInstructions</@ofbizUrl>">
                 <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
                 <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                 <#if shipGroup.shippingInstructions?has_content>
@@ -501,15 +501,15 @@ under the License.
                         <label>${shipGroup.shippingInstructions}</label>
                       </td>
                       <td>
-                        <a href="javascript:editInstruction();" class="buttontext" id="editInstruction">${uiLabelMap.CommonEdit}</a>
+                        <a href="javascript:editInstruction('${shipGroup.shipGroupSeqId}');" class="buttontext" id="editInstruction_${shipGroup.shipGroupSeqId}">${uiLabelMap.CommonEdit}</a>
                       </td>
                     </tr>
                   </table>
                 <#else>
-                  <a href="javascript:addInstruction();" class="buttontext" id="addInstruction">${uiLabelMap.CommonAdd}</a>
+                  <a href="javascript:addInstruction('${shipGroup.shipGroupSeqId}');" class="buttontext" id="addInstruction_${shipGroup.shipGroupSeqId}">${uiLabelMap.CommonAdd}</a>
                 </#if>
-                <a href="javascript:saveInstruction();" class="buttontext" id="saveInstruction" style="display:none">${uiLabelMap.CommonSave}</a>
-                <textarea name="shippingInstructions" id="shippingInstructions" style="display:none" rows="0" cols="0">${shipGroup.shippingInstructions?if_exists}</textarea>
+                <a href="javascript:saveInstruction('${shipGroup.shipGroupSeqId}');" class="buttontext" id="saveInstruction_${shipGroup.shipGroupSeqId}" style="display:none">${uiLabelMap.CommonSave}</a>
+                <textarea name="shippingInstructions" id="shippingInstructions_${shipGroup.shipGroupSeqId}" style="display:none" rows="0" cols="0">${shipGroup.shippingInstructions?if_exists}</textarea>
               </form>
             <#else>
               <#if shipGroup.shippingInstructions?has_content>
@@ -529,17 +529,17 @@ under the License.
           </td>
           <td width="5">&nbsp;</td>
           <td>
-            <form name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
+            <form id="setGiftMessageForm_${shipGroup.shipGroupSeqId}" name="setGiftMessageForm" method="post" action="<@ofbizUrl>setGiftMessage</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
               <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
               <#if shipGroup.giftMessage?has_content>
                 <label>${shipGroup.giftMessage}</label>
-                <a href="javascript:editGiftMessage();" class="buttontext" id="editGiftMessage">${uiLabelMap.CommonEdit}</a>
+                <a href="javascript:editGiftMessage('${shipGroup.shipGroupSeqId}');" class="buttontext" id="editGiftMessage_${shipGroup.shipGroupSeqId}">${uiLabelMap.CommonEdit}</a>
               <#else>
-                <a href="javascript:addGiftMessage();" class="buttontext" id="addGiftMessage">${uiLabelMap.CommonAdd}</a>
+                <a href="javascript:addGiftMessage('${shipGroup.shipGroupSeqId}');" class="buttontext" id="addGiftMessage_${shipGroup.shipGroupSeqId}">${uiLabelMap.CommonAdd}</a>
               </#if>
-              <textarea name="giftMessage" id="giftMessage" style="display:none" rows="0" cols="0">${shipGroup.giftMessage?if_exists}</textarea>
-              <a href="javascript:saveGiftMessage();" class="buttontext" id="saveGiftMessage" style="display:none">${uiLabelMap.CommonSave}</a>
+              <textarea name="giftMessage" id="giftMessage_${shipGroup.shipGroupSeqId}" style="display:none" rows="0" cols="0">${shipGroup.giftMessage?if_exists}</textarea>
+              <a href="javascript:saveGiftMessage('${shipGroup.shipGroupSeqId}');" class="buttontext" id="saveGiftMessage_${shipGroup.shipGroupSeqId}" style="display:none">${uiLabelMap.CommonSave}</a>
             </form>
           </td>
         </tr>
