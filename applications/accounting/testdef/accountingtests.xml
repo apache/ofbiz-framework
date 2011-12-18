@@ -27,9 +27,14 @@
     </test-case>
 
 
-    <test-case case-name="accounting-tests"><junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/></test-case>
+    <test-case case-name="accounting-tests">
+        <junit-test-suite class-name="org.ofbiz.accounting.test.FinAccountTests"/>
+    </test-case>
 
-    <test-case case-name="auto-accounting-transaction-tests">
-        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTests.xml"/>
+    <test-case case-name="auto-accounting-transaction-tests-sales">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTestsSales.xml"/>
+    </test-case>
+    <test-case case-name="auto-accounting-transaction-tests-purchase">
+        <simple-method-test location="component://accounting/script/org/ofbiz/accounting/test/AutoAcctgTransTestsPurchase.xml"/>
     </test-case>
 </test-suite>
