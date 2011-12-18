@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <!-- Test case for Accounting Transaction on Purchase -->
+    <simple-method method-name="testAcctgTransOnPoReceipts" short-description="Test case for Accounting Transaction on Receipts of Purchase Order." login-required="false">
+        <!-- Precondition : shipment is created from supplier and order items are issued  -->
+        <!-- create a purchase order using following:
+             Supplier : DemoSupplier
+             Item     : WG-1111
+             Quantity : 10 -->
+
+        <!-- Post condition : Credit in account 214000 - UNINVOICED ITEM RECEIPT amount = grand total of order.
+                              Debit in account 140000- INVENTORY amount = grand total of order.  -->
+
+        <!-- set few variables so that they can be changed easily to test with different values -->
+        <set field="orderId" value="DEMO10091"/>
+        <set field="productId" value="GZ-2644"/>
+        <set field="orderItemSeqId" value="00001"/>
+        <set field="shipmentId" value="9999"/>
+
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
+        <set field="serviceCtx.productId" from-field="productId"/>
+        <set field="serviceCtx.facilityId" value="WebStoreWarehouse"/>
+        <set field="serviceCtx.quantityAccepted" value="5" type="BigDecimal"/>
+        <set field="serviceCtx.quantityRejected" value="0" type="BigDecimal"/>
+        <set field="serviceCtx.shipmentId" from-field="shipmentId"/>
+        <set field="serviceCtx.orderId" from-field="orderId"/>
+        <set field="serviceCtx.orderItemSeqId" from-field="orderItemSeqId"/>
+
+        <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx"/>
+
+        <entity-and list="acctgTransList" entity-name="AcctgTrans">
+            <field-map field-name="shipmentId"/>
+        </entity-and>
+        <assert><not><if-empty field="acctgTransList"/></not></assert>
+        <first-from-list entry="acctgTrans" list="acctgTransList"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+        <set field="productFilter.productId" from-field="productId"/>
+        <filter-list-by-and list="acctgTransEntryList" map="productFilter" to-list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="UNINVOICED_SHIP_RCPT"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="214000"/>
+                </assert>
+            <else>
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <assert>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="INVENTORY_ACCOUNT"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="140000"/>
+                    </assert>
+                </if-compare>
+            </else>
+            </if-compare>
+        </iterate>
+        <!-- check if invoice created -->
+        <entity-and list="orderItemBillings" entity-name="OrderItemBilling">
+            <field-map field-name="orderId"/>
+        </entity-and>
+        <assert>
+            <not><if-empty field="orderItemBillings"/></not>
+        </assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testAcctgTransOnEditPoInvoice" short-description="Test case for Purchase Invoices: editing, adding taxes and shipping charges and posting to GL" login-required="false">
+        <!-- Precondition: To the Purchase Invoice created add taxes and two different shipping charges
+            1. for taxes: set "Invoice Item Type" = "Invoice Sales Tax" and "Unit Price" = 10$
+            2. for the first shipping charge: set "Invoice Item Type" = "Invoice Shipping And Handling" and "Unit Price" = 5$
+            3. for the second shipping charge: set "Invoice Item Type" = "Invoice Shipping And Handling", set "Override Gl Account Id" = "516100" and "Unit Price" = 5$
+        -->
+        <!-- Post condition: When status is set to ready, an accounting transaction is automatically posted to the GL:
+            * Credit; in account 210000 - "ACCOUNTS PAYABLE"; amount: 290$
+            * Debit; in account 214000 - "UNINVOICED ITEM RECEIPTS"; amount: 270$
+            * Debit; in account 516100 - "PURCHASE ORDER ADJUSTMENTS"; amount: 10$
+            * Debit; in account 510000 - "FREIGHT IN"; amount: 5$
+            * Debit; in account 516100 - "PURCHASE ORDER ADJUSTMENTS"; amount: 5$
+        -->
+
+        <set field="orderId" value="DEMO10091"/>
+        <entity-and list="orderItemBillings" entity-name="OrderItemBilling">
+            <field-map field-name="orderId"/>
+        </entity-and>
+        <first-from-list entry="orderItemBilling" list="orderItemBillings"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.statusId" value="INVOICE_READY"/>
+        <set field="serviceCtx.invoiceId" from-field="orderItemBilling.invoiceId"/>
+        <call-service service-name="setInvoiceStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Invoice" value-field="invoice">
+            <field-map field-name="invoiceId" from-field="orderItemBilling.invoiceId"/>
+        </entity-one>
+        <get-related value-field="invoice" relation-name="AcctgTrans" list="acctgTransList"/>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE"/>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="210000"/>
+                </assert>
+            </if-compare>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testAcctgTransOnPaymentSentToSupplier" short-description="Test case for Payment sent to supplier for purchase invoice." login-required="false">
+        <!--
+            Precondition: New payment is created for: supplierId = "DemoSupplier", "Payment Type ID" = "Vendor Payment" and
+                          a proper "Payment Method Type" (e.g. "Electronic Funds Transfer"), amount = $290
+
+            Post condition: On payment's status is sent: a double-entry accounting transaction is automatically posted to the GL:
+                * Credit; in account 111100 - "GENERAL CHECKING ACCOUNT"; amount: 290$; however this depends on the "Payment method type" selected;
+                * Debit; in account 216000 - "ACCOUNTS PAYABLE - UNAPPLIED PAYMENTS"; amount: 290$
+         -->
+
+        <set field="paymentId" value="9000"/>
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="serviceCtx.userLogin" from-field="userLogin"/>
+        <set field="serviceCtx.paymentId" from-field="paymentId"/>
+        <set field="serviceCtx.statusId" value="PMNT_SENT"/>
+
+        <call-service service-name="setPaymentStatus" in-map-name="serviceCtx"/>
+        <entity-one entity-name="Payment" value-field="payment">
+            <field-map field-name="paymentId" from-field="paymentId"/>
+        </entity-one>
+        <get-related value-field="payment" relation-name="AcctgTrans" list="acctgTransList"/>
+        <first-from-list list="acctgTransList" entry="acctgTrans"/>
+
+        <assert><if-compare field="acctgTrans.glJournalId" operator="not-equals" value="ERROR_JOURNAL"/></assert>
+
+        <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntryList"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+
+        <call-simple-method method-name="UtilCheckEntriesBalance"/>
+
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <assert>
+                    <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="111100"/>
+                </assert>
+            <else>
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <assert>
+                        <if-compare field="acctgTransEntry.glAccountTypeId" operator="equals" value="ACCPAYABLE_UNAPPLIED"/>
+                        <if-compare field="acctgTransEntry.glAccountId" operator="equals" value="216000"/>
+                    </assert>
+                </if-compare>
+            </else>
+            </if-compare>
+        </iterate>
+        <check-errors/>
+    </simple-method>
+
+
+    <simple-method method-name="UtilCheckEntriesBalance" login-required="false"
+            short-description="Short util method that takes a list of AcctgTransEntry values (acctgTransEntryList) and checks that the debit and credit totals balance.">
+        <set field="debitTotal" type="BigDecimal" value="0.0"/>
+        <set field="creditTotal" type="BigDecimal" value="0.0"/>
+
+        <assert><not><if-empty field="acctgTransEntryList"/></not></assert>
+        <iterate list="acctgTransEntryList" entry="acctgTransEntry">
+            <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
+                <calculate field="creditTotal">
+                    <calcop operator="get" field="creditTotal"/>
+                    <calcop operator="add" field="acctgTransEntry.origAmount"/>
+                </calculate>
+            <else>
+                <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
+                    <calculate field="debitTotal">
+                        <calcop operator="get" field="debitTotal"/>
+                        <calcop operator="add" field="acctgTransEntry.origAmount"/>
+                    </calculate>
+                </if-compare>
+            </else>
+            </if-compare>
+        </iterate>
+        <assert>
+            <if-compare-field field="debitTotal" operator="equals" to-field="creditTotal" type="BigDecimal"/>
+        </assert>
+    </simple-method>
+
+</simple-methods>
