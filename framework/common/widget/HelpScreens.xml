@@ -76,10 +76,17 @@ under the License.
                         <if-empty field="parameters.portalPageId"/>
                     </condition>
                     <actions>
-                        <entity-and entity-name="ContentAssoc" list="contentAssocs">
-                            <field-map field-name="mapKey" from-field="parameters.helpTopic"/>
+                        <entity-condition entity-name="ContentAssoc" list="contentAssocs">
+                            <condition-list>
+                                <condition-expr field-name="mapKey" from-field="parameters.helpTopic"/>
+                                <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
+                                <condition-list combine="or">
+                                    <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                                    <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                                </condition-list>
+                            </condition-list>
                             <order-by field-name="sequenceNum"/>
-                        </entity-and>
+                        </entity-condition>
                         <set field="contentId" from-field="contentAssocs[0].contentIdTo"/>
                         <entity-one entity-name="Content" value-field="content"/>
                     </actions>
@@ -168,11 +175,18 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleNavigateContent"/>
-                <entity-and entity-name="ContentAssoc" list="contentAssoc">
-                    <field-map field-name="contentId" value="HELP_ROOT"/>
-                    <field-map field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                <entity-condition entity-name="ContentAssoc" list="contentAssoc">
+                    <condition-list>
+                        <condition-expr field-name="contentId" value="HELP_ROOT"/>
+                        <condition-expr field-name="contentAssocTypeId" value="TREE_CHILD"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                        </condition-list>
+                    </condition-list>
                     <order-by field-name="sequenceNum"/>
-                </entity-and>
+                </entity-condition>
                 <set field="contentId" from-field="parameters.contentId" default-value="HELP_ROOT"/>
             </actions>
             <widgets>
