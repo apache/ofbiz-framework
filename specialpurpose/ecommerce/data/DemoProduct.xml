@@ -737,6 +737,93 @@ under the License.
     <ContentAssoc contentId="SV-1001-ALT" contentIdTo="CSV-1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-08-02 12:00:00.0"/>
     <ProductContent productId="SV-1001" contentId="SV-1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2011-08-02 12:00:00.0"/>
 
+    <!-- test for the configurable product type which is received to- and shipped from inventory-->
+    <Product productId="CFSV1001" productTypeId="AGGREGATED_SERVICE" primaryProductCategoryId="SERV-001" productName="Scanning book service" internalName="The configurable product type which is received to- and shipped from inventory" description="The configurable product type which is received to- and shipped from inventory for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <Product productId="SCAN_TYPE" productTypeId="SERVICE_PRODUCT" productName="Scanning Type" internalName="Scanning Type" description="Scanning Type" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
+    <Product productId="SCAN-EC" productTypeId="SERVICE_PRODUCT" internalName="Economy Scanning type" productName="Economy Scanning type" description="Economy Scanning type" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="SCAN-ST" productTypeId="SERVICE_PRODUCT" internalName="Standard Scanning type" productName="Standard Scanning type" description="Standard Scanning type" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="SCAN-SU" productTypeId="SERVICE_PRODUCT" internalName="Superfine Scanning type" productName="Superfine Scanning type" description="Superfine Scanning type" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    
+    <ProductFeatureCategory productFeatureCategoryId="SCAN_TYPE" description="Scanning Type"/>
+    <ProductFeature productFeatureId="ECONOMY" productFeatureTypeId="TYPE" productFeatureCategoryId="SCAN_TYPE" description="Economy Scan" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="STANDARD" productFeatureTypeId="TYPE" productFeatureCategoryId="SCAN_TYPE" description="Standard Scan" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="SUPERFINE" productFeatureTypeId="TYPE" productFeatureCategoryId="SCAN_TYPE" description="Superfine Scan" defaultSequenceNum="3"/>
+    
+    <Product productId="EXPRESS" productTypeId="SERVICE_PRODUCT" productName="Express" internalName="Express" description="Express" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
+    <Product productId="SUPER_EXPRESS" productTypeId="SERVICE_PRODUCT" productName="Super Express" internalName="Super Express" description="Super Express" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
+    <Product productId="SCAN_COVER" productTypeId="SERVICE_PRODUCT" productName="Scan Cover" internalName="Scan Cover" description="Scan Cover" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
+    <Product productId="OCR" productTypeId="SERVICE_PRODUCT" productName="OCR" internalName="OCR" description="OCR" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
+    <Product productId="METADATA" productTypeId="SERVICE_PRODUCT" productName="Metadata" internalName="Metadata" description="Metadata" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
+    <Product productId="DVD" productTypeId="SERVICE_PRODUCT" productName="DVD" internalName="DVD" description="DVD" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
+    
+    <ProductAssoc productId="SCAN_TYPE" productIdTo="SCAN-EC" productAssocTypeId="PRODUCT_VARIANT" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductAssoc productId="SCAN_TYPE" productIdTo="SCAN-ST" productAssocTypeId="PRODUCT_VARIANT" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductAssoc productId="SCAN_TYPE" productIdTo="SCAN-SU" productAssocTypeId="PRODUCT_VARIANT" fromDate="2011-08-02 12:00:00.0"/>
+    
+    <ProductFeatureAppl productId="SCAN_TYPE" productFeatureId="ECONOMY" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SCAN_TYPE" productFeatureId="STANDARD" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="2"/>
+    <ProductFeatureAppl productId="SCAN_TYPE" productFeatureId="SUPERFINE" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="3"/>
+    
+    <ProductFeatureAppl productId="SCAN-EC" productFeatureId="ECONOMY" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SCAN-ST" productFeatureId="STANDARD" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SCAN-SU" productFeatureId="SUPERFINE" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2011-08-02 12:00:00.0" sequenceNum="1"/>
+    
+    <ProductPrice productId="CFSV1001" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-08-02 12:00:00.0" price="9.99" createdDate="2011-08-02 12:00:00.0" createdByUserLogin="admin"/>
+    <ProductPrice productId="SCAN-EC" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SCAN-EC" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SCAN-ST" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="2.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SCAN-ST" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="2.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SCAN-SU" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="3.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SCAN-SU" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="3.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="EXPRESS" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.50" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SUPER_EXPRESS" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="3.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="SCAN_COVER" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="OCR" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="2.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="METADATA" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="1.00" createdDate="2011-01-01 00:00:00.0"/>
+    <ProductPrice productId="DVD" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2011-01-01 00:00:00.0" price="0.25" createdDate="2011-01-01 00:00:00.0"/>
+    
+    <ProductConfigItem configItemId="SC00000" configItemTypeId="MULTIPLE" configItemName="Scanning Type" description="Select the scanning type :"/>
+    <ProductConfigItem configItemId="SCF0001" configItemTypeId="MULTIPLE" configItemName="Scanning Options" description="Scanning options :"/>
+    
+    <ProductConfigOption configItemId="SC00000" configOptionId="SCOP001" configOptionName="OPT0001" description="Scanning Type" sequenceNum="10"/>
+    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP006" configOptionName="OPT0006" description="Express" sequenceNum="10"/>
+    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP007" configOptionName="OPT0007" description="Super Express" sequenceNum="20"/>
+    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP008" configOptionName="OPT0008" description="Scan Cover" sequenceNum="30"/>
+    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP009" configOptionName="OPT0009" description="OCR" sequenceNum="40"/>
+    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP010" configOptionName="OPT0010" description="Metadata" sequenceNum="60"/>
+    <ProductConfigOption configItemId="SCF0001" configOptionId="SCOP011" configOptionName="OPT0011" description="DVD" sequenceNum="50"/>
+    
+    <ProductConfigProduct configItemId="SC00000" configOptionId="SCOP001" productId="SCAN_TYPE" quantity="1"/>
+    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP006" productId="EXPRESS" quantity="1"/>
+    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP007" productId="SUPER_EXPRESS" quantity="1"/>
+    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP008" productId="SCAN_COVER" quantity="1"/>
+    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP009" productId="OCR" quantity="1"/>
+    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP010" productId="METADATA" quantity="1"/>
+    <ProductConfigProduct configItemId="SCF0001" configOptionId="SCOP011" productId="DVD" quantity="1"/>
+    
+    <ProductCategoryMember productCategoryId="SERV-001" productId="CFSV1001" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="CFSV1001" fromDate="2011-08-02 12:00:00.0"/>
+    <DataResource dataResourceId="CFSV1001-ALT" dataResourceTypeId="LINK" objectInfo="scanning-book-service-CFSV1001-p"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="CFSV1001-ALT" localeString="en"/>
+    <DataResource dataResourceTypeId="ELECTRONIC_TEXT" dataResourceId="DRCFSV1001-ALTEN" localeString="en_US"/>
+    <ElectronicText dataResourceId="CFSV1001-ALT" textData="scanning-book-product"/>
+    <ElectronicText dataResourceId="DRCFSV1001-ALTEN" textData="scanning-book-product"/>
+
+    <ProductConfig productId="CFSV1001" configItemId="SC00000" sequenceNum="10" fromDate="2011-01-01 00:00:00.0" description="Select the scanning type :" configTypeId="QUESTION" isMandatory="N"/>
+    <ProductConfig productId="CFSV1001" configItemId="SCF0001" sequenceNum="20" fromDate="2011-01-01 00:00:00.0" description="Scanning options :" configTypeId="QUESTION" isMandatory="N"/>
+    
+    <WorkEffort workEffortId="SCTASK01" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_BOOK_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="SCTASK02" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Preparation" description="Preparation" revisionNumber="1" fixedAssetId="DEMO_BOOK_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="SCROUT01" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Pizza preparation" description="Scanning preparation" revisionNumber="1" quantityToProduce="0"/>
+    <WorkEffortGoodStandard workEffortId="SCROUT01" productId="CFSV1001" workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" statusId="WEGS_CREATED" fromDate="2011-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="SCROUT01" workEffortIdTo="SCTASK01" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2011-01-01 00:00:00.0"/>
+    <WorkEffortAssoc workEffortIdFrom="SCROUT01" workEffortIdTo="SCTASK02" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="20" fromDate="2011-01-01 00:00:00.0"/>
+    
+    <Content contentId="CFSV1001-ALT" contentTypeId="DOCUMENT" dataResourceId="CFSV1001-ALT" localeString="en"/>
+    <Content contentId="CCFSV1001-ALTEN" contentTypeId="DOCUMENT" dataResourceId="DRCFSV1001-ALTEN" localeString="en_US"/>
+    <ContentAssoc contentId="CFSV1001-ALT" contentIdTo="CCFSV1001-ALTEN" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2011-08-02 12:00:00.0"/>
+    <ProductContent productId="CFSV1001" contentId="CFSV1001-ALT" productContentTypeId="ALTERNATIVE_URL" fromDate="2011-08-02 12:00:00.0"/>
+
     <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
 

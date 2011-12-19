@@ -101,7 +101,7 @@ ${virtualJavaScript?if_exists}
           <#elseif product.productTypeId?if_exists == "ASSET_USAGE">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderMakeBooking}...</a>
           <#-- check to see if it is an aggregated or configurable product; will enter parameters on the detail screen-->
-          <#elseif product.productTypeId?if_exists == "AGGREGATED">
+          <#elseif product.productTypeId?if_exists == "AGGREGATED" || product.productTypeId?if_exists == "AGGREGATED_SERVICE">
             <a href="${productUrl}" class="buttontext">${uiLabelMap.OrderConfigure}...</a>
           <#-- check to see if the product is a virtual product -->
           <#elseif product.isVirtual?exists && product.isVirtual == "Y">

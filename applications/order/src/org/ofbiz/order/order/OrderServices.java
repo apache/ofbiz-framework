@@ -1138,7 +1138,7 @@ public class OrderServices {
                     String productId = (String) orderItem.get("productId");
                     GenericValue product = delegator.getRelatedOne("Product", orderItem);
                     
-                    if("SERVICE_PRODUCT".equals(product.get("productTypeId"))){
+                    if("SERVICE_PRODUCT".equals(product.get("productTypeId")) || "AGGREGATEDSERV_CONF".equals(product.get("productTypeId"))){
                         String inventoryFacilityId = null;
                         if ("Y".equals(productStore.getString("oneInventoryFacility"))) {
                             inventoryFacilityId = productStore.getString("inventoryFacilityId");

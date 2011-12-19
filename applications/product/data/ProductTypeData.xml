@@ -500,7 +500,9 @@ under the License.
     <ProductType description="Work In Process" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="WIP"/>
     <ProductType description="Configurable Good Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/>
     <ProductType description="Fixed Asset Usage For Rental of an asset which is shipped from and returned to inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE_OUT_IN"/>
-    <ProductType description="Service a product which is received to- and shipped from inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE_PRODUCT"/>
+    <ProductType description="Service a product using inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE_PRODUCT"/>
+    <ProductType description="Configurable Service using inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="SERVICE_PRODUCT" productTypeId="AGGREGATED_SERVICE"/>
+    <ProductType description="Configurable Service Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED_SERVICE" productTypeId="AGGREGATEDSERV_CONF"/>
     
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->
@@ -618,7 +620,7 @@ under the License.
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="IM_APPROVED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
     <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="IM_REJECTED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
     
-    <ProductFeatureCategory productFeatureCategoryId="IMAGE" description="Image"/>
+    <ProductFeatureCategory productFeatureCategoryI="IMAGE" description="Image"/>
     <ProductFeatureCategory productFeatureCategoryId="TEXT" description="Text"/>
     
     <ProductFeature productFeatureId="IMAGE_AVATAR" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="100 X 75 (avatar)" defaultSequenceNum="1"/>

@@ -146,7 +146,7 @@ public class ProductWorker {
     public static String getInstanceAggregatedId(Delegator delegator, String instanceProductId) throws GenericEntityException {
         GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", instanceProductId));
 
-        if (UtilValidate.isNotEmpty(instanceProduct) && "AGGREGATED_CONF".equals(instanceProduct.getString("productTypeId"))) {
+        if (UtilValidate.isNotEmpty(instanceProduct) && ("AGGREGATED_CONF".equals(instanceProduct.getString("productTypeId")) || "AGGREGATEDSERV_CONF".equals(instanceProduct.getString("productTypeId")))) {
             GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelatedByAnd("AssocProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"))));
             if (UtilValidate.isNotEmpty(productAssoc)) {
@@ -172,7 +172,7 @@ public class ProductWorker {
     public static List<GenericValue> getAggregatedAssocs(Delegator delegator, String  aggregatedProductId) throws GenericEntityException {
         GenericValue aggregatedProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", aggregatedProductId));
 
-        if (UtilValidate.isNotEmpty(aggregatedProduct) && "AGGREGATED".equals(aggregatedProduct.getString("productTypeId"))) {
+        if (UtilValidate.isNotEmpty(aggregatedProduct) && ("AGGREGATED".equals(aggregatedProduct.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId")))) {
             List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF")));
             return productAssocs;
@@ -1193,4 +1193,16 @@ nextProd:
         return Boolean.TRUE;
     }
 
+    public static boolean isAggregateService(Delegator delegator, String aggregatedProductId) {
+        try {
+            GenericValue aggregatedProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", aggregatedProductId));
+            if (UtilValidate.isNotEmpty(aggregatedProduct) && "AGGREGATED_SERVICE".equals(aggregatedProduct.getString("productTypeId"))) {
+                return true;
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+        }
+
+        return false;
+    }
 }

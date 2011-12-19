@@ -53,6 +53,7 @@ under the License.
                 <or>
                     <if-compare field="product.productTypeId" operator="equals" value="SERVICE_PRODUCT"/>
                     <if-compare field="product.productTypeId" operator="equals" value="ASSET_USAGE_OUT_IN"/>
+                    <if-compare field="product.productTypeId" operator="equals" value="AGGREGATEDSERV_CONF"/>
                 </or>
             </condition>
             <then>
