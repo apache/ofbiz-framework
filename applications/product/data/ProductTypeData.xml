@@ -620,7 +620,7 @@ under the License.
     <StatusItem description="Approved" sequenceId="02" statusCode="APPROVED" statusId="IM_APPROVED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
     <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="IM_REJECTED" statusTypeId="IMAGE_MANAGEMENT_ST"/>
     
-    <ProductFeatureCategory productFeatureCategoryI="IMAGE" description="Image"/>
+    <ProductFeatureCategory productFeatureCategoryId="IMAGE" description="Image"/>
     <ProductFeatureCategory productFeatureCategoryId="TEXT" description="Text"/>
     
     <ProductFeature productFeatureId="IMAGE_AVATAR" productFeatureTypeId="SIZE" productFeatureCategoryId="IMAGE" description="100 X 75 (avatar)" defaultSequenceNum="1"/>
