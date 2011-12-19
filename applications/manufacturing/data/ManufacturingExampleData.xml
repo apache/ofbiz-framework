@@ -45,6 +45,11 @@ under the License.
     <FixedAsset fixedAssetId="DEMO_PROD_EQUIPMT_2" fixedAssetName="Demo Production Equipment Two" fixedAssetTypeId="PRODUCTION_EQUIPMENT" dateAcquired="2005-01-01 00:01:00.0" expectedEndOfLife="2010-01-01" calendarId="DEMO_CALENDAR" salvageValue="50" purchaseCost="1000" purchaseCostUomId="USD"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_PROD_EQUIPMT_2" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
 
+    <FixedAsset fixedAssetId="DEMO_BOOK_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Book Group"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK_GROUP" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+    <FixedAsset fixedAssetId="DEMO_BOOK" fixedAssetName="Demo Book" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_BOOK_GROUP" calendarId="DEMO_CALENDAR" purchaseCost="200" purchaseCostUomId="USD"/>
+    <FixedAssetGeoPoint fixedAssetId="DEMO_BOOK" geoPointId="9000" fromDate="2011-08-02 00:00:00.000"/>
+
     <FixedAssetDepMethod depreciationCustomMethodId="STR_LINE_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_1"/>
     <FixedAssetDepMethod depreciationCustomMethodId="DBL_DECL_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_2"/>
 </entity-engine-xml>
