@@ -356,6 +356,7 @@ under the License.
     <xs:element name="sort-field">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.sort-field"/>
+            <xs:attribute name="position" type="xs:positiveInteger"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.sort-field">
