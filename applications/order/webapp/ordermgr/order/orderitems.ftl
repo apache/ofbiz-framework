@@ -81,6 +81,12 @@ under the License.
                                         </#if>
                                     </div>
                                     <div style="float:right;">
+                                        <#assign downloadContents = delegator.findByAnd("OrderItemAndProductContentInfo", {"orderId" : orderId, "orderItemSeqId" : orderItem.orderItemSeqId, "productContentTypeId" : "DIGITAL_DOWNLOAD", "statusId" : "ITEM_COMPLETED"})/>
+                                        <#if downloadContents?has_content>
+                                            <#list downloadContents as downloadContent>
+                                                <a href="/content/control/ViewSimpleContent?contentId=${downloadContent.contentId}" class="buttontext" target="_blank">${uiLabelMap.ContentDownload}</a>&nbsp;
+                                            </#list>
+                                        </#if>
                                         <a href="/catalog/control/EditProduct?productId=${productId}${externalKeyParam}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
                                         <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
                                         <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
