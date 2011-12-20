@@ -284,8 +284,14 @@ public class CmsEvents {
                     templateMap.put("formStringRenderer", formStringRenderer);
                     //include DOCTYPE for cms screens
                     writer.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+                    
+                    // if use web analytics
+                    List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId));
+                    
                     // render
-                    if (UtilValidate.isEmpty(mapKey)) {
+                    if (UtilValidate.isNotEmpty(webAnalytics) && hasErrorPage) {
+                        ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true, webAnalytics);
+                    } else if (UtilValidate.isEmpty(mapKey)) {
                         ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", null, null, true);
                     } else {
                         ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);

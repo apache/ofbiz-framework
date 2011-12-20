@@ -55,6 +55,7 @@ import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilIO;
@@ -62,6 +63,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.StringUtil.StringWrapper;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.base.util.template.XslTransform;
@@ -585,12 +587,18 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Map<String, Object> templateContext,
              Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         Writer writer = new StringWriter();
-        renderDataResourceAsText(delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache);
+        renderDataResourceAsText(delegator, dataResourceId, writer, templateContext, locale, targetMimeTypeId, cache, null);
         return writer.toString();
     }
 
-    public static void renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
+    public static String renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
             Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
+       renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache, null);
+       return out.toString();
+   }
+
+    public static void renderDataResourceAsText(Delegator delegator, String dataResourceId, Appendable out,
+            Map<String, Object> templateContext, Locale locale, String targetMimeTypeId, boolean cache, List<GenericValue> webAnalytics) throws GeneralException, IOException {
         if (dataResourceId == null) {
             throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
         }
@@ -654,6 +662,19 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 try {
                     // get the template data for rendering
                     String templateText = getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache);
+
+                    // if use web analytics.
+                    if (UtilValidate.isNotEmpty(webAnalytics)) {
+                        StringBuffer newTemplateText = new StringBuffer(templateText);
+                        String webAnalyticsCode = "<script language=\"JavaScript\" type=\"text/javascript\">";
+                        for (GenericValue webAnalytic : webAnalytics) {
+                            StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
+                            webAnalyticsCode += wrapString.toString();
+                        }
+                        webAnalyticsCode += "</script>";
+                        newTemplateText.insert(templateText.lastIndexOf("</head>"), webAnalyticsCode);
+                        templateText = newTemplateText.toString();
+                    }
 
                     // render the FTL template
                     FreeMarkerWorker.renderTemplate("DataResource:" + dataResourceId, templateText, templateContext, out);
