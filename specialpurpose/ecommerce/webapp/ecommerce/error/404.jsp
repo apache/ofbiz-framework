@@ -16,9 +16,27 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 --%>
+<%@ page import="java.util.*" %>
+<%@ page import="org.ofbiz.base.util.*" %>
+<%@ page import="org.ofbiz.entity.*" %>
+<%@ page import="org.ofbiz.entity.util.*" %>
+<jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" />
+<%
+ServletContext context = pageContext.getServletContext();
+String webSiteId = (String) context.getAttribute("webSiteId");
+List<GenericValue> webAnalytics = delegator.findByAnd("WebAnalyticsConfig", UtilMisc.toMap("webSiteId", webSiteId));
+%>
 <html>
 <head>
 <title>Error 404</title>
+<%if (webAnalytics != null) {%>
+<script language="JavaScript" type="text/javascript">
+<%for (GenericValue webAnalytic : webAnalytics) {%>
+    <%=StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"))%>
+<%}%>
+</script>
+<%}%>
+</head>
 <body>
 <p>
 <b>404.</b>
