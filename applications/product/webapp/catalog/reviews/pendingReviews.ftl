@@ -74,19 +74,21 @@ under the License.
                           ${review.postedDateTime?if_exists}
                       </td>
                       <td>
-                      <#if postedPerson?has_content>
+                      <#if review.userLoginId?has_content && postedPerson?has_content>
+                        <td>
                         <#if postedPerson.firstName?has_content && postedPerson.lastName?has_content>
                             ${postedPerson.firstName} ${postedPerson.lastName}
                         <#else>
                             ${postedPerson.groupName}
                         </#if>
+                        </td>
                       <#else>
                           <td></td>
                       </#if>
                       </td>
                       <td>
                           <select name='postedAnonymous_o_${rowCount}'>
-                              <option>${review.postedAnonymous?default("N")}</option>
+                              <option value="${review.postedAnonymous?default("N")}">${review.postedAnonymous?default("N")}</option>
                               <option value="${review.postedAnonymous?default("N")}">----</option>
                               <option value="N">${uiLabelMap.CommonN}</option>
                               <option value="Y">${uiLabelMap.CommonY}</option>
