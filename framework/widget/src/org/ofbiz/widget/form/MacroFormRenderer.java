@@ -1424,7 +1424,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         Iterator<ModelFormField> submitFields = modelForm.getMultiSubmitFields().iterator();
         while (submitFields.hasNext()) {
             ModelFormField submitField = submitFields.next();
-            if (submitField != null) {
+            if (submitField != null && submitField.shouldUse(context)) {
 
                 // Threw this in that as a hack to keep the submit button from expanding the first field
                 // Needs a more rugged solution
