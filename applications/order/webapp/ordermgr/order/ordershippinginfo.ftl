@@ -264,10 +264,12 @@ under the License.
                                 </#list>
                             </select>
                             <#else>
-                            <#if shipGroup.carrierPartyId != "_NA_">
-                            ${shipGroup.carrierPartyId?if_exists}
-                            </#if>
-                            ${shipmentMethodType?if_exists.get("description",locale)?default("")}
+                                <#if (shipGroup.carrierPartyId)?default("_NA_") != "_NA_">
+                                ${shipGroup.carrierPartyId?if_exists}
+                                </#if>
+                                <#if shipmentMethodType?has_content>
+                                    ${shipmentMethodType.get("description",locale)?default("")}
+                                </#if>
                             </#if>
                         </div>
                     </td>
