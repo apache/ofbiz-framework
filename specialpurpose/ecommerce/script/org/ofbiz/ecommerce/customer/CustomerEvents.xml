@@ -435,6 +435,12 @@ under the License.
                 <call-service-asynch service-name="sendMailFromScreen" in-map-name="emailParams" include-user-login="true"/>
             </if-not-empty>
         </if-not-empty>
+        
+        <!-- security for manage profile  -->
+        <set field="securityParams.userLoginId" from-field="createdUserLogin.userLoginId"/>
+        <set field="securityParams.groupId" value="ECOMMERCE_CUSTOMER"/>
+        <set field="securityParams.userLogin" from-field="userLogin"/>
+        <call-service service-name="addUserLoginToSecurityGroup" in-map-name="securityParams"/>
 
         <!-- tell the control servlet that we just logged in the user... -->
         <set value="TRUE" field="_LOGIN_PASSED_"/>

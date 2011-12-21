@@ -415,8 +415,13 @@ under the License.
             <td>${(status.get("description",locale))?if_exists}</td>
             <td>${contentRole.fromDate?if_exists}</td>
             <td align="right">
+              <form name="removeContent_${contentRole.contentId}" method="post" action="removePartyAsset">
+                <input name="partyId" type="hidden" value="${userLogin.partyId}"/>
+                <input name="contentId" type="hidden" value="${contentRole.contentId}"/>
+                <input name="roleTypeId" type="hidden" value="${contentRole.roleTypeId}"/>
+              </form>
               <a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId?if_exists}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a>
-              <a href="<@ofbizUrl>removePartyAsset?contentId=${contentRole.contentId}&amp;partyId=${contentRole.partyId}&amp;roleTypeId=${contentRole.roleTypeId}</@ofbizUrl>" class="button">${uiLabelMap.CommonRemove}</a>
+              <a href="javascript:document.removeContent_${contentRole.contentId}.submit();" class="button">${uiLabelMap.CommonRemove}</a>
             </td>
           </tr>
         </#list>
