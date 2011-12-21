@@ -541,7 +541,7 @@ under the License.
         <set field="createQuoteAdjustmentMap.quoteId" from-field="quoteId"/>
         <set field="createQuoteAdjustmentMap.quoteItemSeqId" from-field="quoteItemSeqId"/>
         <set field="createQuoteAdjustmentMap.amount" value="15.00" type="BigDecimal"/>
-        <set field="createQuoteAdjustmentMap.includeInShipping	" value="N"/>
+        <set field="createQuoteAdjustmentMap.includeInShipping" value="N"/>
         <set field="createQuoteAdjustmentMap.includeInTax" value="Y"/>
         <set field="createQuoteAdjustmentMap.quoteAdjustmentTypeId" value="SALES_TAX"/>
         <set field="createQuoteAdjustmentMap.taxAuthGeoId" value="UT"/>
@@ -573,6 +573,102 @@ under the License.
         <set field="expected" value="165.00" type="BigDecimal"/>
         <call-object-method obj-field="shoppingCart" method-name="getGrandTotal" ret-field="grandTotal"/>
         <assert><if-compare-field operator="equals" field="grandTotal" to-field="expected"/></assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateOrderConfigurableServiceProduct" short-description="Test create an order using a configurable service product" login-required="false">
+        <set field="request" from-field="parameters.request"/>
+        <set field="response" from-field="parameters.response"/>
+        <call-class-method method-name="routeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : routeOrderEntry, Response : ${result}"/>
+        <!-- Set parameters -->
+        <set field="testParams.add_product_id" value="CFSV1001"/>
+        <set field="testParams.product_id" value="CFSV1001"/>
+        <set field="testParams.FT0_0_0TYPE" value="SCAN_TYPE"/>
+        <set field="testParams.product_id0_0_0" value="SCAN_TYPE"/>
+        <set field="testParams.0" value="0"/>
+        <set field="testParams.add_product_id0_0_0" value="SCAN-EC"/>
+        <set field="testParams.productStoreId" value="9000"/>
+        <set field="testParams.currencyUom" value="USD"/>
+        <set field="testParams.quantity" value="1"/>
+        <set field="testParams.orderMode" value="SALES_ORDER"/>
+        <set field="testParams.partyId" value="DemoCustomer"/>
+        <set field="testParams.checkoutpage" value="quick"/>
+        <set field="testParams.shipping_contact_mech_id" value="9015"/>
+        <set field="testParams.shipping_method" value="GROUND@UPS"/>
+        <set field="testParams.checkOutPaymentId" value="EXT_COD"/>
+        <set field="testParams.is_gift" value="false"/>
+        <set field="testParams.may_split" value="false"/>
+        <call-object-method method-name="addParameters" obj-field="request">
+            <field field="testParams" type="java.util.Map"/>
+        </call-object-method>
+        
+        <entity-one value-field="userLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="DemoCustomer"/>
+        </entity-one>
+        <call-bsh><![CDATA[
+            session = request.getSession();
+            session.setAttribute("userLogin", userLogin);
+        ]]></call-bsh>
+        <call-class-method method-name="initializeOrderEntry" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
+        
+        <call-class-method method-name="addToCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
+        
+        <field-to-request field="nullField" request-name="shoppingCart"/>
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
+        <call-class-method method-name="createOrder" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="orderCreateResult">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : createOrder, Response : ${orderCreateResult}"/>
+        <call-class-method method-name="processPayment" class-name="org.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
+        <call-service-asynch service-name="sendOrderConfirmation"/>
+        <call-class-method method-name="destroyCart" class-name="org.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <log level="info" message="===== >>> Event : destroyCart, Response = ${result}"/>
+        <entity-condition list="orderHeaders" entity-name="OrderHeader">
+            <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
+            <order-by field-name="-entryDate"/>
+        </entity-condition>
+        <first-from-list entry="orderHeader" list="orderHeaders"/>
+        <set field="orderId" from-field="orderHeader.orderId"/>
+        <log level="info" message="======== Test order with id: [${orderId}] has been approved: [${approved}]========"/>
+
+        <entity-one entity-name="UserLogin" value-field="systemUserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="quickShipEntireOrderMap.orderId" from-field="orderId"/>
+        <set field="quickShipEntireOrderMap.userLogin" from-field="systemUserLogin"/>
+        <call-service service-name="quickShipEntireOrder" in-map-name="quickShipEntireOrderMap"/>
+        <log level="info" message="========Test order with id: [${orderId}] has been shipped"/>
+
+        <assert><not><if-empty field="orderId"/></not></assert>
         <check-errors/>
     </simple-method>
 
