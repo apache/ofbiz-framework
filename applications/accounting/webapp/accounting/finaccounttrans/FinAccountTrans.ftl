@@ -74,7 +74,7 @@ function getFinAccountTransRunningTotalAndBalances() {
             jQuery('#endingBalance').html(jQuery('#endingBalanceInput').val());
 
         }
-        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#submitButton').attr('disabled', true);
     }
 }
 </script>

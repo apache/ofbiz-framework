@@ -65,11 +65,13 @@ function getPaymentRunningTotal() {
         });
 
         if(jQuery('#serviceName').val() != "") {
-            jQuery('#submitButton').attr('disabled', '');
+            jQuery('#submitButton').removeAttr('disabled');
+        } else {
+            jQuery('#submitButton').attr('disabled', true);
         }
 
     } else {
-        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#submitButton').attr('disabled', true);
         jQuery('#showPaymentRunningTotal').html("");
     }
 }
@@ -108,9 +110,9 @@ function setServiceName(selection) {
     });
 
     if(anyChecked && (jQuery('#serviceName').val() != "")) {
-        jQuery('#submitButton').attr('disabled' , '');
+        jQuery('#submitButton').removeAttr('disabled');
     } else {
-       jQuery('#submitButton').attr('disabled' , 'disabled');
+       jQuery('#submitButton').attr('disabled' , true);
     }
 
 }
