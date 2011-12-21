@@ -1492,6 +1492,12 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="viewcontent"/>
     </request-map>
+    <request-map uri="img">
+        <security auth="false" https="false"/>
+        <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveImage"/>
+        <response name="success" type="none"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
 
     <!-- TO BE REMOVED
     <request-map uri="createforumarticle">
