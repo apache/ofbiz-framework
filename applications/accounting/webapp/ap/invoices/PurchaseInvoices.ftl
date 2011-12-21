@@ -71,7 +71,7 @@ function getInvoiceRunningTotal() {
         }
 
     } else {
-        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#submitButton').attr('disabled', true);
         jQuery('#showInvoiceRunningTotal').html("");
     }
 }

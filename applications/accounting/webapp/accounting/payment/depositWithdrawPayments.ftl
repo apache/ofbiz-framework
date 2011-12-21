@@ -63,7 +63,7 @@ function getPaymentRunningTotal() {
         });
     } else {
         jQuery('#showPaymentRunningTotal').html("");
-        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#submitButton').attr('disabled', true);
     }
 }
 

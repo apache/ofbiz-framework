@@ -64,11 +64,11 @@ under the License.
             });
 
             if(jQuery('#serviceName').val() != "") {
-                jQuery('#submitButton').attr('disabled', '');
+                jQuery('#submitButton').removeAttr('disabled');
             }
 
         } else {
-            jQuery('#submitButton').attr('disabled', 'disabled');
+            jQuery('#submitButton').attr('disabled', true);
             jQuery('#showInvoiceRunningTotal').html("");
         }
     }
@@ -104,7 +104,9 @@ under the License.
         });
 
         if(anyChecked && (jQuery('#serviceName').val() != "")) {
-            jQuery('#submitButton').attr('disabled' , '');
+            jQuery('#submitButton').removeAttr('disabled');
+        } else {
+            jQuery('#submitButton').attr('disabled', true);
         }
     }
 //]]>
@@ -179,6 +181,7 @@ under the License.
               <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
               <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
               <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
+              mlml
               <td align="right"><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:getInvoiceRunningTotal();"/></td>
             </tr>
             <#-- toggle the row color -->

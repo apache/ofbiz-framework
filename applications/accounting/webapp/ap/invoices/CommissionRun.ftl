@@ -68,7 +68,7 @@ function enableSubmitButton() {
     if (!isSingle && jQuery('#serviceName').val() != "") {
         jQuery('#submitButton').removeAttr("disabled"); 
     } else {
-        jQuery('#submitButton').attr('disabled', 'disabled');
+        jQuery('#submitButton').attr('disabled', true);
     }
 }
 
