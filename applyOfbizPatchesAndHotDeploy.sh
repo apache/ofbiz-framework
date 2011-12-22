@@ -22,19 +22,19 @@
 #              present in the hot-deploy directory
 
     if [ -f "../ofbiz.patch" ]; then
-	patch -p0 <../ofbiz.patch
+    patch -p0 <../ofbiz.patch
     fi
 
     for f in hot-deploy/*
     do
         if [ "$f" != "hot-deploy/README.txt" ]; then
-	    if [ -f "$f/patches/applications.patch" ]; then
-            	echo apply patches for component $f
-            	cd $f
-	    	../../ant apply-ofbiz-patches
-	    	echo return code $?
-		cd ../../
-	    fi
+        if [ -f "$f/patches/applications.patch" ]; then
+                echo apply patches for component $f
+                cd $f
+            ../../ant apply-ofbiz-patches
+            echo return code $?
+        cd ../../
+        fi
         fi
     done
 
