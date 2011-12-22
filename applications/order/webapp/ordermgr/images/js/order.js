@@ -22,7 +22,7 @@ function markOrderViewed() {
         url: 'markOrderViewed',
         type: "POST",
         data: jQuery('#orderViewed').serialize(),
-        succes: function(data) {
+        success: function(data) {
             jQuery("#isViewed").fadeOut('fast');
             jQuery("#viewed").fadeIn('fast');
         }
