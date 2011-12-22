@@ -354,7 +354,7 @@ public class EntitySyncContext {
                 long valuesPerEntity = 0;
                 while ((nextValue = eli.next()) != null) {
                     // sort by the tx stamp and then the record stamp
-                    // find first value in valuesToStore list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
+                    // find first value in valuesToCreate list, starting with the current insertBefore value, that has a CREATE_STAMP_TX_FIELD after the nextValue.CREATE_STAMP_TX_FIELD, then do the same with CREATE_STAMP_FIELD
                     while (insertBefore < valuesToCreate.size() && valuesToCreate.get(insertBefore).getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD).before(nextValue.getTimestamp(ModelEntity.CREATE_STAMP_TX_FIELD))) {
                         insertBefore++;
                     }
@@ -441,7 +441,13 @@ public class EntitySyncContext {
             }
             Debug.logInfo(toCreateInfo.toString(), module);
         }
-
+        
+        // As the this.nextCreateTxTime calculation is only based on entities without values to create, if there at least one value to create returned
+        // this calculation is false, so it needs to be nullified
+        if (valuesToCreate.size() > 0) {
+            this.nextCreateTxTime = null;
+        }
+        
         return valuesToCreate;
     }
 
@@ -579,6 +585,12 @@ public class EntitySyncContext {
             }
             Debug.logInfo(toStoreInfo.toString(), module);
         }
+        
+        // As the this.nextUpdateTxTime calculation is only based on entities without values to store, if there at least one value to store returned
+        // this calculation is false, so it needs to be nullified
+        if (valuesToStore.size() > 0) {
+            this.nextUpdateTxTime = null;
+        }        
 
         return valuesToStore;
     }
@@ -653,8 +665,8 @@ public class EntitySyncContext {
                 eliNext.close();
                 if (firstVal != null) {
                     Timestamp nextTxTime = firstVal.getTimestamp(ModelEntity.STAMP_TX_FIELD);
-                    if (this.nextUpdateTxTime == null || nextTxTime.before(this.nextUpdateTxTime)) {
-                        this.nextUpdateTxTime = nextTxTime;
+                    if (this.nextRemoveTxTime == null || nextTxTime.before(this.nextRemoveTxTime)) {
+                        this.nextRemoveTxTime = nextTxTime;
                     }
                 }
             }
@@ -695,6 +707,12 @@ public class EntitySyncContext {
             Debug.logInfo(toRemoveInfo.toString(), module);
         }
 
+        // As this.nextRemoveTxTime calculation is only based on entities without keys to remove, if there at least one key to remove returned
+        // this calculation is false, so it needs to be nullified
+        if (keysToRemove.size() > 0) {
+            this.nextRemoveTxTime = null;
+        }
+        
         return keysToRemove;
     }
 
