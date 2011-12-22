@@ -26,7 +26,7 @@
 
 # the userlogin the script should run under and is the home dirname, in this case /home/ofbiz/ofbiz
 OFBIZUSER="ofbiz"
-OFBIZDIR=""ofbiz"
+OFBIZDIR="ofbiz"
 
 #============== no need to change anything below this line =======================
 
@@ -38,8 +38,8 @@ start() {
         return 0
     fi
     if [ "$USER" = "$OFBIZUSER" ]; then
-        echo "starting standard /home/$OFBIZUSER/$OFBIZDIR/startofbiz.sh"
-        cd /home/$OFBIZUSER/$OFBIZDIR
+        echo "starting standard ~/$OFBIZDIR/startofbiz.sh"
+        cd ~/$OFBIZDIR
         ./startofbiz.sh
         if [ $? = 0 ]; then 
             echo "start success"
@@ -53,7 +53,7 @@ start() {
 stop() {
     if [ "$USER" = "$OFBIZUSER" ]; then
         echo "stopping standard /home/$OFBIZUSER/$OFBIZDIR/stopofbiz.sh"
-        cd /home/$OFBIZUSER/$OFBIZDIR
+        cd ~/$OFBIZDIR
 	    MAXCOUNT=10
         COUNTER=0
         until [ $COUNTER -gt $MAXCOUNT ]; do
@@ -119,6 +119,5 @@ case "$1" in
         exit 1
     ;;
 esac
-echo
 exit $?
 
