@@ -14,12 +14,12 @@
     <classpathentry kind="lib" path="applications/content/lib/tika-parsers-0.9.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/watermarker-0.0.4.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-1.7.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.7.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant-trax-1.7.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.7.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-1.8.2.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-junit-1.8.2.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.8.2.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-trax-1.8.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.8.2.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.8.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
