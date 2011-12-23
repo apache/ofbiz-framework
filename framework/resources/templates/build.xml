@@ -94,10 +94,10 @@
                 </or>
             </condition>
         </fail>
-        <patch strip="0" patchfile="patches/root.patch" dir="${ofbiz.home.dir}"/>
-        <patch strip="0" patchfile="patches/framework.patch" dir="${ofbiz.home.dir}"/>
-        <patch strip="0" patchfile="patches/applications.patch" dir="${ofbiz.home.dir}"/>
-        <patch strip="0" patchfile="patches/specialpurpose.patch" dir="${ofbiz.home.dir}"/>
+        <patch strip="0" patchfile="patches/root.patch" dir="${ofbiz.home.dir} failonerror="true"/>
+        <patch strip="0" patchfile="patches/framework.patch" dir="${ofbiz.home.dir} failonerror="true"/>
+        <patch strip="0" patchfile="patches/applications.patch" dir="${ofbiz.home.dir} failonerror="true"/>
+        <patch strip="0" patchfile="patches/specialpurpose.patch" dir="${ofbiz.home.dir} failonerror="true"/>
         <delete>          
             <fileset dir="${ofbiz.home.dir}" includes="**/*.rej"/>
         </delete>
