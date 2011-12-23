@@ -436,4 +436,8 @@ under the License.
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <action service="checkOrderItemForProductGroupOrder" mode="sync"/>
     </eca>
+    <eca service="changeOrderStatus" event="commit">
+        <condition field-name="statusId" operator="equals" value="ORDER_CANCELLED"/>
+        <action service="checkOrderItemForProductGroupOrder" mode="sync"/>
+    </eca>
 </service-eca>
