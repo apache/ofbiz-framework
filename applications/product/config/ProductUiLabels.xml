@@ -3453,6 +3453,9 @@
         <value xml:lang="zh">关键字</value>
         <value xml:lang="zh_TW">關鍵字</value>
     </property>
+    <property key="FormFieldTitle_keywordType">
+        <value xml:lang="en">Keyword Type</value>
+    </property>
     <property key="FormFieldTitle_lastPrice">
         <value xml:lang="de">Letzter Preis</value>
         <value xml:lang="en">Last Price</value>
@@ -7432,6 +7435,9 @@
         <value xml:lang="th">แก้ไขแหล่งข้อมูลการสั่งซื้อสินค้า</value>
         <value xml:lang="zh">编辑产品订阅资源</value>
         <value xml:lang="zh_TW">編輯產品訂閱資源</value>
+    </property>
+    <property key="PageTitleEditProductTags">
+        <value xml:lang="en">Edit Product Tags</value>
     </property>
     <property key="PageTitleEditProductWorkEffort">
         <value xml:lang="de">Produkt Arbeitseinsatz bearbeiten</value>
@@ -19765,6 +19771,9 @@
         <value xml:lang="zh">产品店铺网站</value>
         <value xml:lang="zh_TW">產品商店網站</value>
     </property>
+    <property key="ProductProductTaggedWith">
+        <value xml:lang="en">Product tagged with</value>
+    </property>
     <property key="ProductProductType">
         <value xml:lang="de">Produkttyp</value>
         <value xml:lang="en">Product Type</value>
@@ -23711,6 +23720,9 @@
         <value xml:lang="es">TD</value>
         <value xml:lang="fr">Assoc.</value>
         <value xml:lang="it">TD</value>
+    </property>
+    <property key="ProductTag">
+        <value xml:lang="en">Tag</value>
     </property>
     <property key="ProductTargetProductCategory">
         <value xml:lang="de">Ziel Produktkategorie</value>

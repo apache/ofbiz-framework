@@ -1951,13 +1951,95 @@ under the License.
         <auto-fields-service service-name="createProductKeyword"/>
         <field name="productId"><hidden/></field>
         <field name="relevancyWeight"><text default-value="1"/></field>
+        <field name="keywordTypeId">
+            <drop-down>
+                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                    <entity-constraint name="enumTypeId" operator="equals" value="KEYWORD_TYPE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="KEYWORD_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
-    <form name="UpdateProductKeyword" type="list" target="deleteProductKeyword" title="" list-name="productKeywords"
+    <form name="UpdateProductKeyword" type="list" target="updateProductKeyword" title="" list-name=""
         odd-row-style="alternate-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="ProductKeyword" default-field-type="display"/>
+        <actions>
+            <entity-condition entity-name="ProductKeyword">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" operator="equals" from-field="productId"/>
+                    <condition-expr field-name="keywordTypeId" operator="equals" value="KWT_KEYWORD"/>
+                </condition-list>
+                <order-by field-name="statusId"/>
+                <order-by field-name="-relevancyWeight"/>
+                <order-by field-name="keyword"/>
+            </entity-condition>
+        </actions>
         <field name="productId"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonDelete}"><submit button-type="button"/></field>
+        <field name="keyword"><display/></field>
+        <field name="keywordTypeId" title="${uiLabelMap.FormFieldTitle_keywordType}">
+            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+        </field>
+        <field name="relevancyWeight"><display/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="KEYWORD_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteProductKeyword" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productId"/>
+                <parameter param-name="keyword"/>
+                <parameter param-name="keywordTypeId"/>
+            </hyperlink>
+        </field>
+    </form>
+    <form name="UpdateProductTag" type="list" target="updateProductKeyword" title="" list-name=""
+        odd-row-style="alternate-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="ProductKeyword">
+                <condition-list combine="and">
+                    <condition-expr field-name="productId" operator="equals" from-field="productId"/>
+                    <condition-expr field-name="keywordTypeId" operator="equals" value="KWT_TAG"/>
+                </condition-list>
+                <order-by field-name="statusId"/>
+                <order-by field-name="-relevancyWeight"/>
+                <order-by field-name="keyword"/>
+            </entity-condition>
+        </actions>
+        <field name="productId"><hidden/></field>
+        <field name="keyword" title="${uiLabelMap.ProductTag}"><display/></field>
+        <field name="keywordTypeId" title="${uiLabelMap.FormFieldTitle_keywordType}">
+            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+        </field>
+        <field name="relevancyWeight"><display/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                    <entity-constraint name="statusTypeId" value="KEYWORD_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deleteProductKeyword" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productId"/>
+                <parameter param-name="keyword"/>
+                <parameter param-name="keywordTypeId"/>
+            </hyperlink>
+        </field>
     </form>
     <!-- ProductAttribute -->
     <form name="AddProductAttribute" type="single" target="createProductAttribute" title=""

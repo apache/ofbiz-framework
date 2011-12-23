@@ -662,4 +662,19 @@ if (product) {
     if("ASSET_USAGE".equals(productTypeId) || "ASSET_USAGE_OUT_IN".equals(productTypeId)){
         context.startDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 1).toString().substring(0,10); // should be tomorrow.
     }
+    
+    // get product tags
+    productKeywords = delegator.findByAnd("ProductKeyword", ["productId": productId, "keywordTypeId" : "KWT_TAG", "statusId" : "KW_APPROVED"]);
+    keywordMap = [:];
+    if (productKeywords) {
+        for (productKeyword in productKeywords) {
+            keywordConds = [EntityCondition.makeCondition("keyword", EntityOperator.EQUALS, productKeyword.keyword),
+                            EntityCondition.makeCondition("keywordTypeId", EntityOperator.EQUALS, "KWT_TAG"),
+                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "KW_APPROVED")];
+                keywordCond = EntityCondition.makeCondition(keywordConds, EntityOperator.AND);
+            productKeyWordCount = delegator.findCountByCondition("ProductKeyword", keywordCond, null, null);
+            keywordMap.put(productKeyword.keyword,productKeyWordCount);
+        }
+        context.productTags = keywordMap;
+    }
 }

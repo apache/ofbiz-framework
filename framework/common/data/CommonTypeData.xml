@@ -141,4 +141,15 @@ under the License.
     <ServerHitType description="Entity" hitTypeId="ENTITY"/>
     <ServerHitType description="Service" hitTypeId="SERVICE"/>
 
+    <!-- Keyword Type -->
+    <EnumerationType enumTypeId="KEYWORD_TYPE" hasTable="N" description="Keyword Type"/>
+    <Enumeration enumId="KWT_KEYWORD" enumTypeId="KEYWORD_TYPE" enumCode="KEYWORD" sequenceId="01" description="Keyword"/>
+    <Enumeration enumId="KWT_TAG" enumTypeId="KEYWORD_TYPE" enumCode="TAG" sequenceId="02" description="Tag"/>
+
+    <!-- Keyword Status -->
+    <StatusType statusTypeId="KEYWORD_STATUS" hasTable="N" description="Keyword"/>
+    <StatusItem statusId="KW_APPROVED" statusTypeId="KEYWORD_STATUS" statusCode="APPROVED" sequenceId="01" description="Approved"/>
+    <StatusItem statusId="KW_PENDING" statusTypeId="KEYWORD_STATUS" statusCode="PENDING" sequenceId="02" description="Pending"/>
+    <StatusItem statusId="KW_DISAPPROVED" statusTypeId="KEYWORD_STATUS" statusCode="DISAPPROVED" sequenceId="03" description="Disapproved"/>
+
 </entity-engine-xml>

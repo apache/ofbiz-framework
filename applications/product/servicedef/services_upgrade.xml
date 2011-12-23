@@ -41,5 +41,16 @@ under the License.
             The field Facility.squareFootageSince has been deprecated since revision 929912 (2010-04-01)
         </description>
     </service>
+    <service name="migrateProductKeyword" engine="simple"
+            location="component://product/script/org/ofbiz/product/UpgradeServices.xml" invoke="migrateProductKeyword">
+        <description>
+            Migrate data from oldProductKeyword to ProductKeyword.
+            The entity oldProductKeyword has been deprecated.
+            This service can be used to upgrade existing data from the oldProductKeyword entity to the new
+            ProductKeyword entity.
+            Before running this service, load the seed data for the KeywordType entity from the file:
+            common/data/CommonTypeData.xml
+        </description>
+    </service>
 
 </services>

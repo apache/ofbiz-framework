@@ -430,6 +430,29 @@ under the License.
         </section>
     </screen>
 
+    <screen name="tagsearch">
+        <section>
+            <actions>
+                <set field="leftbarScreenName" value="leftbar"/>
+                <set field="rightbarScreenName" value="rightbar"/>
+                <set field="MainColumnStyle" value="center"/>
+
+                <set field="productsummaryScreen" value="component://ecommerce/widget/CatalogScreens.xml#productsummary"/>
+
+                <set field="titleProperty" value="PageTitleTagResults"/>
+                <set field="parameters.VIEW_SIZE" from-field="parameters.VIEW_SIZE" default-value="10"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/KeywordSearch.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/tagsearch.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="advancedsearch">
         <section>
             <actions>

@@ -800,6 +800,12 @@ under the License.
         <response name="success" type="view" value="EditProductKeyword"/>
         <response name="error" type="view" value="EditProductKeyword"/>
     </request-map>
+    <request-map uri="updateProductKeyword">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductKeyword"/>
+        <response name="success" type="view" value="EditProductKeyword"/>
+        <response name="error" type="view" value="EditProductKeyword"/>
+    </request-map>
     <request-map uri="deleteProductKeyword">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="deleteProductKeyword"/>

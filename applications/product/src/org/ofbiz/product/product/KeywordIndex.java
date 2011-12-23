@@ -194,7 +194,7 @@ public class KeywordIndex {
         int keywordMaxLength = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "product.keyword.max.length"));
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
-                GenericValue productKeyword = delegator.makeValue("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
+                GenericValue productKeyword = delegator.makeValue("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId"), "keyword", entry.getKey(), "keywordTypeId", "KWT_KEYWORD", "relevancyWeight", entry.getValue()));
                 toBeStored.add(productKeyword);
             }
         }

@@ -184,6 +184,12 @@
         <value xml:lang="zh">把选中的添加到列表中</value>
         <value xml:lang="zh_TW">把選中項目加到列表</value>
     </property>
+    <property key="EcommerceAddTags">
+        <value xml:lang="en">Add Tags</value>
+    </property>
+    <property key="EcommerceAddTagsDetail">
+        <value xml:lang="en">Use spaces to separate tags. Use single quotes(') for phrases.</value>
+    </property>
     <property key="EcommerceAdditionalAddresses">
         <value xml:lang="da">Ekstra adresser</value>
         <value xml:lang="de">Zusätzliche Adressen</value>
@@ -205,6 +211,9 @@
         <value xml:lang="pt_BR">Caderno de endereços</value>
         <value xml:lang="zh">地址簿</value>
         <value xml:lang="zh_TW">地址簿</value>
+    </property>
+    <property key="EcommerceAddYourTags">
+        <value xml:lang="en">Add your tags</value>
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
@@ -2564,6 +2573,12 @@
         <value xml:lang="th">หมายเลขสินค้า</value>
         <value xml:lang="zh">产品标识：</value>
         <value xml:lang="zh_TW">產品ID:</value>
+    </property>
+    <property key="EcommerceProductTags">
+        <value xml:lang="en">Product Tags</value>
+    </property>
+    <property key="EcommerceProductTagsDetail">
+        <value xml:lang="en">Other people marked this product with these tags</value>
     </property>
     <property key="EcommercePromotionalItems">
         <value xml:lang="cs">Reklamní položka; množství nelze změnit</value>
