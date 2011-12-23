@@ -908,6 +908,12 @@ under the License.
         <response name="success" type="view" value="keywordsearch"/>
         <response name="none" type="none" value=""/>
     </request-map>
+    <request-map uri="tagsearch">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="checkDoKeywordOverride"/>
+        <response name="success" type="view" value="tagsearch"/>
+        <response name="none" type="none" value=""/>
+    </request-map>
     <request-map uri="clearSearchOptionsHistoryList">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.product.product.ProductSearchSession" invoke="clearSearchOptionsHistoryList"/>
@@ -2007,6 +2013,14 @@ under the License.
         <response name="success" type="view" value="showShoppingList" save-current-view="true"/>
     </request-map>
     
+    <!-- Product Tags -->
+    <request-map uri="addProductTags">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.product.product.ProductEvents" invoke="addProductTags"/>
+        <response name="success" type="view-last" save-current-view="true"/>
+        <response name="error" type="view-last" save-current-view="true"/>
+    </request-map>
+    
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
@@ -2033,6 +2047,7 @@ under the License.
     <view-map name="productReview" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#productreview"/>
 
     <view-map name="keywordsearch" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#keywordsearch"/>
+    <view-map name="tagsearch" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#tagsearch"/>
     <view-map name="advancedsearch" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#advancedsearch"/>
 
     <view-map name="tellafriend" type="screen" page="component://ecommerce/widget/CatalogScreens.xml#tellafriend"/>

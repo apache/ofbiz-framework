@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1170,5 +1172,43 @@ public class ProductEvents {
         }
         return new BigDecimal(bigDecimalString);
     }
-
+    
+    /** Event add product tags */
+    public static String addProductTags (HttpServletRequest request, HttpServletResponse response) {
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        String productId = request.getParameter("productId");
+        String productTags = request.getParameter("productTags");
+        if (UtilValidate.isNotEmpty(productId) && UtilValidate.isNotEmpty(productTags)) {
+            List<String> matchList = FastList.newInstance();
+            Pattern regex = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
+            Matcher regexMatcher = regex.matcher(productTags);
+            while (regexMatcher.find()) {
+                matchList.add(regexMatcher.group().replace("'", ""));
+            }
+            
+            GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+            if (UtilValidate.isEmpty(userLogin)) {
+                try {
+                    userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+                } catch (GenericEntityException e) {
+                    request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                    return "error";
+                }
+                
+            }
+            
+            if(UtilValidate.isNotEmpty(matchList)) {
+                for (String keywordStr : matchList) {
+                    try {
+                        dispatcher.runSync("createProductKeyword", UtilMisc.toMap("productId", productId, "keyword", keywordStr.trim(), "keywordTypeId", "KWT_TAG","statusId","KW_PENDING" , "userLogin", userLogin));
+                    } catch (GenericServiceException e) {
+                        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                        return "error";
+                    }
+                }
+            }
+        }
+        return "success";
+    }
 }

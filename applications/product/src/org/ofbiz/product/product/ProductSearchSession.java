@@ -859,6 +859,7 @@ public class ProductSearchSession {
         productSearchOptions.setPaging((String) parameters.get("PAGING"));
     }
 
+    @SuppressWarnings("unchecked")
     public static Map<String, Object> getProductSearchResult(HttpServletRequest request, Delegator delegator, String prodCatalogId) {
 
         // ========== Create View Indexes
@@ -869,6 +870,14 @@ public class ProductSearchSession {
         int listSize = 0;
         String paging = "Y";
         int previousViewSize = 20;
+        Map<String, Object> requestParams = UtilHttp.getCombinedMap(request);
+        List<String> keywordTypeIds = FastList.newInstance();
+        if (requestParams.get("keywordTypeId") instanceof String) {
+            keywordTypeIds.add((String) requestParams.get("keywordTypeId"));
+        } else if (requestParams.get("keywordTypeId") instanceof List){
+            keywordTypeIds = (List<String>) requestParams.get("keywordTypeId");
+        }
+        String statusId = (String) requestParams.get("statusId");
 
         HttpSession session = request.getSession();
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
@@ -902,7 +911,6 @@ public class ProductSearchSession {
         List<String> productIds = FastList.newInstance();
         String visitId = VisitHandler.getVisitId(session);
         List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
-        Map<String, Object> requestParams = UtilHttp.getParameterMap(request);
         String noConditionFind = (String) requestParams.get("noConditionFind");
         if (UtilValidate.isEmpty(noConditionFind)) {
             noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
@@ -965,7 +973,17 @@ public class ProductSearchSession {
             productSearchContext.setResultSortOrder(resultSortOrder);
             productSearchContext.setResultOffset(resultOffset);
             productSearchContext.setMaxResults(maxResults);
-
+            
+            if (UtilValidate.isNotEmpty(keywordTypeIds)) {
+                productSearchContext.keywordTypeIds = keywordTypeIds;
+            } else {
+                 productSearchContext.keywordTypeIds = UtilMisc.toList("KWT_KEYWORD");
+            }
+            
+            if (UtilValidate.isNotEmpty(statusId)) {
+                productSearchContext.statusId = statusId;
+            }
+            
             List<String> foundProductIds = productSearchContext.doSearch();
             if (maxResultsInt > 0) {
                 productIds.addAll(foundProductIds);

@@ -621,9 +621,6 @@ under the License.
                 <set field="labelTitleProperty" value="ProductKeywords"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                <set field="orderByList[]" value="-relevancyWeight"/>
-                <set field="orderByList[]" value="keyword"/>
-                <get-related value-field="product" relation-name="ProductKeyword" list="productKeywords" order-by-list="orderByList"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -641,6 +638,9 @@ under the License.
                         </screenlet>
                         <screenlet title="${uiLabelMap.PageTitleEditProductKeywords}">
                             <include-form name="UpdateProductKeyword" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleEditProductTags}">
+                            <include-form name="UpdateProductTag" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

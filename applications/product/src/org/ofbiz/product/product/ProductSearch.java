@@ -181,6 +181,9 @@ public class ProductSearch {
         public Set<String> excludeFeatureGroupIds = FastSet.newInstance();
         public Set<String> alwaysIncludeFeatureGroupIds = FastSet.newInstance();
 
+        public List<String> keywordTypeIds = FastList.newInstance();
+        public String statusId = null;
+
         public ProductSearchContext(Delegator delegator, String visitId) {
             this.delegator = delegator;
             this.visitId = visitId;
@@ -282,9 +285,34 @@ public class ProductSearch {
 
                     dynamicViewEntity.addMemberEntity(entityAlias, "ProductKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
+                    
+                    // keyword type filter
+                    if (UtilValidate.isNotEmpty(keywordTypeIds)) {
+                        dynamicViewEntity.addAlias(entityAlias, "keywordTypeId");
+                    }
+                    
+                    // keyword status filter
+                    if (UtilValidate.isNotEmpty(statusId)) {
+                        dynamicViewEntity.addAlias(entityAlias, "statusId");
+                    }
+                    
                     dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
                     entityConditionList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
-
+                    
+                    // keyword type filter
+                    if (UtilValidate.isNotEmpty(keywordTypeIds)) {
+                        List<EntityCondition> keywordTypeCons = FastList.newInstance();
+                        for (String keywordTypeId : keywordTypeIds) {
+                            keywordTypeCons.add(EntityCondition.makeCondition("keywordTypeId", EntityOperator.EQUALS, keywordTypeId));
+                        }
+                        entityConditionList.add(EntityCondition.makeCondition(keywordTypeCons, EntityOperator.OR));
+                    }
+                    
+                    // keyword status filter
+                    if (UtilValidate.isNotEmpty(statusId)) {
+                        entityConditionList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
+                    }
+                    
                     //don't add an alias for this, will be part of a complex alias: dynamicViewEntity.addAlias(entityAlias, prefix + "RelevancyWeight", "relevancyWeight", null, null, null, null);
                     //needed when doingBothAndOr or will get an SQL error
                     if (doingBothAndOr) {
