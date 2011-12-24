@@ -536,7 +536,9 @@ public class WorkEffortServices {
         }
 
         // get a timestamp (date) for the beginning of today and for beginning of numDays+1 days from now
-        Timestamp startStamp = UtilDateTime.getDayStart(startDay, timeZone, locale);
+        // Commenting this out because it interferes with periods that do not start at the beginning of the day
+        // Timestamp startStamp = UtilDateTime.getDayStart(startDay, timeZone, locale);
+        Timestamp startStamp = startDay;
         Timestamp endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, 1, timeZone, locale);
         long periodLen = endStamp.getTime() - startStamp.getTime();
         endStamp = UtilDateTime.adjustTimestamp(startStamp, periodType, numPeriods, timeZone, locale);
