@@ -329,7 +329,6 @@
 
                 2. call a recursive java function to set all the dependant tasks.
         -->
-
         <field-to-result field="parameters.projectId" result-name="projectId"/>
 
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
@@ -425,7 +424,6 @@
                 </if-not-empty>
             </then>
         </while>
-
 
         <!-- create the tasklist -->
         <entity-one entity-name="WorkEffort" value-field="project">
@@ -914,7 +912,6 @@
                 <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                 <set field="projectParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>
                 <set field="projectParty.actualHours" from-field="highInfo.actualHours" type="Double"/>
-
             </iterate>
             <if-not-empty field="projectParty">
                 <field-to-list field="projectParty" list="projectParties"/>
@@ -975,7 +972,6 @@
                 <set field="taskParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>
                 <set field="taskParty.actualHours" from-field="highInfo.actualHours" type="Double"/>
                 <set field="taskParty.originalActualHours" from-field="highInfo.originalActualHours" type="Double"/>
-
             </iterate>
             <if-not-empty field="taskParty">
                 <field-to-list field="taskParty" list="taskParties"/>
@@ -1136,7 +1132,6 @@
             </if>
           </if-not-empty>
         </if-not-empty>
-        
     </simple-method>
 
     <simple-method method-name="combineInfo" short-description="combine lower level status, dates of tasks.">
@@ -1144,6 +1139,7 @@
         <call-simple-method method-name="combineDatesAndPlannedHoursInfo"/>
         <call-simple-method method-name="combineActualHours"/>
     </simple-method>
+
     <simple-method method-name="combineActualHours" short-description="combine lower level Actual hours info.">
         <!-- 
         -to calculate actual hours : the declared number of hours in time entry should be multiplied by the 
@@ -1348,13 +1344,10 @@
                 </if>
             </else>
         </if-empty>
-
     </simple-method>
 
     <simple-method method-name="createDates" short-description="merge the estimated and actual dates">
-
         <!-- input/output is 'highInfo map -->
-
         <!-- create dates taking the last known one to save space on the list -->
         <if-not-empty field="highInfo.actualStartDate">
             <set field="highInfo.startDate" from-field="highInfo.actualStartDate"/>
@@ -1558,11 +1551,11 @@
                     <create-value value-field="newAssign"/>
                 </iterate>
                 <else>
-                    <log level="info" message="No validation parties defined in this project: no validation parties added...."></log>
+                    <log level="info" message="No validation parties defined in this project: no validation parties added...."/>
                 </else>
             </if-not-empty>
             <else>
-                <log level="info" message="Not the last party who completes his task: validation parties not added...."></log>
+                <log level="info" message="Not the last party who completes his task: validation parties not added...."/>
             </else>
         </if-empty>
     </simple-method>
