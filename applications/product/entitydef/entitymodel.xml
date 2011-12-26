@@ -3089,7 +3089,7 @@ under the License.
       <prim-key field="productId"/>
       <prim-key field="keyword"/>
       <prim-key field="keywordTypeId"/>
-      <relation type="one" fk-name="PROD_KWD_PROD" rel-entity-name="Product">
+      <relation type="one" fk-name="PROD_KWD_PROD_NEW" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
       <relation type="one" fk-name="PROD_KWD_TYPE" rel-entity-name="Enumeration">
@@ -3098,7 +3098,7 @@ under the License.
       <relation type="one" fk-name="PROD_KWD_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
-      <index name="PROD_KWD_KWD">
+      <index name="PROD_KWD_KWD_NEW">
         <index-field name="keyword"/>
       </index>
     </entity>
