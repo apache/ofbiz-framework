@@ -283,14 +283,13 @@ under the License.
     </view-link>
   </view-entity>
 
-  <view-entity entity-name="ProjectPhaseTaskSummaryView"
+  <view-entity entity-name="ProjectPhaseTaskSklSumView"
     package-name="org.ofbiz.specialpurpose.project">
     <description>Retrieve actual, estimated start and end dates, priority, planned hours</description>
 
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
     <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
-    <member-entity entity-alias="TE" entity-name="TimeEntry"/><!-- to get actualStartDate from declared times-->
     <member-entity entity-alias="SKL" entity-name="WorkEffortSkillStandard"/> <!-- for planned hours -->
 
     <alias entity-alias="WEP" field="workEffortId" name="projectId" group-by="true"/>
@@ -300,28 +299,50 @@ under the License.
     <!-- get minimum for start dates -->
     <alias entity-alias="WET" name="estimatedStartDate" function="min"/>
     <alias entity-alias="WET" name="actualStartDate" function="min"/>
-    <alias entity-alias="TE" field="fromDate" name="actualEntryStartDate" function="min"/>
 
     <!-- and maximum for completion dates -->
     <alias entity-alias="WET" name="estimatedCompletionDate" function="max"/>
     <alias entity-alias="WET" name="actualCompletionDate" function="max"/>
-    <alias entity-alias="TE" field="fromDate" name="actualEntryCompletionDate" function="max"/>
 
     <!-- get the sum of planned and actual hours -->
     <alias entity-alias="SKL" field="estimatedDuration" name="plannedHours" function="sum"/>
     <!-- get the minimum priority -->
     <alias entity-alias="WET" field="priority" name="priority" function="min"/>
 
-    <view-link entity-alias="WEP" rel-entity-alias="WEPH" rel-optional="true">
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
-    <view-link entity-alias="WEPH" rel-entity-alias="WET" rel-optional="true">
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
     <view-link entity-alias="WET" rel-entity-alias="SKL" rel-optional="true">
       <key-map field-name="workEffortId" />
     </view-link>
-    <view-link entity-alias="WET" rel-entity-alias="TE" rel-optional="true">
+  </view-entity>
+
+  <view-entity entity-name="ProjectPhaseTaskActualEntrySumView"
+    package-name="org.ofbiz.specialpurpose.project">
+    <description>Retrieve actual, start and end dates from TimeEntries associated</description>
+
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/><!-- to get actualStartDate from declared times-->
+
+    <alias entity-alias="WEP" field="workEffortId" name="projectId" group-by="true"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId" group-by="true"/>
+    <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
+
+    <alias entity-alias="TE" field="fromDate" name="actualEntryStartDate" function="min"/>
+    <alias entity-alias="TE" field="thruDate" name="actualEntryCompletionDate" function="max"/>
+
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="TE">
       <key-map field-name="workEffortId" />
     </view-link>
   </view-entity>
@@ -346,13 +367,13 @@ under the License.
     <alias entity-alias="PR" name="partyId" group-by="true"/>
     <alias entity-alias="PR" name="percentageUsed" function="max"/>
 
-    <view-link entity-alias="WEP" rel-entity-alias="WEPH" rel-optional="true">
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
-    <view-link entity-alias="WEPH" rel-entity-alias="WET" rel-optional="true">
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>
-    <view-link entity-alias="WET" rel-entity-alias="TE" rel-optional="true">
+    <view-link entity-alias="WET" rel-entity-alias="TE">
       <key-map field-name="workEffortId" />
     </view-link>
     <view-link entity-alias="TE" rel-entity-alias="TS" rel-optional="true">
@@ -360,9 +381,9 @@ under the License.
     </view-link>
     <view-link entity-alias="TE" rel-entity-alias="PR" rel-optional="true">
       <key-map field-name="rateTypeId"/>
+      <key-map field-name="partyId"/>
       <entity-condition>
         <condition-list>
-            <condition-expr entity-alias="TS" field-name="partyId" rel-entity-alias="PR" rel-field-name="partyId"/>
             <condition-expr entity-alias="PR" field-name="fromDate" operator="less-equals" rel-entity-alias="TE" rel-field-name="fromDate"/>
             <condition-list combine="or">
                 <condition-expr entity-alias="PR" field-name="thruDate" operator="equals" value=""/>
@@ -406,7 +427,7 @@ under the License.
     <alias entity-alias="PPAH" name="projectId" group-by="true"/>
     <alias entity-alias="PPAH" name="phaseId" group-by="true"/>
     <alias entity-alias="PPAH" name="taskId" group-by="true"/>
-        <alias entity-alias="PPAH" name="invoiceId" group-by="true"/>
+    <alias entity-alias="PPAH" name="invoiceId" group-by="true"/>
     <alias entity-alias="PPAH" name="totalOriginalHours" field="hours" function="sum"/>
 
     <entity-condition>
