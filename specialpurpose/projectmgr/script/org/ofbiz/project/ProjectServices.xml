@@ -843,7 +843,6 @@
                 <clear-field field="highInfo.sequenceId"/>
                 <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
                 <call-simple-method method-name="createDates"/>
-                <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                 <set field="highInfo.workEffortId" from-field="lowInfo.workEffortId"/>
                 <set field="highInfo.workEffortName" from-field="lowInfo.workEffortName"/>
                 <set field="highInfo.sequenceNum" from-field="lowInfo.sequenceNum"/>
@@ -1072,7 +1071,7 @@
     </simple-method>
 
     <simple-method method-name="combineDatesAndPlannedHoursInfo" short-description="combine lower level start end dates and planned hours for a project, phase or task">
-        <entity-condition  entity-name="ProjectPhaseTaskSummaryView" list="summaryInfos">
+        <entity-condition  entity-name="ProjectPhaseTaskSklSumView" list="summaryInfos">
             <condition-list>
                 <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="phaseId" from-field="highInfo.phaseId" ignore-if-empty="true"/>
@@ -1080,15 +1079,14 @@
             </condition-list>
             <select-field field-name="projectId"/>
             <select-field field-name="estimatedStartDate"/>
-            <select-field field-name="actualEntryStartDate"/>
             <select-field field-name="actualStartDate"/>
             <select-field field-name="estimatedCompletionDate"/>
             <select-field field-name="actualCompletionDate"/>
-            <select-field field-name="actualEntryCompletionDate"/>
             <select-field field-name="plannedHours"/>
             <select-field field-name="priority"/>
         </entity-condition>
 
+        <!-- Now used TimeEntries to update (or not) actual start and end Date -->
         <first-from-list entry="summaryInfo" list="summaryInfos"/>
         <set field="highInfo.estimatedStartDate" from-field="summaryInfo.estimatedStartDate"/>
         <set field="highInfo.estimatedCompletionDate" from-field="summaryInfo.estimatedCompletionDate"/>
@@ -1096,36 +1094,49 @@
         <set field="highInfo.actualCompletionDate" from-field="summaryInfo.actualCompletionDate"/>
         <set field="highInfo.priority" from-field="summaryInfo.priority"/>
         <set field="highInfo.plannedHours" from-field="summaryInfo.plannedHours"/>
-        <!-- update actual start date by the min date form sub tasks associated entries 
+        <!-- update actual start date by the min date form sub tasks associated TimeEntries 
         (if before actualStartDate field) -->
-        <if-not-empty field="summaryInfo.actualEntryStartDate">
+        <entity-condition  entity-name="ProjectPhaseTaskActualEntrySumView" list="summaryEntriesInfos">
+            <condition-list>
+                <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
+                <condition-expr field-name="phaseId" from-field="highInfo.phaseId" ignore-if-empty="true"/>
+                <condition-expr field-name="taskId" from-field="highInfo.taskId" ignore-if-empty="true"/>
+            </condition-list>
+            <select-field field-name="actualEntryStartDate"/>
+            <select-field field-name="actualEntryCompletionDate"/>
+        </entity-condition>
+        <first-from-list entry="timeEntriesInfo" list="summaryEntriesInfos"/>
+        <if-not-empty field="timeEntriesInfo">
+          <if-not-empty field="timeEntriesInfo.actualEntryStartDate">
             <if>
                 <condition>
                     <or>
                         <if-empty field="highInfo.actualStartDate"/>
-                        <if-compare-field field="highInfo.actualStartDate" operator="greater" type="Timestamp" to-field="summaryInfo.actualEntryStartDate"/>
+                        <if-compare-field field="highInfo.actualStartDate" operator="greater" type="Timestamp" to-field="timeEntriesInfo.actualEntryStartDate"/>
                     </or>
                 </condition>
                 <then>
-                    <set field="highInfo.actualStartDate" from-field="summaryInfo.actualEntryStartDate"/>
+                    <set field="highInfo.actualStartDate" from-field="timeEntriesInfo.actualEntryStartDate"/>
                 </then>
             </if>
-        </if-not-empty>
-        <!-- update actual completion date by the max date form sub tasks associated entries 
-        (if after actualCompletionDate field) -->
-        <if-not-empty field="summaryInfo.actualEntryCompletionDate">
+          </if-not-empty>
+          <!-- update actual completion date by the max date form sub tasks associated TimeEntries 
+          (if after actualCompletionDate field) -->
+          <if-not-empty field="timeEntriesInfo.actualEntryCompletionDate">
             <if>
                 <condition>
                     <or>
                         <if-empty field="highInfo.actualCompletionDate"/>
-                        <if-compare-field field="highInfo.actualCompletionDate" operator="less" type="Timestamp" to-field="summaryInfo.actualEntryCompletionDate"/>
+                        <if-compare-field field="highInfo.actualCompletionDate" operator="less" type="Timestamp" to-field="timeEntriesInfo.actualEntryCompletionDate"/>
                     </or>
                 </condition>
                 <then>
-                    <set field="highInfo.actualCompletionDate" from-field="summaryInfo.actualEntryCompletionDate"/>
+                    <set field="highInfo.actualCompletionDate" from-field="timeEntriesInfo.actualEntryCompletionDate"/>
                 </then>
             </if>
+          </if-not-empty>
         </if-not-empty>
+        
     </simple-method>
 
     <simple-method method-name="combineInfo" short-description="combine lower level status, dates of tasks.">
@@ -1140,6 +1151,9 @@
          the timesheet associated to this time entry and has the same rateType as this timeEntry 
         -actualHoursOriginal is the total of hours in time entries without application of percentage declared in partyRate
          -->
+        <clear-field field="originalHours"/>
+        <clear-field field="actualHours"/>
+        <clear-field field="originalActualHours"/>
 
         <!-- I- get timeEntries for which there is no rate  (originalHours)-->
         <entity-condition list="notRatedValues" entity-name="ProjectPhaseTaskActualNotRatedHoursView">
@@ -1166,6 +1180,7 @@
             <select-field field-name="totalRatedHours"/>
         </entity-condition>
         <first-from-list list="ratedValues" entry="ratedValue"/>
+        <!-- not used ratedValue.totalRatedHours  because not works, reason seem to be totalRatedHours is a calculated field ??? -->
         <call-object-method method-name="getDouble" obj-field="ratedValue" ret-field="actualHours">
             <string value="totalRatedHours"/>
         </call-object-method>
