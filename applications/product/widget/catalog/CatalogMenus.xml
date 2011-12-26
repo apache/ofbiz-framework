@@ -537,6 +537,9 @@ under the License.
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
+        <menu-item name="ProductTags" title="${uiLabelMap.ProductTags}">
+            <link target="EditProductTag"/>
+        </menu-item>
         <menu-item name="ExpandAll" title="${uiLabelMap.CommonExpandAll}" widget-style="buttontext expand-all">
             <condition>
                 <and>

@@ -1187,15 +1187,12 @@ public class ProductEvents {
                 matchList.add(regexMatcher.group().replace("'", ""));
             }
             
-            GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
-            if (UtilValidate.isEmpty(userLogin)) {
-                try {
-                    userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-                } catch (GenericEntityException e) {
-                    request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
-                    return "error";
-                }
-                
+            GenericValue userLogin = null;
+            try {
+                userLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+            } catch (GenericEntityException e) {
+                request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                return "error";
             }
             
             if(UtilValidate.isNotEmpty(matchList)) {

@@ -23724,6 +23724,9 @@
     <property key="ProductTag">
         <value xml:lang="en">Tag</value>
     </property>
+    <property key="ProductTags">
+        <value xml:lang="en">Tags</value>
+    </property>
     <property key="ProductTargetProductCategory">
         <value xml:lang="de">Ziel Produktkategorie</value>
         <value xml:lang="en">Target Product Category</value>

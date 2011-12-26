@@ -3026,6 +3026,19 @@ under the License.
         <response name="success" type="view" value="ViewProductGroupOrder"/>
         <response name="error" type="view" value="ViewProductGroupOrder"/>
     </request-map>
+    
+    <!-- ================ Product Tag Requests ================= -->
+    <request-map uri="EditProductTag">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProductTag"/>
+    </request-map>
+
+    <request-map uri="updateProductTag">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProductKeyword"/>
+        <response name="success" type="view" value="EditProductTag"/>
+        <response name="error" type="view" value="EditProductTag"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -3188,6 +3201,8 @@ under the License.
     <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
+
+    <view-map name="EditProductTag" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductTag"/>
 
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>

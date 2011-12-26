@@ -621,6 +621,9 @@ under the License.
                 <set field="labelTitleProperty" value="ProductKeywords"/>
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
+                <entity-and entity-name="Enumeration" list="keywordTypeList">
+                    <field-map field-name="enumTypeId" value="KEYWORD_TYPE"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
@@ -636,12 +639,18 @@ under the License.
                         <screenlet title="${uiLabelMap.ProductAddProductKeyword}">
                             <include-form name="AddProductKeyword" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleEditProductKeywords}">
-                            <include-form name="UpdateProductKeyword" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PageTitleEditProductTags}">
-                            <include-form name="UpdateProductTag" location="component://product/widget/catalog/ProductForms.xml"/>
-                        </screenlet>
+                        <iterate-section entry="keywordType" list="keywordTypeList">
+                            <section>
+                                <actions>
+                                    <set field="keywordTypeId" from-field="keywordType.enumId"/>
+                                </actions>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.PageTitleEditProductKeywords} : ${keywordType.description}">
+                                        <include-form name="UpdateProductKeyword" location="component://product/widget/catalog/ProductForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </iterate-section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1425,6 +1434,20 @@ under the License.
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ProductEditGroupOrder}">
                             <include-form name="EditProductGroupOrder" location="component://product/widget/catalog/ProductForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditProductTag">
+        <section>
+            <widgets>
+                <decorator-screen name="CommonProductDecorator" location="${parameters.productDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleEditProductTags}">
+                            <include-form name="ListProductTag" location="component://product/widget/catalog/ProductForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

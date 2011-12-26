@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="testProductTag" short-description="Test Product Tag" login-required="false">
+        <!-- Test Product Tag
+             Step 1) Create a product tag.
+             Step 2) Check a product tag is created.
+             Step 3) Approve a product tag.
+             Step 4) Check a product tag is approved.
+             Step 5) Create multiple product tag.
+             Step 6) Approve all product tags.
+             Step 7) Check all product tags is approved.
+             Step 8) Check all product tags is created.
+        -->
+        <!-- Step 1 -->
+        <entity-one value-field="systemUserLogin" entity-name="UserLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+        <set field="request" from-field="parameters.request"/>
+        <call-bsh><![CDATA[
+            request.setParameter("productId", "GZ-1000");
+            request.setParameter("productTags", "test");
+        ]]></call-bsh>
+        <call-class-method method-name="addProductTags" class-name="org.ofbiz.product.product.ProductEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <!-- Step 2 -->
+        <entity-one entity-name="ProductKeyword" value-field="productKeyword">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="test"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <and>
+                <not><if-empty field="productKeyword"/></not>
+                <if-compare field="productKeyword.statusId" operator="equals" value="KW_PENDING"/>
+            </and>
+        </assert>
+        <!-- Step 3 -->
+        <set field="updateProductKeywordMap.userLogin" from-field="systemUserLogin"/>
+        <set field="updateProductKeywordMap.productId" value="GZ-1000"/>
+        <set field="updateProductKeywordMap.keyword" value="test"/>
+        <set field="updateProductKeywordMap.keywordTypeId" value="KWT_TAG"/>
+        <set field="updateProductKeywordMap.statusId" value="KW_APPROVED"/>
+        <call-service service-name="updateProductKeyword" in-map-name="updateProductKeywordMap"/>
+        <!-- Step 4 -->
+        <entity-one entity-name="ProductKeyword" value-field="checkProductKeywordApprove">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="test"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <if-compare field="checkProductKeywordApprove.statusId" operator="equals" value="KW_APPROVED"/>
+        </assert>
+        <!-- Step 5 -->
+        <call-bsh><![CDATA[
+            request.setParameter("productId", "GZ-1000");
+            request.setParameter("productTags", "'rock and roll' t-shirt red");
+        ]]></call-bsh>
+        <call-class-method method-name="addProductTags" class-name="org.ofbiz.product.product.ProductEvents" ret-field="result">
+            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="response" type="javax.servlet.http.HttpServletResponse"/>
+        </call-class-method>
+        <!-- Step 6 -->
+        <entity-one entity-name="ProductKeyword" value-field="checkProductKeyword1">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="rock and roll"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <and>
+                <not><if-empty field="checkProductKeyword1"/></not>
+                <if-compare field="checkProductKeyword1.statusId" operator="equals" value="KW_PENDING"/>
+            </and>
+        </assert>
+        
+        <entity-one entity-name="ProductKeyword" value-field="checkProductKeyword2">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="t-shirt"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <and>
+                <not><if-empty field="checkProductKeyword2"/></not>
+                <if-compare field="checkProductKeyword2.statusId" operator="equals" value="KW_PENDING"/>
+            </and>
+        </assert>
+        
+        <entity-one entity-name="ProductKeyword" value-field="checkProductKeyword3">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="red"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <and>
+                <not><if-empty field="checkProductKeyword3"/></not>
+                <if-compare field="checkProductKeyword3.statusId" operator="equals" value="KW_PENDING"/>
+            </and>
+        </assert>
+        <!-- Step 7 -->
+        <entity-and entity-name="ProductKeyword" list="checkAllProductKeywordApproveList">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+            <field-map field-name="statusId" value="KW_PENDING"/>
+        </entity-and>
+        <iterate entry="checkAllProductKeywordApprove" list="checkAllProductKeywordApproveList">
+            <set field="updateProductKeywordMap.userLogin" from-field="systemUserLogin"/>
+            <set field="updateProductKeywordMap.productId" from-field="checkAllProductKeywordApprove.productId"/>
+            <set field="updateProductKeywordMap.keyword" from-field="checkAllProductKeywordApprove.keyword"/>
+            <set field="updateProductKeywordMap.keywordTypeId" from-field="checkAllProductKeywordApprove.keywordTypeId"/>
+            <set field="updateProductKeywordMap.statusId" value="KW_APPROVED"/>
+            <call-service service-name="updateProductKeyword" in-map-name="updateProductKeywordMap"/>
+        </iterate>
+        <!-- Step 8 -->
+       <entity-one entity-name="ProductKeyword" value-field="checkProductKeywordApprove1">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="rock and roll"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <if-compare field="checkProductKeywordApprove1.statusId" operator="equals" value="KW_APPROVED"/>
+        </assert>
+        
+        <entity-one entity-name="ProductKeyword" value-field="checkProductKeywordApprove2">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="t-shirt"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <if-compare field="checkProductKeywordApprove2.statusId" operator="equals" value="KW_APPROVED"/>
+        </assert>
+        
+        <entity-one entity-name="ProductKeyword" value-field="checkProductKeywordApprove3">
+            <field-map field-name="productId" value="GZ-1000"/>
+            <field-map field-name="keyword" value="red"/>
+            <field-map field-name="keywordTypeId" value="KWT_TAG"/>
+        </entity-one>
+        <assert>
+            <if-compare field="checkProductKeywordApprove3.statusId" operator="equals" value="KW_APPROVED"/>
+        </assert>
+        
+        <check-errors/>
+    </simple-method>
+</simple-methods>
