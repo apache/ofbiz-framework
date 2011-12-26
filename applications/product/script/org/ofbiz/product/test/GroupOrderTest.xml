@@ -24,9 +24,10 @@ under the License.
     <simple-method method-name="testGroupOrderLimitReached" short-description="Test GroupOrder the limit is reached" login-required="false">
         <!-- Test GroupOrder the limit is reached
              Step 1) Create ProductGroupOrder .
-             Step 2) Create order.
+             Step 2) Create an order.
              Step 3) Check soldOrderQty is added.
-             Step 4) Check Order Item should approved.
+             Step 4) Check ProductGroupOrder expired.
+             Step 5) Check Order Item should approved.
         -->
         <!-- Step 1 -->
         <now-timestamp field="nowTimestamp"/>
@@ -123,6 +124,10 @@ under the License.
             <if-compare field="productGroupOrder.soldOrderQty" operator="not-equals" value="0"/>
         </assert>
         <!-- Step 4 -->
+        <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
+        <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
+        <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
+        <!-- Step 5 -->
         <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-orderDate"/>
@@ -143,9 +148,10 @@ under the License.
     <simple-method method-name="testGroupOrderLimitNotReached" short-description="Test GroupOrder the limit is not reached" login-required="false">
         <!-- Test GroupOrder the limit is not reached
              Step 1) Create ProductGroupOrder.
-             Step 2) Create order.
-             Step 2) Check ProductGroupOrder expired.
-             Step 3) Check Order Item should cancelled.
+             Step 2) Create an order.
+             Step 3) Check soldOrderQty is added.
+             Step 4) Check ProductGroupOrder expired.
+             Step 5) Check Order Item should cancelled.
         -->
         <!-- Step 1 -->
         <now-timestamp field="nowTimestamp"/>
@@ -238,10 +244,14 @@ under the License.
         <entity-one entity-name="ProductGroupOrder" value-field="productGroupOrder">
             <field-map field-name="groupOrderId" from-field="groupOrderId"/>
         </entity-one>
+        <assert>
+            <if-compare field="productGroupOrder.soldOrderQty" operator="not-equals" value="0"/>
+        </assert>
+        <!-- Step 4 -->
         <set field="checkProductGroupOrderExpiredMap.userLogin" from-field="systemUserLogin"/>
         <set field="checkProductGroupOrderExpiredMap.groupOrderId" from-field="productGroupOrder.groupOrderId"/>
         <call-service service-name="checkProductGroupOrderExpired" in-map-name="checkProductGroupOrderExpiredMap"/>
-        <!-- Step 4 -->
+        <!-- Step 5 -->
         <entity-condition entity-name="OrderHeader" list="orderHeaders">
             <condition-expr field-name="orderTypeId" value="SALES_ORDER"/>
             <order-by field-name="-orderDate"/>
