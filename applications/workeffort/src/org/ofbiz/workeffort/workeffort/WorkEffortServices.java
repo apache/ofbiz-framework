@@ -723,6 +723,9 @@ public class WorkEffortServices {
                         calEntry.put("workEffort", workEffort);
                         long length = ((weRange.end().after(endStamp) ? endStamp.getTime() : weRange.end().getTime()) - (weRange.start().before(startStamp) ? startStamp.getTime() : weRange.start().getTime()));
                         int periodSpan = (int) Math.ceil((double) length / periodLen);
+                        if (length % periodLen == 0 && startDate.getTime() > periodRange.start().getTime()) {
+                            periodSpan++;
+                        }
                         calEntry.put("periodSpan", Integer.valueOf(periodSpan));
                         DateRange calEntryRange = new DateRange((weRange.start().before(startStamp) ? startStamp : weRange.start()), (weRange.end().after(endStamp) ? endStamp : weRange.end()));
                         calEntry.put("calEntryRange", calEntryRange);
