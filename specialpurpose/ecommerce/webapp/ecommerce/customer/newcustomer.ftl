@@ -342,15 +342,22 @@ will generally always be reserved for the logo at the top of the page.
     <legend><#if getUsername>${uiLabelMap.CommonUsername}</#if></legend>
     <#if getUsername>
       <@fieldErrors fieldName="USERNAME"/>
-      <div class="form-row inline">
-        <label for="UNUSEEMAIL">
-          <input type="checkbox" class="checkbox" name="UNUSEEMAIL" id="UNUSEEMAIL" value="on" onclick="setEmailUsername();" onfocus="setLastFocused(this);"/> ${uiLabelMap.EcommerceUseEmailAddress}
-        </label>
-      </div>
+      <#if !requestParameters.preferredUsername?has_content>
+        <div class="form-row inline">
+          <label for="UNUSEEMAIL">
+            <input type="checkbox" class="checkbox" name="UNUSEEMAIL" id="UNUSEEMAIL" value="on" onclick="setEmailUsername();" onfocus="setLastFocused(this);"/> ${uiLabelMap.EcommerceUseEmailAddress}
+          </label>
+        </div>
+      </#if>
 
       <div>
         <label for="USERNAME">${uiLabelMap.CommonUsername}*</label>
-        <input type="text" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME?if_exists}" onfocus="clickUsername();" onchange="changeEmail();"/>
+        <#if requestParameters.preferredUsername?has_content>
+            <input type="text" name="showUserName" id="showUserName" value="${requestParameters.USERNAME?if_exists}" disabled="disabled"/>
+            <input type="hidden" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME?if_exists}"/>
+        <#else>
+            <input type="text" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME?if_exists}" onfocus="clickUsername();" onchange="changeEmail();"/>
+        </#if>
       </div>
     </#if>
   </fieldset>
