@@ -16,35 +16,102 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
+<#assign janrainEnabled = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("ecommerce.properties", "janrain.enabled")>
+<#assign appName = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("ecommerce.properties", "janrain.appName")>
+<#if janrainEnabled == "Y">
+<script type="text/javascript">
+(function() {
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    window.janrain.settings = {};
+    
+    janrain.settings.tokenUrl = '<@ofbizUrl fullPath="true" secure="true">janrainCheckLogin</@ofbizUrl>';
 
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/${appName}/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/${appName}/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+})();
+</script>
 <h1>${uiLabelMap.CommonLogin}</h1>
 <div class="screenlet">
   <div class="screenlet-title-bar"><h3>${uiLabelMap.CommonRegistered}</h3></div>
   <div class="screenlet-body">
-  <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform" class="horizontal">
-    <fieldset>
-      <div>
-        <label for="userName">${uiLabelMap.CommonUsername}</label>
-        <input type="text" id="userName" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
-      </div>
-<#if autoUserLogin?has_content>
-      <p>(${uiLabelMap.CommonNot} ${autoUserLogin.userLoginId}? <a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a>)</p>
-</#if>
-      <div>
-        <label for="password">${uiLabelMap.CommonPassword}:</label>
-        <input type="password" id="password" name="PASSWORD" value=""/>
-      </div>
-      <div>
-        <input type="submit" class="button" value="${uiLabelMap.CommonLogin}"/>
-      </div>
-      <div>
-        <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:</label>
-        <a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.CommonMayCreate}</a>
-      </div>
-    </fieldset>
-  </form>
+  <table width="100%" class="Signlogin">
+      <tr>
+          <td>
+          <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform" class="horizontal">
+            <fieldset>
+              <div>
+                <label for="userName">${uiLabelMap.CommonUsername}</label>
+                <input type="text" id="userName" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
+              </div>
+              <#if autoUserLogin?has_content>
+                <p>(${uiLabelMap.CommonNot} ${autoUserLogin.userLoginId}? <a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a>)</p>
+              </#if>
+              <div>
+                <label for="password">${uiLabelMap.CommonPassword}:</label>
+                <input type="password" id="password" name="PASSWORD" value=""/>
+              </div>
+              <div>
+                <input type="submit" class="button" value="${uiLabelMap.CommonLogin}"/>
+              </div>
+              <div>
+                <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:</label>
+                <a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.CommonMayCreate}</a>
+              </div>
+            </fieldset>
+          </form>
+          </td>
+          <td><div id="janrainEngageEmbed"></div></td>
+      </tr>
+  </table>
   </div>
 </div>
+<#else>
+<h1>${uiLabelMap.CommonLogin}</h1>
+<div class="screenlet">
+  <div class="screenlet-title-bar"><h3>${uiLabelMap.CommonRegistered}</h3></div>
+  <div class="screenlet-body">
+    <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform" class="horizontal">
+      <fieldset>
+        <div>
+          <label for="userName">${uiLabelMap.CommonUsername}</label>
+          <input type="text" id="userName" name="USERNAME" value="<#if requestParameters.USERNAME?has_content>${requestParameters.USERNAME}<#elseif autoUserLogin?has_content>${autoUserLogin.userLoginId}</#if>"/>
+        </div>
+        <#if autoUserLogin?has_content>
+          <p>(${uiLabelMap.CommonNot} ${autoUserLogin.userLoginId}? <a href="<@ofbizUrl>${autoLogoutUrl}</@ofbizUrl>">${uiLabelMap.CommonClickHere}</a>)</p>
+        </#if>
+        <div>
+          <label for="password">${uiLabelMap.CommonPassword}:</label>
+          <input type="password" id="password" name="PASSWORD" value=""/>
+        </div>
+        <div>
+          <input type="submit" class="button" value="${uiLabelMap.CommonLogin}"/>
+        </div>
+        <div>
+          <label for="newcustomer_submit">${uiLabelMap.CommonMayCreateNewAccountHere}:</label>
+          <a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.CommonMayCreate}</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>
+</#if>
 
 <div class="screenlet">
   <div class="screenlet-title-bar"><h3>${uiLabelMap.CommonForgotYourPassword}</h3></div>

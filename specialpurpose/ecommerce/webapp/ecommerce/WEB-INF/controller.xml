@@ -2012,7 +2012,7 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="showShoppingList" save-current-view="true"/>
     </request-map>
-    
+
     <!-- Product Tags -->
     <request-map uri="addProductTags">
         <security https="false" auth="false"/>
@@ -2020,7 +2020,16 @@ under the License.
         <response name="success" type="view-last" save-current-view="true"/>
         <response name="error" type="view-last" save-current-view="true"/>
     </request-map>
-    
+
+    <!-- ============== Janrain Engage ============== -->
+    <request-map uri="janrainCheckLogin">
+        <security https="true" auth="false"/>
+        <event type="java" path="org.ofbiz.ecommerce.janrain.JanrainHelper" invoke="janrainCheckLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
+        <response name="userLoginMissing" type="request" value="newcustomer"/>
+    </request-map>
+
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
