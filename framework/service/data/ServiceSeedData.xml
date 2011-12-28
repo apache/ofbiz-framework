@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <!-- Temporal Expression seed data -->
+
+    <!-- Pre-define all 60 minutes -->
+    <TemporalExpression tempExprId="MINUTE_00" tempExprTypeId="MINUTE_RANGE" description="Minute 0" integer1="0" integer2="0"/>
+    <TemporalExpression tempExprId="MINUTE_01" tempExprTypeId="MINUTE_RANGE" description="Minute 1" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="MINUTE_02" tempExprTypeId="MINUTE_RANGE" description="Minute 2" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="MINUTE_03" tempExprTypeId="MINUTE_RANGE" description="Minute 3" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="MINUTE_04" tempExprTypeId="MINUTE_RANGE" description="Minute 4" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="MINUTE_05" tempExprTypeId="MINUTE_RANGE" description="Minute 5" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="MINUTE_06" tempExprTypeId="MINUTE_RANGE" description="Minute 6" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="MINUTE_07" tempExprTypeId="MINUTE_RANGE" description="Minute 7" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="MINUTE_08" tempExprTypeId="MINUTE_RANGE" description="Minute 8" integer1="8" integer2="8"/>
+    <TemporalExpression tempExprId="MINUTE_09" tempExprTypeId="MINUTE_RANGE" description="Minute 9" integer1="9" integer2="9"/>
+    <TemporalExpression tempExprId="MINUTE_10" tempExprTypeId="MINUTE_RANGE" description="Minute 10" integer1="10" integer2="10"/>
+    <TemporalExpression tempExprId="MINUTE_11" tempExprTypeId="MINUTE_RANGE" description="Minute 11" integer1="11" integer2="11"/>
+    <TemporalExpression tempExprId="MINUTE_12" tempExprTypeId="MINUTE_RANGE" description="Minute 12" integer1="12" integer2="12"/>
+    <TemporalExpression tempExprId="MINUTE_13" tempExprTypeId="MINUTE_RANGE" description="Minute 13" integer1="13" integer2="13"/>
+    <TemporalExpression tempExprId="MINUTE_14" tempExprTypeId="MINUTE_RANGE" description="Minute 14" integer1="14" integer2="14"/>
+    <TemporalExpression tempExprId="MINUTE_15" tempExprTypeId="MINUTE_RANGE" description="Minute 15" integer1="15" integer2="15"/>
+    <TemporalExpression tempExprId="MINUTE_16" tempExprTypeId="MINUTE_RANGE" description="Minute 16" integer1="16" integer2="16"/>
+    <TemporalExpression tempExprId="MINUTE_17" tempExprTypeId="MINUTE_RANGE" description="Minute 17" integer1="17" integer2="17"/>
+    <TemporalExpression tempExprId="MINUTE_18" tempExprTypeId="MINUTE_RANGE" description="Minute 18" integer1="18" integer2="18"/>
+    <TemporalExpression tempExprId="MINUTE_19" tempExprTypeId="MINUTE_RANGE" description="Minute 19" integer1="19" integer2="19"/>
+    <TemporalExpression tempExprId="MINUTE_20" tempExprTypeId="MINUTE_RANGE" description="Minute 20" integer1="20" integer2="20"/>
+    <TemporalExpression tempExprId="MINUTE_21" tempExprTypeId="MINUTE_RANGE" description="Minute 21" integer1="21" integer2="21"/>
+    <TemporalExpression tempExprId="MINUTE_22" tempExprTypeId="MINUTE_RANGE" description="Minute 22" integer1="22" integer2="22"/>
+    <TemporalExpression tempExprId="MINUTE_23" tempExprTypeId="MINUTE_RANGE" description="Minute 23" integer1="23" integer2="23"/>
+    <TemporalExpression tempExprId="MINUTE_24" tempExprTypeId="MINUTE_RANGE" description="Minute 24" integer1="24" integer2="24"/>
+    <TemporalExpression tempExprId="MINUTE_25" tempExprTypeId="MINUTE_RANGE" description="Minute 25" integer1="25" integer2="25"/>
+    <TemporalExpression tempExprId="MINUTE_26" tempExprTypeId="MINUTE_RANGE" description="Minute 26" integer1="26" integer2="26"/>
+    <TemporalExpression tempExprId="MINUTE_27" tempExprTypeId="MINUTE_RANGE" description="Minute 27" integer1="27" integer2="27"/>
+    <TemporalExpression tempExprId="MINUTE_28" tempExprTypeId="MINUTE_RANGE" description="Minute 28" integer1="28" integer2="28"/>
+    <TemporalExpression tempExprId="MINUTE_29" tempExprTypeId="MINUTE_RANGE" description="Minute 29" integer1="29" integer2="29"/>
+    <TemporalExpression tempExprId="MINUTE_30" tempExprTypeId="MINUTE_RANGE" description="Minute 30" integer1="30" integer2="30"/>
+    <TemporalExpression tempExprId="MINUTE_31" tempExprTypeId="MINUTE_RANGE" description="Minute 31" integer1="31" integer2="31"/>
+    <TemporalExpression tempExprId="MINUTE_32" tempExprTypeId="MINUTE_RANGE" description="Minute 32" integer1="32" integer2="32"/>
+    <TemporalExpression tempExprId="MINUTE_33" tempExprTypeId="MINUTE_RANGE" description="Minute 33" integer1="33" integer2="33"/>
+    <TemporalExpression tempExprId="MINUTE_34" tempExprTypeId="MINUTE_RANGE" description="Minute 34" integer1="34" integer2="34"/>
+    <TemporalExpression tempExprId="MINUTE_35" tempExprTypeId="MINUTE_RANGE" description="Minute 35" integer1="35" integer2="35"/>
+    <TemporalExpression tempExprId="MINUTE_36" tempExprTypeId="MINUTE_RANGE" description="Minute 36" integer1="36" integer2="36"/>
+    <TemporalExpression tempExprId="MINUTE_37" tempExprTypeId="MINUTE_RANGE" description="Minute 37" integer1="37" integer2="37"/>
+    <TemporalExpression tempExprId="MINUTE_38" tempExprTypeId="MINUTE_RANGE" description="Minute 38" integer1="38" integer2="38"/>
+    <TemporalExpression tempExprId="MINUTE_39" tempExprTypeId="MINUTE_RANGE" description="Minute 39" integer1="39" integer2="39"/>
+    <TemporalExpression tempExprId="MINUTE_40" tempExprTypeId="MINUTE_RANGE" description="Minute 40" integer1="40" integer2="40"/>
+    <TemporalExpression tempExprId="MINUTE_41" tempExprTypeId="MINUTE_RANGE" description="Minute 41" integer1="41" integer2="41"/>
+    <TemporalExpression tempExprId="MINUTE_42" tempExprTypeId="MINUTE_RANGE" description="Minute 42" integer1="42" integer2="42"/>
+    <TemporalExpression tempExprId="MINUTE_43" tempExprTypeId="MINUTE_RANGE" description="Minute 43" integer1="43" integer2="43"/>
+    <TemporalExpression tempExprId="MINUTE_44" tempExprTypeId="MINUTE_RANGE" description="Minute 44" integer1="44" integer2="44"/>
+    <TemporalExpression tempExprId="MINUTE_45" tempExprTypeId="MINUTE_RANGE" description="Minute 45" integer1="45" integer2="45"/>
+    <TemporalExpression tempExprId="MINUTE_46" tempExprTypeId="MINUTE_RANGE" description="Minute 46" integer1="46" integer2="46"/>
+    <TemporalExpression tempExprId="MINUTE_47" tempExprTypeId="MINUTE_RANGE" description="Minute 47" integer1="47" integer2="47"/>
+    <TemporalExpression tempExprId="MINUTE_48" tempExprTypeId="MINUTE_RANGE" description="Minute 48" integer1="48" integer2="48"/>
+    <TemporalExpression tempExprId="MINUTE_49" tempExprTypeId="MINUTE_RANGE" description="Minute 49" integer1="49" integer2="49"/>
+    <TemporalExpression tempExprId="MINUTE_50" tempExprTypeId="MINUTE_RANGE" description="Minute 50" integer1="50" integer2="50"/>
+    <TemporalExpression tempExprId="MINUTE_51" tempExprTypeId="MINUTE_RANGE" description="Minute 51" integer1="51" integer2="51"/>
+    <TemporalExpression tempExprId="MINUTE_52" tempExprTypeId="MINUTE_RANGE" description="Minute 52" integer1="52" integer2="52"/>
+    <TemporalExpression tempExprId="MINUTE_53" tempExprTypeId="MINUTE_RANGE" description="Minute 53" integer1="53" integer2="53"/>
+    <TemporalExpression tempExprId="MINUTE_54" tempExprTypeId="MINUTE_RANGE" description="Minute 54" integer1="54" integer2="54"/>
+    <TemporalExpression tempExprId="MINUTE_55" tempExprTypeId="MINUTE_RANGE" description="Minute 55" integer1="55" integer2="55"/>
+    <TemporalExpression tempExprId="MINUTE_56" tempExprTypeId="MINUTE_RANGE" description="Minute 56" integer1="56" integer2="56"/>
+    <TemporalExpression tempExprId="MINUTE_57" tempExprTypeId="MINUTE_RANGE" description="Minute 57" integer1="57" integer2="57"/>
+    <TemporalExpression tempExprId="MINUTE_58" tempExprTypeId="MINUTE_RANGE" description="Minute 58" integer1="58" integer2="58"/>
+    <TemporalExpression tempExprId="MINUTE_59" tempExprTypeId="MINUTE_RANGE" description="Minute 59" integer1="59" integer2="59"/>
+
+    <!-- Pre-define all 24 hours of the day -->
+    <TemporalExpression tempExprId="HOUR_00" tempExprTypeId="HOUR_RANGE" description="Hour 0" integer1="0" integer2="0"/>
+    <TemporalExpression tempExprId="HOUR_01" tempExprTypeId="HOUR_RANGE" description="Hour 1" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="HOUR_02" tempExprTypeId="HOUR_RANGE" description="Hour 2" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="HOUR_03" tempExprTypeId="HOUR_RANGE" description="Hour 3" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="HOUR_04" tempExprTypeId="HOUR_RANGE" description="Hour 4" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="HOUR_05" tempExprTypeId="HOUR_RANGE" description="Hour 5" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="HOUR_06" tempExprTypeId="HOUR_RANGE" description="Hour 6" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="HOUR_07" tempExprTypeId="HOUR_RANGE" description="Hour 7" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="HOUR_08" tempExprTypeId="HOUR_RANGE" description="Hour 8" integer1="8" integer2="8"/>
+    <TemporalExpression tempExprId="HOUR_09" tempExprTypeId="HOUR_RANGE" description="Hour 9" integer1="9" integer2="9"/>
+    <TemporalExpression tempExprId="HOUR_10" tempExprTypeId="HOUR_RANGE" description="Hour 10" integer1="10" integer2="10"/>
+    <TemporalExpression tempExprId="HOUR_11" tempExprTypeId="HOUR_RANGE" description="Hour 11" integer1="11" integer2="11"/>
+    <TemporalExpression tempExprId="HOUR_12" tempExprTypeId="HOUR_RANGE" description="Hour 12" integer1="12" integer2="12"/>
+    <TemporalExpression tempExprId="HOUR_13" tempExprTypeId="HOUR_RANGE" description="Hour 13" integer1="13" integer2="13"/>
+    <TemporalExpression tempExprId="HOUR_14" tempExprTypeId="HOUR_RANGE" description="Hour 14" integer1="14" integer2="14"/>
+    <TemporalExpression tempExprId="HOUR_15" tempExprTypeId="HOUR_RANGE" description="Hour 15" integer1="15" integer2="15"/>
+    <TemporalExpression tempExprId="HOUR_16" tempExprTypeId="HOUR_RANGE" description="Hour 16" integer1="16" integer2="16"/>
+    <TemporalExpression tempExprId="HOUR_17" tempExprTypeId="HOUR_RANGE" description="Hour 17" integer1="17" integer2="17"/>
+    <TemporalExpression tempExprId="HOUR_18" tempExprTypeId="HOUR_RANGE" description="Hour 18" integer1="18" integer2="18"/>
+    <TemporalExpression tempExprId="HOUR_19" tempExprTypeId="HOUR_RANGE" description="Hour 19" integer1="19" integer2="19"/>
+    <TemporalExpression tempExprId="HOUR_20" tempExprTypeId="HOUR_RANGE" description="Hour 20" integer1="20" integer2="20"/>
+    <TemporalExpression tempExprId="HOUR_21" tempExprTypeId="HOUR_RANGE" description="Hour 21" integer1="21" integer2="21"/>
+    <TemporalExpression tempExprId="HOUR_22" tempExprTypeId="HOUR_RANGE" description="Hour 22" integer1="22" integer2="22"/>
+    <TemporalExpression tempExprId="HOUR_23" tempExprTypeId="HOUR_RANGE" description="Hour 23" integer1="23" integer2="23"/>
+
+    <!-- Pre-define all days of the week (Sunday -> Saturday) -->
+    <TemporalExpression tempExprId="DAYOFWEEK_01" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Sunday" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_02" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Monday" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_03" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Tuesday" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_04" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Wednesday" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_05" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Thursday" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_06" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Friday" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="DAYOFWEEK_07" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Saturday" integer1="7" integer2="7"/>
+
+    <!-- Pre-define some day of the week ranges -->
+    <TemporalExpression tempExprId="MON_TO_FRI" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Monday to Friday" integer1="2" integer2="6"/>
+    <TemporalExpression tempExprId="SAT_TO_SUN" tempExprTypeId="DAY_OF_WEEK_RANGE" description="Saturday to Sunday" integer1="7" integer2="1"/>
+
+    <!-- Pre-define all 13 months (January -> Undecimber) -->
+    <TemporalExpression tempExprId="MONTH_RANGE_01" tempExprTypeId="MONTH_RANGE" description="January" integer1="0" integer2="0"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_02" tempExprTypeId="MONTH_RANGE" description="February" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_03" tempExprTypeId="MONTH_RANGE" description="March" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_04" tempExprTypeId="MONTH_RANGE" description="April" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_05" tempExprTypeId="MONTH_RANGE" description="May" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_06" tempExprTypeId="MONTH_RANGE" description="June" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_07" tempExprTypeId="MONTH_RANGE" description="July" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_08" tempExprTypeId="MONTH_RANGE" description="August" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_09" tempExprTypeId="MONTH_RANGE" description="September" integer1="8" integer2="8"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_10" tempExprTypeId="MONTH_RANGE" description="October" integer1="9" integer2="9"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_11" tempExprTypeId="MONTH_RANGE" description="November" integer1="10" integer2="10"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_12" tempExprTypeId="MONTH_RANGE" description="December" integer1="11" integer2="11"/>
+    <TemporalExpression tempExprId="MONTH_RANGE_13" tempExprTypeId="MONTH_RANGE" description="Undecimber" integer1="12" integer2="12"/>
+
+    <!-- Pre-define all 31 days of the month -->
+    <TemporalExpression tempExprId="DAYOFMONTH_01" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 1 of Month" integer1="1" integer2="1"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_02" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 2 of Month" integer1="2" integer2="2"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_03" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 3 of Month" integer1="3" integer2="3"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_04" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 4 of Month" integer1="4" integer2="4"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_05" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 5 of Month" integer1="5" integer2="5"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_06" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 6 of Month" integer1="6" integer2="6"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_07" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 7 of Month" integer1="7" integer2="7"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_08" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 8 of Month" integer1="8" integer2="8"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_09" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 9 of Month" integer1="9" integer2="9"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_10" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 10 of Month" integer1="10" integer2="10"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_11" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 11 of Month" integer1="11" integer2="11"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_12" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 12 of Month" integer1="12" integer2="12"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_13" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 13 of Month" integer1="13" integer2="13"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_14" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 14 of Month" integer1="14" integer2="14"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_15" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 15 of Month" integer1="15" integer2="15"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_16" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 16 of Month" integer1="16" integer2="16"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_17" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 17 of Month" integer1="17" integer2="17"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_18" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 18 of Month" integer1="18" integer2="18"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_19" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 19 of Month" integer1="19" integer2="19"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_20" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 20 of Month" integer1="20" integer2="20"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_21" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 21 of Month" integer1="21" integer2="21"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_22" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 22 of Month" integer1="22" integer2="22"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_23" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 23 of Month" integer1="23" integer2="23"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_24" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 24 of Month" integer1="24" integer2="24"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_25" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 25 of Month" integer1="25" integer2="25"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_26" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 26 of Month" integer1="26" integer2="26"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_27" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 27 of Month" integer1="27" integer2="27"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_28" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 28 of Month" integer1="28" integer2="28"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_29" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 29 of Month" integer1="29" integer2="29"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_30" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 30 of Month" integer1="30" integer2="30"/>
+    <TemporalExpression tempExprId="DAYOFMONTH_31" tempExprTypeId="DAY_OF_MONTH_RANGE" description="Day 31 of Month" integer1="31" integer2="31"/>
+
+    <!-- TemporalExpression field details... -->
+
+    <!-- The TemporalExpression field meanings depend upon what type of expression it is. The integer
+        values are typically obtained from the java.util.Calendar field constants. For more
+        information, see the org.ofbiz.service.calendar.TemporalExpressions.java file.
+
+        tempExprTypeId        integer1       integer2        date1  date2  string1    string2
+        ====================  ============== =============== ====== ====== ========== ========
+        HOUR_RANGE            start[8]       end[8]
+        DATE_RANGE                                           start  end
+        DAY_OF_WEEK_RANGE     start [1]      end [1]
+        MINUTE_RANGE          start [9]      end [9]
+        MONTH_RANGE           start [2]      end [2]
+        DAY_OF_MONTH_RANGE    start [3]      end [3]
+        DAY_IN_MONTH          day [1]        occurrence [4]
+        FREQUENCY             freq type [5]  freq count [6]  start[7]
+
+        [1] Day of week: 1 = Sunday, 7 = Saturday
+        [2] Month: January = 0, Undecimber = 12
+        [3] Day of month: 1 to 31
+        [4] Integer: -5 to +5, zero excluded
+        [5] Second = 13, Minute = 12, Hour = 11, Day = 5, Month = 2, Year = 1
+        [6] Positive integer, zero excluded
+        [7] If null, defaults to system date when the expression was retrieved from storage.
+        [8] Integer: 0 to 23, midnight = 0
+        [9] Integer: 0 to 59
+    -->
+
+</entity-engine-xml>
