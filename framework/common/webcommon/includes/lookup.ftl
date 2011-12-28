@@ -33,7 +33,7 @@ under the License.
         if (typeof(jQuery) == 'undefined') {
             if (!jQueryLibLoaded) {
                 jQueryLibLoaded = true;
-                document.write("<script type=\"text/javascript\" src=\"<@ofbizContentUrl>/images/jquery/jquery-1.7.min.js</@ofbizContentUrl>\"></script>");
+                document.write("<scr" + "ipt type=\"text/javascript\" src=\"<@ofbizContentUrl>/images/jquery/jquery-1.7.min.js</@ofbizContentUrl>\"></scr" + "ipt>");
             }
             setTimeout("initJQuery()", 50);
         }
