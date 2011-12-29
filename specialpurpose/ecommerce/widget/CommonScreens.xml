@@ -132,6 +132,7 @@ under the License.
                     <include-screen name="minilastviewedproducts" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="minilastproductsearches" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="recentlyviewed" location="component://ecommerce/widget/ContentScreens.xml"/>
+                    <include-screen name="populartags" location="component://ecommerce/widget/CatalogScreens.xml"/>
             </widgets>
         </section>
     </screen>

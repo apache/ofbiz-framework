@@ -3035,8 +3035,8 @@ under the License.
 
     <request-map uri="updateProductTag">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateProductKeyword"/>
-        <response name="success" type="view" value="EditProductTag"/>
+        <event type="service-multi" path="" invoke="updateProductKeyword"/>
+        <response name="success" type="request-redirect" value="EditProductTag"/>
         <response name="error" type="view" value="EditProductTag"/>
     </request-map>
     <!-- end of request mappings -->

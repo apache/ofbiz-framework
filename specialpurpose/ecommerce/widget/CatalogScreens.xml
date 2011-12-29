@@ -588,4 +588,16 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="populartags">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/PopularTags.groovy"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/populartags.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

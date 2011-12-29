@@ -2200,8 +2200,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListProductTag" type="list" target="updateProductTag" title="" list-name=""
-        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductTag">
+    <form name="ListProductTag" type="multi" target="updateProductTag" title="" list-name=""
+        odd-row-style="alternate-row" default-table-style="basic-table" paginate-target="EditProductTag" separate-columns="true">
         <actions>
             <entity-condition entity-name="ProductKeyword">
                 <condition-list combine="and">
@@ -2213,12 +2213,12 @@ under the License.
             </entity-condition>
         </actions>
         <field name="keywordTypeId"><hidden/></field>
-        <field name="productId" sort-field="true">
-            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+        <field name="productId">
+            <hyperlink target="EditProduct" description="${productId}">
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="keyword" title="${uiLabelMap.ProductTag}" sort-field="true"><display/></field>
+        <field name="keyword" title="${uiLabelMap.ProductTag}"><display/></field>
         <field name="statusId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
@@ -2227,6 +2227,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
  </forms>
