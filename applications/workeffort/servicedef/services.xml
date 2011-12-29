@@ -266,7 +266,10 @@ under the License.
           If filterOutCanceledEvents is set to Boolean(true) then workEfforts with currentStatusId=EVENT_CANCELLED will not be returned.
           To limit the events to a particular partyId, specify the partyId.  To limit the events to a set of partyIds, specify a Collection of partyIds.
         </description>
-        <attribute name="calendarType" type="String" mode="IN" optional="true"/>
+        <attribute name="calendarType" type="String" mode="IN" optional="true">
+            <description>Can be either CAL_PERSONAL or CAL_MANUFACTURING, defaults to CAL_PERSONAL. The value controls the type of work efforts
+            returned. To bypass this behavior, use an invalid value (like VOID).</description>
+        </attribute>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="partyIds" type="java.util.Collection" mode="IN" optional="true"/>
         <attribute name="facilityId" type="String" mode="IN" optional="true"/>

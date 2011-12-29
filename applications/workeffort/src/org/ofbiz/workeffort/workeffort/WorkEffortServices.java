@@ -508,6 +508,8 @@ public class WorkEffortServices {
 
         String calendarType = (String) context.get("calendarType");
         if (UtilValidate.isEmpty(calendarType)) {
+            // This is a bad idea. This causes the service to return only those work efforts that are assigned
+            // to the current user even when the service parameters have nothing to do with the current user.
             calendarType = "CAL_PERSONAL";
         }
         String partyId = (String) context.get("partyId");
