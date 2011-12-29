@@ -1358,6 +1358,7 @@ under the License.
       <alias entity-alias="SPRS" name="shipmentPackageSeqId"/>
       <alias entity-alias="SPRS" name="shipmentRouteSegmentId"/>
       <alias entity-alias="SPRS" name="labelPrinted"/>
+      <alias entity-alias="SPRS" name="trackingCode"/>
       <alias entity-alias="SRS" name="carrierPartyId"/>
       <alias entity-alias="SRS" name="carrierServiceStatusId"/>
       <alias entity-alias="SRS" name="shipmentMethodTypeId"/>
