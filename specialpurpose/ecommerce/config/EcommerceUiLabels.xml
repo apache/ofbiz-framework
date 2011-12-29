@@ -3369,6 +3369,9 @@
         <value xml:lang="zh">调查</value>
         <value xml:lang="zh_TW">調查</value>
     </property>
+    <property key="EcommerceTags">
+        <value xml:lang="en">Tag Cloud</value>
+    </property>
     <property key="EcommerceTakeSurvey">
         <value xml:lang="da">Foretag rundspørge</value>
         <value xml:lang="de">An Befragung teilnehmen</value>

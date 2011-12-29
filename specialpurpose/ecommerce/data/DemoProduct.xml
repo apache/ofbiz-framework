@@ -1662,4 +1662,29 @@ under the License.
     <ProductFacilityLocation productId="RentalShip" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" minimumStock="5" moveQuantity="20"/>
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="InventoryRentalShip" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="RentalShip" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="InventoryRentalShip" inventoryItemDetailSeqId="0001" effectiveDate="2011-09-01 12:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10" accountingQuantityDiff="10"/>
+    
+    <!-- Demo product tags -->
+    <ProductKeyword productId="GZ-1000" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-1001" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-2002" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-2644" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-5005" keyword="gizmos" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="WG-1111" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-1004" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-2644" keyword="red" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="SV-1001" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="SV-1000" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="CFSV1001" keyword="demonstration" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="WG-5569" keyword="widget" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="WG-9943" keyword="widget" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-1000" keyword="small" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-2644" keyword="small" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="SV-1001" keyword="service" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="CFSV1001" keyword="service" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-1000" keyword="tiny" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-8544" keyword="big" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="WG-9943" keyword="black" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="WG-1111" keyword="chrome" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    <ProductKeyword productId="GZ-1006" keyword="standard" keywordTypeId="KWT_TAG" statusId="KW_APPROVED"/>
+    
 </entity-engine-xml>
