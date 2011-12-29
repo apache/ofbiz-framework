@@ -4046,38 +4046,38 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         for (CartShipInfo csi : shipInfo) {
             Set<ShoppingCartItem> items = csi.getShipItems();
-        for (ShoppingCartItem item : items) {
-            String requirementId = item.getRequirementId();
-            if (requirementId != null) {
-                try {
-                    List<GenericValue> commitments = getDelegator().findByAnd("OrderRequirementCommitment", UtilMisc.toMap("requirementId", requirementId));
-                    // TODO: multiple commitments for the same requirement are still not supported
-                    GenericValue commitment = EntityUtil.getFirst(commitments);
-                    if (commitment != null) {
-                        GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
-                        orderItemAssociation.set("orderId", commitment.getString("orderId"));
-                        orderItemAssociation.set("orderItemSeqId", commitment.getString("orderItemSeqId"));
-                        orderItemAssociation.set("shipGroupSeqId", "_NA_");
-                        orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
-                        orderItemAssociation.set("toShipGroupSeqId", "_NA_");
-                        orderItemAssociation.set("orderItemAssocTypeId", "PURCHASE_ORDER");
-                        allOrderItemAssociations.add(orderItemAssociation);
+            for (ShoppingCartItem item : items) {
+                String requirementId = item.getRequirementId();
+                if (requirementId != null) {
+                    try {
+                        List<GenericValue> commitments = getDelegator().findByAnd("OrderRequirementCommitment", UtilMisc.toMap("requirementId", requirementId));
+                        // TODO: multiple commitments for the same requirement are still not supported
+                        GenericValue commitment = EntityUtil.getFirst(commitments);
+                        if (commitment != null) {
+                            GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
+                            orderItemAssociation.set("orderId", commitment.getString("orderId"));
+                            orderItemAssociation.set("orderItemSeqId", commitment.getString("orderItemSeqId"));
+                            orderItemAssociation.set("shipGroupSeqId", "_NA_");
+                            orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
+                            orderItemAssociation.set("toShipGroupSeqId", "_NA_");
+                            orderItemAssociation.set("orderItemAssocTypeId", "PURCHASE_ORDER");
+                            allOrderItemAssociations.add(orderItemAssociation);
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, "Unable to load OrderRequirementCommitment records for requirement ID : " + requirementId, module);
                     }
-                } catch (GenericEntityException e) {
-                    Debug.logError(e, "Unable to load OrderRequirementCommitment records for requirement ID : " + requirementId, module);
+                }
+                if (item.getAssociatedOrderId() != null && item.getAssociatedOrderItemSeqId() != null) {
+                    GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
+                    orderItemAssociation.set("orderId", item.getAssociatedOrderId());
+                    orderItemAssociation.set("orderItemSeqId", item.getAssociatedOrderItemSeqId());
+                    orderItemAssociation.set("shipGroupSeqId", csi.getAssociatedShipGroupSeqId() != null ? csi.getAssociatedShipGroupSeqId() : "_NA_");
+                    orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
+                    orderItemAssociation.set("toShipGroupSeqId", csi.getShipGroupSeqId() != null ? csi.getShipGroupSeqId() : "_NA_");
+                    orderItemAssociation.set("orderItemAssocTypeId", item.getOrderItemAssocTypeId());
+                    allOrderItemAssociations.add(orderItemAssociation);
                 }
             }
-            if (item.getAssociatedOrderId() != null && item.getAssociatedOrderItemSeqId() != null) {
-                GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
-                orderItemAssociation.set("orderId", item.getAssociatedOrderId());
-                orderItemAssociation.set("orderItemSeqId", item.getAssociatedOrderItemSeqId());
-                orderItemAssociation.set("shipGroupSeqId", csi.getAssociatedShipGroupSeqId() != null ? csi.getAssociatedShipGroupSeqId() : "_NA_");
-                orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
-                orderItemAssociation.set("toShipGroupSeqId", csi.getShipGroupSeqId() != null ? csi.getShipGroupSeqId() : "_NA_");
-                orderItemAssociation.set("orderItemAssocTypeId", item.getOrderItemAssocTypeId());
-                allOrderItemAssociations.add(orderItemAssociation);
-            }
-        }
         }
         return allOrderItemAssociations;
     }
