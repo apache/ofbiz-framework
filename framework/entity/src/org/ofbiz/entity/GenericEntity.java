@@ -1077,42 +1077,6 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                     element.setAttribute(name, value);
                 }
             }
-            else {
-                ModelFieldType type = null;
-                try {
-                    type = getDelegator().getEntityFieldType(getModelEntity(), modelField.getType());
-                } catch (GenericEntityException e) {
-                    Debug.logWarning(e, module);
-                }
-                if (type == null) throw new IllegalArgumentException("Type " + modelField.getType() + " not found");
-                String fieldType = type.getJavaType();
-
-                try {
-                    switch (SqlJdbcUtil.getType(fieldType)) {
-                    case 1: // String
-                        set(name, "");
-                        break;
-                    case 2: // Timestamp
-                    case 3: // Time
-                    case 4: // java.sql.Date
-                    case 5: // Integer
-                    case 6: // Long
-                    case 7: // Float
-                    case 8: // Double
-                    case 9: // BigDecimal
-                    case 10:// Boolean 
-                    case 11:// Object 
-                    case 12:// Blob, byte[], ByteBuffer, HeapByteBuffer 
-                    case 13:// Clob 
-                    case 14:// java.util.Date
-                    case 15:// Collection: ArrayList, HashSet, LinkedHashSet, LinkedList
-                        element.setAttribute(name, "null");
-                        break;
-                    }
-                } catch (GenericNotImplementedException ex) {
-                    throw new IllegalArgumentException(ex.getMessage());
-                }
-            } 
         }
 
         return element;
