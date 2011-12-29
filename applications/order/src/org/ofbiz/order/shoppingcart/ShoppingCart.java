@@ -4044,7 +4044,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> makeAllOrderItemAssociations() {
         List<GenericValue> allOrderItemAssociations = new LinkedList<GenericValue>();
 
-        for (ShoppingCartItem item : cartLines) {
+        for (CartShipInfo csi : shipInfo) {
+            Set<ShoppingCartItem> items = csi.getShipItems();
+        for (ShoppingCartItem item : items) {
             String requirementId = item.getRequirementId();
             if (requirementId != null) {
                 try {
@@ -4069,12 +4071,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
                 orderItemAssociation.set("orderId", item.getAssociatedOrderId());
                 orderItemAssociation.set("orderItemSeqId", item.getAssociatedOrderItemSeqId());
-                orderItemAssociation.set("shipGroupSeqId", "_NA_");
+                orderItemAssociation.set("shipGroupSeqId", csi.getAssociatedShipGroupSeqId() != null ? csi.getAssociatedShipGroupSeqId() : "_NA_");
                 orderItemAssociation.set("toOrderItemSeqId", item.getOrderItemSeqId());
-                orderItemAssociation.set("toShipGroupSeqId", "_NA_");
+                orderItemAssociation.set("toShipGroupSeqId", csi.getShipGroupSeqId() != null ? csi.getShipGroupSeqId() : "_NA_");
                 orderItemAssociation.set("orderItemAssocTypeId", item.getOrderItemAssocTypeId());
                 allOrderItemAssociations.add(orderItemAssociation);
             }
+        }
         }
         return allOrderItemAssociations;
     }
@@ -4446,6 +4449,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public Timestamp shipBeforeDate = null;
         public Timestamp shipAfterDate = null;
         private String shipGroupSeqId = null;
+        private String associatedShipGroupSeqId = null;
         public String vendorPartyId = null;
         public String productStoreShipMethId = null;
         public Map<String, Object> attributes = FastMap.newInstance();
@@ -4478,6 +4482,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         public String getShipGroupSeqId() { return shipGroupSeqId; }
         public void setShipGroupSeqId(String shipGroupSeqId) {
             this.shipGroupSeqId = shipGroupSeqId;
+        }
+
+        public String getAssociatedShipGroupSeqId() { return associatedShipGroupSeqId; }
+        public void setAssociatedShipGroupSeqId(String shipGroupSeqId) {
+            this.associatedShipGroupSeqId = shipGroupSeqId;
         }
 
         public String getFacilityId() { return facilityId; }
