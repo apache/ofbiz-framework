@@ -4964,7 +4964,6 @@ public class OrderServices {
                                     sci.setAssociatedOrderId(orderId);
                                     sci.setAssociatedOrderItemSeqId(item.getString("orderItemSeqId"));
                                     sci.setOrderItemAssocTypeId("DROP_SHIPMENT");
-                                    // TODO: we should consider also the ship group in the association between sales and purchase orders
                                 } catch (Exception e) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                                             "OrderOrderCreatingDropShipmentsError", 
@@ -4980,11 +4979,12 @@ public class OrderServices {
                             cart.setDefaultCheckoutOptions(dispatcher);
                             // the shipping address is the one of the customer
                             cart.setShippingContactMechId(shipGroup.getString("contactMechId"));
+                            // associate ship groups of sales and purchase orders
+                            ShoppingCart.CartShipInfo cartShipInfo = cart.getShipGroups().get(0);
+                            cartShipInfo.setAssociatedShipGroupSeqId(shipGroup.getString("shipGroupSeqId"));
                             // create the order
                             CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
                             coh.createOrder(userLogin);
-                            
-                            // TODO: associate the new purchase order with the sales order (ship group)
                         } else {
                             // if there are no items to drop ship, then clear out the supplier partyId
                             Debug.logWarning("No drop ship items found for order [" + shipGroup.getString("orderId") + "] and ship group [" + shipGroup.getString("shipGroupSeqId") + "] and supplier party [" + shipGroup.getString("supplierPartyId") + "].  Supplier party information will be cleared for this ship group", module);
