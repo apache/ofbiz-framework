@@ -139,6 +139,18 @@ public class RequestHandler {
                 requestMap = requestMapMap.get(defaultRequest);
             }
         }
+        
+        // check for override view
+        if (overrideViewUri != null) {
+            ConfigXMLReader.ViewMap viewMap = getControllerConfig().getViewMapMap().get(overrideViewUri);
+            if (viewMap == null) {
+                String defaultRequest = controllerConfig.getDefaultRequest();
+                if (defaultRequest != null) { // required! to avoid a null pointer exception and generate a requesthandler exception if default request not found.
+                    requestMap = requestMapMap.get(defaultRequest);
+                }
+            }
+        }
+        
         // still not found so stop
         if (requestMap == null) {
             throw new RequestHandlerException(requestMissingErrorMessage);
