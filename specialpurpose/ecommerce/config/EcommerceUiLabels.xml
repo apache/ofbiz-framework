@@ -3978,7 +3978,6 @@
         <value xml:lang="zh">账单信息</value>
         <value xml:lang="zh_TW">帳單資訊</value>
     </property>
-        <value xml:lang="zh_TW">分類頁面</value>
     <property key="PageTitleChangePassword">
         <value xml:lang="cs">Změnit heslo</value>
         <value xml:lang="da">Skift kodeord</value>
@@ -3998,7 +3997,6 @@
         <value xml:lang="zh">修改密码</value>
         <value xml:lang="zh_TW">修改密碼</value>
     </property>
-        <value xml:lang="zh_TW">結帳選項</value>
     <property key="PageTitleCheckoutReview">
         <value xml:lang="cs">Ověřování objednávky</value>
         <value xml:lang="da">Gennemse udcheckning</value>
