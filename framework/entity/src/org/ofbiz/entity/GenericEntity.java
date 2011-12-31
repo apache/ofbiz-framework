@@ -461,7 +461,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         }
 
         boolean isNullString = false;
-        if ("null".equals(value)) {
+        if ("null".equals(value) || "[null-field]".equals(value)) {
             // count this as a null too, but only for numbers and stuff, not for Strings
             isNullString = true;
         }
