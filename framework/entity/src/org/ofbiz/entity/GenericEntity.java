@@ -1076,6 +1076,8 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 } else {
                     element.setAttribute(name, value);
                 }
+            } else {
+                element.setAttribute(name, GenericEntity.NULL_FIELD.toString());
             }
         }
 
