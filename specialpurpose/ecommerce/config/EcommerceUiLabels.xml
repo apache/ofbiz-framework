@@ -2579,7 +2579,7 @@
     </property>
     <property key="EcommerceProductTags">
         <value xml:lang="en">Product Tags</value>
-        <value xml:lang="fr">Nuage de mots</value>
+        <value xml:lang="fr">Étiquettes</value>
     </property>
     <property key="EcommerceProductTagsDetail">
         <value xml:lang="en">Other people marked this product with these tags</value>
@@ -3376,6 +3376,7 @@
     </property>
     <property key="EcommerceTags">
         <value xml:lang="en">Tag Cloud</value>
+        <value xml:lang="fr">Nuage de mots</value>
     </property>
     <property key="EcommerceTakeSurvey">
         <value xml:lang="da">Foretag rundspørge</value>
@@ -4666,6 +4667,10 @@
         <value xml:lang="th">แยกสินค้าเพื่อการขนส่ง</value>
         <value xml:lang="zh">为送货分拆明细</value>
         <value xml:lang="zh_TW">為送貨分拆明細</value>
+    </property>
+    <property key="PageTitleTagResults">
+        <value xml:lang="en">Tag results</value>
+        <value xml:lang="fr">Résultats de la recherche par étiquette</value>
     </property>
     <property key="PageTitleViewBlog">
         <value xml:lang="da">Vis blog</value>
