@@ -186,9 +186,11 @@
     </property>
     <property key="EcommerceAddTags">
         <value xml:lang="en">Add Tags</value>
+        <value xml:lang="fr">Ajouter une étiquette</value>
     </property>
     <property key="EcommerceAddTagsDetail">
         <value xml:lang="en">Use spaces to separate tags. Use single quotes(') for phrases.</value>
+        <value xml:lang="fr">Utiliser un espace pour séparer les étiquettes et des apostrophes pour les phrases.</value>
     </property>
     <property key="EcommerceAdditionalAddresses">
         <value xml:lang="da">Ekstra adresser</value>
@@ -214,6 +216,7 @@
     </property>
     <property key="EcommerceAddYourTags">
         <value xml:lang="en">Add your tags</value>
+        <value xml:lang="fr">Ajouter vos étiquettes</value>
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
@@ -2576,9 +2579,11 @@
     </property>
     <property key="EcommerceProductTags">
         <value xml:lang="en">Product Tags</value>
+        <value xml:lang="fr">Nuage de mots</value>
     </property>
     <property key="EcommerceProductTagsDetail">
         <value xml:lang="en">Other people marked this product with these tags</value>
+        <value xml:lang="fr">Cette étiquette a déjà été ajoutée pour ce produit</value>
     </property>
     <property key="EcommercePromotionalItems">
         <value xml:lang="cs">Reklamní položka; množství nelze změnit</value>
