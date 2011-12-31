@@ -4729,7 +4729,4 @@
         <value xml:lang="zh">浏览询价</value>
         <value xml:lang="zh_TW">瀏覽報價</value>
     </property>
-    <property key="ProductCategories">
-        <value xml:lang="en">Product Categories</value>
-    </property>
 </resource>
