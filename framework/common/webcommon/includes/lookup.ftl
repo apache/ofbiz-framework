@@ -27,6 +27,7 @@ under the License.
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${title?if_exists}</title>
+    <#-- the trick "<scr" + "ipt below is because browsers should not parse the contents of CDATA elements, but apparently they do. -->
     <script language="JavaScript" type="text/javascript">//<![CDATA[
     var jQueryLibLoaded = false;
     function initJQuery() {
