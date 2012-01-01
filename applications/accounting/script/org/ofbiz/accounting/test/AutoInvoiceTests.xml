@@ -173,6 +173,12 @@ under the License.
             * ACCOUNTS PAYABLE 210000  - debitTotal $351.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1300
             * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$96 ; debitCreditDifference : $312
         -->
+        
+        <!-- IF EVER THIS TEST FAILS WITH NO REASONS (notably when passing to 2020), 
+            CHECK THIS MAIL http://markmail.org/message/m34hv2rv6lululuo 
+            (if it still exist, else looks for "the failure could be related to the year switch" on the Net)
+        -->
+        
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
