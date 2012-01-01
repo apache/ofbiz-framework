@@ -53,6 +53,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.config.EntityConfigUtil;
 
 /**
  * <p>Transaction Utility to help with some common transaction tasks
@@ -62,7 +63,7 @@ public class TransactionUtil implements Status {
     // Debug module name
     public static final String module = TransactionUtil.class.getName();
     public static Map<Xid, DebugXaResource> debugResMap = Collections.<Xid, DebugXaResource>synchronizedMap(new HashMap<Xid, DebugXaResource>());
-    public static boolean debugResources = true;
+    public static boolean debugResources = EntityConfigUtil.isDebugXAResource();
 
     private static ThreadLocal<List<Transaction>> suspendedTxStack = new ThreadLocal<List<Transaction>>();
     private static ThreadLocal<List<Exception>> suspendedTxLocationStack = new ThreadLocal<List<Exception>>();

@@ -48,6 +48,10 @@ public class EntityConfigUtil {
     private final String txFactoryTxMgrJndiName;
     private final String txFactoryTxMgrJndiServerName;
     private final String connFactoryClass;
+    /**
+     * Create Begin stacktrace when enlisting transactions
+     */
+    private final Boolean debugXAResources;
 
     private final Map<String, ResourceLoaderInfo> resourceLoaderInfos = new HashMap<String, ResourceLoaderInfo>();
     private final Map<String, DelegatorInfo> delegatorInfos = new HashMap<String, DelegatorInfo>();
@@ -122,6 +126,12 @@ public class EntityConfigUtil {
 
         connFactoryClass = connectionFactoryElement.getAttribute("class");
 
+        Element debugXaResourcesElement = UtilXml.firstChildElement(rootElement, "debug-xa-resources");
+        if (debugXaResourcesElement == null) {
+            debugXAResources = false;
+        } else {
+            debugXAResources = "true".equals(debugXaResourcesElement.getAttribute("value"));
+        }
         // not load all of the maps...
 
         // resource-loader - resourceLoaderInfos
@@ -187,6 +197,13 @@ public class EntityConfigUtil {
 
     public static String getTxFactoryTxMgrJndiName() {
         return configRef.get().txFactoryTxMgrJndiName;
+    }
+    
+    /**
+     * @return true Create Begin stacktrace when enlisting transactions
+     */
+    public static boolean isDebugXAResource() {
+        return configRef.get().debugXAResources;
     }
 
     public static String getTxFactoryTxMgrJndiServerName() {
