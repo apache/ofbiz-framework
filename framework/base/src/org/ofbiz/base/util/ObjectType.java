@@ -106,7 +106,7 @@ public class ObjectType {
         if (loader == null) loader = Thread.currentThread().getContextClassLoader();
 
         try {
-            theClass = loader.loadClass(className);
+            theClass = Class.forName(className, true, loader);
         } catch (Exception e) {
             theClass = classCache.get(className);
             if (theClass == null) {
