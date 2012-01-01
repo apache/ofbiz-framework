@@ -378,7 +378,7 @@ public final class UtilIO {
             for (i = offset; i < length && buffer[i] != ':'; i++);
             if (i > offset && i < length) {
                 String className = new String(buffer, offset, i);
-                Class<?> type = ClassLoaderContainer.getClassLoader().loadClass(className);
+                Class<?> type = Class.forName(className, true, ClassLoaderContainer.getClassLoader());
                 if (buffer[length - 1] == '\n') {
                     length--;
                 }
