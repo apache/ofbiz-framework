@@ -25,6 +25,7 @@ under the License.
                 <xs:element maxOccurs="unbounded" ref="resource-loader"/>
                 <xs:element ref="transaction-factory"/>
                 <xs:element ref="connection-factory"/>
+                <xs:element ref="debug-xa-resources"/>
                 <xs:element maxOccurs="unbounded" ref="delegator"/>
                 <xs:element maxOccurs="unbounded" ref="entity-model-reader"/>
                 <xs:element maxOccurs="unbounded" ref="entity-group-reader"/>
@@ -79,6 +80,11 @@ under the License.
     <xs:element name="connection-factory">
         <xs:complexType>
             <xs:attributeGroup ref="attlist.connection-factory"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="debug-xa-resources">
+        <xs:complexType>
+            <xs:attribute default="false"  name="value" type="xs:boolean"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.connection-factory">
