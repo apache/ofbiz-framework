@@ -194,7 +194,7 @@ public class TransactionUtil implements Status {
         }
     }
 
-    protected static synchronized void internalBegin(UserTransaction ut, int timeout) throws SystemException, NotSupportedException {
+    protected static void internalBegin(UserTransaction ut, int timeout) throws SystemException, NotSupportedException {
         // set the timeout for THIS transaction
         if (timeout > 0) {
             ut.setTransactionTimeout(timeout);
