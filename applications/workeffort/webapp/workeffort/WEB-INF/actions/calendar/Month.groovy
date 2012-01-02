@@ -18,24 +18,11 @@
  */
 
 import java.sql.*;
-import java.text.*;
 import java.util.*;
-import org.ofbiz.security.*;
-import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.webapp.pseudotag.*;
-import org.ofbiz.workeffort.workeffort.*;
 
 startParam = parameters.start;
-
-facilityId = parameters.facilityId;
-fixedAssetId = parameters.fixedAssetId;
-partyId = parameters.partyId;
-workEffortTypeId = parameters.workEffortTypeId;
-calendarType = parameters.calendarType;
-entityExprList = context.entityExprList;
-
-start = null;
+Timestamp start = null;
 if (UtilValidate.isNotEmpty(startParam)) {
     start = new Timestamp(Long.parseLong(startParam));
 }
@@ -44,16 +31,13 @@ if (start == null) {
 } else {
     start = UtilDateTime.getMonthStart(start, timeZone, locale);
 }
-
 tempCal = UtilDateTime.toCalendar(start, timeZone, locale);
 numDays = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
 prev = UtilDateTime.getMonthStart(start, -1, timeZone, locale);
 context.prevMillis = new Long(prev.getTime()).toString();
 next = UtilDateTime.getDayStart(start, numDays+1, timeZone, locale);
 context.nextMillis = new Long(next.getTime()).toString();
 end = UtilDateTime.getMonthEnd(start, timeZone, locale);
-
 //Find out what date to get from
 getFrom = null;
 prevMonthDays =  tempCal.get(Calendar.DAY_OF_WEEK) - tempCal.getFirstDayOfWeek();
@@ -63,7 +47,6 @@ numDays += prevMonthDays;
 getFrom = new Timestamp(tempCal.getTimeInMillis());
 firstWeekNum = tempCal.get(Calendar.WEEK_OF_YEAR);
 context.put("firstWeekNum", firstWeekNum);
-
 // also get days until the end of the week at the end of the month
 lastWeekCal = UtilDateTime.toCalendar(end, timeZone, locale);
 monthEndDay = lastWeekCal.get(Calendar.DAY_OF_WEEK);
@@ -74,15 +57,12 @@ if (followingMonthDays < 0) {
     followingMonthDays += 7;
 }
 numDays += followingMonthDays; 
-
-serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "numPeriods", numDays, "periodType", Calendar.DATE);
-serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "calendarType", calendarType, "locale", locale, "timeZone", timeZone));
-if (entityExprList) {
-    serviceCtx.putAll(["entityExprList" : entityExprList]);
+Map serviceCtx = dispatcher.getDispatchContext().makeValidContext("getWorkEffortEventsByPeriod", "IN", parameters);
+serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", getFrom, "numPeriods", numDays, "periodType", Calendar.DATE, "locale", locale, "timeZone", timeZone));
+if (context.entityExprList) {
+    serviceCtx.entityExprList = entityExprList;
 }
-
 result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
-
 context.put("periods",result.get("periods"));
 context.put("maxConcurrentEntries", result.get("maxConcurrentEntries"));
 context.put("start", start);
