@@ -23,6 +23,7 @@ import org.ofbiz.base.util.*;
 Map urlParametersMap = UtilHttp.getQueryStringOnlyParameterMap(request);
 urlParametersMap.remove("period");
 urlParametersMap.remove("start");
+urlParametersMap.remove("form");
 StringBuilder sb = new StringBuilder();
 for (entry in urlParametersMap.entrySet()) {
     sb.append("&").append(entry.getKey()).append("=").append(entry.getValue());
