@@ -173,19 +173,23 @@ under the License.
             * ACCOUNTS PAYABLE 210000  - debitTotal $351.41 ; creditTotal:$1651.7 ; debitCreditDifference : $ -1300
             * UNINVOICED ITEM RECEIPTS 214000 - debitTotal :$408 ; creditTotal:$96 ; debitCreditDifference : $312
         -->
-        
-        <!-- IF EVER THIS TEST FAILS WITH NO REASONS (notably when passing to 2020), 
-            CHECK THIS MAIL http://markmail.org/message/m34hv2rv6lululuo 
-            (if it still exist, else looks for "the failure could be related to the year switch" on the Net)
-        -->
-        
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
+
+        <now-timestamp field="nowTimestamp"/>
+        <set field="findCustomTimePeriodsMap.userLogin" from-field="userLogin"/>
+        <set field="findCustomTimePeriodsMap.findDate" from-field="nowTimestamp" type="Timestamp"/>
+        <set field="findCustomTimePeriodsMap.organizationPartyId" value="Company"/>
+        <call-service service-name="findCustomTimePeriods" in-map-name="findCustomTimePeriodsMap">
+            <result-to-field result-name="customTimePeriodList"/>
+        </call-service>
+        <first-from-list list="customTimePeriodList" entry="customTimePeriod"/>
+
         <set field="getAcctgTransEntriesAndTransTotalMap.userLogin" from-field="userLogin"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.organizationPartyId" value="Company"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2012-01-01 16:55:01.0" type="Timestamp"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2012-12-31 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" from-field="customTimePeriod.fromDate" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" from-field="customTimePeriod.thruDate" type="Timestamp"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
@@ -250,10 +254,20 @@ under the License.
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
+
+        <now-timestamp field="nowTimestamp"/>
+        <set field="findCustomTimePeriodsMap.userLogin" from-field="userLogin"/>
+        <set field="findCustomTimePeriodsMap.findDate" from-field="nowTimestamp" type="Timestamp"/>
+        <set field="findCustomTimePeriodsMap.organizationPartyId" value="Company"/>
+        <call-service service-name="findCustomTimePeriods" in-map-name="findCustomTimePeriodsMap">
+            <result-to-field result-name="customTimePeriodList"/>
+        </call-service>
+        <first-from-list list="customTimePeriodList" entry="customTimePeriod"/>
+
         <set field="getAcctgTransEntriesAndTransTotalMap.userLogin" from-field="userLogin"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.organizationPartyId" value="Company"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" value="2012-01-01 16:55:01.0" type="Timestamp"/>
-        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" value="2012-12-31 16:55:01.0" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodStartDate" from-field="customTimePeriod.fromDate" type="Timestamp"/>
+        <set field="getAcctgTransEntriesAndTransTotalMap.customTimePeriodEndDate" from-field="customTimePeriod.thruDate" type="Timestamp"/>
         <set field="getAcctgTransEntriesAndTransTotalMap.glAccountId" value="210000"/>
         <call-service service-name="getAcctgTransEntriesAndTransTotal" in-map-name="getAcctgTransEntriesAndTransTotalMap">
             <result-to-field result-name="debitTotal" field="payableDebitTotal"/>
