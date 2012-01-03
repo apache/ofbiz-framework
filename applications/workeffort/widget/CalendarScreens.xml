@@ -140,88 +140,94 @@ under the License.
         </section>
     </screen>
 
-
     <screen name="eventDetail">
         <section>
+            <condition>
+                <if-compare field="parameters.form" operator="equals" value="edit" />
+            </condition>
             <actions>
-                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <script location="component://workeffort/script/isCalOwner.groovy"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort" />
             </actions>
             <widgets>
                 <section>
-                    <condition><!-- check if need to display detail screen -->
-                        <and>
-                            <if-compare field="parameters.form" operator="equals" value="edit"/>
-                            <or>
-                                <and>
-                                    <not><if-empty field="workEffort"/></not>
-                                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="CAL_CANCELLED"/>
-                                </and>
-                                <if-empty field="workEffort"/>
-                            </or>
-                        </and>
+                    <condition>
+                        <not><if-empty field="workEffort" /></not>
+                    </condition>
+                    <actions>
+                        <script location="component://workeffort/script/isCalOwner.groovy" />
+                    </actions>
+                    <widgets />
+                </section>
+                <section>
+                    <condition>
+                        <or>
+                            <and>
+                                <not><if-empty field="workEffort" /></not>
+                                <if-compare field="workEffort.currentStatusId" operator="not-equals" value="CAL_CANCELLED" />
+                                <if-compare field="isCalOwner" operator="equals" value="true" type="Boolean" />
+                            </and>
+                            <if-empty field="workEffort" />
+                            <if-has-permission permission="WORKEFFORTMGR" action="ADMIN" />
+                        </or>
+                    </condition>
+                    <actions>
+                        <set field="useEditForm" value="true" />
+                    </actions>
+                    <widgets />
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field="useEditForm" operator="equals" value="true" />
                     </condition>
                     <widgets>
-                        <section><!-- check if edit form needs to be shown, otherwise show view only form -->
-                            <condition>
-                                <and>
-                                    <or>
-                                        <if-compare field="isCalOwner" operator="equals" value="true" type="Boolean"/>
-                                        <if-has-permission permission="WORKEFFORTMGR" action="ADMIN"/>
-                                    </or>
-                                    <if-compare field="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                                </and>
-                            </condition>
-                            <widgets><!-- edit section -->
-                                <container style="lefthalf" >
-                                    <screenlet title="${uiLabelMap.WorkEffortAddCalendarEvent}">
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field="workEffort"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="cancelEvent" location="component://workeffort/widget/CalendarForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                        <include-form name="editCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
-                                    </screenlet>
-                                </container>
-                                <container style="righthalf">
-                                  <screenlet title="${uiLabelMap.WorkEffortParticipants}">
-                                    <include-form name="showCalEventRolesDel" location="component://workeffort/widget/CalendarForms.xml"/>
-                                    <section>
-                                        <condition>
-                                            <and>
-                                                <not><if-empty field="workEffort"/></not>
-                                                <if-compare field="workEffortTypeId" operator="not-equals" value="WES_PUBLIC"/>
-                                            </and>
-                                        </condition>
-                                        <widgets>
-                                            <include-form name="addCalEventRole" location="component://workeffort/widget/CalendarForms.xml"/>
-                                        </widgets>
-                                    </section>
-                                  </screenlet>
-                                </container>
-                                <container style="clear"/>
-                            </widgets>
-                            <fail-widgets><!-- view section -->
-                                <container style="lefthalf">
-                                  <screenlet title="${uiLabelMap.WorkEffortSummary}">
-                                    <include-form name="showCalEvent" location="component://workeffort/widget/CalendarForms.xml"/>
-                                  </screenlet>
-                                </container>
-                                <container style="righthalf">
-                                  <screenlet title="${uiLabelMap.WorkEffortParticipants}">
-                                    <include-form name="showCalEventRoles" location="component://workeffort/widget/CalendarForms.xml"/>
-                                  </screenlet>
-                                </container>
-                            </fail-widgets>
-                        </section>                
-                    </widgets>            
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.WorkEffortAddCalendarEvent}">
+                                <section>
+                                    <condition>
+                                        <not><if-empty field="workEffort" /></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-form name="cancelEvent" location="component://workeffort/widget/CalendarForms.xml" />
+                                    </widgets>
+                                </section>
+                                <include-form name="editCalEvent" location="component://workeffort/widget/CalendarForms.xml" />
+                            </screenlet>
+                        </container>
+                        <container style="righthalf">
+                            <screenlet title="${uiLabelMap.WorkEffortParticipants}">
+                                <include-form name="showCalEventRolesDel" location="component://workeffort/widget/CalendarForms.xml" />
+                                <section>
+                                    <condition>
+                                        <and>
+                                            <not><if-empty field="workEffort" /></not>
+                                            <if-compare field="workEffortTypeId" operator="not-equals" value="WES_PUBLIC" />
+                                        </and>
+                                    </condition>
+                                    <widgets>
+                                        <include-form name="addCalEventRole" location="component://workeffort/widget/CalendarForms.xml" />
+                                    </widgets>
+                                </section>
+                            </screenlet>
+                        </container>
+                        <container style="clear" />
+                    </widgets>
+                    <fail-widgets>
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.WorkEffortSummary}">
+                                <include-form name="showCalEvent" location="component://workeffort/widget/CalendarForms.xml" />
+                            </screenlet>
+                        </container>
+                        <container style="righthalf">
+                            <screenlet title="${uiLabelMap.WorkEffortParticipants}">
+                                <include-form name="showCalEventRoles" location="component://workeffort/widget/CalendarForms.xml" />
+                            </screenlet>
+                        </container>
+                    </fail-widgets>
                 </section>
             </widgets>
         </section>
     </screen>
+
     <screen name="calendarEventContent">
         <section>
             <actions>
