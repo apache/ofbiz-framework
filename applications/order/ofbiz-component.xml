@@ -59,6 +59,7 @@ under the License.
 
     <webapp name="order"
         title="Order"
+        description="OrderComponentDescription"
         server="default-server"
         location="webapp/ordermgr"
         base-permission="OFBTOOLS,ORDERMGR"
