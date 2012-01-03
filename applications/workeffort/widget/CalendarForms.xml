@@ -67,49 +67,62 @@ under the License.
         </field>
         <field name="updateButton"><submit/></field>
     </form>
+
     <form name="editCalEvent" type="single" target="createWorkEffortAndPartyAssign" default-map-name="workEffort">
-        <alt-target use-when="workEffort!=null" target="updateWorkEffort"/>
-        <field name="workEffortId" use-when="workEffort!=null"><hidden/></field>
-        <field name="partyId"><hidden value="${parameters.userLogin.partyId}"/></field>
-        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}"/></field>
-        <field name="roleTypeId" use-when="workEffort==null"><hidden value="CAL_OWNER"/></field>
-        <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED"/></field>
-        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <actions>
+            <entity-condition entity-name="StatusItem" list="statusItemList">
+                <condition-list combine="or">
+                    <condition-expr field-name="statusTypeId" value="EVENT_STATUS" />
+                    <condition-expr field-name="statusTypeId" value="CALENDAR_STATUS" />
+                </condition-list>
+            </entity-condition>
+        </actions>
+        <alt-target use-when="workEffort!=null" target="updateWorkEffort" />
+        <field name="workEffortId" use-when="workEffort!=null"><hidden /></field>
+        <field name="start"><hidden value="${parameters.start}" /></field>
+        <field name="partyId"><hidden value="${parameters.userLogin.partyId}" /></field>
+        <field name="fixedAssetId"><hidden value="${parameters.fixedAssetId}" /></field>
+        <field name="roleTypeId" use-when="workEffort==null"><hidden value="CAL_OWNER" /></field>
+        <field name="statusId" use-when="workEffort==null"><hidden value="PRTYASGN_ASSIGNED" /></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text /></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text /></field>
+        <!-- This is wrong. A calendar item work effort type is an EVENT. "Meeting" is a work effort purpose. -->
         <field name="workEffortTypeId" use-when="parentTypeId!=void">
             <drop-down no-current-selected-key="MEETING">
                 <entity-options entity-name="WorkEffortType" description="${description}">
-                    <entity-constraint name="parentTypeId" env-name="parentTypeId"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-constraint name="parentTypeId" env-name="parentTypeId" />
+                    <entity-order-by field-name="description" />
                 </entity-options>
             </drop-down>
         </field>
         <field name="workEffortTypeId" use-when="parentTypeId==void">
             <drop-down>
                 <entity-options entity-name="WorkEffortType" description="${description}">
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="description" />
                 </entity-options>
             </drop-down>
         </field>
-        <field name="currentStatusId" use-when="workEffort!=null">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+        <field name="currentStatusId">
+            <drop-down no-current-selected-key="CAL_TENTATIVE">
+                <list-options key-name="statusId" list-name="statusItemList" description="${description}" />
+            </drop-down>
         </field>
-        <field name="currentStatusId" use-when="workEffort==null"><hidden value="CAL_TENTATIVE"/></field>
         <field name="scopeEnumId">
             <drop-down no-current-selected-key="WES_PRIVATE">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
-                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
-                    <entity-order-by field-name="description"/>
+                    <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE" />
+                    <entity-order-by field-name="description" />
                 </entity-options>
             </drop-down>
         </field>
-        <field name="estimatedStartDate"><date-time input-method="time-dropdown" default-value="${workEffort.estimatedStartDate}" /></field>
-        <field name="estimatedCompletionDate"><date-time input-method="time-dropdown" default-value="${workEffort.estimatedCompletionDate}"/></field>
-        <field name="actualStartDate" use-when="parentWorkEffortId!=null"><display type="date-time"/></field>
-        <field name="actualCompletionDate" use-when="parentWorkEffortId!=null"><display type="date-time"/></field>
-        <field name="addButton" use-when="workEffort==null"><submit/></field>
-        <field name="updateButton" use-when="workEffort!=null"><submit/></field>
+        <field name="estimatedStartDate"><date-time input-method="time-dropdown" /></field>
+        <field name="estimatedCompletionDate"><date-time input-method="time-dropdown" /></field>
+        <field name="actualStartDate" use-when="workEffort!=null"><date-time input-method="time-dropdown" /></field>
+        <field name="actualCompletionDate" use-when="workEffort!=null"><date-time input-method="time-dropdown" /></field>
+        <field name="addButton" use-when="workEffort==null"><submit /></field>
+        <field name="updateButton" use-when="workEffort!=null"><submit /></field>
     </form>
+
     <form name="cancelEvent" type="single" target="updateWorkEffort">
         <field name="workEffortId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="currentStatusId"><hidden value="CAL_CANCELLED"/></field>
