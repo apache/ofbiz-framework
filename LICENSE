@@ -165,7 +165,7 @@ ofbiz/trunk/framework/webslinger/lib/webslinger-extension-wiki-20091211-3897-7ab
 ofbiz/trunk/framework/webslinger/lib/webslinger-launcher-20091211-3897-7ab22baea4b6.jar
 ofbiz/trunk/applications/content/lib/fontbox-1.4.0.jar
 ofbiz/trunk/applications/content/lib/jempbox-1.4.0.jar
-ofbiz/trunk/applications/content/lib/lucene-core-3.0.3.jar
+ofbiz/trunk/applications/content/lib/lucene-core-3.5.0.jar
 ofbiz/trunk/applications/content/lib/metadata-extractor-2.4.0.jar
 ofbiz/trunk/applications/content/lib/pdfbox-1.4.0.jar
 ofbiz/trunk/applications/content/lib/poi-3.7.jar
