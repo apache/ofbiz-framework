@@ -28,7 +28,6 @@ if (urlParameterNames == null) {
 StringBuilder sb = new StringBuilder();
 for (entry in parameters.entrySet()) {
     if (urlParameterNames.contains(entry.getKey())) {
-        Debug.logInfo("Adding parameter " + entry.getKey(), "CreateUrlParam");
         sb.append("&").append(entry.getKey()).append("=").append(entry.getValue());
     }
 }
