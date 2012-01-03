@@ -200,7 +200,9 @@ under the License.
                                     <condition>
                                         <and>
                                             <not><if-empty field="workEffort" /></not>
+                                            <!-- Commenting this out because it doesn't make any sense.
                                             <if-compare field="workEffortTypeId" operator="not-equals" value="WES_PUBLIC" />
+                                            -->
                                         </and>
                                     </condition>
                                     <widgets>
