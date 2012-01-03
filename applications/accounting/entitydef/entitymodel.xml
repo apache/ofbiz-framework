@@ -3904,7 +3904,7 @@ under the License.
     </view-entity>
 
   <entity entity-name="RateType" package-name="org.ofbiz.accounting.rate"
-    title="Rate Type Entity">
+    title="Rate Type Entity" default-resource-name="AccountingEntityLabels">
     <field name="rateTypeId" type="id-ne"></field>
     <field name="description" type="description"></field>
     <prim-key field="rateTypeId"/>

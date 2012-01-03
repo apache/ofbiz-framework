@@ -4135,6 +4135,7 @@
     </property>
     <property key="WorkEffortTimesheetAlreadyExists">
         <value xml:lang="en">Time sheet already exist, not created an other one.</value>
+        <value xml:lang="fr">La feuille d'activité existe déjà, pas de nouvelle création.</value>
         <value xml:lang="it">Timbratura già esistente, non crearne un'altra.</value>
         <value xml:lang="zh">已经存在时间表，不能再建一个。</value>
     </property>

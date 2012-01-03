@@ -3919,6 +3919,30 @@
         <value xml:lang="zh">供应商预付款</value>
         <value xml:lang="zh_TW">供應商預付款</value>
     </property>
+    <property key="RateType.description.AVERAGE_PAY_RATE">
+        <value xml:lang="en">Average Pay Rate</value>
+        <value xml:lang="fr">Prix moyen</value>
+    </property>
+    <property key="RateType.description.DISCOUNTED">
+        <value xml:lang="en">Discounted Rate</value>
+        <value xml:lang="fr">Réduit</value>
+    </property>
+    <property key="RateType.description.HIGH_PAY_RATE">
+        <value xml:lang="en">Highest Pay Rate</value>
+        <value xml:lang="fr">Prix haut</value>
+    </property>
+    <property key="RateType.description.LOW_PAY_RATE">
+        <value xml:lang="en">Lowest Pay Rate</value>
+        <value xml:lang="fr">Prix bas</value>
+    </property>
+    <property key="RateType.description.OVERTIME">
+        <value xml:lang="en">Overtime Rate</value>
+        <value xml:lang="fr">Majoré</value>
+    </property>
+    <property key="RateType.description.STANDARD">
+        <value xml:lang="en">Standard Rate</value>
+        <value xml:lang="fr">Standard</value>
+    </property>
     <property key="TaxAuthorityAssocType.description.COLLECT_AGENT">
         <value xml:lang="en">Collection Agent</value>
         <value xml:lang="fr">Agent percepteur</value>
