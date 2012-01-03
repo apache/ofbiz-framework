@@ -20,12 +20,16 @@
 import java.util.*;
 import org.ofbiz.base.util.*;
 
-Map urlParametersMap = UtilHttp.getQueryStringOnlyParameterMap(request);
-urlParametersMap.remove("period");
-urlParametersMap.remove("start");
-urlParametersMap.remove("form");
+// Allow containing screens to specify URL parameters to be included in calendar navigation links
+List urlParameterNames = context.urlParameterNames;
+if (urlParameterNames == null) {
+    urlParameterNames = UtilMisc.toList("fixedAssetId", "partyId", "workEffortTypeId", "calendarType", "hideEvents", "portalPageId");
+}
 StringBuilder sb = new StringBuilder();
-for (entry in urlParametersMap.entrySet()) {
-    sb.append("&").append(entry.getKey()).append("=").append(entry.getValue());
+for (entry in parameters.entrySet()) {
+    if (urlParameterNames.contains(entry.getKey())) {
+        Debug.logInfo("Adding parameter " + entry.getKey(), "CreateUrlParam");
+        sb.append("&").append(entry.getKey()).append("=").append(entry.getValue());
+    }
 }
 context.put("urlParam", sb.toString());
