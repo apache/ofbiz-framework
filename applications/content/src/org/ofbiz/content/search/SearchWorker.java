@@ -39,9 +39,11 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.LocalDispatcher;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -132,10 +134,15 @@ public class SearchWorker {
         }
         // Now create
         IndexWriter writer = null;
+        long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_34);
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_34, analyzer);
+
         try {
-            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), false, IndexWriter.MaxFieldLength.UNLIMITED);
-        } catch (Exception e) {
-            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            IndexWriterConfig.setDefaultWriteLockTimeout(2000);
+            writer  = new IndexWriter(directory, conf);
+        } finally {
+            IndexWriterConfig.setDefaultWriteLockTimeout(savedWriteLockTimeout);
         }
 
         for (GenericValue gv : contentList) {
@@ -173,17 +180,30 @@ public class SearchWorker {
 
     public static void indexContent(LocalDispatcher dispatcher, Delegator delegator, Map<String, Object> context, GenericValue content, String path) throws Exception {
         Directory directory = FSDirectory.open(new File(getIndexPath(path)));
+        long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_35, analyzer);
         IndexWriter writer = null;
         try {
-            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), false, IndexWriter.MaxFieldLength.UNLIMITED);
+            try {
+                IndexWriterConfig.setDefaultWriteLockTimeout(2000);
+                writer  = new IndexWriter(directory, conf);
+            } finally {
+                IndexWriterConfig.setDefaultWriteLockTimeout(savedWriteLockTimeout);
+            }
             if (Debug.infoOn()) Debug.logInfo("Used old directory:" + directory.toString(), module);
         } catch (FileNotFoundException e) {
-            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            try {
+                IndexWriterConfig.setDefaultWriteLockTimeout(2000);
+                writer  = new IndexWriter(directory, conf);
+            } finally {
+                IndexWriterConfig.setDefaultWriteLockTimeout(savedWriteLockTimeout);
+            }
             if (Debug.infoOn()) Debug.logInfo("Created new directory:" + directory.toString(), module);
         }
 
         indexContent(dispatcher, delegator, context, content, writer);
-        writer.optimize();
+        writer.forceMerge(1);
         writer.close();
     }
 
@@ -211,14 +231,19 @@ public class SearchWorker {
 
     public static void indexDataResource(Delegator delegator, Map<String, Object> context, String id, String path) throws Exception {
         Directory directory = FSDirectory.open(new File(getIndexPath(path)));
+        long savedWriteLockTimeout = IndexWriterConfig.getDefaultWriteLockTimeout();
+        Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_35);
+        IndexWriterConfig conf = new IndexWriterConfig(Version.LUCENE_35, analyzer);
         IndexWriter writer = null;
+
         try {
-            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), false, IndexWriter.MaxFieldLength.UNLIMITED);
-        } catch (FileNotFoundException e) {
-            writer = new IndexWriter(directory, new StandardAnalyzer(Version.LUCENE_30), true, IndexWriter.MaxFieldLength.UNLIMITED);
+            IndexWriterConfig.setDefaultWriteLockTimeout(2000);
+            writer  = new IndexWriter(directory, conf);
+        } finally {
+            IndexWriterConfig.setDefaultWriteLockTimeout(savedWriteLockTimeout);
         }
         indexDataResource(delegator, context, id, writer);
-        writer.optimize();
+        writer.forceMerge(1);
         writer.close();
     }
 
