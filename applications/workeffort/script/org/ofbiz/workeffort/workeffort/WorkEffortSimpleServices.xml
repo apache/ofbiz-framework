@@ -26,9 +26,16 @@ under the License.
         <call-service service-name="createWorkEffort" in-map-name="create">
             <result-to-field result-name="workEffortId"/>
         </call-service>
-        <set-service-fields service-name="assignPartyToWorkEffort" map="parameters" to-map="assign"/>
-        <set field="assign.workEffortId" from-field="workEffortId"/>
-        <call-service service-name="assignPartyToWorkEffort" in-map-name="assign"/>
+        <check-errors />
+        <make-value value-field="newEntity" entity-name="WorkEffortPartyAssignment"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <set field="newEntity.workEffortId" from-field="workEffortId"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp field="newEntity.fromDate"/>
+        </if-empty>
+        <set field="newEntity.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field="workEffortId"/>
     </simple-method>
 
