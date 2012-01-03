@@ -113,6 +113,10 @@
         <value xml:lang="zh_CN">目录</value>
         <value xml:lang="zh_TW">目錄</value>
     </property>
+    <property key="CatalogComponentDescription">
+        <value xml:lang="en">Product Catalog management, Categories, Product, Price rules, Promotions, Product Store</value>
+        <value xml:lang="fr">Gestion des catalogues, Catégories, Articles, Promotions, Règles de prix, Centres de profit </value>
+    </property>
     <property key="CommonAbort">
         <value xml:lang="en">Abort</value>
         <value xml:lang="es">Cancelar</value>
@@ -10157,6 +10161,10 @@
         <value xml:lang="zh_CN">设备</value>
         <value xml:lang="zh_TW">場所</value>
     </property>
+    <property key="FacilityComponentDescription">
+        <value xml:lang="en">Inventory management, Facility, location, Shipment, Receipt, Physical Inventory</value>
+        <value xml:lang="fr">Gestion des stocks, lieux de stockage, emplacement, expédition, réception, inventaire</value>
+    </property>
     <property key="Financials">
         <value xml:lang="ar">المالية</value>
         <value xml:lang="de">Finanzen</value>
@@ -11051,6 +11059,10 @@
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh_TW">訂單</value>
     </property>
+    <property key="OrderComponentDescription">
+        <value xml:lang="en">Sales Order management, Purchase order, Customer request, Requirement, Quote, Statistics</value>
+        <value xml:lang="fr">Gestion des commandes de vente, d'achat, des demandes, des devis, des besoins, des stats</value>
+    </property>
     <property key="PageTitleAddDataSource">
         <value xml:lang="ar">إضافة مصدر المعلومات جديد</value>
         <value xml:lang="de">Neue Datenquelle hinzufügen</value>
@@ -11312,6 +11324,10 @@
         <value xml:lang="zh">会员</value>
         <value xml:lang="zh_CN">团体</value>
         <value xml:lang="zh_TW">成員</value>
+    </property>
+    <property key="PartyComponentDescription">
+        <value xml:lang="en">Customers - Suppliers - Employee Management, Communications, Classifications</value>
+        <value xml:lang="fr">Gestion des clients, Fournisseurs, Employés, Communications, Classifications</value>
     </property>
     <property key="PortalPageNotFound">
         <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>

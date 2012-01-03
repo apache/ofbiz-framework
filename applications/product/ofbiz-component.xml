@@ -74,8 +74,18 @@ under the License.
     <test-suite loader="main" location="testdef/GroupOrderTest.xml"/>
     <test-suite loader="main" location="testdef/ProductTagTest.xml"/>
 
-    <webapp name="catalog" title="Catalog" server="default-server" location="webapp/catalog"
-        base-permission="OFBTOOLS,CATALOG" mount-point="/catalog"/>
-    <webapp name="facility" title="Facility" server="default-server" location="webapp/facility"
-        base-permission="OFBTOOLS,FACILITY" mount-point="/facility"/>
+    <webapp name="catalog"
+        title="Catalog"
+        description="CatalogComponentDescription"
+        server="default-server"
+        location="webapp/catalog"
+        base-permission="OFBTOOLS,CATALOG"
+        mount-point="/catalog"/>
+    <webapp name="facility"
+        title="Facility"
+        description="FacilityComponentDescription"
+        server="default-server"
+        location="webapp/facility"
+        base-permission="OFBTOOLS,FACILITY"
+        mount-point="/facility"/>
 </ofbiz-component>
