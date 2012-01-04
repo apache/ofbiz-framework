@@ -148,7 +148,7 @@ public class SearchWorker {
         for (GenericValue gv : contentList) {
             indexContent(dispatcher, delegator, context, gv, writer);
         }
-        writer.optimize();
+        writer.forceMerge(1);
         writer.close();
     }
 
