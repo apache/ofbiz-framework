@@ -50,7 +50,11 @@ under the License.
     </#list>
   </#if>
 <#else>
-  <a href="<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?form=edit&amp;parentTypeId=${parentTypeId?if_exists}&amp;period=${periodType?if_exists}&amp;start=${parameters.start?if_exists}&amp;workEffortId=${workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">
+  <#-- Allow containing screens to specify the URL for editing an event -->
+  <#if !editCalEventUrl?exists>
+    <#assign editCalEventUrl = parameters._LAST_VIEW_NAME_>
+  </#if>
+  <a href="<@ofbizUrl>${editCalEventUrl}?form=edit&amp;parentTypeId=${parentTypeId?if_exists}&amp;period=${periodType?if_exists}&amp;start=${parameters.start?if_exists}&amp;workEffortId=${workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">
     ${workEffort.workEffortId}
   </a>
   &nbsp;${workEffort.workEffortName?default("")}
