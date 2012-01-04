@@ -843,13 +843,11 @@ public class MacroFormRenderer implements FormStringRenderer {
             options.append(key);
             options.append("'");
             options.append(",'description':'");
-            String description = encode(optionValue.getDescription(), modelFormField, context);
-            String unescaped = StringEscapeUtils.unescapeHtml(description);
-            if (textSize > 0 && unescaped.length() > textSize ) {
-                String reduced = unescaped.substring(0, textSize - 8) + "..." + unescaped.substring(unescaped.length() - 5);
-                description = StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(reduced));
+            String description = optionValue.getDescription();
+            if (textSize > 0 && description.length() > textSize ) {
+                description = description.substring(0, textSize - 8) + "..." + description.substring(description.length() - 5);
             }
-            options.append(description);
+            options.append(encode(description, modelFormField, context));
 
             if (UtilValidate.isNotEmpty(currentValueList)) {
                 options.append("'");
