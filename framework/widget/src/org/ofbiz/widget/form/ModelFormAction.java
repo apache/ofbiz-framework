@@ -371,7 +371,12 @@ public abstract class ModelFormAction {
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
-                    serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
+                    if (! "true".equals(autoFieldMapString)) {
+                        Map<String, Object> autoFieldMap = UtilGenerics.checkMap(context.get(autoFieldMapString));
+                        serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, autoFieldMap);
+                    } else {
+                        serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
+                    }
                 } else {
                     serviceContext = new HashMap<String, Object>();
                 }
