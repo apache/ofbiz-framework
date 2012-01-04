@@ -20,6 +20,10 @@ under the License.
 <#assign styleTd = "style='height: 8em; width: 10em; vertical-align: top; padding: 0.5em;'">
   
 <#if periods?has_content>
+  <#-- Allow containing screens to specify the URL for creating a new event -->
+  <#if !newCalEventUrl?exists>
+    <#assign newCalEventUrl = parameters._LAST_VIEW_NAME_>
+  </#if>
 <table cellspacing="0" class="basic-table calendar">
   <tr class="header-row">
     <td width="1%">&nbsp;</td>
@@ -40,7 +44,7 @@ under the License.
     </#if>
     <td ${styleTd} <#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
       <span class="h1"><a href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${period.start.time?string("#")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${period.start?date?string("d")?cap_first}</a></span>
-      <a class="add-new" href='<@ofbizUrl>${parameters._LAST_VIEW_NAME_}?period=month&amp;form=edit&amp;start=${parameters.start?if_exists}&amp;parentTypeId=${parentTypeId?if_exists}&amp;currentStatusId=CAL_TENTATIVE&amp;estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&amp;estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
+      <a class="add-new" href='<@ofbizUrl>${newCalEventUrl}?period=month&amp;form=edit&amp;start=${parameters.start?if_exists}&amp;parentTypeId=${parentTypeId?if_exists}&amp;currentStatusId=CAL_TENTATIVE&amp;estimatedStartDate=${period.start?string("yyyy-MM-dd HH:mm:ss")}&amp;estimatedCompletionDate=${period.end?string("yyyy-MM-dd HH:mm:ss")}${urlParam?if_exists}${addlParam?if_exists}</@ofbizUrl>'>${uiLabelMap.CommonAddNew}</a>
       <br class="clear"/>
 
       <#assign maxNumberOfPersons = 0/>
