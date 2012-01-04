@@ -40,6 +40,7 @@ under the License.
     <EnumerationType description="Calendar Type" enumTypeId="CALENDAR_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Personal Calendar" enumCode="PERSONAL" enumId="CAL_PERSONAL" sequenceId="01" enumTypeId="CALENDAR_TYPE"/>
     <Enumeration description="Manufacturing Calendar" enumCode="MANUFACTURING" enumId="CAL_MANUFACTURING" sequenceId="02" enumTypeId="CALENDAR_TYPE"/>
+    <Enumeration description="None" enumId="CAL_NONE" sequenceId="03" enumTypeId="CALENDAR_TYPE"/>
 
     <!-- workeffort status -->
     <StatusType description="WorkEffort Asset" hasTable="N" parentTypeId="" statusTypeId="WORK_EFF_ASSET_STTS"/>
