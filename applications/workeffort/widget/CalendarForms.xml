@@ -68,7 +68,7 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
 
-    <form name="editCalEvent" type="single" target="createWorkEffortAndPartyAssign" default-map-name="workEffort">
+    <form name="editCalEvent" type="single" default-map-name="workEffort">
         <actions>
             <entity-condition entity-name="StatusItem" list="statusItemList">
                 <condition-list combine="or">
@@ -76,8 +76,12 @@ under the License.
                     <condition-expr field-name="statusTypeId" value="CALENDAR_STATUS" />
                 </condition-list>
             </entity-condition>
+            <!-- Allow containing screens to specify the create and update URLs -->
+            <set field="createCalEventUrl" from-field="createCalEventUrl" default-value="createWorkEffortAndPartyAssign" />
+            <set field="updateCalEventUrl" from-field="updateCalEventUrl" default-value="updateWorkEffort" />
         </actions>
-        <alt-target use-when="workEffort!=null" target="updateWorkEffort" />
+        <alt-target use-when="workEffort==null" target="${createCalEventUrl}" />
+        <alt-target use-when="workEffort!=null" target="${updateCalEventUrl}" />
         <field name="workEffortId" use-when="workEffort!=null"><hidden /></field>
         <field name="start"><hidden value="${parameters.start}" /></field>
         <field name="partyId"><hidden value="${parameters.userLogin.partyId}" /></field>
@@ -87,7 +91,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text /></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text /></field>
         <!-- This is wrong. A calendar item work effort type is an EVENT. "Meeting" is a work effort purpose. -->
-        <field name="workEffortTypeId" use-when="parentTypeId!=void">
+        <field name="workEffortTypeId" use-when="parentTypeId!=void" title="${uiLabelMap.PartyEventType}">
             <drop-down no-current-selected-key="MEETING">
                 <entity-options entity-name="WorkEffortType" description="${description}">
                     <entity-constraint name="parentTypeId" env-name="parentTypeId" />
@@ -95,14 +99,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortTypeId" use-when="parentTypeId==void">
+        <field name="workEffortTypeId" use-when="parentTypeId==void" title="${uiLabelMap.PartyEventType}">
             <drop-down>
                 <entity-options entity-name="WorkEffortType" description="${description}">
                     <entity-order-by field-name="description" />
                 </entity-options>
             </drop-down>
         </field>
-        <field name="currentStatusId">
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CAL_TENTATIVE">
                 <list-options key-name="statusId" list-name="statusItemList" description="${description}" />
             </drop-down>
@@ -128,13 +132,14 @@ under the License.
         <field name="currentStatusId"><hidden value="CAL_CANCELLED"/></field>
         <field name="cancel" title="${uiLabelMap.WorkEffortCancelCalendarEvent}"><submit/></field>
     </form>
+
     <form name="showCalEvent" type="single" default-map-name="workEffort">
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="workEffortTypeId">
+        <field name="workEffortTypeId" title="${uiLabelMap.PartyEventType}">
             <display-entity entity-name="WorkEffortType" description="${description}"/>
         </field>
-        <field name="currentStatusId" use-when="workEffort!=null">
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
         </field>
         <field name="scopeEnumId">
@@ -142,9 +147,10 @@ under the License.
         </field>
         <field name="estimatedStartDate"><display type="date-time"></display></field>
         <field name="estimatedCompletionDate"><display type="date-time"></display></field>
-        <field name="actualStartDate" use-when="parentWorkEffortId!=null"><display type="date-time"/></field>
-        <field name="actualCompletionDate" use-when="parentWorkEffortId!=null"><display type="date-time"/></field>
+        <field name="actualStartDate"><display type="date-time"/></field>
+        <field name="actualCompletionDate"><display type="date-time"/></field>
     </form>
+
     <form name="showCalEventRoles" type="list" list-name="roles" 
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
