@@ -167,6 +167,10 @@ ofbiz/trunk/applications/content/lib/fontbox-1.4.0.jar
 ofbiz/trunk/applications/content/lib/jempbox-1.4.0.jar
 ofbiz/trunk/applications/content/lib/lucene-core-3.5.0.jar
 ofbiz/trunk/applications/content/lib/pdfbox-1.4.0.jar
+ofbiz/trunk/applications/content/lib/poi-3.8-beta5-20111217.jar
+ofbiz/trunk/applications/content/lib/poi-ooxml-3.8-beta5-20111217.jar
+ofbiz/trunk/applications/content/lib/poi-ooxml-schemas-3.8-beta5-20111217.jar
+ofbiz/trunk/applications/content/lib/poi-scratchpad-3.8-beta5-20111217.jar
 ofbiz/trunk/applications/content/lib/poi-3.7.jar
 ofbiz/trunk/applications/content/lib/poi-ooxml-3.7.jar
 ofbiz/trunk/applications/content/lib/poi-scratchpad-3.7.jar
@@ -500,6 +504,7 @@ The JDOM License
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
+ofbiz/trunk/applications/content/lib/dom4j-1.6.1.jar
 ofbiz/trunk/framework/base/lib/antisamy-bin.1.2.jar
 ofbiz/trunk/framework/base/lib/freemarker-2.3.10.jar
 ofbiz/trunk/framework/base/lib/hamcrest-all-1.2.jar
