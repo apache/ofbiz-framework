@@ -149,27 +149,23 @@ under the License.
     <screen name="CommonCalendarDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="calendar"/>
+                <set field="headerItem" value="calendar" />
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW"/>
+                                <if-has-permission permission="WORKEFFORTMGR" action="_VIEW" />
                             </condition>
                             <actions>
-                                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
+                                <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy" />
                             </actions>
                             <widgets>
-                                <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="search-options">
-                                        <include-form name="FilterCalendarEvents" location="component://workeffort/widget/CalendarForms.xml"/>
-                                    </decorator-section>
-                                    <decorator-section name="search-results">
-                                        <decorator-section-include name="body"/>
-                                    </decorator-section>
-                                </decorator-screen>
+                                <screenlet id="calendarOptions" name="calendarOptionsScreenlet" collapsible="true" title="${uiLabelMap.WorkEffortCalendarFindEntries}">
+                                    <include-form name="FilterCalendarEvents" location="component://workeffort/widget/CalendarForms.xml" />
+                                </screenlet>
+                                <decorator-section-include name="body" />
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.WorkEffortViewPermissionError}</label>
