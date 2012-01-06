@@ -394,7 +394,11 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
     var numAreas = parseInt(areaArray.length / 3);
     
     for (var i = 0; i < numAreas * 3; i = i + 3) {
-        var url = areaArray[i + 1] + "?" + areaArray[i + 2];
+        var initUrl = areaArray[i + 1];
+        if (initUrl.indexOf("?") > -1)
+            var url = initUrl + "&" + areaArray[i + 2];
+        else 
+            var url = initUrl + "?" + areaArray[i + 2];
         var div = areaArray[i];
         // create a separated div where the result JSON Opbject will be placed
         if ((jQuery("#" + div + "_auto")).length < 1) {
