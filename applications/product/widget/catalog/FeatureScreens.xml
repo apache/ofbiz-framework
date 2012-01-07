@@ -24,7 +24,7 @@
         <section>
             <widgets>
                 <decorator-screen name="main-decorator"  location="${parameters.mainDecoratorLocation}">
-				    <decorator-section name="left-column">
+                    <decorator-section name="left-column">
                         <include-screen name="leftbar" location="component://product/widget/catalog/CommonScreens.xml"/>
                     </decorator-section>                    
                     <decorator-section name="body">
