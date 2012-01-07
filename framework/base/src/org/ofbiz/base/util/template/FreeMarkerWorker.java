@@ -277,6 +277,14 @@ public class FreeMarkerWorker {
         env.setTimeZone(timeZone);
     }
 
+    /**
+     * Returns a <code>Configuration</code> instance initialized to OFBiz defaults. Client code should
+     * call this method instead of creating its own <code>Configuration</code> instance. The instance
+     * returned by this method includes the <code>component://</code> resolver and the OFBiz custom
+     * transformations.
+     * 
+     * @return A <code>Configuration</code> instance.
+     */
     public static Configuration getDefaultOfbizConfig() {
         return defaultOfbizConfig;
     }
