@@ -23,8 +23,7 @@ under the License.
     <screen name="Imagemanagement">
         <section>
             <actions>
-                <set field="headerItem" value="Imagemanagement"/><!-- this highlights the selected menu-item with name "main" -->
-                <set field="userTabButtonMainAppBar" value="Imagemanagement"/>
+                <set field="userTabButtonImage" value="main"/>
             </actions>
             <widgets>
                 <decorator-screen name="ImageManagementDecorator" location="${parameters.mainDecoratorLocation}">
