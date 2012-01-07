@@ -992,6 +992,22 @@
          IN_PROGRESS if it has at least one resource and at least a time entry
          ASSIGNED if it has at least one resource but no time entry associated
          -->
+        <!-- if lowlevel type equals TASK then get create the status first -->
+        <if-compare field="lowInfo.workEffortTypeId" value="TASK" operator="equals">
+            <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
+            <if-compare field="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
+                <get-related value-field="lowInfo" relation-name="WorkEffortPartyAssignment" list="assignsAll"/>
+                <filter-list-by-date list="assignsAll" to-list="assigns"/>
+                <if-not-empty field="assigns">
+                    <set field="highInfo.currentStatusId" value="PTS_CREATED_AS"/><!-- task is ASSIGNED -->
+                </if-not-empty>
+                <get-related value-field="lowInfo" relation-name="TimeEntry" list="entries"/>
+                <if-not-empty field="entries">
+                    <set field="highInfo.currentStatusId" value="PTS_CREATED_IP"/><!-- task is IN_PROGRESS -->
+                </if-not-empty>
+            </if-compare>
+            <return/>
+        </if-compare>
         <entity-count count-field="tasksCount" entity-name="ProjectPhaseTaskAssignmentView">
             <condition-list>
                 <condition-expr field-name="projectId" from-field="highInfo.projectId" ignore-if-empty="true"/>
