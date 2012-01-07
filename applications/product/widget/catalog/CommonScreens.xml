@@ -319,7 +319,7 @@ under the License.
     <screen name="categorytree">
         <section>
             <actions>
-                <script location="component://product/webapp/catalog/WEB-INF/actions/category/CategoryTree.groovy"></script>
+                <script location="component://product/webapp/catalog/WEB-INF/actions/category/CategoryTree.groovy"/>
             </actions>
             <widgets>
                 <screenlet id="ProductBrowseCategoriesPanel" title="${uiLabelMap.ProductBrowseCatalogeAndCategories}" collapsible="true">

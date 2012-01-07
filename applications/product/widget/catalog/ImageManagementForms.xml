@@ -403,17 +403,17 @@ under the License.
         <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="contentId"><hidden value="${parameters.contentId}"/></field>
         <field name="dataResourceId"><hidden value="${parameters.dataResourceId}"/></field>
-        <field name="frameContentId"><hidden value="${frameContentId}"></hidden></field>
-        <field name="frameDataResourceId"><hidden value="${frameDataResourceId}"></hidden></field>
+        <field name="frameContentId"><hidden value="${frameContentId}"/></field>
+        <field name="frameDataResourceId"><hidden value="${frameDataResourceId}"/></field>
         <field name="checkFrame"><hidden value="T"/></field>
         <field name="frameURL"><hidden value="${parameters.checkFrame}"/></field>
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
         <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="image-src"><image value="${imageURL}"/></field>
         <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
-        <field name="imageDimention" widget-area-style="dimention"><display></display></field>
+        <field name="imageDimention" widget-area-style="dimention"><display/></field>
         <field name="imageFrame" use-when="frameURL != null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="${frameURL}"/></field>
         <field name="imageFrame" use-when="frameURL == null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" width="200"/></field>
-        <field name="frameDimention" use-when="frameURL != null" widget-area-style="frameDimention"><display></display></field>
+        <field name="frameDimention" use-when="frameURL != null" widget-area-style="frameDimention"><display/></field>
         <field name="uploadedFile" title="${uiLabelMap.ImageManagementUploadNewFrame}" event="onClick" action="javascript:setUploadTarget('_self');"><file/></field>
         <field name="uploadButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit" event="onClick" action="javascript:document.ImageFrames.setAttribute('enctype', 'multipart/form-data');setTargetWindows('upload');document.ImageFrames.submit();"><submit button-type="button"/></field>
         <field name="imageFrameContentId" title="${uiLabelMap.ImageManagementChooseExistFrame}"><lookup target-form-name="LookupImageFrame"/></field>
@@ -424,7 +424,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" use-when="frameURL != null" widget-style="smallSubmit" event="onClick" action="javascript:setTargetWindows('_self');"><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewFrameImage();">
             <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
-                <parameter param-name="productId" from-field="parameters.productId"></parameter>
+                <parameter param-name="productId" from-field="parameters.productId"/>
             </hyperlink>
         </field>
     </form>
@@ -451,7 +451,7 @@ under the License.
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
         <field name="imageWatermark" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src"><image value="${imageURL}"/></field>
         <field name="imageWatermark" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src-de"><image value="/images/defaultImage.jpg"/></field>
-        <field name="" widget-style="h3"><display description="Click directly on the image to adjust the location of the watermark"></display></field>
+        <field name="" widget-style="h3"><display description="Click directly on the image to adjust the location of the watermark"/></field>
         <field name="imageOpacity" title="${uiLabelMap.ImageManagementOpacity}" widget-area-style="opacity">
             <drop-down no-current-selected-key="0.5">
                 <option key="0.1" description="10%"/>
@@ -467,7 +467,7 @@ under the License.
             </drop-down>
         </field>
         <field name="textWatermark" title="${uiLabelMap.CommonText}" widget-area-style="watermark_txt"><text default-value="DEFAULT"/></field>
-        <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="${uiLabelMap.CommonPreview}"></hyperlink></field>
+        <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="${uiLabelMap.CommonPreview}"/></field>
         <field name="colorWatermark" title="${uiLabelMap.ImageManagementTextColor}" widget-area-style="txt_color">
             <drop-down allow-empty="true" no-current-selected-key="TEXT_BLACK">
                 <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
@@ -489,7 +489,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" event="onClick" action="javascript:setImageDimention()" widget-style="smallSubmit" ><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewWatermarkImage();">
             <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
-                <parameter param-name="productId" from-field="parameters.productId"></parameter>
+                <parameter param-name="productId" from-field="parameters.productId"/>
             </hyperlink>
         </field>
     </form>
@@ -538,7 +538,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit" position="1"><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext">
             <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
-                <parameter param-name="productId" from-field="parameters.productId"></parameter>
+                <parameter param-name="productId" from-field="parameters.productId"/>
             </hyperlink>
         </field>
     </form>
@@ -568,10 +568,10 @@ under the License.
         <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
         <field name="link" title="${uiLabelMap.CommonLink}"  event="onClick" action="javascript:select();"><text/></field>
         <field name="direct" title="${uiLabelMap.ImageManagementDirectLink}"  event="onClick" action="javascript:select();"><text/></field>
-        <field name="forumCode" title="${uiLabelMap.ImageManagementForumCode}" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="forumThumbnail" title="${uiLabelMap.ImageManagementForumThumbnail}" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="altForumCode" title="${uiLabelMap.ImageManagementAltForumCode}" event="onClick" action="javascript:select();"><text></text></field>
-        <field name="altForumThumbnail" title="${uiLabelMap.ImageManagementAltForumThumbnail}" event="onClick" action="javascript:select();"><text></text></field>
+        <field name="forumCode" title="${uiLabelMap.ImageManagementForumCode}" event="onClick" action="javascript:select();"><text/></field>
+        <field name="forumThumbnail" title="${uiLabelMap.ImageManagementForumThumbnail}" event="onClick" action="javascript:select();"><text/></field>
+        <field name="altForumCode" title="${uiLabelMap.ImageManagementAltForumCode}" event="onClick" action="javascript:select();"><text/></field>
+        <field name="altForumThumbnail" title="${uiLabelMap.ImageManagementAltForumThumbnail}" event="onClick" action="javascript:select();"><text/></field>
         <field name="html" title="${uiLabelMap.ImageManagementHTMLCode}" event="onClick" action="javascript:select();"><text/></field>
         <field name="htmlThumbnail" title="${uiLabelMap.ImageManagementHTMLThumbnail}" event="onClick" action="javascript:select();"><text/></field>
     </form>
