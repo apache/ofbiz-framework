@@ -410,10 +410,10 @@ under the License.
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
         <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="image-src"><image value="${imageURL}"/></field>
         <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
-        <field name="imageDimention" widget-area-style="dimention"><display/></field>
+        <field name="imageDimension" widget-area-style="dimension"><display/></field>
         <field name="imageFrame" use-when="frameURL != null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="${frameURL}"/></field>
         <field name="imageFrame" use-when="frameURL == null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" width="200"/></field>
-        <field name="frameDimention" use-when="frameURL != null" widget-area-style="frameDimention"><display/></field>
+        <field name="frameDimension" use-when="frameURL != null" widget-area-style="frameDimension"><display/></field>
         <field name="uploadedFile" title="${uiLabelMap.ImageManagementUploadNewFrame}" event="onClick" action="javascript:setUploadTarget('_self');"><file/></field>
         <field name="uploadButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit" event="onClick" action="javascript:document.ImageFrames.setAttribute('enctype', 'multipart/form-data');setTargetWindows('upload');document.ImageFrames.submit();"><submit button-type="button"/></field>
         <field name="imageFrameContentId" title="${uiLabelMap.ImageManagementChooseExistFrame}"><lookup target-form-name="LookupImageFrame"/></field>
@@ -486,7 +486,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" event="onClick" action="javascript:setImageDimention()" widget-style="smallSubmit" ><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" event="onClick" action="javascript:setImageDimension()" widget-style="smallSubmit" ><submit button-type="button"/></field>
         <field name="cancelButton" title=" " widget-style="buttontext" event="onClick" action="javascript:deletePreviewWatermarkImage();">
             <hyperlink target="ListImageManage" description="${uiLabelMap.CommonCancel}">
                 <parameter param-name="productId" from-field="parameters.productId"/>

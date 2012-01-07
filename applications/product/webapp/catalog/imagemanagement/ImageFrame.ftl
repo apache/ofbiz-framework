@@ -27,14 +27,14 @@ under the License.
         var width = jQuery('td.image-src img').width();
         var height = jQuery('td.image-src img').height();
         jQuery('td.image-src img').css("width", 200);
-        var dimention = width + " x " + height + " pixels";
-        jQuery('td.dimention').text(dimention);
+        var dimension = width + " x " + height + " pixels";
+        jQuery('td.dimension').text(dimension);
         
         var widthFrame = jQuery('td.image-fr img').width();
         var heightFrame = jQuery('td.image-fr img').height();
         jQuery('td.image-fr img').css("width", 200);
-        var dimentionFrame = widthFrame + " x " + heightFrame + " pixels";
-        jQuery('td.frameDimention').text(dimentionFrame);
+        var dimensionFrame = widthFrame + " x " + heightFrame + " pixels";
+        jQuery('td.frameDimension').text(dimensionFrame);
     });
     function setTargetWindows(target) {
         if ((target == "upload") || (target == "choose")) {
