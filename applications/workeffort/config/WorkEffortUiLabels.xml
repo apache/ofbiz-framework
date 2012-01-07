@@ -378,14 +378,14 @@
     </property>
     <property key="FormFieldTitle_reminderOffset">
         <value xml:lang="en">Reminder Offset</value>
-        <value xml:lang="fr">Récurrence de décalage</value>
+        <value xml:lang="fr">Décalage 1er rappel</value>
         <value xml:lang="it">Intervallo promemoria</value>
         <value xml:lang="zh">提醒偏移量</value>
     </property>
     <property key="FormFieldTitle_repeatInterval">
         <value xml:lang="de">Wiederholungsintervall</value>
         <value xml:lang="en">Repeat Interval</value>
-        <value xml:lang="fr">Répéter intervalle</value>
+        <value xml:lang="fr">Intervalle de répétition</value>
         <value xml:lang="it">Ripeti intervallo</value>
         <value xml:lang="zh">重复间隔</value>
         <value xml:lang="zh_TW">重複間隔</value>
