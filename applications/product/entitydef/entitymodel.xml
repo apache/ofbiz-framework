@@ -1485,6 +1485,7 @@ under the License.
 
     <entity entity-name="ProductFeature"
             package-name="org.ofbiz.product.feature"
+            default-resource-name="ProductEntityLabels"
             title="Product Feature Entity">
       <field name="productFeatureId" type="id-ne"></field>
       <field name="productFeatureTypeId" type="id-ne"></field>
