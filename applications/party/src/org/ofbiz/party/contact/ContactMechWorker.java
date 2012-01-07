@@ -19,15 +19,19 @@
 
 package org.ofbiz.party.contact;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -940,5 +944,55 @@ public class ContactMechWorker {
 
         // nothing found, return null
         return null;
+    }
+
+    /**
+     * Returns a <b>PostalAddress</b> <code>GenericValue</code> as a URL encoded <code>String</code>.
+     * 
+     * @param postalAddress A <b>PostalAddress</b> <code>GenericValue</code>.
+     * @return A URL encoded <code>String</code>.
+     * @throws GenericEntityException
+     * @throws UnsupportedEncodingException
+     */
+    public static String urlEncodePostalAddress(GenericValue postalAddress) throws GenericEntityException, UnsupportedEncodingException {
+        Assert.notNull("postalAddress", postalAddress);
+        if (!"PostalAddress".equals(postalAddress.getEntityName())) {
+            throw new IllegalArgumentException("postalAddress argument is not a PostalAddress entity");
+        }
+        StringBuilder sb = new StringBuilder();
+        if (postalAddress.get("address1") != null) {
+            sb.append(postalAddress.get("address1"));
+        }
+        if (postalAddress.get("address2") != null) {
+            sb.append(", ").append(postalAddress.get("address2"));
+        }
+        if (postalAddress.get("city") != null) {
+            sb.append(", ").append(postalAddress.get("city"));
+        }
+        if (postalAddress.get("stateProvinceGeoId") != null) {
+            GenericValue geoValue = postalAddress.getRelatedOne("StateProvinceGeo");
+            if (geoValue != null) {
+                sb.append(", ").append(geoValue.get("geoName"));
+            }
+        } else if (postalAddress.get("countyGeoId") != null) {
+            GenericValue geoValue = postalAddress.getRelatedOne("CountyGeo");
+            if (geoValue != null) {
+                sb.append(", ").append(geoValue.get("geoName"));
+            }
+        }
+        if (postalAddress.get("postalCode") != null) {
+            sb.append(", ").append(postalAddress.get("postalCode"));
+        }
+        if (postalAddress.get("countryGeoId") != null) {
+            GenericValue geoValue = postalAddress.getRelatedOne("CountryGeo");
+            if (geoValue != null) {
+                sb.append(", ").append(geoValue.get("geoName"));
+            }
+        }
+        String postalAddressString = sb.toString().trim();
+        while (postalAddressString.contains("  ")) {
+            postalAddressString = postalAddressString.replace("  ", " ");
+        }
+        return URLEncoder.encode(postalAddressString, "UTF-8");
     }
 }
