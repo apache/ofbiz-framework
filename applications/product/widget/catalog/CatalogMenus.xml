@@ -271,24 +271,24 @@ under the License.
         </menu-item>
         <menu-item name="Expand" title="${uiLabelMap.CommonExpandAll}">
             <condition>
-            	<or>
-        	    	<if-compare operator="equals" value="EditProductStore" field="tabButtonItem"/>
-        	    	<if-compare operator="equals" value="EditProductStoreShipmentCostEstimates" field="tabButtonItem"/>
-        	    </or>
+                <or>
+                    <if-compare operator="equals" value="EditProductStore" field="tabButtonItem"/>
+                    <if-compare operator="equals" value="EditProductStoreShipmentCostEstimates" field="tabButtonItem"/>
+                </or>
             </condition>
             <link target="javascript:expandAll(true);" url-mode="plain"/>
         </menu-item>
         <menu-item name="Collapse" title="${uiLabelMap.CommonCollapseAll}">
             <condition>
-            	<or>
-        	    	<if-compare operator="equals" value="EditProductStore" field="tabButtonItem"/>
-        	    	<if-compare operator="equals" value="EditProductStoreShipmentCostEstimates" field="tabButtonItem"/>
-        	    </or>
+                <or>
+                    <if-compare operator="equals" value="EditProductStore" field="tabButtonItem"/>
+                    <if-compare operator="equals" value="EditProductStoreShipmentCostEstimates" field="tabButtonItem"/>
+                </or>
             </condition>
             <link target="javascript:expandAll(false);" url-mode="plain"/>
         </menu-item>
-	</menu>
-	
+    </menu>
+
     <menu name="ProductStoreFacility" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="AddProductStoreFacility" title="${uiLabelMap.ProductAddFacility}">
             <link target="javascript:ajaxUpdateArea('ProductStoreFacilityEditArea', 'editProductStoreFacility', 'productStoreId=${parameters.productStoreId}');"
@@ -582,7 +582,6 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    
 
      <menu name="ImageManagementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="userTabButtonImage">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">
