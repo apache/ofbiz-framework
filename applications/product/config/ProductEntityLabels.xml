@@ -1459,6 +1459,34 @@
         <value xml:lang="zh">危险品</value>
         <value xml:lang="zh_TW">危險品</value>
     </property>
+    <property key="ProductFeature.description.TEXT_BLACK">
+        <value xml:lang="en">Black</value>
+        <value xml:lang="fr">Noir</value>
+    </property>
+    <property key="ProductFeature.description.TEXT_BLUE">
+        <value xml:lang="en">Blue</value>
+        <value xml:lang="fr">Bleu</value>
+    </property>
+    <property key="ProductFeature.description.TEXT_GRAY">
+        <value xml:lang="en">Gray</value>
+        <value xml:lang="fr">Gris</value>
+    </property>
+    <property key="ProductFeature.description.TEXT_GREEN">
+        <value xml:lang="en">Green</value>
+        <value xml:lang="fr">Vert</value>
+    </property>
+    <property key="ProductFeature.description.TEXT_RED">
+        <value xml:lang="en">Red</value>
+        <value xml:lang="fr">Rouge</value>
+    </property>
+    <property key="ProductFeature.description.TEXT_YELLOW">
+        <value xml:lang="en">Yellow</value>
+        <value xml:lang="fr">Jaune</value>
+    </property>
+    <property key="ProductFeature.description.TEXT_WHITE">
+        <value xml:lang="en">White</value>
+        <value xml:lang="fr">Blanc</value>
+    </property>
     <property key="ProductFeatureApplType.description.DISTINGUISHING_FEAT">
         <value xml:lang="de">Unterscheidendes Merkmal</value>
         <value xml:lang="en">Distinguishing</value>
