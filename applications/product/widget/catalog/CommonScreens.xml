@@ -353,7 +353,7 @@ under the License.
             </widgets>
         </section>
      </screen>
-    
+
     <screen name="ImageManagementDecorator">
         <section>
             <actions>
@@ -364,7 +364,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="left-column">
                         <include-screen name="leftbar"/>
-                    </decorator-section>                    
+                    </decorator-section>
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -372,20 +372,18 @@ under the License.
                             </condition>
                             <widgets>
                                 <include-menu name="ImageManagementTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                                <container style="h1">
-                                <label text=" "/>
-                                </container>
+                                <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
                         </section>
-                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
+
     <screen name="listMiniproduct">
         <section>
             <actions>
