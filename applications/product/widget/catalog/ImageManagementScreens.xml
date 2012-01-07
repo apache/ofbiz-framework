@@ -222,7 +222,7 @@ under the License.
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/catalog/imagemanagement/showPeopleApprove.ftl"/></html>
                                 </platform-specific>
-                                <screenlet title="${uiLabelMap.ImageManamentApprove}">
+                                <screenlet title="${uiLabelMap.ImageManagementApprove}">
                                     <include-form name="ImageApprove" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                             </widgets>

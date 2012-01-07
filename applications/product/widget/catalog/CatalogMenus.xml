@@ -613,7 +613,7 @@ under the License.
                 <parameter param-name="productId"/>
             </link>
         </menu-item>
-        <menu-item name="ImageApprove" title="${uiLabelMap.ImageManamentApprove}">
+        <menu-item name="ImageApprove" title="${uiLabelMap.ImageManagementApprove}">
             <condition>
                 <or>
                     <if-has-permission permission="IMAGE_MANAGEMENT_APPROVE"/>

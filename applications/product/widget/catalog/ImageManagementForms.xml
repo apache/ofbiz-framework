@@ -451,7 +451,7 @@ under the License.
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
         <field name="imageWatermark" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src"><image value="${imageURL}"/></field>
         <field name="imageWatermark" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" widget-area-style="img-src-de"><image value="/images/defaultImage.jpg"/></field>
-        <field name="" widget-style="h3"><display description="Click directly on the image to adjust the location of the watermark"/></field>
+        <field name="" widget-style="h3"><display description="${uiLabelMap.ImageManagementWatermarkingLocation}"/></field>
         <field name="imageOpacity" title="${uiLabelMap.ImageManagementOpacity}" widget-area-style="opacity">
             <drop-down no-current-selected-key="0.5">
                 <option key="0.1" description="10%"/>
@@ -719,7 +719,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
-        <field name="purchaseFromDate" title="${uiLabelMap.ImageManamentApprovedDate}"><display/></field>
+        <field name="purchaseFromDate" title="${uiLabelMap.ImageManagementApprovedDate}"><display/></field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
         </field>

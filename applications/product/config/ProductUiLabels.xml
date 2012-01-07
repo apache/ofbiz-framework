@@ -5819,12 +5819,12 @@
         <value xml:lang="en">Image Management Application</value>
         <value xml:lang="th">โปรแกรมจัดการรูปภาพ</value>
     </property>
-    <property key="ImageManamentApprove">
+    <property key="ImageManagementApprove">
         <value xml:lang="de">Bestätigen</value>
         <value xml:lang="en">Approve</value>
         <value xml:lang="th">อนุมัติ</value>
     </property>
-    <property key="ImageManamentApprovedDate">
+    <property key="ImageManagementApprovedDate">
         <value xml:lang="en">Approved Date</value>
         <value xml:lang="th">วันที่อนุมัติ</value>
     </property>
@@ -5984,6 +5984,10 @@
     <property key="ImageManagementWatermark">
         <value xml:lang="en">Watermark</value>
         <value xml:lang="th">ลายน้ำ</value>
+    </property>
+    <property key="ImageManagementWatermarkingLocation">
+        <value xml:lang="en">Click directly on the image to adjust the location of the watermark</value>
+        <value xml:lang="fr">Cliquer directement sur l'image pour positionner le filigrane</value>
     </property>
     <property key="ImageManagementWelcomeMessage">
         <value xml:lang="en">Welcome to the Image Management</value>
