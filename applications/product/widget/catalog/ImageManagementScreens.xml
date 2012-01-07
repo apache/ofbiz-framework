@@ -756,7 +756,7 @@ under the License.
     <screen name="ViewImage">
         <section>
             <widgets>
-                <image src="${parameters.drObjectInfo}"></image>
+                <image src="${parameters.drObjectInfo}"/>
                 <platform-specific>
                     <html><html-template location="component://product/webapp/catalog/imagemanagement/ResizeImage.ftl"/></html>
                 </platform-specific>
@@ -770,7 +770,7 @@ under the License.
                 <property-to-field resource="catalog" property="image.management.url" field="imageServerUrl"/>
             </actions>
             <widgets>
-                <image src="${imageServerUrl}/preview/previewImage.jpg"></image>
+                <image src="${imageServerUrl}/preview/previewImage.jpg"/>
             </widgets>
         </section>
     </screen>
