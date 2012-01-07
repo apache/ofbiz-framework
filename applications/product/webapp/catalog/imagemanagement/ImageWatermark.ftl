@@ -90,7 +90,7 @@ under the License.
            jQuery('#ImageWatermarking_previewCount').attr('value', next);
        });
     }
-    function setImageDimention() {
+    function setImageDimension() {
        var productId = jQuery('#ImageWatermarking_productId').val();
        var imageName = jQuery('#ImageWatermarking_imageName').val();
        var positionX = jQuery('#ImageWatermarking_positionX').val();
