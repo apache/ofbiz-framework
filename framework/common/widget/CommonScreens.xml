@@ -523,6 +523,9 @@ under the License.
 
     <screen name="login">
         <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleLogin" />
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
