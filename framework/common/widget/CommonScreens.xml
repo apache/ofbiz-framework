@@ -543,7 +543,7 @@ under the License.
             <widgets>
                 <decorator-screen name="LookupDecorator">
                     <decorator-section name="body">
-                        <label>${uiLabelMap.CommonSessionTimeoutPleaseLogIn}</label>
+                        <link target="checkLogin" text="${uiLabelMap.CommonSessionTimeoutPleaseLogIn}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
