@@ -398,4 +398,36 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ProductStoreFacilities">
+        <section>
+            <actions>
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="ProductStore" value-field="productStore"/>
+                <set field="tabButtonItem" value="EditProductStoreFacilities"/>
+                <set field="labelTitleProperty" value="ProductFacility"/>
+                <set field="headerItem" value="store"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="left-column">
+                        <include-screen name="leftbar"/>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition><not><if-empty field="productStore"/></not></condition>
+                            <widgets>
+                                <container>
+                                    <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                    <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
+                                </container>
+                                <include-portal-page id="ProductStoreFacility"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -554,48 +554,20 @@ under the License.
     </screen>
 
     <!--   Assoc with product -->
-    <screen name="ProductStoreFacilities">
+    <screen name="ListProductStoreFacility">
         <section>
             <actions>
                 <set field="titleProperty" value="ProductStoreFacilityAssocList"/>
-                <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreFacilities"/>
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-portal-page id="ProductStoreFacility"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ListProductStoreFacility">
-        <section>
-            <widgets>
-                <screenlet title="${uiLabelMap.ProductStoreFacilityAssocList}" navigation-menu-name="ProductStoreFacility">
-                    <include-menu name="ProductStoreFacility" location="component://product/widget/catalog/CatalogMenus.xml"/>
-                    <container id="PrdStoreFacilityMgmtArea">
-                        <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <include-screen name="ListProductStoreFacilityFormOnly"/>
-                            </decorator-section>
-                        </decorator-screen>
-                    </container>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="ListProductStoreFacilityFormOnly">
-        <section>
-            <actions>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="portalPageId" value="ProductStoreFacility"/>
             </actions>
             <widgets>
                 <container id="ProductStoreFacilityEditArea"/>
-                <include-form name="ListProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
+                <screenlet title="${uiLabelMap.ProductStoreFacilityAssocList}" navigation-menu-name="ProductStoreFacility">
+                    <include-menu name="ProductStoreFacility" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                    <include-form name="ListProductStoreFacility" location="component://product/widget/catalog/StoreForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
