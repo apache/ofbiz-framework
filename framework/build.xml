@@ -49,6 +49,7 @@ under the License.
         <mkdir dir="../runtime"/>
         <mkdir dir="../runtime/output"/>
         <mkdir dir="../runtime/logs"/>
+        <mkdir dir="../runtime/logs/test-results"/>
         <mkdir dir="../runtime/data"/>
         <mkdir dir="../runtime/data/derby"/>
         <mkdir dir="../runtime/data/hsql"/>
@@ -91,8 +92,7 @@ under the License.
     </target>
 
     <target name="clean-logs">
-        <property file="${basedir}/framework/testtools/config/TestTools.properties"/>
-        <delete verbose="on" dir="../${testtools.test-results-dir}"/>
+        <delete verbose="on" dir="../runtime/logs/test-results"/>
         <delete dir="../runtime/logs/cobertura-report"/>
         <delete verbose="on">
             <fileset dir="../runtime/logs" includes="*">
