@@ -40,6 +40,7 @@ import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 
 /**
@@ -48,7 +49,6 @@ import org.ofbiz.entity.Delegator;
 public class TestRunContainer implements Container {
 
     public static final String module = TestRunContainer.class.getName();
-    public static final String logDir = "runtime/logs/test-results/";
 
     protected String configFile = null;
     protected String component = null;
@@ -93,7 +93,7 @@ public class TestRunContainer implements Container {
                 }
             }
         }
-
+        String logDir = UtilProperties.getPropertyValue("TestToolsConfig", "test-results-dir");
         // make sure the log dir exists
         File dir = new File(logDir);
         if (!dir.exists())
@@ -120,6 +120,9 @@ public class TestRunContainer implements Container {
             throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
         }
 
+        // get logdir
+        String logDir = UtilProperties.getPropertyValue("TestToolsConfig", "test-results-dir");
+        
         boolean failedRun = false;
         for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
             Delegator testDelegator = modelSuite.getDelegator();
