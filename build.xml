@@ -847,13 +847,12 @@ under the License.
             <arg value="test"/>
             <env key="LC_ALL" value="C"/>
         </java>
-        <property file="${basedir}/framework/testtools/config/TestToolsConfig.properties"/>
-        <mkdir dir="${testtools.test-results-dir}html"/>
-        <junitreport todir="${testtools.test-results-dir}">
-            <fileset dir="${testtools.test-results-dir}">
+        <mkdir dir="runtime/logs/test-results/html"/>
+        <junitreport todir="runtime/logs/test-results">
+            <fileset dir="runtime/logs/test-results/">
                 <include name="*.xml"/>
             </fileset>
-            <report format="frames" todir="${testtools.test-results-dir}html"/>
+            <report format="frames" todir="runtime/logs/test-results/html"/>
         </junitreport>
         <fail message="Test run was unsuccessful">
             <condition>
@@ -892,11 +891,10 @@ under the License.
             <arg value="-case=${test.case}"/>
             <env key="LC_ALL" value="C"/>
         </java>
-        <property file="${basedir}/framework/testtools/config/TestToolsConfig.properties"/>
-        <delete dir="${testtools.test-results-dir}${test.component}-${test.case}"/>
-        <mkdir dir="${testtools.test-results-dir}${test.component}-${test.case}"/>
-        <move todir="${testtools.test-results-dir}${test.component}-${test.case}">
-            <fileset dir="${testtools.test-results-dir}" includes="*.xml"/>
+        <delete dir="runtime/logs/test-results/${test.component}-${test.case}"/>
+        <mkdir dir="runtime/logs/test-results/${test.component}-${test.case}"/>
+        <move todir="runtime/logs/test-results/${test.component}-${test.case}">
+            <fileset dir="runtime/logs/test-results" includes="*.xml"/>
         </move>
         <fail message="Test run was unsuccessful">
             <condition>
@@ -927,7 +925,7 @@ under the License.
     </target>
     <target name="run-test-list" depends="_setup-separated-test-run"
             description="Run all configured tests, stopping/starting ofbiz between each test">
-        <delete dir="${testtools.test-results-dir}"/>
+        <delete dir="runtime/logs/test-results"/>
         <ant antfile="runtime/test-list-build.xml" target="all-tests"/>
     </target>
 
