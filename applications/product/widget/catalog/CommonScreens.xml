@@ -156,7 +156,7 @@ under the License.
                                                 <if-compare operator="not-equals" value="EditProductStore" field="tabButtonItem"/>
                                             </condition>
                                             <widgets>
-	                                            <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
+                                                <include-menu name="ProductStoreSubTabBar" location="component://product/widget/catalog/CatalogMenus.xml"/>
                                             </widgets>
                                         </section>
                                     </fail-widgets>

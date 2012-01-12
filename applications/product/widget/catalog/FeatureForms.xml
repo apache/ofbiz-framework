@@ -315,7 +315,7 @@
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-		<field name="update" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+        <field name="update" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
 
     <form name="CreateProductFeature" type="single" target="CreateFeatureCategory">

@@ -20,13 +20,13 @@
     <title>Update Sprint.</title>
     <para>This  use for updating the Sprint.</para>
     <orderedlist>
-	    <listitem><para>Product Name</para></listitem>
-	    <listitem><para>Sprint Name</para></listitem>
-	    <listitem><para>Sprint Goal</para></listitem>
-	    <listitem><para>Status</para></listitem>
-	    <listitem><para>Start Date</para></listitem>
-	    <listitem><para>End date</para></listitem>
-	    <listitem><para>Planed Hours</para></listitem>
-	    <listitem><para>Sprint Length Weeks</para></listitem>
+        <listitem><para>Product Name</para></listitem>
+        <listitem><para>Sprint Name</para></listitem>
+        <listitem><para>Sprint Goal</para></listitem>
+        <listitem><para>Status</para></listitem>
+        <listitem><para>Start Date</para></listitem>
+        <listitem><para>End date</para></listitem>
+        <listitem><para>Planed Hours</para></listitem>
+        <listitem><para>Sprint Length Weeks</para></listitem>
     </orderedlist>
 </section>

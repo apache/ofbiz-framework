@@ -38,7 +38,7 @@
         <response name="success" type="view" value="showMessage"/>
     </request-map>
 
-	<!-- party requests -->
+    <!-- party requests -->
     <request-map uri="updatePartyGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyGroup"/>

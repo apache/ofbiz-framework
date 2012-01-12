@@ -23,24 +23,24 @@
     <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-        	<entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list="parties">
-        		<condition-list combine="or">
-        			<condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_TEAM"/>
-        			<condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_MASTER"/>
-        		</condition-list>
-        		<select-field field-name="firstName"/>
-        		<select-field field-name="middleName"/>
-        		<select-field field-name="lastName"/>
-        		<select-field field-name="partyId"/>
-        		<order-by field-name="lastName"/>
-        	</entity-condition>
+            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list="parties">
+                <condition-list combine="or">
+                    <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_TEAM"/>
+                    <condition-expr field-name="roleTypeId" operator="equals" value="SCRUM_MASTER"/>
+                </condition-list>
+                <select-field field-name="firstName"/>
+                <select-field field-name="middleName"/>
+                <select-field field-name="lastName"/>
+                <select-field field-name="partyId"/>
+                <order-by field-name="lastName"/>
+            </entity-condition>
         </actions>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="timesheetId"><text-find ignore-case="true"/></field>
         <field name="comments"><text-find ignore-case="true"/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <drop-down allow-empty="true">
-            	<list-options key-name="partyId" list-name="parties" description="${lastName} ${firstName} ${middleName}"/>
+                <list-options key-name="partyId" list-name="parties" description="${lastName} ${firstName} ${middleName}"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
