@@ -1684,6 +1684,7 @@ under the License.
             <field-map field-name="workEffortIdFrom" from-field="workEffortId"/>
         </entity-and>
         <list-to-list list="resultList" to-list="workEfforts"/>
+        <set field="workEfforts" from-field="groovy:org.ofbiz.workeffort.workeffort.WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);" type="List"/>
         <field-to-result field="workEfforts"/>
     </simple-method>
     
