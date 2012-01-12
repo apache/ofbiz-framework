@@ -745,7 +745,7 @@ under the License.
         <response name="success" type="view" value="EditDataResourceRole"/>
         <response name="error" type="view" value="EditDataResourceRole"/>
     </request-map>
-	
+
     <!-- ================ DataResourceProductFeature Requests ================= -->
     <request-map uri="EditDataResourceProductFeatures">
         <security auth="true" https="true"/>

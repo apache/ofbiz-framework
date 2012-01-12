@@ -47,7 +47,7 @@ under the License.
         <dimension name="height" value="112"/>
         <dimension name="width" value="150"/>
     </size>
-   	<size name="320x240">
+    <size name="320x240">
         <dimension name="height" value="240"/>
         <dimension name="width" value="320"/>
     </size>

@@ -46,9 +46,9 @@
 
                 <title>How to use the "Work With Data Files" screen in the Webtools application</title>_Prerequisites_: a definition file (containing the fields' definition of the data file) and a data file (containing the data you want to parse/import) should be available in the OFBiz server.Steps:
 
-				<step performance="required">
+                <step performance="required">
 <para>
-				connect to the Webtools application
+                connect to the Webtools application
 </para>
                 </step>
                 <step performance="required">
@@ -98,9 +98,9 @@ enter a path for it in the "Save to entity xml file:
 
         </section>
         <section>The field.name attribute must contain the name of the entity field in which the records will be imported 
-		(for example<programlisting><![CDATA[:<field name="productId" type="String">
-			</field>
-			]]></programlisting>
+        (for example<programlisting><![CDATA[:<field name="productId" type="String">
+            </field>
+            ]]></programlisting>
         </section>
         <section>
             <title>Examples</title>
@@ -136,52 +136,52 @@ enter a path for it in the "Save to entity xml file:
             </record>
         </data-file>
     </data-files>
-				]]></programlisting>
+                ]]></programlisting>
                 </example>
  
-				The types listed in this sample are simple String's but the usual types are available such as Date, Long etc
+                The types listed in this sample are simple String's but the usual types are available such as Date, Long etc
 
             </section>
             <section>
                 <example>
                     <title>Another example reading fixed record little endian binary files</title>
                     <programlisting><![CDATA[
-					<data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-						<data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
-							<record name="stockdataitem" limit="many">
-								<field name="barcode" type="NullTerminatedString" length="12" position="0">
-								</field>
-								<field name="prodCode" type="NullTerminatedString" length="12" position="68">
-								</field>
-								<field name="price" type="LEInteger" length="4" position="80">
-								</field>
-								<field name="name" type="NullTerminatedString" length="30" position="16">
-								</field>
-							</record>
-						</data-file>
-					</data-files>
-				]]></programlisting>
+                    <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
+                            <record name="stockdataitem" limit="many">
+                                <field name="barcode" type="NullTerminatedString" length="12" position="0">
+                                </field>
+                                <field name="prodCode" type="NullTerminatedString" length="12" position="68">
+                                </field>
+                                <field name="price" type="LEInteger" length="4" position="80">
+                                </field>
+                                <field name="name" type="NullTerminatedString" length="30" position="16">
+                                </field>
+                            </record>
+                        </data-file>
+                    </data-files>
+                ]]></programlisting>
                 </example>
           <procedure>
 
                 <title>In the interface enter something like:</title>
 
-				<step performance="required">
+                <step performance="required">
 <para>
-				Definition Filename or URL: posschema.xml
+               Definition Filename or URL: posschema.xml
 </para>
                 </step>
                 <step performance="required">
 <para>
-				Data File Definition Name: posreport
+               Data File Definition Name: posreport
 </para>
                 </step>
                 <step performance="required">
 <para>
-				Data Filename or URL: posreport.csv
+               Data Filename or URL: posreport.csv
 </para>
                 </step>
- 				
+
            </procedure>
             </section>
         </section>
@@ -190,51 +190,50 @@ enter a path for it in the "Save to entity xml file:
 
                 <title>Sample xml definition file for importing select columns posschema.xml:</title>
                 <programlisting><![CDATA[
-				<data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<data-file name="posreport" separator-style="fixed-length" type-code="text">
-						<record name="tillentry" limit="many">
-							<field name="tillCode" type="String" length="16" position="0">
-							</field>
-							<field name="name" type="String" length="32" position="17">
-							</field>
-							<field name="prodCode" type="String" length="12" position="63">
-							</field>
-							<field name="quantity" type="String" length="8" position="76">
-							</field>
-							<field name="totalPrice" type="String" length="8" position="85">
-							</field>
-						</record>
-					</data-file>
-				</data-files>
-			]]></programlisting>
+                <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <data-file name="posreport" separator-style="fixed-length" type-code="text">
+                        <record name="tillentry" limit="many">
+                            <field name="tillCode" type="String" length="16" position="0">
+                            </field>
+                            <field name="name" type="String" length="32" position="17">
+                            </field>
+                            <field name="prodCode" type="String" length="12" position="63">
+                            </field>
+                            <field name="quantity" type="String" length="8" position="76">
+                            </field>
+                            <field name="totalPrice" type="String" length="8" position="85">
+                            </field>
+                        </record>
+                    </data-file>
+                </data-files>
+            ]]></programlisting>
             </example>
-			
-			In the interface enter something like:* Definition Filename or URL: posschema.xml* Data File Definition Name: posreport* Data Filename or URL: posreport.csvThe types listed in this sample are simple String's but the usual types are available such as Date, Long etc.
+
+            In the interface enter something like:* Definition Filename or URL: posschema.xml* Data File Definition Name: posreport* Data Filename or URL: posreport.csvThe types listed in this sample are simple String's but the usual types are available such as Date, Long etc.
  </section>
         <section>
             <example>
 
                 <title> Another example reading fixed record little endian binary files</title>
                 <programlisting><![CDATA[
-				<data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
-						<record name="stockdataitem" limit="many">
-							<field name="barcode" type="NullTerminatedString" length="12" position="0">
-							</field>
-							<field name="prodCode" type="NullTerminatedString" length="12" position="68">
-							</field>
-							<field name="price" type="LEInteger" length="4" position="80">
-							</field>
-							<field name="name" type="NullTerminatedString" length="30" position="16">
-							</field>
-						</record>
-					</data-file>
-				</data-files>
-			]]></programlisting>
+                <data-files xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                    <data-file name="stockdata" separator-style="fixed-record" type-code="text" record-length="768">
+                        <record name="stockdataitem" limit="many">
+                            <field name="barcode" type="NullTerminatedString" length="12" position="0">
+                            </field>
+                            <field name="prodCode" type="NullTerminatedString" length="12" position="68">
+                            </field>
+                            <field name="price" type="LEInteger" length="4" position="80">
+                            </field>
+                            <field name="name" type="NullTerminatedString" length="30" position="16">
+                            </field>
+                        </record>
+                    </data-file>
+                </data-files>
+            ]]></programlisting>
             </example>
 
         </section>
   
     </section>
 </chapter>
-

@@ -52,11 +52,11 @@
     </screen>
     
     <screen name="CommonPartyDecorator">
-    	<section>
-    		<widgets>
+        <section>
+            <widgets>
                 <include-screen name="CommonSetupDecorator"/>
-    		</widgets>
-    	</section>
+            </widgets>
+        </section>
     </screen>
     
     <screen name="CommonSetupDecorator">

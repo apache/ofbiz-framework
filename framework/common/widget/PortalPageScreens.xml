@@ -101,9 +101,9 @@ under the License.
                     <decorator-section name="body">
                         <screenlet id="PortalPagesList" title="${uiLabelMap.CommonPortalPagesForApplication}: ${parameters.parentPortalPageId}" collapsible="true">
                             <container style="button-bar">
-                            	<link target="NewPortalPage" text="${uiLabelMap.CommonNewPortalPage}" style="buttontext create">
-                            		<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
-                            	</link>
+                                <link target="NewPortalPage" text="${uiLabelMap.CommonNewPortalPage}" style="buttontext create">
+                                    <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+                                </link>
                             </container>
                             <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
                         </screenlet>

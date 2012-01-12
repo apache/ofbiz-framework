@@ -23,7 +23,7 @@
         objectInfo="specialpurpose/scrum/data/helpdata/HELP_SCRUM.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" 
         dataResourceName="SCRUM Help system root" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="HELP_SCRUM" contentTypeId="DOCUMENT" templateDataResourceId="HELP_TEMPL" 
-    	dataResourceId="HELP_SCRUM" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Scrum" mimeTypeId="text/html"/>
+        dataResourceId="HELP_SCRUM" localeString="en" statusId="CTNT_IN_PROGRESS" contentName="Scrum" mimeTypeId="text/html"/>
     <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_SCRUM" contentAssocTypeId="TREE_CHILD" fromDate="2010-01-01 01:01:01" mapKey="SCRUM_Sprints"/>
     <!-- === Project === -->
     <DataResource dataResourceId="HELP_SCRUM_PROJECT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
