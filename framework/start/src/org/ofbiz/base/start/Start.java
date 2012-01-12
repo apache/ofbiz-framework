@@ -236,10 +236,10 @@ public class Start {
     }
 
     private String sendSocketCommand(String command) throws IOException, ConnectException {
-    	String response = "OFBiz is Down";
-    	
-    	try {
-    	Socket socket = new Socket(config.adminAddress, config.adminPort);
+        String response = "OFBiz is Down";
+
+        try {
+        Socket socket = new Socket(config.adminAddress, config.adminPort);
 
         // send the command
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
