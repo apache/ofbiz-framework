@@ -529,12 +529,12 @@ under the License.
                         <section>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleFixedAssetDepreciationHistory}">
-                                    <label style="h3">${uiLabelMap.FixedAssetPurchaseCost}: ${fixedAsset.purchaseCost}</label>
-                                    <label style="h3">${uiLabelMap.FixedAssetDepreciation}: ${depreciation}</label>
-                                    <label style="h3">${uiLabelMap.FixedAssetSalvageValue}: ${fixedAsset.salvageValue}</label>
-                                    <label style="h3">${uiLabelMap.FixedAssetDateAcquired}: ${fixedAsset.dateAcquired}</label>
-                                    <label style="h3">${uiLabelMap.FixedAssetExpectedEndOfLife}: ${fixedAsset.expectedEndOfLife}</label>
-                                    <label style="h3">${uiLabelMap.FixedAssetNextDepreciationAmount}: ${assetDepreciationResultMap.nextDepreciationAmount}</label>
+                                    <label style="h3">${uiLabelMap.FormFieldTitle_purchaseCost}: ${fixedAsset.purchaseCost}</label>
+                                    <label style="h3">${uiLabelMap.FormFieldTitle_depreciation}: ${depreciation}</label>
+                                    <label style="h3">${uiLabelMap.FormFieldTitle_salvageValue}: ${fixedAsset.salvageValue}</label>
+                                    <label style="h3">${uiLabelMap.FormFieldTitle_dateAcquired}: ${fixedAsset.dateAcquired}</label>
+                                    <label style="h3">${uiLabelMap.FormFieldTitle_expectedEndOfLife}: ${fixedAsset.expectedEndOfLife}</label>
+                                    <label style="h3">${uiLabelMap.FormFieldTitle_NextDepreciationAmount}: ${assetDepreciationResultMap.nextDepreciationAmount}</label>
                                     <section>
                                         <condition>
                                             <and>
@@ -577,7 +577,7 @@ under the License.
                                     <include-form name="AddFixedAssetDepMethod" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <include-form name="ListFixedAssetDepMethods" location="component://accounting/widget/FixedAssetForms.xml"/>
                                 </screenlet>
-                                <screenlet title="GL Mappings">
+                                <screenlet title="${uiLabelMap.AccountingGlMappings}">
                                     <include-form name="AddFixedAssetTypeGlAccount" location="component://accounting/widget/FixedAssetForms.xml"/>
                                     <label style="h3">${uiLabelMap.PageTitleFixedAssetMappings}</label>
                                     <include-form name="FixedAssetTypeGlAccounts" location="component://accounting/widget/FixedAssetForms.xml"/>

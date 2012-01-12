@@ -5750,6 +5750,9 @@
         <value xml:lang="pt">Reconciliação de contabilidade para: ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">总账对账：${finAccount.finAccountName} [${finAccountId}]</value>
     </property>
+    <property key="AccountingGlMappings">
+        <value xml:lang="en">GL Mappings</value>
+    </property>
     <property key="AccountingGlobalGLSettings">
         <value xml:lang="de">Hauptbuch-Einstellungen, global</value>
         <value xml:lang="en">Global GL Settings</value>
@@ -14706,6 +14709,9 @@
         <value xml:lang="pt">Nova categoria de Conta Razão</value>
         <value xml:lang="zh">新建总账账户分类</value>
     </property>
+    <property key="FormFieldTitle_NextDepreciationAmount">
+        <value xml:lang="en">Next depreciation amount</value>
+    </property>
     <property key="FormFieldTitle_notApplied">
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="fr">Non alloué</value>
@@ -16422,6 +16428,9 @@
         <value xml:lang="hi_IN">भुगतान जमा करें तथा बैच बनाएँ</value>
         <value xml:lang="pt">Pagamentos de Depósito e Criar lote</value>
         <value xml:lang="zh">存款支付并创建批量处理</value>
+    </property>
+    <property key="PageTitleFixedAssetDepreciationHistory">
+        <value xml:lang="en">Deprecation history</value>
     </property>
     <property key="PageTitleEditAgreement">
         <value xml:lang="de">Vereinbarung ändern</value>
