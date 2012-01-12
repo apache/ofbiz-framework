@@ -25,17 +25,16 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.ClassVisitor;
-
 import net.sourceforge.cobertura.coveragedata.CoverageDataFileHandler;
 import net.sourceforge.cobertura.coveragedata.ProjectData;
 
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.ClassWriter;
 import org.ofbiz.base.start.Instrumenter;
 
 public final class CoberturaInstrumenter implements Instrumenter {
-    private static final Constructor INSTRUMENTER_CONSTRUCTOR;
+    private static final Constructor<?> INSTRUMENTER_CONSTRUCTOR;
     private static final Method IS_INSTRUMENTED_METHOD;
     static {
         try {
@@ -77,14 +76,18 @@ public final class CoberturaInstrumenter implements Instrumenter {
     }
 
     public byte[] instrumentClass(byte[] bytes) throws IOException {
-        ClassReader cr = new ClassReader(bytes);
-        ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS/* | ClassWriter.COMPUTE_FRAMES*/);
-        try {
-            ClassVisitor ci = (ClassVisitor) INSTRUMENTER_CONSTRUCTOR.newInstance(projectData != null ? projectData : ProjectData.getGlobalProjectData(), cw, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
-            cr.accept(ci, 0);
-            if (((Boolean) IS_INSTRUMENTED_METHOD.invoke(ci)).booleanValue()) return cw.toByteArray();
-        } catch (Throwable t) {
-            throw (IOException) new IOException(t.getMessage()).initCause(t);
+        if (forInstrumenting) {
+            ClassReader cr = new ClassReader(bytes);
+            ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_MAXS/* | ClassWriter.COMPUTE_FRAMES*/);
+            try {
+                ClassVisitor ci = (ClassVisitor) INSTRUMENTER_CONSTRUCTOR.newInstance(projectData, cw, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+                cr.accept(ci, 0);
+                if (((Boolean) IS_INSTRUMENTED_METHOD.invoke(ci)).booleanValue()) {
+                    return cw.toByteArray();
+                }
+            } catch (Throwable t) {
+                throw (IOException) new IOException(t.getMessage()).initCause(t);
+            }
         }
         return bytes;
     }

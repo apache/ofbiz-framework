@@ -936,7 +936,7 @@ under the License.
         <taskdef resource="tasks.properties">
             <classpath>
                 <fileset dir="framework/base/lib">
-                    <include name="cobertura-1.9.3.jar" />
+                    <include name="cobertura-1.9.4.1.jar" />
                     <include name="log4j-1.2.15.jar" />
                     <include name="scripting/asm*.jar" />
                 </fileset>
@@ -964,7 +964,7 @@ under the License.
         <taskdef resource="tasks.properties">
             <classpath>
                 <fileset dir="framework/base/lib">
-                    <include name="cobertura-1.9.3.jar" />
+                    <include name="cobertura-1.9.4.1.jar" />
                     <include name="log4j-1.2.15.jar" />
                     <include name="scripting/asm*.jar" />
                 </fileset>

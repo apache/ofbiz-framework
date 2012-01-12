@@ -136,7 +136,10 @@ public class ComponentContainer implements Container {
 
         // set the new classloader/classpath on the current thread
         if (updateClasspath) {
-            classPath.instrument(instrumenterFile, instrumenterClassName);
+            if (UtilValidate.isNotEmpty(instrumenterFile) && UtilValidate.isNotEmpty(instrumenterClassName)) {
+                classPath.instrument(instrumenterFile, instrumenterClassName);
+            }
+
             System.setProperty("java.class.path", classPath.toString());
             System.setProperty("java.library.path", libraryPath.toString());
             ClassLoader cl = classPath.getClassLoader();
