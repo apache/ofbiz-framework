@@ -71,7 +71,7 @@ public final class InstrumenterWorker {
             e.printStackTrace();
             return srcPaths;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.err.println("InstrumenterWorker.instrument - Code instrumentation has been disabled, unable to find instrumenter class " + instrumenterClassName);
             return srcPaths;
         }
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(ManagementFactory.getOperatingSystemMXBean().getAvailableProcessors());
