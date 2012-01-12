@@ -296,6 +296,7 @@
         <value xml:lang="fr">Ajouter une période de temps</value>
         <value xml:lang="hi_IN">स्वनिर्धारित समय अवधि जोड़ें</value>
         <value xml:lang="it">Aggiungi Periodi di Tempo Personalizzati</value>
+        <value xml:lang="nl">Aangepaste periode toevoegen</value>
         <value xml:lang="pt">Adicionar período personalizado</value>
         <value xml:lang="th">เพิ่มการกำหนดระยะเวลา</value>
         <value xml:lang="zh">添加定制时间段</value>
@@ -303,6 +304,7 @@
     </property>
     <property key="AccountingAddFinAccountReconciliations">
         <value xml:lang="en">Add Financial Account Reconciliations for Financial Account : ${finAccount.finAccountName} [${finAccountId}]</value>
+        <value xml:lang="nl">Toevoegen afstemmingen voor Financiele rekening : ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="pt">Adicionar Reconciliação de Conta Financeira para Conta Financeira:  ${finAccount.finAccountName} [${finAccountId}]</value>
         <value xml:lang="zh">为财务账目 ${finAccount.finAccountName} [${finAccountId}] 添加财务账目对账</value>
     </property>
@@ -325,7 +327,7 @@
         <value xml:lang="fr">Ajouter une identification d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति की पहचान जोड़ें</value>
         <value xml:lang="it">Nuova identificazione cespite</value>
-        <value xml:lang="nl">Voeg vaste activa-identificatie toe</value>
+        <value xml:lang="nl">Vaste activa-id toevoegen</value>
         <value xml:lang="pt">Adicionar Identificação de Ativos Fixos</value>
         <value xml:lang="ro">Actualizeaza Identitate Mijloc Fix</value>
         <value xml:lang="ru">Редактирование идентификаторов ОС</value>
@@ -339,6 +341,7 @@
         <value xml:lang="fr">Ajouter une commande de maintenance d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति रखरखाव के आदेश जोड़ें</value>
         <value xml:lang="it">Nuovo ordine di manutenzione cespite</value>
+        <value xml:lang="nl">Opdracht voor onderhoud op vaste activa toevoegen</value>
         <value xml:lang="pt">Adicionar Pedido de Manutenção de Ativos Fixos</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加固定资产维修保养订单</value>
@@ -365,7 +368,7 @@
         <value xml:lang="fr">Ajouter une mesure de la maintenance d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति मापक रीडिंग जोड़ें</value>
         <value xml:lang="it">Nuova misura contatori cespite</value>
-        <value xml:lang="nl">Voeg meterwaarde vaste activa toe</value>
+        <value xml:lang="nl">Meterwaarde vaste activa toevoegen</value>
         <value xml:lang="pt">Adicionar leitura de medidor de Ativos Fixos</value>
         <value xml:lang="th">Add Fixed Asset Maintenance Meter</value>
         <value xml:lang="zh">添加固定资产仪表读数</value>
@@ -377,6 +380,7 @@
         <value xml:lang="fr">Ajouter une tâche d'un acteur à une immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति में नियत कार्य करने के लिए पार्टी जोड़ें</value>
         <value xml:lang="it">Nuova assegnazione cespite a soggetto</value>
+        <value xml:lang="nl">Taaktoewijzing Vaste Activa toevoegen</value>
         <value xml:lang="pt">Adicionar Atribuição de Ativos Fixos ao participante</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
         <value xml:lang="zh">添加会员固定资产分配</value>
@@ -389,6 +393,7 @@
         <value xml:lang="fr">Ajouter l'enregistrement d'immobilisation</value>
         <value xml:lang="hi_IN">अचल संपत्ति के लिए पंजीयन जोड़ें</value>
         <value xml:lang="it">Nuova registrazione cespite</value>
+        <value xml:lang="nl">Registratie ID voor Vaste Activa toevoegen</value>
         <value xml:lang="pt">Adicionar Registro de de Ativo Fixo</value>
         <value xml:lang="ro">Actualizeaza Inregistrare Mijloc Fix</value>
         <value xml:lang="ru">Изменить регистраций ОС</value>
@@ -440,7 +445,7 @@
         <value xml:lang="hi_IN">नया EFT ख़ाता</value>
         <value xml:lang="it">Aggiungi nuovo conto EFT</value>
         <value xml:lang="ja">Add New EFT Account</value>
-        <value xml:lang="nl">Voeg een nieuwe bankrekening toe</value>
+        <value xml:lang="nl">Nieuwe bankrekening toevoegen</value>
         <value xml:lang="pt">Adicionar Nova Conta EFT</value>
         <value xml:lang="pt_PT">Adicionar Nova Conta EFT</value>
         <value xml:lang="ro">Adauga Nou Cont EFT</value>
@@ -458,7 +463,7 @@
         <value xml:lang="hi_IN">नया उपहार ख़ाता</value>
         <value xml:lang="it">Aggiungi nuova carta omaggio</value>
         <value xml:lang="ja">ギフトカードの追加</value>
-        <value xml:lang="nl">Voeg een nieuwe tegoedbon toe</value>
+        <value xml:lang="nl">Tegoedbon toevoegen</value>
         <value xml:lang="pt">Adicionar Novo Cartão de presente</value>
         <value xml:lang="ro">Adauga Noua Carte Omagiu</value>
         <value xml:lang="ru">Добавить новую дисконтную карту</value>
@@ -481,6 +486,7 @@
     <property key="AccountingAddPaymentGroupMember">
         <value xml:lang="en">Add Payment Group Member</value>
         <value xml:lang="hi_IN">भुगतान समूह सदस्य जोड़ें</value>
+        <value xml:lang="nl">Payment Group Member toevoegen</value>
         <value xml:lang="pt">Adicionar Membro do Grupo de Pagamento</value>
         <value xml:lang="zh">添加支付组成员</value>
         <value xml:lang="zh_TW">增加支付群組成員</value>
@@ -488,6 +494,7 @@
     <property key="AccountingAddTax">
         <value xml:lang="en">Add Tax</value>
         <value xml:lang="fr">Ajouter les taxes</value>
+        <value xml:lang="nl">Belastingen toevoegen</value>
         <value xml:lang="zh">添加税项</value>
     </property>
     <property key="AccountingAddTaxAuthorityGlAccount">
@@ -638,6 +645,7 @@
         <value xml:lang="fr">Point de l'accord commercial (articles) pour rapport</value>
         <value xml:lang="hi_IN">अनुबंध वस्तु उत्पाद के लिए ब्यौरेवार विवरण</value>
         <value xml:lang="it">Prodotti riga contratto per i report</value>
+        <value xml:lang="nl">Overeenkomst items producten voor rapport</value>
         <value xml:lang="pt">Itens do acordo para o Relatório</value>
         <value xml:lang="zh">用于报表的合同条款产品</value>
         <value xml:lang="zh_TW">用于報表的合同條款產品</value>
@@ -663,6 +671,7 @@
         <value xml:lang="fr">Point de l'accord commercial (articles/fournisseur) pour rapport</value>
         <value xml:lang="hi_IN">अनुबंध वस्तु प्रदायक के लिए ब्यौरेवार विवरण</value>
         <value xml:lang="it">Prodotti fornitore riga contratto per i report</value>
+        <value xml:lang="nl">Overeenkomst item leverancier producten voor rapport</value>
         <value xml:lang="pt">Fornecedores dos itens do acordo para relatório</value>
         <value xml:lang="zh">用于报表的合同条款供货商产品</value>
         <value xml:lang="zh_TW">用于報表的合同條款供貨商產品</value>
@@ -707,7 +716,7 @@
         <value xml:lang="fr">Points d'accord commercial</value>
         <value xml:lang="hi_IN">अनुबंध मदें</value>
         <value xml:lang="it">Righe Contratto</value>
-        <value xml:lang="nl">Overeenkomst Items</value>
+        <value xml:lang="nl">Overeenkomst items</value>
         <value xml:lang="pt">Itens do acordo</value>
         <value xml:lang="ro">Linii Contract</value>
         <value xml:lang="ru">Элементы договора</value>
@@ -991,6 +1000,7 @@
         <value xml:lang="fr">Modifier le vendeur</value>
         <value xml:lang="hi_IN">विक्रेता को संपादित करें</value>
         <value xml:lang="it">Aggiorna fornitore</value>
+        <value xml:lang="nl">Leverancier wijzigen</value>
         <value xml:lang="pt">Editar fornecedor</value>
         <value xml:lang="zh">编辑供应商</value>
         <value xml:lang="zh_TW">編輯供應商</value>
@@ -1031,6 +1041,7 @@
     <property key="AccountingApPaymentGroupMenu">
         <value xml:lang="en">AP Payment Groups</value>
         <value xml:lang="fr">Groupes de paiement AP</value>
+        <value xml:lang="nl">AP Betalingsgroepen</value>
         <value xml:lang="pt">Grupos de pagamento de contas a pagar</value>
         <value xml:lang="zh">应付支付组</value>
         <value xml:lang="zh_TW">應付支付群組</value>
@@ -1218,6 +1229,7 @@
         <value xml:lang="fr">Page d'accueil de la comptabilité client</value>
         <value xml:lang="hi_IN">मुख्य पृष्ठ प्राप्य खाता</value>
         <value xml:lang="it">Pagina principale conto creditori</value>
+        <value xml:lang="nl">Hoofdpagina Debiteuren</value>
         <value xml:lang="pt">Página principal do contas a receber</value>
         <value xml:lang="zh">应收账户首页</value>
         <value xml:lang="zh_TW">應收賬戶首頁</value>
@@ -1269,6 +1281,7 @@
     <property key="AccountingArPaymentGroupMenu">
         <value xml:lang="en">AR Payment Groups</value>
         <value xml:lang="fr">Groupes de paiement</value>
+        <value xml:lang="nl">AP Betalingsgroepen</value>
         <value xml:lang="pt">Grupos de Pagamento do Contas a receber</value>
         <value xml:lang="zh">应收支付组</value>
         <value xml:lang="zh_TW">應收支付群組</value>
@@ -4332,6 +4345,7 @@
     <property key="AccountingFindArInvoices">
         <value xml:lang="en">Find AR Invoices</value>
         <value xml:lang="hi_IN">लेखा प्राप्य चालान खोजें</value>
+        <value xml:lang="nl">Crediteuren facturen vinden</value>
         <value xml:lang="pt">Encontrar Faturas do contas a receber</value>
         <value xml:lang="zh">查找应收发票</value>
         <value xml:lang="zh_TW">找尋應收發票</value>
@@ -4339,6 +4353,7 @@
     <property key="AccountingFindArPaymentGroups">
         <value xml:lang="en">Find AR Payment Groups</value>
         <value xml:lang="fr">Recherche de groupes de paiement</value>
+        <value xml:lang="nl">AR Betalingsgroepen vinden</value>
         <value xml:lang="pt">Buscar os grupos de pagamento do contas a receber</value>
         <value xml:lang="zh">查找应收支付组</value>
         <value xml:lang="zh_TW">找尋應收支付群組</value>
@@ -4346,6 +4361,7 @@
     <property key="AccountingFindArPayments">
         <value xml:lang="en">Find AR Payments</value>
         <value xml:lang="hi_IN">लेखा प्राप्य भुगतान खोजें</value>
+        <value xml:lang="nl">Crediteuren betalingen vinden</value>
         <value xml:lang="pt">Encontrar Pagamentos do contas a receber</value>
         <value xml:lang="zh">查找应收支付</value>
         <value xml:lang="zh_TW">找尋應收支付</value>
@@ -4358,6 +4374,7 @@
     </property>
     <property key="AccountingFindFinAccountReconciliations">
         <value xml:lang="en">Find Financial Account Reconciliations</value>
+        <value xml:lang="nl">Afstemmingen financiele rekeningen vinden</value>
         <value xml:lang="pt">Encontrar reconciliações de Conta Financeira</value>
         <value xml:lang="zh">查找财务账目对账</value>
     </property>
@@ -4397,6 +4414,7 @@
         <value xml:lang="en">Find Payment Group</value>
         <value xml:lang="fr">Recherche de groupes de paiement</value>
         <value xml:lang="hi_IN">भुगतान समूह खोजें</value>
+        <value xml:lang="nl">Betalingsgroep vinden</value>
         <value xml:lang="pt">Encontrar Grupo de pagamento</value>
         <value xml:lang="zh">查找支付组</value>
         <value xml:lang="zh_TW">找尋支付群組</value>
@@ -4405,6 +4423,7 @@
         <value xml:lang="en">Find Purchase Invoices</value>
         <value xml:lang="fr">Recherche de factures d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान खोजें</value>
+        <value xml:lang="nl">Inkoopfactuur vinden</value>
         <value xml:lang="pt">Encontrar faturas de compra</value>
         <value xml:lang="zh">查找采购发票</value>
         <value xml:lang="zh_TW">找尋採購發票</value>
@@ -4437,6 +4456,7 @@
         <value xml:lang="en">Find Sales Invoices For Commission Run</value>
         <value xml:lang="hi_IN">दलाली भुगतान के लिए बिक्री चालान खोजें</value>
         <value xml:lang="it">Ricerca fatture di vendita per commissione</value>
+        <value xml:lang="nl">Verkoopfactuur voor commissierun vinden</value>
         <value xml:lang="pt">Encontrar faturas de venda por Comissão</value>
         <value xml:lang="zh">为佣金计算查找销售发票</value>
     </property>
@@ -4459,6 +4479,7 @@
     <property key="AccountingFirstNameOnCardMissing">
         <value xml:lang="de">Vorname des Karteninhabers fehlt</value>
         <value xml:lang="en">First Name on Card is missing</value>
+        <value xml:lang="nl">Voornaam van de kaarthouder ontbreekt</value>
         <value xml:lang="pt">Primeiro nome no cartão está faltando</value>
         <value xml:lang="zh">缺少卡上姓名的第一组字母</value>
         <value xml:lang="zh_TW">沒有卡片上的名字</value>
@@ -5767,6 +5788,7 @@
     </property>
     <property key="AccountingGrossMargin">
         <value xml:lang="en">Gross Margin</value>
+        <value xml:lang="nl">Bruto marge</value>
         <value xml:lang="pt">Margem Bruta</value>
         <value xml:lang="zh">毛利</value>
     </property>
@@ -5854,6 +5876,7 @@
     </property>
     <property key="AccountingIncomeFromOperations">
         <value xml:lang="en">Income From Operations</value>
+        <value xml:lang="nl">Operationele inkomsten</value>
         <value xml:lang="pt">Resultado Operacional</value>
         <value xml:lang="zh">营运收入</value>
     </property>
@@ -8242,6 +8265,7 @@
     </property>
     <property key="AccountingOperatingExpenses">
         <value xml:lang="en">Operating Expenses</value>
+        <value xml:lang="nl">Operationele kosten</value>
         <value xml:lang="pt">Despesas Operacionais</value>
         <value xml:lang="zh">营业费用</value>
     </property>
@@ -8338,6 +8362,7 @@
         <value xml:lang="fr">Réf. d'org.</value>
         <value xml:lang="hi_IN">संगठन पार्टी क्रमांक</value>
         <value xml:lang="it">Organizzazione</value>
+        <value xml:lang="nl">Organisatie ID</value>
         <value xml:lang="pt">ID de organização participante</value>
         <value xml:lang="th">รหัสองค์กรกลุ่มผู้ใช้</value>
         <value xml:lang="zh">组织会员标识</value>
@@ -8645,6 +8670,7 @@
     <property key="AccountingPastDueInvoices">
         <value xml:lang="en">Past Due Invoices</value>
         <value xml:lang="fr">Factures en attente de règlement</value>
+        <value xml:lang="nl">Vervallen facturen</value>
         <value xml:lang="pt">Faturas passdas em débito</value>
         <value xml:lang="zh">过期发票</value>
     </property>
@@ -10484,6 +10510,7 @@
         <value xml:lang="en">Purchase Invoices</value>
         <value xml:lang="fr">Factures d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान</value>
+        <value xml:lang="nl">Inkoopfacturen</value>
         <value xml:lang="pt">Faturas de Compra</value>
         <value xml:lang="zh">采购发票</value>
     </property>
@@ -10523,6 +10550,7 @@
         <value xml:lang="fr">Taux</value>
         <value xml:lang="hi_IN">मूल्य</value>
         <value xml:lang="it">Tassi</value>
+        <value xml:lang="nl">Tarieven</value>
         <value xml:lang="pt">Tarifas</value>
         <value xml:lang="zh">税率</value>
         <value xml:lang="zh_TW">稅率</value>
@@ -10560,6 +10588,7 @@
         <value xml:lang="de">Kontenabstimmung</value>
         <value xml:lang="en">Reconciliation</value>
         <value xml:lang="hi_IN">मिलाप</value>
+        <value xml:lang="nl">Afstemming</value>
         <value xml:lang="pt">Reconciliação</value>
         <value xml:lang="zh">对账</value>
         <value xml:lang="zh_TW">調節</value>
@@ -10775,6 +10804,7 @@
     <property key="AccountingSagePayPaymentError">
         <value xml:lang="en">Problem at SagePay</value>
         <value xml:lang="it">Problemi di SagePay</value>
+        <value xml:lang="nl">Probleem bij SagePay</value>
         <value xml:lang="zh">SagePay出错</value>
     </property>
     <property key="AccountingSagePayPaymentInvalidInformationPassed">
@@ -10795,6 +10825,7 @@
     <property key="AccountingSagePayPaymentRefunded">
         <value xml:lang="en">Payment Refunded</value>
         <value xml:lang="it">Pagamento rimborsato</value>
+        <value xml:lang="nl">Betaling teruggewezen</value>
         <value xml:lang="zh">支付已退</value>
     </property>
     <property key="AccountingSagePayPaymentReleaseRequestMalformed">
@@ -10906,6 +10937,7 @@
         <value xml:lang="de">Vertreter</value>
         <value xml:lang="en">Sales Agents</value>
         <value xml:lang="hi_IN">विक्रय दलाल</value>
+        <value xml:lang="nl">Vertegenwoordiger</value>
         <value xml:lang="pt">Agentes de Vendas</value>
         <value xml:lang="zh">销售代理</value>
         <value xml:lang="zh_TW">銷售代理</value>
@@ -10929,6 +10961,7 @@
         <value xml:lang="de">Verkaufsrechnungen</value>
         <value xml:lang="en">Sales Invoices</value>
         <value xml:lang="hi_IN">विक्रय चालान </value>
+        <value xml:lang="nl">Verkoopfacturen</value>
         <value xml:lang="pt">Faturas</value>
         <value xml:lang="zh">销售发票</value>
         <value xml:lang="zh_TW">銷售發票</value>
@@ -10951,23 +10984,27 @@
     <property key="AccountingSecurityPayNotProperlyConfigurated">
         <value xml:lang="en">ERROR: Getting SecurePay property configuration</value>
         <value xml:lang="it">ERRORE: Ricavando la configurazione di SecurePay</value>
+        <value xml:lang="nl">ERROR: ophalen SecurePay configuratie</value>
         <value xml:lang="zh">错误：获取SecurePay属性设置时</value>
     </property>
     <property key="AccountingSecurityPayPaymentWasNotSent">
         <value xml:lang="en">Payment was not sent to server.</value>
         <value xml:lang="it">Pagamento non è stato inviato al server.</value>
+        <value xml:lang="nl">Betaling is niet naar de server verzonden</value>
         <value xml:lang="zh">支付没有发送到服务器。</value>
     </property>
     <property key="AccountingSelectAction">
         <value xml:lang="en">Select Action</value>
         <value xml:lang="fr">Choisir une action</value>
         <value xml:lang="hi_IN">कार्य चुनें</value>
+        <value xml:lang="nl">Actie selecteren</value>
         <value xml:lang="pt">Selecionar Ação</value>
         <value xml:lang="zh">选择操作</value>
     </property>
     <property key="AccountingSelectPartiesForCommissionInvoice">
         <value xml:lang="en">Select The Parties For Commission Invoice</value>
         <value xml:lang="hi_IN">दलाली चालान के लिए पार्टियों चुनें</value>
+        <value xml:lang="nl">Partijen voor commisiefactuur selecteren</value>
         <value xml:lang="pt">Selecionar participantes para fatura de Comissão</value>
         <value xml:lang="zh">为佣金发票选择会员</value>
     </property>
@@ -11441,6 +11478,7 @@
     <property key="AccountingTaxCannotCalculate">
         <value xml:lang="en">Cannot calculate tax, no shipping or.......</value>
         <value xml:lang="it">Non è possibile calcolare le tasse, nessuna spedizione o.......</value>
+        <value xml:lang="nl">Belasting kan niet berekend worden, geen transport of .....</value>
         <value xml:lang="pt">Não é possível calcular o imposto, não envio ou .......</value>
         <value xml:lang="zh">无法算税，没有运输或......</value>
     </property>
@@ -11480,6 +11518,7 @@
     <property key="AccountingTermAmount">
         <value xml:lang="en">Term Amount</value>
         <value xml:lang="hi_IN">शर्त राशी</value>
+        <value xml:lang="nl">Conditie bedrag</value>
         <value xml:lang="pt">Quantia do prazo</value>
         <value xml:lang="zh">期金额</value>
     </property>
@@ -11515,6 +11554,7 @@
     <property key="AccountingTheBalanceOfLastYear">
         <value xml:lang="en">The balance of last year</value>
         <value xml:lang="hi_IN">पिछले वर्ष का शेष</value>
+        <value xml:lang="nl">Saldo vorig jaar</value>
         <value xml:lang="pt">O saldo do ano passado</value>
         <value xml:lang="zh">上年余额</value>
     </property>
@@ -11629,47 +11669,55 @@
     <property key="AccountingTotalCashBalance">
         <value xml:lang="en">Total Cash Balance</value>
         <value xml:lang="hi_IN">कुल नकदी शेष</value>
+        <value xml:lang="nl">Totaal saldo cash</value>
         <value xml:lang="pt">Saldo Total em caixa</value>
         <value xml:lang="zh">现金余额合计</value>
     </property>
     <property key="AccountingTotalClosingCashBalance">
         <value xml:lang="en">Total Closing Cash Balance</value>
         <value xml:lang="hi_IN">कुल बंद नकदी शेष</value>
+        <value xml:lang="nl">Totaal eindbalans cash</value>
         <value xml:lang="pt">Saldo Total de Caixa de Encerramento</value>
         <value xml:lang="zh">期末现金余额</value>
     </property>
     <property key="AccountingTotalCommissionAmount">
         <value xml:lang="en">Total Commission Amount</value>
         <value xml:lang="hi_IN">कुल दलाली राशी</value>
+        <value xml:lang="nl">Totaal bedrag commissies</value>
         <value xml:lang="pt">Quantia Total da Comissão</value>
         <value xml:lang="zh">佣金合计</value>
     </property>
     <property key="AccountingTotalCostCenterAmount">
         <value xml:lang="en">Cost center amount percentage saved successfully</value>
+        <value xml:lang="nl">Percentage kostenplaats succesvol opgeslagen</value>
         <value xml:lang="pt">Porcentagem da Quantia central de custo salva com sucesso</value>
         <value xml:lang="zh">成功保存了费用中心金额百分比</value>
     </property>
     <property key="AccountingTotalCredit_Disbursement">
         <value xml:lang="en">Total Credit(Disbursement)</value>
         <value xml:lang="hi_IN">कुल जमा</value>
+        <value xml:lang="nl">Totaal Credit (betalingen)</value>
         <value xml:lang="pt">Crédito Total (Desembolso)</value>
         <value xml:lang="zh">贷方合计（支出）</value>
     </property>
     <property key="AccountingTotalCurrentAssetBalance">
         <value xml:lang="en">Total Current Asset Balance</value>
         <value xml:lang="hi_IN">à¤•à¥&#129;à¤² à¤šà¤¾à¤²à¥‚ à¤¸à¤®à¥&#141;à¤ªà¤¤à¥&#141;à¤¤à¤¿ à¤°à¤¾à¤¶à¥€</value>
+        <value xml:lang="nl">Totaal vlottende activa</value>
         <value xml:lang="pt">Total do Balanço Patrimonial atual</value>
         <value xml:lang="zh">流动资产余额合计</value>
     </property>
     <property key="AccountingTotalDebit_Receipts">
         <value xml:lang="en">Total Debit(Receipts)</value>
         <value xml:lang="hi_IN">कुल नामे</value>
+        <value xml:lang="nl">Totaal Debet (ontvangsten)</value>
         <value xml:lang="pt">Débito Total (Recibos)</value>
         <value xml:lang="zh">借方合计（收入）</value>
     </property>
     <property key="AccountingTotalEndingCashBalance">
         <value xml:lang="en">Total Ending Cash Balance</value>
         <value xml:lang="hi_IN">कुल अंतिम नकदी शेष</value>
+        <value xml:lang="nl">Totaal eindbalans cash</value>
         <value xml:lang="pt">Saldo Total Final de Caixa</value>
         <value xml:lang="zh">期末现金余额合计</value>
     </property>
@@ -11702,48 +11750,56 @@
     <property key="AccountingTotalNetSales">
         <value xml:lang="en">Total Net Sales</value>
         <value xml:lang="hi_IN">कुल शुद्ध विक्रय</value>
+        <value xml:lang="nl">Totaal netto verkopen</value>
         <value xml:lang="pt">Total das vendas líquidas</value>
         <value xml:lang="zh">净销售合计</value>
     </property>
     <property key="AccountingTotalNumberOfOrders">
         <value xml:lang="en">Total Number of Orders</value>
         <value xml:lang="hi_IN">कुल आदेशों की संख्या</value>
+        <value xml:lang="nl">Totaal aantal orders</value>
         <value xml:lang="pt">Número total de pedidos</value>
         <value xml:lang="zh">订单数量合计</value>
     </property>
     <property key="AccountingTotalOfTheCurrentMonth">
         <value xml:lang="en">Total of the current month</value>
         <value xml:lang="hi_IN">चालू माह के कुल</value>
+        <value xml:lang="nl">Totaal van huidige maand</value>
         <value xml:lang="pt">Total do mês atual</value>
         <value xml:lang="zh">当月合计</value>
     </property>
     <property key="AccountingTotalOfYearToDate">
         <value xml:lang="en">Total of Year To Date</value>
         <value xml:lang="hi_IN">वर्ष से दिनांक का कुल</value>
+        <value xml:lang="nl">Totaal van jaar tot nu</value>
         <value xml:lang="pt">Total do Ano até o momento</value>
         <value xml:lang="zh">当年合计</value>
     </property>
     <property key="AccountingTotalOpeningCashBalance">
         <value xml:lang="en">Total Opening Cash Balance</value>
         <value xml:lang="hi_IN">कुल अथ नकदी शेष</value>
+        <value xml:lang="nl">Totaal openingsbalans cash</value>
         <value xml:lang="pt">Saldo de Abertura de Caixa Total</value>
         <value xml:lang="zh">期初现金余额合计</value>
     </property>
     <property key="AccountingTotalOperationalCashBalance">
         <value xml:lang="en">Total Operational Cash Balance</value>
         <value xml:lang="hi_IN">à¤•à¥&#129;à¤² à¤•à¥&#141;à¤°à¤¿à¤¯à¤¾à¤¶à¥€à¤² à¤¨à¤•à¤¦à¥€</value>
+        <value xml:lang="nl">Totaal operationele balans cash</value>
         <value xml:lang="pt">Saldo de Caixa Operacional Total</value>
         <value xml:lang="zh">现金余额合计</value>
     </property>
     <property key="AccountingTotalPeriodCashBalance">
         <value xml:lang="en">Total Period Cash Balance</value>
         <value xml:lang="hi_IN">&#129;कुल अवधि नकदी शेष</value>
+        <value xml:lang="nl">Totaal periode balans cash</value>
         <value xml:lang="pt">Saldo Total do período em caixa</value>
         <value xml:lang="zh">时间段现金余额合计</value>
     </property>
     <property key="AccountingTotalQuantityOnHand">
         <value xml:lang="en">Total Quantity On Hand</value>
         <value xml:lang="hi_IN">कुल मात्रा हाथ पर</value>
+        <value xml:lang="nl">Totaal hoeveelheden onder handen</value>
         <value xml:lang="pt">Total das quantidades disponíveis</value>
         <value xml:lang="zh">现存数量合计</value>
     </property>
@@ -11760,6 +11816,7 @@
     <property key="AccountingTransactionIsAlreadyReconciled">
         <value xml:lang="en">Transaction Is already Reconciled</value>
         <value xml:lang="hi_IN">गतिविधि पहले से ही समझौता है</value>
+        <value xml:lang="nl">Transactie is al afgestemd</value>
         <value xml:lang="pt">Transação já foi reconciliada</value>
         <value xml:lang="zh">交易已经对过账了</value>
     </property>
@@ -11777,6 +11834,7 @@
     <property key="AccountingTransactionTotalsReport">
         <value xml:lang="en">Transaction Totals Report</value>
         <value xml:lang="hi_IN">गतिविधि योग ब्यौरेवार विवरण</value>
+        <value xml:lang="nl">Rapport transatie-totalen</value>
         <value xml:lang="pt">Relatório de Transações totais</value>
         <value xml:lang="zh">交易总额报告</value>
     </property>
@@ -15834,6 +15892,7 @@
         <value xml:lang="en">Source Id</value>
         <value xml:lang="hi_IN">स्रोत क्रमांक(SourceId)</value>
         <value xml:lang="it">Id sorgente</value>
+        <value xml:lang="nl">Bron ID</value>
         <value xml:lang="pt">Id da fonte</value>
         <value xml:lang="zh">来源标识</value>
         <value xml:lang="zh_TW">來源編號</value>
@@ -16029,7 +16088,7 @@
         <value xml:lang="fr">Valeur du texte</value>
         <value xml:lang="hi_IN">पाठ्य मान</value>
         <value xml:lang="it">Testo Valore</value>
-        <value xml:lang="nl">Text Value</value>
+        <value xml:lang="nl">Textwaarde</value>
         <value xml:lang="pt">Valor do Texto</value>
         <value xml:lang="ru">Текстовое значение</value>
         <value xml:lang="th">ค่าตัวอักษร</value>
@@ -16049,6 +16108,7 @@
         <value xml:lang="en">Thru Due Date</value>
         <value xml:lang="fr">Jusqu'à la date d'échéance</value>
         <value xml:lang="hi_IN">अन्तिम दिनांक तक</value>
+        <value xml:lang="nl">Tot vervaldatum</value>
         <value xml:lang="pt">Data de Vencimento do débito</value>
         <value xml:lang="zh">截止日期终于</value>
     </property>
@@ -16056,6 +16116,7 @@
         <value xml:lang="en">Thru Invoice Date</value>
         <value xml:lang="fr">Jusqu'à la date de facture</value>
         <value xml:lang="hi_IN">चालान दिनांक तक</value>
+        <value xml:lang="nl">Tot factuurdatum</value>
         <value xml:lang="pt">Data de vencimento da fatura</value>
         <value xml:lang="zh">发票截止日期</value>
     </property>
@@ -16083,6 +16144,7 @@
         <value xml:lang="fr">Réf de feuille d'activité d'un acteur</value>
         <value xml:lang="hi_IN">Timesheet पार्टी क्रमांक</value>
         <value xml:lang="it">Soggetto Timbratura</value>
+        <value xml:lang="nl">Party ID Urenstaat</value>
         <value xml:lang="pt">ID do participante da folha de horas trabalhadas</value>
         <value xml:lang="zh">工时表会员标识</value>
         <value xml:lang="zh_TW">工時表成員ID</value>
@@ -16135,6 +16197,7 @@
         <value xml:lang="fr">Total alloué</value>
         <value xml:lang="hi_IN">कुल एप्लाइड चालान</value>
         <value xml:lang="it">Totale fattura applicato</value>
+        <value xml:lang="nl">Totaal rekening toegepast</value>
         <value xml:lang="pt">Total da fatura Aplicada</value>
         <value xml:lang="zh">全部已开发票</value>
         <value xml:lang="zh_TW">全部已開發票</value>
@@ -16144,6 +16207,7 @@
         <value xml:lang="fr">Montant total</value>
         <value xml:lang="hi_IN">कुल राशि</value>
         <value xml:lang="it">Importo Totale</value>
+        <value xml:lang="nl">Totaal bedrag</value>
         <value xml:lang="pt">Quantia Total</value>
         <value xml:lang="zh">金额合计</value>
         <value xml:lang="zh_TW">金額合計</value>
@@ -16151,6 +16215,7 @@
     <property key="FormFieldTitle_totalOfCurrentFiscalPeriod">
         <value xml:lang="en">Total of Current Fiscal Period</value>
         <value xml:lang="hi_IN">चालू वित्त वर्ष अवधि का कुल</value>
+        <value xml:lang="nl">Totaal van huidige fiscale period</value>
         <value xml:lang="pt">Total do período fiscal atual</value>
         <value xml:lang="zh">本财年合计</value>
     </property>
