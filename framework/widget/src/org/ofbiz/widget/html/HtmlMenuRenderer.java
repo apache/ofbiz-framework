@@ -265,12 +265,12 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             appendWhitespace(writer);
         }
         if (modelMenu.renderedMenuItemCount(context) > 0) {
-        	writer.append("<ul>");
-        	appendWhitespace(writer);
-        	writer.append("<li>");
-        	appendWhitespace(writer);
-        	writer.append(" <ul>");
-        	appendWhitespace(writer);
+            writer.append("<ul>");
+            appendWhitespace(writer);
+            writer.append("<li>");
+            appendWhitespace(writer);
+            writer.append(" <ul>");
+            appendWhitespace(writer);
         }
     }
 
@@ -278,19 +278,19 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
      * @see org.ofbiz.widget.menu.MenuStringRenderer#renderMenuClose(java.io.Writer, java.util.Map, org.ofbiz.widget.menu.ModelMenu)
      */
     public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) throws IOException {
-    	// TODO: div can't be directly inside an UL
+        // TODO: div can't be directly inside an UL
         String fillStyle = modelMenu.getFillStyle();
         if (UtilValidate.isNotEmpty(fillStyle)) {
             writer.append("<div class=\"").append(fillStyle).append("\">&nbsp;</div>");
         }
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
         if (modelMenu.renderedMenuItemCount(context) > 0) {      
-	        writer.append(" </ul>");
-	        appendWhitespace(writer);
-	        writer.append("</li>");
-	        appendWhitespace(writer);
-	        writer.append("</ul>");
-	        appendWhitespace(writer);
+            writer.append(" </ul>");
+            appendWhitespace(writer);
+            writer.append("</li>");
+            appendWhitespace(writer);
+            writer.append("</ul>");
+            appendWhitespace(writer);
         }
         writer.append(" <br class=\"clear\"/>");
         appendWhitespace(writer);
@@ -599,7 +599,3 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         writer.append("/>");
     }
 }
-
-
-
-

@@ -55,7 +55,6 @@ public class UrlServletHelper extends ContextFilter {
             // get tenant delegator by domain name
             String serverName = request.getServerName();
             try {
-            	
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 delegator = getDelegator(servletContext);
                 List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition("domainName", serverName), null, UtilMisc.toList("-createdStamp"), null, false);

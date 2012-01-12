@@ -189,7 +189,7 @@ public class CatalogUrlServlet extends HttpServlet {
         urlBuilder.append(CATALOG_URL_MOUNT_POINT);
 
         if (UtilValidate.isNotEmpty(currentCategoryId)) {
-        	crumb = CategoryWorker.adjustTrail(crumb, currentCategoryId, previousCategoryId);
+            crumb = CategoryWorker.adjustTrail(crumb, currentCategoryId, previousCategoryId);
             for (String trailCategoryId: crumb) {
                 if ("TOP".equals(trailCategoryId)) continue;
                 urlBuilder.append("/");

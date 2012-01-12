@@ -460,7 +460,7 @@ public class ContentSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-	public static abstract class ContentSearchConstraint implements java.io.Serializable {
+    public static abstract class ContentSearchConstraint implements java.io.Serializable {
         public ContentSearchConstraint() { }
 
         public abstract void addConstraint(ContentSearchContext contentSearchContext);
@@ -470,7 +470,7 @@ public class ContentSearch {
 
 
     @SuppressWarnings("serial")
-	public static class ContentAssocConstraint extends ContentSearchConstraint {
+    public static class ContentAssocConstraint extends ContentSearchConstraint {
         public static final String constraintName = "ContentAssoc";
         protected String contentId;
         protected String contentAssocTypeId;

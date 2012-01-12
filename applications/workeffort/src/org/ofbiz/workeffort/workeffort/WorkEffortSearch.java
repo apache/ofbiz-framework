@@ -483,7 +483,7 @@ public class WorkEffortSearch {
     // ======================================================================
 
     @SuppressWarnings("serial")
-	public static abstract class WorkEffortSearchConstraint implements java.io.Serializable {
+    public static abstract class WorkEffortSearchConstraint implements java.io.Serializable {
         public WorkEffortSearchConstraint() { }
 
         public abstract void addConstraint(WorkEffortSearchContext workEffortSearchContext);
@@ -493,7 +493,7 @@ public class WorkEffortSearch {
 
 
     @SuppressWarnings("serial")
-	public static class WorkEffortAssocConstraint extends WorkEffortSearchConstraint {
+    public static class WorkEffortAssocConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortAssoc";
         protected String workEffortId;
         protected String workEffortAssocTypeId;
@@ -809,7 +809,7 @@ public class WorkEffortSearch {
     }
 
     @SuppressWarnings("serial")
-	public static class ProductSetConstraint extends WorkEffortSearchConstraint {
+    public static class ProductSetConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "ProductSet";
         protected Set<String> productIdSet;
 
