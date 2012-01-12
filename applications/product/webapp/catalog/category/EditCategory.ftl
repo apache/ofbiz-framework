@@ -96,15 +96,15 @@ function insertImageName(type,nameValue) {
                     <td>&nbsp;</td>
                     <td width="74%">
                         <select name="productCategoryTypeId" size="1">
-                        	<#assign selectedKey = "">
-	                    	<#list productCategoryTypes as productCategoryTypeData>
-                        		<#if requestParameters.productCategoryTypeId?has_content>
-                        			<#assign selectedKey = requestParameters.productCategoryTypeId>
-                        		<#elseif (productCategory?has_content && productCategory.productCategoryTypeId?if_exists == productCategoryTypeData.productCategoryTypeId)>
-                        			<#assign selectedKey = productCategory.productCategoryTypeId>
-	                        	</#if>
-                        		<option <#if selectedKey == productCategoryTypeData.productCategoryTypeId?if_exists>selected="selected"</#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
-                        	</#list>
+                            <#assign selectedKey = "">
+                            <#list productCategoryTypes as productCategoryTypeData>
+                                <#if requestParameters.productCategoryTypeId?has_content>
+                                    <#assign selectedKey = requestParameters.productCategoryTypeId>
+                                <#elseif (productCategory?has_content && productCategory.productCategoryTypeId?if_exists == productCategoryTypeData.productCategoryTypeId)>
+                                    <#assign selectedKey = productCategory.productCategoryTypeId>
+                                </#if>
+                                <option <#if selectedKey == productCategoryTypeData.productCategoryTypeId?if_exists>selected="selected"</#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
+                            </#list>
                         </select>
                     </td>
                 </tr>
