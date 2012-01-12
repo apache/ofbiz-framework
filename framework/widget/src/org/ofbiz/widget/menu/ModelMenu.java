@@ -324,10 +324,10 @@ public class ModelMenu extends ModelWidget {
 
     public int renderedMenuItemCount(Map<String, Object> context)
     {
-        int count = 0;    	
+        int count = 0;
         for (ModelMenuItem item : this.menuItemList) {
             if (item.shouldBeRendered(context))
-            	count++;        	
+                count++;
         }
         return count;
     }

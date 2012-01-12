@@ -69,7 +69,7 @@ public class WorkEffortKeywordIndex {
 
         if (!"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortNoteAndData.noteInfo", "1"))) {
             List<GenericValue> workEffortNotes = delegator.findByAnd("WorkEffortNoteAndData", UtilMisc.toMap("workEffortId", workEffortId));
-        	for (GenericValue workEffortNote : workEffortNotes) {
+            for (GenericValue workEffortNote : workEffortNotes) {
                 addWeightedKeywordSourceString(workEffortNote, "noteInfo", strings);
                 }
         }

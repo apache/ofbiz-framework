@@ -43,7 +43,7 @@ public class ContentSearchSession {
     public static final String module = ContentSearchSession.class.getName();
     
     @SuppressWarnings("serial")
-	public static class ContentSearchOptions implements java.io.Serializable {
+    public static class ContentSearchOptions implements java.io.Serializable {
         protected List<ContentSearchConstraint> constraintList = null;
         protected ResultSortOrder resultSortOrder = null;
         protected Integer viewIndex = null;

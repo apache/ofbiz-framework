@@ -65,7 +65,7 @@ import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap.Builder;
  */
 @SuppressWarnings("serial")
 public class UtilCache<K, V> implements Serializable, EvictionListener<Object, CacheLine<V>> {
-	
+
     public static final String module = UtilCache.class.getName();
 
     /** A static Map to keep track of all of the UtilCache instances. */
@@ -190,11 +190,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     public static String getPropertyParam(ResourceBundle res, String[] propNames, String parameter) {
         try {
             for (String propName: propNames) {
-        	if(res.containsKey(propName+ '.' + parameter)) {
-        	    try {
-        		return res.getString(propName + '.' + parameter);
-        	    } catch (MissingResourceException e) {}
-        	}
+            if(res.containsKey(propName+ '.' + parameter)) {
+                try {
+                return res.getString(propName + '.' + parameter);
+                } catch (MissingResourceException e) {}
+            }
             }
             // don't need this, just return null
             //if (value == null) {
@@ -1032,8 +1032,8 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
         return (UtilCache<K, V>) UtilCache.utilCacheTable.get(cacheName);
     }
 
-	@Override
-	public void onEviction(Object key, CacheLine<V> value) {
-		ExecutionPool.removePulse(value);
-	}
+    @Override
+    public void onEviction(Object key, CacheLine<V> value) {
+        ExecutionPool.removePulse(value);
+    }
 }

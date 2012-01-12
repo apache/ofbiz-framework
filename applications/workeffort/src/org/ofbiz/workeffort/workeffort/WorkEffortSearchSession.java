@@ -43,7 +43,7 @@ public class WorkEffortSearchSession {
     public static final String module = WorkEffortSearchSession.class.getName();
     
     @SuppressWarnings("serial")
-	public static class WorkEffortSearchOptions implements java.io.Serializable {
+    public static class WorkEffortSearchOptions implements java.io.Serializable {
         protected List<WorkEffortSearchConstraint> constraintList = null;
         protected ResultSortOrder resultSortOrder = null;
         protected Integer viewIndex = null;
