@@ -1045,10 +1045,15 @@ under the License.
     <view-entity entity-name="FacilityAndContactMech" package-name="org.ofbiz.product.facility" title="Facility and Contact Mech View Entity">
         <member-entity entity-alias="FA" entity-name="Facility"/>
         <member-entity entity-alias="CM" entity-name="FacilityContactMech"/>
+        <member-entity entity-alias="MC" entity-name="ContactMech"/>
         <alias-all entity-alias="FA"/>
         <alias-all entity-alias="CM"/>
+        <alias-all entity-alias="MC"/>
         <view-link entity-alias="FA" rel-entity-alias="CM">
             <key-map field-name="facilityId"/>
+        </view-link>
+        <view-link entity-alias="CM" rel-entity-alias="MC">
+            <key-map field-name="contactMechId"/>
         </view-link>
     </view-entity>
     <entity entity-name="FacilityAttribute" package-name="org.ofbiz.product.facility" title="Facility Attribute Entity">
