@@ -318,29 +318,23 @@ under the License.
     <simple-method method-name="findPartyFromEmailAddress" short-description="Find partyId from email address">
         <set field="input.filterByDate" value="Y"/>
         <set field="input.inputFields.infoString" from-field="parameters.address"/>
-        <if-empty field="parameters.caseInsensitive">
-            <call-bsh><![CDATA[
-                String caseInsensitiveEmail = org.ofbiz.base.util.UtilProperties.getPropertyValue("general.properties", "mail.address.caseInsensitive", "N");
-                parameters.put("caseInsensitive", caseInsensitiveEmail);
-            ]]></call-bsh>
+        <set field="caseInsensitive" from-field="parameters.caseInsensitive"/>
+        <if-empty field="caseInsensitive">
+            <property-to-field resource="general.properties" property="mail.address.caseInsensitive" field="caseInsensitive" default="N"/>
         </if-empty>
-        <set field="input.inputFields.infoString_ic" from-field="parameters.caseInsensitive"/>
-        <log level="info" message="findPartyFromEmailAddress with case insensitive search: ${parameters.caseInsensitive}"/>
-
+        <set field="input.inputFields.infoString_ic" from-field="caseInsensitive"/>
         <if-empty field="parameters.fromDate">
             <set field="input.filterByDate" value="Y"/>
             <else>
                 <set field="input.filterByDateValue" from-field="parameters.fromDate"/>
             </else>
         </if-empty>
-
         <!-- try primary email address -->
         <set field="input.inputFields.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
         <set field="input.entityName" value="PartyContactDetailByPurpose"/>
         <call-service service-name="performFindItem" in-map-name="input">
             <results-to-map map-name="results"/>
         </call-service>
-
         <!-- any other email address -->
         <if-empty field="results.item">
             <set field="input.entityName" value="PartyAndContactMech"/>
@@ -349,12 +343,10 @@ under the License.
                 <results-to-map map-name="results"/>
             </call-service>
         </if-empty>
-
         <if-not-empty field="results.item">
             <field-to-result field="results.item.partyId" result-name="partyId"/>
             <field-to-result field="results.item.contactMechId" result-name="contactMechId"/>
         </if-not-empty>
-
     </simple-method>
 
     <simple-method method-name="findPartyFromTelephone" short-description="Find partyId from the telephone number">
