@@ -62,8 +62,18 @@ public class FileUtil {
                 return null;
             }
         }
-        String fileNameSeparator = ("\\".equals(File.separator)? "\\" + File.separator: File.separator);
-        return new File(root, path.replaceAll("/+|\\\\+", fileNameSeparator));
+        return new File(root, localizePath(path));
+    }
+
+    /**
+     * Converts a file path to one that is compatible with the host operating system.
+     * 
+     * @param path The file path to convert.
+     * @return The converted file path.
+     */
+    public static String localizePath(String path) {
+        String fileNameSeparator = ("\\".equals(File.separator) ? "\\" + File.separator : File.separator);
+        return path.replaceAll("/+|\\\\+", fileNameSeparator);
     }
 
     public static void writeString(String fileName, String s) throws IOException {
