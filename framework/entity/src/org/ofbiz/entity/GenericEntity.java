@@ -840,8 +840,10 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             }
             // read value with modelEntity name of pkNames
             for (String pkName : pkNamesToUse) {
-                keyBuffer.append('.');
-                keyBuffer.append(this.get(pkName));
+                if (this.containsKey(pkName)) {
+                    keyBuffer.append('.');
+                    keyBuffer.append(this.get(pkName));
+                }
             }
         } else {
             Iterator<ModelField> iter = modelEntity.getPksIterator();
