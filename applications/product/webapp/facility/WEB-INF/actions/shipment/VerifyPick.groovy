@@ -77,6 +77,14 @@ if (picklistBinId) {
     }
 }
 
+if (orderId && !picklistBinId) {
+    picklistBin = EntityUtil.getFirst(delegator.findByAnd("PicklistBin", [primaryOrderId : orderId]));
+    if (picklistBin) {
+        picklistBinId = picklistBin.picklistBinId;
+        verifyPickSession.setPicklistBinId(picklistBinId);
+    }
+}
+
 context.orderId = orderId;
 context.shipGroupSeqId = shipGroupSeqId;
 context.picklistBinId = picklistBinId;
