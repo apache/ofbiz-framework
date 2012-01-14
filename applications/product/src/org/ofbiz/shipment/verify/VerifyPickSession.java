@@ -307,6 +307,21 @@ public class VerifyPickSession implements Serializable {
         this.issueItemsToShipment(shipmentId, locale);
         this.updateProduct();
 
+        // Set PicklistItem to Complete
+        List<GenericValue> picklistItems = this.getDelegator().findByAnd("PicklistItem", UtilMisc.toMap("orderId", orderId));
+        for (GenericValue item : picklistItems) {
+            Map<String, Object> setPicklistItemToCompleteCtx = FastMap.newInstance();
+            setPicklistItemToCompleteCtx.put("picklistBinId", item.get("picklistBinId"));
+            setPicklistItemToCompleteCtx.put("orderId", orderId);
+            setPicklistItemToCompleteCtx.put("orderItemSeqId", item.get("orderItemSeqId"));
+            setPicklistItemToCompleteCtx.put("shipGroupSeqId", item.get("shipGroupSeqId"));
+            setPicklistItemToCompleteCtx.put("inventoryItemId", item.get("inventoryItemId"));
+            setPicklistItemToCompleteCtx.put("quantity", item.get("quantity"));
+            setPicklistItemToCompleteCtx.put("itemStatusId", "PICKITEM_COMPLETED");
+            setPicklistItemToCompleteCtx.put("userLogin", this.getUserLogin());
+            this.getDispatcher().runSync("setPicklistItemToComplete", setPicklistItemToCompleteCtx);
+        }
+
         // Update the shipment status to Picked, this will trigger createInvoicesFromShipment and finally a invoice will be created
         Map<String, Object> updateShipmentCtx = FastMap.newInstance();
         updateShipmentCtx.put("shipmentId", shipmentId);
