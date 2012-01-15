@@ -1352,48 +1352,20 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="PartyAndTelecomNumber"
-        package-name="org.ofbiz.party.contact"
-        title="Party and Contact Mech/Postal Address View Entity">
-        <member-entity entity-alias="PTY" entity-name="Party"/>
-        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
-        <member-entity entity-alias="CM" entity-name="ContactMech"/>
-        <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
-        <alias entity-alias="CM" name="contactMechId"/>
-        <alias entity-alias="PTY" name="partyId"/>
-        <alias entity-alias="PTY" name="statusId"/>
-        <alias entity-alias="PCM" name="fromDate"/>
-        <alias entity-alias="PCM" name="thruDate"/>
-        <alias entity-alias="PTY" name="partyTypeId"/>
-        <alias entity-alias="CM" name="contactMechTypeId"/>
-        <alias entity-alias="CM" name="infoString"/>
-        <alias entity-alias="PCM" name="comments"/>
-        <alias entity-alias="PCM" name="extension"/>
-        <alias entity-alias="PCM" name="allowSolicitation"/>
-        <alias entity-alias="TN" name="countryCode"/>
-        <alias entity-alias="TN" name="areaCode"/>
-        <alias entity-alias="TN" name="contactNumber"/>
+            package-name="org.ofbiz.party.contact"
+            title="Party and TelecomNumber View Entity">
+        <member-entity entity-alias="PTY" entity-name="Party" />
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech" />
+        <member-entity entity-alias="TN" entity-name="TelecomNumber" />
+        <alias-all entity-alias="PTY" />
+        <alias-all entity-alias="PCM" />
+        <alias-all entity-alias="TN" />
         <view-link entity-alias="PTY" rel-entity-alias="PCM">
-            <key-map field-name="partyId"/>
+            <key-map field-name="partyId" />
         </view-link>
-        <view-link entity-alias="PCM" rel-entity-alias="CM">
-            <key-map field-name="contactMechId"/>
+        <view-link entity-alias="PCM" rel-entity-alias="TN">
+            <key-map field-name="contactMechId" />
         </view-link>
-        <view-link entity-alias="CM" rel-entity-alias="TN">
-            <key-map field-name="contactMechId"/>
-        </view-link>
-        <relation type="many" rel-entity-name="PartyContactMech">
-            <key-map field-name="partyId"/>
-            <key-map field-name="contactMechId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="Party">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="ContactMech">
-            <key-map field-name="contactMechId"/>
-        </relation>
-        <relation type="one-nofk" rel-entity-name="TelecomNumber">
-            <key-map field-name="contactMechId"/>
-        </relation>
     </view-entity>
     <view-entity entity-name="ContactListPartyAndContactMech"
         package-name="org.ofbiz.party.contact">
