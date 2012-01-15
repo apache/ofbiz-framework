@@ -19,6 +19,34 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="ExampelsJackrabbitDownloadFile">
+        <value xml:lang="de">Datei herunterladen</value>
+        <value xml:lang="en">Download file</value>
+    </property>
+    <property key="ExampelsJackrabbitOpenData">
+        <value xml:lang="de">Content öffnen.</value>
+        <value xml:lang="en">Open content.</value>
+    </property>
+    <property key="ExampelsJackrabbitOpenFile">
+        <value xml:lang="de">Datei öffnen</value>
+        <value xml:lang="en">Open file</value>
+    </property>
+    <property key="ExampelsJackrabbitRemoveData">
+        <value xml:lang="de">Content löschen.</value>
+        <value xml:lang="en">Remove content.</value>
+    </property>
+    <property key="ExampelsJackrabbitRemoveFile">
+        <value xml:lang="de">Datei löschen</value>
+        <value xml:lang="en">Remove file</value>
+    </property>
+    <property key="ExampleAddNewContentEntry">
+        <value xml:lang="de">Einen neuen Content Eintrag hinzufügen</value>
+        <value xml:lang="en">Add a new content entry</value>
+    </property>
+    <property key="ExampleAddNewNodePath">
+        <value xml:lang="de">Füge einen neuen Node Pfad hinzu, z.B. /Foo/Baa speichert die Datei im Ordner "Baa"</value>
+        <value xml:lang="en">Add a (new) node path like /Foo/Baa will store the file under the folder "Baa"</value>
+    </property>
     <property key="ExampleAjaxExamples">
         <value xml:lang="en">Ajax Examples</value>
         <value xml:lang="fr">Exemples Ajax</value>
@@ -40,7 +68,7 @@
         <value xml:lang="ru">Приложение Пример</value>
         <value xml:lang="th">ตัวอย่างโปรแกรมคอมพิวเตอร์</value>
         <value xml:lang="zh">样例应用</value>
-    </property>    
+    </property>
     <property key="ExampleAutocompleteDropdown">
         <value xml:lang="en">Autocomplete Dropdown</value>
         <value xml:lang="fr">Liste déroulante à auto complétion</value>
@@ -48,6 +76,10 @@
     <property key="ExampleAutocompleteTooltip">
         <value xml:lang="en">COUNTRY type based example, use Geo.Geoid and Geo.GeoName Entity.fields for completion</value>
         <value xml:lang="fr">Exemple sur le type COUNTRY et utilisant Geo.Geoid et Geo.GeoName comme Entité.champs pour la complétion</value>
+    </property>
+    <property key="ExampleBaseNodeVersion">
+        <value xml:lang="de">Verion des Content Knoten</value>
+        <value xml:lang="en">Version of the base content node</value>
     </property>
     <property key="ExampleBirtChartReport">
         <value xml:lang="en">HTML chart report</value>
@@ -57,14 +89,18 @@
         <value xml:lang="en">PDF chart report</value>
         <value xml:lang="fr">Graphiques PDF</value>
     </property>
-    <property key="ExampleBirtReport">
-        <value xml:lang="en">HTML</value>
-    </property>
     <property key="ExampleBirtMail">
         <value xml:lang="en">Send any format through Mail</value>
     </property>
+    <property key="ExampleBirtReport">
+        <value xml:lang="en">HTML</value>
+    </property>
     <property key="ExampleBirtViewHandler">
         <value xml:lang="en">PDF</value>
+    </property>
+    <property key="ExampleCalendarFromLayer">
+        <value xml:lang="en">Calendar field (only test purp.)</value>
+        <value xml:lang="fr">Calendrier (only test)</value>
     </property>
     <property key="ExampleCompanyName">
         <value xml:lang="en">OFBiz: Example</value>
@@ -74,11 +110,7 @@
         <value xml:lang="ru">OFBiz: Пример</value>
         <value xml:lang="th">OFBiz: ตัวอย่าง</value>
         <value xml:lang="zh">OFBiz: 样例</value>
-    </property>    
-    <property key="ExampleCalendarFromLayer">
-        <value xml:lang="en">Calendar field (only test purp.)</value>
-        <value xml:lang="fr">Calendrier (only test)</value>
-    </property>    
+    </property>
     <property key="ExampleCompanySubtitle">
         <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
@@ -239,7 +271,11 @@
         <value xml:lang="fr"> - voir la défintion avec la form de nom </value>
         <value xml:lang="it"> - vedi la definizione della form con il nome</value>
         <value xml:lang="zh"> - 参见表单定义，名称为</value>
-    </property>    
+    </property>
+    <property key="ExampleDependentDropDownTooltip">
+        <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with dependentForm)</value>
+        <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec dependentForm)</value>
+    </property>
     <property key="ExampleDependentDropDowns">
         <value xml:lang="en">Dependent drop-downs</value>
         <value xml:lang="fr">liste déroulante dépendantes</value>
@@ -352,10 +388,6 @@
         <value xml:lang="it">Campi drop down</value>
         <value xml:lang="zh">下拉框数据项</value>
     </property>
-    <property key="ExampleDependentDropDownTooltip">
-        <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with dependentForm)</value>
-        <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec dependentForm)</value>
-    </property>
     <property key="ExampleDropDownTooltip">
         <value xml:lang="en">First of all you have to define a drop-down element inside of the field element that you want to render as a drop down field.</value>
         <value xml:lang="fr">Pour commencer vous définissez un élément liste déroulante (drop-down) à l'intérieur de l'élément champ (field) que vous voulez créer comme liste déroulante</value>
@@ -459,14 +491,6 @@
         <value xml:lang="th">ตัวอย่างรูปแบบ Widget</value>
         <value xml:lang="zh">表单挂件样例</value>
     </property>
-    <property key="ExamplePortletAttributNeedToBeDefineClickHere">
-        <value xml:lang="en">Portlet Attribut need to be define, click here to resolve it </value>
-        <value xml:lang="fr">Les attributs de la portlet doivent être definie. Cliquez ici pour résoudre le problème.</value>
-    </property>
-    <property key="ExamplePortletGoToConfiguredPortalPage">
-        <value xml:lang="en">Go to configured portal page -> </value>
-        <value xml:lang="fr">Allez à la page portail configurée -> </value>
-    </property>
     <property key="ExampleGroupField">
         <value xml:lang="en">Group</value>
         <value xml:lang="it">Gruppo</value>
@@ -476,23 +500,63 @@
         <value xml:lang="en">Fields groups</value>
         <value xml:lang="it">Gruppi campi</value>
         <value xml:lang="zh">数据项组</value>
-    </property>    
-    <property key="ExampleLongDescription">
-        <value xml:lang="en">Long Description</value>
-        <value xml:lang="it">Descrizione lunga</value>
-        <value xml:lang="zh">详细描述</value>
+    </property>
+    <property key="ExampleJackrabbitCleanRepository">
+        <value xml:lang="de">Repository aufräumen</value>
+        <value xml:lang="en">Clean repository</value>
+    </property>
+    <property key="ExampleJackrabbitCleanRepositoryTooltip">
+        <value xml:lang="de">Löscht alle Nodes aus dem Repository, die keine Verkünpfung in der Content Tabelle haben.</value>
+        <value xml:lang="en">Removes all nodes which are not linked in the content table.</value>
+    </property>
+    <property key="ExampleJackrabbitListNodes">
+        <value xml:lang="de">Liste alles Knoten</value>
+        <value xml:lang="en">List Nodes</value>
+    </property>
+    <property key="ExampleJackrabbitQueryForContent">
+        <value xml:lang="de">Das Repository kann mit Hilfe der SQL2 oder JQOM Query Language durchsucht werden: z.B. SELECT * FROM [nt:unstructured] gibt alle nodes vom Typ nt:unstructured zurück.</value>
+        <value xml:lang="en">You can search the repository by using SQL2 or JQOM query syntax: i.e. SELECT * FROM [nt:unstructured] gives all nodes with the typ nt:unstructured.</value>
+    </property>
+    <property key="ExampleJackrabbitQuickContentSelect">
+        <value xml:lang="de">Content Schnellauswahl - Content Node auswählen und Sprache bestimmen.</value>
+        <value xml:lang="en">Content quick select - Choose your content node and select a language.</value>
+    </property>
+    <property key="ExampleJackrabbitShowContentData">
+        <value xml:lang="de">(Text) Content anzeigen</value>
+        <value xml:lang="en">Show (text) content</value>
+    </property>
+    <property key="ExampleJackrabbitShowUploadedFiles">
+        <value xml:lang="de">Dateien anzeigen</value>
+        <value xml:lang="en">Show uploaded Files</value>
+    </property>
+    <property key="ExampleJackrabbitTryRightClick">
+        <value xml:lang="de">Wähle eine Datei und versuche einen Rechtklick</value>
+        <value xml:lang="en">Choose a file and try a 'right click'</value>
+    </property>
+    <property key="ExampleJackrabbitUploadFileData">
+        <value xml:lang="de">Eine neue Datei speichern</value>
+        <value xml:lang="en">Upload a new file</value>
+    </property>
+    <property key="ExampleLanguageTextVersion">
+        <value xml:lang="de">Verion der gewählten sprache</value>
+        <value xml:lang="en">Version of the choosen language</value>
     </property>
     <property key="ExampleLayerFromLayer">
         <value xml:lang="en">Layered lookup field (only test purp.)</value>
         <value xml:lang="fr">Lookup de type layer (only test)</value>
     </property>
-    <property key="ExampleLookupFieldsTitle">
-        <value xml:lang="en">Lookup Fields</value>
-        <value xml:lang="fr">Champs de recherche</value>
+    <property key="ExampleLongDescription">
+        <value xml:lang="en">Long Description</value>
+        <value xml:lang="it">Descrizione lunga</value>
+        <value xml:lang="zh">详细描述</value>
     </property>
     <property key="ExampleLookupFields">
         <value xml:lang="en">Lookup Fields: First of type popup, second layered and showing use of set_values underneath, ie returning not only Id but also another value. Both using also autocomplete</value>
         <value xml:lang="fr">Champs de recherche: le premier de type popup, le second de type layer avec usage sous-jacent de set_values qui permet de traiter non seulement une référence mais aussi une autre valeur. Les 2 utilisent aussi l'autocompletion</value>
+    </property>
+    <property key="ExampleLookupFieldsTitle">
+        <value xml:lang="en">Lookup Fields</value>
+        <value xml:lang="fr">Champs de recherche</value>
     </property>
     <property key="ExampleMainPage">
         <value xml:lang="en">Example Main Page</value>
@@ -510,14 +574,14 @@
         <value xml:lang="th">สำหรับท่านที่สนใจสามารถเข้าสู่ระบบได้, โดยใช้ ชื่อผู้ใช้:admin, รหัสผ่าน:ofbiz</value>
         <value xml:lang="zh">如果对某部分感兴趣，请先确信你已登录，可以尝试用 用户名:admin、密码:ofbiz登录。</value>
     </property>
-    <property key="ExampleMultipleDropDowns">
-        <value xml:lang="en">Multiple drop-downs</value>
-        <value xml:lang="fr">liste déroulante avec choix multiples</value>
-    </property>    
     <property key="ExampleMultipleDropDownTooltip">
         <value xml:lang="en">Needs some fields to be set, see in FormWidgetExampleScreens.xml (begins with multipleSelect)</value>
         <value xml:lang="fr">Nécessite de définir certains champs, voir dans FormWidgetExampleScreens.xml (commence avec multipleSelect)</value>
-    </property>    
+    </property>
+    <property key="ExampleMultipleDropDowns">
+        <value xml:lang="en">Multiple drop-downs</value>
+        <value xml:lang="fr">liste déroulante avec choix multiples</value>
+    </property>
     <property key="ExampleNewExample">
         <value xml:lang="en">New Example</value>
         <value xml:lang="fr">Nouvel exemple</value>
@@ -565,10 +629,18 @@
         <value xml:lang="en">Geolocation via address</value>
         <value xml:lang="fr">Géolocalisation par l'adresse</value>
     </property>
+    <property key="ExamplePortletAttributNeedToBeDefineClickHere">
+        <value xml:lang="en">Portlet Attribut need to be define, click here to resolve it </value>
+        <value xml:lang="fr">Les attributs de la portlet doivent être definie. Cliquez ici pour résoudre le problème.</value>
+    </property>
     <property key="ExamplePortletFirst">
         <value xml:lang="en">Hi, this is a first example of portlet</value>
         <value xml:lang="it">Salve, questo è il primo esempio di portlet</value>
         <value xml:lang="zh">你好，这是第一个Portlet样例</value>
+    </property>
+    <property key="ExamplePortletGoToConfiguredPortalPage">
+        <value xml:lang="en">Go to configured portal page -&gt; </value>
+        <value xml:lang="fr">Allez à la page portail configurée -&gt; </value>
     </property>
     <property key="ExamplePortletSecond">
         <value xml:lang="en">Hi, this is a second example of portlet</value>
@@ -594,6 +666,26 @@
         <value xml:lang="en">Print Button</value>
         <value xml:lang="it">Bottone di stampa</value>
         <value xml:lang="zh">打印按钮</value>
+    </property>
+    <property key="ExampleRepositoryFile">
+        <value xml:lang="de">Datei</value>
+        <value xml:lang="en">File</value>
+    </property>
+    <property key="ExampleRepositoryFolder">
+        <value xml:lang="de">Ordner</value>
+        <value xml:lang="en">Folder</value>
+    </property>
+    <property key="ExampleRepositoryMessage">
+        <value xml:lang="de">Text Nachricht</value>
+        <value xml:lang="en">Text message</value>
+    </property>
+    <property key="ExampleRepositoryNode">
+        <value xml:lang="de">Knoten</value>
+        <value xml:lang="en">Node</value>
+    </property>
+    <property key="ExampleScanRepositoryStrukture">
+        <value xml:lang="de">Repository Struktur überprüfen</value>
+        <value xml:lang="en">Scan repository structure</value>
     </property>
     <property key="ExampleSelectionBoxes">
         <value xml:lang="en">Selection boxes</value>
@@ -729,6 +821,10 @@
         <value xml:lang="ru">Изменить позиции примера</value>
         <value xml:lang="th">แก้ไขสินค้าตัวอย่าง</value>
         <value xml:lang="zh">编辑样例明细</value>
+    </property>
+    <property key="PageTitleExampleJackrabbit">
+        <value xml:lang="de">Jackrabbit</value>
+        <value xml:lang="en">Jackrabbit</value>
     </property>
     <!-- Page Titles -->
     <property key="PageTitleFindExample">

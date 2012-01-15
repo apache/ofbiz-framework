@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<nodeTypes xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:fn_old="http://www.w3.org/2004/10/xpath-functions" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    xmlns:ocm="http://jackrabbit.apache.org/ocm" xmlns:rep="internal" xmlns:sv="http://www.jcp.org/jcr/sv/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <nodeType hasOrderableChildNodes="false" isAbstract="false" isMixin="true" isQueryable="true" name="ocm:discriminator" primaryItemName="">
+        <supertypes>
+            <supertype>nt:base</supertype>
+        </supertypes>
+        <propertyDefinition autoCreated="false" isFullTextSearchable="false" isQueryOrderable="false" mandatory="true" multiple="false" name="ocm_classname" onParentVersion="COPY" protected="false" requiredType="String" />
+    </nodeType>
+
+</nodeTypes>
