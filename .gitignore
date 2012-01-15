@@ -25,6 +25,7 @@ framework/entityext/build/
 framework/example/build/
 framework/geronimo/build/
 framework/guiapp/build/
+framework/jackrabbit/build/
 framework/jetty/build/
 framework/minilang/build/
 framework/security/build/

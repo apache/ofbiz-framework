@@ -62,6 +62,13 @@ under the License.
     </container>
      -->
 
+    <!-- Load embedded Jackrabbit content repository. Since this container depends
+    upon JNDI, it must be started after the naming-container container.-->
+    <container name="jcr-container" class="org.ofbiz.jcr.loader.JCRContainer">
+        <property name="configFilePath" value="framework/jcr/config/jcr-test-config.xml"/>
+        <property name="removeOnShutdown" value="true"/>
+    </container>
+
     <!-- load catalina (tomcat) and all web applications -->
     <container name="catalina-container" class="org.ofbiz.catalina.container.CatalinaContainer">
         <!-- static configuration for tomcat -->

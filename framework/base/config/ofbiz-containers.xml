@@ -94,6 +94,14 @@ under the License.
     <!-- TODO: switch to webslinger, for per-site logging
     <container name="catalina-container" class="org.ofbiz.webslinger.WebslingerCatalinaContainer">
     -->
+
+    <!-- Load embedded Jackrabbit content repository. Since this container depends
+         upon JNDI, it must be started after the naming-container container.-->
+    <container name="jcr-container" class="org.ofbiz.jcr.loader.JCRContainer">
+        <property name="configFilePath" value="framework/jcr/config/jcr-config.xml"/>
+        <property name="removeOnShutdown" value="false"/>
+    </container>
+
     <container name="catalina-container" class="org.ofbiz.catalina.container.CatalinaContainer">
         <!-- static configuration for tomcat -->
         <property name="delegator-name" value="default"/>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="ListRepositoryData" type="list" list-name="repositoryContent" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="path">
+            <hyperlink target="EditRepositoryContent" description="${path}">
+                <parameter param-name="contentId" from-field="contentId" />
+                <parameter param-name="path" from-field="path" />
+            </hyperlink>
+        </field>
+        <field name="contentId">
+            <hyperlink target="EditRepositoryContent" description="${contentId}">
+                <parameter param-name="contentId" from-field="contentId" />
+                <parameter param-name="path" from-field="path" />
+            </hyperlink>
+        </field>
+        <field name="contentTypeId">
+            <display />
+        </field>
+        <field name="statusId">
+            <display />
+        </field>
+        <field name="statusId">
+            <display />
+        </field>
+    </form>
+
+    <form name="SelectContentObject" type="single" target="">
+        <field name="contentDropDown" position="1">
+            <drop-down ><list-options key-name="contentList" description="${contentList}" list-name="parameters.contentList" list-entry-name="contentList"/></drop-down>
+        </field>
+
+        <!--
+        <field name="languageDropDown" position="2" title="">
+            <drop-down><list-options key-name="languageList" list-name="parameters.languageList"/></drop-down>
+        </field>
+        -->
+        <field name="submit" position="2"><submit/></field>
+    </form>
+
+    <form name="AddRepositoryData" type="single" target="StoreNewRepositoryData">
+        <field name="path" title="${uiLabelMap.ExampleRepositoryNode}" tooltip="${uiLabelMap.ExampleAddNewNodePath}">
+            <text />
+        </field>
+        <field name="msgLocale" title="${uiLabelMap.CommonChooseLanguage}" >
+            <drop-down allow-empty="true" ><list-options key-name="localeId" list-name="parameters.localeList" description="${localeId}"/></drop-down>
+        </field>
+        <field name="title">
+            <text />
+        </field>
+        <field name="message" title="${uiLabelMap.ExampleRepositoryMessage}">
+            <textarea visual-editor-enable="true" />
+        </field>
+        <field name="submit">
+            <submit />
+        </field>
+    </form>
+
+    <form name="UploadRepositoryFileData" type="upload" target="StoreNewRepositoryFileData">
+        <field name="path" title="${uiLabelMap.ExampleRepositoryFolder}" tooltip="${uiLabelMap.ExampleAddNewNodePath}">
+            <text></text>
+        </field>
+        <field name="fileData" title="${uiLabelMap.ExampleRepositoryFile}">
+            <file size="28"></file>
+        </field>
+        <field name="fileLocale" title="${uiLabelMap.CommonChooseLanguage}" >
+            <drop-down allow-empty="true" ><list-options key-name="localeId" list-name="parameters.localeList" description="${localeId}"/></drop-down>
+        </field>
+        <field name="description"><textarea cols="30"/></field>
+        <field name="submit">
+            <submit />
+        </field>
+    </form>
+
+    <form name="EditRepositoryDataChangeLanguage" type="single" target="EditRepositoryContent" default-entity-name="Content">
+        <field name="path" title="${uiLabelMap.ExampleRepositoryNode}" map-name="content">
+            <hidden />
+        </field>
+        <field name="language" title="${uiLabelMap.CommonChooseLanguage}" >
+            <drop-down allow-empty="false" current="first-in-list" current-description="${parameters.selectedLanguage}"><list-options key-name="languageList" description="${languageList}" list-name="parameters.languageList" list-entry-name="languageList"/></drop-down>
+        </field>
+        <field name="versions" >
+            <drop-down allow-empty="true" current="selected" no-current-selected-key="${parameters.version}"><list-options key-name="versionList" description="${versionList}" list-name="parameters.versionList" list-entry-name="versionList"/></drop-down>
+        </field>
+        <field name="submit" ><submit/></field>
+    </form>
+
+    <form name="EditRepositoryData" type="single" target="UpdateRepositoryData" >
+        <field name="title">
+            <display />
+        </field>
+        <field name="path" title="${uiLabelMap.ExampleRepositoryNode}" >
+            <display />
+        </field>
+        <field name="language"  title="${uiLabelMap.CommonLanguageTitle}">
+            <display />
+        </field>
+        <field name="pubDate" >
+            <display />
+        </field>
+        <field name="createDate" >
+            <display />
+        </field>
+        <field name="version" >
+            <display />
+        </field>
+        <field name="content" title="${uiLabelMap.ExampleRepositoryMessage}" >
+            <textarea visual-editor-enable="true" default-value="${parameters.message}"/>
+        </field>
+        <field name="submit">
+            <submit />
+        </field>
+    </form>
+
+    <form name="ScanRepositoryStructure" type="list" list-name="listIt" default-entity-name="Content" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="path">
+            <display />
+        </field>
+        <field name="primaryNodeType">
+            <display />
+        </field>
+    </form>
+
+    <form name="ExampleJackrabbitShowFileInformation" type="single" list-name="listIt" default-entity-name="Content" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="fileName">
+            <display />
+        </field>
+        <field name="fileMimeType" use-when="parameters.get(&quot;fileMimeType&quot;)!=null">
+            <display />
+        </field>
+        <field name="fileLastModified" use-when="parameters.get(&quot;fileLastModified&quot;)!=null">
+            <display />
+        </field>
+        <field name="fileCreationDate">
+            <display />
+        </field>
+    </form>
+
+    <form name="QueryRepositoryDataForm" type="single" target="QueryRepositoryData">
+        <field name="queryData" ><text /></field>
+        <field name="submit"><submit/></field>
+    </form>
+
+    <form name="ExampleJackrabbitShowQueryResults" type="list" target="EditRepositoryContent" list-name="queryResult" separate-columns="true" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="path" title="${uiLabelMap.ExampleRepositoryNode}" ><hyperlink target="EditRepositoryContent" description="${path}"><parameter param-name="path"/></hyperlink></field>
+        <field name="score" ><display /></field>
+    </form>
+</forms>
