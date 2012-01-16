@@ -40,7 +40,9 @@ under the License.
   <!-- org.ofbiz.humanres.ability -->
   <!-- ========================================================= -->
 
-    <entity entity-name="PartyQual" package-name="org.ofbiz.humanres.ability" title="Party Qualification Entity">
+    <entity entity-name="PartyQual"
+            package-name="org.ofbiz.humanres.ability"
+            title="Party Qualification Entity">
         <field name="partyId" type="id-ne"></field>
         <field name="partyQualTypeId" type="id-ne"></field>
         <field name="qualificationDesc" type="id-long"></field>
@@ -313,8 +315,8 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="BenefitTypeAndParty"
-      package-name="org.ofbiz.humanres.employment"
-      title="Benefit Type Entity">
+             package-name="org.ofbiz.humanres.employment"
+             title="Benefit Type Entity">
       <member-entity entity-alias="BT" entity-name="BenefitType"/>
       <member-entity entity-alias="PB" entity-name="PartyBenefit"/>
       <alias-all entity-alias="BT"/>
@@ -367,8 +369,8 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="EmploymentAndPerson"
-        package-name="org.ofbiz.humanres.employment"
-        title="Employment and Person Entity">
+            package-name="org.ofbiz.humanres.employment"
+            title="Employment and Person Entity">
         <member-entity entity-alias="EMPLMNT" entity-name="Employment"/>
         <member-entity entity-alias="PERS" entity-name="Person"/>
         <alias-all entity-alias="EMPLMNT"/>
@@ -434,7 +436,7 @@ under the License.
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
         <field name="approverPartyId" type="id-ne"/>
-          <field name="leaveStatus" type="short-varchar"/>
+        <field name="leaveStatus" type="short-varchar"/>
         <field name="description" type="description"/>
         <prim-key field="partyId"/>
         <prim-key field="leaveTypeId"/>
@@ -711,8 +713,8 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="EmplPositionAndFulfillment"
-      package-name="org.ofbiz.humanres.position"
-      title="EmplPosition Fulfillment Entity">
+            package-name="org.ofbiz.humanres.position"
+            title="EmplPosition Fulfillment Entity">
       <member-entity entity-alias="EMPPOS" entity-name="EmplPosition"></member-entity>
       <member-entity entity-alias="EPF" entity-name="EmplPositionFulfillment"></member-entity>
       <alias-all entity-alias="EMPPOS"/>
@@ -726,7 +728,7 @@ under the License.
         <key-map field-name="emplPositionTypeId"/>
       </relation>
     </view-entity>
-  <entity entity-name="EmplPositionReportingStruct"
+    <entity entity-name="EmplPositionReportingStruct"
             package-name="org.ofbiz.humanres.position"
             title="EmplPosition Reporting Structure Entity">
       <field name="emplPositionIdReportingTo" type="id-ne"></field>
@@ -811,9 +813,9 @@ under the License.
         <key-map field-name="responsibilityTypeId"/>
       </relation>
     </entity>
-  <entity entity-name="EmplPositionTypeRate" table-name="EMPL_POSITION_TYPE_RATE_NEW"
-    package-name="org.ofbiz.humanres.position"
-    title="EmplPosition Type Rate Entity">
+    <entity entity-name="EmplPositionTypeRate" table-name="EMPL_POSITION_TYPE_RATE_NEW"
+            package-name="org.ofbiz.humanres.position"
+            title="EmplPosition Type Rate Entity">
     <field name="emplPositionTypeId" type="id-ne"/>
     <field name="rateTypeId" type="id-ne"/>
     <field name="payGradeId" type="id"/>
@@ -835,8 +837,8 @@ under the License.
     </relation>
   </entity>
   <view-entity entity-name="EmplPositionTypeRateAndAmount"
-    package-name="org.ofbiz.humanres.position"
-    title="EmplPosition Type Rate Entity and Rate Amount">
+        package-name="org.ofbiz.humanres.position"
+        title="EmplPosition Type Rate Entity and Rate Amount">
     <member-entity entity-alias="EPTR" entity-name="EmplPositionTypeRate"/>
     <member-entity entity-alias="RA" entity-name="RateAmount"/>
     <alias-all entity-alias="EPTR"/>
