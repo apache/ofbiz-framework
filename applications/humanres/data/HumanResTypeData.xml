@@ -55,6 +55,7 @@ under the License.
 
     <StatusType statusTypeId="LEAVE_STATUS" description="Employee Leave Status"/>
     <StatusItem statusId="LEAVE_APPROVED" statusTypeId="LEAVE_STATUS"  description="Approved"/>
+    <StatusItem statusId="LEAVE_CREATED" statusTypeId="LEAVE_STATUS"  description="Created"/>
     <StatusItem statusId="LEAVE_REJECTED" statusTypeId="LEAVE_STATUS"  description="Rejected"/>
 
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
