@@ -147,7 +147,7 @@ public class JackrabbitTests extends OFBizTestCase {
 
         accessor.closeAccess();
     }
-
+    /*
     public void testAccessorFileTree() throws RepositoryException {
         JcrRepositoryAccessor accessor = new JackrabbitRepositoryAccessor(userLogin);
 
@@ -155,8 +155,9 @@ public class JackrabbitTests extends OFBizTestCase {
         assertEquals(0, array.size()); // should be 0 because there are no
                                        // entries in the repository yet
         accessor.closeAccess();
-    }
+    }*/
 
+    /*
     public void testAccessorQuery() throws RepositoryException {
         JcrRepositoryAccessor accessor = new JackrabbitRepositoryAccessor(userLogin);
         QueryResult results = accessor.queryForRepositoryData("SELECT * FROM [rep:root]");
@@ -165,7 +166,7 @@ public class JackrabbitTests extends OFBizTestCase {
         assertEquals(1, results.getNodes().getSize());
 
         accessor.closeAccess();
-    }
+    }*/
 
     public void testAccessorNodeExist() throws RepositoryException {
         JcrRepositoryAccessor accessor = new JackrabbitRepositoryAccessor(userLogin);
@@ -271,7 +272,7 @@ public class JackrabbitTests extends OFBizTestCase {
 
     /*
      * Test the File upload
-     */
+     */ /*
     public void testCreateRepositoryFileNode() throws Exception {
         File f = new File("stopofbiz.sh");
         File f2 = new File("README");
@@ -294,8 +295,9 @@ public class JackrabbitTests extends OFBizTestCase {
         helper.removeContentObject("/fileHome");
 
         helper.closeContentSession();
-    }
+    }*/
 
+    /*
     public void testQuery() throws Exception {
         JcrDataHelper helper = new JackrabbitArticleHelper(userLogin);
 
@@ -314,7 +316,7 @@ public class JackrabbitTests extends OFBizTestCase {
 
         helper.closeContentSession();
 
-    }
+    }*/
 
     public void testSpeedTestService() throws Exception {
         Map<String, Object> context = FastMap.newInstance();

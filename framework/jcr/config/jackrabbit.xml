@@ -96,11 +96,12 @@
         <!--
             Search index and the file system it uses.
             class: FQN of class implementing the QueryHandler interface
-        -->
+
         <SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
             <param name="path" value="${wsp.home}/index"/>
             <param name="supportHighlighting" value="true"/>
         </SearchIndex>
+        -->
     </Workspace>
 
     <!--
@@ -130,9 +131,10 @@
     <!--
         Search index for content that is shared repository wide
         (/jcr:system tree, contains mainly versions)
-    -->
+
     <SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
         <param name="path" value="${rep.home}/repository/index"/>
         <param name="supportHighlighting" value="true"/>
     </SearchIndex>
+    -->
 </Repository>
