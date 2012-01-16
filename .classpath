@@ -11,8 +11,6 @@
 	<classpathentry kind="lib" path="applications/content/lib/poi-ooxml-3.8-beta5-20111217.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi-ooxml-schemas-3.8-beta5-20111217.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/poi-scratchpad-3.8-beta5-20111217.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/tika-core-1.0.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/tika-parsers-1.0.jar"/>
 	<classpathentry kind="lib" path="applications/product/lib/watermarker-0.0.4.jar"/>
 	<classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant-1.8.2.jar"/>
@@ -155,8 +153,6 @@
 	<classpathentry kind="lib" path="framework/jcr/lib/jackrabbit-spi-commons-2.3.3.jar"/>
 	<classpathentry kind="lib" path="framework/jcr/lib/jackrabbit-ocm-2.0.jar" sourcepath="/ocm"/>
 	<classpathentry kind="lib" path="framework/jcr/lib/jcr-2.0.jar"/>
-	<classpathentry kind="lib" path="framework/jcr/lib/tika-core-0.10.jar"/>
-	<classpathentry kind="lib" path="framework/jcr/lib/tika-parsers-0.10.jar"/>
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler-5.5.15.jar"/>
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-runtime-5.5.15.jar"/>
 	<classpathentry kind="lib" path="framework/jetty/lib/jetty-6.1.11.jar"/>
@@ -282,5 +278,7 @@
 	<classpathentry kind="src" path="specialpurpose/webpos/src"/>
 	<classpathentry kind="src" path="specialpurpose/workflow/src"/>
 	<classpathentry exported="true" kind="con" path="GROOVY_DSL_SUPPORT"/>
+	<classpathentry kind="lib" path="framework/jcr/lib/tika-core-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/jcr/lib/tika-parsers-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
