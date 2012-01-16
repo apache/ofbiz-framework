@@ -322,4 +322,17 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="MyLeaveList">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResMyLeaves}" navigation-form-name="ListEmplLeaves">
+                    <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>
