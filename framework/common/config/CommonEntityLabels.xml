@@ -8711,6 +8711,18 @@
         <value xml:lang="zh">合格的</value>
         <value xml:lang="zh_TW">合格的</value>
     </property>
+    <property key="StatusItem.description.LEAVE_CREATED">
+        <value xml:lang="en">Created</value>
+        <value xml:lang="fr">Créé</value>
+    </property>
+    <property key="StatusItem.description.LEAVE_APPROVED">
+        <value xml:lang="en">Approved</value>
+        <value xml:lang="fr">Validé</value>
+    </property>
+    <property key="StatusItem.description.LEAVE_REJECTED">
+        <value xml:lang="en">Rejected</value>
+        <value xml:lang="fr">Rejeté</value>
+    </property>
     <property key="StatusItem.description.MKTG_CAMP_APPROVED">
         <value xml:lang="de">Genehmigt</value>
         <value xml:lang="en">Approved</value>
