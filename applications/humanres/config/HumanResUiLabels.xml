@@ -1735,6 +1735,10 @@
         <value xml:lang="zh">人力资源管理系统</value>
         <value xml:lang="zh_TW">人力資源管理系統</value>
     </property>
+    <property key="HumanResMyLeaves">
+        <value xml:lang="en">My Leaves</value>
+        <value xml:lang="fr">Mes congés</value>
+    </property>
     <property key="HumanResNewEmplPosition">
         <value xml:lang="de">Stelle anlegen</value>
         <value xml:lang="en">New Employee Position</value>
