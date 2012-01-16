@@ -824,8 +824,9 @@ public class ProductPromoWorker {
         String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
         String operatorEnumId = productPromoCond.getString("operatorEnumId");
         String shippingMethod = "";
-
+        String carrierPartyId = "";
         if (otherValue != null && otherValue.contains("@")) {
+            carrierPartyId = otherValue.substring(0, otherValue.indexOf("@"));
             shippingMethod = otherValue.substring(otherValue.indexOf("@")+1);
             otherValue = "";
         }
@@ -1219,7 +1220,7 @@ public class ProductPromoWorker {
                     }
                 }
             }
-        } else if ("PPIP_ORDER_SHIPTOTAL".equals(inputParamEnumId) && shippingMethod.equals(cart.getShipmentMethodTypeId())) {
+        } else if ("PPIP_ORDER_SHIPTOTAL".equals(inputParamEnumId) && shippingMethod.equals(cart.getShipmentMethodTypeId()) && carrierPartyId.equals(cart.getCarrierPartyId())) {
             if (UtilValidate.isNotEmpty(condValue)) {
                 BigDecimal orderTotalShipping = cart.getTotalShipping();
                 if (Debug.verboseOn()) { Debug.logVerbose("Doing order total Shipping compare: ordertotalShipping=" + orderTotalShipping, module); }
