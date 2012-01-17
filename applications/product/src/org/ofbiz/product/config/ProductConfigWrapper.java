@@ -664,6 +664,15 @@ public class ProductConfigWrapper implements Serializable {
             }
         }
 
+        public String getOptionName() {
+            return (configOption.getString("configOptionName") != null? configOption.getString("configOptionName"): "no option name");
+        }
+
+        public String getOptionName(Locale locale) {
+        	
+            return (configOption.getString("configOptionName") != null? (String) configOption.get("configOptionName", locale): "no option name");
+        }
+
         public String getDescription() {
             return (configOption.getString("description") != null? configOption.getString("description"): "no description");
         }
