@@ -660,6 +660,8 @@
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <create-value value-field="newEntity"/>
         <check-errors/>
+        <property-to-field resource="HumanResUiLabels" property="HumanResLeaveCreationSuccess" field="successMessage"/>
+        <field-to-result field="responseMessage" result-name="successMessage"/>
     </simple-method>
 
     <simple-method method-name="updateEmplLeave" short-description="Update Employee Leave">
