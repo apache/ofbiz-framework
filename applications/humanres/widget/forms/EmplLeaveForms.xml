@@ -90,7 +90,7 @@
             </hyperlink>
         </field>
         <field name="description"><hidden/></field>
-      </form>
+    </form>
     <form name="EditEmplLeave" type="single" target="updateEmplLeaveExt" default-map-name="leaveApp"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="leaveApp==null" target="createEmplLeaveExt"/>
@@ -113,7 +113,7 @@
         <field name="submitButton" use-when="leaveApp==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="leaveApp!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-   <form name="FindLeaveApprovals" target="FindLeaveApprovals" type="single">
+    <form name="FindLeaveApprovals" target="FindLeaveApprovals" type="single">
         <auto-fields-entity entity-name="EmplLeave" default-field-type="find"/>
         <field name="noConditionFind"><hidden value="Y"/></field>
         <!--<field name="approverPartyId" use-when="!hasAdminPermission"><hidden value="${approverPartyId}"/></field>-->
