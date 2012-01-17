@@ -51,6 +51,7 @@ if (userLogin) {
             creditCard = paymentMethod.getRelatedOne("CreditCard");
             context.paymentMethodTypeId = "CREDIT_CARD";
             context.cardNumber = creditCard.cardNumber;
+            context.cardType = creditCard.cardType;
             context.paymentMethodId = creditCard.paymentMethodId;
             context.firstNameOnCard = creditCard.firstNameOnCard;
             context.lastNameOnCard = creditCard.lastNameOnCard;
