@@ -1486,6 +1486,10 @@
         <value xml:lang="pt_BR">Licença</value>
         <value xml:lang="zh">离职</value>
     </property>
+    <property key="HumanResLeaveCreationSuccess">
+        <value xml:lang="en">Leave request created successfully</value>
+        <value xml:lang="fr">Demande de congés créée avec succès</value>
+    </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
         <value xml:lang="fr">Liste d'emplois</value>
