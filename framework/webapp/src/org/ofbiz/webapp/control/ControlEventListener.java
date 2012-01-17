@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.XmlSerializer;
@@ -75,8 +76,12 @@ public class ControlEventListener implements HttpSessionListener {
             // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue visit = VisitHandler.getVisit(session);
             GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {
-                visit.set("thruDate", new Timestamp(session.getLastAccessedTime()));
-                visit.store();
+                Delegator delegator = visit.getDelegator();
+                visit = delegator.findOne("Visit", UtilMisc.toMap("visitId", visit.get("visitId")), false);
+                if (visit != null) {
+                    visit.set("thruDate", new Timestamp(session.getLastAccessedTime()));
+                    visit.store();
+                }
             } else {
                 Debug.logWarning("Could not find visit value object in session [" + session.getId() + "] that is being destroyed", module);
             }
