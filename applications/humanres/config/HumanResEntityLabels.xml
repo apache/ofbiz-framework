@@ -20,6 +20,14 @@
 -->
 
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="EmplLeaveReasonType.description.CASUAL">
+        <value xml:lang="en">Casual</value>
+        <value xml:lang="fr">Convenance</value>
+    </property>
+    <property key="EmplLeaveReasonType.description.MEDICAL">
+        <value xml:lang="en">Medical</value>
+        <value xml:lang="fr">Maladie</value>
+    </property>
     <property key="EmplLeaveType.description.INLAND_EARNED">
         <value xml:lang="en">Inland earned</value>
         <value xml:lang="fr">Congé payé</value>

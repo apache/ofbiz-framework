@@ -949,6 +949,7 @@ under the License.
     </entity>
     <entity entity-name="EmplLeaveReasonType"
             package-name="org.ofbiz.humanres.employment"
+            default-resource-name="HumanResEntityLabels"
             title="Leave Reason Type Entity">
         <field name="emplLeaveReasonTypeId" type="id-ne"/>
         <field name="parentTypeId" type="id-ne"/>
