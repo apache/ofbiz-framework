@@ -67,6 +67,7 @@
             </display-entity>
         </field>
         <field name="leaveTypeId"><display-entity entity-name="EmplLeaveType"/></field>
+        <field name="emplLeaveReasonTypeId"><display-entity entity-name="EmplLeaveReasonType"/></field>
         <field name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">
@@ -146,6 +147,7 @@
             </display-entity>
         </field>
         <field name="leaveTypeId"><display-entity entity-name="EmplLeaveType"/></field>
+        <field name="emplLeaveReasonTypeId"><display-entity entity-name="EmplLeaveReasonType"/></field>
         <field name="approverPartyId" field-name="approverPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" key-field-name="partyId">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${approverPartyId}" link-style="buttontext">

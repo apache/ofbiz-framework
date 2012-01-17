@@ -150,8 +150,8 @@ under the License.
     <Enumeration description="Technical Exam" enumCode="TECHNICAL" enumId="EXAM_TECHNICAL" sequenceId="02" enumTypeId="EXAM_TYPE"/>
     <Enumeration description="Group Discussion" enumCode="GROUP_DISCN" enumId="EXAM_GROUP_DISCN" sequenceId="03" enumTypeId="EXAM_TYPE"/>
     
-    <EmplLeaveReasonType description="Medical" hasTable="N" parentTypeId="" emplLeaveReasonTypeId="Fever"/>
-    <EmplLeaveReasonType description="Casual" hasTable="N" parentTypeId="" emplLeaveReasonTypeId="Personal Work"/>
+    <EmplLeaveReasonType emplLeaveReasonTypeId="MEDICAL" description="Medical" hasTable="N"/>
+    <EmplLeaveReasonType emplLeaveReasonTypeId="CASUAL" description="Casual" hasTable="N"/>
 
     <PerfReviewItemType perfReviewItemTypeId="TECH" hasTable="N" description="Technical skills"/>
     <PerfReviewItemType perfReviewItemTypeId="RESP" hasTable="N" description="Responsibility"/>
