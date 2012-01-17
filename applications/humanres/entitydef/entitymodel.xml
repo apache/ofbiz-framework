@@ -459,6 +459,7 @@ under the License.
     </entity>
     <entity entity-name="EmplLeaveType"
             package-name="org.ofbiz.humanres.employment"
+            default-resource-name="HumanResEntityLabels"
             title="Employee Leave Type Entity">
         <field name="leaveTypeId" type="id-ne"/>
         <field name="parentTypeId" type="id-ne"/>
