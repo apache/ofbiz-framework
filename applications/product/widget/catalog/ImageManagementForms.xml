@@ -362,7 +362,7 @@ under the License.
         </sort-order>
     </form>
     
-    <form name="showDefaultImage" type="single" title="" header-row-style="header-row" default-table-style="basic-table"> 
+    <form name="ShowDefaultImage" type="single" title="" header-row-style="header-row" default-table-style="basic-table"> 
         <actions>
             <entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
                 <field-map field-name="productId" from-field="parameters.productId"/>
@@ -676,7 +676,7 @@ under the License.
         </field>
     </form>
     
-    <form name="productImageReplace" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageReplace"> 
+    <form name="ProductImageReplace" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="ListImageReplace"> 
         <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -829,13 +829,19 @@ under the License.
         </field>-->
     </form>
     
-    <form name="ImageResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="resizeAllImageOfProduct">
+    <form name="ImageResize" type="single" title="" header-row-style="header-row" default-table-style="basic-table" target="resizeImages">
+        <field name="resizeOption">
+            <drop-down >
+                <option key="resizeAllImages" description="Resize All Images"/>
+                <option key="createNewThumbnail" description="Create New Thumbnail Size"/>
+            </drop-down>
+        </field>
         <field name="productId" title="${uiLabelMap.ImageManagementChooseProductID}"><lookup target-form-name="LookupProduct"/></field>
         <field name="size" title="${uiLabelMap.ImageManagementImageWidth}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
-    <form name="sizeListOfProduct" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
+    <form name="SizeListOfProduct" type="list" title="" odd-row-style="alternate-row" default-table-style="basic-table" use-row-submit="true" separate-columns="true">
         <actions>
             <entity-condition entity-name="ContentAssoc">
                 <condition-list combine="and">

@@ -435,7 +435,7 @@ under the License.
                                             <include-form name="ListImageManage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
                                         <screenlet title="${uiLabelMap.ImageManagementDefaultImage}">
-                                            <include-form name="showDefaultImage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                            <include-form name="ShowDefaultImage" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                         </screenlet>
                                     </widgets>
                                     <fail-widgets>
@@ -657,7 +657,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.ImageManagementReplace}">
-                                    <include-form name="productImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                    <include-form name="ProductImageReplace" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                             </widgets>
                             <fail-widgets>
@@ -883,8 +883,8 @@ under the License.
                             </condition>
                             <widgets>
                                 <!--<label style="h1">${uiLabelMap.Product} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]</label>-->
-                                <screenlet title="Size Existing In Product : ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]">
-                                    <include-form name="sizeListOfProduct" location="component://product/widget/catalog/ImageManagementForms.xml"/>
+                                <screenlet title="${uiLabelMap.ImageManagementThumbnailSizeExistingInProduct} : ${product.internalName} [${uiLabelMap.CommonId}:${product.productId}]">
+                                    <include-form name="SizeListOfProduct" location="component://product/widget/catalog/ImageManagementForms.xml"/>
                                 </screenlet>
                                 <screenlet title="${uiLabelMap.ImageManagementResize}">
                                     <include-form name="ImageResize" location="component://product/widget/catalog/ImageManagementForms.xml"/>

@@ -1544,9 +1544,10 @@ under the License.
         <attribute name="partyId" mode="IN" type="String" optional="false"/>
     </service>
     
-    <service name="resizeAllImageOfProduct" engine="simple"
-        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="resizeAllImageOfProduct" auth="true">
-        <description>Resize All Image Of Product.</description>
+    <service name="resizeImages" engine="simple"
+        location="component://product/script/org/ofbiz/product/imagemanagement/ImageManagementServices.xml" invoke="resizeImages" auth="true">
+        <description>Resize Images.</description>
+        <attribute name="resizeOption" mode="IN" type="String" optional="false"/>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="size" mode="IN" type="String" optional="false"/>
     </service>
@@ -1555,10 +1556,18 @@ under the License.
         location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="resizeImageOfProduct" auth="true">
         <description>Resize Image Of Product.</description>
         <attribute name="productId" mode="IN" type="String" optional="false"/>
+        <attribute name="dataResourceName" mode="IN" type="String" optional="false"/>
+        <attribute name="resizeWidth" mode="IN" type="String" optional="false"/>
+    </service>
+    
+    <service name="createNewImageThumbnail" engine="java"
+        location="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="createNewImageThumbnail" auth="true">
+        <description>Create New Image Thumbnail.</description>
+        <attribute name="productId" mode="IN" type="String" optional="false"/>
         <attribute name="contentId" mode="IN" type="String" optional="false"/>
         <attribute name="dataResourceName" mode="IN" type="String" optional="false"/>
         <attribute name="drObjectInfo" mode="IN" type="String" optional="false"/>
-        <attribute name="resizeWidth" mode="IN" type="String" optional="false"/>
+        <attribute name="sizeWidth" mode="IN" type="String" optional="false"/>
     </service>
     
     <service name="removeImageBySize" engine="simple"
