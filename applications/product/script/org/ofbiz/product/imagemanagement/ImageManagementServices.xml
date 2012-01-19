@@ -383,24 +383,39 @@ under the License.
         </iterate>
     </simple-method>
     
-    <simple-method method-name="resizeAllImageOfProduct" short-description="Resize All Image Of Product">
-        <set field="removeImageBySizeMap.productId" from-field="parameters.productId"/>
-        <set field="removeImageBySizeMap.mapKey" from-field="parameters.size"/>
-        <call-service service-name="removeImageBySize" in-map-name="removeImageBySizeMap"/>
-        
-        <entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
-            <field-map field-name="productId" from-field="parameters.productId"/>
-            <field-map field-name="productContentTypeId" value="IMAGE"/>
-            <!--<field-map field-name="statusId" value="IM_APPROVED"/>-->
-        </entity-and>
-        <iterate list="productContentAndInfos" entry="productContentAndInfo">
-            <set field="resizeImageMap.productId" from-field="productContentAndInfo.productId"/>
-            <set field="resizeImageMap.contentId" from-field="productContentAndInfo.contentId"/>
-            <set field="resizeImageMap.dataResourceName" from-field="productContentAndInfo.drDataResourceName"/>
-            <set field="resizeImageMap.drObjectInfo" from-field="productContentAndInfo.drObjectInfo"/>
-            <set field="resizeImageMap.resizeWidth" from-field="parameters.size"/>
-            <call-service service-name="resizeImageOfProduct" in-map-name="resizeImageMap"/>
-        </iterate>
+    <simple-method method-name="resizeImages" short-description="Resize Images">
+        <if-compare field="parameters.resizeOption" operator="equals" value="resizeAllImages">
+            <entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="productContentTypeId" value="IMAGE"/>
+                <!--<field-map field-name="statusId" value="IM_APPROVED"/>-->
+            </entity-and>
+            <iterate list="productContentAndInfos" entry="productContentAndInfo">
+                <set field="resizeImageMap.productId" from-field="productContentAndInfo.productId"/>
+                <set field="resizeImageMap.dataResourceName" from-field="productContentAndInfo.drDataResourceName"/>
+                <set field="resizeImageMap.resizeWidth" from-field="parameters.size"/>
+                <call-service service-name="resizeImageOfProduct" in-map-name="resizeImageMap"/>
+            </iterate>
+        </if-compare>
+        <if-compare field="parameters.resizeOption" operator="equals" value="createNewThumbnail">
+            <set field="removeImageBySizeMap.productId" from-field="parameters.productId"/>
+            <set field="removeImageBySizeMap.mapKey" from-field="parameters.size"/>
+            <call-service service-name="removeImageBySize" in-map-name="removeImageBySizeMap"/>
+            
+            <entity-and entity-name="ProductContentAndInfo" list="productContentAndInfos">
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="productContentTypeId" value="IMAGE"/>
+                <!--<field-map field-name="statusId" value="IM_APPROVED"/>-->
+            </entity-and>
+            <iterate list="productContentAndInfos" entry="productContentAndInfo">
+                <set field="createNewImageThumbnailMap.productId" from-field="productContentAndInfo.productId"/>
+                <set field="createNewImageThumbnailMap.contentId" from-field="productContentAndInfo.contentId"/>
+                <set field="createNewImageThumbnailMap.dataResourceName" from-field="productContentAndInfo.drDataResourceName"/>
+                <set field="createNewImageThumbnailMap.drObjectInfo" from-field="productContentAndInfo.drObjectInfo"/>
+                <set field="createNewImageThumbnailMap.sizeWidth" from-field="parameters.size"/>
+                <call-service service-name="createNewImageThumbnail" in-map-name="createNewImageThumbnailMap"/>
+            </iterate>
+        </if-compare>
     </simple-method>
     
     <simple-method method-name="removeImageBySize" short-description="Remove Image By Size">

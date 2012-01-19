@@ -28,7 +28,7 @@ under the License.
         <td>
             <select name="imageResize" >
                 <#list productFeatures as productFeature>
-                    <option value="${productFeature.productFeatureId?if_exists}">${productFeature.description?if_exists}</option>
+                    <option value="${productFeature.abbrev?if_exists}">${productFeature.description?if_exists}</option>
                 </#list>
                 <option selected="" value="">Do not resize</option>
             </select>

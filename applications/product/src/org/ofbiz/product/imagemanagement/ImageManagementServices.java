@@ -112,29 +112,7 @@ public class ImageManagementServices {
             
             String sizeType = null;
             if (UtilValidate.isNotEmpty(imageResize)) {
-                if (imageResize.equals("IMAGE_AVATAR")) {
-                    sizeType = "100x75";
-                } else if (imageResize.equals("IMAGE_THUMBNAIL")) {
-                    sizeType = "150x112";
-                }    
-                else if (imageResize.equals("IMAGE_WEBSITE")) {
-                    sizeType = "320x240";
-                }
-                else if (imageResize.equals("IMAGE_BOARD")) {
-                    sizeType = "640x480";
-                }
-                else if (imageResize.equals("IMAGE_MONITOR15")) {
-                    sizeType = "800x600";
-                }
-                else if (imageResize.equals("IMAGE_MONITOR17")) {
-                    sizeType = "1024x768";
-                }
-                else if (imageResize.equals("IMAGE_MONITOR19")) {
-                    sizeType = "1280x1024";
-                }
-                else if (imageResize.equals("IMAGE_MONITOR21")) {
-                    sizeType = "1600x1200";
-                }
+                sizeType = imageResize;
             }
             
             Map<String, Object> contentCtx = FastMap.newInstance();
@@ -843,7 +821,7 @@ public class ImageManagementServices {
         return result;
     }
     
-    public static Map<String, Object> resizeImageOfProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> createNewImageThumbnail(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
@@ -851,7 +829,7 @@ public class ImageManagementServices {
         String productId = (String) context.get("productId");
         String contentId = (String) context.get("contentId");
         String dataResourceName = (String) context.get("dataResourceName");
-        String width = (String) context.get("resizeWidth");
+        String width = (String) context.get("sizeWidth");
         String imageType = ".jpg";
         int resizeWidth = Integer.parseInt(width);
         int resizeHeight = resizeWidth;
@@ -899,6 +877,30 @@ public class ImageManagementServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
+        } catch (Exception e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+        String successMsg = "Create new thumbnail size successful";
+        return ServiceUtil.returnSuccess(successMsg);
+    }
+    
+    public static Map<String, Object> resizeImageOfProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        String productId = (String) context.get("productId");
+        String dataResourceName = (String) context.get("dataResourceName");
+        String width = (String) context.get("resizeWidth");
+        int resizeWidth = Integer.parseInt(width);
+        int resizeHeight = resizeWidth;
+        
+        try {
+            BufferedImage bufImg = ImageIO.read(new File(imageServerPath + "/" + productId + "/" + dataResourceName));
+            double imgHeight = bufImg.getHeight();
+            double imgWidth = bufImg.getWidth();
+            String filenameToUse = dataResourceName;
+            String mimeType = dataResourceName.substring(dataResourceName.length() - 3, dataResourceName.length());
+            Map<String, Object> resultResize = ImageManagementServices.resizeImage(bufImg, imgHeight, imgWidth, resizeHeight, resizeWidth);
+            ImageIO.write((RenderedImage) resultResize.get("bufferedImage"), mimeType, new File(imageServerPath + "/" + productId + "/" + filenameToUse));
         } catch (Exception e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

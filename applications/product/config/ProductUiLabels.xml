@@ -5848,6 +5848,9 @@
         <value xml:lang="en">Choose Replacement Image</value>
         <value xml:lang="th">เลือกรูปภาพที่จะแทนที่</value>
     </property>
+    <property key="ImageManagementCreateNewThumbnailSize">
+        <value xml:lang="en">Create New Thumbnail Size</value>
+    </property>
     <property key="ImageManagementCrop">
         <value xml:lang="en">Crop</value>
         <value xml:lang="th">ตัดรูปภาพ</value>
@@ -5950,6 +5953,10 @@
         <value xml:lang="en">Resize</value>
         <value xml:lang="th">เปลี่ยนขนาด</value>
     </property>
+    <property key="ImageManagementResizeAllImages">
+        <value xml:lang="en">Resize All Images</value>
+        <value xml:lang="th">เปลี่ยนขนาดรูปภาพทั้งหมด</value>
+    </property>
     <property key="ImageManagementRotate">
         <value xml:lang="en">Rotate</value>
         <value xml:lang="th">หมุนรูปภาพ</value>
@@ -5976,6 +5983,9 @@
     <property key="ImageManagementTextSize">
         <value xml:lang="en">Text Size</value>
         <value xml:lang="th">ขนาดตัวอักษร</value>
+    </property>
+    <property key="ImageManagementThumbnailSizeExistingInProduct">
+        <value xml:lang="en">Thumbnail Size Existing In Product</value>
     </property>
     <property key="ImageManagementUploadNewFrame">
         <value xml:lang="en">Upload New Frame</value>

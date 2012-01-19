@@ -2907,9 +2907,9 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ImageResize"/>
     </request-map>
-    <request-map uri="resizeAllImageOfProduct">
+    <request-map uri="resizeImages">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="resizeAllImageOfProduct"/>
+        <event type="service" path="" invoke="resizeImages"/>
         <response name="success" type="view" value="ImageResize"/>
         <response name="error" type="view" value="ImageResize"/>
     </request-map>
