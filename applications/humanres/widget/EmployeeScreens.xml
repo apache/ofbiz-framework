@@ -122,6 +122,7 @@ under the License.
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="trainingsList"/>
                                         </container>
                                         <container style="profile-right">
                                             <include-screen name="CurrentEmploymentData" location="component://humanres/widget/EmployeeScreens.xml"/>
@@ -298,6 +299,16 @@ under the License.
         </section>
     </screen>
     
+    <screen name="trainingsList">
+        <section>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResTrainings}">
+                    <include-form name="simpleListTrainingStatus" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="PayrollHistory">
         <section>
             <actions>
