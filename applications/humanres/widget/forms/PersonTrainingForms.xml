@@ -133,6 +133,8 @@ under the License.
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
+        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
     </form>
     <form name="EditTrainingApprovals" type="single" target="updateTrainingStatus" default-map-name="personTraining">
         <auto-fields-service service-name="updateTrainingStatus" default-field-type="display"/>
@@ -193,5 +195,7 @@ under the License.
         </field>
         <field name="trainingRequestId" widget-style="buttontext"/>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
+        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
     </form>
 </forms>
