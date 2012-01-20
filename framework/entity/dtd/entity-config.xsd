@@ -82,13 +82,16 @@ under the License.
             <xs:attributeGroup ref="attlist.connection-factory"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="debug-xa-resources">
-        <xs:complexType>
-            <xs:attribute default="false"  name="value" type="xs:boolean"/>
-        </xs:complexType>
-    </xs:element>
     <xs:attributeGroup name="attlist.connection-factory">
         <xs:attribute type="xs:string" name="class" use="required"/>
+    </xs:attributeGroup>
+    <xs:element name="debug-xa-resources">
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.debug-xa-resources"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.debug-xa-resources">
+        <xs:attribute type="xs:string" name="value" use="required"/>
     </xs:attributeGroup>
     <xs:element name="delegator">
         <xs:complexType>

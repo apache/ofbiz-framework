@@ -127,7 +127,7 @@ public class EntityConfigUtil {
         connFactoryClass = connectionFactoryElement.getAttribute("class");
 
         Element debugXaResourcesElement = UtilXml.firstChildElement(rootElement, "debug-xa-resources");
-        if (debugXaResourcesElement == null) {
+        if (debugXaResourcesElement == null) { // This should not be since debug-xa-resources is required, but safer...
             debugXAResources = false;
         } else {
             debugXAResources = "true".equals(debugXaResourcesElement.getAttribute("value"));
