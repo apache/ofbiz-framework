@@ -48,8 +48,9 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- the connection factory class to use, one is needed for obtaining connections/pools for defined resources -->
     <connection-factory class="org.ofbiz.entity.connection.DBCPConnectionFactory"/>
-    <!-- debug-xa-resources value="true" --> <!-- see https://issues.apache.org/jira/browse/OFBIZ-4282 for more -->
 
+    <debug-xa-resources value="false" />  <!-- see https://issues.apache.org/jira/browse/OFBIZ-4282 for more -->
+    
     <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
@@ -85,7 +86,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <group-map group-name="org.ofbiz.olap" datasource-name="localpostolap"/>
         <group-map group-name="org.ofbiz.tenant" datasource-name="localposttenant"/>  -->
     </delegator>
-
+   
     <!-- need to at least define a name for each component to use -->
     <entity-model-reader name="main"/>
 
@@ -126,7 +127,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <field-type name="firebird" loader="fieldfile" location="fieldtypefirebird.xml"/>
     <field-type name="mssql" loader="fieldfile" location="fieldtypemssql.xml"/>
     <field-type name="advantage" loader="fieldfile" location="fieldtypeadvantage.xml"/>
-
+    
     <!--
     For DAO/JDBC Helper: Tries:
       1. JNDI Datasource IF jdbc.jndi.name, context.provider, etc are specified
