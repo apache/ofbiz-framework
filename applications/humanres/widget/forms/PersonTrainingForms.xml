@@ -61,7 +61,7 @@ under the License.
         <field name="approvalStatus"><hidden value="TRAINING_ASSIGNED"/></field>
         <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"/></field>
         <field name="roleTypeId"> <hidden value="CAL_ATTENDEE"/></field>
-        <field name="add"><submit/></field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="ListTrainingParticipants" list-name="listIt" title="" type="list" odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -80,9 +80,9 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="approvalStatus"><display/></field>
-        <field name="trainingRequestId" widget-style="buttontext"/>
-        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"><display/></field>
+        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="trainingRequestId" widget-style="buttontext"><display/></field>
+        <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
     </form>
     <form name="FindTrainingApprovals" target="FindTrainingApprovals" title="" type="single" default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="PersonTraining" default-field-type="find"/>
