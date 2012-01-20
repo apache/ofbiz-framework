@@ -10341,6 +10341,10 @@
         <value xml:lang="zh">处理中</value>
         <value xml:lang="zh_TW">處理中</value>
     </property>
+    <property key="StatusItem.description.TRAINING_APPLIED">
+        <value xml:lang="en">Applied</value>
+        <value xml:lang="fr">Postulée</value>
+    </property>
     <property key="StatusItem.description.TRAINING_APPROVED">
         <value xml:lang="en">Approved</value>
         <value xml:lang="es">Aprobado</value>
@@ -10349,6 +10353,10 @@
         <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt_BR">Aprovado</value>
         <value xml:lang="zh">已批准</value>
+    </property>
+    <property key="StatusItem.description.TRAINING_ASSIGNED">
+        <value xml:lang="en">Assigned</value>
+        <value xml:lang="fr">Affecté</value>
     </property>
     <property key="StatusItem.description.TRAINING_PROPOSED">
         <value xml:lang="de">Vorgeschlagen</value>

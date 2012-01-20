@@ -50,7 +50,10 @@ under the License.
     <StatusItem statusId="STATUS_RELOCATED" statusTypeId="RELOCATION_STATUS"  description="Relocated"/>
     
     <StatusType statusTypeId="TRAINING_STATUS" description="Training Status"/>
+    <StatusItem statusId="TRAINING_APPLIED" statusTypeId="TRAINING_STATUS"  description="Applied"/>
     <StatusItem statusId="TRAINING_APPROVED" statusTypeId="TRAINING_STATUS"  description="Approved"/>
+    <StatusItem statusId="TRAINING_ASSIGNED" statusTypeId="TRAINING_STATUS"  description="Assigned"/>
+    <StatusItem statusId="TRAINING_PROPOSED" statusTypeId="TRAINING_STATUS"  description="Proposed"/>
     <StatusItem statusId="TRAINING_REJECTED" statusTypeId="TRAINING_STATUS"  description="Rejected"/>
 
     <StatusType statusTypeId="LEAVE_STATUS" description="Employee Leave Status"/>
