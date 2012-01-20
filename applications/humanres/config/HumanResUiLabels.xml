@@ -786,7 +786,7 @@
     <property key="HumanResAddPersonTraining">
         <value xml:lang="de">Personenschulung hinzufügen</value>
         <value xml:lang="en">Add Person Training</value>
-        <value xml:lang="fr">Ajouter la formation de la personne</value>
+        <value xml:lang="fr">Ajouter une formation</value>
         <value xml:lang="it">Aggiungi corsi persona</value>
         <value xml:lang="pt_BR">Adicionar treinamento para pessoa</value>
         <value xml:lang="zh">新建个人培训</value>
