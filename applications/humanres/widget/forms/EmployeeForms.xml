@@ -214,7 +214,7 @@
         <auto-fields-service service-name="updateEmplLeave"/>
         <field name="partyId"><hidden/></field>
         <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="leaveStatus"><display/></field>
+        <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="emplLeaveReasonTypeId"><display/></field>
         <field name="leaveTypeId"><display-entity description="${description}" entity-name="EmplLeaveType"/></field>
         <field name="fromDate"></field>
