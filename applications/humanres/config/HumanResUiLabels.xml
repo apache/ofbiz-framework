@@ -918,7 +918,7 @@
     </property>
     <property key="HumanResCurrentEmploymentData">
         <value xml:lang="en">Current Employment information</value>
-        <value xml:lang="fr">Information actuelles sur l'emploi</value>
+        <value xml:lang="fr">Informations actuelles sur l'emploi</value>
         <value xml:lang="it">Informazioni attuali sull'impiego</value>
         <value xml:lang="pt_BR">Informação atual de empregado</value>
         <value xml:lang="zh">当前雇佣关系信息</value>
