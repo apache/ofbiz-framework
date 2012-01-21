@@ -2097,6 +2097,7 @@
     </property>
     <property key="HumanResPayRollHistory">
         <value xml:lang="en">PayRoll History</value>
+        <value xml:lang="fr">Historiques des paiements</value>
         <value xml:lang="zh">薪水支付历史</value>
     </property>
     <property key="HumanResPayRollPreferences">
