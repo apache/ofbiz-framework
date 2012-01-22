@@ -184,7 +184,7 @@
     <property key="up_thru_day">
         <value xml:lang="ar">يحتوي اليوم</value>
         <value xml:lang="de">bis Tagesende</value>
-        <value xml:lang="en">Up Thru Day</value>
+        <value xml:lang="en">Up Through Day</value>
         <value xml:lang="es">Hasta el día</value>
         <value xml:lang="fr">Inclus ce jour</value>
         <value xml:lang="it">Fino al giorno</value>
