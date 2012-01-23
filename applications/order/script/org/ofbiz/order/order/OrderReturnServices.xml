@@ -255,19 +255,26 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createReturnItem" short-description="Create Return Item">
+
         <set field="lookupPKMap.returnId" from-field="parameters.returnId"/>
         <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
 
         <if>
-          <condition>
-            <and>
-              <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
-              <not><if-compare-field field="userLogin.partyId" to-field="returnHeader.fromPartyId" operator="equals"/></not>
-            </and>
-          </condition>
-          <then>
-            <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItem"/></add-error>
-          </then>
+            <condition>
+                <and>
+                    <not>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    </not>
+                    <not>
+                        <if-compare-field field="userLogin.partyId" to-field="returnHeader.fromPartyId" operator="equals"/>
+                    </not>
+                </and>
+            </condition>
+            <then>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItem"/>
+                </add-error>
+            </then>
         </if>
         <check-errors/>
 
@@ -296,13 +303,17 @@ under the License.
                 </and>
             </condition>
             <then>
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPaymentMethodNeededForThisTypeOfReturn"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderReturnPaymentMethodNeededForThisTypeOfReturn"/>
+                </add-error>
             </then>
         </if>
         <check-errors/>
 
         <if-compare field="parameters.returnQuantity" operator="equals" value="0" type="BigDecimal">
-            <add-error><fail-property resource="OrderErrorUiLabels" property="OrderNoReturnQuantityAvailablePreviousReturnsMayExist"/></add-error>
+            <add-error>
+                <fail-property resource="OrderErrorUiLabels" property="OrderNoReturnQuantityAvailablePreviousReturnsMayExist"/>
+            </add-error>
             <check-errors/>
         </if-compare>
 
@@ -310,7 +321,7 @@ under the License.
         <set field="returnableQuantity" value="0" type="BigDecimal"/>
         <set field="returnablePrice" value="0" type="BigDecimal"/>
 
-        <!-- if an orderItemSeqId  is provided, then find the corresponding orderItem  -->
+        <!-- if an orderItemSeqId is provided, then find the corresponding orderItem  -->
         <if-not-empty field="parameters.orderItemSeqId">
             <make-value value-field="itemLookup" entity-name="OrderItem"/>
             <set-pk-fields map="parameters" value-field="itemLookup"/>
@@ -320,8 +331,9 @@ under the License.
             </if-not-empty>
         </if-not-empty>
 
-        <!-- get the returnableQuantity and returnablePrice: for orderItems, it's found by getReturnableQuantity; for adjustments,
-             either order adjustments or manual adjustments, it's always 1 and based on input parameter -->
+        <!-- get the returnableQuantity and returnablePrice:
+            for orderItems, it's found by getReturnableQuantity;
+            for adjustments, either order adjustments or manual adjustments, it's always 1 and based on input parameter -->
         <if-not-empty field="orderItem">
             <set field="serviceContext.orderItem" from-field="orderItem"/>
             <call-service service-name="getReturnableQuantity" in-map-name="serviceContext">
@@ -330,30 +342,36 @@ under the License.
             </call-service>
         </if-not-empty>
 
-
         <if-compare field="returnableQuantity" value="0" operator="greater" type="BigDecimal">
-            <!-- the user is only allowed to set a returnPrice if he has ORDERMGR_CREATE privilege, otherwise only the returnablePrice
-                 calculated by service is used -->
+            <!-- the user is only allowed to set a returnPrice if he has ORDERMGR_CREATE privilege, otherwise only the returnablePrice calculated by service is used -->
             <if>
                 <condition>
-                      <not><if-has-permission permission="ORDERMGR" action="_CREATE"/></not>
+                    <not>
+                        <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+                    </not>
                 </condition>
                 <then>
-                      <set from-field="returnablePrice" field="parameters.returnPrice"/>
+                    <set from-field="returnablePrice" field="parameters.returnPrice"/>
                 </then>
             </if>
 
             <!-- make sure the returnQuantity is not greater than the returnableQuantity from service or the quantity on the original orderItem -->
             <if-compare-field field="parameters.returnQuantity" to-field="returnableQuantity" operator="greater" type="BigDecimal">
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderRequestedReturnQuantityNotAvailablePreviousReturnsMayExist"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderRequestedReturnQuantityNotAvailablePreviousReturnsMayExist"/>
+                </add-error>
             </if-compare-field>
             <if-not-empty field="orderItem">
                 <if-compare-field field="parameters.returnQuantity" to-field="orderItem.quantity" operator="greater" type="BigDecimal">
-                    <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnQuantityCannotExceedTheOrderedQuantity"/></add-error>
+                    <add-error>
+                        <fail-property resource="OrderErrorUiLabels" property="OrderReturnQuantityCannotExceedTheOrderedQuantity"/>
+                    </add-error>
                 </if-compare-field>
             </if-not-empty>
             <if-compare-field field="parameters.returnPrice" to-field="returnablePrice" operator="greater" type="BigDecimal">
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/>
+                </add-error>
             </if-compare-field>
             <check-errors/>
 
@@ -361,7 +379,9 @@ under the License.
                 <set from-field="parameters.orderId" field="orderId"/>
                 <set from-field="parameters.orderItemSeqId" field="orderItemSeqId"/>
                 <log level="error" message="Order ${orderId} item ${orderItemSeqId} has been returned in full"/>
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderIllegalReturnItemTypePassed"/></add-error>
+                <add-error>
+                    <fail-property resource="OrderErrorUiLabels" property="OrderIllegalReturnItemTypePassed"/>
+                </add-error>
                 <check-errors/>
             </else>
         </if-compare>
@@ -370,7 +390,7 @@ under the License.
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
         <make-next-seq-id seq-field-name="returnItemSeqId" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set field="newEntity.statusId" value="RETURN_REQUESTED"/>  <!-- default status for new return items -->
+        <set field="newEntity.statusId" value="RETURN_REQUESTED"/> <!-- default status for new return items -->
         <field-to-result field="newEntity.returnItemSeqId" result-name="returnItemSeqId"/>
         <create-value value-field="newEntity"/>
         <refresh-value value-field="newEntity"/>
@@ -397,7 +417,9 @@ under the License.
                 </if-not-empty>
             </then>
         </if>
+
     </simple-method>
+
     <simple-method method-name="updateReturnItem" short-description="Update Return Item">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
         <check-errors/>
