@@ -346,4 +346,16 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="MyTrainings">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.HumanResMyTrainings}">
+                    <include-form name="ListEmplTrainings" location="component://humanres/widget/forms/PersonTrainingForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

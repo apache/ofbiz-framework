@@ -218,4 +218,25 @@ under the License.
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
         </field>
     </form>
+
+    <form name="ListEmplTrainings" type="list" list-name="listIt" separate-columns="true" target="updateEmplLeave" paginate-target="FindEmplLeaves"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="PersonTraining">
+                <condition-expr field-name="partyId" from-field="partyId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="PersonTraining" default-field-type="display"/>
+        <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+        </field>
+        <field name="approverId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+        </field>
+        <field name="trainingRequestId"/>
+        <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
+        <field name="approvalStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="trainingClassTypeId"><display-entity entity-name="TrainingClassType"/></field>
+    </form>
 </forms>
