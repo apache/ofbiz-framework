@@ -26,5 +26,9 @@
         screenLocation="component://humanres/widget/EmployeeScreens.xml"
         description="My Leaves form Human Resource" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="myLeave" portletCategoryId="HUMANRES"/>
+    <PortalPortlet portalPortletId="MyTrainings" portletName="My Trainings"  description="Trainings of a party"
+        screenName="MyTrainings" screenLocation="component://humanres/widget/EmployeeScreens.xml" securityServiceName="portalPermissionIsEmployee"
+        securityMainAction="VIEW"/>
+    <PortletPortletCategory portalPortletId="MyTrainings" portletCategoryId="HUMANRES"/>
 
 </entity-engine-xml>

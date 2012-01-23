@@ -1743,6 +1743,10 @@
         <value xml:lang="en">My Leaves</value>
         <value xml:lang="fr">Mes congés</value>
     </property>
+    <property key="HumanResMyTrainings">
+        <value xml:lang="en">My Trainings</value>
+        <value xml:lang="fr">Mes formations</value>
+    </property>
     <property key="HumanResNewEmplPosition">
         <value xml:lang="de">Stelle anlegen</value>
         <value xml:lang="en">New Employee Position</value>

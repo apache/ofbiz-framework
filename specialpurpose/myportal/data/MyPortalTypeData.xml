@@ -30,6 +30,7 @@
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE6" sequenceNum="600" portalPageName="My Leave" description="The OFBiz My Portal My Leave page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE7" sequenceNum="700" portalPageName="My Trainings" description="My Portal trainings page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
 
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML" sequenceNum="0" portalPageName="Main" description="The OFBiz System info page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML0" sequenceNum="50" portalPageName="My Comms" description="The OFBiz My Communications page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
@@ -55,6 +56,7 @@
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE4" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE5" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE6" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE7" columnSeqId="00001"/>
 
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_EMPL-NOEML0" columnSeqId="00001"/>
@@ -101,6 +103,7 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE6" portalPortletId="myLeave" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE7" portalPortletId="MyTrainings" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
 
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="SystemInfoNotes" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="SystemInfoStatus" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
