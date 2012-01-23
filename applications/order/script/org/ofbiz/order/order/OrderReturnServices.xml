@@ -279,12 +279,6 @@ under the License.
         <check-errors/>
 
         <if-empty field="parameters.returnItemTypeId">
-            <if-not-empty field="parameters.returnItemMapKey">
-                <!-- find the item mapping -->
-            </if-not-empty>
-        </if-empty>
-
-        <if-empty field="parameters.returnItemTypeId">
             <add-error>
                 <fail-property resource="OrderErrorUiLabels" property="OrderReturnItemTypeIsNotDefined"/>
             </add-error>
