@@ -187,4 +187,13 @@
     <PortletPortletCategory portalPortletId="PDR_Report" portletCategoryId="REPORT"/>
     <PortalPagePortlet portalPageId="OrderReportPage" portalPortletId="PDR_Report" portletSeqId="00001" columnSeqId="00002" sequenceNum="12"/>
 
+    <PortletCategory portletCategoryId="CUST_ORDERS" description="Customer Orders"/>
+    <PortalPortlet portalPortletId="ListCustReturns"
+        portletName="Customer Returns"
+        screenName="ListCustReturns"
+        screenLocation="component://order/widget/ordermgr/CustRequestScreens.xml"
+        description="List of Returns by a customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
+        editFormName="EditCustRetStatusId"
+        editFormLocation="component://order/widget/ordermgr/CustRequestForms.xml"/>
+    <PortletPortletCategory portalPortletId="ListCustReturns" portletCategoryId="CUST_ORDERS"/>
 </entity-engine-xml>

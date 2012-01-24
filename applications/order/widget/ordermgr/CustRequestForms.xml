@@ -721,4 +721,28 @@ under the License.
             <sort-field name="submit"/>
         </sort-order>
     </form>
+    <form name="EditCustRetStatusId" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+        <field name="statusId" entry-name="attributeMap.statusId">
+            <drop-down>
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="ORDER_RETURN_STTS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="saveButton"><submit/></field>
+    </form>
+    <form name="ListReturns" type="list" title="" list-name="listIt"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="ReturnHeader">
+                <field-map field-name="fromPartyId" from-field="partyId"/>
+                <field-map field-name="statusId" from-field="statusId"/>
+            </entity-and>
+        </actions>
+        <field name="returnId" title="${uiLabelMap.OrderReturnId}"><display/></field>
+        <field name="entryDate" title="${uiLabelMap.OrderEntryDate}"><display/></field>
+        <field name="destinationFacilityId" title="${uiLabelMap.OrderReturnDestinationFacility}"><display/></field>
+        <field name="statusId"><display/></field>
+    </form>
 </forms>
