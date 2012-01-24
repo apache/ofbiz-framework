@@ -57,6 +57,10 @@
         <value xml:lang="en">My trainings</value>
         <value xml:lang="fr">Mes formations</value>
     </property>
+    <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE8">
+        <value xml:lang="en">My Payments</value>
+        <value xml:lang="fr">Mes paiements</value>
+    </property>
     <property key="PortalPage.portalPageName.ProductStoreFacility">
         <value xml:lang="de">Lager</value>
         <value xml:lang="en">Facility</value>

@@ -94,6 +94,21 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ListPayments">
+        <section>
+            <actions>
+                <set field="noConditionFind" value="Y"/>
+                <set field="parameters.statusId" from-field="statusId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AccountingInvoicePayments}">
+                    <include-form name="ListPayments"  location="component://accounting/widget/PaymentForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="NewPayment">
         <section>
             <actions>
