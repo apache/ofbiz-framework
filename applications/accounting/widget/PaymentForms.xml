@@ -90,6 +90,20 @@ under the License.
         <field name="amountToApply"><display also-hidden="false" type="currency" currency="${currencyUomId}"/></field>
     </form>
 
+    <form name="EditPaymentAttributes" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+        <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="statusId" entry-name="attributeMap.statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PMNT_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="saveButton"><submit/></field>
+    </form>
+
     <form name="NewPaymentOut" type="single" target="createPayment" default-map-name="payment"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>

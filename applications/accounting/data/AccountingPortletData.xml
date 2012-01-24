@@ -74,4 +74,11 @@
         screenLocation="component://accounting/widget/InvoiceScreens.xml"
         description="List Invoices for a certain supplier who is just logged in"/>
     <PortletPortletCategory portalPortletId="ListSupplierInvoices" portletCategoryId="ACCOUNTING"/>
+
+    <PortalPortlet portalPortletId="ListPayments" portletName="List Customer Payments"
+        screenName="ListPayments"
+        screenLocation="component://accounting/widget/PaymentScreens.xml"
+        description="List of Payments"
+        editFormName="EditPaymentAttributes" editFormLocation="component://accounting/widget/PaymentForms.xml"/>
+    <PortletPortletCategory portalPortletId="ListPayments" portletCategoryId="ACCOUNTING"/>
 </entity-engine-xml>
