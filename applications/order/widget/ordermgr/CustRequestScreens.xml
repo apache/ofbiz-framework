@@ -701,5 +701,21 @@ under the License.
             </fail-widgets>
         </section>
     </screen>
-    
+
+    <screen name="ListCustReturns">
+        <section>
+            <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="screenletTitle" from-field="uiLabelMap.OrderMyReturns"/>
+                <entity-one entity-name="StatusItem" value-field="statusItem">
+                    <field-map field-name="statusId" from-field="statusId"/>
+                </entity-one>
+            </actions>
+            <widgets>
+                <screenlet title="${screenletTitle} (${statusItem.description})" navigation-form-name="ListCustReturns" >
+                    <include-form name="ListReturns" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
 </screens>

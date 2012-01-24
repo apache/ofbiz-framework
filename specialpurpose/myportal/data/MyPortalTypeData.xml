@@ -45,6 +45,7 @@
     <PortalPage portalPageId="MYPORTAL_CUSTOMER2" sequenceNum="200" portalPageName="Invoices" description="The OFBiz My Portal Invoices page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
     <PortalPage portalPageId="MYPORTAL_CUSTOMER3" sequenceNum="300" portalPageName="Projects" description="The OFBiz My Portal Project page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
     <PortalPage portalPageId="MYPORTAL_CUSTOMER4" sequenceNum="400" portalPageName="Orders" description="The OFBiz My Portal Order page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
+    <PortalPage portalPageId="MYPORTAL_CUSTOMER5" sequenceNum="500" portalPageName="My Orders" description="The OFBiz My Portal Order page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER"/>
 
     <PortalPageColumn portalPageId="MYPORTAL_NONE" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_NONE" columnSeqId="00002" columnWidthPercentage="50"/>
@@ -74,6 +75,7 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER2" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001"/>
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER4" columnSeqId="00001"/>
+    <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER5" columnSeqId="00001"/>
 
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
@@ -157,10 +159,11 @@
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="8"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListCustomerInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER3" portalPortletId="ListCustomerProjects" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
-    
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER4" portalPortletId="ListCustomerOrders" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortletAttribute portalPageId="MYPORTAL_CUSTOMER4" portalPortletId="ListCustomerOrders" portletSeqId="00001" attrName="statusId" attrValue="ORDER_APPROVED"/>
     <PortletAttribute portalPageId="MYPORTAL_CUSTOMER4" portalPortletId="ListCustomerOrders" portletSeqId="00001" attrName="roleTypeId" attrValue="PLACING_CUSTOMER"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER5" portalPortletId="ListCustReturns" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER5" portalPortletId="ListCustReturns" portletSeqId="00001" attrName="statusId" attrValue="RETURN_REQUESTED"/>
     
     <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListCustomerInvoices" portletCategoryId="LIST_CUSTOMER"/>

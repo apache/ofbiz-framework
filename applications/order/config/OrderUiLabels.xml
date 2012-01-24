@@ -4928,6 +4928,10 @@
         <value xml:lang="zh">送货数量</value>
         <value xml:lang="zh_TW">送貨數量</value>
     </property>
+    <property key="OrderMyReturns">
+        <value xml:lang="en">My returns</value>
+        <value xml:lang="fr">Mes retours</value>
+    </property>
     <property key="OrderNOTEMultipleShipmentsExist">
         <value xml:lang="de">Anmerkung: Mehrere Lieferungen vorhanden, verwenden Sie Lieferung aufteilen.</value>
         <value xml:lang="en">NOTE: Multiple shipments exist, use Split Shipment.</value>
