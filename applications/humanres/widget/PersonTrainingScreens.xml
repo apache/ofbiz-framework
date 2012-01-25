@@ -23,7 +23,6 @@
     <screen name="TrainingCalendar">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindTrainingCalendar"/>
                 <set field="parameters.period" from-field="parameters.period" default-value="${initialView}"/>
             </actions>
             <widgets>

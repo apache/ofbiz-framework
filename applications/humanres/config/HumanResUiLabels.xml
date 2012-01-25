@@ -2553,6 +2553,10 @@
         <value xml:lang="pt_BR">Procurar aprovações de treinamento</value>
         <value xml:lang="zh">查找培训批准</value>
     </property>
+    <property key="PageTitleFindTrainingCalendar">
+        <value xml:lang="en">Find Training Calendar</value>
+        <value xml:lang="fr">Calendrier de formation</value>
+    </property>
     <property key="PageTitleFindTrainingStatus">
         <value xml:lang="en">Find Training Status</value>
         <value xml:lang="fr">Rechercher les états de formation</value>
