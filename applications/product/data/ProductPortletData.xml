@@ -19,7 +19,7 @@
 -->
 <entity-engine-xml>
     
-    <PortletCategory portletCategoryId="PRODUCTS" description="List of Products"/>
+    <PortletCategory portletCategoryId="PRODUCTS" description="Product Management Portlets"/>
     <PortalPortlet portalPortletId="BestSellingProducts"
         portletName="List of Days Best Selling Products"
         screenName="BestSellingProducts"
