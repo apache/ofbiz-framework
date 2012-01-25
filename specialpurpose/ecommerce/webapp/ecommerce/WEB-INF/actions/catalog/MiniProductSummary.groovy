@@ -62,7 +62,7 @@ if (miniProduct && productStoreId && prodCatalogId ) {
     }
 
     // get aggregated product totalPrice
-    if ("AGGREGATED".equals(miniProduct.productTypeId)) {
+    if ("AGGREGATED".equals(miniProduct.productTypeId) || "AGGREGATED_SERVICE".equals(miniProduct.productTypeId)) {
         configWrapper = ProductConfigWorker.getProductConfigWrapper(optProductId, cart.getCurrency(), request);
         if (configWrapper) {
             configWrapper.setDefaultConfig();

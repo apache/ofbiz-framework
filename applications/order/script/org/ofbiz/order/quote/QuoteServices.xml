@@ -351,7 +351,10 @@ under the License.
                 <if>
                     <condition>
                         <and>
-                            <if-compare operator="equals" value="AGGREGATED" field="product.productTypeId"></if-compare>
+                            <or>
+                                <if-compare operator="equals" value="AGGREGATED" field="product.productTypeId"/>
+                                <if-compare operator="equals" value="AGGREGATED_SERVICE" field="product.productTypeId"/>
+                            </or>
                             <not><if-empty field="parameters.configId"></if-empty></not>
                         </and>
                     </condition>

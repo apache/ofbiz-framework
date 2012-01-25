@@ -43,6 +43,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo;
@@ -449,7 +450,7 @@ public class ShoppingCartServices {
                     String configId = null;
                     try {
                         product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
-                        if ("AGGREGATED_CONF".equals(product.getString("productTypeId"))) {
+                        if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
                             List<GenericValue>productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId")));
                             productAssocs = EntityUtil.filterByDate(productAssocs);
                             if (UtilValidate.isNotEmpty(productAssocs)) {

@@ -117,7 +117,7 @@ if (product) {
     }
 
     // get aggregated product totalPrice
-    if ("AGGREGATED".equals(product.productTypeId)) {
+    if ("AGGREGATED".equals(product.productTypeId)||"AGGREGATED_SERVICE".equals(product.productTypeId)) {
         configWrapper = ProductConfigWorker.getProductConfigWrapper(productId, cart.getCurrency(), request);
         if (configWrapper) {
             configWrapper.setDefaultConfig();

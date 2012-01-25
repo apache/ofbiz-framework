@@ -38,6 +38,7 @@ if (productId) {
 
 // do not include configurable products
 conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED"));
+conditionList.add(EntityCondition.makeCondition("productTypeId", EntityOperator.NOT_EQUAL, "AGGREGATED_SERVICE"));
 
 // no virtual products: note that isVirtual could be null,
 // we consider those products to be non-virtual and hence addable to the order in bulk
