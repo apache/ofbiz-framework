@@ -367,6 +367,7 @@ under the License.
     <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
     <alias entity-alias="TE" name="timeEntryId" group-by="true"/>
     <alias entity-alias="TE" name="hours" group-by="true"/>
+    <alias entity-alias="TE" name="hoursPartyId" field="partyId" group-by="true"/>
     <alias entity-alias="TE" name="invoiceId" group-by="true"/>
     <alias entity-alias="PR" name="partyId" group-by="true"/>
     <alias entity-alias="PR" name="percentageUsed" function="max"/>
@@ -406,6 +407,7 @@ under the License.
     <alias entity-alias="PPAH" name="projectId" group-by="true"/>
     <alias entity-alias="PPAH" name="phaseId" group-by="true"/>
     <alias entity-alias="PPAH" name="taskId" group-by="true"/>
+    <alias entity-alias="PPAH" name="hoursPartyId" group-by="true"/>
     <alias entity-alias="PPAH" name="invoiceId" group-by="true"/>
     <alias entity-alias="PPAH" name="totalOriginalHours" field="hours" function="sum"/>
     <alias name="totalRatedHours" function="sum">
@@ -431,6 +433,7 @@ under the License.
     <alias entity-alias="PPAH" name="projectId" group-by="true"/>
     <alias entity-alias="PPAH" name="phaseId" group-by="true"/>
     <alias entity-alias="PPAH" name="taskId" group-by="true"/>
+    <alias entity-alias="PPAH" name="hoursPartyId" group-by="true"/>
     <alias entity-alias="PPAH" name="invoiceId" group-by="true"/>
     <alias entity-alias="PPAH" name="totalOriginalHours" field="hours" function="sum"/>
 

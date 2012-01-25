@@ -67,20 +67,20 @@
     <simple-method method-name="acceptRequestAndConnectToTask" short-description="Accept a customer request and connect to an existing task">
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <if-empty field="workEffort">
-            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskNotFound"/></add-error>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskNotFound"/></add-error>
         </if-empty>
         <if-compare field="workEffort.currentStatusId" value="PTS_CREATED" operator="not-equals">
-            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskStatusWrong"/></add-error>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskStatusWrongNoRequestAdded"/></add-error>
         </if-compare>
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
         <if-empty field="custRequest">
-            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorRequestNotFound"/></add-error>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorRequestNotFound"/></add-error>
         </if-empty>
         <if-compare field="custRequest.statusId" value="CRQ_ACCEPTED" operator="not-equals">
             <entity-one entity-name="StatusItem" value-field="status">
                 <field-map field-name="statusId" value="custRequest.statusId"/>
             </entity-one>
-            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorRequestStatusWrong"/></add-error>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorRequestStatusWrong"/></add-error>
         </if-compare>
         <check-errors/>
         <set field="updCust.statusId" value="CRQ_REVIEWED"/>
@@ -92,10 +92,10 @@
     <simple-method method-name="setTaskStatusToComplete" short-description="Set the task status to complete, if resources assigned that status will also be set to complete">
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <if-empty field="workEffort">
-            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskNotFound"/></add-error>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskNotFound"/></add-error>
         </if-empty>
         <if-compare field="workEffort.currentStatusId" value="PTS_CREATED" operator="not-equals">
-            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskStatusWrong"/></add-error>
+            <add-error><fail-property resource="ProjectMgrUiLabels" property="ProjectMgrErrorTaskStatusWrongToBeComplete"/></add-error>
         </if-compare>
         <check-errors/>
         <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">

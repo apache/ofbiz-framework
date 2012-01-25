@@ -1027,7 +1027,11 @@
         <value xml:lang="nl">Taak ${parameters.workEffortId} werd niet gevonden</value>
         <value xml:lang="zh">任务：${parameters.workEffortId}没有找到</value>
     </property>
-    <property key="ProjectMgrErrorTaskStatusWrong">
+    <property key="ProjectMgrErrorTaskStatusWrongToBeComplete">
+        <value xml:lang="en">Status of Task : ${parameters.workEffortId} is not correct, status cannot change to complete</value>
+        <value xml:lang="fr">Le status de la tâche : ${parameters.workEffortId} n'est pas correct, il ne peut pas être passé à Terminé</value>
+    </property>
+    <property key="ProjectMgrErrorTaskStatusWrongNoRequestAdded">
         <value xml:lang="de">Aufgabe: ${parameters.workEffortId} wird nicht bearbeitet, es kann keine Anfrage hinzugefügt werden</value>
         <value xml:lang="en">Task: ${parameters.workEffortId} is not in progress, no request can be added</value>
         <value xml:lang="fr">Tâche : ${parameters.workEffortId} n'est pas en cours, aucune demande ne peut être ajoutée</value>
