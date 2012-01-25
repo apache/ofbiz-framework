@@ -45,7 +45,7 @@ under the License.
     <#assign portalPage = delegator.findByPrimaryKeyCache("PortalPage", findMap)>
     <#if portalPage?has_content>
       <div id="app-nav-selected-item">
-        ${portalPage.portalPageName?if_exists}
+        ${portalPage.get("portalPageName", locale)?if_exists}
       </div>
     </#if>
 </#if>
