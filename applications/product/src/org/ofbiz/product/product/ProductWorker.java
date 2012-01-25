@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
@@ -146,7 +147,7 @@ public class ProductWorker {
     public static String getInstanceAggregatedId(Delegator delegator, String instanceProductId) throws GenericEntityException {
         GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", instanceProductId));
 
-        if (UtilValidate.isNotEmpty(instanceProduct) && ("AGGREGATED_CONF".equals(instanceProduct.getString("productTypeId")) || "AGGREGATEDSERV_CONF".equals(instanceProduct.getString("productTypeId")))) {
+        if (UtilValidate.isNotEmpty(instanceProduct) && EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", instanceProduct.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
             GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelatedByAnd("AssocProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"))));
             if (UtilValidate.isNotEmpty(productAssoc)) {

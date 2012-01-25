@@ -462,7 +462,10 @@ under the License.
         </menu-item>
         <menu-item name="EditProductConfigs" title="${uiLabelMap.ProductConfigs}">
             <condition>
-                <if-compare field="product.productTypeId" operator="equals" value="AGGREGATED"/>
+                <or>
+                    <if-compare field="product.productTypeId" operator="equals" value="AGGREGATED"/>
+                    <if-compare field="product.productTypeId" operator="equals" value="AGGREGATED_SERVICE"/>
+                </or>
             </condition>
             <link target="EditProductConfigs">
                 <parameter param-name="productId"/>

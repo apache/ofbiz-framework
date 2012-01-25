@@ -214,7 +214,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         // Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         // check to see if the product is fully configured
-        if ("AGGREGATED".equals(product.getString("productTypeId"))) {
+        if ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
             if (configWrapper == null || !configWrapper.isCompleted()) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
                                                 "productId", product.getString("productId"));
@@ -484,7 +484,7 @@ public class ShoppingCartItem implements java.io.Serializable {
              */
 
             // check to see if the product is fully configured
-            if ("AGGREGATED".equals(product.getString("productTypeId"))) {
+            if ("AGGREGATED".equals(product.getString("productTypeId"))|| "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
                 if (configWrapper == null || !configWrapper.isCompleted()) {
                     Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
                                                     "productId", product.getString("productId"));

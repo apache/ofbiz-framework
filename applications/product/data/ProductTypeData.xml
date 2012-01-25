@@ -502,7 +502,7 @@ under the License.
     <ProductType description="Fixed Asset Usage For Rental of an asset which is shipped from and returned to inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE_OUT_IN"/>
     <ProductType description="Service a product using inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="SERVICE_PRODUCT"/>
     <ProductType description="Configurable Service using inventory" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="SERVICE_PRODUCT" productTypeId="AGGREGATED_SERVICE"/>
-    <ProductType description="Configurable Service Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED_SERVICE" productTypeId="AGGREGATEDSERV_CONF"/>
+    <ProductType description="Configurable Service Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATEDSERV_CONF"/>
     
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->

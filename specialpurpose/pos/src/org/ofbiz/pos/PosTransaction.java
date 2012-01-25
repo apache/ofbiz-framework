@@ -435,7 +435,7 @@ public class PosTransaction implements Serializable {
             Delegator delegator = cart.getDelegator();
             GenericValue product = null;
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
-            if (UtilValidate.isNotEmpty(product) && "AGGREGATED".equals(product.getString("productTypeId"))) {
+            if (UtilValidate.isNotEmpty(product) && ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId")))) {
                 return true;
             }
         } catch (GenericEntityException e) {
@@ -494,7 +494,7 @@ public class PosTransaction implements Serializable {
             GenericValue product = null;
             ProductConfigWrapper pcw = null;
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
-            if (UtilValidate.isNotEmpty(product) && "AGGREGATED".equals(product.getString("productTypeId"))) {
+            if (UtilValidate.isNotEmpty(product) && ("AGGREGATED".equals(product.getString("productTypeId"))||"AGGREGATED_SERVICE".equals(product.getString("productTypeId")))) {
                 // if it's an aggregated item, load the configwrapper and set to defaults
                 pcw = new ProductConfigWrapper(delegator, session.getDispatcher(), productId, null, null, null, null, null, null);
                 pcw.setDefaultConfig();
