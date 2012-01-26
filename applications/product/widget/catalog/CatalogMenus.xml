@@ -266,9 +266,6 @@ under the License.
         </menu-item>
     </menu>
     <menu name="ProductStoreSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
-        <menu-item name="EditProductStore" title="${uiLabelMap.ProductNewProductStore}" widget-style="buttontext create">
-            <link target="EditProductStore"/>
-        </menu-item>
         <menu-item name="Expand" title="${uiLabelMap.CommonExpandAll}">
             <condition>
                 <or>
