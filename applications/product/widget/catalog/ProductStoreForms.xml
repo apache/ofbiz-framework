@@ -53,7 +53,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="storeName" title="${uiLabelMap.ProductStoreName}"><text size="30" maxlength="60"/></field>
+        <field name="storeName" title="${uiLabelMap.ProductStoreName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="title" title="${uiLabelMap.ProductTitle}"><text size="30" maxlength="60"/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><text size="60" maxlength="250"/></field>
         <field name="payToPartyId"><lookup target-form-name="LookupPartyName"/></field>
