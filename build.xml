@@ -454,13 +454,24 @@ under the License.
         </java>
     </target>
     <target name="run-install-file" depends="build"
-            description="This loads data using the command line argument 'file' to load data from a given file">
+            description="This loads data using the command line argument 'data-file' to load data from a given file using the default delegator">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="install"/>
             <arg value="delegator=default"/>
+            <arg value="file=${data-file}"/>
+        </java>
+    </target>
+    <target name="run-install-file-in-delegator" depends="build"
+            description="This loads data using the command line argument 'data-file' to load data from a given file to the command line argument 'delegator'">
+        <java jar="ofbiz.jar" fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <arg value="install"/>
+            <arg value="delegator=${delegator}"/>
             <arg value="file=${data-file}"/>
         </java>
     </target>

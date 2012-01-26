@@ -472,7 +472,7 @@ public class EntityDataLoadContainer implements Container {
         List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
-            Debug.logImportant("=-=-=-=-=-=-= Doing a data load with the following files:", module);
+            Debug.logImportant("=-=-=-=-=-=-= Doing a data load using delegator '" + delegator.getDelegatorName() + "' with the following files:", module);
             for (URL dataUrl: urlList) {
                 Debug.logImportant(dataUrl.toExternalForm(), module);
             }
