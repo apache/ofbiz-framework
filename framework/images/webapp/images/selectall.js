@@ -1,4 +1,4 @@
-/*
+*/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -731,26 +731,33 @@ function submitFormEnableButton(button) {
     button.value = button.value.substring(0, button.value.length - 1);
 }
 
-function expandAll(expanded) {
-  var divs,divs1,i,j,links,groupbody;
+/**
+ * Expands or collapses all groups of one portlet
+ * 
+ * @param bool <code>true</code> to expand, <code>false</code> otherwise
+ * @param portalPortletId The id of the portlet
+ */
+function expandAllP(bool, portalPortletId) {
+    jQuery('#scrlt_'+portalPortletId+' .fieldgroup').each(function() {
+        var titleBar = $(this).children('.fieldgroup-title-bar'), body = $(this).children('.fieldgroup-body');
+        if (titleBar.children().length > 0 && body.is(':visible') != bool) {
+            toggleCollapsiblePanel(titleBar.find('a'), body.attr('id'), 'expand', 'collapse');
+        }
+    });
+}
 
-  divs=document.getElementsByTagName('div');
-  for(i=0;i<divs.length;i++) {
-    if(/fieldgroup$/.test(divs[i].className)) {
-      links=divs[i].getElementsByTagName('a');
-      if(links.length>0) {
-        divs1=divs[i].getElementsByTagName('div');
-        for(j=0;j<divs1.length;j++){
-          if(/fieldgroup-body/.test(divs1[j].className)) {
-            groupbody=divs1[j];
-          }
+/**
+ * Expands or collapses all groups of the page
+ * 
+ * @param bool <code>true</code> to expand, <code>false</code> otherwise
+ */
+function expandAll(bool) {
+    jQuery('.fieldgroup').each(function() {
+        var titleBar = $(this).children('.fieldgroup-title-bar'), body = $(this).children('.fieldgroup-body');
+        if (titleBar.children().length > 0 && body.is(':visible') != bool) {
+            toggleCollapsiblePanel(titleBar.find('a'), body.attr('id'), 'expand', 'collapse');
         }
-        if(jQuery(groupbody).is(':visible') != expanded) {
-          toggleCollapsiblePanel(links[0], groupbody.id, 'expand', 'collapse');
-        }
-      }
-    }
-  }
+    });
 }
 
 //calls ajax request for storing user layout preferences
