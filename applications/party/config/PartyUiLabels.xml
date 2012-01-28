@@ -7798,6 +7798,7 @@
     <property key="PartyNoProductStoreFoundForThisParty">
         <value xml:lang="de">Kein Laden für diesen Akteur gefunden.</value>
         <value xml:lang="en">No product store(s) found for this party.</value>
+        <value xml:lang="fr">Aucun centre de profit trouvé pour cet acteur</value>
         <value xml:lang="zh_TW">此成員沒有產品商店。</value>
     </property>
     <property key="PartyNoServerHitsFound">
