@@ -18,6 +18,6 @@
     under the License.
 -->
 <entity-engine-xml>
-    <SystemProperty systemPropertyId="currency.uom.id.default" systemPropertyValue="THB" description="the default currency to use for prices, etc"/>
+    <SystemProperty systemPropertyId="currency.uom.id.default" systemPropertyValue="USD" description="The default currency to use for prices, etc"/>
     <SystemProperty systemPropertyId="defaultFromEmailAddress" systemPropertyValue="propertytest@example.com" description="general default 'fromEmailAddress' can be overridden in: EmailTemplateSetting"/>
 </entity-engine-xml>
