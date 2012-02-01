@@ -645,11 +645,9 @@ public class LoginWorker {
         if (currCatalog != null) session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
         if (delegatorName != null) {
             // if there is a tenantId in the delegatorName remove it now so that tenant selection doesn't last beyond logout
-            /*
             if (delegatorName.indexOf('#') > 0) {
                 delegatorName = delegatorName.substring(0, delegatorName.indexOf('#'));
             }
-            */
             session.setAttribute("delegatorName", delegatorName);
 
             delegator = DelegatorFactory.getDelegator(delegatorName);
