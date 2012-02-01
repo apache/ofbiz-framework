@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+        
+    <simple-method method-name="testGetGeneralProperties" short-description="test getting general properties" login-required="false">
+        <call-class-method ret-field="currencyUomIdDefault" method-name="getPropertyValue" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="general"/>
+            <string value="currency.uom.id.default"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <assert><if-compare field="currencyUomIdDefault" operator="equals" value="THB"></if-compare></assert>
+        
+        <call-class-method ret-field="defaultFromEmailAddress" method-name="getPropertyValue" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="general"/>
+            <string value="defaultFromEmailAddress"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <assert><if-compare field="defaultFromEmailAddress" operator="equals" value="propertytest@example.com"></if-compare></assert>
+        
+        <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomIdDefault"/>
+        <assert><if-compare field="currencyUomIdDefault" operator="equals" value="THB"></if-compare></assert>
+        
+        <property-to-field resource="general" property="defaultFromEmailAddress" field="defaultFromEmailAddress"/>
+        <assert><if-compare field="defaultFromEmailAddress" operator="equals" value="propertytest@example.com"></if-compare></assert>
+    </simple-method>
+</simple-methods>
