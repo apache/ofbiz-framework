@@ -29,5 +29,4 @@ under the License.
 <!--     <entity-group group="org.ofbiz.tenant" entity="TenantUserLogin"/> -->
     <entity-group group="org.ofbiz.tenant" entity="Component"/>
     <entity-group group="org.ofbiz.tenant" entity="TenantComponent"/>
-    <entity-group group="org.ofbiz.tenant" entity="TenantDomainName"/>
 </entitygroup>

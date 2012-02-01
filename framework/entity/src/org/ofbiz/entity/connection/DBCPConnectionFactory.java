@@ -18,16 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.connection;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.SQLException;
-import java.util.Map;
-import java.util.Properties;
-
-import javax.transaction.TransactionManager;
-
-import javolution.util.FastMap;
-
 import org.apache.commons.dbcp.ConnectionFactory;
 import org.apache.commons.dbcp.DriverConnectionFactory;
 import org.apache.commons.dbcp.PoolableConnectionFactory;
@@ -42,6 +32,15 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.transaction.TransactionFactory;
 import org.w3c.dom.Element;
 
+import javax.transaction.TransactionManager;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.Properties;
+
+import javolution.util.FastMap;
+
 /**
  * DBCPConnectionFactory
  */
@@ -49,8 +48,6 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
     public static final String module = DBCPConnectionFactory.class.getName();
     protected static Map<String, ManagedDataSource> dsCache = FastMap.newInstance();
-    protected static Map<String, XAConnectionFactory> xacfCache = FastMap.newInstance();
-    protected static Map<String, GenericObjectPool> gopCache = FastMap.newInstance();
 
     public Connection getConnection(GenericHelperInfo helperInfo, Element jdbcElement) throws SQLException, GenericEntityException {
         ManagedDataSource mds = dsCache.get(helperInfo.getHelperFullName());
@@ -174,27 +171,13 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
             // cache the pool
             dsCache.put(helperInfo.getHelperFullName(), mds);
-            xacfCache.put(helperInfo.getHelperFullName(), xacf);
-            gopCache.put(helperInfo.getHelperFullName(), pool);
 
             return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
         }
-    }
-    
-    public void removeConnection(GenericHelperInfo helperInfo) {
-        dsCache.remove(helperInfo.getHelperFullName());
     }
 
     public void closeAll() {
         // no methods on the pool to shutdown; so just clearing for GC
         dsCache.clear();
-    }
-    
-    public XAConnectionFactory getXAConnectionFactory(GenericHelperInfo helperInfo) {
-        return xacfCache.get(helperInfo.getHelperFullName());
-    }
-    
-    public GenericObjectPool getGenericObjectPool(GenericHelperInfo helperInfo) {
-        return gopCache.get(helperInfo.getHelperFullName());
     }
 }

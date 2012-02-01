@@ -24,7 +24,6 @@ import java.util.*;
 import org.w3c.dom.*;
 import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
 
@@ -72,9 +71,9 @@ public class PropertyToField extends MethodOperation {
 
         String value = null;
         if (noLocale) {
-            value = EntityUtilProperties.getPropertyValue(resource, property, methodContext.getDelegator());
+            value = UtilProperties.getPropertyValue(resource, property);
         } else {
-            value = EntityUtilProperties.getMessage(resource, property, methodContext.getLocale(), methodContext.getDelegator());
+            value = UtilProperties.getMessage(resource, property, methodContext.getLocale());
         }
         if (UtilValidate.isEmpty(value)) {
             value = defaultVal;

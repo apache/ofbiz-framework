@@ -407,8 +407,6 @@ public class EntityDataServices {
         // step 8 - checkdb
         Debug.logImportant("Running DB check with add missing enabled", module);
         dbUtil.checkDb(modelEntities, messages, true);
-        
-        dbUtil.close();
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("messages", messages);
