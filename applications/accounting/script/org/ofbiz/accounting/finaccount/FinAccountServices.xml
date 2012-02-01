@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="getArithmeticSettingsInline" short-description="getArithmeticSettingsInline">
         <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
         <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
-        <log level="info" message="Got settings from arithmetic.properties: roundingDecimals=${roundingDecimals}, roundingMode=${roundingMode}"/>
+        <log level="verbose" message="Got settings from arithmetic.properties: roundingDecimals=${roundingDecimals}, roundingMode=${roundingMode}"/>
     </simple-method>
 
     <simple-method method-name="createFinAccount" short-description="Create a Financial Account">
@@ -366,7 +366,7 @@ under the License.
 
         <!-- Okay, now just store the results -->
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
-        <log level="info" message="In updateFinAccountBalancesFromTrans/Auth updating FinAccount with ID [${finAccountId}] with actualBalance: ${finAccount.actualBalance} -> ${actualBalanceSum}, and availableBalance: ${finAccount.availableBalance} -> ${availableBalanceSum}"/>
+        <log level="verbose" message="In updateFinAccountBalancesFromTrans/Auth updating FinAccount with ID [${finAccountId}] with actualBalance: ${finAccount.actualBalance} -> ${actualBalanceSum}, and availableBalance: ${finAccount.availableBalance} -> ${availableBalanceSum}"/>
         <set field="finAccount.actualBalance" from-field="actualBalanceSum"/>
         <set field="finAccount.availableBalance" from-field="availableBalanceSum"/>
         <store-value value-field="finAccount"/>
