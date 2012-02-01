@@ -38,14 +38,14 @@ under the License.
             </if-empty>
         </if-empty>
         <check-errors/>
-        <log level="info" message="Checking for primary permission ${primaryPermission}_${mainAction}"/>
+        <log level="verbose" message="Checking for primary permission ${primaryPermission}_${mainAction}"/>
 
         <!-- allow alt permission to be set from outside methods or direct to the service -->
         <if-empty field="altPermission">
             <set field="altPermission" from-field="parameters.altPermission"/>
         </if-empty>
         <if-not-empty field="altPermission">
-            <log level="info" message="Checking for alternate permission ${altPermission}_${mainAction}"/>
+            <log level="verbose" message="Checking for alternate permission ${altPermission}_${mainAction}"/>
             <set field="altPermissionList" value=", ${altPermission}_${mainAction}, ${altPermission}_ADMIN"/>
         </if-not-empty>
         <!-- altPermission is not a required field; no need to add Error -->
