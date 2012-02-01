@@ -83,6 +83,7 @@ public class DatabaseUtil {
 
     boolean isLegacy = false;
     protected ExecutorService executor;
+    protected List<Connection> connections = FastList.newInstance();
 
     // OFBiz DatabaseUtil
     public DatabaseUtil(GenericHelperInfo helperInfo) {
@@ -145,6 +146,9 @@ public class DatabaseUtil {
                 throw new GenericEntityException("No connection avaialble for URL [" + connectionUrl + "]");
             }
         }
+        
+        connections.add(connection);
+        
         if (!TransactionUtil.isTransactionInPlace()) {
             connection.setAutoCommit(true);
         }
@@ -3200,6 +3204,18 @@ public class DatabaseUtil {
                 }
             } catch (SQLException e) {
                 Debug.logError(e, module);
+            }
+        }
+    }
+    
+    public void close() {
+        for (Connection connection : connections) {
+            try {
+                if (!connection.isClosed()) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                Debug.logWarning("Could not close connection: " + connection, module);
             }
         }
     }

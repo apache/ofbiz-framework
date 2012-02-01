@@ -56,4 +56,8 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
             delegatorCache.putIfAbsent(delegatorName, delegator);
         } while (true);
     }
+    
+    public static void removeDelegator(String delegatorName) {
+        delegatorCache.remove(delegatorName);
+    }
 }

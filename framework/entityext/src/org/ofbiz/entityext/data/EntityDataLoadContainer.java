@@ -564,6 +564,8 @@ public class EntityDataLoadContainer implements Container {
                 }
             }
         }
+
+        dbUtil.close();
     }
     /**
      * @see org.ofbiz.base.container.Container#stop()

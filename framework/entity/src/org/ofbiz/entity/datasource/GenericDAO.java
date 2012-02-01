@@ -1212,11 +1212,14 @@ public class GenericDAO {
     public void checkDb(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) {
         DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo, this.executor);
         dbUtil.checkDb(modelEntities, messages, addMissing);
+        dbUtil.close();
     }
 
     /** Creates a list of ModelEntity objects based on meta data from the database */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
         DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo, this.executor);
-        return dbUtil.induceModelFromDb(messages);
+        List<ModelEntity> modelEntities = dbUtil.induceModelFromDb(messages);
+        dbUtil.close();
+        return modelEntities;
     }
 }
