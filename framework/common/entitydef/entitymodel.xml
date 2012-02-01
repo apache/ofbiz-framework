@@ -839,4 +839,15 @@ under the License.
             <key-map field-name="portalPageId"/>
         </view-link>
     </view-entity>
+
+    <!-- ============================ -->
+    <!-- org.ofbiz.common.property -->
+    <!-- ============================ -->
+    
+    <entity entity-name="SystemProperty" package-name="org.ofbiz.common.property" title="Defines a System Property">
+        <field name="systemPropertyId" type="id-long-ne"></field>
+        <field name="systemPropertyValue" type="value"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="systemPropertyId"/>
+    </entity>
 </entitymodel>
