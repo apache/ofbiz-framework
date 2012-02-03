@@ -34,6 +34,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityTypeUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * Common Workers
@@ -44,7 +45,7 @@ public class CommonWorkers {
 
     public static List<GenericValue> getCountryList(Delegator delegator) {
         List<GenericValue> geoList = FastList.newInstance();
-        String defaultCountry = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
+        String defaultCountry = EntityUtilProperties.getPropertyValue("general.properties", "country.geo.id.default", delegator);
         GenericValue defaultGeo = null;
         if (UtilValidate.isNotEmpty(defaultCountry)) {
             try {
@@ -110,7 +111,7 @@ public class CommonWorkers {
     public static List<GenericValue> getAssociatedStateList(Delegator delegator, String country, String listOrderBy) {
         if (UtilValidate.isEmpty(country)) {
             // Load the system default country
-            country = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
+            country = EntityUtilProperties.getPropertyValue("general.properties", "country.geo.id.default", delegator);
         }
 
         if (UtilValidate.isEmpty(listOrderBy)) {

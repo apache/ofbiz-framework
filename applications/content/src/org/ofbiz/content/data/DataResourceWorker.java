@@ -72,6 +72,7 @@ import org.ofbiz.content.content.UploadContentAndImage;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.screen.MacroScreenRenderer;
@@ -694,7 +695,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 if (sourceFileLocation != null && sourceFileLocation.exists()) {
                     UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
                 } else {
-                    String defaultVisualThemeId = UtilProperties.getPropertyValue("general", "VISUAL_THEME");
+                    String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
                     if (defaultVisualThemeId != null) {
                         GenericValue themeValue = delegator.findOne("VisualThemeResource", UtilMisc.toMap("visualThemeId", defaultVisualThemeId, "resourceTypeEnumId", "VT_DOCBOOKSTYLESHEET", "sequenceId", "01"), true);
                         sourceFileLocation = new File(System.getProperty("ofbiz.home") + "/themes" + themeValue.get("resourceValue"));

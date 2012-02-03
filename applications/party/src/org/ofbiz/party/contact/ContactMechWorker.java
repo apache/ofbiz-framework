@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * Worker methods for Contact Mechanisms
@@ -792,7 +793,7 @@ public class ContactMechWorker {
         String addr2 = postalAddress.getString("address2");
 
         // get the matching string from general.properties
-        String matcher = UtilProperties.getPropertyValue("general.properties", "usps.address.match");
+        String matcher = EntityUtilProperties.getPropertyValue("general.properties", "usps.address.match", postalAddress.getDelegator());
         if (UtilValidate.isNotEmpty(matcher)) {
             if (addr1 != null && addr1.toLowerCase().matches(matcher)) {
                 return true;

@@ -113,7 +113,7 @@ if (!partyId) {
     if (fromPartyId) {
         partyId = fromPartyId;
     } else {
-        partyId = UtilProperties.getPropertyValue("general.properties", "ORGANIZATION_PARTY");
+        partyId = EntityUtilProperties.getPropertyValue("general.properties", "ORGANIZATION_PARTY", delegator);
     }
 }
 

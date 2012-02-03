@@ -38,6 +38,7 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.category.CategoryWorker;
 
 /**
@@ -108,7 +109,7 @@ public class TrackingCodeEvents {
 
                 String dtc = request.getParameter("dtc");
                 if (UtilValidate.isEmpty(dtc)) {
-                    dtc = UtilProperties.getPropertyValue("general", "partner.trackingCodeId.default");
+                    dtc = EntityUtilProperties.getPropertyValue("general", "partner.trackingCodeId.default", delegator);
                 }
                 if (UtilValidate.isNotEmpty(dtc)) {
                     GenericValue defaultTrackingCode = null;
