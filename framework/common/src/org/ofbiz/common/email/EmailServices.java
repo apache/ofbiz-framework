@@ -66,7 +66,9 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -98,6 +100,7 @@ public class EmailServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
+        Delegator delegator = ctx.getDelegator();
         String communicationEventId = (String) context.get("communicationEventId");
         String orderId = (String) context.get("orderId");
         Locale locale = (Locale) context.get("locale");
@@ -162,31 +165,31 @@ public class EmailServices {
         if (sendType == null || sendType.equals("mail.smtp.host")) {
             sendType = "mail.smtp.host";
             if (UtilValidate.isEmpty(sendVia)) {
-                sendVia = UtilProperties.getPropertyValue("general.properties", "mail.smtp.relay.host", "localhost");
+                sendVia = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.relay.host", "localhost", delegator);
             }
             if (UtilValidate.isEmpty(authUser)) {
-                authUser = UtilProperties.getPropertyValue("general.properties", "mail.smtp.auth.user");
+                authUser = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.auth.user", delegator);
             }
             if (UtilValidate.isEmpty(authPass)) {
-                authPass = UtilProperties.getPropertyValue("general.properties", "mail.smtp.auth.password");
+                authPass = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.auth.password", delegator);
             }
             if (UtilValidate.isNotEmpty(authUser)) {
                 useSmtpAuth = true;
             }
             if (UtilValidate.isEmpty(port)) {
-                port = UtilProperties.getPropertyValue("general.properties", "mail.smtp.port");
+                port = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.port", delegator);
             }
             if (UtilValidate.isEmpty(socketFactoryPort)) {
-                socketFactoryPort = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.port");
+                socketFactoryPort = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.port", delegator);
             }
             if (UtilValidate.isEmpty(socketFactoryClass)) {
-                socketFactoryClass = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.class");
+                socketFactoryClass = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.class", delegator);
             }
             if (UtilValidate.isEmpty(socketFactoryFallback)) {
-                socketFactoryFallback = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.fallback", "false");
+                socketFactoryFallback = EntityUtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.fallback", "false", delegator);
             }
             if (sendPartial == null) {
-                sendPartial = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.smtp.sendpartial", "true") ? true : false;
+                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.smtp.sendpartial", "true", delegator) ? true : false;
             }
         } else if (sendVia == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendMissingParameterSendVia", locale));
@@ -298,7 +301,7 @@ public class EmailServices {
         }
 
         // check to see if sending mail is enabled
-        String mailEnabled = UtilProperties.getPropertyValue("general.properties", "mail.notifications.enabled", "N");
+        String mailEnabled = EntityUtilProperties.getPropertyValue("general.properties", "mail.notifications.enabled", "N", delegator);
         if (!"Y".equalsIgnoreCase(mailEnabled)) {
             // no error; just return as if we already processed
             Debug.logImportant("Mail notifications disabled in general.properties; mail with subject [" + subject + "] not sent to addressee [" + sendTo + "]", module);

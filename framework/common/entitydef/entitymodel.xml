@@ -845,9 +845,11 @@ under the License.
     <!-- ============================ -->
     
     <entity entity-name="SystemProperty" package-name="org.ofbiz.common.property" title="Defines a System Property">
+        <field name="systemResourceId" type="id-long-ne"></field>
         <field name="systemPropertyId" type="id-long-ne"></field>
         <field name="systemPropertyValue" type="value"></field>
         <field name="description" type="description"></field>
+        <prim-key field="systemResourceId"/>
         <prim-key field="systemPropertyId"/>
     </entity>
 </entitymodel>

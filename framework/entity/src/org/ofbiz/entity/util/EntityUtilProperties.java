@@ -45,12 +45,12 @@ public class EntityUtilProperties implements Serializable {
 
     public final static String module = EntityUtilProperties.class.getName();
     
-    protected static String getSystemPropertyValue(String name, Delegator delegator) {
-        if (name == null || name.length() <= 0) return "";
+    protected static String getSystemPropertyValue(String resource, String name, Delegator delegator) {
+        if (name == null || name.length() <= 0) return null;
         
         // find system property
         try {
-            GenericValue systemProperty = delegator.findOne("SystemProperty", UtilMisc.toMap("systemPropertyId", name), false);
+            GenericValue systemProperty = delegator.findOne("SystemProperty", UtilMisc.toMap("systemResourceId", resource, "systemPropertyId", name), false);
             if (UtilValidate.isNotEmpty(systemProperty)) {
                 String systemPropertyValue = systemProperty.getString("systemPropertyValue");
                 if (UtilValidate.isNotEmpty(systemPropertyValue)) {
@@ -67,11 +67,20 @@ public class EntityUtilProperties implements Serializable {
         return UtilProperties.propertyValueEquals(resource, name, compareString);
     }
 
-    public static boolean propertyValueEqualsIgnoreCase(String resource, String name, String compareString) {
-        return UtilProperties.propertyValueEqualsIgnoreCase(resource, name, compareString);
+    public static boolean propertyValueEqualsIgnoreCase(String resource, String name, String compareString, Delegator delegator) {
+        String value = getSystemPropertyValue(resource, name, delegator);
+        if (UtilValidate.isNotEmpty(value)) {
+            return value.trim().equalsIgnoreCase(compareString);
+        } else {
+            return UtilProperties.propertyValueEqualsIgnoreCase(resource, name, compareString);
+        }
     }
 
-    public static String getPropertyValue(String resource, String name, String defaultValue) {
+    public static String getPropertyValue(String resource, String name, String defaultValue, Delegator delegator) {
+        String value = getSystemPropertyValue(resource, name, delegator);
+        if (UtilValidate.isEmpty(value)) {
+            value = UtilProperties.getPropertyValue(resource, name);
+        }
         return UtilProperties.getPropertyValue(resource, name, defaultValue);
     }
 
@@ -112,7 +121,7 @@ public class EntityUtilProperties implements Serializable {
     }
 
     public static String getPropertyValue(String resource, String name, Delegator delegator) {
-        String value = getSystemPropertyValue(name, delegator);
+        String value = getSystemPropertyValue(resource, name, delegator);
         if (UtilValidate.isEmpty(value)) {
             value = UtilProperties.getPropertyValue(resource, name);
         }
@@ -164,7 +173,7 @@ public class EntityUtilProperties implements Serializable {
       }
 
     public static String getMessage(String resource, String name, Locale locale, Delegator delegator) {
-        String value = getSystemPropertyValue(name, delegator);
+        String value = getSystemPropertyValue(resource, name, delegator);
         if (UtilValidate.isEmpty(value)) {
             value = UtilProperties.getMessage(resource, name, locale);
         }
