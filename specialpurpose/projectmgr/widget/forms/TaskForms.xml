@@ -199,7 +199,7 @@
                 <field-map field-name="hoursPartyId" from-field="partyId"/>
             </service>
             <set field="plannedHours" from-field="result.taskInfo.plannedHours"/>
-            <set field="actualHours" from-field="result.taskInfo.actualTotalHours"/>
+            <set field="actualHours" from-field="result.taskInfo.actualHours"/>
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
