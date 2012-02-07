@@ -86,6 +86,9 @@ while (itr <= 5) {
         }
     }
     if (!orderItemDetail.isEmpty()) {
+        if (orderItemDetail.amount) {
+            orderItemDetail.amount = orderItemDetail.amount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        }
         topSellingProducts.add(orderItemDetail);
         bestSellingProducts.remove(orderItemDetail);
     }
