@@ -151,6 +151,7 @@ under the License.
           <tr class="header-row">
             <td width="15%">${uiLabelMap.CommonDate}</td>
             <td width="10%">${uiLabelMap.OrderOrder} ${uiLabelMap.CommonNbr}</td>
+            <td width="10%">${uiLabelMap.OrderOrderName}</td>
             <td width="10%">${uiLabelMap.OrderOrderType}</td>
             <td width="10%">${uiLabelMap.OrderOrderBillFromParty}</td>
             <td width="10%">${uiLabelMap.OrderOrderBillToParty}</td>
@@ -187,6 +188,7 @@ under the License.
               <td>
                 <a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
               </td>
+              <td>${orderHeader.orderName?if_exists}</td>
               <td>${orderHeader.getRelatedOneCache("OrderType").get("description",locale)}</td>
               <td>${billFrom?if_exists}</td>
               <td>${billTo?if_exists}</td>
