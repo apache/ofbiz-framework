@@ -20,15 +20,22 @@ under the License.
 <#if returnHeader?exists>
   <div class="button-bar tab-bar">
     <ul>
+      <li>
+    <ul>
       <li<#if selected="OrderReturnHeader"> class="selected"</#if>><a href="<@ofbizUrl>returnMain?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHeader}</a></li>
       <li<#if selected="OrderReturnItems"> class="selected"</#if>><a href="<@ofbizUrl>returnItems?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnItems}</a></li>
       <li<#if selected="OrderReturnHistory"> class="selected"</#if>><a href="<@ofbizUrl>ReturnHistory?returnId=${returnId?if_exists}</@ofbizUrl>">${uiLabelMap.OrderReturnHistory}</a></li>
     </ul>
+      </li>
+    </ul>
     <br />
   </div>
-  <div>
-    <#if selected != "OrderReturnHistory">
-      <a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>" class="buttontext">PDF</a>
+  <#if selected != "OrderReturnHistory">
+    <div class="button-bar button-style-1">
+      <ul>
+        <li>
+          <ul>
+      <li><a href="<@ofbizUrl>return.pdf?returnId=${returnId?if_exists}</@ofbizUrl>">PDF</a></li>
       <#if returnId?exists>
         <#assign returnItems = delegator.findByAnd("ReturnItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("returnId", returnId, "returnTypeId", "RTN_REFUND"))/>
         <#if returnItems?has_content>
@@ -48,12 +55,12 @@ under the License.
                 <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipGroupShipment.shipmentId}))>
                 <#if shipmentRouteSegment?exists>
                   <#if "UPS" == shipmentRouteSegment.carrierPartyId>
-                    <a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
-                    <form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
+                    <li><a href="javascript:document.upsEmailReturnLabel.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a></li>
+                    <li><form name="upsEmailReturnLabel" method="post" action="<@ofbizUrl>upsEmailReturnLabelReturn</@ofbizUrl>">
                       <input type="hidden" name="returnId" value="${returnId}"/>
                       <input type="hidden" name="shipmentId" value="${shipGroupShipment.shipmentId}"/>
                       <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegment.shipmentRouteSegmentId}" />
-                    </form>
+                    </form></li>
                   </#if>
                 </#if>
               </#if>
@@ -61,8 +68,11 @@ under the License.
           </#if>
         </#if>
       </#if>
-    </#if>
-  </div>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </#if>
 <#else>
   <h1>${uiLabelMap.OrderCreateNewReturn}</h1>
   <#if requestParameters.returnId?has_content>
