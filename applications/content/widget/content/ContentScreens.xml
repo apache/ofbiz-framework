@@ -86,7 +86,6 @@ under the License.
     <screen name="navigateContent">
         <section>
             <actions>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/jquery/jquery-1.7.min.js" global="true"/>
                 <set field="titleProperty" value="PageTitleNavigateContent"/>
                 <set field="tabButtonItem" value="navigateContent"/>
                 <set field="labelTitleProperty" value="PageTitleNavigateContent"/>
