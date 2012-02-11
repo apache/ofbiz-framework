@@ -56,7 +56,6 @@ import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.engine.SoapSerializer;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
-import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.w3c.dom.Document;
 
@@ -97,7 +96,7 @@ public class SOAPEventHandler implements EventHandler {
                 } catch (GenericServiceException e) {
                     serviceName = null;
                 } catch (WSDLException e) {
-                    sendError(response, "Unable to obtain WSDL");
+                    sendError(response, "Unable to obtain WSDL", serviceName);
                     throw new EventHandlerException("Unable to obtain WSDL", e);
                 }
 
@@ -112,7 +111,7 @@ public class SOAPEventHandler implements EventHandler {
                     }
                     return null;
                 } else {
-                    sendError(response, "Unable to obtain WSDL");
+                    sendError(response, "Unable to obtain WSDL", serviceName);
                     throw new EventHandlerException("Unable to obtain WSDL");
                 }
             }
@@ -137,7 +136,7 @@ public class SOAPEventHandler implements EventHandler {
                     writer.flush();
                     return null;
                 } catch (Exception e) {
-                    sendError(response, "Unable to obtain WSDL");
+                    sendError(response, "Unable to obtain WSDL", null);
                     throw new EventHandlerException("Unable to obtain WSDL");
                 }
             }
@@ -163,30 +162,31 @@ public class SOAPEventHandler implements EventHandler {
                 }
             }
         } catch (Exception e) {
-            sendError(response, "Problem processing the service");
+            sendError(response, "Problem processing the service", null);
             throw new EventHandlerException("Cannot get the envelope", e);
         }
 
         Debug.logVerbose("[Processing]: SOAP Event", module);
 
+        String serviceName = null;
         try {
             SOAPBody reqBody = reqEnv.getBody();
             validateSOAPBody(reqBody);
             OMElement serviceElement = reqBody.getFirstElement();
-            String serviceName = serviceElement.getLocalName();
+            serviceName = serviceElement.getLocalName();
             Map<String, Object> parameters = UtilGenerics.cast(SoapSerializer.deserialize(serviceElement.toString(), delegator));
             try {
                 // verify the service is exported for remote execution and invoke it
                 ModelService model = dispatcher.getDispatchContext().getModelService(serviceName);
 
                 if (model == null) {
-                    sendError(response, "Problem processing the service");
+                    sendError(response, "Problem processing the service", serviceName);
                     Debug.logError("Could not find Service [" + serviceName + "].", module);
                     return null;
                 }
 
                 if (!model.export) {
-                    sendError(response, "Problem processing the service");
+                    sendError(response, "Problem processing the service", serviceName);
                     Debug.logError("Trying to call Service [" + serviceName + "] that is not exported.", module);
                     return null;
                 }
@@ -198,19 +198,19 @@ public class SOAPEventHandler implements EventHandler {
 
             } catch (GenericServiceException e) {
                 if (UtilProperties.getPropertyAsBoolean("service", "secureSoapAnswer", true)) {
-                    sendError(response, "Problem processing the service, check your parameters.");
+                    sendError(response, "Problem processing the service, check your parameters.", serviceName);
                 } else {
                     if(e.getMessageList() == null) {
-                        sendError(response, e.getMessage());
+                        sendError(response, e.getMessage(), serviceName);
                     } else {
-                        sendError(response, e.getMessageList());
+                        sendError(response, e.getMessageList(), serviceName);
                     }
                     Debug.logError(e, module);
                     return null;
                 }
             }
         } catch (Exception e) {
-            sendError(response, e.getMessage());
+            sendError(response, e.getMessage(), serviceName);
             Debug.logError(e, module);
             return null;
         }
@@ -236,6 +236,7 @@ public class SOAPEventHandler implements EventHandler {
         // setup the response
             Debug.logVerbose("[EventHandler] : Setting up response message", module);
             String xmlResults = SoapSerializer.serialize(serviceResults);
+            //Debug.log("xmlResults ==================" + xmlResults, module);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = new StAXOMBuilder(reader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
@@ -272,15 +273,15 @@ public class SOAPEventHandler implements EventHandler {
         }
     }
 
-    private void sendError(HttpServletResponse res, String errorMessage) throws EventHandlerException {
+    private void sendError(HttpServletResponse res, String errorMessage, String serviceName) throws EventHandlerException {
         // setup the response
-        sendError(res, ServiceUtil.returnError(errorMessage));
+        sendError(res, ServiceUtil.returnError(errorMessage), serviceName);
     }
 
-    private void sendError(HttpServletResponse res, List<String> errorMessages) throws EventHandlerException {
-        sendError(res, ServiceUtil.returnError(errorMessages));
+    private void sendError(HttpServletResponse res, List<String> errorMessages, String serviceName) throws EventHandlerException {
+        sendError(res, ServiceUtil.returnError(errorMessages.toString()), serviceName);
     }
-    private void sendError(HttpServletResponse res, Object object) throws EventHandlerException {
+    private void sendError(HttpServletResponse res, Object object, String serviceName) throws EventHandlerException {
         try {
             // setup the response
             res.setContentType("text/xml");
@@ -293,10 +294,17 @@ public class SOAPEventHandler implements EventHandler {
             SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
             SOAPEnvelope resEnv = factory.createSOAPEnvelope();
             SOAPBody resBody = factory.createSOAPBody();
-            OMElement errMsg = factory.createOMElement(new QName("Response"));
+            OMElement errMsg = factory.createOMElement(new QName((serviceName != null ? serviceName : "") + "Response"));
             errMsg.addChild(resultSer.getFirstElement());
             resBody.addChild(errMsg);
             resEnv.addChild(resBody);
+
+            // The declareDefaultNamespace method doesn't work see (https://issues.apache.org/jira/browse/AXIS2-3156)
+            // so the following doesn't work:
+            // resService.declareDefaultNamespace(ModelService.TNS);
+            // instead, create the xmlns attribute directly:
+            OMAttribute defaultNS = factory.createOMAttribute("xmlns", null, ModelService.TNS);
+            errMsg.addAttribute(defaultNS);
 
             // log the response message
             if (Debug.verboseOn()) {

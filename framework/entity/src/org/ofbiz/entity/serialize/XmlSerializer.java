@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -130,7 +131,7 @@ public class XmlSerializer {
     public static Element serializeSingle(Object object, Document document) throws SerializeException {
         if (document == null) return null;
 
-        if (object == null) return document.createElement("null");
+        if (object == null) return makeElement("null", object, document);
 
         // - Standard Objects -
         if (object instanceof String) {
@@ -147,9 +148,13 @@ public class XmlSerializer {
             return makeElement("std-Boolean", object, document);
         } else if (object instanceof Locale) {
             return makeElement("std-Locale", object, document);
+        } else if (object instanceof BigDecimal) {
+            String stringValue = ((BigDecimal) object).setScale(10, BigDecimal.ROUND_HALF_UP).toString();            
+            return makeElement("std-BigDecimal", stringValue, document);
             // - SQL Objects -
         } else if (object instanceof java.sql.Timestamp) {
-            return makeElement("sql-Timestamp", object, document);
+            String stringValue = object.toString().replace(' ', 'T');
+            return makeElement("sql-Timestamp", stringValue, document);
         } else if (object instanceof java.sql.Date) {
             return makeElement("sql-Date", object, document);
         } else if (object instanceof java.sql.Time) {
@@ -268,7 +273,15 @@ public class XmlSerializer {
     }
 
     public static Element makeElement(String elementName, Object value, Document document) {
-        if (value == null) return document.createElement("null");
+        if (value == null) {
+            Element element = document.createElement("null");
+            element.setAttribute("xsi:nil", "true");
+            // I tried to put the schema in the envelope header (in createAndSendSOAPResponse) 
+            // resEnv.declareNamespace("http://www.w3.org/2001/XMLSchema-instance", null); 
+            // But it gets prefixed and that does not work. So adding in each instance
+            element.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            return element;
+        }
         Element element = document.createElement(elementName);
 
         element.setAttribute("value", value.toString());
