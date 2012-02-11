@@ -2321,6 +2321,8 @@ under the License.
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="SALES_INVOICE"/>
             <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="parameters.invoiceId"/>
+            <set field="createAcctgTransAndEntriesInMap.partyId" from-field="invoice.partyId"/>
+            <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
             <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
             <set field="createAcctgTransAndEntriesInMap.transactionDate" from-field="invoice.invoiceDate"/>
             <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
