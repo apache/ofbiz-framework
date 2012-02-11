@@ -26,6 +26,7 @@ framework/example/build/
 framework/geronimo/build/
 framework/guiapp/build/
 framework/jackrabbit/build/
+framework/jcr/build/
 framework/jetty/build/
 framework/minilang/build/
 framework/security/build/
@@ -65,6 +66,7 @@ runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
 runtime/data/derby/*
+runtime/data/jcr/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/tempfiles/*
@@ -89,3 +91,4 @@ debian/stamps/
 debian/orig-work
 .pc
 .DS_Store
+*~
