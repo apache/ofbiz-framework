@@ -52,6 +52,8 @@ public class UtilMisc {
 
     public static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
+    private UtilMisc () {}
+
     public static final <T extends Throwable> T initCause(T throwable, Throwable cause) {
         throwable.initCause(cause);
         return throwable;

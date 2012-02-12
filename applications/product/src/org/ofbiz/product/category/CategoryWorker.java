@@ -50,6 +50,8 @@ public class CategoryWorker {
 
     public static final String module = CategoryWorker.class.getName();
 
+    private CategoryWorker () {}
+
     public static String getCatalogTopCategory(ServletRequest request, String defaultTopCategory) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         Map<String, Object> requestParameters = UtilHttp.getParameterMap(httpRequest);

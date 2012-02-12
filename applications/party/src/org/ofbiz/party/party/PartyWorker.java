@@ -52,6 +52,8 @@ public class PartyWorker {
 
     public static String module = PartyWorker.class.getName();
 
+    private PartyWorker() {}
+
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, GenericValue> result = FastMap.newInstance();

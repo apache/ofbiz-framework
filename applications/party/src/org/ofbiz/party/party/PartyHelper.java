@@ -34,6 +34,8 @@ public class PartyHelper {
 
     public static final String module = PartyHelper.class.getName();
 
+    private PartyHelper() {}
+
     public static String getPartyName(GenericValue partyObject) {
         return getPartyName(partyObject, false);
     }
