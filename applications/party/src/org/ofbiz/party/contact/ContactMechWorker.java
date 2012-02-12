@@ -50,6 +50,8 @@ public class ContactMechWorker {
 
     public static final String module = ContactMechWorker.class.getName();
 
+    private ContactMechWorker() {}
+
     public static List<Map<String, Object>> getPartyContactMechValueMaps(Delegator delegator, String partyId, boolean showOld) {
        return getPartyContactMechValueMaps(delegator, partyId, showOld, null);
     }

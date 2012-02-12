@@ -36,6 +36,8 @@ public class ContactHelper {
 
     public static final String module = ContactHelper.class.getName();
 
+    private ContactHelper() {}
+
     public static Collection<GenericValue> getContactMech(GenericValue party, boolean includeOld) {
         return getContactMech(party, null, null, includeOld);
     }

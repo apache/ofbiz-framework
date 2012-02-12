@@ -39,6 +39,8 @@ public class UomWorker {
 
     public static final String module = UomWorker.class.getName();
 
+    private UomWorker () {}
+
     public static int[] uomTimeToCalTime(String uomId) {
         if ("TF_ms".equals(uomId)) {
             return new int[] { Calendar.MILLISECOND, 1 };

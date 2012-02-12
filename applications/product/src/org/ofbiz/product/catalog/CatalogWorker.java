@@ -48,6 +48,8 @@ public class CatalogWorker {
 
     public static final String module = CatalogWorker.class.getName();
 
+    private CatalogWorker () {}
+
     public static String getWebSiteId(ServletRequest request) {
         return WebSiteWorker.getWebSiteId(request);
     }

@@ -59,6 +59,8 @@ public class ProductWorker {
 
     public static final MathContext generalRounding = new MathContext(10);
 
+    private ProductWorker () {}
+
     public static boolean shippingApplies(GenericValue product) {
         String errMsg = "";
         if (product != null) {
