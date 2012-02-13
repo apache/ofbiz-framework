@@ -233,38 +233,23 @@
             <para>
                 A Cobertura error message can show because of the test system requires a cobertura library that calculates the percentage of code accessed by tests like this:
                 <programlisting>
-                    [java]  java.lang.ClassNotFoundException: org.ofbiz.base.config.CoberturaInstrumenter
-                    [java]     at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
-                    [java]     at java.security.AccessController.doPrivileged(Native Method)
-                    [java]     at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
-                    [java]     at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
-                    [java]     at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
-                    [java]     at org.ofbiz.base.start.InstrumenterWorker.instrument(InstrumenterWorker.java:39)
-                    [java]     at org.ofbiz.base.start.Classpath.instrument(Classpath.java:92)
-                    [java]     at org.ofbiz.base.start.Start.initClasspath(Start.java:228)
-                    [java]     at org.ofbiz.base.start.Start.init(Start.java:87)
-                    [java]     at org.ofbiz.base.start.Start.main(Start.java:410)
+                    [java] InstrumenterWorker.instrument - Code instrumentation has been disabled, unable to find instrumenter class org.ofbiz.base.config.CoberturaInstrumenter
                 </programlisting>
                 If you want to use cobertura, you have to install it:
                 <orderedlist>
                     <listitem>
                         <para>
-                            download the library from <link xl:href="http://cobertura.sourceforge.net/">the Cobertura website</link>.
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Put cobertura.jar in 'framework/base/lib' directory.
-                        </para>
-                    </listitem>
-                    <listitem>
-                        <para>
-                            Comment cobertura excluding in 'framework/base/build.xml' file.
+                            Execute the download-cobertura ant task
                         </para>
                     </listitem>
                     <listitem>
                         <para>
                             Re-compile source code.
+                        </para>
+                    </listitem>
+                    <listitem>
+                        <para>
+                            Execute the run-tests ant task
                         </para>
                     </listitem>
                 </orderedlist>
