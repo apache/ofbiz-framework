@@ -133,7 +133,7 @@ public class LoginWorker {
             String sesExtKey = (String) session.getAttribute(EXTERNAL_LOGIN_KEY_ATTR);
 
             if (sesExtKey != null) {
-                if (isAjax(request)) return sesExtKey; 
+                if (isAjax(request)) return sesExtKey;
 
                 externalLoginKeys.remove(sesExtKey);
             }
@@ -319,39 +319,39 @@ public class LoginWorker {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
             return "error";
         }
-        
+
         boolean setupNewDelegatorEtc = false;
-        
+
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         // if a tenantId was passed in, see if the userLoginId is associated with that tenantId (can use any delegator for this, entity is not tenant-specific)
         String tenantId = request.getParameter("tenantId");
         if (UtilValidate.isNotEmpty(tenantId)) {
-            // see if we need to activate a tenant delegator, only do if the current delegatorName has a hash symbol in it, and if the passed in tenantId doesn't match the one in the delegatorName 
+            // see if we need to activate a tenant delegator, only do if the current delegatorName has a hash symbol in it, and if the passed in tenantId doesn't match the one in the delegatorName
             String oldDelegatorName = delegator.getDelegatorName();
             int delegatorNameHashIndex = oldDelegatorName.indexOf('#');
             String currentDelegatorTenantId = null;
             if (delegatorNameHashIndex > 0) {
                 currentDelegatorTenantId = oldDelegatorName.substring(delegatorNameHashIndex + 1);
-                if (currentDelegatorTenantId != null) currentDelegatorTenantId.trim();
+                if (currentDelegatorTenantId != null) currentDelegatorTenantId = currentDelegatorTenantId.trim();
             }
-            
+
             if (delegatorNameHashIndex == -1 || (currentDelegatorTenantId != null && !tenantId.equals(currentDelegatorTenantId))) {
-                /* don't require this, allow a user to authenticate inside the tenant as long as the userLoginId and 
-                 * password match what is in that tenant's database; instead just set things up below 
+                /* don't require this, allow a user to authenticate inside the tenant as long as the userLoginId and
+                 * password match what is in that tenant's database; instead just set things up below
                 try {
                     List<GenericValue> tenantUserLoginList = delegator.findList("TenantUserLogin", EntityCondition.makeCondition(EntityOperator.AND, "tenantId", tenantId, "userLoginId", username), null, null, null, false);
                     if (tenantUserLoginList != null && tenantUserLoginList.size() > 0) {
                         ServletContext servletContext = session.getServletContext();
-                        
+
                         // if so make that tenant active, setup a new delegator and a new dispatcher
                         String delegatorName = delegator.getDelegatorName() + "#" + tenantId;
-                        
+
                         // after this line the delegator is replaced with the new per-tenant delegator
                         delegator = DelegatorFactory.getDelegator(delegatorName);
                         dispatcher = ContextFilter.makeWebappDispatcher(servletContext, delegator);
-                        
+
                         // NOTE: these will be local for now and set in the request and session later, after we've verified that the user
                         setupNewDelegatorEtc = true;
                     } else {
@@ -369,10 +369,10 @@ public class LoginWorker {
                 */
 
                 ServletContext servletContext = session.getServletContext();
-                
+
                 // make that tenant active, setup a new delegator and a new dispatcher
                 String delegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
-                
+
                 try {
                     // after this line the delegator is replaced with the new per-tenant delegator
                     delegator = DelegatorFactory.getDelegator(delegatorName);
@@ -384,7 +384,7 @@ public class LoginWorker {
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
-                
+
                 // NOTE: these will be local for now and set in the request and session later, after we've verified that the user
                 setupNewDelegatorEtc = true;
             }
@@ -449,7 +449,7 @@ public class LoginWorker {
                 // now set the delegator and dispatcher in a bunch of places just in case they were changed
                 setWebContextObjects(request, response, delegator, dispatcher, true);
             }
-            
+
             // check to see if a password change is required for the user
             Map<String, Object> userLoginSession = checkMap(result.get("userLoginSession"), String.class, Object.class);
             if (userLogin != null && "Y".equals(userLogin.getString("requirePasswordChange"))) {
@@ -466,7 +466,7 @@ public class LoginWorker {
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error setting user preference", module);
             }
-            
+
             // finally do the main login routine to set everything else up in the session, etc
             return doMainLogin(request, response, userLogin, userLoginSession);
         } else {
@@ -476,30 +476,30 @@ public class LoginWorker {
             return "error";
         }
     }
-    
-    /*         persistSerialized is set at false in the context of a cluster when using (at least) DeltaManager. 
+
+    /*         persistSerialized is set at false in the context of a cluster when using (at least) DeltaManager.
             Because we have no easy ways to set DeltaManager.pathname to null from OFBiz
            So persistSerialized is set to true when login out. This prevent a NPE due to non serialized objects put in session*/
     private static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator, LocalDispatcher dispatcher, Boolean persistSerialized) {
         HttpSession session = request.getSession();
-        
+
         // NOTE: we do NOT want to set this in the servletContet, only in the request and session
         session.setAttribute("delegatorName", delegator.getDelegatorName());
-        
+
         request.setAttribute("delegator", delegator);
         if (!persistSerialized) {
             session.setAttribute("delegator", null);
         } else {
             session.setAttribute("delegator", delegator);
         }
-        
+
         request.setAttribute("dispatcher", dispatcher);
         if (!persistSerialized) {
             session.setAttribute("dispatcher", null);
         } else {
             session.setAttribute("dispatcher", dispatcher);
         }
-        
+
         if (persistSerialized) {
             // we also need to setup the security and authz objects since they are dependent on the delegator
             try {
@@ -509,7 +509,7 @@ public class LoginWorker {
             } catch (SecurityConfigurationException e) {
                 Debug.logError(e, module);
             }
-            
+
             try {
                 Authorization authz = AuthorizationFactory.getInstance(delegator);
                 request.setAttribute("authz", authz);
@@ -518,7 +518,7 @@ public class LoginWorker {
                 Debug.logError(e, module);
             }
         }
-        
+
         // get rid of the visit info since it was pointing to the previous database, and get a new one
         session.removeAttribute("visitor");
         session.removeAttribute("visit");
@@ -641,7 +641,7 @@ public class LoginWorker {
 
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
-        
+
         if (currCatalog != null) session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
         if (delegatorName != null) {
             // if there is a tenantId in the delegatorName remove it now so that tenant selection doesn't last beyond logout
@@ -652,7 +652,7 @@ public class LoginWorker {
 
             delegator = DelegatorFactory.getDelegator(delegatorName);
             LocalDispatcher dispatcher = ContextFilter.makeWebappDispatcher(session.getServletContext(), delegator);
-            // get the container configuration           
+            // get the container configuration
             String ofbizHome = System.getProperty("ofbiz.home");
             String configFile = ofbizHome + "/framework/base/config/ofbiz-containers.xml";
             ContainerConfig.Container cc = null;
@@ -669,7 +669,7 @@ public class LoginWorker {
                 setWebContextObjects(request, response, delegator, dispatcher, true);
             }
         }
-        
+
         // DON'T save the cart, causes too many problems: if (shoppingCart != null) session.setAttribute("shoppingCart", new WebShoppingCart(shoppingCart, session));
     }
 
@@ -972,7 +972,7 @@ public class LoginWorker {
 
         GenericValue userLogin = LoginWorker.externalLoginKeys.get(externalKey);
         if (userLogin != null) {
-            //to check it's the right tenant 
+            //to check it's the right tenant
             //in case username and password are the same in different tenants
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
             Delegator delegator = (Delegator) request.getAttribute("delegator");
@@ -1069,9 +1069,9 @@ public class LoginWorker {
         }
         return userLoginSessionMap;
     }
-    
+
     public static boolean isAjax(HttpServletRequest request) {
        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
-    
+
 }
