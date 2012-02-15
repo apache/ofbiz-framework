@@ -2327,7 +2327,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (questionIndex == -1) {
             result += sessionId;
         } else {
-            result.replace("?", sessionId + "?");
+            result = result.replace("?", sessionId + "?");
         }
         return result;
     }
