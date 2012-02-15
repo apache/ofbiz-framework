@@ -79,7 +79,7 @@ public class JackrabbitFileHelper extends JackrabbitAbstractHelper implements Jc
             hierarchy = fileObj;
             return fileObj;
         } else if (orm instanceof JackrabbitFolder) {
-            JackrabbitFile fileObj = (JackrabbitFile) orm;
+            JackrabbitFolder fileObj = (JackrabbitFolder) orm;
             hierarchy = fileObj;
             return fileObj;
         }
