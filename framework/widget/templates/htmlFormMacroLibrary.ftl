@@ -674,7 +674,7 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 </#if>
 <#if readonly?has_content && readonly><a id="${id}_clear" style="background:none;margin-left:5px;margin-right:15px;" class="clearField" href="javascript:void();" onclick="javascript:document.${formName}.${name}.value='';<#if descriptionFieldName?has_content>document.${formName}.${descriptionFieldName}.value='';</#if>">${clearText}</a></#if>
 </span>
-<#if ajaxEnabled?has_content && ajaxEnabled>
+<#if ajaxEnabled?has_content && ajaxEnabled && (presentation?has_content && presentation == "window")>
       <#if ajaxUrl?index_of("_LAST_VIEW_NAME_") < 0>
         <#local ajaxUrl = ajaxUrl + "&amp;_LAST_VIEW_NAME_=" + lastViewName />
       </#if>

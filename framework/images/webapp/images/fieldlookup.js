@@ -743,6 +743,7 @@ lookupDescriptionLoaded.prototype.update = function (){
   //actual server call
   var fieldName = this.params.substring(this.params.indexOf("searchValueFieldName"));
   fieldName = fieldName.substring(fieldName.indexOf("=") + 1);
+  if (jQuery("input[name=" + fieldName + "]").val()) {
   var fieldSerialized = jQuery("input[name=" + fieldName + "]", jQuery("form[name=" + this.formName + "]")).serialize();
   this.allParams = this.params + '&' + fieldSerialized + '&' + 'searchType=EQUALS';
   _fieldId = this.fieldId;
@@ -759,6 +760,7 @@ lookupDescriptionLoaded.prototype.update = function (){
       }
     }
   });
+  }
 }
     
 if(typeof String.prototype.trim !== 'function') { // Needed because IE8 does not implement trim yet
