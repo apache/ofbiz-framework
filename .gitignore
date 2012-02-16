@@ -89,6 +89,7 @@ debian/ofbiz.substvars
 debian/ofbiz/
 debian/stamps/
 debian/orig-work
+hot-deploy/*/build
 .pc
 .DS_Store
 *~
