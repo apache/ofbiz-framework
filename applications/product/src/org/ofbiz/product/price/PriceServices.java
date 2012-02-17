@@ -44,6 +44,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -147,7 +148,7 @@ public class PriceServices {
         String currencyDefaultUomId = (String) context.get("currencyUomId");
         String currencyUomIdTo = (String) context.get("currencyUomIdTo"); 
         if (UtilValidate.isEmpty(currencyDefaultUomId)) {
-            currencyDefaultUomId = UtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD");
+            currencyDefaultUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // productPricePurposeId is null assume "PURCHASE", which is equivalent to what prices were before the purpose concept

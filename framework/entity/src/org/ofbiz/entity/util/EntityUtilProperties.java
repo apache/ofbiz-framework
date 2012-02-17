@@ -46,7 +46,12 @@ public class EntityUtilProperties implements Serializable {
     public final static String module = EntityUtilProperties.class.getName();
     
     protected static String getSystemPropertyValue(String resource, String name, Delegator delegator) {
+        if (resource == null || resource.length() <= 0) {
+            return null;
+        }
         if (name == null || name.length() <= 0) return null;
+        
+        resource = resource.replace(".properties", "");
         
         // find system property
         try {
@@ -81,7 +86,7 @@ public class EntityUtilProperties implements Serializable {
         if (UtilValidate.isEmpty(value)) {
             value = UtilProperties.getPropertyValue(resource, name);
         }
-        return UtilProperties.getPropertyValue(resource, name, defaultValue);
+        return value;
     }
 
     public static double getPropertyNumber(String resource, String name, double defaultValue) {
