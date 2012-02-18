@@ -70,6 +70,11 @@ under the License.
         <condition field-name="availableToPromiseDiff" operator="not-equals" value="0" type="BigDecimal"/>
         <action service="setLastInventoryCount" mode="sync"/>
     </eca>
+    <!-- If the Picklist status is Cancelled then cancel all the PicklistItems -->
+    <eca entity="Picklist" operation="create-store" event="return">
+        <condition field-name="statusId" operator="equals" value="PICKLIST_CANCELLED"/>
+        <action service="cancelPicklistAndItems" mode="async"/>
+    </eca>
 
     <!-- Product GroupOrder ECAs -->
     <eca entity="ProductGroupOrder" operation="create" event="return">
