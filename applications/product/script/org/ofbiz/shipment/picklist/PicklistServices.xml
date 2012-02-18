@@ -1672,4 +1672,23 @@ under the License.
         </else>
         </if-compare>
     </simple-method>
+
+    <simple-method method-name="cancelPicklistAndItems" short-description="If Picklist is Cancelled then cancel all the PicklistItem">
+        <entity-and entity-name="PicklistBin" list="picklistBinList">
+            <field-map field-name="picklistId" from-field="parameters.picklistId"/>
+        </entity-and>
+        <if-not-empty field="picklistBinList">
+            <iterate entry="picklistBin" list="picklistBinList">
+                <entity-and entity-name="PicklistItem" list="itemList">
+                    <field-map field-name="picklistBinId" from-field="picklistBin.picklistBinId"/>
+                </entity-and>
+                <if-not-empty field="itemList">
+                    <iterate entry="item" list="itemList">
+                        <set field="item.itemStatusId" value="PICKITEM_CANCELLED"/>
+                        <store-value value-field="item"/>
+                    </iterate>
+                </if-not-empty>
+            </iterate>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>

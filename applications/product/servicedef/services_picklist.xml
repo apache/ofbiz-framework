@@ -179,6 +179,11 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
     </service>
+    <service name="cancelPicklistAndItems" engine="simple"
+            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="cancelPicklistAndItems" auth="true">
+        <description>If Picklist is Cancelled then cancel all the PicklistItems.</description>
+        <attribute name="picklistId" type="String" mode="IN"/>
+    </service>
 
     <!-- PicklistRole -->
     <service name="createPicklistRole" default-entity-name="PicklistRole" engine="simple"
