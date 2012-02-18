@@ -480,7 +480,7 @@ under the License.
       <field name="budgetId" type="id"></field>
       <field name="budgetItemSeqId" type="id"></field>
       <field name="productId" type="id"></field>
-      <field name="supplierProductId" type="id"></field>
+      <field name="supplierProductId" type="id-long"></field>
       <field name="productFeatureId" type="id"></field>
       <field name="prodCatalogId" type="id"></field>
       <field name="productCategoryId" type="id"></field>
