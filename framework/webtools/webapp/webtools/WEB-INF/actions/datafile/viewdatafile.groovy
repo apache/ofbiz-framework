@@ -52,10 +52,15 @@ catch (java.net.MalformedURLException e) {
 
 definitionNames = null;
 if (definitionUrl) {
-    ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl);
-    if (reader) {
-        definitionNames = ((Collection)reader.getDataFileNames()).iterator();
-        context.put("definitionNames", definitionNames);
+    try {
+        ModelDataFileReader reader = ModelDataFileReader.getModelDataFileReader(definitionUrl);
+        if (reader) {
+            definitionNames = ((Collection)reader.getDataFileNames()).iterator();
+            context.put("definitionNames", definitionNames);
+        }
+    }
+    catch (Exception e) {
+        messages.add(e.getMessage());
     }
 }
 
