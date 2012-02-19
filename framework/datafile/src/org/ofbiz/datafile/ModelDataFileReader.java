@@ -18,174 +18,53 @@
  *******************************************************************************/
 package org.ofbiz.datafile;
 
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 
 /**
  * Flat File definition reader
  */
 
-public class ModelDataFileReader {
+public final class ModelDataFileReader {
 
     public static final String module = ModelDataFileReader.class.getName();
+    private static UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", true);
 
-    public static UtilCache<URL, ModelDataFileReader> readers = UtilCache.createUtilCache("ModelDataFile", 0, 0);
-
-    public URL readerURL = null;
-    public Map<String, ModelDataFile> modelDataFiles = null;
-
-    public static ModelDataFileReader getModelDataFileReader(URL readerURL) {
-        ModelDataFileReader reader = null;
-
-        reader = readers.get(readerURL);
-        if (reader == null) { // don't want to block here
-            synchronized (ModelDataFileReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                reader = readers.get(readerURL);
-                if (reader == null) {
-                    if (Debug.infoOn()) Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader.", module);
-                    reader = new ModelDataFileReader(readerURL);
-                    readers.put(readerURL, reader);
-                }
-            }
+    public static ModelDataFileReader getModelDataFileReader(URL readerURL) throws DataFileException {
+        ModelDataFileReader reader = readers.get(readerURL);
+        if (reader == null) {
+            if (Debug.infoOn())
+                Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : creating reader for " + readerURL, module);
+            reader = new ModelDataFileReader(readerURL);
+            readers.putIfAbsent(readerURL, reader);
         }
-        if (reader != null && UtilValidate.isEmpty(reader.modelDataFiles)) {
-            readers.remove(readerURL);
-            return null;
-        }
-        if (Debug.infoOn()) Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : returning reader.", module);
+        if (Debug.infoOn())
+            Debug.logInfo("[ModelDataFileReader.getModelDataFileReader] : returning reader for " + readerURL, module);
         return reader;
     }
 
-    public ModelDataFileReader(URL readerURL) {
+    private final URL readerURL;
+    private final Map<String, ModelDataFile> modelDataFiles;
+
+    public ModelDataFileReader(URL readerURL) throws DataFileException {
         this.readerURL = readerURL;
-
-        // preload models...
-        getModelDataFiles();
+        this.modelDataFiles = Collections.unmodifiableMap(createModelDataFiles());
     }
 
-    public Map<String, ModelDataFile> getModelDataFiles() {
-        if (modelDataFiles == null) { // don't want to block here
-            synchronized (ModelDataFileReader.class) {
-                // must check if null again as one of the blocked threads can still enter
-                if (modelDataFiles == null) { // now it's safe
-                    modelDataFiles = new HashMap<String, ModelDataFile>();
-
-                    UtilTimer utilTimer = new UtilTimer();
-
-                    utilTimer.timerString("Before getDocument in file " + readerURL);
-                    Document document = getDocument(readerURL);
-
-                    if (document == null) {
-                        modelDataFiles = null;
-                        return null;
-                    }
-
-                    utilTimer.timerString("Before getDocumentElement in file " + readerURL);
-                    Element docElement = document.getDocumentElement();
-
-                    if (docElement == null) {
-                        modelDataFiles = null;
-                        return null;
-                    }
-                    docElement.normalize();
-                    Node curChild = docElement.getFirstChild();
-
-                    int i = 0;
-
-                    if (curChild != null) {
-                        utilTimer.timerString("Before start of dataFile loop in file " + readerURL);
-                        do {
-                            if (curChild.getNodeType() == Node.ELEMENT_NODE && "data-file".equals(curChild.getNodeName())) {
-                                i++;
-                                Element curDataFile = (Element) curChild;
-                                String dataFileName = UtilXml.checkEmpty(curDataFile.getAttribute("name"));
-
-                                // check to see if dataFile with same name has already been read
-                                if (modelDataFiles.containsKey(dataFileName)) {
-                                    Debug.logWarning("WARNING: DataFile " + dataFileName +
-                                        " is defined more than once, most recent will over-write previous definition(s)", module);
-                                }
-
-                                // utilTimer.timerString("  After dataFileName -- " + i + " --");
-                                ModelDataFile dataFile = createModelDataFile(curDataFile);
-
-                                // utilTimer.timerString("  After createModelDataFile -- " + i + " --");
-                                if (dataFile != null) {
-                                    modelDataFiles.put(dataFileName, dataFile);
-                                    // utilTimer.timerString("  After modelDataFiles.put -- " + i + " --");
-                                    if (Debug.infoOn()) Debug.logInfo("-- getModelDataFile: #" + i + " Loaded dataFile: " + dataFileName, module);
-                                } else
-                                    Debug.logWarning("-- -- SERVICE ERROR:getModelDataFile: Could not create dataFile for dataFileName: " + dataFileName, module);
-
-                            }
-                        } while ((curChild = curChild.getNextSibling()) != null);
-                    } else {
-                        Debug.logWarning("No child nodes found.", module);
-                    }
-                    utilTimer.timerString("Finished file " + readerURL + " - Total Flat File Defs: " + i + " FINISHED");
-                }
-            }
-        }
-        return modelDataFiles;
-    }
-
-    /** Gets an DataFile object based on a definition from the specified XML DataFile descriptor file.
-     * @param dataFileName The dataFileName of the DataFile definition to use.
-     * @return An DataFile object describing the specified dataFile of the specified descriptor file.
-     */
-    public ModelDataFile getModelDataFile(String dataFileName) {
-        Map<String, ModelDataFile> ec = getModelDataFiles();
-
-        if (ec != null) {
-            return ec.get(dataFileName);
-        } else {
-            return null;
-        }
-    }
-
-    /** Creates a Iterator with the dataFileName of each DataFile defined in the specified XML DataFile Descriptor file.
-     * @return A Iterator of dataFileName Strings
-     */
-    public Iterator<String> getDataFileNamesIterator() {
-        Collection<String> collection = getDataFileNames();
-
-        if (collection != null) {
-            return collection.iterator();
-        } else {
-            return null;
-        }
-    }
-
-    /** Creates a Collection with the dataFileName of each DataFile defined in the specified XML DataFile Descriptor file.
-     * @return A Collection of dataFileName Strings
-     */
-    public Collection<String> getDataFileNames() {
-        Map<String, ModelDataFile> ec = getModelDataFiles();
-
-        return ec.keySet();
-    }
-
-    protected ModelDataFile createModelDataFile(Element dataFileElement) {
+    private ModelDataFile createModelDataFile(Element dataFileElement) {
         ModelDataFile dataFile = new ModelDataFile();
         String tempStr;
 
@@ -224,7 +103,7 @@ public class ModelDataFileReader {
             }
         }
 
-        for (ModelRecord modelRecord: dataFile.records) {
+        for (ModelRecord modelRecord : dataFile.records) {
 
             if (modelRecord.parentName.length() > 0) {
                 ModelRecord parentRecord = dataFile.getModelRecord(modelRecord.parentName);
@@ -241,60 +120,49 @@ public class ModelDataFileReader {
         return dataFile;
     }
 
-    protected ModelRecord createModelRecord(Element recordElement) {
-        ModelRecord record = new ModelRecord();
-        String tempStr;
-
-        record.name = UtilXml.checkEmpty(recordElement.getAttribute("name"));
-        record.typeCode = UtilXml.checkEmpty(recordElement.getAttribute("type-code"));
-
-        record.tcMin = UtilXml.checkEmpty(recordElement.getAttribute("tc-min"));
-        if (record.tcMin.length() > 0) record.tcMinNum = Long.parseLong(record.tcMin);
-        record.tcMax = UtilXml.checkEmpty(recordElement.getAttribute("tc-max"));
-        if (record.tcMax.length() > 0) record.tcMaxNum = Long.parseLong(record.tcMax);
-
-        tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-isnum"));
-        if (UtilValidate.isNotEmpty(tempStr)) {
-            record.tcIsNum = Boolean.parseBoolean(tempStr);
+    private Map<String, ModelDataFile> createModelDataFiles() throws DataFileException {
+        Document document = null;
+        Element docElement = null;
+        try {
+            document = UtilXml.readXmlDocument(this.readerURL);
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error while reading " + this.readerURL + ": ", module);
+            throw new DataFileException("Error while reading " + this.readerURL, e);
         }
-
-        tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-position"));
-        if (UtilValidate.isNotEmpty(tempStr)) {
-            record.tcPosition = Integer.parseInt(tempStr);
+        if (document != null) {
+            docElement = document.getDocumentElement();
         }
-        tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-length"));
-        if (UtilValidate.isNotEmpty(tempStr)) {
-            record.tcLength = Integer.parseInt(tempStr);
+        if (docElement == null) {
+            Debug.logWarning("Document element not found in " + this.readerURL, module);
+            throw new DataFileException("Document element not found in " + this.readerURL);
         }
-
-        record.description = UtilXml.checkEmpty(recordElement.getAttribute("description"));
-        record.parentName = UtilXml.checkEmpty(recordElement.getAttribute("parent-name"));
-        record.limit = UtilXml.checkEmpty(recordElement.getAttribute("limit"));
-
-        NodeList fList = recordElement.getElementsByTagName("field");
-        int priorEnd = -1;
-
-        for (int i = 0; i < fList.getLength(); i++) {
-            Element fieldElement = (Element) fList.item(i);
-            ModelField modelField = createModelField(fieldElement);
-
-            // if the position is not specified, assume the start position based on last entry
-            if ((i > 0) && (modelField.position == -1)) {
-                modelField.position = priorEnd;
+        docElement.normalize();
+        List<? extends Element> dataFileElements = UtilXml.childElementList(docElement, "data-file");
+        if (dataFileElements.size() == 0) {
+            Debug.logWarning("No <data-file> elements found in " + this.readerURL, module);
+            throw new DataFileException("No <data-file> elements found in " + this.readerURL);
+        }
+        Map<String, ModelDataFile> result = new HashMap<String, ModelDataFile>();
+        for (Element curDataFile : dataFileElements) {
+            String dataFileName = UtilXml.checkEmpty(curDataFile.getAttribute("name"));
+            if (result.containsKey(dataFileName)) {
+                Debug.logWarning("DataFile " + dataFileName + " is defined more than once, most recent will over-write previous definition(s)", module);
             }
-            priorEnd = modelField.position + modelField.length;
-
-            if (modelField != null) {
-                record.fields.add(modelField);
+            ModelDataFile dataFile = createModelDataFile(curDataFile);
+            if (dataFile != null) {
+                result.put(dataFileName, dataFile);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Loaded dataFile: " + dataFileName, module);
+                }
             } else {
-                Debug.logWarning("[ModelDataFileReader.createModelRecord] Weird, modelField was null", module);
+                Debug.logWarning("Could not create dataFile for dataFileName " + dataFileName, module);
+                throw new DataFileException("Could not create dataFile for " + dataFileName + " defined in " + this.readerURL);
             }
         }
-
-        return record;
+        return result;
     }
 
-    protected ModelField createModelField(Element fieldElement) {
+    private ModelField createModelField(Element fieldElement) {
         ModelField field = new ModelField();
         String tempStr;
 
@@ -334,29 +202,96 @@ public class ModelDataFileReader {
         return field;
     }
 
-    protected Document getDocument(URL url) {
-        if (url == null)
-            return null;
-        Document document = null;
+    private ModelRecord createModelRecord(Element recordElement) {
+        ModelRecord record = new ModelRecord();
+        String tempStr;
 
-        try {
-            document = UtilXml.readXmlDocument(url);
-        } catch (SAXException sxe) {
-            // Error generated during parsing)
-            Exception x = sxe;
+        record.name = UtilXml.checkEmpty(recordElement.getAttribute("name"));
+        record.typeCode = UtilXml.checkEmpty(recordElement.getAttribute("type-code"));
 
-            if (sxe.getException() != null) {
-                x = sxe.getException();
-            }
-            x.printStackTrace();
-        } catch (ParserConfigurationException pce) {
-            // Parser with specified options can't be built
-            pce.printStackTrace();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+        record.tcMin = UtilXml.checkEmpty(recordElement.getAttribute("tc-min"));
+        if (record.tcMin.length() > 0)
+            record.tcMinNum = Long.parseLong(record.tcMin);
+        record.tcMax = UtilXml.checkEmpty(recordElement.getAttribute("tc-max"));
+        if (record.tcMax.length() > 0)
+            record.tcMaxNum = Long.parseLong(record.tcMax);
+
+        tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-isnum"));
+        if (UtilValidate.isNotEmpty(tempStr)) {
+            record.tcIsNum = Boolean.parseBoolean(tempStr);
         }
 
-        return document;
+        tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-position"));
+        if (UtilValidate.isNotEmpty(tempStr)) {
+            record.tcPosition = Integer.parseInt(tempStr);
+        }
+        tempStr = UtilXml.checkEmpty(recordElement.getAttribute("tc-length"));
+        if (UtilValidate.isNotEmpty(tempStr)) {
+            record.tcLength = Integer.parseInt(tempStr);
+        }
+
+        record.description = UtilXml.checkEmpty(recordElement.getAttribute("description"));
+        record.parentName = UtilXml.checkEmpty(recordElement.getAttribute("parent-name"));
+        record.limit = UtilXml.checkEmpty(recordElement.getAttribute("limit"));
+
+        NodeList fList = recordElement.getElementsByTagName("field");
+        int priorEnd = -1;
+
+        for (int i = 0; i < fList.getLength(); i++) {
+            Element fieldElement = (Element) fList.item(i);
+            ModelField modelField = createModelField(fieldElement);
+
+            // if the position is not specified, assume the start position based on last
+            // entry
+            if ((i > 0) && (modelField.position == -1)) {
+                modelField.position = priorEnd;
+            }
+            priorEnd = modelField.position + modelField.length;
+
+            if (modelField != null) {
+                record.fields.add(modelField);
+            } else {
+                Debug.logWarning("[ModelDataFileReader.createModelRecord] Weird, modelField was null", module);
+            }
+        }
+
+        return record;
+    }
+
+    /**
+     * Creates a Collection with the dataFileName of each DataFile defined in the
+     * specified XML DataFile Descriptor file.
+     * 
+     * @return A Collection of dataFileName Strings
+     */
+    public Collection<String> getDataFileNames() {
+        return this.modelDataFiles.keySet();
+    }
+
+    /**
+     * Creates a Iterator with the dataFileName of each DataFile defined in the specified
+     * XML DataFile Descriptor file.
+     * 
+     * @return A Iterator of dataFileName Strings
+     */
+    public Iterator<String> getDataFileNamesIterator() {
+        return this.modelDataFiles.keySet().iterator();
+    }
+
+    /**
+     * Gets an DataFile object based on a definition from the specified XML DataFile
+     * descriptor file.
+     * 
+     * @param dataFileName
+     *            The dataFileName of the DataFile definition to use.
+     * @return An DataFile object describing the specified dataFile of the specified
+     *         descriptor file.
+     */
+    public ModelDataFile getModelDataFile(String dataFileName) {
+        return this.modelDataFiles.get(dataFileName);
+    }
+
+    public Map<String, ModelDataFile> getModelDataFiles() {
+        return this.modelDataFiles;
     }
 }
-
