@@ -699,10 +699,17 @@ under the License.
                 <entity-one entity-name="Product" value-field="productMap">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                 </entity-one>
-                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
-                    <field-map field-name="custRequestId" from-field="custRequestId"/>
-                    <field-map field-name="thruDate" value=""></field-map>
-                </entity-and>
+                <entity-condition entity-name="CustRequestAndContent" list="custRequestAndContents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="custRequestId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>                        
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" from-field="null"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
                 <entity-and entity-name="CustRequestAndCustRequestItem" list="categoryList">
                     <field-map field-name="productId" from-field="parameters.productId"/>
                     <field-map field-name="custRequestTypeId" value="RF_PARENT_BACKLOG"/>
@@ -1019,10 +1026,17 @@ under the License.
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
-                    <field-map field-name="custRequestId" from-field="custRequestId"/>
-                    <field-map field-name="thruDate" value=""></field-map>
-                </entity-and>
+                <entity-condition entity-name="CustRequestAndContent" list="custRequestAndContents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="custRequestId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>                        
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" from-field="null"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonScrumProductBacklogItemDecorator" location="${parameters.mainDecoratorLocation}">

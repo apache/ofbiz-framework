@@ -121,13 +121,21 @@ under the License.
                 <entity-and entity-name="CustRequestContent" list="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" from-field="custRequestId"/>
                 </entity-and>
-                <entity-and entity-name="CustRequestAndContent" list="custRequestAndContents">
-                    <field-map field-name="custRequestId" from-field="custRequestId"/>
-                </entity-and>
+                <entity-condition entity-name="CustRequestAndContent" list="custRequestAndContents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="custRequestId" from-field="custRequestId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="nowTimestamp"/>                        
+                        <condition-list combine="or">
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="nowTimestamp"/>
+                            <condition-expr field-name="thruDate" from-field="null"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="fromDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
+                    <decorator-section name="body">                        
                         <container style="lefthalf">
                             <screenlet title="${uiLabelMap.OrderRequestInformation}">
                                 <include-form name="requestInfo" location="component://order/widget/ordermgr/CustRequestForms.xml"/>
