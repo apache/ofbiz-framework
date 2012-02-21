@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CommonExtCreatePublicMessage">
+        <value xml:lang="de">Erzeuge öffentliche Nachricht</value>
         <value xml:lang="en">Create Public Message</value>
         <value xml:lang="fr">Créer un message public</value>
         <value xml:lang="it">Crea messaggio pubblico</value>
@@ -27,6 +28,7 @@
         <value xml:lang="zh">新建公共消息</value>
     </property>
     <property key="CommonExtDateInfoCreated">
+        <value xml:lang="de">Datum Info erzeugt</value>
         <value xml:lang="en">Date info created</value>
         <value xml:lang="fr">Date de création</value>
         <value xml:lang="it">Data di creazione</value>
@@ -34,6 +36,7 @@
         <value xml:lang="zh">已创建日期信息</value>
     </property>
     <property key="CommonExtDateLastChanged">
+        <value xml:lang="de">Datum Letzte Änderung</value>    
         <value xml:lang="en">Date Last Changed</value>
         <value xml:lang="fr">Dernière date de changement</value>
         <value xml:lang="it">Data ultimo cambiamento</value>
@@ -41,6 +44,7 @@
         <value xml:lang="zh">最后修改日期</value>
     </property>
     <property key="CommonExtSystemInfoNote">
+        <value xml:lang="de">Systemnachricht</value>
         <value xml:lang="en">System Info Note</value>
         <value xml:lang="fr">Message d'information système</value>
         <value xml:lang="it">Messaggio di sistema</value>
@@ -48,6 +52,7 @@
         <value xml:lang="zh">系统信息便笺</value>
     </property>
     <property key="CommonExtSystemInfoNoteForUser">
+        <value xml:lang="de">Systemnachricht für Benutzer:</value>    
         <value xml:lang="en">System Info note for user:</value>
         <value xml:lang="fr">Message d'information système pour l'utilisateur :</value>
         <value xml:lang="it">Messaggio di sistema per l'utente:</value>
@@ -55,6 +60,7 @@
         <value xml:lang="zh">系统信息便笺致用户：</value>
     </property>
     <property key="CommonExtSystemInfoStatus">
+        <value xml:lang="de">System Information Status</value>    
         <value xml:lang="en">System Info Status</value>
         <value xml:lang="fr">Message d'information d'état</value>
         <value xml:lang="it">Stato messaggi di sistema</value>
@@ -62,6 +68,7 @@
         <value xml:lang="zh">系统信息状态</value>
     </property>
     <property key="CommonExtSystemInfoStatusForUser">
+        <value xml:lang="de">System Information Status für Benutzer:</value>    
         <value xml:lang="en">System Info status for user:</value>
         <value xml:lang="fr">Message d'information d'état pour l'utilisateur :</value>
         <value xml:lang="it">Stato messaggi di sistema per l'utente:</value>
