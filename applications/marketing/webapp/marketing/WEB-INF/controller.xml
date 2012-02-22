@@ -155,16 +155,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditMarketingCampaignRoles"/>
     </request-map>
-    <request-map uri="addRoleToMarketingCampaign"><security https="true" auth="true"/>
-        <event type="service" path="" invoke="addRoleToMarketingCampaign"/>
-        <response name="success" type="view" value="EditMarketingCampaignRoles"/>
-        <response name="error" type="view" value="EditMarketingCampaignRoles"/>
-    </request-map>
-    <request-map uri="removeRoleFromMarketingCampaign"><security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeRoleFromMarketingCampaign"/>
-        <response name="success" type="view" value="EditMarketingCampaignRoles"/>
-        <response name="error" type="view" value="EditMarketingCampaignRoles"/>
-    </request-map>
     <request-map uri="ListMarketingCampaignRoles">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListMarketingCampaignRoles"/>
@@ -172,13 +162,7 @@ under the License.
     <request-map uri="createMarketingCampaignRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="createMarketingCampaignRole"/>
-        <response name="success" type="view" value="EditMarketingCampaignRoles"/>
-        <response name="error" type="view" value="EditMarketingCampaignRoles"/>
-    </request-map>
-    <request-map uri="updateMarketingCampaignRole">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateMarketingCampaignRole"/>
-        <response name="success" type="view" value="EditMarketingCampaignRoles"/>
+        <response name="success" type="view" value="ListMarketingCampaignRoles"/>
         <response name="error" type="view" value="EditMarketingCampaignRoles"/>
     </request-map>
     <request-map uri="removeMarketingCampaignRole">
