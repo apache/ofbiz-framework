@@ -57,7 +57,9 @@ under the License.
                   </div>
                 </#list>
                 <#if "POSTAL_ADDRESS" = contactMech.contactMechTypeId>
-                  <#assign postalAddress = contactMechMap.postalAddress>
+                  <#if contactMechMap.postalAddress?has_content>
+                    <#assign postalAddress = contactMechMap.postalAddress>
+                  </#if>  
                   <#if postalAddress?has_content>
                   <div>
                     <#if postalAddress.toName?has_content><b>${uiLabelMap.PartyAddrToName}:</b> ${postalAddress.toName}<br /></#if>
@@ -76,31 +78,35 @@ under the License.
                     </#if>
                   </div>
                   </#if>
-                  <#if (postalAddress?has_content && !postalAddress.countryGeoId?has_content) || postalAddress.countryGeoId = "USA">
-                    <#assign addr1 = postalAddress.address1?if_exists>
-                    <#if addr1?has_content && (addr1.indexOf(" ") > 0)>
-                      <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
-                      <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                      <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesAddressLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
+                  <#if postalAddress?has_content>
+                    <#if !postalAddress.countryGeoId?has_content || postalAddress.countryGeoId = "USA">
+                      <#assign addr1 = postalAddress.address1?if_exists>
+                      <#if addr1?has_content && (addr1.indexOf(" ") > 0)>
+                        <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
+                        <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
+                        <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesAddressLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
+                      </#if>
                     </#if>
-                  </#if>
-                  <#if postalAddress.geoPointId?has_content>
-                    <#if contactMechPurposeType?has_content>
-                      <#assign popUptitle = contactMechPurposeType.get("description",locale) + uiLabelMap.CommonGeoLocation>
+                    <#if postalAddress.geoPointId?has_content>
+                      <#if contactMechPurposeType?has_content>
+                        <#assign popUptitle = contactMechPurposeType.get("description",locale) + uiLabelMap.CommonGeoLocation>
+                      </#if>
+                      <a href="javascript:popUp('<@ofbizUrl>PartyGeoLocation?geoPointId=${postalAddress.geoPointId}&partyId=${partyId}</@ofbizUrl>', '${popUptitle?if_exists}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
                     </#if>
-                    <a href="javascript:popUp('<@ofbizUrl>PartyGeoLocation?geoPointId=${postalAddress.geoPointId}&partyId=${partyId}</@ofbizUrl>', '${popUptitle?if_exists}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
                   </#if>
                 <#elseif "TELECOM_NUMBER" = contactMech.contactMechTypeId>
-                  <#assign telecomNumber = contactMechMap.telecomNumber>
-                  <div>
-                    ${telecomNumber.countryCode?if_exists}
-                    <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode?default("000")}-</#if>${telecomNumber.contactNumber?default("000-0000")}
-                    <#if partyContactMech.extension?has_content>${uiLabelMap.PartyContactExt}&nbsp;${partyContactMech.extension}</#if>
-                    <#if (telecomNumber?has_content && !telecomNumber.countryCode?has_content) || telecomNumber.countryCode = "011">
-                      <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="buttontext">${uiLabelMap.CommonLookupAnywho}</a>
-                      <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesTelNumberLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
-                    </#if>
-                  </div>
+                  <#if contactMechMap.telecomNumber?has_content>
+                    <#assign telecomNumber = contactMechMap.telecomNumber>
+                    <div>
+                      ${telecomNumber.countryCode?if_exists}
+                      <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode?default("000")}-</#if><#if telecomNumber.contactNumber?has_content>${telecomNumber.contactNumber?default("000-0000")}</#if>
+                      <#if partyContactMech.extension?has_content>${uiLabelMap.PartyContactExt}&nbsp;${partyContactMech.extension}</#if>
+                        <#if !telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011">
+                          <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="buttontext">${uiLabelMap.CommonLookupAnywho}</a>
+                          <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesTelNumberLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
+                        </#if>
+                    </div>
+                  </#if>
                 <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
                     ${contactMech.infoString?if_exists}
