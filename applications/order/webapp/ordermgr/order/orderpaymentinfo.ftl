@@ -336,7 +336,7 @@ under the License.
                     <#if creditCard?has_content>
                       <#if creditCard.companyNameOnCard?exists>${creditCard.companyNameOnCard}<br /></#if>
                       <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp;</#if>
-                      ${creditCard.firstNameOnCard}&nbsp;
+                      ${creditCard.firstNameOnCard?default("N/A")}&nbsp;
                       <#if creditCard.middleNameOnCard?has_content>${creditCard.middleNameOnCard}&nbsp;</#if>
                       ${creditCard.lastNameOnCard?default("N/A")}
                       <#if creditCard.suffixOnCard?has_content>&nbsp;${creditCard.suffixOnCard}</#if>
