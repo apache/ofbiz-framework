@@ -98,25 +98,9 @@ under the License.
     </service>
 
     <!-- MarketingCampaignRole Services -->
-    <service name="addRoleToMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addRoleToMarketingCampaign" auth="true">
-        <description>Add Role to MarketingCampaign</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-    <service name="removeRoleFromMarketingCampaign" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="removeRoleFromMarketingCampaign" auth="true">
-        <description>Remove Role from MarketingCampaign</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
     <service name="createMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="createMarketingCampaignRole" auth="true">
         <description>Add Role to Campaign</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="updateMarketingCampaignRole" default-entity-name="MarketingCampaignRole" engine="simple"
-            location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="updateMarketingCampaignRole" auth="true">
-        <description>Update Role to Campaign Join</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
