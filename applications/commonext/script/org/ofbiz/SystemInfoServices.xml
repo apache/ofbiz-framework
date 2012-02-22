@@ -22,199 +22,13 @@ under the License.
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createSystemInfoNote" short-description="Create a system to to a specific party">
-        <set field="partyId" from-field="parameters.partyId" default-value="userLogin.partyId"/>
-        <!-- new communication events -->
-        <if-compare field="parameters.entityName" value="CommunicationEvent" operator="equals">
-            <entity-one entity-name="CommunicationEvent" value-field="comm">
-                <field-map field-name="communicationEventId" from-field="parameters.entityNameId"/>
-            </entity-one>
-            <entity-and entity-name="CommunicationEventRole" list="roles">
-                <field-map field-name="communicationEventId" from-field="parameters.entityNameId"/>
-            </entity-and>
-            <if-not-empty field="roles">
-                <make-value value-field="noteData" entity-name="NoteData"/>
-                <now-timestamp field="noteData.noteDateTime"/>
-                <set field="noteData.noteName" value="SYSTEMNOTE"/>
-                <set field="noteData.noteInfo" value="New incoming communication event: ${comm.subject} from ${comm.partyIdFrom}"/>
-                <set field="noteData.moreInfoPortletId" value="MyCommunications"/>
-                <iterate entry="role" list="roles">
-                    <if-compare field="role.statusId" value="COM_ROLE_CREATED" operator="equals">
-                        <set field="partyId" from-field="role.partyId"/>
-                        <call-simple-method method-name="getPortletAttributeMap"/>
-                        <if>
-                            <condition>
-                                <and><!-- check for 'all' notifications flag off -->
-                                    <if-compare field="haveUserLogin" value="true" operator="equals"/>
-                                    <if-compare field="attributeMap.allNotifications" value="Y" operator="not-equals"/>
-                                    <or>
-                                        <and><!-- incoming email for known parties, no notifications for unknown parties -->
-                                            <if-compare field="attributeMap.incomingEmail" value="Y" operator="not-equals"/>
-                                            <if-compare field="comm.communicationEventTypeId" value="AUTO_EMAIL_COM" operator="equals"/>
-                                        </and>
-                                        <and><!-- internal sent email -->
-                                            <if-compare field="attributeMap.email" value="Y" operator="not-equals"/>
-                                            <or>
-                                                <if-compare field="comm.communicationEventTypeId" value="AUTO_EMAIL_COMM" operator="equals"/>
-                                                <if-compare field="comm.communicationEventTypeId" value="EMAIL_COMMUNICATION" operator="equals"/>
-                                            </or>
-                                        </and>
-                                        <and><!-- internal notes -->
-                                            <if-compare field="attributeMap.internalNotes" value="Y" operator="not-equals"/>
-                                            <if-compare field="comm.communicationEventTypeId" value="COMMENT_NOTE" operator="equals"/>
-                                        </and>
-                                    </or>
-                                </and>    
-                            </condition>
-                            <then>
-                                <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                                <set field="noteData.noteParty" from-field="role.partyId"/>
-                                <create-value value-field="noteData"/>
-                            </then>
-                        </if>
-                    </if-compare>                        
-                </iterate>
-            </if-not-empty>
-        </if-compare>
-        
-        <!-- new task assignments for the logged on user -->
-        <if-compare field="parameters.entityName" value="WorkEffortPartyAssignment" operator="equals">
-            <entity-one entity-name="WorkEffort" value-field="workEffort">
-                <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
-            </entity-one>
-            <if>
-                <condition>
-                    <or>
-                        <if-compare field="workEffort.workEffortTypeId" value="TASK" operator="equals"/>
-                        <if-compare field="workEffort.workEffortTypeId" value="SCRUM_TASK_IMPL" operator="equals"/>
-                        <if-compare field="workEffort.workEffortTypeId" value="SCRUM_TASK_INST" operator="equals"/>
-                        <if-compare field="workEffort.workEffortTypeId" value="SCRUM_TASK_ERROR" operator="equals"/>
-                        <if-compare field="workEffort.workEffortTypeId" value="SCRUM_TASK_TEST" operator="equals"/>
-                    </or>
-                </condition>
-                <then>
-                    <call-simple-method method-name="getPortletAttributeMap"/>
-                    <if-compare field="haveUserLogin" value="true" operator="equals">
-                        <if-compare field="attributeMap.taskAssignment" value="Y" operator="not-equals">
-                            <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
-                                <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
-                                <order-by field-name="-fromDate"/>
-                            </entity-and>
-                            <first-from-list entry="assign" list="assigns"/>
-                            <make-value value-field="noteData" entity-name="NoteData"/>
-                            <now-timestamp field="noteData.noteDateTime"/>
-                            <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                            <set field="noteData.noteParty" from-field="assign.partyId"/>
-                            <set field="noteData.noteName" value="SYSTEMNOTE"/>
-                            <set field="noteData.noteInfo" value="New task assignment '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
-                            <set field="noteData.moreInfoPortletId" value="ViewProjectTask"/>
-                            <set field="noteData.moreInfoItemId" from-field="workEffort.workEffortId"/>
-                            <create-value value-field="noteData"/>
-                        </if-compare>
-                    </if-compare>
-                </then>
-            </if>
-            
-            <!-- create system info note for TASK COMPLETED -->
-            <entity-condition list="completeTask" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
-                <condition-list combine="and">
-                    <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.entityNameId"/>
-                    <condition-expr field-name="partyId" operator="equals" from-field="userLogin.partyId"/>
-                </condition-list>
-            </entity-condition>
-            <first-from-list entry="completeMessage" list="completeTask"/>
-            <if>
-                <condition>
-                    <or>
-                        <if-compare field="completeMessage.statusId" value="PAS_COMPLETED" operator="equals"/>
-                        <if-compare field="completeMessage.statusId" value="SCAS_COMPLETED" operator="equals"/>
-                        <if-compare field="completeMessage.statusId" value="PRTYASGN_UNASSIGNED" operator="equals"/>
-                    </or>
-                </condition>
-                <then>
-                    <call-simple-method method-name="getPortletAttributeMap"/>
-                    <if-compare field="haveUserLogin" value="true" operator="equals">
-                        <if-compare field="attributeMap.taskAssignment" value="Y" operator="not-equals">
-                            <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
-                                <field-map field-name="workEffortId" from-field="parameters.entityNameId"/>
-                                <order-by field-name="-fromDate"/>
-                            </entity-and>
-                            <iterate entry="assign" list="assigns">
-                                <make-value value-field="noteData" entity-name="NoteData"/>
-                                <now-timestamp field="noteData.noteDateTime"/>
-                                <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                                <set field="noteData.noteParty" from-field="assign.partyId"/>
-                                <set field="noteData.noteName" value="SYSTEMNOTE"/>
-                                <set field="noteData.noteInfo" value="Task assignment completed '${workEffort.workEffortName}' [${workEffort.workEffortId}]"/>
-                                <set field="noteData.moreInfoPortletId" value="ViewProjectTask"/>
-                                <set field="noteData.moreInfoItemId" from-field="workEffort.workEffortId"/>
-                                <create-value value-field="noteData"/>
-                            </iterate>
-                        </if-compare>
-                    </if-compare>
-                </then>
-            </if>
-        </if-compare>
-        
-        <!-- Create a system info note to all customer request participants if a note was added to the customer request
-            the originator of the customer request will get already a email so does not need to be notified-->
-        <if-compare field="parameters.entityName" value="CustRequestItemNote" operator="equals">
-            <!-- find related customer request originator -->
-            <entity-and entity-name="CustRequestItemNoteView" list="custRequesItems">
-                <field-map field-name="noteId" from-field="parameters.entityNameId"/>
-            </entity-and>
-            <first-from-list entry="custRequesItem" list="custRequesItems"/>
-            <entity-one entity-name="CustRequest" value-field="custRequest">
-                <field-map field-name="custRequestId" from-field="custRequesItem.custRequestId"/>
-                <select-field field-name="fromPartyId"/>
-                <select-field field-name="custRequestName"/>
-            </entity-one>
-            <!-- find all parties who have added a note to this request item excluding the originator (he already gets email)-->
-            <entity-condition entity-name="CustRequestItemNoteView" list="custRequestParties" distinct="true">
-                <condition-list combine="and">
-                    <condition-expr field-name="partyId" operator="not-equals" from-field="custRequest.fromPartyId"/>
-                    <condition-expr field-name="custRequestId" from-field="custRequesItem.custRequestId"/>
-                    <condition-expr field-name="custRequestItemSeqId" from-field="custRequesItem.custRequestItemSeqId"/>
-                </condition-list>
-                <select-field field-name="partyId"/>
-                <select-field field-name="custRequestId"/>
-                <select-field field-name="custRequestItemSeqId"/>
-            </entity-condition>
-            <make-value value-field="noteData" entity-name="NoteData"/>
-            <now-timestamp field="noteData.noteDateTime"/>
-            <set field="noteData.noteName" value="SYSTEMNOTE"/>
-            <set field="noteData.moreInfoPortletId" value="ViewCustRequest"/>
-            <set field="noteData.moreInfoItemId" from-field="custRequest.custRequestId"/>
-            <set field="noteData.noteInfo" value="A note has been added to customer request ${custRequest.custRequestName} [${custRequest.custRequestId}]"/>
-            <iterate entry="custRequestParty" list="custRequestParties">
-                <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                <set field="noteData.noteParty" from-field="custRequestParty.partyId"/>
-                <create-value value-field="noteData"/>
-            </iterate>
-        </if-compare>
-        
-        <!-- public message -->
-        <if-compare field="parameters.entityName" value="PublicMessage" operator="equals">
-            <if-has-permission permission="COMMONEXT_PUBLMSG">
-                <!-- get all recent visitors logged on the last 3 weeks -->
-                <set field="lastDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.addDaysToTimestamp(org.ofbiz.base.util.UtilDateTime.nowTimestamp(), -21)}" type="Timestamp"/>
-                <entity-condition list="parties" entity-name="PartyNameVisitView" distinct="true">
-                    <condition-expr field-name="fromDate" operator="greater" from-field="lastDate"/>
-                    <select-field field-name="partyId"/>
-                </entity-condition>
-                <iterate entry="party" list="parties">            
-                    <make-value value-field="noteData" entity-name="NoteData"/>
-                    <now-timestamp field="noteData.noteDateTime"/>
-                    <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                    <set field="noteData.noteParty" from-field="party.partyId"/>
-                    <set field="noteData.noteName" value="SYSTEMNOTE"/>
-                    <set field="noteData.noteInfo" from-field="parameters.noteInfo"/>
-                    <create-value value-field="noteData"/>
-                </iterate>
-                <set field="noteData.noteParty" value="_NA_"/><!-- message for not logged in users -->
-                <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
-                <create-value value-field="noteData"/>
-            </if-has-permission>
-        </if-compare>
+        <set field="parameters.partyId" from-field="parameters.partyId" default-value="userLogin.partyId"/>
+        <make-value value-field="noteData" entity-name="NoteData"/>
+        <set-nonpk-fields value-field="noteData" map="parameters"/>
+        <now-timestamp field="noteData.noteDateTime"/>
+        <sequenced-id sequence-name="NoteData" field="noteData.noteId"/>
+        <set field="noteData.noteName" value="SYSTEMNOTE"/>
+        <create-value value-field="noteData"/>
     </simple-method>
 
     <simple-method method-name="getPortletAttributeMap" short-description="get the attributes of the SystemInfoNotes portlet for a userlogin">
@@ -231,6 +45,19 @@ under the License.
                 <result-to-field result-name="attributeMap" field="attributeMap"/>
             </call-service>
         </if-not-empty>
+    </simple-method>
+
+    <simple-method method-name="deleteSystemInfoNote" short-description="Delete SystemInfo Note">
+        <entity-one value-field="noteData" entity-name="NoteData"/>
+        <remove-related relation-name="ContentNote" value-field="noteData"/>
+        <remove-related relation-name="CustRequestItemNote" value-field="noteData"/>
+        <remove-related relation-name="CustRequestNote" value-field="noteData"/>
+        <remove-related relation-name="MarketingCampaignNote" value-field="noteData"/>
+        <remove-related relation-name="OrderHeaderNote" value-field="noteData"/>
+        <remove-related relation-name="PartyNote" value-field="noteData"/>
+        <remove-related relation-name="QuoteNote" value-field="noteData"/>
+        <remove-related relation-name="WorkEffortNote" value-field="noteData"/>
+        <remove-value value-field="noteData"/>
     </simple-method>
 
     <simple-method method-name="deleteAllSystemNotes" short-description="delete all system notes from a particular user">
@@ -258,7 +85,6 @@ under the License.
             <set field="status.noteInfo" value="Open communication events: ${comCount}"/>
             <first-from-list entry="comm" list="comms"/>
             <set field="status.noteDateTime" from-field="comm.entryDate"/>
-            <set field="status.moreInfoPortletId" value="MyCommunications"/>
             <field-to-list field="status" list="systemInfoStatus"/>
             <clear-field field="status"/>
         </if-compare>
@@ -280,7 +106,6 @@ under the License.
             <set field="status.noteInfo" value="Assigned and not completed tasks: ${assignCount}"/>
             <first-from-list entry="assign" list="assigns"/>
             <set field="status.noteDateTime" from-field="assign.fromDate"/>
-            <set field="status.moreInfoPortletId" value="mytasks"/>
             <field-to-list field="status" list="systemInfoStatus"/>
         </if-compare>
         
@@ -322,53 +147,14 @@ under the License.
         <if-not-empty field="systemInfoNotes">
             <set field="lastSystemInfoNote1" from-field="systemInfoNotes[0]"/>
             <field-to-result field="lastSystemInfoNote1"/>
-            <!-- get link from systemInfoNote 1 -->
-            <set field="systemNotepartyId" from-field="systemInfoNotes[0].noteParty"/>
-            <set field="systemNoteworkEffortId" from-field="systemInfoNotes[0].moreInfoItemId"/>
-            <call-simple-method method-name="getLinkFromLastSystemNote"/>
-            <set field="lastSystemInfoLink1" from-field="lastSystemInfoLink"/>
-            <field-to-result field="lastSystemInfoLink1"/>
             <if-not-empty field="systemInfoNotes[2]">
                 <set field="lastSystemInfoNote2" from-field="systemInfoNotes[1]"/>
                 <field-to-result field="lastSystemInfoNote2"/>
-                <!-- get link from systemInfoNote 2 -->
-                <set field="systemNotepartyId" from-field="systemInfoNotes[1].noteParty"/>
-                <set field="systemNoteworkEffortId" from-field="systemInfoNotes[1].moreInfoItemId"/>
-                <call-simple-method method-name="getLinkFromLastSystemNote"/>
-                <set field="lastSystemInfoLink2" from-field="lastSystemInfoLink"/>
-                <field-to-result field="lastSystemInfoLink2"/>
             </if-not-empty>
             <if-not-empty field="systemInfoNotes[3]">
                 <set field="lastSystemInfoNote3" from-field="systemInfoNotes[2]"/>
                 <field-to-result field="lastSystemInfoNote3"/>
-                <!-- get link from systemInfoNote 3 -->
-                <set field="systemNotepartyId" from-field="systemInfoNotes[2].noteParty"/>
-                <set field="systemNoteworkEffortId" from-field="systemInfoNotes[2].moreInfoItemId"/>
-                <call-simple-method method-name="getLinkFromLastSystemNote"/>
-                <set field="lastSystemInfoLink3" from-field="lastSystemInfoLink"/>
-                <field-to-result field="lastSystemInfoLink3"/>
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="getLinkFromLastSystemNote" short-description="Get links from the last 3 system info notes">
-        <entity-condition list="linkSystem" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
-            <condition-list combine="and">
-                <condition-expr field-name="partyId" operator="equals" from-field="systemNotepartyId"/>
-                <condition-expr field-name="workEffortId" operator="equals" from-field="systemNoteworkEffortId"/> 
-            </condition-list>
-        </entity-condition>
-        <if-not-empty field="linkSystem">
-            <if-compare field="linkSystem[0].statusId" operator="contains" value="PRTYASGN_">
-                <set field="lastSystemInfoLink" value="/taskmgr/control/taskView?taskId=${systemNoteworkEffortId}"/>
-            </if-compare>
-            <if-compare field="linkSystem[0].statusId" operator="contains" value="SCAS_">
-                <set field="lastSystemInfoLink" value="/scrum/control/taskView?taskId=${systemNoteworkEffortId}"/>
-            </if-compare>
-            <if-compare field="linkSystem[0].statusId" operator="contains" value="PAS_">
-                <set field="lastSystemInfoLink" value="/projectmgr/control/taskView?workEffortId=${systemNoteworkEffortId}"/>
-            </if-compare>
-        </if-not-empty>
-    </simple-method>
-   
 </simple-methods>

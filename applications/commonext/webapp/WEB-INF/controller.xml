@@ -23,6 +23,13 @@ under the License.
     <description>General Application CommonExt Configuration File</description>
     
     <!-- Request Mappings -->
+    
+    <request-map uri="deleteSystemInfoNote">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteSystemInfoNote"/>
+        <response name="success" type="view-last"/>
+    </request-map>
+    
     <request-map uri="deleteAllSystemNotes">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteAllSystemNotes"/>

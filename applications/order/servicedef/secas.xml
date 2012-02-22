@@ -314,6 +314,17 @@ under the License.
         <condition field-name="custRequestId" operator="is-not-empty"/>
         <action service="updateCommunicationEvent" mode="sync"/>
     </eca>
+    
+    <!-- send a system note to all Customer request participants (excluding the originator) 
+        when a note is added to a particular customer request.-->
+    <eca service="createCustRequestItemNote" event="commit">
+        <set field-name="noteParty" env-name="partyId"/>
+        <set field-name="noteInfo" value="A note has been added to customer request"/>
+        <set field-name="moreInfoItemName" value="custRequestId"/>
+        <set field-name="moreInfoItemId" env-name="custRequestId"/>
+        <set field-name="moreInfoUrl" value="/ordermgr/control/ViewRequest"/>
+        <action service="createSystemInfoNote" mode="sync"/>
+    </eca>
 
     <!-- Requirement / CustRequestItem association event -->
     <eca service="createRequirement" event="commit">

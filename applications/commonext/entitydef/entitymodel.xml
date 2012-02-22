@@ -26,8 +26,9 @@ under the License.
 
 <!-- not sure if we should use the NoteData entity for this however at the moment it is doing fine... -->
   <extend-entity entity-name="NoteData">
-    <field name="moreInfoPortletId" type="value"><description>url to go to the related portlet screen in the system</description></field>
+    <field name="moreInfoUrl" type="value"><description>url to go to the related screen in the system</description></field>
     <field name="moreInfoItemId" type="value"><description>The id of the item to be displayed i.e. custRequestId, commEventId etc</description></field>
+    <field name="moreInfoItemName" type="value"><description>The name of the item to be displayed i.e. custRequestId, commEventId etc</description></field>
     <index name="systemInfo" unique="false"><!-- to be able to select the SYSTEMNOTE records quickly -->
       <index-field name="noteName"/>
     </index>

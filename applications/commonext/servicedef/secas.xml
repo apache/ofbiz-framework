@@ -20,27 +20,5 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
-    <!-- send a note when a communicationevent is created for a certain loginId when an 
-        existing comm event's status changes into status: entered-->
-    <eca service="setCommunicationEventStatus" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_ENTERED"/>
-        <set field-name="entityName" value="CommunicationEvent"/>
-        <set field-name="entityNameId" env-name="communicationEventId"/>
-        <action service="createSystemInfoNote" mode="sync"/>
-    </eca>
-    <!-- send a note when a communicationevent is created for a certain loginId 
-        with the status entered -->
-    <eca service="createCommunicationEvent" event="commit">
-        <condition field-name="statusId" operator="equals" value="COM_ENTERED"/>
-        <set field-name="entityName" value="CommunicationEvent"/>
-        <set field-name="entityNameId" env-name="communicationEventId"/>
-        <action service="createSystemInfoNote" mode="sync"/>
-    </eca>
-    <!-- send a system note to all Customer request participants (excluding the originator) 
-        when a note is added to a particular customer request.-->
-    <eca service="createCustRequestItemNote" event="commit">
-        <set field-name="entityName" value="CustRequestItemNote"/>
-        <set field-name="entityNameId" env-name="noteId"/>
-        <action service="createSystemInfoNote" mode="sync"/>
-    </eca>
+        
 </service-eca>
