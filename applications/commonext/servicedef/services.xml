@@ -26,11 +26,13 @@ under the License.
 
     <service name="createSystemInfoNote" engine="simple" default-entity-name="NoteData"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="createSystemInfoNote">
-        <description>Create a system info note realted to a certain entityId</description>        
-        <auto-attributes mode="IN" optional="true"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/><!-- userLogin.partyId is default -->
-        <attribute name="entityName" type="String" mode="IN"/>
-        <attribute name="entityNameId" type="String" mode="IN"/>
+        <description>Create a system info note</description>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteSystemInfoNote" engine="simple" default-entity-name="NoteData"
+        location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="deleteSystemInfoNote">
+        <description>Delete a system info note</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteAllSystemNotes" engine="simple" auth="true"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="deleteAllSystemNotes">
@@ -47,9 +49,6 @@ under the License.
         <attribute name="lastSystemInfoNote1" type="GenericValue" mode="OUT" optional="true"/>
         <attribute name="lastSystemInfoNote2" type="GenericValue" mode="OUT" optional="true"/>
         <attribute name="lastSystemInfoNote3" type="GenericValue" mode="OUT" optional="true"/>
-        <attribute name="lastSystemInfoLink1" type="String" mode="OUT" optional="true"/>
-        <attribute name="lastSystemInfoLink2" type="String" mode="OUT" optional="true"/>
-        <attribute name="lastSystemInfoLink3" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="getSystemInfoStatus" engine="simple" auth="true"
         location="component://commonext/script/org/ofbiz/SystemInfoServices.xml" invoke="getSystemInfoStatus">

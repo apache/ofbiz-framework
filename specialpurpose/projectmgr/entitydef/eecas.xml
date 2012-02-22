@@ -23,8 +23,11 @@ under the License.
 
     <eca entity="WorkEffortPartyAssignment" operation="create" event="return">
         <condition field-name="statusId" operator="equals" value="PAS_ASSIGNED"/>
-        <set field-name="entityName" value="WorkEffortPartyAssignment"/>
-        <set field-name="entityNameId" env-name="workEffortId"/>
+        <set field-name="noteParty" env-name="partyId"/>
+        <set field-name="noteInfo" value="New task assignment"/>
+        <set field-name="moreInfoItemName" value="workEffortId"/>
+        <set field-name="moreInfoItemId" env-name="workEffortId"/>
+        <set field-name="moreInfoUrl" value="/projectmgr/control/taskView/>"/>
         <action service="createSystemInfoNote" mode="sync"/>
     </eca>
 
