@@ -1974,8 +1974,10 @@ public class ProductSearch {
         public void setSortOrder(ProductSearchContext productSearchContext) {
             if (productSearchContext.includedKeywordSearch) {
                 // we have to check this in order to be sure that there is a totalRelevancy to sort by...
-                productSearchContext.orderByList.add("-totalRelevancy");
-                productSearchContext.fieldsToSelect.add("totalRelevancy");
+                if(productSearchContext.keywordFixedOrSetAndList.size() > 0 || productSearchContext.andKeywordFixedSet.size() > 0) {
+                    productSearchContext.orderByList.add("-totalRelevancy");
+                    productSearchContext.fieldsToSelect.add("totalRelevancy");
+                }
                 if (productSearchContext.keywordFixedOrSetAndList.size() > 0)
                     productSearchContext.productIdGroupBy = true;
             }
