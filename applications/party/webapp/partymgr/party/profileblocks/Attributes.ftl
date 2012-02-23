@@ -22,7 +22,7 @@ under the License.
       <ul>
         <li class="h3">${uiLabelMap.PartyAttributes}</li>
         <#if security.hasEntityPermission("PARTYMGR", "_CREATE", session)>
-          <li><a href="<@ofbizUrl>editPartyAttribute?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
+          <li><a href="<@ofbizUrl>editPartyAttribute?partyId=${party.partyId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonCreateNew}</a></li>
         </#if>
       </ul>
       <br class="clear"/>
@@ -39,13 +39,13 @@ under the License.
           <#list attributes as attr>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>
-                ${attr.attrName}
+                ${attr.attrName?if_exists}
               </td>
               <td>
-                ${attr.attrValue}
+                ${attr.attrValue?if_exists}
               </td>
               <td class="button-col">
-                <a href="<@ofbizUrl>editPartyAttribute?partyId=${partyId}&attrName=${attr.attrName}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
+                <a href="<@ofbizUrl>editPartyAttribute?partyId=${partyId?if_exists}&attrName=${attr.attrName?if_exists}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
               </td>
             </tr>
             <#-- toggle the row color -->
