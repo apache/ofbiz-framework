@@ -245,16 +245,29 @@ under the License.
         statusId = StringUtil.split(checkStatusVal, &quot;/&quot;);
         if (statusId) return statusId[0];
         }"/>
-        <entity-and entity-name="ContentApproval" list="contentApprovals">
-            <field-map field-name="partyId" from-field="userLogin.partyId"/>
-            <field-map field-name="contentId" from-field="parameters.contentId"/>
-            <field-map field-name="roleTypeId" value="IMAGEAPPROVER"/>
-        </entity-and>
-        <first-from-list entry="contentApproval" list="contentApprovals"/>
-        <if-not-empty field="parameters.checkStatusId">
+        
+        <property-to-field resource="catalog.properties" property="image.management.autoApproveImage" field="autoApproveImage"/>
+        <property-to-field resource="catalog.properties" property="image.management.multipleApproval" field="multipleApproval"/>
+        <if-compare field="autoApproveImage" operator="equals" value="Y">
+            <entity-and entity-name="ContentApproval" list="contentApprovals">
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="roleTypeId" value="IMAGEAPPROVER"/>
+            </entity-and>
+            <iterate entry="contentApproval" list="contentApprovals">
+                <set field="contentApproval.approvalStatusId" from-field="parameters.checkStatusId"/>
+                <store-value value-field="contentApproval"/>
+            </iterate>
+        <else>
+            <entity-and entity-name="ContentApproval" list="contentApprovals">
+                <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                <field-map field-name="roleTypeId" value="IMAGEAPPROVER"/>
+            </entity-and>
+            <first-from-list entry="contentApproval" list="contentApprovals"/>
             <set field="contentApproval.approvalStatusId" from-field="parameters.checkStatusId"/>
-        </if-not-empty>
-        <store-value value-field="contentApproval"/>
+            <store-value value-field="contentApproval"/>
+        </else>
+        </if-compare>
         
         <if-compare field="parameters.checkStatusId" operator="equals" value="IM_REJECTED">
             <entity-condition entity-name="ContentApproval" list="checkRejects">
@@ -271,8 +284,9 @@ under the License.
             <set field="content.statusId" value="IM_REJECTED"/>
             <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
             <store-value value-field="content"/>
-            <else>
-                <if-compare field="parameters.checkStatusId" operator="equals" value="IM_APPROVED">
+        <else>
+            <if-compare field="parameters.checkStatusId" operator="equals" value="IM_APPROVED">
+                <if-compare field="multipleApproval" operator="equals" value="Y">
                     <entity-count entity-name="ContentApproval" count-field="countParty">
                         <condition-list combine="and">
                             <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
@@ -291,42 +305,67 @@ under the License.
                         <first-from-list entry="productContent" list="productContents"/>
                         <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
                         <store-value value-field="productContent"/>
-                        <else>
-                            <entity-count entity-name="ContentApproval" count-field="countApprove">
-                                 <condition-list combine="and">
+                    <else>
+                        <entity-count entity-name="ContentApproval" count-field="countApprove">
+                             <condition-list combine="and">
+                                <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
+                                <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
+                                <condition-expr field-name="approvalStatusId" operator="equals" value="IM_APPROVED"/>
+                            </condition-list>
+                        </entity-count>
+                        <if-compare field="countApprove" operator="greater-equals" value="2">
+                            <entity-one entity-name="Content" value-field="content"/>
+                            <set field="content.statusId" value="IM_APPROVED"/>
+                            <store-value value-field="content"/>
+                            
+                            <entity-and entity-name="ProductContent" list="productContents">
+                                <field-map field-name="contentId" from-field="parameters.contentId"/>
+                                <field-map field-name="productContentTypeId" value="IMAGE"/>
+                            </entity-and>
+                            <first-from-list entry="productContent" list="productContents"/>
+                            <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
+                            <store-value value-field="productContent"/>
+                            
+                            <entity-condition entity-name="ContentApproval" list="checkApproveList">
+                                <condition-list combine="and">
                                     <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
                                     <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
-                                    <condition-expr field-name="approvalStatusId" operator="equals" value="IM_APPROVED"/>
                                 </condition-list>
-                            </entity-count>
-                            <if-compare field="countApprove" operator="greater-equals" value="2">
-                                <entity-one entity-name="Content" value-field="content"/>
-                                <set field="content.statusId" value="IM_APPROVED"/>
-                                <store-value value-field="content"/>
-                                
-                                <entity-and entity-name="ProductContent" list="productContents">
-                                    <field-map field-name="contentId" from-field="parameters.contentId"/>
-                                    <field-map field-name="productContentTypeId" value="IMAGE"/>
-                                </entity-and>
-                                <first-from-list entry="productContent" list="productContents"/>
-                                <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
-                                <store-value value-field="productContent"/>
-                                
-                                <entity-condition entity-name="ContentApproval" list="checkApproveList">
-                                    <condition-list combine="and">
-                                        <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
-                                        <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
-                                    </condition-list>
-                                </entity-condition>
-                                <iterate entry="checkApprove" list="checkApproveList">
-                                    <set field="checkApprove.approvalStatusId" value="IM_APPROVED"/>
-                                    <store-value value-field="checkApprove"/>
-                                </iterate>
-                            </if-compare>
-                        </else>
+                            </entity-condition>
+                            <iterate entry="checkApprove" list="checkApproveList">
+                                <set field="checkApprove.approvalStatusId" value="IM_APPROVED"/>
+                                <store-value value-field="checkApprove"/>
+                            </iterate>
+                        </if-compare>
+                    </else>
                     </if-compare>
+                <else>
+                    <entity-one entity-name="Content" value-field="content"/>
+                    <set field="content.statusId" value="IM_APPROVED"/>
+                    <store-value value-field="content"/>
+                    
+                    <entity-and entity-name="ProductContent" list="productContents">
+                        <field-map field-name="contentId" from-field="parameters.contentId"/>
+                        <field-map field-name="productContentTypeId" value="IMAGE"/>
+                    </entity-and>
+                    <first-from-list entry="productContent" list="productContents"/>
+                    <set field="productContent.purchaseFromDate" from-field="nowTimestamp"/>
+                    <store-value value-field="productContent"/>
+                    
+                    <entity-condition entity-name="ContentApproval" list="checkApproveList">
+                        <condition-list combine="and">
+                            <condition-expr field-name="contentId" operator="equals" from-field="parameters.contentId"/>
+                            <condition-expr field-name="roleTypeId" operator="equals" value="IMAGEAPPROVER"/>
+                        </condition-list>
+                    </entity-condition>
+                    <iterate entry="checkApprove" list="checkApproveList">
+                        <set field="checkApprove.approvalStatusId" value="IM_APPROVED"/>
+                        <store-value value-field="checkApprove"/>
+                    </iterate>
+                </else>
                 </if-compare>
-            </else>
+            </if-compare>
+        </else>
         </if-compare>
     </simple-method>
     

@@ -24,7 +24,6 @@
     <Party partyId="Company"/>
     <Party partyId="DemoEmployee"/>
     <PartyRole partyId="admin" roleTypeId="EMAIL_ADMIN"/>
-    <PartyRole partyId="admin" roleTypeId="IMAGEAPPROVER"/>
     <PartyRole partyId="Company" roleTypeId="_NA_"/>
     <PartyRelationship partyIdFrom="admin" roleTypeIdFrom="EMAIL_ADMIN" partyIdTo="Company" roleTypeIdTo="_NA_" fromDate="2000-01-01 00:00:00"/>
     <PartyRole partyId="DemoEmployee" roleTypeId="EMAIL_ADMIN"/>
