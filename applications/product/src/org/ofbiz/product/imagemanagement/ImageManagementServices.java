@@ -276,6 +276,20 @@ public class ImageManagementServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
+            
+            String autoApproveImage = UtilProperties.getPropertyValue("catalog", "image.management.autoApproveImage");
+            if (autoApproveImage.equals("Y")) {
+                Map<String, Object> autoApproveCtx = FastMap.newInstance();
+                autoApproveCtx.put("contentId", contentId);
+                autoApproveCtx.put("userLogin", userLogin);
+                autoApproveCtx.put("checkStatusId", "IM_APPROVED");
+                try {
+                    dispatcher.runSync("updateStatusImageManagement", autoApproveCtx);
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+            }
         }
         return result;
     }

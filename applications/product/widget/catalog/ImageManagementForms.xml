@@ -605,7 +605,6 @@ under the License.
             <entity-condition entity-name="ProductContentAndInfo">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" from-field="parameters.productId"/>
-                       <condition-expr field-name="statusId" value="IM_PENDING"/>
                        <condition-expr field-name="productContentTypeId" value="IMAGE"/>
                        <condition-expr field-name="fromDate" operator="greater-equals" from-field="dateNow" />
                 </condition-list>
