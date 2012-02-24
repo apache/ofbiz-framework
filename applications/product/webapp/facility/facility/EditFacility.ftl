@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if facility?exists && facilityId?has_content>
-  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post">
+  <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post" class="basic-form">
   <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
   <table class="basic-table" cellspacing='0'>
   <tr>
@@ -28,7 +28,7 @@ under the License.
     </td>
   </tr>
 <#else>
-  <form action="<@ofbizUrl>CreateFacility</@ofbizUrl>" name="EditFacilityForm" method="post" style='margin: 0;'>
+  <form action="<@ofbizUrl>CreateFacility</@ofbizUrl>" name="EditFacilityForm" method="post" class="basic-form">
   <#if facilityId?exists>
     <h3>${uiLabelMap.ProductCouldNotFindFacilityWithId} "${facilityId?if_exists}".</h3>
   </#if>
