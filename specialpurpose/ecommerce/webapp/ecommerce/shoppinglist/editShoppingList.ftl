@@ -432,8 +432,7 @@ under the License.
                 <td align="right"><div class="tabletext"><b>${uiLabelMap.OrderTotal}</b></div></td>
                 <td>&nbsp;</td>
               </tr>
-
-              <#list shoppingListItemDatas[lowIndex..highIndex-1] as shoppingListItemData>
+              <#list shoppingListItemDatas[lowIndex-1..highIndex-1] as shoppingListItemData>
                 <#assign shoppingListItem = shoppingListItemData.shoppingListItem/>
                 <#assign product = shoppingListItemData.product/>
                 <#assign productContentWrapper = Static["org.ofbiz.product.product.ProductContentWrapper"].makeProductContentWrapper(product, request)/>
