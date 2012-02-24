@@ -58,35 +58,9 @@ under the License.
                 </#list>
                 <#if "POSTAL_ADDRESS" = contactMech.contactMechTypeId>
                   <#if contactMechMap.postalAddress?has_content>
-                    <#assign postalAddress = contactMechMap.postalAddress>
-                  </#if>  
-                  <#if postalAddress?has_content>
-                  <div>
-                    <#if postalAddress.toName?has_content><b>${uiLabelMap.PartyAddrToName}:</b> ${postalAddress.toName}<br /></#if>
-                    <#if postalAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br /></#if>
-                    ${postalAddress.address1?if_exists}<br />
-                    <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
-                    ${postalAddress.city?if_exists},
-                    <#if postalAddress.stateProvinceGeoId?has_content>
-                      <#assign stateProvince = postalAddress.getRelatedOneCache("StateProvinceGeo")>
-                      ${stateProvince.abbreviation?default(stateProvince.geoId)}
-                    </#if>
-                    ${postalAddress.postalCode?if_exists}
-                    <#if postalAddress.countryGeoId?has_content><br />
-                      <#assign country = postalAddress.getRelatedOneCache("CountryGeo")>
-                      ${country.geoName?default(country.geoId)}
-                    </#if>
-                  </div>
-                  </#if>
-                  <#if postalAddress?has_content>
-                    <#if !postalAddress.countryGeoId?has_content || postalAddress.countryGeoId = "USA">
-                      <#assign addr1 = postalAddress.address1?if_exists>
-                      <#if addr1?has_content && (addr1.indexOf(" ") > 0)>
-                        <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
-                        <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                        <a target="_blank" href="${uiLabelMap.CommonLookupWhitepagesAddressLink}" class="buttontext">${uiLabelMap.CommonLookupWhitepages}</a>
-                      </#if>
-                    </#if>
+	                <#assign postalAddress = contactMechMap.postalAddress>
+	                ${setRequestAttribute("postalAddress", postalAddress)}
+	                ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddress")}
                     <#if postalAddress.geoPointId?has_content>
                       <#if contactMechPurposeType?has_content>
                         <#assign popUptitle = contactMechPurposeType.get("description",locale) + uiLabelMap.CommonGeoLocation>
