@@ -112,7 +112,7 @@ under the License.
               <td>${downloadOrderRoleAndProductContentInfo.contentName?if_exists}</td>
               <td>${downloadOrderRoleAndProductContentInfo.description?if_exists}</td>
               <td>
-                <a href="<@ofbizUrl>downloadDigitalProduct/${downloadOrderRoleAndProductContentInfo.contentName?if_exists}?dataResourceId=${downloadOrderRoleAndProductContentInfo.dataResourceId}</@ofbizUrl>" class="button">Download</a>
+                <a href="<@ofbizUrl>downloadDigitalProduct?dataResourceId=${downloadOrderRoleAndProductContentInfo.dataResourceId}</@ofbizUrl>" class="button">Download</a>
               </td>
             </tr>
           </#list>
