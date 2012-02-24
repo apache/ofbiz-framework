@@ -19,12 +19,12 @@ under the License.
 <script language="JavaScript" type="text/javascript">
     function setNow(field) { eval('document.selectAllForm.' + field + '.value="${nowTimestamp}"'); }
 </script>
-<h1>${title}</h1>
+<div class="page-title">${title}</div>
         <#if invalidProductId?exists>
             <div class="errorMessage">${invalidProductId}</div>
         </#if>
-        <div class="button-bar">
-          <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductNewFacility}</a>
+        <div class="button-bar button-style-1">
+          <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacility}</a>
         </div>
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
