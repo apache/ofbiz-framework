@@ -19,6 +19,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AP">
+        <value xml:lang="de">Kreditoren</value>
         <value xml:lang="en">AP</value>
         <value xml:lang="es">Compras</value>
         <value xml:lang="fr">Cpt. fourn.</value>
@@ -30,7 +31,7 @@
         <value xml:lang="zh_TW">應付</value>
     </property>
     <property key="AR">
-        <value xml:lang="de">Forderungen</value>
+        <value xml:lang="de">Debitoren</value>
         <value xml:lang="en">AR</value>
         <value xml:lang="es">Ventas</value>
         <value xml:lang="fr">Cpt. clients</value>
@@ -624,6 +625,7 @@
         <value xml:lang="zh_TW">任意通路</value>
     </property>
     <property key="CommonAnyStateProvince">
+        <value xml:lang="de">Beliebiges Bundesland</value>
         <value xml:lang="en">Any State/Province</value>
         <value xml:lang="es">Cualquier estado/provincia</value>
         <value xml:lang="fr">Tous état/province</value>
@@ -1187,6 +1189,7 @@
         <value xml:lang="zh_TW">已取消</value>
     </property>
     <property key="CommonCannotBeFound">
+        <value xml:lang="de">Nicht auffindbar</value>
         <value xml:lang="en">Could not be found</value>
         <value xml:lang="es">No se ha podido encontrar</value>
         <value xml:lang="fr">N'a pu être trouvé </value>
@@ -1387,6 +1390,7 @@
         <value xml:lang="zh_TW">全部清除</value>
     </property>
     <property key="CommonClearCurrent">
+        <value xml:lang="de">Aktuelles leeren</value>
         <value xml:lang="en">Clear Current</value>
         <value xml:lang="es">Limpiar actual</value>
         <value xml:lang="fr">Vider l'en cours</value>
@@ -1400,7 +1404,7 @@
     <property key="CommonClickHere">
         <value xml:lang="ar">انقر هنا</value>
         <value xml:lang="cs">Klikněte zde</value>
-        <value xml:lang="de">Klicken Sie hier</value>
+        <value xml:lang="de">Hier klicken</value>
         <value xml:lang="en">Click Here</value>
         <value xml:lang="es">Haga click aquí</value>
         <value xml:lang="fr">Cliquer ici</value>
@@ -1417,6 +1421,7 @@
         <value xml:lang="zh_TW">點擊這里</value>
     </property>
     <property key="CommonClickHereForFieldLookup">
+        <value xml:lang="de">Hier klicken um Feld zu suchen</value>
         <value xml:lang="en">Click here For Field Lookup</value>
         <value xml:lang="es">Haga click aquí para buscar por el campo</value>
         <value xml:lang="fr">Cliquez ici pour une recherche sur ce champ</value>
@@ -1461,6 +1466,7 @@
         <value xml:lang="zh_TW">-</value>
     </property>
     <property key="CommonCollapse">
+        <value xml:lang="de">Zuklappen</value>
         <value xml:lang="en">Collapse</value>
         <value xml:lang="es">Colapsar</value>
         <value xml:lang="fr">Replier</value>
@@ -1472,6 +1478,7 @@
         <value xml:lang="zh_TW">合攏</value>
     </property>
     <property key="CommonCollapseAll">
+        <value xml:lang="de">Alles zuklappen</value>
         <value xml:lang="en">Collapse all</value>
         <value xml:lang="es">Colapsar todo</value>
         <value xml:lang="fr">Tout replier</value>
@@ -1573,6 +1580,7 @@
         <value xml:lang="zh_TW">配置</value>
     </property>
     <property key="CommonConfigure">
+        <value xml:lang="de">Konfigurieren:</value>
         <value xml:lang="en">Configure:</value>
         <value xml:lang="es">Configurar:</value>
         <value xml:lang="fr">Configurer:</value>
@@ -2055,6 +2063,7 @@
     </property>
     <property key="CommonDates">
         <value xml:lang="en">Dates</value>
+        <value xml:lang="de">Termine</value>
         <value xml:lang="es">Fechas</value>
         <value xml:lang="fr">Dates</value>
         <value xml:lang="hi_IN">तिथियाँ</value>
@@ -2140,6 +2149,7 @@
     </property>
     <property key="CommonDefaultOrganizationPartyId">
         <value xml:lang="en">Default Organization</value>
+        <value xml:lang="de">Standard-Organisation</value>
         <value xml:lang="es">Organización por defecto</value>
         <value xml:lang="fr">Organisation utilisée par défault</value>
         <value xml:lang="hi_IN">डिफ़ॉल्ट संगठन</value>
@@ -2391,6 +2401,7 @@
     </property>
     <property key="CommonEditPortletAttributes">
         <value xml:lang="en">Edit Attributes for Portlet</value>
+        <value xml:lang="de">Portlet-Attribute anpassen</value>
         <value xml:lang="es">Modificar atributos del portlet</value>
         <value xml:lang="fr">Modifier les attributs du portlet </value>
         <value xml:lang="hi_IN">Portlet के गुण संपादित करें</value>
@@ -2418,6 +2429,7 @@
     </property>
     <property key="CommonElevation">
         <value xml:lang="en">Elevation: </value>
+        <value xml:lang="de">Höhe: </value>
         <value xml:lang="es">Elevación: </value>
         <value xml:lang="fr">Altitude/Hauteur :</value>
         <value xml:lang="hi_IN">ऊंचाई: </value>
@@ -2663,6 +2675,7 @@
     <property key="CommonEntityChildren">
         <value xml:lang="ar">الفروع</value>
         <value xml:lang="en">Children</value>
+        <value xml:lang="de">Kinder</value>
         <value xml:lang="es">Hijos</value>
         <value xml:lang="fr">Descendant</value>
         <value xml:lang="hi_IN">निचले स्तर पर(Children)</value>
@@ -2776,6 +2789,7 @@
     </property>
     <property key="CommonErrorStatusNotValid">
         <value xml:lang="en">Error: status of ${entity} is not valid, it is: ${lookedUpValue.statusId} but should be: ${goodStatusId}.</value>
+        <value xml:lang="de">Fehler: Der Status von ${entity} ist ungÃ¼ltig; gefunden: ${lookedUpValue.statusId}; soll: ${goodStatusId}.</value>
         <value xml:lang="es">Error: el estado de ${entity} no es válido, es: ${lookedUpValue.statusId} pero debería ser: ${goodStatusId}.</value>
         <value xml:lang="fr">Erreur: le status de ${entity} n'est pas valide : ${lookedUpValue.statusId} devrait être ${goodStatusId}.</value>
         <value xml:lang="hi_IN">त्रुटि: ${entity} की स्थिति मान्य नहीं है, यह : ${lookedUpValue.statusId} है पर होना : ${goodStatusId} चाहिए</value>
@@ -3060,6 +3074,7 @@
         <value xml:lang="zh_TW">女</value>
     </property>
     <property key="CommonFieldLookup">
+        <value xml:lang="de">Feldsuche</value>    
         <value xml:lang="en">Field Lookup</value>
         <value xml:lang="es">Búsqueda por campo</value>
         <value xml:lang="fr">Recherche pour ce champ</value>
@@ -3270,7 +3285,7 @@
     <property key="CommonForgotYourPassword">
         <value xml:lang="ar">نسيت كلمة السر</value>
         <value xml:lang="cs">Zapomněl jste heslo</value>
-        <value xml:lang="de">Sie haben Ihr Passwort vergessen</value>
+        <value xml:lang="de">Haben Sie Ihr Passwort vergessen?</value>
         <value xml:lang="en">Forgot Your Password</value>
         <value xml:lang="es">¿Olvidó su contraseña</value>
         <value xml:lang="fr">Vous avez oublié votre mot de passe </value>
@@ -3289,6 +3304,7 @@
     </property>
     <property key="CommonFormatDate">
         <value xml:lang="ar">النمط: ي ي-ش ش-ع ع ع ع</value>
+        <value xml:lang="de">Datumsformat: yyyy-MM-dd</value>
         <value xml:lang="en">Format: yyyy-MM-dd</value>
         <value xml:lang="es">Formato: dd/mm/aaaa</value>
         <value xml:lang="fr">Format: JJ/MM/AAAA</value>
@@ -3339,6 +3355,7 @@
     </property>
     <property key="CommonFormatTime">
         <value xml:lang="ar">النمط: س س:د د:ث ث</value>
+        <value xml:lang="de">Zeitformat: HH:mm:ss.SSS</value>
         <value xml:lang="en">Format: HH:mm:ss.SSS</value>
         <value xml:lang="es">Formato: HH:mm:ss.SSS</value>
         <value xml:lang="fr">Format: hh:mm:ss</value>
@@ -3659,6 +3676,7 @@
         <value xml:lang="zh_TW">地理ID</value>
     </property>
     <property key="CommonGeoLocation">
+        <value xml:lang="de">Geopraphischer Ort</value>
         <value xml:lang="en">Geo Location</value>
         <value xml:lang="es">Ubicación geográfica</value>
         <value xml:lang="fr">Géolocalisation</value>
@@ -3669,6 +3687,7 @@
         <value xml:lang="zh_TW">地理位置</value>
     </property>
     <property key="CommonGeoName">
+        <value xml:lang="de">Name</value>
         <value xml:lang="en">Name</value>
         <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Nom</value>
@@ -3681,6 +3700,7 @@
         <value xml:lang="zh_TW">名稱</value>
     </property>
     <property key="CommonGeoSecCode">
+        <value xml:lang="de">Sekundärer Kode</value>
         <value xml:lang="en">Secondary Code</value>
         <value xml:lang="es">Código secundario</value>
         <value xml:lang="fr">Code secondaire</value>
@@ -3925,6 +3945,7 @@
         <value xml:lang="zh_TW">高</value>
     </property>
     <property key="CommonHome">
+        <value xml:lang="de">Startseite</value>
         <value xml:lang="en">Home</value>
         <value xml:lang="es">Inicio</value>
         <value xml:lang="fr">Point de départ</value>
@@ -4079,7 +4100,7 @@
     <property key="CommonInThe">
         <value xml:lang="ar">داخل ال</value>
         <value xml:lang="cs">z</value>
-        <value xml:lang="de">In</value>
+        <value xml:lang="de">Im</value>
         <value xml:lang="en">In The</value>
         <value xml:lang="es">En la</value>
         <value xml:lang="fr">Dans le</value>
@@ -4419,7 +4440,8 @@
         <value xml:lang="zh_TW">最近更新</value>
     </property>
     <property key="CommonLatitude">
-        <value xml:lang="en">Latitude: </value>
+        <value xml:lang="de">Breitengrad: </value>
+       <value xml:lang="en">Latitude: </value>
         <value xml:lang="es">Latitud: </value>
         <value xml:lang="fr">Latitude : </value>
         <value xml:lang="hi_IN">अक्षांश：</value>
@@ -4429,6 +4451,7 @@
         <value xml:lang="zh_TW">緯度：</value>
     </property>
     <property key="CommonLength">
+        <value xml:lang="de">Länge</value>
         <value xml:lang="en">Length</value>
         <value xml:lang="es">Longitud</value>
         <value xml:lang="fr">Longueur</value>
@@ -4531,6 +4554,7 @@
         <value xml:lang="zh_TW">正在載入...</value>
     </property>
     <property key="CommonLocalisation">
+        <value xml:lang="de">Lokalisierung</value>
         <value xml:lang="en">Localization</value>
         <value xml:lang="en_GB">Localisation</value>
         <value xml:lang="es">Opciones locales</value>
@@ -4602,6 +4626,7 @@
         <value xml:lang="zh_TW">退出</value>
     </property>
     <property key="CommonLongitude">
+        <value xml:lang="de">Längengrad: </value>
         <value xml:lang="en">Longitude: </value>
         <value xml:lang="es">Longitud: </value>
         <value xml:lang="fr">Longitude : </value>
@@ -4613,7 +4638,7 @@
     </property>
     <property key="CommonLookup">
         <value xml:lang="ar">البحث</value>
-        <value xml:lang="de">Ansehen</value>
+        <value xml:lang="de">Suchen</value>
         <value xml:lang="en">Lookup</value>
         <value xml:lang="es">Buscar</value>
         <value xml:lang="fr">Rechercher</value>
@@ -4631,6 +4656,7 @@
         <value xml:lang="zh_TW">查詢</value>
     </property>
     <property key="CommonLookupAnywho">
+        <value xml:lang="de">Rückwärtssuche: 11880</value>
         <value xml:lang="en">lookup:anywho.com</value>
         <value xml:lang="es">Buscar: anywho.com</value>
         <value xml:lang="fr">A qui est ce n° ?</value>
@@ -4641,6 +4667,7 @@
         <value xml:lang="zh_TW">查詢: anywho.com</value>
     </property>
     <property key="CommonLookupAnywhoLink">
+        <value xml:lang="de">http://www.11880.com/Suche/index.cfm?fuseaction=Suche.rueckwaertssucheresult&amp;init=true&amp;change=false&amp;searchform=Rueckwaerts&amp;tel=${telecomNumber.contactNumber}</value>
         <value xml:lang="en">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="es">http://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/quidonc/aquiestcenumero.do</value>
@@ -4730,6 +4757,7 @@
         <value xml:lang="th">จัดการ</value>
     </property>
     <property key="CommonManagePortalPages">
+        <value xml:lang="de">Portalseiten verwalten...</value>
         <value xml:lang="en">Manage Portal Pages...</value>
         <value xml:lang="es">Gestionar las páginas del portal...</value>
         <value xml:lang="fr">Gérez les pages du portail...</value>
@@ -4873,6 +4901,7 @@
         <value xml:lang="zh_TW">你可以在這里新建賬戶</value>
     </property>
     <property key="CommonMeasures">
+        <value xml:lang="de">Maße</value>
         <value xml:lang="en">Measures</value>
         <value xml:lang="es">Medidas</value>
         <value xml:lang="fr">Mesures</value>
@@ -4995,6 +5024,7 @@
         <value xml:lang="zh_TW">每分鐘</value>
     </property>
     <property key="CommonMiscellaneous">
+        <value xml:lang="de">Verschiedenes</value>
         <value xml:lang="en">Miscellaneous</value>
         <value xml:lang="es">Varios</value>
         <value xml:lang="fr">Divers</value>
@@ -5118,6 +5148,7 @@
         <value xml:lang="zh_TW">大于</value>
     </property>
     <property key="CommonMovePortletBottom">
+        <value xml:lang="de">Portlet an die Unterkante verschieben</value>
         <value xml:lang="en">Move Portlet at the Bottom</value>
         <value xml:lang="es">Mover el Portlet abajo del todo</value>
         <value xml:lang="fr">Déplacer le portlet tout en bas</value>
@@ -5128,6 +5159,7 @@
         <value xml:lang="zh_TW">在底部移動Portlet</value>
     </property>
     <property key="CommonMovePortletDown">
+        <value xml:lang="de">Portlet nach unten schieben</value>
         <value xml:lang="en">Move Portlet Down</value>
         <value xml:lang="es">Mover el Portlet hacia abajo</value>
         <value xml:lang="fr">Déplacer le portlet en bas</value>
@@ -5138,6 +5170,7 @@
         <value xml:lang="zh_TW">下移Portlet</value>
     </property>
     <property key="CommonMovePortletLeft">
+        <value xml:lang="de">Portlet nach links schieben</value>
         <value xml:lang="en">Move Portlet Left</value>
         <value xml:lang="es">Mover el Portlet hacia la izquierda</value>
         <value xml:lang="fr">Déplacer le portlet à gauche</value>
@@ -5148,6 +5181,7 @@
         <value xml:lang="zh_TW">左移Portlet</value>
     </property>
     <property key="CommonMovePortletRight">
+        <value xml:lang="de">Portlet nach rechts schieben</value>
         <value xml:lang="en">Move Portlet Right</value>
         <value xml:lang="es">Mover el Portlet hacia la derecha</value>
         <value xml:lang="fr">Déplacer le portlet à droite</value>
@@ -5158,6 +5192,7 @@
         <value xml:lang="zh_TW">右移Portlet</value>
     </property>
     <property key="CommonMovePortletTop">
+        <value xml:lang="de">Portlet an die Oberkante verschieben</value>
         <value xml:lang="en">Move Portlet at the Top</value>
         <value xml:lang="es">Mover el Portlet arriba del todo</value>
         <value xml:lang="fr">Déplacer le portlet tout en haut</value>
@@ -5168,6 +5203,7 @@
         <value xml:lang="zh_TW">在頂部移動Portlet</value>
     </property>
     <property key="CommonMovePortletUp">
+        <value xml:lang="de">Portlet nach oben schieben</value>
         <value xml:lang="en">Move Portlet Up</value>
         <value xml:lang="es">Mover el Portlet hacia arriba</value>
         <value xml:lang="fr">Déplacer le portlet en haut</value>
@@ -5178,6 +5214,7 @@
         <value xml:lang="zh_TW">上移Portlet</value>
     </property>
     <property key="CommonMoveToPortalPage">
+        <value xml:lang="de">Auf die Portalseite verschieben...</value>
         <value xml:lang="en">Move to Portal Page...</value>
         <value xml:lang="es">Mover a la página del portal...</value>
         <value xml:lang="fr">Aller à la page "portail"</value>
@@ -5188,6 +5225,7 @@
         <value xml:lang="zh_TW">移動到門戶頁面...</value>
     </property>
     <property key="CommonMyPersonalPage">
+        <value xml:lang="en">Persönliche Seite</value>    
         <value xml:lang="en">My Personal Page</value>
         <value xml:lang="es">Mi página personal</value>
         <value xml:lang="fr">Ma propre page</value>
@@ -5313,7 +5351,7 @@
         <value xml:lang="zh_TW">新密碼</value>
     </property>
     <property key="CommonNewPasswordVerify">
-        <value xml:lang="de">Neues Passwort (zur Überprüfung)</value>
+        <value xml:lang="de">Neues Passwort (Wiederholung)</value>
         <value xml:lang="en">New Password Verify</value>
         <value xml:lang="es">Nueva clave (verificar)</value>
         <value xml:lang="fr">Nouveau mot de passe (vérification)</value>
@@ -5325,6 +5363,7 @@
         <value xml:lang="zh_TW">新密碼驗証</value>
     </property>
     <property key="CommonNewPortalPage">
+        <value xml:lang="de">Neue Portalseite</value>
         <value xml:lang="en">New Portal Page</value>
         <value xml:lang="es">Nueva página del portal</value>
         <value xml:lang="fr">Nouvelle page portail</value>
@@ -5407,6 +5446,7 @@
         <value xml:lang="zh_TW">否</value>
     </property>
     <property key="CommonNoAccess">
+        <value xml:lang="de">Sie haben keine Berechtigung für diese Fumktion; falls Sie dies für einen Fehler halten, wenden Sie sich an Ihren Systemadministrator</value>
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
         <value xml:lang="es">Acceso no autorizado. Póngase en contacto con su administrador de sistemas si piensa que esto es un error.</value>
         <value xml:lang="fr">L'accès à cette fonction ne vous est pas autorisé, contactez votre administrateur système si vous pensez que c'est une erreur.</value>
@@ -5509,6 +5549,7 @@
         <value xml:lang="zh_TW">沒有發現元素</value>
     </property>
     <property key="CommonNoGeolocationAvailable">
+        <value xml:lang="de">Kein Geografischer Ort verfügbar (testen Sie mit dem DemoCustomer Profil)</value>
         <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profile)</value>
         <value xml:lang="es">Localización geográfica no disponible (para demostración debe usar el perfil del participante DemoCustomer)</value>
         <value xml:lang="fr">Aucune géolocalisation disponible (pour une démonstration vous pouvez utiliser le profil de l'acteur DemoCustomer)</value>
@@ -5519,6 +5560,7 @@
         <value xml:lang="zh_TW">沒有可用的地理位置(作為演示，你可以使用演示客戶成員資料)</value>
     </property>
     <property key="CommonNoOptions">
+        <value xml:lang="de">Keine Optionen: _NA_</value>
         <value xml:lang="en">No options: _NA_</value>
         <value xml:lang="es">Sin opciones: _NA_</value>
         <value xml:lang="fr">Aucun option: _NA_</value>
@@ -5543,6 +5585,7 @@
         <value xml:lang="zh_TW">沒有上一級</value>
     </property>
     <property key="CommonNoPortalPageDataFound">
+        <value xml:lang="de">Keine Daten für eine Portalseite gefunden. Sie haben wahrscheinlich nicht die notwendigen Seed oder andere Daten dafür geladen.</value>
         <value xml:lang="en">No portal page data found. You may not have the necessary seed or other data for it.</value>
         <value xml:lang="es">Datos de la página del portal no encontrados.</value>
         <value xml:lang="fr">Aucune donnée pour la page portail. Vous n'avez peut être pas chargé les données nécesaires.</value>
@@ -5550,6 +5593,7 @@
         <value xml:lang="pt_BR">Não há dados da página do portal encontrados. Você pode não ter a semente ou outros dados necessários para isso.</value>
     </property>
     <property key="CommonNoPortletsInCategory">
+        <value xml:lang="de">Bitte wählen Sie erneut eine neue Kategorie. Keine Portlets in dieser Kategorie.</value>
         <value xml:lang="en">Please, choose new category again, No portlet in this category.</value>
         <value xml:lang="es">No hay portlets en esta categoría, escoja nuevamente otra categoría.</value>
         <value xml:lang="it">Nessun portlet in questa categoria.</value>
@@ -5588,12 +5632,14 @@
         <value xml:lang="zh_TW">沒有找到記錄</value>
     </property>
     <property key="CommonNoStatesProvinces">
+        <value xml:lang="de">Kein exitierendes Bundesland: _NA_</value>
         <value xml:lang="en">No States/Provinces exist: _NA_</value>
         <value xml:lang="es">No existen provincias: _NA_</value>
         <value xml:lang="fr">Aucun état ou province: _NA_</value>
         <value xml:lang="pt_BR">Nenhum estados/municípios existem: _NA_</value>
     </property>
     <property key="CommonNoStatesProvincesExists">
+        <value xml:lang="de">Es existiert kein Bundesland</value>
         <value xml:lang="en">No States/Provinces exist</value>
         <value xml:lang="es">No existen provincias</value>
         <value xml:lang="fr">Aucun état ou province</value>
@@ -6202,6 +6248,7 @@
         <value xml:lang="zh_TW">啟用分頁</value>
     </property>
     <property key="CommonParent">
+        <value xml:lang="de">Eltern</value>
         <value xml:lang="en">Parent</value>
         <value xml:lang="es">Padre</value>
         <value xml:lang="fr">Parent</value>
@@ -6306,6 +6353,7 @@
         <value xml:lang="zh_TW">請修改你的密碼</value>
     </property>
     <property key="CommonPayment">
+        <value xml:lang="de">Bezahlung</value>
         <value xml:lang="en">Payment</value>
         <value xml:lang="es">Pago</value>
     </property>
@@ -6343,6 +6391,7 @@
         <value xml:lang="zh_TW">支付</value>
     </property>
     <property key="CommonPdf">
+        <value xml:lang="de">PDF</value>
         <value xml:lang="en">Pdf</value>
         <value xml:lang="es">Pdf</value>
         <value xml:lang="fr">PDF</value>
@@ -6454,16 +6503,19 @@
         <value xml:lang="zh_TW">人員</value>
     </property>
     <property key="CommonPingDatasourceCannotConnect">
+        <value xml:lang="de">Die Verbindung zur Datenquelle kann nicht aufgebaut werden!</value>
         <value xml:lang="en">Unable to connect to datasource!</value>
         <value xml:lang="es">No se puede conectar a la fuente de datos!</value>
         <value xml:lang="it">Non è possibile connettersi al datasource!</value>
     </property>
     <property key="CommonPingDatasourceInvalidCount">
+        <value xml:lang="de">Ungültige Anzahl wurde von der Datenbank zurückgegeben</value>
         <value xml:lang="en">Invalid count returned from database</value>
         <value xml:lang="es">No es válido el contador devuelto por la base de datos</value>
         <value xml:lang="it">Contantore invalido restituito dal database</value>
     </property>
     <property key="CommonPleaseEnterValidNumberInThisField">
+        <value xml:lang="de">Bitte eine gültige Zahl in dieses Feld eingeben.</value>
         <value xml:lang="en">Please enter a valid number in this field.</value>
         <value xml:lang="es">Por favor, introduzca un número válido en este campo.</value>
         <value xml:lang="pt_BR">Por favor insira um número válido neste campo.</value>
@@ -6491,6 +6543,7 @@
         <value xml:lang="pt_BR">por favor aguarde ...</value>
     </property>
     <property key="CommonPortalCategoryPage">
+        <value xml:lang="de">Kategorie der Portletseiten für Anwendung</value>
         <value xml:lang="en">Category of portlet pages for application</value>
         <value xml:lang="es">Categoría de páginas de portlets para la aplicación</value>
         <value xml:lang="fr">Catégorie de page portlet pour application</value>
@@ -6501,6 +6554,7 @@
         <value xml:lang="zh_TW">應用程式的Portlet頁面分類</value>
     </property>
     <property key="CommonPortalEditPage">
+        <value xml:lang="de">Portalseite ändern</value>
         <value xml:lang="en">Edit portal page</value>
         <value xml:lang="es">Editar página del portal</value>
         <value xml:lang="fr">Modifier la page portail</value>
@@ -6511,6 +6565,7 @@
         <value xml:lang="zh_TW">編輯門戶頁面</value>
     </property>
     <property key="CommonPortalNewPage">
+        <value xml:lang="de">Neue Portalseite hinzufügen</value>
         <value xml:lang="en">Add a new portal Page</value>
         <value xml:lang="es">Añadir una nueva página del portal</value>
         <value xml:lang="fr">Ajouter une nouvelle page portail</value>
@@ -6521,6 +6576,7 @@
         <value xml:lang="zh_TW">添加一個新門戶頁面</value>
     </property>
     <property key="CommonPortalPagesForApplication">
+        <value xml:lang="en">Portalseiten für die Anwendung</value>
         <value xml:lang="en">Portal pages for application</value>
         <value xml:lang="es">Páginas del portal para la aplicación</value>
         <value xml:lang="fr">Pages portail pour l'application</value>
@@ -6563,6 +6619,7 @@
         <value xml:lang="zh_TW">過賬日</value>
     </property>
     <property key="CommonPoweredBy">
+        <value xml:lang="de">Powered by</value>
         <value xml:lang="en">Powered by</value>
         <value xml:lang="es">Powered by</value>
         <value xml:lang="fr">Fonctionne grâce à </value>
@@ -6584,10 +6641,12 @@
         <value xml:lang="zh_TW">設置</value>
     </property>
     <property key="CommonPreferenceGroup">
+        <value xml:lang="de">Bevorzugte Gruppe</value>
         <value xml:lang="en">Preference Group</value>
         <value xml:lang="es">Grupo de preferencias</value>
     </property>
     <property key="CommonPreferenceName">
+        <value xml:lang="de">Bevorzugter Name</value>
         <value xml:lang="en">Preference Name</value>
         <value xml:lang="es">Nombre de la preferencia</value>
     </property>
@@ -6609,6 +6668,7 @@
         <value xml:lang="zh_TW">准備</value>
     </property>
     <property key="CommonPreview">
+        <value xml:lang="de">Vorschau</value>
         <value xml:lang="en">Preview</value>
         <value xml:lang="es">Vista previa</value>
         <value xml:lang="th">แสดงตัวอย่าง</value>
@@ -6940,6 +7000,7 @@
     </property>
     <property key="CommonRate">
         <value xml:lang="ar">النسبة</value>
+        <value xml:lang="de">Satz</value>
         <value xml:lang="en">Rate</value>
         <value xml:lang="es">Tasa</value>
         <value xml:lang="fr">Taux</value>
@@ -6957,7 +7018,7 @@
     </property>
     <property key="CommonRates">
         <value xml:lang="ar">نسبات</value>
-        <value xml:lang="de">Raten</value>
+        <value xml:lang="de">Sätze</value>
         <value xml:lang="en">Rates</value>
         <value xml:lang="es">Tasas</value>
         <value xml:lang="fr">Taux</value>
@@ -7141,6 +7202,7 @@
         <value xml:lang="zh_TW">拒絕</value>
     </property>
     <property key="CommonRelatedInformation">
+        <value xml:lang="de">Ähnliche Informationen</value>
         <value xml:lang="en">Related Information</value>
         <value xml:lang="es">Información relacionada</value>
         <value xml:lang="fr">Information liée</value>
@@ -7151,15 +7213,18 @@
         <value xml:lang="zh_TW">相關資訊</value>
     </property>
     <property key="CommonRelease">
+        <value xml:lang="de">Release</value>
         <value xml:lang="en">Release</value>
         <value xml:lang="es">Distribución</value>
     </property>
     <property key="CommonReleaseDate">
+        <value xml:lang="de">Release Datum</value>
         <value xml:lang="en">Release Date</value>
         <value xml:lang="es">Fecha distribución</value>
         <value xml:lang="pt_BR">Data de Lançamento</value>
     </property>
     <property key="CommonReleaseVersion">
+        <value xml:lang="de">Releaseversion</value>
         <value xml:lang="en">Release Version</value>
         <value xml:lang="es">Versión distribución</value>
         <value xml:lang="fr">Version officiellement distribuée</value>
@@ -7172,6 +7237,7 @@
         <value xml:lang="zh_TW">發佈版本</value>
     </property>
     <property key="CommonReloadCaptchaCode">
+        <value xml:lang="de">Captcha Code neu laden</value>
         <value xml:lang="en">Reload Captcha Code</value>
         <value xml:lang="es">Recargar código captcha</value>
         <value xml:lang="pt_BR">Recarregar Código Captcha</value>
@@ -7212,6 +7278,7 @@
         <value xml:lang="zh_TW">刪除過期的</value>
     </property>
     <property key="CommonRemovePortlet">
+        <value xml:lang="de">Portlet entfernen</value>
         <value xml:lang="en">Remove Portlet</value>
         <value xml:lang="es">Eliminar portlet</value>
         <value xml:lang="fr">Supprimer le portlet</value>
@@ -7222,6 +7289,7 @@
         <value xml:lang="zh_TW">刪除Portlet</value>
     </property>
     <property key="CommonReport">
+        <value xml:lang="de">Bericht</value>    
         <value xml:lang="en">Report</value>
         <value xml:lang="es">Informe</value>
         <value xml:lang="fr">Etat</value>
@@ -7355,6 +7423,7 @@
         <value xml:lang="zh_TW">退貨狀態</value>
     </property>
     <property key="CommonRevertPortalPage">
+        <value xml:lang="de">Originalzustand wiederherstellen</value>
         <value xml:lang="en">revert to original</value>
         <value xml:lang="es">Restaurar a la original</value>
         <value xml:lang="fr">Revenir à l'original</value>
@@ -7699,6 +7768,7 @@
         <value xml:lang="zh_TW">選擇一個</value>
     </property>
     <property key="CommonSelectPortalPage">
+        <value xml:lang="de">Portalseite auswählen...</value>
         <value xml:lang="en">Select Portal Page...</value>
         <value xml:lang="es">Seleccione página del portal...</value>
         <value xml:lang="fr">Sélectionnez la page du portail...</value>
@@ -7709,6 +7779,7 @@
         <value xml:lang="zh_TW">選擇門戶頁面...</value>
     </property>
     <property key="CommonSelectPortletToHelp">
+        <value xml:lang="de">Wählen Sie ein Portlet aus, an dem Sie mitarbeiten wollen....</value>
         <value xml:lang="en">Select a portlet you would like to have help on....</value>
         <value xml:lang="es">Seleccione un portlet del que desee obtener ayuda....</value>
         <value xml:lang="fr">Liste des portlets contenues dans cette page, sélectionnez celle pour laquelle vous souhaitez de l'aide</value>
@@ -7932,6 +8003,7 @@
         <value xml:lang="zh_TW">設置</value>
     </property>
     <property key="CommonSetAsCurrent">
+        <value xml:lang="de">Als aktuell festlegen</value>
         <value xml:lang="en">Set As Current</value>
         <value xml:lang="es">Establecer como actual</value>
         <value xml:lang="fr">Définir en tant qu'actuel</value>
@@ -7943,6 +8015,7 @@
         <value xml:lang="zh_TW">設置為當前</value>
     </property>
     <property key="CommonSetColumnWidth">
+        <value xml:lang="de">Spaltenbreite setzen</value>
         <value xml:lang="en">Set Column Width</value>
         <value xml:lang="es">Establecer ancho de columna</value>
         <value xml:lang="fr">Définir la largeur de colonne ...</value>
@@ -7971,6 +8044,7 @@
         <value xml:lang="zh_TW">(如果空，將設置為當前時間)</value>
     </property>
     <property key="CommonShipping">
+        <value xml:lang="de">Versand</value>
         <value xml:lang="en">Shipping</value>
         <value xml:lang="es">Envío</value>
         <value xml:lang="fr">Expédition</value>
@@ -7982,6 +8056,7 @@
         <value xml:lang="zh_TW">運輸</value>
     </property>
     <property key="CommonShoppingCart">
+        <value xml:lang="de">Warenkorb</value>
         <value xml:lang="en">ShoppingCart</value>
         <value xml:lang="es">Cesta de la compra</value>
         <value xml:lang="fr">Panier</value>
@@ -8080,6 +8155,7 @@
         <value xml:lang="zh_TW">自從</value>
     </property>
     <property key="CommonSize">
+        <value xml:lang="de">Größe</value>
         <value xml:lang="en">Size</value>
         <value xml:lang="es">Talla</value>
         <value xml:lang="th">ขนาด</value>
@@ -8305,11 +8381,13 @@
         <value xml:lang="zh_TW">狀態歷史記錄</value>
     </property>
     <property key="CommonStatusMandatory">
+        <value xml:lang="de">Parameter statusTypeIds darf nicht leer sein und muß mindestens ein Element enthalten</value>
         <value xml:lang="en">Parameter statusTypeIds can not be null and must contain at least one element</value>
         <value xml:lang="es">El parámetro statusTypeIds no puede ser nulo, debe contener al menos un elemento</value>
         <value xml:lang="it">Parametro statusTypeIds non può essere nullo e deve contenere almeno un'elemento</value>
     </property>
     <property key="CommonStatustoComplete">
+        <value xml:lang="de">Auf 'abgeschlossen' setzen</value>
         <value xml:lang="en">Status to 'complete'</value>
         <value xml:lang="es">Poner estado a 'terminado'</value>
         <value xml:lang="fr">Mettre le statut à terminé</value>
@@ -8411,6 +8489,7 @@
         <value xml:lang="zh_TW">小計</value>
     </property>
     <property key="CommonSuccessfullyCreated">
+        <value xml:lang="de">Erfolgreich angelegt.</value>
         <value xml:lang="en">Successfully created.</value>
         <value xml:lang="es">Creado correctamente.</value>
         <value xml:lang="fr">Créé avec succès.</value>
@@ -8497,6 +8576,7 @@
     </property>
     <property key="CommonTally">
         <value xml:lang="ar">مراقب</value>
+        <value xml:lang="de">Abrechnung</value>
         <value xml:lang="en">Tally</value>
         <value xml:lang="es">Cuenta</value>
         <value xml:lang="fr">Contrôle</value>
@@ -8513,6 +8593,7 @@
         <value xml:lang="zh_TW">記錄</value>
     </property>
     <property key="CommonTax">
+        <value xml:lang="de">Steuern (USt)</value>
         <value xml:lang="en">Tax</value>
         <value xml:lang="es">Impuestos</value>
         <value xml:lang="fr">Taxes (TVA)</value>
@@ -8560,6 +8641,7 @@
         <value xml:lang="zh_TW">告訴朋友</value>
     </property>
     <property key="CommonTenantId">
+        <value xml:lang="de">Mandanten ID</value>
         <value xml:lang="en">Tenant ID</value>
         <value xml:lang="es">Identificador organización</value>
         <value xml:lang="fr">Instance</value>
@@ -8585,6 +8667,7 @@
         <value xml:lang="zh_TW">測試</value>
     </property>
     <property key="CommonTestRollingBack">
+        <value xml:lang="de">Zurückrollen!</value>
         <value xml:lang="en">Rolling back!</value>
         <value xml:lang="es">Restableciendo!</value>
         <value xml:lang="it">Rolling back!</value>
@@ -9225,6 +9308,7 @@
         <value xml:lang="zh_TW">更新</value>
     </property>
     <property key="CommonUpdatingData">
+        <value xml:lang="de">Aktualisiere Daten</value>
         <value xml:lang="en">Updating data</value>
     </property>
     <property key="CommonUpdateLink">
@@ -9493,6 +9577,7 @@
         <value xml:lang="zh_TW">數值</value>
     </property>
     <property key="CommonVerifyCaptchaCode">
+        <value xml:lang="de">Wiederhole Captcha Code</value>
         <value xml:lang="en">Verify Captcha Code</value>
         <value xml:lang="es">Verifique el código captcha</value>
         <value xml:lang="pt_BR">Verifique o Código Captcha</value>
@@ -9517,6 +9602,7 @@
         <value xml:lang="zh_TW">瀏覽</value>
     </property>
     <property key="CommonViewBlocked">
+        <value xml:lang="de">Zugriff auf diese Sicht wurde blockiert.</value>
         <value xml:lang="en">Access to this view has been blocked.</value>
         <value xml:lang="es">El acceso a esta vista ha sido bloqueado.</value>
         <value xml:lang="fr">L'accès à cette page a été bloqué.</value>
@@ -9564,6 +9650,7 @@
         <value xml:lang="zh_TW">瀏覽要求</value>
     </property>
     <property key="CommonVisitors">
+        <value xml:lang="de">Besucher</value>
         <value xml:lang="en">Visitors</value>
         <value xml:lang="es">Visitantes</value>
         <value xml:lang="fr">Visiteurs</value>
@@ -9575,6 +9662,7 @@
         <value xml:lang="zh_TW">訪問者</value>
     </property>
     <property key="CommonVisualTheme">
+        <value xml:lang="de">Layoutvorlagen</value>
         <value xml:lang="en">Visual Theme</value>
         <value xml:lang="es">Tema visual</value>
         <value xml:lang="fr">Charte graphique</value>
@@ -9586,6 +9674,7 @@
         <value xml:lang="zh_TW">視覺風格</value>
     </property>
     <property key="CommonVisualThemeIdNotFound">
+        <value xml:lang="de">Layout-ID nicht gefunden.</value>
         <value xml:lang="en">Visual Theme ID not found.</value>
         <value xml:lang="es">Código de tema visual no encontrado.</value>
         <value xml:lang="fr">Réf. de charte graphique inconnue.</value>
@@ -9597,6 +9686,7 @@
         <value xml:lang="zh_TW">視覺風格ID找不到。</value>
     </property>
     <property key="CommonVisualThemeInvalidRecord">
+        <value xml:lang="de">In der Layoutvorlage wurde ein ungültiger Ressourcen-Satz gefunden: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>    
         <value xml:lang="en">Invalid Visual Theme resource record found: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="es">Se ha encontrado una entrada inválida de tema visual: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="fr">Ressource de charte graphique trouvée non valable : visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
@@ -9607,6 +9697,7 @@
         <value xml:lang="zh_TW">找到了無效的視覺風格資源記錄：visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}。</value>
     </property>
     <property key="CommonVisualThemeNoScreenshots">
+        <value xml:lang="de">Keine Bildschirmfotos</value>
         <value xml:lang="en">No Screenshots</value>
         <value xml:lang="es">No hay capturas de pantalla</value>
         <value xml:lang="fr">Aucune copie d'écran</value>
@@ -9618,6 +9709,7 @@
         <value xml:lang="zh_TW">沒有螢幕截圖</value>
     </property>
     <property key="CommonVisualThemeResourcesNotFound">
+        <value xml:lang="de">Die Ressourcen der Layoutvorlage konnten nicht gefunden werden.</value>
         <value xml:lang="en">Visual Theme resources not found.</value>
         <value xml:lang="es">No se han encontrado recursos de tema visual.</value>
         <value xml:lang="fr">Réf. de ressource de charte graphique inconnue.</value>
@@ -9628,6 +9720,7 @@
         <value xml:lang="zh_TW">沒有找到視覺風格資源。</value>
     </property>
     <property key="CommonVisualThemeSelected">
+        <value xml:lang="de">Ausgewählte Layoutvorlage</value>    
         <value xml:lang="en">Selected Visual Theme</value>
         <value xml:lang="es">Tema visual seleccionado</value>
         <value xml:lang="fr">Charte graphique sélectionnée</value>
@@ -9643,6 +9736,7 @@
         <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
     </property>
     <property key="CommonVisualThemes">
+        <value xml:lang="de">Layoutvorlagen</value>    
         <value xml:lang="en">Visual Themes</value>
         <value xml:lang="es">Temas visuales</value>
         <value xml:lang="fr">Chartes graphiques</value>
@@ -9775,6 +9869,7 @@
         <value xml:lang="zh_TW">歡迎</value>
     </property>
     <property key="CommonWelcomeToTheOFBizDashboard">
+        <value xml:lang="de">OFBiz Dashboard - Willkommen</value>
         <value xml:lang="en">Welcome to the OFBiz dashboard</value>
         <value xml:lang="es">Bienvenido al panel de control de OFBiz</value>
         <value xml:lang="fr">Bienvenue sur le tableau de bord d'OFBiz</value>
@@ -10339,7 +10434,7 @@
     </property>
     <property key="FormFieldTitle_createdByUserLogin">
         <value xml:lang="ar">استحدث من طرف المستخدم</value>
-        <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
+        <value xml:lang="de">Erstellt von Benutzer</value>
         <value xml:lang="en">Created By User Login</value>
         <value xml:lang="es">Creado por usuario</value>
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
@@ -10354,6 +10449,7 @@
         <value xml:lang="zh_TW">建立的使用者</value>
     </property>
     <property key="FormFieldTitle_createdByUserLoginId">
+        <value xml:lang="de">Erstellt von Benutzer-Id</value>    
         <value xml:lang="en">Created By User Login Id</value>
         <value xml:lang="es">Creado por código de usuario</value>
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
@@ -10380,6 +10476,7 @@
         <value xml:lang="zh_TW">建立日</value>
     </property>
     <property key="FormFieldTitle_createdTxStamp">
+        <value xml:lang="de">Zeitpunkt der Erstellung</value>
         <value xml:lang="en">Created Tx Stamp</value>
         <value xml:lang="es">Fecha de creación Tx</value>
         <value xml:lang="fr">Estampille temporelle de transaction créée</value>
@@ -10406,6 +10503,7 @@
         <value xml:lang="zh_TW">幣種</value>
     </property>
     <property key="FormFieldTitle_currentRecurrenceCount">
+        <value xml:lang="de">Anzahl der Wiederholungen</value>
         <value xml:lang="en">Current Recurrence Count</value>
         <value xml:lang="es">Número recurrencias actuales</value>
         <value xml:lang="fr">Nombre de récurrences courant</value>
@@ -10566,7 +10664,7 @@
     </property>
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
-        <value xml:lang="de">Zuletzt geändert von Benutzeranmeldung</value>
+        <value xml:lang="de">Zuletzt geändert von Benutzer</value>
         <value xml:lang="en">Last Modified By User Login</value>
         <value xml:lang="es">Última modificación por usuario</value>
         <value xml:lang="fr">Modification en dernier par l'identifiant de connexion</value>
@@ -10597,6 +10695,7 @@
         <value xml:lang="zh_TW">最近修改日</value>
     </property>
     <property key="FormFieldTitle_lastUpdatedTxStamp">
+        <value xml:lang="de">Zeitpunkt der letzten Aktualisierung</value>    
         <value xml:lang="en">Last Updated Tx Stamp</value>
         <value xml:lang="es">Última fecha modificación Tx</value>
         <value xml:lang="fr">Dernière mise à jour d'estampille temporelle de transaction créée</value>
@@ -10623,6 +10722,7 @@
         <value xml:lang="zh_TW">行小計</value>
     </property>
     <property key="FormFieldTitle_maxRecurrenceCount">
+        <value xml:lang="de">Maximale Wiederholungen</value>
         <value xml:lang="en">Max Recurrence Count</value>
         <value xml:lang="es">Número máximo de recurrencias</value>
         <value xml:lang="fr">Nombre max de récurrences</value>
@@ -10633,6 +10733,7 @@
         <value xml:lang="zh_TW">最大並發數量</value>
     </property>
     <property key="FormFieldTitle_modifiedByUserLoginId">
+        <value xml:lang="de">Geändert von Benutzer-Id</value>
         <value xml:lang="en">Modified By User Login Id</value>
         <value xml:lang="es">Modificado por el código de usuario</value>
         <value xml:lang="fr">Modifié par l'identifiant de connexion</value>
@@ -10643,6 +10744,7 @@
         <value xml:lang="zh_TW">修改的使用者</value>
     </property>
     <property key="FormFieldTitle_originalPortalPageId">
+        <value xml:lang="de">Originalseite</value>
         <value xml:lang="en">original page</value>
         <value xml:lang="es">Página original</value>
         <value xml:lang="fr">Page d'orig.</value>
@@ -10650,6 +10752,7 @@
         <value xml:lang="pt_BR">Página original</value>
     </property>
     <property key="FormFieldTitle_ownerUserLoginId">
+        <value xml:lang="de">Benutzer-ID des Besitzers</value>
         <value xml:lang="en">Owner User Login ID</value>
         <value xml:lang="es">Código de usuario del propietario</value>
         <value xml:lang="fr">Propri.</value>
@@ -10657,6 +10760,7 @@
         <value xml:lang="pt_BR">Proprietário Login User ID</value>
     </property>
     <property key="FormFieldTitle_parentPortalPageId">
+        <value xml:lang="de">Elternseite</value>
         <value xml:lang="en">Parent page</value>
         <value xml:lang="es">Página padre</value>
         <value xml:lang="fr">Page père</value>
@@ -10669,6 +10773,7 @@
         <value xml:lang="th">รอดำเนินการ</value>
     </property>
     <property key="FormFieldTitle_portalPageName">
+        <value xml:lang="de">Portaseitenname</value>
         <value xml:lang="en">Portal page name</value>
         <value xml:lang="es">Nombre de la página del portal</value>
         <value xml:lang="fr">Nom de page</value>
@@ -10708,6 +10813,7 @@
     </property>
     <property key="FormFieldTitle_rejectButton">
         <value xml:lang="ar">إضافة</value>
+        <value xml:lang="de">Ablehnen</value>
         <value xml:lang="en">Reject</value>
         <value xml:lang="es">Rechazar</value>
         <value xml:lang="fr">Refuser</value>
@@ -10734,6 +10840,7 @@
         <value xml:lang="zh_TW">刪除</value>
     </property>
     <property key="FormFieldTitle_saveButton">
+        <value xml:lang="de">Speichern</value>
         <value xml:lang="en">Save</value>
         <value xml:lang="es">Guardar</value>
         <value xml:lang="fr">Conserver</value>
@@ -10772,6 +10879,7 @@
         <value xml:lang="zh_TW">發送</value>
     </property>
     <property key="FormFieldTitle_sendNotificationEmail">
+        <value xml:lang="de">Benachrichtigungs-Email versenden</value>
         <value xml:lang="en">Send Notification Email</value>
         <value xml:lang="es">Enviar notificación por correo electrónico</value>
         <value xml:lang="fr">Envoyer le courriel de notification</value>
@@ -10832,6 +10940,7 @@
     </property>
     <property key="FormFieldTitle_taxAuthGeoId">
         <value xml:lang="ar">الرمز الجغرافي للسلطة الضريبية</value>
+        <value xml:lang="de">Steuerbehörde GeoID</value>
         <value xml:lang="en">Tax Auth Geo ID</value>
         <value xml:lang="es">Código geográfico autoridad tributaria</value>
         <value xml:lang="fr">Réf. géo. d'administration fiscale</value>
@@ -10847,6 +10956,7 @@
         <value xml:lang="zh_TW">稅務機構地理ID</value>
     </property>
     <property key="FormFieldTitle_tempExprId">
+        <value xml:lang="de">Zeitlicher Ausdruck</value>
         <value xml:lang="en">Temporal Expression</value>
         <value xml:lang="es">Expresión temporal</value>
         <value xml:lang="fr">Expression temporelle</value>
@@ -10933,7 +11043,7 @@
         <value xml:lang="th">Google Base</value>
     </property>
     <property key="HR">
-        <value xml:lang="de">HR</value>
+        <value xml:lang="de">Personal</value>
         <value xml:lang="en">HR</value>
         <value xml:lang="es">RR.HH.</value>
         <value xml:lang="fr">Ress. hum.</value>
@@ -10967,6 +11077,7 @@
         <value xml:lang="zh_TW">人力資源應用程式</value>
     </property>
     <property key="IS Mgr">
+        <value xml:lang="de">Infosystem</value>
         <value xml:lang="en">IS Mgr</value>
         <value xml:lang="fr">Parc info.</value>
         <value xml:lang="hi_IN">प्रबंधक है</value>
@@ -11011,6 +11122,7 @@
         <value xml:lang="zh_TW">行銷</value>
     </property>
     <property key="MyPortal">
+        <value xml:lang="de">Mein Portal</value>
         <value xml:lang="en">My Portal</value>
         <value xml:lang="es">Mi portal</value>
         <value xml:lang="fr">Mon portail</value>
@@ -11022,6 +11134,7 @@
         <value xml:lang="zh_TW">入口</value>
     </property>
     <property key="OFBiz Site">
+        <value xml:lang="de">OFBiz Homepage</value>    
         <value xml:lang="en">OFBiz Site</value>
         <value xml:lang="es">Página web de OFBiz</value>
         <value xml:lang="fr">Site officiel d'OFBiz</value>
@@ -11135,6 +11248,7 @@
         <value xml:lang="zh">结账选项</value>
     </property>
     <property key="PageTitleCommonGeoLocation">
+        <value xml:lang="de">Geografischer Ort des Elements</value>    
         <value xml:lang="en">Geo Location of requested element</value>
         <value xml:lang="es">Ubicación geográfica del elemento solicitado</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
@@ -11299,6 +11413,7 @@
         <value xml:lang="zh">快速添加</value>
     </property>
     <property key="PageTitleViewBlocked">
+        <value xml:lang="de">Zugriff blockiert</value>    
         <value xml:lang="en">View Blocked</value>
         <value xml:lang="es">Página bloqueada</value>
         <value xml:lang="fr">Page bloquée</value>
@@ -11330,6 +11445,7 @@
         <value xml:lang="fr">Gestion des clients, Fournisseurs, Employés, Communications, Classifications</value>
     </property>
     <property key="PortalPageNotFound">
+        <value xml:lang="de">Die folgende Seite konnte nicht gefunden werden: (${parameters.portalPageId})!</value>
         <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
         <value xml:lang="es">Esta página (${parameters.portalPageId}) no se ha encontrado!</value>
         <value xml:lang="fr">Impossible de trouver la page : (${parameters.portalPageId}) !</value>
@@ -11340,6 +11456,7 @@
         <value xml:lang="zh_TW">無法找到這個頁面(${parameters.portalPageId})！</value>
     </property>
     <property key="PortalPageNotOwned">
+        <value xml:lang="de">Sie sind nicht Besitzer der Seite '${portalPage.portalPageName}' [${portalPage.portalPageId}] deshalb können Sie sie nicht ändern!</value>    
         <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
         <value xml:lang="es">La página '${portalPage.portalPageName}' [${portalPage.portalPageId}] no es suya, por lo tanto no puede modificarla!</value>
         <value xml:lang="fr">La page : '${portalPage.portalPageName}' [${portalPage.portalPageId}] ne vous appartient pas, vous ne pouvez la changer !</value>
