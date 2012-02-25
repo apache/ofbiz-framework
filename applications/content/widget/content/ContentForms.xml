@@ -119,13 +119,8 @@ under the License.
     <form name="ListLookupContent" extends="ListContent" type="list" list-name="listIt" paginate-target="LookupContent"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="parameters"/>
-                <field-map field-name="entityName" value="Content"/>
-                <field-map field-name="orderBy" value="contentId"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
-            </service>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="contentId"/>
+            <call-parent-actions/>
         </actions>
         <field name="contentId">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
