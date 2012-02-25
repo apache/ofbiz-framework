@@ -78,6 +78,7 @@ public class ModelForm extends ModelWidget {
     protected String formLocation;
     protected String parentFormName;
     protected String parentFormLocation;
+    protected ModelForm parentModelForm;
     protected String type;
     protected FlexibleStringExpander target;
     protected String targetType;
@@ -261,6 +262,7 @@ public class ModelForm extends ModelWidget {
             }
 
             if (parent != null) {
+                this.parentModelForm = parent;
                 this.type = parent.type;
                 this.target = parent.target;
                 this.containerId = parent.containerId;
@@ -1895,6 +1897,10 @@ public class ModelForm extends ModelWidget {
             return this.formLocation;
         }
         return this.parentFormLocation;
+    }
+
+    public ModelForm getParentModelForm() {
+        return parentModelForm;
     }
 
     public String getDefaultEntityName() {

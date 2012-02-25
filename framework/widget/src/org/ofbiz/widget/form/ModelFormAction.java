@@ -92,6 +92,8 @@ public abstract class ModelFormAction {
                 actions.add(new EntityAnd(modelForm, actionElement));
             } else if ("entity-condition".equals(actionElement.getNodeName())) {
                 actions.add(new EntityCondition(modelForm, actionElement));
+            } else if ("call-parent-actions".equals(actionElement.getNodeName())) {
+                actions.add(new CallParentActions(modelForm, actionElement));
             } else {
                 throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
             }
@@ -542,6 +544,45 @@ public abstract class ModelFormAction {
                 String errMsg = "Error doing entity query by condition: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new IllegalArgumentException(errMsg);
+            }
+        }
+    }
+
+    public static class CallParentActions extends ModelFormAction {
+        protected static enum ActionsKind {
+            ACTIONS,
+            ROW_ACTIONS
+        };
+
+        protected ActionsKind kind;
+
+        public CallParentActions(ModelForm modelForm, Element callParentActionsElement) {
+            super(modelForm, callParentActionsElement);
+            String parentName = callParentActionsElement.getParentNode().getNodeName();
+            if ("actions".equals(parentName)) {
+                kind = ActionsKind.ACTIONS;
+            } else if ("row-actions".equals(parentName)) {
+                kind = ActionsKind.ROW_ACTIONS;
+            } else {
+                throw new IllegalArgumentException("Action element not supported for call-parent-actions : " + parentName);
+            }
+
+            ModelForm parentModel = modelForm.getParentModelForm();
+            if (parentModel == null) {
+                throw new IllegalArgumentException("call-parent-actions can only be used with form extending another form");
+            }
+        }
+
+        @Override
+        public void runAction(Map<String, Object> context) {
+            ModelForm parentModel = modelForm.getParentModelForm();
+            switch (kind) {
+                case ACTIONS:
+                    parentModel.runFormActions(context);
+                    break;
+                case ROW_ACTIONS:
+                    ModelFormAction.runSubActions(parentModel.rowActions, context);
+                    break;
             }
         }
     }

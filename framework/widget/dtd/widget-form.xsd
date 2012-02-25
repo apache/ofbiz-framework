@@ -1993,4 +1993,8 @@ under the License.
     <xs:attributeGroup name="attlist.select-field">
         <xs:attribute type="xs:string" name="field-name" use="required"/>
     </xs:attributeGroup>
+
+    <xs:element name="call-parent-actions" substitutionGroup="AllActions">
+        <xs:complexType/>
+    </xs:element>
 </xs:schema>
