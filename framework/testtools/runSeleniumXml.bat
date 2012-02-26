@@ -26,7 +26,7 @@ set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/jdom-1.1.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/scripting/jython-nooro.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/junit.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/commons/commons-lang-2.3.jar
-set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/log4j-1.2.15.jar
+set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/log4j-1.2.16.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/lib/javolution-5.2.3.jar
 set CP=%CP%;%OFBIZ_HOME%/framework/base/build/lib/ofbiz-base.jar
 
