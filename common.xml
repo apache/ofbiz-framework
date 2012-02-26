@@ -135,7 +135,7 @@ under the License.
             <classpath>
                 <fileset dir="${ofbiz.home.dir}/framework/base/lib">
                     <include name="cobertura-1.9.3.jar" />
-                    <include name="log4j-1.2.15.jar" />
+                    <include name="log4j-1.2.16.jar" />
                 </fileset>
                 <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting">
                     <include name="asm-3.2.jar" />
