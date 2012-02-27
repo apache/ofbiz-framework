@@ -795,7 +795,7 @@ under the License.
     <property key="ScrumPlanned">
         <value xml:lang="en">Planned</value>
     </property>
-    <property key="ScrumPlanedHours">
+    <property key="ScrumPlannedHours">
         <value xml:lang="en">Planned Hours</value>
     </property>
     <property key="ScrumPlanHours">
@@ -807,7 +807,7 @@ under the License.
     <property key="ScrumPlhrs">
         <value xml:lang="en">Pl hrs</value>
     </property>
-    <property key="ScrumPlanedTime">
+    <property key="ScrumPlannedTime">
         <value xml:lang="en">Plan Time</value>
     </property>
     <property key="ScrumProblemTask">

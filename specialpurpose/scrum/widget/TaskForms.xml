@@ -91,7 +91,7 @@
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}"><text size="3" default-value="${resultMap.planHours}"/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}"><text size="3" default-value="${resultMap.planHours}"/></field>
         <field name="actualHours" use-when="task!=null" title="${uiLabelMap.ScrumActualHours}"><text default-value="${results.actualHours}" size="3" disabled="true"/></field>
         <!--<field name="actualHours" use-when="task==null" title="Actual Hours"><text size="3"/></field>-->
         <field name="currentStatusId" use-when="task==null"><hidden value="STS_CREATED"/></field>
@@ -735,7 +735,7 @@
             <display description="${party[0].lastName} ${party[0].firstName}"/>
         </field>
         <field name="taskCreatedDate" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
-        <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedHours}" parameter-name="planHours"><display></display></field>
+        <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedHours}" parameter-name="planHours"><display></display></field>
         <field name="taskActualMilliSeconds" title="${uiLabelMap.ScrumActualHours}" parameter-name="actualHours"><display description="${result.actualHours}"/></field>
         <field name="taskEstimatedStartDate" title="${uiLabelMap.CommonStartDate}" parameter-name="estimatedStartDate"><display type="date"/></field>
         <field name="editButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
