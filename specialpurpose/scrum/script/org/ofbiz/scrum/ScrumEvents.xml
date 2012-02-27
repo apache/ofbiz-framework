@@ -2661,7 +2661,7 @@
             <then>
             <if-not-empty field="parameters.workEffortName">
                 <now-timestamp field="now"/>
-                <!-- calculate estimatedMilliSeconds from initail planed hours -->
+                <!-- calculate estimatedMilliSeconds from initail planned hours -->
                 <set field="plannedHours" from-field="parameters.plannedHours" default-value="0" type="Integer"/>
                 <set-service-fields service-name="createWorkEffort" to-map="workEffortMap" map="parameters"/>
                 <set field="parameters.estimatedMilliSeconds" value="${groovy:plannedHours*60*60*1000}"/>
@@ -2721,7 +2721,7 @@
             </condition>
             <then>
             <if-not-empty field="parameters.workEffortId">
-                <!-- calculate estimatedMilliSeconds from initail planed hours -->
+                <!-- calculate estimatedMilliSeconds from initail planned hours -->
                 <set field="plannedHours" from-field="parameters.plannedHours" default-value="0" type="Integer"/>
                 <set field="parameters.estimatedMilliSeconds" value="${groovy:plannedHours*60*60*1000}"/>
                 <call-service service-name="updateWorkEffort" in-map-name="parameters">

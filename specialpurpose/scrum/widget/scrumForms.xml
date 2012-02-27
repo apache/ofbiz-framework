@@ -184,7 +184,7 @@ under the License.
         <field name="dummy4" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="dummy5" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="taskActualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display></display>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display></display>
         </field>
         <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
             <hyperlink target="DeleteSprintBackLogs" description="Delete" confirmation-message="Are you sure to delete this sprint backlog ?" link-type="hidden-form">
@@ -229,7 +229,7 @@ under the License.
     </form>
     
     <form name="sprintBacklogListItemsHideDelete" extends="sprintBacklogListItems">
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><hidden/></field>
         <sort-order>
@@ -322,7 +322,7 @@ under the License.
         <field name="actualStartDate" title="${uiLabelMap.CommonStartDate}"><display type="date"/></field>
         <field name="actualCompletionDate" title="${uiLabelMap.CommonEndDate}"><display type="date"/></field>
         <field name="estimatedHrs" title="${uiLabelMap.ScrumSprintLengthWeeks}"><display description="${estimatedHrs} week(s)"/></field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}"><display description="${planHours} hours"/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}"><display description="${planHours} hours"/></field>
         <field name="totalBacklogs" title="${uiLabelMap.PageTitleTotalBacklog}"><display description="reviewed:${reviewedBacklog}  completed:${completedBacklog}  total:${totalbacklog}"></display></field>
         <field name="totalTasks" title="${uiLabelMap.PageTitleTotalTask}"><display description="created:${createdTask}  completed:${completedTask}  total:${totalTask}"></display></field>
         <field name="sprintId"><hidden value="${parameters.sprintId}"/></field>
@@ -708,11 +708,11 @@ under the License.
         <field name="parentCustRequestId" title="${uiLabelMap.ScrumBacklogItemCategory}" use-when="custRequest!=null&amp;&amp;isTeamMember==true">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
         </field>
-        <field name="planedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest==null">
+        <field name="plannedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest==null">
             <text size="3"/>
         </field>
-        <field name="planedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="3" default-value="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
-        <field name="planedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display description="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
+        <field name="plannedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==false"><text size="3" default-value="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
+        <field name="plannedTime" parameter-name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedTime}" tooltip="${uiLabelMap.ScrumHrs}" use-when="custRequest!=null&amp;&amp;isTeamMember==true"><display description="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
         <field name="custSequenceNum" title="${uiLabelMap.CommonSequenceNum}" use-when="custRequest==null">
             <text size="3"></text>
         </field>
@@ -781,7 +781,7 @@ under the License.
             <sort-field name="productOwerId"/>
             <sort-field name="parentCustRequestId"/>
             <sort-field name="Sprint"/>
-            <sort-field name="planedTime"/>
+            <sort-field name="plannedTime"/>
             <sort-field name="custSequenceNum"/>
             <sort-field name="billed"/>
             <sort-field name="unplannedFlag"/>
@@ -1025,7 +1025,7 @@ under the License.
                 <parameter param-name="productId"/>
             </hyperlink>
         </field>
-        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><text size="3"/></field>
+        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlannedHours}"><text size="3"/></field>
         <field name="parentCustRequestId" position="2" title="${uiLabelMap.ScrumCategory}">
             <drop-down allow-empty="true">
                 <entity-options description="${custRequestName}" entity-name="CustRequestAndCustRequestItem" key-field-name="custRequestId">
@@ -1038,7 +1038,7 @@ under the License.
         <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListProdBacklogForOwner" extends="ListProdBacklog">
-         <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display/></field>
+         <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlannedHours}"><display/></field>
          <field name="submitButton" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListProdBacklogBySeq" type="multi" use-row-submit="false" list-name="custRequestAndCustRequestItems" target="updateProductBacklogItemRow?productId=${productId}&amp;sequence=${sequence}&amp;backStatusId=CRQ_ACCEPTED" 
@@ -1149,7 +1149,7 @@ under the License.
             </display>
         </field>
         <field name="newSequenceNum" title="${uiLabelMap.ScrumNewSequence}"><text size="3"/></field>
-        <field name="estimatedHours" position="1" title="${uiLabelMap.ScrumPlanedHours}"><text size="3"/></field>
+        <field name="estimatedHours" position="1" title="${uiLabelMap.ScrumPlannedHours}"><text size="3"/></field>
         <field name="parentCustRequestId" position="1" title="${uiLabelMap.ScrumCategory}">
             <drop-down allow-empty="true">
                 <entity-options description="${custRequestName}" entity-name="CustRequestAndCustRequestItem" key-field-name="custRequestId">
@@ -1258,7 +1258,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="estimatedHrs" title="${uiLabelMap.ScrumSprintLengthWeeks}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="actualHoursNotBillYet" title="${uiLabelMap.ScrumActualHoursNotBill}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="sprintActualStartDate" title="${uiLabelMap.CommonStartDate}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display type="date"></display></field>
@@ -1330,7 +1330,7 @@ under the License.
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
         <field name="estimatedHrs" title="${uiLabelMap.ScrumSprintLengthWeeks}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="actualHoursNotBillYet" title="${uiLabelMap.ScrumActualHoursNotBill}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="sprintActualStartDate" title="${uiLabelMap.CommonStartDate}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display type="date"></display></field>
@@ -1479,7 +1479,7 @@ under the License.
             <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${custRequestName}"></display-entity>
         </field>
         <field name="custSequenceNum"><display/></field>
-        <field name="estimatedHours" title="${uiLabelMap.ScrumPlanedHours}"><text default-value="${groovy:return custRequest.custEstimatedMilliSeconds/3600000}"/></field>
+        <field name="estimatedHours" title="${uiLabelMap.ScrumPlannedHours}"><text default-value="${groovy:return custRequest.custEstimatedMilliSeconds/3600000}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
     <!-- Product -->
@@ -1992,7 +1992,7 @@ under the License.
                 <parameter param-name="sprintId" from-field="workEffortlist[0].workEffortId"/>
             </hyperlink>
         </field>
-        <field name="estimated" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}"><display description="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
+        <field name="estimated" title="${uiLabelMap.ScrumPlannedTime}" tooltip="${uiLabelMap.ScrumHrs}"><display description="${custRequest.custEstimatedMilliSeconds/3600000}"/></field>
         <field name="actualHours"><display description="${actualHours}"/></field>
         <field name="custSequenceNum"><display description="${custRequest.custSequenceNum}"/></field>
         <field name="billed"><display description="${custRequest.billed}"/></field>
@@ -2031,7 +2031,7 @@ under the License.
         <field name="parentCustRequestId" position="2" title="${uiLabelMap.ScrumCategory}">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
         </field>
-        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display description="${custEstimatedMilliSeconds/1000/60/60}"/></field>
+        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlannedHours}"><display description="${custEstimatedMilliSeconds/1000/60/60}"/></field>
         <field name="billed" position="2" ><display></display></field>
         <field name="custRequestDate" position="2" title="${uiLabelMap.ScrumRequestDate}"><display/></field>
         <field name="fromPartyId" position="2" title="${uiLabelMap.ScrumRequesterName}">
@@ -2068,7 +2068,7 @@ under the License.
         <field name="parentCustRequestId" position="2" title="${uiLabelMap.ScrumCategory}">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
         </field>
-        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display description="${custEstimatedMilliSeconds/1000/60/60}"/></field>
+        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlannedHours}"><display description="${custEstimatedMilliSeconds/1000/60/60}"/></field>
         <field name="billed" position="2" ><display></display></field>
         <field name="custRequestDate" position="2" title="${uiLabelMap.ScrumRequestDate}"><display type="date"/></field>
     </form>
@@ -2091,7 +2091,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonDelete}"><hidden/></field>
     </form>
     <form name="ViewSprintBacklogListItemsNoAction" extends="sprintBacklogListItems">
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><hidden/></field>
         <field name="setCompleteButton" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><hidden/></field>
@@ -2162,7 +2162,7 @@ under the License.
             </drop-down>
         </field>
         <field name="taskCreatedDate" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
-        <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedHours}" parameter-name="planHours"><text size="5"/></field>
+        <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedHours}" parameter-name="planHours"><text size="5"/></field>
         <field name="taskActualMilliSeconds" title="${uiLabelMap.ScrumActualHours}" parameter-name="actualHours"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button" /></field>
         <field name="editButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -2805,7 +2805,7 @@ under the License.
             <display-entity entity-name="Person" description="${lastName} ${firstName} ${middleName}" key-field-name="partyId"/>
         </field>
         <field name="taskCreatedDate" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
-        <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedHours}" parameter-name="planHours"><display/></field>
+        <field name="taskEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedHours}" parameter-name="planHours"><display/></field>
         <field name="taskActualMilliSeconds" title="${uiLabelMap.ScrumActualHours}" parameter-name="actualHours"><display description="${result.actualHours}"/></field>
         <field name="taskEstimatedStartDate" title="${uiLabelMap.CommonStartDate}" parameter-name="estimatedStartDate"><display type="date"/></field>
     </form>
@@ -2886,7 +2886,7 @@ under the License.
                 <list-options key-name="custRequestId" list-name="categoryList" description="[${productId}] : ${internalName} -- [${custRequestId}] : ${custRequestName}"/>
             </drop-down>
         </field>
-        <field name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlanedTime}" tooltip="${uiLabelMap.ScrumHrs}"><text size="3"></text></field>
+        <field name="custEstimatedMilliSeconds" title="${uiLabelMap.ScrumPlannedTime}" tooltip="${uiLabelMap.ScrumHrs}"><text size="3"></text></field>
         <field name="story" title="${uiLabelMap.ScrumStory}" ><textarea  rows="4" cols="60"/></field>
         <field name="custSequenceNum"><hidden value="1"/></field>
         <field name="noteInfo" title="${uiLabelMap.ScrumHowToTest}" ><textarea  rows="4" cols="60"/></field>
@@ -2920,7 +2920,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}"><text size="3" default-value="${resultMap.planHours}"/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}"><text size="3" default-value="${resultMap.planHours}"/></field>
         <field name="currentStatusId"><hidden value="STS_CREATED"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" tooltip="${uiLabelMap.CommonMax250Chars}"><textarea/></field>
         <field name="uploadedFile"><file/></field>
@@ -2958,8 +2958,8 @@ under the License.
                 <parameter param-name="statusId" from-field="parameters.statusId"/>
             </hyperlink>
         </field>
-        <!--<field name="estimatedHours" title="${uiLabelMap.ScrumPlanedHours}" use-when="&quot;${statusId}&quot;==&quot;CRQ_ACCEPTED&quot;"><text size="3"/></field>
-        <field name="estimatedHours" title="${uiLabelMap.ScrumPlanedHours}" use-when="&quot;${statusId}&quot;==&quot;CRQ_REVIEWED&quot;"><display/></field>-->
+        <!--<field name="estimatedHours" title="${uiLabelMap.ScrumPlannedHours}" use-when="&quot;${statusId}&quot;==&quot;CRQ_ACCEPTED&quot;"><text size="3"/></field>
+        <field name="estimatedHours" title="${uiLabelMap.ScrumPlannedHours}" use-when="&quot;${statusId}&quot;==&quot;CRQ_REVIEWED&quot;"><display/></field>-->
         <field name="parentCustRequestId" title="${uiLabelMap.ScrumCategory}">
             <drop-down allow-empty="true">
                 <entity-options description="${custRequestName}" entity-name="CustRequestAndCustRequestItem" key-field-name="custRequestId">
@@ -3065,7 +3065,7 @@ under the License.
         <field name="dummy4" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="dummy5" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="taskActualHours" title="${uiLabelMap.ScrumActualHours}" position="2" use-when="workEffortId!=null"><display/></field>
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="workEffortId!=null">
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null">
             <display/>
         </field>
         <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" position="1" use-when="showPosition1&amp;&amp;!&quot;CRQ_COMPLETED&quot;.equals(&quot;${custRequest.statusId}&quot;)" widget-style="buttontext">
@@ -3108,7 +3108,7 @@ under the License.
     </form>
     
     <form name="unplanBacklogListItemsHideDelete" extends="unplanBacklogListItems">
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="workEffortId!=null"><display/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="workEffortId!=null"><hidden/></field>
         <sort-order>
@@ -3128,7 +3128,7 @@ under the License.
         </sort-order>
     </form>
     <form name="unplanBacklogListItemsForOwner" extends="unplanBacklogListItems">
-        <field name="planHours" title="${uiLabelMap.ScrumPlanedHours}" position="2" use-when="workEffortId!=null"><display/></field>
+        <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="workEffortId!=null"><display/></field>
         <field name="deleteButton" position="1" use-when="showPosition1"><hidden/></field>
         <field name="deleteTaskButton" position="2" use-when="workEffortId!=null"><hidden/></field>
         <field name="setCompleteButton" position="2" use-when="workEffortId!=null"><hidden/></field>
@@ -3174,7 +3174,7 @@ under the License.
         <field name="dummy1" title="${uiLabelMap.ScrumMoveToUnplannedSprint}" use-when="&quot;${statusId}&quot;==&quot;CRQ_REVIEWED&quot;" position="2"><display description=" "/></field>
     </form>
     <form name="unplannedBacklogListByCategoriesForOwner" extends="unplannedBacklogListByCategories">
-        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlanedHours}"><display/></field>
+        <field name="estimatedHours" position="2" title="${uiLabelMap.ScrumPlannedHours}"><display/></field>
     </form>
     <form name="NewTaskForUnplanBacklog" target="createTaskForUnplanBacklog?productId=${parameters.productId}" extends="EditSprintTask" extends-resource="component://scrum/widget/TaskForms.xml">
         <actions>

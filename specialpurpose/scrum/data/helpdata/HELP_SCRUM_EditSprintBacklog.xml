@@ -18,9 +18,9 @@
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
     <title>Update Sprint backlog.</title>
-    <para>This part use to update Sprint backlog such as planed hours, ....</para>
+    <para>This part use to update Sprint backlog such as planned hours, ....</para>
     <orderedlist>
-        <listitem><para>Enter Planed Hours field (Integer or floating point).</para></listitem>
+        <listitem><para>Enter Planned Hours field (Integer or floating point).</para></listitem>
         <listitem><para>Click the update button to update the Sprint Backlog.</para></listitem>
     </orderedlist>
 </section>
