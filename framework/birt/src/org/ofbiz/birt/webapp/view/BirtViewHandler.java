@@ -40,12 +40,11 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.birt.BirtFactory;
 import org.ofbiz.birt.BirtWorker;
-import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
-import org.ofbiz.birt.widget.BirtFactory;
 import org.xml.sax.SAXException;
 
 public class BirtViewHandler implements ViewHandler {
@@ -73,7 +72,7 @@ public class BirtViewHandler implements ViewHandler {
             HttpServletResponse response) throws ViewHandlerException {
         
         try {
-            IReportEngine engine = BirtContainer.getReportEngine();
+            IReportEngine engine = org.ofbiz.birt.BirtFactory.getReportEngine();
             // open report design
             IReportRunnable design = null;
             if (page.startsWith("component://")) {
@@ -83,7 +82,8 @@ public class BirtViewHandler implements ViewHandler {
                 design = engine.openReportDesign(servletContext.getRealPath(page));
             }
             
-            BirtWorker.setWebContextObjects(engine, request, response);
+            Map<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
+            BirtWorker.setWebContextObjects(appContext, request, response);
 
             Map<String, Object> context = FastMap.newInstance();
             // set parameters from request
@@ -103,6 +103,12 @@ public class BirtViewHandler implements ViewHandler {
             String outputFileName = (String) request.getAttribute(BirtWorker.BIRT_OUTPUT_FILE_NAME);
             if (UtilValidate.isNotEmpty(outputFileName)) {
                 response.setHeader("Content-Disposition", "attachment; filename=" + outputFileName);
+            }
+            
+            // set override content type
+            String overrideContentType = (String) request.getAttribute(BirtWorker.BIRT_CONTENT_TYPE);
+            if (UtilValidate.isNotEmpty(overrideContentType)) {
+                contentType = overrideContentType;
             }
             
             context.put(BirtWorker.BIRT_LOCALE, locale);

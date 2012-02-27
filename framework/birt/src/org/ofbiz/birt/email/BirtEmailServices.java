@@ -44,15 +44,14 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.birt.BirtFactory;
 import org.ofbiz.birt.BirtWorker;
-import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.common.email.NotificationServices;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.birt.widget.BirtFactory;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
@@ -158,7 +157,7 @@ public class BirtEmailServices {
                 if (birtContentType == null) {
                     birtContentType = "application/pdf";
                 }
-                IReportEngine engine = BirtContainer.getReportEngine();
+                IReportEngine engine = BirtFactory.getReportEngine();
                 HashMap<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
                 appContext.put("delegator", delegator);
                 appContext.put("dispatcher", dispatcher);

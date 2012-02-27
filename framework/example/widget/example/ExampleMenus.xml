@@ -42,7 +42,7 @@ under the License.
         <menu-item name="ExampleGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="ExampleGeoLocationPointSet1"/>
         </menu-item>
-        <menu-item name="Birt" title="${uiLabelMap.Birt}">
+        <menu-item name="Birt" title="${uiLabelMap.ExampleBirtExamples}">
             <link target="BirtMain"/>
         </menu-item>
         <menu-item name="ExampleCharts" title="Chart examples">

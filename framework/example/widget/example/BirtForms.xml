@@ -30,9 +30,13 @@ under the License.
             <drop-down>
                 <option key="text/html" description="text/html"/>
                 <option key="application/pdf" description="application/pdf"/>
+                <option key="application/postscript" description="application/postscript"/>
                 <option key="application/vnd.ms-excel" description="application/vnd.ms-excel"/>
                 <option key="application/vnd.ms-word" description="application/vnd.ms-word"/>
                 <option key="application/vnd.ms-powerpoint" description="application/vnd.ms-powerpoint"/>
+                <option key="application/vnd.oasis.opendocument.text" description="application/vnd.oasis.opendocument.text"/>
+                <option key="application/vnd.oasis.opendocument.spreadsheet" description="application/vnd.oasis.opendocument.spreadsheet"/>
+                <option key="application/vnd.oasis.opendocument.presentation" description="application/vnd.oasis.opendocument.presentation"/>
             </drop-down>
         </field>
         <field name="attachmentName"><text/></field>
