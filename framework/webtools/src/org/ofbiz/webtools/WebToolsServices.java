@@ -31,6 +31,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.Iterator;
@@ -62,6 +63,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
@@ -468,6 +471,7 @@ public class WebToolsServices {
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String outpath = (String)context.get("outpath"); // mandatory
+        Timestamp fromDate = (Timestamp)context.get("fromDate");
         Integer txTimeout = (Integer)context.get("txTimeout");
         if (txTimeout == null) {
             txTimeout = Integer.valueOf(7200);
@@ -505,7 +509,11 @@ public class WebToolsServices {
                         boolean beganTx = TransactionUtil.begin();
                         // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
                         try {
-                            values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), null);
+                            List<EntityCondition> conds = FastList.newInstance();
+                            if (UtilValidate.isNotEmpty(fromDate)) {
+                                conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+                            }
+                            values = delegator.find(curEntityName, EntityCondition.makeCondition(conds), null, null, me.getPkFieldNames(), null);
                         } catch (Exception entityEx) {
                             results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;
