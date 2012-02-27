@@ -30,7 +30,7 @@ under the License.
     <div class="screenlet-title-bar">
         <ul>
           <li class="h3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
-          <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)>
+          <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
               <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED">
                   <li><a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelSelectedOrderItems</@ofbizUrl>';document.updateItemInfo.submit()">${uiLabelMap.OrderCancelSelectedItems}</a></li>
                   <li><a href="javascript:document.updateItemInfo.action='<@ofbizUrl>cancelOrderItem</@ofbizUrl>';document.updateItemInfo.submit()">${uiLabelMap.OrderCancelAllItems}</a></li>
@@ -333,7 +333,7 @@ under the License.
         </#list>
 
         <#-- add new adjustment -->
-        <#if (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)) && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_REJECTED">
+        <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_REJECTED">
             <form name="addAdjustmentForm" method="post" action="<@ofbizUrl>createOrderAdjustment</@ofbizUrl>">
                 <input type="hidden" name="comments" value="Added manually by [${userLogin.userLoginId}]"/>
                 <input type="hidden" name="orderId" value="${orderId?if_exists}"/>

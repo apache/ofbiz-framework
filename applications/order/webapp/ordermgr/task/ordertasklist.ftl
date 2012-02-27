@@ -38,7 +38,7 @@ under the License.
 // -->
 </script>
 
-<#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session) || security.hasRolePermission("ORDERMGR_ROLE", "_VIEW", "", "", session)>
+<#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
 <#assign tasksFound = false>
 <div class="screenlet">
     <div class="screenlet-title-bar">
