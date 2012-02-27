@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-    <div class="button-bar">
-      <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductNewFacility}</a>
-      <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductNewFacilityLocation}</a>
+    <div class="button-bar button-style-1">
+      <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacility}</a>
+      <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacilityLocation}</a>
     </div>
 
-    <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="get" name="findFacilityLocation">
+    <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="get" name="findFacilityLocation" class="basic-form">
         <#if (facilityId?exists)>
             <input type="hidden" name="facilityId" value="${facilityId}" />
         </#if>        
@@ -74,7 +74,7 @@ under the License.
     <#if foundLocations?exists>
         <#-- TODO: Put this in a screenlet - make it look more like the party find screen -->
         <br />
-        <h1>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</h1>
+        <h3>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</h3>
         <br />
         <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row-2">
