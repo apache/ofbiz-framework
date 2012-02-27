@@ -48,7 +48,7 @@ under the License.
     }
 </script>
 
-<#if (security.hasEntityPermission("ORDERMGR", "_UPDATE", session) || security.hasRolePermission("ORDERMGR", "_UPDATE", "", "", session)) && (!orderHeader.salesChannelEnumId?exists || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
+<#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && (!orderHeader.salesChannelEnumId?exists || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul><li class="h3">&nbsp;${uiLabelMap.OrderActions}</li></ul>

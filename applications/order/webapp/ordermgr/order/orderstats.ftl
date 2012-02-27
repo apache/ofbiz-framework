@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
+<#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.OrderOrderStatisticsPage}</h3>

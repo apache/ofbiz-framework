@@ -337,7 +337,7 @@ under the License.
         <td>${partyDate.lastModifiedDate?if_exists}</td>
         <td class="button-col align-float">
           <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
-      <#if security.hasRolePermission("ORDERMGR", "_VIEW", "", "", session)>
+      <#if security.hasEntityPermission("ORDERMGR", "_VIEW", session)>
           <form name= "searchorders_o_${rowCount}" method= "post" action= "/ordermgr/control/searchorders">
             <input type= "hidden" name= "lookupFlag" value= "Y" />
             <input type= "hidden" name= "hideFields" value= "Y" />
