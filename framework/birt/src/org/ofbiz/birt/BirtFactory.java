@@ -36,8 +36,8 @@ import org.xml.sax.SAXException;
  *
  */
 public class BirtFactory {
-	
-	public final static String module = BirtFactory.class.getName();
+
+    public final static String module = BirtFactory.class.getName();
 
     protected static IReportEngine engine;
     
