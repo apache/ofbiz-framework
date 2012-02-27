@@ -108,22 +108,7 @@
     <classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jansi-1.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jline-0.9.94.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/chartengineapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/chartitemapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/coreapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/crosstabcoreapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/dataadapterapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/dataaggregationapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/dataextraction.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/dteapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/emitterconfig.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/engineapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/jaxrpc.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/modelapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/modelodaapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/odadesignapi.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/saaj.jar"/>
-    <classpathentry kind="lib" path="framework/birt/lib/scriptapi.jar"/>
+    <classpathentry kind="lib" path="framework/birt/lib/org.eclipse.birt.runtime_3.7.2.v20120214-1408.jar"/>
     <classpathentry kind="lib" path="framework/birt/lib/viewservlets.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/ecj-3.7.1.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.25.tomcat-juli-adapters.jar"/>

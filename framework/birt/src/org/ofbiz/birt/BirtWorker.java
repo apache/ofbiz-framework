@@ -42,7 +42,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.LocalDispatcher;
@@ -83,77 +82,71 @@ public class BirtWorker {
              birtImageDirectory = "/";
         }
         Debug.logInfo("Get report engine", module);
-        IReportEngine engine = BirtContainer.getReportEngine();
-
-        /*
-        --- DISABLE JDBC FEATURE
-        // set the jdbc connection
-        String delegatorGroupHelperName = BirtContainer.getDelegatorGroupHelperName();
-        Delegator delegator = BirtContainer.getDelegator();
-        Debug.logInfo("Get the JDBC connection from group helper's name:" + delegatorGroupHelperName, module);
-        String helperName = delegator.getGroupHelperName(delegatorGroupHelperName);    // gets the helper (localderby, localmysql, localpostgres, etc.) for your entity group org.ofbiz
-        Connection connection = ConnectionFactory.getConnection(helperName);
-        engine.getConfig().getAppContext().put("OdaJDBCDriverPassInConnection", connection);
-        */
+        IReportEngine engine = BirtFactory.getReportEngine();
 
         IRunAndRenderTask task = engine.createRunAndRenderTask(design);
         if (birtLocale != null) {
-            Debug.logInfo("Set birt locale:" + birtLocale, module);
+            Debug.logInfo("Set BIRT locale:" + birtLocale, module);
             task.setLocale(birtLocale);
         }
 
         // set parameters if exists
         Map<String, Object> parameters = UtilGenerics.cast(context.get(BirtWorker.BIRT_PARAMETERS));
         if (parameters != null) {
-            Debug.logInfo("Set birt parameters:" + parameters, module);
+            Debug.logInfo("Set BIRT parameters:" + parameters, module);
             task.setParameterValues(parameters);
         }
 
         // set output options
         RenderOption options = new RenderOption();
-        if ("text/html".equalsIgnoreCase(contentType)) {
+        if ("text/html".equalsIgnoreCase(contentType)) { // HTML
             options.setOutputFormat(RenderOption.OUTPUT_FORMAT_HTML);
-        } else if ("application/pdf".equalsIgnoreCase(contentType)) {
-            options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
-        } else if ("application/vnd.ms-word".equalsIgnoreCase(contentType)) {
-            options.setOutputFormat("doc");
-        }  else if ("application/vnd.ms-excel".equalsIgnoreCase(contentType)) {
-            options.setOutputFormat("xls");
-        } else if ("application/vnd.ms-powerpoint".equalsIgnoreCase(contentType)) {
-            options.setOutputFormat("ppt");
-        } else {
-            throw new GeneralException("Unknown content type : " + contentType);
-        }
-
-        if (options.getOutputFormat().equalsIgnoreCase(RenderOption.OUTPUT_FORMAT_HTML)) {
-            // set html render options
             HTMLRenderOption htmlOptions = new HTMLRenderOption(options);
             htmlOptions.setImageDirectory(birtImageDirectory);
             htmlOptions.setBaseImageURL(birtImageDirectory);
             options.setImageHandler(imageHandler);
-        } else if (options.getOutputFormat().equalsIgnoreCase(RenderOption.OUTPUT_FORMAT_PDF)) {
-            // set pdf render options
+        } else if ("application/postscript".equalsIgnoreCase(contentType)) { // Post Script
+            options.setOutputFormat("postscript");
+        } else if ("application/pdf".equalsIgnoreCase(contentType)) { // PDF
+            options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
             PDFRenderOption pdfOptions = new PDFRenderOption(options);
             pdfOptions.setOption(IPDFRenderOption.PAGE_OVERFLOW, Boolean.TRUE );
-        } else if (options.getOutputFormat().equalsIgnoreCase("xls")) {
-            // set excel render options
+        } else if ("application/vnd.ms-word".equalsIgnoreCase(contentType)) { // MS Word
+            options.setOutputFormat("doc");
+        }  else if ("application/vnd.ms-excel".equalsIgnoreCase(contentType)) { // MS Excel
+            options.setOutputFormat("xls");
             new EXCELRenderOption(options);
+        } else if ("application/vnd.ms-powerpoint".equalsIgnoreCase(contentType)) { // MS Power Point
+            options.setOutputFormat("ppt");
+        } else if ("application/vnd.oasis.opendocument.text".equalsIgnoreCase(contentType)) { // Open Document Text
+            options.setOutputFormat("odt");
+        } else if ("application/vnd.oasis.opendocument.spreadsheet".equalsIgnoreCase(contentType)) { // Open Document Spreadsheet
+            options.setOutputFormat("ods");
+        } else if ("application/vnd.oasis.opendocument.presentation".equalsIgnoreCase(contentType)) { // Open Document Presentation
+            options.setOutputFormat("odp");
+        } else {
+            throw new GeneralException("Unknown content type : " + contentType);
         }
+
         options.setOutputStream(output);
         task.setRenderOption(options);
 
         // run report
-        Debug.logInfo("Birt's locale is: " + task.getLocale(), module);
+        Debug.logInfo("BIRT's locale is: " + task.getLocale(), module);
         Debug.logInfo("Run report's task", module);
         task.run();
         task.close();
     }
     
-    public static void setWebContextObjects(IReportEngine engine, HttpServletRequest request, HttpServletResponse response) {
+    /**
+     * set web context objects
+     * @param engine
+     * @param request
+     * @param response
+     */
+    public static void setWebContextObjects(Map<String, Object> appContext, HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         ServletContext servletContext = session.getServletContext();
-        
-        Map<String, Object> appContext = UtilGenerics.checkMap(engine.getConfig().getAppContext());
         
         // set delegator
         Delegator delegator = (Delegator) session.getAttribute("delegator");
@@ -167,7 +160,10 @@ public class BirtWorker {
             appContext.put("delegator", delegator);
         }
 
-        // set delegator
+        // set JDBC connection
+        //appContext.put("OdaJDBCDriverPassInConnection", connection);
+
+        // set dispatcher
         LocalDispatcher dispatcher = (LocalDispatcher) session.getAttribute("dispatcher");
         if (UtilValidate.isEmpty(dispatcher)) {
             dispatcher = (LocalDispatcher) servletContext.getAttribute("dispatcher");

@@ -75,8 +75,12 @@ under the License.
         <title>Which are the supported content types?</title>
         <para>text/html</para>
         <para>application/pdf</para>
+        <para>application/postscript</para>
         <para>application/vnd.ms-excel</para>
         <para>application/vnd.ms-word</para>
         <para>application/vnd.ms-powerpoint</para>
+        <para>application/vnd.oasis.opendocument.text</para>
+        <para>application/vnd.oasis.opendocument.spreadsheet</para>
+        <para>application/vnd.oasis.opendocument.presentation</para>
     </section>
 </section>

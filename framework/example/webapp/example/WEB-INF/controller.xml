@@ -219,7 +219,7 @@ under the License.
     <request-map uri="ExampleOsmGeoLocationPointSet3"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet3"/></request-map>
     <request-map uri="ExampleOsmGeoLocationPointSet4"><security https="true" auth="true"/><response name="success" type="view" value="ExampleOsmGeoLocationPointSet4"/></request-map>
 
-    <!-- Birt example Requests -->
+    <!-- BIRT example Requests -->
     <request-map uri="BirtMain">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="BirtMain"/>
@@ -362,7 +362,7 @@ under the License.
     <view-map name="ExampleOsmGeoLocationPointSet3" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet3"/>
     <view-map name="ExampleOsmGeoLocationPointSet4" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleOsmGeoLocationPointSet4"/>
 
-    <!-- Birt example View Mappings -->
+    <!-- BIRT example View Mappings -->
     <view-map name="BirtMain" type="screen" page="component://example/widget/example/BirtScreens.xml#main"/>
 
     <!-- Flot view mapping -->
@@ -385,9 +385,13 @@ under the License.
     <!--
         text/html
         application/pdf
+        application/postscript
         application/vnd.ms-excel
         application/vnd.ms-word
         application/vnd.ms-powerpoint
+        application/vnd.oasis.opendocument.text
+        application/vnd.oasis.opendocument.spreadsheet
+        application/vnd.oasis.opendocument.presentation
      -->
 
     <!-- end of view mappings -->

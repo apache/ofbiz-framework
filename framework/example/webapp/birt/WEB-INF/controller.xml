@@ -25,7 +25,7 @@ under the License.
          elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     
-    <description>Birt Component Site Configuration File</description>
+    <description>BIRT Component Site Configuration File</description>
     
     <!--
       These can be used to return the reports as views; make sure the classes are compiled and available
@@ -91,9 +91,13 @@ under the License.
     <!--
         text/html
         application/pdf
+        application/postscript
         application/vnd.ms-excel
         application/vnd.ms-word
         application/vnd.ms-powerpoint
+        application/vnd.oasis.opendocument.text
+        application/vnd.oasis.opendocument.spreadsheet
+        application/vnd.oasis.opendocument.presentation
      -->
     <view-map name="ViewHandler" type="birt" page="component://example/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
     <view-map name="chartViewHandler" type="birt" page="component://example/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>

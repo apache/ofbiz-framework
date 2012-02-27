@@ -18,20 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.birt.report.servlet;
 
-import javax.servlet.ServletConfig;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.report.context.IContext;
-import org.eclipse.birt.report.engine.api.IReportEngine;
-import org.eclipse.birt.report.presentation.aggregation.layout.EngineFragment;
-import org.eclipse.birt.report.presentation.aggregation.layout.RequesterFragment;
 import org.eclipse.birt.report.service.BirtReportServiceFactory;
+import org.eclipse.birt.report.service.ReportEngineService;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.birt.BirtWorker;
-import org.ofbiz.birt.container.BirtContainer;
 import org.ofbiz.birt.report.context.OFBizBirtContext;
-import org.ofbiz.birt.report.service.OFBizBirtViewerReportService;
 
 @SuppressWarnings("serial")
 public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngineServlet {
@@ -39,27 +37,13 @@ public class BirtEngineServlet extends org.eclipse.birt.report.servlet.BirtEngin
     public final static String module = BirtEngineServlet.class.getName();
 
     @Override
-    protected void __init( ServletConfig config )
-    {
-        BirtReportServiceFactory.init( new OFBizBirtViewerReportService( config
-                .getServletContext( ) ) );
-
-        engine = new EngineFragment( );
-
-        requester = new RequesterFragment( );
-        requester.buildComposite( );
-        requester.setJSPRootPath( "/webcontent/birt" );
-    }
-
-    @Override
-    protected IContext __getContext( HttpServletRequest request,
-            HttpServletResponse response ) throws BirtException
-    {
-        IReportEngine reportEngine = BirtContainer.getReportEngine();
-        BirtWorker.setWebContextObjects(reportEngine, request, response);
+    protected IContext __getContext(HttpServletRequest request, HttpServletResponse response) throws BirtException {
+        BirtReportServiceFactory.getReportService().setContext(getServletContext( ), null);
         
-        BirtReportServiceFactory.getReportService( ).setContext(
-                getServletContext( ), null );
+        // set app context
+        Map<String, Object> appContext = UtilGenerics.cast(ReportEngineService.getInstance().getEngineConfig().getAppContext());
+        BirtWorker.setWebContextObjects(appContext, request, response);
+        
         return new OFBizBirtContext( request, response );
     }
 }

@@ -81,6 +81,10 @@
         <value xml:lang="de">Verion des Content Knoten</value>
         <value xml:lang="en">Version of the base content node</value>
     </property>
+    <property key="ExampleBirtExamples">
+        <value xml:lang="en">BIRT Examples</value>
+        <value xml:lang="th">ตัวอย่าง BIRT</value>
+    </property>
     <property key="ExampleBirtChartReport">
         <value xml:lang="en">HTML chart report</value>
         <value xml:lang="fr">Graphiques HTML</value>

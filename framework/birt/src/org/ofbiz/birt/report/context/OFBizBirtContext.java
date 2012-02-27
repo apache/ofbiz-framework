@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.eclipse.birt.report.IBirtConstants;
 import org.eclipse.birt.report.context.BirtContext;
 import org.eclipse.birt.report.context.ViewerAttributeBean;
+import org.ofbiz.base.util.UtilValidate;
 
 public class OFBizBirtContext extends BirtContext {
 
@@ -36,12 +37,10 @@ public class OFBizBirtContext extends BirtContext {
 
     @Override
     protected void __init() {
-        this.bean = (ViewerAttributeBean) request
-                .getAttribute( IBirtConstants.ATTRIBUTE_BEAN );
-        if ( bean == null )
-        {
-            bean = new BirtViewerAttributeBean( request );
+        this.bean = (ViewerAttributeBean) request.getAttribute(IBirtConstants.ATTRIBUTE_BEAN);
+        if (UtilValidate.isEmpty(bean)) {
+            bean = new BirtViewerAttributeBean(request);
         }
-        request.setAttribute( IBirtConstants.ATTRIBUTE_BEAN, bean );
+        request.setAttribute(IBirtConstants.ATTRIBUTE_BEAN, bean);
     }
 }
