@@ -27,7 +27,7 @@ under the License.
         <set field-name="noteInfo" value="New task assignment"/>
         <set field-name="moreInfoItemName" value="workEffortId"/>
         <set field-name="moreInfoItemId" env-name="workEffortId"/>
-        <set field-name="moreInfoUrl" value="/projectmgr/control/taskView/>"/>
+        <set field-name="moreInfoUrl" value="/projectmgr/control/taskView"/>
         <action service="createSystemInfoNote" mode="sync"/>
     </eca>
 
