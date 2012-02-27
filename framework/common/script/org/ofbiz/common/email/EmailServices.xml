@@ -38,11 +38,8 @@ under the License.
                     <result-to-field result-name="emailAddress" field="parameters.sendTo"/>
                 </call-service>
                 <if-empty field="parameters.sendTo">
-                    <log level="error" message="PartyId: ${parameters.partyIdTo} has no valid email address!"></log>
-                    <add-error>
-                        <fail-property resource="CommonUiLabels" property="CommonEmailNotValid"/>
-                    </add-error>
-                    <check-errors/>
+                    <log level="info" message="PartyId: ${parameters.partyIdTo} has no valid email address, not sending email"></log>
+                    <return/>
                 </if-empty>
             </if-empty>
         </if-not-empty>
