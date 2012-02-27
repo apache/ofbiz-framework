@@ -184,12 +184,8 @@ under the License.
 
     <service name="orderAdjustmentPermissionCheck" engine="simple"
             location="component://order/script/org/ofbiz/order/order/OrderSimpleMethods.xml" invoke="orderAdjustmentPermissionCheck">
-        <description>
-            Performs a party contact mech security check. The userLogin partyId must equal the partyId parameter.
-            Only the order owner should be able to cancel an item from Ecommerce.
-        </description>
+        <description>Permission service for the creation and editing of order adjustments</description>
         <implements service="permissionInterface"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="createOrderAdjustment" default-entity-name="OrderAdjustment" engine="simple"
