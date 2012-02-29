@@ -39,6 +39,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -74,7 +75,7 @@ public class GiftCertificateServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         String cardNumber = null;
@@ -175,7 +176,7 @@ public class GiftCertificateServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         String finAccountId = null;
@@ -263,7 +264,7 @@ public class GiftCertificateServices {
         }
         String currencyUom = (String) context.get("currency");
         if (UtilValidate.isEmpty(currencyUom)) {
-            currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         // validate the amount
@@ -350,7 +351,7 @@ public class GiftCertificateServices {
         }
 
         // TODO: get the real currency from context
-        //String currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+        //String currencyUom = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         // get the balance
         BigDecimal balance = finAccount.get("availableBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("availableBalance");
 
@@ -370,7 +371,7 @@ public class GiftCertificateServices {
         String currency = (String) context.get("currency");
         // make sure we have a currency
         if (currency == null) {
-            currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         // get the authorizations
@@ -469,7 +470,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         // obtain the order information
@@ -647,7 +648,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         Map<String, Object> refundCtx = FastMap.newInstance();
@@ -714,7 +715,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         // get the product store
@@ -971,7 +972,7 @@ public class GiftCertificateServices {
 
         // make sure we have a currency
         if (currency == null) {
-            currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
         // get the product store

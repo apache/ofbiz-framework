@@ -49,6 +49,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -737,11 +738,11 @@ public class ProductsExportToGoogle {
                buildGoogleBaseConfigContext.put("postItemsUrl", googleBaseConfig.getString("postItemsUrl"));
             }
         } else {
-            buildGoogleBaseConfigContext.put("developerKey", UtilProperties.getPropertyValue(configString, "googleBaseExport.developerKey"));
-            buildGoogleBaseConfigContext.put("authenticationUrl", UtilProperties.getPropertyValue(configString, "googleBaseExport.authenticationUrl"));
-            buildGoogleBaseConfigContext.put("accountEmail", UtilProperties.getPropertyValue(configString, "googleBaseExport.accountEmail"));
-            buildGoogleBaseConfigContext.put("accountPassword", UtilProperties.getPropertyValue(configString, "googleBaseExport.accountPassword"));
-            buildGoogleBaseConfigContext.put("postItemsUrl", UtilProperties.getPropertyValue(configString, "googleBaseExport.postItemsUrl"));
+            buildGoogleBaseConfigContext.put("developerKey", EntityUtilProperties.getPropertyValue(configString, "googleBaseExport.developerKey", delegator));
+            buildGoogleBaseConfigContext.put("authenticationUrl", EntityUtilProperties.getPropertyValue(configString, "googleBaseExport.authenticationUrl", delegator));
+            buildGoogleBaseConfigContext.put("accountEmail", EntityUtilProperties.getPropertyValue(configString, "googleBaseExport.accountEmail", delegator));
+            buildGoogleBaseConfigContext.put("accountPassword", EntityUtilProperties.getPropertyValue(configString, "googleBaseExport.accountPassword", delegator));
+            buildGoogleBaseConfigContext.put("postItemsUrl", EntityUtilProperties.getPropertyValue(configString, "googleBaseExport.postItemsUrl", delegator));
         }
         return buildGoogleBaseConfigContext;
     }

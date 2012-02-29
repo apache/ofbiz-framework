@@ -53,6 +53,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.contact.ContactHelper;
@@ -3089,7 +3090,7 @@ public class PaymentGatewayServices {
         // this record is not to be stored, just passed to the service for use
 
         // get the default currency
-        String currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+        String currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
 
         // prepare the auth context
         Map<String, Object> authContext = FastMap.newInstance();
@@ -3254,7 +3255,7 @@ public class PaymentGatewayServices {
             requestContext.put("billToParty", orh.getBillToParty());
             requestContext.put("billToEmail", billToEmail);
             requestContext.put("referenceCode", referenceCode);
-            String currency = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+            String currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
             requestContext.put("currency", currency);
             requestContext.put("creditAmount", context.get("amount"));
         } else {

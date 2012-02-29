@@ -31,6 +31,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
@@ -246,7 +247,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         this.productStoreId = productStoreId;
         this.webSiteId = webSiteId;
         this.locale = (locale != null) ? locale : Locale.getDefault();
-        this.currencyUom = (currencyUom != null) ? currencyUom : UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+        this.currencyUom = (currencyUom != null) ? currencyUom : EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         this.billToCustomerPartyId = billToCustomerPartyId;
         this.billFromVendorPartyId = billFromVendorPartyId;
 
