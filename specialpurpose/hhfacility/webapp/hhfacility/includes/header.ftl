@@ -17,53 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<html>
-<head>
-<script language="JavaScript" type="text/javascript">
-<!--
-    // Setting of field focus to initialise the
-    // handheld forms - critical when scanner is being used.
-    focusField = "";
-    function fieldFocus() {
-        if (focusField != "") {
-            document.forms[0].elements[focusField].focus();
-            document.forms[0].elements[focusField].select();
-        }
-    }
 
-    // Function to move to next field when enter pressed
-    // event is passed as firefox needs it to get keycode instead
-    // of using window.event, return false will stop form submit
-    function enter(e,nextfield) {
-        if (e.keyCode == 13) {
-            nextfield.focus();
-            nextfield.select();
-            return false;
-        } else {
-          return true;
-        }
-    }
-//-->
-</script>
-<link rel="stylesheet" href="/images/maincss.css" type="text/css">
-<title>Hand Held Facility</title>
-</head>
-<body onload=fieldFocus()>
-<#assign facility = parameters.facility?if_exists>
-<table width=240 height=250 align=top>
-<tr height=24>
-<td width=100% align=top class='boxbottom'>
-<!--<p align="right">${Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()}</p>-->
-<span class="boxhead">
-<a href="<@ofbizUrl>/main</@ofbizUrl>">Main</a>
-<#if facility?has_content><a href="<@ofbizUrl>/menu?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Menu</a></#if>
-<a href="<@ofbizUrl>/logout</@ofbizUrl>">Logout</a>
-</span>
-</td>
-</tr>
-<tr class="boxtop">
-<td width=100%>
-</td>
-</tr>
-<tr height=196>
-<td width=100% align=top class='boxbottom'>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>${applicationTitle?if_exists}</title>
+    <link rel="stylesheet" href="/images/jquery/jquery.mobile-1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.css" />
+    <script src="/images/jquery/jquery-1.7.min.js" type="text/javascript"></script>
+    <script src="/images/jquery/jquery.mobile-1.1.0-rc.1/jquery.mobile-1.1.0-rc.1.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div data-role="header">
+      <a href="<@ofbizUrl>/main</@ofbizUrl>">Main</a>
+      <h1>${title?if_exists}</h1>
+      <a href="<@ofbizUrl>/logout</@ofbizUrl>">Logout</a>
+    </div>

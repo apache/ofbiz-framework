@@ -36,7 +36,7 @@ under the License.
     <form name="POEnter" type="single" target="polinereceipt"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
-        <field name="OrderId" required-field="true" title="${uiLabelMap.OrderPONumber}"><text size="10"/></field>
+        <field name="OrderId" title="${uiLabelMap.OrderPONumber}"><text size="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -44,7 +44,7 @@ under the License.
     <form name="ProductEnter" type="single" target="productqtyreceipt"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
-        <field name="productId"  required-field="true"><text size="10" default-value=""/></field>
+        <field name="productId"><text size="10" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -64,7 +64,7 @@ under the License.
     <form name="FindProductStock" type="single" target="findstocktake"
             default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId"><hidden/></field>
-        <field name="idValue"  required-field="true"><text size="10" default-value=""/></field>
+        <field name="idValue"><text size="10" default-value=""/></field>
         <field name="submitButton" title="${uiLabelMap.CommonNext}" widget-style="standardSubmit"><submit button-type="button"/></field>
     </form>
 
