@@ -49,6 +49,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.party.party.PartyHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -538,7 +539,7 @@ public class FedexServices {
             } else if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
                 currencyCode = shipment.getString("currencyUomId");
             } else {
-                currencyCode = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                currencyCode = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
             }
 
             // Get and validate origin postal address

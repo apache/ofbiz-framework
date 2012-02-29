@@ -56,6 +56,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.DispatchContext;
@@ -304,7 +305,7 @@ public class UpsServices {
             } else if (UtilValidate.isNotEmpty(shipment.getString("currencyUomId"))) {
                 currencyCode = shipment.getString("currencyUomId");
             } else {
-                currencyCode = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                currencyCode = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
             }
 
             // Okay, start putting the XML together...

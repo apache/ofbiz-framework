@@ -44,6 +44,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -244,19 +245,19 @@ public class ProductsExportToEbay {
                 if (listingFormat.equals("FixedPriceItem")) {
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
-                        startPriceCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                        startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
                     }
                     startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
                 }else{
                     Element startPriceElem = UtilXml.addChildElementValue(itemElem, "StartPrice", startPrice, itemDocument);
                     if (UtilValidate.isEmpty(startPriceCurrencyUomId)) {
-                        startPriceCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                        startPriceCurrencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
                     }
                     startPriceElem.setAttribute("currencyID", startPriceCurrencyUomId);
                     if (UtilValidate.isNotEmpty(buyItNowPrice)) {
                         Element buyNowPriceElem = UtilXml.addChildElementValue(itemElem, "BuyItNowPrice", buyItNowPrice, itemDocument);
                     if (UtilValidate.isEmpty(buyItNowCurrencyUomId)) {
-                        buyItNowCurrencyUomId = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
+                        buyItNowCurrencyUomId = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
                     }
                     buyNowPriceElem.setAttribute("currencyID", buyItNowCurrencyUomId);
                     }
