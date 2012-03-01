@@ -30,7 +30,6 @@ under the License.
   </head>
   <body>
     <div data-role="header">
-      <a href="<@ofbizUrl>/main</@ofbizUrl>">Main</a>
+      <a href="<@ofbizUrl>/menu?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Main</a>
       <h1>${title?if_exists}</h1>
-      <a href="<@ofbizUrl>/logout</@ofbizUrl>">Logout</a>
     </div>

@@ -43,8 +43,9 @@ under the License.
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="view" value="menu"/>
     </request-map>
+
     <request-map uri="receipt">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="receipt"/>
@@ -137,7 +138,7 @@ under the License.
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#facilities"/>
+    <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#menu"/>
     <view-map name="login" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
 
     <view-map name="receipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#receipt"/>
