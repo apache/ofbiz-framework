@@ -140,6 +140,7 @@ under the License.
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#menu"/>
     <view-map name="login" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
+    <view-map name="ajaxLogin" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#login"/>
 
     <view-map name="receipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#receipt"/>
     <view-map name="poreceipt" type="screen" page="component://hhfacility/widget/hhfacility/FacilityScreens.xml#poreceipt"/>
