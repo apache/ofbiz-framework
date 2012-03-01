@@ -33,6 +33,11 @@ under the License.
 
     <screen name="CommonDecorator">
         <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="applicationTitle" value="mFacility"/>
+            </actions>
             <widgets>
                 <include-screen name="GlobalDecorator"/>
             </widgets>
@@ -42,19 +47,23 @@ under the License.
     <screen name="FacilityDecorator">
         <section>
             <actions>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="applicationTitle" value="mFacility"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="parameters.facility"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonDecorator">
                     <decorator-section name="body">
-                        <container>
-                            <label style="h2">${parameters.facility.facilityName}</label>
-                        </container>
-                        <decorator-section-include name="body"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field="parameters.facilityId"/></not>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <include-screen name="facilities"/>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -262,13 +271,8 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="CommonDecorator">
-                    <decorator-section name="body">
-                        <include-form name="ListFacilities" location="component://hhfacility/widget/hhfacility/FacilityForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
+                <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/facilities.ftl"/></html></platform-specific>
             </widgets>
         </section>
     </screen>
-
 </screens>

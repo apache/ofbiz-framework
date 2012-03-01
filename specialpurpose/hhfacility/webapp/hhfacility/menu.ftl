@@ -17,13 +17,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign facility = parameters.facility>
 <div data-role="content">
 <ul data-role="listview">
-<li><a accesskey="1" href="<@ofbizUrl>/receipt?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Goods Receipt</a></li>
-<li><a accesskey="2" href="<@ofbizUrl>/movement?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Inventory Movement</a></li>
-<li><a accesskey="3" href="<@ofbizUrl>/picking?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Picking</a></li>
-<li><a accesskey="4" href="<@ofbizUrl>/packing?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Packing</a></li>
-<li><a accesskey="5" href="<@ofbizUrl>/stocktake?facilityId=${facility.facilityId?if_exists}</@ofbizUrl>">Stocktake</a></li>
+<li><a accesskey="1" href="<@ofbizUrl>/receipt?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Goods Receipt</a></li>
+<li><a accesskey="2" href="<@ofbizUrl>/movement?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Inventory Movement</a></li>
+<li><a accesskey="3" href="<@ofbizUrl>/picking?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Picking</a></li>
+<li><a accesskey="4" href="<@ofbizUrl>/packing?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Packing</a></li>
+<li><a accesskey="5" href="<@ofbizUrl>/stocktake?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Stocktake</a></li>
 </ul>
+</div>
+
+<#-- Setting Menu. -->
+<div data-role="controlgroup">
+  <a data-role="button" data-icon="gear" href="<@ofbizUrl>/menu</@ofbizUrl>">Select Facility</a>
+  <a data-role="button" data-icon="info" href="<@ofbizUrl>/logout</@ofbizUrl>">Logout</a>
 </div>
