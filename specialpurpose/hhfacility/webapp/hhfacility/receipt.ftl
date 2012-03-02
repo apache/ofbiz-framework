@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign facility = parameters.facility>
+<#assign facility = parameters.facilityId>
 
 <div data-role="content">
     <ul data-role="listview">

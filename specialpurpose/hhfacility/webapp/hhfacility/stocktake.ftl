@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign facility = parameters.facility>
+<#assign facility = parameters.facilityId>
 <#if parameters.idValue?if_exists?has_content>
     <#assign idValue = parameters.idValue?has_content>
 </#if>
