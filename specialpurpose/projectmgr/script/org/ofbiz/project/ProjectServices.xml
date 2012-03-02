@@ -1063,7 +1063,6 @@
                 <condition-expr field-name="taskId" from-field="highInfo.taskId" ignore-if-empty="true"/>
             </condition-list>
             <select-field field-name="actualEntryStartDate"/>
-            <select-field field-name="actualEntryCompletionDate"/>
         </entity-condition>
         <first-from-list entry="timeEntriesInfo" list="summaryEntriesInfos"/>
         <if-not-empty field="timeEntriesInfo">
@@ -1077,21 +1076,6 @@
                 </condition>
                 <then>
                     <set field="highInfo.actualStartDate" from-field="timeEntriesInfo.actualEntryStartDate"/>
-                </then>
-            </if>
-          </if-not-empty>
-          <!-- update actual completion date by the max date form sub tasks associated TimeEntries 
-          (if after actualCompletionDate field) -->
-          <if-not-empty field="timeEntriesInfo.actualEntryCompletionDate">
-            <if>
-                <condition>
-                    <or>
-                        <if-empty field="highInfo.actualCompletionDate"/>
-                        <if-compare-field field="highInfo.actualCompletionDate" operator="less" type="Timestamp" to-field="timeEntriesInfo.actualEntryCompletionDate"/>
-                    </or>
-                </condition>
-                <then>
-                    <set field="highInfo.actualCompletionDate" from-field="timeEntriesInfo.actualEntryCompletionDate"/>
                 </then>
             </if>
           </if-not-empty>

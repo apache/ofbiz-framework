@@ -338,7 +338,6 @@ under the License.
     <alias entity-alias="WET" field="workEffortId" name="taskId" group-by="true"/>
 
     <alias entity-alias="TE" field="fromDate" name="actualEntryStartDate" function="min"/>
-    <alias entity-alias="TE" field="thruDate" name="actualEntryCompletionDate" function="max"/>
 
     <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
