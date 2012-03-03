@@ -43,14 +43,15 @@ metaKeywords = null;
 // get the product entity
 if (productId) {
     product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
-
-    // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
-    if("Y".equals(product.isVirtual) && "Y".equals(product.isVariant)){
-        virtualVariantProductAssocs = delegator.findByAndCache("ProductAssoc", ["productId": productId, "productAssocTypeId": "ALTERNATIVE_PACKAGE"], ["-fromDate"]);
-        virtualVariantProductAssocs = EntityUtil.filterByDate(virtualVariantProductAssocs);
-        if (virtualVariantProductAssocs) {
-            productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs);
-            product = productAssoc.getRelatedOneCache("AssocProduct");
+    if (product) {
+        // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
+        if("Y".equals(product.isVirtual) && "Y".equals(product.isVariant)){
+            virtualVariantProductAssocs = delegator.findByAndCache("ProductAssoc", ["productId": productId, "productAssocTypeId": "ALTERNATIVE_PACKAGE"], ["-fromDate"]);
+            virtualVariantProductAssocs = EntityUtil.filterByDate(virtualVariantProductAssocs);
+            if (virtualVariantProductAssocs) {
+                productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs);
+                product = productAssoc.getRelatedOneCache("AssocProduct");
+            }
         }
     }
     
