@@ -21,12 +21,7 @@ package org.ofbiz.minilang.method.envops;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.codehaus.groovy.runtime.InvokerHelper;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.GroovyUtil;
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -56,14 +51,14 @@ public class SetOperation extends MethodOperation {
     protected String type;
     protected boolean setIfNull; // default to false
     protected boolean setIfEmpty; // default to true
-    protected Class<?> parsedGroovyScript = null;
+    protected Class<?> parsedScript = null;
 
     public SetOperation(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.field = new ContextAccessor<Object>(element.getAttribute("field"));
         String fromFieldStr = element.getAttribute("from-field");
         if (fromFieldStr != null && fromFieldStr.startsWith("groovy:")) {
-            this.parsedGroovyScript = GroovyUtil.parseClass(fromFieldStr.replace("groovy:", ""));
+            this.parsedScript = ScriptUtil.parseScript("groovy", fromFieldStr.replace("groovy:", ""));
         }
         this.fromField = new ContextAccessor<Object>(fromFieldStr);
         this.valueExdr = FlexibleStringExpander.getInstance(element.getAttribute("value"));
@@ -82,8 +77,12 @@ public class SetOperation extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         Object newValue = null;
-        if (this.parsedGroovyScript != null) {
-            newValue = InvokerHelper.createScript(this.parsedGroovyScript, GroovyUtil.getBinding(methodContext.getEnvMap())).run();
+        if (this.parsedScript != null) {
+            try {
+                newValue = ScriptUtil.evaluate("groovy", null, this.parsedScript, methodContext.getEnvMap());
+            } catch (Exception exc) {
+                Debug.logWarning(exc, "Error evaluating scriptlet [" + this + "]; error was: " + exc, module);
+            }
         } else if (!this.fromField.isEmpty()) {
             newValue = this.fromField.get(methodContext);
             if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.toString() + "]: " + newValue, module);

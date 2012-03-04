@@ -34,12 +34,10 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.w3c.dom.Element;
-import org.codehaus.groovy.runtime.InvokerHelper;
-import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
@@ -390,7 +388,6 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class Script extends ModelWidgetAction {
-        protected static final Object[] EMPTY_ARGS = {};
         protected String location;
         protected String method;
 
@@ -403,24 +400,7 @@ public abstract class ModelWidgetAction implements Serializable {
 
         @Override
         public void runAction(Map<String, Object> context) throws GeneralException {
-            if (location.endsWith(".bsh")) {
-                try {
-                    BshUtil.runBshAtLocation(location, context);
-                } catch (GeneralException e) {
-                    throw new GeneralException("Error running BSH script at location [" + location + "]", e);
-                }
-            } else if (location.endsWith(".groovy")) {
-                try {
-                    groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), GroovyUtil.getBinding(context));
-                    if (UtilValidate.isEmpty(method)) {
-                        script.run();
-                    } else {
-                        script.invokeMethod(method, EMPTY_ARGS);
-                    }
-                } catch (GeneralException e) {
-                    throw new GeneralException("Error running Groovy script at location [" + location + "]", e);
-                }
-            } else if (location.endsWith(".xml")) {
+            if (location.endsWith(".xml")) {
                 Map<String, Object> localContext = FastMap.newInstance();
                 localContext.putAll(context);
                 DispatchContext ctx = WidgetWorker.getDispatcher(context).getDispatchContext();
@@ -432,7 +412,7 @@ public abstract class ModelWidgetAction implements Serializable {
                     throw new GeneralException("Error running simple method at location [" + location + "]", e);
                 }
             } else {
-                throw new GeneralException("For widget script actions the script type is not yet supported for location: [" + location + "]");
+                ScriptUtil.executeScript(this.location, this.method, context);
             }
         }
     }
