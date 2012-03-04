@@ -18,77 +18,255 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import org.codehaus.groovy.runtime.InvokerHelper;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
+import javax.script.Bindings;
+import javax.script.Compilable;
+import javax.script.CompiledScript;
+import javax.script.Invocable;
+import javax.script.ScriptContext;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import javax.script.SimpleScriptContext;
+
+import org.codehaus.groovy.runtime.InvokerHelper;
+import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.cache.UtilCache;
+
+/**
+ * Scripting utility methods. This is a facade class that is used to connect OFBiz to JSR-223 scripting engines.
+ *
+ */
 public final class ScriptUtil {
 
     public static final String module = ScriptUtil.class.getName();
+    private static UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
 
-    /* TODO: the "evaluate" and "executeScript" method method could be enhanced to implement JSR-223 using code like:
-              import javax.script.ScriptEngineManager;
-              import javax.script.ScriptEngine;
-              ...
-              ScriptEngineManager manager = new ScriptEngineManager();
-              ScriptEngine scriptEngine = manager.getEngineByExtension(location.substring(location.indexOf(".") + 1));
-              ...
-              Object result = scriptEngine.eval(scriptFileReader, scriptContext);
+    /**
+     * Returns a compiled script.
+     * 
+     * @param filePath Script path and file name.
+     * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
+     * @throws FileNotFoundException
+     * @throws IllegalArgumentException
+     * @throws ScriptException
+     * @throws MalformedURLException
+     */
+    public static CompiledScript compileScriptFile(String filePath) throws FileNotFoundException, ScriptException, MalformedURLException {
+        Assert.notNull("filePath", filePath);
+        CompiledScript script = parsedScripts.get(filePath);
+        if (script == null) {
+            ScriptEngineManager manager = new ScriptEngineManager();
+            ScriptEngine engine = manager.getEngineByExtension(getFileExtension(filePath));
+            if (engine == null) {
+                throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
+            }
+            try {
+                Compilable compilableEngine = (Compilable) engine;
+                URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+                FileReader reader = new FileReader(new File(scriptUrl.getFile()));
+                script = compilableEngine.compile(reader);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
+                }
+            } catch (ClassCastException e) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
+                }
+            }
+            if (script != null) {
+                parsedScripts.putIfAbsent(filePath, script);
+            }
+        }
+        return script;
+    }
 
-           However it may make more sense to keep a custom way to load and execute Groovy scripts and implement JSR-223
-           for the other scripting languages: in this way the OFBiz framework will support any script language with JSR-223
-           but will still have specialized support for Groovy (where we could/should inject OFBiz specific utility methods
-           and create a security sandbox for Groovy dynamic code).
-    */
-    public static Object evaluate(String language, String script, Class<?> scriptClass, Map inputMap) throws Exception {
-        /*
-            TODO: for JSR-223 we could use:
-              ScriptEngine scriptEngine = manager.getEngineByName(location);
-        */
-        Object result = null;
-        if ("groovy".equals(language)) {
-            if (scriptClass == null) {
-                scriptClass = ScriptUtil.parseScript(language, script);
+    /**
+     * Returns a compiled script.
+     * 
+     * @param language
+     * @param script
+     * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
+     * @throws IllegalArgumentException
+     * @throws ScriptException
+     */
+    public static CompiledScript compileScriptString(String language, String script) throws ScriptException {
+        Assert.notNull("language", language, "script", script);
+        String cacheKey = language.concat("://").concat(script);
+        CompiledScript compiledScript = parsedScripts.get(cacheKey);
+        if (compiledScript == null) {
+            ScriptEngineManager manager = new ScriptEngineManager();
+            ScriptEngine engine = manager.getEngineByName(language);
+            if (engine == null) {
+                throw new IllegalArgumentException("The script type is not supported for language: " + language);
             }
-            if (scriptClass != null) {
-                result = InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(inputMap)).run();
+            try {
+                Compilable compilableEngine = (Compilable) engine;
+                compiledScript = compilableEngine.compile(script);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Compiled script [" + script + "] using engine " + engine.getClass().getName(), module);
+                }
+            } catch (ClassCastException e) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Script engine " + engine.getClass().getName() + " does not implement Compilable", module);
+                }
             }
-        } else if ("bsh".equals(language)) {
-            result = BshUtil.eval(script, UtilMisc.makeMapWritable(inputMap));
+            if (script != null) {
+                parsedScripts.putIfAbsent(cacheKey, compiledScript);
+            }
+        }
+        return compiledScript;
+    }
+
+    /**
+     * Returns a <code>ScriptContext</code> that contains the members of <code>context</code>.
+     * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
+     * each thread must create its own <code>ScriptContext</code> and pass it to the
+     * <code>CompiledScript</code> eval method.</p>
+     * 
+     * @param context
+     * @return
+     */
+    public static ScriptContext createScriptContext(Map<String, ? extends Object> context) {
+        ScriptContext scriptContext = new SimpleScriptContext();
+        Bindings bindings = scriptContext.getBindings(ScriptContext.ENGINE_SCOPE);
+        bindings.putAll(context);
+        bindings.put("context", context);
+        return scriptContext;
+    }
+
+    /**
+     * Executes a script <code>String</code> and returns the result.
+     * 
+     * @param language
+     * @param script
+     * @param scriptClass
+     * @param inputMap
+     * @return The script result.
+     * @throws Exception
+     */
+    public static Object evaluate(String language, String script, Class<?> scriptClass, Map<String, ? extends Object> inputMap) throws Exception {
+        Assert.notNull("inputMap", inputMap);
+        if (scriptClass != null) {
+            return InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(inputMap)).run();
+        }
+        // TODO: Remove beanshell check when all beanshell code has been removed.
+        if ("bsh".equals(language)) {
+            return BshUtil.eval(script, UtilMisc.makeMapWritable(inputMap));
+        }
+        try {
+            CompiledScript compiledScript = compileScriptString(language, script);
+            if (compiledScript != null) {
+                return executeScript(compiledScript, null, inputMap);
+            }
+            ScriptEngineManager manager = new ScriptEngineManager();
+            ScriptEngine engine = manager.getEngineByName(language);
+            if (engine == null) {
+                throw new IllegalArgumentException("The script type is not supported for language: " + language);
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
+            }
+            ScriptContext scriptContext = createScriptContext(inputMap);
+            return engine.eval(script, scriptContext);
+        } catch (Exception e) {
+            String errMsg = "Error running " + language + " script [" + script + "]: " + e.toString();
+            Debug.logWarning(e, errMsg, module);
+            throw new IllegalArgumentException(errMsg);
+        }
+    }
+
+    /**
+     * Executes a compiled script and returns the result.
+     * 
+     * @param script Compiled script.
+     * @param functionName Optional function or method to invoke.
+     * @param context Script execution context.
+     * @return The script result.
+     * @throws IllegalArgumentException
+     */
+    public static Object executeScript(CompiledScript script, String functionName, Map<String, ? extends Object> context) throws ScriptException, NoSuchMethodException {
+        Assert.notNull("script", script, "context", context);
+        ScriptContext scriptContext = createScriptContext(context);
+        Object result = script.eval(scriptContext);
+        if (UtilValidate.isNotEmpty(functionName)) {
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Invoking function/method " + functionName, module);
+            }
+            ScriptEngine engine = script.getEngine();
+            try {
+                Invocable invocableEngine = (Invocable) engine;
+                result = invocableEngine.invokeFunction(functionName, EMPTY_ARGS);
+            } catch (ClassCastException e) {
+                throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
+            }
         }
         return result;
     }
 
-    public static void executeScript(String location, String method, Map<String, Object> context) {
-        /*
-            TODO: for JSR-223 we could use:
-              ScriptEngine scriptEngine = manager.getEngineByExtension(location.substring(location.indexOf(".") + 1));
-        */
-        if (location.endsWith(".bsh")) {
-            try {
-                BshUtil.runBshAtLocation(location, context);
-            } catch (GeneralException e) {
-                String errMsg = "Error running BSH script at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
+    /**
+     * Executes the script at the specified location and returns the result.
+     * 
+     * @param filePath Script path and file name.
+     * @param functionName Optional function or method to invoke.
+     * @param context Script execution context.
+     * @return The script result.
+     * @throws IllegalArgumentException
+     */
+    public static Object executeScript(String filePath, String functionName, Map<String, ? extends Object> context) {
+        Assert.notNull("filePath", filePath, "context", context);
+        try {
+            CompiledScript script = compileScriptFile(filePath);
+            if (script != null) {
+                return executeScript(script, functionName, context);
             }
-        } else if (location.endsWith(".groovy")) {
-            try {
-                groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), GroovyUtil.getBinding(context));
-                if (UtilValidate.isEmpty(method)) {
-                    script.run();
-                } else {
-                    script.invokeMethod(method, EMPTY_ARGS);
+            String fileExtension = getFileExtension(filePath);
+            // TODO: Remove beanshell check when all beanshell code has been removed.
+            if ("bsh".equals(fileExtension)) {
+                return BshUtil.runBshAtLocation(filePath, context);
+            } else {
+                ScriptEngineManager manager = new ScriptEngineManager();
+                ScriptEngine engine = manager.getEngineByExtension(fileExtension);
+                if (engine == null) {
+                    throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
                 }
-            } catch (GeneralException e) {
-                String errMsg = "Error running Groovy script at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
+                }
+                ScriptContext scriptContext = createScriptContext(context);
+                URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+                FileReader reader = new FileReader(new File(scriptUrl.getFile()));
+                Object result = engine.eval(reader, scriptContext);
+                if (UtilValidate.isNotEmpty(functionName)) {
+                    try {
+                        Invocable invocableEngine = (Invocable) engine;
+                        result = invocableEngine.invokeFunction(functionName, EMPTY_ARGS);
+                    } catch (ClassCastException e) {
+                        throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
+                    }
+                }
+                return result;
             }
-        } else {
-            throw new IllegalArgumentException("The script type is not yet support for location:" + location);
+        } catch (Exception e) {
+            String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
+            Debug.logWarning(e, errMsg, module);
+            throw new IllegalArgumentException(errMsg);
         }
+    }
+
+    private static String getFileExtension(String filePath) {
+        int pos = filePath.lastIndexOf(".");
+        if (pos == -1) {
+            throw new IllegalArgumentException("Extension missing in script file name: " + filePath);
+        }
+        return filePath.substring(pos + 1);
     }
 
     public static Class<?> parseScript(String language, String script) {
