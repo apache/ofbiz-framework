@@ -44,7 +44,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}">
             <hyperlink target="${currentFormName}" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
@@ -106,7 +106,7 @@ under the License.
             </radio>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="checkStatusId" position="2" title="${uiLabelMap.CommonStatus}">
             <radio no-current-selected-key="${checkRadio}">
                 <option key="IM_APPROVED/${productId}" description="${uiLabelMap.FormFieldTitle_approve}"/>
@@ -153,7 +153,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
@@ -193,7 +193,7 @@ under the License.
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
@@ -247,7 +247,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" position="2" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId" position="2"><display/></field>
         <field name="dataResourceId" position="2"><display/></field>
@@ -305,7 +305,7 @@ under the License.
         <field name="dataResourceId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="_rowSubmit" title=" " widget-style="hidden"><check all-checked="true"/></field>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="action" use-when="${groovy: return context.drMimeTypeId == 'image/jpeg';}" title="${uiLabelMap.ImageManagementAction}" event="onChange" action="javascript:
             document.ListImageManage.action='checkAction?productId=${productId}&amp;contentId=${contentId}&amp;dataResourceId=${dataResourceId}'; 
             document.ListImageManage.submit();">
@@ -381,7 +381,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </actions>
-        <field name="drObjectInfo" title=" "><image width="100"/></field>
+        <field name="drObjectInfo" title=" "><image style="cssImgLarge"/></field>
     </form>
     
     <form name="ImageFrames" type="single" title="" target="uploadFrame" header-row-style="header-row" default-table-style="basic-table" target-window="_self">
@@ -622,7 +622,7 @@ under the License.
             <set field="drObjectInfo" from-field="contentDataResourceViews[0].drObjectInfo"/>
         </row-actions>
         <field name="productId"><hidden/></field>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="status"><display description="Uploaded"/></field>
@@ -660,7 +660,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
         </field>
@@ -711,7 +711,7 @@ under the License.
             <set field="ApprovedBy" value="${userLoginAndPartyDetails[0].firstName} ${userLoginAndPartyDetails[0].middleName} ${userLoginAndPartyDetails[0].lastName}"/>
         </row-actions>
         <field name="productId"><hidden/></field>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}"><display/></field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
@@ -748,7 +748,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}">
             <hyperlink target="ListImageReplace" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
@@ -789,7 +789,7 @@ under the License.
                 <field-map field-name="contentId"/>
             </entity-and>
         </row-actions>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}">
             <hyperlink target="ListImageReplace" description="${drDataResourceName}">
                 <parameter param-name="productId"/>
@@ -814,7 +814,7 @@ under the License.
                 <condition-expr field-name="contentTypeId" value="IMAGE_FRAME"/>
             </entity-condition>
         </actions>
-        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image width="100"/></field>
+        <field name="drObjectInfo" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
         <field name="drDataResourceName" title="${uiLabelMap.ImageManagementImageName}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${drDataResourceName}" target="javascript:set_value('${contentId}')"/>
         </field>

@@ -2620,20 +2620,19 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderImageField(Appendable writer, Map<String, Object> context, ImageField imageField) throws IOException {
         ModelFormField modelFormField = imageField.getModelFormField();
-
-        String border = Integer.toString(imageField.getBorder());
         String value = modelFormField.getEntry(context, imageField.getValue(context));
-        String width = "";
-        String height = "";
         String description = imageField.getDescription(context);
         String alternate = imageField.getAlternate(context);
+        String style = imageField.getStyle(context);
 
         if(UtilValidate.isEmpty(description)){
             description = imageField.getModelFormField().getTitle(context);
         }
+
         if(UtilValidate.isEmpty(alternate)){
             alternate = description;
         }
+
         if (UtilValidate.isNotEmpty(value)) {
             if (!value.startsWith("http")) {
                 StringBuilder buffer = new StringBuilder();
@@ -2643,14 +2642,6 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         } else if (value == null) {
             value = "";
-        }
-
-        if (imageField.getWidth() != null) {
-            width = Integer.toString(imageField.getWidth());
-        }
-
-        if (imageField.getHeight() != null) {
-            height = Integer.toString(imageField.getHeight());
         }
 
         String event = modelFormField.getEvent();
@@ -2664,12 +2655,8 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(encode(description, modelFormField, context));
         sr.append("\" alternate=\"");
         sr.append(encode(alternate, modelFormField, context));
-        sr.append("\" border=\"");
-        sr.append(border);
-        sr.append("\" width=\"");
-        sr.append(width);
-        sr.append("\" height=\"");
-        sr.append(height);
+        sr.append("\" style=\"");
+        sr.append(style);
         sr.append("\" event=\"");
         sr.append(event==null?"":event);
         sr.append("\" action=\"");

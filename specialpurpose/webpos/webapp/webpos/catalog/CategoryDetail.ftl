@@ -39,7 +39,7 @@ under the License.
         <li id="${button}" class="notSelectedButton">
           <#if smallImageUrl?string?has_content>
             <a href="${addItemLink}">
-              <img src="<@ofbizContentUrl>${smallImageUrl}</@ofbizContentUrl>" align="center" width="60px" height="60px" border="0"/>
+              <img src="<@ofbizContentUrl>${smallImageUrl}</@ofbizContentUrl>" align="center" class="cssImgSmall"/>
             </a>
           </#if>
         </li>
