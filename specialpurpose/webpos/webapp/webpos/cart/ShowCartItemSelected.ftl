@@ -31,7 +31,7 @@ under the License.
         </#if>
         <#if smallImageUrl?string?has_content>
         <div id="CartItemSelectedLeft">
-          <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>
+          <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
         </div>
         </#if>
         <div id="CartItemSelectedRight">

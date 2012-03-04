@@ -2733,29 +2733,17 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         writer.append("<img ");
 
-
         String value = modelFormField.getEntry(context, imageField.getValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             writer.append(" src=\"");
             appendContentUrl(writer, value);
             writer.append('"');
         }
-
-        writer.append(" border=\"");
-        writer.append(Integer.toString(imageField.getBorder()));
-        writer.append('"');
-
-        Integer width = imageField.getWidth();
-        if (width != null) {
-            writer.append(" width=\"");
-            writer.append(width.toString());
-            writer.append('"');
-        }
-
-        Integer height = imageField.getHeight();
-        if (height != null) {
-            writer.append(" height=\"");
-            writer.append(height.toString());
+        
+        value = modelFormField.getEntry(context, imageField.getStyle(context));
+        if (UtilValidate.isNotEmpty(value)) {
+            writer.append(" class=\"");
+            appendContentUrl(writer, value);
             writer.append('"');
         }
 

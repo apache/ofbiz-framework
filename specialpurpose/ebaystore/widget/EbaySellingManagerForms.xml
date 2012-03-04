@@ -608,8 +608,8 @@ under the License.
         <field name="productStoreId"><hidden value="${parameters.productStoreId}"/></field>
         <field name="itemId"><hidden value="${parameters.itemId}"/></field>
         <field name="listingType"><hidden/></field>
-        <field name="pictureURL" title="Picture" use-when="pictureURL==null"><image width="100" value="/images/defaultImage.jpg"></image></field>
-        <field name="pictureURL" title="Picture" use-when="pictureURL!=null"><image width="150"></image></field>
+        <field name="pictureURL" title="Picture" use-when="pictureURL==null"><image value="/images/defaultImage.jpg" style="cssImgLarge"/></field>
+        <field name="pictureURL" title="Picture" use-when="pictureURL!=null"><image style="cssImgLarge"/></field>
         <field name="imageData" title="${uiLabelMap.CommonUpload}"><file/></field>
         <field name="title"><text size="50"/></field>
         <field name="description" encode-output="true"><textarea/></field>

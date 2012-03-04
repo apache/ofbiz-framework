@@ -115,7 +115,7 @@ function insertImageName(size,nameValue) {
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductSmallImage}
                         <#if (configItem.imageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${configItem.imageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Image" src="<@ofbizContentUrl>${configItem.imageUrl}</@ofbizContentUrl>" height="40" width="40" /></a>
+                            <a href="<@ofbizContentUrl>${configItem.imageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Image" src="<@ofbizContentUrl>${configItem.imageUrl}</@ofbizContentUrl>" class="cssImgSmall" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>

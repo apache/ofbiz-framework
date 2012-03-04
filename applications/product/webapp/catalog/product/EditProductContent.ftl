@@ -74,7 +74,7 @@ under the License.
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductSmallImage}</b></div>
     <#if (product.smallImageUrl)?exists>
-                    <a href="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" height="40" width="40"/></a>
+                    <a href="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
                 <td>&nbsp;</td>
@@ -94,7 +94,7 @@ under the License.
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductMediumImage}</b></div>
     <#if (product.mediumImageUrl)?exists>
-                    <a href="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Medium Image" src="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
+                    <a href="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Medium Image" src="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
                 <td>&nbsp;</td>
@@ -114,7 +114,7 @@ under the License.
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductLargeImage}</b></div>
     <#if (product.largeImageUrl)?exists>
-                    <a href="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Large Image" src="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
+                    <a href="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Large Image" src="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
                 <td>&nbsp;</td>
@@ -134,7 +134,7 @@ under the License.
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductDetailImage}</b></div>
     <#if (product.detailImageUrl)?exists>
-                    <a href="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Detail Image" src="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
+                    <a href="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Detail Image" src="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
                 <td>&nbsp;</td>
@@ -154,7 +154,7 @@ under the License.
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductOriginalImage}</b></div>
     <#if (product.originalImageUrl)?exists>
-                    <a href="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Original Image" src="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" height="40" width="40"/></a>
+                    <a href="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Original Image" src="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
                 <td>&nbsp;</td>

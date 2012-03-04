@@ -2141,6 +2141,30 @@ overflow: auto;
 width: 30em;
 }
 
+img.cssImgXLarge {
+	/*border: 1px black solid;*/
+	max-width: 200px;
+	max-height: 150px;
+}
+
+img.cssImgLarge {
+	/*border: 1px black solid;*/
+	max-width: 100px;
+	max-height: 75px;
+}
+
+img.cssImgStandard {
+	/*border: 1px black solid;*/
+	max-width: 70px;
+	max-height: 52px;
+}
+
+img.cssImgSmall {
+	/*border: 1px black solid;*/
+	max-width: 50px;
+	max-height: 37px;
+}
+
 /* From http://jqueryui.com/demos/autocomplete/maxheight.html */
 /* When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large */
 .ui-autocomplete {

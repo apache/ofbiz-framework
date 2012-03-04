@@ -2165,6 +2165,30 @@ height: 1px;
     padding-top: 4px;
 }
 
+img.cssImgXLarge {
+	/*border: 1px black solid;*/
+	max-width: 200px;
+	max-height: 150px;
+}
+
+img.cssImgLarge {
+	/*border: 1px black solid;*/
+	max-width: 100px;
+	max-height: 75px;
+}
+
+img.cssImgStandard {
+	/*border: 1px black solid;*/
+	max-width: 70px;
+	max-height: 52px;
+}
+
+img.cssImgSmall {
+	/*border: 1px black solid;*/
+	max-width: 50px;
+	max-height: 37px;
+}
+
 /* ========================================================== */
 /* ===== JavaScript jQuery widgets                      ===== */
 /* ========================================================== */
@@ -2818,4 +2842,3 @@ width:10%
  */
 .ui-progressbar { height:2em; text-align: left; }
 .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
-

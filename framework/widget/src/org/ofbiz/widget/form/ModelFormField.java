@@ -3653,14 +3653,12 @@ public class ModelFormField {
     }
 
     public static class ImageField extends FieldInfo {
-        protected int border = 0;
-        protected Integer width;
-        protected Integer height;
         protected FlexibleStringExpander defaultValue;
         protected FlexibleStringExpander value;
         protected SubHyperlink subHyperlink;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander alternate;
+        protected FlexibleStringExpander style;
 
         protected ImageField() {
             super();
@@ -3679,39 +3677,7 @@ public class ModelFormField {
             this.setValue(element.getAttribute("value"));
             this.setDescription(element.getAttribute("description"));
             this.setAlternate(element.getAttribute("alternate"));
-
-            String borderStr = element.getAttribute("border");
-            try {
-                border = Integer.parseInt(borderStr);
-            } catch (Exception e) {
-                if (UtilValidate.isNotEmpty(borderStr)) {
-                    Debug.logError("Could not parse the border value of the text element: [" + borderStr + "], setting to the default of " + border, module);
-                }
-            }
-
-            String widthStr = element.getAttribute("width");
-            try {
-                width = Integer.valueOf(widthStr);
-            } catch (Exception e) {
-                width = null;
-                if (UtilValidate.isNotEmpty(widthStr)) {
-                    Debug.logError(
-                        "Could not parse the size value of the text element: [" + widthStr + "], setting to null; default of no width will be used",
-                        module);
-                }
-            }
-
-            String heightStr = element.getAttribute("height");
-            try {
-                height = Integer.valueOf(heightStr);
-            } catch (Exception e) {
-                height = null;
-                if (UtilValidate.isNotEmpty(heightStr)) {
-                    Debug.logError(
-                        "Could not parse the size value of the text element: [" + heightStr + "], setting to null; default of no height will be used",
-                        module);
-                }
-            }
+            this.setStyle(element.getAttribute("style"));
 
             Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
             if (subHyperlinkElement != null) {
@@ -3737,16 +3703,6 @@ public class ModelFormField {
         }
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
-        }
-        public Integer getWidth() {
-            return width;
-        }
-        public Integer getHeight() {
-            return height;
-        }
-
-        public int getBorder() {
-            return border;
         }
 
         public String getDefaultValue(Map<String, Object> context) {
@@ -3785,6 +3741,14 @@ public class ModelFormField {
             this.alternate = FlexibleStringExpander.getInstance(alternate);
         }
 
+        public String getStyle(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.style)) return this.style.expandString(context);
+            return "";
+        }
+
+        public void setStyle(String style) {
+            this.style = FlexibleStringExpander.getInstance(style);
+        }
     }
 
     public static class ContainerField extends FieldInfo {
