@@ -22,17 +22,11 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 
 import java.util.Map;
 
-public class ScriptUtil {
-    public static final String module = ScriptUtil.class.getName();
-    protected static final Object[] EMPTY_ARGS = {};
+public final class ScriptUtil {
 
-    public static Class<?> parseScript(String language, String script) {
-        Class<?> scriptClass = null;
-        if ("groovy".equals(language)) {
-            scriptClass = GroovyUtil.parseClass(script);
-        }
-        return scriptClass;
-    }
+    public static final String module = ScriptUtil.class.getName();
+    private static final Object[] EMPTY_ARGS = {};
+
     /* TODO: the "evaluate" and "executeScript" method method could be enhanced to implement JSR-223 using code like:
               import javax.script.ScriptEngineManager;
               import javax.script.ScriptEngine;
@@ -96,4 +90,14 @@ public class ScriptUtil {
             throw new IllegalArgumentException("The script type is not yet support for location:" + location);
         }
     }
+
+    public static Class<?> parseScript(String language, String script) {
+        Class<?> scriptClass = null;
+        if ("groovy".equals(language)) {
+            scriptClass = GroovyUtil.parseClass(script);
+        }
+        return scriptClass;
+    }
+
+    private ScriptUtil() {}
 }
