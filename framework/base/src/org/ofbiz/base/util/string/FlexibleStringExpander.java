@@ -29,19 +29,8 @@ import javax.el.PropertyNotFoundException;
 
 import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.base.lang.SourceMonitored;
-import org.ofbiz.base.util.BshUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GroovyUtil;
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.codehaus.groovy.runtime.InvokerHelper;
-
-import bsh.EvalError;
 
 /** Expands String values that contain Unified Expression Language (JSR 245)
  * syntax. This class also supports the execution of bsh scripts by using the
@@ -268,10 +257,10 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
             }
             if (expression.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "bsh:", if so treat the rest of the expression as a bsh scriptlet
-                strElems.add(new BshElem(chars, start, Math.min(end + 1, start + length) - start, start + 6, end - start - 6));
+                strElems.add(new ScriptElem(chars, start, Math.min(end + 1, start + length) - start, start + 6, end - start - 6));
             } else if (expression.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "groovy:", if so treat the rest of the expression as a groovy scriptlet
-                strElems.add(new GroovyElem(chars, start, Math.min(end + 1, start + length) - start, start + 9, end - start - 9));
+                strElems.add(new ScriptElem(chars, start, Math.min(end + 1, start + length) - start, start + 9, end - start - 9));
             } else {
                 // Scan for matching closing bracket
                 int ptr = expression.indexOf(openBracket, start + 2);
@@ -488,35 +477,6 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         }
     }
 
-    /** An object that represents a <code>${bsh:}</code> expression. */
-    protected static class BshElem extends ArrayOffsetString {
-        private final int parseStart;
-        private final int parseLength;
-
-        protected BshElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
-            super(chars, offset, length);
-            this.parseStart = parseStart;
-            this.parseLength = parseLength;
-        }
-
-        @Override
-        protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            try {
-                Object obj = BshUtil.eval(new String(this.chars, this.parseStart, this.parseLength), UtilMisc.makeMapWritable(context));
-                if (obj != null) {
-                    return obj;
-                } else {
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("BSH scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
-                    }
-                }
-            } catch (EvalError e) {
-                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + this + "], inserting nothing; error was: " + e, module);
-            }
-            return null;
-        }
-    }
-
     /** An object that represents a <code>String</code> constant portion of an expression. */
     protected static class ConstSimpleElem extends FlexibleStringExpander {
         protected ConstSimpleElem(char[] chars) {
@@ -613,29 +573,36 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         }
     }
 
-    /** An object that represents a <code>${groovy:}</code> expression. */
-    protected static class GroovyElem extends ArrayOffsetString {
+    /** An object that represents a <code>${[groovy|bsh]:}</code> expression. */
+    protected static class ScriptElem extends ArrayOffsetString {
+        private final String language;
+        private final int parseStart;
+        private final int parseLength;
+        private final String script;
         protected final Class<?> parsedScript;
 
-        protected GroovyElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
+        protected ScriptElem(char[] chars, int offset, int length, int parseStart, int parseLength) {
             super(chars, offset, length);
-            this.parsedScript = GroovyUtil.parseClass(new String(chars, parseStart, parseLength));
+            this.language = new String(this.chars, offset + 2, parseStart - offset - 3);
+            this.parseStart = parseStart;
+            this.parseLength = parseLength;
+            this.script = new String(this.chars, this.parseStart, this.parseLength);
+            this.parsedScript = ScriptUtil.parseScript(this.language, this.script);
         }
 
         @Override
         protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object obj = InvokerHelper.createScript(this.parsedScript, GroovyUtil.getBinding(context)).run();
+                Object obj = ScriptUtil.evaluate(this.language, this.script, this.parsedScript, context);
                 if (obj != null) {
                     return obj;
                 } else {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Groovy scriptlet evaluated to null [" + this + "], got no return so inserting nothing.", module);
+                        Debug.logVerbose("Scriptlet evaluated to null [" + this + "].", module);
                     }
                 }
             } catch (Exception e) {
-                // handle other things, like the groovy.lang.MissingPropertyException
-                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this + "], inserting nothing; error was: " + e, module);
+                Debug.logWarning(e, "Error evaluating scriptlet [" + this + "]; error was: " + e, module);
             }
             return null;
         }

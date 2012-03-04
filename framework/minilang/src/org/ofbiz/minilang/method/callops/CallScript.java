@@ -23,11 +23,7 @@ import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.codehaus.groovy.runtime.InvokerHelper;
-import org.ofbiz.base.util.BshUtil;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.GroovyUtil;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -47,8 +43,7 @@ public class CallScript extends MethodOperation {
     }
     
     public static final String module = CallScript.class.getName();
-    protected static final Object[] EMPTY_ARGS = {};
-    
+
     private ContextAccessor<List<Object>> errorListAcsr;
     private String location;
     private String method;
@@ -73,31 +68,14 @@ public class CallScript extends MethodOperation {
         }
 
         Map<String, Object> context = methodContext.getEnvMap();        
-        if (location.endsWith(".bsh")) {
-            try {
-                BshUtil.runBshAtLocation(location, context);
-            } catch (GeneralException e) {
-                messages.add("Error running BSH script at location [" + location + "]: " + e.getMessage());
-            }
-        } else if (location.endsWith(".groovy")) {
-            try {
-                groovy.lang.Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(location), GroovyUtil.getBinding(context));
-                if (UtilValidate.isEmpty(method)) {
-                    script.run();
-                } else {
-                    script.invokeMethod(method, EMPTY_ARGS);
-                }
-            } catch (GeneralException e) {                
-                messages.add("Error running Groovy script at location [" + location + "]: " + e.getMessage());
-            }
-        } else if (location.endsWith(".xml")) {                                   
+        if (location.endsWith(".xml")) {
             try {
                 SimpleMethod.runSimpleMethod(location, method, methodContext);                
             } catch (MiniLangException e) {
                 messages.add("Error running simple method at location [" + location + "]: " + e.getMessage());
             }
         } else {
-            messages.add("Unsupported script type [" + location + "]");            
+            ScriptUtil.executeScript(this.location, this.method, context);
         }
         
         // update the method environment
