@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 import javax.script.Bindings;
@@ -31,6 +32,7 @@ import javax.script.CompiledScript;
 import javax.script.Invocable;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import javax.script.SimpleScriptContext;
@@ -46,8 +48,39 @@ import org.ofbiz.base.util.cache.UtilCache;
 public final class ScriptUtil {
 
     public static final String module = ScriptUtil.class.getName();
-    private static UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
+    private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
+
+    static {
+        if (Debug.infoOn()) {
+            ScriptEngineManager manager = new ScriptEngineManager();
+            List<ScriptEngineFactory> engines = manager.getEngineFactories();
+            if (engines.isEmpty()) {
+                Debug.logInfo("No scripting engines were found.", module);
+            } else {
+                Debug.logInfo("The following " + engines.size() + " scripting engines were found:", module);
+                for (ScriptEngineFactory engine : engines) {
+                    Debug.logInfo("Engine name: " + engine.getEngineName(), module);
+                    Debug.logInfo("  Version: " + engine.getEngineVersion(), module);
+                    Debug.logInfo("  Language: " + engine.getLanguageName(), module);
+                    List<String> extensions = engine.getExtensions();
+                    if (extensions.size() > 0) {
+                        Debug.logInfo("  Engine supports the following extensions:", module);
+                        for (String e : extensions) {
+                            Debug.logInfo("    " + e, module);
+                        }
+                    }
+                    List<String> shortNames = engine.getNames();
+                    if (shortNames.size() > 0) {
+                        Debug.logInfo("  Engine has the following short names:", module);
+                        for (String n : engine.getNames()) {
+                            Debug.logInfo("    " + n, module);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Returns a compiled script.
