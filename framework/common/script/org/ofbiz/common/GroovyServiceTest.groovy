@@ -23,13 +23,14 @@ import org.ofbiz.base.util.Debug;
 Debug.logInfo("-=-=-=- TEST GROOVY SERVICE -=-=-=-", "");
 result = ServiceUtil.returnSuccess();
 if (context.message) {
-    message = context.message;
-    result.successMessage = "Got message [$message] and finished fine";
+    String message = context.message;
+    result.successMessage = (String) "Got message [$message] and finished fine";
     result.result = message;
     Debug.logInfo("----- Message is: $message -----", "");
 } else {
-    result.successMessage = "Got no message but finished fine anyway";
-    result.result = "[no message received]";
+    result.successMessage = (String) "Got no message but finished fine anyway";
+    result.result = (String) "[no message received]";
+    Debug.logInfo("----- No message received -----", "");
 }
 
 return result;
