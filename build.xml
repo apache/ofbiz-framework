@@ -20,7 +20,7 @@ under the License.
 
 <project name="OFBiz Main Build" default="build" basedir="."
     xmlns:ivy="antlib:org.apache.ivy.ant"
-    xmlns:sonar="antlib:org.sonar.ant">
+    xmlns:sonar="antlib:org.sonar.ant:sonar">
 
     <import file="macros.xml"/>
     <property name="site.dir" value="../site"/>
@@ -49,9 +49,9 @@ under the License.
         </taskdef>
     </target>
     <target name="sonar-init">
-        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+        <taskdef uri="antlib:org.sonar.ant:sonar" resource="org/sonar/ant/antlib.xml">
             <classpath>
-                <pathelement location="framework/base/lib/sonar-ant-task-1.0.jar" />
+                <pathelement location="framework/base/lib/sonar-ant-task-1.3.jar" />
             </classpath>
         </taskdef>
     </target>
@@ -1003,67 +1003,39 @@ under the License.
             <arg value="--xml"/>
         </exec>
         <xmlproperty file="runtime/svninfo_tmp.xml"/>
-        <sonar:sonar workDir="runtime/sonar" key="org.apache:ofbiz" version="${info.entry.commit(revision)}">
-            <sources>
-                <!--framework-->
-                <path location="framework/appserver/src" />
-                <path location="framework/base/src" />
-                <path location="framework/bi/src" />
-                <path location="framework/catalina/src" />
-                <path location="framework/common/src" />
-                <path location="framework/datafile/src" />
-                <path location="framework/entity/src" />
-                <path location="framework/entityext/src" />
-                <path location="framework/example/src" />
-                <path location="framework/geronimo/src" />
-                <path location="framework/guiapp/src" />
-                <path location="framework/jetty/src" />
-                <path location="framework/minilang/src" />
-                <path location="framework/security/src" />
-                <path location="framework/service/src" />
-                <path location="framework/sql/src" />
-                <path location="framework/start/src" />
-                <path location="framework/testtools/src" />
-                <path location="framework/webapp/src" />
-                <path location="framework/webslinger/src" />
-                <path location="framework/webtools/src" />
-                <path location="framework/widget/src" />
-                <!--applications-->
-                <path location="applications/accounting/src" />
-                <path location="applications/commonext/src" />
-                <path location="applications/content/src" />
-                <path location="applications/humanres/src" />
-                <path location="applications/manufacturing/src" />
-                <path location="applications/marketing/src" />
-                <path location="applications/order/src" />
-                <path location="applications/party/src" />
-                <path location="applications/product/src" />
-                <path location="applications/securityext/src" />
-                <path location="applications/workeffort/src" />
-                <!--specialpurpose-->
-                <path location="specialpurpose/assetmaint/src" />
-                <path location="specialpurpose/ebay/src" />
-                <path location="specialpurpose/ebaystore/src" />
-                <path location="specialpurpose/ecommerce/src" />
-                <path location="specialpurpose/googlebase/src" />
-                <path location="specialpurpose/googlecheckout/src" />
-                <path location="specialpurpose/hhfacility/src" />
-                <path location="specialpurpose/oagis/src" />
-                <path location="specialpurpose/pos/src" />
-            </sources>
-            <property key="sonar.dynamicAnalysis" value="reuseReports" />
-            <property key="sonar.cobertura.reportPath" value="runtime/logs/cobertura-report/coverage.xml"/>
-            <property key="sonar.java.source" value="1.6" />
-            <property key="sonar.java.target" value="1.6" />
-            <property key="sonar.jdbc.url"
-               value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />
-            <property key="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
-            <property key="sonar.jdbc.username" value="${sonar.jdbc.username}" />
-            <property key="sonar.jdbc.password" value="${sonar.jdbc.password}" />
 
-            <!-- SERVER ON A REMOTE HOST -->
-            <property key="sonar.host.url" value="${sonar.host.url}" /> 
-        </sonar:sonar>
+        <property name="sonar.sources" value="framework/appserver/src, framework/base/src, framework/bi/src, framework/birt/src,
+            framework/catalina/src, framework/common/src, framework/datafile/src, framework/entity/src, framework/entityext/src,
+            framework/example/src, framework/geronimo/src, framework/guiapp/src, framework/jetty/src, framework/jcr/src,
+            framework/minilang/src, framework/security/src, framework/service/src, framework/sql/src, framework/start/src,
+            framework/testtools/src, framework/webapp/src, framework/webslinger/src, framework/webtools/src, framework/widget/src,
+            applications/accounting/src, applications/commonext/src, applications/content/src, applications/humanres/src,
+            applications/manufacturing/src, applications/marketing/src, applications/order/src, applications/party/src,
+            applications/product/src, applications/securityext/src, applications/workeffort/src, specialpurpose/assetmaint/src,
+            specialpurpose/ebay/src, specialpurpose/ebaystore/src, specialpurpose/ecommerce/src, specialpurpose/googlebase/src,
+            specialpurpose/googlecheckout/src, specialpurpose/hhfacility/src, specialpurpose/oagis/src, specialpurpose/pos/src,
+            specialpurpose/scrum/src" />
+        <property name="sonar.tests" value="framework/base/src/org/ofbiz/base/test, framework/entity/src/org/ofbiz/entity/test,
+            framework/jcr/src/org/ofbiz/jcr/test, framework/service/src/org/ofbiz/service/test, framework/sql/src/org/ofbiz/sql/test,
+            applications/accounting/src/org/ofbiz/accounting/test, applications/content/src/org/ofbiz/content/test,
+            applications/product/src/org/ofbiz/product/test, applications/product/src/org/ofbiz/shipment/test,
+            applications/securityext/src/org/ofbiz/securityext/test" />
+
+        <!-- list of optional Sonar properties -->
+        <property name="sonar.projectName" value="Apache OFBiz" />
+        <sonar:sonar key="org.apache:ofbiz" version="${info.entry.commit(revision)}" xmlns:sonar="antlib:org.sonar.ant:sonar"/>
+        <property name="sonar.dynamicAnalysis" value="reuseReports" />
+        <property name="sonar.cobertura.reportPath" value="runtime/logs/cobertura-report/coverage.xml"/>
+        <property name="sonar.java.source" value="1.6" />
+        <property name="sonar.java.target" value="1.6" />
+        <property name="sonar.jdbc.url"
+           value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />
+        <property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="sonar.jdbc.username" value="${sonar.jdbc.username}" />
+        <property name="sonar.jdbc.password" value="${sonar.jdbc.password}" />
+
+        <!-- SERVER ON A REMOTE HOST -->
+        <property name="sonar.host.url" value="${sonar.host.url}" />
     </target>
 
     <target name="full-sonar">
