@@ -102,7 +102,6 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                     String productCategoryId = getStringArg(args, "productCategoryId");
                     String productId = getStringArg(args, "productId");
                     String url = "";
-                    String CONTROL_MOUNT_POINT = "control";
                     
                     Object prefix = env.getVariable("urlPrefix");
                     String viewSize = getStringArg(args, "viewSize");
@@ -128,19 +127,14 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
                         LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
                         Locale locale = (Locale) args.get("locale");
-                        String prefixUrl = prefix.toString();
-                        // remove control path from the prefix URL
-                        if(prefixUrl.contains(CONTROL_MOUNT_POINT)){
-                            prefixUrl = prefixUrl.replaceAll("/"+CONTROL_MOUNT_POINT, ""); 
-                        }
                         if (UtilValidate.isNotEmpty(productId)) {
                             GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, "text/html");
-                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, prefixUrl, previousCategoryId, productCategoryId, productId);
+                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
                         } else {
                             GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, "text/html");
-                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, prefixUrl, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
                         }
                         out.write(url.toString());
                     } else {
