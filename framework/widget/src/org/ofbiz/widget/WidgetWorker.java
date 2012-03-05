@@ -20,7 +20,10 @@ package org.ofbiz.widget;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.util.Map;
 import java.util.TimeZone;
@@ -339,7 +342,12 @@ public class WidgetWorker {
 
         public String getValue(Map<String, Object> context) {
             if (this.value != null) {
-                return this.value.expandString(context);
+                try {
+                    return URLEncoder.encode(this.value.expandString(context), Charset.forName("UTF-8").displayName());
+                } catch (UnsupportedEncodingException e) {
+                    Debug.logError(e, module);
+                    return this.value.expandString(context);
+                }
             }
             
             Object retVal = null;
@@ -370,7 +378,11 @@ public class WidgetWorker {
                     DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
                     returnValue = df.format((java.util.Date) retVal);
                 } else {
-                    returnValue = retVal.toString();
+                    try {
+                        returnValue = URLEncoder.encode(retVal.toString(), Charset.forName("UTF-8").displayName());
+                    } catch (UnsupportedEncodingException e) {
+                        Debug.logError(e, module);
+                    }
                 }
                 return returnValue;
             } else {
