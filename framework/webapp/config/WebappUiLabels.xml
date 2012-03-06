@@ -218,7 +218,7 @@
     </property>
     <property key="coreEvents.service_dispatcher_exception">
         <value xml:lang="de">Der Service Dispatcher hat eine Exception geworfen</value>
-        <value xml:lang="en">Service dispatcher threw an exception</value>
+        <value xml:lang="en">Service dispatcher threw an exception: </value>
         <value xml:lang="es">Service dispatcher lanzo una excepción</value>
         <value xml:lang="fr">Le service dispatcher a envoyer une exception</value>
         <value xml:lang="it">Dispatcher servizio ha lanciato una eccezione</value>
