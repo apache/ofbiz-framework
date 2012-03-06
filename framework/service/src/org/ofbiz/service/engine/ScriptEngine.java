@@ -76,7 +76,6 @@ public final class ScriptEngine extends GenericAsyncEngine {
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute("result");
             }
-            Debug.logInfo("resultObj = " + resultObj, module);
             if (resultObj != null && resultObj instanceof Map<?, ?>) {
                 return cast(resultObj);
             }
@@ -84,7 +83,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
             result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), "OUT"));
             return result;
         } catch (Exception e) {
-            Debug.logInfo(e, module);
+            Debug.logWarning(e, "Error invoking service " + modelService.name + ": ", module);
             throw new GenericServiceException(e);
         }
     }
