@@ -172,6 +172,38 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
+    <service name="testGroovyMethod" engine="groovy" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="testMethod">
+        <description>Test Groovy Script Service Method Invocation</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testScriptEngineGroovy" engine="script" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="">
+        <description>Test Script Engine With Groovy Script</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testScriptEngineGroovyMethod" engine="script" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="testMethod">
+        <description>Test Script Engine With Groovy Script Method Invocation</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testScriptEngineJavaScript" engine="script" location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="">
+        <description>Test Script Engine With JavaScript</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <!-- JavaScript function invocations are not working, so commenting this out for now
+    <service name="testScriptEngineJavaScriptFunction" engine="script" location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="testFunction">
+        <description>Test Script Engine With JavaScript Function Invocation</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+     -->
+
     <service name="testJMSQueue" engine="jms" location="serviceMessenger" invoke="testScv">
         <description>Test JMS Queue service</description>
         <attribute name="message" type="String" mode="IN"/>

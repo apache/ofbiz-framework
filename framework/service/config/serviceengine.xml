@@ -40,20 +40,23 @@ under the License.
         </thread-pool>
 
         <!-- Service Engine Configuration -->
-        <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
         <engine name="entity-auto" class="org.ofbiz.service.engine.EntityAutoEngine"/>
-        <engine name="groovy" class="org.ofbiz.service.engine.GroovyEngine"/>
         <engine name="group" class="org.ofbiz.service.group.ServiceGroupEngine"/>
-        <engine name="http" class="org.ofbiz.service.engine.HttpEngine"/>
         <engine name="interface" class="org.ofbiz.service.engine.InterfaceEngine"/>
-        <engine name="jacl" class="org.ofbiz.service.engine.BSFEngine"/>
         <engine name="java" class="org.ofbiz.service.engine.StandardJavaEngine"/>
-        <engine name="javascript" class="org.ofbiz.service.engine.BSFEngine"/>
-        <engine name="jms" class="org.ofbiz.service.jms.JmsServiceEngine"/>
-        <engine name="jpython" class="org.ofbiz.service.engine.BSFEngine"/>
-        <engine name="route" class="org.ofbiz.service.engine.RouteEngine"/>
-        <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
         <engine name="simple" class="org.ofbiz.minilang.SimpleServiceEngine"/>
+        <engine name="script" class="org.ofbiz.service.engine.ScriptEngine"/>
+        <!-- Engines that can be replaced by the generic script engine -->
+        <engine name="bsh" class="org.ofbiz.service.engine.BeanShellEngine"/>
+        <engine name="groovy" class="org.ofbiz.service.engine.GroovyEngine"/>
+        <engine name="jacl" class="org.ofbiz.service.engine.BSFEngine"/>
+        <engine name="javascript" class="org.ofbiz.service.engine.ScriptEngine"/>
+        <engine name="jpython" class="org.ofbiz.service.engine.BSFEngine"/>
+        <!--  -->
+        <engine name="route" class="org.ofbiz.service.engine.RouteEngine"/>
+        <engine name="http" class="org.ofbiz.service.engine.HttpEngine"/>
+        <engine name="jms" class="org.ofbiz.service.jms.JmsServiceEngine"/>
+        <engine name="rmi" class="org.ofbiz.service.rmi.RmiServiceEngine"/>
         <engine name="soap" class="org.ofbiz.service.engine.SOAPClientEngine"/>
         <engine name="ofbiz-workflow" class="org.ofbiz.workflow.WorkflowEngine"/>
         <engine name="workflow" class="org.ofbiz.shark.service.SharkServiceEngine"/>
@@ -63,6 +66,7 @@ under the License.
             <parameter name="login" value="admin"/>
             <parameter name="password" value="ofbiz"/>
         </engine>
+
         <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>
 
