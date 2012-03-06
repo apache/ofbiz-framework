@@ -160,12 +160,6 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>    
     
-    <service name="testBsh" engine="bsh" location="component://common/script/org/ofbiz/common/BshServiceTest.bsh" invoke="">
-        <description>Test BeanShell Script Service</description>
-        <attribute name="message" type="String" mode="IN" optional="true"/>
-        <attribute name="result" type="String" mode="OUT"/>
-    </service>
-
     <service name="testGroovy" engine="groovy" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
@@ -174,6 +168,12 @@ under the License.
 
     <service name="testGroovyMethod" engine="groovy" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="testMethod">
         <description>Test Groovy Script Service Method Invocation</description>
+        <attribute name="message" type="String" mode="IN" optional="true"/>
+        <attribute name="result" type="String" mode="OUT"/>
+    </service>
+
+    <service name="testScriptEngineBsh" engine="script" location="component://common/script/org/ofbiz/common/BshServiceTest.bsh" invoke="">
+        <description>Test BeanShell Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
@@ -196,13 +196,11 @@ under the License.
         <attribute name="result" type="String" mode="OUT"/>
     </service>
 
-    <!-- JavaScript function invocations are not working, so commenting this out for now
     <service name="testScriptEngineJavaScriptFunction" engine="script" location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="testFunction">
         <description>Test Script Engine With JavaScript Function Invocation</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
-     -->
 
     <service name="testJMSQueue" engine="jms" location="serviceMessenger" invoke="testScv">
         <description>Test JMS Queue service</description>

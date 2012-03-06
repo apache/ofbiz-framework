@@ -190,10 +190,6 @@ public final class ScriptUtil {
         if (scriptClass != null) {
             return InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(inputMap)).run();
         }
-        // TODO: Remove beanshell check when all beanshell code has been removed.
-        if ("bsh".equals(language)) {
-            return BshUtil.eval(script, UtilMisc.makeMapWritable(inputMap));
-        }
         try {
             CompiledScript compiledScript = compileScriptString(language, script);
             if (compiledScript != null) {
@@ -311,11 +307,6 @@ public final class ScriptUtil {
     public static Object executeScript(String filePath, String functionName, Map<String, ? extends Object> context, Object[] args) {
         Assert.notNull("filePath", filePath, "context", context);
         try {
-            String fileExtension = getFileExtension(filePath);
-            // TODO: Remove beanshell check when all beanshell code has been removed.
-            if ("bsh".equals(fileExtension)) {
-                return BshUtil.runBshAtLocation(filePath, context);
-            }
             return executeScript(filePath, functionName, createScriptContext(context), args);
         } catch (Exception e) {
             String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
