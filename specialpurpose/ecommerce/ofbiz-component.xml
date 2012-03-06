@@ -27,7 +27,6 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/EcommerceSecurityData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProduct.xml"/>
-    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductImages.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoSurvey.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalShipping.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoShipping.xml"/>
@@ -40,6 +39,7 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRelatedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoConfigurator.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoRentalProduct.xml"/>
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductImages.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTaxAuthority.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderPeopleData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoOrderTestData.xml"/>
