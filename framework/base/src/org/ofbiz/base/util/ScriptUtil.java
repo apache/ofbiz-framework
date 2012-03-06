@@ -197,7 +197,7 @@ public final class ScriptUtil {
         try {
             CompiledScript compiledScript = compileScriptString(language, script);
             if (compiledScript != null) {
-                return executeScript(compiledScript, null, inputMap);
+                return executeScript(compiledScript, null, createScriptContext(inputMap), null);
             }
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName(language);
@@ -221,13 +221,12 @@ public final class ScriptUtil {
      * 
      * @param script Compiled script.
      * @param functionName Optional function or method to invoke.
-     * @param context Script execution context.
+     * @param scriptContext Script execution context.
      * @return The script result.
      * @throws IllegalArgumentException
      */
-    public static Object executeScript(CompiledScript script, String functionName, Map<String, ? extends Object> context) throws ScriptException, NoSuchMethodException {
-        Assert.notNull("script", script, "context", context);
-        ScriptContext scriptContext = createScriptContext(context);
+    public static Object executeScript(CompiledScript script, String functionName, ScriptContext scriptContext, Object[] args) throws ScriptException, NoSuchMethodException {
+        Assert.notNull("script", script, "scriptContext", scriptContext);
         Object result = script.eval(scriptContext);
         if (UtilValidate.isNotEmpty(functionName)) {
             if (Debug.verboseOn()) {
@@ -236,7 +235,7 @@ public final class ScriptUtil {
             ScriptEngine engine = script.getEngine();
             try {
                 Invocable invocableEngine = (Invocable) engine;
-                result = invocableEngine.invokeFunction(functionName, EMPTY_ARGS);
+                result = invocableEngine.invokeFunction(functionName, args);
             } catch (ClassCastException e) {
                 throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
             }
@@ -254,39 +253,70 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      */
     public static Object executeScript(String filePath, String functionName, Map<String, ? extends Object> context) {
+        return executeScript(filePath, functionName, context, EMPTY_ARGS);
+    }
+
+    /**
+     * Executes the script at the specified location and returns the result.
+     * 
+     * @param filePath Script path and file name.
+     * @param functionName Optional function or method to invoke.
+     * @param scriptContext Script execution context.
+     * @param args Function/method arguments.
+     * @return The script result.
+     * @throws ScriptException 
+     * @throws MalformedURLException 
+     * @throws FileNotFoundException 
+     * @throws NoSuchMethodException 
+     * @throws IllegalArgumentException
+     */
+    public static Object executeScript(String filePath, String functionName, ScriptContext scriptContext, Object[] args) throws FileNotFoundException, MalformedURLException, ScriptException, NoSuchMethodException {
+        CompiledScript script = compileScriptFile(filePath);
+        if (script != null) {
+            return executeScript(script, functionName, scriptContext, args);
+        }
+        String fileExtension = getFileExtension(filePath);
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByExtension(fileExtension);
+        if (engine == null) {
+            throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
+        }
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
+        }
+        URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+        FileReader reader = new FileReader(new File(scriptUrl.getFile()));
+        Object result = engine.eval(reader, scriptContext);
+        if (UtilValidate.isNotEmpty(functionName)) {
+            try {
+                Invocable invocableEngine = (Invocable) engine;
+                result = invocableEngine.invokeFunction(functionName, args);
+            } catch (ClassCastException e) {
+                throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Executes the script at the specified location and returns the result.
+     * 
+     * @param filePath Script path and file name.
+     * @param functionName Optional function or method to invoke.
+     * @param context Script execution context.
+     * @param args Function/method arguments.
+     * @return The script result.
+     * @throws IllegalArgumentException
+     */
+    public static Object executeScript(String filePath, String functionName, Map<String, ? extends Object> context, Object[] args) {
         Assert.notNull("filePath", filePath, "context", context);
         try {
-            CompiledScript script = compileScriptFile(filePath);
-            if (script != null) {
-                return executeScript(script, functionName, context);
-            }
             String fileExtension = getFileExtension(filePath);
             // TODO: Remove beanshell check when all beanshell code has been removed.
             if ("bsh".equals(fileExtension)) {
                 return BshUtil.runBshAtLocation(filePath, context);
-            } else {
-                ScriptEngineManager manager = new ScriptEngineManager();
-                ScriptEngine engine = manager.getEngineByExtension(fileExtension);
-                if (engine == null) {
-                    throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
-                }
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
-                }
-                ScriptContext scriptContext = createScriptContext(context);
-                URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-                FileReader reader = new FileReader(new File(scriptUrl.getFile()));
-                Object result = engine.eval(reader, scriptContext);
-                if (UtilValidate.isNotEmpty(functionName)) {
-                    try {
-                        Invocable invocableEngine = (Invocable) engine;
-                        result = invocableEngine.invokeFunction(functionName, EMPTY_ARGS);
-                    } catch (ClassCastException e) {
-                        throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
-                    }
-                }
-                return result;
             }
+            return executeScript(filePath, functionName, createScriptContext(context), args);
         } catch (Exception e) {
             String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
             Debug.logWarning(e, errMsg, module);
