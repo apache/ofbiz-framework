@@ -109,12 +109,12 @@ public class CoreEvents {
 
         if (!authz.hasPermission(request.getSession(), "ENTITY_MAINT", null)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.not_authorized_use_fct", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         if (delegatorName == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.delegator_not_passed", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -122,7 +122,7 @@ public class CoreEvents {
 
         if (delegator == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_delegator_name_defined", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -133,12 +133,12 @@ public class CoreEvents {
 
         if (dispatcherName == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.dispatcher_name_null", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         if (dctx == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.dispatcher_context_null", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -163,12 +163,12 @@ public class CoreEvents {
 
         if (!authz.hasPermission(request.getSession(), "ENTITY_MAINT", null)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.not_authorized_use_fct", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         if (dispatcherName == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.dispatcher_not_passed", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -177,7 +177,7 @@ public class CoreEvents {
 
         if (sd == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_dispachter_name_registered", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         LocalDispatcher dispatcher = sd.getLocalContext(dispatcherName).getDispatcher();
@@ -243,7 +243,7 @@ public class CoreEvents {
         // make sure we passed a service
         if (serviceName == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.must_specify_service", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -254,12 +254,12 @@ public class CoreEvents {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error looking up ModelService for serviceName [" + serviceName + "]", module);
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + " [" + serviceName + "]: " + e.toString());
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + " [" + serviceName + "]: " + e.toString());
             return "error";
         }
         if (modelService == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_name_not_find", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + " [" + serviceName + "]");
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + " [" + serviceName + "]");
             return "error";
         }
 
@@ -308,7 +308,7 @@ public class CoreEvents {
 
         if (!modelService.export && !authz.hasPermission(request.getSession(), "SERVICE_INVOKE_ANY", null)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.not_authorized_to_call", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -322,12 +322,12 @@ public class CoreEvents {
                     startTime = Long.parseLong(serviceTime);
                 } catch (NumberFormatException nfe) {
                     String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_time", locale);
-                    errorBuf.append("<li>" + errMsg);
+                    errorBuf.append(errMsg);
                 }
             }
             if (startTime < (new Date()).getTime()) {
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_time_already_passed", locale);
-                errorBuf.append("<li>" + errMsg);
+                errorBuf.append(errMsg);
             }
         }
         if (UtilValidate.isNotEmpty(serviceEndTime)) {
@@ -339,12 +339,12 @@ public class CoreEvents {
                     endTime = Long.parseLong(serviceTime);
                 } catch (NumberFormatException nfe) {
                     String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_time", locale);
-                    errorBuf.append("<li>" + errMsg);
+                    errorBuf.append(errMsg);
                 }
             }
             if (endTime < (new Date()).getTime()) {
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_time_already_passed", locale);
-                errorBuf.append("<li>" + errMsg);
+                errorBuf.append(errMsg);
             }
         }
         if (UtilValidate.isNotEmpty(serviceIntr)) {
@@ -352,7 +352,7 @@ public class CoreEvents {
                 interval = Integer.parseInt(serviceIntr);
             } catch (NumberFormatException nfe) {
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_interval", locale);
-                errorBuf.append("<li>" + errMsg);
+                errorBuf.append(errMsg);
             }
         }
         if (UtilValidate.isNotEmpty(serviceCnt)) {
@@ -360,7 +360,7 @@ public class CoreEvents {
                 count = Integer.parseInt(serviceCnt);
             } catch (NumberFormatException nfe) {
                 String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_count", locale);
-                errorBuf.append("<li>" + errMsg);
+                errorBuf.append(errMsg);
             }
         }
         if (UtilValidate.isNotEmpty(serviceFreq)) {
@@ -376,7 +376,7 @@ public class CoreEvents {
             if (parsedValue == 0) {
                 if (!freqMap.containsKey(serviceFreq.toUpperCase())) {
                     String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.invalid_format_frequency", locale);
-                    errorBuf.append("<li>" + errMsg);
+                    errorBuf.append(errMsg);
                 } else {
                     frequency = freqMap.get(serviceFreq.toUpperCase()).intValue();
                 }
@@ -415,7 +415,7 @@ public class CoreEvents {
             }
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_dispatcher_exception", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + e.getMessage());
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + e.getMessage());
             return "error";
         }
 
@@ -434,7 +434,7 @@ public class CoreEvents {
         Map<String, Object> syncServiceResult = checkMap(session.getAttribute("_RUN_SYNC_RESULT_"), String.class, Object.class);
         if (null==syncServiceResult) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.no_fields_in_session", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -519,7 +519,7 @@ public class CoreEvents {
 
         if (UtilValidate.isEmpty(serviceName)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.must_specify_service_name", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg);
+            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
@@ -538,18 +538,18 @@ public class CoreEvents {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error looking up ModelService for serviceName [" + serviceName + "]", module);
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.error_modelservice_for_srv_name", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "[" + serviceName + "]: " + e.toString());
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + "[" + serviceName + "]: " + e.toString());
             return "error";
         }
         if (modelService == null) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_name_not_find", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "[" + serviceName + "]");
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + "[" + serviceName + "]");
             return "error";
         }
 
         if (!modelService.export && !authz.hasPermission(request.getSession(), "SERVICE_INVOKE_ANY", null)) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.not_authorized_to_call", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + ".");
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + ".");
             return "error";
         }
 
@@ -562,7 +562,7 @@ public class CoreEvents {
             return seh.invoke(event, null, request, response);
         } catch (EventHandlerException e) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_eventhandler_exception", locale);
-            request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + ": " + e.getMessage());
+            request.setAttribute("_ERROR_MESSAGE_", errMsg + ": " + e.getMessage());
             return "error";
         }
     }
