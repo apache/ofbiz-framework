@@ -158,8 +158,14 @@ under the License.
         invoke="GetGeoIPContext">
         <attribute name="invoke" type="String" mode="IN" />
         <attribute name="result" type="String" mode="OUT"/>
-    </service>    
-    
+    </service>
+
+    <service name="testBsh" engine="bsh" location="component://common/script/org/ofbiz/common/BshServiceTest.bsh" invoke="">
+        <description>Test BeanShell Script Service</description>
+        <attribute name="message" type="String" mode="IN" optional="true" />
+        <attribute name="result" type="String" mode="OUT" />
+    </service>
+
     <service name="testGroovy" engine="groovy" location="component://common/script/org/ofbiz/common/GroovyServiceTest.groovy" invoke="">
         <description>Test Groovy Script Service</description>
         <attribute name="message" type="String" mode="IN" optional="true"/>
