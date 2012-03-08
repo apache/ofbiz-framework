@@ -30,6 +30,7 @@ import groovy.lang.GroovyShell;
 import javolution.util.FastMap;
 
 import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -101,6 +102,9 @@ public class GroovyUtil {
     }
 
     public static Class<?> getScriptClassFromLocation(String location) throws GeneralException {
+        return getScriptClassFromLocation(location, null);
+    }
+    public static Class<?> getScriptClassFromLocation(String location, GroovyClassLoader groovyClassLoader) throws GeneralException {
         try {
             Class<?> scriptClass = parsedScripts.get(location);
             if (scriptClass == null) {
@@ -108,7 +112,11 @@ public class GroovyUtil {
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
-                scriptClass = parseClass(scriptUrl.openStream(), location);
+                if (groovyClassLoader != null) {
+                    scriptClass = parseClass(scriptUrl.openStream(), location, groovyClassLoader);
+                } else {
+                    scriptClass = parseClass(scriptUrl.openStream(), location);
+                }
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Caching Groovy script at: " + location, module);
                 }
@@ -126,6 +134,9 @@ public class GroovyUtil {
 
     public static Class<?> parseClass(InputStream in, String location) throws IOException {
         return new GroovyClassLoader().parseClass(UtilIO.readString(in), location);
+    }
+    public static Class<?> parseClass(InputStream in, String location, GroovyClassLoader groovyClassLoader) throws IOException {
+        return groovyClassLoader.parseClass(UtilIO.readString(in), location);
     }
 
     public static Class<?> parseClass(String text) {

@@ -19,31 +19,46 @@
 package org.ofbiz.service.engine;
 
 import static org.ofbiz.base.util.UtilGenerics.cast;
+
+import groovy.lang.GroovyClassLoader;
 import groovy.lang.Script;
 
 import java.util.Map;
 
 import javolution.util.FastMap;
 
+import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
+import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceDispatcher;
-import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.*;
+import org.ofbiz.service.config.ServiceConfigUtil;
 
 /**
  * Groovy Script Service Engine
  */
 public final class GroovyEngine extends GenericAsyncEngine {
 
+    public static final String module = GroovyEngine.class.getName();
     protected static final Object[] EMPTY_ARGS = {};
+
+    GroovyClassLoader groovyClassLoader;
 
     public GroovyEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
+        try {
+            String scriptBaseClass = ServiceConfigUtil.getEngineParameter("groovy", "scriptBaseClass");
+            if (scriptBaseClass != null) {
+                CompilerConfiguration conf = new CompilerConfiguration();
+                conf.setScriptBaseClass(scriptBaseClass);
+                groovyClassLoader = new GroovyClassLoader(getClass().getClassLoader(), conf);
+            }
+        } catch (GenericConfigException gce) {
+            Debug.logWarning(gce, "Error retrieving the configuration for the groovy service engine: ", module);
+        }
     }
 
     /**
@@ -75,7 +90,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
         context.put("dispatcher", dctx.getDispatcher());
         context.put("delegator", dispatcher.getDelegator());
         try {
-            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService)), GroovyUtil.getBinding(context));
+            Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService), groovyClassLoader), GroovyUtil.getBinding(context));
             Object resultObj = null;
             if (UtilValidate.isEmpty(modelService.invoke)) {
                 resultObj = script.run();
@@ -87,6 +102,8 @@ public final class GroovyEngine extends GenericAsyncEngine {
             } else if (context.get("result") != null && context.get("result") instanceof Map<?, ?>) {
                 return cast(context.get("result"));
             }
+        } catch (ExecutionServiceException ese) {
+            return ServiceUtil.returnError(ese.getMessage());
         } catch (GeneralException e) {
             throw new GenericServiceException(e);
         }
