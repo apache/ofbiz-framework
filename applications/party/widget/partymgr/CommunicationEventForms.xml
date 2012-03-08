@@ -489,7 +489,7 @@ under the License.
     <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: &quot;true&quot;.equals(parameters.all)?&quot;-entryDate&quot;:&quot;entryDate&quot;}"/>
+            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: 'true'.equals(parameters.all)?'-entryDate':'entryDate'}"/>
             <set field="searchParameters.partyId" from-field="partyId"/>
             <set field="searchParameters.statusId" value="COM_UNKNOWN_PARTY"/>
             <set field="searchParameters.statusId_op" value="notEqual"/>
