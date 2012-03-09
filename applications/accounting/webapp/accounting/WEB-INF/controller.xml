@@ -2574,12 +2574,12 @@ under the License.
     </request-map>
     <request-map uri="paymentReportHtml">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/" invoke="PaymentReport.groovy"/>
+        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/PaymentReport.groovy"/>
         <response name="success" type="view" value="ViewPaymentReportHtml"/>
     </request-map>
     <request-map uri="paymentReportPdf">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/" invoke="PaymentReport.groovy"/>
+        <event type="groovy" path="component://accounting/webapp/accounting/WEB-INF/actions/payment/PaymentReport.groovy"/>
         <response name="success" type="view" value="ViewPaymentReportPdf"/>
     </request-map>
 
