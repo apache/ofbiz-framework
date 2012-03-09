@@ -676,7 +676,7 @@ under the License.
     </service>
 
     <service name="completePack" engine="java"
-            location="org.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true">
+            location="org.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true" transaction-timeout="7200">
         <description>Complete the packaging set the shipment to PACKED</description>
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
