@@ -108,7 +108,7 @@ under the License.
                     <include-screen name="choosecatalog" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="keywordsearchbox" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <!--include-screen name="sidedeepcategory" location="component://ecommerce/widget/CatalogScreens.xml"/-->
-                    <include-screen name="productCatagories" location="component://ecommerce/widget/CatalogScreens.xml"/>
+                    <include-screen name="productCategories" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="LayeredNavBar" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="minireorderprods" location="component://ecommerce/widget/CatalogScreens.xml"/>
                     <include-screen name="signupforcontactlist" location="component://ecommerce/widget/EmailContactListScreens.xml"/>

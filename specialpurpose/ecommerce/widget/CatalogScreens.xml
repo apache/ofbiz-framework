@@ -513,7 +513,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="productCatagories">
+    <screen name="productCategories">
         <section>
             <actions>
                 <set field="tabButtonItem" value="LookupProductCategories"/>
