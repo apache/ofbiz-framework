@@ -2062,7 +2062,7 @@ under the License.
     </request-map>
     <request-map uri="prepareCreateShipMeth">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/webapp/catalog/store/" invoke="prepareCreateShipMeth.groovy"/>
+        <event type="groovy" path="component://product/webapp/catalog/store/prepareCreateShipMeth.groovy"/>
         <response name="success" type="view" value="EditProductStoreShipSetup"/>
         <response name="error" type="view" value="EditProductStoreShipSetup"/>
     </request-map>
@@ -2824,7 +2824,7 @@ under the License.
     </request-map>
     <request-map uri="checkAction">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/" invoke="checkAction.groovy"/>
+        <event type="groovy" path="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/checkAction.groovy"/>
         <response name="frame" type="request" value="ImageFrames"/>
         <response name="watermark" type="request" value="ImageWatermarking"/>
         <response name="crop" type="request" value="ImageCropping"/>
@@ -2833,7 +2833,7 @@ under the License.
     </request-map>
     <request-map uri="checkRejected">
         <security https="true" auth="true"/>
-        <event type="groovy" path="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/" invoke="checkRejected.groovy"/>
+        <event type="groovy" path="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/checkRejected.groovy"/>
         <response name="approved" type="view" value="ImageApprove"/>
         <response name="rejected" type="view" value="ListPeopleRejected"/>
     </request-map>
