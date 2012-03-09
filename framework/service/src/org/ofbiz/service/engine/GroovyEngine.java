@@ -34,6 +34,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.*;
 import org.ofbiz.service.config.ServiceConfigUtil;
 
@@ -102,6 +103,8 @@ public final class GroovyEngine extends GenericAsyncEngine {
             } else if (context.get("result") != null && context.get("result") instanceof Map<?, ?>) {
                 return cast(context.get("result"));
             }
+        } catch (GenericEntityException gee) {
+            return ServiceUtil.returnError(gee.getMessage());
         } catch (ExecutionServiceException ese) {
             return ServiceUtil.returnError(ese.getMessage());
         } catch (GeneralException e) {

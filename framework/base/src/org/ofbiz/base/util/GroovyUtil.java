@@ -148,7 +148,11 @@ public class GroovyUtil {
     }
 
     public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {
-        return InvokerHelper.createScript(getScriptClassFromLocation(location), getBinding(context)).run();
+        return runScriptAtLocation(location, context, null);
+    }
+
+    public static Object runScriptAtLocation(String location, Map<String, Object> context, GroovyClassLoader groovyClassLoader) throws GeneralException {
+        return InvokerHelper.createScript(getScriptClassFromLocation(location, groovyClassLoader), getBinding(context)).run();
     }
 
     public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {

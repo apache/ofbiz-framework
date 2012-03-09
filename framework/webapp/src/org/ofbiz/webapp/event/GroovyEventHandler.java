@@ -25,19 +25,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.Script;
+import org.codehaus.groovy.control.CompilerConfiguration;
+import org.codehaus.groovy.runtime.InvokerHelper;
 import javolution.util.FastMap;
 
+import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.service.ExecutionServiceException;
+import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 public class GroovyEventHandler implements EventHandler {
 
     public static final String module = GroovyEventHandler.class.getName();
+    protected static final Object[] EMPTY_ARGS = {};
+    private GroovyClassLoader groovyClassLoader;
 
     public void init(ServletContext context) throws EventHandlerException {
+        try {
+            // TODO: the name of the script base class is currently retrieved from the Groovy service engine configuration
+            String scriptBaseClass = ServiceConfigUtil.getEngineParameter("groovy", "scriptBaseClass");
+            if (scriptBaseClass != null) {
+                CompilerConfiguration conf = new CompilerConfiguration();
+                conf.setScriptBaseClass(scriptBaseClass);
+                groovyClassLoader = new GroovyClassLoader(getClass().getClassLoader(), conf);
+            }
+        } catch (GenericConfigException gce) {
+            Debug.logWarning(gce, "Error retrieving the configuration for the groovy service engine: ", module);
+        }
     }
 
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
@@ -56,7 +79,19 @@ public class GroovyEventHandler implements EventHandler {
             groovyContext.put("userLogin", session.getAttribute("userLogin"));
             groovyContext.put("parameters", UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
 
-            Object result = GroovyUtil.runScriptAtLocation(event.path + event.invoke, groovyContext);
+            Object result = null;
+            try {
+                Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(event.path, groovyClassLoader), GroovyUtil.getBinding(groovyContext));
+                if (UtilValidate.isEmpty(event.invoke)) {
+                    result = script.run();
+                } else {
+                    result = script.invokeMethod(event.invoke, EMPTY_ARGS);
+                }
+            } catch (GenericEntityException gee) {
+                return "error";
+            } catch (ExecutionServiceException ese) {
+                return "error";
+            }
             // check the result
             if (result != null && !(result instanceof String)) {
                 throw new EventHandlerException("Event did not return a String result, it returned a " + result.getClass().getName());

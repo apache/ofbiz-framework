@@ -53,12 +53,18 @@ abstract class GroovyBaseScript extends Script {
         return genericValues;
     }
 
-    Map success(String message) {
+    def success(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
-        if (message) {
-            return ServiceUtil.returnSuccess(message);
+        if (this.binding.getVariable('request')) {
+            // the script is invoked as an "event"
+            return 'success';
         } else {
-            return ServiceUtil.returnSuccess();
+            // the script is invoked as a "service"
+            if (message) {
+                return ServiceUtil.returnSuccess(message);
+            } else {
+                return ServiceUtil.returnSuccess();
+            }
         }
     }
     Map failure(String message) {
@@ -69,12 +75,20 @@ abstract class GroovyBaseScript extends Script {
             return ServiceUtil.returnFailure();
         }
     }
-    Map error(String message) {
+    def error(String message) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
-        if (message) {
-            return ServiceUtil.returnError(message);
+        if (this.binding.getVariable('request')) {
+            // the script is invoked as an "event"
+            if (message) {
+                this.binding.getVariable('request').setAttribute("_ERROR_MESSAGE_", message)
+            }
+            return 'error';
         } else {
-            return ServiceUtil.returnError();
+            if (message) {
+                return ServiceUtil.returnError(message);
+            } else {
+                return ServiceUtil.returnError();
+            }
         }
     }
     def logInfo(String message) {
