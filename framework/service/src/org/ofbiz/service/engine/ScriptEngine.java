@@ -20,7 +20,10 @@ package org.ofbiz.service.engine;
 
 import static org.ofbiz.base.util.UtilGenerics.cast;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.script.ScriptContext;
 
@@ -50,14 +53,19 @@ import org.ofbiz.service.ServiceUtil;
 public final class ScriptEngine extends GenericAsyncEngine {
 
     public static final String module = ScriptEngine.class.getName();
+    private static final Set<String> protectedKeys = createProtectedKeys();
+
+    private static Set<String> createProtectedKeys() {
+        Set<String> newSet = new HashSet<String>();
+        newSet.add("parameters");
+        newSet.add("dctx");
+        newSet.add("dispatcher");
+        newSet.add("delegator");
+        return Collections.unmodifiableSet(newSet);
+    }
 
     public ScriptEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
-    }
-
-    @Override
-    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
-        runSync(localName, modelService, context);
     }
 
     @Override
@@ -71,7 +79,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
         context.put("dispatcher", dctx.getDispatcher());
         context.put("delegator", dispatcher.getDelegator());
         try {
-            ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
+            ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
             Object resultObj = ScriptUtil.executeScript(getLocation(modelService), modelService.invoke, scriptContext, new Object[] { context });
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute("result");
@@ -88,4 +96,8 @@ public final class ScriptEngine extends GenericAsyncEngine {
         }
     }
 
+    @Override
+    public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
+        runSync(localName, modelService, context);
+    }
 }

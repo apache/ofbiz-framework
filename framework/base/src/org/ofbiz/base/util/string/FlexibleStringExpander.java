@@ -21,6 +21,7 @@ package org.ofbiz.base.util.string;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -593,7 +594,8 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         @Override
         protected Object get(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object obj = ScriptUtil.evaluate(this.language, this.script, this.parsedScript, context);
+                Map <String, Object> contextCopy = new HashMap<String, Object>(context);
+                Object obj = ScriptUtil.evaluate(this.language, this.script, this.parsedScript, contextCopy);
                 if (obj != null) {
                     return obj;
                 } else {

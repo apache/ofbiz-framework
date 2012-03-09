@@ -23,8 +23,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.script.Bindings;
 import javax.script.Compilable;
@@ -35,6 +37,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import javax.script.SimpleBindings;
 import javax.script.SimpleScriptContext;
 
 import org.codehaus.groovy.runtime.InvokerHelper;
@@ -43,6 +46,10 @@ import org.ofbiz.base.util.cache.UtilCache;
 
 /**
  * Scripting utility methods. This is a facade class that is used to connect OFBiz to JSR-223 scripting engines.
+ * <p><b>Important:</b> To avoid a lot of <code>Map</code> copying, all methods that accept a context
+ * <code>Map</code> argument will pass that <code>Map</code> directly to the scripting engine. Any variables that
+ * are declared or modified in the script will affect the original <code>Map</code>. Client code that wishes to preserve
+ * the state of the <code>Map</code> argument should pass a copy of the <code>Map</code>.</p>
  *
  */
 public final class ScriptUtil {
@@ -167,11 +174,31 @@ public final class ScriptUtil {
      * @param context
      * @return
      */
-    public static ScriptContext createScriptContext(Map<String, ? extends Object> context) {
+    public static ScriptContext createScriptContext(Map<String, Object> context) {
+        Assert.notNull("context", context);
+        context.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
-        Bindings bindings = scriptContext.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindings.putAll(context);
-        bindings.put("context", context);
+        Bindings bindings = new SimpleBindings(context);
+        scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
+        return scriptContext;
+    }
+
+    /**
+     * Returns a <code>ScriptContext</code> that contains the members of <code>context</code>.
+     * <p>If a <code>CompiledScript</code> instance is to be shared by multiple threads, then
+     * each thread must create its own <code>ScriptContext</code> and pass it to the
+     * <code>CompiledScript</code> eval method.</p>
+     * 
+     * @param context
+     * @param protectedKeys
+     * @return
+     */
+    public static ScriptContext createScriptContext(Map<String, Object> context, Set<String> protectedKeys) {
+        Assert.notNull("context", context, "protectedKeys", protectedKeys);
+        context.put("context", context);
+        ScriptContext scriptContext = new SimpleScriptContext();
+        Bindings bindings = new ProtectedBindings(context, protectedKeys);
+        scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
     }
 
@@ -181,19 +208,19 @@ public final class ScriptUtil {
      * @param language
      * @param script
      * @param scriptClass
-     * @param inputMap
+     * @param context
      * @return The script result.
      * @throws Exception
      */
-    public static Object evaluate(String language, String script, Class<?> scriptClass, Map<String, ? extends Object> inputMap) throws Exception {
-        Assert.notNull("inputMap", inputMap);
+    public static Object evaluate(String language, String script, Class<?> scriptClass, Map<String, Object> context) throws Exception {
+        Assert.notNull("context", context);
         if (scriptClass != null) {
-            return InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(inputMap)).run();
+            return InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(context)).run();
         }
         try {
             CompiledScript compiledScript = compileScriptString(language, script);
             if (compiledScript != null) {
-                return executeScript(compiledScript, null, createScriptContext(inputMap), null);
+                return executeScript(compiledScript, null, createScriptContext(context), null);
             }
             ScriptEngineManager manager = new ScriptEngineManager();
             ScriptEngine engine = manager.getEngineByName(language);
@@ -203,7 +230,7 @@ public final class ScriptUtil {
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
             }
-            ScriptContext scriptContext = createScriptContext(inputMap);
+            ScriptContext scriptContext = createScriptContext(context);
             return engine.eval(script, scriptContext);
         } catch (Exception e) {
             String errMsg = "Error running " + language + " script [" + script + "]: " + e.toString();
@@ -248,8 +275,29 @@ public final class ScriptUtil {
      * @return The script result.
      * @throws IllegalArgumentException
      */
-    public static Object executeScript(String filePath, String functionName, Map<String, ? extends Object> context) {
+    public static Object executeScript(String filePath, String functionName, Map<String, Object> context) {
         return executeScript(filePath, functionName, context, EMPTY_ARGS);
+    }
+
+    /**
+     * Executes the script at the specified location and returns the result.
+     * 
+     * @param filePath Script path and file name.
+     * @param functionName Optional function or method to invoke.
+     * @param context Script execution context.
+     * @param args Function/method arguments.
+     * @return The script result.
+     * @throws IllegalArgumentException
+     */
+    public static Object executeScript(String filePath, String functionName, Map<String, Object> context, Object[] args) {
+        Assert.notNull("filePath", filePath, "context", context);
+        try {
+            return executeScript(filePath, functionName, createScriptContext(context), args);
+        } catch (Exception e) {
+            String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
+            Debug.logWarning(e, errMsg, module);
+            throw new IllegalArgumentException(errMsg);
+        }
     }
 
     /**
@@ -294,27 +342,6 @@ public final class ScriptUtil {
         return result;
     }
 
-    /**
-     * Executes the script at the specified location and returns the result.
-     * 
-     * @param filePath Script path and file name.
-     * @param functionName Optional function or method to invoke.
-     * @param context Script execution context.
-     * @param args Function/method arguments.
-     * @return The script result.
-     * @throws IllegalArgumentException
-     */
-    public static Object executeScript(String filePath, String functionName, Map<String, ? extends Object> context, Object[] args) {
-        Assert.notNull("filePath", filePath, "context", context);
-        try {
-            return executeScript(filePath, functionName, createScriptContext(context), args);
-        } catch (Exception e) {
-            String errMsg = "Error running script at location [" + filePath + "]: " + e.toString();
-            Debug.logWarning(e, errMsg, module);
-            throw new IllegalArgumentException(errMsg);
-        }
-    }
-
     private static String getFileExtension(String filePath) {
         int pos = filePath.lastIndexOf(".");
         if (pos == -1) {
@@ -332,4 +359,71 @@ public final class ScriptUtil {
     }
 
     private ScriptUtil() {}
+
+    private static final class ProtectedBindings implements Bindings {
+        private final Map<String, Object> bindings;
+        private final Set<String> protectedKeys;
+        private ProtectedBindings(Map<String, Object> bindings, Set<String> protectedKeys) {
+            this.bindings = bindings;
+            this.protectedKeys = protectedKeys;
+        }
+        public void clear() {
+            for (String key : bindings.keySet()) {
+                if (!protectedKeys.contains(key)) {
+                    bindings.remove(key);
+                }
+            }
+        }
+        public boolean containsKey(Object key) {
+            return bindings.containsKey(key);
+        }
+        public boolean containsValue(Object value) {
+            return bindings.containsValue(value);
+        }
+        public Set<java.util.Map.Entry<String, Object>> entrySet() {
+            return bindings.entrySet();
+        }
+        public boolean equals(Object o) {
+            return bindings.equals(o);
+        }
+        public Object get(Object key) {
+            return bindings.get(key);
+        }
+        public int hashCode() {
+            return bindings.hashCode();
+        }
+        public boolean isEmpty() {
+            return bindings.isEmpty();
+        }
+        public Set<String> keySet() {
+            return bindings.keySet();
+        }
+        public Object put(String key, Object value) {
+            Assert.notNull("key", key);
+            if (protectedKeys.contains(key)) {
+                throw new UnsupportedOperationException();
+            }
+            return bindings.put(key, value);
+        }
+        public void putAll(Map<? extends String, ? extends Object> map) {
+            for (Map.Entry<? extends String, ? extends Object> entry : map.entrySet()) {
+                Assert.notNull("key", entry.getKey());
+                if (!protectedKeys.contains(entry.getKey())) {
+                    bindings.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+        public Object remove(Object key) {
+            if (protectedKeys.contains(key)) {
+                throw new UnsupportedOperationException();
+            }
+            return bindings.remove(key);
+        }
+        public int size() {
+            return bindings.size();
+        }
+        public Collection<Object> values() {
+            return bindings.values();
+        }
+    }
 }
