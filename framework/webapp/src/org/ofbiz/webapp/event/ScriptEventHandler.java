@@ -110,7 +110,7 @@ public final class ScriptEventHandler implements EventHandler {
             }
             return (String) result;
         } catch (Exception e) {
-            throw new EventHandlerException("Groovy Event Error", e);
+            throw new EventHandlerException("Error running event " + event.path, e);
         }
     }
 }
