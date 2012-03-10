@@ -22,9 +22,10 @@ under the License.
 
 <#-- looping macro -->
 <#macro categoryList parentCategory category>
-  <#if parentCategory.productCategoryId != category.productCategoryId>
+  <#-- jleroux: This whole block does not make sense to me --> 
+  <#--if parentCategory.productCategoryId != category.productCategoryId>
     <#local pStr = "/~pcategory=" + parentCategory.productCategoryId>
-  </#if>
+  </#if-->
   <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
     <div class="browsecategorytext">
      <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?has_content>
