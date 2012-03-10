@@ -258,7 +258,7 @@ public final class ScriptUtil {
             ScriptEngine engine = script.getEngine();
             try {
                 Invocable invocableEngine = (Invocable) engine;
-                result = invocableEngine.invokeFunction(functionName, args);
+                result = invocableEngine.invokeFunction(functionName, args == null ? EMPTY_ARGS : args);
             } catch (ClassCastException e) {
                 throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
             }
@@ -290,7 +290,6 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      */
     public static Object executeScript(String filePath, String functionName, Map<String, Object> context, Object[] args) {
-        Assert.notNull("filePath", filePath, "context", context);
         try {
             return executeScript(filePath, functionName, createScriptContext(context), args);
         } catch (Exception e) {
@@ -315,9 +314,15 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      */
     public static Object executeScript(String filePath, String functionName, ScriptContext scriptContext, Object[] args) throws FileNotFoundException, MalformedURLException, ScriptException, NoSuchMethodException {
-        CompiledScript script = compileScriptFile(filePath);
-        if (script != null) {
-            return executeScript(script, functionName, scriptContext, args);
+        Assert.notNull("filePath", filePath, "scriptContext", scriptContext);
+        scriptContext.setAttribute(ScriptEngine.FILENAME, filePath, ScriptContext.ENGINE_SCOPE);
+        if (functionName == null) {
+            // The Rhino script engine will not work when invoking a function on a compiled script.
+            // The test for null can be removed when the engine is fixed.
+            CompiledScript script = compileScriptFile(filePath);
+            if (script != null) {
+                return executeScript(script, functionName, scriptContext, args);
+            }
         }
         String fileExtension = getFileExtension(filePath);
         ScriptEngineManager manager = new ScriptEngineManager();
@@ -326,15 +331,16 @@ public final class ScriptUtil {
             throw new IllegalArgumentException("The script type is not supported for location: " + filePath);
         }
         if (Debug.verboseOn()) {
-            Debug.logVerbose("Begin processing script [" + script + "] using engine " + engine.getClass().getName(), module);
+            Debug.logVerbose("Begin processing script [" + filePath + "] using engine " + engine.getClass().getName(), module);
         }
+        engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
         FileReader reader = new FileReader(new File(scriptUrl.getFile()));
-        Object result = engine.eval(reader, scriptContext);
+        Object result = engine.eval(reader);
         if (UtilValidate.isNotEmpty(functionName)) {
             try {
                 Invocable invocableEngine = (Invocable) engine;
-                result = invocableEngine.invokeFunction(functionName, args);
+                result = invocableEngine.invokeFunction(functionName, args == null ? EMPTY_ARGS : args);
             } catch (ClassCastException e) {
                 throw new ScriptException("Script engine " + engine.getClass().getName() + " does not support function/method invocations");
             }
