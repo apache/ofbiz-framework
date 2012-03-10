@@ -34,6 +34,7 @@ under the License.
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
+    <handler name="script" type="request" class="org.ofbiz.webapp.event.ScriptEventHandler"/>
 
     <!-- view handlers -->
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
