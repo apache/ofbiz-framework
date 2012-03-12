@@ -71,7 +71,9 @@ public final class ScriptEventHandler implements EventHandler {
         newSet.add("locale");
         newSet.add("timeZone");
         newSet.add("userLogin");
-        newSet.add("parameters");
+        /* Commenting out for now because some scripts write to the parameters Map - which should not be allowed.
+        newSet.add(ScriptUtil.PARAMETERS_KEY);
+        */
         return Collections.unmodifiableSet(newSet);
     }
 
@@ -93,13 +95,13 @@ public final class ScriptEventHandler implements EventHandler {
             context.put("locale", UtilHttp.getLocale(request));
             context.put("timeZone", UtilHttp.getTimeZone(request));
             context.put("userLogin", session.getAttribute("userLogin"));
-            context.put("parameters", UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
+            context.put(ScriptUtil.PARAMETERS_KEY, UtilHttp.getCombinedMap(request, UtilMisc.toSet("delegator", "dispatcher", "security", "locale", "timeZone", "userLogin")));
             Object result = null;
             try {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
                 result = ScriptUtil.executeScript(event.path, event.invoke, scriptContext, new Object[] { context });
                 if (result == null) {
-                    result = scriptContext.getAttribute("result");
+                    result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
             } catch (Exception e) {
                 Debug.logWarning(e, "Error running event " + event.path + ": ", module);

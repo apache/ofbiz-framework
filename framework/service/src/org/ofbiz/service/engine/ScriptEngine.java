@@ -57,7 +57,9 @@ public final class ScriptEngine extends GenericAsyncEngine {
 
     private static Set<String> createProtectedKeys() {
         Set<String> newSet = new HashSet<String>();
-        newSet.add("parameters");
+        /* Commenting out for now because some scripts write to the parameters Map - which should not be allowed.
+        newSet.add(ScriptUtil.PARAMETERS_KEY);
+        */
         newSet.add("dctx");
         newSet.add("dispatcher");
         newSet.add("delegator");
@@ -73,7 +75,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
         Assert.notNull("localName", localName, "modelService.location", modelService.location, "context", context);
         Map<String, Object> params = FastMap.newInstance();
         params.putAll(context);
-        context.put("parameters", params);
+        context.put(ScriptUtil.PARAMETERS_KEY, params);
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         context.put("dctx", dctx);
         context.put("dispatcher", dctx.getDispatcher());
@@ -82,7 +84,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
             ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
             Object resultObj = ScriptUtil.executeScript(getLocation(modelService), modelService.invoke, scriptContext, new Object[] { context });
             if (resultObj == null) {
-                resultObj = scriptContext.getAttribute("result");
+                resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
             }
             if (resultObj != null && resultObj instanceof Map<?, ?>) {
                 return cast(resultObj);
