@@ -25,6 +25,17 @@ if (message) {
     var result = "[no message received]";
 }
 
+if (ofbiz) {
+    var partyValue = ofbiz.findOne("PartyNameView");
+    if (partyValue) {
+        var foundMessage = ofbiz.evalString(" Found Party ${partyValue.groupName}${partyValue.firstName} ${partyValue.lastName}");
+        successMessage = successMessage + foundMessage;
+        ofbiz.logInfo(successMessage);
+    } else {
+        ofbiz.logInfo("Party not found with partyId ${parameters.partyId}");
+    }
+}
+
 function testFunction(context) {
     if (message) {
         var successMessage = "Got message [" + message + "] and finished fine";
