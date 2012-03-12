@@ -24,6 +24,7 @@ import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,6 +56,12 @@ import org.ofbiz.base.util.cache.UtilCache;
 public final class ScriptUtil {
 
     public static final String module = ScriptUtil.class.getName();
+    /** The screen widget context map bindings key. */
+    public static final String WIDGET_CONTEXT_KEY = "widget";
+    /** The service/servlet/request parameters map bindings key. */
+    public static final String PARAMETERS_KEY = "parameters";
+    /** The result map bindings key. */
+    public static final String RESULT_KEY = "result";
     private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
 
@@ -176,6 +183,7 @@ public final class ScriptUtil {
      */
     public static ScriptContext createScriptContext(Map<String, Object> context) {
         Assert.notNull("context", context);
+        context.put(WIDGET_CONTEXT_KEY, context);
         context.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
         Bindings bindings = new SimpleBindings(context);
@@ -195,9 +203,10 @@ public final class ScriptUtil {
      */
     public static ScriptContext createScriptContext(Map<String, Object> context, Set<String> protectedKeys) {
         Assert.notNull("context", context, "protectedKeys", protectedKeys);
+        context.put(WIDGET_CONTEXT_KEY, context);
         context.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
-        Bindings bindings = new ProtectedBindings(context, protectedKeys);
+        Bindings bindings = new ProtectedBindings(context, Collections.unmodifiableSet(protectedKeys));
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
     }
@@ -407,7 +416,9 @@ public final class ScriptUtil {
         public Object put(String key, Object value) {
             Assert.notNull("key", key);
             if (protectedKeys.contains(key)) {
-                throw new UnsupportedOperationException();
+                UnsupportedOperationException e = new UnsupportedOperationException("Variable " + key + " is read-only");
+                Debug.logWarning(e, module);
+                throw e;
             }
             return bindings.put(key, value);
         }
@@ -421,7 +432,9 @@ public final class ScriptUtil {
         }
         public Object remove(Object key) {
             if (protectedKeys.contains(key)) {
-                throw new UnsupportedOperationException();
+                UnsupportedOperationException e = new UnsupportedOperationException("Variable " + key + " is read-only");
+                Debug.logWarning(e, module);
+                throw e;
             }
             return bindings.remove(key);
         }
