@@ -25,8 +25,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.Set;
 
 import javax.script.Bindings;
@@ -62,8 +64,11 @@ public final class ScriptUtil {
     public static final String PARAMETERS_KEY = "parameters";
     /** The result map bindings key. */
     public static final String RESULT_KEY = "result";
+    /** The <code>ScriptHelper</code> key. */
+    public static final String SCRIPT_HELPER_KEY = "ofbiz";
     private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
+    private static ScriptHelperFactory helperFactory = null;
 
     static {
         if (Debug.infoOn()) {
@@ -93,6 +98,15 @@ public final class ScriptUtil {
                     }
                 }
             }
+        }
+        Iterator<ScriptHelperFactory> iter = ServiceLoader.load(ScriptHelperFactory.class).iterator();
+        if (iter.hasNext()) {
+            helperFactory = iter.next();
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("ScriptHelper factory set to " + helperFactory.getClass().getName(), module);
+            }
+        } else {
+            Debug.logWarning("ScriptHelper factory not found", module);
         }
     }
 
@@ -186,6 +200,10 @@ public final class ScriptUtil {
         context.put(WIDGET_CONTEXT_KEY, context);
         context.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
+        ScriptHelper helper = createScriptHelper(scriptContext);
+        if (helper != null) {
+            context.put(SCRIPT_HELPER_KEY, helper);
+        }
         Bindings bindings = new SimpleBindings(context);
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
@@ -206,12 +224,23 @@ public final class ScriptUtil {
         context.put(WIDGET_CONTEXT_KEY, context);
         context.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
+        ScriptHelper helper = createScriptHelper(scriptContext);
+        if (helper != null) {
+            context.put(SCRIPT_HELPER_KEY, helper);
+        }
         Bindings bindings = new ProtectedBindings(context, Collections.unmodifiableSet(protectedKeys));
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
     }
 
-    /**
+    public static ScriptHelper createScriptHelper(ScriptContext context) {
+        if (helperFactory != null) {
+            return helperFactory.getInstance(context);
+        }
+        return null;
+    }
+
+     /**
      * Executes a script <code>String</code> and returns the result.
      * 
      * @param language
