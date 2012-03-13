@@ -26,12 +26,14 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.script.ScriptContext;
+import javax.script.ScriptException;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ScriptUtil;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -92,6 +94,8 @@ public final class ScriptEngine extends GenericAsyncEngine {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), "OUT"));
             return result;
+        } catch (ScriptException se) {
+            return ServiceUtil.returnError(se.getMessage());
         } catch (Exception e) {
             Debug.logWarning(e, "Error invoking service " + modelService.name + ": ", module);
             throw new GenericServiceException(e);
