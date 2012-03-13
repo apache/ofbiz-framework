@@ -224,12 +224,12 @@ public final class ScriptUtil {
         context.put(WIDGET_CONTEXT_KEY, context);
         context.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
+        Bindings bindings = new ProtectedBindings(context, Collections.unmodifiableSet(protectedKeys));
+        scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         ScriptHelper helper = createScriptHelper(scriptContext);
         if (helper != null) {
             context.put(SCRIPT_HELPER_KEY, helper);
         }
-        Bindings bindings = new ProtectedBindings(context, Collections.unmodifiableSet(protectedKeys));
-        scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
     }
 
