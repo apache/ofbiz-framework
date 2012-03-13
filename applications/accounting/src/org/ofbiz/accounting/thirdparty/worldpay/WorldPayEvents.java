@@ -399,7 +399,7 @@ public class WorldPayEvents {
             // attempt to release the offline hold on the order (workflow)
             OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
             // call the email confirm service
-            Map<String, String> emailContext = UtilMisc.toMap("orderId", orderId, "userLogin", userLogin);
+            Map<String, Object> emailContext = UtilMisc.toMap("orderId", orderId, "userLogin", userLogin);
             try {
                 dispatcher.runSync("sendOrderConfirmation", emailContext);
             } catch (GenericServiceException e) {

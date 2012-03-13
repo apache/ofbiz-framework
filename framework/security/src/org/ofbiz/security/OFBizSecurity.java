@@ -50,9 +50,9 @@ public class OFBizSecurity implements Security {
     protected Delegator delegator = null;
 
     protected static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
-        "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
-        "FACILITY", UtilMisc.toMap("name", "FacilityParty", "pkey", "facilityId"),
-        "MARKETING", UtilMisc.toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
+        "ORDERMGR", UtilMisc.<String, String>toMap("name", "OrderRole", "pkey", "orderId"),
+        "FACILITY", UtilMisc.<String, String>toMap("name", "FacilityParty", "pkey", "facilityId"),
+        "MARKETING", UtilMisc.<String, String>toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));
 
     protected OFBizSecurity() {}
 
