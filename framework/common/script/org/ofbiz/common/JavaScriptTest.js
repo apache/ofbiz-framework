@@ -26,23 +26,27 @@ if (message) {
 }
 
 if (ofbiz) {
-    var partyValue = ofbiz.findOne("PartyNameView");
-    if (partyValue) {
-        var foundMessage = ofbiz.evalString(" Found Party ${partyValue.groupName}${partyValue.firstName} ${partyValue.lastName}");
+    var exampleValue = ofbiz.findOne("Example");
+    if (exampleValue) {
+        var foundMessage = ofbiz.evalString(" Found Example ${exampleValue.exampleName}");
         successMessage = successMessage + foundMessage;
         ofbiz.logInfo(successMessage);
     } else {
-        ofbiz.logInfo("Party not found with partyId ${parameters.partyId}");
+        var notFoundMessage = ofbiz.evalString(" Example not found with exampleId ${parameters.exampleId}");
+        successMessage = successMessage + notFoundMessage;
+        ofbiz.logInfo(successMessage);
     }
 }
 
 function testFunction(context) {
-    if (message) {
-        var successMessage = "Got message [" + message + "] and finished fine";
-        var result = message;
+    var messageArg = context.get("message");
+    if (messageArg) {
+        context.put("successMessage", "Function 'testFunction' got message [" + messageArg + "] and finished fine");
+        var functionResult = "testFunction: " + messageArg;
     } else {
-        var successMessage = "Got no message but finished fine anyway";
-        var result = "[no message received]";
+        context.put("successMessage", "Function 'testFunction' got no message but finished fine anyway");
+        var functionResult = "testFunction: no message received";
     }
-    return result;
+    // The function's result must be set explicitly in the context Map
+    context.put("result", functionResult);
 }
