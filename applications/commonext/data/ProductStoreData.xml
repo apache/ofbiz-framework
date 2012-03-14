@@ -19,6 +19,15 @@
 -->
 
 <entity-engine-xml>
+    <!-- Payment Gateway Config -->
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYPAL" hasTable="N" description="PayPal Payment Gateway"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="PAYPAL_CONFIG" paymentGatewayConfigTypeId="PAYPAL" description="PayPal Config"/>
+    <PaymentGatewayPayPal paymentGatewayConfigId="PAYPAL_CONFIG" businessEmail="" apiUserName="" apiPassword="" apiSignature="" apiEnvironment="" notifyUrl="" returnUrl="" cancelReturnUrl="" imageUrl="" confirmTemplate="/order/emailconfirmation.ftl" redirectUrl="https://www.sandbox.paypal.com/webscr" confirmUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr" shippingCallbackUrl="" requireConfirmedShipping="N"/>
+    
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="WORLDPAY" hasTable="N" description="RBS WorldPay Payment Gateway"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="WORLDPAY_CONFIG" paymentGatewayConfigTypeId="WORLDPAY" description="RBS WorldPay Config"/>
+    <PaymentGatewayWorldPay paymentGatewayConfigId="WORLDPAY_CONFIG" redirectUrl="https://select-test.worldpay.com/wcc/purchase" instId="" authMode="A" fixContact="N" hideContact="N" hideCurrency="N" langId="" noLanguageMenu="N" withDelivery="N" testMode="100"/>
+    
     <ProductStorePaymentSetting productStoreId="PRODUCTSTOREID" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
     <ProductStorePaymentSetting productStoreId="PRODUCTSTOREID" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
     <ProductStorePaymentSetting productStoreId="PRODUCTSTOREID" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture" paymentCustomMethodId="CC_CAPTURE_TEST"/>
