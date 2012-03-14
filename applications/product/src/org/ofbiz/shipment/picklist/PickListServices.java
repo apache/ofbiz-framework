@@ -75,8 +75,8 @@ public class PickListServices {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                Debug.log("Recieved orderIdList  - " + orderIdList, module);
-                Debug.log("Found orderHeaderList - " + orderHeaderList, module);
+                Debug.logInfo("Recieved orderIdList  - " + orderIdList, module);
+                Debug.logInfo("Found orderHeaderList - " + orderHeaderList, module);
             }
         }
 

@@ -204,7 +204,7 @@ public class PackingSessionLine implements java.io.Serializable {
 
         if (picklistBinId != null) {
             // find the pick list item
-            Debug.log("Looking up picklist item for bin ID #" + picklistBinId, module);
+            Debug.logInfo("Looking up picklist item for bin ID #" + picklistBinId, module);
             Delegator delegator = dispatcher.getDelegator();
             Map<String, Object> itemLookup = FastMap.newInstance();
             itemLookup.put("picklistBinId", picklistBinId);
@@ -214,7 +214,7 @@ public class PackingSessionLine implements java.io.Serializable {
             itemLookup.put("inventoryItemId", this.getInventoryItemId());
             GenericValue plItem = delegator.findByPrimaryKey("PicklistItem", itemLookup);
             if (plItem != null) {
-                Debug.log("Found picklist bin: " + plItem, module);
+                Debug.logInfo("Found picklist bin: " + plItem, module);
                 BigDecimal itemQty = plItem.getBigDecimal("quantity");
                 if (itemQty.compareTo(quantity) == 0) {
                     // set to complete
@@ -229,7 +229,7 @@ public class PackingSessionLine implements java.io.Serializable {
                     throw new GeneralException(ServiceUtil.getErrorMessage(issueResp));
                 }
             } else {
-                Debug.log("No item was found for lookup: " + itemLookup, module);
+                Debug.logInfo("No item was found for lookup: " + itemLookup, module);
             }
         } else {
             Debug.logWarning("*** NO Picklist Bin ID set; cannot update picklist status!", module);

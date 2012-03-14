@@ -862,7 +862,7 @@ public class CheckOutEvents {
         // payment option; if offline we skip the payment screen
         methodType = request.getParameter("paymentMethodType");
         if ("offline".equals(methodType)) {
-            Debug.log("Changing mode from->to: " + mode + "->payment", module);
+            Debug.logInfo("Changing mode from->to: " + mode + "->payment", module);
             mode = "payment";
         }
         //FIXME can be removed ?

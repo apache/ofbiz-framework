@@ -230,7 +230,7 @@ public class EbayStoreCategoryFacade {
         resp = (GetDescriptionTemplatesResponseType) call.execute(req);
         if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
             DescriptionTemplateType[] descriptionTemplateTypeList = resp.getDescriptionTemplate();
-            Debug.log("layout of category "+ this.catId +":"+ resp.getLayoutTotal());
+            Debug.logInfo("layout of category "+ this.catId +":"+ resp.getLayoutTotal(), module);
             for (DescriptionTemplateType descTemplateType : descriptionTemplateTypeList) {
                 List<Map<String,Object>> templateList = null;
                 Map<String,Object> templateGroup = null;

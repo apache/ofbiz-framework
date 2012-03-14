@@ -692,14 +692,14 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             throw new PersistenceException(e);
         }
         if (UtilValidate.isNotEmpty(lookupList)) {
-            Debug.log("Lookup list contains : " + lookupList.size(), module);
+            Debug.logInfo("Lookup list contains : " + lookupList.size(), module);
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 createdList.add(ProcessVariable.getInstance(this, v));
             }
         } else {
-            Debug.log("Lookup list empty", module);
+            Debug.logInfo("Lookup list empty", module);
         }
         if (Debug.verboseOn()) Debug.log("Returning list : " + createdList.size(), module);
         return createdList;
@@ -948,7 +948,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         Debug.logInfo(">>>>>>>>>>>>>>>>>>>>>>> getAssignmentsWhere(SharkTransaction trans, String sqlWhere)",module);
         Debug.logInfo(">>>>>>>>>>>>>>>>>>>>>>> sqlWhere = " + sqlWhere ,module);
         if (sqlWhere != null) {
-            Debug.log("Call : Attempt to call getAssignmentsWhere() - " + sqlWhere, module);
+            Debug.logInfo("Call : Attempt to call getAssignmentsWhere() - " + sqlWhere, module);
             throw new PersistenceException("Method not available to this implementation! (" + sqlWhere + ")");
         }
         return this.getAllAssignments(trans);

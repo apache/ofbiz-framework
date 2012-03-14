@@ -225,7 +225,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest("RateV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsRateDomesticSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -248,7 +248,7 @@ public class UspsServices {
                 BigDecimal packageAmount = new BigDecimal(UtilXml.childElementValue(postageElement, "Rate"));
                 estimateAmount = estimateAmount.add(packageAmount);
             } catch (NumberFormatException e) {
-                Debug.log(e, module);
+                Debug.logInfo(e, module);
             }
         }
 
@@ -380,7 +380,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest("IntlRate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsRateInternationalSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -401,7 +401,7 @@ public class UspsServices {
             Element errorElement = UtilXml.firstChildElement(packageElement, "Error");
             if (errorElement != null) {
                 String errorDescription = UtilXml.childElementValue(errorElement, "Description");
-                Debug.log("USPS International Rate Calculation returned a package error: " + errorDescription);
+                Debug.logInfo("USPS International Rate Calculation returned a package error: " + errorDescription, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentRateNotAvailable", locale));
             }
@@ -415,7 +415,7 @@ public class UspsServices {
                     BigDecimal packageAmount = new BigDecimal(UtilXml.childElementValue(serviceElement, "Postage"));
                     estimateAmount = estimateAmount.add(packageAmount);
                 } catch (NumberFormatException e) {
-                    Debug.log("USPS International Rate Calculation returned an unparsable postage amount: " + UtilXml.childElementValue(serviceElement, "Postage"));
+                    Debug.logInfo("USPS International Rate Calculation returned an unparsable postage amount: " + UtilXml.childElementValue(serviceElement, "Postage"), module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentRateNotAvailable", locale));
                 }
@@ -464,7 +464,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest("TrackV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsTrackingSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -562,7 +562,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest("Verify", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsAddressValidationSendingError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
@@ -648,7 +648,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest("CityStateLookup", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsCityStateLookupSendingError", 
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -762,7 +762,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest(type, requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsServiceStandardSendingError", 
                     UtilMisc.toMap("serviceType", type, "errorString", e.getMessage()), locale));
@@ -867,7 +867,7 @@ public class UspsServices {
         try {
             responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
         } catch (UspsRequestException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsRateDomesticSendingError", 
                     UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -1126,7 +1126,7 @@ public class UspsServices {
                 try {
                     responseDocument = sendUspsRequest("Rate", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
                 } catch (UspsRequestException e) {
-                    Debug.log(e, module);
+                    Debug.logInfo(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsRateDomesticSendingError", 
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -1179,7 +1179,7 @@ public class UspsServices {
             shipmentRouteSegment.store();
 
         } catch (GenericEntityException gee) {
-            Debug.log(gee, module);
+            Debug.logInfo(gee, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsRateDomesticReadingError",
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
@@ -1396,7 +1396,7 @@ public class UspsServices {
                 try {
                     responseDocument = sendUspsRequest("DeliveryConfirmationV2", requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
                 } catch (UspsRequestException e) {
-                    Debug.log(e, module);
+                    Debug.logInfo(e, module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsDeliveryConfirmationSendingError", 
                             UtilMisc.toMap("errorString", e.getMessage()), locale));
@@ -1428,7 +1428,7 @@ public class UspsServices {
             }
 
         } catch (GenericEntityException gee) {
-            Debug.log(gee, module);
+            Debug.logInfo(gee, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentUspsDeliveryConfirmationReadingError", 
                     UtilMisc.toMap("errorString", gee.getMessage()), locale));
@@ -1467,10 +1467,10 @@ public class UspsServices {
             }
 
         } catch (GenericEntityException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(e.getMessage());
         } catch (IOException e) {
-            Debug.log(e, module);
+            Debug.logInfo(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
         return ServiceUtil.returnSuccess();
@@ -1632,7 +1632,7 @@ public class UspsServices {
                     product = shipmentItem.getRelatedOne("Product");
                     originGeo = product.getRelatedOne("OriginGeo");
                 } catch (GenericEntityException e) {
-                    Debug.log(e, module);
+                    Debug.logInfo(e, module);
                 }
 
                 UtilXml.addChildElementValue(itemDetail, "Description", product.getString("productName"), packageDocument);
@@ -1653,7 +1653,7 @@ public class UspsServices {
             try {
                 responseDocument = sendUspsRequest(api, requestDocument, delegator, shipmentGatewayConfigId, resource, locale);
             } catch (UspsRequestException e) {
-                Debug.log(e, module);
+                Debug.logInfo(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentUspsPriorityMailLabelSendingError", 
                         UtilMisc.toMap("errorString", e.getMessage()), locale));

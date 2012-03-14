@@ -795,7 +795,7 @@ public class CCPaymentServices {
                 GenericValue countryGeo = address.getRelatedOneCache("CountryGeo");
                 UtilXml.addChildElementValue(addressElement, "Country", countryGeo.getString("geoSecCode"), document);
             } catch (GenericEntityException gee) {
-                Debug.log(gee, "Error finding related Geo for countryGeoId: " + countryGeoId, module);
+                Debug.logInfo(gee, "Error finding related Geo for countryGeoId: " + countryGeoId, module);
             }
         }
     }
@@ -909,7 +909,7 @@ public class CCPaymentServices {
         try {
             response = http.post();
         } catch (HttpClientException hce) {
-            Debug.log(hce, module);
+            Debug.logInfo(hce, module);
             throw new ClearCommerceException("ClearCommerce connection problem", hce);
         }
 

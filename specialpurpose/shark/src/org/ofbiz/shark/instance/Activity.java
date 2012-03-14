@@ -226,7 +226,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
     public void remove() throws GenericEntityException {
         if (!newValue) {
             delegator.removeValue(activity);
-            Debug.log("**** REMOVED : " + this, module);
+            Debug.logInfo("**** REMOVED : " + this, module);
         }
     }
 

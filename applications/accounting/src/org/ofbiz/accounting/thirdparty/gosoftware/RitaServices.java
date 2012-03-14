@@ -84,7 +84,7 @@ public class RitaServices {
         // send the transaction
         RitaApi out = null;
         try {
-            Debug.log("Sending request to RiTA", module);
+            Debug.logInfo("Sending request to RiTA", module);
             out = api.send();
         } catch (IOException e) {
             Debug.logError(e, module);
@@ -544,7 +544,7 @@ public class RitaServices {
         props.put("ssl", ssl);
         props.put("autoBill", autoBill);
         props.put("forceTx", forceTx);
-        Debug.log("Returning properties - " + props, module);
+        Debug.logInfo("Returning properties - " + props, module);
 
         return props;
     }

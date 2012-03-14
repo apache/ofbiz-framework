@@ -659,7 +659,7 @@ public class FinAccountPaymentServices {
                     "AccountingFinAccountExpired", 
                     UtilMisc.toMap("thruDate", finAccount.getTimestamp("thruDate")), locale));
         }
-        Debug.log("Deposit into financial account #" + finAccountId + " [" + amount + "]", module);
+        Debug.logInfo("Deposit into financial account #" + finAccountId + " [" + amount + "]", module);
 
         // get the previous balance
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");

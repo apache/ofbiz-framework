@@ -478,7 +478,7 @@ public class ProductStoreWorker {
             storeSurveys = EntityUtil.filterByAnd(storeSurveys, UtilMisc.toMap("groupName", groupName));
         }
 
-         Debug.log("getSurvey for product " + productId,module);
+         Debug.logInfo("getSurvey for product " + productId,module);
         // limit by product
         if (!UtilValidate.isEmpty(productId) && !UtilValidate.isEmpty(storeSurveys)) {
             for (GenericValue surveyAppl: storeSurveys) {
@@ -495,7 +495,7 @@ public class ProductStoreWorker {
                         else {
                             virtualProductId = ProductWorker.getVariantVirtualId(product);
                         }
-                        Debug.log("getSurvey for virtual product " + virtualProductId,module);
+                        Debug.logInfo("getSurvey for virtual product " + virtualProductId,module);
                     }
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem finding product from productId " + productId, module);

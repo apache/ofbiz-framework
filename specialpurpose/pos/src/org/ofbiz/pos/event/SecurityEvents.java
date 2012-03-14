@@ -135,7 +135,7 @@ public class SecurityEvents {
                 }
             }
         } else {
-            Debug.log("Login function called but not prepared as a function!", module);
+            Debug.logInfo("Login function called but not prepared as a function!", module);
         }
     }
 }

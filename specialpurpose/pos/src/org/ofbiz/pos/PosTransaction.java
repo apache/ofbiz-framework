@@ -331,12 +331,12 @@ public class PosTransaction implements Serializable {
 
             List<GenericValue> paymentPrefs = session.getDelegator().findByAnd("OrderPaymentPreference", fields);
             if (UtilValidate.isNotEmpty(paymentPrefs)) {
-                //Debug.log("Found some prefs - " + paymentPrefs.size(), module);
+                //Debug.logInfo("Found some prefs - " + paymentPrefs.size(), module);
                 if (paymentPrefs.size() > 1) {
                     Debug.logError("Multiple OrderPaymentPreferences found for the same payment method!", module);
                 } else {
                     paymentPref = EntityUtil.getFirst(paymentPrefs);
-                    //Debug.log("Got the first pref - " + paymentPref, module);
+                    //Debug.logInfo("Got the first pref - " + paymentPref, module);
                 }
             } else {
                 Debug.logError("No OrderPaymentPreference found - " + fields, module);
@@ -344,7 +344,7 @@ public class PosTransaction implements Serializable {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        //Debug.log("PaymentPref - " + paymentPref, module);
+        //Debug.logInfo("PaymentPref - " + paymentPref, module);
 
         Map<String, Object> payInfo = FastMap.newInstance();
 
@@ -364,7 +364,7 @@ public class PosTransaction implements Serializable {
             Debug.logError("Payment preference is empty!", module);
             return payInfo;
         }
-        //Debug.log("AuthTrans - " + authTrans, module);
+        //Debug.logInfo("AuthTrans - " + authTrans, module);
 
         if ("PaymentMethodType".equals(infValue.getEntityName())) {
             payInfo.put("description", infValue.get("description", locale));
@@ -714,7 +714,7 @@ public class PosTransaction implements Serializable {
             Iterator<GenericValue> i = values.iterator();
             while (i.hasNext() && isExternal) {
                 GenericValue v = i.next();
-                //Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
+                //Debug.logInfo("Testing [" + paymentMethodTypeId + "] - " + v, module);
                 if (!externalCode.equals(v.getString("paymentServiceTypeEnumId"))) {
                     isExternal = false;
                 }
@@ -833,7 +833,7 @@ public class PosTransaction implements Serializable {
          if (UtilValidate.isEmpty(this.orderId)) {  // if order does not exist
              output.print(UtilProperties.getMessage(resource, "PosSaving", locale));
              Map<String, Object> orderRes = ch.createOrder(session.getUserLogin());
-             //Debug.log("Create Order Resp : " + orderRes, module);
+             //Debug.logInfo("Create Order Resp : " + orderRes, module);
 
              if (orderRes != null && ServiceUtil.isError(orderRes)) {
                  throw new GeneralException(ServiceUtil.getErrorMessage(orderRes));
@@ -1116,7 +1116,7 @@ public class PosTransaction implements Serializable {
         svcCtx.put("expYear", expYear);
         svcCtx.put("cardType", UtilValidate.getCardType(cardNumber));
 
-        //Debug.log("Create CC : " + svcCtx, module);
+        //Debug.logInfo("Create CC : " + svcCtx, module);
         Map<String, Object> svcRes = null;
         try {
             svcRes = dispatcher.runSync("createCreditCard", svcCtx);
@@ -1233,7 +1233,7 @@ public class PosTransaction implements Serializable {
         }
 
         if (svcRes == null) {
-            Debug.log(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
+            Debug.logInfo(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
         } else if (ServiceUtil.isError(svcRes)) {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{
@@ -1278,7 +1278,7 @@ public class PosTransaction implements Serializable {
         }
 
         if (shoppingLists == null) {
-            Debug.log(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
+            Debug.logInfo(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
         }
         return shoppingLists;
     }
@@ -1350,7 +1350,7 @@ public class PosTransaction implements Serializable {
         }
 
         if (svcRes == null) {
-            Debug.log(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
+            Debug.logInfo(UtilProperties.getMessage("EcommerceUiLabels", "EcommerceNoShoppingListsCreate", locale), module);
         } else if (ServiceUtil.isError(svcRes)) {
             Debug.logError(ServiceUtil.getErrorMessage(svcRes) + " - " + svcRes, module);
         } else{

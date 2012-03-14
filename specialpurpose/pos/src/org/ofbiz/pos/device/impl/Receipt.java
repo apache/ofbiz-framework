@@ -118,7 +118,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         } catch (JposException e) {
             Debug.logError(e, "Exception while setting jpos.POSPrinter.transactionPrint to transaction mode ", module);
         }
-        Debug.log("Print Report Requested", module);
+        Debug.logInfo("Print Report Requested", module);
         String[] report = this.readReportTemplate(resource);
 
         if (report != null) {
@@ -150,7 +150,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
     }
 
     public void printReceipt(PosTransaction trans, boolean printStoreCopy) {
-        Debug.log("Print Receipt Requested : " + trans.getTransactionId(), module);
+        Debug.logInfo("Print Receipt Requested : " + trans.getTransactionId(), module);
         POSPrinter printer = (POSPrinter) control;
         this.lastTransaction = trans;
 

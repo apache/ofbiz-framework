@@ -42,7 +42,7 @@ public class PaymentEvents {
         // all cash transactions are NO_PAYMENT; no need to check
         try {
             BigDecimal amount = processAmount(trans, pos, null);
-            Debug.log("Processing [Cash] Amount : " + amount, module);
+            Debug.logInfo("Processing [Cash] Amount : " + amount, module);
 
             // add the payment
             trans.addPayment("CASH", amount, null, null);
@@ -140,7 +140,7 @@ public class PaymentEvents {
             input.setFunction("CREDIT");
             pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredNo",Locale.getDefault()));
         } else {
-            Debug.log("Credit Func Info : " + crtInfo[1], module);
+            Debug.logInfo("Credit Func Info : " + crtInfo[1], module);
             if (msrInfo == null && (creditExpirationInfo == null))  {
                 //test credit card
                 if (UtilValidate.isNotEmpty(input.value()) && UtilValidate.isCreditCard(input.value())) {
@@ -149,7 +149,7 @@ public class PaymentEvents {
                     input.setFunction("CREDITEXP");
                     pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredex",Locale.getDefault()));
                 } else {
-                    Debug.log("Invalid card number - " + input.value(), module);
+                    Debug.logInfo("Invalid card number - " + input.value(), module);
                     clearInputPaymentFunctions(pos);
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidcardnumber");
@@ -163,7 +163,7 @@ public class PaymentEvents {
                     input.setFunction("SECURITYCODE");
                     pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosSecurityCode",Locale.getDefault()));
                 } else {
-                    Debug.log("Invalid expiration date", module);
+                    Debug.logInfo("Invalid expiration date", module);
                     clearInputPaymentFunctions(pos);
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidexpirationdate");
@@ -217,7 +217,7 @@ public class PaymentEvents {
                         try {
                             String[] totalInfo = input.getFunction("TOTAL");
                             amount = processAmount(trans, pos, totalInfo[1]);
-                            Debug.log("Processing Credit Card Amount : " + amount, module);
+                            Debug.logInfo("Processing Credit Card Amount : " + amount, module);
                         } catch (GeneralException e) {
                             Debug.logError("Exception caught calling processAmount.", module);
                             Debug.logError(e.getMessage(), module);
@@ -247,7 +247,7 @@ public class PaymentEvents {
                         pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredex",Locale.getDefault()));
                         break;
                     default:
-                        Debug.log("Hit the default switch case [" + allInfo + "] refreshing.", module);
+                        Debug.logInfo("Hit the default switch case [" + allInfo + "] refreshing.", module);
                         input.clearFunction("MSRINFO");
                         pos.getOutput().print(UtilProperties.getMessage(PosTransaction.resource,"PosCredNo",Locale.getDefault()));
                         break;
@@ -261,7 +261,7 @@ public class PaymentEvents {
 
         try {
             BigDecimal amount = processAmount(trans, pos, null);
-            Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
+            Debug.logInfo("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
             trans.addPayment(paymentMethodTypeId, amount, null, null);
@@ -284,7 +284,7 @@ public class PaymentEvents {
 
         try {
             BigDecimal amount = processAmount(trans, pos, amountStr);
-            Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
+            Debug.logInfo("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
             trans.addPayment(paymentMethodTypeId, amount, refNum, null);
@@ -397,9 +397,9 @@ public class PaymentEvents {
                     throw new GeneralException();
                 }
                 amount = amount.movePointLeft(2); // convert to decimal
-                Debug.log("Set amount / 100 : " + amount, module);
+                Debug.logInfo("Set amount / 100 : " + amount, module);
             } else {
-                Debug.log("Amount is empty; assumption is full amount : " + trans.getTotalDue(), module);
+                Debug.logInfo("Amount is empty; assumption is full amount : " + trans.getTotalDue(), module);
                 amount = trans.getTotalDue();
                 if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                     throw new GeneralException();
@@ -407,7 +407,7 @@ public class PaymentEvents {
             }
             return amount;
         } else {
-            Debug.log("TOTAL function NOT set", module);
+            Debug.logInfo("TOTAL function NOT set", module);
             throw new GeneralException();
         }
     }

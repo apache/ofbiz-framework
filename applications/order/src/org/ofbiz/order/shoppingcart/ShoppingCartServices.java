@@ -77,7 +77,7 @@ public class ShoppingCartServices {
             clearEmptyGroups = Boolean.TRUE;
         }
 
-        Debug.log("From Group - " + fromGroupIndex + " To Group - " + toGroupIndex + "Item - " + itemIndex + "(" + quantity + ")", module);
+        Debug.logInfo("From Group - " + fromGroupIndex + " To Group - " + toGroupIndex + "Item - " + itemIndex + "(" + quantity + ")", module);
         if (fromGroupIndex.equals(toGroupIndex)) {
             // nothing to do
             return ServiceUtil.returnSuccess();
@@ -85,7 +85,7 @@ public class ShoppingCartServices {
 
         cart.positionItemToGroup(itemIndex.intValue(), quantity,
                 fromGroupIndex.intValue(), toGroupIndex.intValue(), clearEmptyGroups.booleanValue());
-        Debug.log("Called cart.positionItemToGroup()", module);
+        Debug.logInfo("Called cart.positionItemToGroup()", module);
 
         return ServiceUtil.returnSuccess();
     }
@@ -289,10 +289,10 @@ public class ShoppingCartServices {
 
                 if ((overflow == null || !"Y".equals(overflow)) && oppi.hasNext()) {
                     cpi = cart.addPaymentAmount(paymentId, maxAmount);
-                    Debug.log("Added Payment: " + paymentId + " / " + maxAmount, module);
+                    Debug.logInfo("Added Payment: " + paymentId + " / " + maxAmount, module);
                 } else {
                     cpi = cart.addPayment(paymentId);
-                    Debug.log("Added Payment: " + paymentId + " / [no max]", module);
+                    Debug.logInfo("Added Payment: " + paymentId + " / [no max]", module);
                 }
                 // for finance account the finAccountId needs to be set
                 if ("FIN_ACCOUNT".equals(paymentId)) {
@@ -302,7 +302,7 @@ public class ShoppingCartServices {
                 cart.setBillingAccount(orderHeader.getString("billingAccountId"), orh.getBillingAccountMaxAmount());
             }
         } else {
-            Debug.log("No payment preferences found for order #" + orderId, module);
+            Debug.logInfo("No payment preferences found for order #" + orderId, module);
         }
 
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();

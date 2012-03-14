@@ -139,7 +139,7 @@ public class PosButton {
             } catch (Throwable t) {
             }
             if (cl == null) {
-                Debug.log("No context classloader available; using class classloader", module);
+                Debug.logInfo("No context classloader available; using class classloader", module);
                 try {
                     cl = this.getClass().getClassLoader();
                 } catch (Throwable t) {

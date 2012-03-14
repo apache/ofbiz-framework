@@ -634,7 +634,7 @@ public class ProductsExportToGoogle {
         result.put("newProductsInGoogle", newProductsInGoogle);
         result.put("productsRemovedFromGoogle", productsRemovedFromGoogle);
         result.put("localeString", localeString);
-        //Debug.log("======returning with result: " + result);
+        //Debug.logInfo("======returning with result: " + result, module);
         return result;
     }
 
@@ -656,7 +656,7 @@ public class ProductsExportToGoogle {
     private static Map<String, Object> readResponseFromGoogle(String msg, List<String> newProductsInGoogle, List<String> productsRemovedFromGoogle,
             LocalDispatcher dispatcher, Delegator delegator, Locale locale, String localeString) {
         List<String> message = FastList.newInstance();
-        // Debug.log("====get xml response from google: " + msg);
+        // Debug.logInfo("====get xml response from google: " + msg, module);
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
             Element elemResponse = docResponse.getDocumentElement();

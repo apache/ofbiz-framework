@@ -221,7 +221,7 @@ public class LdapLoginWorker extends LoginWorker {
 
     protected static Element getRootElement(HttpServletRequest request) {
         if (Debug.infoOn()) {
-            Debug.log("Applet config file: " + ldapConfig);
+            Debug.logInfo("Applet config file: " + ldapConfig, module);
         }
         File configFile = new File(ldapConfig);
         FileInputStream configFileIS = null;

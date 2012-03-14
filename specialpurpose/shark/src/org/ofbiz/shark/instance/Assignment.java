@@ -60,7 +60,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
         super(mgr, delegator);
         this.newValue = true;
         this.assignment = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfAssignment);
-        Debug.log("******* New assignment created", module);
+        Debug.logInfo("******* New assignment created", module);
     }
 
     public static Assignment getInstance(EntityPersistentMgr mgr, GenericValue assignment) {
@@ -88,7 +88,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
 
     public void setActivityId(String actId) {
         assignment.set(org.ofbiz.shark.SharkConstants.activityId, actId);
-        Debug.log("Set activityId on assignment : " + actId, module);
+        Debug.logInfo("Set activityId on assignment : " + actId, module);
         // set the processId - kludge
         /* should not be needed anymore
         try {
@@ -108,7 +108,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
 
     public void setResourceUsername(String username) {
         assignment.set(org.ofbiz.shark.SharkConstants.userName, username);
-        Debug.log("Set userName on assignment : " + username, module);
+        Debug.logInfo("Set userName on assignment : " + username, module);
     }
 
     public String getResourceUsername() {
@@ -117,7 +117,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
 
     public void setProcessId(String procId) {
         assignment.set(org.ofbiz.shark.SharkConstants.processId, procId);
-        Debug.log("Set processId on assignment : " + procId, module);
+        Debug.logInfo("Set processId on assignment : " + procId, module);
     }
 
     public String getProcessId() {
@@ -139,7 +139,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
         } else {
             delegator.store(assignment);
         }
-        Debug.log("Stored assignment : " + assignment, module);
+        Debug.logInfo("Stored assignment : " + assignment, module);
     }
 
     public void reload() throws GenericEntityException {
@@ -151,7 +151,7 @@ public class Assignment extends InstanceEntityObject implements AssignmentPersis
     public void remove() throws GenericEntityException {
         if (!newValue) {
             delegator.removeValue(assignment);
-            Debug.log("**** REMOVED : " + this, module);
+            Debug.logInfo("**** REMOVED : " + this, module);
         }
     }
 

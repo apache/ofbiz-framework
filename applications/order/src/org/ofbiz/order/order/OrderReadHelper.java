@@ -2454,7 +2454,7 @@ public class OrderReadHelper {
         while (itemIter != null && itemIter.hasNext()) {
             GenericValue orderItem = itemIter.next();
             BigDecimal itemTotal = getOrderItemSubTotal(orderItem, adjustments);
-            // Debug.log("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
+            // Debug.logInfo("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
 
             if (workEfforts != null && orderItem.getString("orderItemTypeId").compareTo("RENTAL_ORDER_ITEM") == 0) {
                 Iterator<GenericValue> weIter = UtilMisc.toIterator(workEfforts);
@@ -2464,7 +2464,7 @@ public class OrderReadHelper {
                         itemTotal = itemTotal.multiply(getWorkEffortRentalQuantity(workEffort)).setScale(scale, rounding);
                         break;
                     }
-//                    Debug.log("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
+//                    Debug.logInfo("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
                 }
             }
             result = result.add(itemTotal).setScale(scale, rounding);

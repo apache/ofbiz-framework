@@ -152,7 +152,7 @@ public class SagePayUtil
                 }
             }
         }
-        Debug.log("SagePay Response Data : " + responseData);
+        Debug.logInfo("SagePay Response Data : " + responseData, module);
         return responseData;
     }
 
@@ -173,7 +173,7 @@ public class SagePayUtil
             postParameters.add(new BasicNameValuePair(key, value));
         }
 
-        Debug.log("SagePay PostParameters - " + postParameters);
+        Debug.logInfo("SagePay PostParameters - " + postParameters, module);
 
         HttpEntity postEntity = new UrlEncodedFormEntity(postParameters);
         httpPost.setEntity(postEntity);

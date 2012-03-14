@@ -1032,7 +1032,7 @@ public class ProductWorker {
                 }
             }
             // find variant
-            // Debug.log("=====try to find variant for product: " + productId + " and features: " + selectedFeatures);
+            // Debug.logInfo("=====try to find variant for product: " + productId + " and features: " + selectedFeatures);
             List<GenericValue> productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId","PRODUCT_VARIANT")));
             boolean productFound = false;
 nextProd:
@@ -1048,7 +1048,7 @@ nextProd:
                 break;
             }
 //          if (productFound)
-//              Debug.log("=====product found:" + productId + " and features: " + selectedFeatures);
+//              Debug.logInfo("=====product found:" + productId + " and features: " + selectedFeatures);
 
             /**
              * 1. variant not found so create new variant product and use the virtual product as basis, new one  is a variant type and not a virtual type.
@@ -1102,7 +1102,7 @@ nextProd:
                 GenericValue productAssoc = delegator.makeValue("ProductAssoc", UtilMisc.toMap("productId", productId, "productIdTo", product.getString("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
                 productAssoc.put("fromDate", UtilDateTime.nowTimestamp());
                 productAssoc.create();
-                Debug.log("set the productId to: " + product.getString("productId"));
+                Debug.logInfo("set the productId to: " + product.getString("productId"), module);
 
                 // copy the supplier
                 List<GenericValue> supplierProducts = delegator.findByAndCache("SupplierProduct", UtilMisc.toMap("productId", productId));

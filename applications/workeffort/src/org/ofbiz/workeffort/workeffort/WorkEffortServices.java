@@ -516,7 +516,7 @@ public class WorkEffortServices {
         Collection<String> partyIds = UtilGenerics.checkCollection(context.get("partyIds"));
         String facilityId = (String) context.get("facilityId");
         String fixedAssetId = (String) context.get("fixedAssetId");
-        // Debug.log("======by period for fixedAsset: " + fixedAssetId + " facilityId: " + facilityId + "partyId: " + partyId + " entityExprList:" + (List) context.get("entityExprList"));
+        // Debug.logInfo("======by period for fixedAsset: " + fixedAssetId + " facilityId: " + facilityId + "partyId: " + partyId + " entityExprList:" + (List) context.get("entityExprList"));
         String workEffortTypeId = (String) context.get("workEffortTypeId");
         Boolean filterOutCanceledEvents = (Boolean) context.get("filterOutCanceledEvents");
         if (filterOutCanceledEvents == null) {
@@ -639,7 +639,7 @@ public class WorkEffortServices {
         try {
             List<GenericValue> tempWorkEfforts = null;
             if (UtilValidate.isNotEmpty(partyIdsToUse)) {
-                // Debug.log("=====conditions for party: " + eclTotal);
+                // Debug.logInfo("=====conditions for party: " + eclTotal);
                 tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssignAndType", eclTotal, null, orderByList, null, false));
             } else {
                 tempWorkEfforts = delegator.findList("WorkEffort", eclTotal, null, orderByList, null, false);

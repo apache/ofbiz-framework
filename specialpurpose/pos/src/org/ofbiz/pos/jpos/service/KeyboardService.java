@@ -148,7 +148,7 @@ public class KeyboardService extends BaseService implements jpos.services.POSKey
                 this.fireEvent(event);
             }
         } else {
-            Debug.log("Last Event is null??", module);
+            Debug.logInfo("Last Event is null??", module);
         }
     }
 

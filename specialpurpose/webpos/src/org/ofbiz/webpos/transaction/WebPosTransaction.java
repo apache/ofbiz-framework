@@ -193,7 +193,7 @@ public class WebPosTransaction {
     }
 
     public BigDecimal processSale() throws GeneralException {
-        Debug.log("Process sale", module);
+        Debug.logInfo("Process sale", module);
         BigDecimal grandTotal = this.getGrandTotal();
         BigDecimal paymentAmt = this.getPaymentTotal();
         if (grandTotal.compareTo(paymentAmt) > 0) {
@@ -204,14 +204,14 @@ public class WebPosTransaction {
         getCart().setOrderPartyId(partyId);
 
         // validate payment methods
-        Debug.log("Validating payment methods", module);
+        Debug.logInfo("Validating payment methods", module);
         Map<String, ? extends Object> valRes = UtilGenerics.cast(ch.validatePaymentMethods());
         if (valRes != null && ServiceUtil.isError(valRes)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(valRes));
         }
 
         // store the order
-        Debug.log("Store order", module);
+        Debug.logInfo("Store order", module);
         Map<String, ? extends Object> orderRes = UtilGenerics.cast(ch.createOrder(webPosSession.getUserLogin()));
 
         if (orderRes != null && ServiceUtil.isError(orderRes)) {
@@ -221,7 +221,7 @@ public class WebPosTransaction {
         }
 
         // process the payment(s)
-        Debug.log("Processing the payment(s)", module);
+        Debug.logInfo("Processing the payment(s)", module);
         Map<String, ? extends Object> payRes = null;
         try {
             payRes = UtilGenerics.cast(ch.processPayment(ProductStoreWorker.getProductStore(webPosSession.getProductStoreId(), webPosSession.getDelegator()), webPosSession.getUserLogin(), true));
@@ -330,7 +330,7 @@ public class WebPosTransaction {
             Iterator<GenericValue> i = values.iterator();
             while (i.hasNext() && isExternal) {
                 GenericValue v = (GenericValue) i.next();
-                //Debug.log("Testing [" + paymentMethodTypeId + "] - " + v, module);
+                //Debug.logInfo("Testing [" + paymentMethodTypeId + "] - " + v, module);
                 if (!externalCode.equals(v.getString("paymentServiceTypeEnumId"))) {
                     isExternal = false;
                 }
@@ -372,7 +372,7 @@ public class WebPosTransaction {
 
     public BigDecimal processAmount(BigDecimal amount) throws GeneralException {
         if (UtilValidate.isEmpty(amount)) {
-            Debug.log("Amount is empty; assumption is full amount : " + this.getTotalDue(), module);
+            Debug.logInfo("Amount is empty; assumption is full amount : " + this.getTotalDue(), module);
             amount = this.getTotalDue();
             if (amount.compareTo(BigDecimal.ZERO) <= 0) {
                 throw new GeneralException();
@@ -384,7 +384,7 @@ public class WebPosTransaction {
     public synchronized void processNoPayment(String paymentMethodTypeId) {
         try {
             BigDecimal amount = processAmount(null);
-            Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
+            Debug.logInfo("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
             addPayment(paymentMethodTypeId, amount, null, null);
@@ -401,7 +401,7 @@ public class WebPosTransaction {
 
         try {
             amount = processAmount(amount);
-            Debug.log("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
+            Debug.logInfo("Processing [" + paymentMethodTypeId + "] Amount : " + amount, module);
 
             // add the payment
             addPayment(paymentMethodTypeId, amount, refNum, null);
@@ -445,7 +445,7 @@ public class WebPosTransaction {
     }
 
     public void setPaymentRefNum(int paymentIndex, String refNum, String authCode) {
-        Debug.log("setting payment index reference number " + paymentIndex + " / " + refNum + " / " + authCode, module);
+        Debug.logInfo("setting payment index reference number " + paymentIndex + " / " + refNum + " / " + authCode, module);
         ShoppingCart.CartPaymentInfo inf = getCart().getPaymentInfo(paymentIndex);
         inf.refNum[0] = refNum;
         inf.refNum[1] = authCode;
@@ -453,7 +453,7 @@ public class WebPosTransaction {
 
     /* CVV2 code should be entered when a card can't be swiped */
     public void setPaymentSecurityCode(String paymentId, String refNum, String securityCode) {
-        Debug.log("setting payment security code " + paymentId, module);
+        Debug.logInfo("setting payment security code " + paymentId, module);
         int paymentIndex = getCart().getPaymentInfoIndex(paymentId, refNum);
         ShoppingCart.CartPaymentInfo inf = getCart().getPaymentInfo(paymentIndex);
         inf.securityCode = securityCode;
@@ -462,7 +462,7 @@ public class WebPosTransaction {
 
     /* Track2 data should be sent to processor when a card is swiped. */
     public void setPaymentTrack2(String paymentId, String refNum, String securityCode) {
-        Debug.log("setting payment security code " + paymentId, module);
+        Debug.logInfo("setting payment security code " + paymentId, module);
         int paymentIndex = getCart().getPaymentInfoIndex(paymentId, refNum);
         ShoppingCart.CartPaymentInfo inf = getCart().getPaymentInfo(paymentIndex);
         inf.securityCode = securityCode;
@@ -471,7 +471,7 @@ public class WebPosTransaction {
 
     /* Postal code should be entered when a card can't be swiped */
     public void setPaymentPostalCode(String paymentId, String refNum, String postalCode) {
-        Debug.log("setting payment security code " + paymentId, module);
+        Debug.logInfo("setting payment security code " + paymentId, module);
         int paymentIndex = getCart().getPaymentInfoIndex(paymentId, refNum);
         ShoppingCart.CartPaymentInfo inf = getCart().getPaymentInfo(paymentIndex);
         inf.postalCode = postalCode;

@@ -144,7 +144,7 @@ public class ProcessMgr extends InstanceEntityObject implements ProcessMgrPersis
     public void remove() throws GenericEntityException {
         if (!newValue) {
             delegator.removeValue(processMgr);
-            Debug.log("**** REMOVED : " + this, module);
+            Debug.logInfo("**** REMOVED : " + this, module);
         }
     }
 

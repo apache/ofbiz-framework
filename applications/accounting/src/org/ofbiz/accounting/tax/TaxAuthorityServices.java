@@ -575,7 +575,7 @@ public class TaxAuthorityServices {
                     UtilMisc.toList("-fromDate"));
             taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
             GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
-            // Debug.log("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
+            // Debug.logInfo("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
             if (taxAuthorityAssoc != null) {
                 handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);
             }

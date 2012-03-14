@@ -54,10 +54,10 @@ public class Keyboard extends GenericDevice {
         keyboard.addDataListener(new DataEventAdaptor() {
             @Override
             public void dataOccurred(jpos.events.DataEvent event) {
-                Debug.log("POSKeyboard DataEvent - " + event.getWhen(), module);
+                Debug.logInfo("POSKeyboard DataEvent - " + event.getWhen(), module);
                 try {
                     int keyCode = keyboard.getPOSKeyData();
-                    Debug.log("Received KeyCode From POSKeyboard DataEvent : " + keyCode, module);
+                    Debug.logInfo("Received KeyCode From POSKeyboard DataEvent : " + keyCode, module);
 
                     // -1 is not valid
                     if (keyCode == -1) {
@@ -66,14 +66,14 @@ public class Keyboard extends GenericDevice {
 
                     // check for button mapping
                     if (PosScreen.currentScreen.isLocked() && 500 != keyCode) {
-                        Debug.log("PosScreen is locked; not running POSKeyboard Event!", module);
+                        Debug.logInfo("PosScreen is locked; not running POSKeyboard Event!", module);
                         return;
                     }
 
                     List<String> buttonEvents = ButtonEventConfig.findButtonKeyAssign(keyCode);
                     if (UtilValidate.isNotEmpty(buttonEvents)) {
 
-                        Debug.log("Key -> Button Mapping(s) Found [" + keyCode + "]", module);
+                        Debug.logInfo("Key -> Button Mapping(s) Found [" + keyCode + "]", module);
                         try {
                             ButtonEventConfig.invokeButtonEvents(buttonEvents, PosScreen.currentScreen);
                         } catch (ButtonEventConfig.ButtonEventNotFound e) {

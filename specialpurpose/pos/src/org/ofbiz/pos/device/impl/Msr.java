@@ -101,7 +101,7 @@ public class Msr extends GenericDevice {
 
             @Override
             public void errorOccurred(jpos.events.ErrorEvent event) {
-                Debug.log("Error Occurred : " + event.getErrorCodeExtended(), module);
+                Debug.logInfo("Error Occurred : " + event.getErrorCodeExtended(), module);
                 PosScreen.currentScreen.showDialog("dialog/error/cardreaderror");
                 try {
                     msr.clearInput();
@@ -171,7 +171,7 @@ public class Msr extends GenericDevice {
             PosScreen pos = PosScreen.currentScreen.showPage("paypanel", false);
             pos.getInput().setFunction("TOTAL", "");
             pos.refresh();
-            Debug.log("Switched to paypanel.xml; triggered TOTAL function", module);
+            Debug.logInfo("Switched to paypanel.xml; triggered TOTAL function", module);
         }
     }
 }

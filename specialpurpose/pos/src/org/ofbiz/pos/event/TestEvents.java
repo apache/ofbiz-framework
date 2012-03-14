@@ -34,7 +34,7 @@ public class TestEvents {
 
     public static synchronized void logSelectedIndex(PosScreen pos) {
         Journal journal = pos.getJournal();
-        Debug.log("Selected IDX - " + journal.getSelectedIdx(), module);
+        Debug.logInfo("Selected IDX - " + journal.getSelectedIdx(), module);
     }
 
     public static synchronized void testMsr(PosScreen pos) {

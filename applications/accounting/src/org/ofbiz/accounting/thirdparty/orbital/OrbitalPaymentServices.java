@@ -372,9 +372,9 @@ public class OrbitalPaymentServices {
 
             //Display the request
             if ("AUTH_ONLY".equals(transType)) {
-                Debug.log("\nAuth Request:\n ======== " + request.getXML());
+                Debug.logInfo("\nAuth Request:\n ======== " + request.getXML());
             } else if ("AUTH_CAPTURE".equals(transType)) {
-                Debug.log("\nAuth Capture Request:\n ======== " + request.getXML());
+                Debug.logInfo("\nAuth Capture Request:\n ======== " + request.getXML());
             }
             results.put("processAmount", amount);
         } catch (InitializationException ie) {
@@ -414,7 +414,7 @@ public class OrbitalPaymentServices {
                 }
             }
             //Display the request
-            Debug.log("\nCapture Request:\n ======== " + request.getXML());
+            Debug.logInfo("\nCapture Request:\n ======== " + request.getXML());
             results.put("captureAmount", amount);
         } catch (InitializationException ie) {
             Debug.logInfo("Unable to initialize request object", module);
@@ -446,7 +446,7 @@ public class OrbitalPaymentServices {
             request.setFieldValue("Exp", UtilFormatOut.checkNull(expDate));
             request.setFieldValue("Comments", "This is a credit card refund");
 
-            Debug.log("\nRefund Request:\n ======== " + request.getXML());
+            Debug.logInfo("\nRefund Request:\n ======== " + request.getXML());
             results.put("refundAmount", amount);
         } catch (InitializationException ie) {
             Debug.logInfo("Unable to initialize request object", module);
@@ -470,7 +470,7 @@ public class OrbitalPaymentServices {
             request.setFieldValue("OrderID", UtilFormatOut.checkNull(orderId));
 
             //Display the request
-            Debug.log("\nRelease Request:\n ======== " + request.getXML());
+            Debug.logInfo("\nRelease Request:\n ======== " + request.getXML());
             results.put("releaseAmount", amount);
         } catch (InitializationException ie) {
             Debug.logInfo("Unable to initialize request object", module);

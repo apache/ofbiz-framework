@@ -108,11 +108,11 @@ public class MarketingServices {
             }
         } catch (GenericEntityException e) {
             String error = UtilProperties.getMessage(resourceOrder, "checkhelper.problems_reading_database", locale);
-            Debug.log(e, error + e.getMessage(), module);
+            Debug.logInfo(e, error + e.getMessage(), module);
             return ServiceUtil.returnError(error);
         } catch (GenericServiceException e) {
             String error = UtilProperties.getMessage(resourceMarketing, "MarketingServiceError", locale);
-            Debug.log(e, error + e.getMessage(), module);
+            Debug.logInfo(e, error + e.getMessage(), module);
             return ServiceUtil.returnError(error);
         }
         return ServiceUtil.returnSuccess();

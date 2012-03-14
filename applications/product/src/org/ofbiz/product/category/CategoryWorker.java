@@ -147,9 +147,9 @@ public class CategoryWorker {
             Debug.logWarning(e.getMessage(), module);
         }
         if (rollups != null) {
-            // Debug.log("Rollup size: " + rollups.size(), module);
+            // Debug.logInfo("Rollup size: " + rollups.size(), module);
             for (GenericValue parent: rollups) {
-                // Debug.log("Adding child of: " + parent.getString("parentProductCategoryId"), module);
+                // Debug.logInfo("Adding child of: " + parent.getString("parentProductCategoryId"), module);
                 GenericValue cv = null;
 
                 try {
@@ -160,7 +160,7 @@ public class CategoryWorker {
                 if (cv != null) {
                     if (excludeEmpty) {
                         if (!isCategoryEmpty(cv)) {
-                            //Debug.log("Child : " + cv.getString("productCategoryId") + " is not empty.", module);
+                            //Debug.logInfo("Child : " + cv.getString("productCategoryId") + " is not empty.", module);
                             categories.add(cv);
                             if (recursive) {
                                 categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
@@ -181,14 +181,14 @@ public class CategoryWorker {
     public static boolean isCategoryEmpty(GenericValue category) {
         boolean empty = true;
         long members = categoryMemberCount(category);
-        //Debug.log("Category : " + category.get("productCategoryId") + " has " + members  + " members", module);
+        //Debug.logInfo("Category : " + category.get("productCategoryId") + " has " + members  + " members", module);
         if (members > 0) {
             empty = false;
         }
 
         if (empty) {
             long rollups = categoryRollupCount(category);
-            //Debug.log("Category : " + category.get("productCategoryId") + " has " + rollups  + " rollups", module);
+            //Debug.logInfo("Category : " + category.get("productCategoryId") + " has " + rollups  + " rollups", module);
             if (rollups > 0) {
                 empty = false;
             }

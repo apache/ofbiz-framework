@@ -146,7 +146,7 @@ public class ZipSalesServices {
                 }
 
                 // console log
-                Debug.log(newValue.get("zipCode") + "/" + newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"));
+                Debug.logInfo(newValue.get("zipCode") + "/" + newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), module);
             }
         }
 
@@ -202,7 +202,7 @@ public class ZipSalesServices {
                     }
 
                     // console log
-                    Debug.log(newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"));
+                    Debug.logInfo(newValue.get("stateCode") + "/" + newValue.get("city") + "/" + newValue.get("county") + "/" + newValue.get("fromDate"), module);
                 }
             }
         }
@@ -468,10 +468,10 @@ public class ZipSalesServices {
 
         BigDecimal taxableAmount = itemAmount;
         if (taxShipping) {
-            //Debug.log("Taxing shipping", module);
+            //Debug.logInfo("Taxing shipping", module);
             taxableAmount = taxableAmount.add(shippingAmount);
         } else {
-            Debug.log("Shipping is not taxable", module);
+            Debug.logInfo("Shipping is not taxable", module);
         }
 
         // calc tax amount
