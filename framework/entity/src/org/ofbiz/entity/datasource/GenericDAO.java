@@ -874,7 +874,7 @@ public class GenericDAO {
             if (addParens) havingString.append(")");
         }
         if (UtilValidate.isNotEmpty(viewEntityCondHavingString)) {
-            if (havingString.length() > 0) havingString.append(" AND ");
+            if (UtilValidate.isNotEmpty(entityCondHavingString)) havingString.append(" AND ");
             boolean addParens = viewEntityCondHavingString.charAt(0) != '(';
             if (addParens) havingString.append("(");
             havingString.append(viewEntityCondHavingString);
