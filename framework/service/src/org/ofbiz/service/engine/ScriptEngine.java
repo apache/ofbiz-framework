@@ -84,7 +84,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
         context.put("delegator", dispatcher.getDelegator());
         try {
             ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
-            Object resultObj = ScriptUtil.executeScript(getLocation(modelService), modelService.invoke, scriptContext, new Object[] { context });
+            Object resultObj = ScriptUtil.executeScript(getLocation(modelService), modelService.invoke, scriptContext, null);
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
             }

@@ -99,7 +99,7 @@ public final class ScriptEventHandler implements EventHandler {
             Object result = null;
             try {
                 ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
-                result = ScriptUtil.executeScript(event.path, event.invoke, scriptContext, new Object[] { context });
+                result = ScriptUtil.executeScript(event.path, event.invoke, scriptContext, null);
                 if (result == null) {
                     result = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
                 }
