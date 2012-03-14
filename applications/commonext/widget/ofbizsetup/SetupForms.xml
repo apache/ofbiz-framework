@@ -207,7 +207,7 @@
     
     <form name="EditProdCatalog" extends="EditProdCatalog" extends-resource="component://product/widget/catalog/ProdCatalogForms.xml">
         <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text default-value="${partyId}"/></field>
-        <field name="catalogName" title="${uiLabelMap.ProductCatalogName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="catalogName" title="${uiLabelMap.FormFieldTitle_prodCatalogName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
         <field name="useQuickAdd"><hidden value="Y"/></field>
@@ -230,7 +230,7 @@
         <field name="prodCatalogId"><hidden value="${prodCatalogId}"/></field>
         <field name="productCategoryTypeId"><hidden value="CATALOG_CATEGORY"/></field>
         <field name="categoryName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
-        <field name="description" title="${uiLabelMap.ProductProductDescription}"><textarea cols="60" rows="2"/></field>
+        <field name="description" title="${uiLabelMap.ProductCategoryDescription}"><textarea cols="60" rows="2"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>  
     
