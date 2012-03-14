@@ -170,16 +170,16 @@ public class PackingSession implements java.io.Serializable {
                 int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
                 switch (thisCheck) {
                     case 2:
-                        Debug.log("Packing check returned '2' - new pack line will be created!", module);
+                        Debug.logInfo("Packing check returned '2' - new pack line will be created!", module);
                         toCreateMap.put(res, thisQty);
                         qtyRemain = qtyRemain.subtract(thisQty);
                         break;
                     case 1:
-                        Debug.log("Packing check returned '1' - existing pack line has been updated!", module);
+                        Debug.logInfo("Packing check returned '1' - existing pack line has been updated!", module);
                         qtyRemain = qtyRemain.subtract(thisQty);
                         break;
                     case 0:
-                        Debug.log("Packing check returned '0' - doing nothing.", module);
+                        Debug.logInfo("Packing check returned '0' - doing nothing.", module);
                         break;
                 }
             }
@@ -290,10 +290,10 @@ public class PackingSession implements java.io.Serializable {
         PackingSessionLine line = this.findLine(orderId, orderItemSeqId, shipGroupSeqId, productId, invItemId, packageSeqId);
         BigDecimal packedQty = this.getPackedQuantity(orderId, orderItemSeqId, shipGroupSeqId, productId);
 
-        Debug.log("Packed quantity [" + packedQty + "] + [" + quantity + "]", module);
+        Debug.logInfo("Packed quantity [" + packedQty + "] + [" + quantity + "]", module);
 
         if (line == null) {
-            Debug.log("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + quantity, module);
+            Debug.logInfo("No current line found testing [" + invItemId + "] R: " + resQty + " / Q: " + quantity, module);
             if (resQty.compareTo(quantity) < 0) {
                 return 0;
             } else {
@@ -301,7 +301,7 @@ public class PackingSession implements java.io.Serializable {
             }
         } else {
             BigDecimal newQty = update ? quantity : (line.getQuantity().add(quantity));
-            Debug.log("Existing line found testing [" + invItemId + "] R: " + resQty + " / Q: " + newQty, module);
+            Debug.logInfo("Existing line found testing [" + invItemId + "] R: " + resQty + " / Q: " + newQty, module);
             if (resQty.compareTo(newQty) < 0) {
                 return 0;
             } else {
@@ -755,7 +755,7 @@ public class PackingSession implements java.io.Serializable {
         }
 
         newShipment.put("partyIdFrom", partyIdFrom);
-        Debug.log("Creating new shipment with context: " + newShipment, module);
+        Debug.logInfo("Creating new shipment with context: " + newShipment, module);
         Map<String, Object> newShipResp = this.getDispatcher().runSync("createShipment", newShipment);
 
         if (ServiceUtil.isError(newShipResp)) {
@@ -1010,7 +1010,7 @@ public class PackingSession implements java.io.Serializable {
                 productId = v.getString("inventoryProductId");
                 quantity = v.getBigDecimal("totQuantityReserved").setScale(2, BigDecimal.ROUND_HALF_UP);
             }
-            Debug.log("created item display object quantity: " + quantity + " (" + productId + ")", module);
+            Debug.logInfo("created item display object quantity: " + quantity + " (" + productId + ")", module);
         }
 
         public GenericValue getOrderItem() {

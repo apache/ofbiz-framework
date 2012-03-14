@@ -1869,21 +1869,21 @@ public class OrderServices {
                 BigDecimal shippingTotal = null;
                 if (UtilValidate.isEmpty(orh.getValidOrderItems(shipGroupSeqId))) {
                     shippingTotal = ZERO;
-                    Debug.log("No valid order items found - " + shippingTotal, module);
+                    Debug.logInfo("No valid order items found - " + shippingTotal, module);
                 } else {
                     shippingTotal = UtilValidate.isEmpty(shippingEstMap.get("shippingTotal")) ? ZERO : (BigDecimal)shippingEstMap.get("shippingTotal");
                     shippingTotal = shippingTotal.setScale(orderDecimals, orderRounding);
-                    Debug.log("Got new shipping estimate - " + shippingTotal, module);
+                    Debug.logInfo("Got new shipping estimate - " + shippingTotal, module);
                 }
                 if (Debug.infoOn()) {
-                    Debug.log("New Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + shippingTotal, module);
+                    Debug.logInfo("New Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + shippingTotal, module);
                 }
 
                 BigDecimal currentShipping = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId), orh.getAdjustments(), false, false, true);
                 currentShipping = currentShipping.add(OrderReadHelper.calcOrderAdjustments(orh.getOrderHeaderAdjustments(shipGroupSeqId), orh.getOrderItemsSubTotal(), false, false, true));
 
                 if (Debug.infoOn()) {
-                    Debug.log("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
+                    Debug.logInfo("Old Shipping Total [" + orderId + " / " + shipGroupSeqId + "] : " + currentShipping, module);
                 }
 
                 List<String> errorMessageList = UtilGenerics.checkList(shippingEstMap.get(ModelService.ERROR_MESSAGE_LIST));
@@ -1973,15 +1973,15 @@ public class OrderServices {
             while (itemIter.hasNext()) {
                 GenericValue item = itemIter.next();
                 String statusId = item.getString("statusId");
-                //Debug.log("Item Status: " + statusId, module);
+                //Debug.logInfo("Item Status: " + statusId, module);
                 if (!"ITEM_CANCELLED".equals(statusId)) {
-                    //Debug.log("Not set to cancel", module);
+                    //Debug.logInfo("Not set to cancel", module);
                     allCanceled = false;
                     if (!"ITEM_COMPLETED".equals(statusId)) {
-                        //Debug.log("Not set to complete", module);
+                        //Debug.logInfo("Not set to complete", module);
                         allComplete = false;
                         if (!"ITEM_APPROVED".equals(statusId)) {
-                            //Debug.log("Not set to approve", module);
+                            //Debug.logInfo("Not set to approve", module);
                             allApproved = false;
                             break;
                         }
@@ -3128,8 +3128,8 @@ public class OrderServices {
                     cal.add(Calendar.DAY_OF_YEAR, daysTillCancel);
                     Date cancelDate = cal.getTime();
                     Date nowDate = new Date();
-                    //Debug.log("Cancel Date : " + cancelDate, module);
-                    //Debug.log("Current Date : " + nowDate, module);
+                    //Debug.logInfo("Cancel Date : " + cancelDate, module);
+                    //Debug.logInfo("Current Date : " + nowDate, module);
                     if (cancelDate.equals(nowDate) || nowDate.after(cancelDate)) {
                         // cancel the order item(s)
                         Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", orderId, "statusId", "ITEM_CANCELLED", "userLogin", userLogin);
@@ -3763,7 +3763,7 @@ public class OrderServices {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                Debug.log("Set item quantity: [" + itemSeqId + "] " + qty, module);
+                Debug.logInfo("Set item quantity: [" + itemSeqId + "] " + qty, module);
 
                 if (cartItem.getIsModifiedPrice()) // set price
                     cartItem.setBasePrice(priceSave);
@@ -3775,7 +3775,7 @@ public class OrderServices {
                         price = new BigDecimal(priceStr).setScale(orderDecimals, orderRounding);
                         cartItem.setBasePrice(price);
                         cartItem.setIsModifiedPrice(true);
-                        Debug.log("Set item price: [" + itemSeqId + "] " + price, module);
+                        Debug.logInfo("Set item price: [" + itemSeqId + "] " + price, module);
                     }
 
                 }
@@ -3785,7 +3785,7 @@ public class OrderServices {
                     String description = itemDescriptionMap.get(itemSeqId);
                     if (UtilValidate.isNotEmpty(description)) {
                         cartItem.setName(description);
-                        Debug.log("Set item description: [" + itemSeqId + "] " + description, module);
+                        Debug.logInfo("Set item description: [" + itemSeqId + "] " + description, module);
                     } else {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                                 "OrderItemDescriptionCannotBeEmpty", locale));
@@ -3799,7 +3799,7 @@ public class OrderServices {
                         attrValue = itemAttributesMap.get(attrName + ":" + itemSeqId);
                         if (UtilValidate.isNotEmpty(attrName)) {
                             cartItem.setOrderItemAttribute(attrName, attrValue);
-                            Debug.log("Set item attribute Name: [" + itemSeqId + "] " + attrName + " , Value:" + attrValue, module);
+                            Debug.logInfo("Set item attribute Name: [" + itemSeqId + "] " + attrName + " , Value:" + attrValue, module);
                         }
                     }
                 }
@@ -3856,10 +3856,10 @@ public class OrderServices {
             // set the group qty
             ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
             if (cartItem != null) {
-                Debug.log("Shipping info (before) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
+                Debug.logInfo("Shipping info (before) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
                 cart.setItemShipGroupQty(cartItem, groupQty, groupIdx - 1);
-                Debug.log("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (groupIdx-1) + ")] " + groupQty, module);
-                Debug.log("Shipping info (after) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
+                Debug.logInfo("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (groupIdx-1) + ")] " + groupQty, module);
+                Debug.logInfo("Shipping info (after) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
             }
         }
 
@@ -4114,7 +4114,7 @@ public class OrderServices {
         for (int gi = 0; gi < shipGroups; gi++) {
             String shipmentMethodTypeId = cart.getShipmentMethodTypeId(gi);
             String carrierPartyId = cart.getCarrierPartyId(gi);
-            Debug.log("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
+            Debug.logInfo("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
             Map<String, Object> result = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, gi);
             if (("SALES_ORDER".equals(cart.getOrderType())) && (ServiceUtil.isError(result))) {
                 Debug.logError(ServiceUtil.getErrorMessage(result), module);
@@ -4432,7 +4432,7 @@ public class OrderServices {
         String orderTypeId = cart.getOrderType();
         List<String> resErrorMessages = new LinkedList<String>();
         try {
-            Debug.log("Calling reserve inventory...", module);
+            Debug.logInfo("Calling reserve inventory...", module);
             reserveInventory(delegator, dispatcher, userLogin, locale, orderItemShipGroupAssoc, dropShipGroupIds, itemValuesBySeqId,
                     orderTypeId, productStoreId, resErrorMessages);
         } catch (GeneralException e) {
@@ -4468,7 +4468,7 @@ public class OrderServices {
             GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
             Map<String, Object> paymentResp = null;
             try {
-                Debug.log("Calling process payments...", module);
+                Debug.logInfo("Calling process payments...", module);
                 //Debug.set(Debug.VERBOSE, true);
                 paymentResp = CheckOutHelper.processPayment(orderId, orh.getOrderGrandTotal(), orh.getCurrency(), productStore, userLogin, false, false, dispatcher, delegator);
                 //Debug.set(Debug.VERBOSE, false);
@@ -4511,7 +4511,7 @@ public class OrderServices {
 
     public static Map<String, Object> shoppingCartRemoteTest(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
-        Debug.log("Product ID : " + cart.findCartItem(0).getProductId(), module);
+        Debug.logInfo("Product ID : " + cart.findCartItem(0).getProductId(), module);
         return ServiceUtil.returnSuccess();
     }
 

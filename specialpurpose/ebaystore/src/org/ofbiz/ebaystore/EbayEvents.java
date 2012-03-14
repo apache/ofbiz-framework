@@ -192,7 +192,7 @@ public class EbayEvents {
                         }
                     }
                 }
-                Debug.log("run in with productIds "+productIds);
+                Debug.logInfo("run in with productIds "+productIds, module);
                 for (String productId : productIds) {
                     AddItemCall addItemCall = new AddItemCall(apiContext);
                     ItemType item = new ItemType();
@@ -1127,7 +1127,7 @@ public class EbayEvents {
                                 revReq.setSellingManagerProductDetails(prodDetailType);
                                 revResp = (ReviseSellingManagerProductResponseType) revProdCall.execute(revReq);
                                 if (revResp != null && "SUCCESS".equals(revResp.getAck().toString())) {
-                                    Debug.log("  Already update quantity on eBay inventory with product id ::"+revResp.getSellingManagerProductDetails().getProductID());
+                                    Debug.logInfo("  Already update quantity on eBay inventory with product id ::"+revResp.getSellingManagerProductDetails().getProductID(), module);
                                 } else {
                                     EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, revResp.getAck().toString(), "ReviseSellingManagerProductCall : updateQuantityInventoryProduct", revResp.getErrors(0).getLongMessage());
                                 }

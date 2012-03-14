@@ -282,7 +282,7 @@ public class FinAccountServices {
         }
 
         String statusId = finAccount.getString("statusId");
-        Debug.log("FinAccount Balance [" + balance + "] Available [" + availableBalance + "] - Status: " + statusId, module);
+        Debug.logInfo("FinAccount Balance [" + balance + "] Available [" + availableBalance + "] - Status: " + statusId, module);
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("availableBalance", availableBalance);

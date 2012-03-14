@@ -167,7 +167,7 @@ public class DataEvents {
 
         // hack for IE and mime types
         if (userAgent.indexOf("MSIE") > -1) {
-            Debug.log("Found MSIE changing mime type from - " + mimeType, module);
+            Debug.logInfo("Found MSIE changing mime type from - " + mimeType, module);
             mimeType = "application/octet-stream";
         }
 
@@ -200,7 +200,7 @@ public class DataEvents {
             stream = (InputStream) resourceData.get("stream");
             length = (Long) resourceData.get("length");
         }
-        Debug.log("Got resource data stream: " + length + " bytes", module);
+        Debug.logInfo("Got resource data stream: " + length + " bytes", module);
 
         // stream the content to the browser
         if (stream != null && length != null) {
@@ -230,7 +230,7 @@ public class DataEvents {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, Object> parameters = UtilHttp.getParameterMap(request);
 
-        Debug.log("Img UserAgent - " + request.getHeader("User-Agent"), module);
+        Debug.logInfo("Img UserAgent - " + request.getHeader("User-Agent"), module);
 
         String dataResourceId = (String) parameters.get("imgId");
         if (UtilValidate.isEmpty(dataResourceId)) {
@@ -269,7 +269,7 @@ public class DataEvents {
             // hack for IE and mime types
             String userAgent = request.getHeader("User-Agent");
             if (userAgent.indexOf("MSIE") > -1) {
-                Debug.log("Found MSIE changing mime type from - " + mimeType, module);
+                Debug.logInfo("Found MSIE changing mime type from - " + mimeType, module);
                 mimeType = "application/octet-stream";
             }
 

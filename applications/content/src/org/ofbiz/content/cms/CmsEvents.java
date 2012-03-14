@@ -142,7 +142,7 @@ public class CmsEvents {
             if (pathInfo.endsWith("/")) {
                 pathInfo = pathInfo.substring(0, pathInfo.length() - 1);
             }
-            Debug.log("Path INFO for Alias: " + pathInfo, module);
+            Debug.logInfo("Path INFO for Alias: " + pathInfo, module);
 
             GenericValue pathAlias = null;
             try {

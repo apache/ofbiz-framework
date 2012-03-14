@@ -99,7 +99,7 @@ public class ScrumEvents {
             }
         } catch (GenericEntityException EntEx) {
             EntEx.printStackTrace();
-            Debug.log(EntEx.getMessage(), module);
+            Debug.logError(EntEx.getMessage(), module);
         }
         if (UtilValidate.isNotEmpty(noTimeEntryList)) {
             StringBuilder warningDataBuffer = new StringBuilder();

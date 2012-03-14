@@ -131,7 +131,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 // hack for IE and mime types
                 //String userAgent = request.getHeader("User-Agent");
                 //if (userAgent.indexOf("MSIE") > -1) {
-                //    Debug.log("Found MSIE changing mime type from - " + mimeTypeId, module);
+                //    Debug.logInfo("Found MSIE changing mime type from - " + mimeTypeId, module);
                 //    mimeTypeId = "application/octet-stream";
                 //}
                 // setup chararcter encoding and content type

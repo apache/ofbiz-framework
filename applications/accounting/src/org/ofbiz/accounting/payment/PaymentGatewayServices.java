@@ -2159,9 +2159,9 @@ public class PaymentGatewayServices {
         }
         if (amount.compareTo(ZERO) == 0) {
             amount = paymentPreference.getBigDecimal("maxAmount");
-            Debug.log("resetting payment amount from 0.00 to correctMax amount", module);
+            Debug.logInfo("resetting payment amount from 0.00 to correctMax amount", module);
         }
-        Debug.log("reauth with amount: " + amount, module);
+        Debug.logInfo("reauth with amount: " + amount, module);
 
         // first re-auth the card
         Map<String, Object> authPayRes = authPayment(dispatcher, userLogin, orh, paymentPreference, amount, true, null);
@@ -2621,7 +2621,7 @@ public class PaymentGatewayServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "AccountingPaymentCreationError", locale));
             }
-            //Debug.log("Payment created : " + paymentId, module);
+            //Debug.logInfo("Payment created : " + paymentId, module);
 
             if (paymentId == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -3694,7 +3694,7 @@ public class PaymentGatewayServices {
         cal.setTimeInMillis(txStamp.getTime());
         cal.add(Calendar.MINUTE, 2);
         Timestamp twoMinAfter = new Timestamp(cal.getTimeInMillis());
-        Debug.log("Re-Auth Capture Test : Tx Date - " + txStamp + " : 2 Min - " + twoMinAfter + " : Now - " + nowStamp, module);
+        Debug.logInfo("Re-Auth Capture Test : Tx Date - " + txStamp + " : 2 Min - " + twoMinAfter + " : Now - " + nowStamp, module);
 
         if (nowStamp.after(twoMinAfter)) {
             result.put("captureResult", Boolean.FALSE);

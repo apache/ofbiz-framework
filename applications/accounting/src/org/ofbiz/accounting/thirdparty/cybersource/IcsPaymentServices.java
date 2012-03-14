@@ -289,7 +289,7 @@ public class IcsPaymentServices {
         if (UtilValidate.isNotEmpty(keysFile)) {
             props.put("alternateKeyFilename", keysFile);
         }
-        Debug.log("Created CyberSource Properties : " + props, module);
+        Debug.logInfo("Created CyberSource Properties : " + props, module);
         return props;
     }
 

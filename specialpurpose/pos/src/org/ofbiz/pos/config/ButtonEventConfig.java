@@ -165,7 +165,7 @@ public class ButtonEventConfig implements java.io.Serializable {
     public void invoke(PosScreen pos, AWTEvent event) throws ButtonEventNotFound, ButtonEventException {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         if (cl == null) {
-            Debug.log("Unable to obtain the context classloader", module);
+            Debug.logInfo("Unable to obtain the context classloader", module);
             cl = this.getClass().getClassLoader();
         }
 

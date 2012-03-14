@@ -80,11 +80,11 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
     public static Process getInstance(EntityPersistentMgr mgr, String processId) throws PersistenceException {
         Process proc = new Process(mgr, SharkContainer.getDelegator(), processId);
         if (proc.isLoaded()) {
-            Debug.log("Returning loaded Process", module);
+            Debug.logInfo("Returning loaded Process", module);
             return proc;
         }
-        Debug.log("Returning null Process ID : " + processId, module);
-        if (processId == null) Debug.log(new Exception(), module);
+        Debug.logInfo("Returning null Process ID : " + processId, module);
+        if (processId == null) Debug.logError(new Exception(), module);
             return null;
     }
 
@@ -231,7 +231,7 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
     public void remove() throws GenericEntityException {
         if (!newValue) {
             delegator.removeValue(process);
-            Debug.log("**** REMOVED : " + this, module);
+            Debug.logInfo("**** REMOVED : " + this, module);
         }
         delegator.removeByAnd(org.ofbiz.shark.SharkConstants.WfRequester, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, this.getId()));
     }

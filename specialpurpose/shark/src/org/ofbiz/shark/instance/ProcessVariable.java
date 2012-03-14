@@ -61,7 +61,7 @@ public class ProcessVariable extends InstanceEntityObject implements ProcessVari
         super(mgr, delegator);
         this.newValue = true;
         this.processVariable = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfProcessVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processVariableId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfProcessVariable)));
-        Debug.log("******* New process variable created", module);
+        Debug.logInfo("******* New process variable created", module);
     }
 
     public static ProcessVariable getInstance(EntityPersistentMgr mgr, GenericValue processVariable) {

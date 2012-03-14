@@ -327,7 +327,7 @@ public class PdfSurveyServices {
             // Debug code to get the values for setting TDP
     //        String[] sa = fs.getAppearanceStates("TDP");
     //        for (int i=0;i<sa.length;i++)
-    //            Debug.log("Appearance="+sa[i]);
+    //            Debug.logInfo("Appearance="+sa[i]);
 
             Iterator<String> iter = map.keySet().iterator();
             while (iter.hasNext()) {
@@ -370,7 +370,7 @@ public class PdfSurveyServices {
             // Debug code to get the values for setting TDP
     //      String[] sa = fs.getAppearanceStates("TDP");
     //      for (int i=0;i<sa.length;i++)
-    //          Debug.log("Appearance="+sa[i]);
+    //          Debug.logInfo("Appearance="+sa[i]);
 
             Iterator<String> iter = map.keySet().iterator();
             while (iter.hasNext()) {

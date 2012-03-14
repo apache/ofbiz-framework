@@ -129,7 +129,7 @@ public class UspsMockApiServlet extends HttpServlet {
             try {
                 UtilXml.writeXmlDocument(responseDocument, os, "UTF-8", true, false, 0);
             } catch (TransformerException e) {
-                Debug.log(e, module);
+                Debug.logInfo(e, module);
                 return;
             }
 

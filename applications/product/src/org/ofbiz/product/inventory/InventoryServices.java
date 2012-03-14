@@ -439,7 +439,7 @@ public class InventoryServices {
             return ServiceUtil.returnSuccess();
         }
 
-        Debug.log("OOS Inventory Items: " + inventoryItems.size(), module);
+        Debug.logInfo("OOS Inventory Items: " + inventoryItems.size(), module);
 
         for (GenericValue inventoryItem: inventoryItems) {
             // get the incomming shipment information for the item
@@ -474,7 +474,7 @@ public class InventoryServices {
                 continue;
             }
 
-            Debug.log("Reservations for item: " + reservations.size(), module);
+            Debug.logInfo("Reservations for item: " + reservations.size(), module);
 
             // available at the time of order
             BigDecimal availableBeforeReserved = inventoryItem.getBigDecimal("availableToPromiseTotal");
@@ -495,7 +495,7 @@ public class InventoryServices {
                     }
                 }
 
-                Debug.log("Promised Date: " + actualPromiseDate, module);
+                Debug.logInfo("Promised Date: " + actualPromiseDate, module);
 
                 // find the next possible ship date
                 Timestamp nextShipDate = null;
@@ -508,7 +508,7 @@ public class InventoryServices {
                     }
                 }
 
-                Debug.log("Next Ship Date: " + nextShipDate, module);
+                Debug.logInfo("Next Ship Date: " + nextShipDate, module);
 
                 // create a modified promise date (promise date - 1 day)
                 Calendar pCal = Calendar.getInstance();
@@ -517,17 +517,17 @@ public class InventoryServices {
                 Timestamp modifiedPromisedDate = new Timestamp(pCal.getTimeInMillis());
                 Timestamp now = UtilDateTime.nowTimestamp();
 
-                Debug.log("Promised Date + 1: " + modifiedPromisedDate, module);
-                Debug.log("Now: " + now, module);
+                Debug.logInfo("Promised Date + 1: " + modifiedPromisedDate, module);
+                Debug.logInfo("Now: " + now, module);
 
                 // check the promised date vs the next ship date
                 if (nextShipDate == null || nextShipDate.after(actualPromiseDate)) {
                     if (nextShipDate == null && modifiedPromisedDate.after(now)) {
                         // do nothing; we are okay to assume it will be shipped on time
-                        Debug.log("No ship date known yet, but promised date hasn't approached, assuming it will be here on time", module);
+                        Debug.logInfo("No ship date known yet, but promised date hasn't approached, assuming it will be here on time", module);
                     } else {
                         // we cannot ship by the promised date; need to notify the customer
-                        Debug.log("We won't ship on time, getting notification info", module);
+                        Debug.logInfo("We won't ship on time, getting notification info", module);
                         Map<String, Timestamp> notifyItems = ordersToUpdate.get(orderId);
                         if (notifyItems == null) {
                             notifyItems = FastMap.newInstance();
@@ -545,7 +545,7 @@ public class InventoryServices {
                         boolean needToCancel = false;
                         if (nextShipDate == null || nextShipDate.after(farPastPromised)) {
                             // we cannot ship until >30 days after promised; using cancel rule
-                            Debug.log("Ship date is >30 past the promised date", module);
+                            Debug.logInfo("Ship date is >30 past the promised date", module);
                             needToCancel = true;
                         } else if (currentPromiseDate != null && actualPromiseDate.equals(currentPromiseDate)) {
                             // this is the second notification; using cancel rule
@@ -555,7 +555,7 @@ public class InventoryServices {
                         // add the info to the cancel map if we need to schedule a cancel
                         if (needToCancel) {
                             // queue the item to be cancelled
-                            Debug.log("Flagging the item to auto-cancel", module);
+                            Debug.logInfo("Flagging the item to auto-cancel", module);
                             Map<String, Timestamp> cancelItems = ordersToCancel.get(orderId);
                             if (cancelItems == null) {
                                 cancelItems = FastMap.newInstance();

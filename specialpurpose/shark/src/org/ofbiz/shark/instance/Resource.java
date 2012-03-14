@@ -119,7 +119,7 @@ public class Resource extends InstanceEntityObject implements ResourcePersistenc
     public void remove() throws GenericEntityException {
         if (!newValue) {
             delegator.removeValue(resource);
-            Debug.log("**** REMOVED : " + this, module);
+            Debug.logInfo("**** REMOVED : " + this, module);
         }
     }
 }

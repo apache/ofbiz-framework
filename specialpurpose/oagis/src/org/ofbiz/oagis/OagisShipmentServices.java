@@ -132,7 +132,7 @@ public class OagisShipmentServices {
         Map<String, String> omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
 
         // always log this to make messages easier to find
-        Debug.log("Processing oagisReceiveShowShipment for shipmentId [" + shipmentId + "] message ID [" + omiPkMap + "]", module);
+        Debug.logInfo("Processing oagisReceiveShowShipment for shipmentId [" + shipmentId + "] message ID [" + omiPkMap + "]", module);
 
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;

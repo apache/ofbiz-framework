@@ -73,7 +73,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public void deleteXPDL(RepositoryTransaction t, String xpdlId, String xpdlVersion) throws RepositoryException {
-        Debug.log("XPDL Delete : " + xpdlId + "/" + xpdlVersion, module);
+        Debug.logInfo("XPDL Delete : " + xpdlId + "/" + xpdlVersion, module);
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue value = this.getXpdlValue(xpdlId, xpdlVersion, false);
         if (value != null) {
@@ -87,7 +87,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public void moveToHistory(RepositoryTransaction t, String xpdlId, String xpdlVersion) throws RepositoryException {
-        Debug.log("XPDL Move to History : " + xpdlId + "/" + xpdlVersion, module);
+        Debug.logInfo("XPDL Move to History : " + xpdlId + "/" + xpdlVersion, module);
         Delegator delegator = SharkContainer.getDelegator();
         GenericValue value = this.getXpdlValue(xpdlId, xpdlVersion, false);
         value.set(org.ofbiz.shark.SharkConstants.isHistorical, "Y");
@@ -100,7 +100,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public void deleteFromHistory(RepositoryTransaction t, String xpdlId, String xpdlVersion) throws RepositoryException {
-        Debug.log("XPDL Delete from History: " + xpdlId + "/" + xpdlVersion, module);
+        Debug.logInfo("XPDL Delete from History: " + xpdlId + "/" + xpdlVersion, module);
         GenericValue value = this.getXpdlValue(xpdlId, xpdlVersion, true);
         if (value != null) {
             try {
@@ -112,7 +112,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public void clearRepository(RepositoryTransaction t) throws RepositoryException {
-        Debug.log("XPDL Clear Repository", module);
+        Debug.logInfo("XPDL Clear Repository", module);
         Delegator delegator = SharkContainer.getDelegator();
         try {
             delegator.removeAll(org.ofbiz.shark.SharkConstants.WfRepository);
@@ -123,7 +123,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
 
     public String getCurrentVersion(RepositoryTransaction t, String xpdlId) throws RepositoryException
     {
-        Debug.log("XPDL get current version : " + xpdlId, module);
+        Debug.logInfo("XPDL get current version : " + xpdlId, module);
         List lookupList = this.getXpdlValues(xpdlId, null, false);
         GenericValue value = EntityUtil.getFirst(lookupList);
         if (value != null) {
@@ -142,7 +142,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public byte[] getXPDL(RepositoryTransaction t, String xpdlId) throws RepositoryException {
-        Debug.log("XPDL Get : " + xpdlId, module);
+        Debug.logInfo("XPDL Get : " + xpdlId, module);
         List lookupList = this.getXpdlValues(xpdlId, null, false);
         GenericValue value = EntityUtil.getFirst(lookupList);
         if (value != null) {
@@ -153,7 +153,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public byte[] getXPDL(RepositoryTransaction t, String xpdlId, String xpdlVersion) throws RepositoryException {
-        Debug.log("XPDL Get : " + xpdlId + "/" + xpdlVersion, module);
+        Debug.logInfo("XPDL Get : " + xpdlId + "/" + xpdlVersion, module);
         GenericValue value = this.getXpdlValue(xpdlId, xpdlVersion, false);
         if (value != null) {
             return value.getBytes(org.ofbiz.shark.SharkConstants.xpdlData);
@@ -177,25 +177,25 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
 
     public boolean doesXPDLExist(RepositoryTransaction t, String xpdlId) throws RepositoryException {
         List xpdls = this.getXpdlValues(xpdlId, null, false);
-        Debug.log("Does XPDL [" + xpdlId + "] Exist - " + xpdls + "(" + (UtilValidate.isNotEmpty(xpdls) ? true : false) + ")", module);
+        Debug.logInfo("Does XPDL [" + xpdlId + "] Exist - " + xpdls + "(" + (UtilValidate.isNotEmpty(xpdls) ? true : false) + ")", module);
         return (UtilValidate.isNotEmpty(xpdls) ? true : false);
     }
 
     public boolean doesXPDLExist(RepositoryTransaction t, String xpdlId, String xpdlVersion) throws RepositoryException {
         GenericValue xpdl = this.getXpdlValue(xpdlId, xpdlVersion, false);
-        Debug.log("Does XPDL [" + xpdlId + "/" + xpdlVersion + "] Exist - " + xpdl + "(" + (xpdl != null) + ")", module);
+        Debug.logInfo("Does XPDL [" + xpdlId + "/" + xpdlVersion + "] Exist - " + xpdl + "(" + (xpdl != null) + ")", module);
         return (xpdl != null);
     }
 
     public List getExistingXPDLIds(RepositoryTransaction t) throws RepositoryException {
-        Debug.log("Get Existing XPDL IDs", module);
+        Debug.logInfo("Get Existing XPDL IDs", module);
         List lookupList = this.getXpdlValues(null, null, true);
         List idList = new ArrayList();
         if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
-                Debug.log("Checking - " + v, module);
+                Debug.logInfo("Checking - " + v, module);
                 String id = v.getString(org.ofbiz.shark.SharkConstants.xpdlId);
                 if (!idList.contains(id)) {
                     idList.add(id);
@@ -206,7 +206,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public List getReferringXPDLIds(RepositoryTransaction t, String referredXPDLId) throws RepositoryException {
-        Debug.log("Get XPDL Reference IDs", module);
+        Debug.logInfo("Get XPDL Reference IDs", module);
         Delegator delegator = SharkContainer.getDelegator();
         List referringIds = new ArrayList();
         List refs = null;
@@ -227,7 +227,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public List getReferringXPDLVersions(RepositoryTransaction t, String referredXPDLId, String referringXPDLId) throws RepositoryException {
-        Debug.log("Get Referring XPDL Versions", module);
+        Debug.logInfo("Get Referring XPDL Versions", module);
         Delegator delegator = SharkContainer.getDelegator();
         List referringVers = new ArrayList();
         List refs = null;
@@ -247,7 +247,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
     }
 
     public List getReferredXPDLIds(RepositoryTransaction t, String referringXPDLId, String referringXPDLVersion) throws RepositoryException {
-        Debug.log("Get Referring XPDL IDs", module);
+        Debug.logInfo("Get Referring XPDL IDs", module);
         Delegator delegator = SharkContainer.getDelegator();
         List referringIds = new ArrayList();
         List refs = null;
@@ -323,7 +323,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
                             byte[] serializedPkg,
                             long xpdlClassVer) throws RepositoryException
     {
-        Debug.log("XPDL Upload : " + xpdlId, module);
+        Debug.logInfo("XPDL Upload : " + xpdlId, module);
         //try {throw new Exception ("XPDL Upload");} catch (Exception e) {e.printStackTrace();};
         String newVersion = null;
         try {
@@ -342,7 +342,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
             v.setBytes(org.ofbiz.shark.SharkConstants.serializedPkg,serializedPkg);
             v.setBytes(org.ofbiz.shark.SharkConstants.xpdlData, xpdl);
             delegator.create(v);
-            Debug.log("Created Value - " + v, module);
+            Debug.logInfo("Created Value - " + v, module);
         } catch (GenericEntityException e) {
             throw new RepositoryException(e);
         }
@@ -363,7 +363,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
 
     public byte[] getSerializedXPDLObject(RepositoryTransaction arg0, String arg1, String arg2) throws RepositoryException
     {
-        Debug.log("XPDL Get : " + arg1, module);
+        Debug.logInfo("XPDL Get : " + arg1, module);
         List lookupList = this.getXpdlValues(arg1, null, false);
         GenericValue value = EntityUtil.getFirst(lookupList);
         if (value != null) {
@@ -378,7 +378,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
             String referringXPDLVersion,
             int referredXPDLNumber) throws RepositoryException
     {
-            Debug.log("Add XPDL Reference", module);
+            Debug.logInfo("Add XPDL Reference", module);
             Delegator delegator = SharkContainer.getDelegator();
             GenericValue ref = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfRepositoryRef);
             ref.set(org.ofbiz.shark.SharkConstants.xpdlId, referringXPDLId);

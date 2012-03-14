@@ -152,7 +152,7 @@ public class EntityParticipantMap implements ParticipantMap {
     }
 
     public void remove() throws RootException {
-        Debug.log("::Remove Participant Map::", module);
+        Debug.logInfo("::Remove Participant Map::", module);
         if (!newValue) {
             try {
                 delegator.removeValue(participant);

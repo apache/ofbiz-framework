@@ -63,7 +63,7 @@ public class ActivityVariable extends InstanceEntityObject implements ActivityVa
         super(mgr, delegator);
         this.newValue = true;
         this.activityVariable = delegator.makeValue(org.ofbiz.shark.SharkConstants.WfActivityVariable, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.activityVariableId, delegator.getNextSeqId(org.ofbiz.shark.SharkConstants.WfActivityVariable)));
-        Debug.log("******* New activity variable created", module);
+        Debug.logInfo("******* New activity variable created", module);
     }
 
     public static ActivityVariable getInstance(EntityPersistentMgr mgr, GenericValue activityVariable) {

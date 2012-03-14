@@ -640,7 +640,7 @@ public class EbayStore {
             } catch (GenericEntityException e1) {
                 e1.printStackTrace();
             }
-            Debug.log("userLoginId is "+userLoginId+" and productStoreId is "+ context.get("productStoreId"));
+            Debug.logInfo("userLoginId is "+userLoginId+" and productStoreId is "+ context.get("productStoreId"), module);
             GetStoreCall call = new GetStoreCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
             //call.setSite(EbayHelper.getSiteCodeType((String)context.get("productStoreId"), locale, delegator));
             call.setCategoryStructureOnly(false);
@@ -869,7 +869,7 @@ public class EbayStore {
                 dispatcher.runSync("updateProductStore", inMap);
             }
         } catch (Exception e) {
-            Debug.log("error message"+e);
+            Debug.logError("error message"+e, module);
         }
     }
 

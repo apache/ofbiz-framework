@@ -91,7 +91,7 @@ public class TruitionCoReg {
                 tru.setPath(cookiePath);
                 tru.setMaxAge(time);
                 resp.addCookie(tru);
-                Debug.log("Set Truition Cookie [" + tru.getName() + "/" + tru.getDomain() + " @ " + tru.getPath() + "] - " + tru.getValue(), module);
+                Debug.logInfo("Set Truition Cookie [" + tru.getName() + "/" + tru.getDomain() + " @ " + tru.getPath() + "] - " + tru.getValue(), module);
             } catch (UnsupportedEncodingException e) {
                 Debug.logError(e, module);
                 return "error";
@@ -119,7 +119,7 @@ public class TruitionCoReg {
                 if (cookieName.equals(cookies[i].getName())) {
                     cookies[i].setMaxAge(0);
                     resp.addCookie(cookies[i]);
-                    Debug.log("Set truition cookie [" + cookieName + " to expire now.", module);
+                    Debug.logInfo("Set truition cookie [" + cookieName + " to expire now.", module);
                 }
             }
         }
@@ -131,7 +131,7 @@ public class TruitionCoReg {
         // redirect URL form field
         String redirectUrlName = UtilProperties.getPropertyValue("truition.properties", "truition.redirect.urlName");
         String redirectUrl = req.getParameter(redirectUrlName);
-        Debug.log("Redirect to : " + redirectUrl, module);
+        Debug.logInfo("Redirect to : " + redirectUrl, module);
         if (truitionEnabled() && redirectUrl != null) {
             try {
                 resp.sendRedirect(redirectUrl);
@@ -141,7 +141,7 @@ public class TruitionCoReg {
                 return "error";
             }
 
-            Debug.log("Sending truition redirect - " + redirectUrl, module);
+            Debug.logInfo("Sending truition redirect - " + redirectUrl, module);
             return "redirect";
         }
         return "success";
@@ -164,9 +164,9 @@ public class TruitionCoReg {
         String nickName = userLogin.getString("userLoginId");
         String password = userLogin.getString("currentPassword");
         String partyId = userLogin.getString("partyId");
-        Debug.log(logPrefix + "nickName: " + nickName, module);
-        Debug.log(logPrefix + "password: " + password, module);
-        Debug.log(logPrefix + "partyId: " + partyId, module);
+        Debug.logInfo(logPrefix + "nickName: " + nickName, module);
+        Debug.logInfo(logPrefix + "password: " + password, module);
+        Debug.logInfo(logPrefix + "partyId: " + partyId, module);
 
         GenericValue party = null;
         try {
@@ -196,9 +196,9 @@ public class TruitionCoReg {
                         title = "";
                     }
                 }
-                Debug.log(logPrefix + "title: " + title, module);
-                Debug.log(logPrefix + "firstName: " + firstName, module);
-                Debug.log(logPrefix + "lastName: " + lastName, module);
+                Debug.logInfo(logPrefix + "title: " + title, module);
+                Debug.logInfo(logPrefix + "firstName: " + firstName, module);
+                Debug.logInfo(logPrefix + "lastName: " + lastName, module);
 
                 // email address
                 String emailAddress = null;
@@ -214,7 +214,7 @@ public class TruitionCoReg {
                 } else {
                     emailAddress = "";
                 }
-                Debug.log(logPrefix + "emailAddress: " + emailAddress, module);
+                Debug.logInfo(logPrefix + "emailAddress: " + emailAddress, module);
 
                 // shipping address
                 String address1 = null;
@@ -250,12 +250,12 @@ public class TruitionCoReg {
                         }
                     }
                 }
-                Debug.log(logPrefix + "address1: " + address1, module);
-                Debug.log(logPrefix + "address2: " + address2, module);
-                Debug.log(logPrefix + "city: " + city, module);
-                Debug.log(logPrefix + "state: " + state, module);
-                Debug.log(logPrefix + "zipCode: " + zipCode, module);
-                Debug.log(logPrefix + "country: " + country, module);
+                Debug.logInfo(logPrefix + "address1: " + address1, module);
+                Debug.logInfo(logPrefix + "address2: " + address2, module);
+                Debug.logInfo(logPrefix + "city: " + city, module);
+                Debug.logInfo(logPrefix + "state: " + state, module);
+                Debug.logInfo(logPrefix + "zipCode: " + zipCode, module);
+                Debug.logInfo(logPrefix + "country: " + country, module);
 
                 // phone number
                 String phoneNumber = null;
@@ -290,7 +290,7 @@ public class TruitionCoReg {
                         }
                     }
                 }
-                Debug.log(logPrefix + "phoneNumber: " + phoneNumber, module);
+                Debug.logInfo(logPrefix + "phoneNumber: " + phoneNumber, module);
 
                 int retCode = -1;
 

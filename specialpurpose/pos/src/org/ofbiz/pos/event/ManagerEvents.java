@@ -216,7 +216,7 @@ public class ManagerEvents {
                     state.set("actualEndingGc", new BigDecimal(closeInfo[3]));
                     state.set("actualEndingOther", new BigDecimal(closeInfo[4]));
                     state.set("endingTxId", trans.getTransactionId());
-                    Debug.log("Updated State - " + state, module);
+                    Debug.logInfo("Updated State - " + state, module);
                     try {
                         state.store();
                         state.refresh();

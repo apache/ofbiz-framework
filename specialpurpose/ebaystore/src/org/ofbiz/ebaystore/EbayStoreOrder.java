@@ -543,7 +543,7 @@ public class EbayStoreOrder {
         String productId = orderItem.get("productId").toString();
         GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
         if (UtilValidate.isEmpty(product)) {
-            Debug.log("The product having ID (" + productId + ") is misssing in the system.", module);
+            Debug.logError("The product having ID (" + productId + ") is misssing in the system.", module);
         }
         BigDecimal qty = new BigDecimal(orderItem.get("quantity").toString());
         String itemPrice = orderItem.get("transactionPrice").toString();

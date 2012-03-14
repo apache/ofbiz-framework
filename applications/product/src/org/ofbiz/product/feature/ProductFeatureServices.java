@@ -151,15 +151,15 @@ public class ProductFeatureServices {
                             "productFeatureId", productFeatureAndAppl,
                             "productFeatureApplTypeId", "STANDARD_FEATURE");
 
-                    //Debug.log("Using findByMap: " + findByMap);
+                    //Debug.logInfo("Using findByMap: " + findByMap);
 
                     List<GenericValue> standardProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", findByMap));
                     if (UtilValidate.isEmpty(standardProductFeatureAndAppls)) {
-                        // Debug.log("Does NOT have this standard feature");
+                        // Debug.logInfo("Does NOT have this standard feature");
                         hasAllFeatures = false;
                         break;
                     } else {
-                        // Debug.log("DOES have this standard feature");
+                        // Debug.logInfo("DOES have this standard feature");
                     }
                 }
 

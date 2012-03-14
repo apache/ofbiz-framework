@@ -55,7 +55,7 @@ public class LoggingRequester extends AbstractRequester {
     // -------------------
 
     public void receive_event(WfEventAudit event) throws BaseException, InvalidPerformer {
-        Debug.log("Received event - " + event.event_type(), module);
+        Debug.logInfo("Received event - " + event.event_type(), module);
     }
 
     public void receive_event(SharkTransaction sharkTransaction, WfEventAudit event) throws BaseException, InvalidPerformer {

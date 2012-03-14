@@ -351,7 +351,7 @@ public class FedexServices {
             String fDXSubscriptionReplyString = null;
             try {
                 fDXSubscriptionReplyString = sendFedexRequest(fDXSubscriptionRequestString, delegator, shipmentGatewayConfigId, resource, locale);
-                Debug.log("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString);
+                Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, module);
             } catch (FedexConnectException e) {
                 String errorMessage = "Error sending Fedex request for FDXSubscriptionRequest: " + e.toString();
                 Debug.logError(e, errorMessage, module);
@@ -363,7 +363,7 @@ public class FedexServices {
             Document fDXSubscriptionReplyDocument = null;
             try {
                 fDXSubscriptionReplyDocument = UtilXml.readXmlDocument(fDXSubscriptionReplyString, false);
-                Debug.log("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString);
+                Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, module);
             } catch (SAXException se) {
                 String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + se.toString();
                 Debug.logError(se, errorMessage, module);
@@ -1045,7 +1045,7 @@ public class FedexServices {
             // Store in db blob
             shipmentPackageRouteSeg.setBytes("labelImage", labelBytes);
         } else {
-            Debug.log("Failed to either decode returned FedEx label or no data found in Labels/OutboundLabel.");
+            Debug.logInfo("Failed to either decode returned FedEx label or no data found in Labels/OutboundLabel.", module);
             // TODO: Cancel the package
         }
 

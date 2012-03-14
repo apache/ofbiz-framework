@@ -860,7 +860,7 @@ public class EbayStoreAutoPreferences {
                                         resp = (AddOrderResponseType) call.execute(req);
                                         if (resp != null && "SUCCESS".equals(resp.getAck().toString())) {
                                             String orderId = resp.getOrderID();
-                                            Debug.log(":: new order id is = " + orderId);
+                                            Debug.logInfo(":: new order id is = " + orderId, module);
                                         } else {
                                             EbayStoreHelper.createErrorLogMessage(userLogin, dispatcher, productStoreId, resp.getAck().toString(), "Add order : runCombineOrders", resp.getErrors(0).getLongMessage());
                                         }

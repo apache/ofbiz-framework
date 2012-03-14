@@ -95,7 +95,7 @@ public class CashDrawer extends GenericDevice implements Runnable, DialogCallbac
     }
 
     public void run() {
-        Debug.log("Starting Waiter Thread", module);
+        Debug.logInfo("Starting Waiter Thread", module);
         this.startTime = System.currentTimeMillis();
         while (waiting) {
             boolean isOpen = true;
@@ -119,7 +119,7 @@ public class CashDrawer extends GenericDevice implements Runnable, DialogCallbac
             }
         }
         this.startTime = -1;
-        Debug.log("Waiter finished", module);
+        Debug.logInfo("Waiter finished", module);
     }
 }
 

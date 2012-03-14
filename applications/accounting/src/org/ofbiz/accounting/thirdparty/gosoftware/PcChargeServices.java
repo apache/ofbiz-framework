@@ -438,7 +438,7 @@ public class PcChargeServices {
         props.put("host", host);
         props.put("port", port);
         props.put("autoBill", autoBill);
-        Debug.log("Returning properties - " + props, module);
+        Debug.logInfo("Returning properties - " + props, module);
 
         return props;
     }

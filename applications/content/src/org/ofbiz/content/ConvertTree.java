@@ -129,7 +129,7 @@ In order ta make this service active add the following to the service definition
                                 contentName = "",
                                 contentNameInprogress = "",
                                 data = line.substring(3,size);
-                                //Debug.log("======Data======"+data);
+                                //Debug.logInfo("======Data======"+data);
                                 size = data.length();
                                 List<GenericValue> contents = null;
 
@@ -190,7 +190,7 @@ In order ta make this service active add the following to the service definition
                                             delegator.create(Entity);
                                             hasFolder = false;
                                         } else {
-                                            //Debug.log("Content Name = [ "+contentId+"] already exist.");//ShoW log file
+                                            //Debug.logInfo("Content Name = [ "+contentId+"] already exist.");//ShoW log file
                                             hasFolder = true;
                                         }
                                         //Relation Content
@@ -208,7 +208,7 @@ In order ta make this service active add the following to the service definition
                                                 dispatcher.runSync("createContentAssoc", contentAssoc);
                                                 rootContent=contentId;
                                             } else {
-                                                //Debug.log("ContentAssoc [contentId= "+contentId+",contentIdTo="+rootContent+"] already exist.");//ShoW log file
+                                                //Debug.logInfo("ContentAssoc [contentId= "+contentId+",contentIdTo="+rootContent+"] already exist.");//ShoW log file
                                                 rootContent=contentId;
                                             }
                                         contentName = "";
@@ -277,7 +277,7 @@ In order ta make this service active add the following to the service definition
                 boolean contentNameMatch = false;
                 if (subContents.charAt(index) == check.charAt(0)) {//store data
                     contentName = contentName + contentNameInprogress;
-                    //Debug.log("subcontentName---->"+contentName);
+                    //Debug.logInfo("subcontentName---->"+contentName);
                     if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
                     }
@@ -300,7 +300,7 @@ In order ta make this service active add the following to the service definition
                         Map<String,Object> data = FastMap.newInstance();
                         data.put("userLogin", userLogin);
                         String dataResourceId = (dispatcher.runSync("createDataResource",data)).get("dataResourceId").toString();
-                        //Debug.log("==dataResourceId"+dataResourceId);
+                        //Debug.logInfo("==dataResourceId"+dataResourceId);
 
                         //create Content
                         contentId = delegator.getNextSeqId("Content");
@@ -360,7 +360,7 @@ In order ta make this service active add the following to the service definition
                         Map<String,Object> data = FastMap.newInstance();
                         data.put("userLogin", userLogin);
                         String dataResourceId = (dispatcher.runSync("createDataResource",data)).get("dataResourceId").toString();
-                        //Debug.log("==dataResourceId"+dataResourceId);
+                        //Debug.logInfo("==dataResourceId"+dataResourceId);
 
                         //create Content
                         contentId = delegator.getNextSeqId("Content");

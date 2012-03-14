@@ -496,7 +496,7 @@ public class ShipmentServices {
         // Grab the estimate and work with it.
         GenericValue estimate = estimateList.get(estimateIndex);
 
-        //Debug.log("[ShippingEvents.getShipEstimate] Working with estimate [" + estimateIndex + "]: " + estimate, module);
+        //Debug.logInfo("[ShippingEvents.getShipEstimate] Working with estimate [" + estimateIndex + "]: " + estimate, module);
 
         // flat fees
         BigDecimal orderFlat = BigDecimal.ZERO;

@@ -234,7 +234,7 @@ public class PosDialog {
         } else if (this.closeBtn != null) {
             this.closeBtn.setText("<html><center>" + text + "</center></html>");
         } else {
-            Debug.log("PosDialog output edit box is NULL!", module);
+            Debug.logInfo("PosDialog output edit box is NULL!", module);
         }
     }
 

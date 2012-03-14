@@ -113,7 +113,7 @@ public class ShoppingListServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToCreateShoppingListRecurrenceInformation",locale));
         }
 
-        Debug.log("Next Recurrence - " + UtilDateTime.getTimestamp(recInfo.next()), module);
+        Debug.logInfo("Next Recurrence - " + UtilDateTime.getTimestamp(recInfo.next()), module);
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("recurrenceInfoId", recInfo.getID());
 
@@ -586,7 +586,7 @@ public class ShoppingListServices {
                 }
             }
         } catch (Exception e) {
-            Debug.log("updateShoppingListQuantitiesFromOrder error:"+e.getMessage());
+            Debug.logInfo("updateShoppingListQuantitiesFromOrder error:"+e.getMessage(), module);
         }
         return result;
     }

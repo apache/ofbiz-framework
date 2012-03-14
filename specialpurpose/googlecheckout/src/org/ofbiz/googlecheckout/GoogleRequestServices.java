@@ -504,7 +504,7 @@ public class GoogleRequestServices {
         String orderId = (String) context.get("orderId");
         GenericValue order = findGoogleOrder(delegator, orderId);
         if (order != null) {
-            Debug.log("Returning FAILURE; this IS an Google Checkout order and cannot be modified as requested!", module);
+            Debug.logWarning("Returning FAILURE; this IS an Google Checkout order and cannot be modified as requested!", module);
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "GoogleCheckoutOrderCannotBeModified", locale));
         }
         return ServiceUtil.returnSuccess();

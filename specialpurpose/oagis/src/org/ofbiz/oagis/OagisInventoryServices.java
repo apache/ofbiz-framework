@@ -394,7 +394,7 @@ public class OagisInventoryServices {
         Map<String, Object> omiPkMap = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
 
         // always log this to make messages easier to find
-        Debug.log("Processing oagisReceiveAcknowledgeDeliveryPo for message ID [" + omiPkMap + "]", module);
+        Debug.logInfo("Processing oagisReceiveAcknowledgeDeliveryPo for message ID [" + omiPkMap + "]", module);
 
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
@@ -694,7 +694,7 @@ public class OagisInventoryServices {
         Map<String, Object> omiPkMap = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
 
         // always log this to make messages easier to find
-        Debug.log("Processing oagisReceiveAcknowledgeDeliveryRma for message ID [" + omiPkMap + "]", module);
+        Debug.logInfo("Processing oagisReceiveAcknowledgeDeliveryRma for message ID [" + omiPkMap + "]", module);
 
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
@@ -1205,7 +1205,7 @@ public class OagisInventoryServices {
         Map<String, Object> omiPkMap = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
 
         // always log this to make messages easier to find
-        Debug.log("Processing oagisReceiveAcknowledgeDeliveryStatus for message ID [" + omiPkMap + "]", module);
+        Debug.logInfo("Processing oagisReceiveAcknowledgeDeliveryStatus for message ID [" + omiPkMap + "]", module);
 
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;

@@ -154,7 +154,7 @@ public class PosButtonWrapper {
         xbutton.setRolloverEnabled(false);
         xbutton.setText(newContent.toString());
 
-        //Debug.log("Button [" + name + "] = " + xbutton.getText(), module);
+        //Debug.logInfo("Button [" + name + "] = " + xbutton.getText(), module);
     }
 
     public String wrapText(String text, String newLine, int padding) {
