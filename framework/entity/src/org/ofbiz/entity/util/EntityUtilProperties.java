@@ -84,7 +84,7 @@ public class EntityUtilProperties implements Serializable {
     public static String getPropertyValue(String resource, String name, String defaultValue, Delegator delegator) {
         String value = getSystemPropertyValue(resource, name, delegator);
         if (UtilValidate.isEmpty(value)) {
-            value = UtilProperties.getPropertyValue(resource, name);
+            value = UtilProperties.getPropertyValue(resource, name, defaultValue);
         }
         return value;
     }
