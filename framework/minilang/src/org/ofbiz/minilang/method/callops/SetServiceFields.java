@@ -48,7 +48,7 @@ public class SetServiceFields extends MethodOperation {
         }
     }
 
-    public static final String module = CallService.class.getName();
+    public static final String module = SetServiceFields.class.getName();
 
     String serviceName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
