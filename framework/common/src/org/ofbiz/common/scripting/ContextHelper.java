@@ -31,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.ScriptUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
@@ -118,15 +119,13 @@ public final class ContextHelper {
         return (Locale) this.context.getAttribute("locale");
     }
 
-    @SuppressWarnings("unchecked")
     public Object getParameter(String key) {
-        Map<?, ?> parameters = (Map) this.context.getAttribute(ScriptUtil.PARAMETERS_KEY);
+        Map<?, ?> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
         return parameters != null ? parameters.get(key) : null;
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> getParameters() {
-        return (Map<String, Object>) this.context.getAttribute(ScriptUtil.PARAMETERS_KEY);
+        return UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
     }
 
     public HttpServletRequest getRequest() {
@@ -137,15 +136,13 @@ public final class ContextHelper {
         return (HttpServletResponse) this.context.getAttribute("response");
     }
 
-    @SuppressWarnings("unchecked")
     public Object getResult(String key) {
-        Map<?, ?> results = (Map) this.context.getAttribute(ScriptUtil.RESULT_KEY);
+        Map<?, ?> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
         return results != null ? results.get(key) : null;
     }
 
-    @SuppressWarnings("unchecked")
     public Map<String, Object> getResults() {
-        return (Map<String, Object>) this.context.getAttribute(ScriptUtil.RESULT_KEY);
+        return UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
     }
 
     public String getScriptName() {
@@ -208,9 +205,8 @@ public final class ContextHelper {
         this.putEnv(fma, value);
     }
 
-    @SuppressWarnings("unchecked")
     public void putParameter(String key, Object value) {
-        Map<String, Object> parameters = (Map) this.context.getAttribute(ScriptUtil.PARAMETERS_KEY);
+        Map<String, Object> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
         if (parameters == null) {
             parameters = new HashMap<String, Object>();
             this.context.setAttribute(ScriptUtil.PARAMETERS_KEY, parameters, ScriptContext.ENGINE_SCOPE);
@@ -218,9 +214,8 @@ public final class ContextHelper {
         parameters.put(key, value);
     }
 
-    @SuppressWarnings("unchecked")
     public void putResult(String key, Object value) {
-        Map<String, Object> results = (Map) this.context.getAttribute(ScriptUtil.RESULT_KEY);
+        Map<String, Object> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
         if (results == null) {
             results = new HashMap<String, Object>();
             this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
@@ -228,9 +223,8 @@ public final class ContextHelper {
         results.put(key, value);
     }
 
-    @SuppressWarnings("unchecked")
     public void putResults(Map<String, Object> results) {
-        Map<String, Object> existingResults = (Map) this.context.getAttribute(ScriptUtil.RESULT_KEY);
+        Map<String, Object> existingResults = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
         if (existingResults == null) {
             existingResults = new HashMap<String, Object>();
             this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
