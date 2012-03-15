@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.common.scripting;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -28,6 +27,8 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.ScriptUtil;
@@ -120,12 +121,16 @@ public final class ContextHelper {
     }
 
     public Object getParameter(String key) {
-        Map<?, ?> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
-        return parameters != null ? parameters.get(key) : null;
+        return getParameters().get(key);
     }
 
     public Map<String, Object> getParameters() {
-        return UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
+        Map<String, Object> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
+        if (parameters == null) {
+            parameters = FastMap.newInstance();
+            this.context.setAttribute(ScriptUtil.PARAMETERS_KEY, parameters, ScriptContext.ENGINE_SCOPE);
+        }
+        return parameters;
     }
 
     public HttpServletRequest getRequest() {
@@ -137,12 +142,17 @@ public final class ContextHelper {
     }
 
     public Object getResult(String key) {
-        Map<?, ?> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
+        Map<?, ?> results = getResults();
         return results != null ? results.get(key) : null;
     }
 
     public Map<String, Object> getResults() {
-        return UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
+        Map<String, Object> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
+        if (results == null) {
+            results = FastMap.newInstance();
+            this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
+        }
+        return results;
     }
 
     public String getScriptName() {
@@ -206,30 +216,15 @@ public final class ContextHelper {
     }
 
     public void putParameter(String key, Object value) {
-        Map<String, Object> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
-        if (parameters == null) {
-            parameters = new HashMap<String, Object>();
-            this.context.setAttribute(ScriptUtil.PARAMETERS_KEY, parameters, ScriptContext.ENGINE_SCOPE);
-        }
-        parameters.put(key, value);
+        getParameters().put(key, value);
     }
 
     public void putResult(String key, Object value) {
-        Map<String, Object> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
-        if (results == null) {
-            results = new HashMap<String, Object>();
-            this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
-        }
-        results.put(key, value);
+        getResults().put(key, value);
     }
 
     public void putResults(Map<String, Object> results) {
-        Map<String, Object> existingResults = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
-        if (existingResults == null) {
-            existingResults = new HashMap<String, Object>();
-            this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
-        }
-        existingResults.putAll(results);
+        getResults().putAll(results);
     }
 
     public Object removeBinding(String key) {
