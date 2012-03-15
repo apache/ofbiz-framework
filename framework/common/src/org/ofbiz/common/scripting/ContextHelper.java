@@ -20,6 +20,7 @@ package org.ofbiz.common.scripting;
 
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -28,6 +29,7 @@ import javax.script.ScriptEngine;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Assert;
@@ -40,6 +42,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 
 /**
  * A set of <code>ScriptContext</code> convenience methods for scripting engines.
@@ -112,6 +115,24 @@ public final class ContextHelper {
         return getEnv(fma);
     }
 
+    public List<String> getErrorMessages() {
+        List<String> errorMessages = null;
+        if (isService()) {
+            errorMessages = UtilGenerics.checkList(getResults().get(ModelService.ERROR_MESSAGE_LIST));
+            if (errorMessages == null) {
+                errorMessages = FastList.newInstance();
+                getResults().put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
+            }
+        } else {
+            errorMessages = UtilGenerics.checkList(getResults().get("_error_message_list_"));
+            if (errorMessages == null) {
+                errorMessages = FastList.newInstance();
+                getResults().put("_error_message_list_", errorMessages);
+            }
+        }
+        return errorMessages;
+    }
+
     public Iterator<Map.Entry<String, Object>> getEnvEntryIterator() {
         return getBindings().entrySet().iterator();
     }
@@ -142,8 +163,7 @@ public final class ContextHelper {
     }
 
     public Object getResult(String key) {
-        Map<?, ?> results = getResults();
-        return results != null ? results.get(key) : null;
+        return getResults().get(key);
     }
 
     public Map<String, Object> getResults() {
