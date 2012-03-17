@@ -202,8 +202,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** Flag to say if we have pulled in our addition parameters from our implemented service(s) */
     protected boolean inheritedParameters = false;
 
-    public GenericInvoker invoker;
-
     public ModelService() {}
 
     public ModelService(ModelService model) {
@@ -229,9 +227,6 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.overrideParameters = model.overrideParameters;
         this.inheritedParameters = model.inheritedParameters();
         this.internalGroup = model.internalGroup;
-        if (model.invoker != null) {
-            this.invoker = model.invoker.copy(this);
-        }
 
         List<ModelParam> modelParamList = model.getModelParamList();
         for (ModelParam param: modelParamList) {

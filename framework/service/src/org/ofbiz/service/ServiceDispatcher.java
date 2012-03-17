@@ -74,7 +74,6 @@ public class ServiceDispatcher {
     protected static boolean enableJM = true;
     protected static boolean enableJMS = true;
     protected static boolean enableSvcs = true;
-    protected static boolean serviceDebugMode = true;
 
     protected Delegator delegator = null;
     protected GenericEngineFactory factory = null;
@@ -123,7 +122,6 @@ public class ServiceDispatcher {
         if (enableSvcs) {
             this.runStartupServices();
         }
-        serviceDebugMode = "true".equals(UtilProperties.getPropertyValue("service", "servicedispatcher.servicedebugmode", "true"));
     }
 
     protected ServiceDispatcher(Delegator delegator) {
@@ -395,13 +393,8 @@ public class ServiceDispatcher {
                     // ===== invoke the service =====
                     if (!isError && !isFailure) {
                         Map<String, Object> invokeResult = null;
-                        if (serviceDebugMode) {
-                            invokeResult = modelService.invoker.runSync(localName, engine, context);
-                            modelService.invoker.sendCallbacks(engine, context, invokeResult, null, GenericEngine.SYNC_MODE);
-                        } else {
-                            invokeResult = engine.runSync(localName, modelService, context);
-                            engine.sendCallbacks(modelService, context, invokeResult, GenericEngine.SYNC_MODE);
-                        }
+                        invokeResult = engine.runSync(localName, modelService, context);
+                        engine.sendCallbacks(modelService, context, invokeResult, GenericEngine.SYNC_MODE);
                         if (invokeResult != null) {
                             result.putAll(invokeResult);
                         } else {
@@ -515,11 +508,7 @@ public class ServiceDispatcher {
                     UtilTimer.closeTimer(localName + " / " + modelService.name, "Sync service failed...", module);
                 }
                 String errMsg = "Service [" + modelService.name + "] threw an unexpected exception/error";
-                if (serviceDebugMode) {
-                    modelService.invoker.sendCallbacks(engine, context, null, t, GenericEngine.SYNC_MODE);
-                } else {
-                    engine.sendCallbacks(modelService, context, t, GenericEngine.SYNC_MODE);
-                }
+                engine.sendCallbacks(modelService, context, t, GenericEngine.SYNC_MODE);
                 try {
                     TransactionUtil.rollback(beganTrans, errMsg, t);
                 } catch (GenericTransactionException te) {
@@ -715,17 +704,12 @@ public class ServiceDispatcher {
 
                 // run the service
                 if (!isError && !isFailure) {
-                    if (serviceDebugMode) {
-                        service.invoker.runAsync(localName, engine, context, requester, persist);
-                        service.invoker.sendCallbacks(engine, context, null, null, GenericEngine.ASYNC_MODE);
+                    if (requester != null) {
+                        engine.runAsync(localName, service, context, requester, persist);
                     } else {
-                        if (requester != null) {
-                            engine.runAsync(localName, service, context, requester, persist);
-                        } else {
-                            engine.runAsync(localName, service, context, persist);
-                        }
-                        engine.sendCallbacks(service, context, GenericEngine.ASYNC_MODE);
+                        engine.runAsync(localName, service, context, persist);
                     }
+                    engine.sendCallbacks(service, context, GenericEngine.ASYNC_MODE);
                 }
 
                 if (Debug.timingOn()) {
@@ -738,11 +722,7 @@ public class ServiceDispatcher {
                 }
                 String errMsg = "Service [" + service.name + "] threw an unexpected exception/error";
                 Debug.logError(t, errMsg, module);
-                if (serviceDebugMode) {
-                    service.invoker.sendCallbacks(engine, context, null, t, GenericEngine.ASYNC_MODE);
-                } else {
-                    engine.sendCallbacks(service, context, t, GenericEngine.ASYNC_MODE);
-                }
+                engine.sendCallbacks(service, context, t, GenericEngine.ASYNC_MODE);
                 try {
                     TransactionUtil.rollback(beganTrans, errMsg, t);
                 } catch (GenericTransactionException te) {
