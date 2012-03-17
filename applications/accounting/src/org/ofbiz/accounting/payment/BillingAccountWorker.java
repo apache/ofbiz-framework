@@ -84,9 +84,7 @@ public class BillingAccountWorker {
 
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
-            Iterator<GenericValue> billingAcctIter = billingAccountRoleList.iterator();
-            while (billingAcctIter.hasNext()) {
-                GenericValue billingAccountRole = billingAcctIter.next();
+            for(GenericValue billingAccountRole : billingAccountRoleList) {
                 GenericValue billingAccountVO = billingAccountRole.getRelatedOne("BillingAccount");
 
                 // skip accounts that have thruDate < nowTimestamp

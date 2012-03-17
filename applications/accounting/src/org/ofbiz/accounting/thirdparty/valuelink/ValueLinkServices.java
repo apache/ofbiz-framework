@@ -1159,9 +1159,7 @@ public class ValueLinkServices {
         // make a map of answer info
         Map<String, Object> answerMap = FastMap.newInstance();
         if (responseAnswers != null) {
-            Iterator<GenericValue> rai = responseAnswers.iterator();
-            while (rai.hasNext()) {
-                GenericValue answer = rai.next();
+            for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");
@@ -1416,9 +1414,7 @@ public class ValueLinkServices {
         // make a map of answer info
         Map<String, Object> answerMap = FastMap.newInstance();
         if (responseAnswers != null) {
-            Iterator<GenericValue> rai = responseAnswers.iterator();
-            while (rai.hasNext()) {
-                GenericValue answer = rai.next();
+            for(GenericValue answer : responseAnswers) {
                 GenericValue question = null;
                 try {
                     question = answer.getRelatedOne("SurveyQuestion");

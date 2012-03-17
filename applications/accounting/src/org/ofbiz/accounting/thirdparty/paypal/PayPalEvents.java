@@ -247,10 +247,7 @@ public class PayPalEvents {
 
         Debug.logInfo("Got verification from PayPal, processing..", module);
         boolean verified = false;
-        Set <String> keySet = parametersMap.keySet();
-        Iterator <String> i = keySet.iterator();
-        while (i.hasNext()) {
-            String name = i.next();
+        for(String name : parametersMap.keySet()) {
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, module);
             if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name) &&
@@ -417,9 +414,7 @@ public class PayPalEvents {
             return false;
         }
         if (paymentPrefs.size() > 0) {
-            Iterator <GenericValue> i = paymentPrefs.iterator();
-            while (i.hasNext()) {
-                GenericValue pref = i.next();
+            for(GenericValue pref : paymentPrefs) {
                 boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
                 if (!okay)
                     return false;
