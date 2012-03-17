@@ -210,7 +210,6 @@ public class ContentServicesComplex {
         //EntityExpr joinExpr = null;
         //EntityExpr expr = null;
         String viewName = null;
-        GenericValue contentAssoc = null;
         String contentFieldName = null;
         if (direction != null && direction.equalsIgnoreCase("From")) {
             contentFieldName = "contentIdTo";
@@ -257,9 +256,7 @@ public class ContentServicesComplex {
         String contentAssocTypeId = null;
         List<GenericValue> contentAssocsTypeFiltered = FastList.newInstance();
         if (assocTypes != null && assocTypes.size() > 1) {
-            Iterator<GenericValue> it = contentAssocsDateFiltered.iterator();
-            while (it.hasNext()) {
-                contentAssoc = it.next();
+            for(GenericValue contentAssoc : contentAssocsDateFiltered) {
                 contentAssocTypeId = (String)contentAssoc.get("contentAssocTypeId");
                 if (assocTypes.contains(contentAssocTypeId)) {
                     contentAssocsTypeFiltered.add(contentAssoc);
@@ -281,9 +278,7 @@ public class ContentServicesComplex {
         GenericValue dataResource = null;
         List<GenericValue> contentAssocDataResourceList = FastList.newInstance();
         Locale locale = Locale.getDefault(); // TODO: this needs to be passed in
-        Iterator<GenericValue> it = contentAssocsTypeFiltered.iterator();
-        while (it.hasNext()) {
-            contentAssoc = it.next();
+        for(GenericValue contentAssoc : contentAssocsTypeFiltered) {
             content = contentAssoc.getRelatedOneCache(assocRelationName);
             if (UtilValidate.isNotEmpty(contentTypes)) {
                 String contentTypeId = (String)content.get("contentTypeId");

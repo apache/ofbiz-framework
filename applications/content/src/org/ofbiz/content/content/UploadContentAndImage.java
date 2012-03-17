@@ -463,11 +463,9 @@ public class UploadContentAndImage {
 
         ModelEntity modelEntity = delegator.getModelEntity("ContentAssocDataResourceViewFrom");
         List<String> fieldNames = modelEntity.getAllFieldNames();
-        Iterator<String> iter = fieldNames.iterator();
         Map<String, Object> ftlContext2 = FastMap.newInstance();
         Map<String, Object> ftlContext3 = FastMap.newInstance();
-        while (iter.hasNext()) {
-            String keyName = iter.next();
+        for(String keyName : fieldNames) {
             Object obj = passedParams.get(keyName + suffix);
             ftlContext2.put(keyName, obj);
         }
