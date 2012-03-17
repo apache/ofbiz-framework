@@ -114,11 +114,8 @@ public class BOMNode {
         children = FastList.newInstance();
         children.addAll(rows);
         childrenNodes = FastList.newInstance();
-        Iterator<GenericValue> childrenIterator = children.iterator();
-        GenericValue oneChild = null;
         BOMNode oneChildNode = null;
-        while (childrenIterator.hasNext()) {
-            oneChild = childrenIterator.next();
+        for(GenericValue oneChild : children) {
             // Configurator
             oneChildNode = configurator(oneChild, productFeatures, getRootNode().getProductForRules(), inDate);
             // If the node is null this means that the node has been discarded by the rules.
@@ -340,13 +337,11 @@ public class BOMNode {
             rows = EntityUtil.filterByDate(rows, inDate);
         }
         children = FastList.newInstance();
-        children.addAll(rows);;
+        children.addAll(rows);
         childrenNodes = FastList.newInstance();
-        Iterator<GenericValue> childrenIterator = children.iterator();
-        GenericValue oneChild = null;
+
         BOMNode oneChildNode = null;
-        while (childrenIterator.hasNext()) {
-            oneChild = childrenIterator.next();
+        for(GenericValue oneChild : children) {
             oneChildNode = new BOMNode(oneChild.getString("productId"), delegator, dispatcher, userLogin);
             // Configurator
             //oneChildNode = configurator(oneChild, productFeatures, getRootNode().getProductForRules(), delegator);
