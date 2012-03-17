@@ -103,9 +103,7 @@ public class MrpServices {
         }
         if (listResult != null) {
             try {
-                Iterator<GenericValue> listResultIt = listResult.iterator();
-                while (listResultIt.hasNext()) {
-                    GenericValue tmpRequirement = listResultIt.next();
+                for(GenericValue tmpRequirement : listResult) {
                     listResultRoles.addAll(tmpRequirement.getRelated("RequirementRole"));
                     //int numOfRecordsRemoved = delegator.removeRelated("RequirementRole", tmpRequirement);
                 }
@@ -129,10 +127,8 @@ public class MrpServices {
             }
         }
 
-        GenericValue genericResult = null;
         Map<String, Object> parameters = null;
         List<GenericValue> resultList = null;
-        Iterator<GenericValue> iteratorResult = null;
         // ----------------------------------------
         // Loads all the approved sales order items and purchase order items
         // ----------------------------------------
@@ -147,7 +143,6 @@ public class MrpServices {
             notAssignedDate = new Timestamp(calendar.getTimeInMillis());
         }
         resultList = null;
-        iteratorResult = null;
         parameters = UtilMisc.<String, Object>toMap("orderTypeId", "SALES_ORDER", "oiStatusId", "ITEM_APPROVED");
         parameters.put("facilityId", facilityId);
         try {
@@ -157,9 +152,7 @@ public class MrpServices {
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = iteratorResult.next();
+        for(GenericValue genericResult : resultList) {
             String productId =  genericResult.getString("productId");
             BigDecimal reservedQuantity = genericResult.getBigDecimal("reservedQuantity");
             BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
@@ -211,7 +204,6 @@ public class MrpServices {
         // Loads all the approved product requirements (po requirements)
         // ----------------------------------------
         resultList = null;
-        iteratorResult = null;
         parameters = UtilMisc.<String, Object>toMap("requirementTypeId", "PRODUCT_REQUIREMENT",
                 "statusId", "REQ_APPROVED", "facilityId", facilityId);
         try {
@@ -219,9 +211,7 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = iteratorResult.next();
+        for(GenericValue genericResult : resultList) {
             String productId =  genericResult.getString("productId");
             BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
             if (productId == null || eventQuantityTmp == null) {
@@ -244,7 +234,6 @@ public class MrpServices {
         // Loads all the approved purchase order items
         // ----------------------------------------
         resultList = null;
-        iteratorResult = null;
         String orderId = null;
         GenericValue orderDeliverySchedule = null;
         try {
@@ -259,9 +248,7 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventFindError", locale));
         }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = iteratorResult.next();
+        for(GenericValue genericResult : resultList) {
             String newOrderId =  genericResult.getString("orderId");
             if (!newOrderId.equals(orderId)) {
                 orderDeliverySchedule = null;
@@ -321,14 +308,11 @@ public class MrpServices {
         // PRODUCTION Run: components
         // ----------------------------------------
         resultList = null;
-        iteratorResult = null;
         parameters = UtilMisc.<String, Object>toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED",
                    "statusId", "WEGS_CREATED", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
-            iteratorResult = resultList.iterator();
-            while (iteratorResult.hasNext()) {
-                genericResult = iteratorResult.next();
+            for(GenericValue genericResult : resultList) {
                 if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
@@ -359,14 +343,11 @@ public class MrpServices {
         // PRODUCTION Run: product produced
         // ----------------------------------------
         resultList = null;
-        iteratorResult = null;
         parameters = UtilMisc.<String, Object>toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
                 "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER", "facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
-            iteratorResult = resultList.iterator();
-            while (iteratorResult.hasNext()) {
-                genericResult = iteratorResult.next();
+            for(GenericValue genericResult : resultList) {
                 if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_COMPLETED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_CANCELLED".equals(genericResult.getString("currentStatusId"))) {
@@ -402,7 +383,6 @@ public class MrpServices {
         // Products without upcoming events but that are already under minimum quantity in warehouse
         // ----------------------------------------
         resultList = null;
-        iteratorResult = null;
         parameters = UtilMisc.<String, Object>toMap("facilityId", facilityId);
         try {
             resultList = delegator.findByAnd("ProductFacility", parameters);
@@ -410,9 +390,7 @@ public class MrpServices {
             Debug.logError(e, "Unable to retrieve ProductFacility records.", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindProductFacility", locale));
         }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = iteratorResult.next();
+        for(GenericValue genericResult : resultList) {
             String productId = genericResult.getString("productId");
             BigDecimal minimumStock = genericResult.getBigDecimal("minimumStock");
             if (minimumStock == null) {
@@ -444,7 +422,6 @@ public class MrpServices {
         // SALES FORECASTS
         // ----------------------------------------
         resultList = null;
-        iteratorResult = null;
         GenericValue facility = null;
         try {
             facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", facilityId), false);
@@ -457,9 +434,7 @@ public class MrpServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindSalesForecasts", locale));
         }
-        iteratorResult = resultList.iterator();
-        while (iteratorResult.hasNext()) {
-            genericResult = iteratorResult.next();
+        for(GenericValue genericResult : resultList) {
             String customTimePeriodId =  genericResult.getString("customTimePeriodId");
             GenericValue customTimePeriod = null;
             try {
@@ -472,24 +447,21 @@ public class MrpServices {
                     continue;
                 } else {
                     List<GenericValue> salesForecastDetails = null;
-                    Iterator<GenericValue> sfdIter = null;
                     try {
                         salesForecastDetails = delegator.findByAnd("SalesForecastDetail", UtilMisc.toMap("salesForecastId", genericResult.getString("salesForecastId")));
                     } catch (GenericEntityException e) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpCannotFindSalesForecastDetails", locale));
                     }
-                    sfdIter = salesForecastDetails.iterator();
-                    while (sfdIter.hasNext()) {
-                        genericResult = sfdIter.next();
-                        String productId =  genericResult.getString("productId");
-                        BigDecimal eventQuantityTmp = genericResult.getBigDecimal("quantity");
+                    for(GenericValue sfd : salesForecastDetails) {
+                        String productId =  sfd.getString("productId");
+                        BigDecimal eventQuantityTmp = sfd.getBigDecimal("quantity");
                         if (productId == null || eventQuantityTmp == null) {
                             continue;
                         }
                         eventQuantityTmp = eventQuantityTmp.negate();
                         parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", customTimePeriod.getDate("fromDate"), "mrpEventTypeId", "SALES_FORECAST");
                         try {
-                            InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("salesForecastDetailId"), false, delegator);
+                            InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, sfd.getString("salesForecastDetailId"), false, delegator);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpEventProblemInitializing", UtilMisc.toMap("mrpEventTypeId", "SALES_FORECAST"), locale));
                         }
@@ -564,9 +536,7 @@ public class MrpServices {
         Delegator delegator = product.getDelegator();
 
         if (UtilValidate.isNotEmpty(listComponent)) {
-            Iterator<BOMNode> listComponentIter = listComponent.iterator();
-            while (listComponentIter.hasNext()) {
-                BOMNode node = listComponentIter.next();
+            for(BOMNode node : listComponent) {
                 GenericValue productComponent = node.getProductAssoc();
                 // read the startDate for the component
                 String routingTask = node.getProductAssoc().getString("routingWorkEffortId");
@@ -629,9 +599,7 @@ public class MrpServices {
                 if (UtilValidate.isEmpty(facilities)) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingMrpFacilityGroupIsNotAssociatedToFacility", UtilMisc.toMap("facilityGroupId", facilityGroupId), locale));
                 }
-                Iterator<GenericValue> facilitiesIt = facilities.iterator();
-                while (facilitiesIt.hasNext()) {
-                    GenericValue facilityMember = facilitiesIt.next();
+                for(GenericValue facilityMember : facilities) {
                     GenericValue facility = facilityMember.getRelatedOne("Facility");
                     if ("WAREHOUSE".equals(facility.getString("facilityTypeId")) && UtilValidate.isEmpty(facilityId)) {
                         facilityId = facility.getString("facilityId");
@@ -672,7 +640,6 @@ public class MrpServices {
         Map<String, Object> parameters = null;
         List<GenericValue> listInventoryEventForMRP = null;
         ListIterator<GenericValue> iteratorListInventoryEventForMRP = null;
-        GenericValue inventoryEventForMRP = null;
 
         // Initialization of the MrpEvent table, This table will contain the products we want to buy or build.
         parameters = UtilMisc.<String, Object>toMap("mrpId", mrpId, "reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset, "userLogin", userLogin);
@@ -703,11 +670,9 @@ public class MrpServices {
 
             if (UtilValidate.isNotEmpty(listInventoryEventForMRP)) {
                 bomLevelWithNoEvent = 0;
-                iteratorListInventoryEventForMRP = listInventoryEventForMRP.listIterator();
 
                 oldProductId = "";
-                while (iteratorListInventoryEventForMRP.hasNext()) {
-                    inventoryEventForMRP = iteratorListInventoryEventForMRP.next();
+                for(GenericValue inventoryEventForMRP : listInventoryEventForMRP) {
                     productId = inventoryEventForMRP.getString("productId");
                     eventQuantity = inventoryEventForMRP.getBigDecimal("quantity");
 

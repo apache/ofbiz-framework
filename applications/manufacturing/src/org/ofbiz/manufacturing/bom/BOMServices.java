@@ -84,9 +84,8 @@ public class BOMServices {
         if (bomType == null) {
             try {
                 List<GenericValue> bomTypesValues = delegator.findByAnd("ProductAssocType", UtilMisc.toMap("parentTypeId", "PRODUCT_COMPONENT"));
-                Iterator<GenericValue> bomTypesValuesIt = bomTypesValues.iterator();
-                while (bomTypesValuesIt.hasNext()) {
-                    bomTypes.add((bomTypesValuesIt.next()).getString("productAssocTypeId"));
+                for(GenericValue bomTypesValue : bomTypesValues) {
+                    bomTypes.add(bomTypesValue.getString("productAssocTypeId"));
                 }
             } catch (GenericEntityException gee) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorRunningMaxDethAlgorithm", UtilMisc.toMap("errorString", gee.getMessage()), locale));
@@ -97,10 +96,8 @@ public class BOMServices {
 
         int depth = 0;
         int maxDepth = 0;
-        Iterator<String> bomTypesIt = bomTypes.iterator();
         try {
-            while (bomTypesIt.hasNext()) {
-                String oneBomType = bomTypesIt.next();
+            for(String oneBomType : bomTypes) {
                 depth = BOMHelper.getMaxDepth(productId, oneBomType, fromDate, delegator);
                 if (depth > maxDepth) {
                     maxDepth = depth;
@@ -149,10 +146,8 @@ public class BOMServices {
                     UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
             virtualProducts = EntityUtil.filterByDate(virtualProducts);
             int virtualMaxDepth = 0;
-            Iterator<GenericValue> virtualProductsIt = virtualProducts.iterator();
-            while (virtualProductsIt.hasNext()) {
+            for(GenericValue oneVirtualProductAssoc : virtualProducts) {
                 int virtualDepth = 0;
-                GenericValue oneVirtualProductAssoc = virtualProductsIt.next();
                 GenericValue virtualProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVirtualProductAssoc.getString("productId")));
                 if (virtualProduct.get("billOfMaterialLevel") != null) {
                     virtualDepth = virtualProduct.getLong("billOfMaterialLevel").intValue();
@@ -190,9 +185,7 @@ public class BOMServices {
                 List<GenericValue> variantProducts = delegator.findByAnd("ProductAssoc", 
                         UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
                 variantProducts = EntityUtil.filterByDate(variantProducts, true);
-                Iterator<GenericValue> variantProductsIt = variantProducts.iterator();
-                while (variantProductsIt.hasNext()) {
-                    GenericValue oneVariantProductAssoc = variantProductsIt.next();
+                for(GenericValue oneVariantProductAssoc : variantProducts) {
                     GenericValue variantProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVariantProductAssoc.getString("productId")));
                     variantProduct.set("billOfMaterialLevel", llc);
                     variantProduct.store();
@@ -220,20 +213,16 @@ public class BOMServices {
         try {
             List<GenericValue> products = delegator.findList("Product", null, null, 
                     UtilMisc.toList("isVirtual DESC"), null, false);
-            Iterator<GenericValue> productsIt = products.iterator();
             Long zero = Long.valueOf(0);
             List<GenericValue> allProducts = FastList.newInstance();
-            while (productsIt.hasNext()) {
-                GenericValue product = productsIt.next();
+            for(GenericValue product : products) {
                 product.set("billOfMaterialLevel", zero);
                 allProducts.add(product);
             }
             delegator.storeAll(allProducts);
             Debug.logInfo("Low Level Code set to 0 for all the products", module);
 
-            productsIt = products.iterator();
-            while (productsIt.hasNext()) {
-                GenericValue product = productsIt.next();
+            for(GenericValue product : products) {
                 try {
                     Map<String, Object> depthResult = dispatcher.runSync("updateLowLevelCode", UtilMisc.<String, Object>toMap("productIdTo", product.getString("productId"), "alsoComponents", Boolean.valueOf(false), "alsoVariants", Boolean.valueOf(false)));
                     Debug.logInfo("Product [" + product.getString("productId") + "] Low Level Code [" + depthResult.get("lowLevelCode") + "]", module);
@@ -414,10 +403,8 @@ public class BOMServices {
 
         // also return a componentMap (useful in scripts and simple language code)
         List<Map<String, Object>> componentsMap = FastList.newInstance();
-        Iterator<BOMNode> componentsIt = components.iterator();
-        while (componentsIt.hasNext()) {
+        for(BOMNode node : components) {
             Map<String, Object> componentMap = FastMap.newInstance();
-            BOMNode node = componentsIt.next();
             componentMap.put("product", node.getProduct());
             componentMap.put("quantity", node.getQuantity());
             componentsMap.add(componentMap);
@@ -466,9 +453,7 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorCreatingBillOfMaterialsTree", UtilMisc.toMap("errorString", gee.getMessage()), locale));
         }
-        Iterator<BOMNode> componentsIt = components.iterator();
-        while (componentsIt.hasNext()) {
-            BOMNode oneComponent = componentsIt.next();
+        for(BOMNode oneComponent : components) {
             if (!oneComponent.isManufactured()) {
                 notAssembledComponents.add(oneComponent);
             }
@@ -503,11 +488,9 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorLoadingShipmentItems", locale));
         }
-        Iterator<GenericValue> shipmentItemsIt = shipmentItems.iterator();
         Map<String, Object> orderReadHelpers = FastMap.newInstance();
         Map<String, Object> partyOrderShipments = FastMap.newInstance();
-        while (shipmentItemsIt.hasNext()) {
-            GenericValue shipmentItem = shipmentItemsIt.next();
+        for(GenericValue shipmentItem : shipmentItems) {
             // Get the OrderShipments
             List<GenericValue> orderShipments = null;
             try {
