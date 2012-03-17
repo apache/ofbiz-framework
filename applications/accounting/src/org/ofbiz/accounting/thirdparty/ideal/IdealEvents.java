@@ -193,10 +193,7 @@ public class IdealEvents {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
         String transactionId = request.getParameter("trxid");
-        Set<String> keySet = parametersMap.keySet();
-        Iterator<String> i = keySet.iterator();
-        while (i.hasNext()) {
-            String name = (String) i.next();
+        for(String name : parametersMap.keySet()) {
             String value = request.getParameter(name);
             Debug.logError("### Param: " + name + " => " + value, module);
         }
@@ -321,9 +318,7 @@ public class IdealEvents {
             return false;
         }
         if (paymentPrefs.size() > 0) {
-            Iterator <GenericValue> i = paymentPrefs.iterator();
-            while (i.hasNext()) {
-                GenericValue pref = i.next();
+            for(GenericValue pref : paymentPrefs) {
                 boolean okay = setPaymentPreference(dispatcher, userLogin, pref, request);
                 if (!okay)
                     return false;

@@ -237,10 +237,7 @@ public class PaymentGatewayServices {
                                     }
 
                                     if (UtilValidate.isNotEmpty(otherPaymentMethodAndCreditCardList)) {
-                                        Iterator<GenericValue> otherPaymentMethodAndCreditCardIter = otherPaymentMethodAndCreditCardList.iterator();
-                                        while (otherPaymentMethodAndCreditCardIter.hasNext()) {
-                                            GenericValue otherPaymentMethodAndCreditCard = otherPaymentMethodAndCreditCardIter.next();
-
+                                        for (GenericValue otherPaymentMethodAndCreditCard : otherPaymentMethodAndCreditCardList) {
                                             // change OrderPaymentPreference in memory only and call auth service
                                             orderPaymentPreference.set("paymentMethodId", otherPaymentMethodAndCreditCard.getString("paymentMethodId"));
                                             Map<String, Object> authRetryResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, transAmount);
@@ -368,9 +365,7 @@ public class PaymentGatewayServices {
         int finished = 0;
         int hadError = 0;
         List<String> messages = FastList.newInstance();
-        Iterator<GenericValue> payments = paymentPrefs.iterator();
-        while (payments.hasNext()) {
-            GenericValue paymentPref = payments.next();
+        for(GenericValue paymentPref : paymentPrefs) {
             if (reAuth && "PAYMENT_AUTHORIZED".equals(paymentPref.getString("statusId"))) {
                 String paymentConfig = null;
                 // get the payment settings i.e. serviceName and config properties file name
@@ -766,10 +761,8 @@ public class PaymentGatewayServices {
 
         // iterate over the prefs and release each one
         List<GenericValue> finished = FastList.newInstance();
-        Iterator<GenericValue> payments = paymentPrefs.iterator();
-        while (payments.hasNext()) {
-            paymentPref = payments.next();
-            Map<String, Object> releaseContext = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId"));
+        for(GenericValue pPref : paymentPrefs) {
+            Map<String, Object> releaseContext = UtilMisc.toMap("userLogin", userLogin, "orderPaymentPreferenceId", pPref.getString("orderPaymentPreferenceId"));
             Map<String, Object> releaseResult = null;
             try {
                 releaseResult = dispatcher.runSync("releaseOrderPaymentPreference", releaseContext);
@@ -827,11 +820,9 @@ public class PaymentGatewayServices {
         List<GenericValue> messageEntities = FastList.newInstance();
         List<String> messages = UtilGenerics.cast(context.get("internalRespMsgs"));
         if (UtilValidate.isNotEmpty(messages)) {
-            Iterator<String> i = messages.iterator();
-            while (i.hasNext()) {
+            for(String message : messages) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
                 String respMsgId = delegator.getNextSeqId("PaymentGatewayRespMsg");
-                String message = i.next();
                 respMsg.set("paymentGatewayRespMsgId", respMsgId);
                 respMsg.set("paymentGatewayResponseId", responseId);
                 respMsg.set("pgrMessage", message);
