@@ -54,8 +54,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import org.webslinger.invoker.Wrap;
-
 import freemarker.template.utility.StringUtil;
 
 /**
@@ -65,7 +63,6 @@ import freemarker.template.utility.StringUtil;
 public class ModelServiceReader implements Serializable {
 
     public static final String module = ModelServiceReader.class.getName();
-    protected static boolean serviceDebugMode = true;
 
     /** is either from a URL or from a ResourceLoader (through the ResourceHandler) */
     protected boolean isFromURL;
@@ -94,7 +91,6 @@ public class ModelServiceReader implements Serializable {
         this.readerURL = readerURL;
         this.handler = handler;
         this.dctx = dctx;
-        serviceDebugMode = "true".equals(UtilProperties.getPropertyValue("service", "servicedispatcher.servicedebugmode", "true"));
     }
 
     private Map<String, ModelService> getModelServices() {
@@ -204,21 +200,6 @@ public class ModelServiceReader implements Serializable {
         ModelService service = new ModelService();
 
         service.name = UtilXml.checkEmpty(serviceElement.getAttribute("name")).intern();
-        if (serviceDebugMode) {
-            Wrap<GenericInvoker> wrap = new Wrap<GenericInvoker>().fileName(resourceLocation + '#' + service.name).wrappedClass(GenericInvokerImpl.class);
-            for (Method method: GenericInvokerImpl.class.getDeclaredMethods()) {
-                if (method.getName().startsWith("run")) {
-                    wrap.wrap(method);
-                } else if (method.getName().startsWith("send")) {
-                    wrap.wrap(method);
-                }
-            }
-            Object startLine = serviceElement.getUserData("startLine");
-            if (startLine != null) {
-                wrap.lineNumber(((Integer) startLine).intValue());
-            }
-            service.invoker = wrap.newInstance(new Class<?>[] {ModelService.class}, new Object[] {service});
-        }
         service.definitionLocation = resourceLocation;
         service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
@@ -748,55 +729,5 @@ public class ModelServiceReader implements Serializable {
         }
 
         return document;
-    }
-
-    public static class GenericInvokerImpl implements GenericInvoker {
-        private final ModelService modelService;
-
-        public GenericInvokerImpl(ModelService modelService) {
-            this.modelService = modelService;
-        }
-
-        public Map<String, Object> runSync(String localName, GenericEngine engine, Map<String, Object> context) throws GenericServiceException {
-            return engine.runSync(localName, modelService, context);
-        }
-
-        public void runSyncIgnore(String localName, GenericEngine engine, Map<String, Object> context) throws GenericServiceException {
-            engine.runSyncIgnore(localName, modelService, context);
-        }
-
-        public void runAsync(String localName, GenericEngine engine, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
-            if (requester != null) {
-                engine.runAsync(localName, modelService, context, requester, persist);
-            } else {
-                engine.runAsync(localName, modelService, context, persist);
-            }
-        }
-
-        public void sendCallbacks(GenericEngine engine, Map<String, Object> context, Map<String, Object> result, Throwable t, int mode) throws GenericServiceException {
-            if (t != null) {
-                engine.sendCallbacks(modelService, context, t, mode);
-            } else if (result != null) {
-                engine.sendCallbacks(modelService, context, result, mode);
-            } else {
-                engine.sendCallbacks(modelService, context, mode);
-            }
-        }
-
-        public GenericInvokerImpl copy(ModelService modelService) {
-            try {
-                try {
-                    return getClass().getConstructor(ModelService.class).newInstance(modelService);
-                } catch (InvocationTargetException e) {
-                    throw e.getCause();
-                }
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Error e) {
-                throw e;
-            } catch (Throwable e) {
-                throw (InternalError) new InternalError(e.getMessage()).initCause(e);
-            }
-        }
     }
 }

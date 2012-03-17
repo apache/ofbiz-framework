@@ -83,8 +83,6 @@ import org.ofbiz.service.ModelService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import org.webslinger.invoker.Wrap;
-
 /**
  * SimpleMethod Mini Language Core Object
  */
@@ -895,15 +893,6 @@ public class SimpleMethod {
                     Debug.logWarning("Operation element \"" + nodeName + "\" no recognized", module);
                 }
                 if (methodOp == null) continue;
-                if (UtilProperties.propertyValueEquals("webslinger-invoker.properties", "wrap-calls", "true")) {
-                    Wrap<MethodOperation> wrap = new Wrap<MethodOperation>().fileName(simpleMethod.getLocationAndName()).wrappedClass(methodOp.getClass());
-                    wrap.wrap(methodOperationExecMethod);
-                    Object startLine = curOperElem.getUserData("startLine");
-                    if (startLine != null) {
-                        wrap.lineNumber(((Integer) startLine).intValue());
-                    }
-                    methodOp = wrap.newInstance(new Class<?>[] {Element.class, SimpleMethod.class}, new Object[] {curOperElem, simpleMethod});
-                }
                 methodOperations.add(methodOp);
                 DeprecatedOperation depOp = methodOp.getClass().getAnnotation(DeprecatedOperation.class);
                 if (depOp != null) Debug.logInfo("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value() + " operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + methodOp.rawString(), module);
