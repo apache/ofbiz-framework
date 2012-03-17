@@ -177,10 +177,8 @@ public class CompDocServices {
             //PdfWriter writer = PdfWriter.getInstance(document, baos);
             PdfCopy writer = new PdfCopy(document, baos);
             document.open();
-            Iterator<GenericValue> iter = compDocParts.iterator();
             int pgCnt =0;
-            while (iter.hasNext()) {
-                GenericValue contentAssocRevisionItemView = iter.next();
+            for(GenericValue contentAssocRevisionItemView : compDocParts) {
                 //String thisContentId = contentAssocRevisionItemView.getString("contentId");
                 //String thisContentRevisionSeqId = contentAssocRevisionItemView.getString("maxRevisionSeqId");
                 String thisDataResourceId = contentAssocRevisionItemView.getString("dataResourceId");

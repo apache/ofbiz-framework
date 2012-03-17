@@ -102,10 +102,8 @@ public class ContentServices {
         serviceInMap.put("entityOperation", context.get("entityOperation"));
 
         List<GenericValue> permittedList = FastList.newInstance();
-        Iterator<GenericValue> it = contentList.iterator();
         Map<String, Object> permResults = null;
-        while (it.hasNext()) {
-            GenericValue content = it.next();
+        for(GenericValue content : contentList) {
             serviceInMap.put("currentContent", content);
             try {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
@@ -162,9 +160,7 @@ public class ContentServices {
         if (UtilValidate.isEmpty(kids)) {
             parentList.add(nodeMap.get("contentId"));
         } else {
-            Iterator<Map<String, Object>> iter = kids.iterator();
-            while (iter.hasNext()) {
-                Map<String, Object> node = iter.next();
+            for(Map<String, Object> node : kids) {
                 walkParentTree(node, parentList);
             }
         }
@@ -843,9 +839,7 @@ public class ContentServices {
             List<GenericValue> filteredAssocs = EntityUtil.filterByDate(relatedAssocs);
             //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, filteredAssocs:" + filteredAssocs, module);
 
-            Iterator<GenericValue> it = filteredAssocs.iterator();
-            while (it.hasNext()) {
-                GenericValue val = it.next();
+            for(GenericValue val : filteredAssocs) {
                 val.set("thruDate", nowTimestamp);
                 val.store();
                 //if (Debug.infoOn()) Debug.logInfo("in deactivateAssocs, val:" + val, module);

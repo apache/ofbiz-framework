@@ -115,9 +115,7 @@ public class BlogRssServices {
         }
 
         if (contentRecs != null) {
-            Iterator<GenericValue> i = contentRecs.iterator();
-            while (i.hasNext()) {
-                GenericValue v = i.next();
+            for(GenericValue v : contentRecs) {
                 String sub = null;
                 try {
                     Map<String, Object> dummy = FastMap.newInstance();

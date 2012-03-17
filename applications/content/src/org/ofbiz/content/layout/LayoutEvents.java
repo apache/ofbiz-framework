@@ -593,9 +593,7 @@ public class LayoutEvents {
         GenericValue v = delegator.makeValue(entityName);
         GenericPK passedPK = v.getPrimaryKey();
         Collection<String> keyColl = passedPK.getAllKeys();
-        Iterator<String> keyIt = keyColl.iterator();
-        while (keyIt.hasNext()) {
-            String attrName = keyIt.next();
+        for(String attrName : keyColl) {
             String attrVal = (String)request.getAttribute(attrName);
             if (attrVal == null) {
                 attrVal = (String)paramMap.get(attrName);

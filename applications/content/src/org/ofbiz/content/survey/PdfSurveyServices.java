@@ -111,9 +111,7 @@ public class PdfSurveyServices {
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
 
             pdfStamper.setFormFlattening(true);
-            Iterator<String> i = acroFieldMap.keySet().iterator();
-            while (i.hasNext()) {
-                String fieldName = i.next();
+            for(String fieldName : acroFieldMap.keySet()) {
                 AcroFields.Item item = acroFields.getFieldItem(fieldName);
                 int type = acroFields.getFieldType(fieldName);
                 String value = acroFields.getField(fieldName);
@@ -182,9 +180,7 @@ public class PdfSurveyServices {
                     PdfObject tuValue = null;
 
                     Set<PdfName> dictKeys = UtilGenerics.checkSet(dict.getKeys());
-                    Iterator<PdfName> dictKeyIter = dictKeys.iterator();
-                    while (dictKeyIter.hasNext()) {
-                        PdfName dictKeyName = dictKeyIter.next();
+                    for(PdfName dictKeyName : dictKeys) {
                         PdfObject dictObject = dict.get(dictKeyName);
 
                         if ("/Type".equals(dictKeyName.toString())) {
@@ -271,9 +267,7 @@ public class PdfSurveyServices {
             AcroFields fs = s.getAcroFields();
             Map<String, Object> hm = UtilGenerics.checkMap(fs.getFields());
             s.setFormFlattening(true);
-            Iterator<String> i = hm.keySet().iterator();
-            while (i.hasNext()) {
-                String fieldName = i.next();
+            for(String fieldName : hm.keySet()) {
                 //AcroFields.Item item = fs.getFieldItem(fieldName);
                 //int type = fs.getFieldType(fieldName);
                 String value = fs.getField(fieldName);
@@ -329,9 +323,7 @@ public class PdfSurveyServices {
     //        for (int i=0;i<sa.length;i++)
     //            Debug.logInfo("Appearance="+sa[i]);
 
-            Iterator<String> iter = map.keySet().iterator();
-            while (iter.hasNext()) {
-                String fieldName = iter.next();
+            for(String fieldName : map.keySet()) {
                 String parmValue = fs.getField(fieldName);
                 acroFieldMap.put(fieldName, parmValue);
             }
@@ -372,9 +364,7 @@ public class PdfSurveyServices {
     //      for (int i=0;i<sa.length;i++)
     //          Debug.logInfo("Appearance="+sa[i]);
 
-            Iterator<String> iter = map.keySet().iterator();
-            while (iter.hasNext()) {
-                String fieldName = iter.next();
+            for(String fieldName : map.keySet()) {
                 String fieldValue = fs.getField(fieldName);
                 Object obj = acroFieldMap.get(fieldName);
                 if (obj instanceof Date) {
@@ -452,10 +442,8 @@ public class PdfSurveyServices {
             PdfWriter.getInstance(document, baos);
 
             List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
-            Iterator<GenericValue> iter = responses.iterator();
-            while (iter.hasNext()) {
+            for(GenericValue surveyResponseAnswer : responses) {
                 String value = null;
-                GenericValue surveyResponseAnswer = iter.next();
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
                 GenericValue surveyQuestion = delegator.findByPrimaryKey("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId));
                 String questionType = surveyQuestion.getString("surveyQuestionTypeId");
@@ -503,9 +491,7 @@ public class PdfSurveyServices {
 
         try {
             List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
-            Iterator<GenericValue> iter = responses.iterator();
-            while (iter.hasNext()) {
-                GenericValue surveyResponseAnswer = iter.next();
+            for(GenericValue surveyResponseAnswer : responses) {
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
                 GenericValue surveyQuestion = delegator.findByPrimaryKey("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId));
                 qAndA.add(UtilMisc.toMap("question", surveyQuestion, "response", surveyResponseAnswer));
@@ -546,10 +532,8 @@ public class PdfSurveyServices {
             }
 
             List<GenericValue> responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
-            Iterator<GenericValue> iter = responses.iterator();
-            while (iter.hasNext()) {
+            for(GenericValue surveyResponseAnswer : responses) {
                 String value = null;
-                GenericValue surveyResponseAnswer = iter.next();
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
 
                 GenericValue surveyQuestion = delegator.findByPrimaryKeyCache("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId));

@@ -104,10 +104,7 @@ public class CompDocEvents {
             Map<String, Object> persistResult = dispatcher.runSync("persistContentAndAssoc", persistMap);
             contentId = (String)persistResult.get("contentId");
             //request.setAttribute("contentId", contentId);
-            Set<String> keySet = persistResult.keySet();
-            Iterator<String> iter = keySet.iterator();
-            while (iter.hasNext()) {
-                Object obj = iter.next();
+            for(Object obj : persistResult.keySet()) {
                 Object val = persistResult.get(obj);
                 request.setAttribute(obj.toString(), val);
             }
@@ -117,10 +114,7 @@ public class CompDocEvents {
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
             Map<String, Object> result = dispatcher.runSync("persistContentRevisionAndItem", contentRevisionMap);
-            keySet = result.keySet();
-            iter = keySet.iterator();
-            while (iter.hasNext()) {
-                Object obj = iter.next();
+            for(Object obj : result.keySet()) {
                 Object val = result.get(obj);
                 request.setAttribute(obj.toString(), val);
             }

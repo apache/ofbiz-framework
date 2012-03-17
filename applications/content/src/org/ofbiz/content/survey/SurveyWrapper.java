@@ -181,9 +181,7 @@ public class SurveyWrapper {
         }
 
         Map<String, Object> sqaaWithColIdListByMultiRespId = FastMap.newInstance();
-        Iterator<GenericValue> surveyQuestionAndApplIter = surveyQuestionAndAppls.iterator();
-        while (surveyQuestionAndApplIter.hasNext()) {
-            GenericValue surveyQuestionAndAppl = surveyQuestionAndApplIter.next();
+        for(GenericValue surveyQuestionAndAppl : surveyQuestionAndAppls) {
             String surveyMultiRespColId = surveyQuestionAndAppl.getString("surveyMultiRespColId");
             if (UtilValidate.isNotEmpty(surveyMultiRespColId)) {
                 String surveyMultiRespId = surveyQuestionAndAppl.getString("surveyMultiRespId");
@@ -368,9 +366,7 @@ public class SurveyWrapper {
             }
 
             if (UtilValidate.isNotEmpty(answers)) {
-                Iterator<GenericValue> i = answers.iterator();
-                while (i.hasNext()) {
-                    GenericValue answer = i.next();
+                for(GenericValue answer : answers) {
                     answerMap.put(answer.getString("surveyQuestionId"), answer);
                 }
             }
@@ -378,9 +374,7 @@ public class SurveyWrapper {
 
         // get the pass-thru (posted form data)
         if (UtilValidate.isNotEmpty(passThru)) {
-            Iterator<String> i = passThru.keySet().iterator();
-            while (i.hasNext()) {
-                String key = i.next();
+            for(String key : passThru.keySet()) {
                 if (key.toUpperCase().startsWith("ANSWERS_")) {
                     int splitIndex = key.indexOf('_');
                     String questionId = key.substring(splitIndex+1);
@@ -440,9 +434,7 @@ public class SurveyWrapper {
     public Map<String, Object> getResults(List<GenericValue> questions) throws SurveyWrapperException {
         Map<String, Object> questionResults = FastMap.newInstance();
         if (questions != null) {
-            Iterator<GenericValue> i = questions.iterator();
-            while (i.hasNext()) {
-                GenericValue question = i.next();
+            for(GenericValue question : questions) {
                 Map<String, Object> results = getResultInfo(question);
                 if (results != null) {
                     questionResults.put(question.getString("surveyQuestionId"), results);
@@ -484,10 +476,8 @@ public class SurveyWrapper {
                 resultMap.put("_total", questionTotal);
 
                 // create the map of option info ("_total", "_percent")
-                Iterator<String> i = thisResult.keySet().iterator();
-                while (i.hasNext()) {
+                for(String optId : thisResult.keySet()) {
                     Map<String, Object> optMap = FastMap.newInstance();
-                    String optId = i.next();
                     Long optTotal = (Long) thisResult.get(optId);
                     if (optTotal == null) {
                         optTotal = Long.valueOf(0);
