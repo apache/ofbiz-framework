@@ -2,7 +2,6 @@ applications/*/build
 framework/*/build
 framework/base/lib/cobertura-*.jar
 framework/entity/lib/jdbc/postgresql-*.jar
-framework/webslinger/websites/webslinger/Var/
 hot-deploy/*/build
 specialpurpose/*/build
 applications/content/index/

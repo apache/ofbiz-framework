@@ -165,44 +165,6 @@
     <classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/velocity-1.6.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/webslinger-base-invoker-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-cache-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-collections-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-collections-arrays-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-concurrent-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-html-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-io-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-javacc-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-junit-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-lang-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-logging-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-resolver-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-util-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-base-xml-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-catalina-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-cgi-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-embryo-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-beanshell-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-bsf-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-code-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-commonsvfs-object-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-directory-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-freemarker-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-groovy-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-image-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-janino-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-jruby-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-jython-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-nutch-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-plan9-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-quercus-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-rhino-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-servlet-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-template-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-velocity-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-wiki-20091211-3897-7ab22baea4b6.jar"/>
-    <classpathentry kind="lib" path="framework/webslinger/lib/webslinger-launcher-20091211-3897-7ab22baea4b6.jar"/>
     <classpathentry kind="lib" path="specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
@@ -245,7 +207,6 @@
     <classpathentry kind="src" path="framework/start/src"/>
     <classpathentry excluding="org/ofbiz/testtools/seleniumxml/**" kind="src" path="framework/testtools/src"/>
     <classpathentry excluding="org/ofbiz/webapp/ftl/FreeMarkerViewRenderer.java|org/ofbiz/webapp/ftl/JpCacheIncludeTransform.java|org/ofbiz/webapp/view/FopPdfViewHandler.java|org/ofbiz/webapp/view/GenericViewRenderer.java|org/ofbiz/webapp/view/JPublishViewHandler.java|org/ofbiz/webapp/view/JPublishWrapper.java|org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
-    <classpathentry kind="src" path="framework/webslinger/src"/>
     <classpathentry kind="src" path="framework/webtools/src"/>
     <classpathentry kind="src" path="framework/widget/src"/>
     <classpathentry kind="src" path="specialpurpose/assetmaint/src"/>
