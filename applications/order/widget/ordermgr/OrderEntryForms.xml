@@ -166,10 +166,10 @@ under the License.
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>
-        <field use-when="${groovy: return 'Y'.equals(context.hasAmount)}"  name="amount" title="${uiLabelMap.OrderAmount}" >
+        <field use-when="${groovy: 'Y'.equals(context.hasAmount)}"  name="amount" title="${uiLabelMap.OrderAmount}" >
             <text size="5" maxlength="10"/>
         </field>
-        <field use-when="${groovy: return 'N'.equals(context.hasAmount)}"  name="amount" title="${uiLabelMap.OrderAmount}" widget-style="disabled">
+        <field use-when="${groovy: 'N'.equals(context.hasAmount)}"  name="amount" title="${uiLabelMap.OrderAmount}" widget-style="disabled">
             <text size="5" maxlength="10" disabled="true"/>
         </field>        
         <field name="itemDesiredDeliveryDate" title="${uiLabelMap.OrderDesiredDeliveryDate}">
