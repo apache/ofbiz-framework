@@ -258,7 +258,8 @@ function createUpdateCustomerAndShippingAddress() {
         async: false,
         data: jQuery('#shippingForm').serialize(),
         success: function(json) {
-                if (!getServerError(json)) {
+                var serverError = getServerError(json);
+                if (!serverError) {
                     jQuery('#shippingFormServerError').fadeOut('fast');
                     // Process Shipping data response.
                     jQuery('#shipToPartyId').val(json.partyId);
@@ -295,7 +296,8 @@ function getShipOptions() {
             type: 'POST',
             async: false,
             success: function(json) {
-                if (!getServerError(json)) {
+                var serverError = getServerError(json);
+                if (!serverError) {
                         jQuery('#shippingFormServerError').fadeOut('fast');
                         isShipStepValidate = true;
                         shipOptions = json.shippingOptions;
@@ -339,7 +341,8 @@ function setShippingOption() {
         async: false,
         data: jQuery('#shippingOptionForm').serialize(),
         success: function(json) {
-            if (!getServerError(json)) {
+            var serverError = getServerError(json);
+            if (!serverError) {
             shipTotal = json.shippingTotal;
                 isShipOptionStepValidate = true;
                 jQuery('#selectedShipmentOption').html(json.shippingDescription);
@@ -390,7 +393,8 @@ function processBillingAndPayment() {
         data: jQuery('#billingForm').serialize(),
         async: false,
         success: function(json) {
-            if (!getServerError(json)) {
+            var serverError = getServerError(json);
+            if (!serverError) {
                     jQuery('#billingFormServerError').fadeOut('fast');
                     isBillStepValidate = true;
                     jQuery('#billToContactMechId').val(json.contactMechId);
@@ -451,7 +455,8 @@ function addPromoCode() {
         type: 'POST',
         data: {"productPromoCodeId" : jQuery('#productPromoCode').val()},
         success: function(json) {
-            if (!getServerError(json)) {
+            var serverError = getServerError(json);
+            if (!serverError) {
                 jQuery('#cartFormServerError').fadeOut('fast');
                 updateCartData();
             } else {
@@ -478,7 +483,8 @@ function getProductLineItemIndex(event, productId) {
         async: false,
         data: formValues,
         success: function(json) {
-            if (!getServerError(json)) {
+            var serverError = getServerError(json);
+            if (!serverError) {
                 itemIndex = json.itemIndex;
             } else {
                 jQuery('#shippingFormServerError').html(serverError);
@@ -521,7 +527,8 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
         type: 'POST',
         data: formValues,
         success: function(json) {
-            if (!getServerError(json)) {
+            var serverError = getServerError(json);
+            if (!serverError) {
                     if (json.totalQuantity == 0) {
                         jQuery('#emptyCartCheckoutPanel').show();
                         jQuery('#checkoutPanel').hide();
