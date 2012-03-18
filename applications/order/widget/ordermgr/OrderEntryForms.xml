@@ -151,6 +151,11 @@ under the License.
 
     <form name="LookupBulkAddProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddProducts">
+        <row-actions>
+            <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
+            <set field=""/>
+            <set field="hasAmount" value="${groovy:product.getString('requireAmount')?:'N'}"/>
+        </row-actions>
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
                 <parameter param-name="productId"/>
@@ -161,9 +166,12 @@ under the License.
         <field name="quantity" title="${uiLabelMap.OrderQuantity}">
             <text size="5" maxlength="10"/>
         </field>
-        <field name="amount" title="${uiLabelMap.OrderAmount}">
+        <field use-when="${groovy: return 'Y'.equals(context.hasAmount)}"  name="amount" title="${uiLabelMap.OrderAmount}" >
             <text size="5" maxlength="10"/>
         </field>
+        <field use-when="${groovy: return 'N'.equals(context.hasAmount)}"  name="amount" title="${uiLabelMap.OrderAmount}" widget-style="disabled">
+            <text size="5" maxlength="10" disabled="true"/>
+        </field>        
         <field name="itemDesiredDeliveryDate" title="${uiLabelMap.OrderDesiredDeliveryDate}">
             <date-time/>
         </field>
