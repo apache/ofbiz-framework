@@ -309,6 +309,9 @@ public class XmlSerializer {
             } else if ("std-Double".equals(tagName)) {
                 String valStr = element.getAttribute("value");
                 return Double.valueOf(valStr);
+            } else if ("std-BigDecimal".equals(tagName)) {
+                String valStr = element.getAttribute("value");
+                return new BigDecimal(valStr);
             } else if ("std-Boolean".equals(tagName)) {
                 String valStr = element.getAttribute("value");
                 return Boolean.valueOf(valStr);
