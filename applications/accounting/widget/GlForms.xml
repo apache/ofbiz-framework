@@ -275,7 +275,7 @@ under the License.
             </entity-condition>
         </actions>
         <row-actions>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;glAccountId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(glAccountId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev=(String)previousItem.get(&quot;glAccountId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(glAccountId)));}" type="Boolean"/>
         </row-actions>
         <field name="glAccountId" position="1" use-when="showPosition1"><display/></field>
         <field name="glAccountDescription" title="${uiLabelMap.CommonDescription}" position="1" use-when="showPosition1">
