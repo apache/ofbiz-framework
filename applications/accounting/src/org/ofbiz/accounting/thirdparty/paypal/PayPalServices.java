@@ -586,7 +586,7 @@ public class PayPalServices {
                 }
             } catch (GenericServiceException e) {
                 // Not the end of the world, we'll carry on
-                Debug.logInfo(e.getMessage());
+                Debug.logInfo(e.getMessage(), module);
             }
         }
 
