@@ -21,6 +21,7 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.w3c.dom.Element;
 
 import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
 import freemarker.ext.beans.StringModel;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -61,6 +63,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
+        @SuppressWarnings("unchecked")
         @Override
         public TemplateModel wrap(Object object) throws TemplateModelException {
             /* NOTE: don't use this and the StringHtmlWrapperForFtl or things will be double-encoded
@@ -71,6 +74,9 @@ public class HtmlWidget extends ModelScreenWidget {
             // and handles most things without causing too many problems
             if (object instanceof String) {
                 return new StringHtmlWrapperForFtl((String) object, this);
+            } else if (object instanceof Collection && !(object instanceof Map)) {
+                // An additional wrapper to ensure ${aCollection} is properly encoded for html
+                return new CollectionHtmlWrapperForFtl((Collection) object, this);
             }
             return super.wrap(object);
         }
@@ -84,6 +90,20 @@ public class HtmlWidget extends ModelScreenWidget {
         public String getAsString() {
             return StringUtil.htmlEncoder.encode(super.getAsString());
         }
+    }
+
+    public static class CollectionHtmlWrapperForFtl extends CollectionModel {
+
+        @SuppressWarnings("unchecked")
+        public CollectionHtmlWrapperForFtl(Collection collection, BeansWrapper wrapper) {
+            super(collection, wrapper);
+        }
+
+        @Override
+        public String getAsString() {
+            return StringUtil.htmlEncoder.encode(super.getAsString());
+        }
+
     }
 
     // End Static, begin class section
