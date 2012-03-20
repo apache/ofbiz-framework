@@ -406,6 +406,7 @@ under the License.
             <fail-widgets>
                 <section>
                     <actions>
+                        <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                         <set field="searchType" from-field="parameters.searchType" default-value="${searchType}"/>
                         <script location="component://common/webcommon/WEB-INF/actions/includes/FindAutocompleteOptions.groovy"/>
                     </actions>
