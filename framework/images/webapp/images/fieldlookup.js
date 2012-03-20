@@ -608,8 +608,34 @@ function lookupFormAjaxRequest(formAction, form) {
     lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
     var data = jQuery("#" + form).serialize();
     data = data + "&presentation=" + GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).presentation;
-    jQuery("#" + lookupId).load(formAction, data, function(data) {
+    /*jQuery("#" + lookupId).load(formAction, data, function(data) {
         modifySubmitButton(lookupId);
+    });*/
+    var screenletTitleBar= jQuery("#"+lookupId+" .screenlet-title-bar :visible:first");
+    jQuery.ajax({
+      url: formAction,
+      data: data,
+      beforeSend: function(jqXHR, settings) {
+        //Here we append the spinner to the lookup screenlet and it will shown till the ajax request is processed.
+        var indicator = screenletTitleBar.find("span.indicator");
+        //Check that if spinner is already in execution then don't add new spinner
+        if (indicator.length == 0) {
+          jQuery("<span class='indicator'><img src='/images/ajax-loader.gif' alt='' /></span>").appendTo(screenletTitleBar);
+        }
+      },
+      success: function(result) {
+        if (result.search(/loginform/) != -1) {
+          window.location.href = window.location.href;
+          return;
+        }
+        // Here we are removing the spinner.
+        var indicator = screenletTitleBar.find("span.indicator");
+        if (indicator != undefined) {
+          jQuery("span.indicator").remove();
+        }
+        jQuery("#" + lookupId).html(result);
+        modifySubmitButton(lookupId);
+      }
     });
 }
 
@@ -618,8 +644,33 @@ function lookupPaginationAjaxRequest(navAction, type) {
     lookupContent = (GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).contentRef);
 
     lookupId = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
-    jQuery("#" + lookupId).load(navAction, function(data) {
+    /*jQuery("#" + lookupId).load(navAction, function(data) {
         modifySubmitButton(lookupId);
+    });*/
+    var screenletTitleBar= jQuery("#"+lookupId+" .screenlet-title-bar :visible:first");
+    jQuery.ajax({
+      url: navAction,
+      beforeSend: function(jqXHR, settings) {
+        //Here we append the spinner to the lookup screenlet and it will shown till the ajax request is processed.
+        var indicator = screenletTitleBar.find("span.indicator");
+        //Check that if spinner is already in execution then don't add new spinner
+        if (indicator.length == 0) {
+          jQuery("<span class='indicator'><img src='/images/ajax-loader.gif' alt='' /></span>").appendTo(screenletTitleBar);
+        }
+      },
+      success: function(result) {
+        if (result.search(/loginform/) != -1) {
+          window.location.href = window.location.href;
+          return;
+        }
+        // Here we are removing the spinner.
+        var indicator = screenletTitleBar.find("span.indicator");
+        if (indicator != undefined) {
+          jQuery("span.indicator").remove();
+        }
+        jQuery("#" + lookupId).html(result);
+        modifySubmitButton(lookupId);
+      }
     });
 }
 
