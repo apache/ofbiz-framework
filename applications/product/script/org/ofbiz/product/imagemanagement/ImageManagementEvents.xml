@@ -39,7 +39,7 @@ under the License.
         <create-value value-field="productContent"/>
         
         <!-- set thumbnail to product -->
-        <entity-and list="productContentAndInfos" entity-name="ProductContentAndInfo">
+        <!--<entity-and list="productContentAndInfos" entity-name="ProductContentAndInfo">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="productContentTypeId" value="DEFAULT_IMAGE"/>
@@ -48,11 +48,11 @@ under the License.
             <first-from-list entry="productContentAndInfo" list="productContentAndInfos"/>
             <script location="component://product/webapp/catalog/WEB-INF/actions/imagemanagement/SetDefaultImage.groovy"/>
             
-            <!--<entity-one value-field="product" entity-name="Product">
+            <entity-one value-field="product" entity-name="Product">
                 <field-map field-name="productId" from-field="parameters.productId"/>
             </entity-one>
             <set field="product.originalImageUrl" from-field="productContentAndInfo.drObjectInfo"/>
-            <store-value value-field="product"/>-->
-        </if-not-empty>
+            <store-value value-field="product"/>
+        </if-not-empty>-->
     </simple-method>
 </simple-methods>
