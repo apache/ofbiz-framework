@@ -19,21 +19,17 @@ under the License.
 -->
 
 <ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
+                  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
+
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
 
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
-    <!-- load JNDI/JOTM; this is no longer needed, leaving this in for now just in case someone wants to drop in JOTM from the specialized directory
-    <container name="jotm-container" class="org.ofbiz.jotm.container.JotmContainer">
-        <property name="jndi-config" value="iiop.properties"/>
-    </container>
-    -->
-
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
+        <property name="host" value="0.0.0.0"/>
         <property name="port" value="1099"/>
     </container>
 
@@ -52,105 +48,54 @@ under the License.
         <property name="ssl-client-auth" value="false"/>
     </container>
 
-    <!-- JavaMail Listener Container - Triggers MCA Rules -->
-    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
-         mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them
-         Sounds like mail.store.protocol value should be "imaps" for GMail inbound emails to work.
-         Not tested found here https://sourceforge.net/forum/message.php?msg_id=5879468 -->
-    <!-- To use the mail listerner just uncomment and go...
-    <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
-        <property name="delegator-name" value="default"/>
-        <property name="dispatcher-name" value="JavaMailDispatcher"/>
-        <property name="run-as-user" value="system"/>
-        <property name="poll-delay" value="300000"/>
-        <property name="delete-mail" value="false"/>
-        <property name="maxSize" value="100000"/>
-        <property name="default-listener" value="store-listener">
-        <property name="mail.store.protocol" value="imap"/>
-        <property name="mail.host" value="[host]"/>
-        <property name="mail.user" value="[user]"/>
-        <property name="mail.pass" value="[pass]"/>
-        <property name="mail.debug" value="false"/>
-        </property>
-    </container>
-    -->
-
-    <!-- load Shark Workflow Engine -->
-    <!-- NOTE: before uncommenting this please see the instructions in the ofbiz/OPTIONAL_LIBRARIES file.
-    <container name="shark-container" class="org.ofbiz.shark.container.SharkContainer">
-        <property name="engine-name" value="Shark"/>
-        <property name="delegator-name" value="default"/>
-        <property name="dispatcher-name" value="WFDispatcher"/>
-        <property name="admin-user" value="system"/>
-        <property name="admin-pass" value="ofbiz"/>
-        <property name="iiop-host" value="127.0.0.1"/>
-        <property name="iiop-port" value="2000"/>
-    </container>
-    -->
-
     <!-- load jetty and all web applications -->
     <container name="jetty-container" class="org.ofbiz.jetty.container.JettyContainer">
-        <property name="default-server">
+        <property name="default-server" value="server">
             <property name="send-server-version" value="false"/>
-            <property name="http-listener" value="connector">
+            <!-- thread pool config -->
+            <property name="min-threads" value="5"/>
+            <property name="max-threads" value="100"/>
+            <property name="max-idle-time-ms" value="30000"/>
+            <property name="max-stop-time-ms" value="5000"/>
+            <!-- connectors -->
+            <!--
+            <property name="http-connector" value="connector">
                 <property name="type" value="http"/>
                 <property name="host" value="0.0.0.0"/>
                 <property name="port" value="8080"/>
-                <property name="min-threads" value="5"/>
-                <property name="max-threads" value="100"/>
-                <property name="max-idle-time" value="30000"/>
-                <property name="low-threads" value="0"/>
-                <property name="low-resource-max-idle-time" value="5000"/>
             </property>
-            <property name="https-listener" value="connector">
+            <property name="https-connector" value="connector">
                 <property name="type" value="https"/>
                 <property name="host" value="0.0.0.0"/>
                 <property name="port" value="8443"/>
-                <property name="min-threads" value="5"/>
-                <property name="max-threads" value="100"/>
-                <property name="max-idle-time" value="30000"/>
-                <property name="low-threads" value="0"/>
-                <property name="low-resource-max-idle-time" value="5000"/>
+                <property name="keystore" value="framework/base/config/ofbizssl.jks"/>
+                <property name="password" value="changeit"/>
+                <property name="key-password" value="changeit"/>
+                <property name="client-auth" value="false"/>
+            </property>
+            -->
+            <property name="nio-http-connector" value="connector">
+                <property name="type" value="http"/>
+                <property name="host" value="0.0.0.0"/>
+                <property name="port" value="8080"/>
+            </property>
+            <property name="nio-https-connector" value="connector">
+                <property name="type" value="https"/>
+                <property name="host" value="0.0.0.0"/>
+                <property name="port" value="8443"/>
                 <property name="keystore" value="framework/base/config/ofbizssl.jks"/>
                 <property name="password" value="changeit"/>
                 <property name="key-password" value="changeit"/>
                 <property name="client-auth" value="false"/>
             </property>
             <!--
-            <property name="nio-http-listener" value="connector">
-                <property name="type" value="http"/>
-                <property name="host" value="0.0.0.0"/>
-                <property name="port" value="8080"/>
-                <property name="min-threads" value="5"/>
-                <property name="max-threads" value="100"/>
-                <property name="max-idle-time" value="30000"/>
-                <property name="low-threads" value="0"/>
-                <property name="low-resource-max-idle-time" value="5000"/>
-            </property>
-            <property name="nio-https-listener" value="connector">
-                <property name="type" value="https"/>
-                <property name="host" value="0.0.0.0"/>
-                <property name="port" value="8443"/>
-                <property name="min-threads" value="5"/>
-                <property name="max-threads" value="100"/>
-                <property name="max-idle-time" value="30000"/>
-                <property name="low-threads" value="0"/>
-                <property name="low-resource-max-idle-time" value="5000"/>
-                <property name="keystore" value="framework/base/config/ofbizssl.jks"/>
-                <property name="password" value="changeit"/>
-                <property name="key-password" value="changeit"/>
-                <property name="client-auth" value="false"/>
-            </property>
-            <property name="ajp13-listener" value="connector">
+            <property name="ajp13-connector" value="connector">
                 <property name="type" value="ajp13"/>
                 <property name="host" value="0.0.0.0"/>
                 <property name="port" value="8009"/>
-                <property name="min-threads" value="5"/>
-                <property name="max-threads" value="100"/>
-                <property name="max-idle-time" value="30000"/>
-                <property name="buffer-size" value="8192"/>
             </property>
             -->
+            <!-- request logs -->
             <property name="request-log" value="request-log">
                 <property name="filename" value="runtime/logs/yyyy_mm_dd.request.log"/>
                 <property name="append" value="true"/>
@@ -161,10 +106,4 @@ under the License.
         </property>
     </container>
 
-    <!-- load BeanShell remote telnet server -->
-    <container name="beanshell-container" class="org.ofbiz.base.container.BeanShellContainer">
-        <!-- the port below and port-1 will be opened by beanshell -->
-        <property name="telnet-port" value="9990"/>
-        <property name="app-name" value="OFBiz"/>
-    </container>
 </ofbiz-containers>
