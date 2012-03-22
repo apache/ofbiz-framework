@@ -1591,8 +1591,11 @@ public class ContentManagementServices {
             Debug.logError(msg, module);
             return ServiceUtil.returnError(msg);
         }
-        Long useTime = (Long)productContent.get("useTime");
-        Integer newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
+        Long useTime = (Long) productContent.get("useTime");
+        Integer newUseTime = null;
+        if (UtilValidate.isNotEmpty(useTime)) {
+            newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
+        }
         context.put("useTime", newUseTime);
         context.put("useTimeUomId", productContent.get("useTimeUomId"));
         context.put("useRoleTypeId", productContent.get("useRoleTypeId"));
