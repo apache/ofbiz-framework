@@ -128,8 +128,7 @@ public class ImageManagementServices {
             
             String contentId = (String) contentResult.get("contentId");
             result.put("contentFrameId", contentId);
-            result.put("contentId", (String) context.get("contentId"));
-            result.put("dataResourceId", (String) context.get("dataResourceId"));
+            result.put("contentId", contentId);
             
             // File to use for original image
             FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
@@ -454,7 +453,9 @@ public class ImageManagementServices {
             return ServiceUtil.returnError(e.getMessage());
         }
         
-        result.put("dataResourceFrameId", dataResourceResult.get("dataResourceId"));
+        String dataResourceId = (String) dataResourceResult.get("dataResourceId");
+        result.put("dataResourceFrameId", dataResourceId);
+        result.put("dataResourceId", dataResourceId);
         
         Map<String, Object> contentUp = FastMap.newInstance();
         contentUp.put("contentId", contentId);

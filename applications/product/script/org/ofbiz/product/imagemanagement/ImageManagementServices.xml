@@ -23,7 +23,7 @@ under the License.
     
     <simple-method method-name="UploadProductImages" short-description="Method to upload multiple images for product">
         <set-service-fields service-name="addMultipleuploadForProduct" map="parameters" to-map="addAdditionalViewForProductMap"/>
-        <if-not-empty field="parameters.additionalImageOne">
+        <if-not-empty field="parameters._additionalImageOne_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageOne"/>
@@ -33,7 +33,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageTwo">
+        <if-not-empty field="parameters._additionalImageTwo_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageTwo"/>
@@ -43,7 +43,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageThree">
+        <if-not-empty field="parameters._additionalImageThree_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageThree"/>
@@ -53,7 +53,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageFour">
+        <if-not-empty field="parameters._additionalImageFour_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageFour"/>
@@ -63,7 +63,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageFive">
+        <if-not-empty field="parameters._additionalImageFive_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageFive"/>
@@ -73,7 +73,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageSix">
+        <if-not-empty field="parameters._additionalImageSix_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageSix"/>
@@ -83,7 +83,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageSeven">
+        <if-not-empty field="parameters._additionalImageSeven_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageSeven"/>
@@ -93,7 +93,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageEight">
+        <if-not-empty field="parameters._additionalImageEight_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageEight"/>
@@ -103,7 +103,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageNine">
+        <if-not-empty field="parameters._additionalImageNine_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageNine"/>
@@ -113,7 +113,7 @@ under the License.
             <call-service service-name="addMultipleuploadForProduct" in-map-name="addAdditionalViewForProductMap"/>
             <clear-field field="addAdditionalViewForProductMap"/>
         </if-not-empty>
-        <if-not-empty field="parameters.additionalImageTen">
+        <if-not-empty field="parameters._additionalImageTen_fileName">
             <set field="addAdditionalViewForProductMap.productId" from-field="parameters.productId"/>
             <set field="addAdditionalViewForProductMap.imageResize" from-field="parameters.imageResize"/>
             <set field="addAdditionalViewForProductMap.uploadedFile" from-field="parameters.additionalImageTen"/>
