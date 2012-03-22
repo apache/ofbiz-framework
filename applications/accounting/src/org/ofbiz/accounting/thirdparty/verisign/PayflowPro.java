@@ -163,7 +163,7 @@ public class PayflowPro {
         params.append("&").append(parseContext(data));
 
         // transmit the request
-        if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
+        //if (Debug.verboseOn()) Debug.logVerbose("Sending to Verisign: " + params.toString(), module);
         String resp;
         if (!comparePaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "enableTransmit", configString, "payment.verisign.enable_transmit",  "false")) {
             resp = pfp.submitTransaction(params.toString(), pfp.generateRequestId());
