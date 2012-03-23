@@ -43,9 +43,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -127,7 +128,7 @@ public class ServiceEventHandler implements EventHandler {
         if (Debug.verboseOn()) Debug.logVerbose("[Using delegator]: " + dispatcher.getDelegator().getDelegatorName(), module);
 
         // get the http upload configuration
-        String maxSizeStr = UtilProperties.getPropertyValue("general.properties", "http.upload.max.size", "-1");
+        String maxSizeStr = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.max.size", "-1", dctx.getDelegator());
         long maxUploadSize = -1;
         try {
             maxUploadSize = Long.parseLong(maxSizeStr);
@@ -137,7 +138,7 @@ public class ServiceEventHandler implements EventHandler {
         }
         // get the http size threshold configuration - files bigger than this will be
         // temporarly stored on disk during upload
-        String sizeThresholdStr = UtilProperties.getPropertyValue("general.properties", "http.upload.max.sizethreshold", "10240");
+        String sizeThresholdStr = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.max.sizethreshold", "10240", dctx.getDelegator());
         int sizeThreshold = 10240; // 10K
         try {
             sizeThreshold = Integer.parseInt(sizeThresholdStr);
@@ -146,7 +147,7 @@ public class ServiceEventHandler implements EventHandler {
             sizeThreshold = -1;
         }
         // directory used to temporarily store files that are larger than the configured size threshold
-        String tmpUploadRepository = UtilProperties.getPropertyValue("general.properties", "http.upload.tmprepository", "runtime/tmp");
+        String tmpUploadRepository = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.tmprepository", "runtime/tmp", dctx.getDelegator());
         String encoding = request.getCharacterEncoding();
         // check for multipart content types which may have uploaded items
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
@@ -264,7 +265,7 @@ public class ServiceEventHandler implements EventHandler {
 
                 // check the request parameters
                 if (UtilValidate.isEmpty(value)) {
-                    ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session, serviceName);
+                    ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session, serviceName, dctx.getDelegator());
 
                     // if the service modelParam has allow-html="any" then get this direct from the request instead of in the parameters Map so there will be no canonicalization possibly messing things up
                     if ("any".equals(modelParam.allowHtml)) {
@@ -391,7 +392,7 @@ public class ServiceEventHandler implements EventHandler {
         return responseString;
     }
 
-    public static void checkSecureParameter(RequestMap requestMap, Set<String> urlOnlyParameterNames, String name, HttpSession session, String serviceName) throws EventHandlerException {
+    public static void checkSecureParameter(RequestMap requestMap, Set<String> urlOnlyParameterNames, String name, HttpSession session, String serviceName, Delegator delegator) throws EventHandlerException {
         // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
         // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
         if (requestMap != null && requestMap.securityHttps) {
@@ -407,7 +408,7 @@ public class ServiceEventHandler implements EventHandler {
                 Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
 
                 // the default here is true, so anything but N/n is true
-                boolean requireEncryptedServiceWebParameters = !UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "service.http.parameters.require.encrypted", "N");
+                boolean requireEncryptedServiceWebParameters = !EntityUtilProperties.propertyValueEqualsIgnoreCase("url.properties", "service.http.parameters.require.encrypted", "N", delegator);
 
                 // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms!
                 if (requireEncryptedServiceWebParameters) {
