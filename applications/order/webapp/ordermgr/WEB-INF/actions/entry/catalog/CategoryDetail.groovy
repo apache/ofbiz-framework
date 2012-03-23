@@ -76,12 +76,13 @@ if(productStore) {
             if (isMarketingPackage) {
                 resultOutput = dispatcher.runSync("getMktgPackagesAvailable", [productId : productCategoryMember.productId]);
                 availableInventory = resultOutput.availableToPromiseTotal;
-                if(availableInventory>0)
+                if(availableInventory > 0) { 
                     productsInStock.add(productCategoryMember);
+                }
             } else {
                 facilities = delegator.findList("ProductFacility", EntityCondition.makeCondition([productId : productCategoryMember.productId]), null, null, null, false);
                 availableInventory = 0.0;
-                if(facilities) {
+                if (facilities) {
                     facilities.each { facility ->
                         lastInventoryCount = facility.lastInventoryCount;
                         if (lastInventoryCount != null) {
