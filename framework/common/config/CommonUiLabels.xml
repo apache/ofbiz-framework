@@ -2186,7 +2186,6 @@
     <property key="CommonDates">
         <value xml:lang="de">Termine</value>
         <value xml:lang="en">Dates</value>
-        <value xml:lang="de">Termine</value>
         <value xml:lang="es">Fechas</value>
         <value xml:lang="fr">Dates</value>
         <value xml:lang="hi_IN">तिथियाँ</value>
@@ -2279,7 +2278,6 @@
     <property key="CommonDefaultOrganizationPartyId">
         <value xml:lang="de">Standard-Organisation</value>
         <value xml:lang="en">Default Organization</value>
-        <value xml:lang="de">Standard-Organisation</value>
         <value xml:lang="es">Organización por defecto</value>
         <value xml:lang="fr">Organisation utilisée par défault</value>
         <value xml:lang="hi_IN">डिफ़ॉल्ट संगठन</value>
@@ -2549,7 +2547,6 @@
     <property key="CommonEditPortletAttributes">
         <value xml:lang="de">Portlet-Attribute anpassen</value>
         <value xml:lang="en">Edit Attributes for Portlet</value>
-        <value xml:lang="de">Portlet-Attribute anpassen</value>
         <value xml:lang="es">Modificar atributos del portlet</value>
         <value xml:lang="fr">Modifier les attributs du portlet </value>
         <value xml:lang="hi_IN">Portlet के गुण संपादित करें</value>
@@ -2611,8 +2608,7 @@
     </property>
     <property key="CommonEmailDeliveryFailed">
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
-        <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>
-        <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
+        <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>        
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
         <value xml:lang="vi">Gửi thất bại đến người nhận sau:</value>
     </property>
@@ -2841,7 +2837,6 @@
         <value xml:lang="ar">الفروع</value>
         <value xml:lang="de">Kinder</value>
         <value xml:lang="en">Children</value>
-        <value xml:lang="de">Kinder</value>
         <value xml:lang="es">Hijos</value>
         <value xml:lang="fr">Descendant</value>
         <value xml:lang="hi_IN">निचले स्तर पर(Children)</value>
@@ -5484,7 +5479,7 @@
         <value xml:lang="zh_TW">移動到門戶頁面...</value>
     </property>
     <property key="CommonMyPersonalPage">
-        <value xml:lang="en">Persönliche Seite</value>    
+        <value xml:lang="de">Persönliche Seite</value>    
         <value xml:lang="en">My Personal Page</value>
         <value xml:lang="es">Mi página personal</value>
         <value xml:lang="fr">Ma propre page</value>
@@ -6844,7 +6839,7 @@
         <value xml:lang="zh_TW">添加一個新門戶頁面</value>
     </property>
     <property key="CommonPortalPagesForApplication">
-        <value xml:lang="en">Portalseiten für die Anwendung</value>
+        <value xml:lang="de">Portalseiten für die Anwendung</value>
         <value xml:lang="en">Portal pages for application</value>
         <value xml:lang="es">Páginas del portal para la aplicación</value>
         <value xml:lang="fr">Pages portail pour l'application</value>
