@@ -135,11 +135,16 @@ public class CategoryWorker {
     }
 
     public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
+      Delegator delegator = (Delegator) request.getAttribute("delegator");
+
+      return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, false);
+    }
+
+    public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
         List<GenericValue> categories = FastList.newInstance();
 
         if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.getRelatedCategories] ParentID: " + parentId, module);
 
-        Delegator delegator = (Delegator) request.getAttribute("delegator");
         List<GenericValue> rollups = null;
 
         try {
@@ -169,13 +174,13 @@ public class CategoryWorker {
                             //Debug.logInfo("Child : " + cv.getString("productCategoryId") + " is not empty.", module);
                             categories.add(cv);
                             if (recursive) {
-                                categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                                categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
                             }
                         }
                     } else {
                         categories.add(cv);
                         if (recursive) {
-                            categories.addAll(getRelatedCategoriesRet(request, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
+                            categories.addAll(getRelatedCategoriesRet(delegator, attributeName, cv.getString("productCategoryId"), limitView, excludeEmpty, recursive));
                         }
                     }
                 }
