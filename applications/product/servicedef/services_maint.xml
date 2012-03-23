@@ -120,7 +120,11 @@ under the License.
         <description> Returns a complete category trail - can be used for exporting proper category trees. 
         This is mostly useful when used in combination with breadcrumbs,  for building a facetted index tree, 
         or to export a category tree for migration to another system.
-        Will create the tree from root point to categoryId. </description>
+        Will create the tree from root point to categoryId. 
+        
+        This service is not meant to be run on every request.
+        Its best use is to generate the trail every so often and store somewhere (a lucene/solr tree, entities, cache or so). 
+        </description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="trail" type="java.util.List" mode="OUT" optional="true"/>
     </service>

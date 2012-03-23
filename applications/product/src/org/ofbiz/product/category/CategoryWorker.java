@@ -428,7 +428,11 @@ public class CategoryWorker {
      * Returns a complete category trail - can be used for exporting proper category trees. 
      * This is mostly useful when used in combination with bread-crumbs,  for building a 
      * faceted index tree, or to export a category tree for migration to another system.
-     * Will create the tree from root point to categoryId. 
+     * Will create the tree from root point to categoryId.
+     * 
+     * This method is not meant to be run on every request.
+     * Its best use is to generate the trail every so often and store somewhere 
+     * (a lucene/solr tree, entities, cache or so). 
      * 
      * @param  productCategoryId  id of category the trail should be generated for
      * @returns List organized trail from root point to categoryId.
