@@ -22,6 +22,9 @@
 ADMIN_PORT=10523
 ADMIN_KEY=so3du5kasd5dn
 
+# set the parent directory as OFBiz Home
+OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
+
 # console log file
 OFBIZ_LOG=runtime/logs/console.log
 
@@ -55,4 +58,4 @@ fi
 
 # start ofbiz
 #$JAVA $VMARGS -jar ofbiz.jar $* >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
-exec "$JAVA" $VMARGS -jar ofbiz.jar "$@"
+(cd "$OFBIZ_HOME" && exec "$JAVA" $VMARGS -jar ofbiz.jar "$@")

@@ -91,7 +91,7 @@ under the License.
         </delete>
     </target>
     <target name="clean-data"
-          description="Clean all DB data (Derby and HSQL) under runtime/data">
+          description="Clean all DB data (Derby) under runtime/data">
         <subant target="clean-data">
             <filelist dir="." files="framework/build.xml"/>
         </subant>

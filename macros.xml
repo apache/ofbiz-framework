@@ -194,12 +194,6 @@ under the License.
   </groovyc>
  </presetdef>
 
- <!-- replaced by ant contrib version -->    
- <!--scriptdef name="if" language="javascript" classpathref="rhino.class.path" loaderref="rhino.class.path.loader" src="${ofbiz.home.dir}/tools/If-ant.py">
-  <element name="condition" classname="org.apache.tools.ant.taskdefs.condition.And"/>
-  <element name="commands" classname="org.apache.tools.ant.taskdefs.Sequential"/>
-  <element name="else" classname="org.apache.tools.ant.taskdefs.Sequential"/>
-  </scriptdef-->
   <taskdef resource="net/sf/antcontrib/antlib.xml">
     <classpath>
         <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-contrib-1.0b3.jar"/>

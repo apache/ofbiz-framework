@@ -17,26 +17,21 @@
 # specific language governing permissions and limitations
 # under the License.
 #####################################################################
-#
-# This shell script will will run ./ant apply patches on all components
-#              present in the hot-deploy directory
 
-    if [ -f "../ofbiz.patch" ]; then
-    patch -p0 <../ofbiz.patch
-    fi
+# set the parent directory as OFBiz Home
+OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
 
-    for f in hot-deploy/*
-    do
-        if [ "$f" != "hot-deploy/README.txt" ]; then
-        if [ -f "$f/patches/applications.patch" ]; then
-                echo apply patches for component $f
-                cd $f
-            ../../ant apply-ofbiz-patches
-            echo return code $?
-        cd ../../
-        fi
-        fi
-    done
+# Properties (derby may need editing if the version has not been updated)
+HM='-Dderby.system.home=runtime/data/derby'
+PR='-Dij.protocol=jdbc:derby:'
+DB='-Dij.database=ofbiz;create=true'
+EE='$OFBIZ_HOME/framework/entity/lib/jdbc'
+CP="-cp $EE/derby-10.8.1.2.jar:$EE/derbytools-10.8.1.2.jar"
 
-exit;
+# Command
+OPTIONS="$CP $HM $PR $DB"
+CLASS="org.apache.derby.tools.ij"
+JAVA="java"
+
+$JAVA $OPTIONS $CLASS
 

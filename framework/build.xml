@@ -51,7 +51,6 @@ under the License.
         <mkdir dir="../runtime/logs/test-results"/>
         <mkdir dir="../runtime/data"/>
         <mkdir dir="../runtime/data/derby"/>
-        <mkdir dir="../runtime/data/hsql"/>
 
         <condition property="isMac">
             <os family="mac"/>

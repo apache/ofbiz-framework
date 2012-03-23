@@ -18,6 +18,9 @@ rem specific language governing permissions and limitations
 rem under the License.
 rem #####################################################################
 
+%~d0
+set OFBIZ_HOME=%~p0..\
+
 rem ### Console log file
 rem set OFBIZ_LOG=runtime\logs\console.log
 
@@ -50,6 +53,7 @@ rem ### This one is for more of a debugging mode
 rem "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -jar ofbiz.jar > runtime\logs\console.log
 
 rem ### Simple easy to read line
+cd %OFBIZ_HOME%
 echo on
 "%JAVA_HOME%\bin\java" -Xms128M -Xmx512M -XX:MaxPermSize=512m -jar ofbiz.jar -pos
 echo off

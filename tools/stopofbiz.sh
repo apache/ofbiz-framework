@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 #####################################################################
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -17,17 +17,22 @@
 # specific language governing permissions and limitations
 # under the License.
 #####################################################################
-#
-# This shell script will do a 'svn up' on all directories
-#              present in the hot-deploy directory
+####
+# ofbiz.admin.key and ofbiz.admin.port must match that which OFBIZ was started with
+####
 
-    for f in hot-deploy/*
-    do
-        if [ "$f" != "hot-deploy/README.txt" ]; then
-            echo svn update directory $f
-            svn up $f
-        fi
-    done
+OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
 
-exit;
+# location of java executable
+if [ -f "$JAVA_HOME/bin/java" ]; then
+  JAVA=$JAVA_HOME/bin/java
+else
+  JAVA=java
+fi
+
+# shutdown settings
+ADMIN_PORT=10523
+ADMIN_KEY=so3du5kasd5dn
+
+(cd "$OFBIZ_HOME" && $JAVA -Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY -jar ofbiz.jar -shutdown)
 
