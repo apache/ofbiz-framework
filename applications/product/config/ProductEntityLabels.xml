@@ -28,6 +28,7 @@
         <value xml:lang="ro">Cost Actual Manopera</value>
         <value xml:lang="ru">Действительные трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยแท้จริง</value>
+        <value xml:lang="vi">Chi phí nhân công thực tế</value>
         <value xml:lang="zh">实际劳务费用</value>
         <value xml:lang="zh_TW">實際勞務費用</value>
     </property>
@@ -40,6 +41,7 @@
         <value xml:lang="ro">Cost Actual Materiale</value>
         <value xml:lang="ru">Действительная стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุโดยแท้จริง</value>
+        <value xml:lang="vi">Chi phí nguyên liệu thực tế</value>
         <value xml:lang="zh">实际材料费用</value>
         <value xml:lang="zh_TW">實際材料費用</value>
     </property>
@@ -52,6 +54,7 @@
         <value xml:lang="ro">Alt Cost Actual</value>
         <value xml:lang="ru">Другие действительные затраты</value>
         <value xml:lang="th">ต้นทุนอื่นๆ โดยแท้จริง</value>
+        <value xml:lang="vi">Chi phí thực tế khác</value>
         <value xml:lang="zh">实际其它费用</value>
         <value xml:lang="zh_TW">實際其他費用</value>
     </property>
@@ -64,6 +67,7 @@
         <value xml:lang="ro">Cost Actual Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Действительная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทัรพย์สินไม่หมุนเวียน) โดยแท้จริง</value>
+        <value xml:lang="vi">Chi phí cố định thực tế (tài sản cố định sử dụng)</value>
         <value xml:lang="zh">实际配送 (固定资产使用) 费</value>
         <value xml:lang="zh_TW">實際配送 (固定資產使用) 費</value>
     </property>
@@ -74,6 +78,7 @@
         <value xml:lang="fr">Estimation de coût du travail</value>
         <value xml:lang="it">Costo stimato di lavoro</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยประมาณ</value>
+        <value xml:lang="vi">Dự tính chi phí nhân công</value>
         <value xml:lang="zh">预计劳务费用</value>
         <value xml:lang="zh_TW">預計勞務費用</value>
     </property>
@@ -84,6 +89,7 @@
         <value xml:lang="fr">Estimation des matériaux</value>
         <value xml:lang="it">Materiali stimati</value>
         <value xml:lang="th">วัตถุโดยประมาณ</value>
+        <value xml:lang="vi">Dự tính nguyên vật liệu</value>
         <value xml:lang="zh">预计物料</value>
         <value xml:lang="zh_TW">預計物料</value>
     </property>
@@ -94,6 +100,7 @@
         <value xml:lang="fr">Autre estimation</value>
         <value xml:lang="it">Altro costo stimato</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ โดยประมาณ</value>
+        <value xml:lang="vi">Dự tính chi phí khác</value>
         <value xml:lang="zh">预计其它费用</value>
         <value xml:lang="zh_TW">預計其他費用</value>
     </property>
@@ -106,6 +113,7 @@
         <value xml:lang="ro">Cost Standard Manopera Stimata</value>
         <value xml:lang="ru">Оценочные стандартные трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงานมาตรฐานโดยประมาณ</value>
+        <value xml:lang="vi">Dự tính chi phí nhân công tiêu chuẩn</value>
         <value xml:lang="zh">预计标准劳务费用</value>
         <value xml:lang="zh_TW">預計標准勞務費用</value>
     </property>
@@ -118,6 +126,7 @@
         <value xml:lang="ro">Cost Standard Materiale Stimate</value>
         <value xml:lang="ru">Оценочная стандартная стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุมาตรฐานโดยประมาณ</value>
+        <value xml:lang="vi">Dự tính chi phí nguyên vật liệu tiêu chuẩn</value>
         <value xml:lang="zh">预计标准材料费用</value>
         <value xml:lang="zh_TW">預計標准材料費用</value>
     </property>
@@ -130,6 +139,7 @@
         <value xml:lang="ro">Alt Cost Standard Stimat</value>
         <value xml:lang="ru">Оценочные стандартные другие затраты</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ มาตรฐานโดยประมาณ</value>
+        <value xml:lang="vi">Dự tính chi phí tiêu chuẩn khác</value>
         <value xml:lang="zh">预计标准其它费用</value>
         <value xml:lang="zh_TW">預計標准其他費用</value>
     </property>
@@ -142,6 +152,7 @@
         <value xml:lang="ro">Cost Standard Itinerariu Stimat (folosire mijloace fixe)</value>
         <value xml:lang="ru">Оценочная стандартная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route  มาตรฐานโดยประมาณ (การใช้ทรัพย์สินไม่ถาวร)</value>
+        <value xml:lang="vi">Dự tính chi phí cố định tiêu chuẩn (tài sản cố định sử dụng)</value>
         <value xml:lang="zh">预计标准配送 (固定资产使用) 费</value>
         <value xml:lang="zh_TW">預計標准配送 (固定資產使用) 費</value>
     </property>
@@ -154,6 +165,7 @@
         <value xml:lang="ro">Cost Manopera</value>
         <value xml:lang="ru">Трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงาน</value>
+        <value xml:lang="vi">Chi phí nhân công</value>
         <value xml:lang="zh">劳务费用</value>
         <value xml:lang="zh_TW">勞務費用</value>
     </property>
@@ -166,6 +178,7 @@
         <value xml:lang="ro">Cost Materiale</value>
         <value xml:lang="ru">Стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุ</value>
+        <value xml:lang="vi">Chi phí nguyên vật liệu</value>
         <value xml:lang="zh">材料费用</value>
         <value xml:lang="zh_TW">材料費用</value>
     </property>
@@ -190,6 +203,7 @@
         <value xml:lang="ro">Cost Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทรัพย์สินไม่ถาวร) </value>
+        <value xml:lang="vi">Chi phí cố định (tài sản cố định sử dụng)</value>
         <value xml:lang="zh">配送 (固定资产使用) 费</value>
         <value xml:lang="zh_TW">配送 (固定資產使用) 費</value>
     </property>
@@ -202,6 +216,7 @@
         <value xml:lang="ro">Gestiune Structura</value>
         <value xml:lang="ru">Управляющая структура</value>
         <value xml:lang="th">โครงสร้างการจัดการ</value>
+        <value xml:lang="vi">Cơ cấu quản lý</value>
         <value xml:lang="zh">管理结构</value>
         <value xml:lang="zh_TW">管理結構</value>
     </property>
@@ -214,6 +229,7 @@
         <value xml:lang="ro">Grup Pret</value>
         <value xml:lang="ru">Ценовая группа</value>
         <value xml:lang="th">กลุ่มราคา</value>
+        <value xml:lang="vi">Nhóm giá thành</value>
         <value xml:lang="zh">价格组</value>
         <value xml:lang="zh_TW">價格組</value>
     </property>
@@ -226,6 +242,7 @@
         <value xml:lang="ro">Bloc</value>
         <value xml:lang="ru">Здание</value>
         <value xml:lang="th">อาคาร</value>
+        <value xml:lang="vi">Xây dựng</value>
         <value xml:lang="zh">建筑</value>
         <value xml:lang="zh_TW">建築</value>
     </property>
@@ -238,6 +255,7 @@
         <value xml:lang="ro">Call Center</value>
         <value xml:lang="ru">Центр телефонного обслуживания</value>
         <value xml:lang="th">ประชาสัมพันธ์</value>
+        <value xml:lang="vi">Trung tâm chăm sóc khách hàng</value>
         <value xml:lang="zh">呼叫中心</value>
         <value xml:lang="zh_TW">呼叫中心</value>
     </property>
@@ -250,6 +268,7 @@
         <value xml:lang="ro">Etaj</value>
         <value xml:lang="ru">Этаж</value>
         <value xml:lang="th">ชั้นอาคาร</value>
+        <value xml:lang="vi">Tầng</value>
         <value xml:lang="zh">楼层</value>
         <value xml:lang="zh_TW">樓層</value>
     </property>
@@ -262,6 +281,7 @@
         <value xml:lang="ro">Uficiu</value>
         <value xml:lang="ru">Офис</value>
         <value xml:lang="th">ที่ทำงาน</value>
+        <value xml:lang="vi">Văn phòng</value>
         <value xml:lang="zh">办公室</value>
         <value xml:lang="zh_TW">辦公室</value>
     </property>
@@ -274,6 +294,7 @@
         <value xml:lang="ro">Fabrica</value>
         <value xml:lang="ru">Завод</value>
         <value xml:lang="th">การเพาะปลูก</value>
+        <value xml:lang="vi">Thực vật</value>
         <value xml:lang="zh">工厂</value>
         <value xml:lang="zh_TW">工廠</value>
     </property>
@@ -286,6 +307,7 @@
         <value xml:lang="ro">Magazin la Detaliu</value>
         <value xml:lang="ru">Розничный магазин</value>
         <value xml:lang="th">คลังสินค้าการขายปลีก</value>
+        <value xml:lang="vi">Cửa hàng bán lẻ</value>
         <value xml:lang="zh">零售店</value>
         <value xml:lang="zh_TW">零售店</value>
     </property>
@@ -298,6 +320,7 @@
         <value xml:lang="ro">Camera</value>
         <value xml:lang="ru">Комната</value>
         <value xml:lang="th">ห้อง</value>
+        <value xml:lang="vi">Phòng</value>
         <value xml:lang="zh">房间</value>
         <value xml:lang="zh_TW">房間</value>
     </property>
@@ -310,12 +333,14 @@
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Склад</value>
         <value xml:lang="th">คลังข้อมูล</value>
+        <value xml:lang="vi">Kho hàng</value>
         <value xml:lang="zh">仓库</value>
         <value xml:lang="zh_TW">倉庫</value>
     </property>
     <property key="GoodIdentificationType.description.GOOGLE_ID">
         <value xml:lang="en">Google Id</value>
         <value xml:lang="it">Codice Google</value>
+        <value xml:lang="vi">Mã Google</value>
         <value xml:lang="zh">谷歌用户名</value>
         <value xml:lang="zh_TW">谷歌用戶名</value>
     </property>
@@ -328,6 +353,7 @@
         <value xml:lang="ro">ISBN</value>
         <value xml:lang="ru">ISBN</value>
         <value xml:lang="th">ISBN</value>
+        <value xml:lang="vi">ISBN</value>
         <value xml:lang="zh">ISBN</value>
         <value xml:lang="zh_TW">ISBN</value>
     </property>
@@ -340,6 +366,7 @@
         <value xml:lang="ro">Numar (Model) Productor</value>
         <value xml:lang="ru">Артикул (Модель)</value>
         <value xml:lang="th">หมายเลขการผลิต (Model)</value>
+        <value xml:lang="vi">Đời sản phẩm</value>
         <value xml:lang="zh">制造商 (款式) 编号</value>
         <value xml:lang="zh_TW">制造商 (款式) 編號</value>
     </property>
@@ -352,6 +379,7 @@
         <value xml:lang="ro">An Model</value>
         <value xml:lang="ru">Год выпуска модели</value>
         <value xml:lang="th">โมเดลปี</value>
+        <value xml:lang="vi">Đời theo năm</value>
         <value xml:lang="zh">款式年度</value>
         <value xml:lang="zh_TW">款式年度</value>
     </property>
@@ -364,6 +392,7 @@
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Другой</value>
         <value xml:lang="th">อื่นๆ</value>
+        <value xml:lang="vi">Khác</value>
         <value xml:lang="zh">其它</value>
         <value xml:lang="zh_TW">其他</value>
     </property>
@@ -376,6 +405,7 @@
         <value xml:lang="ro">Cod Univoc Produs</value>
         <value xml:lang="ru">SKU</value>
         <value xml:lang="th">SKU</value>
+        <value xml:lang="vi">SKU</value>
         <value xml:lang="zh">最小存货单位</value>
         <value xml:lang="zh_TW">最小存貨單位</value>
     </property>
@@ -388,6 +418,7 @@
         <value xml:lang="ro">Cod Bare UPCA</value>
         <value xml:lang="ru">UPCA</value>
         <value xml:lang="th">UPCA</value>
+        <value xml:lang="vi">UPCA</value>
         <value xml:lang="zh">UPCA条码</value>
         <value xml:lang="zh_TW">UPCA條碼</value>
     </property>
@@ -400,6 +431,7 @@
         <value xml:lang="ro">Cod Bare UPCE</value>
         <value xml:lang="ru">UPCE</value>
         <value xml:lang="th">UPCE</value>
+        <value xml:lang="vi">UPCE</value>
         <value xml:lang="zh">UPCE条码</value>
         <value xml:lang="zh_TW">UPCE條碼</value>
     </property>
@@ -412,6 +444,7 @@
         <value xml:lang="ro">Ne-Serializat</value>
         <value xml:lang="ru">Не серийный</value>
         <value xml:lang="th">ไม่มีลำดับหมายเลข</value>
+        <value xml:lang="vi">Không liên tục</value>
         <value xml:lang="zh">非序列化</value>
         <value xml:lang="zh_TW">非序列化</value>
     </property>
@@ -424,6 +457,7 @@
         <value xml:lang="ro">Serializat</value>
         <value xml:lang="ru">Серийный</value>
         <value xml:lang="th">ลำดับหมายเลข</value>
+        <value xml:lang="vi">Liên tục</value>
         <value xml:lang="zh">序列化</value>
         <value xml:lang="zh_TW">序列化</value>
     </property>
@@ -436,6 +470,7 @@
         <value xml:lang="ro">Administratie Permisa(Unu)</value>
         <value xml:lang="ru">Администрирование разрешено (Одна)</value>
         <value xml:lang="th">ผู้ดูแลระบบอนุญาต (หนึ่ง)</value>
+        <value xml:lang="vi">Quyền quản trị (một lần)</value>
         <value xml:lang="zh">允许管理 (一个)</value>
         <value xml:lang="zh_TW">允許管理 (一個)</value>
     </property>
@@ -448,12 +483,14 @@
         <value xml:lang="ro">Afiseaza Radacina (Unu)</value>
         <value xml:lang="ru">Для просмотра (Одна)</value>
         <value xml:lang="th">แสดง Root (หนึ่ง)</value>
+        <value xml:lang="vi">Duyệt thư mục gốc (một lần)</value>
         <value xml:lang="zh">浏览根 (一个)</value>
         <value xml:lang="zh_TW">瀏覽根 (一個)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_EBAY_ROOT">
         <value xml:lang="de">Ebay Root (Eine)</value>
         <value xml:lang="en">Ebay Root (One)</value>
+        <value xml:lang="vi">Thư mục gốc Ebay (một lần)</value>
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_MOST_POPULAR">
         <value xml:lang="de">Am populärsten (Eine)</value>
@@ -464,6 +501,7 @@
         <value xml:lang="ro">Mai Populari (Unu)</value>
         <value xml:lang="ru">Наиболее популярные (Одна)</value>
         <value xml:lang="th">ความนิยมสูงสุด (หนึ่ง)</value>
+        <value xml:lang="vi">Phổ biến nhất (một lần)</value>
         <value xml:lang="zh">最具人气 (一个)</value>
         <value xml:lang="zh_TW">最具人氣 (一個)</value>
     </property>
@@ -476,6 +514,7 @@
         <value xml:lang="ro">Alte Cautari (Multi)</value>
         <value xml:lang="ru">Другие для поиска (Много)</value>
         <value xml:lang="th">ค้นหาอื่น ๆ (มาก)</value>
+        <value xml:lang="vi">Tìm kiếm khác (nhiều lần)</value>
         <value xml:lang="zh">其它搜索 (许多)</value>
         <value xml:lang="zh_TW">其他搜索 (許多)</value>
     </property>
@@ -488,6 +527,7 @@
         <value xml:lang="ro">Promotii (Unu)</value>
         <value xml:lang="ru">Специальные предложения (Одна)</value>
         <value xml:lang="th">โปรโมชัน (หนึ่ง)</value>
+        <value xml:lang="vi">Khuyến mại (một lần)</value>
         <value xml:lang="zh">促销 (一个)</value>
         <value xml:lang="zh_TW">促銷 (一個)</value>
     </property>
@@ -500,6 +540,7 @@
         <value xml:lang="ro">Cumparare Permisa(Unu)</value>
         <value xml:lang="ru">Приобретение возможно (Одна)</value>
         <value xml:lang="th">การอนุญาตการสั่งซื้อ (หนึ่ง)</value>
+        <value xml:lang="vi">Quyền mua hàng (một lần)</value>
         <value xml:lang="zh">允许购买 (一个)</value>
         <value xml:lang="zh_TW">允許購買 (一個)</value>
     </property>
@@ -512,6 +553,7 @@
         <value xml:lang="ro">Adaugare Rapida (Molti)</value>
         <value xml:lang="ru">Быстрое добавление (Много)</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว (มาก)</value>
+        <value xml:lang="vi">Thêm nhanh (nhiều lần)</value>
         <value xml:lang="zh">快速添加 (许多)</value>
         <value xml:lang="zh_TW">快速添加 (許多)</value>
     </property>
@@ -524,6 +566,7 @@
         <value xml:lang="ro">Cautare de Default (Unu)</value>
         <value xml:lang="ru">Поиск по умолчанию (Одна)</value>
         <value xml:lang="th">ค่าเริ่มต้นการค้นหา (หนึ่ง)</value>
+        <value xml:lang="vi">Tìm kiếm mặc định (một lần)</value>
         <value xml:lang="zh">缺省搜索 (一个)</value>
         <value xml:lang="zh_TW">缺省搜索 (一個)</value>
     </property>
@@ -536,6 +579,7 @@
         <value xml:lang="ro">Viziune Permisa(Unu)</value>
         <value xml:lang="ru">Просмотр разрешен (Одна)</value>
         <value xml:lang="th">การอนุญาตการแสดง (หนึ่ง)</value>
+        <value xml:lang="vi">Quyền xem (một lần)</value>
         <value xml:lang="zh">允许浏览 (一个)</value>
         <value xml:lang="zh_TW">允許瀏覽 (一個)</value>
     </property>
@@ -548,6 +592,7 @@
         <value xml:lang="ro">Care Noutati(Unu)</value>
         <value xml:lang="ru">Новые продукты (Одна)</value>
         <value xml:lang="th">อะไรใหม่ (หนึ่ง)</value>
+        <value xml:lang="vi">Có gì mới (một lần)</value>
         <value xml:lang="zh">新品 (一个)</value>
         <value xml:lang="zh_TW">新品 (一個)</value>
     </property>
@@ -560,6 +605,7 @@
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="vi">Mô tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -572,6 +618,7 @@
         <value xml:lang="ro">Imagine</value>
         <value xml:lang="ru">Изображение</value>
         <value xml:lang="th">รูปภาพ</value>
+        <value xml:lang="vi">Hình ảnh</value>
         <value xml:lang="zh">图像</value>
         <value xml:lang="zh_TW">圖像</value>
     </property>
@@ -584,6 +631,7 @@
         <value xml:lang="ro">Instructiuni</value>
         <value xml:lang="ru">Инструкции</value>
         <value xml:lang="th">คำแนะนำ</value>
+        <value xml:lang="vi">Chỉ thị</value>
         <value xml:lang="zh">说明</value>
         <value xml:lang="zh_TW">說明</value>
     </property>
@@ -596,6 +644,7 @@
         <value xml:lang="ro">Descriere - Lunga</value>
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">การอธิบาย</value>
+        <value xml:lang="vi">Mô tả - đầy đủ</value>
         <value xml:lang="zh">描述 - 详细</value>
         <value xml:lang="zh_TW">描述 - 詳細</value>
     </property>
@@ -608,12 +657,14 @@
         <value xml:lang="ro">Si Cumparate</value>
         <value xml:lang="ru">Сопутствующая</value>
         <value xml:lang="th">ดังนั้นซื้อ</value>
+        <value xml:lang="vi">Đã mua tương tự</value>
         <value xml:lang="zh">同时购买</value>
         <value xml:lang="zh_TW">同時購買</value>
     </property>
     <property key="ProductAssocType.description.ALTERNATIVE_PACKAGE">
         <value xml:lang="en">Alternative Packaging</value>
         <value xml:lang="fr">Conditionnement alternatif</value>
+        <value xml:lang="vi">Đóng gói thay thế</value>
     </property>
     <property key="ProductAssocType.description.ENGINEER_COMPONENT">
         <value xml:lang="de">Stückliste Engineering</value>
@@ -624,6 +675,7 @@
         <value xml:lang="ro">Lista repere Inginerizata</value>
         <value xml:lang="ru">Конструкторская спецификация материалов</value>
         <value xml:lang="th">วิศวะกรรมศาสตร์รายการวัตถุ</value>
+        <value xml:lang="vi">Thanh toán kỹ thuật cho vật liệu</value>
         <value xml:lang="zh">工程材料清单</value>
         <value xml:lang="zh_TW">工程材料清單</value>
     </property>
@@ -636,6 +688,7 @@
         <value xml:lang="ro">Lista repere Productie</value>
         <value xml:lang="ru">Производственная спецификация материалов</value>
         <value xml:lang="th">การผลิตรายการวัตถุ</value>
+        <value xml:lang="vi">Thanh toán sản xuất cho vật liệu</value>
         <value xml:lang="zh">制造材料清单</value>
         <value xml:lang="zh_TW">制造材料清單</value>
     </property>
@@ -648,6 +701,7 @@
         <value xml:lang="ro">Component Pachet Vanzare</value>
         <value xml:lang="ru">Компонент маркетингового пакета</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
+        <value xml:lang="vi">Đóng gói marketing</value>
         <value xml:lang="zh">销售包装组件</value>
         <value xml:lang="zh_TW">銷售包裝元件</value>
     </property>
@@ -660,6 +714,7 @@
         <value xml:lang="ro">Componente Pachet Vanzare Exploadat in mod Automat</value>
         <value xml:lang="ru">Компонент автоматически расширяющий маркетинговый пакет</value>
         <value xml:lang="th">MARKETING_PKG_AUTO</value>
+        <value xml:lang="vi">Tự động đóng gói marketing</value>
         <value xml:lang="zh">销售包装自动分拆组件</value>
         <value xml:lang="zh_TW">銷售包裝自動分拆元件</value>
     </property>
@@ -671,6 +726,7 @@
         <value xml:lang="it">Accessori</value>
         <value xml:lang="ru">Аксессуар</value>
         <value xml:lang="th">ส่วนประกอบ</value>
+        <value xml:lang="vi">Phụ tùng</value>
         <value xml:lang="zh">零配件</value>
         <value xml:lang="zh_TW">零配件</value>
     </property>
@@ -681,6 +737,7 @@
         <value xml:lang="fr">Réapprovisionnement automatique(nécessite recurrenceInfoId)</value>
         <value xml:lang="it">Riordino automatico</value>
         <value xml:lang="th">การสั่งซื้ออัตโนมัติ (ต้องการรหัสข้อมูลการเกิดขึ้นอีกครั้ง)</value>
+        <value xml:lang="vi">Tự động đặt hàng lại (cần mã recurrenceInfoId)</value>
         <value xml:lang="zh">自动记录(需要复现信息标识recurrenceInfoId)</value>
         <value xml:lang="zh_TW">自動重排(需要recurrenceInfoId)</value>
     </property>
@@ -693,6 +750,7 @@
         <value xml:lang="ro">Complementar sau Vanzare -Transversala </value>
         <value xml:lang="ru">Дополнительная и кросс-продажа</value>
         <value xml:lang="th">Complementary or Cross-Sell</value>
+        <value xml:lang="vi">Bổ sung hoặc Bán chéo</value>
         <value xml:lang="zh">补充或交叉销售</value>
         <value xml:lang="zh_TW">補充或交叉銷售</value>
     </property>
@@ -705,12 +763,14 @@
         <value xml:lang="ro">Componente Produs Actual</value>
         <value xml:lang="ru">Реальный компонент продукта</value>
         <value xml:lang="th">ส่วนประกอบสินค้าโดยแท้จริง</value>
+        <value xml:lang="vi">Thành phần sản phẩm thực tế</value>
         <value xml:lang="zh">实际产品组件</value>
         <value xml:lang="zh_TW">實際產品元件</value>
     </property>
     <property key="ProductAssocType.description.PRODUCT_CONF">
         <value xml:lang="en">Configurable product instance</value>
         <value xml:lang="it">Prodotto configurabile</value>
+        <value xml:lang="vi">Cấu hình sản phẩm ví dụ</value>
         <value xml:lang="zh">可配置产品实例</value>
         <value xml:lang="zh_TW">可配置產品實例</value>
     </property>
@@ -723,6 +783,7 @@
         <value xml:lang="ro">Incompatibil</value>
         <value xml:lang="ru">Несовместимость</value>
         <value xml:lang="th">ขัดแย้งกัน</value>
+        <value xml:lang="vi">Không tương thích</value>
         <value xml:lang="zh">不兼容</value>
         <value xml:lang="zh_TW">不相容</value>
     </property>
@@ -735,6 +796,7 @@
         <value xml:lang="ro">Produs Construit Ca</value>
         <value xml:lang="ru">Продукт произведенный как</value>
         <value xml:lang="th">การผลิตสินค้าเหมือน</value>
+        <value xml:lang="vi">Nhà sản xuất sản phẩm như</value>
         <value xml:lang="zh">生产的产品作为</value>
         <value xml:lang="zh_TW">生產的產品作為</value>
     </property>
@@ -747,6 +809,7 @@
         <value xml:lang="ro">Noua Versiune, Substitutie</value>
         <value xml:lang="ru">Новая версия, замещение</value>
         <value xml:lang="th">เวอร์ชันใหม่, การแทนที่</value>
+        <value xml:lang="vi">Phiên bản mới, Thay thế</value>
         <value xml:lang="zh">新版本，替换</value>
         <value xml:lang="zh_TW">新版本，替換</value>
     </property>
@@ -758,6 +821,7 @@
         <value xml:lang="it">Equivalente rinnovato</value>
         <value xml:lang="ru">Замененный эквивалент</value>
         <value xml:lang="th">เท่ากับทำใหม่</value>
+        <value xml:lang="vi">Được tân trang lại</value>
         <value xml:lang="zh">翻新品</value>
         <value xml:lang="zh_TW">翻新品</value>
     </property>
@@ -769,6 +833,7 @@
         <value xml:lang="it">Servizio riparazioni</value>
         <value xml:lang="ru">Услуги ремонта</value>
         <value xml:lang="th">บริการซ่อมแซม</value>
+        <value xml:lang="vi">Dịch vụ sửa chữa</value>
         <value xml:lang="zh">维修服务</value>
         <value xml:lang="zh_TW">維修服務</value>
     </property>
@@ -781,6 +846,7 @@
         <value xml:lang="ro">Revizie</value>
         <value xml:lang="ru">Исправление</value>
         <value xml:lang="th">การปรับปรุงใหม่</value>
+        <value xml:lang="vi">Tái bản</value>
         <value xml:lang="zh">改进型</value>
         <value xml:lang="zh_TW">改進型</value>
     </property>
@@ -793,6 +859,7 @@
         <value xml:lang="ro">Echivalent sau Substituit </value>
         <value xml:lang="ru">Эквивалент или заменитель</value>
         <value xml:lang="th">เท่ากับหรือแทนที่</value>
+        <value xml:lang="vi">Tương đương hoặc Thay thế</value>
         <value xml:lang="zh">等价或替代</value>
         <value xml:lang="zh_TW">等價或替代</value>
     </property>
@@ -805,6 +872,7 @@
         <value xml:lang="ro">Actualizat sau Marit </value>
         <value xml:lang="ru">Модернизация или дооснащение</value>
         <value xml:lang="th">Upgrade or Up-Sell</value>
+        <value xml:lang="vi">Nâng cấp hoặc Đăng-Bán</value>
         <value xml:lang="zh">升级或向上销售</value>
         <value xml:lang="zh_TW">升級或向上銷售</value>
     </property>
@@ -817,6 +885,7 @@
         <value xml:lang="ro">Variante Produs</value>
         <value xml:lang="ru">Вариант продукта</value>
         <value xml:lang="th">การเปลี่ยนแปลงสินค้า</value>
+        <value xml:lang="vi">Biến thể sản phẩm</value>
         <value xml:lang="zh">产品变型</value>
         <value xml:lang="zh_TW">產品變型</value>
     </property>
@@ -829,6 +898,7 @@
         <value xml:lang="ro">Linie Univoca</value>
         <value xml:lang="ru">Уникальная позиция</value>
         <value xml:lang="th">รายการลักษณะเฉพาะ</value>
+        <value xml:lang="vi">Hàng độc</value>
         <value xml:lang="zh">独有的明细</value>
         <value xml:lang="zh_TW">獨有的明細</value>
     </property>
@@ -836,6 +906,7 @@
         <value xml:lang="de">Kategorie Bild Alternativtext</value>
         <value xml:lang="en">Category Image Alt Text</value>
         <value xml:lang="it">Testo alternativo immagine categoria</value>
+        <value xml:lang="vi">Hình ảnh thay thế bởi Chữ</value>
         <value xml:lang="zh">分类图片替代文字</value>
         <value xml:lang="zh_TW">分類圖片替代文字</value>
     </property>
@@ -848,6 +919,7 @@
         <value xml:lang="ro">URL Imagine Categorie</value>
         <value xml:lang="ru">URL изображения категории</value>
         <value xml:lang="th">หมวดหมู่รูปภาพ URL</value>
+        <value xml:lang="vi">Đường dẫn hình ảnh</value>
         <value xml:lang="zh">分类图片网址</value>
         <value xml:lang="zh_TW">分類圖片網址</value>
     </property>
@@ -860,6 +932,7 @@
         <value xml:lang="ro">Nume Categorie</value>
         <value xml:lang="ru">Имя категории</value>
         <value xml:lang="th">ชื่อหมวดหมู่</value>
+        <value xml:lang="vi">Tên thư mục</value>
         <value xml:lang="zh">分类名称</value>
         <value xml:lang="zh_TW">分類名稱</value>
     </property>
@@ -872,6 +945,7 @@
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="vi">Mô tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -884,17 +958,20 @@
         <value xml:lang="ro">Intestare Sfarsit Pagina</value>
         <value xml:lang="ru">Нижняя часть страницы</value>
         <value xml:lang="th">ท้ายกระดาษ</value>
+        <value xml:lang="vi">Lề dưới</value>
         <value xml:lang="zh">页脚</value>
         <value xml:lang="zh_TW">頁腳</value>
     </property>
     <property key="ProductCategoryContentType.description.GIFT_CARD_CATEGORY">
         <value xml:lang="de">Gutschein</value>
         <value xml:lang="en">Gift Card</value>
+        <value xml:lang="vi">Thẻ quà tặng</value>
     </property>
     <property key="ProductCategoryContentType.description.LINK1_ALT_TEXT">
         <value xml:lang="de">Link 1 Alternativtext</value>
         <value xml:lang="en">Link 1 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 1</value>
+        <value xml:lang="vi">Liên kết 1 thay thế bởi chữ</value>
         <value xml:lang="zh">链接1替代文字</value>
         <value xml:lang="zh_TW">鏈結1替代文字</value>
     </property>
@@ -902,6 +979,7 @@
         <value xml:lang="de">Link 2 Alternativtext</value>
         <value xml:lang="en">Link 2 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 2</value>
+        <value xml:lang="vi">Liên kết 2 thay thế bởi chữ</value>
         <value xml:lang="zh">链接2替代文字</value>
         <value xml:lang="zh_TW">鏈結2替代文字</value>
     </property>
@@ -914,6 +992,7 @@
         <value xml:lang="ro">Descriere - Lunga</value>
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">การอธิบาย</value>
+        <value xml:lang="vi">Mô tả đầy đủ</value>
         <value xml:lang="zh">描述 - 详细</value>
         <value xml:lang="zh_TW">描述 - 詳細</value>
     </property>
@@ -926,6 +1005,7 @@
         <value xml:lang="ro">Catalog</value>
         <value xml:lang="ru">Каталог</value>
         <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="vi">Catalog</value>
         <value xml:lang="zh">目录</value>
         <value xml:lang="zh_TW">目錄</value>
     </property>
@@ -938,12 +1018,14 @@
         <value xml:lang="ro">Vanzari Transversale</value>
         <value xml:lang="ru">Перекрестные продажи</value>
         <value xml:lang="th">Cross Sell</value>
+        <value xml:lang="vi">Bán chéo</value>
         <value xml:lang="zh">交叉销售</value>
         <value xml:lang="zh_TW">交叉銷售</value>
     </property>
     <property key="ProductCategoryType.description.GIFT_CARD_CATEGORY">
         <value xml:lang="de">Gutscheine</value>
         <value xml:lang="en">Gift Cards</value>
+        <value xml:lang="vi">Thẻ tặng quà</value>
     </property>
     <property key="ProductCategoryType.description.INDUSTRY_CATEGORY">
         <value xml:lang="de">Industrie</value>
@@ -954,6 +1036,7 @@
         <value xml:lang="ro">Industria</value>
         <value xml:lang="ru">Отраслевая</value>
         <value xml:lang="th">อุตสาหกรรม</value>
+        <value xml:lang="vi">Ngành công nghiệp</value>
         <value xml:lang="zh">产业</value>
         <value xml:lang="zh_TW">產業</value>
     </property>
@@ -966,6 +1049,7 @@
         <value xml:lang="ro">Interna</value>
         <value xml:lang="ru">Внутренняя</value>
         <value xml:lang="th">ภายใน</value>
+        <value xml:lang="vi">Nội bộ</value>
         <value xml:lang="zh">内部</value>
         <value xml:lang="zh_TW">內部</value>
     </property>
@@ -978,6 +1062,7 @@
         <value xml:lang="ro">Materiale</value>
         <value xml:lang="ru">Материалы</value>
         <value xml:lang="th">วัตถุ</value>
+        <value xml:lang="vi">Vật liệu</value>
         <value xml:lang="zh">材料</value>
         <value xml:lang="zh_TW">材料</value>
     </property>
@@ -990,6 +1075,7 @@
         <value xml:lang="ro">Amesteca si Confrunta</value>
         <value xml:lang="ru">Смешанная</value>
         <value xml:lang="th">รวมและเหมือนกัน</value>
+        <value xml:lang="vi">Hòa trộn và Phù hợp</value>
         <value xml:lang="zh">混合和匹配</value>
         <value xml:lang="zh_TW">混合和匹配</value>
     </property>
@@ -1002,6 +1088,7 @@
         <value xml:lang="ro">Adaugare rapida</value>
         <value xml:lang="ru">Быстрое добавление</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Thêm nhanh</value>
         <value xml:lang="zh">快速添加</value>
         <value xml:lang="zh_TW">快速添加</value>
     </property>
@@ -1014,6 +1101,7 @@
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">การค้นหา</value>
+        <value xml:lang="vi">Tìm kiếm</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh_TW">搜索</value>
     </property>
@@ -1026,6 +1114,7 @@
         <value xml:lang="ro">Taxe</value>
         <value xml:lang="ru">Налогообложение</value>
         <value xml:lang="th">ภาษี</value>
+        <value xml:lang="vi">Thuế</value>
         <value xml:lang="zh">税</value>
         <value xml:lang="zh_TW">稅</value>
     </property>
@@ -1038,6 +1127,7 @@
         <value xml:lang="ro">Uz</value>
         <value xml:lang="ru">Использование</value>
         <value xml:lang="th">วิธีใช้</value>
+        <value xml:lang="vi">Sử dụng</value>
         <value xml:lang="zh">用途</value>
         <value xml:lang="zh_TW">用途</value>
     </property>
@@ -1045,6 +1135,7 @@
         <value xml:lang="de">Zusatzbild 1</value>
         <value xml:lang="en">Image - Additional View 1</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1</value>
         <value xml:lang="zh">图像 - 额外检查1</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查1</value>
     </property>
@@ -1052,26 +1143,31 @@
         <value xml:lang="de">Zusatzbild 1 klein</value>
         <value xml:lang="en">Image - Additional View 1 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 piccola</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (nhỏ)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_MEDIUM">
         <value xml:lang="de">Zusatzbild 1 mittel</value>
         <value xml:lang="en">Image - Additional View 1 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 media</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (vừa)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_LARGE">
         <value xml:lang="de">Zusatzbild 1 groß</value>
         <value xml:lang="en">Image - Additional View 1 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 grande</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (lớn)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_1_DETAIL">
         <value xml:lang="de">Zusatzbild 1 Detail</value>
         <value xml:lang="en">Image - Additional View 1 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 dettaglio</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (chi tiết)</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_2">
         <value xml:lang="de">Zusatzbild 2</value>
         <value xml:lang="en">Image - Additional View 2</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2</value>
         <value xml:lang="zh">图像 - 额外检查2</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查2</value>
     </property>
@@ -1079,26 +1175,31 @@
         <value xml:lang="de">Zusatzbild 2 klein</value>
         <value xml:lang="en">Image - Additional View 2 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 piccola</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (nhỏ)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_MEDIUM">
         <value xml:lang="de">Zusatzbild 2 mittel</value>
         <value xml:lang="en">Image - Additional View 2 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 media</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (vừa)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_LARGE">
         <value xml:lang="de">Zusatzbild 2 groß</value>
         <value xml:lang="en">Image - Additional View 2 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 grande</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (lớn)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_2_DETAIL">
         <value xml:lang="de">Zusatzbild 2 Detail</value>
         <value xml:lang="en">Image - Additional View 2 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 dettaglio</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (chi tiết)</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_3">
         <value xml:lang="de">Zusatzbild 3</value>
         <value xml:lang="en">Image - Additional View 3</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3</value>
         <value xml:lang="zh">图像 - 额外检查3</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查3</value>
     </property>
@@ -1106,26 +1207,31 @@
         <value xml:lang="de">Zusatzbild 3 klein</value>
         <value xml:lang="en">Image - Additional View 3 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 piccola</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (nhỏ)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_MEDIUM">
         <value xml:lang="de">Zusatzbild 3 mittel</value>
         <value xml:lang="en">Image - Additional View 3 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 media</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (vừa)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_LARGE">
         <value xml:lang="de">Zusatzbild 3 groß</value>
         <value xml:lang="en">Image - Additional View 3 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 grande</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (lớn)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_3_DETAIL">
         <value xml:lang="de">Zusatzbild 3 Detail</value>
         <value xml:lang="en">Image - Additional View 3 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 dettaglio</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (chi tiết)</value>
     </property>
     <property key="ProductContentType.description.ADDITIONAL_IMAGE_4">
         <value xml:lang="de">Zusatzbild 4</value>
         <value xml:lang="en">Image - Additional View 4</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4</value>
         <value xml:lang="zh">图像 - 额外检查4</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查4</value>
     </property>
@@ -1133,26 +1239,31 @@
         <value xml:lang="de">Zusatzbild 4 klein</value>
         <value xml:lang="en">Image - Additional View 4 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 piccola</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (nhỏ)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_MEDIUM">
         <value xml:lang="de">Zusatzbild 4 mittel</value>
         <value xml:lang="en">Image - Additional View 4 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 media</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (vừa)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_LARGE">
         <value xml:lang="de">Zusatzbild 4 groß</value>
         <value xml:lang="en">Image - Additional View 4 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 grande</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (lớn)</value>
     </property>
     <property key="ProductContentType.description.XTRA_IMG_4_DETAIL">
         <value xml:lang="de">Zusatzbild 4 Detail</value>
         <value xml:lang="en">Image - Additional View 4 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 dettaglio</value>
+        <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (chi tiết)</value>
     </property>
     <property key="ProductContentType.description.ADDTOCART_IMAGE">
         <value xml:lang="de">Zum Warenkorb hinzufügen Bild</value>
         <value xml:lang="en">Add To Cart Image</value>
         <value xml:lang="it">Aggiungi immagine al carrello</value>
+        <value xml:lang="vi">Thêm hỉnh ảnh giỏ hàng</value>
         <value xml:lang="zh">添加到购物车图像</value>
         <value xml:lang="zh_TW">添加到購物車圖像</value>
     </property>
@@ -1160,6 +1271,7 @@
         <value xml:lang="de">Zum Warenkorb hinzufügen Label</value>
         <value xml:lang="en">Add To Cart Label</value>
         <value xml:lang="it">Aggiungi label al carrello</value>
+        <value xml:lang="vi">Thêm nhãn giỏ hàng</value>
         <value xml:lang="zh">添加到购物车标签</value>
         <value xml:lang="zh_TW">添加到購物車標簽</value>
     </property>
@@ -1167,6 +1279,7 @@
         <value xml:lang="de">Lieferinformation</value>
         <value xml:lang="en">Delivery Info</value>
         <value xml:lang="it">Informazioni sulla consegna</value>
+        <value xml:lang="vi">Thông tin giao nhận</value>
         <value xml:lang="zh">投递信息</value>
         <value xml:lang="zh_TW">投遞資訊</value>
     </property>
@@ -1179,6 +1292,7 @@
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="vi">Mô tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -1190,6 +1304,7 @@
         <value xml:lang="it">Immagine testo alternativo - dettaglio    </value>
         <value xml:lang="ru">Альтер. текст изображения - детальное    </value>
         <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด    </value>
+        <value xml:lang="vi">Hình ảnh thay thế bởi chữ - Chi tiết</value>
         <value xml:lang="zh">图像替代文字 - 详细</value>
         <value xml:lang="zh_TW">圖像替代文字 - 詳細</value>
     </property>
@@ -1202,6 +1317,7 @@
         <value xml:lang="ro">Imagine - Detaliu</value>
         <value xml:lang="ru">Изображение - детальное</value>
         <value xml:lang="th">รูปภาพ - รายละเอียด</value>
+        <value xml:lang="vi">Hình ảnh - Chi tiết</value>
         <value xml:lang="zh">图像 - 详细</value>
         <value xml:lang="zh_TW">圖像 - 詳細</value>
     </property>
@@ -1214,6 +1330,7 @@
         <value xml:lang="ro">Download Digital</value>
         <value xml:lang="ru">Загрузка цифрового конт.</value>
         <value xml:lang="th">ดาวน์โหลดดิจิตอล</value>
+        <value xml:lang="vi">Tải xuống số hóa</value>
         <value xml:lang="zh">数字下载</value>
         <value xml:lang="zh_TW">數字下載</value>
     </property>
@@ -1226,6 +1343,7 @@
         <value xml:lang="ro">Directii</value>
         <value xml:lang="ru">Направления</value>
         <value xml:lang="th">คำแนะนำ</value>
+        <value xml:lang="vi">Trực tiếp</value>
         <value xml:lang="zh">方向</value>
         <value xml:lang="zh_TW">方向</value>
     </property>
@@ -1238,6 +1356,7 @@
         <value xml:lang="ro">Transmitere Email</value>
         <value xml:lang="ru">Выполнение по эл.почте</value>
         <value xml:lang="th">การทำอีเมลให้สำเร็จ</value>
+        <value xml:lang="vi">Điền đầy đủ email</value>
         <value xml:lang="zh">执行电子邮件</value>
         <value xml:lang="zh_TW">執行電子郵件</value>
     </property>
@@ -1250,6 +1369,7 @@
         <value xml:lang="ro">Executare Externa (Async)</value>
         <value xml:lang="ru">Выполнение внешнее (Асинхр.)</value>
         <value xml:lang="th">การทำให้สำเร็จภายใน (Async)</value>
+        <value xml:lang="vi">Điền đầy đủ bên ngoài (Async)</value>
         <value xml:lang="zh">执行外部 (异步)</value>
         <value xml:lang="zh_TW">執行外部 (異步)</value>
     </property>
@@ -1262,6 +1382,7 @@
         <value xml:lang="ro">Executare Externa (Sync)</value>
         <value xml:lang="ru">Выполнение внешнее (Синхр.)</value>
         <value xml:lang="th">การทำให้สำเร็จภายใน (Async)</value>
+        <value xml:lang="vi">Điền đầy đủ bên ngoài (Sync)</value>
         <value xml:lang="zh">执行外部 (同步)</value>
         <value xml:lang="zh_TW">執行外部 (同步)</value>
     </property>
@@ -1274,6 +1395,7 @@
         <value xml:lang="ro">Ingrediente</value>
         <value xml:lang="ru">Ингредиенты</value>
         <value xml:lang="th">ส่วนประกอบ</value>
+        <value xml:lang="vi">Các thành phần</value>
         <value xml:lang="zh">成份</value>
         <value xml:lang="zh_TW">成份</value>
     </property>
@@ -1285,6 +1407,7 @@
         <value xml:lang="it">Immagine testo alternativo - grande</value>
         <value xml:lang="ru">Альтер. текст изображения - большое</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดใหญ่</value>
+        <value xml:lang="vi">Hình ảnh thay thế bởi chữ - Cỡ lớn</value>
         <value xml:lang="zh">图像替代文字 - 大</value>
         <value xml:lang="zh_TW">圖像替代文字 - 大</value>
     </property>
@@ -1297,6 +1420,7 @@
         <value xml:lang="ro">Imagine - Mare</value>
         <value xml:lang="ru">Изображение - большое</value>
         <value xml:lang="th">รูปภาพ - ใหญ่</value>
+        <value xml:lang="vi">Hình ảnh - Cỡ lớn</value>
         <value xml:lang="zh">图像 - 大</value>
         <value xml:lang="zh_TW">圖像 - 大</value>
     </property>
@@ -1309,6 +1433,7 @@
         <value xml:lang="ro">Descriere - Lunga</value>
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">คำอธิบาย - ยาว</value>
+        <value xml:lang="vi">Mô tả đầy đủ</value>
         <value xml:lang="zh">描述 - 详细</value>
         <value xml:lang="zh_TW">描述 - 詳細</value>
     </property>
@@ -1320,6 +1445,7 @@
         <value xml:lang="it">Immagine testo alternativo - media</value>
         <value xml:lang="ru">Альтер. текст изображения - среднее</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดกลาง</value>
+        <value xml:lang="vi">Hình ảnh thay thế bởi chữ - Cỡ vừa</value>
         <value xml:lang="zh">图像替代文字 - 中</value>
         <value xml:lang="zh_TW">圖像替代文字 - 中</value>
     </property>
@@ -1332,6 +1458,7 @@
         <value xml:lang="ro">Imagine - Medie</value>
         <value xml:lang="ru">Изображение - среднее</value>
         <value xml:lang="th">รูปภาพ - กลาง</value>
+        <value xml:lang="vi">Hình ảnh - Cỡ vừa</value>
         <value xml:lang="zh">图像 - 中</value>
         <value xml:lang="zh_TW">圖像 - 中</value>
     </property>
@@ -1344,6 +1471,7 @@
         <value xml:lang="ro">Acces Online</value>
         <value xml:lang="ru">Онлайновый доступ</value>
         <value xml:lang="th">สิทธ์ในการออนไลน์</value>
+        <value xml:lang="vi">Truy cập trực tuyến</value>
         <value xml:lang="zh">在线访问</value>
         <value xml:lang="zh_TW">在線訪問</value>
     </property>
@@ -1351,6 +1479,7 @@
         <value xml:lang="de">Bild - Original</value>
         <value xml:lang="en">Image - Original</value>
         <value xml:lang="it">Immagine - originale</value>
+        <value xml:lang="vi">Hình ảnh - Nguyên gốc</value>
         <value xml:lang="zh">图像 - 原图</value>
         <value xml:lang="zh_TW">圖像 - 原圖</value>
     </property>
@@ -1363,6 +1492,7 @@
         <value xml:lang="ro">Test Detaliu Pret</value>
         <value xml:lang="ru">Детали цены</value>
         <value xml:lang="th">ข้อมูลราคา</value>
+        <value xml:lang="vi">Giá bán bằng chữ</value>
         <value xml:lang="zh">价格详细文字</value>
         <value xml:lang="zh_TW">價格詳細文字</value>
     </property>
@@ -1375,12 +1505,14 @@
         <value xml:lang="ro">Nume Produs</value>
         <value xml:lang="ru">Название продукта</value>
         <value xml:lang="th">ชื่อสินค้า</value>
+        <value xml:lang="vi">Tên sản phẩm</value>
         <value xml:lang="zh">产品名称</value>
         <value xml:lang="zh_TW">產品名稱</value>
     </property>
     <property key="ProductContentType.description.SHORT_SALES_PITCH">
         <value xml:lang="en">Short Sales Pitch</value>
         <value xml:lang="it">Piccolo discorso di vendita</value>
+        <value xml:lang="vi">Sắp xếp theo mức độ bán hàng</value>
         <value xml:lang="zh">简短的销售话述</value>
         <value xml:lang="zh_TW">簡短的銷售話述</value>
     </property>
@@ -1392,6 +1524,7 @@
         <value xml:lang="it">Immagine testo alternativo - piccola</value>
         <value xml:lang="ru">Альтер. текст изображения - маленькое</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - เล็ก</value>
+        <value xml:lang="vi">Hình ảnh thay thế bởi chữ - Cỡ nhỏ</value>
         <value xml:lang="zh">图像替代文字 - 小</value>
         <value xml:lang="zh_TW">圖像替代文字 - 小</value>
     </property>
@@ -1404,6 +1537,7 @@
         <value xml:lang="ro">Imagine - Mica</value>
         <value xml:lang="ru">Изображение - маленькое</value>
         <value xml:lang="th">รูปภาพ - เล็ก</value>
+        <value xml:lang="vi">Hình ảnh - Cỡ nhỏ</value>
         <value xml:lang="zh">图像 - 小</value>
         <value xml:lang="zh_TW">圖像 - 小</value>
     </property>
@@ -1416,12 +1550,14 @@
         <value xml:lang="ro">Instructiuni Speciale</value>
         <value xml:lang="ru">Специальные инструкции</value>
         <value xml:lang="th">คำแนะนำพิเศษ</value>
+        <value xml:lang="vi">Chỉ thị đặc biệt</value>
         <value xml:lang="zh">特别说明</value>
         <value xml:lang="zh_TW">特別說明</value>
     </property>
     <property key="ProductContentType.description.TERMS_AND_CONDS">
         <value xml:lang="en">Terms and Conditions</value>
         <value xml:lang="it">Termini e condizioni</value>
+        <value xml:lang="vi">Quy định và Điều kiện</value>
         <value xml:lang="zh">条件</value>
         <value xml:lang="zh_TW">條件</value>
     </property>
@@ -1434,6 +1570,7 @@
         <value xml:lang="ro">Ingredienti Unici</value>
         <value xml:lang="ru">Уникальные ингредиенты</value>
         <value xml:lang="th">ส่วนประกอบพิเศษ</value>
+        <value xml:lang="vi">Các thành phần độc nhất</value>
         <value xml:lang="zh">独有的成份</value>
         <value xml:lang="zh_TW">獨有的成份</value>
     </property>
@@ -1446,6 +1583,7 @@
         <value xml:lang="ro">Avertimente</value>
         <value xml:lang="ru">Предупреждения</value>
         <value xml:lang="th">คำเตือน</value>
+        <value xml:lang="vi">Cảnh báo</value>
         <value xml:lang="zh">警告</value>
         <value xml:lang="zh_TW">警告</value>
     </property>
@@ -1456,6 +1594,7 @@
         <value xml:lang="fr">Produits dangereux</value>
         <value xml:lang="it">Prodotto danneggiato</value>
         <value xml:lang="th">HAZMAT</value>
+        <value xml:lang="vi">Hazmat</value>
         <value xml:lang="zh">危险品</value>
         <value xml:lang="zh_TW">危險品</value>
     </property>
@@ -1496,6 +1635,7 @@
         <value xml:lang="ro">Distincte</value>
         <value xml:lang="ru">Отличительная</value>
         <value xml:lang="th">ลักษณะนิสัย</value>
+        <value xml:lang="vi">Xếp loại</value>
         <value xml:lang="zh">有区别</value>
         <value xml:lang="zh_TW">有區別</value>
     </property>
@@ -1508,6 +1648,7 @@
         <value xml:lang="ro">Optional</value>
         <value xml:lang="ru">Дополнительная</value>
         <value xml:lang="th">ทางเลือก</value>
+        <value xml:lang="vi">Lựa chọn thêm</value>
         <value xml:lang="zh">可选的</value>
         <value xml:lang="zh_TW">可選的</value>
     </property>
@@ -1520,6 +1661,7 @@
         <value xml:lang="ro">Cerere</value>
         <value xml:lang="ru">Требуемая</value>
         <value xml:lang="th">ต้องการ</value>
+        <value xml:lang="vi">Yêu cầu có</value>
         <value xml:lang="zh">必须的</value>
         <value xml:lang="zh_TW">必須的</value>
     </property>
@@ -1532,6 +1674,7 @@
         <value xml:lang="ro">Selectionabile</value>
         <value xml:lang="ru">Выбираемая</value>
         <value xml:lang="th">สามารถเลือกได้</value>
+        <value xml:lang="vi">Được lựa chọn</value>
         <value xml:lang="zh">可选择的</value>
         <value xml:lang="zh_TW">可選擇的</value>
     </property>
@@ -1544,6 +1687,7 @@
         <value xml:lang="ro">Standard</value>
         <value xml:lang="ru">Стандартная</value>
         <value xml:lang="th">มาตรฐาน</value>
+        <value xml:lang="vi">Tiêu chuẩn</value>
         <value xml:lang="zh">标准</value>
         <value xml:lang="zh_TW">標准</value>
     </property>
@@ -1554,6 +1698,7 @@
         <value xml:lang="fr">Dépendants</value>
         <value xml:lang="it">Dipendenza</value>
         <value xml:lang="th">FEATURE_IACTN_DEPEND</value>
+        <value xml:lang="vi">Tính năng phụ thuộc</value>
         <value xml:lang="zh">依赖特征</value>
         <value xml:lang="zh_TW">依賴特征</value>
     </property>
@@ -1564,6 +1709,7 @@
         <value xml:lang="fr">Incompatibles</value>
         <value xml:lang="it">Incompatibile</value>
         <value xml:lang="th">FEATURE_IACTN_INCOMP</value>
+        <value xml:lang="vi">Tính năng độc lập</value>
         <value xml:lang="zh">不兼容特征</value>
         <value xml:lang="zh_TW">不相容特征</value>
     </property>
@@ -1576,6 +1722,7 @@
         <value xml:lang="ro">Accesoriu</value>
         <value xml:lang="ru">Принадлежности</value>
         <value xml:lang="th">ส่วนประกอบ</value>
+        <value xml:lang="vi">Phụ kiện</value>
         <value xml:lang="zh">附属品</value>
         <value xml:lang="zh_TW">附屬品</value>
     </property>
@@ -1588,6 +1735,7 @@
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Tổng số</value>
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh_TW">金額</value>
     </property>
@@ -1600,6 +1748,7 @@
         <value xml:lang="ro">Artist</value>
         <value xml:lang="ru">Оформление</value>
         <value xml:lang="th">ศิลปะ</value>
+        <value xml:lang="vi">Họa sĩ</value>
         <value xml:lang="zh">艺术家</value>
         <value xml:lang="zh_TW">藝術家</value>
     </property>
@@ -1612,6 +1761,7 @@
         <value xml:lang="ro">Caracteristica Facturare</value>
         <value xml:lang="ru">Оплата</value>
         <value xml:lang="th">ลักษณะใบเสร็จรับเงิน</value>
+        <value xml:lang="vi">Tính năng thanh toán</value>
         <value xml:lang="zh">账单特征</value>
         <value xml:lang="zh_TW">賬單特征</value>
     </property>
@@ -1624,6 +1774,7 @@
         <value xml:lang="ro">Marca</value>
         <value xml:lang="ru">Брэнд</value>
         <value xml:lang="th">ยี่ห้อ</value>
+        <value xml:lang="vi">Nhãn hiệu</value>
         <value xml:lang="zh">品牌</value>
         <value xml:lang="zh_TW">品牌</value>
     </property>
@@ -1636,6 +1787,7 @@
         <value xml:lang="ro">Cura</value>
         <value xml:lang="ru">Обслуживание</value>
         <value xml:lang="th">การปกป้อง</value>
+        <value xml:lang="vi">Quan tâm</value>
         <value xml:lang="zh">关心</value>
         <value xml:lang="zh_TW">關心</value>
     </property>
@@ -1648,6 +1800,7 @@
         <value xml:lang="ro">Culoare</value>
         <value xml:lang="ru">Цвет</value>
         <value xml:lang="th">สี</value>
+        <value xml:lang="vi">Màu sắc</value>
         <value xml:lang="zh">颜色</value>
         <value xml:lang="zh_TW">顏色</value>
     </property>
@@ -1660,6 +1813,7 @@
         <value xml:lang="ro">Dimensiune</value>
         <value xml:lang="ru">Размеры</value>
         <value xml:lang="th">มิติ</value>
+        <value xml:lang="vi">Kích thước</value>
         <value xml:lang="zh">尺寸</value>
         <value xml:lang="zh_TW">尺寸</value>
     </property>
@@ -1672,6 +1826,7 @@
         <value xml:lang="ro">Clasa Aparatura</value>
         <value xml:lang="ru">Класс оборудования</value>
         <value xml:lang="th">ชั้นอุปกรณ์</value>
+        <value xml:lang="vi">Lớp thiết bị</value>
         <value xml:lang="zh">设备类</value>
         <value xml:lang="zh_TW">設備類</value>
     </property>
@@ -1684,6 +1839,7 @@
         <value xml:lang="ro">Tesut</value>
         <value xml:lang="ru">Материал</value>
         <value xml:lang="th">สิ่งทอ</value>
+        <value xml:lang="vi">Vải</value>
         <value xml:lang="zh">织物</value>
         <value xml:lang="zh_TW">織物</value>
     </property>
@@ -1696,6 +1852,7 @@
         <value xml:lang="ro">Fel</value>
         <value xml:lang="ru">Жанр</value>
         <value xml:lang="th">ชนิด</value>
+        <value xml:lang="vi">Thể loại</value>
         <value xml:lang="zh">流派</value>
         <value xml:lang="zh_TW">流派</value>
     </property>
@@ -1720,6 +1877,7 @@
         <value xml:lang="ro">Caracteristica Hardware</value>
         <value xml:lang="ru">Техническая особенность</value>
         <value xml:lang="th">ลักษณะฮาร์ดแวร์</value>
+        <value xml:lang="vi">Tính năng phần cứng</value>
         <value xml:lang="zh">硬件特征</value>
         <value xml:lang="zh_TW">硬體特征</value>
     </property>
@@ -1732,6 +1890,7 @@
         <value xml:lang="ro">Hazmat</value>
         <value xml:lang="ru">Hazmat</value>
         <value xml:lang="th">Hazmat</value>
+        <value xml:lang="vi">Hazmat</value>
         <value xml:lang="zh">危险物品</value>
         <value xml:lang="zh_TW">危險物品</value>
     </property>
@@ -1744,6 +1903,7 @@
         <value xml:lang="ro">Licenta</value>
         <value xml:lang="ru">Лицензия</value>
         <value xml:lang="th">ใบอนุญาต</value>
+        <value xml:lang="vi">Bản cấp phép sử dụng</value>
         <value xml:lang="zh">版权</value>
         <value xml:lang="zh_TW">版權</value>
     </property>
@@ -1756,6 +1916,7 @@
         <value xml:lang="ro">Anno Model</value>
         <value xml:lang="ru">Год выпуска модели</value>
         <value xml:lang="th">ปีโมเดล</value>
+        <value xml:lang="vi">Kiểu theo năm</value>
         <value xml:lang="zh">年度款式</value>
         <value xml:lang="zh_TW">年度款式</value>
     </property>
@@ -1768,6 +1929,7 @@
         <value xml:lang="ro">Greutate Neta</value>
         <value xml:lang="ru">Вес нетто</value>
         <value xml:lang="th">น้ำหนักสุทธิ</value>
+        <value xml:lang="vi">Trọng lượng tịnh</value>
         <value xml:lang="zh">净重</value>
         <value xml:lang="zh_TW">淨重</value>
     </property>
@@ -1780,6 +1942,7 @@
         <value xml:lang="ro">Origine</value>
         <value xml:lang="ru">Происхождение</value>
         <value xml:lang="th">ต้นกำเนิด</value>
+        <value xml:lang="vi">Nguyên bản</value>
         <value xml:lang="zh">来源</value>
         <value xml:lang="zh_TW">來源</value>
     </property>
@@ -1792,6 +1955,7 @@
         <value xml:lang="ro">Alta Caracteristica</value>
         <value xml:lang="ru">Другие особенности</value>
         <value xml:lang="th">ลักษณะอื่นๆ</value>
+        <value xml:lang="vi">Tính năng khác</value>
         <value xml:lang="zh">其它特征</value>
         <value xml:lang="zh_TW">其他特征</value>
     </property>
@@ -1804,6 +1968,7 @@
         <value xml:lang="ro">Calitate Produs</value>
         <value xml:lang="ru">Качество продукта</value>
         <value xml:lang="th">คุณภาพสินค้า</value>
+        <value xml:lang="vi">Số lượng sản phẩm</value>
         <value xml:lang="zh">产品质量</value>
         <value xml:lang="zh_TW">產品質量</value>
     </property>
@@ -1817,6 +1982,7 @@
         <value xml:lang="ro">Latime </value>
         <value xml:lang="ru">Размер</value>
         <value xml:lang="th">ขนาด</value>
+        <value xml:lang="vi">Cỡ</value>
         <value xml:lang="zh">大小</value>
         <value xml:lang="zh_TW">大小</value>
     </property>
@@ -1829,6 +1995,7 @@
         <value xml:lang="ro">Caracteristica Software</value>
         <value xml:lang="ru">Программная особенность</value>
         <value xml:lang="th">ลักษณะซอฟต์แวร์</value>
+        <value xml:lang="vi">Tính năng phần mềm</value>
         <value xml:lang="zh">软件特征</value>
         <value xml:lang="zh_TW">軟件特征</value>
     </property>
@@ -1841,6 +2008,7 @@
         <value xml:lang="ro">Stil</value>
         <value xml:lang="ru">Стиль</value>
         <value xml:lang="th">สไตล์</value>
+        <value xml:lang="vi">Kiểu thời trang</value>
         <value xml:lang="zh">样式</value>
         <value xml:lang="zh_TW">樣式</value>
     </property>
@@ -1853,6 +2021,7 @@
         <value xml:lang="ro">Sintom</value>
         <value xml:lang="ru">Признак</value>
         <value xml:lang="th">อาการ</value>
+        <value xml:lang="vi">Triệu chứng</value>
         <value xml:lang="zh">症状</value>
         <value xml:lang="zh_TW">症狀</value>
     </property>
@@ -1865,6 +2034,7 @@
         <value xml:lang="ro">Argument</value>
         <value xml:lang="ru">Тема</value>
         <value xml:lang="th">ใจความ</value>
+        <value xml:lang="vi">Chủ đề</value>
         <value xml:lang="zh">话题</value>
         <value xml:lang="zh_TW">話題</value>
     </property>
@@ -1877,6 +2047,7 @@
         <value xml:lang="ro">Tip</value>
         <value xml:lang="ru">Тип</value>
         <value xml:lang="th">ประเภท</value>
+        <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">类型</value>
         <value xml:lang="zh_TW">類型</value>
     </property>
@@ -1889,6 +2060,7 @@
         <value xml:lang="ro">Garantie</value>
         <value xml:lang="ru">Гарантия</value>
         <value xml:lang="th">การรับประกัน</value>
+        <value xml:lang="vi">Bảo hành</value>
         <value xml:lang="zh">保修</value>
         <value xml:lang="zh_TW">保修</value>
     </property>
@@ -1901,6 +2073,7 @@
         <value xml:lang="ro">An Fabricatie</value>
         <value xml:lang="ru">Год изготовления</value>
         <value xml:lang="th">ทำปี</value>
+        <value xml:lang="vi">Năm sản xuất</value>
         <value xml:lang="zh">年生产</value>
         <value xml:lang="zh_TW">年生產</value>
     </property>
@@ -1911,6 +2084,7 @@
         <value xml:lang="fr">Coût des biens vendus</value>
         <value xml:lang="it">Costo del venduto</value>
         <value xml:lang="th">COGS</value>
+        <value xml:lang="vi">COGS</value>
         <value xml:lang="zh">产品销售成本</value>
         <value xml:lang="zh_TW">產品銷售成本</value>
     </property>
@@ -1922,6 +2096,7 @@
         <value xml:lang="it">Inventario</value>
         <value xml:lang="nl">Voorraad</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
+        <value xml:lang="vi">Kho chứa</value>
         <value xml:lang="zh">库存</value>
         <value xml:lang="zh_TW">庫存</value>
     </property>
@@ -1932,12 +2107,14 @@
         <value xml:lang="fr">Ventes</value>
         <value xml:lang="it">vendite</value>
         <value xml:lang="th">ขาย</value>
+        <value xml:lang="vi">sales</value>
         <value xml:lang="zh">销售</value>
         <value xml:lang="zh_TW">銷售</value>
     </property>
     <property key="ProductMaintType.description.CHASSIS_LUBE">
         <value xml:lang="en">Chassis Lubrication</value>
         <value xml:lang="it">Lubrificazione telaio</value>
+        <value xml:lang="vi">Bôi trơn khung gầm</value>
         <value xml:lang="zh">底盘润滑</value>
         <value xml:lang="zh_TW">底盤潤滑</value>
     </property>
@@ -1945,12 +2122,14 @@
         <value xml:lang="de">Batterie prüfen</value>
         <value xml:lang="en">Check Battery</value>
         <value xml:lang="it">Controllo batteria</value>
+        <value xml:lang="vi">Kiểm tra pin</value>
         <value xml:lang="zh">检查电池</value>
         <value xml:lang="zh_TW">檢查電池</value>
     </property>
     <property key="ProductMaintType.description.HVAC_CHECK_REFR">
         <value xml:lang="en">Check/Recharge Refrigerant</value>
         <value xml:lang="it">Controllo/Ricarica refrigerante</value>
+        <value xml:lang="vi">Kiểm tra/Nạp thêm gas làm lạnh</value>
         <value xml:lang="zh">检查/补充制冷剂</value>
         <value xml:lang="zh_TW">檢查/補充制冷劑</value>
     </property>
@@ -1958,6 +2137,7 @@
         <value xml:lang="de">HVAC Wartung</value>
         <value xml:lang="en">HVAC Maintenance</value>
         <value xml:lang="it">Manutenzione HVAC</value>
+        <value xml:lang="vi">Bảo dưỡng HVAC</value>
         <value xml:lang="zh">中央空调维修保养</value>
         <value xml:lang="zh_TW">中央空調維修保養</value>
     </property>
@@ -1965,6 +2145,7 @@
         <value xml:lang="de">Ersetze Luftfilter</value>
         <value xml:lang="en">Replace Air Filter</value>
         <value xml:lang="it">Sostituzione filtro aria</value>
+        <value xml:lang="vi">Thay thế lọc gió</value>
         <value xml:lang="zh">换空滤</value>
         <value xml:lang="zh_TW">換空濾</value>
     </property>
@@ -1977,6 +2158,7 @@
         <value xml:lang="ro">Schimb Ulei</value>
         <value xml:lang="ru">Замена масла</value>
         <value xml:lang="th">เปลี่ยนน้ำมัน</value>
+        <value xml:lang="vi">Thay dầu</value>
         <value xml:lang="zh">换油</value>
         <value xml:lang="zh_TW">換油</value>
     </property>
@@ -1989,6 +2171,7 @@
         <value xml:lang="ro">Reforniment</value>
         <value xml:lang="ru">Заправка</value>
         <value xml:lang="th">เติมน้ำมัน</value>
+        <value xml:lang="vi">Thêm nhiên liệu</value>
         <value xml:lang="zh">加油</value>
         <value xml:lang="zh_TW">加油</value>
     </property>
@@ -2001,12 +2184,14 @@
         <value xml:lang="ro">Substitutie Baterie</value>
         <value xml:lang="ru">Замена батарей</value>
         <value xml:lang="th">แทนที่แบตเตอรี่</value>
+        <value xml:lang="vi">Thay pin</value>
         <value xml:lang="zh">更换电池</value>
         <value xml:lang="zh_TW">更換電池</value>
     </property>
     <property key="ProductMaintType.description.ROTATE_TIRES">
         <value xml:lang="en">Rotate Tires</value>
         <value xml:lang="it">Invertire le gomme</value>
+        <value xml:lang="vi">Rotate Tires</value>
         <value xml:lang="zh">轮胎轮换</value>
         <value xml:lang="zh_TW">輪胎輪換</value>
     </property>
@@ -2019,12 +2204,14 @@
         <value xml:lang="ro">Substitutie Curea de Distributie</value>
         <value xml:lang="ru">Замена приводных ремней</value>
         <value xml:lang="th">การแทนที่ทางโค้งคดเคี้ยว</value>
+        <value xml:lang="vi">Thay thế đai ống xoắn</value>
         <value xml:lang="zh">更换平带</value>
         <value xml:lang="zh_TW">更換平帶</value>
     </property>
     <property key="ProductMaintType.description.TUNE_UP">
         <value xml:lang="en">Tune Up</value>
         <value xml:lang="it">Mettere a punto</value>
+        <value xml:lang="vi">Lên dây</value>
         <value xml:lang="zh">调音</value>
         <value xml:lang="zh_TW">調音</value>
     </property>
@@ -2037,6 +2224,7 @@
         <value xml:lang="ro">Intretinere Vehicol</value>
         <value xml:lang="ru">Обслуживание транспортных средств</value>
         <value xml:lang="th">การบำรุงรักษายานพาหนะ</value>
+        <value xml:lang="vi">Bảo dưỡng phương tiện giao thông</value>
         <value xml:lang="zh">车辆维护</value>
         <value xml:lang="zh_TW">車輛維護</value>
     </property>
@@ -2049,6 +2237,7 @@
         <value xml:lang="ro">Curatire</value>
         <value xml:lang="ru">Мойка</value>
         <value xml:lang="th">ล้าง</value>
+        <value xml:lang="vi">Rửa</value>
         <value xml:lang="zh">清洗</value>
         <value xml:lang="zh_TW">清洗</value>
     </property>
@@ -2061,6 +2250,7 @@
         <value xml:lang="ro">Copiaza Conta Metri</value>
         <value xml:lang="ru">Количество копий</value>
         <value xml:lang="th">คัดลอกจำนวนมิเตอร์</value>
+        <value xml:lang="vi">Chép lại công tơ mét</value>
         <value xml:lang="zh">复制计数表</value>
         <value xml:lang="zh_TW">複制計數表</value>
     </property>
@@ -2073,6 +2263,7 @@
         <value xml:lang="ro">Contor Distanta</value>
         <value xml:lang="ru">Счетчик расстояния</value>
         <value xml:lang="th">มิเตอร์ระยะทาง</value>
+        <value xml:lang="vi">Đồng hồ báo khoảng cách</value>
         <value xml:lang="zh">里程表</value>
         <value xml:lang="zh_TW">里程表</value>
     </property>
@@ -2085,6 +2276,7 @@
         <value xml:lang="ro">Contator Timp Motor</value>
         <value xml:lang="ru">Счетчик времени наработки двигателя</value>
         <value xml:lang="th">มิเตอร์เวลาเครื่องยนต์</value>
+        <value xml:lang="vi">Đồng hồ báo hiệu suất động cơ</value>
         <value xml:lang="zh">马达计时器</value>
         <value xml:lang="zh_TW">馬達計時器</value>
     </property>
@@ -2093,6 +2285,7 @@
         <value xml:lang="en">Odometer</value>
         <value xml:lang="fr">Odomètre</value>
         <value xml:lang="it">Odometro</value>
+        <value xml:lang="vi">Đồng hồ công tơ mét quãng đường đi</value>
         <value xml:lang="zh">里程表</value>
         <value xml:lang="zh_TW">里程表</value>
     </property>
@@ -2105,6 +2298,7 @@
         <value xml:lang="ro">Masurator de Viteza</value>
         <value xml:lang="ru">Спидометр</value>
         <value xml:lang="th">มิเตอร์ความเร็ว</value>
+        <value xml:lang="vi">Đồng hồ báo tốc độ</value>
         <value xml:lang="zh">速度表</value>
         <value xml:lang="zh_TW">速度表</value>
     </property>
@@ -2117,6 +2311,7 @@
         <value xml:lang="ro">Tachimetru</value>
         <value xml:lang="ru">Тахометр</value>
         <value xml:lang="th">เครื่องวัดความเร็ว</value>
+        <value xml:lang="vi">Đồng hồ đo tốc độ gốc</value>
         <value xml:lang="zh">转速表</value>
         <value xml:lang="zh_TW">轉速表</value>
     </property>
@@ -2129,32 +2324,38 @@
         <value xml:lang="ro">Foloseste Conta Metri</value>
         <value xml:lang="ru">Количество использования</value>
         <value xml:lang="th">เครื่องงนับการใช้</value>
+        <value xml:lang="vi">Sử dụng đồng hồ công tơ mét</value>
         <value xml:lang="zh">使用计数表</value>
         <value xml:lang="zh_TW">使用計數表</value>
     </property>
     <property key="ProductMeterType.description.TRIP_METER">
         <value xml:lang="en">Use Trip Meter</value>
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
+        <value xml:lang="vi">Sử dụng đồng hồ đo quãng đường chuyến đi</value>
     </property>
     <property key="ProductMeterType.description.TACHOGRAPH">
         <value xml:lang="de">Tachograph benutzen</value>
         <value xml:lang="en">Use Tacograph</value>
         <value xml:lang="fr">Utiliser le tacographe</value>
+        <value xml:lang="vi">Sử dụng đồng hồ đo tốc độ gốc</value>
     </property>
     <property key="ProductMeterType.description.TAXIMETER">
         <value xml:lang="de">Taxameter benutzen</value>
         <value xml:lang="en">Use Taximeter</value>
         <value xml:lang="fr">Utiliser le taximètre</value>
+        <value xml:lang="vi">Sử dụng đồng hồ tính tiền taxi</value>
     </property>
     <property key="ProductMeterType.description.EVENT_DATA_RECORDER">
         <value xml:lang="de">Ereignissdatenschreiber</value>
         <value xml:lang="en">Use Event Data Recorder</value>
         <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
+        <value xml:lang="vi">Sử dụng bộ ghi dữ liệu sự kiện</value>
     </property>
     <property key="ProductMeterType.description.PEDOMETER">
         <value xml:lang="de">Pedometer benutzen</value>
         <value xml:lang="en">Use Pedometer</value>
         <value xml:lang="fr">Utiliser le podomètre</value>
+        <value xml:lang="vi">Sử dụng đồng hồ đo bước</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_FLAT">
         <value xml:lang="de">Pauschalbetrag übersteuern</value>
@@ -2165,6 +2366,7 @@
         <value xml:lang="ro">Substitutie Valoare Fixa</value>
         <value xml:lang="ru">Замещение фиксированного количества</value>
         <value xml:lang="th">ยกเลิกจำนวนที่ไม่ชัดเจน</value>
+        <value xml:lang="vi">Ghi đè tổng giá cố định</value>
         <value xml:lang="zh">替代固定金额</value>
         <value xml:lang="zh_TW">替代固定金額</value>
     </property>
@@ -2177,6 +2379,7 @@
         <value xml:lang="ro">Modifica Valoarea Fixa</value>
         <value xml:lang="ru">Изменение фиксированного количества</value>
         <value xml:lang="th">ปรับปรุงจำนวนที่ไม่ชัดเจน</value>
+        <value xml:lang="vi">Điều chỉnh tổng giá cố định</value>
         <value xml:lang="zh">修改固定金额</value>
         <value xml:lang="zh_TW">修改固定金額</value>
     </property>
@@ -2189,6 +2392,7 @@
         <value xml:lang="ro">Substitutie Valoare Promotie</value>
         <value xml:lang="ru">Замещение акционного количества</value>
         <value xml:lang="th">ยกเลิกจำนวนโปรโมชัน</value>
+        <value xml:lang="vi">Ghi đè tổng giá khuyến mại</value>
         <value xml:lang="zh">替代促销金额</value>
         <value xml:lang="zh_TW">替代促銷金額</value>
     </property>
@@ -2201,6 +2405,7 @@
         <value xml:lang="ro">Procent din Costul Mediu</value>
         <value xml:lang="ru">Процент от средней стоимости</value>
         <value xml:lang="th">อัตราร้อยละของถัวเฉลี่ย</value>
+        <value xml:lang="vi">Tỷ lệ phần trăm của trung bình chi phí</value>
         <value xml:lang="zh">平均花费的百分数</value>
         <value xml:lang="zh_TW">平均花費的百分數</value>
     </property>
@@ -2213,6 +2418,7 @@
         <value xml:lang="ro">Procent din Pretul din Default</value>
         <value xml:lang="ru">Процент от обычной цены</value>
         <value xml:lang="th">อัตราร้อยละของราคาเริ่มต้น</value>
+        <value xml:lang="vi">Tỷ lệ phần trăm của giá mặc định</value>
         <value xml:lang="zh">缺省价格的百分数</value>
         <value xml:lang="zh_TW">預設價格的百分數</value>
     </property>
@@ -2225,6 +2431,7 @@
         <value xml:lang="ro">Procent din Pretul din Lista</value>
         <value xml:lang="ru">Процент от прейскурантной цены</value>
         <value xml:lang="th">อัตราร้อยละของรายการราคา</value>
+        <value xml:lang="vi">Tỷ lệ phần trăm của giá niêm yết</value>
         <value xml:lang="zh">标价的百分数</value>
         <value xml:lang="zh_TW">標價的百分數</value>
     </property>
@@ -2237,12 +2444,14 @@
         <value xml:lang="ro">Procent Din Margine</value>
         <value xml:lang="ru">Процент от маржи</value>
         <value xml:lang="th">อัตราร้อยละของผลต่าง</value>
+        <value xml:lang="vi">Tỷ lệ phần trăm của đòn bẩy tài chính</value>
         <value xml:lang="zh">利润百分比</value>
         <value xml:lang="zh_TW">利潤百分比</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_POWHS">
         <value xml:lang="en">Percent Of Wholesale</value>
         <value xml:lang="fr">Pourcentage du prix de gros</value>
+        <value xml:lang="vi">Tỷ lệ phần trăm của bán buôn</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_WFLAT">
         <value xml:lang="de">Grosshandelspreis übersteuern</value>
@@ -2253,6 +2462,7 @@
         <value xml:lang="ro">Substitutie Valoare la Intrare</value>
         <value xml:lang="ru">Замещение оптового количества</value>
         <value xml:lang="th">ยกเลิกจำนวนการขนส่ง</value>
+        <value xml:lang="vi">Ghi đè tổng giá bán buôn</value>
         <value xml:lang="zh">替代总代理金额</value>
         <value xml:lang="zh_TW">替代總代理金額</value>
     </property>
@@ -2265,6 +2475,7 @@
         <value xml:lang="ro">Pret Componente</value>
         <value xml:lang="ru">Цена комплектующих</value>
         <value xml:lang="th">ส่วนประกอบราคา</value>
+        <value xml:lang="vi">Giá thành phần</value>
         <value xml:lang="zh">元件价格</value>
         <value xml:lang="zh_TW">元件價格</value>
     </property>
@@ -2277,6 +2488,7 @@
         <value xml:lang="ro">Cumparare/Initiala</value>
         <value xml:lang="ru">Закупка/Начальный</value>
         <value xml:lang="th">การสั่งซื้อ/เริ่มแรก</value>
+        <value xml:lang="vi">Mua/Từ đầu</value>
         <value xml:lang="zh">购买/初始</value>
         <value xml:lang="zh_TW">購買/初始</value>
     </property>
@@ -2289,6 +2501,7 @@
         <value xml:lang="ro">Incarcare Periodica</value>
         <value xml:lang="ru">Периодические платежи</value>
         <value xml:lang="th">Recurring Charge</value>
+        <value xml:lang="vi">Phí thường niên</value>
         <value xml:lang="zh">经常费用</value>
         <value xml:lang="zh_TW">經常費用</value>
     </property>
@@ -2301,6 +2514,7 @@
         <value xml:lang="ro">Foloseste Incarcare</value>
         <value xml:lang="ru">Оплата использования</value>
         <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
+        <value xml:lang="vi">Phí sử dụng</value>
         <value xml:lang="zh">使用费</value>
         <value xml:lang="zh_TW">使用費</value>
     </property>
@@ -2313,6 +2527,7 @@
         <value xml:lang="ro">Cost Mediu</value>
         <value xml:lang="ru">Средняя стоимость</value>
         <value xml:lang="th">ต้นทุนเฉลี่ย</value>
+        <value xml:lang="vi">Chi phí trung bình</value>
         <value xml:lang="zh">平均花费</value>
         <value xml:lang="zh_TW">平均花費</value>
     </property>
@@ -2325,6 +2540,7 @@
         <value xml:lang="ro">Pret Competitiv</value>
         <value xml:lang="ru">Конкурентная цена</value>
         <value xml:lang="th">ราคาเปรียบเทียบ</value>
+        <value xml:lang="vi">Giá cạnh tranh</value>
         <value xml:lang="zh">竞争对手价格</value>
         <value xml:lang="zh_TW">競爭對手價格</value>
     </property>
@@ -2335,6 +2551,7 @@
         <value xml:lang="fr">Prix du composant</value>
         <value xml:lang="it">Prezzo componente</value>
         <value xml:lang="th">ส่วนประกอบราคา</value>
+        <value xml:lang="vi">Giá thành phần</value>
         <value xml:lang="zh">组件价格</value>
         <value xml:lang="zh_TW">元件價格</value>
     </property>
@@ -2347,6 +2564,7 @@
         <value xml:lang="ro">Pret de Default</value>
         <value xml:lang="ru">Обычная цена</value>
         <value xml:lang="th">ราคาเริ่มต้น</value>
+        <value xml:lang="vi">Giá mặc định</value>
         <value xml:lang="zh">缺省价格</value>
         <value xml:lang="zh_TW">預設價格</value>
     </property>
@@ -2359,6 +2577,7 @@
         <value xml:lang="ro">Pret de Listare</value>
         <value xml:lang="ru">Прейскурантная цена</value>
         <value xml:lang="th">รายการราคา</value>
+        <value xml:lang="vi">Giá niêm yết</value>
         <value xml:lang="zh">标价</value>
         <value xml:lang="zh_TW">標價</value>
     </property>
@@ -2371,12 +2590,14 @@
         <value xml:lang="ro">Pret Maxim</value>
         <value xml:lang="ru">Максимальная цена</value>
         <value xml:lang="th">ราคาสูงสุด</value>
+        <value xml:lang="vi">Giá trần</value>
         <value xml:lang="zh">最高价</value>
         <value xml:lang="zh_TW">最高價</value>
     </property>
     <property key="ProductPriceType.description.MINIMUM_ORDER_PRICE">
         <value xml:lang="de">Minimum Bestellpreis</value>
         <value xml:lang="en">Minimum order Price</value>
+        <value xml:lang="vi">Giá sàn đặt hàng</value>
     </property>
     <property key="ProductPriceType.description.MINIMUM_PRICE">
         <value xml:lang="de">Minimum Preis</value>
@@ -2387,6 +2608,7 @@
         <value xml:lang="ro">Pret Minim</value>
         <value xml:lang="ru">Минимальная цена</value>
         <value xml:lang="th">ราคาน้อยสุด</value>
+        <value xml:lang="vi">Giá sàn</value>
         <value xml:lang="zh">最低价</value>
         <value xml:lang="zh_TW">最低價</value>
     </property>
@@ -2399,6 +2621,7 @@
         <value xml:lang="ro">Pret Promotional </value>
         <value xml:lang="ru">Акционная цена</value>
         <value xml:lang="th">ราคาโปรโมชัน</value>
+        <value xml:lang="vi">Giá khuyến mại</value>
         <value xml:lang="zh">促销价</value>
         <value xml:lang="zh_TW">促銷價</value>
     </property>
@@ -2409,6 +2632,7 @@
         <value xml:lang="fr">Charge périodique</value>
         <value xml:lang="it">Ricarico ricorrente</value>
         <value xml:lang="th">RECURRING_CHARGE</value>
+        <value xml:lang="vi">Phí thường niên</value>
         <value xml:lang="zh">经常性费用</value>
         <value xml:lang="zh_TW">經常性費用</value>
     </property>
@@ -2420,6 +2644,7 @@
         <value xml:lang="ro">Pret Promotional Special</value>
         <value xml:lang="ru">Специальная цена</value>
         <value xml:lang="th">ราคาโปรโมชันพิเศษ</value>
+        <value xml:lang="vi">Giá khuyến mại đặc biệt</value>
         <value xml:lang="zh">特别促销价</value>
         <value xml:lang="zh_TW">特別促銷價</value>
     </property>
@@ -2430,6 +2655,7 @@
         <value xml:lang="fr">Charge d'utilisation</value>
         <value xml:lang="it">Uso Ricarico</value>
         <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
+        <value xml:lang="vi">Phí sử dụng</value>
         <value xml:lang="zh">使用费</value>
         <value xml:lang="zh_TW">使用費</value>
     </property>
@@ -2442,6 +2668,7 @@
         <value xml:lang="ro">Pret la Ingros</value>
         <value xml:lang="ru">Оптовая цена</value>
         <value xml:lang="th">ราคาขายส่ง</value>
+        <value xml:lang="vi">Giá bán buôn</value>
         <value xml:lang="zh">总代理价</value>
         <value xml:lang="zh_TW">總代理價</value>
     </property>
@@ -2454,6 +2681,7 @@
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
+        <value xml:lang="vi">Không áp dụng</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh_TW">不可用</value>
     </property>
@@ -2465,6 +2693,7 @@
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
+        <value xml:lang="vi">Không áp dụng</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh_TW">不可用</value>
     </property>
@@ -2477,6 +2706,7 @@
         <value xml:lang="ro">Bun Configurabil</value>
         <value xml:lang="ru">Товар требующий конфигурации</value>
         <value xml:lang="th">สามารถสร้างสินค้า</value>
+        <value xml:lang="vi">Cấu hình sản phẩm</value>
         <value xml:lang="zh">可配置商品</value>
         <value xml:lang="zh_TW">可配置商品</value>
     </property>
@@ -2484,6 +2714,7 @@
         <value xml:lang="de">Konfigurierbare Ware konfigurieren</value>
         <value xml:lang="en">Configurable Good Configuration</value>
         <value xml:lang="it">Configurazione beni configurabili</value>
+        <value xml:lang="vi">Cấu hình cấu hình sản phẩm</value>
         <value xml:lang="zh">可配置商品配置</value>
         <value xml:lang="zh_TW">可配置商品配置</value>
     </property>
@@ -2496,6 +2727,7 @@
         <value xml:lang="ro">Folosire Mijloc Fix</value>
         <value xml:lang="ru">Использование ОС</value>
         <value xml:lang="th">วิธีการใช้ทรัพย์สินไม่หมุนเวียน</value>
+        <value xml:lang="vi">Tài sản cố định sử dụng</value>
         <value xml:lang="zh">固定资产用途</value>
         <value xml:lang="zh_TW">固定資產用途</value>
     </property>
@@ -2508,6 +2740,7 @@
         <value xml:lang="ro">Bun Digital</value>
         <value xml:lang="ru">Цифровой товар</value>
         <value xml:lang="th">สินค้าดิจิตอล</value>
+        <value xml:lang="vi">Sản phẩm kỹ thuật số</value>
         <value xml:lang="zh">数字商品</value>
         <value xml:lang="zh_TW">數字商品</value>
     </property>
@@ -2520,6 +2753,7 @@
         <value xml:lang="ro">Bun Finit/Digital</value>
         <value xml:lang="ru">Готовый/цифровой товар</value>
         <value xml:lang="th">เสร็จสิ้น/สินค้าดิจิตอล</value>
+        <value xml:lang="vi">Hoàn thiện/Sản phẩm kỹ thuật số</value>
         <value xml:lang="zh">成品/数字商品</value>
         <value xml:lang="zh_TW">成品/數字商品</value>
     </property>
@@ -2532,6 +2766,7 @@
         <value xml:lang="ro">Bun Finit</value>
         <value xml:lang="ru">Готовый товар</value>
         <value xml:lang="th">สินค้าเคลือบเงา</value>
+        <value xml:lang="vi">Sản phẩm hoàn thiện</value>
         <value xml:lang="zh">成品</value>
         <value xml:lang="zh_TW">成品</value>
     </property>
@@ -2544,6 +2779,7 @@
         <value xml:lang="ro">Bun</value>
         <value xml:lang="ru">Товар</value>
         <value xml:lang="th">สินค้า</value>
+        <value xml:lang="vi">Sản phẩm</value>
         <value xml:lang="zh">商品</value>
         <value xml:lang="zh_TW">商品</value>
     </property>
@@ -2551,6 +2787,7 @@
         <value xml:lang="de">Marketingpaket</value>
         <value xml:lang="en">Marketing Package</value>
         <value xml:lang="it">Pacco di vendita</value>
+        <value xml:lang="vi">Gói marketing</value>
     </property>
     <property key="ProductType.description.MARKETING_PKG_AUTO">
         <value xml:lang="de">Marketingpaket</value>
@@ -2560,6 +2797,7 @@
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ru">Маркетинговый пакет</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
+        <value xml:lang="vi">Gói marketing: tự động điền nhà sản xuất</value>
         <value xml:lang="zh">促销包</value>
         <value xml:lang="zh_TW">促銷包</value>
     </property>
@@ -2570,6 +2808,7 @@
         <value xml:lang="fr">Conditionnement marketing: assemblage durant le prélèvement</value>
         <value xml:lang="it">Pacco di vendita: assemblato durante il prelievo</value>
         <value xml:lang="th">แพคเกจการตลาด: การเลือกการรวมกลุ่ม</value>
+        <value xml:lang="vi">Gói marketing: chọn lựa lắp ráp</value>
         <value xml:lang="zh">促销包：分拣组装</value>
         <value xml:lang="zh_TW">促銷包：分揀組裝</value>
     </property>
@@ -2582,6 +2821,7 @@
         <value xml:lang="ro">Materie Prima</value>
         <value xml:lang="ru">Необработанный материал</value>
         <value xml:lang="th">วัตถุดิบ</value>
+        <value xml:lang="vi">Linh kiện</value>
         <value xml:lang="zh">原材料</value>
         <value xml:lang="zh_TW">原材料</value>
     </property>
@@ -2594,6 +2834,7 @@
         <value xml:lang="ro">Serviciu</value>
         <value xml:lang="ru">Услуга</value>
         <value xml:lang="th">บริการ</value>
+        <value xml:lang="vi">Dịch vụ</value>
         <value xml:lang="zh">服务</value>
         <value xml:lang="zh_TW">服務</value>
     </property>
@@ -2606,6 +2847,7 @@
         <value xml:lang="ro">Subasamblat</value>
         <value xml:lang="ru">Комплектующие</value>
         <value xml:lang="th">การรวมกลุ่มย่อย</value>
+        <value xml:lang="vi">Cụm lắp ráp</value>
         <value xml:lang="zh">部件</value>
         <value xml:lang="zh_TW">部件</value>
     </property>
@@ -2618,6 +2860,7 @@
         <value xml:lang="ro">Semifabricat</value>
         <value xml:lang="ru">Незавершенная работа</value>
         <value xml:lang="th">งานที่ก้าวหน้า</value>
+        <value xml:lang="vi">Đang trong quá trình thực hiện</value>
         <value xml:lang="zh">在制品</value>
         <value xml:lang="zh_TW">在制品</value>
     </property>
@@ -2629,6 +2872,7 @@
         <value xml:lang="it">Intervallo prezzo componente valore ordine</value>
         <value xml:lang="ru">Порого ценового компонента от объема заказа</value>
         <value xml:lang="th">หยุดค่ารายการส่วนประกอบราคา</value>
+        <value xml:lang="vi">Thay đổi giá trị đặt hàng thành phần giá</value>
         <value xml:lang="zh">组件价格订单价值台阶</value>
         <value xml:lang="zh_TW">元件價格訂單價值台階</value>
     </property>
@@ -2640,6 +2884,7 @@
         <value xml:lang="it">Intervallo Prezzo Componente Quantità</value>
         <value xml:lang="ru">Количественный порог ценового компонента</value>
         <value xml:lang="th">หยุดค่าจำนวนส่วนประกอบราคา</value>
+        <value xml:lang="vi">Thay đổi số lượng thành phần giá</value>
         <value xml:lang="zh">组件价格数量台阶</value>
         <value xml:lang="zh_TW">元件價格數量台階</value>
     </property>
@@ -2651,6 +2896,7 @@
         <value xml:lang="it">Intervallo prezzo spedizione</value>
         <value xml:lang="ru">Ценовый порог поставки</value>
         <value xml:lang="th">หยุดราคาการขนส่ง</value>
+        <value xml:lang="vi">Thay đổi giá vận chuyển</value>
         <value xml:lang="zh">运价台阶</value>
         <value xml:lang="zh_TW">運價台階</value>
     </property>
@@ -2662,6 +2908,7 @@
         <value xml:lang="it">Intervallo quantità spedizione</value>
         <value xml:lang="ru">Количественный порог поставки</value>
         <value xml:lang="th">หยุดจำนวนการขนส่ง</value>
+        <value xml:lang="vi">Thay đổi số lượng vận chuyển</value>
         <value xml:lang="zh">运送数量台阶</value>
         <value xml:lang="zh_TW">運送數量台階</value>
     </property>
@@ -2673,6 +2920,7 @@
         <value xml:lang="it">Intervallo peso spedizione</value>
         <value xml:lang="ru">Весовой порог поставки</value>
         <value xml:lang="th">หยุดน้ำหนักการขนส่ง</value>
+        <value xml:lang="vi">Thay đổi trọng lượng vận chuyển</value>
         <value xml:lang="zh">运送重量台阶</value>
         <value xml:lang="zh_TW">運送重量台階</value>
     </property>
@@ -2685,6 +2933,7 @@
         <value xml:lang="ro">Stricat</value>
         <value xml:lang="ru">Повреждено</value>
         <value xml:lang="th">รายจ่าย</value>
+        <value xml:lang="vi">Bị hư hại</value>
         <value xml:lang="zh">已损坏的</value>
         <value xml:lang="zh_TW">已損壞的</value>
     </property>
@@ -2697,6 +2946,7 @@
         <value xml:lang="ro">Ne Ordonat</value>
         <value xml:lang="ru">Не заказывалось</value>
         <value xml:lang="th">ไม่ใช่รายการสั่งซื้อ</value>
+        <value xml:lang="vi">Không được đặt hàng</value>
         <value xml:lang="zh">未订购的</value>
         <value xml:lang="zh_TW">未訂購的</value>
     </property>
@@ -2709,6 +2959,7 @@
         <value xml:lang="ro">Sopra Expediat</value>
         <value xml:lang="ru">Поставка лишнего</value>
         <value xml:lang="th">การขนส่งมาก</value>
+        <value xml:lang="vi">Đã giao hàng xong</value>
         <value xml:lang="zh">超载</value>
         <value xml:lang="zh_TW">超載</value>
     </property>
@@ -2719,6 +2970,7 @@
         <value xml:lang="fr">Adresse d'origine de l'expédition</value>
         <value xml:lang="it">Spedisci dall'indirizzo</value>
         <value xml:lang="th">การขนส่งจากที่อยู่</value>
+        <value xml:lang="vi">Gửi hàng từ địa chỉ</value>
         <value xml:lang="zh">发货地址</value>
         <value xml:lang="zh_TW">發貨位址</value>
     </property>
@@ -2729,6 +2981,7 @@
         <value xml:lang="fr">N° de téléphone de l'origine de l'expédition</value>
         <value xml:lang="it">Spedisci dal numero di telefono</value>
         <value xml:lang="th">การขนส่งจากโทรคมนาคม</value>
+        <value xml:lang="vi">Giao hàng qua mạng viễn thông</value>
         <value xml:lang="zh">发货电话</value>
         <value xml:lang="zh_TW">發貨電話</value>
     </property>
@@ -2739,6 +2992,7 @@
         <value xml:lang="fr">Adresse d'expédition</value>
         <value xml:lang="it">Spedisci all'indirizzo</value>
         <value xml:lang="th">การขนส่งถึงที่อยู่</value>
+        <value xml:lang="vi">Giao hàng tới địa chỉ</value>
         <value xml:lang="zh">收货地址</value>
         <value xml:lang="zh_TW">收貨位址</value>
     </property>
@@ -2749,6 +3003,7 @@
         <value xml:lang="fr">Courriel de l'expédition</value>
         <value xml:lang="it">Spedisci all'email</value>
         <value xml:lang="th">การขนส่งถึงอีเมล</value>
+        <value xml:lang="vi">Giao hàng tới email</value>
         <value xml:lang="zh">收货电子邮件</value>
         <value xml:lang="zh_TW">收貨電子郵件</value>
     </property>
@@ -2759,6 +3014,7 @@
         <value xml:lang="fr">N° de téléphone de l'expédition</value>
         <value xml:lang="it">Spedisci al numero di telefono</value>
         <value xml:lang="th">การขนส่งถึงโทรคมนาคม</value>
+        <value xml:lang="vi">Giao hàng tới mạng viễn thông</value>
         <value xml:lang="zh">收货电话</value>
         <value xml:lang="zh_TW">收貨電話</value>
     </property>
@@ -2771,6 +3027,7 @@
         <value xml:lang="ro">Drop Shipment</value>
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง</value>
+        <value xml:lang="vi">Hủy giao hàng</value>
         <value xml:lang="zh">直送</value>
         <value xml:lang="zh_TW">直送</value>
     </property>
@@ -2783,6 +3040,7 @@
         <value xml:lang="ro">Intrare</value>
         <value xml:lang="ru">Входящая</value>
         <value xml:lang="th">รายได้</value>
+        <value xml:lang="vi">Hàng gửi tới</value>
         <value xml:lang="zh">运进</value>
         <value xml:lang="zh_TW">運進</value>
     </property>
@@ -2793,6 +3051,7 @@
         <value xml:lang="fr">Expédition de fabrication</value>
         <value xml:lang="it">Spedizione di produzione</value>
         <value xml:lang="th">การผลิตการขนส่ง</value>
+        <value xml:lang="vi">Nhà sản xuất gửi hàng</value>
         <value xml:lang="zh">制造中的船舶</value>
         <value xml:lang="zh_TW">制造中的船舶</value>
     </property>
@@ -2805,6 +3064,7 @@
         <value xml:lang="ro">Iesire</value>
         <value xml:lang="ru">Исходящая</value>
         <value xml:lang="th">ออกจากสถานที่</value>
+        <value xml:lang="vi">Hàng chuyển đi</value>
         <value xml:lang="zh">运出</value>
         <value xml:lang="zh_TW">運出</value>
     </property>
@@ -2817,6 +3077,7 @@
         <value xml:lang="ro">Returnare Cumparari</value>
         <value xml:lang="ru">Возврат закупленного</value>
         <value xml:lang="th">คืนค่าการสั่งซื้อ</value>
+        <value xml:lang="vi">Mua hàng hoàn trả</value>
         <value xml:lang="zh">购物退货</value>
         <value xml:lang="zh_TW">購物退貨</value>
     </property>
@@ -2829,6 +3090,7 @@
         <value xml:lang="ro">Expediere Cumparaturi</value>
         <value xml:lang="ru">Поставка закупленного</value>
         <value xml:lang="th">การขนส่งการสั่งซื้อ</value>
+        <value xml:lang="vi">Mua hàng vận chuyển</value>
         <value xml:lang="zh">购物送货</value>
         <value xml:lang="zh_TW">購物送貨</value>
     </property>
@@ -2841,6 +3103,7 @@
         <value xml:lang="ro">Returnare din Vanzari</value>
         <value xml:lang="ru">Возврат проданного</value>
         <value xml:lang="th">คืนค่าการขาย</value>
+        <value xml:lang="vi">Bán hàng hoàn trả</value>
         <value xml:lang="zh">销售退货</value>
         <value xml:lang="zh_TW">銷售退貨</value>
     </property>
@@ -2853,6 +3116,7 @@
         <value xml:lang="ro">Expediere Vanzari</value>
         <value xml:lang="ru">Поставка проданного</value>
         <value xml:lang="th">การขนส่งการขาย</value>
+        <value xml:lang="vi">Bán hàng vận chuyển</value>
         <value xml:lang="zh">销售送货</value>
         <value xml:lang="zh_TW">銷售送貨</value>
     </property>
@@ -2865,6 +3129,7 @@
         <value xml:lang="ro">Transferiment</value>
         <value xml:lang="ru">Передача</value>
         <value xml:lang="th">การขนส่ง</value>
+        <value xml:lang="vi">Chuyển đổi</value>
         <value xml:lang="zh">传送</value>
         <value xml:lang="zh_TW">傳送</value>
     </property>
@@ -2877,6 +3142,7 @@
         <value xml:lang="ro">Notitiar</value>
         <value xml:lang="ru">Новости</value>
         <value xml:lang="th">กลุ่มข่าว</value>
+        <value xml:lang="vi">Nhóm mới</value>
         <value xml:lang="zh">新闻组</value>
         <value xml:lang="zh_TW">新聞組</value>
     </property>
@@ -2889,6 +3155,7 @@
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Друго</value>
         <value xml:lang="th">อื่น ๆ</value>
+        <value xml:lang="vi">Khác</value>
         <value xml:lang="zh">其它</value>
         <value xml:lang="zh_TW">其他</value>
     </property>
@@ -2901,6 +3168,7 @@
         <value xml:lang="ro">Informatii Produs</value>
         <value xml:lang="ru">Информация о продукте</value>
         <value xml:lang="th">ข้อมูลสินค้า</value>
+        <value xml:lang="vi">Thông tin sản phẩm</value>
         <value xml:lang="zh">产品信息</value>
         <value xml:lang="zh_TW">產品資訊</value>
     </property>
@@ -2912,6 +3180,7 @@
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
+        <value xml:lang="vi">Sản phẩm</value>
         <value xml:lang="zh">产品</value>
         <value xml:lang="zh_TW">產品</value>
     </property>
@@ -2924,6 +3193,7 @@
         <value xml:lang="ro">Stricat</value>
         <value xml:lang="ru">Повреждено</value>
         <value xml:lang="th">รายจ่าย</value>
+        <value xml:lang="vi">Bị hư hỏng</value>
         <value xml:lang="zh">已损坏</value>
         <value xml:lang="zh_TW">已損壞</value>
     </property>
@@ -2936,6 +3206,7 @@
         <value xml:lang="ro">Gasit</value>
         <value xml:lang="ru">Найдено</value>
         <value xml:lang="th">พบ</value>
+        <value xml:lang="vi">Tìm thấy</value>
         <value xml:lang="zh">已找到</value>
         <value xml:lang="zh_TW">已找到</value>
     </property>
@@ -2948,6 +3219,7 @@
         <value xml:lang="ro">Integrare</value>
         <value xml:lang="ru">Интеграция</value>
         <value xml:lang="th">การรวมเข้าด้วยกัน</value>
+        <value xml:lang="vi">Tích phân</value>
         <value xml:lang="zh">完整</value>
         <value xml:lang="zh_TW">完整</value>
     </property>
@@ -2960,18 +3232,21 @@
         <value xml:lang="ro">Pierdut</value>
         <value xml:lang="ru">Утеряно</value>
         <value xml:lang="th">สูญเสีย</value>
+        <value xml:lang="vi">Lỗ</value>
         <value xml:lang="zh">丢失</value>
         <value xml:lang="zh_TW">丟失</value>
     </property>
     <property key="VarianceReason.description.VAR_MISSHIP_ORDERED">
         <value xml:lang="en">Mis-shipped Item Ordered (+)</value>
         <value xml:lang="it">Riga non-spedita ordinata (+)</value>
+        <value xml:lang="vi">Sản phẩm đặt hàng bị thất lạc khi vận chuyển (+)</value>
         <value xml:lang="zh">已订购的误装明细 (+)</value>
         <value xml:lang="zh_TW">已訂購的誤裝明細 (+)</value>
     </property>
     <property key="VarianceReason.description.VAR_MISSHIP_SHIPPED">
         <value xml:lang="en">Mis-shipped Item Shipped (-)</value>
         <value xml:lang="it">Riga non-spedita spedita (-)</value>
+        <value xml:lang="vi">Sản phẩm giao hàng thất lạc khi vận chuyển (-)</value>
         <value xml:lang="zh">已装运的误装明细 (-)</value>
         <value xml:lang="zh_TW">已裝運的誤裝明細 (-)</value>
     </property>
@@ -2984,6 +3259,7 @@
         <value xml:lang="ro">Esantion (Introdu Strada)</value>
         <value xml:lang="ru">Проба (испорчен)</value>
         <value xml:lang="th">ตัวอย่าง (เปิดเผย)</value>
+        <value xml:lang="vi">Mẫu (không bán)</value>
         <value xml:lang="zh">样品 (派送)</value>
         <value xml:lang="zh_TW">樣品 (派送)</value>
     </property>
@@ -2996,6 +3272,7 @@
         <value xml:lang="ro">Furat</value>
         <value xml:lang="ru">Украдено</value>
         <value xml:lang="th">ของเถื่อน</value>
+        <value xml:lang="vi">Bị mất cắp</value>
         <value xml:lang="zh">被盗</value>
         <value xml:lang="zh_TW">被盜</value>
     </property>
@@ -3003,51 +3280,63 @@
         <value xml:lang="de">Suchparameter</value>
         <value xml:lang="en">Search Parameters</value>
         <value xml:lang="fr">Paramètres de recherche</value>
+        <value xml:lang="vi">Tham số tìm kiếm</value>
     </property>
     <property key="ProductCategoryLinkType.description.PCLT_ABS_URL">
         <value xml:lang="de">Absolute URL</value>
         <value xml:lang="en">Absolute URL</value>
         <value xml:lang="fr">URL absolue</value>
+        <value xml:lang="vi">Đường dẫn tuyệt đối</value>
     </property>
     <property key="ProductCategoryLinkType.description.PCLT_CAT_ID">
         <value xml:lang="de">Kategorie ID</value>
         <value xml:lang="en">Category ID</value>
         <value xml:lang="fr">Ref. de catégorie</value>
+        <value xml:lang="vi">Mã Danh mục</value>
     </property>
-
     <!-- Field Descriptions -->
     <!--  ProdCatalog -->
     <property key="FieldDescription.ProdCatalog.prodCatalogId">
         <value xml:lang="en">This cannot be changed without re-creating the Product Catalog.</value>
+        <value xml:lang="vi">Phần này không thể thay đổi khi không tạo lại Danh mục sản phẩm.</value>
     </property>
     <property key="FieldDescription.ProdCatalog.catalogName">
         <value xml:lang="en">This will be shown to your customers, so think of image when giving your catalog a name.</value>
+        <value xml:lang="vi">Phần này sẽ hiển thị tới khách hàng của bạn, hãy nghĩ về hình ảnh hi bạn đưa đến một cái tên danh mục.</value>
     </property>
     <property key="FieldDescription.ProdCatalog.useQuickAdd">
         <value xml:lang="en">Set this to Y if you want to give users the option to quick add products.</value>
+        <value xml:lang="vi">Đặt là 'Y' nếu bạn muốn cho phép người dùng lựa chọn lệnh thêm nhanh sản phẩm.</value>
     </property>
     <property key="FieldDescription.ProdCatalog.styleSheet">
         <value xml:lang="en">The path to your distinctive style sheet which will govern the appearance of your catalog goes here.</value>
+        <value xml:lang="vi">Con đường dẫn đến phong cách trang đặc biệt của bạn mà sẽ chi phối sự xuất hiện của danh mục của bạn tại đây.</value>
     </property>
     <property key="FieldDescription.ProdCatalog.headerLogo">
         <value xml:lang="en">This will be seen by your customers. Maintain your image and message with the logo presented.</value>
+        <value xml:lang="vi">Phần này sẽ được khách hàng nhìn thấy. Duy trì hình ảnh và thông điệp của bạn với logo</value>
     </property>
     <property key="FieldDescription.ProdCatalog.contentPathPrefix">
         <value xml:lang="en">If specified will be prepended to image and other content paths. Should start with a slash but not end with one.</value>
+        <value xml:lang="vi">Nếu quy định sẽ được cụm vào trước hình ảnh và đường dẫn nội dung khác. Nên bắt đầu bằng một dấu gạch chéo, nhưng không sử dụng gạch chéo để kết thúc</value>
     </property>
     <property key="FieldDescription.ProdCatalog.templatePathPrefix">
         <value xml:lang="en">If specified will be prepended to template paths. Should start with a slash but not end with one.</value>
+        <value xml:lang="vi">Nếu được chỉ định sẽ được cụm vào trước đường dẫn mẫu. Nên bắt đầu bằng một dấu gạch chéo, nhưng không sử dụng gạch chéo để kết thúc</value>
     </property>
     <property key="FieldDescription.ProdCatalog.viewAllowPermReqd">
         <value xml:lang="en">If Y, administrators can only add products to 'View Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
+        <value xml:lang="vi">Nếu Y , các quản trị viên chỉ có thể thêm danh mục sản phẩm 'Cho phép xem' nếu họ có quyền CATALOG_VIEW_ALLOW</value>
     </property>
     <property key="FieldDescription.ProdCatalog.purchaseAllowPermReqd">
         <value xml:lang="en">If Y, administrators can only add products to 'Purchase Allow' categories if they have the permission CATALOG_VIEW_ALLOW</value>
+        <value xml:lang="vi">Nếu Y, các quản trị viên chỉ có thể thêm danh mục sản phẩm 'Cho phép mua' nếu họ có quyền CATALOG_VIEW_ALLOW</value>
     </property>
 
     <!--  ProductStore -->
     <property key="FieldDescription.ProductStore.productStoreId">
         <value xml:lang="en">The id for the product store..</value>
+        <value xml:lang="vi">Mã này dành cho cửa hàng sản phẩm..</value>
     </property>
     <property key="FieldDescription.ProductStore.primaryStoreGroupId">
         <value xml:lang="en">What group this store belongs to. Stores can be grouped together with a price for each store group. It can be left blank if there are no store groups set up.</value>
@@ -3055,18 +3344,23 @@
     </property>
     <property key="FieldDescription.ProductStore.storeName">
         <value xml:lang="en">This is the name of the store that this catalog represents.</value>
+        <value xml:lang="vi">Tên của cửa hàng mà danh mục đại diện cho</value>
     </property>
     <property key="FieldDescription.ProductStore.companyName">
         <value xml:lang="en">This is the name of the company that this catalog represents.</value>
+        <value xml:lang="vi">Tên của công ty mà dnah mục đại diện cho</value>
     </property>
     <property key="FieldDescription.ProductStore.title">
         <value xml:lang="en">This value gets displayed in the header section of the ecommerce store.</value>
+        <value xml:lang="vi">Giá trị này sẽ hiển thị tại phần đầu của gian hàng trên mạng</value>
     </property>
     <property key="FieldDescription.ProductStore.subtitle">
         <value xml:lang="en">This value gets displayed in the header section of the ecommerce store.</value>
+        <value xml:lang="vi">Giá trị này sẽ hiển thị tại phần đầu của gian hàng trên mạng</value>
     </property>
     <property key="FieldDescription.ProductStore.payToPartyId">
         <value xml:lang="en">Note that this corresponds with the organizationPartyId that GL transactions will be posted to.</value>
+        <value xml:lang="vi">Lưu ý này tương ứng với organizationPartyId giao dịch GL sẽ được đưa lên</value>
     </property>
     <property key="FieldDescription.ProductStore.daysToCancelNonPay">
         <value xml:lang="en">Triggers cancellation of orders for non-payment after the number of days entered here.</value>
@@ -3074,21 +3368,26 @@
     </property>
     <property key="FieldDescription.ProductStore.manualAuthIsCapture">
         <value xml:lang="en">Drop-down Y/N box on the question of whether a Manual Authorization is captured.</value> <!--  TODO - what does this really mean? -->
+        <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi cho dù một Ủy quyền Hướng dẫn sử dụng được ghi nhận</value>
     </property>
     <property key="FieldDescription.ProductStore.prorateShipping">
         <value xml:lang="en">When some share of the cost of shipping is covered under an account other than the bill-to.</value> <!--  TODO - what does this really mean? -->
+        <value xml:lang="vi">Khi một số chia sẻ chi phí vận chuyển được chi trả dưới một tài khoản khác hơn so với hóa đơn.</value>
     </property>
     <property key="FieldDescription.ProductStore.prorateTaxes">
         <value xml:lang="en"></value>
     </property>
     <property key="FieldDescription.ProductStore.viewCartOnAdd">
         <value xml:lang="en">Controls whether the user is taken to the shopping cart immediately after adding a product to his cart.</value>
+        <value xml:lang="vi">Kiểm soát xem người dùng được đưa vào giỏ mua hàng ngay lập tức sau khi thêm một sản phẩm vào giỏ hàng của mình</value>
     </property>
     <property key="FieldDescription.ProductStore.autoSaveCart">
         <value xml:lang="en">Drop-down Y/N box on the question of automatically saving the contents of the shopping cart.</value>
+        <value xml:lang="vi">Bảng sổ xuống Y/N có câu hỏi về việc tự động lưu lại nội dung của giỏ hàng mua sắm.</value>
     </property>
     <property key="FieldDescription.ProductStore.autoApproveReviews">
         <value xml:lang="en">If the site allows users to enter product reviews, this controls whether the reviews must be approved, or whether they are automatically shown on the site.</value>
+        <value xml:lang="vi">Nếu trang mạng cho phép người dụng nhập vào đánh giá sản phẩm, phần này sẽ kiểm soát xem đánh giá đó có phải được phê duyệt trước, hay nó có thể hiển thị ngay lên trang web.</value>
     </property>
     <property key="FieldDescription.ProductStore.isDemoStore">
         <value xml:lang="en">If Yes, any orders created will not be sent, credit card charges will not be made, etc.
@@ -3096,6 +3395,7 @@
     </property>
     <property key="FieldDescription.ProductStore.isImmediatelyFulfilled">
         <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz (e.g. for POS sales).  If no, it will be held for manual review.</value>
+        <value xml:lang="vi">Nếu có, đặt hàng sẽ được tự động điền đầy đủ ngay lập tức thông qua hệ thống xử lý của Ofbiz (ví dụ như hệ thống bán hàng POS). Nếu không, nó sẽ dẫn đến phần xem xét thủ công</value>
     </property>
     <property key="FieldDescription.ProductStore.inventoryFacilityId">
         <value xml:lang="en">This is where the stock levels are drawn from.</value>
@@ -3103,6 +3403,7 @@
     </property>
     <property key="FieldDescription.ProductStore.oneInventoryFacility">
         <value xml:lang="en">If this is a 'Single Inventory' facility. With newer or less complex businesses, you will find the Single Inventory concept much easier to work with.</value>
+        <value xml:lang="vi">Nếu đây là cơ sở kho chứa đơn. Với hoạt động kinh doanh mới hoặc ít hơn, bạn sẽ thấy kiểu thiết kết kho chứa đơn dễ sử dụng hơn</value>
     </property>
     <property key="FieldDescription.ProductStore.checkInventory">
         <value xml:lang="en">This determines whether the system checks inventory levels when processing an order.</value>
@@ -3110,78 +3411,102 @@
     </property>
     <property key="FieldDescription.ProductStore.reserveInventory">
         <value xml:lang="en">Causes inventory to be reserved for items ordered in the store. The inventory may still be on hand but will no longer be available for other orders.</value>
+        <value xml:lang="vi">Vì lý do kho chứa cần dự trự hàng cho các đặt hàng tại cửa hàng. Kho chứa có thể còn hàng nhưng không có sẵn cho các đặt hàng khác</value>
     </property>
     <property key="FieldDescription.ProductStore.reserveOrderEnumId">
         <value xml:lang="en">Choose how inventory should be reserved.</value>
+        <value xml:lang="vi">Lựa chọn cách kho chứa sẽ dự trữ hàng hóa</value>
     </property>
     <property key="FieldDescription.ProductStore.requireInventory">
         <value xml:lang="en">If sufficient inventory not on hand, order will not be processed when this flag is set to Yes.</value>
+        <value xml:lang="vi">Nếu đủ hàng trong kho, đặt hàng sẽ không được thực hiện khi cài đặt này được đánh dấu là YES</value>
     </property>
     <property key="FieldDescription.ProductStore.balanceResOnOrderCreation">
         <value xml:lang="en">If set to Y, when a new sales order is created with backordered items, then reservations on the facility/product are reassigned according to the priority given by the shipBeforeDate field.</value>
+        <value xml:lang="vi">Nếu cài đặt là Y, khi một đặt hàng mới được tạo ra với sản phẩm được đặt gia công, sau đó sự hạn chế đối với cơ sở/sản phẩm sẽ được tái chuyển giao tới đơn vị ủy quyền và cài đặt trường giao hàng trước ngày (shipBeforeDate).</value>
     </property>
     <property key="FieldDescription.ProductStore.requirementMethodEnumId">
         <value xml:lang="en">Refers to warehouse stocking level triggers.</value>
+        <value xml:lang="vi">Chuyển tới ấn định cấp độ bán hàng tại kho hàng</value>
     </property>
     <property key="FieldDescription.ProductStore.orderNumberPrefix">
         <value xml:lang="en">All orders will be prefixed by this. For example, if you wished accounting to be able to quickly differentiate orders between stores.</value>
+        <value xml:lang="vi">Tất cả các đặt hàng sẽ được đặt trước bởi cái này. Ví dụ, nếu bạn muốn kế toán thực hiện nhanh so với các đặt hàng khác của cửa hàng.</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultLocaleString">
         <value xml:lang="en">Default locale, for language, number, and currency formats.</value>
+        <value xml:lang="vi">Khu vực mặc định, cho ngôn ngữ, con số và loại tiền tệ.</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultCurrencyUomId">
         <value xml:lang="en">Which national currency will be used if none is specified. Use webtools to find codes for non-US locations.</value>
+        <value xml:lang="vi">Loại tiền tệ quốc gia sẽ được sử dụng nếu không có cài đặt khác. Sử dụng webtools để tìm mã cho các khu vực ngoài nước Mỹ</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultSalesChannelEnumId">
         <value xml:lang="en">Unless the sales channel has been specified in the transaction, it will be assumed that the sale came in through the selected path.</value>
+        <value xml:lang="vi">Trừ khi các kênh bán hàng đã được quy định trong giao dịch, nó sẽ được giả định rằng việc bán thông qua các con đường được lựa chọn.</value>
     </property>
     <property key="FieldDescription.ProductStore.allowPassword">
         <value xml:lang="en">If No, when a customer creates an account they will not be asked for a password and they have to wait for their account to be enabled and a password to be sent to them.</value>
+        <value xml:lang="vi">Nếu không, khi một khách hàng tạo ra một tài khoản, họ sẽ không được yêu cầu nhập mật khẩu và họ phải chờ cho tài khoản của họ được kích hoạt và mật khẩu được gửi cho họ.</value>
     </property>
     <property key="FieldDescription.ProductStore.defaultPassword">
         <value xml:lang="en">If you allow others access with a password, what is the default password that anyone could use if they knew it?</value>
+        <value xml:lang="vi">Nếu bạn cho phép người khác truy cập bằng mật khẩu, mật khẩu mặc định là những gì mà bất cứ ai cũng có thể sử dụng nếu họ biết điều đó?</value>
     </property>
     <property key="FieldDescription.ProductStore.explodeOrderItems">
         <value xml:lang="en">If set to Y then any shopping cart item with a quantity greater than one will be split into separate order items with a quantity of 1 each.</value>
+        <value xml:lang="vi">Nếu thiết lập Y thì mục bất kỳ giỏ mua hàng với số lượng lớn hơn sẽ được chia thành các mục đặt hàng riêng biệt với số lượng của mỗi 1 sản phẩm</value>
     </property>
     <property key="FieldDescription.ProductStore.checkGcBalance">
         <value xml:lang="en"></value>
     </property>
     <property key="FieldDescription.ProductStore.retryFailedAuths">
         <value xml:lang="en">How many times can an unsuccessful attempt to authorize an order be allowed?</value>
+        <value xml:lang="vi">Số lần thực hiện không thành công được phép cho việc đặt hàng?</value>
     </property>
     <property key="FieldDescription.ProductStore.headerApprovedStatus">
         <value xml:lang="en">This is the message you want your customers to see when their order is approved.</value>
+        <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng nhận được khi đặt hàng của họ được phê duyệt.</value>
     </property>
     <property key="FieldDescription.ProductStore.itemApprovedStatus">
         <value xml:lang="en">What to set order items status to when orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
+        <value xml:lang="vi">Để thiết lập trật tự các mục tình trạng khi đơn đặt hàng được phê duyệt , từ chối hoặc hủy bỏ. Dựa trên mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
     </property>
     <property key="FieldDescription.ProductStore.digitalItemApprovedStatus">
         <value xml:lang="en">What to set order items status to when Digital Item orders are approved, declined, or canceled. Based on the standard defined status codes in Open for Business.</value>
+        <value xml:lang="vi">Để thiết lập trật tự các mục tình trạng khi các đơn đặt hàng mục kỹ thuật số được phê duyệt , từ chối hoặc hủy bỏ. Dựa trên các mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
     </property>
     <property key="FieldDescription.ProductStore.headerDeclinedStatus">
         <value xml:lang="en">This is the message you want your customers to see when their order is declined. Based on the standard defined status codes in Open for Business.</value>
+        <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị từ chối. Dựa trên các mã trạng thái quy định tiêu chuẩn mở cho doanh nghiệp.</value>
     </property>
     <property key="FieldDescription.ProductStore.itemDeclinedStatus">
         <value xml:lang="en">This is the message you want the customer to see when one of their items is declined for some reason.</value>
+        <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị từ chối vì một số lý do nào đó</value>
     </property>
     <property key="FieldDescription.ProductStore.headerCancelStatus">
         <value xml:lang="en">This is the message that you want the client to see when their order is cancelled.</value>
+        <value xml:lang="vi">Tin nhắn mà bạn muốn khách hàng của bạn nhìn thấy khi đặt hàng của họ bị hủy bỏ</value>
     </property>
     <property key="FieldDescription.ProductStore.itemCancelStatus">
         <value xml:lang="en">The message shown when an item they ordered is cancelled.</value>
+        <value xml:lang="vi">Tin nhắn hiển thị khi một sản phẩm họ đặt hàng bị hủy bỏ</value>
     </property>
     <property key="FieldDescription.ProductStore.authDeclinedMessage">
         <value xml:lang="en">Message shown when payment authorization is declined.</value>
+        <value xml:lang="vi">Tin nhắn hiển thị sự cho phép thanh toán bị từ chối</value>
     </property>
     <property key="FieldDescription.ProductStore.authFraudMessage">
         <value xml:lang="en">Message sent when fraud is suspected.</value>
+        <value xml:lang="vi">Tin nhắn gửi khi nghi ngờ giả mạo</value>
     </property>
     <property key="FieldDescription.ProductStore.authErrorMessage">
         <value xml:lang="en">Message sent when a processing error is encountered.</value>
+        <value xml:lang="vi">Tin nhắn gửi khi gặp vấn đề một xử lý bị lỗi</value>
     </property>
     <property key="FieldDescription.ProductStore.visualThemeId">
         <value xml:lang="en">For controlling the look and feel and a web-based store.</value>
+        <value xml:lang="vi">Để kiểm soát cách nhìn và cảm quan và cửa hàng trực tuyến</value>
     </property>
     <property key="FieldDescription.ProductStore.storeCreditAccountEnumId">
         <value xml:lang="en">Specify the type (Billing Account or Financial Account) of Store Credit Account used for refund return.</value>
@@ -3201,6 +3526,7 @@
     </property>
     <property key="FieldDescription.ProductStore.reqShipAddrForDigItems">
         <value xml:lang="en">Require Shipping Address for Digital Items? Note this only has an effect if there are ONLY digital goods in the cart.</value>
+        <value xml:lang="vi">Yêu cầu địa chỉ giao hàng cho sản phẩm kỹ thuật số? Lưu ý rằng phần này chỉ áp dụng nếu chỉ có sản phẩm kỹ thuật số trong giỏ hàng.</value>
     </property>
     <property key="FieldDescription.ProductStore.showCheckoutGiftOptions">
         <value xml:lang="en">If set to N the options related to gifts (the 'is gift' and 'gift message' options) will not be shown during checkout.</value>
@@ -3208,72 +3534,94 @@
     </property>
     <property key="FieldDescription.ProductStore.selectPaymentTypePerItem">
         <value xml:lang="en">If Yes, allows customer to pay for some order items with one payment type, others with another type.</value>
+        <value xml:lang="vi">Nếu có, cho phép khách hàng trả tiền cho các sản phẩm đặt hàng với một kiểu thanh toán, loại khác với kiểu khác.</value>
     </property>
     <property key="FieldDescription.ProductStore.showPricesWithVatTax">
         <value xml:lang="en">Should the displayed prices include (Y) or not include (N) the VAT Tax amount?</value>
+        <value xml:lang="vi">Sẽ hiển thị giá bao gồm (Y) hoặc không bao gồm (N) giá trị tính thuế VAT?</value>
     </property>
     <property key="FieldDescription.ProductStore.showTaxIsExempt">
         <value xml:lang="en">Will it be appropriate to indicate when an item is exempt from tax?</value>
+        <value xml:lang="vi">Liệu nó có thích hợp để chỉ ra khi một mục được miễn thuế?</value>
     </property>
     <property key="FieldDescription.ProductStore.vatTaxAuthGeoId">
         <value xml:lang="en">What is the Geographical ID for the VAT taxing authority?</value>
+        <value xml:lang="vi">Mã địa lý với đối tượng đánh thuế VAT</value>
     </property>
     <property key="FieldDescription.ProductStore.vatTaxAuthPartyId">
         <value xml:lang="en">What is the Party ID of the Vat Taxing Authority?</value>
+        <value xml:lang="vi">Mã đối tượng với cơ quan đánh thuế VAT</value>
     </property>
     <property key="FieldDescription.ProductStore.enableAutoSuggestionList">
         <value xml:lang="en">The auto-suggestion list is a special ShoppingList that the addSuggestionsToShoppingList service will maintain for cross-sells of ordered items.</value>
+        <value xml:lang="vi">Danh sách tự động gợi ý là danh sách mua hàng đặt biệt mà dịch vụ addSuggestionsToShoppingList sẽ duy trì cho việc bán chéo các sản phẩm được đặt hàng</value>
     </property>
     <property key="FieldDescription.ProductStore.enableDigProdUpload">
         <value xml:lang="en">Unless this is set to Yes, the sale of Digital Products from your Store will not be permitted.</value>
+        <value xml:lang="vi">Trừ khi đặt là Yes, việc bán sản phẩm kỹ thuật số từ cửa hàng của bạn sẽ không được cho phép</value>
     </property>
     <property key="FieldDescription.ProductStore.prodSearchExcludeVariants">
         <value xml:lang="en">If set to Y an additional constraint will of isVariant!=Y will be added to all product searches for the store.</value>
+        <value xml:lang="vi">Nếu thiết lập là Y thêm một ràng buộc của isVariant = Y sẽ được thêm vào tất cả tìm kiếm sản phẩm cho cửa hàng.</value>
     </property>
     <property key="FieldDescription.ProductStore.digProdUploadCategoryId">
         <value xml:lang="en">Which Category of Digital Products may be uploaded?</value>
+        <value xml:lang="vi">Danh mục sản phẩm kỹ thuật số nào sẽ được đăng tải?</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryExp">
         <value xml:lang="en">For auto-orders try other Credit Card expiration dates (if date is wrong or general failure where type not known).</value>
+        <value xml:lang="vi">Dành cho việc đặt hàng tự động thử sử dụng Thẻ tín dụng đã hết hạn (nếu sai ngày hoặc các lỗi thực tế từ kiểu ngày).</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryOtherCards">
         <value xml:lang="en">For auto-orders try other Credit Cards for the customer.</value>
+        <value xml:lang="vi">Dành cho việc đặt hàng tự động thử sử dụng Thẻ tín dụng khác</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryLaterNsf">
         <value xml:lang="en">For auto-orders if Credit Cards fails for NSF (Not Sufficient Funds) try again later.</value>
+        <value xml:lang="vi">Dành cho việc tự động đặt hàng nếu Thẻ tín dụng bị lỗi cho phép NSF thực hiện lại sau.</value>
     </property>
     <property key="FieldDescription.ProductStore.autoOrderCcTryLaterMax">
         <value xml:lang="en">For auto-orders if Credit Cards fails for NSF try again how many times.</value>
+        <value xml:lang="vi">Dành cho việc tự động đặt hàng nếu Thẻ tín dụng bị lỗi cho phép NSF thực hiện lại bao nhiêu lần.</value>
     </property>
     <property key="FieldDescription.ProductStore.storeCreditValidDays">
         <value xml:lang="en">How many days that store credit is valid for. Null value implies no expiration.</value>
+        <value xml:lang="vi">Số ngày mà cửa hàng cho phép tín dụng có hiệu lực. Bỏ trống được hiểu là không có thời hạn</value>
     </property>
     <property key="FieldDescription.ProductStore.autoApproveInvoice">
         <value xml:lang="en">If Y or empty, sales invoices created from orders will be marked ready.</value>
+        <value xml:lang="vi">Nếu chọn Y hoặc bỏ trống, hóa đơn bán hàng sẽ được tạo từ phần đặt hàng sẽ đucợ đánh dấu sẵn sàng.</value>
     </property>
     <property key="FieldDescription.ProductStore.autoApproveOrder">
         <value xml:lang="en">If N, orders will not be automatically approved when payment is authorized.</value>
+        <value xml:lang="vi">Nếu chọn N, đặt hàng sẽ không được tự động chấp nhận khi thanh toán đã được ủy quyền.</value>
     </property>
     <property key="FieldDescription.ProductStore.shipIfCaptureFails">
         <value xml:lang="en">If N, the captureOrderPayments will cause a service error if credit card capture fails.</value>
+        <value xml:lang="vi">Nếu chọn N, phần ghi nhận thanh toán đặt hàng daptureOrderPayments sẽ ghi lại lỗi dịch vụ nếu như phát hiện việc thanh toán thẻ tín dụng bị lỗi</value>
     </property>
     <property key="FieldDescription.ProductStore.setOwnerUponIssuance">
         <value xml:lang="en">If Y or empty, set the inventory item owner upon issuance.</value>
+        <value xml:lang="vi">Nếu chọn Y hoặc bỏ trống, cài đặt hàng tồn kho của chủ sở hữu lên trên để xuất ra</value>
     </property>
     <property key="FieldDescription.ProductStore.reqReturnInventoryReceive">
         <value xml:lang="en">If set to Y return will automatically go to the Received status when Accepted instead of waiting for actual receipt of the return.</value>
+        <value xml:lang="vi">Nếu chọn Y, phần hàng trả lại sẽ tự động đặt tình trạng Mới nhận khi chấp nhận thay cho việc chờ đợi việc nhận lại hàng trả lại thực tế</value>
     </property>
     <property key="FieldDescription.ProductStore.addToCartRemoveIncompat">
         <value xml:lang="en">If Y then on add to cart remove all products in cart with a ProductAssoc record related to or from the product and with the PRODUCT_INCOMPATABLE type.</value>
+        <value xml:lang="vi">Nếu chọn Y, thêm vào giỏ hàng sẽ loại bỏ toàn bộ sản phẩm với bản ghi ProductAssoc liên hệ với hoặc từ sản phẩm và loại PRODUCT_INCOMPATABLE.</value>
     </property>
     <property key="FieldDescription.ProductStore.addToCartReplaceUpsell">
         <value xml:lang="en">If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</value>
+        <value xml:lang="vi">Nếu chọn Y, thêm vào giỏ hàng sẽ loại bỏ toàn bộ sản phẩm với bản ghi ProductAssoc liên hệ với sản phẩm từ và kiểu PRODUCT_UPGRADE.</value>
     </property>
     <property key="FieldDescription.ProductStore.splitPayPrefPerShpGrp">
         <value xml:lang="en">If Y then before the order is stored the OrderPaymentPreference record will be split, one for each OrderItemShipGroup.</value>
+        <value xml:lang="vi">Nếu chọn Y, trước khi đặt hàng thì bản ghi OrderPaymentPreference sẽ được phân chia, mỗi một cho OrderItemshipGroup.</value>
     </property>
     <property key="FieldDescription.ProductStore.showOutOfStockProducts">
         <value xml:lang="en">If N then out of stock products will not be displayed on site</value>
+        <value xml:lang="vi">Nếu chọn N, sản phẩm hết hàng sẽ không được hiển thị trên website</value>
     </property>
-
 </resource>

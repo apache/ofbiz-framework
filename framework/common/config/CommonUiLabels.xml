@@ -27,6 +27,7 @@
         <value xml:lang="it">AP</value>
         <value xml:lang="nl">Schulden</value>
         <value xml:lang="pt_BR">Contas a pagar</value>
+        <value xml:lang="vi">Phiếu chi</value>
         <value xml:lang="zh">应付账户</value>
         <value xml:lang="zh_TW">應付</value>
     </property>
@@ -39,6 +40,7 @@
         <value xml:lang="it">AR</value>
         <value xml:lang="nl">Vorderingen</value>
         <value xml:lang="pt_BR">Contas a receber</value>
+        <value xml:lang="vi">Phiếu thu</value>
         <value xml:lang="zh">应收账户</value>
         <value xml:lang="zh_TW">應收</value>
     </property>
@@ -55,6 +57,7 @@
         <value xml:lang="ro">Contabilitate</value>
         <value xml:lang="ru">Бухгалтерия</value>
         <value xml:lang="th">บัญชี</value>
+        <value xml:lang="vi">Kế toán</value>
         <value xml:lang="zh">财务</value>
         <value xml:lang="zh_CN">会计</value>
         <value xml:lang="zh_TW">財務</value>
@@ -69,6 +72,7 @@
         <value xml:lang="nl">Vermogensbeheer</value>
         <value xml:lang="pt_BR">Manutenção de Ativos</value>
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
+        <value xml:lang="vi">Quản lý tài sản</value>
         <value xml:lang="zh">资产维护</value>
         <value xml:lang="zh_TW">資產</value>
     </property>
@@ -82,6 +86,7 @@
         <value xml:lang="nl">Business intelligence</value>
         <value xml:lang="pt_BR">Business Intelligence</value>
         <value xml:lang="th">การเรียนรู้ทางธุรกิจ</value>
+        <value xml:lang="vi">Kinh doanh thông minh (BI)</value>
         <value xml:lang="zh">商业智能</value>
         <value xml:lang="zh_TW">商業智慧</value>
     </property>
@@ -110,6 +115,7 @@
         <value xml:lang="ro">Cataloage</value>
         <value xml:lang="ru">Каталог</value>
         <value xml:lang="th">หมวดหมู่</value>
+        <value xml:lang="vi">Chương mục</value>
         <value xml:lang="zh">目录</value>
         <value xml:lang="zh_CN">目录</value>
         <value xml:lang="zh_TW">目錄</value>
@@ -121,6 +127,7 @@
     <property key="CommonAbort">
         <value xml:lang="en">Abort</value>
         <value xml:lang="es">Cancelar</value>
+        <value xml:lang="vi">Hủy</value>
     </property>
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
@@ -136,6 +143,7 @@
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принято</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="vi">Chấp nhận</value>
         <value xml:lang="zh">已接受</value>
         <value xml:lang="zh_CN">接受</value>
         <value xml:lang="zh_TW">已接受</value>
@@ -154,6 +162,7 @@
         <value xml:lang="ro">Activ si Pasiv</value>
         <value xml:lang="ru">Активные и неактивные</value>
         <value xml:lang="th">ปฏิบัติงานอยู่ และ ไม่มีการใช้งาน</value>
+        <value xml:lang="vi">Kích hoạt và Vô hiệu</value>
         <value xml:lang="zh">有效的和无效的</value>
         <value xml:lang="zh_CN">不在用</value>
         <value xml:lang="zh_TW">有效的和無效的</value>
@@ -172,6 +181,7 @@
         <value xml:lang="ro">Numai Activ</value>
         <value xml:lang="ru">Только активные</value>
         <value xml:lang="th">ใช้งานเท่านั้น</value>
+        <value xml:lang="vi">Chỉ kích hoạt</value>
         <value xml:lang="zh">仅有效</value>
         <value xml:lang="zh_CN">在用</value>
         <value xml:lang="zh_TW">僅有效</value>
@@ -187,6 +197,7 @@
         <value xml:lang="pt_BR">Data de início real</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
+        <value xml:lang="vi">Ngày bắt đầu thực tế</value>
         <value xml:lang="zh">实际开始日期</value>
         <value xml:lang="zh_TW">實際開始日</value>
     </property>
@@ -204,6 +215,7 @@
         <value xml:lang="ro">Adauga</value>
         <value xml:lang="ru">Добавить</value>
         <value xml:lang="th">เพิ่ม</value>
+        <value xml:lang="vi">Thêm</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">添加</value>
         <value xml:lang="zh_TW">增加</value>
@@ -221,6 +233,7 @@
         <value xml:lang="ro">Adauga un</value>
         <value xml:lang="ru">Добавить </value>
         <value xml:lang="th">เพิ่ม</value>
+        <value xml:lang="vi">Thêm một</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">添加一个</value>
         <value xml:lang="zh_TW">新建</value>
@@ -231,6 +244,7 @@
         <value xml:lang="fr">Ajouter une nouvelle colonne à ce portail</value>
         <value xml:lang="it">Aggiunge una nuova colonna a questa pagina</value>
         <value xml:lang="pt_BR">Adicionar uma nova coluna neste portal</value>
+        <value xml:lang="vi">Thêm một cột cho cổng portal này</value>
     </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
@@ -240,6 +254,7 @@
         <value xml:lang="it">Aggiungi un portlet...</value>
         <value xml:lang="nl">Toevoegen portlet...</value>
         <value xml:lang="pt_BR">Adicionar um Portlet ...</value>
+        <value xml:lang="vi">Thêm một Portlet...</value>
         <value xml:lang="zh">添加一个Portlet...</value>
         <value xml:lang="zh_TW">添加一個Portlet...</value>
     </property>
@@ -251,6 +266,7 @@
         <value xml:lang="it">Aggiungi una colonna</value>
         <value xml:lang="nl">Toevoegen column...</value>
         <value xml:lang="pt_BR">Adicionar Coluna</value>
+        <value xml:lang="vi">Thêm cột</value>
         <value xml:lang="zh">添加列</value>
         <value xml:lang="zh_TW">增加欄位</value>
     </property>
@@ -270,6 +286,7 @@
         <value xml:lang="ro">Adauga Default</value>
         <value xml:lang="ru">Добавить по умолчанию</value>
         <value xml:lang="th">เพิ่มค่าเริ่มต้น</value>
+        <value xml:lang="vi">Thêm mặc định</value>
         <value xml:lang="zh">新建缺省</value>
         <value xml:lang="zh_CN">添加默认</value>
         <value xml:lang="zh_TW">增加預設</value>
@@ -287,6 +304,7 @@
         <value xml:lang="ro">Adauga Cod</value>
         <value xml:lang="ru">Добавить ID</value>
         <value xml:lang="th">เพิ่มรหัส</value>
+        <value xml:lang="vi">Thêm mã</value>
         <value xml:lang="zh">新建ID</value>
         <value xml:lang="zh_CN">添加标识</value>
         <value xml:lang="zh_TW">新增ID</value>
@@ -305,6 +323,7 @@
         <value xml:lang="ro">Adauga Nou</value>
         <value xml:lang="ru">Добавить новый</value>
         <value xml:lang="th">เพิ่มใหม่</value>
+        <value xml:lang="vi">Thêm mới</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">添加新的</value>
         <value xml:lang="zh_TW">增加新的</value>
@@ -315,6 +334,7 @@
         <value xml:lang="fr">Ajouter une portlet à la page</value>
         <value xml:lang="it">Aggiunge un portlet in questa colonna</value>
         <value xml:lang="pt_BR">Adicionar um portlet à página do portal</value>
+        <value xml:lang="vi">Thêm một portlet vào trang portal</value>
     </property>
     <property key="CommonAddProblem">
         <value xml:lang="ar">مشكل أثناء الإضافة</value>
@@ -330,6 +350,7 @@
         <value xml:lang="ro">Adauga Problema</value>
         <value xml:lang="ru">Добавить задачу</value>
         <value xml:lang="th">เพิ่มปัญหา</value>
+        <value xml:lang="vi">Thêm vấn đề</value>
         <value xml:lang="zh">新建问题</value>
         <value xml:lang="zh_CN">添加问题</value>
         <value xml:lang="zh_TW">增加問題</value>
@@ -347,6 +368,7 @@
         <value xml:lang="ro">Adresa 1</value>
         <value xml:lang="ru">Адрес 1</value>
         <value xml:lang="th">ที่อยู่ที่ 1</value>
+        <value xml:lang="vi">Địa chỉ</value>
         <value xml:lang="zh">地址一</value>
         <value xml:lang="zh_CN">地址 1</value>
         <value xml:lang="zh_TW">地址 1</value>
@@ -364,6 +386,7 @@
         <value xml:lang="ro">Adresa 2</value>
         <value xml:lang="ru">Адрес 2</value>
         <value xml:lang="th">ที่อยู่ที่ 2</value>
+        <value xml:lang="vi">Địa chỉ mở rộng</value>
         <value xml:lang="zh">地址二</value>
         <value xml:lang="zh_CN">地址 2</value>
         <value xml:lang="zh_TW">地址 2</value>
@@ -381,6 +404,7 @@
         <value xml:lang="ro">Linie Adresa</value>
         <value xml:lang="ru">Строка адреса</value>
         <value xml:lang="th">ที่อยู่</value>
+        <value xml:lang="vi">Dòng địa chỉ</value>
         <value xml:lang="zh">地址线</value>
         <value xml:lang="zh_CN">地址栏</value>
         <value xml:lang="zh_TW">地址線</value>
@@ -389,6 +413,7 @@
         <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
         <value xml:lang="en">Address not found.</value>
         <value xml:lang="es">Dirección no encontrada.</value>
+        <value xml:lang="vi">Không tìm thấy địa chỉ</value>
     </property>
     <property key="CommonAddresses">
         <value xml:lang="ar">عناوين</value>
@@ -403,6 +428,7 @@
         <value xml:lang="ro">Adrese</value>
         <value xml:lang="ru">Адреса</value>
         <value xml:lang="th">ที่อยู่</value>
+        <value xml:lang="vi">Địa chỉ hóa</value>
         <value xml:lang="zh">地址</value>
         <value xml:lang="zh_CN">地址</value>
         <value xml:lang="zh_TW">地址</value>
@@ -414,6 +440,7 @@
         <value xml:lang="hi_IN">उन्नत सुविधाएँ</value>
         <value xml:lang="it">Caratteristiche avanzate</value>
         <value xml:lang="pt_BR">Recursos avançados</value>
+        <value xml:lang="vi">Tính năng chuyên sâu</value>
         <value xml:lang="zh">高级特征</value>
         <value xml:lang="zh_TW">進階特性</value>
     </property>
@@ -429,6 +456,7 @@
         <value xml:lang="ro">Cautare Avansata</value>
         <value xml:lang="ru">Расширенный поиск</value>
         <value xml:lang="th">ค้นหาเพิ่มเติม</value>
+        <value xml:lang="vi">Tìm kiếm chuyên sâu</value>
         <value xml:lang="zh">高级搜索</value>
         <value xml:lang="zh_TW">進階搜索</value>
     </property>
@@ -447,6 +475,7 @@
         <value xml:lang="ro">Toate</value>
         <value xml:lang="ru">Все</value>
         <value xml:lang="th">ทั้งหมด</value>
+        <value xml:lang="vi">Tất cả</value>
         <value xml:lang="zh">全部</value>
         <value xml:lang="zh_CN">所有</value>
         <value xml:lang="zh_TW">全部</value>
@@ -465,6 +494,7 @@
         <value xml:lang="ro">Toate Zilele</value>
         <value xml:lang="ru">Весь день</value>
         <value xml:lang="th">วันทั้งหมด</value>
+        <value xml:lang="vi">Toàn bộ ngày</value>
         <value xml:lang="zh">全部日期</value>
         <value xml:lang="zh_CN">所有日期</value>
         <value xml:lang="zh_TW">全部日期</value>
@@ -482,6 +512,7 @@
         <value xml:lang="ro">Toate modalitatile</value>
         <value xml:lang="ru">Все методы</value>
         <value xml:lang="th">วิธีทั้งหมด</value>
+        <value xml:lang="vi">Toàn bộ phương thức</value>
         <value xml:lang="zh">全部方法</value>
         <value xml:lang="zh_CN">所有方法</value>
         <value xml:lang="zh_TW">全部方法</value>
@@ -500,6 +531,7 @@
         <value xml:lang="ro">Toate Saptamanile</value>
         <value xml:lang="ru">Вся неделя</value>
         <value xml:lang="th">สัปดาห์ทั้งหมด</value>
+        <value xml:lang="vi">Toàn bộ tuần</value>
         <value xml:lang="zh">全部周</value>
         <value xml:lang="zh_CN">所有星期</value>
         <value xml:lang="zh_TW">全部星期</value>
@@ -514,6 +546,7 @@
         <value xml:lang="pt">Incluir Sempre</value>
         <value xml:lang="pt_BR">Sempre incluir</value>
         <value xml:lang="th">รวมกันตลอดเวลา</value>
+        <value xml:lang="vi">Luôn kèm theo</value>
         <value xml:lang="zh">总是包含</value>
         <value xml:lang="zh_TW">總是包含</value>
     </property>
@@ -532,6 +565,7 @@
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Doanh số</value>
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh_CN">数量</value>
         <value xml:lang="zh_TW">金額</value>
@@ -550,6 +584,7 @@
         <value xml:lang="ro">si</value>
         <value xml:lang="ru">и</value>
         <value xml:lang="th">และ</value>
+        <value xml:lang="vi">Và</value>
         <value xml:lang="zh">且</value>
         <value xml:lang="zh_CN">和</value>
         <value xml:lang="zh_TW">且</value>
@@ -568,6 +603,7 @@
         <value xml:lang="ro">Orice</value>
         <value xml:lang="ru">Любой</value>
         <value xml:lang="th">ทุก ๆ อัน</value>
+        <value xml:lang="vi">Bất kỳ</value>
         <value xml:lang="zh">任何</value>
         <value xml:lang="zh_CN">任何</value>
         <value xml:lang="zh_TW">任何</value>
@@ -586,6 +622,7 @@
         <value xml:lang="ro">Orice Stadiu Returnare</value>
         <value xml:lang="ru">Любой статус возврата</value>
         <value xml:lang="th">ทุก ๆ การคืนสถานะ</value>
+        <value xml:lang="vi">Tình trạng phản hồi bất kỳ</value>
         <value xml:lang="zh">任何退货类型</value>
         <value xml:lang="zh_CN">任意退货状态</value>
         <value xml:lang="zh_TW">任何退貨狀態</value>
@@ -604,6 +641,7 @@
         <value xml:lang="ro">Orice Tip Rol</value>
         <value xml:lang="ru">Любой тип роли</value>
         <value xml:lang="th">ทุก ๆ ประเภทสถานะ</value>
+        <value xml:lang="vi">Kiểu vai trò bất kỳ</value>
         <value xml:lang="zh">任何角色类型</value>
         <value xml:lang="zh_CN">任意角色类型</value>
         <value xml:lang="zh_TW">任何角色類型</value>
@@ -620,6 +658,7 @@
         <value xml:lang="ro">Orice Canal</value>
         <value xml:lang="ru">Любой канал</value>
         <value xml:lang="th">ทุก ๆ ช่องทาง</value>
+        <value xml:lang="vi">Kênh bất kỳ</value>
         <value xml:lang="zh">任何渠道</value>
         <value xml:lang="zh_CN">任意渠道</value>
         <value xml:lang="zh_TW">任意通路</value>
@@ -632,6 +671,7 @@
         <value xml:lang="hi_IN">कोई राज्य/प्रांत</value>
         <value xml:lang="it">Qualsiasi stato/provincia</value>
         <value xml:lang="pt_BR">Qualquer Estado/Província</value>
+        <value xml:lang="vi">Địa phương/Tỉnh thành bất kỳ</value>
         <value xml:lang="zh">任何省/直辖市</value>
         <value xml:lang="zh_TW">任何省/直轄市</value>
     </property>
@@ -648,6 +688,7 @@
         <value xml:lang="ro">Orice Magazin</value>
         <value xml:lang="ru">Любое хранилище</value>
         <value xml:lang="th">ทุก ๆ คลังสินค้า</value>
+        <value xml:lang="vi">Cửa hàng bất kỳ</value>
         <value xml:lang="zh">任何店铺</value>
         <value xml:lang="zh_CN">任意商店</value>
         <value xml:lang="zh_TW">任何商店</value>
@@ -666,6 +707,7 @@
         <value xml:lang="ro">Orice Sit Web</value>
         <value xml:lang="ru">Любой Web-сайт</value>
         <value xml:lang="th">ทุก ๆ เว็บไซต์</value>
+        <value xml:lang="vi">Website bất kỳ</value>
         <value xml:lang="zh">任何网站</value>
         <value xml:lang="zh_CN">任意网站</value>
         <value xml:lang="zh_TW">任何網站</value>
@@ -681,6 +723,7 @@
         <value xml:lang="pt">Aplicações</value>
         <value xml:lang="pt_BR">Aplicativos</value>
         <value xml:lang="ru">Применения</value>
+        <value xml:lang="vi">Ứng dụng</value>
         <value xml:lang="zh">应用</value>
         <value xml:lang="zh_CN">應用</value>
         <value xml:lang="zh_TW">應用</value>
@@ -698,6 +741,7 @@
         <value xml:lang="ro">Aplica</value>
         <value xml:lang="ru">Применить</value>
         <value xml:lang="th">ประยุกต์ใช้</value>
+        <value xml:lang="vi">Áp dụng</value>
         <value xml:lang="zh">应用</value>
         <value xml:lang="zh_CN">应用</value>
         <value xml:lang="zh_TW">應用</value>
@@ -715,6 +759,7 @@
         <value xml:lang="ro">Aprobat</value>
         <value xml:lang="ru">Утвержденные</value>
         <value xml:lang="th">อนุมัติ</value>
+        <value xml:lang="vi">Đã phê duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_CN">已批准</value>
         <value xml:lang="zh_TW">已批准</value>
@@ -732,6 +777,7 @@
         <value xml:lang="ro">Aprilie</value>
         <value xml:lang="ru">Апрель</value>
         <value xml:lang="th">เมษายน</value>
+        <value xml:lang="vi">Tháng 4</value>
         <value xml:lang="zh">四月</value>
         <value xml:lang="zh_CN">四月</value>
         <value xml:lang="zh_TW">四月</value>
@@ -749,6 +795,7 @@
         <value xml:lang="ro">Domeniu</value>
         <value xml:lang="ru">Местность/Город</value>
         <value xml:lang="th">พื้นที่</value>
+        <value xml:lang="vi">Khu vực</value>
         <value xml:lang="zh">地区</value>
         <value xml:lang="zh_CN">区域</value>
         <value xml:lang="zh_TW">地區</value>
@@ -766,6 +813,7 @@
         <value xml:lang="ro">Cod Domeniu</value>
         <value xml:lang="ru">Тлф код города</value>
         <value xml:lang="th">รหัสพื้นที่</value>
+        <value xml:lang="vi">Mã khu vực</value>
         <value xml:lang="zh">地区编码</value>
         <value xml:lang="zh_CN">区域代码</value>
         <value xml:lang="zh_TW">地區編碼</value>
@@ -783,6 +831,7 @@
         <value xml:lang="pt_BR">Associado</value>
         <value xml:lang="ro">Asociere</value>
         <value xml:lang="th">รวมกลุ่ม</value>
+        <value xml:lang="vi">Liên quan</value>
         <value xml:lang="zh">联系</value>
         <value xml:lang="zh_CN">关联</value>
         <value xml:lang="zh_TW">關連</value>
@@ -800,6 +849,7 @@
         <value xml:lang="ro">Asociatii</value>
         <value xml:lang="ru">Ассоциации</value>
         <value xml:lang="th">รวมกลุ่ม</value>
+        <value xml:lang="vi">Hiệp hội</value>
         <value xml:lang="zh">联系</value>
         <value xml:lang="zh_CN">关联</value>
         <value xml:lang="zh_TW">關連</value>
@@ -817,6 +867,7 @@
         <value xml:lang="ro">La</value>
         <value xml:lang="ru">в </value>
         <value xml:lang="th">ที่</value>
+        <value xml:lang="vi">Cùng</value>
         <value xml:lang="zh">时间</value>
         <value xml:lang="zh_CN">在</value>
         <value xml:lang="zh_TW">時間</value>
@@ -835,6 +886,7 @@
         <value xml:lang="ro">Atentie De</value>
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อการพิจารณา</value>
+        <value xml:lang="vi">Tên lưu ý</value>
         <value xml:lang="zh">收件人名称</value>
         <value xml:lang="zh_CN">关注名称</value>
         <value xml:lang="zh_TW">收件人名稱</value>
@@ -853,6 +905,7 @@
         <value xml:lang="ro">Att.</value>
         <value xml:lang="ru">Вниманию: </value>
         <value xml:lang="th">การพิจารณา</value>
+        <value xml:lang="vi">Lưu ý</value>
         <value xml:lang="zh">至</value>
         <value xml:lang="zh_CN">注</value>
         <value xml:lang="zh_TW">至</value>
@@ -870,6 +923,7 @@
         <value xml:lang="ro">August</value>
         <value xml:lang="ru">Август</value>
         <value xml:lang="th">สิงหาคม</value>
+        <value xml:lang="vi">Tháng 8</value>
         <value xml:lang="zh">八月</value>
         <value xml:lang="zh_CN">八月</value>
         <value xml:lang="zh_TW">八月</value>
@@ -881,6 +935,7 @@
     <property key="CommonAuthorise">
         <value xml:lang="en">Authorise</value>
         <value xml:lang="es">Autorizar</value>
+        <value xml:lang="vi">Cấp phép</value>
     </property>
     <property key="CommonAutoAssignedId">
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
@@ -906,6 +961,7 @@
         <value xml:lang="ro">Disponibil</value>
         <value xml:lang="ru">Доступно</value>
         <value xml:lang="th">ใช้ประโยชน์ได้</value>
+        <value xml:lang="vi">Có sẵn</value>
         <value xml:lang="zh">可用</value>
         <value xml:lang="zh_CN">可用的</value>
         <value xml:lang="zh_TW">可用</value>
@@ -915,6 +971,7 @@
         <value xml:lang="es">Portlets disponibles</value>
         <value xml:lang="it">Portlet disponibili</value>
         <value xml:lang="pt_BR">Portlets Disponíveis</value>
+        <value xml:lang="vi">Các porlet sẵn có</value>
     </property>
     <property key="CommonAverage">
         <value xml:lang="ar">متوسط</value>
@@ -949,6 +1006,7 @@
         <value xml:lang="ro">Inapoi</value>
         <value xml:lang="ru">Назад</value>
         <value xml:lang="th">กลับ</value>
+        <value xml:lang="vi">Quay lại</value>
         <value xml:lang="zh">后退</value>
         <value xml:lang="zh_CN">返回</value>
         <value xml:lang="zh_TW">後退</value>
@@ -967,6 +1025,7 @@
         <value xml:lang="ro">Inapoi La</value>
         <value xml:lang="ru">Назад</value>
         <value xml:lang="th">กลับไปยัง</value>
+        <value xml:lang="vi">Quay lại tới</value>
         <value xml:lang="zh">后退到</value>
         <value xml:lang="zh_CN">返回至</value>
         <value xml:lang="zh_TW">後退到</value>
@@ -985,6 +1044,7 @@
         <value xml:lang="ro">Inapoi La Lista</value>
         <value xml:lang="ru">Назад к списку</value>
         <value xml:lang="th">กลับไปยังรายการ</value>
+        <value xml:lang="vi">Quay lại danh sách</value>
         <value xml:lang="zh">后退到列表</value>
         <value xml:lang="zh_CN">返回列表</value>
         <value xml:lang="zh_TW">後退到列表</value>
@@ -1004,6 +1064,7 @@
         <value xml:lang="ro">Inapoi La Optiuni</value>
         <value xml:lang="ru">Назад к опциям</value>
         <value xml:lang="th">กลับไปยังตัวเลือก</value>
+        <value xml:lang="vi">Quay lại lựa chọn</value>
         <value xml:lang="zh">后退到选项</value>
         <value xml:lang="zh_CN">返回至选项</value>
         <value xml:lang="zh_TW">後退到選項</value>
@@ -1022,6 +1083,7 @@
         <value xml:lang="ro">Nr.Cont</value>
         <value xml:lang="ru">НмрСчета</value>
         <value xml:lang="th">หมายเลขบัญชี</value>
+        <value xml:lang="vi">Số tài khoản</value>
         <value xml:lang="zh">账户编号</value>
         <value xml:lang="zh_TW">賬戶編號</value>
     </property>
@@ -1040,6 +1102,7 @@
         <value xml:lang="ro">Login</value>
         <value xml:lang="ru">Вход</value>
         <value xml:lang="th">เข้าสู่ระบบ</value>
+        <value xml:lang="vi">Đăng nhập</value>
         <value xml:lang="zh">登录</value>
         <value xml:lang="zh_CN">登录</value>
         <value xml:lang="zh_TW">登入</value>
@@ -1058,6 +1121,7 @@
         <value xml:lang="ro">Beneficiu</value>
         <value xml:lang="ru">Выгода</value>
         <value xml:lang="th">ผลประโยชน์</value>
+        <value xml:lang="vi">Lợi nhuận</value>
         <value xml:lang="zh">回报</value>
         <value xml:lang="zh_CN">让利</value>
         <value xml:lang="zh_TW">回報</value>
@@ -1075,6 +1139,7 @@
         <value xml:lang="ro">dar</value>
         <value xml:lang="ru">но</value>
         <value xml:lang="th">แต่</value>
+        <value xml:lang="vi">nhưng</value>
         <value xml:lang="zh">而非</value>
         <value xml:lang="zh_CN">但是</value>
         <value xml:lang="zh_TW">而非</value>
@@ -1092,6 +1157,7 @@
         <value xml:lang="pt">Por</value>
         <value xml:lang="ro">De la </value>
         <value xml:lang="th">โดย</value>
+        <value xml:lang="vi">Bởi</value>
         <value xml:lang="zh">作者</value>
         <value xml:lang="zh_CN">被</value>
         <value xml:lang="zh_TW">作者</value>
@@ -1130,6 +1196,7 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
+        <value xml:lang="vi">Thôi</value>
         <value xml:lang="zh">取消</value>
         <value xml:lang="zh_CN">取消</value>
         <value xml:lang="zh_TW">取消</value>
@@ -1148,6 +1215,7 @@
         <value xml:lang="ro">Sterge Tot</value>
         <value xml:lang="ru">Отменить все</value>
         <value xml:lang="th">ยกเลิกทั้งหมด</value>
+        <value xml:lang="vi">Thôi toàn bộ</value>
         <value xml:lang="zh">取消全部</value>
         <value xml:lang="zh_CN">取消所有</value>
         <value xml:lang="zh_TW">取消全部</value>
@@ -1166,6 +1234,7 @@
         <value xml:lang="ro">Sterge/Executa</value>
         <value xml:lang="ru">Отменить/Выполнить</value>
         <value xml:lang="th">ยกเลิกเรียบร้อยแล้ว</value>
+        <value xml:lang="vi">Thôi/Hoàn tất</value>
         <value xml:lang="zh">取消/完成</value>
         <value xml:lang="zh_CN">取消/完成</value>
         <value xml:lang="zh_TW">取消/完成</value>
@@ -1184,6 +1253,7 @@
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отмененные</value>
         <value xml:lang="th">ยกเลิก</value>
+        <value xml:lang="vi">Đã thôi</value>
         <value xml:lang="zh">已取消</value>
         <value xml:lang="zh_CN">已取消</value>
         <value xml:lang="zh_TW">已取消</value>
@@ -1196,6 +1266,7 @@
         <value xml:lang="hi_IN">नहीं मिला</value>
         <value xml:lang="it">Non è stato possibile trovarlo</value>
         <value xml:lang="pt_BR">Não pôde ser encontrado</value>
+        <value xml:lang="vi">Không thể tìm thấy</value>
         <value xml:lang="zh">无法找到</value>
         <value xml:lang="zh_TW">無法找到</value>
     </property>
@@ -1203,6 +1274,7 @@
         <value xml:lang="en">Captcha Code</value>
         <value xml:lang="es">Código captcha</value>
         <value xml:lang="pt_BR">Código Captcha</value>
+        <value xml:lang="vi">Mã captcha</value>
     </property>
     <property key="CommonChange">
         <value xml:lang="ar">تغيير</value>
@@ -1217,6 +1289,7 @@
         <value xml:lang="ro">Schimbare</value>
         <value xml:lang="ru">Изменить</value>
         <value xml:lang="th">เปลี่ยนแปลง</value>
+        <value xml:lang="vi">Thay đổi</value>
         <value xml:lang="zh">修改</value>
         <value xml:lang="zh_CN">改变</value>
         <value xml:lang="zh_TW">修改</value>
@@ -1226,6 +1299,7 @@
         <value xml:lang="en">charactors left.</value>
         <value xml:lang="es">caracteres restantes.</value>
         <value xml:lang="pt_BR">Caracteres sobrando.</value>
+        <value xml:lang="vi">ký tự bên trái.</value>
     </property>
     <property key="CommonChart">
         <value xml:lang="ar">رسوم بيانية</value>
@@ -1240,6 +1314,7 @@
         <value xml:lang="ro">Grafice</value>
         <value xml:lang="ru">Диаграммы</value>
         <value xml:lang="th">แผนภูมิ</value>
+        <value xml:lang="vi">Đồ thị</value>
         <value xml:lang="zh">图表</value>
         <value xml:lang="zh_CN">图表</value>
         <value xml:lang="zh_TW">圖表</value>
@@ -1257,6 +1332,7 @@
         <value xml:lang="ro">Controlat</value>
         <value xml:lang="ru">Проверено</value>
         <value xml:lang="th">ตรวจสอบ</value>
+        <value xml:lang="vi">Đã đánh dấu</value>
         <value xml:lang="zh">已检查</value>
         <value xml:lang="zh_CN">选中的</value>
         <value xml:lang="zh_TW">已檢查</value>
@@ -1277,6 +1353,7 @@
         <value xml:lang="ro">Controleaza</value>
         <value xml:lang="ru">Проверка</value>
         <value xml:lang="th">กำลังตรวจสอบ</value>
+        <value xml:lang="vi">Đánh dấu</value>
         <value xml:lang="zh">正在检查</value>
         <value xml:lang="zh_CN">检查中</value>
         <value xml:lang="zh_TW">正在檢查</value>
@@ -1297,6 +1374,7 @@
         <value xml:lang="ro">Checkout fara Login</value>
         <value xml:lang="ru">Анонимная проверка (без логина)</value>
         <value xml:lang="th">การแจ้งออกโดยปราศจากการลอกอินเข้าสู่ระบบ</value>
+        <value xml:lang="vi">Đăng nhập để thanh toán</value>
         <value xml:lang="zh">直接结账而不登录</value>
         <value xml:lang="zh_CN">匿名结帐</value>
         <value xml:lang="zh_TW">直接結帳不登入</value>
@@ -1317,6 +1395,7 @@
         <value xml:lang="ro">Tu poti sa faci checkout fara sa creezi un utilizator</value>
         <value xml:lang="ru">Вы можете выполнить проверку без создания учетной записи</value>
         <value xml:lang="th">คุณอาจจะแจ้งออกโดยปราศจากการสร้างบัญชี</value>
+        <value xml:lang="vi">Bạn có thể thanh toán mà không cần phải đăng ký tài khoản</value>
         <value xml:lang="zh">你可以直接结账而不需要创建一个账户</value>
         <value xml:lang="zh_CN">你可以不用建立帐户就结帐</value>
         <value xml:lang="zh_TW">你可以直接結賬而不需要創建一個賬戶</value>
@@ -1337,6 +1416,7 @@
         <value xml:lang="ro">Alege Limba</value>
         <value xml:lang="ru">Выбрать язык</value>
         <value xml:lang="th">เลือกภาษา</value>
+        <value xml:lang="vi">Chọn ngôn ngữ</value>
         <value xml:lang="zh">选择语言</value>
         <value xml:lang="zh_CN">选择语言</value>
         <value xml:lang="zh_TW">選擇語言</value>
@@ -1354,6 +1434,7 @@
         <value xml:lang="ro">Oras</value>
         <value xml:lang="ru">Город</value>
         <value xml:lang="th">เมือง</value>
+        <value xml:lang="vi">Thành phố</value>
         <value xml:lang="zh">城市</value>
         <value xml:lang="zh_CN">城市</value>
         <value xml:lang="zh_TW">城市</value>
@@ -1372,6 +1453,7 @@
         <value xml:lang="ro">Azereaza</value>
         <value xml:lang="ru">Очистить</value>
         <value xml:lang="th">เคลียร์</value>
+        <value xml:lang="vi">Xóa trắng</value>
         <value xml:lang="zh">清除</value>
         <value xml:lang="zh_CN">清除</value>
         <value xml:lang="zh_TW">清除</value>
@@ -1386,6 +1468,7 @@
         <value xml:lang="pt">Limpar Tudo</value>
         <value xml:lang="ru">Отчистить все</value>
         <value xml:lang="th">เคลียร์ทั้งหมด</value>
+        <value xml:lang="vi">Xóa trắng toàn bộ</value>
         <value xml:lang="zh">全部清除</value>
         <value xml:lang="zh_TW">全部清除</value>
     </property>
@@ -1398,6 +1481,7 @@
         <value xml:lang="it">Pulisci attuale</value>
         <value xml:lang="pt_BR">Limpar atual</value>
         <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
+        <value xml:lang="vi">Xóa trắng trường hiện tại</value>
         <value xml:lang="zh">清除当前的</value>
         <value xml:lang="zh_TW">清除當前的</value>
     </property>
@@ -1416,6 +1500,7 @@
         <value xml:lang="ro">Clickeaza Aici</value>
         <value xml:lang="ru">Щелкните мышью здесь</value>
         <value xml:lang="th">คลิกที่นี่</value>
+        <value xml:lang="vi">Bấm vào đây</value>
         <value xml:lang="zh">点击这里</value>
         <value xml:lang="zh_CN">点击这里</value>
         <value xml:lang="zh_TW">點擊這里</value>
@@ -1428,6 +1513,7 @@
         <value xml:lang="hi_IN">फील्ड लुकअप के लिए यहाँ क्लिक करें</value>
         <value xml:lang="it">Clicca qui per la ricerca sul campo</value>
         <value xml:lang="pt_BR">Clique aqui para pesquisa por campo</value>
+        <value xml:lang="vi">Bấm vào đây cho trường tìm kiếm</value>
         <value xml:lang="zh">点击这里查找数据项</value>
         <value xml:lang="zh_TW">點擊這里查找資料項</value>
     </property>
@@ -1444,6 +1530,7 @@
         <value xml:lang="ro">Inchide</value>
         <value xml:lang="ru">Закрыть</value>
         <value xml:lang="th">ปิด</value>
+        <value xml:lang="vi">Đóng</value>
         <value xml:lang="zh">关闭</value>
         <value xml:lang="zh_CN">关闭</value>
         <value xml:lang="zh_TW">關閉</value>
@@ -1461,6 +1548,7 @@
         <value xml:lang="ro">-</value>
         <value xml:lang="ru">-</value>
         <value xml:lang="th">-</value>
+        <value xml:lang="vi">-</value>
         <value xml:lang="zh">-</value>
         <value xml:lang="zh_CN">关</value>
         <value xml:lang="zh_TW">-</value>
@@ -1474,6 +1562,7 @@
         <value xml:lang="it">Collassato</value>
         <value xml:lang="pt_BR">Recolher</value>
         <value xml:lang="th">ล้มเหลว</value>
+        <value xml:lang="vi">Mở rộng</value>
         <value xml:lang="zh">合拢</value>
         <value xml:lang="zh_TW">合攏</value>
     </property>
@@ -1487,6 +1576,7 @@
         <value xml:lang="nl">Verberg velden</value>
         <value xml:lang="pt_BR">Recolher tudo</value>
         <value xml:lang="th">ล้มเหลว</value>
+        <value xml:lang="vi">Mở rộng toàn bộ</value>
         <value xml:lang="zh">全部合拢</value>
         <value xml:lang="zh_TW">全部合攏</value>
     </property>
@@ -1504,6 +1594,7 @@
         <value xml:lang="ro">Soseste!</value>
         <value xml:lang="ru">Скоро ожидается!</value>
         <value xml:lang="th">เร็ว ๆ นี้ !</value>
+        <value xml:lang="vi">Sắp xuất hiện!</value>
         <value xml:lang="zh">即将推出！</value>
         <value xml:lang="zh_CN">即将推出!</value>
         <value xml:lang="zh_TW">即將推出！</value>
@@ -1522,6 +1613,7 @@
         <value xml:lang="ro">Comentariu</value>
         <value xml:lang="ru">Комментарий</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="vi">Bình luận</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_CN">评论</value>
         <value xml:lang="zh_TW">評論</value>
@@ -1540,6 +1632,7 @@
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="vi">Bình luận</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_CN">评论</value>
         <value xml:lang="zh_TW">評論</value>
@@ -1558,6 +1651,7 @@
         <value xml:lang="ro">Completat</value>
         <value xml:lang="ru">Завершенные</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
+        <value xml:lang="vi">Hoàn thành</value>
         <value xml:lang="zh">已完成</value>
         <value xml:lang="zh_CN">已完成</value>
         <value xml:lang="zh_TW">已完成</value>
@@ -1575,6 +1669,7 @@
         <value xml:lang="ro">Configuratie</value>
         <value xml:lang="ru">Конфигурация</value>
         <value xml:lang="th">โครงร่างภายนอก</value>
+        <value xml:lang="vi">Cấu hình</value>
         <value xml:lang="zh">配置</value>
         <value xml:lang="zh_CN">配置</value>
         <value xml:lang="zh_TW">配置</value>
@@ -1587,6 +1682,7 @@
         <value xml:lang="hi_IN">कॉन्फ़िगर:</value>
         <value xml:lang="it">Configura:</value>
         <value xml:lang="pt_BR">Configurar:</value>
+        <value xml:lang="vi">Cấu hình:</value>
         <value xml:lang="zh">配置：</value>
         <value xml:lang="zh_TW">配置：</value>
     </property>
@@ -1596,6 +1692,7 @@
         <value xml:lang="fr">Vous confirmez ?</value>
         <value xml:lang="it">Confermi ?</value>
         <value xml:lang="pt_BR">Você confirma?</value>
+        <value xml:lang="vi">Bạn có xác nhận không?</value>
     </property>
     <property key="CommonConfirmAdd">
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
@@ -1610,6 +1707,7 @@
         <value xml:lang="ro">Confirma</value>
         <value xml:lang="ru">ÐŸÐ¾Ð´Ñ‚Ð²ÐµÑ€Ð´Ð¸Ñ‚ÑŒ</value>
         <value xml:lang="th">à¸¢à¸·à¸™à¸¢à¸±à¸™</value>
+        <value xml:lang="vi">Bạn có xác nhận phần lựa chọn thêm không?</value>
         <value xml:lang="zh">ç¡®è®¤</value>
         <value xml:lang="zh_TW">ç¡®è®¤</value>
     </property>
@@ -1661,6 +1759,7 @@
         <value xml:lang="ro">Functie Contact</value>
         <value xml:lang="ru">Цель контакта</value>
         <value xml:lang="th">ติดต่อเป้าหมาย</value>
+        <value xml:lang="vi">Mục đích liên hệ</value>
         <value xml:lang="zh">联系目的</value>
         <value xml:lang="zh_CN">联系目的</value>
         <value xml:lang="zh_TW">連絡目的</value>
@@ -1679,6 +1778,7 @@
         <value xml:lang="ro">Contacteazane</value>
         <value xml:lang="ru">Написать нам</value>
         <value xml:lang="th">ติดต่อเรา</value>
+        <value xml:lang="vi">Liên hệ chúng tôi</value>
         <value xml:lang="zh">联系我们</value>
         <value xml:lang="zh_CN">联系我们</value>
         <value xml:lang="zh_TW">連絡我們</value>
@@ -1697,6 +1797,7 @@
         <value xml:lang="ro">Contacte</value>
         <value xml:lang="ru">Контакты    </value>
         <value xml:lang="th">ติดต่อ</value>
+        <value xml:lang="vi">Liên hệ</value>
         <value xml:lang="zh">联系</value>
         <value xml:lang="zh_CN">联系</value>
         <value xml:lang="zh_TW">連絡</value>
@@ -1714,6 +1815,7 @@
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Содержание</value>
         <value xml:lang="th">หัวข้อ</value>
+        <value xml:lang="vi">Nội dung</value>
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh_CN">内容</value>
         <value xml:lang="zh_TW">內容</value>
@@ -1732,6 +1834,7 @@
         <value xml:lang="ro">Continua</value>
         <value xml:lang="ru">Продолжить</value>
         <value xml:lang="th">เริ่มใหม่</value>
+        <value xml:lang="vi">Tiếp tục</value>
         <value xml:lang="zh">继续</value>
         <value xml:lang="zh_CN">继续</value>
         <value xml:lang="zh_TW">繼續</value>
@@ -1750,6 +1853,7 @@
         <value xml:lang="ro">Copiaza</value>
         <value xml:lang="ru">Копировать</value>
         <value xml:lang="th">คัดลอก</value>
+        <value xml:lang="vi">Sao chép</value>
         <value xml:lang="zh">复制</value>
         <value xml:lang="zh_CN">复制</value>
         <value xml:lang="zh_TW">複制</value>
@@ -1761,6 +1865,7 @@
         <value xml:lang="hi_IN">कॉपीराइट</value>
         <value xml:lang="it">Copyright</value>
         <value xml:lang="pt_BR">Copyright</value>
+        <value xml:lang="vi">Bản quyền</value>
         <value xml:lang="zh">版权所有</value>
         <value xml:lang="zh_TW">版權所有</value>
     </property>
@@ -1777,6 +1882,7 @@
         <value xml:lang="ro">Poate fi Folosit de </value>
         <value xml:lang="ru">Может использоваться как </value>
         <value xml:lang="th">สามารถใช้เหมือน</value>
+        <value xml:lang="vi">Có thể sử dụng như</value>
         <value xml:lang="zh">能够作为</value>
         <value xml:lang="zh_CN">可被用于</value>
         <value xml:lang="zh_TW">能夠作為</value>
@@ -1792,6 +1898,7 @@
         <value xml:lang="ro">Poate fi Folosit pentru</value>
         <value xml:lang="ru">Может использоваться для</value>
         <value xml:lang="th">สามารถใช้สำหรับ</value>
+        <value xml:lang="vi">Có thể sử dụng cho</value>
         <value xml:lang="zh">可以用于</value>
         <value xml:lang="zh_TW">可以用于</value>
     </property>
@@ -1808,6 +1915,7 @@
         <value xml:lang="ro">Tara</value>
         <value xml:lang="ru">Страна</value>
         <value xml:lang="th">ประเทศ</value>
+        <value xml:lang="vi">Quốc gia</value>
         <value xml:lang="zh">国家</value>
         <value xml:lang="zh_CN">国家</value>
         <value xml:lang="zh_TW">國家</value>
@@ -1826,6 +1934,7 @@
         <value xml:lang="ro">Sector</value>
         <value xml:lang="ru">Округ</value>
         <value xml:lang="th">เขตปกครอง</value>
+        <value xml:lang="vi">Tỉnh</value>
         <value xml:lang="zh">县</value>
         <value xml:lang="zh_CN">县</value>
         <value xml:lang="zh_TW">縣</value>
@@ -1844,6 +1953,7 @@
         <value xml:lang="ro">Sector-Oras</value>
         <value xml:lang="ru">Админ. центр округа</value>
         <value xml:lang="th">เขตเมือง</value>
+        <value xml:lang="vi">Tỉnh-Thành</value>
         <value xml:lang="zh">县城</value>
         <value xml:lang="zh_CN">县市</value>
         <value xml:lang="zh_TW">縣城</value>
@@ -1862,6 +1972,7 @@
         <value xml:lang="ro">Creare</value>
         <value xml:lang="ru">Создать</value>
         <value xml:lang="th">สร้าง</value>
+        <value xml:lang="vi">Khởi tạo</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">创建</value>
         <value xml:lang="zh_TW">新建</value>
@@ -1881,6 +1992,7 @@
         <value xml:lang="ro">Creare Nou</value>
         <value xml:lang="ru">Создать новый</value>
         <value xml:lang="th">สร้างใหม่</value>
+        <value xml:lang="vi">Tạo mới</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">创建新的</value>
         <value xml:lang="zh_TW">新建</value>
@@ -1898,6 +2010,7 @@
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Созданные</value>
         <value xml:lang="th">สร้าง</value>
+        <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
         <value xml:lang="zh_CN">已创建</value>
         <value xml:lang="zh_TW">已創建</value>
@@ -1915,6 +2028,7 @@
         <value xml:lang="ru">Кем создано</value>
         <value xml:lang="th">สร้างโดย</value>
         <value xml:lang="zh">创建者 </value>
+        <value xml:lang="vi">Đã tạo bởi</value>
         <value xml:lang="zh_CN">创建者</value>
         <value xml:lang="zh_TW">創建者 </value>
     </property>
@@ -1931,6 +2045,7 @@
         <value xml:lang="ro">Credit</value>
         <value xml:lang="ru">Кредит</value>
         <value xml:lang="th">เครดิต</value>
+        <value xml:lang="vi">Tín dụng</value>
         <value xml:lang="zh">信用</value>
         <value xml:lang="zh_CN">贷方</value>
         <value xml:lang="zh_TW">信用</value>
@@ -1948,6 +2063,7 @@
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
+        <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
         <value xml:lang="zh_CN">货币</value>
         <value xml:lang="zh_TW">幣種</value>
@@ -1966,6 +2082,7 @@
         <value xml:lang="ro">Actual</value>
         <value xml:lang="ru">Текущий</value>
         <value xml:lang="th">ใช้กันในปัจจุบัน</value>
+        <value xml:lang="vi">Hiện tại</value>
         <value xml:lang="zh">当前</value>
         <value xml:lang="zh_CN">当前</value>
         <value xml:lang="zh_TW">目前</value>
@@ -1979,6 +2096,7 @@
         <value xml:lang="it">Password attuale</value>
         <value xml:lang="pt_BR">Senha Atual</value>
         <value xml:lang="th">รหัสผ่านที่ใช้อยู่ในปัจจุบัน</value>
+        <value xml:lang="vi">Mật khẩu hiện tại</value>
         <value xml:lang="zh">当前密码</value>
         <value xml:lang="zh_TW">目前密碼</value>
     </property>
@@ -1995,6 +2113,7 @@
         <value xml:lang="ro">Zilnic</value>
         <value xml:lang="ru">Ежедневно</value>
         <value xml:lang="th">ทุกวัน</value>
+        <value xml:lang="vi">Hàng ngày</value>
         <value xml:lang="zh">每天</value>
         <value xml:lang="zh_TW">每日</value>
     </property>
@@ -2022,6 +2141,7 @@
         <value xml:lang="ro">Probleme Database ${errMessage}</value>
         <value xml:lang="ru">Проблемы в базе данных ${errMessage}</value>
         <value xml:lang="th">ปัญหาฐานข้อมูล ${errMessage}</value>
+        <value xml:lang="vi">Lỗi cơ sở dữ liệu ${errMessage}</value>
         <value xml:lang="zh">${errMessage} 数据库错误</value>
         <value xml:lang="zh_CN">${errMessage} 数据库问题</value>
         <value xml:lang="zh_TW">${errMessage} 資料庫錯誤</value>
@@ -2040,6 +2160,7 @@
         <value xml:lang="ro">Data</value>
         <value xml:lang="ru">Дата</value>
         <value xml:lang="th">วันที่</value>
+        <value xml:lang="vi">Ngày</value>
         <value xml:lang="zh">日期</value>
         <value xml:lang="zh_CN">日期</value>
         <value xml:lang="zh_TW">日期</value>
@@ -2057,11 +2178,13 @@
         <value xml:lang="ro">Filtru Data</value>
         <value xml:lang="ru">Фильтр по дате</value>
         <value xml:lang="th">Date Filter</value>
+        <value xml:lang="vi">Lọc ngày</value>
         <value xml:lang="zh">日期过滤</value>
         <value xml:lang="zh_CN">日期过滤器</value>
         <value xml:lang="zh_TW">日期過濾</value>
     </property>
     <property key="CommonDates">
+        <value xml:lang="de">Termine</value>
         <value xml:lang="en">Dates</value>
         <value xml:lang="de">Termine</value>
         <value xml:lang="es">Fechas</value>
@@ -2069,6 +2192,7 @@
         <value xml:lang="hi_IN">तिथियाँ</value>
         <value xml:lang="it">Date</value>
         <value xml:lang="pt_BR">Datas</value>
+        <value xml:lang="vi">Ngày</value>
         <value xml:lang="zh">日期</value>
         <value xml:lang="zh_TW">日期</value>
     </property>
@@ -2085,6 +2209,7 @@
         <value xml:lang="ro">Zi</value>
         <value xml:lang="ru">День</value>
         <value xml:lang="th">วัน</value>
+        <value xml:lang="vi">Ngày</value>
         <value xml:lang="zh">日</value>
         <value xml:lang="zh_CN">天</value>
         <value xml:lang="zh_TW">日</value>
@@ -2103,6 +2228,7 @@
         <value xml:lang="ro">Zile</value>
         <value xml:lang="ru">Дни</value>
         <value xml:lang="th">วัน</value>
+        <value xml:lang="vi">Ngày</value>
         <value xml:lang="zh">日</value>
         <value xml:lang="zh_CN">天数</value>
         <value xml:lang="zh_TW">日</value>
@@ -2112,6 +2238,7 @@
         <value xml:lang="es">Desactivar, establecer fecha actual como fecha final</value>
         <value xml:lang="fr">Désactiver, mettre la date du jour comme date de fin</value>
         <value xml:lang="pt_BR">Desativar, para definir thruDate para agora</value>
+        <value xml:lang="vi">Không kích hoạt, cài đặt từ ngày đến hiện tại</value>
     </property>
     <property key="CommonDebit">
         <value xml:lang="ar">دين</value>
@@ -2126,6 +2253,7 @@
         <value xml:lang="ro">Debit</value>
         <value xml:lang="ru">Дебет</value>
         <value xml:lang="th">เดบิต</value>
+        <value xml:lang="vi">Nợ</value>
         <value xml:lang="zh">借方</value>
         <value xml:lang="zh_CN">借方</value>
         <value xml:lang="zh_TW">借方</value>
@@ -2143,11 +2271,13 @@
         <value xml:lang="ro">Decembrie</value>
         <value xml:lang="ru">декабрь</value>
         <value xml:lang="th">ธันวาคม</value>
+        <value xml:lang="vi">Tháng 12</value>
         <value xml:lang="zh">十二月</value>
         <value xml:lang="zh_CN">十二月</value>
         <value xml:lang="zh_TW">十二月</value>
     </property>
     <property key="CommonDefaultOrganizationPartyId">
+        <value xml:lang="de">Standard-Organisation</value>
         <value xml:lang="en">Default Organization</value>
         <value xml:lang="de">Standard-Organisation</value>
         <value xml:lang="es">Organización por defecto</value>
@@ -2155,6 +2285,7 @@
         <value xml:lang="hi_IN">डिफ़ॉल्ट संगठन</value>
         <value xml:lang="it">Organizzazione di default</value>
         <value xml:lang="pt_BR">Padrão da Organização</value>
+        <value xml:lang="vi">Tổ chức mặc định là</value>
         <value xml:lang="zh">缺省组织机构</value>
         <value xml:lang="zh_TW">預設組織機構</value>
     </property>
@@ -2177,6 +2308,7 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
+        <value xml:lang="vi">Xóa</value>
         <value xml:lang="zh">删除</value>
         <value xml:lang="zh_CN">删除</value>
         <value xml:lang="zh_TW">刪除</value>
@@ -2194,6 +2326,7 @@
         <value xml:lang="ro">Sterge Tot</value>
         <value xml:lang="ru">Удалить все</value>
         <value xml:lang="th">ลบทั้งหมด</value>
+        <value xml:lang="vi">Xóa toàn bộ</value>
         <value xml:lang="zh">删除全部</value>
         <value xml:lang="zh_CN">删除所有</value>
         <value xml:lang="zh_TW">刪除全部</value>
@@ -2204,6 +2337,7 @@
         <value xml:lang="fr">Supprimer la colonne</value>
         <value xml:lang="it">Elimina colonna</value>
         <value xml:lang="pt_BR">Excluir Coluna</value>
+        <value xml:lang="vi">Xóa cột</value>
     </property>
     <property key="CommonDeleteThisColumn">
         <value xml:lang="en">Delete this column</value>
@@ -2211,6 +2345,7 @@
         <value xml:lang="fr">Supprimer cette colonne</value>
         <value xml:lang="it">Elimina questa colonna</value>
         <value xml:lang="pt_BR">Apagar esta coluna</value>
+        <value xml:lang="vi">Xóa cột này</value>
     </property>
     <property key="CommonDeleteThisPortlet">
         <value xml:lang="en">Delete this portlet</value>
@@ -2218,6 +2353,7 @@
         <value xml:lang="fr">Supprimer cette portlet</value>
         <value xml:lang="it">Elimina questo portlet</value>
         <value xml:lang="pt_BR">Excluir este portlet</value>
+        <value xml:lang="vi">Xóa portlet này</value>
     </property>
     <property key="CommonDepth">
         <value xml:lang="ar">عمق</value>
@@ -2232,6 +2368,7 @@
         <value xml:lang="ro">Adancime</value>
         <value xml:lang="ru">Глубина</value>
         <value xml:lang="th">ความลึก</value>
+        <value xml:lang="vi">Độ dày</value>
         <value xml:lang="zh">深度</value>
         <value xml:lang="zh_CN">深度</value>
         <value xml:lang="zh_TW">深度</value>
@@ -2252,6 +2389,7 @@
         <value xml:lang="ru">Описание</value>
         <!--value xml:lang="th">รายละเอียด</value-->
         <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="vi">Mô tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -2268,6 +2406,7 @@
         <value xml:lang="ro">Detaliu</value>
         <value xml:lang="ru">Подробности</value>
         <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="vi">Chi tiết</value>
         <value xml:lang="zh">详细</value>
         <value xml:lang="zh_CN">详细</value>
         <value xml:lang="zh_TW">詳細</value>
@@ -2286,6 +2425,7 @@
         <value xml:lang="ro">Detalii</value>
         <value xml:lang="ru">Подробности</value>
         <value xml:lang="th">รายละเอียด</value>
+        <value xml:lang="vi">Chi tiết</value>
         <value xml:lang="zh">详细</value>
         <value xml:lang="zh_CN">细节</value>
         <value xml:lang="zh_TW">詳細</value>
@@ -2297,6 +2437,7 @@
         <value xml:lang="hi_IN">आयाम</value>
         <value xml:lang="it">Dimensione</value>
         <value xml:lang="pt_BR">Dimensão</value>
+        <value xml:lang="vi">Kích thước</value>
     </property>
     <property key="CommonDisabled">
         <value xml:lang="ar">غير شغال</value>
@@ -2312,6 +2453,7 @@
         <value xml:lang="ro">Dizabilitat</value>
         <value xml:lang="ru">Недоступно</value>
         <value xml:lang="th">ไม่สามารถใช้ได้</value>
+        <value xml:lang="vi">Đã bị vô hiệu</value>
         <value xml:lang="zh">无效</value>
         <value xml:lang="zh_CN">禁用</value>
         <value xml:lang="zh_TW">無效</value>
@@ -2324,6 +2466,7 @@
         <value xml:lang="hi_IN">${lowCount} - ${highCount} का ${total} प्रदर्शित</value>
         <value xml:lang="it">Visualizzati da ${lowCount} a ${highCount} su ${total}</value>
         <value xml:lang="pt_BR">Exibindo ${lowCount} - ${highCount} de ${total}</value>
+        <value xml:lang="vi">Hiển thị ${lowCount} - ${highCount} của ${total}</value>
         <value xml:lang="zh">显示${lowCount} - ${highCount}，共${total}</value>
         <value xml:lang="zh_TW">顯示${lowCount} - ${highCount}，共${total}</value>
     </property>
@@ -2354,6 +2497,7 @@
         <value xml:lang="pt_BR">Terminar</value>
         <value xml:lang="ro">Executa</value>
         <value xml:lang="ru">Выполнить</value>
+        <value xml:lang="vi">Xong</value>
         <value xml:lang="zh">完成</value>
         <value xml:lang="zh_CN">完成</value>
         <value xml:lang="zh_TW">完成</value>
@@ -2363,6 +2507,7 @@
         <value xml:lang="en">Downloaded.</value>
         <value xml:lang="es">Descargado.</value>
         <value xml:lang="pt_BR">Transferido.</value>
+        <value xml:lang="vi">Đã tải xuống</value>
     </property>
     <property key="CommonDuplicate">
         <value xml:lang="ar">مضاعفة</value>
@@ -2377,6 +2522,7 @@
         <value xml:lang="ro">Dubleaza</value>
         <value xml:lang="ru">Дублировать</value>
         <value xml:lang="th">จำลอง</value>
+        <value xml:lang="vi">Nhân bản</value>
         <value xml:lang="zh">重复</value>
         <value xml:lang="zh_CN">副本</value>
         <value xml:lang="zh_TW">重複</value>
@@ -2395,11 +2541,13 @@
         <value xml:lang="ro">Actualizare</value>
         <value xml:lang="ru">Редактировать</value>
         <value xml:lang="th">แก้ไข</value>
+        <value xml:lang="vi">Chỉnh sửa</value>
         <value xml:lang="zh">编辑</value>
         <value xml:lang="zh_CN">编辑</value>
         <value xml:lang="zh_TW">編輯</value>
     </property>
     <property key="CommonEditPortletAttributes">
+        <value xml:lang="de">Portlet-Attribute anpassen</value>
         <value xml:lang="en">Edit Attributes for Portlet</value>
         <value xml:lang="de">Portlet-Attribute anpassen</value>
         <value xml:lang="es">Modificar atributos del portlet</value>
@@ -2407,6 +2555,7 @@
         <value xml:lang="hi_IN">Portlet के गुण संपादित करें</value>
         <value xml:lang="it">Modifica attributi portlet</value>
         <value xml:lang="pt_BR">Editar Atributos de Portlet</value>
+        <value xml:lang="vi">Chỉnh sửa thuộc tính cho portlet</value>
         <value xml:lang="zh">编辑Portlet属性</value>
         <value xml:lang="zh_TW">編輯Portlet屬性</value>
     </property>
@@ -2458,22 +2607,27 @@
         <value xml:lang="en">Email already exist</value>
         <value xml:lang="es">Correo electrónico ya existe</value>
         <value xml:lang="pt_BR">E-mail já existe</value>
+        <value xml:lang="vi">Email đã tồn tại</value>
     </property>
     <property key="CommonEmailDeliveryFailed">
+        <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
         <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
+        <value xml:lang="vi">Gửi thất bại đến người nhận sau:</value>
     </property>
     <property key="CommonEmailDeliveryOriginalMessage">
         <value xml:lang="en">----- Original message -----</value>
         <value xml:lang="es">----- Mensaje original -----</value>
         <value xml:lang="it">----- messaggio originale -----</value>
+        <value xml:lang="vi">----- Tin nhắn gốc -----</value>
     </property>
     <property key="CommonEmailNotValid">
         <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
         <value xml:lang="es">Id de participante: ${parameters.partyIdTo} no tiene dirección de correo electrónico válida!</value>
         <value xml:lang="it">Id soggetto: ${parameters.partyIdTo} non ha un'indirizzo e-mail valido!</value>
         <value xml:lang="pt_BR">ID de Participante (PartyId): ${parameters.partyIdTo} não tem endereço de email válido!</value>
+        <value xml:lang="vi">Mã đối tượng: ${parameters.partyIdTo} không có địa chỉ email thích hợp</value>
     </property>
     <property key="CommonEmailPassword">
         <value xml:lang="ar">كلمة سر البريد الإلكتروني</value>
@@ -2490,6 +2644,7 @@
         <value xml:lang="ro">Parola Email</value>
         <value xml:lang="ru">Пароль эл.почты</value>
         <value xml:lang="th">รหัสผ่านอีเมล</value>
+        <value xml:lang="vi">Gửi mật khẩu qua email</value>
         <value xml:lang="zh">电子邮件密码</value>
         <value xml:lang="zh_CN">电子邮件密码</value>
         <value xml:lang="zh_TW">電子郵件密碼</value>
@@ -2498,21 +2653,25 @@
         <value xml:lang="en">[ADDRERR] Address error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">[ADDRERR] Error en la dirección al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
         <value xml:lang="it">[ADDRERR] Errore indirizzo durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+        <value xml:lang="vi">[ADDRESS] lỗi địa chỉ khi gửi tin nhắn tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
     </property>
     <property key="CommonEmailSendConnectionError">
         <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">[CON] Error de conexión al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
         <value xml:lang="it">[CON] Errore connessione durante l'invio del messaggio a ${sendTo} da ${sendFrom} cc ${sendCc} cn ${sendBcc} soggetto ${subject}</value>
+        <value xml:lang="vi">[CON] lỗi kết nối khi gửi tin nhắn tới ${sendTo} từ ${sendFrom} cc ${sendCc} bcc ${sendBcc} tiêu đề ${subject}</value>
     </property>
     <property key="CommonEmailSendError">
         <value xml:lang="en">Error send email: ${errorString}</value>
         <value xml:lang="es">Error enviando correo electrónico: ${errorString}</value>
         <value xml:lang="it">Errore invio email: ${errorString}</value>
+        <value xml:lang="vi">Lỗi gửi email: ${errorString}</value>
     </property>
     <property key="CommonEmailSendGettingError">
         <value xml:lang="en">Error getting content: ${errorString}</value>
         <value xml:lang="es">Error obteniendo contenido: ${errorString}</value>
         <value xml:lang="it">Errore nel ricavare contenuto: ${errorString}</value>
+        <value xml:lang="vi">Lỗi lấy nội dung: ${errorString}</value>
     </property>
     <property key="CommonEmailSendIOException">
         <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
@@ -2570,6 +2729,7 @@
         <value xml:lang="ro">Email la</value>
         <value xml:lang="ru">Кому</value>
         <value xml:lang="th">อีเมลถึง</value>
+        <value xml:lang="vi">Email tới</value>
         <value xml:lang="zh">发送电子邮件到</value>
         <value xml:lang="zh_CN">发送至</value>
         <value xml:lang="zh_TW">發送電子郵件到</value>
@@ -2588,6 +2748,7 @@
         <value xml:lang="ro">Tip Email</value>
         <value xml:lang="ru">Тип эл.почты</value>
         <value xml:lang="th">ประเภทอีเมล</value>
+        <value xml:lang="vi">Loại email</value>
         <value xml:lang="zh">电子邮件类型</value>
         <value xml:lang="zh_CN">邮件类型</value>
         <value xml:lang="zh_TW">電子郵件類型</value>
@@ -2617,6 +2778,7 @@
         <value xml:lang="en">Enable</value>
         <value xml:lang="es">Habilitar</value>
         <value xml:lang="th">เปิดใช้งาน</value>
+        <value xml:lang="vi">Kích hoạt</value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
@@ -2632,6 +2794,7 @@
         <value xml:lang="ro">Abilitat</value>
         <value xml:lang="ru">Доступно</value>
         <value xml:lang="th">สามารถ</value>
+        <value xml:lang="vi">Đã kích hoạt</value>
         <value xml:lang="zh">有效</value>
         <value xml:lang="zh_CN">启用</value>
         <value xml:lang="zh_TW">有效</value>
@@ -2650,6 +2813,7 @@
         <value xml:lang="ro">Data Sfarsit</value>
         <value xml:lang="ru">Дата окончания</value>
         <value xml:lang="th">วันสุดท้าย</value>
+        <value xml:lang="vi">Ngày kết thúc</value>
         <value xml:lang="zh">结束日期</value>
         <value xml:lang="zh_CN">结束日期</value>
         <value xml:lang="zh_TW">結束日</value>
@@ -2668,12 +2832,14 @@
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="ru">Дата/время окончания</value>
         <value xml:lang="th">วัน/เวลาสุดท้าย</value>
+        <value xml:lang="vi">Ngày giờ kết thúc</value>
         <value xml:lang="zh">结束日期/时间</value>
         <value xml:lang="zh_CN">结束日期/时间</value>
         <value xml:lang="zh_TW">結束日期/時間</value>
     </property>
     <property key="CommonEntityChildren">
         <value xml:lang="ar">الفروع</value>
+        <value xml:lang="de">Kinder</value>
         <value xml:lang="en">Children</value>
         <value xml:lang="de">Kinder</value>
         <value xml:lang="es">Hijos</value>
@@ -2684,6 +2850,7 @@
         <value xml:lang="ro">Copii-Fii</value>
         <value xml:lang="ru">Подчиненные</value>
         <value xml:lang="th">เด็ก</value>
+        <value xml:lang="vi">Trẻ con</value>
         <value xml:lang="zh">下级固定资产</value>
         <value xml:lang="zh_TW">下級固定資產</value>
     </property>
@@ -2691,6 +2858,7 @@
         <value xml:lang="en">Unable to create test entity</value>
         <value xml:lang="es">No se puede crear la entidad de prueba</value>
         <value xml:lang="it">Non è possibile creare un test entità</value>
+        <value xml:lang="vi">Không thể khởi tạo cơ sở kiểm tra</value>
     </property>
     <property key="CommonEntries">
         <value xml:lang="ar">مداخيل</value>
@@ -2705,6 +2873,7 @@
         <value xml:lang="ro">Date Intrari</value>
         <value xml:lang="ru">Позиции</value>
         <value xml:lang="th">การกรอกข้อมูล</value>
+        <value xml:lang="vi">Bản ghi</value>
         <value xml:lang="zh">记录</value>
         <value xml:lang="zh_CN">条目</value>
         <value xml:lang="zh_TW">記錄</value>
@@ -2722,6 +2891,7 @@
         <value xml:lang="ro">Data Intrare</value>
         <value xml:lang="ru">№ п/п</value>
         <value xml:lang="th">การกรอกข้อมูล</value>
+        <value xml:lang="vi">Bản ghi</value>
         <value xml:lang="zh">记录</value>
         <value xml:lang="zh_CN">条目</value>
         <value xml:lang="zh_TW">記錄</value>
@@ -2739,6 +2909,7 @@
         <value xml:lang="ro">Urmatoarele campuri obligatorii au fost gasite goale</value>
         <value xml:lang="ru">Следующие объязательные поля не заполнены</value>
         <value xml:lang="th">ตามฟิลด์ความต้องการซึ่งพบว่าว่าง</value>
+        <value xml:lang="vi">Các trường yêu cầu sau đây được phát hiện trống rỗng</value>
         <value xml:lang="zh">下列必须的域是空的</value>
         <value xml:lang="zh_TW">下列必須的域是空的</value>
     </property>
@@ -2831,6 +3002,7 @@
         <value xml:lang="pt">Excluir</value>
         <value xml:lang="ru">Исключить</value>
         <value xml:lang="th">แยกออกไป</value>
+        <value xml:lang="vi">Không bao gồm</value>
         <value xml:lang="zh">排除</value>
         <value xml:lang="zh_TW">排除</value>
     </property>
@@ -2843,6 +3015,7 @@
         <value xml:lang="it">Espandi</value>
         <value xml:lang="pt_BR">Expandir</value>
         <value xml:lang="th">แผ่ขยาย</value>
+        <value xml:lang="vi">Mở rộng</value>
         <value xml:lang="zh">展开</value>
         <value xml:lang="zh_TW">展開</value>
     </property>
@@ -2856,6 +3029,7 @@
         <value xml:lang="nl">Tonen velden</value>
         <value xml:lang="pt_BR">Expandir todos</value>
         <value xml:lang="th">แผ่ขยาย</value>
+        <value xml:lang="vi">Mở rộng toàn bộ</value>
         <value xml:lang="zh">全部展开</value>
         <value xml:lang="zh_TW">全部展開</value>
     </property>
@@ -2873,6 +3047,7 @@
         <value xml:lang="ro">Aspectativa</value>
         <value xml:lang="ru">Вероятность</value>
         <value xml:lang="th">สิ่งที่คาดหวัง</value>
+        <value xml:lang="vi">Kỳ vọng</value>
         <value xml:lang="zh">意外</value>
         <value xml:lang="zh_CN">期望</value>
         <value xml:lang="zh_TW">意外</value>
@@ -2892,6 +3067,7 @@
         <value xml:lang="ro">Expira</value>
         <value xml:lang="ru">Прекратить</value>
         <value xml:lang="th">หมดเขต</value>
+        <value xml:lang="vi">Hết hạn</value>
         <value xml:lang="zh">过期</value>
         <value xml:lang="zh_CN">过期</value>
         <value xml:lang="zh_TW">過期</value>
@@ -2911,6 +3087,7 @@
         <value xml:lang="ro">Expira Totul</value>
         <value xml:lang="ru">Прекратить все</value>
         <value xml:lang="th">หมดเขตทั้งหมด</value>
+        <value xml:lang="vi">Hết hạn toàn bộ</value>
         <value xml:lang="zh">全部过期</value>
         <value xml:lang="zh_CN">全部过期</value>
         <value xml:lang="zh_TW">全部過期</value>
@@ -2928,6 +3105,7 @@
         <value xml:lang="ro">Data Expirarii</value>
         <value xml:lang="ru">Дата прекращения</value>
         <value xml:lang="th">วันหมดเขต</value>
+        <value xml:lang="vi">Thời hạn</value>
         <value xml:lang="zh">过期日期</value>
         <value xml:lang="zh_CN">过期日期</value>
         <value xml:lang="zh_TW">過期日</value>
@@ -2946,6 +3124,7 @@
         <value xml:lang="ro">Expirari</value>
         <value xml:lang="ru">Прекращается</value>
         <value xml:lang="th">หมดเขต</value>
+        <value xml:lang="vi">Hết hạn</value>
         <value xml:lang="zh">过期</value>
         <value xml:lang="zh_CN">过期</value>
         <value xml:lang="zh_TW">過期</value>
@@ -2962,6 +3141,7 @@
         <value xml:lang="ro">Exporta</value>
         <value xml:lang="ru">Экспорт</value>
         <value xml:lang="th">การส่งออกสินค้าไปต่างประเทศ</value>
+        <value xml:lang="vi">Xuất ra</value>
         <value xml:lang="zh">导出</value>
         <value xml:lang="zh_TW">導出</value>
     </property>
@@ -2979,6 +3159,7 @@
         <value xml:lang="ro">ext.</value>
         <value xml:lang="ru">доб.</value>
         <value xml:lang="th">ext</value>
+        <value xml:lang="vi">số mở rộng</value>
         <value xml:lang="zh">ext</value>
         <value xml:lang="zh_CN">分机</value>
         <value xml:lang="zh_TW">ext</value>
@@ -3054,6 +3235,7 @@
         <value xml:lang="ro">Februarie</value>
         <value xml:lang="ru">Февраль</value>
         <value xml:lang="th">กุมภาพันธ์</value>
+        <value xml:lang="vi">Tháng 2</value>
         <value xml:lang="zh">二月</value>
         <value xml:lang="zh_CN">二月</value>
         <value xml:lang="zh_TW">二月</value>
@@ -3070,6 +3252,7 @@
         <value xml:lang="pt_BR">Feminino</value>
         <value xml:lang="ro">Feminin</value>
         <value xml:lang="th">เพศหญิง</value>
+        <value xml:lang="vi">Nữ</value>
         <value xml:lang="zh">女</value>
         <value xml:lang="zh_TW">女</value>
     </property>
@@ -3116,6 +3299,7 @@
         <value xml:lang="ro">Filtreaza</value>
         <value xml:lang="ru">Фильтр</value>
         <value xml:lang="th">Filter</value>
+        <value xml:lang="vi">Lọc</value>
         <value xml:lang="zh">过滤器</value>
         <value xml:lang="zh_TW">過濾器</value>
     </property>
@@ -3144,6 +3328,7 @@
         <value xml:lang="ro">Banca</value>
         <value xml:lang="ru">Банк</value>
         <value xml:lang="th">ธนาคาร</value>
+        <value xml:lang="vi">Ngân hàng</value>
         <value xml:lang="zh">银行</value>
         <value xml:lang="zh_TW">銀行</value>
     </property>
@@ -3163,6 +3348,7 @@
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Найти</value>
         <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="vi">Tìm</value>
         <value xml:lang="zh">查找</value>
         <value xml:lang="zh_CN">查找</value>
         <value xml:lang="zh_TW">查詢</value>
@@ -3181,6 +3367,7 @@
         <value xml:lang="ro">Cauta Totul</value>
         <value xml:lang="ru">Найти все</value>
         <value xml:lang="th">ค้นหาทั้งหมด</value>
+        <value xml:lang="vi">Tìm toàn bộ</value>
         <value xml:lang="zh">查找全部</value>
         <value xml:lang="zh_CN">查找所有</value>
         <value xml:lang="zh_TW">查詢全部</value>
@@ -3214,6 +3401,7 @@
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="ru">Дата/время окончания</value>
         <value xml:lang="th">เสร็จสิ้น วันที่/เวลา</value>
+        <value xml:lang="vi">Ngày giờ hoàn thành</value>
         <value xml:lang="zh">完成日期/时间</value>
         <value xml:lang="zh_CN">完成日期/时间</value>
         <value xml:lang="zh_TW">完成日期/時間</value>
@@ -3227,6 +3415,7 @@
         <value xml:lang="it">Primo</value>
         <value xml:lang="pt_BR">Primeira</value>
         <value xml:lang="th">อันดับแรก</value>
+        <value xml:lang="vi">Đầu tiên</value>
         <value xml:lang="zh">第一个</value>
         <value xml:lang="zh_TW">第一個</value>
     </property>
@@ -3244,6 +3433,7 @@
         <value xml:lang="ro">Au aparut urmatoarele Erori</value>
         <value xml:lang="ru">Имеются следующие ошибки</value>
         <value xml:lang="th">ผิดพลาดตามที่เกิดขึ้น</value>
+        <value xml:lang="vi">Xuất hiện các lỗi sau</value>
         <value xml:lang="zh">发生下列错误</value>
         <value xml:lang="zh_CN">发生了下面的错误</value>
         <value xml:lang="zh_TW">發生下列錯誤</value>
@@ -3261,6 +3451,7 @@
         <value xml:lang="ro">S-au intamplat urmatoarele</value>
         <value xml:lang="ru">Отмечено следующее</value>
         <value xml:lang="th">ตามที่เกิดขึ้น</value>
+        <value xml:lang="vi">Xuất hiện như sau</value>
         <value xml:lang="zh">发生下列情况</value>
         <value xml:lang="zh_CN">发生了下面</value>
         <value xml:lang="zh_TW">發生下列情況</value>
@@ -3298,6 +3489,7 @@
         <value xml:lang="ro">Parola Uitata</value>
         <value xml:lang="ru">Забыли пароль</value>
         <value xml:lang="th">ลืมรหัสผ่านของคุณ</value>
+        <value xml:lang="vi">Quên mật khẩu</value>
         <value xml:lang="zh">忘记密码</value>
         <value xml:lang="zh_CN">忘记密码</value>
         <value xml:lang="zh_TW">忘記密碼</value>
@@ -3314,6 +3506,7 @@
         <value xml:lang="pt_BR">Formato: AAAA-MM-dd</value>
         <value xml:lang="ru">Формат: гггг-ММ-дд</value>
         <value xml:lang="th">รูปแบบ : yyyy-MM-dd</value>
+        <value xml:lang="vi">Định dạng ngày tháng: yyyy-MM-dd</value>
         <value xml:lang="zh">格式: yyyy-MM-dd</value>
         <value xml:lang="zh_TW">格式: yyyy-MM-dd</value>
     </property>
@@ -3331,6 +3524,7 @@
         <value xml:lang="ro">Unul dintre campurile de date nu este corect, formatul trebbie sa fie AAAA-ll-zz HH:mm:ss</value>
         <value xml:lang="ru">Одно из полей в дате указано неверно, требуемый формат ГГГГ-мм-дд ЧЧ:мм:сс</value>
         <value xml:lang="th">ฟิลด์วันที่หนึ่งไม่ถูกต้อง  รูปแบบต้องเป็น yyyy-MM-dd HH:mm:ss.SSS</value>
+        <value xml:lang="vi">Một trong các trường ngày tháng là không đúng, phải sử dụng định dạng yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="zh">日期格式不对，格式必须是yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="zh_CN">有一项日期字段不正确, 格式必须是AAAA-mm-jj HH:mm:ss</value>
         <value xml:lang="zh_TW">日期格式不對，格式必須是yyyy-MM-dd HH:mm:ss.SSS</value>
@@ -3349,6 +3543,7 @@
         <value xml:lang="ro">AAAA-LL-ZZ hh:mm:ss</value>
         <value xml:lang="ru">ГГГГ-мм-дд ЧЧ:мм:сс</value>
         <value xml:lang="th">รูปแบบ : yyyy-MM-dd HH:mm:ss.SSS</value>
+        <value xml:lang="vi">Định dạng: yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="zh">格式: yyyy-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="zh_CN">年-月-日 时:分:秒</value>
         <value xml:lang="zh_TW">格式: yyyy-MM-dd HH:mm:ss.SSS</value>
@@ -3365,6 +3560,7 @@
         <value xml:lang="pt_BR">Formato: HH.mm:ss.SSS</value>
         <value xml:lang="ru">Формат: ЧЧ:мм:сс.ССС</value>
         <value xml:lang="th">รูปแบบ: HH:mm:ss.SSS</value>
+        <value xml:lang="vi">Định dạng: HH:mm:ss.SSS</value>
         <value xml:lang="zh">格式: HH:mm:ss.SSS</value>
         <value xml:lang="zh_TW">格式: HH:mm:ss.SSS</value>
     </property>
@@ -3382,6 +3578,7 @@
         <value xml:lang="ro">Gasit</value>
         <value xml:lang="ru">Найдено</value>
         <value xml:lang="th">พบ</value>
+        <value xml:lang="vi">Tìm thấy</value>
         <value xml:lang="zh">找到了</value>
         <value xml:lang="zh_CN">找到</value>
         <value xml:lang="zh_TW">找到了</value>
@@ -3413,6 +3610,7 @@
         <value xml:lang="pt_BR">Este documento é projetado para ser visualizado usando o recurso de frames. Se você estiver lendo esta mensagem, você está usando um browser não compatível.</value>
         <value xml:lang="ru">Этот документ разработан с использованием фреймов. Если вы видите это сообщение, значит вы используете программу просмотра которая не поддерживает фреймы.</value>
         <value xml:lang="th">เอกสารนี้ออกแบบเพื่อเป็นมุมมองในการใช้กรอบหน้าต่างคุณลักษณะ. ถ้าคุณเห็นข้อความนี้ , คุณกำลังใช้หน้าต่างทั่วไปของเว็บไคลแอนท์</value>
+        <value xml:lang="vi">Tài liệu này được thiết kế để hiển thị sử dụng tính năng khung hình (frame). Nếu bạn đọc được thông báo này, có nghĩa là bạn đang dùng trình duyệt web không hỗ trợ khung hình.</value>
         <value xml:lang="zh">这个文档是设计利用frame功能来浏览的。如果你见到本信息，说明你正在使用一个不支持frame的浏览器客户端。</value>
         <value xml:lang="zh_TW">這個文檔是設計利用frame功能來瀏覽的。如果你見到本資訊，說明你正在使用一個不支援frame的瀏覽器客戶端。</value>
     </property>
@@ -3429,6 +3627,7 @@
         <value xml:lang="ro">Vineri</value>
         <value xml:lang="ru">Пятница</value>
         <value xml:lang="th">วันศุกร์</value>
+        <value xml:lang="vi">Thứ 6</value>
         <value xml:lang="zh">星期五</value>
         <value xml:lang="zh_CN">星期五</value>
         <value xml:lang="zh_TW">週五</value>
@@ -3447,6 +3646,7 @@
         <value xml:lang="ro">De la</value>
         <value xml:lang="ru">От</value>
         <value xml:lang="th">จาก</value>
+        <value xml:lang="vi">Từ</value>
         <value xml:lang="zh">从</value>
         <value xml:lang="zh_CN">从</value>
         <value xml:lang="zh_TW">從</value>
@@ -3465,6 +3665,7 @@
         <value xml:lang="ro">De la Adresa</value>
         <value xml:lang="ru">С адреса</value>
         <value xml:lang="th">จากที่อยู่</value>
+        <value xml:lang="vi">Từ địa chỉ</value>
         <value xml:lang="zh">自地址</value>
         <value xml:lang="zh_CN">起始地址</value>
         <value xml:lang="zh_TW">自地址</value>
@@ -3484,6 +3685,7 @@
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="ru">С даты</value>
         <value xml:lang="th">จากวันที่</value>
+        <value xml:lang="vi">Từ ngày</value>
         <value xml:lang="zh">开始日期</value>
         <value xml:lang="zh_CN">起始日期</value>
         <value xml:lang="zh_TW">開始日</value>
@@ -3503,6 +3705,7 @@
         <value xml:lang="ro">De la Data Lipsa</value>
         <value xml:lang="ru">'С даты' отсутствует</value>
         <value xml:lang="th">จากวันที่ซึ่งหาไม่พบ</value>
+        <value xml:lang="vi">Từ ngày bị thiếu</value>
         <value xml:lang="zh">开始日期没有找到</value>
         <value xml:lang="zh_CN">起始日期丢失</value>
         <value xml:lang="zh_TW">開始日沒有找到</value>
@@ -3522,6 +3725,7 @@
         <value xml:lang="ro">De la Data-nu este o Data-Ora valida.</value>
         <value xml:lang="ru">В поле 'С даты' указаны некорректные дата/время.</value>
         <value xml:lang="th">จากวันที่ที่ไม่เป็นวันและเวลา</value>
+        <value xml:lang="vi">Từ ngày không sử dụng ngày giờ phù hợp</value>
         <value xml:lang="zh">开始日期不是有效的日期和时间。</value>
         <value xml:lang="zh_CN">起始日期不是有效日期</value>
         <value xml:lang="zh_TW">開始日不是有效的日期和時間。</value>
@@ -3541,6 +3745,7 @@
         <value xml:lang="ro">De la Data / La Data</value>
         <value xml:lang="ru">'С даты' / 'По дату'</value>
         <value xml:lang="th">จากวันที่ / ถึงวันที่</value>
+        <value xml:lang="vi">Từ ngày / Tới ngày</value>
         <value xml:lang="zh">开始日期/结束日期</value>
         <value xml:lang="zh_CN">起始日期 / 终止日期</value>
         <value xml:lang="zh_TW">開始日/結束日</value>
@@ -3559,6 +3764,7 @@
         <value xml:lang="ro">De la Data si Ora</value>
         <value xml:lang="ru">С (дата, время)</value>
         <value xml:lang="th">จากวันที่ เวลา</value>
+        <value xml:lang="vi">Từ ngày giờ</value>
         <value xml:lang="zh">开始日期  时间</value>
         <value xml:lang="zh_CN">起始日期和时间</value>
         <value xml:lang="zh_TW">開始日期 時間</value>
@@ -3567,6 +3773,7 @@
         <value xml:lang="en">connection refused</value>
         <value xml:lang="es">conexión rechazada</value>
         <value xml:lang="it">connessione rifiutata</value>
+        <value xml:lang="vi">kết nối được sử dụng lại</value>
     </property>
     <property key="CommonFtpFileCannotBeOpen">
         <value xml:lang="en">ERROR: Could not open local file</value>
@@ -3630,6 +3837,7 @@
         <value xml:lang="pt">Geo</value>
         <value xml:lang="ru">Geo</value>
         <value xml:lang="th">Geo</value>
+        <value xml:lang="vi">Địa lý</value>
         <value xml:lang="zh">地理</value>
         <value xml:lang="zh_TW">地理</value>
     </property>
@@ -3759,6 +3967,7 @@
         <value xml:lang="ro">Obtii Sugeriment Parola</value>
         <value xml:lang="ru">Получить подсказку по паролю</value>
         <value xml:lang="th">ดึงค่ารหัสผ่านที่ซ่อนอยู่</value>
+        <value xml:lang="vi">Lấy gợi ý mật khẩu</value>
         <value xml:lang="zh">得到密码提示</value>
         <value xml:lang="zh_CN">取得密码提示</value>
         <value xml:lang="zh_TW">得到密碼提示</value>
@@ -3810,6 +4019,7 @@
         <value xml:lang="ro">Inapoi</value>
         <value xml:lang="ru">Вернуться</value>
         <value xml:lang="th">กลับไป</value>
+        <value xml:lang="vi">Quay lại</value>
         <value xml:lang="zh">回退</value>
         <value xml:lang="zh_CN">返回</value>
         <value xml:lang="zh_TW">回退</value>
@@ -3826,6 +4036,7 @@
         <value xml:lang="ro">Dute la Pagina</value>
         <value xml:lang="ru">Перейти на страницу</value>
         <value xml:lang="th">ไปยังหน้า</value>
+        <value xml:lang="vi">Tới trang</value>
         <value xml:lang="zh">转到页</value>
         <value xml:lang="zh_TW">轉到頁</value>
     </property>
@@ -3844,6 +4055,7 @@
         <value xml:lang="ro">Intoarcete la Parinte</value>
         <value xml:lang="ru">Вернуться на родительский уровень</value>
         <value xml:lang="th">กลับไปยังกลุ่ม</value>
+        <value xml:lang="vi">Tới trang gốc</value>
         <value xml:lang="zh">回退到上一级</value>
         <value xml:lang="zh_CN">返回父结点</value>
         <value xml:lang="zh_TW">回退到上一級</value>
@@ -3861,6 +4073,7 @@
         <value xml:lang="ro">Grup</value>
         <value xml:lang="ru">Группа</value>
         <value xml:lang="th">กลุ่ม</value>
+        <value xml:lang="vi">Nhóm</value>
         <value xml:lang="zh">组</value>
         <value xml:lang="zh_CN">组</value>
         <value xml:lang="zh_TW">組</value>
@@ -3878,6 +4091,7 @@
         <value xml:lang="ro">Inaltime</value>
         <value xml:lang="ru">Высота</value>
         <value xml:lang="th">ความสูง</value>
+        <value xml:lang="vi">Chiều cao</value>
         <value xml:lang="zh">高度</value>
         <value xml:lang="zh_CN">高度</value>
         <value xml:lang="zh_TW">高度</value>
@@ -3905,6 +4119,7 @@
         <value xml:lang="hi_IN">मदद</value>
         <value xml:lang="it">Aiuto</value>
         <value xml:lang="pt_BR">Ajuda</value>
+        <value xml:lang="vi">Trợ giúp</value>
         <value xml:lang="zh">帮助</value>
         <value xml:lang="zh_CN">帮助</value>
         <value xml:lang="zh_TW">幫助</value>
@@ -3930,6 +4145,7 @@
         <value xml:lang="ro">Ascunde Campuri</value>
         <value xml:lang="ru">Скрыть поля</value>
         <value xml:lang="th">ซ่อนฟิลด์</value>
+        <value xml:lang="vi">Các trường ẩn</value>
         <value xml:lang="zh">隐藏域</value>
         <value xml:lang="zh_CN">隐藏字段</value>
         <value xml:lang="zh_TW">隱藏域</value>
@@ -3941,6 +4157,7 @@
         <value xml:lang="hi_IN">ऊँचा</value>
         <value xml:lang="it">Alta</value>
         <value xml:lang="pt_BR">Alto</value>
+        <value xml:lang="vi">Cao</value>
         <value xml:lang="zh">高</value>
         <value xml:lang="zh_TW">高</value>
     </property>
@@ -3952,6 +4169,7 @@
         <value xml:lang="hi_IN">घर</value>
         <value xml:lang="it">Principale</value>
         <value xml:lang="pt_BR">Início</value>
+        <value xml:lang="vi">Trang chủ</value>
         <value xml:lang="zh">首页</value>
         <value xml:lang="zh_TW">首頁</value>
     </property>
@@ -3968,6 +4186,7 @@
         <value xml:lang="ro">Ora</value>
         <value xml:lang="ru">Час</value>
         <value xml:lang="th">ชั่วโมง</value>
+        <value xml:lang="vi">Giờ</value>
         <value xml:lang="zh">小时</value>
         <value xml:lang="zh_CN">小时</value>
         <value xml:lang="zh_TW">小時</value>
@@ -3985,6 +4204,7 @@
         <value xml:lang="ro">Orariu</value>
         <value xml:lang="ru">Ежечасно</value>
         <value xml:lang="th">ทุก ๆ ชั่วโมง</value>
+        <value xml:lang="vi">Hàng giờ</value>
         <value xml:lang="zh">每小时</value>
         <value xml:lang="zh_TW">每小時</value>
     </property>
@@ -4001,6 +4221,7 @@
         <value xml:lang="ro">Id</value>
         <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัส</value>
+        <value xml:lang="vi">Mã</value>
         <value xml:lang="zh">标识</value>
         <value xml:lang="zh_CN">标识</value>
         <value xml:lang="zh_TW">ID</value>
@@ -4019,6 +4240,7 @@
         <value xml:lang="ro">Id deja Existent</value>
         <value xml:lang="ru">Такой код уже существует</value>
         <value xml:lang="th">รหัสมีอยู่แล้ว</value>
+        <value xml:lang="vi">Mã đã tồn tại</value>
         <value xml:lang="zh">标识已存在</value>
         <value xml:lang="zh_CN">标识已经存在</value>
         <value xml:lang="zh_TW">已存在ID</value>
@@ -4037,6 +4259,7 @@
         <value xml:lang="ro">Cod Id</value>
         <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัสโค้ด</value>
+        <value xml:lang="vi">Mã</value>
         <value xml:lang="zh">标识编码</value>
         <value xml:lang="zh_CN">标识编码</value>
         <value xml:lang="zh_TW">ID編碼</value>
@@ -4379,6 +4602,7 @@
         <value xml:lang="ro">Limba</value>
         <value xml:lang="ru">Язык</value>
         <value xml:lang="th">ภาษา</value>
+        <value xml:lang="vi">Ngôn ngữ</value>
         <value xml:lang="zh">语言</value>
         <value xml:lang="zh_CN">语言</value>
         <value xml:lang="zh_TW">語言</value>
@@ -4397,6 +4621,7 @@
         <value xml:lang="ro">Mare</value>
         <value xml:lang="ru">Большой</value>
         <value xml:lang="th">ใหญ่</value>
+        <value xml:lang="vi">Cỡ lớn</value>
         <value xml:lang="zh">大</value>
         <value xml:lang="zh_CN">大</value>
         <value xml:lang="zh_TW">大</value>
@@ -4581,6 +4806,7 @@
         <value xml:lang="ro">Login</value>
         <value xml:lang="ru">Вход</value>
         <value xml:lang="th">เข้าสู่ระบบ</value>
+        <value xml:lang="vi">Đăng nhập</value>
         <value xml:lang="zh">登录</value>
         <value xml:lang="zh_CN">登录</value>
         <value xml:lang="zh_TW">登入</value>
@@ -4601,6 +4827,7 @@
         <value xml:lang="ro">Intra aici</value>
         <value xml:lang="ru">Войти здесь</value>
         <value xml:lang="th">เข้าสู่ระบบที่นี่</value>
+        <value xml:lang="vi">Đăng nhập tại đây</value>
         <value xml:lang="zh">在这里登录</value>
         <value xml:lang="zh_CN">在这里登录</value>
         <value xml:lang="zh_TW">在此登入</value>
@@ -4621,6 +4848,7 @@
         <value xml:lang="ro">Iesire</value>
         <value xml:lang="ru">Выход</value>
         <value xml:lang="th">ออกจากระบบ</value>
+        <value xml:lang="vi">Đăng xuất</value>
         <value xml:lang="zh">退出</value>
         <value xml:lang="zh_CN">注销</value>
         <value xml:lang="zh_TW">退出</value>
@@ -4731,6 +4959,7 @@
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="ru">Главная</value>
         <value xml:lang="th">หน้าหลัก</value>
+        <value xml:lang="vi">Trang chủ</value>
         <value xml:lang="zh">首页</value>
         <value xml:lang="zh_CN">主菜单</value>
         <value xml:lang="zh_TW">首頁</value>
@@ -4748,6 +4977,7 @@
         <value xml:lang="ro">Masculin</value>
         <value xml:lang="ru">Мужской</value>
         <value xml:lang="th">เพศชาย</value>
+        <value xml:lang="vi">Nam</value>
         <value xml:lang="zh">男</value>
         <value xml:lang="zh_TW">男</value>
     </property>
@@ -4755,6 +4985,7 @@
         <value xml:lang="en">Manage</value>
         <value xml:lang="es">Gestionar</value>
         <value xml:lang="th">จัดการ</value>
+        <value xml:lang="vi">Quản lý</value>
     </property>
     <property key="CommonManagePortalPages">
         <value xml:lang="de">Portalseiten verwalten...</value>
@@ -4764,6 +4995,7 @@
         <value xml:lang="hi_IN">पोर्टल पेज प्रबंधन...</value>
         <value xml:lang="it">Gestione pagine...</value>
         <value xml:lang="pt_BR">Gerenciar Páginas do Portal ...</value>
+        <value xml:lang="vi">Quản lý Cổng thông tin...</value>
         <value xml:lang="zh">管理门户页面...</value>
         <value xml:lang="zh_TW">管理門戶頁面...</value>
     </property>
@@ -4780,6 +5012,7 @@
         <value xml:lang="ro">Manager</value>
         <value xml:lang="ru">Менеджер</value>
         <value xml:lang="th">การจัดการ</value>
+        <value xml:lang="vi">Nhà quản trị</value>
         <value xml:lang="zh">管理员</value>
         <value xml:lang="zh_CN">经理</value>
         <value xml:lang="zh_TW">管理員</value>
@@ -4797,6 +5030,7 @@
         <value xml:lang="ro">Multi</value>
         <value xml:lang="ru">Много</value>
         <value xml:lang="th">มากมาย</value>
+        <value xml:lang="vi">Nhiều</value>
         <value xml:lang="zh">许多</value>
         <value xml:lang="zh_CN">多</value>
         <value xml:lang="zh_TW">許多</value>
@@ -4814,6 +5048,7 @@
         <value xml:lang="ro">Martie</value>
         <value xml:lang="ru">Март</value>
         <value xml:lang="th">มีนาคม</value>
+        <value xml:lang="vi">Tháng 3</value>
         <value xml:lang="zh">三月</value>
         <value xml:lang="zh_CN">三月</value>
         <value xml:lang="zh_TW">三月</value>
@@ -4834,6 +5069,7 @@
         <value xml:lang="ro">Control</value>
         <value xml:lang="ru">Совпало</value>
         <value xml:lang="th">ตรงกัน</value>
+        <value xml:lang="vi">Phù hợp</value>
         <value xml:lang="zh">匹配</value>
         <value xml:lang="zh_CN">匹配的</value>
         <value xml:lang="zh_TW">匹配</value>
@@ -4859,6 +5095,7 @@
         <value xml:lang="ro">Mai</value>
         <value xml:lang="ru">Май</value>
         <value xml:lang="th">พฤษภาคม</value>
+        <value xml:lang="vi">Tháng 5</value>
         <value xml:lang="zh">五月</value>
         <value xml:lang="zh_CN">五月</value>
         <value xml:lang="zh_TW">五月</value>
@@ -4877,6 +5114,7 @@
         <value xml:lang="ro">Creare</value>
         <value xml:lang="ru">Создать</value>
         <value xml:lang="th">สร้าง</value>
+        <value xml:lang="vi">Khởi tạo</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">建立</value>
         <value xml:lang="zh_TW">新建</value>
@@ -4896,6 +5134,7 @@
         <value xml:lang="ro">Tu poti crea un nou utilizatornte CommonMedium=Mediu</value>
         <value xml:lang="ru">Здесь Вы можете создать новую учетную запись</value>
         <value xml:lang="th">คุณต้องสร้างบัญชีใหม่ที่นี่</value>
+        <value xml:lang="vi">Bạn có thể khởi tạo một tài khoản mới tại đây</value>
         <value xml:lang="zh">你可以在这里新建账户</value>
         <value xml:lang="zh_CN">你可以在这里建立新的帐户</value>
         <value xml:lang="zh_TW">你可以在這里新建賬戶</value>
@@ -4923,6 +5162,7 @@
         <value xml:lang="pt">Médio</value>
         <value xml:lang="ru">Средний</value>
         <value xml:lang="th">กลาง</value>
+        <value xml:lang="vi">Cỡ vừa</value>
         <value xml:lang="zh">中</value>
         <value xml:lang="zh_CN">中等</value>
         <value xml:lang="zh_TW">中</value>
@@ -4941,6 +5181,7 @@
         <value xml:lang="ro">Mesaj</value>
         <value xml:lang="ru">Сообщение</value>
         <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="vi">Tin nhắn</value>
         <value xml:lang="zh">信息</value>
         <value xml:lang="zh_CN">消息</value>
         <value xml:lang="zh_TW">訊息</value>
@@ -4949,6 +5190,7 @@
         <value xml:lang="en">Message is missing</value>
         <value xml:lang="es">Falta el mensaje</value>
         <value xml:lang="pt_BR">A Mensagem está faltando</value>
+        <value xml:lang="vi">Tin nhắn bị mất</value>
     </property>
     <property key="CommonMessages">
         <value xml:lang="de">Meldungen</value>
@@ -4962,6 +5204,7 @@
         <value xml:lang="ro">Mesaje </value>
         <value xml:lang="ru">Сообщения</value>
         <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="vi">Tin nhắn</value>
         <value xml:lang="zh">消息</value>
         <value xml:lang="zh_TW">訊息</value>
     </property>
@@ -4978,6 +5221,7 @@
         <value xml:lang="ro">Modalitate</value>
         <value xml:lang="ru">Метод</value>
         <value xml:lang="th">วิธี</value>
+        <value xml:lang="vi">Phương thức</value>
         <value xml:lang="zh">方法</value>
         <value xml:lang="zh_CN">方法</value>
         <value xml:lang="zh_TW">方法</value>
@@ -5005,6 +5249,7 @@
         <value xml:lang="ro">Minut</value>
         <value xml:lang="ru">Ежеминутно</value>
         <value xml:lang="th">ทุกนาที</value>
+        <value xml:lang="vi">Phút</value>
         <value xml:lang="zh">每分钟</value>
         <value xml:lang="zh_TW">每分鐘</value>
     </property>
@@ -5020,6 +5265,7 @@
         <value xml:lang="ro">Minut</value>
         <value xml:lang="ru">Ежеминутно</value>
         <value xml:lang="th">ทุกนาที</value>
+        <value xml:lang="vi">Phút</value>
         <value xml:lang="zh">每分钟</value>
         <value xml:lang="zh_TW">每分鐘</value>
     </property>
@@ -5047,6 +5293,7 @@
         <value xml:lang="ro">Modifica</value>
         <value xml:lang="ru">Изменить</value>
         <value xml:lang="th">เปลี่ยนแปลง</value>
+        <value xml:lang="vi">Hiệu chỉnh</value>
         <value xml:lang="zh">修改</value>
         <value xml:lang="zh_CN">修改</value>
         <value xml:lang="zh_TW">修改</value>
@@ -5064,6 +5311,7 @@
         <value xml:lang="ro">Luni</value>
         <value xml:lang="ru">Понедельник</value>
         <value xml:lang="th">วันจันทร์</value>
+        <value xml:lang="vi">Thứ 2</value>
         <value xml:lang="zh">星期一</value>
         <value xml:lang="zh_CN">星期一</value>
         <value xml:lang="zh_TW">週一</value>
@@ -5082,6 +5330,7 @@
         <value xml:lang="ro">Luna</value>
         <value xml:lang="ru">Месяц</value>
         <value xml:lang="th">เดือน</value>
+        <value xml:lang="vi">Tháng</value>
         <value xml:lang="zh">月</value>
         <value xml:lang="zh_CN">月份</value>
         <value xml:lang="zh_TW">月</value>
@@ -5098,6 +5347,7 @@
         <value xml:lang="ro">Lunar</value>
         <value xml:lang="ru">Ежемесячно</value>
         <value xml:lang="th">ทุก ๆ เดือน</value>
+        <value xml:lang="vi">Hàng tháng</value>
         <value xml:lang="zh">每月</value>
         <value xml:lang="zh_TW">每月</value>
     </property>
@@ -5113,6 +5363,7 @@
         <value xml:lang="ro">Luni</value>
         <value xml:lang="ru">Месяцы</value>
         <value xml:lang="th">เดือน</value>
+        <value xml:lang="vi">Tháng</value>
         <value xml:lang="zh">月</value>
         <value xml:lang="zh_TW">月</value>
     </property>
@@ -5130,6 +5381,7 @@
         <value xml:lang="ro">Succesive</value>
         <value xml:lang="ru">Еще</value>
         <value xml:lang="th">มากกว่า</value>
+        <value xml:lang="vi">Thêm nữa</value>
         <value xml:lang="zh">更多</value>
         <value xml:lang="zh_CN">更多</value>
         <value xml:lang="zh_TW">更多</value>
@@ -5144,6 +5396,7 @@
         <value xml:lang="pt_BR">mais que</value>
         <value xml:lang="ru">больше чем</value>
         <value xml:lang="th">มากกว่า</value>
+        <value xml:lang="vi">nhiều hơn</value>
         <value xml:lang="zh">大于</value>
         <value xml:lang="zh_TW">大于</value>
     </property>
@@ -5155,6 +5408,7 @@
         <value xml:lang="hi_IN">Portlet को तल पर स्थानांतरित करे</value>
         <value xml:lang="it">Sposta il portlet in fondo</value>
         <value xml:lang="pt_BR">Mover Portlet no fundo</value>
+        <value xml:lang="vi">Di chuyển portlet xuống đáy</value>
         <value xml:lang="zh">在底部移动Portlet</value>
         <value xml:lang="zh_TW">在底部移動Portlet</value>
     </property>
@@ -5166,6 +5420,7 @@
         <value xml:lang="hi_IN">Portlet नीचे ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet in basso</value>
         <value xml:lang="pt_BR">Portlet para baixo</value>
+        <value xml:lang="vi">Di chuyển portlet xuống</value>
         <value xml:lang="zh">下移Portlet</value>
         <value xml:lang="zh_TW">下移Portlet</value>
     </property>
@@ -5177,6 +5432,7 @@
         <value xml:lang="hi_IN">Portlet बाएं ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet a sinistra</value>
         <value xml:lang="pt_BR">Mover Portlet para Esquerda</value>
+        <value xml:lang="vi">Di chuyển porlet sang trái</value>
         <value xml:lang="zh">左移Portlet</value>
         <value xml:lang="zh_TW">左移Portlet</value>
     </property>
@@ -5188,6 +5444,7 @@
         <value xml:lang="hi_IN">Portlet दाएं ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet a destra</value>
         <value xml:lang="pt_BR">Mover Portlet para Direita</value>
+        <value xml:lang="vi">Di chuyển porlet sang phải</value>
         <value xml:lang="zh">右移Portlet</value>
         <value xml:lang="zh_TW">右移Portlet</value>
     </property>
@@ -5199,6 +5456,7 @@
         <value xml:lang="hi_IN">Portlet शीर्ष पर ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet in cima</value>
         <value xml:lang="pt_BR">Mover Portlet no Topo</value>
+        <value xml:lang="vi">Di chuyển porlet lên đỉnh</value>
         <value xml:lang="zh">在顶部移动Portlet</value>
         <value xml:lang="zh_TW">在頂部移動Portlet</value>
     </property>
@@ -5210,6 +5468,7 @@
         <value xml:lang="hi_IN">Portlet ऊपर की ओर ले जाएँ</value>
         <value xml:lang="it">Sposta il portlet in alto</value>
         <value xml:lang="pt_BR">Mover Portlet para cima</value>
+        <value xml:lang="vi">Di chuyển porlet lên</value>
         <value xml:lang="zh">上移Portlet</value>
         <value xml:lang="zh_TW">上移Portlet</value>
     </property>
@@ -5334,6 +5593,7 @@
         <value xml:lang="ro">Nou</value>
         <value xml:lang="ru">Новый</value>
         <value xml:lang="th">ใหม่</value>
+        <value xml:lang="vi">Mới</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_CN">新建</value>
         <value xml:lang="zh_TW">新建</value>
@@ -5347,6 +5607,7 @@
         <value xml:lang="it">Nuova password</value>
         <value xml:lang="pt_BR">Nova Senha</value>
         <value xml:lang="th">รหัสผ่านใหม่</value>
+        <value xml:lang="vi">Mật khẩu mới</value>
         <value xml:lang="zh">新密码</value>
         <value xml:lang="zh_TW">新密碼</value>
     </property>
@@ -5359,6 +5620,7 @@
         <value xml:lang="it">Verifica nuova password</value>
         <value xml:lang="pt_BR">Verificar Nova Senha</value>
         <value xml:lang="th">ตรวจสอบรหัสผ่านใหม่</value>
+        <value xml:lang="vi">Xác nhận mật khẩu mới</value>
         <value xml:lang="zh">新密码验证</value>
         <value xml:lang="zh_TW">新密碼驗証</value>
     </property>
@@ -6336,6 +6598,7 @@
         <value xml:lang="ro">Parola</value>
         <value xml:lang="ru">Пароль</value>
         <value xml:lang="th">รหัสผ่าน</value>
+        <value xml:lang="vi">Mật khẩu</value>
         <value xml:lang="zh">密码</value>
         <value xml:lang="zh_CN">密码</value>
         <value xml:lang="zh_TW">密碼</value>
@@ -6349,6 +6612,7 @@
         <value xml:lang="it">Per favore modifica la tua password</value>
         <value xml:lang="pt_BR">Por favor altere sua senha</value>
         <value xml:lang="th">กรุณาเปลี่ยนรหัสผ่านของคุณ</value>
+        <value xml:lang="vi">Vui lòng thay đổi mật khẩu</value>
         <value xml:lang="zh">请修改你的密码</value>
         <value xml:lang="zh_TW">請修改你的密碼</value>
     </property>
@@ -6356,6 +6620,7 @@
         <value xml:lang="de">Bezahlung</value>
         <value xml:lang="en">Payment</value>
         <value xml:lang="es">Pago</value>
+        <value xml:lang="vi">Thanh toán</value>
     </property>
     <property key="CommonPaymentMethodType">
         <value xml:lang="ar">نوع طريقة التسديد</value>
@@ -6370,6 +6635,7 @@
         <value xml:lang="ro">Tip Metoda Plata.</value>
         <value xml:lang="ru">Тип способа платежа</value>
         <value xml:lang="th">ประเภทวิธีการชำระเงิน</value>
+        <value xml:lang="vi">Loại phương thức thanh toán</value>
         <value xml:lang="zh">支付方法类型</value>
         <value xml:lang="zh_TW">支付方法類型</value>
     </property>
@@ -6387,6 +6653,7 @@
         <value xml:lang="ro">Plati</value>
         <value xml:lang="ru">Платежи</value>
         <value xml:lang="th">การชำระเงิน</value>
+        <value xml:lang="vi">Thanh toán</value>
         <value xml:lang="zh">支付</value>
         <value xml:lang="zh_TW">支付</value>
     </property>
@@ -6429,6 +6696,7 @@
         <value xml:lang="ro">Eroare Permis</value>
         <value xml:lang="ru">Ошибка разрешения</value>
         <value xml:lang="th">ผิดพลาดการอนุญาต</value>
+        <value xml:lang="vi">Quyền hạn bị lỗi</value>
         <value xml:lang="zh">权限错误</value>
         <value xml:lang="zh_CN">许可检查错误</value>
         <value xml:lang="zh_TW">權限錯誤</value>
@@ -6599,6 +6867,7 @@
         <value xml:lang="ro">Contabilizat De</value>
         <value xml:lang="ru">Отправленные</value>
         <value xml:lang="th">โพสต์โดย</value>
+        <value xml:lang="vi">Đăng bởi</value>
         <value xml:lang="zh">过账者</value>
         <value xml:lang="zh_TW">過賬者</value>
     </property>
@@ -6615,6 +6884,7 @@
         <value xml:lang="ro">Data Contabilizarii</value>
         <value xml:lang="ru">Дата отправки</value>
         <value xml:lang="th">โพสต์วันที่</value>
+        <value xml:lang="vi">Đăng ngày</value>
         <value xml:lang="zh">过账日期</value>
         <value xml:lang="zh_TW">過賬日</value>
     </property>
@@ -6626,6 +6896,7 @@
         <value xml:lang="hi_IN">द्वारा संचालित</value>
         <value xml:lang="it">Realizzato con</value>
         <value xml:lang="pt_BR">Powered by</value>
+        <value xml:lang="vi">Phát triển trên nền tảng</value>
         <value xml:lang="zh">运行平台</value>
         <value xml:lang="zh_TW">運行平台</value>
     </property>
@@ -6637,6 +6908,7 @@
         <value xml:lang="hi_IN">वरीयताएँ</value>
         <value xml:lang="it">Preferenze</value>
         <value xml:lang="pt_BR">Preferências</value>
+        <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh_TW">設置</value>
     </property>
@@ -6644,11 +6916,13 @@
         <value xml:lang="de">Bevorzugte Gruppe</value>
         <value xml:lang="en">Preference Group</value>
         <value xml:lang="es">Grupo de preferencias</value>
+        <value xml:lang="vi">Nhóm tham chiếu</value>
     </property>
     <property key="CommonPreferenceName">
         <value xml:lang="de">Bevorzugter Name</value>
         <value xml:lang="en">Preference Name</value>
         <value xml:lang="es">Nombre de la preferencia</value>
+        <value xml:lang="vi">Tên tham chiếu</value>
     </property>
     <property key="CommonPrepared">
         <value xml:lang="ar">معدة</value>
@@ -6663,6 +6937,7 @@
         <value xml:lang="ro">Preparat</value>
         <value xml:lang="ru">Подготовлен</value>
         <value xml:lang="th">จัดเตรียม</value>
+        <value xml:lang="vi">Soạn thảo</value>
         <value xml:lang="zh">准备</value>
         <value xml:lang="zh_CN">做好准备的</value>
         <value xml:lang="zh_TW">准備</value>
@@ -6672,6 +6947,7 @@
         <value xml:lang="en">Preview</value>
         <value xml:lang="es">Vista previa</value>
         <value xml:lang="th">แสดงตัวอย่าง</value>
+        <value xml:lang="vi">Xem trước</value>
     </property>
     <property key="CommonPrevious">
         <value xml:lang="ar">سابق</value>
@@ -6687,6 +6963,7 @@
         <value xml:lang="ro">Precedent(a)</value>
         <value xml:lang="ru">Предыдущая</value>
         <value xml:lang="th">ก่อนหน้านี้</value>
+        <value xml:lang="vi">Trước</value>
         <value xml:lang="zh">上一个</value>
         <value xml:lang="zh_CN">前</value>
         <value xml:lang="zh_TW">上一個</value>
@@ -6702,6 +6979,7 @@
         <value xml:lang="pt">Apps preliminar</value>
         <value xml:lang="pt_BR">Aplicativos Primários</value>
         <value xml:lang="ru">Основные применения</value>
+        <value xml:lang="vi">Ứng dụng cấp một</value>
         <value xml:lang="zh">主要应用</value>
         <value xml:lang="zh_CN">主要應用</value>
         <value xml:lang="zh_TW">主要應用</value>
@@ -6718,6 +6996,7 @@
         <value xml:lang="ro">Tipareste</value>
         <value xml:lang="ru">Печать</value>
         <value xml:lang="th">พิมพ์</value>
+        <value xml:lang="vi">In</value>
         <value xml:lang="zh">打印</value>
         <value xml:lang="zh_TW">列印</value>
     </property>
@@ -6729,6 +7008,7 @@
         <value xml:lang="hi_IN">प्रिंटर के लिए उपयुक्त</value>
         <value xml:lang="it">Stampa amichevole</value>
         <value xml:lang="pt_BR">Versão para impressão</value>
+        <value xml:lang="vi">Giao điện bản in</value>
         <value xml:lang="zh">适合打印机打印</value>
         <value xml:lang="zh_TW">適合印表機列印</value>
     </property>
@@ -6745,6 +7025,7 @@
         <value xml:lang="ro">Prioritate</value>
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
+        <value xml:lang="vi">Mức độ quan trọng</value>
         <value xml:lang="zh">优先</value>
         <value xml:lang="zh_CN">优先权</value>
         <value xml:lang="zh_TW">優先</value>
@@ -6762,6 +7043,7 @@
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">В работе</value>
         <value xml:lang="th">กำลังประมวลผล</value>
+        <value xml:lang="vi">Đang xử lý</value>
         <value xml:lang="zh">处理中</value>
         <value xml:lang="zh_CN">处理中</value>
         <value xml:lang="zh_TW">處理中</value>
@@ -6780,6 +7062,7 @@
         <value xml:lang="ro">Profil</value>
         <value xml:lang="ru">Профиль</value>
         <value xml:lang="th">ประวัติโดยย่อ</value>
+        <value xml:lang="vi">Hồ sơ</value>
         <value xml:lang="zh">简介</value>
         <value xml:lang="zh_CN">设定</value>
         <value xml:lang="zh_TW">簡介</value>
@@ -6798,6 +7081,7 @@
         <value xml:lang="ro">Preluare in curs</value>
         <value xml:lang="ru">В процессе сортировки</value>
         <value xml:lang="th">การคัดสรรการดำเนินการ</value>
+        <value xml:lang="vi">Đang thực hiện lựa chọn</value>
         <value xml:lang="zh">分拣进行中</value>
         <value xml:lang="zh_CN">出库进行中</value>
         <value xml:lang="zh_TW">分揀進行中</value>
@@ -6816,6 +7100,7 @@
         <value xml:lang="ro">Recepite in curs</value>
         <value xml:lang="ru">В процессе получения</value>
         <value xml:lang="th">ตำเนินการต่อไป</value>
+        <value xml:lang="vi">Đang thực hiện nhận</value>
         <value xml:lang="zh">接收进行中</value>
         <value xml:lang="zh_CN">接收进行中</value>
         <value xml:lang="zh_TW">接收進行中</value>
@@ -6833,6 +7118,7 @@
         <value xml:lang="ro">Provincia</value>
         <value xml:lang="ru">Провинция</value>
         <value xml:lang="th">จังหวัด</value>
+        <value xml:lang="vi">Tỉnh thành</value>
         <value xml:lang="zh">省</value>
         <value xml:lang="zh_CN">省</value>
         <value xml:lang="zh_TW">省</value>
@@ -6850,6 +7136,7 @@
         <value xml:lang="ro">Publica</value>
         <value xml:lang="ru">Публиковать</value>
         <value xml:lang="th">ประกาศ</value>
+        <value xml:lang="vi">Xuất bản</value>
         <value xml:lang="zh">发布</value>
         <value xml:lang="zh_CN">发布</value>
         <value xml:lang="zh_TW">發布</value>
@@ -6868,6 +7155,7 @@
         <value xml:lang="ro">Functie</value>
         <value xml:lang="ru">Назначение</value>
         <value xml:lang="th">เป้าหมาย</value>
+        <value xml:lang="vi">Lý do</value>
         <value xml:lang="zh">目的</value>
         <value xml:lang="zh_CN">目的</value>
         <value xml:lang="zh_TW">目的</value>
@@ -6886,6 +7174,7 @@
         <value xml:lang="ro">Cant.</value>
         <value xml:lang="ru">Кол.</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">S.Lượng</value>
         <value xml:lang="zh">数量</value>
         <value xml:lang="zh_TW">數量</value>
     </property>
@@ -6921,6 +7210,7 @@
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Số lượng</value>
         <value xml:lang="zh">数量</value>
         <value xml:lang="zh_CN">数量</value>
         <value xml:lang="zh_TW">數量</value>
@@ -6939,6 +7229,7 @@
         <value xml:lang="ro">Trimestru</value>
         <value xml:lang="ru">Квартал</value>
         <value xml:lang="th">ส่วนหนึ่ง</value>
+        <value xml:lang="vi">Quý</value>
         <value xml:lang="zh">季度</value>
         <value xml:lang="zh_CN">季</value>
         <value xml:lang="zh_TW">季度</value>
@@ -6956,6 +7247,7 @@
         <value xml:lang="ro">Interogheaza</value>
         <value xml:lang="ru">Запрос</value>
         <value xml:lang="th">คำถาม</value>
+        <value xml:lang="vi">Truy vấn</value>
         <value xml:lang="zh">询问</value>
         <value xml:lang="zh_TW">詢問</value>
     </property>
@@ -6975,6 +7267,7 @@
         <value xml:lang="ro">Adaugare Rapida</value>
         <value xml:lang="ru">Быстрое добавление</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Thêm nhanh</value>
         <value xml:lang="zh">快速添加</value>
         <value xml:lang="zh_CN">快速添加</value>
         <value xml:lang="zh_TW">快速添加</value>
@@ -6994,6 +7287,7 @@
         <value xml:lang="ro">Adaugare Rapida la Lista de Cumparari</value>
         <value xml:lang="ru">Быстрое добавление в список покупок</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็วในรายการซื้อของ</value>
+        <value xml:lang="vi">Thêm nhanh vào danh sách mua sắm</value>
         <value xml:lang="zh">快速添加到购物列表</value>
         <value xml:lang="zh_CN">快速添加到购物列表</value>
         <value xml:lang="zh_TW">快速添加到購物列表</value>
@@ -7012,6 +7306,7 @@
         <value xml:lang="ro">Procent</value>
         <value xml:lang="ru">Курс</value>
         <value xml:lang="th">อัตรา</value>
+        <value xml:lang="vi">Đánh giá</value>
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh_CN">等级</value>
         <value xml:lang="zh_TW">評等</value>
@@ -7030,6 +7325,7 @@
         <value xml:lang="ro">Procente</value>
         <value xml:lang="ru">Курсы</value>
         <value xml:lang="th">อัตรา</value>
+        <value xml:lang="vi">Đánh giá</value>
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh_CN">费用</value>
         <value xml:lang="zh_TW">評等</value>
@@ -7047,6 +7343,7 @@
         <value xml:lang="ro">Promta</value>
         <value xml:lang="ru">Готов</value>
         <value xml:lang="th">พร้อม</value>
+        <value xml:lang="vi">Sẵn sàng</value>
         <value xml:lang="zh">就绪</value>
         <value xml:lang="zh_CN">准备好的</value>
         <value xml:lang="zh_TW">就緒</value>
@@ -7059,6 +7356,7 @@
         <value xml:lang="hi_IN">कारण</value>
         <value xml:lang="it">Motivazione</value>
         <value xml:lang="pt_BR">Razão</value>
+        <value xml:lang="vi">Lý do</value>
         <value xml:lang="zh">原因</value>
         <value xml:lang="zh_TW">原因</value>
     </property>
@@ -7075,6 +7373,7 @@
         <value xml:lang="ro">Primesti</value>
         <value xml:lang="ru">Получить</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="vi">Nhận</value>
         <value xml:lang="zh">接收</value>
         <value xml:lang="zh_CN">接收</value>
         <value xml:lang="zh_TW">接收</value>
@@ -7092,6 +7391,7 @@
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получено</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="vi">Đã nhận</value>
         <value xml:lang="zh">已接收</value>
         <value xml:lang="zh_CN">接收到的</value>
         <value xml:lang="zh_TW">已接收</value>
@@ -7109,6 +7409,7 @@
         <value xml:lang="ro">Rosu</value>
         <value xml:lang="ru">Красный</value>
         <value xml:lang="th">สีแดง</value>
+        <value xml:lang="vi">Màu đỏ</value>
         <value xml:lang="zh">红色</value>
         <value xml:lang="zh_CN">红色</value>
         <value xml:lang="zh_TW">紅色</value>
@@ -7160,6 +7461,7 @@
         <value xml:lang="ro">Reimprospateaza</value>
         <value xml:lang="ru">Обновить</value>
         <value xml:lang="th">รีเฟรช</value>
+        <value xml:lang="vi">Làm mới</value>
         <value xml:lang="zh">刷新</value>
         <value xml:lang="zh_CN">刷新</value>
         <value xml:lang="zh_TW">更新</value>
@@ -7180,6 +7482,7 @@
         <value xml:lang="ro">Utilizator Registrat</value>
         <value xml:lang="ru">Зарегистрированный пользователь</value>
         <value xml:lang="th">ลงทะเบียนผู้ใช้</value>
+        <value xml:lang="vi">Vui lòng đăng nhập</value>
         <value xml:lang="zh">已登记用户</value>
         <value xml:lang="zh_CN">注册用户</value>
         <value xml:lang="zh_TW">註冊使用者</value>
@@ -7197,6 +7500,7 @@
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отклоненные</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
+        <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">已拒绝</value>
         <value xml:lang="zh_CN">拒绝</value>
         <value xml:lang="zh_TW">拒絕</value>
@@ -7209,6 +7513,7 @@
         <value xml:lang="hi_IN">संबंधित जानकारी</value>
         <value xml:lang="it">Informazioni relative</value>
         <value xml:lang="pt_BR">Informações relacionadas</value>
+        <value xml:lang="vi">Thông tin liên quan</value>
         <value xml:lang="zh">相关信息</value>
         <value xml:lang="zh_TW">相關資訊</value>
     </property>
@@ -7216,12 +7521,14 @@
         <value xml:lang="de">Release</value>
         <value xml:lang="en">Release</value>
         <value xml:lang="es">Distribución</value>
+        <value xml:lang="vi">Ban hành</value>
     </property>
     <property key="CommonReleaseDate">
         <value xml:lang="de">Release Datum</value>
         <value xml:lang="en">Release Date</value>
         <value xml:lang="es">Fecha distribución</value>
         <value xml:lang="pt_BR">Data de Lançamento</value>
+        <value xml:lang="vi">Ngày ban hành</value>
     </property>
     <property key="CommonReleaseVersion">
         <value xml:lang="de">Releaseversion</value>
@@ -7233,6 +7540,7 @@
         <value xml:lang="pt">1.0.0-Preview</value>
         <value xml:lang="pt_BR">Versão de Lançamento</value>
         <value xml:lang="th">เวอร์ชันใหม่</value>
+        <value xml:lang="vi">Ban hành phiên bản</value>
         <value xml:lang="zh">发布版本</value>
         <value xml:lang="zh_TW">發佈版本</value>
     </property>
@@ -7241,6 +7549,7 @@
         <value xml:lang="en">Reload Captcha Code</value>
         <value xml:lang="es">Recargar código captcha</value>
         <value xml:lang="pt_BR">Recarregar Código Captcha</value>
+        <value xml:lang="vi">Tải lại mả captcha</value>
     </property>
     <property key="CommonRemove">
         <value xml:lang="ar">نزع</value>
@@ -7256,6 +7565,7 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
+        <value xml:lang="vi">Loại bỏ</value>
         <value xml:lang="zh">删除</value>
         <value xml:lang="zh_CN">删除</value>
         <value xml:lang="zh_TW">刪除</value>
@@ -7273,6 +7583,7 @@
         <value xml:lang="ro">Sterge Expirari</value>
         <value xml:lang="ru">Удалить просроченные</value>
         <value xml:lang="th">ย้ายวันหมดเขต</value>
+        <value xml:lang="vi">Loại bỏ hết hạn</value>
         <value xml:lang="zh">删除过期的</value>
         <value xml:lang="zh_CN">删除过期的</value>
         <value xml:lang="zh_TW">刪除過期的</value>
@@ -7285,6 +7596,7 @@
         <value xml:lang="hi_IN">Portlet हटाये</value>
         <value xml:lang="it">Rimuovi il portlet</value>
         <value xml:lang="pt_BR">Remover Portlet</value>
+        <value xml:lang="vi">Loại bỏ porlet</value>
         <value xml:lang="zh">删除Portlet</value>
         <value xml:lang="zh_TW">刪除Portlet</value>
     </property>
@@ -7294,6 +7606,7 @@
         <value xml:lang="es">Informe</value>
         <value xml:lang="fr">Etat</value>
         <value xml:lang="pt_BR">Relatório</value>
+        <value xml:lang="vi">Báo cáo</value>
     </property>
     <property key="CommonReports">
         <value xml:lang="ar">تقارير</value>
@@ -7308,6 +7621,7 @@
         <value xml:lang="ro">Tiparire</value>
         <value xml:lang="ru">Отчет</value>
         <value xml:lang="th">รายงาน</value>
+        <value xml:lang="vi">Báo cáo</value>
         <value xml:lang="zh">报告</value>
         <value xml:lang="zh_CN">报告</value>
         <value xml:lang="zh_TW">報告</value>
@@ -7366,6 +7680,7 @@
         <value xml:lang="ro">Azereaz</value>
         <value xml:lang="ru">Переустановить</value>
         <value xml:lang="th">ตั้งใหม่</value>
+        <value xml:lang="vi">Khởi động lại</value>
         <value xml:lang="zh">重新设置</value>
         <value xml:lang="zh_CN">重置</value>
         <value xml:lang="zh_TW">重新設置</value>
@@ -7431,6 +7746,7 @@
         <value xml:lang="it">Riporta all'originale</value>
         <value xml:lang="pt_BR">Reverter para o original</value>
         <value xml:lang="th">แปลงเป็นต้นฉบับ</value>
+        <value xml:lang="vi">chỉnh lại thành nguyên gốc</value>
         <value xml:lang="zh">转为原来的</value>
         <value xml:lang="zh_TW">轉為原來的</value>
     </property>
@@ -7450,6 +7766,7 @@
         <value xml:lang="ro">Recenzie</value>
         <value xml:lang="ru">Просмотреть</value>
         <value xml:lang="th">ตรวจสอบ</value>
+        <value xml:lang="vi">Xem lại</value>
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh_CN">评论</value>
         <value xml:lang="zh_TW">評論</value>
@@ -7480,6 +7797,7 @@
         <value xml:lang="it">righe</value>
         <value xml:lang="pt_BR">linhas</value>
         <value xml:lang="th">แถว</value>
+        <value xml:lang="vi">dòng</value>
         <value xml:lang="zh">行</value>
         <value xml:lang="zh_TW">行</value>
     </property>
@@ -7496,6 +7814,7 @@
         <value xml:lang="ro">Executa</value>
         <value xml:lang="ru">Выполнить</value>
         <value xml:lang="th">ดำเนินการ</value>
+        <value xml:lang="vi">Thực hiện</value>
         <value xml:lang="zh">运行</value>
         <value xml:lang="zh_CN">运行</value>
         <value xml:lang="zh_TW">運行</value>
@@ -7513,6 +7832,7 @@
         <value xml:lang="ro">Sambata</value>
         <value xml:lang="ru">Суббота</value>
         <value xml:lang="th">วันเสาร์</value>
+        <value xml:lang="vi">Thứ bảy</value>
         <value xml:lang="zh">星期六</value>
         <value xml:lang="zh_CN">星期六</value>
         <value xml:lang="zh_TW">週六</value>
@@ -7532,6 +7852,7 @@
         <value xml:lang="ro">Salveaza</value>
         <value xml:lang="ru">Сохранить</value>
         <value xml:lang="th">บันทึก</value>
+        <value xml:lang="vi">Lưu</value>
         <value xml:lang="zh">保存</value>
         <value xml:lang="zh_CN">保存</value>
         <value xml:lang="zh_TW">儲存</value>
@@ -7550,6 +7871,7 @@
         <value xml:lang="ro">Economii</value>
         <value xml:lang="ru">Сбережения</value>
         <value xml:lang="th">กำลังบันทึก</value>
+        <value xml:lang="vi">Lưu trữ</value>
         <value xml:lang="zh">节省</value>
         <value xml:lang="zh_CN">储蓄</value>
         <value xml:lang="zh_TW">節省</value>
@@ -7568,6 +7890,7 @@
         <value xml:lang="ro">Cautare</value>
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="vi">Tìm kiếm</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh_CN">搜索</value>
         <value xml:lang="zh_TW">搜索</value>
@@ -7580,6 +7903,7 @@
         <value xml:lang="hi_IN">खोजने के लिए विकल्प</value>
         <value xml:lang="it">Opzioni di ricerca</value>
         <value xml:lang="pt_BR">Opções de pesquisa</value>
+        <value xml:lang="vi">Tuỳ chọn tìm kiếm</value>
         <value xml:lang="zh">搜索选项</value>
         <value xml:lang="zh_TW">搜索選項</value>
     </property>
@@ -7599,6 +7923,7 @@
         <value xml:lang="ro">Cauta Resultate pentru</value>
         <value xml:lang="ru">Поиск результатов по</value>
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับ</value>
+        <value xml:lang="vi">Kết quả tìm kiếm cho</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh_CN">搜索结果</value>
         <value xml:lang="zh_TW">搜索</value>
@@ -7612,6 +7937,7 @@
         <value xml:lang="it">Risultati ricerca</value>
         <value xml:lang="nl">Zoekresultaten</value>
         <value xml:lang="pt_BR">Resultados da Pesquisa</value>
+        <value xml:lang="vi">Kết quả tìm kiếm</value>
         <value xml:lang="zh">搜索结果</value>
         <value xml:lang="zh_TW">搜索結果</value>
     </property>
@@ -7629,6 +7955,7 @@
         <value xml:lang="ro">Al doilea</value>
         <value xml:lang="ru">Во-вторых</value>
         <value xml:lang="th">ในลำดับที่สอง</value>
+        <value xml:lang="vi">Cấp hai</value>
         <value xml:lang="zh">每秒</value>
         <value xml:lang="zh_TW">每秒</value>
     </property>
@@ -7643,6 +7970,7 @@
         <value xml:lang="pt">Apps secundário</value>
         <value xml:lang="pt_BR">Aplicativos secundários</value>
         <value xml:lang="ru">Вторичные применения</value>
+        <value xml:lang="vi">Ứng dụng cấp hai</value>
         <value xml:lang="zh">附属应用</value>
         <value xml:lang="zh_CN">附屬應用</value>
         <value xml:lang="zh_TW">附屬應用</value>
@@ -7660,6 +7988,7 @@
         <value xml:lang="ro">Al doilea</value>
         <value xml:lang="ru">Во-вторых</value>
         <value xml:lang="th">ในลำดับที่สอง</value>
+        <value xml:lang="vi">Cấp hai</value>
         <value xml:lang="zh">每秒</value>
         <value xml:lang="zh_TW">每秒</value>
     </property>
@@ -7676,6 +8005,7 @@
         <value xml:lang="ro">Siguranta</value>
         <value xml:lang="ru">Безопасность</value>
         <value xml:lang="th">ความปลอดภัย</value>
+        <value xml:lang="vi">An ninh</value>
         <value xml:lang="zh">安全</value>
         <value xml:lang="zh_CN">安全</value>
         <value xml:lang="zh_TW">安全</value>
@@ -7693,6 +8023,7 @@
         <value xml:lang="ro">Cod Grup De Siguranta</value>
         <value xml:lang="ru">Код группы безопасности</value>
         <value xml:lang="th">รหัสกลุ่มความปลอดภัย</value>
+        <value xml:lang="vi">Mã nhóm an ninh</value>
         <value xml:lang="zh">安全组标识</value>
     </property>
     <property key="CommonSelect">
@@ -7709,6 +8040,7 @@
         <value xml:lang="ro">Selectioneaza</value>
         <value xml:lang="ru">Выбрать</value>
         <value xml:lang="th">เลือก</value>
+        <value xml:lang="vi">Lựa chọn</value>
         <value xml:lang="zh">选择</value>
         <value xml:lang="zh_CN">选择</value>
         <value xml:lang="zh_TW">選擇</value>
@@ -7728,6 +8060,7 @@
         <value xml:lang="ro">Selectioneaza Totul</value>
         <value xml:lang="ru">Выбрать все</value>
         <value xml:lang="th">เลือกทั้งหมด</value>
+        <value xml:lang="vi">Lựa chọn toàn bộ</value>
         <value xml:lang="zh">选择全部</value>
         <value xml:lang="zh_CN">全部选择</value>
         <value xml:lang="zh_TW">選擇全部</value>
@@ -7745,6 +8078,7 @@
         <value xml:lang="ro">Orice</value>
         <value xml:lang="ru">Любой</value>
         <value xml:lang="th">เลือกบางอัน</value>
+        <value xml:lang="vi">Bất kỳ</value>
         <value xml:lang="zh">任何</value>
         <value xml:lang="zh_CN">任何</value>
         <value xml:lang="zh_TW">任何</value>
@@ -7763,6 +8097,7 @@
         <value xml:lang="ro">Selectioneaza Unul</value>
         <value xml:lang="ru">Выбрать 1</value>
         <value xml:lang="th">เลือกอันเดียว</value>
+        <value xml:lang="vi">Lựa chọn một</value>
         <value xml:lang="zh">选择一个</value>
         <value xml:lang="zh_CN">选择一个</value>
         <value xml:lang="zh_TW">選擇一個</value>
@@ -7775,6 +8110,7 @@
         <value xml:lang="hi_IN">पोर्टल पेज चुनें</value>
         <value xml:lang="it">Seleziona pagina...</value>
         <value xml:lang="pt_BR">Selecione Página do Portal ...</value>
+        <value xml:lang="vi">Lựa chọn cổng thông tin...</value>
         <value xml:lang="zh">选择门户页面...</value>
         <value xml:lang="zh_TW">選擇門戶頁面...</value>
     </property>
@@ -7783,6 +8119,7 @@
         <value xml:lang="en">Select a portlet you would like to have help on....</value>
         <value xml:lang="es">Seleccione un portlet del que desee obtener ayuda....</value>
         <value xml:lang="fr">Liste des portlets contenues dans cette page, sélectionnez celle pour laquelle vous souhaitez de l'aide</value>
+        <value xml:lang="vi">Lựa chọn một porlet mà muốn có sự giúp đỡ...</value>
     </property>
     <property key="CommonSelected">
         <value xml:lang="ar">مختارة</value>
@@ -7798,6 +8135,7 @@
         <value xml:lang="ro">Selectionat</value>
         <value xml:lang="ru">выделенный</value>
         <value xml:lang="th">เลือก</value>
+        <value xml:lang="vi">Đã lựa chọn</value>
         <value xml:lang="zh">选择</value>
         <value xml:lang="zh_CN">已选择</value>
         <value xml:lang="zh_TW">選擇</value>
@@ -7816,6 +8154,7 @@
         <value xml:lang="ro">Selectioneaza</value>
         <value xml:lang="ru">Выделение</value>
         <value xml:lang="th">การเลือก</value>
+        <value xml:lang="vi">Phần lựa chọn</value>
         <value xml:lang="zh">选择</value>
         <value xml:lang="zh_CN">选择</value>
         <value xml:lang="zh_TW">選擇</value>
@@ -7834,6 +8173,7 @@
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отправить</value>
         <value xml:lang="th">ส่ง</value>
+        <value xml:lang="vi">Gửi</value>
         <value xml:lang="zh">发送</value>
         <value xml:lang="zh_CN">发送</value>
         <value xml:lang="zh_TW">發送</value>
@@ -7852,6 +8192,7 @@
         <value xml:lang="ro">Data Trimiterii</value>
         <value xml:lang="ru">Дата отправки</value>
         <value xml:lang="th">ส่งวันที่</value>
+        <value xml:lang="vi">Ngày gửi</value>
         <value xml:lang="zh">发送日期</value>
         <value xml:lang="zh_CN">发送日期</value>
         <value xml:lang="zh_TW">發送日</value>
@@ -7870,6 +8211,7 @@
         <value xml:lang="ro">Trimis email</value>
         <value xml:lang="ru">отправить email</value>
         <value xml:lang="th">ส่งอีเมล</value>
+        <value xml:lang="vi">gửi email</value>
         <value xml:lang="zh">发送电子邮件</value>
         <value xml:lang="zh_CN">发送电子邮件</value>
         <value xml:lang="zh_TW">發送電子郵件</value>
@@ -7887,6 +8229,7 @@
         <value xml:lang="ro">Trimis prin Email</value>
         <value xml:lang="ru">Послать по сообщению</value>
         <value xml:lang="th">ส่งต่ออีเมล</value>
+        <value xml:lang="vi">Gửi mỗi email</value>
         <value xml:lang="zh">发送每个电子邮件</value>
         <value xml:lang="zh_TW">發送每個電子郵件</value>
     </property>
@@ -7903,6 +8246,7 @@
         <value xml:lang="ro">Trimit Tiparirea Prin Mail</value>
         <value xml:lang="ru">Послать отчет по эл.почте</value>
         <value xml:lang="th">ส่งรายงานโดยอีเมล</value>
+        <value xml:lang="vi">Gửi báo cáo qua email</value>
         <value xml:lang="zh">通过邮件发送报告</value>
         <value xml:lang="zh_TW">通過郵件發送報告</value>
     </property>
@@ -7919,6 +8263,7 @@
         <value xml:lang="ro">Trimis</value>
         <value xml:lang="ru">Отправлено</value>
         <value xml:lang="th">ส่ง</value>
+        <value xml:lang="vi">Gửi</value>
         <value xml:lang="zh">已发送</value>
         <value xml:lang="zh_CN">发送了</value>
         <value xml:lang="zh_TW">已發送</value>
@@ -7936,6 +8281,7 @@
         <value xml:lang="ro">Septembrie</value>
         <value xml:lang="ru">Сентябрь</value>
         <value xml:lang="th">กันยายน</value>
+        <value xml:lang="vi">Tháng 9</value>
         <value xml:lang="zh">九月</value>
         <value xml:lang="zh_CN">九月</value>
         <value xml:lang="zh_TW">九月</value>
@@ -7984,6 +8330,7 @@
         <value xml:lang="de">Sie sind nicht mehr angemeldet. Bitte melden Sie sich erneut an.</value>
         <value xml:lang="en">You are not logged in. Please login again.</value>
         <value xml:lang="es">No está conectado. Por favor, vuelva a conectarse.</value>
+        <value xml:lang="vi">Bạn chưa đăng nhập. Vui lòng đăng nhập lại.</value>
     </property>
     <property key="CommonSet">
         <value xml:lang="ar">وضع</value>
@@ -7998,6 +8345,7 @@
         <value xml:lang="ro">Setare</value>
         <value xml:lang="ru">Установить</value>
         <value xml:lang="th">กำหนด</value>
+        <value xml:lang="vi">Đặt</value>
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh_CN">赋值</value>
         <value xml:lang="zh_TW">設置</value>
@@ -8011,6 +8359,7 @@
         <value xml:lang="it">Imposta Come Attuale</value>
         <value xml:lang="pt_BR">Definir como atual</value>
         <value xml:lang="th">ตั้งเป็นปัจจุบัน</value>
+        <value xml:lang="vi">Đặt là hiện tại</value>
         <value xml:lang="zh">设置为当前</value>
         <value xml:lang="zh_TW">設置為當前</value>
     </property>
@@ -8022,6 +8371,7 @@
         <value xml:lang="hi_IN">कॉलम की चौड़ाई स्थापित करे...</value>
         <value xml:lang="it">Imposta larghezza colonna</value>
         <value xml:lang="pt_BR">Definir largura da coluna</value>
+        <value xml:lang="vi">Đặt độ rộng của cột</value>
         <value xml:lang="zh">设置列宽度...</value>
         <value xml:lang="zh_TW">設置列寬度...</value>
     </property>
@@ -8039,6 +8389,7 @@
         <value xml:lang="ro">(Va fi setat acum daca e gol)</value>
         <value xml:lang="ru">(Если пусто, будет установлено на текущий момент)</value>
         <value xml:lang="th">(จะส่งตอนนี้ถ้าว่าง)</value>
+        <value xml:lang="vi">(Sẽ tự đặt là lúc này nếu bỏ qua)</value>
         <value xml:lang="zh">(如果空，将设置为当前时间)</value>
         <value xml:lang="zh_CN">(如果为空就按当前日期赋值)</value>
         <value xml:lang="zh_TW">(如果空，將設置為當前時間)</value>
@@ -8052,6 +8403,7 @@
         <value xml:lang="it">Spedizioni</value>
         <value xml:lang="nl">Verzending</value>
         <value xml:lang="pt_BR">Frete</value>
+        <value xml:lang="vi">Vận chuyển</value>
         <value xml:lang="zh">运输</value>
         <value xml:lang="zh_TW">運輸</value>
     </property>
@@ -8080,6 +8432,7 @@
         <value xml:lang="ro">Afiseaza</value>
         <value xml:lang="ru">Показать</value>
         <value xml:lang="th">แสดง</value>
+        <value xml:lang="vi">Hiển thị</value>
         <value xml:lang="zh">显示</value>
         <value xml:lang="zh_CN">显示</value>
         <value xml:lang="zh_TW">顯示</value>
@@ -8098,6 +8451,7 @@
         <value xml:lang="ro">Afiseaza Tot</value>
         <value xml:lang="ru">Показать все</value>
         <value xml:lang="th">แสดงทั้งหมด</value>
+        <value xml:lang="vi">Hiện thị tất cả</value>
         <value xml:lang="zh">显示全部</value>
         <value xml:lang="zh_CN">显示所有</value>
         <value xml:lang="zh_TW">顯示全部</value>
@@ -8116,6 +8470,7 @@
         <value xml:lang="ro">Afiseaza toate recordurile</value>
         <value xml:lang="ru">Показать все записи</value>
         <value xml:lang="th">แสดงเรคคอร์ดทั้งหมด</value>
+        <value xml:lang="vi">Hiện thị tất cả bản ghi</value>
         <value xml:lang="zh">显示全部记录</value>
         <value xml:lang="zh_CN">显示所有记录</value>
         <value xml:lang="zh_TW">顯示全部記錄</value>
@@ -8133,6 +8488,7 @@
         <value xml:lang="ro">Afiseaza Campurile de Cautare</value>
         <value xml:lang="ru">Показать поля просмотра</value>
         <value xml:lang="th">แสดงฟิลด์ที่ค้นหา</value>
+        <value xml:lang="vi">Hiển thị trường tìm kiếm</value>
         <value xml:lang="zh">显示查询项</value>
         <value xml:lang="zh_CN">显示查找字段</value>
         <value xml:lang="zh_TW">顯示查詢項</value>
@@ -8150,6 +8506,7 @@
         <value xml:lang="ro">Pana la A</value>
         <value xml:lang="ru">С</value>
         <value xml:lang="th">ตั้งแต่</value>
+        <value xml:lang="vi">Kể từ</value>
         <value xml:lang="zh">自从</value>
         <value xml:lang="zh_CN">自从</value>
         <value xml:lang="zh_TW">自從</value>
@@ -8159,6 +8516,7 @@
         <value xml:lang="en">Size</value>
         <value xml:lang="es">Talla</value>
         <value xml:lang="th">ขนาด</value>
+        <value xml:lang="vi">Kích cỡ</value>
     </property>
     <property key="CommonSkipNavigation">
         <value xml:lang="de">Navigation auslassen</value>
@@ -8168,6 +8526,7 @@
         <value xml:lang="hi_IN">नेविगेशन छोड़े</value>
         <value xml:lang="it">Salta navigazione</value>
         <value xml:lang="pt_BR">Pular navegação</value>
+        <value xml:lang="vi">Bỏ qua phần định vị</value>
         <value xml:lang="zh">跳过导航</value>
         <value xml:lang="zh_TW">跳過導航</value>
     </property>
@@ -8185,6 +8544,7 @@
         <value xml:lang="ro">Mica</value>
         <value xml:lang="ru">Небольшой</value>
         <value xml:lang="th">เล็ก</value>
+        <value xml:lang="vi">Cỡ nhỏ</value>
         <value xml:lang="zh">小</value>
         <value xml:lang="zh_CN">小</value>
         <value xml:lang="zh_TW">小</value>
@@ -8204,6 +8564,7 @@
         <value xml:lang="ro">Imi pare rau, nu este posibila trimiterea acestei pagini la un prieten.  Selectioneaza dintr-o categorie o linie</value>
         <value xml:lang="ru">Вы не можете отправить эту страницу данному адресату. Выберите из предлагаемых категорий и позиций</value>
         <value xml:lang="th">ขอโทษค่ะ , คุณไม่สามารถส่งหน้านี้ให้เพื่อน. เลือกครั้งต่อไปจากหมวดหมู่หรือไอเทม</value>
+        <value xml:lang="vi">Xin lỗi, bạn không thể gửi trang này tới bạn bè. Lựa chọn một trang khác trong phần danh mục hoặc chọn một sản phẩm</value>
         <value xml:lang="zh">对不起，你没有把这个页面发送给朋友。请从目录或明细中选择</value>
         <value xml:lang="zh_CN">对不起, 你不能将这页发给你的朋友.  选择一个分类或项目</value>
         <value xml:lang="zh_TW">對不起，你沒有把這個頁面發送給朋友。請從目錄或明細中選擇</value>
@@ -8221,6 +8582,7 @@
         <value xml:lang="ro">Sortat Pe</value>
         <value xml:lang="ru">Порядок сортировки</value>
         <value xml:lang="th">เรียงลำดับรายการ</value>
+        <value xml:lang="vi">Yêu cầu sắp xếp</value>
         <value xml:lang="zh">排序顺序</value>
         <value xml:lang="zh_TW">排序順序</value>
     </property>
@@ -8237,6 +8599,7 @@
         <value xml:lang="ro">Ordinat Pe</value>
         <value xml:lang="ru">Сортировка по</value>
         <value xml:lang="th">เรียงลำดับโดย</value>
+        <value xml:lang="vi">Sắp xếp bởi</value>
         <value xml:lang="zh">排序方法</value>
         <value xml:lang="zh_TW">排序方法</value>
     </property>
@@ -8253,6 +8616,7 @@
         <value xml:lang="ro">Specificat</value>
         <value xml:lang="ru">Указанный</value>
         <value xml:lang="th">เฉพาะเจาะจง</value>
+        <value xml:lang="vi">Được cấu hình</value>
         <value xml:lang="zh">指定</value>
         <value xml:lang="zh_CN">指定的</value>
         <value xml:lang="zh_TW">指定</value>
@@ -8271,6 +8635,7 @@
         <value xml:lang="ro">Data Initieri</value>
         <value xml:lang="ru">Дата начала</value>
         <value xml:lang="th">เริ่มวันที่</value>
+        <value xml:lang="vi">Ngày bắt đầu</value>
         <value xml:lang="zh">开始日期</value>
         <value xml:lang="zh_CN">起始日期</value>
         <value xml:lang="zh_TW">開始日</value>
@@ -8288,6 +8653,7 @@
         <value xml:lang="ro">Data/Ora Start</value>
         <value xml:lang="ru">Дата/время начала</value>
         <value xml:lang="th">เริ่มวันที่/เวลา</value>
+        <value xml:lang="vi">Ngày giờ bắt đầu</value>
         <value xml:lang="zh">开始日期/时间</value>
         <value xml:lang="zh_CN">起始日期和时间</value>
         <value xml:lang="zh_TW">開始日期/時間</value>
@@ -8305,6 +8671,7 @@
         <value xml:lang="ro">Stat</value>
         <value xml:lang="ru">Область</value>
         <value xml:lang="th">รัฐ</value>
+        <value xml:lang="vi">Tỉnh</value>
         <value xml:lang="zh">州</value>
         <value xml:lang="zh_CN">州</value>
         <value xml:lang="zh_TW">州</value>
@@ -8323,6 +8690,7 @@
         <value xml:lang="ro">Stat/Provincie</value>
         <value xml:lang="ru">Область/Край</value>
         <value xml:lang="th">รัฐ/จังหวัด</value>
+        <value xml:lang="vi">Tỉnh/thành</value>
         <value xml:lang="zh">州/省</value>
         <value xml:lang="zh_CN">州/省</value>
         <value xml:lang="zh_TW">州/省</value>
@@ -8346,7 +8714,6 @@
     </property>
     <property key="CommonStatus">
         <value xml:lang="ar">وضعية</value>
-        <!-- was in accounting <value xml:lang="ar">الوضعيات</value> -->
         <value xml:lang="cs">Status</value>
         <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
@@ -8359,6 +8726,7 @@
         <value xml:lang="ro">Statut</value>
         <value xml:lang="ru">Статус</value>
         <value xml:lang="th">สถานะ</value>
+        <value xml:lang="vi">Tình trạng</value>
         <value xml:lang="zh">状态</value>
         <value xml:lang="zh_CN">状态</value>
         <value xml:lang="zh_TW">狀態</value>
@@ -8376,6 +8744,7 @@
         <value xml:lang="ro">Istoric State</value>
         <value xml:lang="ru">История изменений статуса</value>
         <value xml:lang="th">สถานะข้อมูล</value>
+        <value xml:lang="vi">Lịch sử tình trạng</value>
         <value xml:lang="zh">状态历史记录</value>
         <value xml:lang="zh_CN">状态历史</value>
         <value xml:lang="zh_TW">狀態歷史記錄</value>
@@ -8395,6 +8764,7 @@
         <value xml:lang="it">Stato a 'completo'</value>
         <value xml:lang="pt_BR">Alterar estado para "completo"</value>
         <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
+        <value xml:lang="vi">Tình trạng là 'hoàn thành'</value>
         <value xml:lang="zh">把状态设为完成</value>
         <value xml:lang="zh_TW">把狀態設為完成</value>
     </property>
@@ -8449,6 +8819,7 @@
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отправить</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="vi">Đệ trình</value>
         <value xml:lang="zh">提交</value>
         <value xml:lang="zh_CN">提交</value>
         <value xml:lang="zh_TW">提交</value>
@@ -8467,6 +8838,7 @@
         <value xml:lang="ro">Subordinat</value>
         <value xml:lang="ru">Предоставлено</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="vi">Đã đệ trình</value>
         <value xml:lang="zh">已提交</value>
         <value xml:lang="zh_CN">已提交</value>
         <value xml:lang="zh_TW">已提交</value>
@@ -8493,6 +8865,7 @@
         <value xml:lang="en">Successfully created.</value>
         <value xml:lang="es">Creado correctamente.</value>
         <value xml:lang="fr">Créé avec succès.</value>
+        <value xml:lang="vi">Khởi tạo thành công</value>
     </property>    
     <property key="CommonSummary">
         <value xml:lang="de">Zusammenfassung</value>
@@ -8502,6 +8875,7 @@
         <value xml:lang="hi_IN">सारांश</value>
         <value xml:lang="it">Sommario</value>
         <value xml:lang="pt_BR">Resumo</value>
+        <value xml:lang="vi">Tóm lược</value>
         <value xml:lang="zh">综述</value>
         <value xml:lang="zh_TW">綜述</value>
     </property>
@@ -8519,6 +8893,7 @@
         <value xml:lang="ro">Duminica</value>
         <value xml:lang="ru">Суббота</value>
         <value xml:lang="th">วันอาทิตย์</value>
+        <value xml:lang="vi">Chủ nhật</value>
         <value xml:lang="zh">星期日</value>
         <value xml:lang="zh_CN">星期天</value>
         <value xml:lang="zh_TW">週日</value>
@@ -8535,6 +8910,7 @@
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="ru">Обзоры</value>
         <value xml:lang="th">สำรวจ</value>
+        <value xml:lang="vi">Điều tra</value>
         <value xml:lang="zh">调查</value>
         <value xml:lang="zh_TW">調查</value>
     </property>
@@ -8552,6 +8928,7 @@
         <value xml:lang="ro">Simplu vue</value>
         <value xml:lang="ru">Постоые</value>
         <value xml:lang="th">แสดงปกติ</value>
+        <value xml:lang="vi">Xem ngay</value>
         <value xml:lang="zh">简单值</value>
         <value xml:lang="zh_CN">关所有表</value>
         <value xml:lang="zh_TW">簡單值</value>
@@ -8570,6 +8947,7 @@
         <value xml:lang="ro">Larg vue</value>
         <value xml:lang="ru">Большие</value>
         <value xml:lang="th">แสดงขนาดใหญ่</value>
+        <value xml:lang="vi">Xem cỡ lớn</value>
         <value xml:lang="zh">大数值</value>
         <value xml:lang="zh_CN">开所有表</value>
         <value xml:lang="zh_TW">大數值</value>
@@ -8601,6 +8979,7 @@
         <value xml:lang="it">Tasse</value>
         <value xml:lang="nl">Belasting</value>
         <value xml:lang="pt_BR">Imposto</value>
+        <value xml:lang="vi">Thuế</value>
         <value xml:lang="zh">税</value>
         <value xml:lang="zh_TW">稅</value>
     </property>
@@ -8618,6 +8997,7 @@
         <value xml:lang="ro">Tel</value>
         <value xml:lang="ru">Тел</value>
         <value xml:lang="th">หมายเลขโทรศัพท์</value>
+        <value xml:lang="vi">Đ/T</value>
         <value xml:lang="zh">电话</value>
         <value xml:lang="zh_TW">電話</value>
     </property>
@@ -8636,6 +9016,7 @@
         <value xml:lang="ro">Spune-i unui Prieten</value>
         <value xml:lang="ru">Сообщить знакомому</value>
         <value xml:lang="th">แนะนำเพื่อน</value>
+        <value xml:lang="vi">Giới thiệu bạn bè</value>
         <value xml:lang="zh">告诉朋友</value>
         <value xml:lang="zh_CN">告诉朋友</value>
         <value xml:lang="zh_TW">告訴朋友</value>
@@ -8662,6 +9043,7 @@
         <value xml:lang="ro">Test</value>
         <value xml:lang="ru">Тест</value>
         <value xml:lang="th">ทดสอบ</value>
+        <value xml:lang="vi">Kiểm tra</value>
         <value xml:lang="zh">测试</value>
         <value xml:lang="zh_CN">测试</value>
         <value xml:lang="zh_TW">測試</value>
@@ -8685,6 +9067,7 @@
         <value xml:lang="ro">Text</value>
         <value xml:lang="ru">Текст</value>
         <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="vi">Văn bản</value>
         <value xml:lang="zh">文本</value>
         <value xml:lang="zh_CN">文本</value>
         <value xml:lang="zh_TW">文本</value>
@@ -8710,6 +9093,7 @@
         <value xml:lang="nl">De volgende verplichte velden waren leeg</value>
         <value xml:lang="pt_BR">Os seguintes campos obrigatórios foram encontrados vazios</value>
         <value xml:lang="th">ตามฟิลด์ที่ต้องการซึ่งพบว่ามันว่าง</value>
+        <value xml:lang="vi">Các trường yêu cầu dưới đây trống rỗng</value>
         <value xml:lang="zh">发现下列必须的数据项是空的</value>
         <value xml:lang="zh_TW">發現下列必須的資料項是空的</value>
     </property>
@@ -8744,6 +9128,7 @@
         <value xml:lang="ro">Aceasta</value>
         <value xml:lang="ru">Этот</value>
         <value xml:lang="th">นี้</value>
+        <value xml:lang="vi">Đây</value>
         <value xml:lang="zh">这个</value>
         <value xml:lang="zh_CN">这个</value>
         <value xml:lang="zh_TW">這個</value>
@@ -8761,6 +9146,7 @@
         <value xml:lang="ro">Pina la </value>
         <value xml:lang="ru">До</value>
         <value xml:lang="th">ถึง</value>
+        <value xml:lang="vi">tới</value>
         <value xml:lang="zh">截止</value>
         <value xml:lang="zh_CN">终止</value>
         <value xml:lang="zh_TW">截止</value>
@@ -8780,6 +9166,7 @@
         <value xml:lang="ro">Pana la Data</value>
         <value xml:lang="ru">По дату</value>
         <value xml:lang="th">ถึงวันที่</value>
+        <value xml:lang="vi">Tới ngày</value>
         <value xml:lang="zh">截止日期</value>
         <value xml:lang="zh_CN">终止日期</value>
         <value xml:lang="zh_TW">截止日</value>
@@ -8798,6 +9185,7 @@
         <value xml:lang="ro">Pana la Data si Ora</value>
         <value xml:lang="ru">По дату  время</value>
         <value xml:lang="th">ถึงวันที่ เวลา</value>
+        <value xml:lang="vi">Tới ngày giờ</value>
         <value xml:lang="zh">截止日期  时间</value>
         <value xml:lang="zh_CN">终止日期和时间</value>
         <value xml:lang="zh_TW">截止日期 時間</value>
@@ -8816,6 +9204,7 @@
         <value xml:lang="ro">Joi</value>
         <value xml:lang="ru">Четверг</value>
         <value xml:lang="th">วันพฤหัสบดี</value>
+        <value xml:lang="vi">Thứ năm</value>
         <value xml:lang="zh">星期四</value>
         <value xml:lang="zh_CN">星期四</value>
         <value xml:lang="zh_TW">週四</value>
@@ -8833,6 +9222,7 @@
         <value xml:lang="ro">Ora</value>
         <value xml:lang="ru">Время</value>
         <value xml:lang="th">เวลา</value>
+        <value xml:lang="vi">Thời gian</value>
         <value xml:lang="zh">时间</value>
         <value xml:lang="zh_CN">时间</value>
         <value xml:lang="zh_TW">時間</value>
@@ -8847,6 +9237,7 @@
         <value xml:lang="nl">Tijdzone</value>
         <value xml:lang="pt_BR">Fuso horário</value>
         <value xml:lang="th">โซนเวลา</value>
+        <value xml:lang="vi">Múi giờ</value>
         <value xml:lang="zh">时区</value>
         <value xml:lang="zh_TW">時區</value>
     </property>
@@ -8864,6 +9255,7 @@
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="ru">Должность</value>
         <value xml:lang="th">หัวข้อ</value>
+        <value xml:lang="vi">Định danh</value>
         <value xml:lang="zh">标题</value>
         <value xml:lang="zh_CN">头衔</value>
         <value xml:lang="zh_TW">標題</value>
@@ -8881,6 +9273,7 @@
         <value xml:lang="ro">Dr.</value>
         <value xml:lang="ru">Д-р</value>
         <value xml:lang="th">ดอกเตอร์</value>
+        <value xml:lang="vi">Tiến sĩ/Bác sĩ</value>
         <value xml:lang="zh">尊敬的</value>
         <value xml:lang="zh_CN">博士</value>
         <value xml:lang="zh_TW">尊敬的</value>
@@ -8899,6 +9292,7 @@
         <value xml:lang="ro">Dl.</value>
         <value xml:lang="ru">Г-н</value>
         <value xml:lang="th">นาย</value>
+        <value xml:lang="vi">Ông</value>
         <value xml:lang="zh">尊敬的</value>
         <value xml:lang="zh_CN">先生</value>
         <value xml:lang="zh_TW">尊敬的</value>
@@ -8917,6 +9311,7 @@
         <value xml:lang="ro">D.ra.</value>
         <value xml:lang="ru">Г-жа</value>
         <value xml:lang="th">นาง</value>
+        <value xml:lang="vi">Bà</value>
         <value xml:lang="zh">尊敬的</value>
         <value xml:lang="zh_CN">夫人</value>
         <value xml:lang="zh_TW">尊敬的</value>
@@ -8935,6 +9330,7 @@
         <value xml:lang="ro">D.na.</value>
         <value xml:lang="ru">н/и</value>
         <value xml:lang="th">นางสาว</value>
+        <value xml:lang="vi">Cô</value>
         <value xml:lang="zh">尊敬的</value>
         <value xml:lang="zh_CN">女士</value>
         <value xml:lang="zh_TW">尊敬的</value>
@@ -8954,6 +9350,7 @@
         <value xml:lang="ro">La</value>
         <value xml:lang="ru">Кому</value>
         <value xml:lang="th">ถึง</value>
+        <value xml:lang="vi">Tới</value>
         <value xml:lang="zh">致</value>
         <value xml:lang="zh_CN">至</value>
         <value xml:lang="zh_TW">致</value>
@@ -8989,6 +9386,7 @@
         <value xml:lang="ro">Astazi</value>
         <value xml:lang="ru">Сегодня</value>
         <value xml:lang="th">วันนี้</value>
+        <value xml:lang="vi">Hôm nay</value>
         <value xml:lang="zh">今天</value>
         <value xml:lang="zh_CN">今天</value>
         <value xml:lang="zh_TW">今天</value>
@@ -9024,6 +9422,7 @@
         <value xml:lang="ro">Total</value>
         <value xml:lang="ru">Всего</value>
         <value xml:lang="th">ผลรวม</value>
+        <value xml:lang="vi">Tổng cộng</value>
         <value xml:lang="zh">合计</value>
         <value xml:lang="zh_CN">总共</value>
         <value xml:lang="zh_TW">合計</value>
@@ -9040,6 +9439,7 @@
         <value xml:lang="ro">Valoare Totala</value>
         <value xml:lang="ru">Общее количество</value>
         <value xml:lang="th">จำนวนผลรวม</value>
+        <value xml:lang="vi">Tổng cộng doanh thu</value>
         <value xml:lang="zh">金额合计</value>
         <value xml:lang="zh_TW">金額合計</value>
     </property>
@@ -9055,6 +9455,7 @@
         <value xml:lang="ro">Cost Total</value>
         <value xml:lang="ru">Общая стоимость</value>
         <value xml:lang="th">ผลรวมค่าใช้จ่าย</value>
+        <value xml:lang="vi">Tổng cộng chi phí</value>
         <value xml:lang="zh">成本合计</value>
         <value xml:lang="zh_TW">成本合計</value>
     </property>
@@ -9112,6 +9513,7 @@
         <value xml:lang="ro">Total Pret</value>
         <value xml:lang="ru">Общая цена</value>
         <value xml:lang="th">ผลรวมราคา</value>
+        <value xml:lang="vi">Tổng giá thành</value>
         <value xml:lang="zh">价格合计</value>
         <value xml:lang="zh_TW">價格合計</value>
     </property>
@@ -9127,6 +9529,7 @@
         <value xml:lang="ro">Total Profit</value>
         <value xml:lang="ru">Суммарная прибыль</value>
         <value xml:lang="th">ผลรวมกำไร</value>
+        <value xml:lang="vi">Tổng lợi nhuận</value>
         <value xml:lang="zh">全部利润</value>
         <value xml:lang="zh_TW">全部利潤</value>
     </property>
@@ -9143,6 +9546,7 @@
         <value xml:lang="ro">Valoare Totala</value>
         <value xml:lang="ru">Общее значение</value>
         <value xml:lang="th">ค่าผลรวม</value>
+        <value xml:lang="vi">Tổng giá trị</value>
         <value xml:lang="zh">合计金额</value>
         <value xml:lang="zh_TW">合計金額</value>
     </property>
@@ -9159,6 +9563,7 @@
         <value xml:lang="ro">Adevarat</value>
         <value xml:lang="ru">Истина</value>
         <value xml:lang="th">จริง</value>
+        <value xml:lang="vi">Đúng</value>
         <value xml:lang="zh">是</value>
         <value xml:lang="zh_TW">是</value>
     </property>
@@ -9176,6 +9581,7 @@
         <value xml:lang="ro">Marti</value>
         <value xml:lang="ru">Вторник</value>
         <value xml:lang="th">วันอังคาร</value>
+        <value xml:lang="vi">Thứ 3</value>
         <value xml:lang="zh">星期二</value>
         <value xml:lang="zh_CN">星期二</value>
         <value xml:lang="zh_TW">週二</value>
@@ -9193,6 +9599,7 @@
         <value xml:lang="ro">Tip</value>
         <value xml:lang="ru">Тип</value>
         <value xml:lang="th">ประเภท</value>
+        <value xml:lang="vi">Chủng loại</value>
         <value xml:lang="zh">类型</value>
         <value xml:lang="zh_CN">类型</value>
         <value xml:lang="zh_TW">類型</value>
@@ -9210,6 +9617,7 @@
         <value xml:lang="ro">Prez Unitar</value>
         <value xml:lang="ru">Цена за ед.</value>
         <value xml:lang="th">ราคาต่อหน่วย</value>
+        <value xml:lang="vi">Đơn giá</value>
         <value xml:lang="zh">单价</value>
         <value xml:lang="zh_CN">单价</value>
         <value xml:lang="zh_TW">單價</value>
@@ -9218,6 +9626,7 @@
         <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
         <value xml:lang="en">An unspecified error occurred!</value>
         <value xml:lang="es">Ha ocurrido un error no contemplado!</value>
+        <value xml:lang="vi">Xuất hiện một lỗi không được xác định!</value>
     </property>
     <property key="CommonUntil">
         <value xml:lang="ar">حتى</value>
@@ -9232,6 +9641,7 @@
         <value xml:lang="ro">Pana la</value>
         <value xml:lang="ru">До</value>
         <value xml:lang="th">ระหว่าง</value>
+        <value xml:lang="vi">Cho đến khi</value>
         <value xml:lang="zh">直至</value>
         <value xml:lang="zh_CN">直到</value>
         <value xml:lang="zh_TW">直至</value>
@@ -9303,6 +9713,7 @@
         <value xml:lang="ro">Actualizeaza</value>
         <value xml:lang="ru">Обновить</value>
         <value xml:lang="th">อัพเดท</value>
+        <value xml:lang="vi">Cập nhật</value>
         <value xml:lang="zh">更新</value>
         <value xml:lang="zh_CN">更新</value>
         <value xml:lang="zh_TW">更新</value>
@@ -9310,6 +9721,7 @@
     <property key="CommonUpdatingData">
         <value xml:lang="de">Aktualisiere Daten</value>
         <value xml:lang="en">Updating data</value>
+        <value xml:lang="vi">Đang cập nhật dữ liệu</value>
     </property>
     <property key="CommonUpdateLink">
         <value xml:lang="ar">ربطة التحديث</value>
@@ -9325,6 +9737,7 @@
         <value xml:lang="ro">Actualizeaza link</value>
         <value xml:lang="ru">Обновить связь</value>
         <value xml:lang="th">อัพเดทลิงค์</value>
+        <value xml:lang="vi">Liên kết cập nhật</value>
         <value xml:lang="zh">更新链接</value>
         <value xml:lang="zh_CN">更新链接</value>
         <value xml:lang="zh_TW">更新鏈結</value>
@@ -9344,6 +9757,7 @@
         <value xml:lang="ro">Actualizat</value>
         <value xml:lang="ru">Обновлено</value>
         <value xml:lang="th">อัพเดท</value>
+        <value xml:lang="vi">Cập nhật</value>
         <value xml:lang="zh">已更新</value>
         <value xml:lang="zh_CN">已更新</value>
         <value xml:lang="zh_TW">已更新</value>
@@ -9362,6 +9776,7 @@
         <value xml:lang="ro">Actualizare Efectiva Pana la</value>
         <value xml:lang="ru">Эффективно обновлено по</value>
         <value xml:lang="th">อัพเดทถึงมีผล</value>
+        <value xml:lang="vi">Cập nhật hiệu lực đến</value>
         <value xml:lang="zh">更新有效截止</value>
         <value xml:lang="zh_CN">更新的有效终止</value>
         <value xml:lang="zh_TW">更新有效截止</value>
@@ -9380,6 +9795,7 @@
         <value xml:lang="ro">Incarca</value>
         <value xml:lang="ru">Загрузить</value>
         <value xml:lang="th">อัพโหลด</value>
+        <value xml:lang="vi">Đăng tải</value>
         <value xml:lang="zh">上传</value>
         <value xml:lang="zh_CN">上传</value>
         <value xml:lang="zh_TW">上傳</value>
@@ -9398,6 +9814,7 @@
         <value xml:lang="ro">Usat</value>
         <value xml:lang="ru">Используется</value>
         <value xml:lang="th">ใช้</value>
+        <value xml:lang="vi">Sử dụng</value>
         <value xml:lang="zh">已使用</value>
         <value xml:lang="zh_CN">已使用</value>
         <value xml:lang="zh_TW">已使用</value>
@@ -9416,6 +9833,7 @@
         <value xml:lang="ro">Usat ca</value>
         <value xml:lang="ru">Используется как</value>
         <value xml:lang="th">ใช้เหมือน</value>
+        <value xml:lang="vi">Sử dụng như là</value>
         <value xml:lang="zh">是作为</value>
         <value xml:lang="zh_CN">用作</value>
         <value xml:lang="zh_TW">是作為</value>
@@ -9433,6 +9851,7 @@
         <value xml:lang="ro">Introdus Utilizator/Automat</value>
         <value xml:lang="ru">Ввод пользователем/авто</value>
         <value xml:lang="th">ผู้ใช้/เข้าโดยอัตโนมัติ</value>
+        <value xml:lang="vi">Người dùng/tự động nhập vào</value>
         <value xml:lang="zh">用户/自动登录</value>
         <value xml:lang="zh_TW">使用者/自動進入</value>
     </property>
@@ -9449,6 +9868,7 @@
         <value xml:lang="ro">Numai Introdus de Utilizator</value>
         <value xml:lang="ru">Ввод только пользователем</value>
         <value xml:lang="th">ผู้ใช้เข้าได้เท่านั้น</value>
+        <value xml:lang="vi">Chỉ nhập tên người dùng</value>
         <value xml:lang="zh">仅允许登录用户</value>
         <value xml:lang="zh_TW">只允許使用者進入</value>
     </property>
@@ -9465,6 +9885,7 @@
         <value xml:lang="ro">Cod Utilizator Login</value>
         <value xml:lang="ru">Код имени пользователя</value>
         <value xml:lang="th">รหัสผู้ใช้ระบบ</value>
+        <value xml:lang="vi">Mã đăng nhập</value>
         <value xml:lang="zh">用户登录标识</value>
         <value xml:lang="zh_TW">使用者登入ID</value>
     </property>
@@ -9484,6 +9905,7 @@
         <value xml:lang="ro">Nume utilizator</value>
         <value xml:lang="ru">Имя пользователя</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้</value>
+        <value xml:lang="vi">Tên đăng nhập</value>
         <value xml:lang="zh">用户名</value>
         <value xml:lang="zh_CN">用户名</value>
         <value xml:lang="zh_TW">使用者名稱</value>
@@ -9502,6 +9924,7 @@
         <value xml:lang="ro">Valabil De la Data</value>
         <value xml:lang="ru">Действительно с даты</value>
         <value xml:lang="th">มีผลจากวันที่</value>
+        <value xml:lang="vi">Hiệu lực từ ngày</value>
         <value xml:lang="zh">验证开始日期</value>
         <value xml:lang="zh_CN">有效的起始日期</value>
         <value xml:lang="zh_TW">有效開始日</value>
@@ -9520,6 +9943,7 @@
         <value xml:lang="ro">Valabil Pana la Data</value>
         <value xml:lang="ru">Действительно по дату</value>
         <value xml:lang="th">มีผลถึงวันที่</value>
+        <value xml:lang="vi">Hiệu lực đến ngày</value>
         <value xml:lang="zh">验证截止日期</value>
         <value xml:lang="zh_CN">有效的终止日期</value>
         <value xml:lang="zh_TW">有效截止日</value>
@@ -9572,6 +9996,7 @@
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Величина</value>
         <value xml:lang="th">ค่า</value>
+        <value xml:lang="vi">Giá trị</value>
         <value xml:lang="zh">数值</value>
         <value xml:lang="zh_CN">值</value>
         <value xml:lang="zh_TW">數值</value>
@@ -9581,6 +10006,7 @@
         <value xml:lang="en">Verify Captcha Code</value>
         <value xml:lang="es">Verifique el código captcha</value>
         <value xml:lang="pt_BR">Verifique o Código Captcha</value>
+        <value xml:lang="vi">Xác nhận mã Captcha trong ảnh</value>
     </property>
     <property key="CommonView">
         <value xml:lang="ar">مشهد</value>
@@ -9597,6 +10023,7 @@
         <value xml:lang="ro">Afiseaza</value>
         <value xml:lang="ru">Просмотреть</value>
         <value xml:lang="th">แสดง</value>
+        <value xml:lang="vi">Xem</value>
         <value xml:lang="zh">浏览</value>
         <value xml:lang="zh_CN">查看</value>
         <value xml:lang="zh_TW">瀏覽</value>
@@ -9610,6 +10037,7 @@
         <value xml:lang="it">L'accesso a questa vista verrà bloccato.</value>
         <value xml:lang="nl">Toegang tot dit scherm is geblokkeerd.</value>
         <value xml:lang="pt_BR">O acesso a esta visualização foi bloqueada.</value>
+        <value xml:lang="vi">Quyền truy cập đã bị khoá</value>
         <value xml:lang="zh">已经禁止访问这个浏览了。</value>
         <value xml:lang="zh_TW">已經禁止訪問這個瀏覽了。</value>
     </property>
@@ -9627,6 +10055,7 @@
         <value xml:lang="ro">Afiseaza Calendar</value>
         <value xml:lang="ru">Просмотреть календарь</value>
         <value xml:lang="th">แสดงปฏิทิน</value>
+        <value xml:lang="vi">Xem lịch</value>
         <value xml:lang="zh">浏览日历</value>
         <value xml:lang="zh_CN">查看日历</value>
         <value xml:lang="zh_TW">瀏覽日歷</value>
@@ -9645,6 +10074,7 @@
         <value xml:lang="ro">Afiseaza Cerere</value>
         <value xml:lang="ru">Просмотреть запрос</value>
         <value xml:lang="th">แสดงคำร้อง</value>
+        <value xml:lang="vi">Xem yêu cầu</value>
         <value xml:lang="zh">浏览请求</value>
         <value xml:lang="zh_CN">查看请求</value>
         <value xml:lang="zh_TW">瀏覽要求</value>
@@ -9658,6 +10088,7 @@
         <value xml:lang="it">Visitatori</value>
         <value xml:lang="nl">Bezoekers</value>
         <value xml:lang="pt_BR">Visitantes</value>
+        <value xml:lang="vi">Khách</value>
         <value xml:lang="zh">访问者</value>
         <value xml:lang="zh_TW">訪問者</value>
     </property>
@@ -9670,6 +10101,7 @@
         <value xml:lang="it">Tema grafico</value>
         <value xml:lang="nl">Visueel thema</value>
         <value xml:lang="pt_BR">Tema visual</value>
+        <value xml:lang="vi">Giao diện ảo hoá</value>
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh_TW">視覺風格</value>
     </property>
@@ -9682,6 +10114,7 @@
         <value xml:lang="it">Tema grafico non trovato.</value>
         <value xml:lang="nl">Visueel thema niet gevonden</value>
         <value xml:lang="pt_BR">ID de Tema Visual não foi encontrado.</value>
+        <value xml:lang="vi">Mã giao diện không tìm thấy.</value>
         <value xml:lang="zh">没有找到视觉风格标识。</value>
         <value xml:lang="zh_TW">視覺風格ID找不到。</value>
     </property>
@@ -9693,6 +10126,7 @@
         <value xml:lang="hi_IN">अवैध दृश्य शैली संसाधन रिकॉर्ड मिला: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="it">Risorsa tema grafico non trovato: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="pt_BR">Registro inválido de Tema visual encontrado: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
+        <value xml:lang="vi">Nguồn giao diện không phù hợp được phát hiện: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="zh">找到了无效的视觉风格资源记录：visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}。</value>
         <value xml:lang="zh_TW">找到了無效的視覺風格資源記錄：visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}。</value>
     </property>
@@ -9705,6 +10139,7 @@
         <value xml:lang="it">Anteprima non disponibile</value>
         <value xml:lang="nl">Geen schermafbeeldingen</value>
         <value xml:lang="pt_BR">Sem capturas de telas</value>
+        <value xml:lang="vi">Không có ảnh chụp màn hình</value>
         <value xml:lang="zh">没有屏幕截图</value>
         <value xml:lang="zh_TW">沒有螢幕截圖</value>
     </property>
@@ -9716,6 +10151,7 @@
         <value xml:lang="hi_IN">दृश्य शैली संसाधन नहीं मिला|</value>
         <value xml:lang="it">Risorse tema grafico non trovate.</value>
         <value xml:lang="pt_BR">Recursos do tema visual não encontrado.</value>
+        <value xml:lang="vi">Nguồn giao diện không được tìm thấy</value>
         <value xml:lang="zh">没有找到视觉风格资源。</value>
         <value xml:lang="zh_TW">沒有找到視覺風格資源。</value>
     </property>
@@ -9727,6 +10163,7 @@
         <value xml:lang="hi_IN">चयनित दृश्य शैली(VisualTheme)</value>
         <value xml:lang="it">Tema grafico selezionato</value>
         <value xml:lang="pt_BR">Tema visual selecionado</value>
+        <value xml:lang="vi">Lựa chọn giao diện</value>
         <value xml:lang="zh">已选择的视觉风格</value>
         <value xml:lang="zh_TW">已選擇的視覺風格</value>
     </property>
@@ -9734,6 +10171,7 @@
         <value xml:lang="en">Click on an image to have a preview, on a link to select a theme, and then on Done to validate your choice</value>
         <value xml:lang="es">Click en una imagen para obtener una vista previa, en un enlace para seleccionar un tema, y después en Hecho para validar la elección</value>
         <value xml:lang="fr">Cliquer sur l'image pour afficher un aperçu, sur le lien pour sélectionner le thème puis sur terminer pour valider votre choix</value>
+        <value xml:lang="vi">Bấm vào hình để xem, bấm vào liên kết để chọn giao diện, và sau đó bấm vào nút Hoàn tất để lựa chọn của bạn có hiệu lực</value>
     </property>
     <property key="CommonVisualThemes">
         <value xml:lang="de">Layoutvorlagen</value>    
@@ -9744,6 +10182,7 @@
         <value xml:lang="it">Temi grafici</value>
         <value xml:lang="nl">Visuele themas</value>
         <value xml:lang="pt_BR">Temas Visuais</value>
+        <value xml:lang="vi">Giao diện</value>
         <value xml:lang="zh">视觉风格</value>
         <value xml:lang="zh_TW">視覺風格</value>
     </property>
@@ -9793,6 +10232,7 @@
         <value xml:lang="ro">Miercuri</value>
         <value xml:lang="ru">Пятница</value>
         <value xml:lang="th">วันพุธ</value>
+        <value xml:lang="vi">Thứ 4</value>
         <value xml:lang="zh">星期三</value>
         <value xml:lang="zh_CN">星期三</value>
         <value xml:lang="zh_TW">週三</value>
@@ -9810,6 +10250,7 @@
         <value xml:lang="ro">Saptamana</value>
         <value xml:lang="ru">Неделя</value>
         <value xml:lang="th">สัปดาห์</value>
+        <value xml:lang="vi">Tuần</value>
         <value xml:lang="zh">星期</value>
         <value xml:lang="zh_CN">星期</value>
         <value xml:lang="zh_TW">星期</value>
@@ -9828,6 +10269,7 @@
         <value xml:lang="ro">Saptamanal</value>
         <value xml:lang="ru">Еженедельно</value>
         <value xml:lang="th">ทุกสัปดาห์</value>
+        <value xml:lang="vi">Hàng tuần</value>
         <value xml:lang="zh">每星期</value>
         <value xml:lang="zh_TW">每週</value>
     </property>
@@ -9864,6 +10306,7 @@
         <value xml:lang="ro">Bun Venit</value>
         <value xml:lang="ru">Добро пожаловать</value>
         <value xml:lang="th">ยินดีต้อนรับ</value>
+        <value xml:lang="vi">Chào mừng</value>
         <value xml:lang="zh">欢迎</value>
         <value xml:lang="zh_CN">欢迎</value>
         <value xml:lang="zh_TW">歡迎</value>
@@ -9877,6 +10320,7 @@
         <value xml:lang="it">Benvenuto al cruscotto di OFBiz</value>
         <value xml:lang="nl">Welkom in het OFBiz dashboard</value>
         <value xml:lang="pt_BR">Bem-vindo ao painel do OFBiz</value>
+        <value xml:lang="vi">Chào mừng đến với bảng OFBiz dashboard</value>
         <value xml:lang="zh">欢迎使用OFBiz个人主页</value>
         <value xml:lang="zh_TW">歡迎使用OFBiz個人主頁</value>
     </property>
@@ -9929,6 +10373,7 @@
         <value xml:lang="ro">Activitati Sarcini de lucru Atribuite Utilizatorului.</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные пользователю</value>
         <value xml:lang="th">กิจกรรมขั้นตอนการทำงานที่มอบหมายให้ผู้ใช้</value>
+        <value xml:lang="vi">Quy trình hoạt động được gán cho người dùng</value>
         <value xml:lang="zh">为用户指定了工作流活动</value>
         <value xml:lang="zh_CN">工作流活动分派给用户</value>
         <value xml:lang="zh_TW">指定工作流活動給使用者</value>
@@ -9947,6 +10392,7 @@
         <value xml:lang="ro">Activitati Sarcini de Lucru Atribuite Rolului utilizator</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>
         <value xml:lang="th">กิจกรรมขั้นตอนการทำงานที่มอบหมายให้สถานะของผู้ใช้</value>
+        <value xml:lang="vi">Quy trình hoạt động được gán cho vai trò người dùng</value>
         <value xml:lang="zh">为用户角色指定了工作流角色</value>
         <value xml:lang="zh_CN">工作流活动分派给用户角色</value>
         <value xml:lang="zh_TW">指定工作流角色給使用者的角色</value>
@@ -9983,6 +10429,7 @@
         <value xml:lang="ro">An</value>
         <value xml:lang="ru">Год</value>
         <value xml:lang="th">ปี</value>
+        <value xml:lang="vi">Năm</value>
         <value xml:lang="zh">年</value>
         <value xml:lang="zh_CN">年</value>
         <value xml:lang="zh_TW">年</value>
@@ -10000,6 +10447,7 @@
         <value xml:lang="ro">Anual</value>
         <value xml:lang="ru">Ежегодно</value>
         <value xml:lang="th">ทุก ๆ ปี</value>
+        <value xml:lang="vi">Hàng năm</value>
         <value xml:lang="zh">每年</value>
         <value xml:lang="zh_TW">每年</value>
     </property>
@@ -10017,6 +10465,7 @@
         <value xml:lang="ro">Da</value>
         <value xml:lang="ru">Да</value>
         <value xml:lang="th">ใช่</value>
+        <value xml:lang="vi">Có</value>
         <value xml:lang="zh">是</value>
         <value xml:lang="zh_CN">是</value>
         <value xml:lang="zh_TW">是</value>
@@ -10036,6 +10485,7 @@
         <value xml:lang="ro">Email-ul Tau</value>
         <value xml:lang="ru">Ваш email</value>
         <value xml:lang="th">อีเมลของคุณ</value>
+        <value xml:lang="vi">Email của bạn</value>
         <value xml:lang="zh">你的邮件地址</value>
         <value xml:lang="zh_CN">电子邮件</value>
         <value xml:lang="zh_TW">你的郵件地址</value>
@@ -10054,6 +10504,7 @@
         <value xml:lang="ro">C.P.</value>
         <value xml:lang="ru">Почтовый индекс</value>
         <value xml:lang="th">รหัสไปรษณีย์</value>
+        <value xml:lang="vi">Mã vùng/mã bưu chính</value>
         <value xml:lang="zh">Zip/邮政编码</value>
         <value xml:lang="zh_CN">邮编</value>
         <value xml:lang="zh_TW">郵遞區號</value>
@@ -10071,6 +10522,7 @@
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Содержание</value>
         <value xml:lang="th">หัวข้อ</value>
+        <value xml:lang="vi">Nội dung</value>
         <value xml:lang="zh">内容</value>
         <value xml:lang="zh_CN">内容</value>
         <value xml:lang="zh_TW">內容</value>
@@ -10089,6 +10541,7 @@
         <value xml:lang="ro">Sursa Date</value>
         <value xml:lang="ru">Источник данных</value>
         <value xml:lang="th">แหล่งข้อมูล</value>
+        <value xml:lang="vi">Nguồn dữ liệu</value>
         <value xml:lang="zh">数据源</value>
         <value xml:lang="zh_CN">数据源</value>
         <value xml:lang="zh_TW">資料源</value>
@@ -10107,6 +10560,7 @@
         <value xml:lang="ro">Creare Sursa Date</value>
         <value xml:lang="ru">Создать источник данных</value>
         <value xml:lang="th">สร้างแหล่งข้อมูล</value>
+        <value xml:lang="vi">Tạo nguồn dữ liệu</value>
         <value xml:lang="zh">新建数据源</value>
         <value xml:lang="zh_CN">建立数据源</value>
         <value xml:lang="zh_TW">新建資料源</value>
@@ -10125,6 +10579,7 @@
         <value xml:lang="ro">Cod Sursa Date</value>
         <value xml:lang="ru">Код источника данных</value>
         <value xml:lang="th">รหัสแหล่งข้อมูล</value>
+        <value xml:lang="vi">Mã nguồn dữ liệu</value>
         <value xml:lang="zh">数据源标识</value>
         <value xml:lang="zh_CN">数据源标识</value>
         <value xml:lang="zh_TW">資料源ID</value>
@@ -10143,6 +10598,7 @@
         <value xml:lang="ro">Tip Sursa Date</value>
         <value xml:lang="ru">Код типа источника данных</value>
         <value xml:lang="th">รหัสประเภทแหล่งข้อมูล</value>
+        <value xml:lang="vi">Loại mã nguồn dữ liệu</value>
         <value xml:lang="zh">数据源类型标识</value>
         <value xml:lang="zh_CN">数据源类型标识</value>
         <value xml:lang="zh_TW">資料源類型ID</value>
@@ -10161,6 +10617,7 @@
         <value xml:lang="ro">Nici-o sursa Date cu codul Id Gasita </value>
         <value xml:lang="ru">Источник данных не найден. Код</value>
         <value xml:lang="th">ไม่พบแหล่งข้อมูลด้วยรหัสนี้</value>
+        <value xml:lang="vi">Không tìm thấy nguồn dữ liệu có mã</value>
         <value xml:lang="zh">没有找到数据源</value>
         <value xml:lang="zh_CN">用标识没有找到数据源</value>
         <value xml:lang="zh_TW">沒有找到資料源</value>
@@ -10179,6 +10636,7 @@
         <value xml:lang="ro">Tip Sursa Date</value>
         <value xml:lang="ru">Тип источника данных</value>
         <value xml:lang="th">ประเภทแหล่งข้อมูล</value>
+        <value xml:lang="vi">Loại nguồn dữ liệu</value>
         <value xml:lang="zh">数据源类型</value>
         <value xml:lang="zh_CN">数据源类型</value>
         <value xml:lang="zh_TW">資料源類型</value>
@@ -10197,6 +10655,7 @@
         <value xml:lang="ro">Creare Tip Sursa Date</value>
         <value xml:lang="ru">Создать тип источника данных</value>
         <value xml:lang="th">สร้างประเภทแหล่งข้อมูล</value>
+        <value xml:lang="vi">Tạo loại nguồn dữ liệu</value>
         <value xml:lang="zh">新建数据源类型</value>
         <value xml:lang="zh_CN">建立数据源类型</value>
         <value xml:lang="zh_TW">新建資料源類型</value>
@@ -10224,6 +10683,7 @@
         <value xml:lang="ro">Exemple</value>
         <value xml:lang="ru">Пример</value>
         <value xml:lang="th">ตัวอย่าง</value>
+        <value xml:lang="vi">Ví dụ</value>
         <value xml:lang="zh">样例</value>
         <value xml:lang="zh_TW">範例</value>
     </property>
@@ -10236,6 +10696,7 @@
         <value xml:lang="it">Esempi est.</value>
         <value xml:lang="pt_BR">Exemplo Ext</value>
         <value xml:lang="th">ตัวอย่างพิเศษ</value>
+        <value xml:lang="vi">Ví dụ mở rộng</value>
         <value xml:lang="zh">样例扩展</value>
         <value xml:lang="zh_TW">擴充範例</value>
     </property>
@@ -10252,6 +10713,7 @@
         <value xml:lang="ro">Compartimente</value>
         <value xml:lang="ru">Объект</value>
         <value xml:lang="th">คลังสินค้า</value>
+        <value xml:lang="vi">Cơ sở</value>
         <value xml:lang="zh">场所</value>
         <value xml:lang="zh_CN">设备</value>
         <value xml:lang="zh_TW">場所</value>
@@ -10259,6 +10721,7 @@
     <property key="FacilityComponentDescription">
         <value xml:lang="en">Inventory management, Facility, location, Shipment, Receipt, Physical Inventory</value>
         <value xml:lang="fr">Gestion des stocks, lieux de stockage, emplacement, expédition, réception, inventaire</value>
+        <value xml:lang="vi">Quản lý kho bãi, cơ sở, địa điểm, vận chuyển, nhận hàng và cơ kho bãi lý trên thực tế</value>
     </property>
     <property key="Financials">
         <value xml:lang="ar">المالية</value>
@@ -10272,6 +10735,7 @@
         <value xml:lang="ro">Financiara</value>
         <value xml:lang="ru">Финансы</value>
         <value xml:lang="th">การเงิน</value>
+        <value xml:lang="vi">Tài chính</value>
         <value xml:lang="zh">财务</value>
         <value xml:lang="zh_TW">財務</value>
     </property>
@@ -10280,11 +10744,13 @@
         <value xml:lang="es">Aceptar</value>
         <value xml:lang="fr">Accepter</value>
         <value xml:lang="pt_BR">Aceitar</value>
+        <value xml:lang="vi">Đồng ý</value>
     </property>
     <property key="FormFieldTitle_actionEnumId">
         <value xml:lang="en">Action</value>
         <value xml:lang="es">Acción</value>
         <value xml:lang="fr">Action</value>
+        <value xml:lang="vi">Hành động</value>
     </property>
     <property key="FormFieldTitle_addButton">
         <value xml:lang="ar">إضافة</value>
@@ -10299,6 +10765,7 @@
         <value xml:lang="ro">Adauga</value>
         <value xml:lang="ru">Добавить</value>
         <value xml:lang="th">เพิ่ม</value>
+        <value xml:lang="vi">Thêm</value>
         <value xml:lang="zh">添加</value>
         <value xml:lang="zh_TW">添加</value>
     </property>
@@ -10316,6 +10783,7 @@
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Doanh số</value>
         <value xml:lang="zh">金额</value>
         <value xml:lang="zh_TW">金額</value>
     </property>
@@ -10323,6 +10791,7 @@
         <value xml:lang="en">Approve</value>
         <value xml:lang="es">Aprobar</value>
         <value xml:lang="th">อนุมัติ</value>
+        <value xml:lang="vi">Phê duyệt</value>
     </property>
     <property key="FormFieldTitle_attrName">
         <value xml:lang="ar">اسم الخاصية</value>
@@ -10337,6 +10806,7 @@
         <value xml:lang="ro">Nume Atribut</value>
         <value xml:lang="ru">Имя атрибута</value>
         <value xml:lang="th">ชื่อลักษณะ</value>
+        <value xml:lang="vi">Tên thuộc tính</value>
         <value xml:lang="zh">属性名称</value>
         <value xml:lang="zh_TW">屬性名稱</value>
     </property>
@@ -10353,6 +10823,7 @@
         <value xml:lang="ro">Valoare Atribut</value>
         <value xml:lang="ru">Значение атрибута</value>
         <value xml:lang="th">ลักษณะ</value>
+        <value xml:lang="vi">Giá trị thuộc tính</value>
         <value xml:lang="zh">属性值</value>
         <value xml:lang="zh_TW">屬性值</value>
     </property>
@@ -10374,6 +10845,7 @@
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
+        <value xml:lang="vi">Bình luận</value>
         <value xml:lang="zh">评论</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
@@ -10381,6 +10853,7 @@
         <value xml:lang="en">Confirm</value>
         <value xml:lang="es">Confirmar</value>
         <value xml:lang="th">ยืนยัน</value>
+        <value xml:lang="vi">Xác nhận</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
         <value xml:lang="ar">دليل مكانزمة الصلة</value>
@@ -10413,6 +10886,7 @@
         <value xml:lang="ro">Creare</value>
         <value xml:lang="ru">Создать</value>
         <value xml:lang="th">สร้าง</value>
+        <value xml:lang="vi">Khởi tạo</value>
         <value xml:lang="zh">新建</value>
         <value xml:lang="zh_TW">新建</value>
     </property>
@@ -10429,6 +10903,7 @@
         <value xml:lang="ro">Creat De</value>
         <value xml:lang="ru">Создан</value>
         <value xml:lang="th">สร้างโดย</value>
+        <value xml:lang="vi">Khởi tạo bởi</value>
         <value xml:lang="zh">创建者</value>
         <value xml:lang="zh_TW">創建者</value>
     </property>
@@ -10445,6 +10920,7 @@
         <value xml:lang="ro">Creiat De Utilizator</value>
         <value xml:lang="ru">Создано (имя входа)</value>
         <value xml:lang="th">สร้างโดยผู้ลงชื่อเข้าใช้ระบบ</value>
+        <value xml:lang="vi">Khởi tạo bởi người dùng</value>
         <value xml:lang="zh">登录用户新建的</value>
         <value xml:lang="zh_TW">建立的使用者</value>
     </property>
@@ -10456,6 +10932,7 @@
         <value xml:lang="hi_IN">उपयोगकर्ता लॉगिन द्वारा निर्मित क्रमांक</value>
         <value xml:lang="it">Creato dall'utente</value>
         <value xml:lang="pt_BR">Criado através de um login de usuário de ID</value>
+        <value xml:lang="vi">Khởi tạo bởi người dùng mã</value>
         <value xml:lang="zh">由用户登录标识创建</value>
         <value xml:lang="zh_TW">由使用者ID建立</value>
     </property>
@@ -10472,6 +10949,7 @@
         <value xml:lang="ro">Data Creatie</value>
         <value xml:lang="ru">Дата создания</value>
         <value xml:lang="th">สร้างวันที่</value>
+        <value xml:lang="vi">Ngày khởi tạo</value>
         <value xml:lang="zh">创建日期</value>
         <value xml:lang="zh_TW">建立日</value>
     </property>
@@ -10499,6 +10977,7 @@
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
+        <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
         <value xml:lang="zh_TW">幣種</value>
     </property>
@@ -10521,6 +11000,7 @@
         <value xml:lang="hi_IN">वर्तमान स्थिति क्रमांक</value>
         <value xml:lang="it">Stato attuale</value>
         <value xml:lang="pt_BR">ID do Estado atual</value>
+        <value xml:lang="vi">Mã tình trạng hiện tại</value>
         <value xml:lang="zh">当前状态标识</value>
         <value xml:lang="zh_TW">目前狀態ID</value>
     </property>
@@ -10537,6 +11017,7 @@
         <value xml:lang="pt_BR">Excluir</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
+        <value xml:lang="vi">Xóa</value>
         <value xml:lang="zh">删除</value>
         <value xml:lang="zh_TW">刪除</value>
     </property>
@@ -10553,6 +11034,7 @@
         <value xml:lang="pt_BR">Excluir itens selecionados</value>
         <value xml:lang="ru">Удалить выбранный</value>
         <value xml:lang="th">ลบอันที่เลือก</value>
+        <value xml:lang="vi">Xóa phần đã chọn</value>
         <value xml:lang="zh">删除选中的</value>
         <value xml:lang="zh_TW">刪除選中的</value>
     </property>
@@ -10569,6 +11051,7 @@
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
+        <value xml:lang="vi">Mô tả</value>
         <value xml:lang="zh">描述</value>
         <value xml:lang="zh_TW">描述</value>
     </property>
@@ -10576,6 +11059,7 @@
         <value xml:lang="en">Device Location</value>
         <value xml:lang="es">Emplazamiento dispositivo</value>
         <value xml:lang="fr">Emplacement</value>
+        <value xml:lang="vi">Khu vực thiết bị</value>
     </property>
     <property key="FormFieldTitle_effectiveDate">
         <value xml:lang="ar">تاريخ الفاعلية</value>
@@ -10627,6 +11111,7 @@
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="ru">От даты</value>
         <value xml:lang="th">จากวันที่</value>
+        <value xml:lang="vi">Từ ngày</value>
         <value xml:lang="zh">开始日期</value>
         <value xml:lang="zh_TW">開始日</value>
     </property>
@@ -10644,6 +11129,7 @@
         <value xml:lang="ro">Are Tabela</value>
         <value xml:lang="ru">Есть таблица?</value>
         <value xml:lang="th">มีตาราง</value>
+        <value xml:lang="vi">Có bảng</value>
         <value xml:lang="zh">有数据库表</value>
         <value xml:lang="zh_TW">有資料庫表</value>
     </property>
@@ -10659,6 +11145,7 @@
         <value xml:lang="ro">Este Public</value>
         <value xml:lang="ru">Публичный?</value>
         <value xml:lang="th">สาธารณะ</value>
+        <value xml:lang="vi">Là công cộng</value>
         <value xml:lang="zh">公开吗</value>
         <value xml:lang="zh_TW">公開嗎</value>
     </property>
@@ -10675,6 +11162,7 @@
         <value xml:lang="ro">Ultima Modificare Utilizator</value>
         <value xml:lang="ru">Последнее изменение пользователем</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้ายโดยผู้เข้าใช้ระบบ</value>
+        <value xml:lang="vi">Chỉnh sửa gần nhất bởi người dùng</value>
         <value xml:lang="zh">登录用户上次修改的</value>
         <value xml:lang="zh_TW">最近修改的使用者</value>
     </property>
@@ -10691,6 +11179,7 @@
         <value xml:lang="ro">Data Ultimei Modificari</value>
         <value xml:lang="ru">Дата последнего изменения</value>
         <value xml:lang="th">วันสุดท้ายของการปรับปรุง</value>
+        <value xml:lang="vi">Chỉnh sửa gần nhất</value>
         <value xml:lang="zh">上次修改日期</value>
         <value xml:lang="zh_TW">最近修改日</value>
     </property>
@@ -10740,6 +11229,7 @@
         <value xml:lang="hi_IN">उपयोगकर्ता लॉगिन क्रमांक द्वारा संशोधित</value>
         <value xml:lang="it">Modificato dall'utente</value>
         <value xml:lang="pt_BR">Modificado por Login de usuário Id</value>
+        <value xml:lang="vi">Chỉnh chửa bởi người dùng</value>
         <value xml:lang="zh">由用户登录标识修改</value>
         <value xml:lang="zh_TW">修改的使用者</value>
     </property>
@@ -10750,6 +11240,7 @@
         <value xml:lang="fr">Page d'orig.</value>
         <value xml:lang="it">Codice pagina portale originale</value>
         <value xml:lang="pt_BR">Página original</value>
+        <value xml:lang="vi">trang nguyên gốc</value>
     </property>
     <property key="FormFieldTitle_ownerUserLoginId">
         <value xml:lang="de">Benutzer-ID des Besitzers</value>
@@ -10758,6 +11249,7 @@
         <value xml:lang="fr">Propri.</value>
         <value xml:lang="it">Codice login proprietario</value>
         <value xml:lang="pt_BR">Proprietário Login User ID</value>
+        <value xml:lang="vi">Mã người dùng quản lý</value>
     </property>
     <property key="FormFieldTitle_parentPortalPageId">
         <value xml:lang="de">Elternseite</value>
@@ -10766,11 +11258,13 @@
         <value xml:lang="fr">Page père</value>
         <value xml:lang="it">Pagina portale padre</value>
         <value xml:lang="pt_BR">Página superior</value>
+        <value xml:lang="vi">Trang gốc</value>
     </property>
     <property key="FormFieldTitle_pending">
         <value xml:lang="en">Pending</value>
         <value xml:lang="es">Pendiente</value>
         <value xml:lang="th">รอดำเนินการ</value>
+        <value xml:lang="vi">Tồn đọng</value>
     </property>
     <property key="FormFieldTitle_portalPageName">
         <value xml:lang="de">Portaseitenname</value>
@@ -10779,6 +11273,7 @@
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome pagina portale</value>
         <value xml:lang="pt_BR">Nome da página do Portal</value>
+        <value xml:lang="vi">Tên cổng thông tin</value>
     </property>
     <property key="FormFieldTitle_price">
         <value xml:lang="ar">السعر</value>
@@ -10792,6 +11287,7 @@
         <value xml:lang="ro">Pret</value>
         <value xml:lang="ru">Цена</value>
         <value xml:lang="th">ราคา</value>
+        <value xml:lang="vi">Giá</value>
         <value xml:lang="zh">价格</value>
         <value xml:lang="zh_TW">價格</value>
     </property>
@@ -10808,6 +11304,7 @@
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
+        <value xml:lang="vi">Số lượng</value>
         <value xml:lang="zh">数量</value>
         <value xml:lang="zh_TW">數量</value>
     </property>
@@ -10820,6 +11317,7 @@
         <value xml:lang="hi_IN">अस्वीकार</value>
         <value xml:lang="it">Rifiuta</value>
         <value xml:lang="pt_BR">Rejeitar</value>
+        <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">拒绝</value>
         <value xml:lang="zh_TW">拒絕</value>
     </property>
@@ -10836,6 +11334,7 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
+        <value xml:lang="vi">Loại bỏ</value>
         <value xml:lang="zh">删除</value>
         <value xml:lang="zh_TW">刪除</value>
     </property>
@@ -10847,6 +11346,7 @@
         <value xml:lang="hi_IN">सुरक्षित करे</value>
         <value xml:lang="it">Salva</value>
         <value xml:lang="pt_BR">Salvar</value>
+        <value xml:lang="vi">Lưu</value>
         <value xml:lang="zh">保存</value>
         <value xml:lang="zh_TW">儲存</value>
     </property>
@@ -10864,6 +11364,7 @@
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Искать</value>
         <value xml:lang="th">ค้นหา</value>
+        <value xml:lang="vi">Tìm kiếm</value>
         <value xml:lang="zh">搜索</value>
         <value xml:lang="zh_TW">搜索</value>
     </property>
@@ -10875,6 +11376,7 @@
         <value xml:lang="hi_IN">भेजे</value>
         <value xml:lang="it">Invia</value>
         <value xml:lang="pt_BR">Enviar</value>
+        <value xml:lang="vi">Gửi</value>
         <value xml:lang="zh">发送</value>
         <value xml:lang="zh_TW">發送</value>
     </property>
@@ -10886,6 +11388,7 @@
         <value xml:lang="hi_IN">अधिसूचना ईमेल भेजें</value>
         <value xml:lang="it">Invia notifica per email</value>
         <value xml:lang="pt_BR">Enviar e-mail de notificação</value>
+        <value xml:lang="vi">Gửi email thông báo</value>
         <value xml:lang="zh">发送通知电子邮件</value>
         <value xml:lang="zh_TW">發送通知電子郵件</value>
     </property>
@@ -10918,6 +11421,7 @@
         <value xml:lang="ro">Cod Stat</value>
         <value xml:lang="ru">Код статуса</value>
         <value xml:lang="th">รหัสสถานะ</value>
+        <value xml:lang="vi">Mã tình trạng</value>
         <value xml:lang="zh">状态标识</value>
         <value xml:lang="zh_TW">狀態</value>
     </property>
@@ -10935,6 +11439,7 @@
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Послать</value>
         <value xml:lang="th">ยอมรับ</value>
+        <value xml:lang="vi">Tiến hành</value>
         <value xml:lang="zh">提交</value>
         <value xml:lang="zh_TW">提交</value>
     </property>
@@ -10979,6 +11484,7 @@
         <value xml:lang="ro">La Data</value>
         <value xml:lang="ru">До даты</value>
         <value xml:lang="th">ถึงวันที่</value>
+        <value xml:lang="vi">Đến ngày</value>
         <value xml:lang="zh">截止日期</value>
         <value xml:lang="zh_TW">截止日</value>
     </property>
@@ -10995,6 +11501,7 @@
         <value xml:lang="ro">Total</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">ผลรวม</value>
+        <value xml:lang="vi">Tổng cộng</value>
         <value xml:lang="zh">合计</value>
         <value xml:lang="zh_TW">合計</value>
     </property>
@@ -11029,6 +11536,7 @@
         <value xml:lang="ro">Actualizeaza</value>
         <value xml:lang="ru">Обновить</value>
         <value xml:lang="th">อัพเดท</value>
+        <value xml:lang="vi">Cập nhật</value>
         <value xml:lang="zh">更新</value>
         <value xml:lang="zh_TW">更新</value>
     </property>
@@ -11041,6 +11549,7 @@
         <value xml:lang="it">Google base</value>
         <value xml:lang="pt_BR">Base do Google</value>
         <value xml:lang="th">Google Base</value>
+        <value xml:lang="vi">Trên nền tảng Google</value>
     </property>
     <property key="HR">
         <value xml:lang="de">Personal</value>
@@ -11051,6 +11560,7 @@
         <value xml:lang="it">Risorse umane</value>
         <value xml:lang="pt_BR">FC</value>
         <value xml:lang="th">ฝ่ายบุคคล</value>
+        <value xml:lang="vi">Nhân sự</value>
         <value xml:lang="zh">人力资源</value>
         <value xml:lang="zh_TW">人資</value>
     </property>
@@ -11062,6 +11572,7 @@
         <value xml:lang="it">Gestione stabilimenti su PDA</value>
         <value xml:lang="pt_BR">PDA de gerência de instalação</value>
         <value xml:lang="th">คลังสินค้าขนาดเล็ก</value>
+        <value xml:lang="vi">Dành cho thiết bị cầm tay</value>
         <value xml:lang="zh">手持设备</value>
         <value xml:lang="zh_TW">手持設備</value>
     </property>
@@ -11073,6 +11584,7 @@
         <value xml:lang="hi_IN">मानव संसाधन अनुप्रयोग</value>
         <value xml:lang="it">Applicazione risorse umane</value>
         <value xml:lang="pt_BR">Aplicativo de Recursos Humanos</value>
+        <value xml:lang="vi">Ứng dụng quản trị nhân lực</value>
         <value xml:lang="zh">人力资源应用程序</value>
         <value xml:lang="zh_TW">人力資源應用程式</value>
     </property>
@@ -11100,6 +11612,7 @@
         <value xml:lang="ro">Productie</value>
         <value xml:lang="ru">Производство</value>
         <value xml:lang="th">การผลิต</value>
+        <value xml:lang="vi">Sản xuất</value>
         <value xml:lang="zh">生产</value>
         <value xml:lang="zh_CN">制造</value>
         <value xml:lang="zh_TW">生產</value>
@@ -11117,6 +11630,7 @@
         <value xml:lang="ro">Vanzari</value>
         <value xml:lang="ru">Маркетинг</value>
         <value xml:lang="th">การตลาด</value>
+        <value xml:lang="vi">Tiếp thị</value>
         <value xml:lang="zh">市场宣传</value>
         <value xml:lang="zh_CN">推销</value>
         <value xml:lang="zh_TW">行銷</value>
@@ -11130,6 +11644,7 @@
         <value xml:lang="it">Mio portale</value>
         <value xml:lang="nl">Mijn Portaal</value>
         <value xml:lang="pt_BR">Meu portal</value>
+        <value xml:lang="vi">Cổng thông tin của tôi</value>
         <value xml:lang="zh">我的门户</value>
         <value xml:lang="zh_TW">入口</value>
     </property>
@@ -11153,6 +11668,7 @@
         <value xml:lang="it">Oagis</value>
         <value xml:lang="pt_BR">Oagis</value>
         <value xml:lang="th">การรวมภาษาทางธุรกิจ</value>
+        <value xml:lang="vi">(Oagis) Cấu hình nhóm ứng dụng mã mở</value>
     </property>
     <property key="Order">
         <value xml:lang="ar">طلبية</value>
@@ -11168,6 +11684,7 @@
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="ru">Заказ</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
+        <value xml:lang="vi">Đặt hàng</value>
         <value xml:lang="zh">订单</value>
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh_TW">訂單</value>
@@ -11175,6 +11692,7 @@
     <property key="OrderComponentDescription">
         <value xml:lang="en">Sales Order management, Purchase order, Customer request, Requirement, Quote, Statistics</value>
         <value xml:lang="fr">Gestion des commandes de vente, d'achat, des demandes, des devis, des besoins, des stats</value>
+        <value xml:lang="vi">Quản lý đặt hàng bán, đặt mua, yêu cầu khách hàng, nhu cầu nội bộ, báo giá và thống kê</value>
     </property>
     <property key="PageTitleAddDataSource">
         <value xml:lang="ar">إضافة مصدر المعلومات جديد</value>
@@ -11190,6 +11708,7 @@
         <value xml:lang="ro">Adauga Noua Sursa Date</value>
         <value xml:lang="ru">Добавить новый источник данных</value>
         <value xml:lang="th">เพิ่มแหล่งข้อมูลใหม่</value>
+        <value xml:lang="vi">Thêm mới nguồn dữ liệu</value>
         <value xml:lang="zh">新建数据源</value>
         <value xml:lang="zh_CN">增加新数据源</value>
         <value xml:lang="zh_TW">新建資料源</value>
@@ -11208,6 +11727,7 @@
         <value xml:lang="ro">Adauga Noul Tip Sursa Date</value>
         <value xml:lang="ru">Добавить новый тип источника данных</value>
         <value xml:lang="th">เพิ่มประเภทแหล่งข้อมูลใหม่</value>
+        <value xml:lang="vi">Thêm mới loại nguồn dữ liệu</value>
         <value xml:lang="zh">新建数据源类型</value>
         <value xml:lang="zh_CN">增加新数据源类型</value>
         <value xml:lang="zh_TW">新建資料源類型</value>
@@ -11228,6 +11748,7 @@
         <value xml:lang="ro">Pagina Categoria</value>
         <value xml:lang="ru">Страница категории</value>
         <value xml:lang="th">หน้าหมวดหมู่สินค้า</value>
+        <value xml:lang="vi">Trang danh mục</value>
         <value xml:lang="zh">分类页面</value>
     </property>
     <property key="PageTitleCheckoutOptions">
@@ -11245,6 +11766,7 @@
         <value xml:lang="ro">Optiuni Checkout</value>
         <value xml:lang="ru">Параметры подтверждения</value>
         <value xml:lang="th">ออกจากการทำรายการนี้</value>
+        <value xml:lang="vi">Các lựa chọn thanh toán</value>
         <value xml:lang="zh">结账选项</value>
     </property>
     <property key="PageTitleCommonGeoLocation">
@@ -11272,6 +11794,7 @@
         <value xml:lang="ro">Actualizeaza Sursa Date</value>
         <value xml:lang="ru">Изменить источник данных</value>
         <value xml:lang="th">แก้ไขแหล่งข้อมูล</value>
+        <value xml:lang="vi">Chỉnh sửa nguồn dữ liệu</value>
         <value xml:lang="zh">编辑数据源</value>
         <value xml:lang="zh_CN">编辑数据源</value>
         <value xml:lang="zh_TW">修改資料來源</value>
@@ -11290,6 +11813,7 @@
         <value xml:lang="ro">Actualizeaza Tip Sursa Date</value>
         <value xml:lang="ru">Изменить тип источника данных</value>
         <value xml:lang="th">แก้ไขประเภทแหล่งข้อมูล</value>
+        <value xml:lang="vi">Chỉnh sửa loại nguồn dữ liệu</value>
         <value xml:lang="zh">编辑数据源类型</value>
         <value xml:lang="zh_CN">编辑数据源类型</value>
         <value xml:lang="zh_TW">編輯資料源類型</value>
@@ -11326,6 +11850,7 @@
         <value xml:lang="ro">Lista Tipuri Surse Date</value>
         <value xml:lang="ru">Перечень типов источников данных</value>
         <value xml:lang="th">รายการประเภทแหล่งข้อมูล</value>
+        <value xml:lang="vi">Danh sách loại nguồn dữ liệu</value>
         <value xml:lang="zh">数据源类型列表</value>
         <value xml:lang="zh_CN">数据源类型列表</value>
         <value xml:lang="zh_TW">資料源類型列表</value>
@@ -11345,6 +11870,7 @@
         <value xml:lang="ro">Login</value>
         <value xml:lang="ru">Логин</value>
         <value xml:lang="th">เข้าสู่ระบบ</value>
+        <value xml:lang="vi">Đăng nhập</value>
         <value xml:lang="zh">登录</value>
         <value xml:lang="zh_TW">登入</value>
     </property>
@@ -11356,6 +11882,7 @@
         <value xml:lang="pt_BR">Buscar localização</value>
         <value xml:lang="ro">Cauta Geografia</value>
         <value xml:lang="th">ค้นหาข้อมูลโครงสร้าง</value>
+        <value xml:lang="vi">Tìm kiếm địa lý</value>
         <value xml:lang="zh">查詢地理</value>
     </property>
     <property key="PageTitleMain">
@@ -11373,6 +11900,7 @@
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="ru">Основная страница</value>
         <value xml:lang="th">หน้าหลัก</value>
+        <value xml:lang="vi">Trang chủ</value>
         <value xml:lang="zh">首页</value>
         <value xml:lang="zh_TW">首頁</value>
     </property>
@@ -11392,6 +11920,7 @@
         <value xml:lang="ro">Pagina Produs</value>
         <value xml:lang="ru">Страница продукта</value>
         <value xml:lang="th">หน้าสินค้า</value>
+        <value xml:lang="vi">Trang sản phẩm</value>
         <value xml:lang="zh">产品页面</value>
     </property>
     <property key="PageTitleQuickAdd">
@@ -11410,6 +11939,7 @@
         <value xml:lang="ro">Adaugare Rapida</value>
         <value xml:lang="ru">Быстро добавить</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
+        <value xml:lang="vi">Thêm nhanh</value>
         <value xml:lang="zh">快速添加</value>
     </property>
     <property key="PageTitleViewBlocked">
@@ -11420,6 +11950,7 @@
         <value xml:lang="hi_IN">पृष्ठ अवरुद्ध</value>
         <value xml:lang="it">Pagina bloccata</value>
         <value xml:lang="pt_BR">Visualização bloqueada</value>
+        <value xml:lang="vi">Xem bị khóa</value>
         <value xml:lang="zh">禁止浏览</value>
         <value xml:lang="zh_TW">禁止瀏覽</value>
     </property>
@@ -11436,6 +11967,7 @@
         <value xml:lang="ro">Subiecti</value>
         <value xml:lang="ru">Участник</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
+        <value xml:lang="vi">Đối tượng</value>
         <value xml:lang="zh">会员</value>
         <value xml:lang="zh_CN">团体</value>
         <value xml:lang="zh_TW">成員</value>
@@ -11443,6 +11975,7 @@
     <property key="PartyComponentDescription">
         <value xml:lang="en">Customers - Suppliers - Employee Management, Communications, Classifications</value>
         <value xml:lang="fr">Gestion des clients, Fournisseurs, Employés, Communications, Classifications</value>
+        <value xml:lang="vi">Khách hàng - Nhà cung cấp - Quản lý nhân viên - Quan hệ thông tin - Sự phân loại</value>
     </property>
     <property key="PortalPageNotFound">
         <value xml:lang="de">Die folgende Seite konnte nicht gefunden werden: (${parameters.portalPageId})!</value>
@@ -11452,6 +11985,7 @@
         <value xml:lang="hi_IN">यह पृष्ठ (${parameters.portalPageId}) नहीं मिला !</value>
         <value xml:lang="it">Questa pagina (${parameters.portalPageId}) non può essere trovata!</value>
         <value xml:lang="pt_BR">Esta página (${parameters.portalPageId}) não pode ser encontrado!</value>
+        <value xml:lang="vi">Trang (${parameters.portalPageId}) không tìm thấy!</value>
         <value xml:lang="zh">无法找到这个页面(${parameters.portalPageId})！</value>
         <value xml:lang="zh_TW">無法找到這個頁面(${parameters.portalPageId})！</value>
     </property>
@@ -11463,6 +11997,7 @@
         <value xml:lang="hi_IN">यह पृष्ठ '${portalPage.portalPageName}' [${portalPage.portalPageId}] नहीं मिला,आपके द्वारा नहीं है, तो बदला नहीं जा सकता!</value>
         <value xml:lang="it">La pagina '${portalPage.portalPageName}' [${portalPage.portalPageId}] non ti appartiene, così non può essere cambiata!</value>
         <value xml:lang="pt_BR">A página '${portalPage.portalPageName}' [${portalPage.portalPageId}] não é de sua propriedade, por isso não pode ser alterado!</value>
+        <value xml:lang="vi">Trang '${portalPage.portalPageName}' [${portalPage.portalPageId}] không thuộc sở hữu của bạn, do vậy không thể thay đổi!</value>
         <value xml:lang="zh">你不拥有页面'${portalPage.portalPageName}' [${portalPage.portalPageId}]，所以你不能修改它！</value>
         <value xml:lang="zh_TW">你不擁有頁面'${portalPage.portalPageName}' [${portalPage.portalPageId}]，所以你不能修改它！</value>
     </property>
@@ -11475,6 +12010,7 @@
         <value xml:lang="it">Progetti</value>
         <value xml:lang="pt_BR">Projeto</value>
         <value xml:lang="th">โปรเจค</value>
+        <value xml:lang="vi">Dự án</value>
         <value xml:lang="zh">项目</value>
         <value xml:lang="zh_TW">專案</value>
     </property>
@@ -11486,6 +12022,7 @@
         <value xml:lang="hi_IN">एसऍफ़ए(SFA)</value>
         <value xml:lang="it">Forze di vendita</value>
         <value xml:lang="pt_BR">Automação de vendas</value>
+        <value xml:lang="vi">Quản lý bán hàng</value>
         <value xml:lang="zh">销售管理</value>
         <value xml:lang="zh_TW">銷售</value>
     </property>
@@ -11526,6 +12063,7 @@
         <value xml:lang="pt_BR">WebTools</value>
         <value xml:lang="ro">Instrumente Web</value>
         <value xml:lang="th">เว็บทูล</value>
+        <value xml:lang="vi">Web công cụ</value>
         <value xml:lang="zh">Web工具</value>
         <value xml:lang="zh_CN">Web管理工具</value>
         <value xml:lang="zh_TW">管理工具</value>
@@ -11543,6 +12081,7 @@
         <value xml:lang="pt_BR">Gestão de tarefas</value>
         <value xml:lang="ro">Sarcini de Lucru</value>
         <value xml:lang="th">ความพยายามในการทำงาน</value>
+        <value xml:lang="vi">Năng lực hoạt động</value>
         <value xml:lang="zh">人工服务</value>
         <value xml:lang="zh_CN">工作计划</value>
         <value xml:lang="zh_TW">工項</value>
