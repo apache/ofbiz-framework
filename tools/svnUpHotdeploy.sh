@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh 
 #####################################################################
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -17,18 +17,19 @@
 # specific language governing permissions and limitations
 # under the License.
 #####################################################################
+#
+# This shell script will do a 'svn up' on all directories
+#              present in the hot-deploy directory
 
-# Properties (derby may need editing if the version has not been updated)
-HM='-Dderby.system.home=runtime/data/derby'
-PR='-Dij.protocol=jdbc:derby:'
-DB='-Dij.database=ofbiz;create=true'
-EE='framework/entity/lib/jdbc'
-CP="-cp $EE/derby-10.8.1.2.jar:$EE/derbytools-10.8.1.2.jar"
+OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
 
-# Command
-OPTIONS="$CP $HM $PR $DB"
-CLASS="org.apache.derby.tools.ij"
-JAVA="java"
+    for f in $OFBIZ_HOME/hot-deploy/*
+    do
+        if [ "$f" != "$OFBIZ_HOME/hot-deploy/README.txt" ]; then
+            echo svn update directory $f
+            svn up $f
+        fi
+    done
 
-$JAVA $OPTIONS $CLASS
+exit;
 

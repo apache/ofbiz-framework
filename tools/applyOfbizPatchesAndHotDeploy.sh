@@ -17,20 +17,26 @@
 # specific language governing permissions and limitations
 # under the License.
 #####################################################################
-####
-# ofbiz.admin.key and ofbiz.admin.port must match that which OFBIZ was started with
-####
+#
+# This shell script will will run ./ant apply patches on all components
+#              present in the hot-deploy directory
 
-# location of java executable
-if [ -f "$JAVA_HOME/bin/java" ]; then
-  JAVA=$JAVA_HOME/bin/java
-else
-  JAVA=java
-fi
+OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
 
-# shutdown settings
-ADMIN_PORT=10523
-ADMIN_KEY=so3du5kasd5dn
+    if [ -f "$OFBIZ_HOME/../ofbiz.patch" ]; then
+    patch -p0 < $OFBIZ_HOME/../ofbiz.patch
+    fi
 
-$JAVA -Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY -jar ofbiz.jar -shutdown
+    for f in $OFBIZ_HOME/hot-deploy/*
+    do
+        if [ "$f" != "$OFBIZ_HOME/hot-deploy/README.txt" ]; then
+        if [ -f "$f/patches/applications.patch" ]; then
+                echo apply patches for component $f
+            (cd $f && ant apply-ofbiz-patches)
+            echo return code $?
+        fi
+        fi
+    done
+
+exit;
 

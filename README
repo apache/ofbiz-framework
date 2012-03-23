@@ -1,16 +1,18 @@
 
 Welcome to Apache OFBiz!
 
-If you have a release build all you need to run OFBiz is a 
+All you need to run OFBiz is a
 1.6 (version 6) JDK (not just the JRE, the full JDK).
 http://java.sun.com/javase/downloads/index.jsp
 
-However if you have downloaded ofbiz from SVN then you should
-load the demo data (strongly advised) with the following command
-on the command line: (being in the OFbiz directory)
+You can load the demo data (strongly advised) with the following command
+on the command line: (being in the OFBiz directory)
 
-linux: ./ant run-install
-windows: ant run-install 
+linux/unix/osx:
+./ant run-install
+
+windows:
+ant run-install
 
 Once that is properly setup just run the executable jar file
 that comes with OFBiz, which is ofbiz.jar. To do this on the
@@ -18,8 +20,17 @@ command line you would run:
 
 java -Xms128M -Xmx512M -XX:MaxPermSize=128m -jar ofbiz.jar
 
-Even better use the startup scripts for Windows and Unix-based
-operating systems, namely startofbiz.bat and startofbiz.sh.
+or
+
+linux/unix/osx:
+./ant run
+
+windows:
+ant run
+
+You will also find several platform dependent startup scripts in the "tools" folder
+(for Windows and Unix-based operating systems, the startup scripts are startofbiz.bat
+and startofbiz.sh).
 
 Once OFBiz starts, you can look at the demo storefront at:
 http://localhost:8080/ecommerce

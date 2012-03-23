@@ -27,7 +27,7 @@ rem SVN path of the hot-deploy folder, here is just a suggestion, to be adapted 
 set SVN_PATH=.../implementation/trunk/ofbiz/hot-deploy/
 
 rem Go to (local) working copy of the hot-deploy folder
-pushd hot-deploy
+pushd ../hot-deploy
 
 rem Get all files and directories of hot-deploy folder via SVN
 for /f "tokens=*" %%i in ('svn list !SVN_PATH!') do (
