@@ -224,7 +224,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         if (value == null) {
                             String name = paramName + curSuffix;
 
-                            ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session, serviceName);
+                            ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session, serviceName, dctx.getDelegator());
 
                             String[] paramArr = request.getParameterValues(name);
                             if (paramArr != null) {
