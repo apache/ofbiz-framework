@@ -114,6 +114,16 @@ under the License.
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="categories" type="java.util.List" mode="INOUT" optional="true"/>
     </service>
+    
+    <service name="getCategoryTrail" engine="java"
+      location="org.ofbiz.product.category.CategoryWorker" invoke="getCategoryTrail">
+        <description> Returns a complete category trail - can be used for exporting proper category trees. 
+        This is mostly useful when used in combination with breadcrumbs,  for building a facetted index tree, 
+        or to export a category tree for migration to another system.
+        Will create the tree from root point to categoryId. </description>
+        <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="trail" type="java.util.List" mode="OUT" optional="true"/>
+    </service>
 
     <service name="checkImageUrlForCategoryAndProduct" engine="simple"
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategoryAndProduct">
