@@ -24,6 +24,8 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
 import org.ofbiz.service.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.CategoryContentWrapper;
@@ -68,10 +70,27 @@ if(productStore) {
     if("N".equals(productStore.showOutOfStockProducts)) {
         productsInStock = [];
         productCategoryMembers.each { productCategoryMember ->
-            productFacility = delegator.findOne("ProductFacility", [productId : productCategoryMember.productId, facilityId : productStore.inventoryFacilityId], true);
-            if(productFacility) {
-                if(productFacility.lastInventoryCount >= 1) {
+            product = delegator.findByPrimaryKeyCache("Product", [productId : productCategoryMember.productId]);
+            boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG");
+            context.isMarketingPackage = (isMarketingPackage? "true": "false");
+            if (isMarketingPackage) {
+                resultOutput = dispatcher.runSync("getMktgPackagesAvailable", [productId : productCategoryMember.productId]);
+                availableInventory = resultOutput.availableToPromiseTotal;
+                if(availableInventory>0)
                     productsInStock.add(productCategoryMember);
+            } else {
+                facilities = delegator.findList("ProductFacility", EntityCondition.makeCondition([productId : productCategoryMember.productId]), null, null, null, false);
+                availableInventory = 0.0;
+                if(facilities) {
+                    facilities.each { facility ->
+                        lastInventoryCount = facility.lastInventoryCount;
+                        if (lastInventoryCount != null) {
+                            availableInventory += lastInventoryCount;
+                        }
+                    }
+                    if (availableInventory > 0) {
+                        productsInStock.add(productCategoryMember);
+                    }
                 }
             }
         }
