@@ -36,11 +36,8 @@ if (shoppingCart) {
     shippingEstWpr = new ShippingEstimateWrapper(dispatcher, shoppingCart, 0);
     context.shippingEstWpr = shippingEstWpr;
     context.carrierShipmentMethodList = shippingEstWpr.getShippingMethods();
-}
-
-// Reassign items requiring drop-shipping to new or existing drop-ship groups
-if (shoppingCart) {
-    shoppingCart.createDropShipGroups(dispatcher);
+    // Reassign items requiring drop-shipping to new or existing drop-ship groups
+    shoppingCart.createDropShipGroups(dispatcher);    
 }
 
 profiledefs = delegator.findByPrimaryKey("PartyProfileDefault", [partyId : userLogin.partyId, productStoreId : productStoreId]);
