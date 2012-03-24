@@ -60,7 +60,7 @@ public class LabelManagerFactory {
     protected Set<String> localesFound = new TreeSet<String>();
     protected List<LabelInfo> duplicatedLocalesLabelsList = FastList.newInstance();
 
-    public static synchronized LabelManagerFactory getInstance() throws IOException {
+    public static synchronized LabelManagerFactory getInstance() throws GeneralException, IOException {
         if (componentNamesFound == null) {
             loadComponentNames();
         }
@@ -120,9 +120,7 @@ public class LabelManagerFactory {
             if (UtilValidate.isNotEmpty(fileName) && !fileName.equals(fileInfo.getFileName())) {
                 continue;
             }
-            if (Debug.infoOn()) {
-                Debug.logInfo("Current file : " + fileInfo.getFileName(), module);
-            }
+            Debug.logInfo("Current file : " + fileInfo.getFileName(), module);
             Document resourceDocument = UtilXml.readXmlDocument(fileInfo.file.toURI().toURL(), false);
             Element resourceElem = resourceDocument.getDocumentElement();
             String labelKeyComment = "";
@@ -134,12 +132,7 @@ public class LabelManagerFactory {
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
                         if (valueNode instanceof Element) {
                             Element valueElem = (Element) valueNode;
-                            // Support old way of specifying xml:lang value.
-                            // Old way: en_AU, new way: en-AU
                             String localeName = valueElem.getAttribute("xml:lang");
-                            if( localeName.contains("_")) {
-                                localeName = localeName.replace('_', '-');
-                            }
                             String labelValue = StringUtil.defaultWebEncoder.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
                             LabelInfo label = labels.get(labelKey + keySeparator + fileInfo.getFileName());
 
@@ -215,10 +208,8 @@ public class LabelManagerFactory {
                 } else {
                     label.setLabelKeyComment(keyComment);
                 }
-                if (label != null) {
-                    label.setLabelValue(localeName, localeValue, localeComment, true);
-                    notEmptyLabels++;
-                }
+                label.setLabelValue(localeName, localeValue, localeComment, true);
+                notEmptyLabels++;
             }
         }
         return notEmptyLabels;
