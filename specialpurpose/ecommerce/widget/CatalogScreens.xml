@@ -528,7 +528,7 @@ under the License.
     <screen name="productCategoryList">
         <section>
             <condition>
-                <if-empty field="parameters.mainSubmited"/>
+                <if-empty field="parameters.mainSubmitted"/>
             </condition>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
