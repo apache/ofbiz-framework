@@ -36,6 +36,5 @@
         <junit-test-suite class-name="org.ofbiz.base.json.test.JSONTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.UtilIOTests"/>
         <junit-test-suite class-name="org.ofbiz.base.test.BaseUnitTests"/>
-        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilPropertiesTests"/>
     </test-group>
 </test-suite>
