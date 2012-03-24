@@ -21,8 +21,6 @@
 # ofbiz.admin.key and ofbiz.admin.port must match that which OFBIZ was started with
 ####
 
-OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
-
 # location of java executable
 if [ -f "$JAVA_HOME/bin/java" ]; then
   JAVA=$JAVA_HOME/bin/java
@@ -34,5 +32,5 @@ fi
 ADMIN_PORT=10523
 ADMIN_KEY=so3du5kasd5dn
 
-(cd "$OFBIZ_HOME" && $JAVA -Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY -jar ofbiz.jar -shutdown)
+$JAVA -Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY -jar ofbiz.jar -shutdown
 
