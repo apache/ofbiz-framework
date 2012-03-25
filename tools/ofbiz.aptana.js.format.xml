@@ -29,8 +29,8 @@
 <setting id="com.aptana.ide.editors.codeassist.formatter.keep_empty_array_initializer_on_one_line" value="true"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.insert_space_between_empty_parens_in_annotation_type_member_declaration" value="false"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.preserve_extra_carriage_returns" value="true"/>
-<setting id="com.aptana.ide.editors.codeassist.formatter.compact_else_if" value="true"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.insert_new_line_in_empty_enum_declaration" value="doctype,br,link,meta"/>
+<setting id="com.aptana.ide.editors.codeassist.formatter.compact_else_if" value="true"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.brace_position_for_method_declaration" value="end_of_line"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.preserveWhitespaceinCDATA" value="true"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.format_guardian_clause_on_one_line" value="true"/>
@@ -44,8 +44,8 @@
 <setting id="com.aptana.ide.editors.codeassist.formatter.blank_lines_before_method" value="1"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.insert_new_line_before_return_statement" value="insert"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.tabulation.char" value=" "/>
-<setting id="com.aptana.ide.editors.codeassist.formatter.brace_position_for_array_initializer" value="end_of_line"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.indent_breaks_compare_to_cases" value="true"/>
+<setting id="com.aptana.ide.editors.codeassist.formatter.brace_position_for_array_initializer" value="end_of_line"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.brace_position_for_block" value="end_of_line"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.blank_lines_before_imports" value="5"/>
 <setting id="com.aptana.ide.editors.codeassist.formatter.insert_space_after_closing_brace_in_block" value="false"/>
