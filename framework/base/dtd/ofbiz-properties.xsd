@@ -18,22 +18,31 @@ specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+            schemaLocation="http://www.w3.org/2001/xml.xsd"/>
     <xs:element name="resource">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="property"/>
+                <xs:element minOccurs="1" maxOccurs="unbounded" ref="property"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="property">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="value"/>
-                <xs:attributeGroup ref="attlist.property"/>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="value" type="valueType"/>
             </xs:sequence>
+            <xs:attributeGroup ref="attlist.property"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.property">
         <xs:attribute type="xs:string" name="key" use="required"/>
     </xs:attributeGroup>
+    <xs:complexType name="valueType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="xml:lang"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
 </xs:schema>
