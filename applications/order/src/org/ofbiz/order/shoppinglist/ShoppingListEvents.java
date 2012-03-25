@@ -640,7 +640,7 @@ public class ShoppingListEvents {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Properties systemProps = System.getProperties();
-        String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name");
+        String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name").replace(" ", "_");
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
         int cookieAge = (60 * 60 * 24 * 30);
         String autoSaveListId = null;
@@ -698,7 +698,7 @@ public class ShoppingListEvents {
      */
     public static String clearGuestShoppingListCookies (HttpServletRequest request, HttpServletResponse response){
         Properties systemProps = System.getProperties();
-        String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name");
+        String guestShoppingUserName = "GuestShoppingListId_" + systemProps.getProperty("user.name").replace(" ", "_");
         Cookie guestShoppingListCookie = new Cookie(guestShoppingUserName, null);
         guestShoppingListCookie.setMaxAge(0);
         guestShoppingListCookie.setPath("/");
