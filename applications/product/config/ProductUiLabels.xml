@@ -22110,6 +22110,11 @@
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
+    <property key="NoProductReviewsAvailable">
+        <value xml:lang="de">Keine Produtkbewertungen vorhanden</value>
+        <value xml:lang="en">No Reviews available</value>
+        <value xml:lang="fr">Aucun avis de client</value>
+    </property>
     <property key="ProductReviewsNoPendingApproval">
         <value xml:lang="de">Keine Bewertungen zur Genehmigung vorhanden</value>
         <value xml:lang="en">No Reviews Pending Approval</value>
