@@ -24,6 +24,8 @@ under the License.
 
     <import file="macros.xml"/>
     <property name="site.dir" value="../site"/>
+    <property name="ofbiz.admin.port" value="10523"/>
+    <property name="ofbiz.admin.key" value="so3du5kasd5dn"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
     <property name="pos.memory.max.param" value="-Xmx512M"/>
@@ -360,7 +362,7 @@ under the License.
     </target>
 
     <!-- ================================================================== -->
-    <!-- Start OFBiz                                                        -->
+    <!-- Start and Stop OFBiz                                                        -->
     <!-- ================================================================== -->
 
     <target name="run"
@@ -369,6 +371,30 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${pos.memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
+            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
+            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
+        </java>
+    </target>
+    <target name="stop"
+            description="This will stop OFBiz">
+        <java jar="ofbiz.jar" fork="true">
+            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
+            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
+            <arg value="-shutdown"/>
+        </java>
+    </target>
+    <target name="run-debug" depends="build"
+            description="Starts OFBiz in debugging mode">
+        <java jar="ofbiz.jar"  fork="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
+            <jvmarg value="-Xnoagent"/>
+            <jvmarg value="-Djava.compiler=NONE"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
+            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
+            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
         </java>
     </target>
     <target name="run-pos"
@@ -380,6 +406,11 @@ under the License.
             <arg value="pos"/>
         </java>
     </target>
+
+    <!-- ================================================================== -->
+    <!-- Setup OFBiz Data                                                   -->
+    <!-- ================================================================== -->
+
     <target name="run-install" depends="build"
             description="This loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes">
         <java jar="ofbiz.jar" fork="true">
@@ -837,18 +868,6 @@ under the License.
         <antcall target="load-admin-user-login"/>
     </target>
 
-    <target name="run-debug" depends="build"
-            description="Starts OFBiz in debugging mode">
-        <java jar="ofbiz.jar"  fork="true">
-            <jvmarg value="${memory.initial.param}"/>
-            <jvmarg value="${memory.max.param}"/>
-            <jvmarg value="${memory.maxpermsize.param}"/>
-            <jvmarg value="-Xnoagent"/>
-            <jvmarg value="-Djava.compiler=NONE"/>
-            <jvmarg value="-Xdebug"/>
-            <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
-        </java>
-    </target>
     <target name="run-tests" depends="build"
           description="Run OFBiz default tests, execute ant run-install before and see results in runtime/logs/test-results/html/all-tests.html.">
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
