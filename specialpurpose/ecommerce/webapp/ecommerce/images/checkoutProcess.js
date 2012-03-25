@@ -403,7 +403,7 @@ function processBillingAndPayment() {
                     updateBillingSummary();
                     result = true;
                 } else {
-                    jQuery('#shippingFormServerError').html(serverError);
+                    jQuery('#billingFormServerError').html(serverError);
                     result = false;
                 }
         },
