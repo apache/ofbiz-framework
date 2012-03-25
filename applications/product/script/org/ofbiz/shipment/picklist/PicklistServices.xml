@@ -804,6 +804,7 @@ under the License.
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
                 </if-empty>
+                <check-errors/>
 
                 <make-value entity-name="PicklistStatusHistory" value-field="newStatusValue"/>
                 <set from-field="parameters.picklistId" field="newStatusValue.picklistId"/>
