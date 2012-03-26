@@ -964,8 +964,14 @@ public class UtilProperties implements Serializable {
                 throw new IllegalArgumentException("locale cannot be null");
             }
             String localeString = locale.toString();
+            String correctedLocaleString = localeString.replace('_','-');
             for (Element property : propertyList) {
-                Element value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
+                // Support old way of specifying xml:lang value.
+                // Old way: en_AU, new way: en-AU
+                Element value = UtilXml.firstChildElement(property, "value", "xml:lang", correctedLocaleString);
+                if( value == null ) {
+                    value = UtilXml.firstChildElement(property, "value", "xml:lang", localeString);
+                }
                 if (value != null) {
                     if (properties == null) {
                         properties = new Properties();
@@ -1053,7 +1059,9 @@ public class UtilProperties implements Serializable {
                         bundle = new UtilResourceBundle(bundle.properties, locale, parentBundle);
                     }
                     double totalTime = System.currentTimeMillis() - startTime;
-                    Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime/1000.0 + "s with " + numProperties + " properties", module);
+                    if (Debug.infoOn()) {
+                        Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime/1000.0 + "s with " + numProperties + " properties", module);
+                    }
                     bundleCache.put(resourceName, bundle);
                 }
             }
