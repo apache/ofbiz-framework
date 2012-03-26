@@ -2357,12 +2357,17 @@ public class OrderReadHelper {
 
     public static BigDecimal getOrderItemsSubTotal(List<GenericValue> orderItems, List<GenericValue> adjustments, List<GenericValue> workEfforts) {
         BigDecimal result = ZERO;
-        for(GenericValue orderItem : orderItems) {
+        Iterator<GenericValue> itemIter = UtilMisc.toIterator(orderItems);
+
+        while (itemIter != null && itemIter.hasNext()) {
+            GenericValue orderItem = itemIter.next();
             BigDecimal itemTotal = getOrderItemSubTotal(orderItem, adjustments);
             // Debug.logInfo("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
 
             if (workEfforts != null && orderItem.getString("orderItemTypeId").compareTo("RENTAL_ORDER_ITEM") == 0) {
-                for(GenericValue workEffort : workEfforts) {
+                Iterator<GenericValue> weIter = UtilMisc.toIterator(workEfforts);
+                while (weIter != null && weIter.hasNext()) {
+                    GenericValue workEffort = weIter.next();
                     if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0)    {
                         itemTotal = itemTotal.multiply(getWorkEffortRentalQuantity(workEffort)).setScale(scale, rounding);
                         break;
@@ -2422,8 +2427,10 @@ public class OrderReadHelper {
 
     public static BigDecimal getOrderItemsTotal(List<GenericValue> orderItems, List<GenericValue> adjustments) {
         BigDecimal result = ZERO;
-        for(GenericValue orderItem : orderItems) {
-            result = result.add(getOrderItemTotal(orderItem, adjustments));
+        Iterator<GenericValue> itemIter = UtilMisc.toIterator(orderItems);
+
+        while (itemIter != null && itemIter.hasNext()) {
+            result = result.add(getOrderItemTotal(itemIter.next(), adjustments));
         }
         return result.setScale(scale,  rounding);
     }
@@ -2439,7 +2446,9 @@ public class OrderReadHelper {
         List<GenericValue> promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
         
         if (UtilValidate.isNotEmpty(promoAdjustments)) {
-            for(GenericValue promoAdjustment : promoAdjustments) {
+            Iterator<GenericValue> promoAdjIter = promoAdjustments.iterator();
+            while (promoAdjIter.hasNext()) {
+                GenericValue promoAdjustment = promoAdjIter.next();
                 if (promoAdjustment != null) {
                     BigDecimal amount = promoAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding);
                     promoAdjTotal = promoAdjTotal.add(amount);
@@ -2492,8 +2501,10 @@ public class OrderReadHelper {
 
     public static BigDecimal getAllOrderItemsAdjustmentsTotal(List<GenericValue> orderItems, List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal result = ZERO;
-        for(GenericValue orderItem : orderItems) {
-            result = result.add(getOrderItemAdjustmentsTotal(orderItem, adjustments, includeOther, includeTax, includeShipping));
+        Iterator<GenericValue> itemIter = UtilMisc.toIterator(orderItems);
+
+        while (itemIter != null && itemIter.hasNext()) {
+            result = result.add(getOrderItemAdjustmentsTotal(itemIter.next(), adjustments, includeOther, includeTax, includeShipping));
         }
         return result.setScale(scale, rounding);
     }

@@ -774,8 +774,9 @@ public class OrderReturnServices {
                 billingAccounts = EntityUtil.filterByDate(billingAccounts);
                 billingAccounts = EntityUtil.orderBy(billingAccounts, UtilMisc.toList("-fromDate"));
                 if (UtilValidate.isNotEmpty(billingAccounts)) {
-                    for(GenericValue billingAccount : billingAccounts) {
-                        String thisBillingAccountId = billingAccount.getString("billingAccountId");
+                    ListIterator<GenericValue> billingAccountItr = billingAccounts.listIterator();
+                    while (billingAccountItr.hasNext() && billingAccountId == null) {
+                        String thisBillingAccountId = billingAccountItr.next().getString("billingAccountId");
                         BigDecimal billingAccountBalance = ZERO;
                         try {
                             billingAccountBalance = getBillingAccountBalance(thisBillingAccountId, dctx);
