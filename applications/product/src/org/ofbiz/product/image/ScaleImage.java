@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.NullPointerException;
 import java.lang.SecurityException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -335,9 +334,7 @@ public class ScaleImage {
             }
 
             /* scale Image for each Size Type */
-            Iterator<String> sizeIter = sizeTypeList.iterator();
-            while (sizeIter.hasNext()) {
-                String sizeType = sizeIter.next();
+            for(String sizeType : sizeTypeList) {
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
 
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {

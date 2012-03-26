@@ -30,7 +30,6 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -370,10 +369,7 @@ public class ImageManagementServices {
             }
             
             /* scale Image for each Size Type */
-            Iterator<String> sizeIter = sizeTypeList.iterator();
-            while (sizeIter.hasNext()) {
-                String sizeType = sizeIter.next();
-                
+            for(String sizeType : sizeTypeList) {
                 resultScaleImgMap.putAll(ImageTransform.scaleImage(bufImg, imgHeight, imgWidth, imgPropertyMap, sizeType, locale));
                 
                 if (resultScaleImgMap.containsKey("responseMessage") && resultScaleImgMap.get("responseMessage").equals("success")) {

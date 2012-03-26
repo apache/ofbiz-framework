@@ -21,12 +21,10 @@ package org.ofbiz.product.price;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
-import java.util.Map.Entry;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -530,9 +528,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(currencyDefaultUomId) && UtilValidate.isNotEmpty(currencyUomIdTo) && !currencyDefaultUomId.equals(currencyUomIdTo)) {
                 if(UtilValidate.isNotEmpty(result)){
                     Map<String, Object> convertPriceMap = FastMap.newInstance();
-                    Iterator<Entry<String, Object>> it= result.entrySet().iterator();
-                    while (it.hasNext()) {
-                        Map.Entry<String, Object> entry = it.next();
+                    for(Map.Entry<String, Object> entry : result.entrySet()) {
                         BigDecimal tempPrice = BigDecimal.ZERO;
                         if(entry.getKey() == "basePrice")
                             tempPrice = (BigDecimal) entry.getValue();
