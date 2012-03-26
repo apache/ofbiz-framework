@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.order.shoppingcart;
 
-import java.util.Iterator;
-
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -78,10 +76,8 @@ public class CartEventListener implements HttpSessionListener {
             }
 
             Debug.logInfo("Saving abandoned cart", module);
-            Iterator<ShoppingCartItem> cartItems = cart.iterator();
             int seqId = 1;
-            while (cartItems.hasNext()) {
-                ShoppingCartItem cartItem = cartItems.next();
+            for(ShoppingCartItem cartItem : cart) {
                 GenericValue cartAbandonedLine = delegator.makeValue("CartAbandonedLine");
 
                 cartAbandonedLine.set("visitId", visit.get("visitId"));

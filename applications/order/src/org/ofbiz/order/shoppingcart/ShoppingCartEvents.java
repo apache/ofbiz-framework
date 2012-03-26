@@ -522,9 +522,7 @@ public class ShoppingCartEvents {
                     productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
                     productAssocs = EntityUtil.filterByDate(productAssocs);
                     List<String> productList = FastList.newInstance();
-                    Iterator<GenericValue> iter = productAssocs.iterator();
-                    while (iter.hasNext()) {
-                        GenericValue productAssoc = iter.next();
+                    for(GenericValue productAssoc : productAssocs) {
                         if (productId.equals(productAssoc.getString("productId"))) {
                             productList.add(productAssoc.getString("productIdTo"));
                             continue;
@@ -534,9 +532,7 @@ public class ShoppingCartEvents {
                             continue;
                         }
                     }
-                    Iterator<ShoppingCartItem> sciIter = cart.iterator();
-                    while (sciIter.hasNext()) {
-                        ShoppingCartItem sci = sciIter.next();
+                    for(ShoppingCartItem sci : cart) {
                         if (productList.contains(sci.getProductId())) {
                             try {
                                 cart.removeCartItem(sci, dispatcher);
@@ -553,9 +549,7 @@ public class ShoppingCartEvents {
                             EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
                     productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
                     if (productList != null) {
-                        Iterator<ShoppingCartItem> sciIter = cart.iterator();
-                        while (sciIter.hasNext()) {
-                            ShoppingCartItem sci = sciIter.next();
+                        for(ShoppingCartItem sci : cart) {
                             if (productList.contains(sci.getProductId())) {
                                 try {
                                     cart.removeCartItem(sci, dispatcher);

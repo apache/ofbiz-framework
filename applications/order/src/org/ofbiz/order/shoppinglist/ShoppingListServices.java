@@ -20,7 +20,6 @@ package org.ofbiz.order.shoppinglist;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Date;
@@ -326,11 +325,8 @@ public class ShoppingListServices {
             }
 
             List<GenericValue> orderItems = orh.getOrderItems();
-            Iterator<GenericValue> i = orderItems.iterator();
-            String productId = null;
-            while (i.hasNext()) {
-                GenericValue orderItem = i.next();
-                productId = orderItem.getString("productId");
+            for(GenericValue orderItem : orderItems) {
+                String productId = orderItem.getString("productId");
                 if (UtilValidate.isNotEmpty(productId)) {
                     Map<String, Object> ctx = UtilMisc.<String, Object>toMap("userLogin", userLogin, "shoppingListId", shoppingListId, "productId",
                             orderItem.get("productId"), "quantity", orderItem.get("quantity"));
@@ -471,10 +467,8 @@ public class ShoppingListServices {
                 }
 
 
-                Iterator<GenericValue> i = items.iterator();
                 ProductConfigWrapper configWrapper = null;
-                while (i.hasNext()) {
-                    GenericValue shoppingListItem = i.next();
+                for(GenericValue shoppingListItem : items) {
                     String productId = shoppingListItem.getString("productId");
                     BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
                     Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
@@ -565,9 +559,7 @@ public class ShoppingListServices {
         String orderId = (String) context.get("orderId");
         try {
             List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
-            Iterator<GenericValue> iter = orderItems.iterator();
-            while (iter.hasNext()) {
-                GenericValue orderItem = iter.next();
+            for(GenericValue orderItem : orderItems) {
                 String shoppingListId = orderItem.getString("shoppingListId");
                 String shoppingListItemSeqId = orderItem.getString("shoppingListItemSeqId");
                 if (UtilValidate.isNotEmpty(shoppingListId)) {

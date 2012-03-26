@@ -904,9 +904,7 @@ public class ShoppingCartServices {
 
             // The cart item adjustments, derived from quote item adjustments, are added to the cart
             if (quoteItems != null) {
-                Iterator<ShoppingCartItem> i = cart.iterator();
-                while (i.hasNext()) {
-                    ShoppingCartItem item = i.next();
+                for(ShoppingCartItem item : cart) {
                     String orderItemSeqId = item.getOrderItemSeqId();
                     if (orderItemSeqId != null) {
                         adjs = orderAdjsMap.get(orderItemSeqId);
@@ -1108,10 +1106,8 @@ public class ShoppingCartServices {
             result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
             BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
-            Iterator<ShoppingCartItem> i = shoppingCart.iterator();
             Map<String, Object> cartItemData = FastMap.newInstance();
-            while (i.hasNext()) {
-                ShoppingCartItem cartLine = i.next();
+            for(ShoppingCartItem cartLine : shoppingCart) {
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
                 cartItemData.put("displayItemPrice_" + cartLineIndex, org.ofbiz.base.util.UtilFormatOut.formatCurrency(cartLine.getDisplayPrice(), isoCode, locale));
@@ -1142,9 +1138,7 @@ public class ShoppingCartServices {
     public static Map<String, Object>resetShipGroupItems(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
-        Iterator<ShoppingCartItem> sciIter = cart.iterator();
-        while (sciIter.hasNext()) {
-            ShoppingCartItem item = sciIter.next();
+        for(ShoppingCartItem item : cart) {
             cart.clearItemShipInfo(item);
             cart.setItemShipGroupQty(item, item.getQuantity(), 0);
         }
@@ -1166,9 +1160,7 @@ public class ShoppingCartServices {
             return ServiceUtil.returnError(e.toString());
         }
         Map<String, Object> vendorMap = FastMap.newInstance();
-        Iterator<ShoppingCartItem> sciIter = cart.iterator();
-        while (sciIter.hasNext()) {
-            ShoppingCartItem item = sciIter.next();
+        for(ShoppingCartItem item : cart) {
             GenericValue vendorProduct = null;
             String productId = item.getParentProductId();
             if (productId == null) {

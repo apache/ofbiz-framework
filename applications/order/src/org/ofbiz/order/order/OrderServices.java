@@ -925,11 +925,10 @@ public class OrderServices {
         Set<String> orderProductPromoCodes = UtilGenerics.checkSet(context.get("orderProductPromoCodes"));
         if (UtilValidate.isNotEmpty(orderProductPromoCodes)) {
             GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");
-            Iterator<String> orderProductPromoCodeIter = orderProductPromoCodes.iterator();
-            while (orderProductPromoCodeIter.hasNext()) {
+            for(String productPromoCodeId : orderProductPromoCodes) {
                 orderProductPromoCode.clear();
                 orderProductPromoCode.set("orderId", orderId);
-                orderProductPromoCode.set("productPromoCodeId", orderProductPromoCodeIter.next());
+                orderProductPromoCode.set("productPromoCodeId", productPromoCodeId);
                 toBeStored.add(orderProductPromoCode);
             }
         }
@@ -4891,8 +4890,7 @@ public class OrderServices {
             // the original method did a "\d+" regexp to decide which is the case, this version is more explicit with its lookup of PaymentMethodType
             if (checkOutPaymentId != null) {
                 List<GenericValue> paymentMethodTypes = delegator.findList("PaymentMethodType", null, null, null, null, true);
-                for (Iterator<GenericValue> iter = paymentMethodTypes.iterator(); iter.hasNext();) {
-                    GenericValue type = iter.next();
+                for (GenericValue type : paymentMethodTypes) {
                     if (type.get("paymentMethodTypeId").equals(checkOutPaymentId)) {
                         paymentMethodTypeId = (String) type.get("paymentMethodTypeId");
                         break;

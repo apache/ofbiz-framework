@@ -19,7 +19,6 @@
 package org.ofbiz.order;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -83,11 +82,9 @@ public class OrderManagerEvents {
                 return "error";
             }
             if (paymentPrefs != null) {
-                Iterator<GenericValue> i = paymentPrefs.iterator();
-                while (i.hasNext()) {
+                for(GenericValue ppref : paymentPrefs) {
                     // update the preference to received
                     // TODO: updating payment preferences should be done as a service
-                    GenericValue ppref = i.next();
                     ppref.set("statusId", "PAYMENT_RECEIVED");
                     ppref.set("authDate", UtilDateTime.nowTimestamp());
                     toBeStored.add(ppref);
@@ -179,9 +176,7 @@ public class OrderManagerEvents {
             return "error";
         }
 
-        Iterator<GenericValue> pmti = paymentMethodTypes.iterator();
-        while (pmti.hasNext()) {
-            GenericValue paymentMethodType = pmti.next();
+        for(GenericValue paymentMethodType : paymentMethodTypes) {
             String paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
             String amountStr = request.getParameter(paymentMethodTypeId + "_amount");
             String paymentReference = request.getParameter(paymentMethodTypeId + "_reference");
@@ -251,9 +246,7 @@ public class OrderManagerEvents {
             Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", module);
         }
         if (UtilValidate.isNotEmpty(currentPrefs)) {
-            Iterator<GenericValue> cpi = currentPrefs.iterator();
-            while (cpi.hasNext()) {
-                GenericValue cp = cpi.next();
+            for(GenericValue cp : currentPrefs) {
                 String paymentMethodType = cp.getString("paymentMethodTypeId");
                 if ("EXT_OFFLINE".equals(paymentMethodType)) {
                     offlineValue = cp;

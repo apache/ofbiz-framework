@@ -1181,9 +1181,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         if (UtilValidate.isNotEmpty(productSurvey) && UtilValidate.isNotEmpty(attributes)) {
                             List<String> surveyResponses = UtilGenerics.checkList(attributes.get("surveyResponses"));
                             if (UtilValidate.isNotEmpty(surveyResponses)) {
-                                Iterator<String> surveyItr = surveyResponses.iterator();
-                                while (surveyItr.hasNext()) {
-                                    String surveyResponseId = surveyItr.next();
+                                for(String surveyResponseId : surveyResponses) {
                                     // TODO: implement multiple survey per product
                                     if (UtilValidate.isNotEmpty(surveyResponseId)) {
                                         priceContext.put("surveyResponseId", surveyResponseId);
@@ -1860,17 +1858,13 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), module);
             }
             if (featureAppls != null) {
-                Iterator<GenericValue> fai = featureAppls.iterator();
-                while (fai.hasNext()) {
-                    GenericValue appl = fai.next();
+                for(GenericValue appl : featureAppls) {
                     featureSet.add(appl.getString("productFeatureId"));
                 }
             }
         }
         if (this.additionalProductFeatureAndAppls != null) {
-            Iterator<GenericValue> aapi = this.additionalProductFeatureAndAppls.values().iterator();
-            while (aapi.hasNext()) {
-                GenericValue appl = aapi.next();
+            for(GenericValue appl : this.additionalProductFeatureAndAppls.values()) {
                 featureSet.add(appl.getString("productFeatureId"));
             }
         }
@@ -2111,9 +2105,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     public void addAllProductFeatureAndAppls(Map<String, GenericValue> productFeatureAndApplsToAdd) {
         if (productFeatureAndApplsToAdd == null) return;
-        Iterator<GenericValue> productFeatureAndApplsToAddIter = productFeatureAndApplsToAdd.values().iterator();
-        while (productFeatureAndApplsToAddIter.hasNext()) {
-            GenericValue additionalProductFeatureAndAppl = productFeatureAndApplsToAddIter.next();
+        for (GenericValue additionalProductFeatureAndAppl : productFeatureAndApplsToAdd.values()) {
             this.putAdditionalProductFeatureAndAppl(additionalProductFeatureAndAppl);
         }
     }
@@ -2187,9 +2179,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                 Debug.logError(e, "Unable to get features from product : " + product.get("productId"), module);
             }
             if (featureAppls != null) {
-                Iterator<GenericValue> fai = featureAppls.iterator();
-                while (fai.hasNext()) {
-                    GenericValue appl = fai.next();
+                for(GenericValue appl : featureAppls) {
                     BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                     if (lastQuantity == null) {
                         lastQuantity = BigDecimal.ZERO;
@@ -2200,9 +2190,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
         }
         if (this.additionalProductFeatureAndAppls != null) {
-            Iterator<GenericValue> aapi = this.additionalProductFeatureAndAppls.values().iterator();
-            while (aapi.hasNext()) {
-                GenericValue appl = aapi.next();
+            for(GenericValue appl : this.additionalProductFeatureAndAppls.values()) {
                 BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                 if (lastQuantity == null) {
                     lastQuantity = BigDecimal.ZERO;
@@ -2575,10 +2563,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
 
             // add the cloned item(s) to the cart
-            Iterator<ShoppingCartItem> newItemsItr = newItems.iterator();
-
-            while (newItemsItr.hasNext()) {
-                cart.addItem(thisIndex, newItemsItr.next());
+            for(ShoppingCartItem sci : newItems) {
+                cart.addItem(thisIndex, sci);
             }
         }
     }
