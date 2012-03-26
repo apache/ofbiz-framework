@@ -75,12 +75,12 @@ under the License.
             </property>
             -->
             <property name="nio-http-connector" value="connector">
-                <property name="type" value="http"/>
+                <property name="type" value="nio-http"/>
                 <property name="host" value="0.0.0.0"/>
                 <property name="port" value="8080"/>
             </property>
             <property name="nio-https-connector" value="connector">
-                <property name="type" value="https"/>
+                <property name="type" value="nio-https"/>
                 <property name="host" value="0.0.0.0"/>
                 <property name="port" value="8443"/>
                 <property name="keystore" value="framework/base/config/ofbizssl.jks"/>
