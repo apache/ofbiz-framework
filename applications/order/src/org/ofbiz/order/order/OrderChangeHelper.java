@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.order.order;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -185,9 +184,7 @@ public class OrderChangeHelper {
                     Debug.logError(e, "ERROR: Unable to get OrderItem records for OrderHeader : " + orderId, module);
                 }
                 if (UtilValidate.isNotEmpty(orderItems)) {
-                    Iterator<GenericValue> oii = orderItems.iterator();
-                    while (oii.hasNext()) {
-                        GenericValue orderItem = oii.next();
+                    for(GenericValue orderItem : orderItems) {
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         GenericValue product = null;
 
@@ -264,9 +261,7 @@ public class OrderChangeHelper {
             }
 
             List<GenericValue> opps = orh.getPaymentPreferences();
-            Iterator<GenericValue> oppi = opps.iterator();
-            while (oppi.hasNext()) {
-                GenericValue opp = oppi.next();
+            for(GenericValue opp : opps) {
                 if ("PAYMENT_RECEIVED".equals(opp.getString("statusId"))) {
                     List<GenericValue> payments = orh.getOrderPayments(opp);
                     if (UtilValidate.isEmpty(payments)) {

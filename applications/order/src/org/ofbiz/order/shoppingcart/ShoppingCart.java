@@ -218,9 +218,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         // clone the groups
-        Iterator<ShoppingCartItemGroup> groupIt = cart.itemGroupByNumberMap.values().iterator();
-        while (groupIt.hasNext()) {
-            ShoppingCartItemGroup itemGroup = groupIt.next();
+        for(ShoppingCartItemGroup itemGroup : cart.itemGroupByNumberMap.values()) {
             // get the new parent group by number from the existing set; as before the parent must come before all children to work...
             ShoppingCartItemGroup parentGroup = null;
             if (itemGroup.getParentGroup() != null) parentGroup = this.getItemGroupByNumber(itemGroup.getParentGroup().getGroupNumber());
@@ -229,12 +227,10 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         // clone the items
-        List<ShoppingCartItem> items = cart.items();
-        Iterator<ShoppingCartItem> itIt = items.iterator();
-        while (itIt.hasNext()) {
-            cartLines.add(new ShoppingCartItem(itIt.next()));
+        for(ShoppingCartItem item : cart.items()) {
+            cartLines.add(new ShoppingCartItem(item));
         }
-        
+
         this.facilityId = cart.facilityId;
         this.webSiteId = cart.webSiteId;
     }
@@ -429,9 +425,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String previousCurrency = this.currencyUom;
         this.currencyUom = currencyUom;
         if (!previousCurrency.equals(this.currencyUom)) {
-            Iterator<ShoppingCartItem> itemIterator = this.iterator();
-            while (itemIterator.hasNext()) {
-                ShoppingCartItem item = itemIterator.next();
+            for(ShoppingCartItem item : this) {
                 item.updatePrice(dispatcher, this);
             }
         }
@@ -758,18 +752,14 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         localList.addAll(multipleItems);
         // the ones to keep...
         for (int i=0; i<maxItems; i++) localList.remove(0);
-        Iterator<ShoppingCartItem> localIter = localList.iterator();
-        while (localIter.hasNext()) {
-            ShoppingCartItem item = localIter.next();
+        for(ShoppingCartItem item : localList) {
             this.removeCartItem(item, dispatcher);
         }
     }
 
     public static BigDecimal getItemsTotalQuantity(List<ShoppingCartItem> cartItems) {
         BigDecimal totalQuantity = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
-        while (localIter.hasNext()) {
-            ShoppingCartItem item = localIter.next();
+        for(ShoppingCartItem item : cartItems) {
             totalQuantity = totalQuantity.add(item.getQuantity());
         }
         return totalQuantity;
@@ -777,9 +767,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public static List<GenericValue> getItemsProducts(List<ShoppingCartItem> cartItems) {
         List<GenericValue> productList = FastList.newInstance();
-        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
-        while (localIter.hasNext()) {
-            ShoppingCartItem item = localIter.next();
+        for(ShoppingCartItem item : cartItems) {
             GenericValue product = item.getProduct();
             if (product != null) {
                 productList.add(product);
@@ -789,9 +777,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public void ensureItemsQuantity(List<ShoppingCartItem> cartItems, LocalDispatcher dispatcher, BigDecimal quantity) throws CartItemModifyException {
-        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
-        while (localIter.hasNext()) {
-            ShoppingCartItem item = localIter.next();
+        for(ShoppingCartItem item : cartItems) {
             if (item.getQuantity() != quantity) {
                 item.setQuantity(quantity, dispatcher, this);
             }
@@ -802,10 +788,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         BigDecimal quantityRemoved = BigDecimal.ZERO;
         // go through the items and reduce quantityToKeep by the item quantities until it is 0, then remove the remaining...
         BigDecimal quantityToKeep = quantity;
-        Iterator<ShoppingCartItem> localIter = cartItems.iterator();
-        while (localIter.hasNext()) {
-            ShoppingCartItem item = localIter.next();
-
+        for(ShoppingCartItem item : cartItems) {
             if (quantityToKeep.compareTo(item.getQuantity()) >= 0) {
                 // quantityToKeep sufficient to keep it all... just reduce quantityToKeep and move on
                 quantityToKeep = quantityToKeep.subtract(item.getQuantity());
@@ -829,8 +812,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     // ============== WorkEffort related methods ===============
     public boolean containAnyWorkEffortCartItems() {
         // Check for existing cart item.
-        for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = cartLines.get(i);
+        for(ShoppingCartItem cartItem : this.cartLines) {
             if (cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) {  // create workeffort items?
                 return true;
             }
@@ -840,8 +822,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public boolean containAllWorkEffortCartItems() {
         // Check for existing cart item.
-        for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = cartLines.get(i);
+        for(ShoppingCartItem cartItem : this.cartLines) {
             if (!cartItem.getItemType().equals("RENTAL_ORDER_ITEM")) { // not a item to create workefforts?
                 return false;
             }
@@ -854,8 +835,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * This is determined by making sure no Product has a type where ProductType.isPhysical!=N.
      */
     public boolean containOnlyDigitalGoods() {
-        for (int i = 0; i < this.cartLines.size(); i++) {
-            ShoppingCartItem cartItem = cartLines.get(i);
+        for(ShoppingCartItem cartItem : this.cartLines) {
             GenericValue product = cartItem.getProduct();
             try {
                 GenericValue productType = product.getRelatedOneCache("ProductType");
@@ -1024,16 +1004,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (itemGroup != null) {
             // go through all cart items and remove from group if they are in it
             List<ShoppingCartItem> cartItemList = this.getCartItemsInGroup(groupNumber);
-            Iterator<ShoppingCartItem> cartItemIter = cartItemList.iterator();
-            while (cartItemIter.hasNext()) {
-                ShoppingCartItem cartItem = cartItemIter.next();
+            for(ShoppingCartItem cartItem : cartItemList) {
                 cartItem.setItemGroup(null);
             }
 
             // if this is a parent of any set them to this group's parent (or null)
-            Iterator<ShoppingCartItemGroup> itemGroupIter = this.itemGroupByNumberMap.values().iterator();
-            while (itemGroupIter.hasNext()) {
-                ShoppingCartItemGroup otherItemGroup = itemGroupIter.next();
+            for(ShoppingCartItemGroup otherItemGroup : this.itemGroupByNumberMap.values()) {
                 if (itemGroup.equals(otherItemGroup.getParentGroup())) {
                     otherItemGroup.inheritParentsParent();
                 }
@@ -1089,9 +1065,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String partyId = this.getPartyId();
         if (UtilValidate.isNotEmpty(partyId)) {
             // recalculate all prices
-            Iterator<ShoppingCartItem> cartItemIter = this.iterator();
-            while (cartItemIter.hasNext()) {
-                ShoppingCartItem cartItem = cartItemIter.next();
+            for(ShoppingCartItem cartItem : this) {
                 cartItem.updatePrice(dispatcher, this);
             }
 
@@ -1576,9 +1550,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the CartPaymentInfo objects which have matching fields */
     public List<CartPaymentInfo> getPaymentInfos(boolean isPaymentMethod, boolean isPaymentMethodType, boolean hasRefNum) {
         List<CartPaymentInfo> foundRecords = new LinkedList<CartPaymentInfo>();
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (isPaymentMethod && inf.paymentMethodId != null) {
                 if (hasRefNum && inf.refNum != null) {
                     foundRecords.add(inf);
@@ -1604,9 +1576,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Locates an existing (or creates a new) CartPaymentInfo object */
     public CartPaymentInfo getPaymentInfo(String id, String refNum, String authCode, BigDecimal amount, boolean update) {
         CartPaymentInfo thisInf = this.makePaymentInfo(id, refNum, authCode, amount);
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.compareTo(thisInf) == 0) {
                 // update the info
                 if (update) {
@@ -1642,9 +1612,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 // this payment method will set the billing address for the order;
                 // before it is set we have to verify if the billing address is
                 // compatible with the ProductGeos
-                Iterator<GenericValue> products = (ShoppingCart.getItemsProducts(this.cartLines)).iterator();
-                while (products.hasNext()) {
-                    GenericValue product = products.next();
+                for(GenericValue product : ShoppingCart.getItemsProducts(this.cartLines)) {
                     if (!ProductWorker.isBillableToAddress(product, billingAddress)) {
                         throw new IllegalArgumentException("The billing address is not compatible with ProductGeos rules.");
                     }
@@ -1687,9 +1655,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public String getPaymentRef(String id) {
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.paymentMethodId.equals(id) || inf.paymentMethodTypeId.equals(id)) {
                 return inf.refNum[0];
             }
@@ -1700,9 +1666,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** returns the total payment amounts */
     public BigDecimal getPaymentTotal() {
         BigDecimal total = BigDecimal.ZERO;
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.amount != null) {
                 total = total.add(inf.amount);
             }
@@ -1755,8 +1719,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 List<GenericValue> declinedPaymentMethods = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_DECLINED"));
                 if (!UtilValidate.isEmpty(declinedPaymentMethods)) {
                     List<String> paymentMethodIdsToRemove = new ArrayList<String>();
-                    for (Iterator<GenericValue> iter = declinedPaymentMethods.iterator(); iter.hasNext();) {
-                        GenericValue opp = iter.next();
+                    for(GenericValue opp : declinedPaymentMethods) {
                         paymentMethodIdsToRemove.add(opp.getString("paymentMethodId"));
                     }
                     clearPaymentMethodsById(paymentMethodIdsToRemove);
@@ -1770,9 +1733,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     private void expireSingleUsePayments() {
         Timestamp now = UtilDateTime.nowTimestamp();
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.paymentMethodId == null || !inf.singleUse) {
                 continue;
             }
@@ -1799,9 +1760,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the Payment Method Ids */
     public List<String> getPaymentMethodIds() {
         List<String> pmi = new LinkedList<String>();
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.paymentMethodId != null) {
                 pmi.add(inf.paymentMethodId);
             }
@@ -1812,9 +1771,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the Payment Method Ids */
     public List<String> getPaymentMethodTypeIds() {
         List<String> pmt = FastList.newInstance();
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.paymentMethodTypeId != null) {
                 pmt.add(inf.paymentMethodTypeId);
             }
@@ -1826,9 +1783,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> getPaymentMethods() {
         List<GenericValue> methods = FastList.newInstance();
         if (UtilValidate.isNotEmpty(paymentInfo)) {
-            Iterator<String> paymentMethodIdIter = getPaymentMethodIds().iterator();
-            while (paymentMethodIdIter.hasNext()) {
-                String paymentMethodId = paymentMethodIdIter.next();
+            for(String paymentMethodId : getPaymentMethodIds()) {
                 try {
                     GenericValue paymentMethod = this.getDelegator().findByPrimaryKeyCache("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId));
                     if (paymentMethod != null) {
@@ -1849,9 +1804,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> getPaymentMethodTypes() {
         List<GenericValue> types = new LinkedList<GenericValue>();
         if (UtilValidate.isNotEmpty(paymentInfo)) {
-            Iterator<String> i = getPaymentMethodTypeIds().iterator();
-            while (i.hasNext()) {
-                String id = i.next();
+            for(String id : getPaymentMethodIds()) {
                 try {
                     types.add(this.getDelegator().findByPrimaryKeyCache("PaymentMethodType", UtilMisc.toMap("paymentMethodTypeId", id)));
                 } catch (GenericEntityException e) {
@@ -1867,9 +1820,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<GenericValue> paymentMethods = this.getPaymentMethods();
         List<GenericValue> creditCards = new LinkedList<GenericValue>();
         if (paymentMethods != null) {
-            Iterator<GenericValue> i = paymentMethods.iterator();
-            while (i.hasNext()) {
-                GenericValue pm = i.next();
+            for(GenericValue pm : paymentMethods) {
                 if ("CREDIT_CARD".equals(pm.getString("paymentMethodTypeId"))) {
                     try {
                         GenericValue cc = pm.getRelatedOne("CreditCard");
@@ -1888,9 +1839,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<GenericValue> paymentMethods = this.getPaymentMethods();
         List<GenericValue> giftCards = new LinkedList<GenericValue>();
         if (paymentMethods != null) {
-            Iterator<GenericValue> i = paymentMethods.iterator();
-            while (i.hasNext()) {
-                GenericValue pm = i.next();
+            for(GenericValue pm : paymentMethods) {
                 if ("GIFT_CARD".equals(pm.getString("paymentMethodTypeId"))) {
                     try {
                         GenericValue gc = pm.getRelatedOne("GiftCard");
@@ -1922,9 +1871,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public GenericValue getBillingAddress() {
         GenericValue billingAddress = null;
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             billingAddress = inf.getBillingAddress(this.getDelegator());
             if (billingAddress != null) {
                 break;
@@ -2109,8 +2056,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         Map<Integer, BigDecimal> shipGroups = this.getShipGroups(item);
 
         if ((shipGroups != null) && (shipGroups.keySet() != null)) {
-            for (Iterator<Integer> shipGroupKeys = shipGroups.keySet().iterator(); shipGroupKeys.hasNext();) {
-                Integer shipGroup = shipGroupKeys.next();
+            for(Integer shipGroup : shipGroups.keySet()) {
                 CartShipInfo cartShipInfo = this.getShipInfo(shipGroup.intValue());
 
                 cartShipInfo.resetShipAfterDateIfBefore(item.getShipAfterDate());
@@ -2258,9 +2204,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (shippingAddress != null) {
                 Set<ShoppingCartItem> shipItems = csi.getShipItems();
                 if (UtilValidate.isNotEmpty(shipItems)) {
-                    Iterator<ShoppingCartItem> siit = shipItems.iterator();
-                    while (siit.hasNext()) {
-                        ShoppingCartItem cartItem = siit.next();
+                    for(ShoppingCartItem cartItem : shipItems) {
                         GenericValue product = cartItem.getProduct();
                         if (UtilValidate.isNotEmpty(product)) {
                             if (!ProductWorker.isShippableToAddress(product, shippingAddress)) {
@@ -2607,11 +2551,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public BigDecimal getTotalShipping() {
         BigDecimal tempShipping = BigDecimal.ZERO;
 
-        Iterator<CartShipInfo> shipIter = this.shipInfo.iterator();
-        while (shipIter.hasNext()) {
-            CartShipInfo csi = shipIter.next();
+        for(CartShipInfo csi : this.shipInfo) {
             tempShipping = tempShipping.add(csi.shipEstimate);
-
         }
 
         return tempShipping;
@@ -2620,10 +2561,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the item-total in the cart (not including discount/tax/shipping). */
     public BigDecimal getItemTotal() {
         BigDecimal itemTotal = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
-
-        while (i.hasNext()) {
-            itemTotal = itemTotal.add((i.next()).getBasePrice());
+        for(ShoppingCartItem cartItem : this.cartLines) {
+            itemTotal = itemTotal.add(cartItem.getBasePrice());
         }
         return itemTotal;
     }
@@ -2631,10 +2570,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the sub-total in the cart (item-total - discount). */
     public BigDecimal getSubTotal() {
         BigDecimal itemsTotal = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
-
-        while (i.hasNext()) {
-            itemsTotal = itemsTotal.add((i.next()).getItemSubTotal());
+        for(ShoppingCartItem cartItem : this.cartLines) {
+            itemsTotal = itemsTotal.add(cartItem.getItemSubTotal());
         }
         return itemsTotal;
     }
@@ -2651,9 +2588,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public BigDecimal getDisplaySubTotal() {
         BigDecimal itemsTotal = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
-        while (i.hasNext()) {
-            itemsTotal = itemsTotal.add((i.next()).getDisplayItemSubTotal());
+        for(ShoppingCartItem cartItem : this.cartLines) {
+            itemsTotal = itemsTotal.add(cartItem.getDisplayItemSubTotal());
         }
         return itemsTotal;
     }
@@ -2665,9 +2601,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public BigDecimal getDisplayRecurringSubTotal() {
         BigDecimal itemsTotal = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
-        while (i.hasNext()) {
-            itemsTotal = itemsTotal.add((i.next()).getDisplayItemRecurringSubTotal());
+        for(ShoppingCartItem cartItem : this.cartLines) {
+            itemsTotal = itemsTotal.add(cartItem.getDisplayItemRecurringSubTotal());
         }
         return itemsTotal;
     }
@@ -2684,10 +2619,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the sub-total in the cart (item-total - discount). */
     public BigDecimal getSubTotalForPromotions() {
         BigDecimal itemsTotal = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
-
-        while (i.hasNext()) {
-            ShoppingCartItem cartItem = i.next();
+        for(ShoppingCartItem cartItem : this.cartLines) {
             GenericValue product = cartItem.getProduct();
             if (product != null && "N".equals(product.getString("includeInPromotions"))) {
                 // don't include in total if this is the case...
@@ -2705,8 +2637,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public BigDecimal getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
         BigDecimal total = BigDecimal.ZERO;
         String thisPaymentMethodTypeId = null;
-        for (Iterator<CartPaymentInfo> iter = paymentInfo.iterator(); iter.hasNext();) {
-            CartPaymentInfo payment = iter.next();
+        for(CartPaymentInfo payment : paymentInfo) {
             if (payment.amount == null) continue;
             if (payment.paymentMethodId != null) {
                 try {
@@ -2852,9 +2783,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (termTypeId == null) {
             return false;
         }
-        Iterator<GenericValue> orderTermsIt = orderTerms.iterator();
-        while (orderTermsIt.hasNext()) {
-            GenericValue orderTerm = orderTermsIt.next();
+        for(GenericValue orderTerm : orderTerms) {
             if (termTypeId.equals(orderTerm.getString("termTypeId"))) {
                 return true;
             }
@@ -2878,11 +2807,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<List<GenericValue>> adjsLists = FastList.newInstance();
 
         adjsLists.add(this.getAdjustments());
-        Iterator<ShoppingCartItem> cartIterator = this.iterator();
 
-        while (cartIterator.hasNext()) {
-            ShoppingCartItem item = cartIterator.next();
-
+        for(ShoppingCartItem item : this) {
             if (item.getAdjustments() != null) {
                 adjsLists.add(item.getAdjustments());
             }
@@ -2907,11 +2833,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the total weight in the cart. */
     public BigDecimal getTotalWeight() {
         BigDecimal weight = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
 
-        while (i.hasNext()) {
-            ShoppingCartItem item = i.next();
-
+        for(ShoppingCartItem item : this.cartLines) {
             weight = weight.add(item.getWeight().multiply(item.getQuantity()));
         }
         return weight;
@@ -2920,10 +2843,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the total quantity in the cart. */
     public BigDecimal getTotalQuantity() {
         BigDecimal count = BigDecimal.ZERO;
-        Iterator<ShoppingCartItem> i = iterator();
 
-        while (i.hasNext()) {
-            count = count.add((i.next()).getQuantity());
+        for(ShoppingCartItem item : this.cartLines) {
+            count = count.add(item.getQuantity());
         }
         return count;
     }
@@ -3018,9 +2940,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns true when there are shippable items in the cart */
     public boolean shippingApplies() {
         boolean shippingApplies = false;
-        Iterator<ShoppingCartItem> i = this.iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = i.next();
+        for(ShoppingCartItem item : this) {
             if (item.shippingApplies()) {
                 shippingApplies = true;
                 break;
@@ -3032,9 +2952,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns true when there are taxable items in the cart */
     public boolean taxApplies() {
         boolean taxApplies = false;
-        Iterator<ShoppingCartItem> i = this.iterator();
-        while (i.hasNext()) {
-            ShoppingCartItem item = i.next();
+        for(ShoppingCartItem item : this) {
             if (item.taxApplies()) {
                 taxApplies = true;
                 break;
@@ -3152,9 +3070,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public void clearCartItemUseInPromoInfo() {
         // clear out info about which cart items have been used in promos
-        Iterator<ShoppingCartItem> cartLineIter = this.iterator();
-        while (cartLineIter.hasNext()) {
-            ShoppingCartItem cartLine = cartLineIter.next();
+        for(ShoppingCartItem cartLine : this) {
             cartLine.clearPromoRuleUseInfo();
         }
     }
@@ -3167,9 +3083,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         BigDecimal totalDiscount = BigDecimal.ZERO;
         List<GenericValue> cartAdjustments = this.getAdjustments();
         if (cartAdjustments != null) {
-            Iterator<GenericValue> cartAdjustmentIter = cartAdjustments.iterator();
-            while (cartAdjustmentIter.hasNext()) {
-                GenericValue checkOrderAdjustment = cartAdjustmentIter.next();
+            for(GenericValue checkOrderAdjustment : cartAdjustments) {
                 if (UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoId")) &&
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoRuleId")) &&
                         UtilValidate.isNotEmpty(checkOrderAdjustment.getString("productPromoActionSeqId"))) {
@@ -3181,9 +3095,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         // add cart line adjustments from promo actions
-        Iterator<ShoppingCartItem> cartItemIter = this.iterator();
-        while (cartItemIter.hasNext()) {
-            ShoppingCartItem checkItem = cartItemIter.next();
+        for(ShoppingCartItem checkItem : this) {
             Iterator<GenericValue> checkOrderAdjustments = UtilMisc.toIterator(checkItem.getAdjustments());
             while (checkOrderAdjustments != null && checkOrderAdjustments.hasNext()) {
                 GenericValue checkOrderAdjustment = checkOrderAdjustments.next();
@@ -3287,17 +3199,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // remove all cart adjustments
         this.adjustments.clear();
         // remove all cart item adjustments
-        Iterator<ShoppingCartItem> cartItemIter = this.iterator();
-        while (cartItemIter.hasNext()) {
-            ShoppingCartItem checkItem = cartItemIter.next();
+        for(ShoppingCartItem checkItem : this) {
             checkItem.getAdjustments().clear();
         }
     }
 
     public void clearAllItemStatus() {
-        Iterator<ShoppingCartItem> lineIter = this.iterator();
-        while (lineIter.hasNext()) {
-            ShoppingCartItem item = lineIter.next();
+        for(ShoppingCartItem item : this) {
             item.setStatusId(null);
         }
     }
@@ -3331,17 +3239,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     public synchronized void resetPromoRuleUse(String productPromoId, String productPromoRuleId) {
-        Iterator<ShoppingCartItem> lineIter = this.iterator();
-        while (lineIter.hasNext()) {
-            ShoppingCartItem cartItem = lineIter.next();
+        for(ShoppingCartItem cartItem : this) {
             cartItem.resetPromoRuleUse(productPromoId, productPromoRuleId);
         }
     }
 
     public synchronized void confirmPromoRuleUse(String productPromoId, String productPromoRuleId) {
-        Iterator<ShoppingCartItem> lineIter = this.iterator();
-        while (lineIter.hasNext()) {
-            ShoppingCartItem cartItem = lineIter.next();
+        for(ShoppingCartItem cartItem : this) {
             cartItem.confirmPromoRuleUse(productPromoId, productPromoRuleId);
         }
     }
@@ -3355,9 +3259,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // search if there is an existing entry
         List<String> parties = additionalPartyRole.get(roleTypeId);
         if (parties != null) {
-            Iterator<String> it = parties.iterator();
-            while (it.hasNext()) {
-                if ((it.next()).equals(partyId)) {
+            for(String pi : parties) {
+                if (pi.equals(partyId)) {
                     return;
                 }
             }
@@ -3491,9 +3394,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public List<GenericValue> makeOrderItemGroups() {
         List<GenericValue> result = FastList.newInstance();
-        Iterator<ShoppingCartItemGroup> groupValueIter = this.itemGroupByNumberMap.values().iterator();
-        while (groupValueIter.hasNext()) {
-            ShoppingCart.ShoppingCartItemGroup itemGroup = groupValueIter.next();
+        for(ShoppingCart.ShoppingCartItemGroup itemGroup : this.itemGroupByNumberMap.values()) {
             result.add(itemGroup.makeOrderItemGroup(this.getDelegator()));
         }
         return result;
@@ -3503,11 +3404,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         if (dispatcher == null) return;
         synchronized (cartLines) {
             List<ShoppingCartItem> cartLineItems = new LinkedList<ShoppingCartItem>(cartLines);
-            Iterator<ShoppingCartItem> itemIter = cartLineItems.iterator();
-
-            while (itemIter.hasNext()) {
-                ShoppingCartItem item = itemIter.next();
-
+            for(ShoppingCartItem item : cartLineItems) {
                 //Debug.logInfo("Item qty: " + item.getQuantity(), module);
                 try {
                     item.explodeItem(this, dispatcher);
@@ -3528,10 +3425,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public void explodeItems(List<ShoppingCartItem> shoppingCartItems, LocalDispatcher dispatcher) {
         if (dispatcher == null) return;
         synchronized (cartLines) {
-            Iterator<ShoppingCartItem> itemIter = shoppingCartItems.iterator();
-            while (itemIter.hasNext()) {
-                ShoppingCartItem item = itemIter.next();
-
+            for(ShoppingCartItem item : shoppingCartItems) {
                 //Debug.logInfo("Item qty: " + item.getQuantity(), module);
                 try {
                     item.explodeItem(this, dispatcher);
@@ -3805,9 +3699,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 remainingAmount = BigDecimal.ZERO;
             }
         }
-        Iterator<CartPaymentInfo> i = paymentInfo.iterator();
-        while (i.hasNext()) {
-            CartPaymentInfo inf = i.next();
+        for(CartPaymentInfo inf : paymentInfo) {
             if (inf.amount == null) {
                 inf.amount = remainingAmount;
                 remainingAmount = BigDecimal.ZERO;
@@ -3826,11 +3718,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Collection<GenericValue> infos = item.getOrderItemPriceInfos();
 
             if (infos != null) {
-                Iterator<GenericValue> infosIter = infos.iterator();
-
-                while (infosIter.hasNext()) {
-                    GenericValue orderItemPriceInfo = infosIter.next();
-
+                for(GenericValue orderItemPriceInfo : infos) {
                     orderItemPriceInfo.set("orderItemSeqId", item.getOrderItemSeqId());
                     allInfos.add(orderItemPriceInfo);
                 }
@@ -3861,15 +3749,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** make a list of SurveyResponse object to update with order information set */
     public List<GenericValue> makeAllOrderItemSurveyResponses() {
         List<GenericValue> allInfos = new LinkedList<GenericValue>();
-        Iterator<ShoppingCartItem> itemIter = this.iterator();
-        while (itemIter.hasNext()) {
-            ShoppingCartItem item = itemIter.next();
+        for(ShoppingCartItem item : this) {
             List<String> responses = UtilGenerics.checkList(item.getAttribute("surveyResponses"));
             GenericValue response = null;
             if (responses != null) {
-                Iterator<String> ri = responses.iterator();
-                while (ri.hasNext()) {
-                    String responseId = ri.next();
+                for(String responseId : responses) {
                     try {
                         response = this.getDelegator().findByPrimaryKey("SurveyResponse", UtilMisc.toMap("surveyResponseId", responseId));
                     } catch (GenericEntityException e) {
@@ -3935,10 +3819,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     public List<GenericValue> makeAllShipGroupInfos() {
         List<GenericValue> groups = new LinkedList<GenericValue>();
-        Iterator<CartShipInfo> grpIterator = this.shipInfo.iterator();
         long seqId = 1;
-        while (grpIterator.hasNext()) {
-            CartShipInfo csi = grpIterator.next();
+        for(CartShipInfo csi : this.shipInfo) {
             groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, seqId));
             seqId++;
         }
@@ -3961,9 +3843,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             for (ShoppingCartItem item : cartLines) {
                 Map<String, String> orderItemAttributes = item.getOrderItemAttributes();
-                Iterator<String> attributesIter = orderItemAttributes.keySet().iterator();
-                while (attributesIter.hasNext()) {
-                    String key = attributesIter.next();
+                for(String key : orderItemAttributes.keySet()) {
                     String value = orderItemAttributes.get(key);
 
                     GenericValue orderItemAttribute = getDelegator().makeValue("OrderItemAttribute");
@@ -4200,11 +4080,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Set<ShoppingCartItem> shipItems = shipInfo.getShipItems();
             if (UtilValidate.isEmpty(shipItems)) continue;
 
-            Iterator<ShoppingCartItem> siit = shipItems.iterator();
-            while (siit.hasNext()) {
-
-                ShoppingCartItem cartItem = siit.next();
-
+            for(ShoppingCartItem cartItem : shipItems) {
                 BigDecimal itemQuantity = cartItem.getQuantity();
                 BigDecimal dropShipQuantity = BigDecimal.ZERO;
 
@@ -4276,10 +4152,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         // Reassign the drop-shippable item quantities to new or existing drop-ship groups
-        Iterator<String> dsit = dropShipItems.keySet().iterator();
-        while (dsit.hasNext()) {
-            String supplierPartyId = dsit.next();
-
+        for (String supplierPartyId : dropShipItems.keySet()) {
             CartShipInfo shipInfo = null;
             int newShipGroupIndex = -1 ;
 
@@ -4296,15 +4169,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             shipInfo.supplierPartyId = supplierPartyId;
             
             Map<ShoppingCartItem, Map<Integer, BigDecimal>> supplierCartItems = UtilGenerics.checkMap(dropShipItems.get(supplierPartyId));
-            Iterator<ShoppingCartItem> itit = supplierCartItems.keySet().iterator();
-            while (itit.hasNext()) {
-
-                ShoppingCartItem cartItem = itit.next();
+            for(ShoppingCartItem cartItem : supplierCartItems.keySet()) {
                 Map<Integer, BigDecimal> cartItemGroupQuantities = UtilGenerics.checkMap(supplierCartItems.get(cartItem));
-                Iterator<Integer> cigit = cartItemGroupQuantities.keySet().iterator();
-                while (cigit.hasNext()) {
-
-                    Integer previousShipGroupIndex = cigit.next();
+                for(Integer previousShipGroupIndex : cartItemGroupQuantities.keySet()) {
                     BigDecimal dropShipQuantity = cartItemGroupQuantities.get(previousShipGroupIndex);
                     positionItemToGroup(cartItem, dropShipQuantity, previousShipGroupIndex.intValue(), newShipGroupIndex, true);
                 }
@@ -4508,9 +4375,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         public void clearAllTaxInfo() {
             this.shipTaxAdj.clear();
-            Iterator<CartShipItemInfo> i = shipItemInfo.values().iterator();
-            while (i.hasNext()) {
-                CartShipItemInfo itemInfo = i.next();
+            for(CartShipItemInfo itemInfo : shipItemInfo.values()) {
                 itemInfo.itemTaxAdj.clear();
             }
         }
@@ -4595,17 +4460,13 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
 
             // create the top level tax adjustments
-            Iterator<GenericValue> ti = shipTaxAdj.iterator();
-            while (ti.hasNext()) {
-                GenericValue taxAdj = ti.next();
+            for(GenericValue taxAdj : shipTaxAdj) {
                 taxAdj.set("shipGroupSeqId", shipGroupSeqId);
                 values.add(taxAdj);
             }
 
             // create the ship group item associations
-            Iterator<ShoppingCartItem> i = shipItemInfo.keySet().iterator();
-            while (i.hasNext()) {
-                ShoppingCartItem item = i.next();
+            for(ShoppingCartItem item : shipItemInfo.keySet()) {
                 CartShipItemInfo itemInfo = shipItemInfo.get(item);
 
                 GenericValue assoc = delegator.makeValue("OrderItemShipGroupAssoc");
@@ -4615,9 +4476,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 values.add(assoc);
 
                 // create the item tax adjustment
-                Iterator<GenericValue> iti = itemInfo.itemTaxAdj.iterator();
-                while (iti.hasNext()) {
-                    GenericValue taxAdj = iti.next();
+                for(GenericValue taxAdj : itemInfo.itemTaxAdj) {
                     taxAdj.set("orderItemSeqId", item.getOrderItemSeqId());
                     taxAdj.set("shipGroupSeqId", shipGroupSeqId);
                     values.add(taxAdj);
@@ -4871,9 +4730,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                     throw new GeneralRuntimeException("Split Payment Preference per Ship Group does not yet support multiple Payment Methods");
                 }
                 if ("Y".equals(splitPayPrefPerShpGrp)  && cart.paymentInfo.size() == 1) {
-                    Iterator<CartShipInfo> shipIter = cart.getShipGroups().iterator();
-                    while (shipIter.hasNext()) {
-                        CartShipInfo csi = shipIter.next();
+                    for(CartShipInfo csi : cart.getShipGroups()) {
                         maxAmount = csi.getTotal().add(cart.getOrderOtherAdjustmentTotal().divide(new BigDecimal(cart.getShipGroupSize()), generalRounding)).add(csi.getShipEstimate().add(csi.getTotalTax(cart)));
                         maxAmount = maxAmount.setScale(scale, rounding);
 
@@ -5065,10 +4922,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
         if (itemBasePrice == null) {
             List<GenericValue> productPriceList = EntityUtil.filterByDate(delegator.findList("ProductPrice", EntityCondition.makeCondition("productId", itemProductId), null, null, null, false));
-            Iterator<GenericValue> it = productPriceList.iterator();
             Map<String, BigDecimal> productPriceMap = FastMap.newInstance();
-            while (it.hasNext()) {
-                GenericValue productPrice = it.next();
+            for(GenericValue productPrice : productPriceList) {
                 productPriceMap.put(productPrice.getString("productPriceTypeId"), productPrice.getBigDecimal("price"));
             }
             if (UtilValidate.isNotEmpty(productPriceMap.get("SPECIAL_PROMO_PRICE"))) {

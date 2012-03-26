@@ -167,8 +167,7 @@ public class OrderListState implements Serializable {
     }
 
     private void changeOrderListStates(HttpServletRequest request) {
-        for (Iterator<String> iter = parameterToOrderStatusId.keySet().iterator(); iter.hasNext();) {
-            String param = iter.next();
+        for(String param : parameterToOrderStatusId.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderStatusState.put(param, "Y");
@@ -176,8 +175,7 @@ public class OrderListState implements Serializable {
                 orderStatusState.put(param, "N");
             }
         }
-        for (Iterator<String> iter = parameterToOrderTypeId.keySet().iterator(); iter.hasNext();) {
-            String param = iter.next();
+        for(String param : parameterToOrderTypeId.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderTypeState.put(param, "Y");
@@ -185,8 +183,7 @@ public class OrderListState implements Serializable {
                 orderTypeState.put(param, "N");
             }
         }
-        for (Iterator<String> iter = parameterToFilterId.keySet().iterator(); iter.hasNext();) {
-            String param = iter.next();
+        for(String param : parameterToFilterId.keySet()) {
             String value = request.getParameter(param);
             if ("Y".equals(value)) {
                 orderFilterState.put(param, "Y");
@@ -244,14 +241,12 @@ public class OrderListState implements Serializable {
         }
 
         List<EntityCondition> statusConditions = FastList.newInstance();
-        for (Iterator<String> iter = orderStatusState.keySet().iterator(); iter.hasNext();) {
-            String status = iter.next();
+        for(String status : orderFilterState.keySet()) {
             if (!hasStatus(status)) continue;
             statusConditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, parameterToOrderStatusId.get(status)));
         }
         List<EntityCondition> typeConditions = FastList.newInstance();
-        for (Iterator<String> iter = orderTypeState.keySet().iterator(); iter.hasNext();) {
-            String type = iter.next();
+        for(String type : orderTypeState.keySet()) {
             if (!hasType(type)) continue;
             typeConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)));
         }

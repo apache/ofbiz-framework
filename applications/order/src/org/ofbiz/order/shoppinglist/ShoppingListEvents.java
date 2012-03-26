@@ -20,7 +20,6 @@ package org.ofbiz.order.shoppinglist;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -228,9 +227,7 @@ public class ShoppingListEvents {
             // include all items of child lists if flagged to do so
             if (includeChild) {
                 List<GenericValue> childShoppingLists = shoppingList.getRelated("ChildShoppingList");
-                Iterator<GenericValue> ci = childShoppingLists.iterator();
-                while (ci.hasNext()) {
-                    GenericValue v = ci.next();
+                for(GenericValue v : childShoppingLists) {
                     List<GenericValue> items = v.getRelated("ShoppingListItem");
                     shoppingListItems.addAll(items);
                 }
@@ -260,9 +257,7 @@ public class ShoppingListEvents {
 
         // add the items
         StringBuilder eventMessage = new StringBuilder();
-        Iterator<GenericValue> i = shoppingListItems.iterator();
-        while (i.hasNext()) {
-            GenericValue shoppingListItem = i.next();
+        for(GenericValue shoppingListItem : shoppingListItems) {
             String productId = shoppingListItem.getString("productId");
             BigDecimal quantity = shoppingListItem.getBigDecimal("quantity");
             Timestamp reservStart = shoppingListItem.getTimestamp("reservStart");
@@ -556,10 +551,8 @@ public class ShoppingListEvents {
      */
     public static int makeListItemSurveyResp(Delegator delegator, GenericValue item, List<String> surveyResps) throws GenericEntityException {
         if (UtilValidate.isNotEmpty(surveyResps)) {
-            Iterator<String> i = surveyResps.iterator();
             int count = 0;
-            while (i.hasNext()) {
-                String responseId = i.next();
+            for(String responseId : surveyResps) {
                 GenericValue listResp = delegator.makeValue("ShoppingListItemSurvey");
                 listResp.set("shoppingListId", item.getString("shoppingListId"));
                 listResp.set("shoppingListItemSeqId", item.getString("shoppingListItemSeqId"));
@@ -578,9 +571,7 @@ public class ShoppingListEvents {
     public static Map<String, List<String>> getItemSurveyInfos(List<GenericValue> items) {
         Map<String, List<String>> surveyInfos = FastMap.newInstance();
         if (UtilValidate.isNotEmpty(items)) {
-            Iterator<GenericValue> itemIt = items.iterator();
-            while (itemIt.hasNext()) {
-                GenericValue item = itemIt.next();
+            for(GenericValue item : items) {
                 String listId = item.getString("shoppingListId");
                 String itemId = item.getString("shoppingListItemSeqId");
                 surveyInfos.put(listId + "." + itemId, getItemSurveyInfo(item));
@@ -603,9 +594,7 @@ public class ShoppingListEvents {
         }
 
         if (UtilValidate.isNotEmpty(surveyResp)) {
-            Iterator<GenericValue> respIt = surveyResp.iterator();
-            while (respIt.hasNext()) {
-                GenericValue resp = respIt.next();
+            for(GenericValue resp : surveyResp) {
                 responseIds.add(resp.getString("surveyResponseId"));
             }
         }

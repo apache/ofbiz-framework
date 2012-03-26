@@ -81,16 +81,12 @@ public class ProductDisplayWorker {
                 List<GenericValue> productsCategories = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productId", item.getProductId()), null);
                 productsCategories = EntityUtil.filterByDate(productsCategories, true);
                 if (productsCategories != null) {
-                    Iterator<GenericValue> productsCategoriesIter = productsCategories.iterator();
-                    while (productsCategoriesIter.hasNext()) {
-                        GenericValue productsCategoryMember = productsCategoriesIter.next();
+                    for(GenericValue productsCategoryMember : productsCategories) {
                         GenericValue productsCategory = productsCategoryMember.getRelatedOneCache("ProductCategory");
                         if ("CROSS_SELL_CATEGORY".equals(productsCategory.getString("productCategoryTypeId"))) {
                             List<GenericValue> curPcms = productsCategory.getRelatedCache("ProductCategoryMember");
                             if (curPcms != null) {
-                                Iterator<GenericValue> curPcmsIter = curPcms.iterator();
-                                while (curPcmsIter.hasNext()) {
-                                    GenericValue curPcm = curPcmsIter.next();
+                                for(GenericValue curPcm : curPcms) {
                                     if (!products.containsKey(curPcm.getString("productId"))) {
                                         GenericValue product = curPcm.getRelatedOneCache("Product");
                                         products.put(product.getString("productId"), product);
@@ -102,9 +98,7 @@ public class ProductDisplayWorker {
                 }
 
                 if (UtilValidate.isNotEmpty(complementProducts)) {
-                    Iterator<GenericValue> complIter = complementProducts.iterator();
-                    while (complIter.hasNext()) {
-                        GenericValue productAssoc = complIter.next();
+                    for(GenericValue productAssoc : complementProducts) {
                         if (!products.containsKey(productAssoc.getString("productIdTo"))) {
                             GenericValue product = productAssoc.getRelatedOneCache("AssocProduct");
                             products.put(product.getString("productId"), product);
@@ -238,9 +232,7 @@ public class ProductDisplayWorker {
             // remove all products that are already in the cart
             ShoppingCart cart = (ShoppingCart) httpRequest.getSession().getAttribute("shoppingCart");
             if (UtilValidate.isNotEmpty(cart)) {
-                Iterator<ShoppingCartItem> cartiter = cart.iterator();
-                while (cartiter.hasNext()) {
-                    ShoppingCartItem item = cartiter.next();
+                for(ShoppingCartItem item : cart) {
                     String productId = item.getProductId();
                     products.remove(productId);
                     productQuantities.remove(productId);

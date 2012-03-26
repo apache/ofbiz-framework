@@ -362,13 +362,11 @@ public class ZipSalesServices {
         }
 
         if (ruleLookup != null) {
-            Iterator<GenericValue> ruleIterator = ruleLookup.iterator();
-            while (ruleIterator.hasNext()) {
+            for(GenericValue rule : ruleLookup) {
                 if (!taxShipping) {
                     // if we found an rule which passes no need to contine (all rules are ||)
                     break;
                 }
-                GenericValue rule = ruleIterator.next();
                 String idCode = rule.getString("idCode");
                 String taxable = rule.getString("taxable");
                 String condition = rule.getString("shipCond");

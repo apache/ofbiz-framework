@@ -214,9 +214,7 @@ public class OrderReadHelper {
     public Map<String, BigDecimal> getReceivedPaymentTotalsByPaymentMethod() {
         Map<String, BigDecimal> paymentMethodAmounts = FastMap.newInstance();
         List<GenericValue> paymentPrefs = getPaymentPreferences();
-        Iterator<GenericValue> ppit = paymentPrefs.iterator();
-        while (ppit.hasNext()) {
-            GenericValue paymentPref = ppit.next();
+        for(GenericValue paymentPref : paymentPrefs) {
             List<GenericValue> payments = FastList.newInstance();
             try {
                 List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
@@ -234,9 +232,7 @@ public class OrderReadHelper {
             }
 
             BigDecimal chargedToPaymentPref = ZERO;
-            Iterator<GenericValue> payit = payments.iterator();
-            while (payit.hasNext()) {
-                GenericValue payment = payit.next();
+            for(GenericValue payment : payments) {
                 if (payment.get("amount") != null) {
                     chargedToPaymentPref = chargedToPaymentPref.add(payment.getBigDecimal("amount")).setScale(scale+1, rounding);
                 }
@@ -263,9 +259,7 @@ public class OrderReadHelper {
     public Map<String, BigDecimal> getReturnedTotalsByPaymentMethod() {
         Map<String, BigDecimal> paymentMethodAmounts = FastMap.newInstance();
         List<GenericValue> paymentPrefs = getPaymentPreferences();
-        Iterator<GenericValue> ppit = paymentPrefs.iterator();
-        while (ppit.hasNext()) {
-            GenericValue paymentPref = ppit.next();
+        for(GenericValue paymentPref : paymentPrefs) {
             List<GenericValue> returnItemResponses = FastList.newInstance();
             try {
                 returnItemResponses = orderHeader.getDelegator().findByAnd("ReturnItemResponse", UtilMisc.toMap("orderPaymentPreferenceId", paymentPref.getString("orderPaymentPreferenceId")));
@@ -273,9 +267,7 @@ public class OrderReadHelper {
                 Debug.logError(e, module);
             }
             BigDecimal refundedToPaymentPref = ZERO;
-            Iterator<GenericValue> ririt = returnItemResponses.iterator();
-            while (ririt.hasNext()) {
-                GenericValue returnItemResponse = ririt.next();
+            for(GenericValue returnItemResponse : returnItemResponses) {
                 refundedToPaymentPref = refundedToPaymentPref.add(returnItemResponse.getBigDecimal("responseAmount")).setScale(scale+1, rounding);
             }
 
@@ -302,9 +294,7 @@ public class OrderReadHelper {
             prefs = UtilMisc.toList(orderPaymentPreference);
         }
         if (prefs != null) {
-            Iterator<GenericValue> i = prefs.iterator();
-            while (i.hasNext()) {
-                GenericValue payPref = i.next();
+            for(GenericValue payPref : prefs) {
                 try {
                     orderPayments.addAll(payPref.getRelated("Payment"));
                 } catch (GenericEntityException e) {
@@ -405,9 +395,7 @@ public class OrderReadHelper {
     }
 
     public boolean hasPhysicalProductItems() throws GenericEntityException {
-        Iterator<GenericValue> orderItemIter = this.getOrderItems().iterator();
-        while (orderItemIter.hasNext()) {
-            GenericValue orderItem = orderItemIter.next();
+        for(GenericValue orderItem : this.getOrderItems()) {
             GenericValue product = orderItem.getRelatedOneCache("Product");
             if (product != null) {
                 GenericValue productType = product.getRelatedOneCache("ProductType");
@@ -442,9 +430,7 @@ public class OrderReadHelper {
         List<GenericValue> shippingLocations = FastList.newInstance();
         List<GenericValue> shippingCms = this.getOrderContactMechs("SHIPPING_LOCATION");
         if (shippingCms != null) {
-            Iterator<GenericValue> i = shippingCms.iterator();
-            while (i.hasNext()) {
-                GenericValue ocm = i.next();
+            for(GenericValue ocm : shippingCms) {
                 if (ocm != null) {
                     try {
                         GenericValue addr = ocm.getDelegator().findByPrimaryKey("PostalAddress",
@@ -500,9 +486,7 @@ public class OrderReadHelper {
         List<GenericValue> billingLocations = FastList.newInstance();
         List<GenericValue> billingCms = this.getOrderContactMechs("BILLING_LOCATION");
         if (billingCms != null) {
-            Iterator<GenericValue> i = billingCms.iterator();
-            while (i.hasNext()) {
-                GenericValue ocm = i.next();
+            for(GenericValue ocm : billingCms) {
                 if (ocm != null) {
                     try {
                         GenericValue addr = ocm.getDelegator().findByPrimaryKey("PostalAddress",
@@ -807,9 +791,7 @@ public class OrderReadHelper {
                 Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, module);
             }
             if (featureAppls != null) {
-                Iterator<GenericValue> fai = featureAppls.iterator();
-                while (fai.hasNext()) {
-                    GenericValue appl = fai.next();
+                for(GenericValue appl : featureAppls) {
                     featureSet.add(appl.getString("productFeatureId"));
                 }
             }
@@ -823,9 +805,7 @@ public class OrderReadHelper {
             Debug.logError(e, "Unable to get OrderAdjustment from item : " + item, module);
         }
         if (additionalFeatures != null) {
-            Iterator<GenericValue> afi = additionalFeatures.iterator();
-            while (afi.hasNext()) {
-                GenericValue adj = afi.next();
+            for(GenericValue adj : additionalFeatures) {
                 String featureId = adj.getString("productFeatureId");
                 if (featureId != null) {
                     featureSet.add(featureId);
@@ -840,9 +820,7 @@ public class OrderReadHelper {
         Map<String, BigDecimal> featureMap = FastMap.newInstance();
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 List<GenericValue> featureAppls = null;
                 if (item.get("productId") != null) {
                     try {
@@ -854,9 +832,7 @@ public class OrderReadHelper {
                         Debug.logError(e, "Unable to get ProductFeatureAppl for item : " + item, module);
                     }
                     if (featureAppls != null) {
-                        Iterator<GenericValue> fai = featureAppls.iterator();
-                        while (fai.hasNext()) {
-                            GenericValue appl = fai.next();
+                        for(GenericValue appl : featureAppls) {
                             BigDecimal lastQuantity = featureMap.get(appl.getString("productFeatureId"));
                             if (lastQuantity == null) {
                                 lastQuantity = BigDecimal.ZERO;
@@ -875,9 +851,7 @@ public class OrderReadHelper {
                     Debug.logError(e, "Unable to get OrderAdjustment from item : " + item, module);
                 }
                 if (additionalFeatures != null) {
-                    Iterator<GenericValue> afi = additionalFeatures.iterator();
-                    while (afi.hasNext()) {
-                        GenericValue adj = afi.next();
+                    for(GenericValue adj : additionalFeatures) {
                         String featureId = adj.getString("productFeatureId");
                         if (featureId != null) {
                             BigDecimal lastQuantity = featureMap.get(featureId);
@@ -899,9 +873,7 @@ public class OrderReadHelper {
         boolean shippingApplies = false;
         List<GenericValue> validItems = this.getValidOrderItems();
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product");
@@ -923,9 +895,7 @@ public class OrderReadHelper {
         boolean taxApplies = false;
         List<GenericValue> validItems = this.getValidOrderItems();
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product");
@@ -947,9 +917,7 @@ public class OrderReadHelper {
         BigDecimal shippableTotal = ZERO;
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product");
@@ -971,9 +939,7 @@ public class OrderReadHelper {
         BigDecimal shippableQuantity = ZERO;
         List<GenericValue> shipGroups = getOrderItemShipGroups();
         if (UtilValidate.isNotEmpty(shipGroups)) {
-            Iterator<GenericValue> shipGroupsIt = shipGroups.iterator();
-            while (shipGroupsIt.hasNext()) {
-                GenericValue shipGroup = shipGroupsIt.next();
+            for(GenericValue shipGroup : shipGroups) {
                 shippableQuantity = shippableQuantity.add(getShippableQuantity(shipGroup.getString("shipGroupSeqId")));
             }
         }
@@ -984,9 +950,7 @@ public class OrderReadHelper {
         BigDecimal shippableQuantity = ZERO;
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product");
@@ -1008,9 +972,7 @@ public class OrderReadHelper {
         BigDecimal shippableWeight = ZERO;
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 shippableWeight = shippableWeight.add(this.getItemWeight(item).multiply(getOrderItemQuantity(item))).setScale(scale, rounding);
             }
         }
@@ -1062,9 +1024,7 @@ public class OrderReadHelper {
 
         List<GenericValue> validItems = getValidOrderItems();
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 shippableSizes.add(this.getItemSize(item));
             }
         }
@@ -1077,8 +1037,7 @@ public class OrderReadHelper {
      */
     public BigDecimal getOrderPaymentPreferenceTotalByType(String paymentMethodTypeId) {
         BigDecimal total = ZERO;
-        for (Iterator<GenericValue> iter = getPaymentPreferences().iterator(); iter.hasNext();) {
-            GenericValue preference = iter.next();
+        for(GenericValue preference : getPaymentPreferences()) {
             if (preference.get("maxAmount") == null) continue;
             if (paymentMethodTypeId == null || paymentMethodTypeId.equals(preference.get("paymentMethodTypeId"))) {
                 total = total.add(preference.getBigDecimal("maxAmount")).setScale(scale, rounding);
@@ -1111,8 +1070,7 @@ public class OrderReadHelper {
             // get a set of invoice IDs that belong to the order
             List<GenericValue> orderItemBillings = orderHeader.getRelatedCache("OrderItemBilling");
             Set<String> invoiceIds = new HashSet<String>();
-            for (Iterator<GenericValue> iter = orderItemBillings.iterator(); iter.hasNext();) {
-                GenericValue orderItemBilling = iter.next();
+            for(GenericValue orderItemBilling : orderItemBillings) {
                 invoiceIds.add(orderItemBilling.getString("invoiceId"));
             }
 
@@ -1126,8 +1084,7 @@ public class OrderReadHelper {
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
             List<GenericValue> payments = orderHeader.getDelegator().findList("PaymentAndApplication", ecl, null, null, null, true);
 
-            for (Iterator<GenericValue> iter = payments.iterator(); iter.hasNext();) {
-                GenericValue payment = iter.next();
+            for (GenericValue payment : payments) {
                 if (payment.get("amountApplied") == null) continue;
                 total = total.add(payment.getBigDecimal("amountApplied")).setScale(scale, rounding);
             }
@@ -1235,9 +1192,7 @@ public class OrderReadHelper {
 
         List<GenericValue> validItems = getValidOrderItems(shipGroupSeqId);
         if (validItems != null) {
-            Iterator<GenericValue> i = validItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
+            for(GenericValue item : validItems) {
                 shippableInfo.add(this.getItemInfoMap(item));
             }
         }
@@ -1269,10 +1224,8 @@ public class OrderReadHelper {
 
         StringBuilder emails = new StringBuilder();
         if (orderContactMechs != null) {
-            Iterator<GenericValue> oci = orderContactMechs.iterator();
-            while (oci.hasNext()) {
+            for(GenericValue orderContactMech : orderContactMechs) {
                 try {
-                    GenericValue orderContactMech = oci.next();
                     GenericValue contactMech = orderContactMech.getRelatedOne("ContactMech");
                     emails.append(emails.length() > 0 ? "," : "").append(contactMech.getString("infoString"));
                 } catch (GenericEntityException e) {
@@ -1301,22 +1254,19 @@ public class OrderReadHelper {
         List<GenericValue> prefs = getPaymentPreferences();
 
         // add up the covered amount, but skip preferences which are declined or cancelled
-        for (Iterator<GenericValue> iter = prefs.iterator(); iter.hasNext();) {
-            GenericValue pref = iter.next();
+        for(GenericValue pref : prefs) {
             if ("PAYMENT_CANCELLED".equals(pref.get("statusId")) || "PAYMENT_DECLINED".equals(pref.get("statusId"))) {
                 continue;
             } else if ("PAYMENT_SETTLED".equals(pref.get("statusId"))) {
                 List<GenericValue> responses = pref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_CAPTURE"));
-                for (Iterator<GenericValue> respIter = responses.iterator(); respIter.hasNext();) {
-                    GenericValue response = respIter.next();
+                for(GenericValue response : responses) {
                     BigDecimal amount = response.getBigDecimal("amount");
                     if (amount != null) {
                         openAmount = openAmount.add(amount);
                     }
                 }
                 responses = pref.getRelatedByAnd("PaymentGatewayResponse", UtilMisc.toMap("transCodeEnumId", "PGT_REFUND"));
-                for (Iterator<GenericValue> respIter = responses.iterator(); respIter.hasNext();) {
-                    GenericValue response = respIter.next();
+                for(GenericValue response : responses) {
                     BigDecimal amount = response.getBigDecimal("amount");
                     if (amount != null) {
                         openAmount = openAmount.subtract(amount);
@@ -1449,9 +1399,7 @@ public class OrderReadHelper {
 
     public boolean getRejectedOrderItems() {
         List<GenericValue> items = getOrderItems();
-        Iterator<GenericValue> i = items.iterator();
-        while (i.hasNext()) {
-            GenericValue item = i.next();
+        for(GenericValue item : items) {
             List<GenericValue> receipts = null;
             try {
                 receipts = item.getRelated("ShipmentReceipt");
@@ -1459,9 +1407,7 @@ public class OrderReadHelper {
                 Debug.logWarning(e, module);
             }
             if (UtilValidate.isNotEmpty(receipts)) {
-                Iterator<GenericValue> recIter = receipts.iterator();
-                while (recIter.hasNext()) {
-                    GenericValue rec = recIter.next();
+                for(GenericValue rec : receipts) {
                     BigDecimal rejected = rec.getBigDecimal("quantityRejected");
                     if (rejected != null && rejected.compareTo(BigDecimal.ZERO) > 0) {
                         return true;
@@ -1487,9 +1433,7 @@ public class OrderReadHelper {
         return false;
     }*/
         List<GenericValue> items = getOrderItems();
-        Iterator<GenericValue> i = items.iterator();
-        while (i.hasNext()) {
-            GenericValue item = i.next();
+        for(GenericValue item : items) {
             List<GenericValue> receipts = null;
             try {
                 receipts = item.getRelated("ShipmentReceipt");
@@ -1497,9 +1441,7 @@ public class OrderReadHelper {
                 Debug.logWarning(e, module);
             }
             if (UtilValidate.isNotEmpty(receipts)) {
-                Iterator<GenericValue> recIter = receipts.iterator();
-                while (recIter.hasNext()) {
-                    GenericValue rec = recIter.next();
+                for(GenericValue rec : receipts) {
                     BigDecimal acceptedQuantity = rec.getBigDecimal("quantityAccepted");
                     BigDecimal orderedQuantity = (BigDecimal) item.get("quantity");
                     if (acceptedQuantity.intValue() != orderedQuantity.intValue() && acceptedQuantity.intValue()  > 0) {
@@ -1532,9 +1474,7 @@ public class OrderReadHelper {
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_APPROVED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_COMPLETED"));
         List<GenericValue> items = EntityUtil.filterByOr(getOrderItems(), exprs);
-        Iterator<GenericValue> i = items.iterator();
-        while (i.hasNext()) {
-            GenericValue item = i.next();
+        for(GenericValue item : items) {
             if (item.get("productId") != null) {
                 GenericValue product = null;
                 try {
@@ -1580,9 +1520,7 @@ public class OrderReadHelper {
 
                                 if (UtilValidate.isNotEmpty(productContents)) {
                                     // make sure we are still within the allowed timeframe and use limits
-                                    Iterator<GenericValue> pci = productContents.iterator();
-                                    while (pci.hasNext()) {
-                                        GenericValue productContent = pci.next();
+                                    for(GenericValue productContent : productContents) {
                                         Timestamp fromDate = productContent.getTimestamp("purchaseFromDate");
                                         Timestamp thruDate = productContent.getTimestamp("purchaseThruDate");
                                         if (fromDate == null || item.getTimestamp("orderDate").after(fromDate)) {
@@ -1742,8 +1680,7 @@ public class OrderReadHelper {
 
        // since we don't have a handy grouped view entity, we'll have to group the return items by hand
        Map<String, BigDecimal> returnMap = FastMap.newInstance();
-       for (Iterator<GenericValue> iter = this.getValidOrderItems().iterator(); iter.hasNext();) {
-           GenericValue orderItem = iter.next();
+       for(GenericValue orderItem : this.getValidOrderItems()) {
            List<GenericValue> group = EntityUtil.filterByAnd(returnItems, UtilMisc.toList(
                                               EntityCondition.makeCondition("orderId", orderItem.get("orderId")),
                                               EntityCondition.makeCondition("orderItemSeqId", orderItem.get("orderItemSeqId")),
@@ -1751,8 +1688,7 @@ public class OrderReadHelper {
 
            // add up the returned quantities for this group TODO: received quantity should be used eventually
            BigDecimal returned = BigDecimal.ZERO;
-           for (Iterator<GenericValue> groupiter = group.iterator(); groupiter.hasNext();) {
-               GenericValue returnItem = groupiter.next();
+           for(GenericValue returnItem : group) {
                if (returnItem.getBigDecimal("returnQuantity") != null) {
                    returned = returned.add(returnItem.getBigDecimal("returnQuantity"));
                }
@@ -1788,9 +1724,7 @@ public class OrderReadHelper {
         returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
 
         BigDecimal returnedQuantity = ZERO;
-        Iterator<GenericValue> i = returnedItems.iterator();
-        while (i.hasNext()) {
-            GenericValue returnedItem = i.next();
+        for(GenericValue returnedItem : returnedItems) {
             if (returnedItem.get("returnQuantity") != null) {
                 returnedQuantity = returnedQuantity.add(returnedItem.getBigDecimal("returnQuantity")).setScale(scale, rounding);
             }
@@ -1821,11 +1755,9 @@ public class OrderReadHelper {
                     UtilMisc.toList(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "RETURN_CANCELLED"))));
         }
         BigDecimal returnedAmount = ZERO;
-        Iterator<GenericValue> i = returnedItems.iterator();
         String orderId = orderHeader.getString("orderId");
         List<String> returnHeaderList = FastList.newInstance();
-        while (i.hasNext()) {
-            GenericValue returnedItem = i.next();
+        for(GenericValue returnedItem : returnedItems) {
             if ((returnedItem.get("returnPrice") != null) && (returnedItem.get("returnQuantity") != null)) {
                 returnedAmount = returnedAmount.add(returnedItem.getBigDecimal("returnPrice").multiply(returnedItem.getBigDecimal("returnQuantity")).setScale(scale, rounding));
             }
@@ -1836,9 +1768,7 @@ public class OrderReadHelper {
             }
         }
         //get  returnedAmount from returnHeader adjustments whose orderId must equals to current orderHeader.orderId
-        Iterator<String> returnHeaderIterator = returnHeaderList.iterator();
-        while (returnHeaderIterator.hasNext()) {
-            String returnId = returnHeaderIterator.next();
+        for(String returnId : returnHeaderList) {
             Map<String, Object> returnHeaderAdjFilter = UtilMisc.<String, Object>toMap("returnId", returnId, "returnItemSeqId", "_NA_", "returnTypeId", returnTypeId);
             returnedAmount =returnedAmount.add(getReturnAdjustmentTotal(orderHeader.getDelegator(), returnHeaderAdjFilter)).setScale(scale, rounding);
         }
@@ -1878,9 +1808,7 @@ public class OrderReadHelper {
         returnedItems.addAll(EntityUtil.filterByAnd(returnedItemsBase, UtilMisc.toMap("statusId", "RETURN_COMPLETED")));
 
         Map<String, BigDecimal> itemReturnedQuantities = FastMap.newInstance();
-        Iterator<GenericValue> i = returnedItems.iterator();
-        while (i.hasNext()) {
-            GenericValue returnedItem = i.next();
+        for(GenericValue returnedItem : returnedItems) {
             String orderItemSeqId = returnedItem.getString("orderItemSeqId");
             BigDecimal returnedQuantity = returnedItem.getBigDecimal("returnQuantity");
             if (orderItemSeqId != null && returnedQuantity != null) {
@@ -1898,10 +1826,7 @@ public class OrderReadHelper {
         BigDecimal totalTaxNotReturned = ZERO;
         BigDecimal totalShippingNotReturned = ZERO;
 
-        Iterator<GenericValue> orderItems = this.getValidOrderItems().iterator();
-        while (orderItems.hasNext()) {
-            GenericValue orderItem = orderItems.next();
-
+        for(GenericValue orderItem : this.getValidOrderItems()) {
             BigDecimal itemQuantityDbl = orderItem.getBigDecimal("quantity");
             if (itemQuantityDbl == null || itemQuantityDbl.compareTo(ZERO) == 0) {
                 continue;
@@ -1960,8 +1885,7 @@ public class OrderReadHelper {
 
         // sum up the return items that have a return item response with a billing account defined
         try {
-            for (Iterator<GenericValue> iter = returnedItems.iterator(); iter.hasNext();) {
-                GenericValue returnItem = iter.next();
+            for(GenericValue returnItem : returnedItems) {
                 GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse");
                 if (returnItemResponse == null) continue;
                 if (returnItemResponse.get("billingAccountId") == null) continue;
@@ -1999,14 +1923,10 @@ public class OrderReadHelper {
         BigDecimal backorder = ZERO;
         List<GenericValue> items = this.getValidOrderItems();
         if (items != null) {
-            Iterator<GenericValue> ii = items.iterator();
-            while (ii.hasNext()) {
-                GenericValue item = ii.next();
+            for(GenericValue item : items) {
                 List<GenericValue> reses = this.getOrderItemShipGrpInvResList(item);
                 if (reses != null) {
-                    Iterator<GenericValue> ri = reses.iterator();
-                    while (ri.hasNext()) {
-                        GenericValue res = ri.next();
+                    for(GenericValue res : reses) {
                         BigDecimal nav = res.getBigDecimal("quantityNotAvailable");
                         if (nav != null) {
                             backorder = backorder.add(nav).setScale(scale, rounding);
@@ -2035,9 +1955,7 @@ public class OrderReadHelper {
         }
 
         if (picked != null) {
-            Iterator<GenericValue> i = picked.iterator();
-            while (i.hasNext()) {
-                GenericValue pickedItem = i.next();
+            for(GenericValue pickedItem : picked) {
                 BigDecimal issueQty = pickedItem.getBigDecimal("quantity");
                 if (issueQty != null) {
                     quantityPicked = quantityPicked.add(issueQty).setScale(scale, rounding);
@@ -2051,9 +1969,7 @@ public class OrderReadHelper {
         BigDecimal quantityShipped = ZERO;
         List<GenericValue> issuance = getOrderItemIssuances(orderItem);
         if (issuance != null) {
-            Iterator<GenericValue> i = issuance.iterator();
-            while (i.hasNext()) {
-                GenericValue issue = i.next();
+            for(GenericValue issue : issuance) {
                 BigDecimal issueQty = issue.getBigDecimal("quantity");
                 BigDecimal cancelQty = issue.getBigDecimal("cancelQuantity");
                 if (cancelQty == null) {
@@ -2073,9 +1989,7 @@ public class OrderReadHelper {
 
         List<GenericValue> reses = getOrderItemShipGrpInvResList(orderItem);
         if (reses != null) {
-            Iterator<GenericValue> i = reses.iterator();
-            while (i.hasNext()) {
-                GenericValue res = i.next();
+            for(GenericValue res : reses) {
                 BigDecimal quantity = res.getBigDecimal("quantity");
                 if (quantity != null) {
                     reserved = reserved.add(quantity).setScale(scale, rounding);
@@ -2093,9 +2007,7 @@ public class OrderReadHelper {
 
         List<GenericValue> reses = getOrderItemShipGrpInvResList(orderItem);
         if (reses != null) {
-            Iterator<GenericValue> i = reses.iterator();
-            while (i.hasNext()) {
-                GenericValue res = i.next();
+            for(GenericValue res : reses) {
                 Timestamp promised = res.getTimestamp("currentPromisedDate");
                 if (promised == null) {
                     promised = res.getTimestamp("promisedDatetime");
@@ -2414,11 +2326,7 @@ public class OrderReadHelper {
 
         if (UtilValidate.isNotEmpty(orderHeaderAdjustments)) {
             List<GenericValue> filteredAdjs = filterOrderAdjustments(orderHeaderAdjustments, includeOther, includeTax, includeShipping, false, false);
-            Iterator<GenericValue> adjIt = filteredAdjs.iterator();
-
-            while (adjIt.hasNext()) {
-                GenericValue orderAdjustment = adjIt.next();
-
+            for (GenericValue orderAdjustment : filteredAdjs) {
                 adjTotal = adjTotal.add(OrderReadHelper.calcOrderAdjustment(orderAdjustment, subTotal)).setScale(scale, rounding);
             }
         }
@@ -2449,17 +2357,12 @@ public class OrderReadHelper {
 
     public static BigDecimal getOrderItemsSubTotal(List<GenericValue> orderItems, List<GenericValue> adjustments, List<GenericValue> workEfforts) {
         BigDecimal result = ZERO;
-        Iterator<GenericValue> itemIter = UtilMisc.toIterator(orderItems);
-
-        while (itemIter != null && itemIter.hasNext()) {
-            GenericValue orderItem = itemIter.next();
+        for(GenericValue orderItem : orderItems) {
             BigDecimal itemTotal = getOrderItemSubTotal(orderItem, adjustments);
             // Debug.logInfo("Item : " + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + " = " + itemTotal, module);
 
             if (workEfforts != null && orderItem.getString("orderItemTypeId").compareTo("RENTAL_ORDER_ITEM") == 0) {
-                Iterator<GenericValue> weIter = UtilMisc.toIterator(workEfforts);
-                while (weIter != null && weIter.hasNext()) {
-                    GenericValue workEffort = weIter.next();
+                for(GenericValue workEffort : workEfforts) {
                     if (workEffort.getString("workEffortId").compareTo(orderItem.getString("orderItemSeqId")) == 0)    {
                         itemTotal = itemTotal.multiply(getWorkEffortRentalQuantity(workEffort)).setScale(scale, rounding);
                         break;
@@ -2519,10 +2422,8 @@ public class OrderReadHelper {
 
     public static BigDecimal getOrderItemsTotal(List<GenericValue> orderItems, List<GenericValue> adjustments) {
         BigDecimal result = ZERO;
-        Iterator<GenericValue> itemIter = UtilMisc.toIterator(orderItems);
-
-        while (itemIter != null && itemIter.hasNext()) {
-            result = result.add(getOrderItemTotal(itemIter.next(), adjustments));
+        for(GenericValue orderItem : orderItems) {
+            result = result.add(getOrderItemTotal(orderItem, adjustments));
         }
         return result.setScale(scale,  rounding);
     }
@@ -2538,9 +2439,7 @@ public class OrderReadHelper {
         List<GenericValue> promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
         
         if (UtilValidate.isNotEmpty(promoAdjustments)) {
-            Iterator<GenericValue> promoAdjIter = promoAdjustments.iterator();
-            while (promoAdjIter.hasNext()) {
-                GenericValue promoAdjustment = promoAdjIter.next();
+            for(GenericValue promoAdjustment : promoAdjustments) {
                 if (promoAdjustment != null) {
                     BigDecimal amount = promoAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding);
                     promoAdjTotal = promoAdjTotal.add(amount);
@@ -2593,10 +2492,8 @@ public class OrderReadHelper {
 
     public static BigDecimal getAllOrderItemsAdjustmentsTotal(List<GenericValue> orderItems, List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal result = ZERO;
-        Iterator<GenericValue> itemIter = UtilMisc.toIterator(orderItems);
-
-        while (itemIter != null && itemIter.hasNext()) {
-            result = result.add(getOrderItemAdjustmentsTotal(itemIter.next(), adjustments, includeOther, includeTax, includeShipping));
+        for(GenericValue orderItem : orderItems) {
+            result = result.add(getOrderItemAdjustmentsTotal(orderItem, adjustments, includeOther, includeTax, includeShipping));
         }
         return result.setScale(scale, rounding);
     }
@@ -2636,11 +2533,7 @@ public class OrderReadHelper {
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             List<GenericValue> filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
-            Iterator<GenericValue> adjIt = filteredAdjs.iterator();
-
-            while (adjIt.hasNext()) {
-                GenericValue orderAdjustment = adjIt.next();
-
+            for(GenericValue orderAdjustment : filteredAdjs) {
                 adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustment(orderAdjustment, quantity, unitPrice));
             }
         }
@@ -2652,11 +2545,7 @@ public class OrderReadHelper {
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             List<GenericValue> filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
-            Iterator<GenericValue> adjIt = filteredAdjs.iterator();
-
-            while (adjIt.hasNext()) {
-                GenericValue orderAdjustment = adjIt.next();
-
+            for(GenericValue orderAdjustment : filteredAdjs) {
                 adjTotal = adjTotal.add(OrderReadHelper.calcItemAdjustmentRecurringBd(orderAdjustment, quantity, unitPrice)).setScale(scale, rounding);
             }
         }
@@ -2693,11 +2582,7 @@ public class OrderReadHelper {
         List<GenericValue> newOrderAdjustmentsList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
-            Iterator<GenericValue> adjIt = adjustments.iterator();
-
-            while (adjIt.hasNext()) {
-                GenericValue orderAdjustment = adjIt.next();
-
+            for(GenericValue orderAdjustment : newOrderAdjustmentsList) {
                 boolean includeAdjustment = false;
 
                 if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
@@ -2746,9 +2631,7 @@ public class OrderReadHelper {
         }
 
         if (UtilValidate.isNotEmpty(openOrders)) {
-            Iterator<GenericValue> i = openOrders.iterator();
-            while (i.hasNext()) {
-                GenericValue order = i.next();
+            for(GenericValue order : openOrders) {
                 BigDecimal thisQty = order.getBigDecimal("quantity");
                 if (thisQty == null) {
                     thisQty = BigDecimal.ZERO;
@@ -2802,9 +2685,7 @@ public class OrderReadHelper {
         List<GenericValue> orderHeaderAdjustments = this.getOrderHeaderAdjustments();
         List<GenericValue> filteredAdjustments = FastList.newInstance();
         if (orderHeaderAdjustments != null) {
-            Iterator<GenericValue> orderAdjIterator = orderHeaderAdjustments.iterator();
-            while (orderAdjIterator.hasNext()) {
-                GenericValue orderAdjustment = orderAdjIterator.next();
+            for(GenericValue orderAdjustment : orderHeaderAdjustments) {
                 long count = 0;
                 try {
                     count = orderHeader.getDelegator().findCountByCondition("ReturnAdjustment", EntityCondition.makeCondition("orderAdjustmentId", EntityOperator.EQUALS, orderAdjustment.get("orderAdjustmentId")), null, null);
@@ -2832,9 +2713,7 @@ public class OrderReadHelper {
             // TODO: find on a view-entity with a sum is probably more efficient
             adjustments = delegator.findByAnd("ReturnAdjustment", condition);
             if (adjustments != null) {
-                Iterator<GenericValue> adjustmentIterator = adjustments.iterator();
-                while (adjustmentIterator.hasNext()) {
-                    GenericValue returnAdjustment = adjustmentIterator.next();
+                for(GenericValue returnAdjustment : adjustments) {
                     total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount")));
                 }
             }
@@ -2855,8 +2734,7 @@ public class OrderReadHelper {
        try {
            // this is simply the sum of quantity billed in all related OrderItemBillings
            List<GenericValue> billings = orderItem.getRelated("OrderItemBilling");
-           for (Iterator<GenericValue> iter = billings.iterator(); iter.hasNext();) {
-               GenericValue billing = iter.next();
+           for(GenericValue billing : billings) {
                BigDecimal quantity = billing.getBigDecimal("quantity");
                if (quantity != null) {
                    invoiced = invoiced.add(quantity);
