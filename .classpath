@@ -138,21 +138,21 @@
     <classpathentry kind="lib" path="framework/jcr/lib/jackrabbit-spi-commons-2.3.3.jar"/>
     <classpathentry kind="lib" path="framework/jcr/lib/jackrabbit-ocm-2.0.jar" sourcepath="/ocm"/>
     <classpathentry kind="lib" path="framework/jcr/lib/jcr-2.0.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/com.sun.el-2.2.0.v201108011116.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-ajp-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-continuation-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-http-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-io-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-security-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-server-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-servlet-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-util-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-webapp-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/jetty-xml-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/org.apache.jasper.glassfish-2.2.2.v201112011158.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar"/>
-    <classpathentry kind="lib" path="framework/jetty/org.eclipse.jdt.core-3.7.1.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-ajp-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-continuation-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-http-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-io-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-security-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-server-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-servlet-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-util-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-webapp-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/jetty-xml-8.1.2.v20120308.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/org.apache.jasper.glassfish-2.2.2.v201112011158.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar"/>
+    <classpathentry kind="lib" path="framework/jetty/lib/org.eclipse.jdt.core-3.7.1.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/axis.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/axis-ant.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/wsdl4j.jar"/>
