@@ -43,7 +43,7 @@ debian/stamps/
 debian/orig-work
 .pc
 .DS_Store
-+.idea
-+*.iml
+.idea
+*.iml
 *~
 *#
