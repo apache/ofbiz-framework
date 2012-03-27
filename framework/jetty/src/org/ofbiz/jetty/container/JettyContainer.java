@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.jetty.container;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
 import org.eclipse.jetty.ajp.Ajp13SocketConnector;
@@ -65,6 +67,14 @@ public class JettyContainer implements Container {
 
         // configure JSSE properties
         SSLUtil.loadJsseProperties();
+
+        // session store directory
+        File sessionStoreDirectory = new File(UtilProperties.getPropertyValue("jetty", "session.store.directory", "runtime/jetty/sessions"));
+        if (!sessionStoreDirectory.exists()) {
+            if (!sessionStoreDirectory.mkdirs()) {
+                throw new ContainerException("error creating session store directory: " + sessionStoreDirectory.getAbsolutePath());
+            }
+        }
 
         // get the jetty container config
         ContainerConfig.Container jettyContainerConfig = ContainerConfig.getContainer("jetty-container", configFile);
@@ -104,6 +114,8 @@ public class JettyContainer implements Container {
 
                     // set the session manager
                     HashSessionManager sm = new HashSessionManager();
+                    sm.setStoreDirectory(sessionStoreDirectory);
+                    sm.setLazyLoad(true);
                     context.setSessionHandler(new SessionHandler(sm));
 
                     // set the virtual hosts
