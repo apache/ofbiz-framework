@@ -21,6 +21,7 @@ runtime/data/derby/*
 runtime/data/jcr/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
+runtime/jetty
 runtime/tempfiles/*
 debian/EncryptPassword.class
 debian/copyright
