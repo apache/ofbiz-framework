@@ -26,9 +26,8 @@ under the License.
     <fo:block>${companyName}</fo:block>
     <#if postalAddress?exists>
         <#if postalAddress?has_content>
-            <fo:block>${postalAddress.address1?if_exists}</fo:block>
-            <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
-            <fo:block>${postalAddress.city?if_exists}, ${stateProvinceAbbr?if_exists} ${postalAddress.postalCode?if_exists}, ${countryName?if_exists}</fo:block>
+            ${setRequestAttribute("postalAddress", postalAddress)}
+            ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressPdfFormatter")}
         </#if>
     <#else>
         <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>

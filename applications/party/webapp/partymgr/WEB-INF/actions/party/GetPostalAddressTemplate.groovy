@@ -17,17 +17,21 @@
  * under the License.
  */
  
-postalAddress = request.getAttribute("postalAddress");
+postalAddressForTemplate = request.getAttribute("postalAddress");
+postalAddressTemplateSuffix = context.postalAddressTemplateSuffix;
 
-if (postalAddress && postalAddress.countryGeoId) {
-    postalAddressTemplate = "PostalAddress_" + postalAddress.countryGeoId + ".ftl";
+if (!postalAddressTemplateSuffix) {
+  postalAddressTemplateSuffix = ".ftl";
+}
+
+if (postalAddressForTemplate && postalAddressForTemplate.countryGeoId) {
+    postalAddressTemplate = "PostalAddress_" + postalAddressForTemplate.countryGeoId + postalAddressTemplateSuffix;
     file = new File(addressTemplatePath + postalAddressTemplate);
-    if (file.exists()) {
+    if (file.exists()) {                
         context.postalAddressTemplate = postalAddressTemplate;
+    } else {
+        context.postalAddressTemplate = "PostalAddress" + postalAddressTemplateSuffix;
     }
 }
-if (!context.postalAddressTemplate) {
-    context.postalAddressTemplate = "PostalAddress.ftl";
-}
 
-context.postalAddress = postalAddress;
+context.postalAddress = postalAddressForTemplate;
