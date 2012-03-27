@@ -308,7 +308,7 @@ under the License.
     </service>
 
     <service name="updateOrderItems" engine="java" auth="true"
-            location="org.ofbiz.order.order.OrderServices" invoke="updateApprovedOrderItems">
+            location="org.ofbiz.order.order.OrderServices" invoke="updateApprovedOrderItems" transaction-timeout="7200">
         <description>Update the quantities/prices for an existing order</description>
         <attribute name="orderId" type="String" mode="INOUT" optional="false"/>
         <attribute name="supplierPartyId" type="String" mode="IN" optional="true"/>
