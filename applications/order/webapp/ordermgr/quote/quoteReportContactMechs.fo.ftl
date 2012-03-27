@@ -39,9 +39,8 @@ under the License.
                     <fo:table-cell>
                         <fo:block>
                             <#if toPostalAddress?exists>
-                            <fo:block>${toPostalAddress.address1?if_exists}</fo:block>
-                            <fo:block>${toPostalAddress.address2?if_exists}</fo:block>
-                            <fo:block>${toPostalAddress.city?if_exists}<#if toPostalAddress.stateProvinceGeoId?has_content>, ${toPostalAddress.stateProvinceGeoId}</#if> ${toPostalAddress.postalCode?if_exists}</fo:block>
+                              ${setRequestAttribute("postalAddress", toPostalAddress)}                              
+	                            ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressPdfFormatter")}
                             </#if>
                         </fo:block>
                     </fo:table-cell>

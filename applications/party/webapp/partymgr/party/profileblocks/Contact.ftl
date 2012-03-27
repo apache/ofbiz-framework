@@ -60,10 +60,10 @@ under the License.
                   <#if contactMechMap.postalAddress?has_content>
 	                <#assign postalAddress = contactMechMap.postalAddress>
 	                ${setRequestAttribute("postalAddress", postalAddress)}
-	                ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddress")}
+	                ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressHtmlFormatter")}
                     <#if postalAddress.geoPointId?has_content>
                       <#if contactMechPurposeType?has_content>
-                        <#assign popUptitle = contactMechPurposeType.get("description",locale) + uiLabelMap.CommonGeoLocation>
+                        <#assign popUptitle = contactMechPurposeType.get("description", locale) + uiLabelMap.CommonGeoLocation>
                       </#if>
                       <a href="javascript:popUp('<@ofbizUrl>PartyGeoLocation?geoPointId=${postalAddress.geoPointId}&partyId=${partyId}</@ofbizUrl>', '${popUptitle?if_exists}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
                     </#if>

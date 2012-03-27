@@ -1254,12 +1254,29 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="postalAddress">
+    <screen name="postalAddressHtmlFormatter">
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="postalAddressTemplateSuffix" value=".ftl"/>
                 <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/webapp/partymgr/party/contactmechtemplates/"/>
-                <set field="postalAddress" from-field="parameters.postalAddress"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPostalAddressTemplate.groovy"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://party/webapp/partymgr/party/contactmechtemplates/${postalAddressTemplate}"/>
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="postalAddressPdfFormatter">
+        <section>
+            <actions>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="postalAddressTemplateSuffix" value=".fo.ftl"/>
+                <set field="addressTemplatePath" value="${sys:getProperty('ofbiz.home')}/applications/party/webapp/partymgr/party/contactmechtemplates/"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetPostalAddressTemplate.groovy"/>
             </actions>
             <widgets>
