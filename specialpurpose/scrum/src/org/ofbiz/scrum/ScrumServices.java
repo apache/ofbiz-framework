@@ -21,8 +21,6 @@ package org.ofbiz.scrum;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.Object;
-import java.lang.String;
 import java.sql.Timestamp;
 import com.ibm.icu.util.Calendar;
 import java.util.Collection;
@@ -228,7 +226,7 @@ public class ScrumServices {
 
                             List<GenericValue> workEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition(exprsAnd, EntityOperator.AND), null, null, null, false);
                             if (UtilValidate.isEmpty(workeffContentList) && UtilValidate.isNotEmpty(workEffortList)) {
-                                Map<String, Object> inputMap = FastMap.newInstance();
+                                Map inputMap = FastMap.newInstance();
                                 inputMap.put("taskId", taskId);
                                 inputMap.put("user", user);
                                 inputMap.put("revisionNumber", Integer.toString(i));
