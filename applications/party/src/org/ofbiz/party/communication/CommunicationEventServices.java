@@ -27,7 +27,6 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -757,8 +756,7 @@ public class CommunicationEventServices {
 
             //Get the first address from the list - this is the partyIdTo field of the CommunicationEvent
             if (!toParties.isEmpty()) {
-                Iterator<Map<String, Object>> itr = toParties.iterator();
-                Map<String, Object> firstAddressTo = itr.next();
+                Map<String, Object> firstAddressTo = toParties.get(0);
                 partyIdTo = (String)firstAddressTo.get("partyId");
                 contactMechIdTo = (String)firstAddressTo.get("contactMechId");
             }
@@ -1029,9 +1027,7 @@ public class CommunicationEventServices {
         // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
         // check and see if this role was already created and ignore if true
         try {
-            Iterator<Map<String, Object>> it = parties.iterator();
-            while (it.hasNext()) {
-                Map<String, Object> result = it.next();
+            for(Map<String, Object> result : parties) {
                 String partyId = (String) result.get("partyId");
                 GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole",
                         UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId));
@@ -1053,9 +1049,7 @@ public class CommunicationEventServices {
     private static void createCommunicationEventWorkEffs(GenericValue userLogin, LocalDispatcher dispatcher, List<Map<String, Object>> workEffortInfos, String communicationEventId) {
         // create relationship between communication event and work efforts
         try {
-            Iterator<Map<String, Object>> it = workEffortInfos.iterator();
-            while (it.hasNext()) {
-                Map<String, Object> result = it.next();
+            for(Map<String, Object> result : workEffortInfos) {
                 String workEffortId = (String) result.get("workEffortId");
                 dispatcher.runSync("createCommunicationEventWorkEff", UtilMisc.toMap("workEffortId", workEffortId, "communicationEventId", communicationEventId, "userLogin", userLogin));
             }
