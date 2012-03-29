@@ -375,17 +375,19 @@ under the License.
             <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
         </java>
     </target>
-    <target name="stop"
-            description="This will stop OFBiz">
-        <java jar="ofbiz.jar" fork="true">
+    <target name="run-batch"
+            description="This will start OFBiz as a separate process">
+        <java jar="ofbiz.jar" fork="true" spawn="true">
+            <jvmarg value="${memory.initial.param}"/>
+            <jvmarg value="${pos.memory.max.param}"/>
+            <jvmarg value="${memory.maxpermsize.param}"/>
             <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
             <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
-            <arg value="-shutdown"/>
         </java>
     </target>
     <target name="run-debug" depends="build"
             description="Starts OFBiz in debugging mode">
-        <java jar="ofbiz.jar"  fork="true">
+        <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
@@ -404,6 +406,14 @@ under the License.
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
             <arg value="pos"/>
+        </java>
+    </target>
+    <target name="stop"
+            description="This will stop OFBiz">
+        <java jar="ofbiz.jar" fork="true">
+            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
+            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
+            <arg value="-shutdown"/>
         </java>
     </target>
 
