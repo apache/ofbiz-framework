@@ -80,7 +80,7 @@ public class ProductStoreCartAwareEvents {
 
         // make sure ProductStore change is allowed for the WebSite
         GenericValue webSite = WebSiteWorker.getWebSite(request);
-        if (productStore == null) {
+        if (webSite == null) {
             throw new IllegalArgumentException("Cannot set session ProductStore, could not find WebSite record based on web.xml setting.");
         }
         String allowProductStoreChange = webSite.getString("allowProductStoreChange");
