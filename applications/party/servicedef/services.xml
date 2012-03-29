@@ -160,6 +160,7 @@ under the License.
         <attribute name="personalTitle" type="String" mode="OUT" optional="true"/>
         <attribute name="suffix" type="String" mode="OUT" optional="true"/>
         <attribute name="fullName" type="String" mode="OUT" optional="true"/>
+        <attribute name="gender" type="String" mode="OUT" optional="true" />
     </service>
 
     <service name="createAffiliate" engine="java"
