@@ -610,12 +610,17 @@ under the License.
                 <set field="tabButtonItem" value="listResourcesTask"/>
                 <set field="titleProperty" value="PageTitleListTaskByParty"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-and entity-name="WorkEffortAndPartyAssign" list="tasks">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
-                    <field-map field-name="workEffortTypeId" value="TASK"/>
-                    <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>
+                <entity-condition entity-name="WorkEffortAndPartyAssign" list="tasks">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" from-field="parameters.partyId"/>
+                        <condition-expr field-name="workEffortTypeId" value="TASK"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" value="PRTYASGN_ASSIGNED"/>
+                            <condition-expr field-name="statusId" value="PAS_ASSIGNED"/>
+                        </condition-list>
+                    </condition-list>
                     <order-by field-name="workEffortId"/>
-                </entity-and>
+                </entity-condition>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
