@@ -72,12 +72,8 @@ under the License.
 
     <form name="editCalEvent" type="single" default-map-name="workEffort">
         <actions>
-            <entity-condition entity-name="StatusItem" list="statusItemList">
-                <condition-list combine="or">
-                    <condition-expr field-name="statusTypeId" value="EVENT_STATUS" />
-                    <condition-expr field-name="statusTypeId" value="CALENDAR_STATUS" />
-                </condition-list>
-            </entity-condition>
+            <set field="statusTypeIds[]" value="EVENT_STATUS"/>
+            <set field="statusTypeIds[]" value="CALENDAR_STATUS"/>
             <!-- Allow containing screens to specify the create and update URLs -->
             <set field="createCalEventUrl" from-field="createCalEventUrl" default-value="createWorkEffortAndPartyAssign" />
             <set field="updateCalEventUrl" from-field="updateCalEventUrl" default-value="updateWorkEffort" />
@@ -110,7 +106,9 @@ under the License.
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CAL_TENTATIVE">
-                <list-options key-name="statusId" list-name="statusItemList" description="${description}" />
+                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="in" env-name="statusTypeIds"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="scopeEnumId">
