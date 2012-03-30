@@ -94,7 +94,8 @@ public class ObjectTypeTests extends GenericTestCaseBase {
 
     public static void simpleTypeConvertTest(String label, Object toConvert, String type, Object wanted) throws GeneralException {
         basicTest(label, toConvert);
-        assertEquals(label + ":null", (Object) null, simpleTypeConvert(null, type, null, null, null, true));
+        assertEquals(label + ":null target type", toConvert, simpleTypeConvert(toConvert, null, null, null, null, true));
+        assertEquals(label + ":null source object", (Object) null, simpleTypeConvert(null, type, null, null, null, true));
         assertEquals(label, wanted, simpleTypeConvert(toConvert, type, null, null, null, true));
         if (toConvert instanceof String) {
             String str = (String) toConvert;
@@ -208,7 +209,6 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         simpleTypeConvertTest("String->String", "one", "String", "one");
         simpleTypeConvertTest("String->String", "one", "java.lang.String", "one");
         simpleTypeConvertTestSingleMulti("empty-String->anything", "", new String[] {"List", "Map"}, null);
-        simpleTypeConvertTestSingleMulti("empty-String->bad-class", "", new String[] {"no-class"}, null);
         simpleTypeConvertTestError("String->error", "one", new String[] {});
         simpleTypeConvertTestMultiMulti("String->Boolean(true)", new String[] {"true", " true ", " TrUe"}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.TRUE);
         simpleTypeConvertTestMultiMulti("String->Boolean(false)", new String[] {"false", " false ", " FaLsE"}, new String[] {"Boolean", "java.lang.Boolean"}, Boolean.FALSE);
