@@ -17,7 +17,7 @@
  * under the License.
  */
  
-postalAddressForTemplate = request.getAttribute("postalAddress");
+postalAddressForTemplate = context.postalAddress;
 postalAddressTemplateSuffix = context.postalAddressTemplateSuffix;
 
 if (!postalAddressTemplateSuffix) {
