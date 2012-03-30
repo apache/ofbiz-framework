@@ -39,8 +39,8 @@ under the License.
                     <fo:table-cell>
                         <fo:block>
                             <#if toPostalAddress?exists>
-                              ${setRequestAttribute("postalAddress", toPostalAddress)}                              
-	                            ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressPdfFormatter")}
+                                ${setContextField("postalAddress", toPostalAddress)}
+                                ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressPdfFormatter")}
                             </#if>
                         </fo:block>
                     </fo:table-cell>
