@@ -471,27 +471,11 @@ public class ObjectType {
     @SourceMonitored
     @SuppressWarnings("unchecked")
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
-        if (obj == null) {
-            return null;
+        if (obj == null || type == null || "Object".equals(type) || "java.lang.Object".equals(type)) {
+            return obj;
         }
-
-        int genericsStart = type.indexOf("<");
-        if (genericsStart != -1) {
-            type = type.substring(0, genericsStart);
-        }
-
         if ("PlainString".equals(type)) {
             return obj.toString();
-        }
-        Class<?> sourceClass = obj.getClass();
-        if (sourceClass.getName().equals(type)) {
-            return obj;
-        }
-        if ("Object".equals(type) || "java.lang.Object".equals(type)) {
-            return obj;
-        }
-        if (obj instanceof String && UtilValidate.isEmpty(obj)) {
-            return null;
         }
         if (obj instanceof Node) {
             Node node = (Node) obj;
@@ -502,13 +486,24 @@ public class ObjectType {
                 return simpleTypeConvert(nodeValue, type, format, timeZone, locale, noTypeFail);
             }
         }
+        int genericsStart = type.indexOf("<");
+        if (genericsStart != -1) {
+            type = type.substring(0, genericsStart);
+        }
+        Class<?> sourceClass = obj.getClass();
         Class<?> targetClass = null;
         try {
             targetClass = loadClass(type);
         } catch (ClassNotFoundException e) {
             throw new GeneralException("Conversion from " + sourceClass.getName() + " to " + type + " not currently supported", e);
         }
-        Converter<Object,Object> converter = null;
+        if (sourceClass.equals(targetClass)) {
+            return obj;
+        }
+        if (obj instanceof String && ((String) obj).length() == 0) {
+            return null;
+        }
+        Converter<Object, Object> converter = null;
         try {
             converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
         } catch (ClassNotFoundException e) {}
