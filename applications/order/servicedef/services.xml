@@ -828,6 +828,7 @@ under the License.
         <attribute name="finAccountId" type="String" mode="IN" optional="true"/>
         <attribute name="cardNumber" type="String" mode="IN" optional="true"/>
         <attribute name="accountNumber" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentStatusId" type="String" mode="IN" optional="true"/>
 
         <!-- shipment/inventory fields -->
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>

@@ -52,6 +52,10 @@ context.salesChannels = channels;
 carrierShipmentMethods = delegator.findList("CarrierShipmentMethod", null, null, null, null, false);
 context.carrierShipmentMethods = carrierShipmentMethods;
 
+// get the Payment Status
+paymentStatusList = delegator.findByAnd("StatusItem", [statusTypeId : "PAYMENT_PREF_STATUS"], ["description"]);
+context.paymentStatusList = paymentStatusList;
+
 // current role type
 currentRoleTypeId = request.getParameter("roleTypeId");
 if (currentRoleTypeId) {

@@ -411,11 +411,17 @@ public class OrderLookupServices {
         String finAccountId = (String) context.get("finAccountId");
         String cardNumber = (String) context.get("cardNumber");
         String accountNumber = (String) context.get("accountNumber");
+        String paymentStatusId = (String) context.get("paymentStatusId");
 
-        if (finAccountId != null || cardNumber != null || accountNumber != null) {
+        if (UtilValidate.isNotEmpty(paymentStatusId)) {
+            paramList.add("paymentStatusId=" + paymentStatusId);
+            conditions.add(makeExpr("paymentStatusId", paymentStatusId));
+        }
+        if (finAccountId != null || cardNumber != null || accountNumber != null || paymentStatusId != null) {
             dve.addMemberEntity("OP", "OrderPaymentPreference");
             dve.addAlias("OP", "finAccountId");
             dve.addAlias("OP", "paymentMethodId");
+            dve.addAlias("OP", "paymentStatusId", "statusId", null, false, false, null);
             dve.addViewLink("OH", "OP", Boolean.FALSE, UtilMisc.toList(new ModelKeyMap("orderId", "orderId")));
         }
 

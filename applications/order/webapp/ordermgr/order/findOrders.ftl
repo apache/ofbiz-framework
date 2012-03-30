@@ -458,6 +458,18 @@ function toggleOrderIdList() {
                   </select>
                 </td>
               </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.AccountingPaymentStatus}</td>
+                <td width="5%">&nbsp;</td>
+                <td>
+                    <select name="paymentStatusId">
+                        <option value="">${uiLabelMap.CommonAll}</option>
+                        <#list paymentStatusList as paymentStatus>
+                            <option value="${paymentStatus.statusId}">${paymentStatus.get("description", locale)}</option>
+                        </#list>
+                    </select>
+                </td>
+              </tr>
               <tr><td colspan="3"><hr /></td></tr>
               <tr>
                 <td width='25%' align='right'>&nbsp;</td>
