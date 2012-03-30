@@ -2593,7 +2593,7 @@ public class OrderReadHelper {
         List<GenericValue> newOrderAdjustmentsList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
-            for(GenericValue orderAdjustment : newOrderAdjustmentsList) {
+            for(GenericValue orderAdjustment : adjustments) {
                 boolean includeAdjustment = false;
 
                 if ("SALES_TAX".equals(orderAdjustment.getString("orderAdjustmentTypeId")) ||
