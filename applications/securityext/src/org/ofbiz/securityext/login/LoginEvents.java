@@ -181,13 +181,9 @@ public class LoginEvents {
 
         String errMsg = null;
 
-        Map<String, String> subjectData = FastMap.newInstance();
-        subjectData.put("productStoreId", productStoreId);
-
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
 
         String userLoginId = request.getParameter("USERNAME");
-        subjectData.put("userLoginId", userLoginId);
 
         if ((userLoginId != null) && ("true".equals(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
             userLoginId = userLoginId.toLowerCase();
@@ -229,13 +225,6 @@ public class LoginEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-        if (supposedUserLogin == null) {
-            // the Username was not found
-            Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
-            errMsg = UtilProperties.getMessage(resource, "loginevents.user_with_the_username_not_found", messageMap, UtilHttp.getLocale(request));
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
-        }
 
         StringBuilder emails = new StringBuilder();
         GenericValue party = null;
@@ -269,13 +258,10 @@ public class LoginEvents {
             Debug.logError(e, "Problem getting ProductStoreEmailSetting", module);
         }
 
-        if (productStoreEmail == null) {
-            errMsg = UtilProperties.getMessage(resource, "loginevents.problems_with_configuration_contact_customer_service", UtilHttp.getLocale(request));
-            request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return "error";
+        String bodyScreenLocation = null;
+        if (productStoreEmail != null) {
+            bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
         }
-
-        String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
             bodyScreenLocation = defaultScreenLocation;
         }
@@ -291,11 +277,16 @@ public class LoginEvents {
         Map<String, Object> serviceContext = FastMap.newInstance();
         serviceContext.put("bodyScreenUri", bodyScreenLocation);
         serviceContext.put("bodyParameters", bodyParameters);
-        serviceContext.put("subject", productStoreEmail.getString("subject"));
-        serviceContext.put("sendFrom", productStoreEmail.get("fromAddress"));
-        serviceContext.put("sendCc", productStoreEmail.get("ccAddress"));
-        serviceContext.put("sendBcc", productStoreEmail.get("bccAddress"));
-        serviceContext.put("contentType", productStoreEmail.get("contentType"));
+        if (productStoreEmail != null) {
+            serviceContext.put("subject", productStoreEmail.getString("subject"));
+            serviceContext.put("sendFrom", productStoreEmail.get("fromAddress"));
+            serviceContext.put("sendCc", productStoreEmail.get("ccAddress"));
+            serviceContext.put("sendBcc", productStoreEmail.get("bccAddress"));
+            serviceContext.put("contentType", productStoreEmail.get("contentType"));
+        } else {
+            serviceContext.put("subject", UtilProperties.getMessage(resource, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
+            serviceContext.put("sendFrom", UtilProperties.getPropertyValue("general.properties", "defaultFromEmailAddress"));
+        }
         serviceContext.put("sendTo", emails.toString());
         serviceContext.put("partyId", party.getString("partyId"));
 
