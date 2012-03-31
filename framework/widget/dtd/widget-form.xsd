@@ -299,6 +299,7 @@ under the License.
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element ref="sort-field"/>
+                <xs:element ref="last-field"/>
                 <xs:element ref="field-group"/>
                 <xs:element ref="banner"/>
             </xs:choice>
@@ -362,6 +363,14 @@ under the License.
     <xs:attributeGroup name="attlist.sort-field">
         <xs:attribute name="name" type="xs:string" use="required"/>
     </xs:attributeGroup>
+    <xs:element name="last-field">
+        <xs:annotation>
+            <xs:documentation>last-field reorder the given field at the end form. This element is propagated to the inherited form</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.sort-field"/>
+        </xs:complexType>
+    </xs:element>
     <!-- ================== Form Events ==================== -->
     <xs:attributeGroup name="attlist.on-form-event-update-area">
         <xs:attribute name="event-type" use="required">
