@@ -133,6 +133,7 @@ public class ModelForm extends ModelWidget {
     protected List<AltTarget> altTargets = FastList.newInstance();
     protected List<AutoFieldsService> autoFieldsServices = FastList.newInstance();
     protected List<AutoFieldsEntity> autoFieldsEntities = FastList.newInstance();
+    protected List<String> lastOrderFields = FastList.newInstance();
     protected List<SortField> sortOrderFields = FastList.newInstance();
     protected List<AltRowStyle> altRowStyles = FastList.newInstance();
 
@@ -320,6 +321,7 @@ public class ModelForm extends ModelWidget {
 
                 this.fieldGroupMap = parent.fieldGroupMap;
                 this.fieldGroupList = parent.fieldGroupList;
+                this.lastOrderFields = parent.lastOrderFields;
 
             }
         }
@@ -543,6 +545,10 @@ public class ModelForm extends ModelWidget {
                     String position = sortFieldElement.getAttribute("position");
                     this.sortOrderFields.add(new SortField(fieldName, position));
                     this.fieldGroupMap.put(fieldName, lastFieldGroup);
+                } else if (tagName.equals("last-field")) {
+                    String fieldName = sortFieldElement.getAttribute("name");
+                    this.fieldGroupMap.put(fieldName, lastFieldGroup);
+                    this.lastOrderFields.add(fieldName);
                 } else if (tagName.equals("banner")) {
                     Banner thisBanner = new Banner(sortFieldElement, this);
                     this.fieldGroupList.add(thisBanner);
@@ -586,6 +592,27 @@ public class ModelForm extends ModelWidget {
             sortedFields.addAll(this.fieldList);
             // sortedFields all done, set fieldList
             this.fieldList = sortedFields;
+        }
+
+        if (UtilValidate.isNotEmpty(this.lastOrderFields)) {
+            List<ModelFormField> lastedFields = FastList.newInstance();
+            for (String fieldName: this.lastOrderFields) {
+                if (UtilValidate.isEmpty(fieldName)) {
+                    continue;
+                }
+             // get all fields with the given name from the existing list and put them in the lasted list
+                Iterator<ModelFormField> fieldIter = this.fieldList.iterator();
+                while (fieldIter.hasNext()) {
+                    ModelFormField modelFormField = fieldIter.next();
+                    if (fieldName.equals(modelFormField.getName())) {
+                        // matched the name; remove from the original last and add to the lasted list
+                        fieldIter.remove();
+                        lastedFields.add(modelFormField);
+                    }
+                }
+            }
+            //now put all lastedFields at the field list end
+            this.fieldList.addAll(lastedFields);
         }
 
         // read all actions under the "actions" element
