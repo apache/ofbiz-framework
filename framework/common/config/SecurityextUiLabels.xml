@@ -242,20 +242,6 @@
         <value xml:lang="zh">这个用户已经登录了。</value>
         <value xml:lang="zh_TW">此使用者已經登入。</value>
     </property>
-    <property key="loginevents.user_with_the_username_not_found">
-        <value xml:lang="de">Ein Benutzer mit dem Namen "${userLoginId}" konnte nicht gefunden werden. Bitte erneut eingeben.</value>
-        <value xml:lang="en">A user with the Username "${userLoginId}" was not found, please re-enter.</value>
-        <value xml:lang="es">El usuario "${userLoginId}" no fue encontrado, por favor intente de nuevo.</value>
-        <value xml:lang="fr">Le nom d'utilisateur "${userLoginId}" est inconnu, entrez le de nouveau SVP.</value>
-        <value xml:lang="it">L'utente "${userLoginId}" non è stato trovato, prego inserirlo di nuovo.</value>
-        <value xml:lang="nl">Er is geen gebruiker gevonden met de gebruikersnaam "${userLoginId}", probeer het a.u.b. opnieuw.</value>
-        <value xml:lang="pt_BR">Um usuário com o nome de usuário "$ {userLoginId}" não foi encontrado, por favor tente novamente.</value>
-        <value xml:lang="ro">Utilizatorul cu nume "${userLoginId}" nu a fost gasit, va rog re-introduceti.</value>
-        <value xml:lang="ru">Пользователь с именем "${userLoginId}" не найден, пожалуйста повторите ввод.</value>
-        <value xml:lang="th">ผู้ใช้ที่ใช้ชื่อผู้เข้าใช้ "${userLoginId}" ไม่พบ, กรุณากรอกข้อมูลใหม่</value>
-        <value xml:lang="zh">没有找到用户名为"${userLoginId}" 的用户，请重新输入。</value>
-        <value xml:lang="zh_TW">沒有名為 "${userLoginId}" 的使用者, 請重新輸入。</value>
-    </property>
     <property key="loginevents.username_not_found_reenter">
         <value xml:lang="de">Benutzername konnte nicht gefunden werden. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Username was not found, please re-enter.</value>
@@ -710,6 +696,10 @@
         <value xml:lang="th">รหัสผ่านหรือไม่พบการยืนยันรหัสผ่านที่ถูกต้อง.</value>
         <value xml:lang="zh">缺少密码或验证密码。</value>
         <value xml:lang="zh_TW">缺少密碼或驗證密碼。</value>
+    </property>
+    <property key="loginservices.password_reminder_subject">
+        <value xml:lang="en">Password Reminder (${userLoginId})".</value>
+        <value xml:lang="fr">Rappel du mot de passe(${userLoginId})".</value>
     </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>
