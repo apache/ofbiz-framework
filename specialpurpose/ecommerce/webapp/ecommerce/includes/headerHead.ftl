@@ -82,6 +82,7 @@ under the License.
   </#if>
 
   <#-- Meta tags if defined by the page action -->
+  <meta name="generator" content="Apache OFBiz - eCommerce"/>
   <#if metaDescription?exists>
     <meta name="description" content="${metaDescription}"/>
   </#if>
