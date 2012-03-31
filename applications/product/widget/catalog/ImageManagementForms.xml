@@ -409,10 +409,10 @@ under the License.
         <field name="frameURL"><hidden value="${parameters.checkFrame}"/></field>
         <field name="imageName"><hidden value="${contentDataResource.drDataResourceName}"/></field>
         <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" widget-area-style="image-src"><image value="${imageURL}"/></field>
-        <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" style="cssImgXLarge"/></field>
         <field name="imageDimension" widget-area-style="dimension"><display/></field>
         <field name="imageFrame" use-when="frameURL != null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="${frameURL}"/></field>
-        <field name="imageFrame" use-when="frameURL == null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageFrame" use-when="frameURL == null" title="${uiLabelMap.ImageManagementFrame}" widget-area-style="image-fr"><image value="/images/defaultImage.jpg" style="cssImgXLarge"/></field>
         <field name="frameDimension" use-when="frameURL != null" widget-area-style="frameDimension"><display/></field>
         <field name="uploadedFile" title="${uiLabelMap.ImageManagementUploadNewFrame}" event="onClick" action="javascript:setUploadTarget('_self');"><file/></field>
         <field name="uploadButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit" event="onClick" action="javascript:document.ImageFrames.setAttribute('enctype', 'multipart/form-data');setTargetWindows('upload');document.ImageFrames.submit();"><submit button-type="button"/></field>
@@ -510,7 +510,7 @@ under the License.
         <field name="imageW"><hidden/></field>
         <field name="imageH"><hidden/></field>
         <field name="imageCropp" widget-area-style="cropbox" use-when="imageURL != null" title="${uiLabelMap.CommonImage}" ><image value="${imageURL}"/></field>
-        <field name="imageCropp" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" ><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageCropp" use-when="imageURL == null" title="${uiLabelMap.CommonImage}" ><image value="/images/defaultImage.jpg" style="cssImgXLarge"/></field>
     </form>
     
     <form name="ImageRotating" type="single" target="RotateImage" title="" header-row-style="header-row" default-table-style="basic-table">
@@ -564,8 +564,8 @@ under the License.
         <field name="imageThumbnail"><hidden/></field>
         <field name="seoURL"><hidden value="${parameters.seoUrl}"/></field>
         <field name="contentId"><hidden/></field>
-        <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}"><image value="${imageURL}" width="200"/></field>
-        <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" width="200"/></field>
+        <field name="imageShare" use-when="imageURL != null" title="${uiLabelMap.CommonImage}"><image value="${imageURL}" style="cssImgXLarge"/></field>
+        <field name="imageShare" use-when="imageURL == null" title="${uiLabelMap.CommonImage}"><image value="/images/defaultImage.jpg" style="cssImgXLarge"/></field>
         <field name="link" title="${uiLabelMap.CommonLink}"  event="onClick" action="javascript:select();"><text/></field>
         <field name="direct" title="${uiLabelMap.ImageManagementDirectLink}"  event="onClick" action="javascript:select();"><text/></field>
         <field name="forumCode" title="${uiLabelMap.ImageManagementForumCode}" event="onClick" action="javascript:select();"><text/></field>
@@ -594,8 +594,8 @@ under the License.
         <field name="contentIdReplace"><hidden value="${parameters.contentIdReplace}"/></field>
         <field name="dataResourceNameExist"><hidden value="${contentDataResourceExist.drDataResourceName}"/></field>
         <field name="dataResourceNameReplace"><hidden value="${contentDataResourceReplace.drDataResourceName}"/></field>
-        <field name="imageExist" position="1" use-when="imageURLExist != null" title="${uiLabelMap.ImageManagementReplacementImage}"><image value="${imageURLExist}" width="200"/></field>
-        <field name="imageReplace" position="2" use-when="imageURLReplace != null&amp;&amp;imageURLExist != null" title="${uiLabelMap.ImageManagementImageToReplace}"><image value="${imageURLReplace}" width="200"/></field>
+        <field name="imageExist" position="1" use-when="imageURLExist != null" title="${uiLabelMap.ImageManagementReplacementImage}"><image value="${imageURLExist}" style="cssImgXLarge"/></field>
+        <field name="imageReplace" position="2" use-when="imageURLReplace != null&amp;&amp;imageURLExist != null" title="${uiLabelMap.ImageManagementImageToReplace}"><image value="${imageURLReplace}" style="cssImgXLarge"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
