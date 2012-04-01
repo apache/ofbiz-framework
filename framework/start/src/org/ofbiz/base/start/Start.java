@@ -37,7 +37,7 @@ import java.util.List;
  *
  */
 public class Start {
-
+	 private static final String DEBUG = System.getProperty("DEBUG");
     private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
     private static final String STATUS_COMMAND = "STATUS";
 
@@ -206,7 +206,7 @@ public class Start {
         System.setProperty("java.class.path", classPath.toString());
         ClassLoader classloader = classPath.getClassLoader();
         Thread.currentThread().setContextClassLoader(classloader);
-        if (System.getProperty("DEBUG") != null) {
+        if (DEBUG != null) {
             System.out.println("Startup Classloader: " + classloader.toString());
             System.out.println("Startup Classpath: " + classPath.toString());
         }
@@ -310,7 +310,12 @@ public class Start {
                     loader.start();
                 } catch (StartupException e) {
                     e.printStackTrace();
-                    return false;
+                    if (DEBUG == null)
+                        return false;
+                } catch(Error e) {
+                    e.printStackTrace();
+                    if (DEBUG == null)
+                        return false;
                 }
             }
             serverStarted = true;
