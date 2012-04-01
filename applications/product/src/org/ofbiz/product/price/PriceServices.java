@@ -883,6 +883,7 @@ public class PriceServices {
                     if ("PRICE_POD".equals(productPriceAction.getString("productPriceActionTypeId"))) {
                         if (productPriceAction.get("amount") != null) {
                             modifyAmount = defaultPrice.multiply(productPriceAction.getBigDecimal("amount").movePointLeft(2));
+                            price = defaultPrice;
                         }
                     } else if ("PRICE_POL".equals(productPriceAction.getString("productPriceActionTypeId"))) {
                         if (productPriceAction.get("amount") != null) {
