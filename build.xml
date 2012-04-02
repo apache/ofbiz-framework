@@ -222,12 +222,27 @@ under the License.
         <subant inheritall="false" failonerror="${specialpurpose.present}">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
-        <subant inheritall="false">
-            <fileset dir="${basedir}/hot-deploy" casesensitive="no">
+
+        <!-- a check is done, if no build.xml file is present in hot-deploy dir,
+            then the build.xml files - if present - in hot-deploy sub-dirs will be used.
+            So the previous, simpler, behaviour is kept as long as you don't need 
+            to build hot-deploy components in a specific order. -->
+        <if>
+          <available file="hot-deploy/build.xml" property="useHotDeployBuild"/>
+          <then>
+            <subant inheritall="false">
+              <filelist dir="." files="hot-deploy/build.xml"/>
+            </subant>
+          </then>
+          <else>
+            <subant inheritall="false">
+              <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
                 <include name="*/build.xml"/>
-            </fileset>
-        </subant>
+              </fileset>
+            </subant>
+          </else>
+        </if>
         <antcall target="clean-svninfo"/>
 
         <echo message="[build] ========== Done Building (Compile) =========="/>
