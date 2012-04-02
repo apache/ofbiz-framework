@@ -431,6 +431,14 @@ under the License.
             <arg value="-shutdown"/>
         </java>
     </target>
+    <target name="status"
+            description="Display status of OFBiz">
+        <java jar="ofbiz.jar" fork="true">
+            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
+            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
+            <arg value="-status"/>
+        </java>
+    </target>
 
     <!-- ================================================================== -->
     <!-- Setup OFBiz Data                                                   -->
