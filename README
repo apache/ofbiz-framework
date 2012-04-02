@@ -9,11 +9,11 @@ You can load the demo data (strongly advised) with the following
 command on the command line from the OFBiz home folder (in Unix-like
 operating systems type "./ant" rather than "ant"):
 
-ant run-install
+ant load-demo
 
 Then start OFBiz with the following command:
 
-ant run
+ant start
 
 (or "java -Xms128M -Xmx512M -XX:MaxPermSize=128m -jar ofbiz.jar")
 
