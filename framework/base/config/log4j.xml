@@ -137,6 +137,16 @@
         </layout>
     </appender>
 
+    <appender name="freemarker-log" class="org.apache.log4j.RollingFileAppender">
+        <param name="maxFileSize" value="5000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="File" value="runtime/logs/freemarker.log"/>
+        <param name="Append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
+        </layout>
+    </appender>
+
     <category name="org.ofbiz.base.converter.Converters">
         <priority value="warn"/>
     </category>
@@ -190,6 +200,11 @@
     <category name="org.apache.fop">
         <priority value="info"/>
         <appender-ref ref="fop-log"/>
+    </category>
+
+    <category name="freemarker">
+        <priority value="warn"/>
+        <appender-ref ref="freemarker-log"/>
     </category>
 
     <!-- root logger -->
