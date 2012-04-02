@@ -455,7 +455,7 @@ BSD License:
 ofbiz/trunk/applications/content/lib/dom4j-1.6.1.jar
 ofbiz/trunk/framework/base/lib/antisamy-bin.1.2.jar
 ofbiz/trunk/framework/base/lib/bsh-engine-modified.jar
-ofbiz/trunk/framework/base/lib/freemarker-2.3.10.jar
+ofbiz/trunk/framework/base/lib/freemarker-2.3.19.jar
 ofbiz/trunk/framework/base/lib/hamcrest-all-1.2.jar
 ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/ical4j-1.0-rc2.jar
