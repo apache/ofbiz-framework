@@ -20,7 +20,7 @@ under the License.
 
 <div id="footer">
       <div id="foot">
-              &copy; Copyright 2001-2008 The Apache Software Foundation - www.apache.org
+              &copy; Copyright 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - www.apache.org
       </div>
 </div>
 
