@@ -650,8 +650,7 @@ public class FreeMarkerWorker {
         }
 
         public String getTemplateLocation() {
-            // FIXME: this is a workaround to fix errors when loading included templates with a relative path after the migration to Freemarker 2.3.19
-            return (templateLocation != null && templateLocation.startsWith("component:/") && !templateLocation.startsWith("component://"))? templateLocation.substring("component:/".length()):templateLocation;
+            return templateLocation;
         }
 
         public long getLastModified() {
