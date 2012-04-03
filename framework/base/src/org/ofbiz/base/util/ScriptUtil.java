@@ -18,10 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
@@ -115,12 +116,11 @@ public final class ScriptUtil {
      * 
      * @param filePath Script path and file name.
      * @return The compiled script, or <code>null</code> if the script engine does not support compilation.
-     * @throws FileNotFoundException
      * @throws IllegalArgumentException
      * @throws ScriptException
-     * @throws MalformedURLException
+     * @throws IOException
      */
-    public static CompiledScript compileScriptFile(String filePath) throws FileNotFoundException, ScriptException, MalformedURLException {
+    public static CompiledScript compileScriptFile(String filePath) throws ScriptException, IOException {
         Assert.notNull("filePath", filePath);
         CompiledScript script = parsedScripts.get(filePath);
         if (script == null) {
@@ -132,7 +132,7 @@ public final class ScriptUtil {
             try {
                 Compilable compilableEngine = (Compilable) engine;
                 URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
-                FileReader reader = new FileReader(new File(scriptUrl.getFile()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream()));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("Compiled script " + filePath + " using engine " + engine.getClass().getName(), module);
@@ -345,13 +345,12 @@ public final class ScriptUtil {
      * @param scriptContext Script execution context.
      * @param args Function/method arguments.
      * @return The script result.
-     * @throws ScriptException 
-     * @throws MalformedURLException 
-     * @throws FileNotFoundException 
-     * @throws NoSuchMethodException 
+     * @throws ScriptException
+     * @throws NoSuchMethodException
+     * @throws IOException
      * @throws IllegalArgumentException
      */
-    public static Object executeScript(String filePath, String functionName, ScriptContext scriptContext, Object[] args) throws FileNotFoundException, MalformedURLException, ScriptException, NoSuchMethodException {
+    public static Object executeScript(String filePath, String functionName, ScriptContext scriptContext, Object[] args) throws ScriptException, NoSuchMethodException, IOException {
         Assert.notNull("filePath", filePath, "scriptContext", scriptContext);
         scriptContext.setAttribute(ScriptEngine.FILENAME, filePath, ScriptContext.ENGINE_SCOPE);
         if (functionName == null) {
