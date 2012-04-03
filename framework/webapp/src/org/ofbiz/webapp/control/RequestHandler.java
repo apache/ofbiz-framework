@@ -872,7 +872,14 @@ public class RequestHandler {
         try {
             resp.flushBuffer();
         } catch (java.io.IOException e) {
-            throw new RequestHandlerException("Error flushing response buffer", e);
+            /*If request is an ajax request and user calls abort() method for on ajax request then skip throwing of RequestHandlerException .
+             Specially its done for async ajax auto completer call, if we call abort() method on ajax request then its showing broken pipe exception on console,
+             because request is aborted by client (browser).*/
+            if (!"XMLHttpRequest".equals(req.getHeader("X-Requested-With"))) {
+                throw new RequestHandlerException("Error flushing response buffer", e);
+            } else {
+                if (Debug.verboseOn()) Debug.logVerbose("Skip Request Handler Exception for ajax request.", module);
+            }
         }
 
         String vname = (String) req.getAttribute("_CURRENT_VIEW_");
