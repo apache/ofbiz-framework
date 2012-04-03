@@ -32,14 +32,18 @@ OFBIZDIR="ofbiz"
 
 # Start OFBiz
 start() {
+    if [ "$USER" = "" ]; then
+        echo "Mounting data disk at boottime here"
+#        mount /dev/sdg /data
+    fi
     running
     if [ "$OFBIZ_PROCS" = "" ]; then
         echo "Ofbiz is already running..."
         return 0
     fi
     if [ "$USER" = "$OFBIZUSER" ]; then
-        echo "starting standard ~/$OFBIZDIR/startofbiz.sh"
-        cd ~/$OFBIZDIR
+        echo "starting standard /home/$OFBIZUSER/$OFBIZDIR/startofbiz.sh"
+        cd /home/$OFBIZUSER/$OFBIZDIR
         ./startofbiz.sh
         if [ $? = 0 ]; then 
             echo "start success"
@@ -53,7 +57,7 @@ start() {
 stop() {
     if [ "$USER" = "$OFBIZUSER" ]; then
         echo "stopping standard /home/$OFBIZUSER/$OFBIZDIR/stopofbiz.sh"
-        cd ~/$OFBIZDIR
+        cd /home/$OFBIZUSER/$OFBIZDIR
 	    MAXCOUNT=10
         COUNTER=0
         until [ $COUNTER -gt $MAXCOUNT ]; do
@@ -76,8 +80,6 @@ stop() {
 checkUser() {
     if [ "$USER" != "$OFBIZUSER" ]; then
         if [ "$USER" = "" ]; then
-#           echo "Mounting data disk at boot"
-#           mount /dev/sdf /backup 
             exec su - $OFBIZUSER -c "$0 $1 "
 	    else
 	        exec sudo -u $OFBIZUSER $0 $1 
