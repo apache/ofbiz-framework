@@ -91,6 +91,11 @@ under the License.
         <field name="portalPageName"><text/></field>
         <field name="description" position="2"><text size="60"/></field>
         <field name="sequenceNum"><text/></field>
+        <field name="securityGroupId" >
+            <drop-down allow-empty="true">
+                <entity-options description="${groupId} -- ${description}" entity-name="SecurityGroup" key-field-name="groupId"></entity-options>
+            </drop-down>
+        </field>
         <field name="saveButton" position="2"><submit button-type="button"/></field>
     </form>
 
