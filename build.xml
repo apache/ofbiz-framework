@@ -1058,8 +1058,14 @@ under the License.
         <property name="sonar.cobertura.reportPath" value="runtime/logs/cobertura-report/coverage.xml"/>
         <property name="sonar.java.source" value="1.6" />
         <property name="sonar.java.target" value="1.6" />
+        <property name="sonar.jdbc.url"
+           value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />
+        <property name="sonar.jdbc.driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="sonar.jdbc.username" value="${sonar.jdbc.username}" />
+        <property name="sonar.jdbc.password" value="${sonar.jdbc.password}" />
 
         <!-- SERVER ON A REMOTE HOST -->
+        <property name="sonar.host.url" value="${sonar.host.url}" />
     </target>
 
     <target name="full-sonar">
