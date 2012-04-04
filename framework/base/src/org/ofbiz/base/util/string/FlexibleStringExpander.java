@@ -51,6 +51,55 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
     protected static final UtilCache<Key, FlexibleStringExpander> exprCache = UtilCache.createUtilCache("flexibleStringExpander.ExpressionCache");
     protected static final FlexibleStringExpander nullExpr = new ConstSimpleElem(new char[0]);
 
+    /**
+     * Returns <code>true</code> if <code>fse</code> contains a <code>String</code> constant.
+     * @param fse The <code>FlexibleStringExpander</code> to test
+     * @return <code>true</code> if <code>fse</code> contains a <code>String</code> constant
+     */
+    public static boolean containsConstant(FlexibleStringExpander fse) {
+        if (fse instanceof ConstSimpleElem || fse instanceof ConstOffsetElem) {
+            return true;
+        }
+        if (fse instanceof Elements) {
+            Elements fseElements = (Elements) fse;
+            for (FlexibleStringExpander childElement : fseElements.childElems) {
+                if (containsConstant(childElement)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns <code>true</code> if <code>fse</code> contains an expression.
+     * @param fse The <code>FlexibleStringExpander</code> to test
+     * @return <code>true</code> if <code>fse</code> contains an expression
+     */
+    public static boolean containsExpression(FlexibleStringExpander fse) {
+        return !(fse instanceof ConstSimpleElem);
+    }
+
+    /**
+     * Returns <code>true</code> if <code>fse</code> contains a script.
+     * @param fse The <code>FlexibleStringExpander</code> to test
+     * @return <code>true</code> if <code>fse</code> contains a script
+     */
+    public static boolean containsScript(FlexibleStringExpander fse) {
+        if (fse instanceof ScriptElem) {
+            return true;
+        }
+        if (fse instanceof Elements) {
+            Elements fseElements = (Elements) fse;
+            for (FlexibleStringExpander childElement : fseElements.childElems) {
+                if (containsScript(childElement)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /** Evaluate an expression and return the result as a <code>String</code>.
      * Null expressions return <code>null</code>.
      * A null <code>context</code> argument will return the original expression.
