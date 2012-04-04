@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -70,8 +71,11 @@ public final class ScriptUtil {
     private static final UtilCache<String, CompiledScript> parsedScripts = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
     private static ScriptHelperFactory helperFactory = null;
+    /** A set of script names - derived from the JSR-223 scripting engines. */
+    public static final Set<String> SCRIPT_NAMES;
 
     static {
+        Set<String> writableScriptNames = new HashSet<String>();
         if (Debug.infoOn()) {
             ScriptEngineManager manager = new ScriptEngineManager();
             List<ScriptEngineFactory> engines = manager.getEngineFactories();
@@ -93,13 +97,15 @@ public final class ScriptUtil {
                     List<String> shortNames = engine.getNames();
                     if (shortNames.size() > 0) {
                         Debug.logInfo("  Engine has the following short names:", module);
-                        for (String n : engine.getNames()) {
-                            Debug.logInfo("    " + n, module);
+                        for (String name : engine.getNames()) {
+                            writableScriptNames.add(name.concat(":"));
+                            Debug.logInfo("    " + name, module);
                         }
                     }
                 }
             }
         }
+        SCRIPT_NAMES = Collections.unmodifiableSet(writableScriptNames);
         Iterator<ScriptHelperFactory> iter = ServiceLoader.load(ScriptHelperFactory.class).iterator();
         if (iter.hasNext()) {
             helperFactory = iter.next();
