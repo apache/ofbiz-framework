@@ -286,6 +286,16 @@ public class FlexibleStringExpanderTests extends TestCase {
         List<String> testList = new ArrayList<String>();
         testList.add("World");
         testMap.put("testList", testList);
+        testMap.put("testScript", "${groovy:return null;}");
+        UnsupportedOperationException caught = null;
+        try {
+            FlexibleStringExpander fse = FlexibleStringExpander.getInstance("${testScript}");
+            fse.expandString(testMap);
+        } catch (UnsupportedOperationException e) {
+            caught = e;
+        } finally {
+            assertNotNull("UnsupportedOperationException thrown for nested script", caught);
+        }
         fseTest("null FlexibleStringExpander, null map", null, null, null, null, "", null, true);
         fseTest("null FlexibleStringExpander", null, testMap, null, null, "", null, true);
         fseTest("null context", "Hello World!", null, null, null, "Hello World!", null, false);
