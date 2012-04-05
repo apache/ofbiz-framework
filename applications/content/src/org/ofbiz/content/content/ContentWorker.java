@@ -365,7 +365,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         if (subContent == null) {
             //throw new GeneralException("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]");
-            out.append("<!-- no sub-content found with map-key [" + mapKey + "] for content [" + contentId + "] -->");
+            Debug.logWarning("No sub-content found with map-key [" + mapKey + "] for content [" + contentId + "]", module);
         } else {
             String subContentId = subContent.getString("contentIdTo");
             templateContext.put("mapKey", mapKey);
