@@ -3334,10 +3334,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             serviceContext.put("internalName", internalName);
             serviceContext.put("productName", productName);
             serviceContext.put("description", description);
-            if(ProductWorker.isAggregateService(delegator, item.getProductId()))
+            if(ProductWorker.isAggregateService(delegator, item.getProductId())) {
                 serviceContext.put("productTypeId", "AGGREGATEDSERV_CONF");
-            else
+            }
+            else {
                 serviceContext.put("productTypeId", "AGGREGATED_CONF");
+            }
             
             serviceContext.put("configId", configId);
             if (UtilValidate.isNotEmpty(product.getString("requirementMethodEnumId"))) {
