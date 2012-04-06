@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -203,14 +204,15 @@ public final class ScriptUtil {
      */
     public static ScriptContext createScriptContext(Map<String, Object> context) {
         Assert.notNull("context", context);
-        context.put(WIDGET_CONTEXT_KEY, context);
-        context.put("context", context);
+        Map<String, Object> localContext = new HashMap<String, Object>(context);
+        localContext.put(WIDGET_CONTEXT_KEY, context);
+        localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
         ScriptHelper helper = createScriptHelper(scriptContext);
         if (helper != null) {
-            context.put(SCRIPT_HELPER_KEY, helper);
+            localContext.put(SCRIPT_HELPER_KEY, helper);
         }
-        Bindings bindings = new SimpleBindings(context);
+        Bindings bindings = new SimpleBindings(localContext);
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         return scriptContext;
     }
@@ -227,14 +229,15 @@ public final class ScriptUtil {
      */
     public static ScriptContext createScriptContext(Map<String, Object> context, Set<String> protectedKeys) {
         Assert.notNull("context", context, "protectedKeys", protectedKeys);
-        context.put(WIDGET_CONTEXT_KEY, context);
-        context.put("context", context);
+        Map<String, Object> localContext = new HashMap<String, Object>(context);
+        localContext.put(WIDGET_CONTEXT_KEY, context);
+        localContext.put("context", context);
         ScriptContext scriptContext = new SimpleScriptContext();
-        Bindings bindings = new ProtectedBindings(context, Collections.unmodifiableSet(protectedKeys));
+        Bindings bindings = new ProtectedBindings(localContext, Collections.unmodifiableSet(protectedKeys));
         scriptContext.setBindings(bindings, ScriptContext.ENGINE_SCOPE);
         ScriptHelper helper = createScriptHelper(scriptContext);
         if (helper != null) {
-            context.put(SCRIPT_HELPER_KEY, helper);
+            localContext.put(SCRIPT_HELPER_KEY, helper);
         }
         return scriptContext;
     }
