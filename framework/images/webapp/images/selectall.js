@@ -418,9 +418,11 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                     data: {term : request.term},
                     beforeSend: function (jqXHR, settings) {
                         //If LAST_AUTOCOMP_REF is not null means an existing ajax auto-completer request is in progress, so need to abort them to prevent inconsistent behavior of autocompleter
-                        if (LAST_AUTOCOMP_REF != null) {
+                        if (LAST_AUTOCOMP_REF != null && LAST_AUTOCOMP_REF.readyState != 4) {
                             var oldRef = LAST_AUTOCOMP_REF;
                             oldRef.abort();
+                            //Here we are aborting the LAST_AUTOCOMP_REF so need to call the response method so that auto-completer pending request count handle in proper way
+                            response( [] );
                         }
                         LAST_AUTOCOMP_REF= jqXHR;
                     },
