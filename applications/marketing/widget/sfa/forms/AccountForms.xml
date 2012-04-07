@@ -38,7 +38,7 @@ under the License.
         <field name="city" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <text size="30" maxlength="60"/>
         </field>
-        <field name="state" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
@@ -49,7 +49,7 @@ under the License.
         <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <text size="10" maxlength="30"/>
         </field>
-        <field name="country" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+        <field name="countryGeoId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
