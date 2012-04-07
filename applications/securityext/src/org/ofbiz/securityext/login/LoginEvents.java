@@ -37,11 +37,13 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.common.login.LoginServices;
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.product.ProductEvents;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -284,8 +286,21 @@ public class LoginEvents {
             serviceContext.put("sendBcc", productStoreEmail.get("bccAddress"));
             serviceContext.put("contentType", productStoreEmail.get("contentType"));
         } else {
-            serviceContext.put("subject", UtilProperties.getMessage(resource, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
-            serviceContext.put("sendFrom", UtilProperties.getPropertyValue("general.properties", "defaultFromEmailAddress"));
+            GenericValue emailTemplateSetting = null;
+            try {
+                emailTemplateSetting = delegator.findOne("EmailTemplateSetting", true, "emailTemplateSettingId", "EMAIL_PASSWORD");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+            if (emailTemplateSetting != null) {
+                String subject = emailTemplateSetting.getString("subject");
+                subject = FlexibleStringExpander.expandString(subject, UtilMisc.toMap("userLoginId", userLoginId));
+                serviceContext.put("subject", subject);                
+                serviceContext.put("sendFrom", emailTemplateSetting.get("fromAddress"));
+            } else {
+                serviceContext.put("subject", UtilProperties.getMessage(resource, "loginservices.password_reminder_subject", UtilMisc.toMap("userLoginId", userLoginId), UtilHttp.getLocale(request)));
+                serviceContext.put("sendFrom", EntityUtilProperties.getPropertyValue("general.properties", "defaultFromEmailAddress", delegator));
+            }            
         }
         serviceContext.put("sendTo", emails.toString());
         serviceContext.put("partyId", party.getString("partyId"));

@@ -699,7 +699,7 @@
     </property>
     <property key="loginservices.password_reminder_subject">
         <value xml:lang="en">Password Reminder (${userLoginId})".</value>
-        <value xml:lang="fr">Rappel du mot de passe(${userLoginId})".</value>
+        <value xml:lang="fr">Rappel du mot de passe (${userLoginId})".</value>
     </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>

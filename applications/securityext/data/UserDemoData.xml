@@ -78,5 +78,8 @@ under the License.
     <UserLogin userLoginId="ltdadmin" partyId="ltdadmin"/>
     <UserLogin userLoginId="ltdadmin1" partyId="ltdadmin1"/>
     <UserLogin userLoginId="bizadmin" partyId="bizadmin"/>
+    
+    <EmailTemplateSetting emailTemplateSettingId="EMAIL_PASSWORD" subject="New Password Sent (${userLoginId})" fromAddress="ofbiztest@example.com"
+        description="Used to send a new password at user request"/>
 
 </entity-engine-xml>
