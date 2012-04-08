@@ -46,7 +46,7 @@ under the License.
       <p>(${uiLabelMap.PartyMsgContactHavePurpose} <b>"${contactMechPurposeType.get("description",locale)?if_exists}"</b>)</p>
     </#if>
     <table class="basic-table" cellspacing="0">
-      <form method="post" action="<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>" name="editcontactmechform">
+      <form method="post" action="<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>" name="editcontactmechform" id="editcontactmechform">
         <input type="hidden" name="DONE_PAGE" value="${donePage}" />
         <input type="hidden" name="contactMechTypeId" value="${mechMap.contactMechTypeId}" />
         <input type="hidden" name="partyId" value="${partyId}" />
@@ -54,7 +54,7 @@ under the License.
         <#if preContactMechTypeId?exists><input type="hidden" name="preContactMechTypeId" value="${preContactMechTypeId}" /></#if>
         <#if contactMechPurposeTypeId?exists><input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurposeTypeId?if_exists}" /></#if>
         <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}' /></#if>
-  <#else>
+  <#else>  
     <h1>${uiLabelMap.PartyEditContactInformation}</h1>
     <div id="mech-purpose-types">
       <table class="basic-table" cellspacing="0">
@@ -110,7 +110,7 @@ under the License.
             </table>
           </tr>
       </#if>
-      <form method="post" action="<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>" name="editcontactmechform">
+      <form method="post" action="<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>" name="editcontactmechform" id="editcontactmechform">
         <input type="hidden" name="contactMechId" value="${contactMechId}" />
         <input type="hidden" name="contactMechTypeId" value="${mechMap.contactMechTypeId}" />
         <input type="hidden" name="partyId" value="${partyId}" />
@@ -150,10 +150,7 @@ under the License.
     <tr>
       <td class="label">${uiLabelMap.PartyState}</td>
       <td>
-        <select name="stateProvinceGeoId">
-          <option>${(mechMap.postalAddress.stateProvinceGeoId)?if_exists}</option>
-          <option></option>
-          ${screens.render("component://common/widget/CommonScreens.xml#states")}
+        <select name="stateProvinceGeoId" id="editcontactmechform_stateProvinceGeoId">
         </select>
       </td>
     </tr>
@@ -163,22 +160,21 @@ under the License.
         <input type="text" size="30" maxlength="60" name="postalCode" value="${(mechMap.postalAddress.postalCode)?default(request.getParameter('postalCode')?if_exists)}" />
       </td>
     </tr>
-    <tr>
+    <tr>   
       <td class="label">${uiLabelMap.CommonCountry}</td>
-      <td>
-        <select name="countryGeoId">
+      
+      <td>     
+        <select name="countryGeoId" id="editcontactmechform_countryGeoId">
+          ${screens.render("component://common/widget/CommonScreens.xml#countries")}        
           <#if (mechMap.postalAddress?exists) && (mechMap.postalAddress.countryGeoId?exists)>
-            <#assign defaultCountryGeoId = (mechMap.postalAddress.countryGeoId)>
-            <option selected="selected" value="${defaultCountryGeoId}">
+            <#assign defaultCountryGeoId = mechMap.postalAddress.countryGeoId>
           <#else>
            <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "country.geo.id.default")>
-           <option selected="selected" value="${defaultCountryGeoId}">
           </#if>
-          <#assign countryGeo = delegator.findByPrimaryKey("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId))>
-          ${countryGeo.get("geoName",locale)}
+          <option selected="selected" value="${defaultCountryGeoId}">
+            <#assign countryGeo = delegator.findByPrimaryKey("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId))>
+            ${countryGeo.get("geoName",locale)}
           </option>
-          <option></option>
-          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
       </td>
     </tr>
