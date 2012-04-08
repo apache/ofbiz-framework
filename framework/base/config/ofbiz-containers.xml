@@ -221,8 +221,8 @@ under the License.
             <property name="acceptCount" value="10"/>
             <property name="address" value="0.0.0.0"/>
             <property name="bufferSize" value="2048"/>
-            <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <property name="compression" value="on"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <property name="noCompressionUserAgents" value=""/>
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
