@@ -183,8 +183,9 @@ under the License.
             <property name="acceptCount" value="10"/>
             <property name="address" value="0.0.0.0"/>
             <property name="bufferSize" value="2048"/>
-            <property name="compressableMimeType" value="text/html,text/xml,text/plain"/>
             <property name="compression" value="on"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
+            <property name="noCompressionUserAgents" value=""/>
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
             <property name="disableUploadTimeout" value="false"/>
@@ -193,7 +194,6 @@ under the License.
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
-            <property name="noCompressionUserAgents" value=""/>
             <property name="port" value="8080"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
@@ -221,8 +221,9 @@ under the License.
             <property name="acceptCount" value="10"/>
             <property name="address" value="0.0.0.0"/>
             <property name="bufferSize" value="2048"/>
-            <property name="compressableMimeType" value="text/html,text/xml,text/plain"/>
+            <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <property name="compression" value="on"/>
+            <property name="noCompressionUserAgents" value=""/>
             <property name="connectionLinger" value="-1"/>
             <property name="connectionTimeout" value="60000"/>
             <property name="disableUploadTimeout" value="false"/>
@@ -231,7 +232,6 @@ under the License.
             <property name="maxSpareThreads" value="50"/>
             <property name="maxThreads" value="100"/>
             <property name="minSpareThreads" value="4"/>
-            <property name="noCompressionUserAgents" value=""/>
             <property name="port" value="8443"/>
             <property name="restrictedUserAgents" value=""/>
             <property name="server" value=""/>
