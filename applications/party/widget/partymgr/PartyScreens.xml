@@ -421,7 +421,7 @@ under the License.
 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/HasPartyPermissions.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditContactMech.groovy"/>
-                
+
                 <set field="dependentForm" value="editcontactmechform"/>
                 <set field="paramKey" value="countryGeoId"/>
                 <set field="mainId" value="countryGeoId"/>
@@ -430,8 +430,7 @@ under the License.
                 <set field="responseName" value="stateList"/>
                 <set field="dependentKeyName" value="geoId"/>
                 <set field="descName" value="geoName"/>
-                <set field="selectedDependentOption" from-field="mechMap.postalAddress.stateProvinceGeoId" default-value="_none_"/>                
-                
+                <set field="selectedDependentOption" from-field="mechMap.postalAddress.stateProvinceGeoId" default-value="_none_"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -709,7 +708,7 @@ under the License.
                             <actions>
                                 <!-- fields for setDependentDropdownValuesJs.ftl -->
                                 <set field="dependentForm" value="NewUser"/>
-                                <set field="paramKey" value="countryGeoId"/>                                        
+                                <set field="paramKey" value="countryGeoId"/>
                                 <set field="mainId" value="USER_COUNTRY"/>
                                 <set field="dependentId" value="USER_STATE"/>
                                 <set field="requestName" value="getAssociatedStateList"/>
@@ -754,7 +753,7 @@ under the License.
                             <actions>
                                 <!-- fields for setDependentDropdownValuesJs.ftl -->
                                 <set field="dependentForm" value="NewUser"/>
-                                <set field="paramKey" value="countryGeoId"/>                                        
+                                <set field="paramKey" value="countryGeoId"/>
                                 <set field="mainId" value="USER_COUNTRY"/>
                                 <set field="dependentId" value="USER_STATE"/>
                                 <set field="requestName" value="getAssociatedStateList"/>
@@ -799,7 +798,7 @@ under the License.
                             <actions>
                                 <!-- fields for setDependentDropdownValuesJs.ftl -->
                                 <set field="dependentForm" value="NewUser"/>
-                                <set field="paramKey" value="countryGeoId"/>                                        
+                                <set field="paramKey" value="countryGeoId"/>
                                 <set field="mainId" value="USER_COUNTRY"/>
                                 <set field="dependentId" value="USER_STATE"/>
                                 <set field="requestName" value="getAssociatedStateList"/>
@@ -1208,7 +1207,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- PartyIdentification Screen -->
     <screen name="ListPartyIdentifications">
         <section>
