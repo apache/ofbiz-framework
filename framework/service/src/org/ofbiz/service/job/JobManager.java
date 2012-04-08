@@ -208,6 +208,7 @@ public class JobManager {
     public synchronized void reloadCrashedJobs() {
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
         List<GenericValue> crashed = null;
+        List<GenericValue> pending = null;
 
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId));
         exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_RUNNING"));
@@ -219,10 +220,41 @@ public class JobManager {
             Debug.logError(e, "Unable to load crashed jobs", module);
         }
 
+        exprs = UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId));
+        exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SERVICE_PENDING"));
+        ecl = EntityCondition.makeCondition(exprs);
+
+        try {
+            pending = delegator.findList("JobSandbox", ecl, null, UtilMisc.toList("startDateTime"), null, false);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Unable to load pending jobs", module);
+        }
+
+
         if (UtilValidate.isNotEmpty(crashed)) {
             try {
                 int rescheduled = 0;
                 for (GenericValue job: crashed) {
+                    
+                    // We don't reload a crashed job if a pending job with same service name and 
+                    //    recurrenceInfoId or tempExprId  exists
+                    String serviceName = job.getString("serviceName");
+                    String recurrenceInfoId = job.getString("recurrenceInfoId");
+                    String tempExprId = job.getString("tempExprId");
+                    if (UtilValidate.isNotEmpty(pending)) {
+                        for (GenericValue parentJob: pending) {
+                            String parentServiceName = parentJob.getString("serviceName");
+                            String parentRecurrenceInfoId = parentJob.getString("recurrenceInfoId");
+                            String parentTempExprId = parentJob.getString("tempExprId");
+                            if (serviceName.equals(parentServiceName)
+                                    && recurrenceInfoId.equals(parentRecurrenceInfoId) || tempExprId.equals(parentTempExprId)) {
+                                continue;
+                            }
+                        }
+                    }
+
+                    if (0 == job.getLong("maxRetry").longValue()) continue;
+
                     Timestamp now = UtilDateTime.nowTimestamp();
                     Debug.log("Scheduling Job : " + job, module);
 
