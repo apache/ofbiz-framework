@@ -52,9 +52,10 @@ under the License.
                                         <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                     </container>
                                     <section>
-                                        <actions>
-                                            <!-- setCountryStatesEventJs.ftl, it's not used here but could be. It's a good example of a reusable template-script with harcoded values which make sense -->
-                                            <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, if you need an example with more than one dropdown in a form have a look at EditProductPriceRules screen -->
+                                        <actions>                                            
+                                            <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, 
+                                                if you need an example with more than one dropdown in a form have a look at 
+                                                EditProductPriceRules screen in PriceScreens.xml-->
                                             <set field="dependentForm" value="DropDownFieldsExampleForm"/>
                                             <set field="paramKey" value="countryGeoId"/>                                            
                                             <set field="mainId" value="countryGeoId"/>
@@ -73,7 +74,6 @@ under the License.
                                             <set field="asm_sortable" value="false"/>                                            
                                         </actions>
                                         <widgets>
-                                            <!--platform-specific><html><html-template location="component://common/webcommon/includes/setCountryStatesEventJs.ftl"/></html></platform-specific-->
                                             <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
                                             <platform-specific><html><html-template location="component://common/webcommon/includes/setMultipleSelectJs.ftl"/></html></platform-specific>
                                             <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
