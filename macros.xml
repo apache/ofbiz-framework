@@ -260,4 +260,18 @@ under the License.
    </if>
   </sequential>
  </macrodef>
+
+ <macrodef name="yuicompressor" description="Runs the YUI JS/CSS compressor on the specified inFile and saves the output to outFile">
+  <attribute name="inFile"/>
+  <attribute name="outFile"/>
+  <sequential>
+    <echo message="Minify @{inFile}"/>
+      <java jar="${ofbiz.home.dir}/framework/base/lib/yuicompressor-2.4.6.jar" fork="true">
+        <arg value="-o"/>
+        <arg value="@{outFile}"/>
+        <arg value="@{inFile}"/>
+    </java>
+   </sequential>
+ </macrodef>
+
 </project>

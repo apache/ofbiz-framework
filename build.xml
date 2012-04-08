@@ -1225,6 +1225,15 @@ under the License.
     </target>
 
     <!-- ================================================================== -->
+    <!-- Minify js and css files target.                                    -->
+    <!-- ================================================================== -->
+
+    <target name="minifyJsCss" description="Creates a minified version of JS/CSS files">
+        <!-- Needs more work (more files, use of them) just used as an example -->
+        <!--yuicompressor inFile="themes/tomahawk/webapp/tomahawk/css/style.css" outFile="themes/tomahawk/webapp/tomahawk/css/style-min.css"/-->
+    </target>
+
+    <!-- ================================================================== -->
     <!-- Old tasks.                                                         -->
     <!-- ================================================================== -->
     <target name="run">
