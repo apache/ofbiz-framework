@@ -77,31 +77,29 @@ public final class ScriptUtil {
 
     static {
         Set<String> writableScriptNames = new HashSet<String>();
-        if (Debug.infoOn()) {
-            ScriptEngineManager manager = new ScriptEngineManager();
-            List<ScriptEngineFactory> engines = manager.getEngineFactories();
-            if (engines.isEmpty()) {
-                Debug.logInfo("No scripting engines were found.", module);
-            } else {
-                Debug.logInfo("The following " + engines.size() + " scripting engines were found:", module);
-                for (ScriptEngineFactory engine : engines) {
-                    Debug.logInfo("Engine name: " + engine.getEngineName(), module);
-                    Debug.logInfo("  Version: " + engine.getEngineVersion(), module);
-                    Debug.logInfo("  Language: " + engine.getLanguageName(), module);
-                    List<String> extensions = engine.getExtensions();
-                    if (extensions.size() > 0) {
-                        Debug.logInfo("  Engine supports the following extensions:", module);
-                        for (String e : extensions) {
-                            Debug.logInfo("    " + e, module);
-                        }
+        ScriptEngineManager manager = new ScriptEngineManager();
+        List<ScriptEngineFactory> engines = manager.getEngineFactories();
+        if (engines.isEmpty()) {
+            Debug.logInfo("No scripting engines were found.", module);
+        } else {
+            Debug.logInfo("The following " + engines.size() + " scripting engines were found:", module);
+            for (ScriptEngineFactory engine : engines) {
+                Debug.logInfo("Engine name: " + engine.getEngineName(), module);
+                Debug.logInfo("  Version: " + engine.getEngineVersion(), module);
+                Debug.logInfo("  Language: " + engine.getLanguageName(), module);
+                List<String> extensions = engine.getExtensions();
+                if (extensions.size() > 0) {
+                    Debug.logInfo("  Engine supports the following extensions:", module);
+                    for (String e : extensions) {
+                        Debug.logInfo("    " + e, module);
                     }
-                    List<String> shortNames = engine.getNames();
-                    if (shortNames.size() > 0) {
-                        Debug.logInfo("  Engine has the following short names:", module);
-                        for (String name : engine.getNames()) {
-                            writableScriptNames.add(name.concat(":"));
-                            Debug.logInfo("    " + name, module);
-                        }
+                }
+                List<String> shortNames = engine.getNames();
+                if (shortNames.size() > 0) {
+                    Debug.logInfo("  Engine has the following short names:", module);
+                    for (String name : engine.getNames()) {
+                        writableScriptNames.add(name.concat(":"));
+                        Debug.logInfo("    " + name, module);
                     }
                 }
             }
