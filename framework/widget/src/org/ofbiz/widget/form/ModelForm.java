@@ -2060,10 +2060,7 @@ public class ModelForm extends ModelWidget {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
             for (AltTarget altTarget: this.altTargets) {
-                String useWhen = altTarget.useWhen;
-                if (useWhen != null && !useWhen.isEmpty()) {
-                    useWhen = FlexibleStringExpander.expandString(useWhen, context);
-                }
+                String useWhen = FlexibleStringExpander.expandString(altTarget.useWhen, context);
                 Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhen));
                 boolean condTrue = false;
                 // retVal should be a Boolean, if not something weird is up...
