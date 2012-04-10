@@ -1092,6 +1092,10 @@ under the License.
         <ivy:retrieve pattern="framework/base/lib/[artifact]-[revision].[ext]" conf="sonar-ant-task"/>
     </target>
 
+    <target name="download-mySQL-JDBC" depends="ivy-init" description="Download mySQL jdbc driver">
+        <ivy:retrieve pattern="framework/entity/lib/jdbc/[artifact]-[revision].[ext]" conf="mysql"/>
+    </target>
+
     <!-- ================================================================== -->
     <!-- Create New Component. This target will create basic directory structure for an OFBiz component in hot-deploy directory. -->
     <!-- ================================================================== -->
