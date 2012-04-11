@@ -924,6 +924,8 @@ under the License.
     </target>
     <target name="run-test" depends="build"
           description="Run a single test, syntax eg: ant run-test -Dtest.component=service -Dtest.case=service-soap-tests">
+        <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
+        <fail unless="test.case">test.case is a required parameter: -Dtest.case=testcasename</fail>
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -948,6 +950,8 @@ under the License.
     </target>
     <target name="run-test-suite" depends="build"
             description="Run a single test suite, syntax eg: ant run-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">
+        <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
+        <fail unless="test.case">test.suiteName is a required parameter: -Dtest.suiteName=testsuitename</fail>
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
