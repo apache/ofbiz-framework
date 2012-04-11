@@ -951,7 +951,7 @@ under the License.
     <target name="run-test-suite" depends="build"
             description="Run a single test suite, syntax eg: ant run-test-suite -Dtest.component=mycomponent -Dtest.suiteName=mytests">
         <fail unless="test.component">test.component is a required parameter: -Dtest.component=componentname</fail>
-        <fail unless="test.case">test.suiteName is a required parameter: -Dtest.suiteName=testsuitename</fail>
+        <fail unless="test.suiteName">test.suiteName is a required parameter: -Dtest.suiteName=testsuitename</fail>
         <java jar="ofbiz.jar" fork="true" resultproperty="test.result">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
