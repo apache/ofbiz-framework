@@ -57,7 +57,7 @@ under the License.
         <div><span class="label">(${uiLabelMap.PartyMsgContactHavePurpose}</span>"${contactMechPurposeType.get("description",locale)?if_exists}")</div>
       </#if>
       <table width="90%" class="basic-table" cellspacing="0">
-        <form method="post" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform">
+        <form method="post" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform" id="editcontactmechform">
         <input type='hidden' name='DONE_PAGE' value='${donePage}' />
         <input type='hidden' name='contactMechTypeId' value='${mechMap.contactMechTypeId}' />
         <input type='hidden' name='facilityId' value='${facilityId}' />
@@ -136,7 +136,7 @@ under the License.
           </td>
         </tr>
         </#if>
-        <form method="post" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform">
+        <form method="post" action='<@ofbizUrl>${mechMap.requestName}</@ofbizUrl>' name="editcontactmechform" id="editcontactmechform">
         <input type="hidden" name="contactMechId" value='${contactMechId}' />
         <input type="hidden" name="contactMechTypeId" value='${mechMap.contactMechTypeId}' />
         <input type="hidden" name='facilityId' value='${facilityId}' />
@@ -176,12 +176,9 @@ under the License.
     <tr>
       <td class="label">${uiLabelMap.PartyState}</td>
       <td>
-        <select name="stateProvinceGeoId" class="required">
-          <option>${(mechMap.postalAddress.stateProvinceGeoId)?if_exists}</option>
-          <option></option>
-           ${screens.render("component://common/widget/CommonScreens.xml#states")}
+        <select name="stateProvinceGeoId" id="editcontactmechform_stateProvinceGeoId">
         </select>
-      *</td>
+      </td>
     </tr>
     <tr>
       <td class="label">${uiLabelMap.PartyZipCode}</td>
@@ -189,15 +186,22 @@ under the License.
         <input type="text" class="required" size="12" maxlength="10" name="postalCode" value="${(mechMap.postalAddress.postalCode)?default(request.getParameter('postalCode')?if_exists)}" />
       *</td>
     </tr>
-    <tr>
-      <td class="label">${uiLabelMap.PartyCountry}</td>
-      <td>
-        <select name="countryGeoId" class="required">
-          <option>${(mechMap.postalAddress.countryGeoId)?if_exists}</option>
-          <option></option>
-          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+    <tr>   
+      <td class="label">${uiLabelMap.CommonCountry}</td>      
+      <td>     
+        <select name="countryGeoId" id="editcontactmechform_countryGeoId">
+          ${screens.render("component://common/widget/CommonScreens.xml#countries")}        
+          <#if (mechMap.postalAddress?exists) && (mechMap.postalAddress.countryGeoId?exists)>
+            <#assign defaultCountryGeoId = mechMap.postalAddress.countryGeoId>
+          <#else>
+           <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "country.geo.id.default")>
+          </#if>
+          <option selected="selected" value="${defaultCountryGeoId}">
+            <#assign countryGeo = delegator.findByPrimaryKey("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId))>
+            ${countryGeo.get("geoName",locale)}
+          </option>
         </select>
-      *</td>
+      </td>
     </tr>
   <#elseif "TELECOM_NUMBER" = mechMap.contactMechTypeId?if_exists>
     <tr>
