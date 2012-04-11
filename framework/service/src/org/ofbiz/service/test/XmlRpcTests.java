@@ -37,7 +37,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     public static final String module = XmlRpcTests.class.getName();
     public static final String resource = "ServiceErrorUiLabels";
-    public static final String url = "http://localhost:8080/webtools/control/xmlrpc";
+    public static final String url = "http://localhost:8081/webtools/control/xmlrpc";
 
     public XmlRpcTests(String name) {
         super(name);
