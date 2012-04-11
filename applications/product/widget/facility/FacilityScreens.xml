@@ -834,6 +834,17 @@ under the License.
             <actions>
                 <set field="tabButtonItem" value="ViewContactMechs"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/EditContactMech.groovy"/>
+                
+                <set field="dependentForm" value="editcontactmechform"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" from-field="mechMap.postalAddress.stateProvinceGeoId" default-value="_none_"/> 
+                               
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -852,7 +863,10 @@ under the License.
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/></html>
+                            <html>
+                                <html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/>
+                                <html-template location="component://product/webapp/facility/facility/EditContactMech.ftl"/>
+                            </html>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>
