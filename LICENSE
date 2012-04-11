@@ -90,7 +90,7 @@ ofbiz/framework/catalina/lib/tomcat-7.0.26.tomcat-coyote.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.26.catalina-ha.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.26.tomcat-api.jar
 ofbiz/framework/catalina/lib/tomcat-7.0.26.jasper.jar
-ofbiz/trunk/framework/entity/lib/commons-dbcp-1.3-20091113-r835956.jar
+ofbiz/trunk/framework/entity/lib/commons-dbcp-1.4.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derby-10.8.2.2.jar
 ofbiz/trunk/framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
 ofbiz/trunk/framework/service/lib/axis-ant.jar
