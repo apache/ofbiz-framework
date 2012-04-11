@@ -18,10 +18,6 @@
 # under the License.
 #####################################################################
 
-# shutdown settings
-ADMIN_PORT=10523
-ADMIN_KEY=so3du5kasd5dn
-
 # console log file
 OFBIZ_LOG=runtime/logs/console.log
 
@@ -29,7 +25,6 @@ OFBIZ_LOG=runtime/logs/console.log
 rm -f $OFBIZ_LOG
 
 # VM args
-ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 #DEBUG="-Dsun.rmi.server.exceptionTrace=true"
 #DEBUG="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"
 #automatic IP address for linux
@@ -38,7 +33,7 @@ ADMIN="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
 MEMIF="-Xms128M -Xmx512M -XX:MaxPermSize=512m"
 #JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=33333 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 #MISC="-Duser.language=en"
-VMARGS="$MEMIF $MISC $JMX $DEBUG $RMIIF $ADMIN"
+VMARGS="$MEMIF $MISC $JMX $DEBUG $RMIIF"
 
 # Worldpay Config
 #VMARGS="-Xbootclasspath/p:applications/accounting/lib/cryptix.jar $VMARGS"
