@@ -17,10 +17,6 @@
 # specific language governing permissions and limitations
 # under the License.
 #####################################################################
-####
-# ofbiz.admin.key and ofbiz.admin.port must match that which OFBIZ was started with
-####
-
 OFBIZ_HOME="$( cd -P "$( dirname "$0" )" && pwd )"/..
 
 # location of java executable
@@ -30,9 +26,6 @@ else
   JAVA=java
 fi
 
-# shutdown settings
-ADMIN_PORT=10523
-ADMIN_KEY=so3du5kasd5dn
 
-(cd "$OFBIZ_HOME" && $JAVA -Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY -jar ofbiz.jar -shutdown)
+(cd "$OFBIZ_HOME" && $JAVA -jar ofbiz.jar -shutdown)
 

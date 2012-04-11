@@ -24,8 +24,6 @@ under the License.
 
     <import file="macros.xml"/>
     <property name="site.dir" value="../site"/>
-    <property name="ofbiz.admin.port" value="10523"/>
-    <property name="ofbiz.admin.key" value="so3du5kasd5dn"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
     <property name="pos.memory.max.param" value="-Xmx512M"/>
@@ -386,8 +384,6 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${pos.memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
-            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
         </java>
     </target>
     <target name="start-batch"
@@ -396,8 +392,6 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${pos.memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
-            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
         </java>
     </target>
     <target name="start-debug" depends="build"
@@ -410,8 +404,6 @@ under the License.
             <jvmarg value="-Djava.compiler=NONE"/>
             <jvmarg value="-Xdebug"/>
             <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8091"/>
-            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
-            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
         </java>
     </target>
     <target name="start-pos"
@@ -426,16 +418,12 @@ under the License.
     <target name="stop"
             description="Stop OFBiz">
         <java jar="ofbiz.jar" fork="true">
-            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
-            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
             <arg value="-shutdown"/>
         </java>
     </target>
     <target name="status"
             description="Display status of OFBiz">
         <java jar="ofbiz.jar" fork="true">
-            <sysproperty key="ofbiz.admin.port" value="${ofbiz.admin.port}"/>
-            <sysproperty key="ofbiz.admin.key" value="${ofbiz.admin.key}"/>
             <arg value="-status"/>
         </java>
     </target>

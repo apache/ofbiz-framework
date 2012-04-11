@@ -461,7 +461,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         }
 
         boolean isNullString = false;
-        if ("null".equals(value) || "[null-field]".equals(value)) {
+        if ("null".equals(value) || "[null-field]".equals(value)) { // keep [null-field] here but not sure it' used now
             // count this as a null too, but only for numbers and stuff, not for Strings
             isNullString = true;
         }
@@ -1079,7 +1079,12 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                     element.setAttribute(name, value);
                 }
             } else {
-                element.setAttribute(name, GenericEntity.NULL_FIELD.toString());
+                element.setAttribute(name, "null");
+                element.setAttribute("xsi:nil", "true");
+                // I tried to put the schema in the envelope header (in createAndSendSOAPResponse)
+                // resEnv.declareNamespace("http://www.w3.org/2001/XMLSchema-instance", null);
+                // But it gets prefixed and that does not work. So adding in each instance
+                element.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");                
             }
         }
 
