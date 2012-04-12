@@ -342,9 +342,9 @@ public class Config {
         // get the admin server info
         String serverHost = getProp(props, "ofbiz.admin.host", "127.0.0.1");
 
-        String adminPortStr = getProp(props, "ofbiz.admin.port", "10523");
+        String adminPortStr = getProp(props, "ofbiz.admin.port", "0");
         // set the admin key
-        adminKey = getProp(props, "ofbiz.admin.key", "so3du5kasd5dn");
+        adminKey = getProp(props, "ofbiz.admin.key", "NA");
 
         // create the host InetAddress
         adminAddress = InetAddress.getByName(serverHost);
