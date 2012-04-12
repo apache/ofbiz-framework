@@ -49,14 +49,20 @@ under the License.
         <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <text size="10" maxlength="30"/>
         </field>
-        <field name="countryGeoId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
+       <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" widget-style="required"><drop-down allow-empty="false"/></field>
+
+        <field name="stateProvinceGeoId" title="${uiLabelMap.CommonState}" widget-style="required"><drop-down allow-empty="false"/></field> 
+
+        <field name="countryGeoId" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down no-current-selected-key="${defaultCountryGeoId}">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
                     <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
         </field>
+
+
         <field name="phoneTitle" title="${uiLabelMap.PartyPrimaryPhone}" title-area-style="group-label"><display/></field>
         <field name="countryCode" title="${uiLabelMap.PartyCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="areaCode" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
