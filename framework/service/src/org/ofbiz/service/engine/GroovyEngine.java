@@ -23,20 +23,23 @@ import static org.ofbiz.base.util.UtilGenerics.cast;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.Script;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastMap;
 
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.GroovyUtil;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.service.*;
 import org.ofbiz.service.config.ServiceConfigUtil;
+
+import javax.script.ScriptContext;
+import javax.script.ScriptException;
 
 /**
  * Groovy Script Service Engine
@@ -45,8 +48,20 @@ public final class GroovyEngine extends GenericAsyncEngine {
 
     public static final String module = GroovyEngine.class.getName();
     protected static final Object[] EMPTY_ARGS = {};
+    private static final Set<String> protectedKeys = createProtectedKeys();
 
     GroovyClassLoader groovyClassLoader;
+
+    private static Set<String> createProtectedKeys() {
+        Set<String> newSet = new HashSet<String>();
+        /* Commenting out for now because some scripts write to the parameters Map - which should not be allowed.
+        newSet.add(ScriptUtil.PARAMETERS_KEY);
+        */
+        newSet.add("dctx");
+        newSet.add("dispatcher");
+        newSet.add("delegator");
+        return Collections.unmodifiableSet(newSet);
+    }
 
     public GroovyEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
@@ -84,13 +99,18 @@ public final class GroovyEngine extends GenericAsyncEngine {
         }
         Map<String, Object> params = FastMap.newInstance();
         params.putAll(context);
-        context.put("parameters", params);
+        context.put(ScriptUtil.PARAMETERS_KEY, params);
 
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         context.put("dctx", dctx);
         context.put("dispatcher", dctx.getDispatcher());
         context.put("delegator", dispatcher.getDelegator());
         try {
+            ScriptContext scriptContext = ScriptUtil.createScriptContext(context, protectedKeys);
+            ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
+            if (scriptHelper != null) {
+                context.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
+            }
             Script script = InvokerHelper.createScript(GroovyUtil.getScriptClassFromLocation(this.getLocation(modelService), groovyClassLoader), GroovyUtil.getBinding(context));
             Object resultObj = null;
             if (UtilValidate.isEmpty(modelService.invoke)) {
@@ -98,18 +118,26 @@ public final class GroovyEngine extends GenericAsyncEngine {
             } else {
                 resultObj = script.invokeMethod(modelService.invoke, EMPTY_ARGS);
             }
+            /*
             if (resultObj != null && resultObj instanceof Map<?, ?>) {
                 return cast(resultObj);
             } else if (context.get("result") != null && context.get("result") instanceof Map<?, ?>) {
                 return cast(context.get("result"));
             }
-        } catch (GenericEntityException gee) {
-            return ServiceUtil.returnError(gee.getMessage());
-        } catch (ExecutionServiceException ese) {
-            return ServiceUtil.returnError(ese.getMessage());
-        } catch (GeneralException e) {
-            throw new GenericServiceException(e);
+            */
+            if (resultObj == null) {
+                resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
+            }
+            if (resultObj != null && resultObj instanceof Map<?, ?>) {
+                return cast(resultObj);
+            }
+            Map<String, Object> result = ServiceUtil.returnSuccess();
+            result.putAll(modelService.makeValid(scriptContext.getBindings(ScriptContext.ENGINE_SCOPE), "OUT"));
+            return result;
+        } catch (GeneralException ge) {
+            throw new GenericServiceException(ge);
+        } catch (Exception e) {
+            return ServiceUtil.returnError(e.getMessage());
         }
-        return ServiceUtil.returnSuccess();
     }
 }
