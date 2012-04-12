@@ -118,13 +118,6 @@ public final class GroovyEngine extends GenericAsyncEngine {
             } else {
                 resultObj = script.invokeMethod(modelService.invoke, EMPTY_ARGS);
             }
-            /*
-            if (resultObj != null && resultObj instanceof Map<?, ?>) {
-                return cast(resultObj);
-            } else if (context.get("result") != null && context.get("result") instanceof Map<?, ?>) {
-                return cast(context.get("result"));
-            }
-            */
             if (resultObj == null) {
                 resultObj = scriptContext.getAttribute(ScriptUtil.RESULT_KEY);
             }
