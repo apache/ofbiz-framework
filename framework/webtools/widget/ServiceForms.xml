@@ -47,7 +47,7 @@ under the License.
     </form>
 
     <form name="runService" type="single" target="setSyncServiceParameters"
-        header-row-style="header-row" default-table-style="basic-table">
+        header-row-style="header-row" default-table-style="basic-table" focus-field-name="SERVICE_NAME">
         <field name="SERVICE_NAME" title="${uiLabelMap.WebtoolsService}"><text/></field>
         <field name="POOL_NAME" title="${uiLabelMap.WebtoolsPool}"><text/></field>
         <field name="_RUN_SYNC_"><hidden value="Y"/></field>
@@ -60,7 +60,7 @@ under the License.
         <field name="jobId" title="${uiLabelMap.CommonId}"><text-find/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsServiceName}"><text-find/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="true" current-description="">
+            <drop-down allow-empty="true" current-description="" current="selected" no-current-selected-key="SERVICE_PENDING">
                 <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="SERVICE_STATUS"/>
                     <entity-order-by field-name="description"/>
