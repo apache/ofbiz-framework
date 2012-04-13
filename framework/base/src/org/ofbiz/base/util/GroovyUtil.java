@@ -35,6 +35,8 @@ import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
 
+import javax.script.ScriptContext;
+
 /**
  * Groovy Utilities.
  *
@@ -92,11 +94,16 @@ public class GroovyUtil {
      * @param context A <code>Map</code> containing initial variables
      * @return A <code>Binding</code> instance
      */
-    public static Binding getBinding(Map<String, ? extends Object> context) {
+    public static Binding getBinding(Map<String, Object> context) {
         Map<String, Object> vars = FastMap.newInstance();
         if (context != null) {
             vars.putAll(context);
             vars.put("context", context);
+            ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
+            ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
+            if (scriptHelper != null) {
+                vars.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
+            }
         }
         return new Binding(vars);
     }
