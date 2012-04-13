@@ -321,7 +321,7 @@ public final class ScriptUtil {
      * @throws IllegalArgumentException
      */
     public static Object executeScript(String filePath, String functionName, Map<String, Object> context) {
-        return executeScript(filePath, functionName, context, EMPTY_ARGS);
+        return executeScript(filePath, functionName, context, new Object[] { context });
     }
 
     /**
