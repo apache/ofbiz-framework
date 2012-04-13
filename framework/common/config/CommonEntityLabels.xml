@@ -2109,8 +2109,8 @@
         <value xml:lang="zh_TW">取回密碼</value>
     </property>
     <property key="Enumeration.description.PRDS_QUO_CONFIRM">
-        <value xml:lang="de">Offerte Bestätigung</value>
-        <value xml:lang="de_DE">Angebotsbestätigung</value>
+        <value xml:lang="de">Angebotsbestätigung</value>
+        <value xml:lang="de_CH">Offerte Bestätigung</value>
         <value xml:lang="en">Quote Confirmation</value>
         <value xml:lang="es">Confirmación de presupuesto</value>
         <value xml:lang="fr">Confirmation de devis</value>
@@ -3532,8 +3532,8 @@
         <value xml:lang="zh_TW">所有權轉讓的要點</value>
     </property>
     <property key="EnumerationType.description.QUOTE_SEQMD">
-        <value xml:lang="de">Offerte Folgenummer Modus</value>
-        <value xml:lang="de_DE">Modus Angebotsnumerierung</value>
+        <value xml:lang="de">Modus Angebotsnumerierung</value>
+        <value xml:lang="de_CH">Offerte Folgenummer Modus</value>
         <value xml:lang="en">Quote Sequence Mode</value>
         <value xml:lang="es">Modo de número de secuencia de presupuesto</value>
         <value xml:lang="fr">Mode de numérotation des devis</value>
@@ -9605,8 +9605,8 @@
         <value xml:lang="zh_TW">已指定</value>
     </property>
     <property key="StatusItem.description.PRTYASGN_OFFERED">
-        <value xml:lang="de">Offeriert</value>
-        <value xml:lang="de_DE">Angeboten</value>
+        <value xml:lang="de">Angeboten</value>
+        <value xml:lang="de_CH">Offeriert</value>
         <value xml:lang="en">Offered</value>
         <value xml:lang="es">Ofertado</value>
         <value xml:lang="fr">Proposée</value>
@@ -11046,8 +11046,8 @@
         <value xml:lang="zh_TW">購買運輸</value>
     </property>
     <property key="StatusType.description.QUOTE_STATUS">
-        <value xml:lang="de">Offerte Status</value>
-        <value xml:lang="de_DE">Angebotsstatus</value>
+        <value xml:lang="de">Angebotsstatus</value>
+        <value xml:lang="de_CH">Offerte Status</value>
         <value xml:lang="en">Quote Status</value>
         <value xml:lang="es">Estado de presupuesto</value>
         <value xml:lang="fr">Statut de devis</value>
@@ -13366,8 +13366,8 @@
         <value xml:lang="zh_TW">接收</value>
     </property>
     <property key="StatusValidChange.transitionName.QUO_APPROVED.QUO_ORDERED">
-        <value xml:lang="de">Offerte in Auftrag geben</value>
-        <value xml:lang="de_DE">Angebot beauftragen</value>
+        <value xml:lang="de">Angebot beauftragen</value>
+        <value xml:lang="de_CH">Offerte in Auftrag geben</value>
         <value xml:lang="en">Order Quote</value>
         <value xml:lang="es">Pedido desde Presupuesto</value>
         <value xml:lang="fr">Devis de commande</value>
@@ -13381,8 +13381,8 @@
         <value xml:lang="zh_TW">訂單詢價</value>
     </property>
     <property key="StatusValidChange.transitionName.QUO_APPROVED.QUO_REJECTED">
-        <value xml:lang="de">Offerte ablehnen</value>
-        <value xml:lang="de_DE">Angebot ablehnen</value>
+        <value xml:lang="de">Angebot ablehnen</value>
+        <value xml:lang="de_CH">Offerte ablehnen</value>
         <value xml:lang="en">Reject Quote</value>
         <value xml:lang="es">Rechazar presupuesto</value>
         <value xml:lang="fr">Rejeter le devis</value>
@@ -13396,8 +13396,8 @@
         <value xml:lang="zh_TW">拒絕詢價</value>
     </property>
     <property key="StatusValidChange.transitionName.QUO_CREATED.QUO_APPROVED">
-        <value xml:lang="de">Offerte genehmigen</value>
-        <value xml:lang="de_DE">Angebot genehmigen</value>
+        <value xml:lang="de">Angebot genehmigen</value>
+        <value xml:lang="de_CH">Offerte genehmigen</value>
         <value xml:lang="en">Accept Quote</value>
         <value xml:lang="es">Aceptar presupuesto</value>
         <value xml:lang="fr">Accepter le devis</value>
@@ -13411,8 +13411,8 @@
         <value xml:lang="zh_TW">接受詢價</value>
     </property>
     <property key="StatusValidChange.transitionName.QUO_CREATED.QUO_REJECTED">
-        <value xml:lang="de">Offerte ablehnen</value>
-        <value xml:lang="de_DE">Angebot ablehnen</value>
+        <value xml:lang="de">Angebot ablehnen</value>
+        <value xml:lang="de_CH">Offerte ablehnen</value>
         <value xml:lang="en">Reject Quote</value>
         <value xml:lang="es">Rechazar presupuesto</value>
         <value xml:lang="fr">Rejeter le devis</value>

@@ -338,8 +338,8 @@
         <value xml:lang="zh_TW">要產生的數量</value>
     </property>
     <property key="FormFieldTitle_quoteName">
-        <value xml:lang="de">Offertenname</value>
-        <value xml:lang="de_DE">Angebotsname</value>
+        <value xml:lang="de">Angebotsname</value>
+        <value xml:lang="de_CH">Offertenname</value>
         <value xml:lang="en">Quote Name</value>
         <value xml:lang="fr">Nom du devis</value>
         <value xml:lang="it">Nome preventivo</value>

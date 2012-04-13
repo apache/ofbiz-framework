@@ -13593,7 +13593,7 @@
         <value xml:lang="zh_TW">折舊總帳科目</value>
     </property>
     <property key="FormFieldTitle_depreciation">
-        <value xml:lang="de_DE">Abschreibung</value>
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Depreciation</value>
         <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="hi_IN">मूल्यह्रास</value>
