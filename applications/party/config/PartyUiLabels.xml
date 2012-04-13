@@ -4688,8 +4688,8 @@
         <value xml:lang="zh_TW">新的潛力客戶</value>
     </property>
     <property key="PartyCreateNewQuote">
-        <value xml:lang="de">Offerte erstellen</value>
-        <value xml:lang="de_DE">Angebot erstellen</value>
+        <value xml:lang="de">Angebot erstellen</value>
+        <value xml:lang="de_CH">Offerte erstellen</value>
         <value xml:lang="en">Create Quote</value>
         <value xml:lang="es">Crear cotización</value>
         <value xml:lang="fr">Créer un devis</value>

@@ -174,8 +174,8 @@
         <value xml:lang="zh_TW">建議請求</value>
     </property>
     <property key="CustRequestType.description.RF_PUR_QUOTE">
-        <value xml:lang="de">Beschaffungsofferte verlangt</value>
-        <value xml:lang="de_DE">Einkaufsangebot angefordert</value>
+        <value xml:lang="de">Einkaufsangebot angefordert</value>
+        <value xml:lang="de_CH">Beschaffungsofferte verlangt</value>
         <value xml:lang="en">Request For Purchase Quote</value>
         <value xml:lang="es">Petición de presupuesto de compra</value>
         <value xml:lang="fr">Demande de devis pour achat</value>
@@ -188,8 +188,8 @@
         <value xml:lang="zh_TW">採購詢價</value>
     </property>
     <property key="CustRequestType.description.RF_QUOTE">
-        <value xml:lang="de">Offerte verlangt</value>
-        <value xml:lang="de_DE">Angebot angefordert</value>
+        <value xml:lang="de">Angebot angefordert</value>
+        <value xml:lang="de_CH">Offerte verlangt</value>
         <value xml:lang="en">Request For Quote</value>
         <value xml:lang="es">Petición de presupuesto</value>
         <value xml:lang="fr">Demande de devis</value>
