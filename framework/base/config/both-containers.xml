@@ -98,7 +98,7 @@ under the License.
         <property name="catalina-runtime-home" value="runtime/catalina"/>
         <property name="apps-context-reloadable" value="false"/>
         <property name="apps-cross-context" value="false"/>
-        <property name="apps-distributable" value="false"/>
+        <property name="apps-distributable" value="false"/><!-- you must also set all the webapps you want distributable, by adding <distributable/> in their web.xml file -->
         <!-- one or more tomcat engines (servers); map to this + host -->
         <property name="default-server" value="engine">
             <property name="default-host" value="0.0.0.0"/>
