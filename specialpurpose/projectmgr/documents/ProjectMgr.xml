@@ -22,7 +22,26 @@ under the License.
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>The Project Manager.</title>
+    <title>Project Manager</title>
     <xi:include href="../data/helpdata/HELP_PROJECTMGR.xml" />
     <xi:include href="../data/helpdata/HELP_PROJECTMGR_main.xml" />
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_MyTasks.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_MyTimesheet.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_Projects.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_Project.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectBilling.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectContent.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectEditProject.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectMailingList.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectNotes.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectOrders.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectPhases.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectResources.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectSubProjects.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_ProjectTasks.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_Requests.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_Resources.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_Skills.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_Tasks.xml"/>
+    <xi:include href="../data/helpdata/HELP_PROJECTMGR_TimeSheets.xml"/>
 </chapter>

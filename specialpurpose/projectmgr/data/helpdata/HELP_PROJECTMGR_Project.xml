@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+   
+http://www.apache.org/licenses/LICENSE-2.0
+   
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+        <title>Project Mgr: Project - summary</title>
+        <para>
+            This dashboard gives a one page overview of project details, resources, phases and task. 
+            It is also the starting point to navigate to the various sub screens related to a project.
+        </para>
+        <section>
+            <title>Sub screens</title>
+            <para>Following sub screens are provided:</para>
+            <itemizedlist>
+                <listitem><para>Gantt chart</para></listitem>
+                <listitem><para>Mailing List</para></listitem>
+                <listitem><para>Phases</para></listitem>
+                <listitem><para>Tasks</para></listitem>
+                <listitem><para>Orders</para></listitem>
+                <listitem><para>Resources</para></listitem>
+                <listitem><para>Content</para></listitem>
+                <listitem><para>Notes</para></listitem>
+                <listitem><para>Sub projects</para></listitem>
+                <listitem><para>Billing</para></listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Project Information</title>
+            <para>This section provides detailed information about the project, e.g. the type and scope, the description and planned and actual start and end dates 
+            and planned and actual hours
+            </para>
+        </section>
+        <section>
+            <title>Resources</title>
+            <para>This section provides detailed information about the participants (organizations and persons) of the project. 
+            For the participating persons this section provides information regarding the role in the project and the hours registered and processed.
+            </para>
+        </section>
+        <section>
+            <title>Sub projects</title>
+            <para>This section provides detailed information about the project that are registered as sub projects of the project.
+            </para>
+        </section>
+        <section>
+            <title>Phases</title>
+            <para>This section provides an overview of the phases of the project, incl. status, priority, start and end date and the hours planned and registered.
+            </para>
+        </section>
+        <section>
+            <title>Task</title>
+            <para>This section provides provides an overview of the tasks of the project, incl. status, priority, start and end date, the first assigned resource
+            and hours planned and registered.
+            </para>
+        </section>
+        <section>
+            <title>Notes</title>
+            <para>This section provides detailed information about notes registered with the project.
+            </para>
+        </section>
+        <section>
+            <title>Content</title>
+            <para>This section provides an overview of content (documents and other files)registered with the project.
+            </para>
+        </section>
+        <section>
+            <title>Orders</title>
+            <para>This section provides an overview of orders linked to the project.
+            </para>
+        </section>
+</section>
+
