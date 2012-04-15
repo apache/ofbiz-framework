@@ -53,6 +53,7 @@ under the License.
                 <set field="responseName" value="stateList"/>
                 <set field="dependentKeyName" value="geoId"/>
                 <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" value="_none_"/>
                 <set field="selectedDependentOption" from-field="selectedStateName" default-value="_none_"/>
                 
             </actions>
