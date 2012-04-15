@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- This is the catalog of OFBiz XML schemas for Eclipse. Just import it and this will avoid Eclipse to go to the web for checking the xml files against their schema. 
+     More at https://cwiki.apache.org/confluence/display/OFBIZ/Eclipse+Tips#EclipseTips-UsinglocalXSD'swhennointernetconnectionisavailable
+-->
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/base/dtd/base-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/datafile/dtd/datafiles-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/entity/dtd/entity-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/minilang/dtd/minilang-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/service/dtd/service-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/testtools/dtd/testtools-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/webapp/dtd/webapp-catalog.xml"/>
+  <nextCatalog catalog="platform:/resource/ofbiz/framework/widget/dtd/widget-catalog.xml"/>
+</catalog>
