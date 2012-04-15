@@ -15,7 +15,7 @@ ofbiz/trunk/framework/base/lib/ant-launcher-1.8.3.jar
 ofbiz/trunk/framework/base/lib/ant-1.8.3.jar
 ofbiz/trunk/framework/base/lib/ant-junit-1.8.3.jar
 ofbiz/trunk/framework/base/lib/ant-trax-1.8.0.jar
-ofbiz/trunk/framework/base/lib/ant/ant-apache-bsf-1.8.2.jar
+ofbiz/trunk/framework/base/lib/ant/ant-apache-bsf-1.8.3.jar
 ofbiz/trunk/framework/base/lib/ant/ant-nodeps-1.8.1.jar
 ofbiz/trunk/framework/base/lib/avalon-framework-4.2.0.jar
 ofbiz/trunk/framework/base/lib/avalon-util-exception-1.0.0.jar
