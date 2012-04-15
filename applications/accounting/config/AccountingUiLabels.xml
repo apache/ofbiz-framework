@@ -11523,6 +11523,7 @@
         <value xml:lang="zh">期金额</value>
     </property>
     <property key="AccountingTermTypeId">
+        <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Term Type Id</value>
         <value xml:lang="es">Id TipoTérmino</value>
         <value xml:lang="fr">Type de terme</value>
@@ -16042,6 +16043,7 @@
         <value xml:lang="zh_TW">條件天數</value>
     </property>
     <property key="FormFieldTitle_termTypeId">
+        <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Term Type Id</value>
         <value xml:lang="fr">Réf. de type de terme</value>
         <value xml:lang="hi_IN">शर्त प्रकार क्रमांक</value>

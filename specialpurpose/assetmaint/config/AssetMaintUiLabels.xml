@@ -20,7 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AssetMaintApplication">
-        <value xml:lang="de">Vermögensverwaltungsanwendung</value>
+        <value xml:lang="de">Instandhaltungsanwendung</value>
         <value xml:lang="en">Asset Maintenance Application</value>
         <value xml:lang="fr">Application de maintenance des biens</value>
         <value xml:lang="it">Applicazione manutenzione cespiti</value>
@@ -28,6 +28,7 @@
         <value xml:lang="zh">资产维护应用程序</value>
     </property>
     <property key="AssetMaintCompanyName">
+        <value xml:lang="de">OFBiz: Instandhaltung</value>
         <value xml:lang="en">OFBiz: Asset Maintenance</value>
         <value xml:lang="fr">OFBiz : maintenance des biens</value>
         <value xml:lang="it">OFBiz: Manutenzione cespiti</value>
@@ -63,7 +64,7 @@
         <value xml:lang="zh">"${productId}的有效的库存级别是${quantity}"</value>
     </property>
     <property key="AssetMaintManager">
-        <value xml:lang="de">Vermögensverwaltungsanwendung</value>
+        <value xml:lang="de">Instandhaltungsanwendung</value>
         <value xml:lang="en">Asset Maintenance</value>
         <value xml:lang="fr">Application de maintenance des biens</value>
         <value xml:lang="it">Manutenzione cespiti</value>

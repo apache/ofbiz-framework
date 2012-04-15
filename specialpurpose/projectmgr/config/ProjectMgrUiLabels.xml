@@ -865,7 +865,7 @@
         <value xml:lang="zh">项目</value>
     </property>
     <property key="ProjectMgrConfirmationClose">
-        <value xml:lang="de">Sind Sie sich sicher dieses Projekt zu schlißen?</value>
+        <value xml:lang="de">Sind Sie sich sicher dieses Projekt zu schließen?</value>
         <value xml:lang="en">Are you sure to close this project?</value>
         <value xml:lang="fr">Etes vous sur de vouloir clôturer ce projet ?</value>
         <value xml:lang="nl">Weet U zeker dat dit project afgesloten moet worden?</value>

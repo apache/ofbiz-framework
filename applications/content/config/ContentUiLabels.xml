@@ -635,6 +635,7 @@
     </property>
     <property key="ContentCompDocParentContentId">
         <value xml:lang="da">Forældre inholds id</value>
+        <value xml:lang="de">Übergeordneter Inhalt</value>
         <value xml:lang="en">Parent Content ID</value>
         <value xml:lang="fr">Contenu parent</value>
         <value xml:lang="it">Contenuto padre</value>
@@ -3912,6 +3913,7 @@
     </property>
     <property key="FormFieldTitle_existContentId">
         <value xml:lang="da">Eksisterende indholds id</value>
+        <value xml:lang="de">Vorhander Inhalt</value>
         <value xml:lang="en">Existing Content Id</value>
         <value xml:lang="fr">Document existant</value>
         <value xml:lang="it">Codice contenuto esitente</value>

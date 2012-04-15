@@ -3418,7 +3418,7 @@
         <value xml:lang="zh_TW">不可退換銷售明細</value>
     </property>
     <property key="TermType.description.FIN_PAYMENT_DISC">
-        <value xml:lang="de">Zahlung (Rabatt bei Zahlung innerhalb der angegebenen Frist)</value>
+        <value xml:lang="de">Zahlung (Skonto bei Zahlung innerhalb der angegebenen Frist)</value>
         <value xml:lang="en">Payment (discounted if paid within specified days)</value>
         <value xml:lang="es">Pago (descuento por pago en el periodo establecido)</value>
         <value xml:lang="fr">Paiement (avec remise si payé dans un nombre de jours donnés)</value>

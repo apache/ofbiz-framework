@@ -1544,7 +1544,7 @@
         <value xml:lang="zh_TW">實體同步狀態</value>
     </property>
     <property key="WebtoolsEntityView">
-        <value xml:lang="de">Entität ansehen</value>
+        <value xml:lang="de">View Entity</value>
         <value xml:lang="en">View Entity</value>
         <value xml:lang="fr">Vue d'entité</value>
         <value xml:lang="it">Entità vista</value>
