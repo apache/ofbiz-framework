@@ -42,13 +42,29 @@ under the License.
     <screen name="editcontactmech">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditContactMechanism"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditContactMech.groovy"/>
+                <set field="reqName" from-field="requestName" />
+
+                <set field="dependentForm" value="editcontactmechform"/>
+                <set field="paramKey" value="countryGeoId"/>
+                <set field="mainId" value="countryGeoId"/>
+                <set field="dependentId" value="stateProvinceGeoId"/>
+                <set field="requestName" value="getAssociatedStateList"/>
+                <set field="responseName" value="stateList"/>
+                <set field="dependentKeyName" value="geoId"/>
+                <set field="descName" value="geoName"/>
+                <set field="selectedDependentOption" from-field="selectedStateName" default-value="_none_"/>
+                
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/customer/editcontactmech.ftl"/></html></platform-specific>
+                        <platform-specific>
+                            <html>
+                                <html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/>                                
+                                <html-template location="component://ecommerce/webapp/ecommerce/customer/editcontactmech.ftl"/>
+                            </html>
+                        </platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
