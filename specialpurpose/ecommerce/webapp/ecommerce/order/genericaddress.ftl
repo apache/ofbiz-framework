@@ -86,7 +86,7 @@ under the License.
   *</td>
 </tr>
 <tr>
-  <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
+  <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
     <select name="countryGeoId" class="selectBox" <#if requestParameters.useShipAddr?exists>disabled</#if>>

@@ -1280,7 +1280,7 @@
         <value xml:lang="en">CarrierShipmentMethod not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}; partyId is ${carrierPartyId} and shipmentMethodTypeId is ${shipmentMethodTypeId};</value>
         <value xml:lang="it">Metodo di spedizione corriere non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}; il soggetto è ${carrierPartyId} e il metodo di spedizione è ${shipmentMethodTypeId};</value>
     </property>
-    <property key="FacilityShipmentUpsRouteSegmentThirdPartyCountryNotFound">
+    <property key="FacilityShipmentUpsRouteSegmentThirdCommonCountryNotFound">
         <value xml:lang="en">Third-party country not found for ShipmentRouteSegment with shipmentId ${shipmentId} and shipmentRouteSegmentId ${shipmentRouteSegmentId}</value>
         <value xml:lang="it">Paese soggetto terzo non trovato per la spedizione ${shipmentId} e percorso spedizione ${shipmentRouteSegmentId}</value>
     </property>
@@ -11925,19 +11925,6 @@
         <value xml:lang="th">ไม่สามารถพบการขนส่งด้วยรหัส</value>
         <value xml:lang="zh">没有找到货运——标识</value>
         <value xml:lang="zh_TW">沒有找到貨運ID</value>
-    </property>
-    <property key="ProductCountry">
-        <value xml:lang="de">Land</value>
-        <value xml:lang="en">Country</value>
-        <value xml:lang="es">País</value>
-        <value xml:lang="fr">Pays</value>
-        <value xml:lang="it">Paese</value>
-        <value xml:lang="ro">Tara</value>
-        <value xml:lang="ru">Страна</value>
-        <value xml:lang="th">ประเทศ</value>
-        <value xml:lang="vi">Quốc gia</value>
-        <value xml:lang="zh">国家</value>
-        <value xml:lang="zh_TW">國家</value>
     </property>
     <property key="ProductCountryOfOrigin">
         <value xml:lang="en">Country of Origin</value>
@@ -23341,7 +23328,7 @@
         <value xml:lang="zh">第三方账户数字</value>
         <value xml:lang="zh_TW">第三方帳戶數字</value>
     </property>
-    <property key="ProductShipmentThirdPartyCountryCode">
+    <property key="ProductShipmentThirdCommonCountryCode">
         <value xml:lang="de">Landescode Dritter</value>
         <value xml:lang="en">Third Party Country Code</value>
         <value xml:lang="es">Código país de tercero</value>

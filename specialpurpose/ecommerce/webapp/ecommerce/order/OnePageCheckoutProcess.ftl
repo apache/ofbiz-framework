@@ -93,7 +93,7 @@ under the License.
                   <div>
                   <#if shipToTelecomNumber?has_content>
                       <span>
-                          <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
+                          <label for="shipToCountryCode">${uiLabelMap.CommonCountry}*
                               <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="shipToCountryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength="10" /> -
@@ -116,7 +116,7 @@ under the License.
                       </span>
                   <#else>
                       <span>
-                          <label for="shipToCountryCode">${uiLabelMap.PartyCountry}*
+                          <label for="shipToCountryCode">${uiLabelMap.CommonCountry}*
                               <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                           </label>
                           <input type="text" name="shipToCountryCode" class="required" id="shipToCountryCode" value="${parameters.shipToCountryCode?if_exists}" size="5" maxlength="10" /> -
@@ -179,7 +179,7 @@ under the License.
                     </div>
                     <div>
                         <span>
-                            <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*
+                            <label for="shipToCountryGeoId">${uiLabelMap.CommonCountry}*
                                 <span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                             </label>
                             <select name="shipToCountryGeoId" id="shipToCountryGeoId">
@@ -318,7 +318,7 @@ under the License.
                         <div>  
                           <#if billToTelecomNumber?has_content>
                             <span>
-                                <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
+                                <label for="billToCountryCode">${uiLabelMap.CommonCountry}*
                                     <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="billToCountryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength="10" /> -
@@ -341,7 +341,7 @@ under the License.
                             </span>
                           <#else>
                             <span>
-                                <label for="billToCountryCode">${uiLabelMap.PartyCountry}*
+                                <label for="billToCountryCode">${uiLabelMap.CommonCountry}*
                                     <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                                 </label>
                                 <input type="text" name="billToCountryCode" class="required" id="billToCountryCode" value="${parameters.billToCountryCode?if_exists}" size="5" maxlength="10" /> -
@@ -440,7 +440,7 @@ under the License.
                               <input id="billToPostalCode" name="billToPostalCode" class="required" type="text" value="${billToPostalCode?if_exists}" size="12" maxlength="10" />
                           </div>
                           <div>
-                              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*
+                              <label for="billToCountryGeoId">${uiLabelMap.CommonCountry}*
                                 <span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (${uiLabelMap.CommonRequired})</span>
                               </label>
                               <select name="billToCountryGeoId" id="billToCountryGeoId">

@@ -45,7 +45,7 @@ under the License.
         <span id="advice-required-postalCode_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
-        <label for="countryGeoId_${contactMech.contactMechId}">${uiLabelMap.PartyCountry}*</label>
+        <label for="countryGeoId_${contactMech.contactMechId}">${uiLabelMap.CommonCountry}*</label>
         <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="required">
           <#if postalAddress.countryGeoId??>
             <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.countryGeoId), true) />

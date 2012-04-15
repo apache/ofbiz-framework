@@ -25,7 +25,7 @@
         <value xml:lang="fr">Revenu annuel</value>
         <value xml:lang="hi_IN">वार्षिक राजस्व</value>
         <value xml:lang="it">Revisione annuale</value>
-        <value xml:lang="nl">Jaaromzet</value>      
+        <value xml:lang="nl">Jaaromzet</value>
         <value xml:lang="pt_BR">Receita bruta anual</value>
         <value xml:lang="zh">年收入</value>
         <value xml:lang="zh_TW">年收益</value>
@@ -163,7 +163,7 @@
         <value xml:lang="en">Communication Party Id</value>
         <value xml:lang="hi_IN">संचार पार्टी क्रमांक</value>
         <value xml:lang="it">Soggetto comuicazione</value>
-        <value xml:lang="nl">Communicatie Party ID</value>      
+        <value xml:lang="nl">Communicatie Party ID</value>
         <value xml:lang="pt_BR">Id do participante da comunicação</value>
         <value xml:lang="zh">沟通会员标识</value>
         <value xml:lang="zh_TW">通訊成員ID</value>
@@ -260,7 +260,7 @@
         <value xml:lang="en">Deceased Date</value>
         <value xml:lang="fr">Date de décès</value>
         <value xml:lang="it">Data decesso</value>
-        <value xml:lang="nl">Datum overleden</value>        
+        <value xml:lang="nl">Datum overleden</value>
         <value xml:lang="pt_BR">Data de falecimento</value>
         <value xml:lang="zh_TW">忌日</value>
     </property>
@@ -291,7 +291,7 @@
         <value xml:lang="fr">Lieu de stockage de destination</value>
         <value xml:lang="hi_IN">गंतव्य सुविधा क्रमांक(destinationFacilityId)</value>
         <value xml:lang="it">Stabilimento destinazione</value>
-        <value xml:lang="nl">Bestemmingsmagazijn ID</value>     
+        <value xml:lang="nl">Bestemmingsmagazijn ID</value>
         <value xml:lang="pt_BR">Id da instalação de destino</value>
         <value xml:lang="zh">目的地设备标识</value>
         <value xml:lang="zh_TW">目的機構ID</value>
@@ -332,7 +332,7 @@
         <value xml:lang="fr">Mél</value>
         <value xml:lang="hi_IN">ईमेल पता</value>
         <value xml:lang="it">Indirizzo Email</value>
-        <value xml:lang="nl">Emailadres</value>     
+        <value xml:lang="nl">Emailadres</value>
         <value xml:lang="pt_BR">Endereço de e-mail</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
         <value xml:lang="zh">电子邮件地址</value>
@@ -419,7 +419,7 @@
         <value xml:lang="fr">Expéditeur</value>
         <value xml:lang="hi_IN">पार्टी क्रमांक से</value>
         <value xml:lang="it">Dal Soggetto</value>
-        <value xml:lang="nl">Van relatie ID</value>     
+        <value xml:lang="nl">Van relatie ID</value>
         <value xml:lang="pt_BR">Id do participante remetente</value>
         <value xml:lang="ro">De la Subiect </value>
         <value xml:lang="ru">От участника</value>
@@ -4301,25 +4301,7 @@
         <value xml:lang="en">Could not create new purpose, a purpose with that type already exists</value>
         <value xml:lang="it">Non è possibile creare una nuova funzione, una funzione con quel tipo esiste già</value>
     </property>
-    <property key="PartyCountry">
-        <value xml:lang="cs">Země</value>
-        <value xml:lang="de">Land</value>
-        <value xml:lang="en">Country</value>
-        <value xml:lang="es">País</value>
-        <value xml:lang="fr">Pays</value>
-        <value xml:lang="hi_IN">देश</value>
-        <value xml:lang="it">Paese</value>
-        <value xml:lang="ja">Country</value>
-        <value xml:lang="nl">Land</value>
-        <value xml:lang="pt_BR">País</value>
-        <value xml:lang="pt_PT">País</value>
-        <value xml:lang="ro">Tara</value>
-        <value xml:lang="ru">Страна</value>
-        <value xml:lang="th">ประเทศ</value>
-        <value xml:lang="zh">国家</value>
-        <value xml:lang="zh_TW">國家</value>
-    </property>
-    <property key="PartyCountryCode">
+    <property key="CommonCountryCode">
         <value xml:lang="cs">Mezinárodní předvolba</value>
         <value xml:lang="de">Landesvorwahl</value>
         <value xml:lang="en">Country Code</value>
@@ -4337,7 +4319,7 @@
         <value xml:lang="zh">国家代码</value>
         <value xml:lang="zh_TW">國碼</value>
     </property>
-    <property key="PartyCountryCodeMissing">
+    <property key="CommonCountryCodeMissing">
         <value xml:lang="de">Landesvorwahl fehlt</value>
         <value xml:lang="en">Country code is Missing</value>
         <value xml:lang="fr">Le code pays manque</value>
@@ -4347,7 +4329,7 @@
         <value xml:lang="zh">找不到国家代码</value>
         <value xml:lang="zh_TW">沒有國碼</value>
     </property>
-    <property key="PartyCountryMissing">
+    <property key="CommonCountryMissing">
         <value xml:lang="cs">Chybí země</value>
         <value xml:lang="de">Land fehlt</value>
         <value xml:lang="en">Country is Missing</value>
@@ -6780,7 +6762,7 @@
         <value xml:lang="en">Main Role</value>
         <value xml:lang="fr">Rôle principal</value>
         <value xml:lang="it">Ruolo principale</value>
-        <value xml:lang="nl">Hoofdrol</value>       
+        <value xml:lang="nl">Hoofdrol</value>
         <value xml:lang="pt_BR">Pepel principal</value>
     </property>
     <property key="PartyManager">
@@ -7191,7 +7173,7 @@
         <value xml:lang="fr">Nom, téléphone et courriel</value>
         <value xml:lang="hi_IN">नाम, फोन और ईमेल</value>
         <value xml:lang="it">Nome, telefono ed Email</value>
-        <value xml:lang="nl">Naam, telefoon en email</value>        
+        <value xml:lang="nl">Naam, telefoon en email</value>
         <value xml:lang="pt_BR">Nome, telefone e e-mail</value>
         <value xml:lang="ru">Телефон и эл.почта </value>
         <value xml:lang="th">ชื่อ เบอร์โทรศัพท์ และอีเมล์</value>
@@ -9258,7 +9240,7 @@
         <value xml:lang="en">Related Company</value>
         <value xml:lang="fr">Société associée</value>
         <value xml:lang="it">Azienda relativa</value>
-        <value xml:lang="nl">Gerelateerd bedrijf</value>        
+        <value xml:lang="nl">Gerelateerd bedrijf</value>
         <value xml:lang="pt_BR">Empresa relacionada</value>
     </property>
     <property key="PartyRelationSecurity">
@@ -10905,7 +10887,7 @@
         <value xml:lang="en">Username in use, please choose another.</value>
         <value xml:lang="fr">Identifiant de connexion déjà utilisé, choisissez en un autre SVP.</value>
         <value xml:lang="it">Il nome utente è già in uso, per favore sceglierne un altro.</value>
-        <value xml:lang="nl">Deze gebruikersnaam bestaat al. Kiest u alstublieft een andere.</value>        
+        <value xml:lang="nl">Deze gebruikersnaam bestaat al. Kiest u alstublieft een andere.</value>
         <value xml:lang="zh_TW">使用者名稱已使用, 請另行選擇.</value>
     </property>
     <property key="PartyUserNameMissing">

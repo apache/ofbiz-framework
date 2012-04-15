@@ -210,7 +210,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCountryGeoId"/>
@@ -305,7 +305,7 @@ under the License.
                  *</td>
               </tr>
               <tr>
-                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.PartyCountry}</div></td>
+                 <td width="26%" align="right" valign="middle"><div class="tabletext">${uiLabelMap.CommonCountry}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToCountryGeoId"/>

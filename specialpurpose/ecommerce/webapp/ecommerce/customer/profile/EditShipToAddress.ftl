@@ -44,7 +44,7 @@ under the License.
       <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
-      <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*</label>
+      <label for="shipToCountryGeoId">${uiLabelMap.CommonCountry}*</label>
       <select name="countryGeoId" id="shipToCountryGeoId" class="required">
         <#if shipToCountryGeoId??>
           <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryGeoId!)}</option>

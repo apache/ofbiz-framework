@@ -320,7 +320,7 @@ under the License.
             <div class="form-field"><input type="text" class="required number" name="shipToPostalCode" id="postalCode" value="" size="30" maxlength="10" /></div>
           </div>
           <div class="form-row">
-            <label for="countryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
+            <label for="countryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
               <select name="shipToCountryGeoId" id="countryGeoId" class="required" style="width: 70%">
                 <#if countryGeoId?exists>

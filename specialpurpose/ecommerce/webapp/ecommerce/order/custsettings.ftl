@@ -61,7 +61,7 @@ under the License.
   <caption>${uiLabelMap.PartyPhoneNumbers}</caption>
     <tr>
       <th></th>
-      <th scope="col">${uiLabelMap.PartyCountry}</th>
+      <th scope="col">${uiLabelMap.CommonCountry}</th>
       <th scope="col">${uiLabelMap.PartyAreaCode}</th>
       <th scope="col">${uiLabelMap.PartyContactNumber}</th>
       <th scope="col">${uiLabelMap.PartyExtension}</th>

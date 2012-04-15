@@ -43,7 +43,7 @@ under the License.
         <span id="advice-required-postalCode" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
-        <label for="countryGeoId">${uiLabelMap.PartyCountry}*</label>
+        <label for="countryGeoId">${uiLabelMap.CommonCountry}*</label>
         <select name="countryGeoId" id="countryGeoId">
           <#if countryGeoId??>
             <option value="${countryGeoId!}">${countryProvinceGeo!(countryGeoId!)}</option>

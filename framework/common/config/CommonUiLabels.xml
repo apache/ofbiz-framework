@@ -1904,6 +1904,7 @@
     </property>
     <property key="CommonCountry">
         <value xml:lang="ar">بلد</value>
+        <value xml:lang="cs">Země</value>
         <value xml:lang="de">Land</value>
         <value xml:lang="en">Country</value>
         <value xml:lang="es">País</value>
@@ -1911,7 +1912,8 @@
         <value xml:lang="hi_IN">देश</value>
         <value xml:lang="it">Paese</value>
         <value xml:lang="nl">Land</value>
-        <value xml:lang="pt">País</value>
+        <value xml:lang="pt_BR">País</value>
+        <value xml:lang="pt_PT">País</value>
         <value xml:lang="ro">Tara</value>
         <value xml:lang="ru">Страна</value>
         <value xml:lang="th">ประเทศ</value>
@@ -2608,7 +2610,7 @@
     </property>
     <property key="CommonEmailDeliveryFailed">
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
-        <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>        
+        <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>
         <value xml:lang="it">Consegna ai seguenti destinatario(i) fallita:</value>
         <value xml:lang="vi">Gửi thất bại đến người nhận sau:</value>
     </property>
@@ -3252,7 +3254,7 @@
         <value xml:lang="zh_TW">女</value>
     </property>
     <property key="CommonFieldLookup">
-        <value xml:lang="de">Feldsuche</value>    
+        <value xml:lang="de">Feldsuche</value>
         <value xml:lang="en">Field Lookup</value>
         <value xml:lang="es">Búsqueda por campo</value>
         <value xml:lang="fr">Recherche pour ce champ</value>
@@ -5479,7 +5481,7 @@
         <value xml:lang="zh_TW">移動到門戶頁面...</value>
     </property>
     <property key="CommonMyPersonalPage">
-        <value xml:lang="de">Persönliche Seite</value>    
+        <value xml:lang="de">Persönliche Seite</value>
         <value xml:lang="en">My Personal Page</value>
         <value xml:lang="es">Mi página personal</value>
         <value xml:lang="fr">Ma propre page</value>
@@ -7596,7 +7598,7 @@
         <value xml:lang="zh_TW">刪除Portlet</value>
     </property>
     <property key="CommonReport">
-        <value xml:lang="de">Bericht</value>    
+        <value xml:lang="de">Bericht</value>
         <value xml:lang="en">Report</value>
         <value xml:lang="es">Informe</value>
         <value xml:lang="fr">Etat</value>
@@ -8861,7 +8863,7 @@
         <value xml:lang="es">Creado correctamente.</value>
         <value xml:lang="fr">Créé avec succès.</value>
         <value xml:lang="vi">Khởi tạo thành công</value>
-    </property>    
+    </property>
     <property key="CommonSummary">
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
@@ -10114,7 +10116,7 @@
         <value xml:lang="zh_TW">視覺風格ID找不到。</value>
     </property>
     <property key="CommonVisualThemeInvalidRecord">
-        <value xml:lang="de">In der Layoutvorlage wurde ein ungültiger Ressourcen-Satz gefunden: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>    
+        <value xml:lang="de">In der Layoutvorlage wurde ein ungültiger Ressourcen-Satz gefunden: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="en">Invalid Visual Theme resource record found: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="es">Se ha encontrado una entrada inválida de tema visual: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
         <value xml:lang="fr">Ressource de charte graphique trouvée non valable : visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
@@ -10151,7 +10153,7 @@
         <value xml:lang="zh_TW">沒有找到視覺風格資源。</value>
     </property>
     <property key="CommonVisualThemeSelected">
-        <value xml:lang="de">Ausgewählte Layoutvorlage</value>    
+        <value xml:lang="de">Ausgewählte Layoutvorlage</value>
         <value xml:lang="en">Selected Visual Theme</value>
         <value xml:lang="es">Tema visual seleccionado</value>
         <value xml:lang="fr">Charte graphique sélectionnée</value>
@@ -10169,7 +10171,7 @@
         <value xml:lang="vi">Bấm vào hình để xem, bấm vào liên kết để chọn giao diện, và sau đó bấm vào nút Hoàn tất để lựa chọn của bạn có hiệu lực</value>
     </property>
     <property key="CommonVisualThemes">
-        <value xml:lang="de">Layoutvorlagen</value>    
+        <value xml:lang="de">Layoutvorlagen</value>
         <value xml:lang="en">Visual Themes</value>
         <value xml:lang="es">Temas visuales</value>
         <value xml:lang="fr">Chartes graphiques</value>
@@ -10920,7 +10922,7 @@
         <value xml:lang="zh_TW">建立的使用者</value>
     </property>
     <property key="FormFieldTitle_createdByUserLoginId">
-        <value xml:lang="de">Erstellt von Benutzer-Id</value>    
+        <value xml:lang="de">Erstellt von Benutzer-Id</value>
         <value xml:lang="en">Created By User Login Id</value>
         <value xml:lang="es">Creado por código de usuario</value>
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
@@ -11179,7 +11181,7 @@
         <value xml:lang="zh_TW">最近修改日</value>
     </property>
     <property key="FormFieldTitle_lastUpdatedTxStamp">
-        <value xml:lang="de">Zeitpunkt der letzten Aktualisierung</value>    
+        <value xml:lang="de">Zeitpunkt der letzten Aktualisierung</value>
         <value xml:lang="en">Last Updated Tx Stamp</value>
         <value xml:lang="es">Última fecha modificación Tx</value>
         <value xml:lang="fr">Dernière mise à jour d'estampille temporelle de transaction créée</value>
@@ -11644,7 +11646,7 @@
         <value xml:lang="zh_TW">入口</value>
     </property>
     <property key="OFBiz Site">
-        <value xml:lang="de">OFBiz Homepage</value>    
+        <value xml:lang="de">OFBiz Homepage</value>
         <value xml:lang="en">OFBiz Site</value>
         <value xml:lang="es">Página web de OFBiz</value>
         <value xml:lang="fr">Site officiel d'OFBiz</value>
@@ -11765,7 +11767,7 @@
         <value xml:lang="zh">结账选项</value>
     </property>
     <property key="PageTitleCommonGeoLocation">
-        <value xml:lang="de">Geografischer Ort des Elements</value>    
+        <value xml:lang="de">Geografischer Ort des Elements</value>
         <value xml:lang="en">Geo Location of requested element</value>
         <value xml:lang="es">Ubicación geográfica del elemento solicitado</value>
         <value xml:lang="fr">Géolocalisation de l'élément demandé</value>
@@ -11938,7 +11940,7 @@
         <value xml:lang="zh">快速添加</value>
     </property>
     <property key="PageTitleViewBlocked">
-        <value xml:lang="de">Zugriff blockiert</value>    
+        <value xml:lang="de">Zugriff blockiert</value>
         <value xml:lang="en">View Blocked</value>
         <value xml:lang="es">Página bloqueada</value>
         <value xml:lang="fr">Page bloquée</value>
@@ -11985,7 +11987,7 @@
         <value xml:lang="zh_TW">無法找到這個頁面(${parameters.portalPageId})！</value>
     </property>
     <property key="PortalPageNotOwned">
-        <value xml:lang="de">Sie sind nicht Besitzer der Seite '${portalPage.portalPageName}' [${portalPage.portalPageId}] deshalb können Sie sie nicht ändern!</value>    
+        <value xml:lang="de">Sie sind nicht Besitzer der Seite '${portalPage.portalPageName}' [${portalPage.portalPageId}] deshalb können Sie sie nicht ändern!</value>
         <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
         <value xml:lang="es">La página '${portalPage.portalPageName}' [${portalPage.portalPageId}] no es suya, por lo tanto no puede modificarla!</value>
         <value xml:lang="fr">La page : '${portalPage.portalPageName}' [${portalPage.portalPageId}] ne vous appartient pas, vous ne pouvez la changer !</value>
