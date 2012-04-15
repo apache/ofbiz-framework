@@ -63,7 +63,7 @@
         <value xml:lang="zh_TW">財務</value>
     </property>
     <property key="AssetMaint">
-        <value xml:lang="de">Vermögensverwaltung</value>
+        <value xml:lang="de">Instandhaltung</value>
         <value xml:lang="en">Asset Maint</value>
         <value xml:lang="es">Manten. Activos</value>
         <value xml:lang="fr">Maintenance</value>
@@ -1602,7 +1602,7 @@
     <property key="CommonComment">
         <value xml:lang="ar">تعليق</value>
         <value xml:lang="cs">Poznámka</value>
-        <value xml:lang="de">Anmerkung</value>
+        <value xml:lang="de">Notiz</value>
         <value xml:lang="en">Comment</value>
         <value xml:lang="es">Comentario</value>
         <value xml:lang="fr">Commentaire</value>
@@ -1621,7 +1621,7 @@
     <property key="CommonComments">
         <value xml:lang="ar">تعاليق</value>
         <value xml:lang="cs">Poznámky</value>
-        <value xml:lang="de">Anmerkungen</value>
+        <value xml:lang="de">Notizen</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
@@ -4397,7 +4397,7 @@
         <value xml:lang="zh_TW">插入</value>
     </property>
     <property key="CommonInternalComment">
-        <value xml:lang="de">Interne Anmerkung</value>
+        <value xml:lang="de">Interne Notiz</value>
         <value xml:lang="en">Internal Comment</value>
         <value xml:lang="es">Comentario interno</value>
         <value xml:lang="fr">Commentaire interne</value>
@@ -6084,7 +6084,7 @@
     </property>
     <property key="CommonNote">
         <value xml:lang="ar">مذكرة</value>
-        <value xml:lang="de">Anmerkung</value>
+        <value xml:lang="de">Notiz</value>
         <value xml:lang="en">Note</value>
         <value xml:lang="es">Nota</value>
         <value xml:lang="fr">Note</value>
@@ -6106,7 +6106,7 @@
     </property>
     <property key="CommonNotes">
         <value xml:lang="ar">مذكرات</value>
-        <value xml:lang="de">Anmerkungen</value>
+        <value xml:lang="de">Notizen</value>
         <value xml:lang="en">Notes</value>
         <value xml:lang="es">Notas</value>
         <value xml:lang="fr">Notes</value>
@@ -10831,7 +10831,7 @@
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="ar">تعاليق</value>
-        <value xml:lang="de">Anmerkungen</value>
+        <value xml:lang="de">Notizen</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
         <value xml:lang="fr">Commentaires</value>
