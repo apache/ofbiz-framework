@@ -93,11 +93,11 @@ if (parameters.countryGeoId) {
 if (parameters.stateProvinceGeoId) {
     geoValue = delegator.findByPrimaryKeyCache("Geo", [geoId : parameters.stateProvinceGeoId]);
     if (geoValue) {
-        context.selectedStateName = geoValue.geoName;
+        context.selectedStateName = geoValue.geoId;
     }
 } else if (postalAddressData?.stateProvinceGeoId) {
     geoValue = delegator.findByPrimaryKeyCache("Geo", [geoId : postalAddressData.stateProvinceGeoId]);
     if (geoValue) {
-        context.selectedStateName = geoValue.geoName;
+        context.selectedStateName = geoValue.geoId;
     }
 }
