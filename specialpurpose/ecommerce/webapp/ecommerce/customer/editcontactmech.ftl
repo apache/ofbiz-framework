@@ -177,7 +177,7 @@ under the License.
         *</td>
       </tr>
       <tr>
-        <td align="right" valign="top">${uiLabelMap.PartyCountry}</td>
+        <td align="right" valign="top">${uiLabelMap.CommonCountry}</td>
         <td>&nbsp;</td>
         <td>
           <select name="countryGeoId" class='selectBox'>

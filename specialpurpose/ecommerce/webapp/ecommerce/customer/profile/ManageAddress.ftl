@@ -55,7 +55,7 @@ under the License.
             <input type="text" class="required" name="postalCode" id="postalCode" value="" maxlength="10" />
           </div>
           <div>
-            <label for="countryGeoId">${uiLabelMap.PartyCountry}*
+            <label for="countryGeoId">${uiLabelMap.CommonCountry}*
               <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
              <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">

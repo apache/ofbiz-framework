@@ -90,7 +90,7 @@ under the License.
               <td width="20%"></td>
             </tr>
             <tr>
-              <td width="20%" >${uiLabelMap.PartyCountry}</td>
+              <td width="20%" >${uiLabelMap.CommonCountry}</td>
               <td width="30%">${contactInfo1.country?if_exists}</td>
               <td width="30%">${contactInfo2.country?if_exists}</td>
               <td width="20%"></td>

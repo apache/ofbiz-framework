@@ -71,7 +71,7 @@ under the License.
           <td><b>${uiLabelMap.PartyCity}</b></td>
           <td><b>${uiLabelMap.PartyPostalCode}</b></td>
           <td><b>${uiLabelMap.PartyState}</b></td>
-          <td><b>${uiLabelMap.PartyCountry}</b></td>
+          <td><b>${uiLabelMap.CommonCountry}</b></td>
           <td><b>B/S</b></td>
         </tr>
       </thead>

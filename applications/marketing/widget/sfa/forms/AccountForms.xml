@@ -224,7 +224,7 @@ under the License.
             </drop-down>
         </field>
         <field name="paPostalCode"><text-find/></field>
-        <field name="paCountryGeoId" title="${uiLabelMap.PartyCountry}">
+        <field name="paCountryGeoId" title="${uiLabelMap.CommonCountry}">
             <drop-down allow-empty="true">
                 <list-options key-name="geoId" description="${geoName}" list-name="countries"/>
             </drop-down>

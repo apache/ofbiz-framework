@@ -79,7 +79,7 @@ under the License.
             <input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}" maxlength="10" />
           </div>
           <div>
-            <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
+            <label for="shipToCountryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
             <div>
               <select name="shipToCountryGeoId" id="shipToCountryGeoId">
                 <#if shipToCountryGeoId??>
@@ -136,7 +136,7 @@ under the License.
               <input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}" maxlength="10" />
             </div>
             <div>
-              <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
+              <label for="billToCountryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
               <select name="billToCountryGeoId" id="billToCountryGeoId" class='required selectBox'>
               <#if billToCountryGeoId??>
                 <option value='${billToCountryGeoId!}'>${billToCountryProvinceGeo!(billToCountryGeoId!)}</option>

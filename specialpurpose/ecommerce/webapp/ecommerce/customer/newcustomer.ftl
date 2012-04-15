@@ -202,7 +202,7 @@ will generally always be reserved for the logo at the top of the page.
     </div>
 
     <div>
-      <label for="customerCountry">${uiLabelMap.PartyCountry}*</label>
+      <label for="customerCountry">${uiLabelMap.CommonCountry}*</label>
       <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
       <select name="CUSTOMER_COUNTRY" onclick="hideShowUsaStates();" id="customerCountry">
         <#if requestParameters.CUSTOMER_COUNTRY?exists>
@@ -243,7 +243,7 @@ will generally always be reserved for the logo at the top of the page.
       <thead>
         <tr>
           <th></th>
-          <th scope="col">${uiLabelMap.PartyCountry}</th>
+          <th scope="col">${uiLabelMap.CommonCountry}</th>
           <th scope="col">${uiLabelMap.PartyAreaCode}</th>
           <th scope="col">${uiLabelMap.PartyContactNumber}</th>
           <th scope="col">${uiLabelMap.PartyExtension}</th>

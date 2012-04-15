@@ -56,7 +56,7 @@ under the License.
     </tr>
     <tr>
       <td width="15%">
-        <b>${uiLabelMap.PartyCountry}</b>
+        <b>${uiLabelMap.CommonCountry}</b>
       </td>
       <td width="35%">
         <input type="text" id="countryProvinceGeo" name="countryProvinceGeo" value="" />

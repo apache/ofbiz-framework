@@ -44,7 +44,7 @@ under the License.
       <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
-      <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*</label>
+      <label for="billToCountryGeoId">${uiLabelMap.CommonCountry}*</label>
       <select name="countryGeoId" id="billToCountryGeoId" class="required">
         <#if billToCountryGeoId??>
           <option value='${billToCountryGeoId!}'>${billToCountryProvinceGeo!(billToCountryGeoId!)}</option>
