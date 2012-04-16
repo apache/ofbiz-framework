@@ -22,7 +22,6 @@ under the License.
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createPartyContactMech" short-description="Create a PartyContactMech">
         <make-value entity-name="PartyContactMech" value-field="newValue"/>
-        <make-value entity-name="PartyContactMech" value-field="newPartyContactMech"/><!-- DEJ20061016: is this really needed? doesn't seem to be used... -->
         <if-empty field="parameters.partyId">
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
