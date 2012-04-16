@@ -39,8 +39,8 @@ under the License.
                 <condition>
                     <and>
                         <if-compare operator="equals" value="N" field="contactMechType.hasTable"/>
-                        <if-compare operator="equals" value="${partyAndContactMech.infoString}" field="parameters.infoString"/>
-                        <if-compare operator="equals" value="${partyAndContactMech.contactMechTypeId}" field="parameters.contactMechTypeId"/>
+                        <if-compare-field operator="equals" field="parameters.infoString" to-field="partyAndContactMech.infoString" />
+                        <if-compare-field operator="equals" field="parameters.contactMechTypeId" to-field="partyAndContactMech.contactMechTypeId" />
                     </and>
                 </condition>
                 <then>
