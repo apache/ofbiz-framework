@@ -1078,16 +1078,16 @@ under the License.
         <field name="toPartyId"><display/></field>
     </form>
     <form name="PartySalesOpportunities" type="list" list-name="salesOpportunities" default-table-style="basic-table hover-bar">
-        <field name="opportunityName">
+        <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
             <hyperlink target="ViewSalesOpportunity" description="${opportunityName} [${salesOpportunityId}]">
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
         <field name="opportunityStageId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
-        <field name="estimatedAmount"><display/></field>
+        <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="partyId"><display/></field>
     </form>
-    
+
     <form name="listPartyIdentification" type="list" list-name="listIt"
                  default-table-style="basic-table hover-bar" target="updatePartyIdentification">
         <actions>
