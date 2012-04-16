@@ -165,7 +165,7 @@
         <!-- Expire relation between lead company and its owner -->
         <entity-and entity-name="PartyRelationship" list="partyRelationships" filter-by-date="true">
             <field-map field-name="partyIdFrom" from-field="userLogin.partyId"/>
-            <field-map field-name="partyIdTo" from-field="partyGroupPartyId"/>
+            <field-map field-name="partyIdTo" from-field="partyGroupId"/>
             <field-map field-name="roleTypeIdTo" value="ACCOUNT_LEAD"/>
             <field-map field-name="roleTypeIdFrom" value="OWNER"/>
             <order-by field-name="-fromDate"/>
