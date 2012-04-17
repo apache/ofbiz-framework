@@ -93,6 +93,9 @@ will generally always be reserved for the logo at the top of the page.
   </#if>
 </#macro>
 
+  &nbsp;<a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="javascript:document.getElementById('newuserform').submit()" class="button">${uiLabelMap.CommonSave}</a>
+
 <form method="post" action="<@ofbizUrl>createcustomer${previousParams}</@ofbizUrl>" id="newuserform">
   
   
@@ -396,9 +399,9 @@ and a tags acting as submit buttons, all button actions should have a
 class name of "button". No other class names should be used to style 
 button actions.
 ------------------------------------------------------------------------------->
-<div class="buttons">
-  <a href="javascript:document.getElementById('newuserform').submit()">${uiLabelMap.CommonSave}</a>
-  <a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="reset">${uiLabelMap.CommonBack}</a>
+<div class="buttons">  
+  &nbsp;<a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="javascript:document.getElementById('newuserform').submit()" class="button">${uiLabelMap.CommonSave}</a>   
 </div>
 
 <script type="text/javascript">

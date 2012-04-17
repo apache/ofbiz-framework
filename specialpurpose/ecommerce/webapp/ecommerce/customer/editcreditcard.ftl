@@ -19,7 +19,7 @@ under the License.
 
 <#if canNotView>
   <h3>${uiLabelMap.AccountingCardInfoNotBelongToYou}.</h3>
-<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonBack}</a>
+<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
 <#else>
   <#if !creditCard?exists>
       <h2>${uiLabelMap.AccountingAddNewCreditCard}</h2>
@@ -30,9 +30,10 @@ under the License.
       <form method="post" action="<@ofbizUrl>updateCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform">
         <div>
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
-    </#if>
-      <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonCancelDone}</a>
-      <a href="javascript:document.editcreditcardform.submit()" class="button">${uiLabelMap.CommonSave}</a>
+    </#if>      
+      &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+      &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="button">${uiLabelMap.CommonSave}</a>  
+      <p/>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
          ${screens.render("component://accounting/widget/CommonScreens.xml#creditCardFields")}
          <tr>
@@ -134,9 +135,8 @@ under the License.
          </tr>
        </table>
        </div>
-     </form>
-
-  <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonCancelDone}</a>
-  <a href="javascript:document.editcreditcardform.submit()" class="button">${uiLabelMap.CommonSave}</a>
+     </form>  
+  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="javascript:document.editcreditcardform.submit()" class="button">${uiLabelMap.CommonSave}</a>  
 </#if>
 
