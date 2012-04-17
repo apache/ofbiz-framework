@@ -75,7 +75,6 @@ public class Start {
     public static void main(String[] args) throws IOException {
         Command command = null;
         List<String> loaderArgs = new ArrayList<String>(args.length);
-        System.err.println("debug: args=" + java.util.Arrays.asList(args));
         for (String arg: args) {
             if (arg.equals("-help") || arg.equals("-?")) {
                 command = checkCommand(command, Command.HELP);
@@ -95,8 +94,6 @@ public class Start {
                 }
             }
         }
-        System.err.println("debug: command=" + command);
-        System.err.println("debug: loaderArgs=" + loaderArgs);
         if (command == null) {
             command = Command.COMMAND;
             loaderArgs.add("start");
