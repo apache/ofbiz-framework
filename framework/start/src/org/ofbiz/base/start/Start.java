@@ -39,8 +39,9 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class Start {
 
-    private static final String SHUTDOWN_COMMAND = "SHUTDOWN";
-    private static final String STATUS_COMMAND = "STATUS";
+    private enum Control {
+        SHUTDOWN, STATUS
+    }
 
     private static void help(PrintStream out) {
         out.println("");
@@ -240,7 +241,7 @@ public class Start {
         return true;
     }
 
-    private String sendSocketCommand(String command) throws IOException, ConnectException {
+    private String sendSocketCommand(Control control) throws IOException, ConnectException {
         String response = "OFBiz is Down";
 
         try {
@@ -248,7 +249,7 @@ public class Start {
 
         // send the command
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        writer.println(config.adminKey + ":" + command);
+        writer.println(config.adminKey + ":" + control);
         writer.flush();
 
         // read the reply
@@ -268,7 +269,7 @@ public class Start {
     }
 
     public String shutdown() throws IOException {
-        return sendSocketCommand(Start.SHUTDOWN_COMMAND);
+        return sendSocketCommand(Control.SHUTDOWN);
     }
 
     private void shutdownServer() {
@@ -331,7 +332,7 @@ public class Start {
 
     public String status() throws IOException {
         try {
-            return sendSocketCommand(Start.STATUS_COMMAND);
+            return sendSocketCommand(Control.STATUS);
         } catch (ConnectException e) {
             return "Not Running";
         } catch (IOException e) {
@@ -362,9 +363,9 @@ public class Start {
                 writer = new PrintWriter(client.getOutputStream(), true);
                 if (request != null && !request.isEmpty() && request.contains(":")) {
                     String key = request.substring(0, request.indexOf(':'));
-                    String command = request.substring(request.indexOf(':') + 1);
+                    Control control = Control.valueOf(request.substring(request.indexOf(':') + 1));
                     if (key.equals(config.adminKey)) {
-                        if (command.equals(Start.SHUTDOWN_COMMAND)) {
+                        if (control == Control.SHUTDOWN) {
                             if (Start.this.serverState.get() == ServerState.STOPPING) {
                                 writer.println("IN-PROGRESS");
                             } else {
@@ -373,7 +374,7 @@ public class Start {
                                 stopServer();
                             }
                             return;
-                        } else if (command.equals(Start.STATUS_COMMAND)) {
+                        } else if (control == Control.STATUS) {
                             writer.println(Start.this.serverState.get());
                             return;
                         }
