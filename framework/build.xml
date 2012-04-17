@@ -81,6 +81,8 @@ under the License.
     </target>
 
     <target name="clean-data">
+        <delete includeemptydirs="true" dir="../runtime/data/derby"/>
+        <delete includeemptydirs="true" dir="../runtime/data/hsql"/>
         <delete verbose="on" includeemptydirs="true">
             <fileset dir="../runtime/data" includes="**/*">
                 <exclude name="README"/>
