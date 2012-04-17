@@ -272,8 +272,15 @@ public class Start {
     }
 
     private void shutdownServer() {
-        if (this.serverState.get() == ServerState.STOPPING) return;
-        this.serverState.set(ServerState.STOPPING);
+        ServerState currentState;
+        do {
+            currentState = this.serverState.get();
+            if (currentState == ServerState.STOPPING) {
+                return;
+            }
+        } while (!this.serverState.compareAndSet(currentState, ServerState.STOPPING));
+        // The current thread was the one that successfully changed the state;
+        // continue with further processing.
         synchronized (this.loaders) {
             // Unload in reverse order
             for (int i = this.loaders.size(); i > 0; i--) {
@@ -318,9 +325,8 @@ public class Start {
                     return false;
                 }
             }
-            this.serverState.set(ServerState.RUNNING);
         }
-        return true;
+        return this.serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 
     public String status() throws IOException {
