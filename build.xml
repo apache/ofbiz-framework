@@ -394,7 +394,7 @@ under the License.
             <jvmarg value="${memory.maxpermsize.param}"/>
         </java>
     </target>
-    <target name="start-debug" depends="build"
+    <target name="start-debug"
             description="Start OFBiz in debugging mode">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
