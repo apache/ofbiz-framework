@@ -255,7 +255,7 @@ under the License.
       <relation type="one" fk-name="PERS_TRNG_WREF" rel-entity-name="WorkEffort">
         <key-map field-name="workEffortId"/>
       </relation>
-      <relation type="one" fk-name="PERS_TRNG_TRNRQ" title="Training Request" rel-entity-name="TrainingRequest">
+      <relation type="one" fk-name="PERS_TRNG_TRNRQ" rel-entity-name="TrainingRequest">
           <key-map field-name="trainingRequestId"/>
       </relation>
     </entity>

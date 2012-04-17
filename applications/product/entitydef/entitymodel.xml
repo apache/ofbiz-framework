@@ -2798,7 +2798,7 @@ under the License.
       <relation type="one" fk-name="PROD_DIAMTR_UOM" title="Diameter" rel-entity-name="Uom">
         <key-map field-name="diameterUomId" rel-field-name="uomId"/>
       </relation>
-      <relation type="one" fk-name="PROD_VVMETHOD_ENUM" title="VitualVariant Method" rel-entity-name="Enumeration">
+      <relation type="one" fk-name="PROD_VVMETHOD_ENUM" title="VirtualVariantMethod" rel-entity-name="Enumeration">
         <key-map field-name="virtualVariantMethodEnum" rel-field-name="enumId"/>
       </relation>
       <relation type="one" fk-name="PROD_RATE_ENUM" title="Rating" rel-entity-name="Enumeration">
