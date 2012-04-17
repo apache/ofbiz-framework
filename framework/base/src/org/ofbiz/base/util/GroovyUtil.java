@@ -25,6 +25,7 @@ import java.util.Map;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
+import groovy.lang.Script;
 import groovy.lang.GroovyShell;
 
 import javolution.util.FastMap;
@@ -99,10 +100,12 @@ public class GroovyUtil {
         if (context != null) {
             vars.putAll(context);
             vars.put("context", context);
-            ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
-            ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
-            if (scriptHelper != null) {
-                vars.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
+            if (vars.get(ScriptUtil.SCRIPT_HELPER_KEY) == null) {
+                ScriptContext scriptContext = ScriptUtil.createScriptContext(context);
+                ScriptHelper scriptHelper = (ScriptHelper)scriptContext.getAttribute(ScriptUtil.SCRIPT_HELPER_KEY);
+                if (scriptHelper != null) {
+                    vars.put(ScriptUtil.SCRIPT_HELPER_KEY, scriptHelper);
+                }
             }
         }
         return new Binding(vars);
@@ -154,12 +157,19 @@ public class GroovyUtil {
         return new GroovyClassLoader().parseClass(text, location);
     }
 
-    public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {
-        return runScriptAtLocation(location, context, null);
+    public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context) throws GeneralException {
+        return runScriptAtLocation(location, methodName, context, null);
     }
 
-    public static Object runScriptAtLocation(String location, Map<String, Object> context, GroovyClassLoader groovyClassLoader) throws GeneralException {
-        return InvokerHelper.createScript(getScriptClassFromLocation(location, groovyClassLoader), getBinding(context)).run();
+    public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context, GroovyClassLoader groovyClassLoader) throws GeneralException {
+        Script script = InvokerHelper.createScript(getScriptClassFromLocation(location, groovyClassLoader), getBinding(context));
+        Object result = null;
+        if (UtilValidate.isEmpty(methodName)) {
+            result = script.run();
+        } else {
+            result = script.invokeMethod(methodName, new Object[] { context });
+        }
+        return result;
     }
 
     public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {
