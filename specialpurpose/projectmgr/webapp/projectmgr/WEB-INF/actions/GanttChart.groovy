@@ -83,7 +83,7 @@ if (phases) {
                 } else {
                     taskInfo.resource = taskInfo.actualHours + " Hrs";
                 }
-                double duration = resultTaskInfo.plannedHours;
+                Double duration = resultTaskInfo.plannedHours;
                 if (taskInfo.currentStatusId.equals("PTS_COMPLETED")) {
                     taskInfo.completion = 100;
                 } else {
