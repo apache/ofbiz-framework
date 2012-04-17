@@ -17,13 +17,13 @@ specific language governing permissions and limitations
 under the License.
 -->
   <div>
-	<#if postalAddress.toName?has_content><b>${uiLabelMap.PartyAddrToName}:</b> ${postalAddress.toName}<br /></#if>
-	<#if postalAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br /></#if>
-	${postalAddress.address1?if_exists}<br />
-	<#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
-	${postalAddress.postalCode?if_exists} ${postalAddress.city?if_exists}
-	<#if postalAddress.countryGeoId?has_content><br />
-	  <#assign country = postalAddress.getRelatedOneCache("CountryGeo")>
-	  ${country.get("geoName", locale)?default(country.geoId)}
-	</#if>
+    <#if postalAddress.toName?has_content><b>${uiLabelMap.PartyAddrToName}:</b> ${postalAddress.toName}<br /></#if>
+    <#if postalAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br /></#if>
+    ${postalAddress.address1?if_exists}<br />
+    <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
+    ${postalAddress.postalCode?if_exists} ${postalAddress.city?if_exists}
+    <#if postalAddress.countryGeoId?has_content><br />
+      <#assign country = postalAddress.getRelatedOneCache("CountryGeo")>
+      ${country.get("geoName", locale)?default(country.geoId)}
+    </#if>
   </div>

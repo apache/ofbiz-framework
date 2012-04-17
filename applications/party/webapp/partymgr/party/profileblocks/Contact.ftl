@@ -58,9 +58,9 @@ under the License.
                 </#list>
                 <#if "POSTAL_ADDRESS" = contactMech.contactMechTypeId>
                   <#if contactMechMap.postalAddress?has_content>
-	                <#assign postalAddress = contactMechMap.postalAddress>
-	                ${setContextField("postalAddress", postalAddress)}
-	                ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressHtmlFormatter")}
+                    <#assign postalAddress = contactMechMap.postalAddress>
+                    ${setContextField("postalAddress", postalAddress)}
+                    ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressHtmlFormatter")}
                     <#if postalAddress.geoPointId?has_content>
                       <#if contactMechPurposeType?has_content>
                         <#assign popUptitle = contactMechPurposeType.get("description", locale) + uiLabelMap.CommonGeoLocation>
