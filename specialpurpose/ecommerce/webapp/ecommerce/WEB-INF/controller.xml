@@ -1011,7 +1011,6 @@ under the License.
     <!-- ContactMech Requests -->
     <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
     <request-map uri="editcontactmechnosave"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
-    <request-map uri="editcontactmechdone"><security https="true" auth="true"/><response name="success" type="view-last" value="editcontactmech"/></request-map>
 
     <request-map uri="createContactMech">
         <security https="true" auth="true"/>
