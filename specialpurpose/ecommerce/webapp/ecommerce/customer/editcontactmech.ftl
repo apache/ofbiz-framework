@@ -18,7 +18,7 @@ under the License.
 -->
 <#if canNotView>
   <h3>${uiLabelMap.PartyContactInfoNotBelongToYou}.</h3>
-  <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonBack}</a>
+  <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonBack}</a>
 <#else>
   <#if !contactMech?exists>
     <#-- When creating a new contact mech, first select the type, then actually create -->
@@ -47,7 +47,7 @@ under the License.
   <#if contactMechTypeId?exists>
     <#if !contactMech?exists>
       <h2>${uiLabelMap.PartyCreateNewContactInfo}</h2>
-      <a href='<@ofbizUrl>editcontactmechdone</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
+      <a href='<@ofbizUrl>${donePage}</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.editcontactmechform.submit()" class="button">${uiLabelMap.CommonSave}</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
         <form method="post" action='<@ofbizUrl>${reqName}</@ofbizUrl>' name="editcontactmechform" id="editcontactmechform">
@@ -61,7 +61,7 @@ under the License.
           <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}' /></#if>
     <#else>
       <h2>${uiLabelMap.PartyEditContactInfo}</h2>      
-      <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+      <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.editcontactmechform.submit()" class="button">${uiLabelMap.CommonSave}</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
         <tr>
@@ -241,9 +241,9 @@ under the License.
     </form>
   </table>
 
-  <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
   <a href="javascript:document.editcontactmechform.submit()" class="button">${uiLabelMap.CommonSave}</a>
   <#else>    
-    <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+    <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
   </#if>
 </#if>
