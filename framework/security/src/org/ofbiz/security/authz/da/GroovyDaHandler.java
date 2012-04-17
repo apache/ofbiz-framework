@@ -50,7 +50,7 @@ public class GroovyDaHandler implements DynamicAccessHandler {
         if (accessString.startsWith("component://")) {
             // loaded using the OFBiz location API
             try {
-                result = GroovyUtil.runScriptAtLocation(accessString, bindings);
+                result = GroovyUtil.runScriptAtLocation(accessString, null, bindings);
             } catch (GeneralException e) {
                 Debug.logWarning(e, module);
             }
