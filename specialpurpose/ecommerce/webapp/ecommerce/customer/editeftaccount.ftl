@@ -19,7 +19,7 @@ under the License.
 
 <#if canNotView>
   <p><h3>${uiLabelMap.AccountingEFTNotBelongToYou}.</h3></p>
-&nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBack}</a>
+&nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
 <#else>
     <#if !eftAccount?exists>
       <h1>${uiLabelMap.AccountingAddNewEftAccount}</h1>
@@ -29,9 +29,9 @@ under the License.
       <form method="post" action="<@ofbizUrl>updateEftAccount?DONE_PAGE=${donePage}</@ofbizUrl>" name="editeftaccountform" style="margin: 0;">
         <input type="hidden" name="paymentMethodId" value="${paymentMethodId}" />
     </#if>
-    &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelDone}</a>
-    &nbsp;<a href="javascript:document.editeftaccountform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
-
+    &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+    &nbsp;<a href="javascript:document.editeftaccountform.submit()" class="button">${uiLabelMap.CommonSave}</a>
+    <p/>
     <table width="90%" border="0" cellpadding="2" cellspacing="0">
     <tr>
       <td width="26%" align="right" valign="top"><div class="tabletext">${uiLabelMap.AccountingNameOnAccount}</div></td>
@@ -177,8 +177,7 @@ under the License.
     </tr>
   </table>
   </form>
-
-  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancelDone}</a>
-  &nbsp;<a href="javascript:document.editeftaccountform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
+  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="javascript:document.editeftaccountform.submit()" class="button">${uiLabelMap.CommonSave}</a>  
 </#if>
 
