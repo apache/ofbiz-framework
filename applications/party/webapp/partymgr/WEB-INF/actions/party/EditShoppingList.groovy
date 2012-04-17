@@ -107,7 +107,7 @@ if (shoppingListId) {
             if (shoppingListItemDatas)
                 listSize = shoppingListItemDatas.size();
 
-            lowIndex = (viewIndex * viewSize) + 1;
+            lowIndex = viewIndex * viewSize;
             highIndex = (viewIndex + 1) * viewSize;
 
             if (highIndex > listSize) {
