@@ -40,7 +40,27 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Start {
 
     private enum Control {
-        SHUTDOWN, STATUS
+        SHUTDOWN {
+            void processRequest(Start start, PrintWriter writer) {
+                if (start.serverState.get() == ServerState.STOPPING) {
+                    writer.println("IN-PROGRESS");
+                } else {
+                    writer.println("OK");
+                    writer.flush();
+                    start.stopServer();
+                }
+            }
+        }, STATUS {
+            void processRequest(Start start, PrintWriter writer) {
+                writer.println(start.serverState.get());
+            }
+        }, FAIL {
+            void processRequest(Start start, PrintWriter writer) {
+                writer.println("FAIL");
+            }
+        };
+
+        abstract void processRequest(Start start, PrintWriter writer);
     }
 
     private static void help(PrintStream out) {
@@ -361,26 +381,21 @@ public class Start {
                 reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
                 String request = reader.readLine();
                 writer = new PrintWriter(client.getOutputStream(), true);
+                Control control;
                 if (request != null && !request.isEmpty() && request.contains(":")) {
                     String key = request.substring(0, request.indexOf(':'));
-                    Control control = Control.valueOf(request.substring(request.indexOf(':') + 1));
                     if (key.equals(config.adminKey)) {
-                        if (control == Control.SHUTDOWN) {
-                            if (Start.this.serverState.get() == ServerState.STOPPING) {
-                                writer.println("IN-PROGRESS");
-                            } else {
-                                writer.println("OK");
-                                writer.flush();
-                                stopServer();
-                            }
-                            return;
-                        } else if (control == Control.STATUS) {
-                            writer.println(Start.this.serverState.get());
-                            return;
+                        control = Control.valueOf(request.substring(request.indexOf(':') + 1));
+                        if (control == null) {
+                            control = Control.FAIL;
                         }
+                    } else {
+                        control = Control.FAIL;
                     }
+                } else {
+                    control = Control.FAIL;
                 }
-                writer.println("FAIL");
+                control.processRequest(Start.this, writer);
             } finally {
                 if (reader != null) {
                     reader.close();
