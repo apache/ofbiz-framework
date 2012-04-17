@@ -131,7 +131,7 @@ under the License.
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="facilityId">
             <display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
-                <sub-hyperlink target="EditFacilityGroup" description="[${facilityId}]">
+                <sub-hyperlink target="EditFacility" description="[${facilityId}]">
                     <parameter param-name="facilityId"/>
                 </sub-hyperlink>
             </display-entity>
