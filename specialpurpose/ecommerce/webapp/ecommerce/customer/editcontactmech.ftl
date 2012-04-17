@@ -60,7 +60,7 @@ under the License.
           <#if preContactMechTypeId?has_content><input type='hidden' name='preContactMechTypeId' value='${preContactMechTypeId}' /></#if>
           <#if paymentMethodId?has_content><input type='hidden' name='paymentMethodId' value='${paymentMethodId}' /></#if>
     <#else>
-      <h2>${uiLabelMap.PartyEditContactInfo}</h2>
+      <h2>${uiLabelMap.PartyEditContactInfo}</h2>      
       <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.editcontactmechform.submit()" class="button">${uiLabelMap.CommonSave}</a>
       <table width="90%" border="0" cellpadding="2" cellspacing="0">
@@ -159,8 +159,7 @@ under the License.
         *</td>
       </tr>
       <tr>
-        <td align="right" valign="top"> ${uiLabelMap.PartyState} --  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-        Selected\Expected State Name = ${selectedStateName}</td>
+        <td align="right" valign="top"> ${uiLabelMap.PartyState}
         <td>&nbsp;</td>
         <td>       
           <select name="stateProvinceGeoId" id="editcontactmechform_stateProvinceGeoId">
@@ -175,10 +174,9 @@ under the License.
         *</td>
       </tr>
       <tr>   
-        <td align="right" valign="top">${uiLabelMap.CommonCountry} !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-        Postal address geoId ${postalAddress.countryGeoId}</td>
-        <td>&nbsp;</td>      
-        <td>     
+        <td align="right" valign="top">${uiLabelMap.CommonCountry}</td>
+        <td>&nbsp;</td>
+        <td>
           <select name="countryGeoId" id="editcontactmechform_countryGeoId">
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}        
           <#if (postalAddress?exists) && (postalAddress.countryGeoId?exists)>
@@ -245,7 +243,7 @@ under the License.
 
   <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
   <a href="javascript:document.editcontactmechform.submit()" class="button">${uiLabelMap.CommonSave}</a>
-  <#else>
+  <#else>    
     <a href="<@ofbizUrl>editcontactmechdone</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
   </#if>
 </#if>
