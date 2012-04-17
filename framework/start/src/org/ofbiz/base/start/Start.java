@@ -31,6 +31,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Start - OFBiz Container(s) Startup Class
@@ -117,11 +118,18 @@ public class Start {
         }
     }
 
+    private enum ServerState {
+        STARTING, RUNNING, STOPPING;
+
+        public String toString() {
+            return name().charAt(0) + name().substring(1).toLowerCase();
+        }
+    }
+
     private Config config = null;
     private List<String> loaderArgs = new ArrayList<String>();
     private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
-    private boolean serverStarted = false;
-    private boolean serverStopping = false;
+    private AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
     private Thread adminPortThread = null;
 
     private void createListenerThread() throws IOException {
@@ -214,7 +222,7 @@ public class Start {
         synchronized (this.loaders) {
             // initialize the loaders
             for (String loaderClassName: config.loaders) {
-                if (this.serverStopping) {
+                if (this.serverState.get() == ServerState.STOPPING) {
                     return false;
                 }
                 try {
@@ -264,8 +272,8 @@ public class Start {
     }
 
     private void shutdownServer() {
-        if (serverStopping) return;
-        serverStopping = true;
+        if (this.serverState.get() == ServerState.STOPPING) return;
+        this.serverState.set(ServerState.STOPPING);
         synchronized (this.loaders) {
             // Unload in reverse order
             for (int i = this.loaders.size(); i > 0; i--) {
@@ -300,7 +308,7 @@ public class Start {
         synchronized (this.loaders) {
             // start the loaders
             for (StartupLoader loader: this.loaders) {
-                if (this.serverStopping) {
+                if (this.serverState.get() == ServerState.STOPPING) {
                     return false;
                 }
                 try {
@@ -310,7 +318,7 @@ public class Start {
                     return false;
                 }
             }
-            serverStarted = true;
+            this.serverState.set(ServerState.RUNNING);
         }
         return true;
     }
@@ -351,7 +359,7 @@ public class Start {
                     String command = request.substring(request.indexOf(':') + 1);
                     if (key.equals(config.adminKey)) {
                         if (command.equals(Start.SHUTDOWN_COMMAND)) {
-                            if (serverStopping) {
+                            if (Start.this.serverState.get() == ServerState.STOPPING) {
                                 writer.println("IN-PROGRESS");
                             } else {
                                 writer.println("OK");
@@ -360,7 +368,7 @@ public class Start {
                             }
                             return;
                         } else if (command.equals(Start.STATUS_COMMAND)) {
-                            writer.println(serverStopping ? "Stopping" : serverStarted ? "Running" : "Starting");
+                            writer.println(Start.this.serverState.get());
                             return;
                         }
                     }
