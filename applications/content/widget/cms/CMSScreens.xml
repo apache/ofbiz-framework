@@ -60,7 +60,7 @@ under the License.
     <screen name="CMSContentEdit">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditCMSContent"/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
@@ -93,7 +93,7 @@ under the License.
     <screen name="CMSContentAdd">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContent"/>
             </actions>
             <widgets>
@@ -186,7 +186,7 @@ under the License.
     <screen name="AdminSearch">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/AdvancedSearchPrep.groovy"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/Search.groovy"/>
                 <set field="titleProperty" value="ContentCMSSearchPage"/>
@@ -212,7 +212,7 @@ under the License.
     <screen name="AdminIndex">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="ContentCMSSearchPage"/>
                 <set field="currentCMSMenuItemName" value="index" to-scope="user"/>
             </actions>
@@ -232,7 +232,7 @@ under the License.
     <screen name="CMSSites">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="ContentCMSSearchPage"/>
                 <set field="forumId" from-field="parameters.contentId"/>
                 <set field="defaultSiteId" value="WebStoreFORUM"/>
@@ -257,7 +257,7 @@ under the License.
     <screen name="addSubSite">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleSearchContent"/>
             </actions>
             <widgets>
@@ -276,7 +276,7 @@ under the License.
     <screen name="TestPermission">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="ContentTestPermission"/>
             </actions>
             <widgets>

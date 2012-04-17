@@ -289,7 +289,7 @@ under the License.
     <screen name="EditContentRole">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentRole"/>
                 <set field="tabButtonItem" value="role"/>
 
@@ -315,7 +315,7 @@ under the License.
     <screen name="EditContentPurpose">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentPurpose"/>
                 <set field="tabButtonItem" value="purpose"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -339,7 +339,7 @@ under the License.
     <screen name="EditContentAttribute">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentAttribute"/>
                 <set field="tabButtonItem" value="attribute"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -399,7 +399,7 @@ under the License.
     <screen name="EditContentMetaData">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentMetadata"/>
                 <set field="tabButtonItem" value="metaData"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -423,7 +423,7 @@ under the License.
     <screen name="EditContentWorkEfforts">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentWorkEffort"/>
                 <set field="tabButtonItem" value="workEffort"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -637,7 +637,7 @@ under the License.
     <screen name="EditContentKeywords">
         <section>
             <actions>
-                <script location="component://content/widget/GetMenuContext.groovy"/>
+                <script location="component://content/webapp/content/WEB-INF/actions/cms/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentKeywords"/>
                 <set field="tabButtonItem" value="keywords"/>
                 <set field="contentId" from-field="parameters.contentId"/>
