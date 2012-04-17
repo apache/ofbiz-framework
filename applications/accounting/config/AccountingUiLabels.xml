@@ -3469,6 +3469,10 @@
         <value xml:lang="zh">日期过滤器</value>
         <value xml:lang="zh_TW">日期過濾器</value>
     </property>
+    <property key="AccountingDateOpened">
+        <value xml:lang="en">Date opened</value>
+        <value xml:lang="fr">Date d'ouverture</value>
+    </property>
     <property key="AccountingDebitAmount">
         <value xml:lang="de">Sollbetrag</value>
         <value xml:lang="en">Debit Amount</value>

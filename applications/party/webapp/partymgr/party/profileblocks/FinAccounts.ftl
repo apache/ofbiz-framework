@@ -19,29 +19,29 @@ under the License.
 
 <div style="border-bottom: 1px solid #ccc; margin-bottom: 20px">
     <p>
-        <b>Account Number:</b> <a href="/accounting/control/EditFinAccount?finAccountId=${ownedFinAccount.finAccountId}${externalKeyParam}"
+        <b>${uiLabelMap.AccountingAccountNumber}:</b> <a href="/accounting/control/EditFinAccount?finAccountId=${ownedFinAccount.finAccountId}${externalKeyParam}"
              class="smallSubmit">${ownedFinAccount.finAccountId}</a>
-        <b>Type:</b> ${(ownedFinAccountType.description)?default('N/A')}
-        <b>Name:</b> ${ownedFinAccount.finAccountName?if_exists}
+        <b>${uiLabelMap.AccountingAccountType}:</b> ${(ownedFinAccountType.description)?default('N/A')}
+        <b>${uiLabelMap.FormFieldTitle_finAccountName}:</b> ${ownedFinAccount.finAccountName?if_exists}
     </p>
     <p>
-        <b>Currency:</b> ${(accountCurrencyUom.description)?if_exists} [${ownedFinAccount.currencyUomId?if_exists}]
-        <b>Date Opened:</b> ${ownedFinAccount.fromDate?if_exists}
-        <b>Status:</b> ${(finAccountStatusItem.description)?default("Active")}
+        <b>${uiLabelMap.AccountingCurrency}:</b> ${(accountCurrencyUom.description)?if_exists} [${ownedFinAccount.currencyUomId?if_exists}]
+        <b>${uiLabelMap.AccountingDateOpened}:</b> ${ownedFinAccount.fromDate?if_exists}
+        <b>${uiLabelMap.CommonStatus}:</b> ${(finAccountStatusItem.description)?default("Active")}
         <#if ownedFinAccount.replenishLevel?exists>
-            <b>Replenish Level:</b> <@ofbizCurrency amount=ownedFinAccount.replenishLevel isoCode=ownedFinAccount.currencyUomId/>
+            <b>${uiLabelMap.FormFieldTitle_replenishLevel}:</b> <@ofbizCurrency amount=ownedFinAccount.replenishLevel isoCode=ownedFinAccount.currencyUomId/>
         </#if>
     </p>
     <br />
     <table id="fa-transactions" class="basic-table" cellspacing="0" cellpadding="2">
         <thead>
             <tr class="header-row">
-                <td>Transaction ${uiLabelMap.CommonDate}</td>
-                <td>ID</td>
-                <td>Order Item</td>
-                <td>Payment</td>
-                <td>Type</td>
-                <td>Amount</td>
+                <td>${uiLabelMap.FormFieldTitle_transactionDate}</td>
+                <td>${uiLabelMap.CommonId}</td>
+                <td>${uiLabelMap.OrderItem}</td>
+                <td>${uiLabelMap.AccountingPayment}</td>
+                <td>${uiLabelMap.AccountingType}</td>
+                <td>${uiLabelMap.AccountingAmount}</td>
             </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@ under the License.
         <tfoot>
             <tr><td colspan="6"><hr /></td></tr>
             <tr>
-                <td colspan="5"><b>Actual Balance</b></td>
+                <td colspan="5"><b>${uiLabelMap.FormFieldTitle_actualBalance}</b></td>
                 <td><b><@ofbizCurrency amount=ownedFinAccount.actualBalance isoCode=ownedFinAccount.currencyUomId/></b></td>
             </tr>
         </tfoot>
@@ -76,10 +76,10 @@ under the License.
         <table id="fa-authorizations" class="basic-table" cellspacing="0" cellpadding="2">
             <thead>
                 <tr class="header-row">
-                    <td>Authorization ${uiLabelMap.CommonDate}</td>
-                    <td>ID</td>
-                    <td>Expires</td>
-                    <td>Amount</td>
+                    <td>${uiLabelMap.FormFieldTitle_authorizationDate}</td>
+                    <td>${uiLabelMap.CommonId}</td>
+                    <td>${uiLabelMap.CommonExpires}</td>
+                    <td>${uiLabelMap.AccountingAmount}</td>
                 </tr>
             </thead>
             <tbody>
@@ -95,11 +95,11 @@ under the License.
             <tfoot>
                 <tr><td colspan="4"><hr /></td></tr>
                 <tr>
-                    <td colspan="3"><b>Actual Balance</b></td>
+                    <td colspan="3"><b>${uiLabelMap.FormFieldTitle_actualBalance}</b></td>
                     <td><b><@ofbizCurrency amount=ownedFinAccount.actualBalance isoCode=ownedFinAccount.currencyUomId/></b></td>
                 </tr>
                 <tr>
-                    <td colspan="3"><b>Available Balance</b></td>
+                    <td colspan="3"><b>${uiLabelMap.FormFieldTitle_availableBalance}</b></td>
                     <td><b><@ofbizCurrency amount=ownedFinAccount.availableBalance isoCode=ownedFinAccount.currencyUomId/></b></td>
                 </tr>
             </tfoot>
