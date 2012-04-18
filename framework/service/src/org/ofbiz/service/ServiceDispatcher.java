@@ -34,7 +34,6 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.collections.LRUMap;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
@@ -60,6 +59,9 @@ import org.ofbiz.service.job.JobManagerException;
 import org.ofbiz.service.semaphore.ServiceSemaphore;
 import org.w3c.dom.Element;
 
+import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
+import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap.Builder;
+
 /**
  * Global Service Dispatcher
  */
@@ -69,7 +71,7 @@ public class ServiceDispatcher {
     public static final int lruLogSize = 200;
     public static final int LOCK_RETRIES = 3;
 
-    protected static final Map<RunningService, ServiceDispatcher> runLog = new LRUMap<RunningService, ServiceDispatcher>(lruLogSize);
+    protected static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
     protected static Map<String, ServiceDispatcher> dispatchers = FastMap.newInstance();
     protected static boolean enableJM = true;
     protected static boolean enableJMS = true;
@@ -1059,9 +1061,7 @@ public class ServiceDispatcher {
     private RunningService logService(String localName, ModelService modelService, int mode) {
         // set up the running service log
         RunningService rs = new RunningService(localName, modelService, mode);
-        synchronized(runLog) {
-            runLog.put(rs, this);
-        }
+        runLog.put(rs, this);
         return rs;
     }
 
