@@ -105,10 +105,10 @@ standard_cleanup() {
 	run_ant clean-all
 }
 install_worker() {
-	run_ant run-install
+	run_ant load-demo
 }
 fulltestsuite_worker() {
-	run_ant run-install
+	run_ant load-demo
 	run_ant run-tests
 }
 #git_rebase_runner 3 fulltestsuite_cleanup fulltestsuite_worker
