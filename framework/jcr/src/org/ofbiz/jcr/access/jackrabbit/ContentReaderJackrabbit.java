@@ -17,7 +17,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.jcr.access.ContentReader;
 import org.ofbiz.jcr.access.VersioningManager;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 public class ContentReaderJackrabbit implements ContentReader {
 
@@ -36,8 +36,9 @@ public class ContentReaderJackrabbit implements ContentReader {
      * org.ofbiz.jcr.access.ContentReader#getContentObject(java.lang.String)
      */
     @Override
-    public OfbizRepositoryMapping getContentObject(String nodePath) throws PathNotFoundException{
-        nodePath = JcrUtilJackrabbit.createAbsoluteNodePath(nodePath);
+    public OfbizRepositoryMapping getContentObject(String nodePath) throws PathNotFoundException {
+        nodePath = JackrabbitUtils.createAbsoluteNodePath(nodePath);
+
         OfbizRepositoryMapping orm = (OfbizRepositoryMapping) ocm.getObject(nodePath);
         try {
             if (orm != null) {
@@ -60,7 +61,8 @@ public class ContentReaderJackrabbit implements ContentReader {
      */
     @Override
     public OfbizRepositoryMapping getContentObject(String nodePath, String version) throws PathNotFoundException {
-        nodePath = JcrUtilJackrabbit.createAbsoluteNodePath(nodePath);
+        nodePath = JackrabbitUtils.createAbsoluteNodePath(nodePath);
+
         VersioningManager vm = new VersioningManagerJackrabbit(ocm);
         if (!vm.checkIfVersionExist(nodePath, version)) {
             Debug.logWarning("The version: " + version + " for content object: " + nodePath + " does not exist, the latest version for this object will be returned.", module);
@@ -198,15 +200,21 @@ public class ContentReaderJackrabbit implements ContentReader {
      * @throws RepositoryException
      *             if an error occurs.
      */
-    protected QueryResult executeQuery(String statement) throws RepositoryException {
+    private QueryResult executeQuery(String statement) throws RepositoryException {
         // TODO create a query manager which uses the OCM Layer.
-        QueryManager qm = ocm.getSession().getWorkspace().getQueryManager();
-
         if (statement.trim().toLowerCase().startsWith("select")) {
-            return qm.createQuery(statement, Query.JCR_SQL2).execute();
+            return executeQuery(statement, Query.JCR_SQL2);
         } else {
-            return qm.createQuery(statement, Query.JCR_JQOM).execute();
+            return executeQuery(statement, Query.JCR_JQOM);
         }
     }
 
+    private QueryResult executeQuery(String statement, String queryType) throws RepositoryException {
+        QueryManager qm = getQueryManager();
+        return qm.createQuery(statement, queryType).execute();
+    }
+
+    private QueryManager getQueryManager() throws RepositoryException {
+        return ocm.getSession().getWorkspace().getQueryManager();
+    }
 }

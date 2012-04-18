@@ -22,7 +22,7 @@ import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFile;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFolder;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitHierarchyNode;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitResource;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 /**
  * This Helper class encapsulate the jcr file content bean. it provide all
@@ -120,7 +120,7 @@ public class JackrabbitFileHelper extends JackrabbitAbstractHelper implements Jc
 
         // Create the folder if necessary, otherwise we just update the folder
         // content
-        folderPath = JcrUtilJackrabbit.createAbsoluteNodePath(folderPath);
+        folderPath = JackrabbitUtils.createAbsoluteNodePath(folderPath);
         if (super.access.checkIfNodeExist(folderPath)) {
             OfbizRepositoryMapping orm = super.access.getContentObject(folderPath);
             if (orm instanceof JackrabbitFolder) {

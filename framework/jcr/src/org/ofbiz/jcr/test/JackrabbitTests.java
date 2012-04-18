@@ -53,7 +53,7 @@ import org.ofbiz.jcr.loader.JCRFactory;
 import org.ofbiz.jcr.loader.JCRFactoryUtil;
 import org.ofbiz.jcr.loader.jackrabbit.JCRFactoryImpl;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -105,24 +105,24 @@ public class JackrabbitTests extends OFBizTestCase {
     //
 
     public void testCreateAbsoluteAndNormalizedNodePath() {
-        String result = JcrUtilJackrabbit.createAbsoluteNodePath("foo/baa");
+        String result = JackrabbitUtils.createAbsoluteNodePath("foo/baa");
 
         assertEquals("/foo/baa", result);
     }
 
     public void testCheckIfNodePathIsAbsoluteAndNormalized() {
-        assertFalse(JcrUtilJackrabbit.checkIfNodePathIsAbsolute("foo/baa"));
-        assertFalse(JcrUtilJackrabbit.checkIfNodePathIsAbsolute("foo/baa/"));
-        assertTrue(JcrUtilJackrabbit.checkIfNodePathIsAbsolute("/foo/baa/"));
-        assertTrue(JcrUtilJackrabbit.checkIfNodePathIsAbsolute("/foo/baa"));
+        assertFalse(JackrabbitUtils.checkIfNodePathIsAbsolute("foo/baa"));
+        assertFalse(JackrabbitUtils.checkIfNodePathIsAbsolute("foo/baa/"));
+        assertTrue(JackrabbitUtils.checkIfNodePathIsAbsolute("/foo/baa/"));
+        assertTrue(JackrabbitUtils.checkIfNodePathIsAbsolute("/foo/baa"));
     }
 
     public void testListRepositoryNodes() throws Exception {
-        assertNotNull(JcrUtilJackrabbit.getRepositoryNodes(userLogin, null));
+        assertNotNull(JackrabbitUtils.getRepositoryNodes(userLogin, null));
     }
 
     public void testDefaultLanguage() {
-        assertEquals(UtilProperties.getPropertyValue("general", "locale.properties.fallback"), JcrUtilJackrabbit.determindeTheDefaultLanguage());
+        assertEquals(UtilProperties.getPropertyValue("general", "locale.properties.fallback"), JackrabbitUtils.determindeTheDefaultLanguage());
     }
 
     //

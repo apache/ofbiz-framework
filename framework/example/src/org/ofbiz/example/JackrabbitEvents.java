@@ -47,7 +47,7 @@ import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFile;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFolder;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitHierarchyNode;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 public class JackrabbitEvents {
 
@@ -95,7 +95,7 @@ public class JackrabbitEvents {
     public static String scanRepositoryStructure(HttpServletRequest request, HttpServletResponse response) {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         try {
-            List<Map<String, String>> listIt = JcrUtilJackrabbit.getRepositoryNodes(userLogin, "");
+            List<Map<String, String>> listIt = JackrabbitUtils.getRepositoryNodes(userLogin, "");
             request.setAttribute("listIt", listIt);
         } catch (RepositoryException e) {
             Debug.logError(e, module);

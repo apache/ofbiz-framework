@@ -16,7 +16,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.jcr.access.ContentWriter;
 import org.ofbiz.jcr.access.VersioningManager;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 public class ContentWriterJackrabbit implements ContentWriter {
 
@@ -43,10 +43,6 @@ public class ContentWriterJackrabbit implements ContentWriter {
      */
     @Override
     public void storeContentObject(OfbizRepositoryMapping orm) throws ObjectContentManagerException, ItemExistsException {
-        if (orm == null) {
-            return;
-        }
-
         // we want to avoid same name sibling (SnS) for each node Type
         try {
             if (this.ocm.getSession().itemExists(orm.getPath())) {
@@ -62,7 +58,7 @@ public class ContentWriterJackrabbit implements ContentWriter {
 
         // create all nodes in the node structure which do not exist yet
         try {
-            createNodeStructure(orm.getPath(), orm.getClass().getAnnotation(org.apache.jackrabbit.ocm.mapper.impl.annotation.Node.class).jcrType());
+            createNodeStructure(orm.getPath(), getJcrTypeFromOrmAnnotation(orm));
         } catch (PathNotFoundException e) {
             Debug.logError(e, "The new node could not be created: " + orm.getPath(), module);
             return;
@@ -75,6 +71,12 @@ public class ContentWriterJackrabbit implements ContentWriter {
         versioningManager.addContentToCheckInList(orm.getPath());
 
         this.saveState();
+    }
+
+    private String getJcrTypeFromOrmAnnotation(OfbizRepositoryMapping orm) {
+        org.apache.jackrabbit.ocm.mapper.impl.annotation.Node annotationForNodeClass = orm.getClass().getAnnotation(org.apache.jackrabbit.ocm.mapper.impl.annotation.Node.class);
+
+        return annotationForNodeClass.jcrType();
     }
 
     /*
@@ -99,7 +101,7 @@ public class ContentWriterJackrabbit implements ContentWriter {
      */
     @Override
     public void removeContentObject(String nodePath) throws ObjectContentManagerException {
-        nodePath = JcrUtilJackrabbit.createAbsoluteNodePath(nodePath);
+        nodePath = JackrabbitUtils.createAbsoluteNodePath(nodePath);
         versioningManager.checkOutContentObject(nodePath, true);
 
         ocm.remove(nodePath);
@@ -121,9 +123,7 @@ public class ContentWriterJackrabbit implements ContentWriter {
      * @throws RepositoryException
      */
     private void createNodeStructure(String completeNodePath, String primaryNodeType) throws PathNotFoundException, RepositoryException {
-        // We have to check if the node structure (the sub nodes of the passed
-        // ORM Object) exist, otherwise they will be created.
-        String[] nodeStructure = completeNodePath.split(ConstantsJackrabbit.NODEPATHDELIMITER);
+        String[] nodeStructure = splitNodePathByDelimiter(completeNodePath);
         Node parentNode = null;
         try {
             parentNode = this.ocm.getSession().getRootNode();
@@ -132,15 +132,16 @@ public class ContentWriterJackrabbit implements ContentWriter {
             return;
         }
 
-        // We loop only over the sub nodes.
         for (int i = 0; i < (nodeStructure.length - 1); i++) {
             String node = nodeStructure[i];
-            if (UtilValidate.isEmpty(node)) {
-                continue;
+            if (UtilValidate.isNotEmpty(node)) {
+                parentNode = createNewSubNodeIfNotExist(primaryNodeType, parentNode, node);
             }
-
-            parentNode = createNewSubNodeIfNotExist(primaryNodeType, parentNode, node);
         }
+    }
+
+    private String[] splitNodePathByDelimiter(String completeNodePath) {
+        return completeNodePath.split(ConstantsJackrabbit.NODEPATHDELIMITER);
     }
 
     /**
@@ -161,14 +162,13 @@ public class ContentWriterJackrabbit implements ContentWriter {
     private Node createNewSubNodeIfNotExist(String primaryNodeType, Node parentNode, String node) throws RepositoryException, PathNotFoundException, ItemExistsException, NoSuchNodeTypeException, LockException, VersionException,
             ConstraintViolationException {
 
+        versioningManager.checkOutContentObject(parentNode.getPath());
+
         if (parentNode.hasNode(node)) {
             parentNode = parentNode.getNode(node);
-            versioningManager.checkOutContentObject(parentNode.getPath());
         } else {
-            versioningManager.checkOutContentObject(parentNode.getPath());
 
             Node newNode = addNewNode(primaryNodeType, parentNode, node);
-
             versioningManager.addContentToCheckInList(newNode.getPath());
             parentNode = newNode;
         }
@@ -195,7 +195,8 @@ public class ContentWriterJackrabbit implements ContentWriter {
     private Node addNewNode(String primaryNodeType, Node parentNode, String node) throws ItemExistsException, PathNotFoundException, NoSuchNodeTypeException, LockException, VersionException, ConstraintViolationException, RepositoryException {
         Node newNode = parentNode.addNode(node, primaryNodeType);
         newNode.addMixin(ConstantsJackrabbit.MIXIN_VERSIONING);
-        if (!ConstantsJackrabbit.ROOTPATH.equals(parentNode.getPath())) {
+
+        if (JackrabbitUtils.isNotARootNode(parentNode)) {
             newNode.setPrimaryType(parentNode.getPrimaryNodeType().getName());
         }
         return newNode;
