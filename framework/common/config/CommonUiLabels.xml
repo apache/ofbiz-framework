@@ -8324,9 +8324,10 @@
         <value xml:lang="it">Servizio ha restituito un'errore: errore restituito</value>
     </property>
     <property key="CommonSessionTimeoutPleaseLogIn">
+        <value xml:lang="en">Your session has expired.  A login is required.  You can refresh the page or save your data to login.</value>
         <value xml:lang="de">Sie sind nicht mehr angemeldet. Bitte melden Sie sich erneut an.</value>
-        <value xml:lang="en">You are not logged in. Please login again.</value>
         <value xml:lang="es">No está conectado. Por favor, vuelva a conectarse.</value>
+        <value xml:lang="fr">Votre session est terminée. Veuillez vous identifier à nouveau pour utiliser l'application.  Pour vous connecter, vous pouvez actualiser la page, sauvegarder vos données ou utiliser le lien Connexion (ou Déconnexion) en haut à droite.</value>
         <value xml:lang="vi">Bạn chưa đăng nhập. Vui lòng đăng nhập lại.</value>
     </property>
     <property key="CommonSet">

@@ -20,6 +20,12 @@
 //Define global variable to store last auto-completer request object (jqXHR).
 var LAST_AUTOCOMP_REF = null;
 
+//the regex pattern to filter out the message returned by server during an ajax call.
+var AJAX_SERVER_REPLY_MSG_REGEXPATTERN = /<span\s+class="message\s+.*">(.*)?<\/span>/;
+
+//default ajax request timeout in milliseconds
+var AJAX_REQUEST_TIMEOUT = 5000;
+
 // Check Box Select/Toggle Functions for Select/Toggle All
 
 function toggle(e) {
@@ -427,11 +433,19 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                         LAST_AUTOCOMP_REF= jqXHR;
                     },
                     success: function(data) {
-                    	// reset the autocomp field
-                    	autocomp = undefined;
-                    	
-                        //update the result div
+                        // reset the autocomp field
+                        autocomp = undefined;
+
+                        //search for <span style="message...> returned from server
+                        var matchFound = data.toString().match(AJAX_SERVER_REPLY_MSG_REGEXPATTERN);
+                        if (matchFound != null) {
+                            alert(matchFound[1].trim());
+                            response(null);
+                            return;
+                        }
+
                         jQuery("#" + div + "_auto").html(data);
+
                         if (typeof autocomp != 'undefined') {
                             jQuery.each(autocomp, function(index, item){
                                 item.label = jQuery("<div>").html(item.label).text();
@@ -439,8 +453,12 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                             // autocomp is the JSON Object which will be used for the autocomplete box
                             response(autocomp);
                         }
-                    }
-                })
+                    },
+                    error: function(xhr, reason, exception) {
+                        //TODO ... need to localize the following error message.
+                        alert("An error occurred while communicating with the server:\n\n\nreason=" + reason + "\n\nexception=" + exception);
+                    },
+                });
             },
             select: function(event, ui){
                 //jQuery("#" + areaArray[0]).html(ui.item);
@@ -673,8 +691,8 @@ function ajaxInPlaceEditDisplayField(element, url, options) {
 
     jElement.editable(function(value, settings){
         // removes all line breaks from the value param, because the parseJSON Function can't work with line breaks
-    	value = value.replace(/\n/g, " ");
-    	value = value.replace(/\"/g,"&quot;");
+        value = value.replace(/\n/g, " ");
+        value = value.replace(/\"/g,"&quot;");
 
         var resultField = jQuery.parseJSON('{"' + settings.name + '":"' + value + '"}');
         // merge both parameter objects together
