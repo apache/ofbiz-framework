@@ -22,6 +22,21 @@
 #  $1 = loop count
 #  $2 = loop type
 
+# example:
+#  git rebase -i $most_recent_git_svn_commit_hash
+#  # select commits to work on/test with 'edit'
+#  tools/git-rebase-runner.sh 5 all-tests
+#
+#  this will do:
+#   ant clean
+#   ant load-demo
+#   ant run-tests
+#   ant clean
+#   git rebase --continue
+#  in a loop 5 times, storing the output into runtime/git-rebase/logs.
+#  You can use this to verify a series of commits before commiting
+#  upstream in bulk with git svn dcommit $hash
+
 top_dir="$(cd "$0/../..";echo "$PWD")"
 . "$top_dir/tools/functions.sh"
 
