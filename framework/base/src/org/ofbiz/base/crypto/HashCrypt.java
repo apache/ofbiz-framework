@@ -118,10 +118,18 @@ public class HashCrypt {
         }
     }
 
+    /**
+     * @deprecated use cryptPassword
+     */
+    @Deprecated
     public static String getDigestHash(String str) {
         return getDigestHash(str, "SHA");
     }
 
+    /**
+     * @deprecated use cryptPassword
+     */
+    @Deprecated
     public static String getDigestHash(String str, String hashType) {
         if (str == null) return null;
         try {
@@ -141,6 +149,10 @@ public class HashCrypt {
         }
     }
 
+    /**
+     * @deprecated use cryptPassword
+     */
+    @Deprecated
     public static String getDigestHash(String str, String code, String hashType) {
         if (str == null) return null;
         try {
@@ -162,6 +174,10 @@ public class HashCrypt {
         }
     }
 
+    /**
+     * @deprecated use cryptPassword
+     */
+    @Deprecated
     public static String getHashTypeFromPrefix(String hashString) {
         if (UtilValidate.isEmpty(hashString) || hashString.charAt(0) != '{') {
             return null;
@@ -170,6 +186,10 @@ public class HashCrypt {
         return hashString.substring(1, hashString.indexOf('}'));
     }
 
+    /**
+     * @deprecated use cryptPassword
+     */
+    @Deprecated
     public static String removeHashTypePrefix(String hashString) {
         if (UtilValidate.isEmpty(hashString) || hashString.charAt(0) != '{') {
             return hashString;
@@ -178,6 +198,10 @@ public class HashCrypt {
         return hashString.substring(hashString.indexOf('}') + 1);
     }
 
+    /**
+     * @deprecated no replacement, logic moved into comparePassword
+     */
+    @Deprecated
     public static String getDigestHashOldFunnyHexEncode(String str, String hashType) {
         if (UtilValidate.isEmpty(hashType)) hashType = "SHA";
         if (str == null) return null;

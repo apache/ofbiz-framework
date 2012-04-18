@@ -101,7 +101,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
         userLoginToCreate.set("passwordHint", "");
         userLoginToCreate.set("enabled", "Y");
         userLoginToCreate.set("partyId", getPartyId(rootElement, result));
-        userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(password, LoginServices.getHashType()) : password);
+        userLoginToCreate.set("currentPassword", useEncryption ? HashCrypt.cryptPassword(LoginServices.getHashType(), password) : password);
 
         GenericValue userTryToLogin = delegator.findOne("UserLogin", false, "userLoginId", username);
         if (userTryToLogin == null) {
@@ -119,7 +119,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
                 throw new GenericEntityException(e.getLocalizedMessage());
             }
         } else {
-            userTryToLogin.setString("currentPassword", useEncryption ? HashCrypt.getDigestHash(password, LoginServices.getHashType()) : password);
+            userTryToLogin.setString("currentPassword", useEncryption ? HashCrypt.cryptPassword(LoginServices.getHashType(), password) : password);
             userTryToLogin.store();
         }
 
