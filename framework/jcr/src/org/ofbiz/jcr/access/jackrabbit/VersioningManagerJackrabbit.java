@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
+import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.UnsupportedRepositoryOperationException;
 import javax.jcr.version.VersionException;
@@ -17,6 +18,7 @@ import org.apache.jackrabbit.ocm.version.Version;
 import org.apache.jackrabbit.ocm.version.VersionIterator;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.jcr.access.VersioningManager;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 public class VersioningManagerJackrabbit implements VersioningManager {
 
@@ -45,7 +47,6 @@ public class VersioningManagerJackrabbit implements VersioningManager {
             versionIterator = this.ocm.getAllVersions(nodePath);
         } catch (VersionException e) {
             Debug.logError(e, module);
-            // return an empty List
             return result;
         }
 
@@ -54,7 +55,7 @@ public class VersioningManagerJackrabbit implements VersioningManager {
             Version version = (Version) versionIterator.next();
             // filter the root version string, because it's not needed each node
             // starts with the version number 1.0
-            if (!ConstantsJackrabbit.ROOTVERSION.equals(version.getName())) {
+            if (isNotRootVersion(version)) {
                 result.add(version.getName());
             }
         }
@@ -85,12 +86,12 @@ public class VersioningManagerJackrabbit implements VersioningManager {
     public void checkOutContentObject(String nodePath) {
         // check if the parent node is the root node, because the
         // root node can not be checked out.
-        if (ConstantsJackrabbit.ROOTPATH.equals(nodePath)) {
+        if (JackrabbitUtils.isARootNode(nodePath)) {
             return;
         }
 
         try {
-            if (this.ocm.getSession().nodeExists(nodePath) && !this.ocm.getSession().getWorkspace().getVersionManager().isCheckedOut(nodePath) && !checkedOutNodeStore.contains(nodePath)) {
+            if (doNodeExist(nodePath) && isNodeNotCheckedOut(nodePath)) {
                 this.ocm.checkout(nodePath);
                 this.addContentToCheckInList(nodePath);
             }
@@ -103,8 +104,8 @@ public class VersioningManagerJackrabbit implements VersioningManager {
         }
     }
 
-    public void checkOutContentObject(String nodePath, boolean recursiv) {
-        if (recursiv) {
+    public void checkOutContentObject(String nodePath, boolean checkOutAllSubnodes) {
+        if (checkOutAllSubnodes) {
             try {
                 checkOutRelatedNodes(nodePath);
             } catch (RepositoryException e) {
@@ -134,16 +135,11 @@ public class VersioningManagerJackrabbit implements VersioningManager {
      */
     @Override
     public void checkInContentAndSaveState() {
-        if (ocm != null) {
-            ocm.save();
-        }
+        ocm.save();
 
         try {
             for (String nodePath : checkedOutNodeStore) {
-                // add the new resource content to the version history
-                if (this.ocm.getSession().nodeExists(nodePath) && this.ocm.getSession().getWorkspace().getVersionManager().isCheckedOut(nodePath)) {
-                    this.ocm.checkin(nodePath);
-                }
+                checkinNode(nodePath);
             }
 
             // reset the node store after everything is checked in
@@ -164,6 +160,7 @@ public class VersioningManagerJackrabbit implements VersioningManager {
      * @see
      * org.ofbiz.jcr.access.VersioningManager#getBaseVersion(java.lang.String)
      */
+    @Override
     public String getBaseVersion(String nodePath) {
         try {
             return ocm.getBaseVersion(nodePath).getName();
@@ -179,6 +176,7 @@ public class VersioningManagerJackrabbit implements VersioningManager {
      * @see
      * org.ofbiz.jcr.access.VersioningManager#getRootVersion(java.lang.String)
      */
+    @Override
     public String getRootVersion(String nodePath) {
         try {
             return ocm.getRootVersion(nodePath).getName();
@@ -195,12 +193,16 @@ public class VersioningManagerJackrabbit implements VersioningManager {
      * @param startNode
      * @throws RepositoryException
      */
-    protected void checkOutRelatedNodes(String startNodePath) throws RepositoryException {
+    private void checkOutRelatedNodes(String startNodePath) throws RepositoryException {
+        Node startNode = getNode(startNodePath);
         List<String> nodesToCheckOut = new ArrayList<String>();
+
         nodesToCheckOut.add(startNodePath);
-        nodesToCheckOut.add(ocm.getSession().getNode(startNodePath).getParent().getPath());
-        if (ocm.getSession().getNode(startNodePath).hasNodes()) {
-            nodesToCheckOut.addAll(getAllChildNodes(startNodePath));
+        nodesToCheckOut.add(startNode.getParent().getPath());
+
+        if (startNode.hasNodes()) {
+            List<String> allChildNodes = getAllChildNodes(startNode);
+            nodesToCheckOut.addAll(allChildNodes);
         }
 
         for (String node : nodesToCheckOut) {
@@ -216,18 +218,49 @@ public class VersioningManagerJackrabbit implements VersioningManager {
      * @return
      * @throws RepositoryException
      */
-    private List<String> getAllChildNodes(String startNode) throws RepositoryException {
+    private List<String> getAllChildNodes(Node startNode) throws RepositoryException {
         List<String> nodes = new ArrayList<String>();
-        NodeIterator ni = ocm.getSession().getNode(startNode).getNodes();
-        while (ni.hasNext()) {
-            Node nextNode = ni.nextNode();
-            if (nextNode.hasNodes()) {
-                nodes.addAll(getAllChildNodes(nextNode.getPath()));
+
+        NodeIterator subNodeIterator = startNode.getNodes();
+        while (subNodeIterator.hasNext()) {
+            Node subNode = subNodeIterator.nextNode();
+
+            if (subNode.hasNodes()) {
+                nodes.addAll(getAllChildNodes(subNode));
             }
 
-            nodes.add(nextNode.getPath());
+            nodes.add(subNode.getPath());
         }
 
         return nodes;
+    }
+
+    private void checkinNode(String nodePath) throws RepositoryException, UnsupportedRepositoryOperationException, VersionException {
+        if (doNodeExist(nodePath) && this.isNodeCheckedOut(nodePath)) {
+            this.ocm.checkin(nodePath);
+        }
+    }
+
+    private Node getNode(String startNodePath) throws PathNotFoundException, RepositoryException {
+        return ocm.getSession().getNode(startNodePath);
+    }
+
+    private boolean isNotRootVersion(Version version) {
+        return !ConstantsJackrabbit.ROOTVERSION.equals(version.getName());
+    }
+
+    private boolean doNodeExist(String nodePath) throws RepositoryException {
+        return this.ocm.getSession().nodeExists(nodePath);
+    }
+
+    private boolean isNodeNotCheckedOut(String nodePath) throws RepositoryException, UnsupportedRepositoryOperationException {
+        return !isNodeCheckedOut(nodePath);
+    }
+
+    private boolean isNodeCheckedOut(String nodePath) throws UnsupportedRepositoryOperationException, RepositoryException {
+        boolean isNodeMarkedAsCheckedOut = this.ocm.getSession().getWorkspace().getVersionManager().isCheckedOut(nodePath);
+        boolean isNodeInCheckedOutNodeStore = checkedOutNodeStore.contains(nodePath);
+
+        return (isNodeMarkedAsCheckedOut && isNodeInCheckedOutNodeStore);
     }
 }

@@ -34,6 +34,7 @@ import javax.jcr.Workspace;
 import javax.jcr.nodetype.NoSuchNodeTypeException;
 import javax.jcr.nodetype.NodeTypeManager;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.jackrabbit.core.TransientRepository;
 import org.apache.jackrabbit.core.nodetype.InvalidNodeTypeDefException;
 import org.apache.jackrabbit.core.nodetype.NodeTypeManagerImpl;
@@ -128,7 +129,11 @@ public class JCRFactoryImpl implements JCRFactory {
         if (removeRepositoryOnShutdown) {
             if (UtilValidate.isNotEmpty(homeDir)) {
                 File homeDirFile = new File(homeDir);
-                homeDirFile.deleteOnExit();
+                try {
+                    FileUtils.deleteDirectory(homeDirFile);
+                } catch (IOException e) {
+                    Debug.logError(e, module);
+                }
             }
         }
     }

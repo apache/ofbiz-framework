@@ -5,7 +5,7 @@ import java.util.Calendar;
 import org.apache.jackrabbit.ocm.mapper.impl.annotation.Field;
 import org.apache.jackrabbit.ocm.mapper.impl.annotation.Node;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 @Node(jcrType = "nt:hierarchyNode", jcrMixinTypes="mix:versionable")
 public class JackrabbitHierarchyNode implements OfbizRepositoryMapping {
@@ -21,7 +21,7 @@ public class JackrabbitHierarchyNode implements OfbizRepositoryMapping {
 
     public void setPath(String nodePath) {
         // check if the node path is an absolute path
-        this.path = JcrUtilJackrabbit.createAbsoluteNodePath(nodePath);
+        this.path = JackrabbitUtils.createAbsoluteNodePath(nodePath);
     }
 
     public Calendar getCreationDate() {

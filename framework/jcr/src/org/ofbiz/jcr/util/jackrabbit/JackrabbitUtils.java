@@ -17,9 +17,9 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.jcr.access.jackrabbit.ConstantsJackrabbit;
 import org.ofbiz.jcr.loader.JCRFactoryUtil;
 
-public class JcrUtilJackrabbit {
+public class JackrabbitUtils {
 
-    public static final String module = JcrUtilJackrabbit.class.getName();
+    public static final String module = JackrabbitUtils.class.getName();
 
     /**
      * A method to list all nodes in the repository. The result List contains
@@ -124,5 +124,17 @@ public class JcrUtilJackrabbit {
      */
     public static String determindeTheDefaultLanguage() {
         return UtilProperties.getPropertyValue("general", "locale.properties.fallback");
+    }
+
+    public static boolean isNotARootNode(Node node) throws RepositoryException {
+        return !isARootNode(node);
+    }
+
+    public static boolean isARootNode(Node node) throws RepositoryException {
+        return isARootNode(node.getPath());
+    }
+
+    public static boolean isARootNode(String nodePath) {
+        return ConstantsJackrabbit.ROOTPATH.equals(nodePath);
     }
 }

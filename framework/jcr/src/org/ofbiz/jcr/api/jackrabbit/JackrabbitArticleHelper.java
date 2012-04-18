@@ -22,7 +22,7 @@ import org.ofbiz.jcr.access.jackrabbit.JackrabbitRepositoryAccessor;
 import org.ofbiz.jcr.api.JcrDataHelper;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
 import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
-import org.ofbiz.jcr.util.jackrabbit.JcrUtilJackrabbit;
+import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 /**
  * This Helper class encapsulate the jcr article content bean. it provide all
@@ -126,7 +126,7 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
     @Override
     public void storeContentInRepository(String contentPath, String language, String title, String content, Calendar publicationDate) throws ObjectContentManagerException, ItemExistsException {
         if (UtilValidate.isEmpty(language)) {
-            language = JcrUtilJackrabbit.determindeTheDefaultLanguage();
+            language = JackrabbitUtils.determindeTheDefaultLanguage();
         }
 
         // construct the content article object
@@ -248,8 +248,8 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
 
         if (super.access.checkIfNodeExist(canonicalizedContentPath + contentLanguage) && checkIfNodeHaveValidLanguageMixIn(canonicalizedContentPath + contentLanguage)) {
             contentPath = canonicalizedContentPath + contentLanguage;
-        } else if (super.access.checkIfNodeExist(canonicalizedContentPath + JcrUtilJackrabbit.determindeTheDefaultLanguage())) {
-            contentPath = canonicalizedContentPath + JcrUtilJackrabbit.determindeTheDefaultLanguage();
+        } else if (super.access.checkIfNodeExist(canonicalizedContentPath + JackrabbitUtils.determindeTheDefaultLanguage())) {
+            contentPath = canonicalizedContentPath + JackrabbitUtils.determindeTheDefaultLanguage();
         } else {
             contentPath = determineFirstAvailableLanguageNode(canonicalizedContentPath);
         }
