@@ -23,7 +23,7 @@
 #  $2 = loop type
 
 top_dir="$(cd "$0/../..";echo "$PWD")"
-. "$top_dir/bin/functions.sh"
+. "$top_dir/tools/functions.sh"
 
 cd "$top_dir"
 
