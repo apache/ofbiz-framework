@@ -181,12 +181,10 @@ function initiallyCollapseDelayed() {
 * Fieldlookup Class & Methods
 *************************************/
 function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalTarget, formName, width, height, position, modal, ajaxUrl, showDescription, presentation, defaultMinLength, defaultDelay, args) {
-    
     // add the presentation attribute to the request url to let the request know which decorator should be loaded
     if(!presentation) {
       var presentation = "layer"
-    }    
-    requestUrl = getViewNameWithSeparator(requestUrl) + "presentation=" + presentation;
+    }
     
     // create Link Element with unique Key
     var lookupId = GLOBAL_LOOKUP_REF.createNextKey();
@@ -232,7 +230,7 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
     } else {
         positioning = ['left', 'top'];
     }
-    
+
     var lookupFormAction = null;
     function lookup_onKeyEnter(event) {
         if (event.which == 13) {
@@ -251,35 +249,69 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
         position: positioning,
         draggable: true,
         resizeable: true,
-        open: function() {
-            var requestUrlAndArgs = requestUrl;
+        open: function(event,ui) {
+            waitSpinnerShow();
+            jQuery("#" + lookupId).empty();
+
+            var queryArgs = "presentation=" + presentation;
             if (typeof args == "object" && jQuery.isArray(args)) {
                 for (var i = 0; i < args.length; i++) {
-                    requestUrlAndArgs += "&parm" + i + "=" + jQuery(args[i]).val();
+                    queryArgs += "&parm" + i + "=" + jQuery(args[i]).val();
                 }
             }
-            jQuery("#" + lookupId).load(requestUrlAndArgs, function(data){ 
-                lookupFormAction = jQuery("#" + lookupId + " form:first").attr("action");
-                modifySubmitButton(lookupId);
-                jQuery("#" + lookupId).bind("keypress", lookup_onKeyEnter);
-                // set up the window chaining
-                // if the ACTIVATED_LOOKUP var is set there have to be more than one lookup,
-                // before registrating the new lookup we store the id of the old lookup in the
-                // preLookup variable of the new lookup object. I.e. lookup_1 calls lookup_8, the lookup_8
-                // object need a reference to lookup_1, this reference is set here
-                var prevLookup = null
-                if (ACTIVATED_LOOKUP) {
-                    prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
-                }
-                identifyLookup(lookupId);
-                
-                if (prevLookup) {
-                    GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup = prevLookup;
-                }
+
+            jQuery.ajax({
+                type: "post",
+                url: requestUrl,
+                data: queryArgs,
+                timeout: AJAX_REQUEST_TIMEOUT,
+                cache: false,
+                dataFilter: function(data, dataType) {
+                    waitSpinnerHide();
+                    return data;
+                },
+                success: function(data) {
+                    //search for <span style="message...> returned from server
+                    var matchFound = data.toString().match(AJAX_SERVER_REPLY_MSG_REGEXPATTERN);
+                    if (matchFound != null) {
+                        jQuery(event.target).parent().css({'display':'none'});
+                        jQuery("#" + lookupId).dialog('close');
+                        alert(matchFound[1].trim());
+                        return;
+                    }
+                    
+                    jQuery("#" + lookupId).html(data);
+                    
+                    lookupFormAction = jQuery("#" + lookupId + " form:first").attr("action");
+                    modifySubmitButton(lookupId);
+                    jQuery("#" + lookupId).bind("keypress", lookup_onKeyEnter);
+                    // set up the window chaining
+                    // if the ACTIVATED_LOOKUP var is set there have to be more than one lookup,
+                    // before registrating the new lookup we store the id of the old lookup in the
+                    // preLookup variable of the new lookup object. I.e. lookup_1 calls lookup_8, the lookup_8
+                    // object need a reference to lookup_1, this reference is set here
+                    var prevLookup = null
+                    if (ACTIVATED_LOOKUP) {
+                        prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).lookupId;
+                    }
+                    identifyLookup(lookupId);
+                    
+                    if (prevLookup) {
+                        GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup = prevLookup;
+                    }
+                },
+                error: function(xhr, reason, exception) {
+                    //TODO ... need to localize the following error message.
+                    alert("An error occurred while communicating with the server:\n\n\nreason=" + reason + "\n\nexception=" + exception);
+                    location.reload(true);
+                },
             });
         },
         close: function() {
             jQuery("#" + lookupId).unbind("keypress", lookup_onKeyEnter);
+            
+            waitSpinnerHide();
+
             //when the window is closed the prev Lookup get the focus (if exists)
             if (ACTIVATED_LOOKUP) {
                 var prevLookup = GLOBAL_LOOKUP_REF.getReference(ACTIVATED_LOOKUP).prevLookup;
@@ -290,7 +322,6 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
                 ACTIVATED_LOOKUP = null;
             }
         }
-
     };
     
     // init Dialog and register
@@ -331,7 +362,6 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
             jQuery("#" + lookupId).dialog("close");
         }
     });
-
 }
 
 function FieldLookupCounter() {
@@ -377,7 +407,6 @@ function FieldLookupCounter() {
     
 };
 var GLOBAL_LOOKUP_REF = new FieldLookupCounter;
-
 
 /**
 * returns true if a String is empty

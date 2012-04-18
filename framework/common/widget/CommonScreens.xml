@@ -90,20 +90,46 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- decorator used in creating a response to an ajax request -->
+    <screen name="AjaxGlobalDecorator">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true" />
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://common/webcommon/includes/htmlheader-for-ajax.ftl" />
+                    </html>
+                </platform-specific>
+                <decorator-section-include name="body" />
+                <platform-specific>
+                    <html>
+                        <html-template location="component://common/webcommon/includes/htmlfooter-for-ajax.ftl" />
+                    </html>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
     <!--
         The following screen is used to generate Ajax list of options for autocomplete fields
     -->
     <screen name="ajaxAutocompleteOptions">
         <section>
             <actions>
-                <set field="autocompleteOptions" from-field="parameters.autocompleteOptions"/>
+                <set field="autocompleteOptions" from-field="parameters.autocompleteOptions" />
             </actions>
             <widgets>
-                <platform-specific><html><html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl"/></html></platform-specific>
+                <decorator-screen name="AjaxGlobalDecorator">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl" /></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>
-
     <!-- Global screen rendering context initialization, intended to be included in screen decorators. Devs - please keep this simple and generic. -->
     <screen name="GlobalActions">
         <section>
@@ -411,7 +437,15 @@ under the License.
                         <script location="component://common/webcommon/WEB-INF/actions/includes/FindAutocompleteOptions.groovy"/>
                     </actions>
                     <widgets>
-                        <platform-specific><html><html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl"/></html></platform-specific>
+                        <decorator-screen name="AjaxGlobalDecorator">
+                            <decorator-section name="body">
+                                <platform-specific>
+                                    <html>
+                                        <html-template location="component://common/webcommon/includes/ajaxAutocompleteOptions.ftl" />
+                                    </html>
+                                </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
                     </widgets>
                 </section>
             </fail-widgets>
@@ -542,9 +576,9 @@ under the License.
     <screen name="ajaxNotLoggedIn">
         <section>
             <widgets>
-                <decorator-screen name="LookupDecorator">
+                <decorator-screen name="AjaxGlobalDecorator">
                     <decorator-section name="body">
-                        <link target="checkLogin" text="${uiLabelMap.CommonSessionTimeoutPleaseLogIn}"/>
+                        <label style="message" text="${uiLabelMap.CommonSessionTimeoutPleaseLogIn}"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
