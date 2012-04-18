@@ -18,7 +18,7 @@ under the License.
 -->
 <div class="screenlet">
   <h2>${uiLabelMap.PartyChangePassword}</h2>  
-  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.getElementById('changepasswordform').submit()" class="button">${uiLabelMap.CommonSave}</a>
   <p/>   
   <div class="screenlet-body">
