@@ -1060,17 +1060,7 @@ public class ServiceDispatcher {
         // set up the running service log
         RunningService rs = new RunningService(localName, modelService, mode);
         synchronized(runLog) {
-            try {
-                runLog.put(rs, this);
-            } catch (Throwable t) {
-                Debug.logWarning("LRUMap problem; resetting LRU [" + runLog.size() + "]", module);
-                runLog.clear();
-                try {
-                    runLog.put(rs, this);
-                } catch (Throwable t2) {
-                    Debug.logError(t2, "Unable to put() in reset LRU map!", module);
-                }
-            }
+            runLog.put(rs, this);
         }
         return rs;
     }
