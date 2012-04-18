@@ -8,6 +8,7 @@ applications/content/index/
 bin/
 ofbiz.jar
 changelog
+runtime/git-rebase/*
 runtime/svninfo.ftl
 runtime/test-list-build.xml
 runtime/logs/access_log.*
@@ -19,6 +20,7 @@ runtime/logs/*.html*
 runtime/logs/test-results/*
 runtime/data/derby/*
 runtime/data/jcr/*
+runtime/data/jcr-test/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/jetty
