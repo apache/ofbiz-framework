@@ -1199,7 +1199,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(alert);
         sr.append("\" name=\"");
         sr.append(name);
-        sr.append(" title=\"");
+        sr.append("\" title=\"");
         sr.append(title);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
