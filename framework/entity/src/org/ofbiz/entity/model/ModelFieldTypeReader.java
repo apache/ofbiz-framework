@@ -73,27 +73,26 @@ public class ModelFieldTypeReader implements Serializable {
         }
         String tempModelName = datasourceInfo.fieldTypeName;
         ModelFieldTypeReader reader = readers.get(tempModelName);
-        if (reader == null) {
-            synchronized (readers) {
-                FieldTypeInfo fieldTypeInfo = EntityConfigUtil.getFieldTypeInfo(tempModelName);
-                if (fieldTypeInfo == null) {
-                    throw new IllegalArgumentException("Could not find a field-type definition with name \"" + tempModelName + "\"");
-                }
-                ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.resourceElement);
-                UtilTimer utilTimer = new UtilTimer();
-                utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Reading field types from " + fieldTypeResourceHandler.getLocation());
-                Document document = null;
-                try {
-                    document = fieldTypeResourceHandler.getDocument();
-                } catch (GenericConfigException e) {
-                    Debug.logError(e, module);
-                    throw new IllegalStateException("Error loading field type file " + fieldTypeResourceHandler.getLocation());
-                }
-                Map<String, ModelFieldType> fieldTypeMap = createFieldTypeCache(document.getDocumentElement(), fieldTypeResourceHandler.getLocation());
-                reader = new ModelFieldTypeReader(fieldTypeMap);
-                readers.put(tempModelName, reader);
-                utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Read " + fieldTypeMap.size() + " field types");
+        while (reader == null) {
+            FieldTypeInfo fieldTypeInfo = EntityConfigUtil.getFieldTypeInfo(tempModelName);
+            if (fieldTypeInfo == null) {
+                throw new IllegalArgumentException("Could not find a field-type definition with name \"" + tempModelName + "\"");
             }
+            ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.resourceElement);
+            UtilTimer utilTimer = new UtilTimer();
+            utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Reading field types from " + fieldTypeResourceHandler.getLocation());
+            Document document = null;
+            try {
+                document = fieldTypeResourceHandler.getDocument();
+            } catch (GenericConfigException e) {
+                Debug.logError(e, module);
+                throw new IllegalStateException("Error loading field type file " + fieldTypeResourceHandler.getLocation());
+            }
+            Map<String, ModelFieldType> fieldTypeMap = createFieldTypeCache(document.getDocumentElement(), fieldTypeResourceHandler.getLocation());
+            reader = new ModelFieldTypeReader(fieldTypeMap);
+            readers.putIfAbsent(tempModelName, reader);
+            utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Read " + fieldTypeMap.size() + " field types");
+            reader = readers.get(tempModelName);
         }
         return reader;
     }
