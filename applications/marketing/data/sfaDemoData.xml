@@ -55,7 +55,7 @@
     <PartyRole partyId="DemoLeadOwner" roleTypeId="_NA_"/>
     <PartyRole partyId="DemoLeadOwner" roleTypeId="OWNER"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
-    <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner" enabled="Y"/>
+    <UserLogin userLoginId="DemoLeadOwner" currentPassword="{SHA}da39a3ee5e6b4b0d3255bfef95601890afd80709" partyId="DemoLeadOwner" enabled="Y"/>
     <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner" fromDate="2001-05-13 00:00:00.000"/>
 
@@ -64,7 +64,7 @@
     <PartyRole partyId="DemoLeadOwner1" roleTypeId="_NA_"/>
     <PartyRole partyId="DemoLeadOwner1" roleTypeId="OWNER"/>
     <PartyRelationship partyIdFrom="Company" roleTypeIdFrom="_NA_" partyIdTo="DemoLeadOwner1" roleTypeIdTo="_NA_" partyRelationshipTypeId="EMPLOYMENT" fromDate="2000-01-01 00:00:00"/>
-    <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="DemoLeadOwner1" enabled="Y"/>
+    <UserLogin userLoginId="DemoLeadOwner1" currentPassword="{SHA}da39a3ee5e6b4b0d3255bfef95601890afd80709" partyId="DemoLeadOwner1" enabled="Y"/>
     <!-- FIXME: Establish SecurityGroup for SFA. This user should have access only to SFA -->
     <UserLoginSecurityGroup groupId="FULLADMIN" userLoginId="DemoLeadOwner1" fromDate="2001-05-13 00:00:00.000"/>
 
