@@ -84,13 +84,10 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
         contentPath = determineContentLanguagePath(contentPath, language);
 
         OfbizRepositoryMapping orm = super.access.getContentObject(contentPath);
+        setArticleContentObject(orm);
 
-        if (checkAndSetArticleContentObject(orm)) {
-            article.setVersion(super.access.getBaseVersion(contentPath));
-            return article;
-        } else {
-            throw new ClassCastException("The content object for the path: " + contentPath + " is not an article content object. This Helper can only handle content objects with the type: " + JackrabbitArticle.class.getName());
-        }
+        article.setVersion(super.access.getBaseVersion(contentPath));
+        return article;
     }
 
     /*
@@ -103,16 +100,14 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
     @Override
     public JackrabbitArticle readContentFromRepository(String contentPath, String language, String version) throws ClassCastException, PathNotFoundException {
         contentPath = determineContentLanguagePath(contentPath, language);
-        OfbizRepositoryMapping orm = super.access.getContentObject(contentPath, version);
 
-        if (checkAndSetArticleContentObject(orm)) {
-            // the content path must be manipulated because, the jackrabbit orm
-            // returns a full blown path with version information.
-            article.setPath(contentPath);
-            return article;
-        } else {
-            throw new ClassCastException("The content object for the path: " + contentPath + " is not an article content object. This Helper can only handle content objects with the type: " + JackrabbitArticle.class.getName());
-        }
+        OfbizRepositoryMapping orm = super.access.getContentObject(contentPath, version);
+        setArticleContentObject(orm);
+
+        // manipulating the content path, because the jackrabbit orm
+        // returns a content path with version information.
+        article.setPath(contentPath);
+        return article;
     }
 
     /*
@@ -129,9 +124,7 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
             language = JackrabbitUtils.determindeTheDefaultLanguage();
         }
 
-        // construct the content article object
         article = new JackrabbitArticle(contentPath, language, title, content, publicationDate);
-
         super.access.storeContentObject(article);
     }
 
@@ -168,7 +161,6 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
             versions = super.access.getVersionList(article.getPath());
         } else {
             Debug.logWarning("No Article is loaded from the repository, please load an article first before requesting the version list.", module);
-            versions = new ArrayList<String>(1);
         }
 
         return versions;
@@ -227,12 +219,12 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
      */
     private String determineContentLanguagePath(String contentPath, String contentLanguage) throws PathNotFoundException {
         // return if only the root node path is requested
-        if (ConstantsJackrabbit.ROOTPATH.equals(contentPath)) {
+        if (JackrabbitUtils.isARootNode(contentPath)) {
             return contentPath;
         }
 
         // contentLanaguage should never be null, because the concatenation
-        // looks really bad if the String have a null value.
+        // goes wrong if the String have a null value.
         if (contentLanguage == null) {
             contentLanguage = "";
         }
@@ -248,8 +240,10 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
 
         if (super.access.checkIfNodeExist(canonicalizedContentPath + contentLanguage) && checkIfNodeHaveValidLanguageMixIn(canonicalizedContentPath + contentLanguage)) {
             contentPath = canonicalizedContentPath + contentLanguage;
+
         } else if (super.access.checkIfNodeExist(canonicalizedContentPath + JackrabbitUtils.determindeTheDefaultLanguage())) {
             contentPath = canonicalizedContentPath + JackrabbitUtils.determindeTheDefaultLanguage();
+
         } else {
             contentPath = determineFirstAvailableLanguageNode(canonicalizedContentPath);
         }
@@ -279,7 +273,7 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
                 }
             }
             childNodes = null;
-        } catch(PathNotFoundException pnf) {
+        } catch (PathNotFoundException pnf) {
             throw new PathNotFoundException(pnf);
         } catch (RepositoryException e) {
             Debug.logError(e, module);
@@ -299,18 +293,15 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
         String[] splitContentPath = contentPath.split(ConstantsJackrabbit.NODEPATHDELIMITER);
 
         String canonicalizedCotnentPath = "";
-        // check if the last chunk contains a language which is part of our
-        // locale list, but this should only be called if the language should be
-        // changed. Because it is possible to request a node directly with the
-        // language flag. That means if the node path contains a language and
-        // the language should not be changed (contentLanaguage is empty), the
-        // language flag should be stay in the content path.
+        // check if the last chunk contains a language flags, which is part of
+        // our locale list.
+        // It's possible to request a node directly with the language in the
+        // URL. If the node path contains a language and the language should not
+        // be changed (contentLanaguage is empty), the language flag stay in the
+        // content path. Otherwise it will be removed.
         if (UtilValidate.isNotEmpty(contentLanguage) && possibleLocales.contains(splitContentPath[splitContentPath.length - 1])) {
-            // this local field should not be part of our path string
             canonicalizedCotnentPath = buildCanonicalizeContentPath(splitContentPath, splitContentPath.length - 1);
         } else {
-            // make sure the passed content path is absolute and ends with a
-            // slash "/"
             canonicalizedCotnentPath = buildCanonicalizeContentPath(splitContentPath, splitContentPath.length);
         }
 
@@ -372,7 +363,7 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
 
     /**
      * Checks if a node have the property <code>localized</code> and if this
-     * property is be <code>true</code>
+     * property is <code>true</code>
      *
      * @param nodeWhichShouldHaveAValidLanguageFlag
      * @return
@@ -381,25 +372,25 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
      * @throws PathNotFoundException
      */
     private boolean checkIfNodeHaveValidLanguageMixIn(Node nodeWhichShouldHaveAValidLanguageFlag) throws RepositoryException, ValueFormatException, PathNotFoundException {
-        return nodeWhichShouldHaveAValidLanguageFlag.hasProperty("localized") && nodeWhichShouldHaveAValidLanguageFlag.getProperty("localized").getBoolean();
+        boolean hasProperty = nodeWhichShouldHaveAValidLanguageFlag.hasProperty("localized");
+
+        return hasProperty && nodeWhichShouldHaveAValidLanguageFlag.getProperty("localized").getBoolean();
     }
 
     /**
-     * Checks if the <code>orm</code> Object is an instance of
-     * <code>JackrabbitArticle</code>, set the class variable and return true,
-     * otherwise false will be returned and the class variable is det to null.
+     * Set the article class variable if the <code>orm</code> Object is an
+     * instance of <code>JackrabbitArticle</code>. Throws a ClassCastException
+     * if the <code>orm</code> Object is from another type.
      *
      * @param orm
+     * @throws ClassCastException
      * @return
      */
-    private boolean checkAndSetArticleContentObject(OfbizRepositoryMapping orm) {
+    private void setArticleContentObject(OfbizRepositoryMapping orm) throws ClassCastException {
         if (orm != null && orm instanceof JackrabbitArticle) {
             article = (JackrabbitArticle) orm;
-            return true;
-        } else {
-            article = null;
         }
 
-        return false;
+        throw new ClassCastException("The content object for the path: " + orm.getPath() + " is not an article content object. This Helper can only handle content objects with the type: " + JackrabbitArticle.class.getName());
     }
 }
