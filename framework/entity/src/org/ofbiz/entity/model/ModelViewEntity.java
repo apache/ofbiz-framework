@@ -315,16 +315,6 @@ public class ModelViewEntity extends ModelEntity {
                 orderByList.addAll(currentOrderByList);
             }
         }
-
-        for (Map.Entry<String, String> memberEntityEntry: this.memberModelEntities.entrySet()) {
-            ModelEntity modelEntity = this.getModelReader().getModelEntityNoCheck(memberEntityEntry.getValue());
-            if (modelEntity instanceof ModelViewEntity) {
-                ModelViewEntity memberViewEntity = (ModelViewEntity) modelEntity;
-                entityAliasStack.add(memberEntityEntry.getKey());
-                memberViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, entityAliasStack);
-                entityAliasStack.remove(entityAliasStack.size() - 1);
-            }
-        }
     }
 
     @Deprecated @Override

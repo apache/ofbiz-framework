@@ -40,6 +40,7 @@ import java.util.TreeSet;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialClob;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -54,6 +55,7 @@ import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionParam;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.jdbc.JdbcValueHandler;
@@ -420,11 +422,31 @@ public class SqlJdbcUtil {
             }
             sql.append(makeFromClause(modelEntity, modelFieldTypeReader, datasourceInfo));
             String viewWhereClause = makeViewWhereClause(modelEntity, datasourceInfo.joinStyle);
-            if (UtilValidate.isNotEmpty(viewWhereClause)) {
-                sql.append(" WHERE ");
-                sql.append(viewWhereClause);
-            }
             ModelViewEntity modelViewEntity = (ModelViewEntity)modelEntity;
+            List<EntityCondition> whereConditions = FastList.newInstance();
+            List<EntityCondition> havingConditions = FastList.newInstance();
+            List<String> orderByList = FastList.newInstance();
+
+            modelViewEntity.populateViewEntityConditionInformation(modelFieldTypeReader, whereConditions, havingConditions, orderByList, null);
+            String viewConditionClause;
+            if (!whereConditions.isEmpty()) {
+                viewConditionClause = EntityCondition.makeCondition(whereConditions, EntityOperator.AND).makeWhereString(modelViewEntity,  null, datasourceInfo);
+            } else {
+                viewConditionClause = null;
+            }
+            if (UtilValidate.isNotEmpty(viewWhereClause) || UtilValidate.isNotEmpty(viewConditionClause)) {
+                sql.append(" WHERE ");
+                if (UtilValidate.isNotEmpty(viewWhereClause)) {
+                    sql.append("(").append(viewWhereClause).append(")");
+                    if (UtilValidate.isNotEmpty(viewConditionClause)) {
+                        sql.append(" AND ");
+                    }
+                }
+                if (UtilValidate.isNotEmpty(viewConditionClause)) {
+                    sql.append("(").append(viewConditionClause).append(")");
+                }
+            }
+            // FIXME: handling HAVING, don't need ORDER BY for nested views
             modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), sql, " GROUP BY ", ", ", "", false);
 
             sql.append(")");
