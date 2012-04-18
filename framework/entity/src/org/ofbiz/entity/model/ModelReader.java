@@ -176,7 +176,6 @@ public class ModelReader implements Serializable {
         // utilTimer.timerString("  After createModelEntity -- " + i + " --");
         if (modelEntity != null) {
             modelEntity.setLocation(resourceLocation);
-            entityCache.put(entityName, modelEntity);
             // utilTimer.timerString("  After entityCache.put -- " + i + " --");
             if (isEntity) {
                 if (Debug.verboseOn()) Debug.logVerbose("-- [Entity]: #" + i + ": " + entityName, module);
@@ -245,7 +244,11 @@ public class ModelReader implements Serializable {
                                     i++;
                                     ModelEntity modelEntity = buildEntity(entityResourceHandler, (Element) curChild, i, def);
                                     // put the view entity in a list to get ready for the second pass to populate fields...
-                                    if (isViewEntity) tempViewEntityList.add((ModelViewEntity) modelEntity);
+                                    if (isViewEntity) {
+                                        tempViewEntityList.add((ModelViewEntity) modelEntity);
+                                    } else {
+                                        entityCache.put(modelEntity.getEntityName(), modelEntity);
+                                    }
                                 } else if (isExtendEntity && curChild.getNodeType() == Node.ELEMENT_NODE) {
                                     tempExtendEntityElementList.add((Element) curChild);
                                 }
@@ -266,15 +269,59 @@ public class ModelReader implements Serializable {
 
                     // do a pass on all of the view entities now that all of the entities have
                     // loaded and populate the fields
-                    for (ModelViewEntity curViewEntity: tempViewEntityList) {
-
-                        curViewEntity.populateFields(this);
-                        for (ModelViewEntity.ModelMemberEntity mve: curViewEntity.getAllModelMemberEntities()) {
-
-                            ModelEntity me = entityCache.get(mve.getEntityName());
-                            if (me == null) throw new GenericEntityConfException("View " + curViewEntity.getEntityName() + " references non-existant entity: " + mve.getEntityName());
-                            me.addViewEntity(curViewEntity);
+                    while (!tempViewEntityList.isEmpty()) {
+                        int startSize = tempViewEntityList.size();
+                        Iterator<ModelViewEntity> mveIt = tempViewEntityList.iterator();
+TEMP_VIEW_LOOP:
+                        while (mveIt.hasNext()) {
+                            ModelViewEntity curViewEntity = mveIt.next();
+                            for (ModelViewEntity.ModelMemberEntity mve: curViewEntity.getAllModelMemberEntities()) {
+                                if (!entityCache.containsKey(mve.getEntityName())) {
+                                    continue TEMP_VIEW_LOOP;
+                                }
+                            }
+                            mveIt.remove();
+                            curViewEntity.populateFields(this);
+                            for (ModelViewEntity.ModelMemberEntity mve: curViewEntity.getAllModelMemberEntities()) {
+                                ModelEntity me = (ModelEntity) entityCache.get(mve.getEntityName());
+                                me.addViewEntity(curViewEntity);
+                            }
+                            entityCache.put(curViewEntity.getEntityName(), curViewEntity);
                         }
+                        if (tempViewEntityList.size() == startSize) {
+                            // Oops, the remaining views reference other entities
+                            // that can't be found, or they reference other views
+                            // that have some reference problem.
+                            break;
+                        }
+                    }
+                    if (!tempViewEntityList.isEmpty()) {
+                        StringBuilder sb = new StringBuilder("View entities reference non-existant members:\n");
+                        Set<String> allViews = FastSet.newInstance();
+                        for (ModelViewEntity curViewEntity: tempViewEntityList) {
+                            allViews.add(curViewEntity.getEntityName());
+                        }
+                        for (ModelViewEntity curViewEntity: tempViewEntityList) {
+                            Set<String> perViewMissingEntities = FastSet.newInstance();
+                            Iterator<ModelViewEntity.ModelMemberEntity> mmeIt = curViewEntity.getAllModelMemberEntities().iterator();
+                            while (mmeIt.hasNext()) {
+                                ModelViewEntity.ModelMemberEntity mme = mmeIt.next();
+                                String memberEntityName = mme.getEntityName();
+                                if (!entityCache.containsKey(memberEntityName)) {
+                                    // this member is not a real entity
+                                    // check to see if it is a view
+                                    if (!allViews.contains(memberEntityName)) {
+                                        // not a view, it's a real missing entity
+                                        perViewMissingEntities.add(memberEntityName);
+                                    }
+                                }
+                            }
+                            for (String perViewMissingEntity: perViewMissingEntities) {
+                                sb.append("\t[").append(curViewEntity.getEntityName()).append("] missing member entity [").append(perViewMissingEntity).append("]\n");
+                            }
+
+                        }
+                        throw new GenericEntityConfException(sb.toString());
                     }
 
                     // auto-create relationships
