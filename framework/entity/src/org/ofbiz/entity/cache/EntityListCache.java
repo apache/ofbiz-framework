@@ -21,6 +21,7 @@ package org.ofbiz.entity.cache;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
 
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -39,7 +40,7 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
     }
 
     public List<GenericValue> get(String entityName, EntityCondition condition, List<String> orderBy) {
-        Map<Object, List<GenericValue>> conditionCache = getConditionCache(entityName, condition);
+        ConcurrentMap<Object, List<GenericValue>> conditionCache = getConditionCache(entityName, condition);
         if (conditionCache == null) return null;
         Object orderByKey = getOrderByKey(orderBy);
         List<GenericValue> valueList = conditionCache.get(orderByKey);
@@ -48,11 +49,12 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
             Iterator<List<GenericValue>> it = conditionCache.values().iterator();
             if (it.hasNext()) valueList = it.next();
 
-            synchronized (conditionCache) {
-                if (valueList != null) {
-                    valueList = EntityUtil.orderBy(valueList, orderBy);
-                    conditionCache.put(orderByKey, valueList);
-                }
+            if (valueList != null) {
+                // Does not need to be synchronized; if 2 threads do the same ordering,
+                // the result will be exactly the same, and won't actually cause any
+                // incorrect results.
+                valueList = EntityUtil.orderBy(valueList, orderBy);
+                conditionCache.put(orderByKey, valueList);
             }
         }
         return valueList;
