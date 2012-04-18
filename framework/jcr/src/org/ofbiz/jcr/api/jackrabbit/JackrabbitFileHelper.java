@@ -75,16 +75,14 @@ public class JackrabbitFileHelper extends JackrabbitAbstractHelper implements Jc
         }
 
         if (orm instanceof JackrabbitFile) {
-            JackrabbitFile fileObj = (JackrabbitFile) orm;
-            hierarchy = fileObj;
-            return fileObj;
+            hierarchy = (JackrabbitFile) orm;
         } else if (orm instanceof JackrabbitFolder) {
-            JackrabbitFolder fileObj = (JackrabbitFolder) orm;
-            hierarchy = fileObj;
-            return fileObj;
+            hierarchy = (JackrabbitFolder) orm;
+        } else {
+            throw new ClassCastException("The content object for the path: " + contentPath + " is not a file content object. This Helper can only handle content objects with the type: " + JackrabbitFile.class.getName());
         }
 
-        throw new ClassCastException("The content object for the path: " + contentPath + " is not a file content object. This Helper can only handle content objects with the type: " + JackrabbitFile.class.getName());
+        return hierarchy;
     }
 
     /*
