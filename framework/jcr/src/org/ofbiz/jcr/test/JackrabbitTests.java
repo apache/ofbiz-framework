@@ -18,18 +18,13 @@ under the License.
  */
 package org.ofbiz.jcr.test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Map;
 
 import javax.jcr.ItemExistsException;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
-import javax.jcr.query.QueryResult;
 
 import javolution.util.FastMap;
 import net.sf.json.JSONArray;
@@ -46,9 +41,7 @@ import org.ofbiz.jcr.access.JcrRepositoryAccessor;
 import org.ofbiz.jcr.access.jackrabbit.ContentWriterJackrabbit;
 import org.ofbiz.jcr.access.jackrabbit.JackrabbitRepositoryAccessor;
 import org.ofbiz.jcr.api.JcrDataHelper;
-import org.ofbiz.jcr.api.JcrFileHelper;
 import org.ofbiz.jcr.api.jackrabbit.JackrabbitArticleHelper;
-import org.ofbiz.jcr.api.jackrabbit.JackrabbitFileHelper;
 import org.ofbiz.jcr.loader.JCRFactory;
 import org.ofbiz.jcr.loader.JCRFactoryUtil;
 import org.ofbiz.jcr.loader.jackrabbit.JCRFactoryImpl;
