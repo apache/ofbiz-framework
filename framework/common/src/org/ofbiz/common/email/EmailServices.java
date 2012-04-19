@@ -585,11 +585,20 @@ public class EmailServices {
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Map<String, Object> sendMailResult;
+        Boolean hideInLog = (Boolean) serviceContext.get("hideInLog");
         try {
-            if (isMultiPart) {
-                sendMailResult = dispatcher.runSync("sendMailMultiPart", serviceContext);
+            if (!hideInLog) {
+                if (isMultiPart) {
+                    sendMailResult = dispatcher.runSync("sendMailMultiPart", serviceContext);
+                } else {
+                    sendMailResult = dispatcher.runSync("sendMail", serviceContext);
+                }
             } else {
-                sendMailResult = dispatcher.runSync("sendMail", serviceContext);
+                if (isMultiPart) {
+                    sendMailResult = dispatcher.runSync("sendMailMultiPartHiddenInLog", serviceContext);
+                } else {
+                    sendMailResult = dispatcher.runSync("sendMailHiddenInLog", serviceContext);
+                }
             }
         } catch (Exception e) {
             Debug.logError(e, "Error send email:" + e.toString(), module);
@@ -612,6 +621,19 @@ public class EmailServices {
         return result;
     }
 
+    /**
+     * JavaMail Service same than sendMailFromScreen but with hidden result in log.
+     * To prevent having not encoded passwords shown in log
+     *@param dctx The DispatchContext that this service is operating in
+     *@param rServiceContext Map containing the input parameters
+     *@return Map with the result of the service, the output parameters
+     */
+    public static Map<String, Object> sendMailHiddenInLogFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
+        Map<String, Object> serviceContext = UtilMisc.makeMapWritable(rServiceContext);
+        serviceContext.put("hideInLog", true);        
+        return sendMailFromScreen(dctx, serviceContext);
+    }
+    
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> newContext = FastMap.newInstance();

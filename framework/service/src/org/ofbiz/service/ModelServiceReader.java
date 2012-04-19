@@ -213,10 +213,11 @@ public class ModelServiceReader implements Serializable {
         service.export = "true".equalsIgnoreCase(serviceElement.getAttribute("export"));
         service.debug = "true".equalsIgnoreCase(serviceElement.getAttribute("debug"));
 
-        // this defaults to true; if anything but false, make it true
+        // these defaults to false; if anything but false, make it true
         service.validate = !"false".equalsIgnoreCase(serviceElement.getAttribute("validate"));
         service.useTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("use-transaction"));
         service.requireNewTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("require-new-transaction"));
+        service.hideResultInLog = !"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog"));        
 
         // set the semaphore sleep/wait times
         String semaphoreWaitStr = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore-wait-seconds"));
@@ -267,7 +268,7 @@ public class ModelServiceReader implements Serializable {
                 timeout = 0;
             }
         }
-        service.transactionTimeout = timeout;
+        service.transactionTimeout = timeout;                
 
         service.description = getCDATADef(serviceElement, "description");
         service.nameSpace = getCDATADef(serviceElement, "namespace");

@@ -178,6 +178,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
     /** Semaphore sleep time (in milliseconds) */
     public int semaphoreSleep;
 
+    /** Require a new transaction for this service */
+    public boolean hideResultInLog;
+    
     /** Set of services this service implements */
     public Set<ModelServiceIface> implServices = new LinkedHashSet<ModelServiceIface>();
 
@@ -227,6 +230,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.overrideParameters = model.overrideParameters;
         this.inheritedParameters = model.inheritedParameters();
         this.internalGroup = model.internalGroup;
+        this.hideResultInLog = model.hideResultInLog;
 
         List<ModelParam> modelParamList = model.getModelParamList();
         for (ModelParam param: modelParamList) {
@@ -343,6 +347,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         buf.append(contextInfo).append("::");
         buf.append(contextParamList).append("::");
         buf.append(inheritedParameters).append("::");
+        buf.append(hideResultInLog).append("::");
         return buf.toString();
     }
 

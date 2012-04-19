@@ -114,6 +114,19 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="hideResultInLog" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    If set to true the result will be hidden from possible exposition in ServiceDispatcher.runSync() 
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>        
         <xs:attribute name="transaction-timeout" type="xs:int" default="0">
             <xs:annotation>
                 <xs:documentation>
