@@ -306,7 +306,7 @@ public class LoginEvents {
         serviceContext.put("partyId", party.getString("partyId"));
 
         try {
-            Map<String, Object> result = dispatcher.runSync("sendMailFromScreen", serviceContext);
+            Map<String, Object> result = dispatcher.runSync("sendMailHiddenInLogFromScreen", serviceContext);
 
             if (ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE))) {
                 Map<String, Object> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
