@@ -57,6 +57,7 @@ under the License.
         <section>
             <actions>
                 <set field="showPriceDetails" value="Y"/>
+                <set field="backendPath" value="Y"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductSummary.groovy"/>
             </actions>
             <widgets>
