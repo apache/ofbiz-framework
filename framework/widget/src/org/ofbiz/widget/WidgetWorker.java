@@ -379,10 +379,14 @@ public class WidgetWorker {
                     returnValue = df.format((java.util.Date) retVal);
                 } else {
                     try {
-                        returnValue = URLEncoder.encode(retVal.toString(), Charset.forName("UTF-8").displayName());
+                        returnValue = URLEncoder.encode(retVal.toString(), Charset.forName("ISO-8859-1").displayName());
                     } catch (UnsupportedEncodingException e) {
                         Debug.logError(e, module);
                     }
+
+                    //StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                    //returnValue = simpleEncoder.encode(retVal.toString());
+
                 }
                 return returnValue;
             } else {
