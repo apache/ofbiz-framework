@@ -18,33 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import org.w3c.dom.*;
-
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Creates a java.sql.Date with the current date and puts it in the env
  */
 public class NowDateToEnv extends MethodOperation {
-    public static final class NowDateToEnvFactory implements Factory<NowDateToEnv> {
-        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new NowDateToEnv(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "now-date-to-env";
-        }
-    }
-    public static final class NowDateFactory implements Factory<NowDateToEnv> {
-        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new NowDateToEnv(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "now-date";
-        }
-    }
 
     ContextAccessor<java.sql.Date> envAcsr;
 
@@ -60,13 +43,34 @@ public class NowDateToEnv extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<now-date-to-env/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class NowDateFactory implements Factory<NowDateToEnv> {
+        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowDateToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-date";
+        }
+    }
+
+    public static final class NowDateToEnvFactory implements Factory<NowDateToEnv> {
+        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowDateToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-date-to-env";
+        }
     }
 }

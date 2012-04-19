@@ -37,23 +37,14 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class FindByAnd extends MethodOperation {
-    public static final class FindByAndFactory implements Factory<FindByAnd> {
-        public FindByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FindByAnd(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "find-by-and";
-        }
-    }
 
     public static final String module = FindByAnd.class.getName();
 
-    ContextAccessor<Object> listAcsr;
+    String delegatorName;
     String entityName;
+    ContextAccessor<Object> listAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<List<String>> orderByListAcsr;
-    String delegatorName;
     String useCacheStr;
     String useIteratorStr;
 
@@ -64,7 +55,6 @@ public class FindByAnd extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
         orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list"), element.getAttribute("order-by-list-name"));
         delegatorName = element.getAttribute("delegator-name");
-
         useCacheStr = element.getAttribute("use-cache");
         useIteratorStr = element.getAttribute("use-iterator");
     }
@@ -75,20 +65,16 @@ public class FindByAnd extends MethodOperation {
         String delegatorName = methodContext.expandString(this.delegatorName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
         String useIteratorStr = methodContext.expandString(this.useIteratorStr);
-
         boolean useCache = "true".equals(useCacheStr);
         boolean useIterator = "true".equals(useIteratorStr);
-
         List<String> orderByNames = null;
         if (!orderByListAcsr.isEmpty()) {
             orderByNames = orderByListAcsr.get(methodContext);
         }
-
         Delegator delegator = methodContext.getDelegator();
         if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
-
         try {
             if (useIterator) {
                 EntityCondition whereCond = null;
@@ -106,7 +92,6 @@ public class FindByAnd extends MethodOperation {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem finding the " + entityName + " entity: " + e.getMessage() + "]";
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
@@ -119,6 +104,12 @@ public class FindByAnd extends MethodOperation {
         return true;
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public String getEntityName() {
         return this.entityName;
     }
@@ -128,9 +119,14 @@ public class FindByAnd extends MethodOperation {
         // TODO: something more than the empty tag
         return "<find-by-and/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class FindByAndFactory implements Factory<FindByAnd> {
+        public FindByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FindByAnd(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "find-by-and";
+        }
     }
 }

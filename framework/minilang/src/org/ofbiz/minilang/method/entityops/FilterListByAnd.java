@@ -33,19 +33,10 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class FilterListByAnd extends MethodOperation {
-    public static final class FilterListByAndFactory implements Factory<FilterListByAnd> {
-        public FilterListByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FilterListByAnd(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "filter-list-by-and";
-        }
-    }
 
     ContextAccessor<List<GenericEntity>> listAcsr;
-    ContextAccessor<List<GenericEntity>> toListAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<List<GenericEntity>> toListAcsr;
 
     public FilterListByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -60,7 +51,6 @@ public class FilterListByAnd extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         Map<String, ? extends Object> theMap = null;
-
         if (!mapAcsr.isEmpty()) {
             theMap = mapAcsr.get(methodContext);
         }
@@ -69,13 +59,24 @@ public class FilterListByAnd extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<filter-list-by-and/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class FilterListByAndFactory implements Factory<FilterListByAnd> {
+        public FilterListByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FilterListByAnd(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "filter-list-by-and";
+        }
     }
 }

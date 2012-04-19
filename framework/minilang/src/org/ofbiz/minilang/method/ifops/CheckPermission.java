@@ -36,49 +36,34 @@ import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
- * If the user does not have the specified permission the fail-message
- * or fail-property sub-elements are used to add a message to the error-list.
+ * If the user does not have the specified permission the fail-message or fail-property sub-elements are used to add a message to the error-list.
  */
 public class CheckPermission extends MethodOperation {
-    public static final class CheckPermissionFactory implements Factory<CheckPermission> {
-        public CheckPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CheckPermission(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "check-permission";
-        }
-    }
-
-    String message = null;
-    String propertyResource = null;
-    boolean isProperty = false;
 
     /** If null no partyId env-name will be checked against the userLogin.partyId and accepted as permission */
     ContextAccessor<String> acceptUlPartyIdEnvNameAcsr = null;
-
-    PermissionInfo permissionInfo;
-    ContextAccessor<List<Object>> errorListAcsr;
     List<PermissionInfo> altPermissions = null;
+    ContextAccessor<List<Object>> errorListAcsr;
+    boolean isProperty = false;
+    String message = null;
+    PermissionInfo permissionInfo;
+    String propertyResource = null;
 
     public CheckPermission(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         permissionInfo = new PermissionInfo(element);
         this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-
         Element acceptUserloginPartyElement = UtilXml.firstChildElement(element, "accept-userlogin-party");
         if (acceptUserloginPartyElement != null) {
             acceptUlPartyIdEnvNameAcsr = new ContextAccessor<String>(acceptUserloginPartyElement.getAttribute("party-id-env-name"), "partyId");
         }
-
         List<? extends Element> altPermElements = UtilXml.childElementList(element, "alt-permission");
         if (!altPermElements.isEmpty()) {
             altPermissions = FastList.newInstance();
         }
-        for (Element altPermElement: altPermElements) {
+        for (Element altPermElement : altPermElements) {
             altPermissions.add(new PermissionInfo(altPermElement));
         }
-
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
         Element failProperty = UtilXml.firstChildElement(element, "fail-property");
         if (failMessage != null) {
@@ -91,67 +76,14 @@ public class CheckPermission extends MethodOperation {
         }
     }
 
-    @Override
-    public boolean exec(MethodContext methodContext) {
-        boolean hasPermission = false;
-
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
-        }
-
-        // if no user is logged in, treat as if the user does not have permission: do not run subops
-        GenericValue userLogin = methodContext.getUserLogin();
-        if (userLogin != null) {
-            Authorization authz = methodContext.getAuthz();
-            Security security = methodContext.getSecurity();
-            if (this.permissionInfo.hasPermission(methodContext, userLogin, authz, security)) {
-                hasPermission = true;
-            }
-
-            // if failed, check alternate permissions
-            if (!hasPermission && altPermissions != null) {
-                for (PermissionInfo altPermInfo: altPermissions) {
-                    if (altPermInfo.hasPermission(methodContext, userLogin, authz, security)) {
-                        hasPermission = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (!hasPermission && acceptUlPartyIdEnvNameAcsr != null) {
-            String acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(methodContext);
-            if (UtilValidate.isEmpty(acceptPartyId)) {
-                // try the parameters Map
-                Map<String, Object> parameters = methodContext.getEnv("parameters");
-                if (parameters != null) {
-                    acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(parameters, methodContext);
-                }
-            }
-            if (UtilValidate.isNotEmpty(acceptPartyId) && UtilValidate.isNotEmpty(userLogin.getString("partyId")) && acceptPartyId.equals(userLogin.getString("partyId"))) {
-                hasPermission = true;
-            }
-        }
-
-        if (!hasPermission) {
-            this.addMessage(messages, methodContext);
-        }
-
-        return true;
-    }
-
     public void addMessage(List<Object> messages, MethodContext methodContext) {
-
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
-
         if (!isProperty && message != null) {
             messages.add(message);
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);
         } else if (isProperty && propertyResource != null && message != null) {
-            //String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
+            // String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
             if (UtilValidate.isEmpty(propMsg)) {
                 messages.add("Simple Method Permission error occurred, but no message was found, sorry.");
@@ -165,9 +97,76 @@ public class CheckPermission extends MethodOperation {
         }
     }
 
+    @Override
+    public boolean exec(MethodContext methodContext) {
+        boolean hasPermission = false;
+        List<Object> messages = errorListAcsr.get(methodContext);
+        if (messages == null) {
+            messages = FastList.newInstance();
+            errorListAcsr.put(methodContext, messages);
+        }
+        // if no user is logged in, treat as if the user does not have permission: do not run subops
+        GenericValue userLogin = methodContext.getUserLogin();
+        if (userLogin != null) {
+            Authorization authz = methodContext.getAuthz();
+            Security security = methodContext.getSecurity();
+            if (this.permissionInfo.hasPermission(methodContext, userLogin, authz, security)) {
+                hasPermission = true;
+            }
+            // if failed, check alternate permissions
+            if (!hasPermission && altPermissions != null) {
+                for (PermissionInfo altPermInfo : altPermissions) {
+                    if (altPermInfo.hasPermission(methodContext, userLogin, authz, security)) {
+                        hasPermission = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (!hasPermission && acceptUlPartyIdEnvNameAcsr != null) {
+            String acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(methodContext);
+            if (UtilValidate.isEmpty(acceptPartyId)) {
+                // try the parameters Map
+                Map<String, Object> parameters = methodContext.getEnv("parameters");
+                if (parameters != null) {
+                    acceptPartyId = acceptUlPartyIdEnvNameAcsr.get(parameters, methodContext);
+                }
+            }
+            if (UtilValidate.isNotEmpty(acceptPartyId) && UtilValidate.isNotEmpty(userLogin.getString("partyId")) && acceptPartyId.equals(userLogin.getString("partyId"))) {
+                hasPermission = true;
+            }
+        }
+        if (!hasPermission) {
+            this.addMessage(messages, methodContext);
+        }
+        return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
+    public String rawString() {
+        // TODO: add all attributes and other info
+        return "<check-permission/>";
+    }
+
+    public static final class CheckPermissionFactory implements Factory<CheckPermission> {
+        public CheckPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CheckPermission(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "check-permission";
+        }
+    }
+
     public static class PermissionInfo {
-        String permission;
         String action;
+        String permission;
 
         public PermissionInfo(Element altPermissionElement) {
             this.permission = altPermissionElement.getAttribute("permission");
@@ -186,16 +185,5 @@ public class CheckPermission extends MethodOperation {
                 return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap());
             }
         }
-    }
-
-    @Override
-    public String rawString() {
-        // TODO: add all attributes and other info
-        return "<check-permission/>";
-    }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
     }
 }

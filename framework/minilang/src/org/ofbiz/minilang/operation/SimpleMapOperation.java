@@ -18,26 +18,30 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.MessageString;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Element;
 
 /**
  * A single operation, does the specified operation on the given field
  */
 public abstract class SimpleMapOperation {
 
+    String fieldName;
+    boolean isProperty = false;
     String message = null;
     String propertyResource = null;
-    boolean isProperty = false;
     SimpleMapProcess simpleMapProcess;
-    String fieldName;
 
     public SimpleMapOperation(Element element, SimpleMapProcess simpleMapProcess) {
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
         Element failProperty = UtilXml.firstChildElement(element, "fail-property");
-
         if (failMessage != null) {
             this.message = failMessage.getAttribute("message");
             this.isProperty = false;
@@ -46,12 +50,9 @@ public abstract class SimpleMapOperation {
             this.message = failProperty.getAttribute("property");
             this.isProperty = true;
         }
-
         this.simpleMapProcess = simpleMapProcess;
         this.fieldName = simpleMapProcess.getFieldName();
     }
-
-    public abstract void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader);
 
     public void addMessage(List<Object> messages, ClassLoader loader, Locale locale) {
         if (!isProperty && message != null) {
@@ -71,4 +72,6 @@ public abstract class SimpleMapOperation {
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] ERROR: No message found", module);
         }
     }
+
+    public abstract void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader);
 }

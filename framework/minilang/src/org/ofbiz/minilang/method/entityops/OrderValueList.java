@@ -32,19 +32,10 @@ import org.w3c.dom.Element;
  * Order the given list of GenericValue objects
  */
 public class OrderValueList extends MethodOperation {
-    public static final class OrderValueListFactory implements Factory<OrderValueList> {
-        public OrderValueList createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new OrderValueList(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "order-value-list";
-        }
-    }
 
     ContextAccessor<List<? extends GenericEntity>> listAcsr;
-    ContextAccessor<List<? extends GenericEntity>> toListAcsr;
     ContextAccessor<List<String>> orderByListAcsr;
+    ContextAccessor<List<? extends GenericEntity>> toListAcsr;
 
     public OrderValueList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -59,7 +50,6 @@ public class OrderValueList extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         List<String> orderByList = null;
-
         if (!orderByListAcsr.isEmpty()) {
             orderByList = orderByListAcsr.get(methodContext);
         }
@@ -68,13 +58,24 @@ public class OrderValueList extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<order-value-list/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class OrderValueListFactory implements Factory<OrderValueList> {
+        public OrderValueList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new OrderValueList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "order-value-list";
+        }
     }
 }

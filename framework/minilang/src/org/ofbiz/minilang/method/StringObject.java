@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import org.w3c.dom.*;
-
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.w3c.dom.Element;
 
 /**
  * A type of MethodObject that represents a String constant value to be used as an Object
  */
 public class StringObject extends MethodObject<String> {
 
-    String value;
     String cdataValue;
+    String value;
 
     public StringObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -37,25 +37,12 @@ public class StringObject extends MethodObject<String> {
         cdataValue = UtilXml.elementValue(element);
     }
 
-    /** Get the name for the type of the object */
-    @Override
-    public String getTypeName() {
-        return "java.lang.String";
-    }
-
-    @Override
-    public Class<String> getTypeClass(ClassLoader loader) {
-        return java.lang.String.class;
-    }
-
     @Override
     public String getObject(MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String cdataValue = methodContext.expandString(this.cdataValue);
-
         boolean valueExists = UtilValidate.isNotEmpty(value);
         boolean cdataValueExists = UtilValidate.isNotEmpty(cdataValue);
-
         if (valueExists && cdataValueExists) {
             return value + cdataValue;
         } else {
@@ -65,5 +52,16 @@ public class StringObject extends MethodObject<String> {
                 return cdataValue;
             }
         }
+    }
+
+    @Override
+    public Class<String> getTypeClass(ClassLoader loader) {
+        return java.lang.String.class;
+    }
+
+    /** Get the name for the type of the object */
+    @Override
+    public String getTypeName() {
+        return "java.lang.String";
     }
 }

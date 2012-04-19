@@ -18,36 +18,28 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.*;
-import java.lang.reflect.*;
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import java.lang.reflect.Method;
+import java.util.Map;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.w3c.dom.Element;
 
 /**
  * Implements validate method condition.
  */
 public class ValidateMethodCondition implements Conditional {
-    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> {
-        @Override
-        public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new ValidateMethodCondition(element);
-        }
-
-        @Override
-        public String getName() {
-            return "if-validate-method";
-        }
-    }
-
 
     public static final String module = ValidateMethodCondition.class.getName();
 
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<Object> fieldAcsr;
-    String methodName;
     String className;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    String methodName;
 
     public ValidateMethodCondition(Element element) {
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -59,12 +51,9 @@ public class ValidateMethodCondition implements Conditional {
     public boolean checkCondition(MethodContext methodContext) {
         String methodName = methodContext.expandString(this.methodName);
         String className = methodContext.expandString(this.className);
-
         String fieldString = getFieldString(methodContext);
-
-        Class<?>[] paramTypes = new Class<?>[] {String.class};
-        Object[] params = new Object[] {fieldString};
-
+        Class<?>[] paramTypes = new Class<?>[] { String.class };
+        Object[] params = new Object[] { fieldString };
         Class<?> valClass;
         try {
             valClass = methodContext.getLoader().loadClass(className);
@@ -72,7 +61,6 @@ public class ValidateMethodCondition implements Conditional {
             Debug.logError("Could not find validation class: " + className, module);
             return false;
         }
-
         Method valMethod;
         try {
             valMethod = valClass.getMethod(methodName, paramTypes);
@@ -80,27 +68,25 @@ public class ValidateMethodCondition implements Conditional {
             Debug.logError("Could not find validation method: " + methodName + " of class " + className, module);
             return false;
         }
-
         Boolean resultBool = Boolean.FALSE;
         try {
             resultBool = (Boolean) valMethod.invoke(null, params);
         } catch (Exception e) {
             Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className + ", not processing sub-ops ", module);
         }
-
-        if (resultBool != null) return resultBool.booleanValue();
-
+        if (resultBool != null)
+            return resultBool.booleanValue();
         return false;
     }
 
     protected String getFieldString(MethodContext methodContext) {
         String fieldString = null;
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -108,7 +94,6 @@ public class ValidateMethodCondition implements Conditional {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         if (fieldVal != null) {
             try {
                 fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
@@ -116,10 +101,9 @@ public class ValidateMethodCondition implements Conditional {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
             }
         }
-
         // always use an empty string by default
-        if (fieldString == null) fieldString = "";
-
+        if (fieldString == null)
+            fieldString = "";
         return fieldString;
     }
 
@@ -127,7 +111,6 @@ public class ValidateMethodCondition implements Conditional {
         // allow methodContext to be null
         String methodName = methodContext == null ? this.methodName : methodContext.expandString(this.methodName);
         String className = methodContext == null ? this.className : methodContext.expandString(this.className);
-
         messageBuffer.append("validate-method[");
         messageBuffer.append(className);
         messageBuffer.append(".");
@@ -143,5 +126,17 @@ public class ValidateMethodCondition implements Conditional {
             messageBuffer.append(getFieldString(methodContext));
         }
         messageBuffer.append(")]");
+    }
+
+    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> {
+        @Override
+        public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new ValidateMethodCondition(element);
+        }
+
+        @Override
+        public String getName() {
+            return "if-validate-method";
+        }
     }
 }

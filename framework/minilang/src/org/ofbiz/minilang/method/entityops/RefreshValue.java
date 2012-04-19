@@ -31,20 +31,11 @@ import org.w3c.dom.Element;
  * Uses the delegator to refresh the specified value object entity from the datasource
  */
 public class RefreshValue extends MethodOperation {
-    public static final class RefreshValueFactory implements Factory<RefreshValue> {
-        public RefreshValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new RefreshValue(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "refresh-value";
-        }
-    }
 
     public static final String module = RemoveValue.class.getName();
 
-    ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public RefreshValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -55,7 +46,6 @@ public class RefreshValue extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In remove-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing";
@@ -63,7 +53,6 @@ public class RefreshValue extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-
         try {
             methodContext.getDelegator().refresh(value, doCacheClear);
         } catch (GenericEntityException e) {
@@ -76,13 +65,24 @@ public class RefreshValue extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<refresh-value/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class RefreshValueFactory implements Factory<RefreshValue> {
+        public RefreshValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RefreshValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "refresh-value";
+        }
     }
 }

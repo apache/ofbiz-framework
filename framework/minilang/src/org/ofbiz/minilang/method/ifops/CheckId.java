@@ -18,38 +18,34 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
-import org.w3c.dom.*;
 import javolution.util.FastList;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
- * Iff the given ID field is not valid the fail-message
- * or fail-property sub-elements are used to add a message to the error-list.
+ * If the given ID field is not valid the fail-message or fail-property sub-elements are used to add a message to the error-list.
  */
 public class CheckId extends MethodOperation {
-    public static final class CheckIdFactory implements Factory<CheckId> {
-        public CheckId createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CheckId(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "check-id";
-        }
-    }
 
     public static final String module = CheckId.class.getName();
 
+    ContextAccessor<List<Object>> errorListAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    boolean isProperty = false;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String message = null;
     String propertyResource = null;
-    boolean isProperty = false;
-
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<List<Object>> errorListAcsr;
 
     public CheckId(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -57,11 +53,9 @@ public class CheckId extends MethodOperation {
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-
-        //note: if no fail-message or fail-property then message will be null
+        // note: if no fail-message or fail-property then message will be null
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
         Element failProperty = UtilXml.firstChildElement(element, "fail-property");
-
         if (failMessage != null) {
             this.message = failMessage.getAttribute("message");
             this.isProperty = false;
@@ -72,54 +66,14 @@ public class CheckId extends MethodOperation {
         }
     }
 
-    @Override
-    public boolean exec(MethodContext methodContext) {
-        boolean isValid = true;
-
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
-        }
-
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-
-            if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
-            } else {
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            }
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-
-        String fieldStr = fieldVal.toString();
-        StringBuilder errorDetails = new StringBuilder();
-
-        //check various illegal characters, etc for ids
-        isValid = UtilValidate.isValidDatabaseId(fieldStr, errorDetails);
-
-        if (!isValid) {
-            this.addMessage(messages, methodContext, "The ID value in the field [" + fieldAcsr + "] was not valid", ": " + errorDetails.toString());
-        }
-
-        return true;
-    }
-
     public void addMessage(List<Object> messages, MethodContext methodContext, String defaultMessage, String errorDetails) {
-
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
-
         if (!isProperty && message != null) {
             messages.add(message + errorDetails);
         } else if (isProperty && propertyResource != null && message != null) {
-            //String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
+            // String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
-
             if (UtilValidate.isEmpty(propMsg)) {
                 messages.add(defaultMessage + errorDetails);
             } else {
@@ -131,13 +85,55 @@ public class CheckId extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        // TODO: add all attributes and other info
-        return "<check-id field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+    public boolean exec(MethodContext methodContext) {
+        boolean isValid = true;
+        List<Object> messages = errorListAcsr.get(methodContext);
+        if (messages == null) {
+            messages = FastList.newInstance();
+            errorListAcsr.put(methodContext, messages);
+        }
+        Object fieldVal = null;
+        if (!mapAcsr.isEmpty()) {
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
+            if (fromMap == null) {
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
+            } else {
+                fieldVal = fieldAcsr.get(fromMap, methodContext);
+            }
+        } else {
+            // no map name, try the env
+            fieldVal = fieldAcsr.get(methodContext);
+        }
+        String fieldStr = fieldVal.toString();
+        StringBuilder errorDetails = new StringBuilder();
+        // check various illegal characters, etc for ids
+        isValid = UtilValidate.isValidDatabaseId(fieldStr, errorDetails);
+        if (!isValid) {
+            this.addMessage(messages, methodContext, "The ID value in the field [" + fieldAcsr + "] was not valid", ": " + errorDetails.toString());
+        }
+        return true;
     }
+
     @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
+    }
+
+    @Override
+    public String rawString() {
+        // TODO: add all attributes and other info
+        return "<check-id field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+    }
+
+    public static final class CheckIdFactory implements Factory<CheckId> {
+        public CheckId createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CheckId(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "check-id";
+        }
     }
 }

@@ -19,7 +19,6 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.sql.Timestamp;
-import com.ibm.icu.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -33,38 +32,32 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
+import com.ibm.icu.util.Calendar;
+
 /**
  * Adjust a Timestamp by a specified time.
  */
 public class SetCalendar extends MethodOperation {
-    public static final class SetCalendarFactory implements Factory<SetCalendar> {
-        public SetCalendar createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new SetCalendar(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "set-calendar";
-        }
-    }
     public static final String module = SetCalendar.class.getName();
 
+    protected FlexibleStringExpander daysExdr;
+    protected FlexibleStringExpander defaultExdr;
     protected ContextAccessor<Timestamp> field;
     protected ContextAccessor<Object> fromField;
-    protected FlexibleStringExpander valueExdr;
-    protected FlexibleStringExpander defaultExdr;
-    protected FlexibleStringExpander yearsExdr;
-    protected FlexibleStringExpander monthsExdr;
-    protected FlexibleStringExpander daysExdr;
     protected FlexibleStringExpander hoursExdr;
-    protected FlexibleStringExpander minutesExdr;
-    protected FlexibleStringExpander secondsExdr;
-    protected FlexibleStringExpander millisExdr;
-    protected FlexibleStringExpander periodAlignStart;
-    protected FlexibleStringExpander periodAlignEnd;
     protected FlexibleStringExpander localeExdr;
-    protected FlexibleStringExpander timeZoneExdr;
-    protected boolean setIfNull; // default to false
+    protected FlexibleStringExpander millisExdr;
+    protected FlexibleStringExpander minutesExdr;
+    protected FlexibleStringExpander monthsExdr;
+    protected FlexibleStringExpander periodAlignEnd;
+    protected FlexibleStringExpander periodAlignStart;
+    protected FlexibleStringExpander secondsExdr;
     protected boolean setIfEmpty; // default to true
+    protected boolean setIfNull; // default to false
+    protected FlexibleStringExpander timeZoneExdr;
+    protected FlexibleStringExpander valueExdr;
+    protected FlexibleStringExpander yearsExdr;
 
     public SetCalendar(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -87,7 +80,6 @@ public class SetCalendar extends MethodOperation {
         this.setIfNull = "true".equals(element.getAttribute("set-if-null"));
         // default to true, anything but false is true
         this.setIfEmpty = !"false".equals(element.getAttribute("set-if-empty"));
-
         if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
             throw new IllegalArgumentException("Cannot specify a from-field [" + element.getAttribute("from-field") + "] and a value [" + element.getAttribute("value") + "] on the set-calendar action in a screen widget");
         }
@@ -98,25 +90,25 @@ public class SetCalendar extends MethodOperation {
         Object newValue = null;
         if (!this.fromField.isEmpty()) {
             newValue = this.fromField.get(methodContext);
-            if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.toString() + "]: " + newValue, module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("In screen getting value for field from [" + this.fromField.toString() + "]: " + newValue, module);
         } else if (!this.valueExdr.isEmpty()) {
             newValue = methodContext.expandString(this.valueExdr);
         }
-
         // If newValue is still empty, use the default value
         if (ObjectType.isEmpty(newValue) && !this.defaultExdr.isEmpty()) {
             newValue = methodContext.expandString(this.defaultExdr);
         }
-
         if (!setIfNull && newValue == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Field value not found (null) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found (null) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
             return true;
         }
         if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Field value not found (empty) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found (empty) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
             return true;
         }
-
         // Convert attributes to the corresponding data types
         Locale locale = null;
         TimeZone timeZone = null;
@@ -143,10 +135,10 @@ public class SetCalendar extends MethodOperation {
             fromStamp = (Timestamp) ObjectType.simpleTypeConvert(newValue, "Timestamp", UtilDateTime.DATE_TIME_FORMAT, timeZone, locale, true);
         } catch (Exception e) {
             // Catching all exceptions - even potential ClassCastException
-            if (Debug.verboseOn()) Debug.logVerbose("Error converting attributes to objects: " + e.getMessage(), module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Error converting attributes to objects: " + e.getMessage(), module);
             return true;
         }
-
         // Convert Strings to ints
         int years = this.yearsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.yearsExdr));
         int months = this.monthsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.monthsExdr));
@@ -155,7 +147,6 @@ public class SetCalendar extends MethodOperation {
         int minutes = this.minutesExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.minutesExdr));
         int seconds = this.secondsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.secondsExdr));
         int millis = this.millisExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.millisExdr));
-
         // Adjust calendar
         Calendar cal = UtilDateTime.toCalendar(fromStamp, timeZone, locale);
         cal.add(Calendar.MILLISECOND, millis);
@@ -165,9 +156,7 @@ public class SetCalendar extends MethodOperation {
         cal.add(Calendar.DAY_OF_MONTH, days);
         cal.add(Calendar.MONTH, months);
         cal.add(Calendar.YEAR, years);
-
         Timestamp toStamp = new Timestamp(cal.getTimeInMillis());
-
         // Align period start/end
         if (!periodAlignStart.isEmpty()) {
             String period = methodContext.expandString(periodAlignStart);
@@ -192,7 +181,6 @@ public class SetCalendar extends MethodOperation {
                 toStamp = UtilDateTime.getYearEnd(toStamp, timeZone, locale);
             }
         }
-
         if (Debug.verboseOn())
             Debug.logVerbose("In screen setting calendar [" + this.field.toString(), module);
         this.field.put(methodContext, toStamp);
@@ -200,16 +188,24 @@ public class SetCalendar extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        return "<set-calendar field=\"" + this.field
-                + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal())
-                + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField)
-                + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
-                + "\"/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
+    }
+
+    @Override
+    public String rawString() {
+        return "<set-calendar field=\"" + this.field + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal()) + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField) + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
+                + "\"/>";
+    }
+
+    public static final class SetCalendarFactory implements Factory<SetCalendar> {
+        public SetCalendar createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetCalendar(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-calendar";
+        }
     }
 }

@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Element;
 
 /**
  * The container of MakeInString operations to make a new input String
@@ -37,13 +41,10 @@ public class MakeInString {
 
     public MakeInString(Element makeInStringElement) {
         fieldName = makeInStringElement.getAttribute("field");
-
         List<? extends Element> operationElements = UtilXml.childElementList(makeInStringElement);
-
         if (UtilValidate.isNotEmpty(operationElements)) {
-            for (Element curOperElem: operationElements) {
+            for (Element curOperElem : operationElements) {
                 String nodeName = curOperElem.getNodeName();
-
                 if ("in-field".equals(nodeName)) {
                     operations.add(new InFieldOper(curOperElem));
                 } else if ("property".equals(nodeName)) {
@@ -59,9 +60,8 @@ public class MakeInString {
 
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         StringBuilder buffer = new StringBuilder();
-        for (MakeInStringOperation oper: operations) {
+        for (MakeInStringOperation oper : operations) {
             String curStr = oper.exec(inMap, messages, locale, loader);
-
             if (curStr != null)
                 buffer.append(curStr);
         }

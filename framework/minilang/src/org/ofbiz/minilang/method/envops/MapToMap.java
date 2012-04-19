@@ -18,28 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.*;
+import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies a map field to a map field
  */
 public class MapToMap extends MethodOperation {
-    public static final class MapToMapFactory implements Factory<MapToMap> {
-        public MapToMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new MapToMap(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "map-to-map";
-        }
-    }
 
     public static final String module = MapToMap.class.getName();
 
@@ -57,22 +50,21 @@ public class MapToMap extends MethodOperation {
         Map<String, Object> fromMap = null;
         if (!mapAcsr.isEmpty()) {
             fromMap = mapAcsr.get(methodContext);
-
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", not copying from this map", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", not copying from this map", module);
                 fromMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, fromMap);
             }
         }
-
         if (!toMapAcsr.isEmpty()) {
             Map<String, Object> toMap = toMapAcsr.get(methodContext);
             if (toMap == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + toMapAcsr + ", creating new map", module);
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Map not found with name " + toMapAcsr + ", creating new map", module);
                 toMap = FastMap.newInstance();
                 toMapAcsr.put(methodContext, toMap);
             }
-
             toMap.putAll(fromMap);
         } else {
             methodContext.putAllEnv(fromMap);
@@ -81,13 +73,24 @@ public class MapToMap extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<map-to-map/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class MapToMapFactory implements Factory<MapToMap> {
+        public MapToMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MapToMap(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "map-to-map";
+        }
     }
 }

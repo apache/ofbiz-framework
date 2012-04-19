@@ -18,30 +18,23 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import java.util.*;
+import java.util.Map;
 
-import org.w3c.dom.*;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Uses the delegator to find entity values by anding the map fields
  */
 public class MakeValue extends MethodOperation {
-    public static final class MakeValueFactory implements Factory<MakeValue> {
-        public MakeValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new MakeValue(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "make-value";
-        }
-    }
-
-    ContextAccessor<GenericValue> valueAcsr;
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public MakeValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -58,6 +51,12 @@ public class MakeValue extends MethodOperation {
         return true;
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public String getEntityName() {
         return this.entityName;
     }
@@ -67,9 +66,14 @@ public class MakeValue extends MethodOperation {
         // TODO: something more than the empty tag
         return "<make-value/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class MakeValueFactory implements Factory<MakeValue> {
+        public MakeValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MakeValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "make-value";
+        }
     }
 }

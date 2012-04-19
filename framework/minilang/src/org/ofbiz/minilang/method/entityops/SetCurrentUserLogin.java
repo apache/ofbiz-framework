@@ -30,15 +30,6 @@ import org.w3c.dom.Element;
  * Uses the delegator to create the specified value object entity in the datasource
  */
 public class SetCurrentUserLogin extends MethodOperation {
-    public static final class SetCurrentUserLoginFactory implements Factory<SetCurrentUserLogin> {
-        public SetCurrentUserLogin createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new SetCurrentUserLogin(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "set-current-user-login";
-        }
-    }
 
     public static final String module = SetCurrentUserLogin.class.getName();
 
@@ -56,9 +47,14 @@ public class SetCurrentUserLogin extends MethodOperation {
             Debug.logWarning("In SetCurrentUserLogin a value was not found with the specified valueName: " + valueAcsr + ", not setting", module);
             return true;
         }
-
         methodContext.setUserLogin(userLogin, this.simpleMethod.getUserLoginEnvName());
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -66,9 +62,14 @@ public class SetCurrentUserLogin extends MethodOperation {
         // TODO: something more than the empty tag
         return "<set-current-user-login/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class SetCurrentUserLoginFactory implements Factory<SetCurrentUserLogin> {
+        public SetCurrentUserLogin createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetCurrentUserLogin(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-current-user-login";
+        }
     }
 }

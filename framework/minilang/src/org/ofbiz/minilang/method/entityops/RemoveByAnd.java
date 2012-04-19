@@ -32,21 +32,12 @@ import org.w3c.dom.Element;
  * Uses the delegator to remove entity values constrained by anding the map fields
  */
 public class RemoveByAnd extends MethodOperation {
-    public static final class RemoveByAndFactory implements Factory<RemoveByAnd> {
-        public RemoveByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new RemoveByAnd(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "remove-by-and";
-        }
-    }
 
     public static final String module = RemoveByAnd.class.getName();
 
+    String doCacheClearStr;
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    String doCacheClearStr;
 
     public RemoveByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -59,13 +50,11 @@ public class RemoveByAnd extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
         String entityName = methodContext.expandString(this.entityName);
-
         try {
             methodContext.getDelegator().removeByAnd(entityName, mapAcsr.get(methodContext), doCacheClear);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem removing the " + entityName + " entity by and: " + e.getMessage() + "]";
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
@@ -79,13 +68,24 @@ public class RemoveByAnd extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<remove-by-and/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class RemoveByAndFactory implements Factory<RemoveByAnd> {
+        public RemoveByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RemoveByAnd(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "remove-by-and";
+        }
     }
 }

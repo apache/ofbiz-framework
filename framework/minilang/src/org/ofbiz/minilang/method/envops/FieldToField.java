@@ -18,14 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.*;
+import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies a map field to a map field
@@ -33,22 +35,13 @@ import org.ofbiz.minilang.method.*;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class FieldToField extends MethodOperation {
-    public static final class FieldToFieldFactory implements Factory<FieldToField> {
-        public FieldToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FieldToField(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "field-to-field";
-        }
-    }
 
     public static final String module = FieldToField.class.getName();
 
-    ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, Object>> toMapAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> toFieldAcsr;
+    ContextAccessor<Map<String, Object>> toMapAcsr;
 
     public FieldToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -56,7 +49,6 @@ public class FieldToField extends MethodOperation {
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map-name"));
         toFieldAcsr = new ContextAccessor<Object>(element.getAttribute("to-field-name"));
-
         // set toMapAcsr and toFieldAcsr to their defualt values of mapAcsr and fieldAcsr if empty
         if (toMapAcsr.isEmpty()) {
             toMapAcsr = mapAcsr;
@@ -69,35 +61,32 @@ public class FieldToField extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", not copying from this map", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", not copying from this map", module);
                 return true;
             }
-
             fieldVal = fieldAcsr.get(fromMap, methodContext);
         } else {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         if (fieldVal == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not copying field", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not copying field", module);
             return true;
         }
-
         // note that going to an env field will only work if it came from an env
         // field because if not specified the to-map-name will be set to the map-name
         // to go from a map field to an env field, use the field-to-env operation
         Map<String, Object> toMap = null;
-
         if (!toMapAcsr.isEmpty()) {
             toMap = toMapAcsr.get(methodContext);
             if (toMap == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + toMapAcsr + ", creating new map", module);
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Map not found with name " + toMapAcsr + ", creating new map", module);
                 toMap = FastMap.newInstance();
                 toMapAcsr.put(methodContext, toMap);
             }
@@ -106,17 +95,27 @@ public class FieldToField extends MethodOperation {
             // no to-map, so put in env
             toFieldAcsr.put(methodContext, fieldVal);
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
     public String rawString() {
         return "<field-to-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\" to-field-name=\"" + this.toFieldAcsr + "\" to-map-name=\"" + this.toMapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class FieldToFieldFactory implements Factory<FieldToField> {
+        public FieldToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FieldToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "field-to-field";
+        }
     }
 }

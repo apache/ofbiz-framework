@@ -21,7 +21,11 @@ package org.ofbiz.minilang.method.envops;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.ScriptUtil;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -33,25 +37,17 @@ import org.w3c.dom.Element;
  * A general set operation to set a field from another field or from a value. Also supports a default-value, and type conversion.
  */
 public class SetOperation extends MethodOperation {
-    public static final class SetOperationFactory implements Factory<SetOperation> {
-        public SetOperation createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new SetOperation(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "set";
-        }
-    }
     public static final String module = SetOperation.class.getName();
 
+    protected FlexibleStringExpander defaultExdr;
     protected ContextAccessor<Object> field;
     protected ContextAccessor<Object> fromField;
-    protected FlexibleStringExpander valueExdr;
-    protected FlexibleStringExpander defaultExdr;
-    protected String type;
-    protected boolean setIfNull; // default to false
-    protected boolean setIfEmpty; // default to true
     protected Class<?> parsedScript = null;
+    protected boolean setIfEmpty; // default to true
+    protected boolean setIfNull; // default to false
+    protected String type;
+    protected FlexibleStringExpander valueExdr;
 
     public SetOperation(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -68,7 +64,6 @@ public class SetOperation extends MethodOperation {
         this.setIfNull = "true".equals(element.getAttribute("set-if-null"));
         // default to true, anything but false is true
         this.setIfEmpty = !"false".equals(element.getAttribute("set-if-empty"));
-
         if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
             throw new IllegalArgumentException("Cannot specify a from-field [" + element.getAttribute("from-field") + "] and a value [" + element.getAttribute("value") + "] on the set action in a screen widget");
         }
@@ -85,25 +80,25 @@ public class SetOperation extends MethodOperation {
             }
         } else if (!this.fromField.isEmpty()) {
             newValue = this.fromField.get(methodContext);
-            if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.toString() + "]: " + newValue, module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("In screen getting value for field from [" + this.fromField.toString() + "]: " + newValue, module);
         } else if (!this.valueExdr.isEmpty()) {
             newValue = methodContext.expandString(this.valueExdr);
         }
-
         // If newValue is still empty, use the default value
         if (ObjectType.isEmpty(newValue) && !this.defaultExdr.isEmpty()) {
             newValue = methodContext.expandString(this.defaultExdr);
         }
-
         if (!setIfNull && newValue == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("Field value not found (null) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found (null) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
             return true;
         }
         if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
-            if (Debug.verboseOn()) Debug.logVerbose("Field value not found (empty) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Field value not found (empty) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
             return true;
         }
-
         if (UtilValidate.isNotEmpty(this.type)) {
             if ("NewMap".equals(this.type)) {
                 newValue = FastMap.newInstance();
@@ -119,25 +114,32 @@ public class SetOperation extends MethodOperation {
                     return false;
                 }
             }
-            }
-
-        if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.toString() + "] to value: " + newValue, module);
+        }
+        if (Debug.verboseOn())
+            Debug.logVerbose("In screen setting field [" + this.field.toString() + "] to value: " + newValue, module);
         this.field.put(methodContext, newValue);
         return true;
     }
 
     @Override
-    public String rawString() {
-        return "<set field=\"" + this.field
-                + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal())
-                + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField)
-                + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
-                + (UtilValidate.isEmpty(this.type) ? "" : "\" type=\"" + this.type)
-                + "\"/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
+    }
+
+    @Override
+    public String rawString() {
+        return "<set field=\"" + this.field + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal()) + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField) + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
+                + (UtilValidate.isEmpty(this.type) ? "" : "\" type=\"" + this.type) + "\"/>";
+    }
+
+    public static final class SetOperationFactory implements Factory<SetOperation> {
+        public SetOperation createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetOperation(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set";
+        }
     }
 }

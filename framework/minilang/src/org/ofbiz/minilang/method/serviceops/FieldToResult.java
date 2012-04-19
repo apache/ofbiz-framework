@@ -18,31 +18,24 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.serviceops;
 
-import java.util.*;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies a map field to a Service result entry
  */
 public class FieldToResult extends MethodOperation {
-    public static final class FieldToResultFactory implements Factory<FieldToResult> {
-        public FieldToResult createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FieldToResult(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "field-to-result";
-        }
-    }
 
     public static final String module = FieldToResult.class.getName();
 
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> resultAcsr;
 
     public FieldToResult(Element element, SimpleMethod simpleMethod) {
@@ -58,29 +51,30 @@ public class FieldToResult extends MethodOperation {
         // only run this if it is in an SERVICE context
         if (methodContext.getMethodType() == MethodContext.SERVICE) {
             Object fieldVal = null;
-
             if (!mapAcsr.isEmpty()) {
                 Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-
                 if (fromMap == null) {
                     Debug.logWarning("Map not found with name " + mapAcsr, module);
                     return true;
                 }
-
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             } else {
                 // no map name, try the env
                 fieldVal = fieldAcsr.get(methodContext);
             }
-
             if (fieldVal == null) {
                 Debug.logWarning("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr, module);
                 return true;
             }
-
             resultAcsr.put(methodContext.getResults(), fieldVal, methodContext);
         }
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -88,9 +82,14 @@ public class FieldToResult extends MethodOperation {
         // TODO: add all attributes and other info
         return "<field-to-result field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class FieldToResultFactory implements Factory<FieldToResult> {
+        public FieldToResult createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FieldToResult(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "field-to-result";
+        }
     }
 }

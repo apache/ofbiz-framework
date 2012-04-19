@@ -31,22 +31,13 @@ import org.w3c.dom.Element;
  * Uses the delegator to create the specified value object entity in the datasource
  */
 public class CreateValue extends MethodOperation {
-    public static final class CreateValueFactory implements Factory<CreateValue> {
-        public CreateValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CreateValue(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "create-value";
-        }
-    }
 
     public static final String module = CreateValue.class.getName();
 
-    ContextAccessor<GenericValue> valueAcsr;
+    boolean createOrStore;
     String doCacheClearStr;
     boolean testDuplicate;
-    boolean createOrStore;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public CreateValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -58,7 +49,6 @@ public class CreateValue extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In create-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not creating";
@@ -95,13 +85,24 @@ public class CreateValue extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<create-value/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class CreateValueFactory implements Factory<CreateValue> {
+        public CreateValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CreateValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "create-value";
+        }
     }
 }

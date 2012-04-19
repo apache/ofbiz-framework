@@ -31,15 +31,6 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a condition
  */
 public class EntityCondition extends MethodOperation {
-    public static final class EntityConditionFactory implements Factory<EntityCondition> {
-        public EntityCondition createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new EntityCondition(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "entity-condition";
-        }
-    }
 
     public static final String module = EntityCondition.class.getName();
 
@@ -58,7 +49,6 @@ public class EntityCondition extends MethodOperation {
         } catch (GeneralException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process: " + e.getMessage();
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
@@ -71,6 +61,12 @@ public class EntityCondition extends MethodOperation {
         return true;
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public String getEntityName() {
         return this.finder.getEntityName();
     }
@@ -80,10 +76,14 @@ public class EntityCondition extends MethodOperation {
         // TODO: something more than the empty tag
         return "<entity-condition/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class EntityConditionFactory implements Factory<EntityCondition> {
+        public EntityCondition createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "entity-condition";
+        }
     }
 }
-

@@ -18,39 +18,35 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.otherops;
 
-import java.text.*;
-import java.util.*;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Map;
 
-import org.w3c.dom.*;
 import javolution.util.FastMap;
-import org.ofbiz.base.util.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies an properties file property value to a field
  */
 public class PropertyToField extends MethodOperation {
-    public static final class PropertyToFieldFactory implements Factory<PropertyToField> {
-        public PropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new PropertyToField(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "property-to-field";
-        }
-    }
 
     public static final String module = PropertyToField.class.getName();
 
-    String resource;
-    String property;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    ContextAccessor<Object> fieldAcsr;
-    String defaultVal;
-    boolean noLocale;
     ContextAccessor<List<? extends Object>> argListAcsr;
+    String defaultVal;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
+    boolean noLocale;
+    String property;
+    String resource;
 
     public PropertyToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -69,7 +65,6 @@ public class PropertyToField extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
-
         String value = null;
         if (noLocale) {
             value = EntityUtilProperties.getPropertyValue(resource, property, methodContext.getDelegator());
@@ -79,24 +74,21 @@ public class PropertyToField extends MethodOperation {
         if (UtilValidate.isEmpty(value)) {
             value = defaultVal;
         }
-
         // note that expanding the value string here will handle defaultValue and the string from
-        //  the properties file; if we decide later that we don't want the string from the properties
-        //  file to be expanded we should just expand the defaultValue at the beginning of this method.
+        // the properties file; if we decide later that we don't want the string from the properties
+        // file to be expanded we should just expand the defaultValue at the beginning of this method.
         value = methodContext.expandString(value);
-
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
             if (UtilValidate.isNotEmpty(argList)) {
                 value = MessageFormat.format(value, argList.toArray());
             }
         }
-
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
-
             if (toMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", creating new map", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", creating new map", module);
                 toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
@@ -104,8 +96,13 @@ public class PropertyToField extends MethodOperation {
         } else {
             fieldAcsr.put(methodContext, value);
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -113,9 +110,14 @@ public class PropertyToField extends MethodOperation {
         // TODO: add all attributes and other info
         return "<property-to-field field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class PropertyToFieldFactory implements Factory<PropertyToField> {
+        public PropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new PropertyToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "property-to-field";
+        }
     }
 }

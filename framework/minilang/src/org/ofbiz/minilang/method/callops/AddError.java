@@ -18,41 +18,34 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.*;
+import java.util.List;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Adds the fail-message or fail-property value to the error-list.
  */
 public class AddError extends MethodOperation {
-    public static final class AddErrorFactory implements Factory<AddError> {
-        public AddError createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new AddError(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "add-error";
-        }
-    }
-    String message = null;
-    String propertyResource = null;
-    boolean isProperty = false;
 
     ContextAccessor<List<Object>> errorListAcsr;
+    boolean isProperty = false;
+    String message = null;
+    String propertyResource = null;
 
     public AddError(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
         Element failProperty = UtilXml.firstChildElement(element, "fail-property");
-
         if (failMessage != null) {
             this.message = failMessage.getAttribute("message");
             this.isProperty = false;
@@ -63,40 +56,38 @@ public class AddError extends MethodOperation {
         }
     }
 
-    @Override
-    public boolean exec(MethodContext methodContext) {
-
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
-        }
-
-        this.addMessage(messages, methodContext.getLoader(), methodContext);
-        return true;
-    }
-
     public void addMessage(List<Object> messages, ClassLoader loader, MethodContext methodContext) {
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
-
         if (!isProperty && message != null) {
             messages.add(message);
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);
         } else if (isProperty && propertyResource != null && message != null) {
-            //String propMsg = UtilProperties.getPropertyValue(UtilURL.fromResource(propertyResource, loader), message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
-
             if (UtilValidate.isEmpty(propMsg)) {
                 messages.add("Simple Method error occurred, but no message was found, sorry.");
             } else {
                 messages.add(methodContext.expandString(propMsg));
             }
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding property message: " + propMsg, module);
         } else {
             messages.add("Simple Method error occurred, but no message was found, sorry.");
-            // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] ERROR: No message found", module);
         }
+    }
+
+    @Override
+    public boolean exec(MethodContext methodContext) {
+        List<Object> messages = errorListAcsr.get(methodContext);
+        if (messages == null) {
+            messages = FastList.newInstance();
+            errorListAcsr.put(methodContext, messages);
+        }
+        this.addMessage(messages, methodContext.getLoader(), methodContext);
+        return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -104,9 +95,14 @@ public class AddError extends MethodOperation {
         // TODO: something more than the empty tag
         return "<add-error/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class AddErrorFactory implements Factory<AddError> {
+        public AddError createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new AddError(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "add-error";
+        }
     }
 }

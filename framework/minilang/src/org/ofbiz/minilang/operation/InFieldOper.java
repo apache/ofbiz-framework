@@ -18,10 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.ObjectType;
+import org.w3c.dom.Element;
 
 /**
  * A MakeInStringOperation that inserts the value of an in-field
@@ -40,7 +44,6 @@ public class InFieldOper extends MakeInStringOperation {
     @Override
     public String exec(Map<String, Object> inMap, List<Object> messages, Locale locale, ClassLoader loader) {
         Object obj = inMap.get(fieldName);
-
         if (obj == null) {
             Debug.logWarning("[SimpleMapProcessor.InFieldOper.exec] In field " + fieldName + " not found, not appending anything", module);
             return null;

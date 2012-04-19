@@ -23,35 +23,24 @@ import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.minilang.method.MethodOperation;
-import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.ContextAccessor;
-import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
-
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 public class IfInstanceOf extends MethodOperation {
-    public static final class IfInstanceOfFactory implements Factory<IfInstanceOf> {
-        public IfInstanceOf createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new IfInstanceOf(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "if-instance-of";
-        }
-    }
 
     public static final String module = IfInstanceOf.class.getName();
 
-    protected List<MethodOperation> subOps = FastList.newInstance();
-    protected List<MethodOperation> elseSubOps = null;
-
-    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr = null;
-    protected ContextAccessor<Object> fieldAcsr = null;
     protected String className = null;
+    protected List<MethodOperation> elseSubOps = null;
+    protected ContextAccessor<Object> fieldAcsr = null;
+    protected ContextAccessor<Map<String, ? extends Object>> mapAcsr = null;
+    protected List<MethodOperation> subOps = FastList.newInstance();
 
     public IfInstanceOf(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -59,9 +48,7 @@ public class IfInstanceOf extends MethodOperation {
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.className = element.getAttribute("class");
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
-
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
@@ -74,11 +61,11 @@ public class IfInstanceOf extends MethodOperation {
         // only run subOps if element is instanceOf
         boolean runSubOps = false;
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -86,9 +73,7 @@ public class IfInstanceOf extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         runSubOps = ObjectType.instanceOf(fieldVal, className);
-
         if (runSubOps) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
@@ -100,10 +85,17 @@ public class IfInstanceOf extends MethodOperation {
         }
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.subOps);
-        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
         return allSubOps;
     }
 
@@ -112,9 +104,14 @@ public class IfInstanceOf extends MethodOperation {
         // TODO: add all attributes and other info
         return "<if-instance-of field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IfInstanceOfFactory implements Factory<IfInstanceOf> {
+        public IfInstanceOf createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfInstanceOf(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-instance-of";
+        }
     }
 }

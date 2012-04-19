@@ -37,43 +37,27 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Iff the specified field complies with the pattern specified by the regular expression, process sub-operations
+ * If the specified field complies with the pattern specified by the regular expression, process sub-operations
  */
 public class IfRegexp extends MethodOperation {
-    public static final class IfRegexpFactory implements Factory<IfRegexp> {
-        public IfRegexp createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new IfRegexp(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "if-regexp";
-        }
-    }
 
     public static final String module = IfRegexp.class.getName();
-
     private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
-    List<MethodOperation> subOps = FastList.newInstance();
     List<MethodOperation> elseSubOps = null;
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<Object> fieldAcsr;
-
     FlexibleStringExpander exprExdr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    List<MethodOperation> subOps = FastList.newInstance();
 
     public IfRegexp(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-
         this.exprExdr = FlexibleStringExpander.getInstance(element.getAttribute("expr"));
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
-
         Element elseElement = UtilXml.firstChildElement(element, "else");
-
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
             SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
@@ -84,14 +68,13 @@ public class IfRegexp extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
-
         String fieldString = null;
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -99,7 +82,6 @@ public class IfRegexp extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         if (fieldVal != null) {
             try {
                 fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
@@ -108,15 +90,14 @@ public class IfRegexp extends MethodOperation {
             }
         }
         // always use an empty string by default
-        if (fieldString == null) fieldString = "";
-
+        if (fieldString == null)
+            fieldString = "";
         boolean matches = false;
         try {
             matches = compilerMatcher.get().matches(fieldString, methodContext.expandString(this.exprExdr));
         } catch (MalformedPatternException e) {
             Debug.logError(e, "Regular Expression [" + this.exprExdr + "] is mal-formed: " + e.toString(), module);
         }
-
         if (matches) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
@@ -128,10 +109,17 @@ public class IfRegexp extends MethodOperation {
         }
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.subOps);
-        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
         return allSubOps;
     }
 
@@ -140,9 +128,14 @@ public class IfRegexp extends MethodOperation {
         // TODO: add all attributes and other info
         return "<if-regexp field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IfRegexpFactory implements Factory<IfRegexp> {
+        public IfRegexp createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfRegexp(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-regexp";
+        }
     }
 }

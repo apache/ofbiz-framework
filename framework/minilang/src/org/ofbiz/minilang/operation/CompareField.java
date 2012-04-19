@@ -18,8 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
-import org.w3c.dom.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import org.w3c.dom.Element;
 
 /**
  * Compares the current field to another field

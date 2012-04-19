@@ -18,13 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Element;
 
 /**
- * <p><b>Title:</b> A MakeInStringOperation that appends the specified constant string
+ * <p>
+ * <b>Title:</b> A MakeInStringOperation that appends the specified constant string
  */
 public class ConstantOper extends MakeInStringOperation {
 

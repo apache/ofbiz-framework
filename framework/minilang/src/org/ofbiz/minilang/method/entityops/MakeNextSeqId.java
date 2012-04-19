@@ -31,28 +31,18 @@ import org.w3c.dom.Element;
  * Look at existing values for a sub-entity with a sequenced secondary ID, and get the highest plus 1
  */
 public class MakeNextSeqId extends MethodOperation {
-    public static final class MakeNextSeqIdFactory implements Factory<MakeNextSeqId> {
-        public MakeNextSeqId createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new MakeNextSeqId(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "make-next-seq-id";
-        }
-    }
 
     public static final String module = MakeNextSeqId.class.getName();
 
+    String incrementByStr;
+    String numericPaddingStr;
     String seqFieldName;
     ContextAccessor<GenericValue> valueAcsr;
-    String numericPaddingStr;
-    String incrementByStr;
 
     public MakeNextSeqId(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         seqFieldName = element.getAttribute("seq-field-name");
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
-
         numericPaddingStr = element.getAttribute("numeric-padding");
         incrementByStr = element.getAttribute("increment-by");
     }
@@ -78,11 +68,15 @@ public class MakeNextSeqId extends MethodOperation {
         } catch (Exception e) {
             Debug.logError(e, "increment-by format invalid for [" + incrementByStr + "]", module);
         }
-
         GenericValue value = valueAcsr.get(methodContext);
         methodContext.getDelegator().setNextSubSeqId(value, seqFieldName, numericPadding, incrementBy);
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -90,9 +84,14 @@ public class MakeNextSeqId extends MethodOperation {
         // TODO: something more than the empty tag
         return "<make-next-seq-id/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class MakeNextSeqIdFactory implements Factory<MakeNextSeqId> {
+        public MakeNextSeqId createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MakeNextSeqId(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "make-next-seq-id";
+        }
     }
 }

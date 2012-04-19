@@ -18,16 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.text.*;
-import java.util.*;
-
-import org.w3c.dom.*;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.MessageString;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies the specified String to a field
@@ -35,23 +39,14 @@ import org.ofbiz.minilang.method.*;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class StringToField extends MethodOperation {
-    public static final class StringToFieldFactory implements Factory<StringToField> {
-        public StringToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new StringToField(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "string-to-field";
-        }
-    }
 
     public static final String module = StringToField.class.getName();
 
-    String string;
-    ContextAccessor<Map<String, Object>> mapAcsr;
-    ContextAccessor<Object> fieldAcsr;
     ContextAccessor<List<? extends Object>> argListAcsr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
     String messageFieldName;
+    String string;
 
     public StringToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -65,26 +60,23 @@ public class StringToField extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         String valueStr = methodContext.expandString(string);
-
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
             if (UtilValidate.isNotEmpty(argList)) {
                 valueStr = MessageFormat.format(valueStr, argList.toArray());
             }
         }
-
         Object value;
         if (UtilValidate.isNotEmpty(this.messageFieldName)) {
             value = new MessageString(valueStr, this.messageFieldName, true);
         } else {
             value = valueStr;
         }
-
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
-
             if (toMap == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
                 toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
@@ -92,8 +84,13 @@ public class StringToField extends MethodOperation {
         } else {
             fieldAcsr.put(methodContext, value);
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -101,9 +98,14 @@ public class StringToField extends MethodOperation {
         // TODO: something more than the empty tag
         return "<string-to-field string=\"" + this.string + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class StringToFieldFactory implements Factory<StringToField> {
+        public StringToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new StringToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "string-to-field";
+        }
     }
 }

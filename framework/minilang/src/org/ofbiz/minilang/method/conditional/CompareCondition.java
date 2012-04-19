@@ -18,47 +18,36 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
-import org.ofbiz.minilang.operation.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.operation.BaseCompare;
+import org.w3c.dom.Element;
 
 /**
  * Implements compare to a constant condition.
  */
 public class CompareCondition implements Conditional {
-    public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> {
-        @Override
-        public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new CompareCondition(element, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "if-compare";
-        }
-    }
-
 
     public static final String module = CompareCondition.class.getName();
 
-    SimpleMethod simpleMethod;
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
-    String value;
-
-    String operator;
-    String type;
     String format;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    String operator;
+    SimpleMethod simpleMethod;
+    String type;
+    String value;
 
     public CompareCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -67,7 +56,6 @@ public class CompareCondition implements Conditional {
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
         this.value = element.getAttribute("value");
-
         this.operator = element.getAttribute("operator");
         this.type = element.getAttribute("type");
         this.format = element.getAttribute("format");
@@ -78,9 +66,7 @@ public class CompareCondition implements Conditional {
         String operator = methodContext.expandString(this.operator);
         String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);
-
         Object fieldVal = getFieldVal(methodContext);
-
         List<Object> messages = FastList.newInstance();
         Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
         if (messages.size() > 0) {
@@ -88,11 +74,10 @@ public class CompareCondition implements Conditional {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 StringBuilder fullString = new StringBuilder();
 
-                for (Object message: messages) {
+                for (Object message : messages) {
                     fullString.append(message);
                 }
                 Debug.logWarning(fullString.toString(), module);
-
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), fullString.toString());
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
@@ -101,9 +86,8 @@ public class CompareCondition implements Conditional {
             }
             return false;
         }
-
-        if (resultBool != null) return resultBool.booleanValue();
-
+        if (resultBool != null)
+            return resultBool.booleanValue();
         return false;
     }
 
@@ -112,7 +96,8 @@ public class CompareCondition implements Conditional {
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -120,7 +105,6 @@ public class CompareCondition implements Conditional {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         // always use an empty string by default
         if (fieldVal == null) {
             fieldVal = "";
@@ -134,7 +118,6 @@ public class CompareCondition implements Conditional {
         String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);
         Object fieldVal = getFieldVal(methodContext);
-
         messageBuffer.append("[");
         if (!this.mapAcsr.isEmpty()) {
             messageBuffer.append(this.mapAcsr);
@@ -144,9 +127,7 @@ public class CompareCondition implements Conditional {
         messageBuffer.append("=");
         messageBuffer.append(fieldVal);
         messageBuffer.append("] ");
-
         messageBuffer.append(operator);
-
         messageBuffer.append(" ");
         messageBuffer.append(value);
         messageBuffer.append(" as ");
@@ -154,6 +135,18 @@ public class CompareCondition implements Conditional {
         if (UtilValidate.isNotEmpty(format)) {
             messageBuffer.append(":");
             messageBuffer.append(format);
+        }
+    }
+
+    public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> {
+        @Override
+        public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CompareCondition(element, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "if-compare";
         }
     }
 }

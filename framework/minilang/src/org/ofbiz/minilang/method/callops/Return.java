@@ -18,25 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import org.w3c.dom.*;
-
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * An event operation that returns the given response code
  */
 public class Return extends MethodOperation {
-    public static final class ReturnFactory implements Factory<Return> {
-        public Return createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new Return(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "return";
-        }
-    }
 
     String responseCode;
 
@@ -50,7 +41,6 @@ public class Return extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         String responseCode = methodContext.expandString(this.responseCode);
-
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
             return false;
@@ -63,13 +53,24 @@ public class Return extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<return/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class ReturnFactory implements Factory<Return> {
+        public Return createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Return(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "return";
+        }
     }
 }

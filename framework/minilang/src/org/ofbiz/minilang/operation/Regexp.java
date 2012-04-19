@@ -35,7 +35,6 @@ import org.w3c.dom.Element;
 public class Regexp extends SimpleMapOperation {
 
     public static final String module = Regexp.class.getName();
-
     private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
     String expr;
@@ -48,16 +47,13 @@ public class Regexp extends SimpleMapOperation {
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object obj = inMap.get(fieldName);
-
         String fieldValue = null;
-
         try {
             fieldValue = (String) ObjectType.simpleTypeConvert(obj, "String", null, locale);
         } catch (GeneralException e) {
             messages.add("Could not convert field value for comparison: " + e.getMessage());
             return;
         }
-
         boolean matches = false;
         try {
             matches = compilerMatcher.get().matches(fieldValue, expr);
@@ -65,7 +61,6 @@ public class Regexp extends SimpleMapOperation {
             Debug.logError(e, "Regular Expression [" + this.expr + "] is mal-formed: " + e.toString(), module);
             return;
         }
-
         if (!matches) {
             addMessage(messages, loader, locale);
         }

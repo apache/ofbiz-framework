@@ -43,23 +43,14 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a condition
  */
 public class EntityCount extends MethodOperation {
-    public static final class EntityCountFactory implements Factory<EntityCount> {
-        public EntityCount createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new EntityCount(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "entity-count";
-        }
-    }
 
     public static final String module = EntityCount.class.getName();
 
-    protected FlexibleStringExpander entityNameExdr;
-    protected FlexibleStringExpander delegatorNameExdr;
-    protected Condition whereCondition;
-    protected Condition havingCondition;
     protected FlexibleMapAccessor<Long> countAcsr;
+    protected FlexibleStringExpander delegatorNameExdr;
+    protected FlexibleStringExpander entityNameExdr;
+    protected Condition havingCondition;
+    protected Condition whereCondition;
 
     public EntityCount(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -70,7 +61,6 @@ public class EntityCount extends MethodOperation {
         } else {
             this.countAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("count-name"));
         }
-
         // process condition-expr | condition-list
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
         Element conditionListElement = UtilXml.firstChildElement(element, "condition-list");
@@ -85,7 +75,6 @@ public class EntityCount extends MethodOperation {
         } else if (conditionObjectElement != null) {
             this.whereCondition = new ConditionObject(conditionObjectElement);
         }
-
         // process having-condition-list
         Element havingConditionListElement = UtilXml.firstChildElement(element, "having-condition-list");
         if (havingConditionListElement != null) {
@@ -100,32 +89,25 @@ public class EntityCount extends MethodOperation {
             Delegator delegator = methodContext.getDelegator();
             String entityName = this.entityNameExdr.expandString(context);
             String delegatorName = this.delegatorNameExdr.expandString(context);
-
             if (UtilValidate.isNotEmpty(delegatorName)) {
                 delegator = DelegatorFactory.getDelegator(delegatorName);
             }
-
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
-
             // create whereEntityCondition from whereCondition
             EntityCondition whereEntityCondition = null;
             if (this.whereCondition != null) {
                 whereEntityCondition = this.whereCondition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));
             }
-
             // create havingEntityCondition from havingCondition
             EntityCondition havingEntityCondition = null;
             if (this.havingCondition != null) {
                 havingEntityCondition = this.havingCondition.createCondition(context, modelEntity, delegator.getModelFieldTypeReader(modelEntity));
             }
-
             long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
-
             this.countAcsr.put(context, count);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process: " + e.getMessage();
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
@@ -138,10 +120,17 @@ public class EntityCount extends MethodOperation {
         return true;
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public String getEntityName() {
         String entName = this.entityNameExdr.getOriginal();
         // if there is expansion syntax
-        if (entName.indexOf("${") >= 0) return null;
+        if (entName.indexOf("${") >= 0)
+            return null;
         return entName;
     }
 
@@ -150,10 +139,14 @@ public class EntityCount extends MethodOperation {
         // TODO: something more than the empty tag
         return "<entity-count/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class EntityCountFactory implements Factory<EntityCount> {
+        public EntityCount createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityCount(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "entity-count";
+        }
     }
 }
-

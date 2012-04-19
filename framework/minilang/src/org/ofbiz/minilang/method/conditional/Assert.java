@@ -35,31 +35,19 @@ import org.w3c.dom.Element;
  * Operation used to check each sub-condition independently and for each one that fails (does not evaluate to true), adds an error to the error message list.
  */
 public class Assert extends MethodOperation {
-    public static final class AssertFactory implements Factory<Assert> {
-        public Assert createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new Assert(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "assert";
-        }
-    }
 
     public static final String module = Assert.class.getName();
 
+    /** List of Conditional objects */
+    protected List<Conditional> conditionalList = FastList.newInstance();
     protected ContextAccessor<List<Object>> errorListAcsr;
     protected FlexibleStringExpander titleExdr;
 
-    /** List of Conditional objects */
-    protected List<Conditional> conditionalList = FastList.newInstance();
-
     public Assert(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
-
-        for (Element conditionalElement: UtilXml.childElementList(element)) {
+        for (Element conditionalElement : UtilXml.childElementList(element)) {
             this.conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
         }
     }
@@ -71,13 +59,10 @@ public class Assert extends MethodOperation {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
-
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
-
-        //  check each conditional and if fails generate a message to add to the error list
-        for (Conditional condition: conditionalList) {
+        // check each conditional and if fails generate a message to add to the error list
+        for (Conditional condition : conditionalList) {
             boolean conditionTrue = condition.checkCondition(methodContext);
-
             if (!conditionTrue) {
                 // pretty print condition
                 StringBuilder messageBuffer = new StringBuilder();
@@ -92,19 +77,12 @@ public class Assert extends MethodOperation {
                 messages.add(messageBuffer.toString());
             }
         }
-
         return true;
-    }
-
-    @Override
-    public String rawString() {
-        return expandedString(null);
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
-
         StringBuilder messageBuf = new StringBuilder();
         messageBuf.append("<assert");
         if (UtilValidate.isNotEmpty(title)) {
@@ -113,10 +91,25 @@ public class Assert extends MethodOperation {
             messageBuf.append("\"");
         }
         messageBuf.append(">");
-        for (Conditional condition: conditionalList) {
+        for (Conditional condition : conditionalList) {
             condition.prettyPrint(messageBuf, methodContext);
         }
         messageBuf.append("</assert>");
         return messageBuf.toString();
+    }
+
+    @Override
+    public String rawString() {
+        return expandedString(null);
+    }
+
+    public static final class AssertFactory implements Factory<Assert> {
+        public Assert createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Assert(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "assert";
+        }
     }
 }

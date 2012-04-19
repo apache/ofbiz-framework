@@ -18,27 +18,22 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.eventops;
 
-import java.util.*;
+import java.util.List;
 
-import org.w3c.dom.*;
 import javolution.util.FastList;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies a Servlet request parameter values to a list
  */
 public class RequestParametersToList extends MethodOperation {
-    public static final class RequestParametersToListFactory implements Factory<RequestParametersToList> {
-        public RequestParametersToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new RequestParametersToList(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "request-parameters-to-list";
-        }
-    }
 
     public static final String module = RequestParametersToList.class.getName();
 
@@ -63,31 +58,39 @@ public class RequestParametersToList extends MethodOperation {
                 listVal = UtilMisc.toListArray(parameterValues);
             }
         }
-
         // if listVal is null, use a empty list;
         if (listVal == null) {
             listVal = FastList.newInstance();
         }
-
         List<String> toList = listAcsr.get(methodContext);
-
         if (toList == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("List not found with name " + listAcsr + ", creating new list", module);
             toList = FastList.newInstance();
             listAcsr.put(methodContext, toList);
         }
-
         toList.addAll(listVal);
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
     public String rawString() {
         return "<request-parameters-to-list request-name=\"" + this.requestName + "\" list-name=\"" + this.listAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class RequestParametersToListFactory implements Factory<RequestParametersToList> {
+        public RequestParametersToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RequestParametersToList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "request-parameters-to-list";
+        }
     }
 }

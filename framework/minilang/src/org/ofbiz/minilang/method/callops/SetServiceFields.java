@@ -38,22 +38,13 @@ import org.w3c.dom.Element;
  * Sets all Service parameters/attributes in the to-map using the map as a source
  */
 public class SetServiceFields extends MethodOperation {
-    public static final class SetServiceFieldsFactory implements Factory<SetServiceFields> {
-        public SetServiceFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new SetServiceFields(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "set-service-fields";
-        }
-    }
 
     public static final String module = SetServiceFields.class.getName();
 
-    String serviceName;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<Map<String, Object>> toMapAcsr;
     ContextAccessor<List<Object>> errorListAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    String serviceName;
+    ContextAccessor<Map<String, Object>> toMapAcsr;
 
     public SetServiceFields(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -70,21 +61,17 @@ public class SetServiceFields extends MethodOperation {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
-
         String serviceName = methodContext.expandString(this.serviceName);
-
         Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
         if (fromMap == null) {
             Debug.logWarning("The from map in set-service-field was not found with name: " + mapAcsr, module);
             return true;
         }
-
         Map<String, Object> toMap = toMapAcsr.get(methodContext);
         if (toMap == null) {
             toMap = FastMap.newInstance();
             toMapAcsr.put(methodContext, toMap);
         }
-
         LocalDispatcher dispatcher = methodContext.getDispatcher();
         ModelService modelService = null;
         try {
@@ -96,8 +83,13 @@ public class SetServiceFields extends MethodOperation {
             return false;
         }
         toMap.putAll(modelService.makeValid(fromMap, "IN", true, messages, methodContext.getTimeZone(), methodContext.getLocale()));
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     public String getServiceName() {
@@ -109,9 +101,14 @@ public class SetServiceFields extends MethodOperation {
         // TODO: something more than the empty tag
         return "<set-service-fields/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class SetServiceFieldsFactory implements Factory<SetServiceFields> {
+        public SetServiceFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetServiceFields(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-service-fields";
+        }
     }
 }

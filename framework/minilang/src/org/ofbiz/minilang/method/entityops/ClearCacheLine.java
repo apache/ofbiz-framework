@@ -18,27 +18,19 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import java.util.*;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
- * Uses the delegator to clear elements from the cache; intelligently looks at
- *  the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
+ * Uses the delegator to clear elements from the cache; intelligently looks at the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
  */
 public class ClearCacheLine extends MethodOperation {
-    public static final class ClearCacheLineFactory implements Factory<ClearCacheLine> {
-        public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new ClearCacheLine(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "clear-cache-line";
-        }
-    }
 
     public static final String module = ClearCacheLine.class.getName();
 
@@ -69,13 +61,24 @@ public class ClearCacheLine extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<clear-cache-line/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class ClearCacheLineFactory implements Factory<ClearCacheLine> {
+        public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ClearCacheLine(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "clear-cache-line";
+        }
     }
 }

@@ -18,26 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.*;
+import java.util.List;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Get the first entry from the list
  */
 public class FirstFromList extends MethodOperation {
-    public static final class FirstFromListFactory implements Factory<FirstFromList> {
-        public FirstFromList createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FirstFromList(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "first-from-list";
-        }
-    }
 
     public static final String module = FirstFromList.class.getName();
 
@@ -56,25 +50,33 @@ public class FirstFromList extends MethodOperation {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing", module);
             return true;
         }
-
         List<? extends Object> theList = listAcsr.get(methodContext);
-
         if (UtilValidate.isEmpty(theList)) {
             entryAcsr.put(methodContext, null);
             return true;
         }
-
         entryAcsr.put(methodContext, theList.get(0));
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
     public String rawString() {
         return "<first-from-list list-name=\"" + this.listAcsr + "\" entry-name=\"" + this.entryAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class FirstFromListFactory implements Factory<FirstFromList> {
+        public FirstFromList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FirstFromList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "first-from-list";
+        }
     }
 }

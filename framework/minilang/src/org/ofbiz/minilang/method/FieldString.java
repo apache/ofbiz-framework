@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import java.util.*;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.w3c.dom.Element;
 
 /**
  * A type of MethodString that represents a String constant value
@@ -56,7 +56,8 @@ public class FieldString extends MethodString {
         }
 
         if (fieldVal == null) {
-            if (Debug.infoOn()) Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting string value", module);
+            if (Debug.infoOn())
+                Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting string value", module);
             return "";
         }
 

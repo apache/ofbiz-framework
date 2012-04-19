@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.w3c.dom.Element;
 
 /**
  * A type of MethodString that represents a String constant value
  */
 public class StringString extends MethodString {
 
-    String value;
     String cdataValue;
+    String value;
 
     public StringString(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -40,10 +41,8 @@ public class StringString extends MethodString {
     public String getString(MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String cdataValue = methodContext.expandString(this.cdataValue);
-
         boolean valueExists = UtilValidate.isNotEmpty(value);
         boolean cdataValueExists = UtilValidate.isNotEmpty(cdataValue);
-
         if (valueExists && cdataValueExists) {
             return value + cdataValue;
         } else {

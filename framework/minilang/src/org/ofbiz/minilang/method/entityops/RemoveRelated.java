@@ -31,21 +31,12 @@ import org.w3c.dom.Element;
  * Uses the delegator to remove entities related to the specified value object from the datasource
  */
 public class RemoveRelated extends MethodOperation {
-    public static final class RemoveRelatedFactory implements Factory<RemoveRelated> {
-        public RemoveRelated createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new RemoveRelated(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "remove-related";
-        }
-    }
 
     public static final String module = RemoveRelated.class.getName();
 
-    ContextAccessor<GenericValue> valueAcsr;
-    String relationName;
     String doCacheClearStr;
+    String relationName;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public RemoveRelated(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -58,11 +49,9 @@ public class RemoveRelated extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
         String relationName = methodContext.expandString(this.relationName);
-
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In remove-related a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing related";
-
             Debug.logWarning(errMsg, module);
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
@@ -73,13 +62,11 @@ public class RemoveRelated extends MethodOperation {
             }
             return false;
         }
-
         try {
             methodContext.getDelegator().removeRelated(relationName, value, doCacheClear);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem removing the relation " + relationName + " of the value " + valueAcsr + " value: " + e.getMessage() + "]";
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
@@ -93,13 +80,24 @@ public class RemoveRelated extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<remove-related/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class RemoveRelatedFactory implements Factory<RemoveRelated> {
+        public RemoveRelated createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RemoveRelated(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "remove-related";
+        }
     }
 }

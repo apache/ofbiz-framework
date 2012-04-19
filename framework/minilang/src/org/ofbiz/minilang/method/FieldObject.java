@@ -18,11 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import java.util.*;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.SimpleMethod;
+import org.w3c.dom.Element;
 
 /**
  * A type of MethodObject that represents an Object value in a certain location
@@ -40,17 +43,32 @@ public class FieldObject<T> extends MethodObject<T> {
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<T>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-
         type = element.getAttribute("type");
         if (UtilValidate.isEmpty(type)) {
             type = "String";
         }
     }
 
-    /** Get the name for the type of the object */
     @Override
-    public String getTypeName() {
-        return type;
+    public T getObject(MethodContext methodContext) {
+        T fieldVal = null;
+        if (!mapAcsr.isEmpty()) {
+            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
+            if (fromMap == null) {
+                Debug.logWarning("Map not found with name " + mapAcsr + ", not getting Object value, returning null.", module);
+                return null;
+            }
+            fieldVal = fieldAcsr.get(fromMap, methodContext);
+        } else {
+            // no map name, try the env
+            fieldVal = fieldAcsr.get(methodContext);
+        }
+        if (fieldVal == null) {
+            if (Debug.infoOn())
+                Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting Object value, returning null.", module);
+            return null;
+        }
+        return fieldVal;
     }
 
     @Override
@@ -63,27 +81,9 @@ public class FieldObject<T> extends MethodObject<T> {
         }
     }
 
+    /** Get the name for the type of the object */
     @Override
-    public T getObject(MethodContext methodContext) {
-        T fieldVal = null;
-
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                Debug.logWarning("Map not found with name " + mapAcsr + ", not getting Object value, returning null.", module);
-                return null;
-            }
-            fieldVal = fieldAcsr.get(fromMap, methodContext);
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-
-        if (fieldVal == null) {
-            if (Debug.infoOn()) Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting Object value, returning null.", module);
-            return null;
-        }
-
-        return fieldVal;
+    public String getTypeName() {
+        return type;
     }
 }

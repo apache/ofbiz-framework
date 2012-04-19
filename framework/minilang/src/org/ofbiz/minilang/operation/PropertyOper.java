@@ -18,10 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
+import org.w3c.dom.Element;
 
 /**
  * A MakeInStringOperation that insert the value of a property from a properties file
@@ -30,8 +35,8 @@ public class PropertyOper extends MakeInStringOperation {
 
     public static final String module = PropertyOper.class.getName();
 
-    String resource;
     String property;
+    String resource;
 
     public PropertyOper(Element element) {
         super(element);

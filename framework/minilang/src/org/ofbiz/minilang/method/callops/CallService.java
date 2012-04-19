@@ -46,53 +46,37 @@ import org.w3c.dom.Element;
  * Calls a service using the given parameters
  */
 public class CallService extends MethodOperation {
-    public static final class CallServiceFactory implements Factory<CallService> {
-        public CallService createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CallService(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "call-service";
-        }
-    }
 
     public static final String module = CallService.class.getName();
     public static final String resource = "MiniLangErrorUiLabels";
 
-    protected String serviceName;
-    protected ContextAccessor<Map<String, Object>> inMapAcsr;
-    protected String includeUserLoginStr;
     protected String breakOnErrorStr;
+    protected FlexibleMessage defaultMessage;
     protected String errorCode;
-    protected String successCode;
-
-    /** Require a new transaction for this service */
-    protected  String requireNewTransactionStr;
-    /** Override the default transaction timeout, only works if we start the transaction */
-    protected  int transactionTimeout;
-
     protected FlexibleMessage errorPrefix;
     protected FlexibleMessage errorSuffix;
-    protected FlexibleMessage successPrefix;
-    protected FlexibleMessage successSuffix;
+    protected String includeUserLoginStr;
+    protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected FlexibleMessage messagePrefix;
     protected FlexibleMessage messageSuffix;
-    protected FlexibleMessage defaultMessage;
-
+    /** Require a new transaction for this service */
+    protected String requireNewTransactionStr;
     /** A list of strings with names of new maps to create */
     protected List<String> resultsToMap = FastList.newInstance();
-
     /** A list of ResultToFieldDef objects */
     protected List<ResultToFieldDef> resultToField = FastList.newInstance();
-
     /** the key is the request attribute name, the value is the result name to get */
     protected Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToRequest = FastMap.newInstance();
-
-    /** the key is the session attribute name, the value is the result name to get */
-    protected Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToSession = FastMap.newInstance();
-
     /** the key is the result entry name, the value is the result name to get */
     protected Map<ContextAccessor<Object>, ContextAccessor<Object>> resultToResult = FastMap.newInstance();
+    /** the key is the session attribute name, the value is the result name to get */
+    protected Map<FlexibleServletAccessor<Object>, ContextAccessor<Object>> resultToSession = FastMap.newInstance();
+    protected String serviceName;
+    protected String successCode;
+    protected FlexibleMessage successPrefix;
+    protected FlexibleMessage successSuffix;
+    /** Override the default transaction timeout, only works if we start the transaction */
+    protected int transactionTimeout;
 
     public CallService(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -101,9 +85,9 @@ public class CallService extends MethodOperation {
         includeUserLoginStr = element.getAttribute("include-user-login");
         breakOnErrorStr = element.getAttribute("break-on-error");
         errorCode = element.getAttribute("error-code");
-        if (UtilValidate.isEmpty(errorCode)) errorCode = "error";
+        if (UtilValidate.isEmpty(errorCode))
+            errorCode = "error";
         this.requireNewTransactionStr = element.getAttribute("require-new-transaction");
-
         String timeoutStr = UtilXml.checkEmpty(element.getAttribute("transaction-timeout"), element.getAttribute("transaction-timout"));
         int timeout = -1;
         if (!UtilValidate.isEmpty(timeoutStr)) {
@@ -115,62 +99,57 @@ public class CallService extends MethodOperation {
             }
         }
         this.transactionTimeout = timeout;
-
         successCode = element.getAttribute("success-code");
-        if (UtilValidate.isEmpty(successCode)) successCode = "success";
-
+        if (UtilValidate.isEmpty(successCode))
+            successCode = "success";
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "service.error.prefix");
         errorSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-suffix"), "service.error.suffix");
         successPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "success-prefix"), "service.success.prefix");
         successSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "success-suffix"), "service.success.suffix");
         messagePrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-prefix"), "service.message.prefix");
         messageSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-suffix"), "service.message.suffix");
-        defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);//"service.default.message"
-
+        defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), null);// "service.default.message"
         List<? extends Element> resultsToMapElements = UtilXml.childElementList(element, "results-to-map");
         if (UtilValidate.isNotEmpty(resultsToMapElements)) {
-            for (Element resultsToMapElement: resultsToMapElements) {
+            for (Element resultsToMapElement : resultsToMapElements) {
                 resultsToMap.add(resultsToMapElement.getAttribute("map-name"));
             }
         }
-
         List<? extends Element> resultToFieldElements = UtilXml.childElementList(element, "result-to-field");
         if (UtilValidate.isNotEmpty(resultToFieldElements)) {
-            for (Element resultToFieldElement: resultToFieldElements) {
+            for (Element resultToFieldElement : resultToFieldElements) {
                 ResultToFieldDef rtfDef = new ResultToFieldDef();
 
                 rtfDef.resultName = resultToFieldElement.getAttribute("result-name");
                 rtfDef.mapAcsr = new ContextAccessor<Map<String, Object>>(resultToFieldElement.getAttribute("map-name"));
                 String field = resultToFieldElement.getAttribute("field");
-                if (UtilValidate.isEmpty(field)) field = resultToFieldElement.getAttribute("field-name");
+                if (UtilValidate.isEmpty(field))
+                    field = resultToFieldElement.getAttribute("field-name");
                 rtfDef.fieldAcsr = new ContextAccessor<Object>(field, rtfDef.resultName);
 
                 resultToField.add(rtfDef);
             }
         }
-
         // get result-to-request and result-to-session sub-ops
         List<? extends Element> resultToRequestElements = UtilXml.childElementList(element, "result-to-request");
         if (UtilValidate.isNotEmpty(resultToRequestElements)) {
-            for (Element resultToRequestElement: resultToRequestElements) {
+            for (Element resultToRequestElement : resultToRequestElements) {
                 FlexibleServletAccessor<Object> reqAcsr = new FlexibleServletAccessor<Object>(resultToRequestElement.getAttribute("request-name"), resultToRequestElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToRequestElement.getAttribute("result-name"));
                 resultToRequest.put(reqAcsr, resultAcsr);
             }
         }
-
         List<? extends Element> resultToSessionElements = UtilXml.childElementList(element, "result-to-session");
         if (UtilValidate.isNotEmpty(resultToSessionElements)) {
-            for (Element resultToSessionElement: resultToSessionElements) {
+            for (Element resultToSessionElement : resultToSessionElements) {
                 FlexibleServletAccessor<Object> sesAcsr = new FlexibleServletAccessor<Object>(resultToSessionElement.getAttribute("session-name"), resultToSessionElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToSessionElement.getAttribute("result-name"));
                 resultToSession.put(sesAcsr, resultAcsr);
             }
         }
-
         List<? extends Element> resultToResultElements = UtilXml.childElementList(element, "result-to-result");
         if (UtilValidate.isNotEmpty(resultToResultElements)) {
-            for (Element resultToResultElement: resultToResultElements) {
+            for (Element resultToResultElement : resultToResultElements) {
                 ContextAccessor<Object> serResAcsr = new ContextAccessor<Object>(resultToResultElement.getAttribute("service-result-name"), resultToResultElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToResultElement.getAttribute("result-name"));
                 resultToResult.put(serResAcsr, resultAcsr);
@@ -178,20 +157,13 @@ public class CallService extends MethodOperation {
         }
     }
 
-    public String getServiceName() {
-        return this.serviceName;
-    }
-
     @Override
     public boolean exec(MethodContext methodContext) {
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
         boolean breakOnError = !"false".equals(methodContext.expandString(breakOnErrorStr));
-
-
         String serviceName = methodContext.expandString(this.serviceName);
         String errorCode = methodContext.expandString(this.errorCode);
         String successCode = methodContext.expandString(this.successCode);
-
         Map<String, Object> inMap = null;
         if (inMapAcsr.isEmpty()) {
             inMap = FastMap.newInstance();
@@ -202,7 +174,6 @@ public class CallService extends MethodOperation {
                 inMapAcsr.put(methodContext, inMap);
             }
         }
-
         // before invoking the service, clear messages
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             methodContext.removeEnv(simpleMethod.getEventErrorMessageName());
@@ -213,25 +184,20 @@ public class CallService extends MethodOperation {
             methodContext.removeEnv(simpleMethod.getServiceSuccessMessageName());
             methodContext.removeEnv(simpleMethod.getServiceResponseMessageName());
         }
-
         // invoke the service
         Map<String, Object> result = null;
-
         // add UserLogin to context if expected
         if (includeUserLogin) {
             GenericValue userLogin = methodContext.getUserLogin();
-
             if (userLogin != null && inMap.get("userLogin") == null) {
                 inMap.put("userLogin", userLogin);
             }
         }
-
         // always add Locale to context unless null
         Locale locale = methodContext.getLocale();
         if (locale != null) {
             inMap.put("locale", locale);
         }
-
         try {
             if (UtilValidate.isEmpty(this.requireNewTransactionStr) && this.transactionTimeout < 0) {
                 result = methodContext.getDispatcher().runSync(serviceName, inMap);
@@ -263,15 +229,13 @@ public class CallService extends MethodOperation {
                 return true;
             }
         }
-
         if (resultsToMap.size() > 0) {
-            for (String mapName: resultsToMap) {
+            for (String mapName : resultsToMap) {
                 methodContext.putEnv(mapName, UtilMisc.makeMapWritable(result));
             }
         }
-
         if (resultToField.size() > 0) {
-            for (ResultToFieldDef rtfDef: resultToField) {
+            for (ResultToFieldDef rtfDef : resultToField) {
                 if (!rtfDef.mapAcsr.isEmpty()) {
                     Map<String, Object> tempMap = rtfDef.mapAcsr.get(methodContext);
                     if (tempMap == null) {
@@ -284,44 +248,39 @@ public class CallService extends MethodOperation {
                 }
             }
         }
-
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             if (resultToRequest.size() > 0) {
-                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry: resultToRequest.entrySet()) {
+                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry : resultToRequest.entrySet()) {
                     FlexibleServletAccessor<Object> requestAcsr = entry.getKey();
                     ContextAccessor<Object> resultAcsr = entry.getValue();
                     requestAcsr.put(methodContext.getRequest(), resultAcsr.get(result, methodContext), methodContext.getEnvMap());
                 }
             }
-
             if (resultToSession.size() > 0) {
-                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry: resultToSession.entrySet()) {
+                for (Map.Entry<FlexibleServletAccessor<Object>, ContextAccessor<Object>> entry : resultToSession.entrySet()) {
                     FlexibleServletAccessor<Object> sessionAcsr = entry.getKey();
                     ContextAccessor<Object> resultAcsr = entry.getValue();
                     sessionAcsr.put(methodContext.getRequest().getSession(), resultAcsr.get(result, methodContext), methodContext.getEnvMap());
                 }
             }
         }
-
         // only run this if it is in an SERVICE context
         if (methodContext.getMethodType() == MethodContext.SERVICE) {
             if (resultToResult.size() > 0) {
-                for (Map.Entry<ContextAccessor<Object>, ContextAccessor<Object>> entry: resultToResult.entrySet()) {
+                for (Map.Entry<ContextAccessor<Object>, ContextAccessor<Object>> entry : resultToResult.entrySet()) {
                     ContextAccessor<Object> targetResultAcsr = entry.getKey();
                     ContextAccessor<Object> resultAcsr = entry.getValue();
                     targetResultAcsr.put(methodContext.getResults(), resultAcsr.get(result, methodContext), methodContext);
                 }
             }
         }
-
         String errorPrefixStr = errorPrefix.getMessage(methodContext.getLoader(), methodContext);
         String errorSuffixStr = errorSuffix.getMessage(methodContext.getLoader(), methodContext);
         String successPrefixStr = successPrefix.getMessage(methodContext.getLoader(), methodContext);
         String successSuffixStr = successSuffix.getMessage(methodContext.getLoader(), methodContext);
         String messagePrefixStr = messagePrefix.getMessage(methodContext.getLoader(), methodContext);
         String messageSuffixStr = messageSuffix.getMessage(methodContext.getLoader(), methodContext);
-
         String errorMessage = null;
         List<String> errorMessageList = null;
         // See if there is a single message
@@ -330,28 +289,27 @@ public class CallService extends MethodOperation {
         } else if (result.containsKey(ModelService.ERROR_MESSAGE_LIST)) {
             errorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
         }
-
         if ((UtilValidate.isNotEmpty(errorMessage) || UtilValidate.isNotEmpty(errorMessageList)) && breakOnError) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                if (UtilValidate.isNotEmpty(errorMessage)){
-                    if (Debug.verboseOn()){
+                if (UtilValidate.isNotEmpty(errorMessage)) {
+                    if (Debug.verboseOn()) {
                         errorMessage += UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale);
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errorMessage);
                 } else {
-                    if (Debug.verboseOn()){
+                    if (Debug.verboseOn()) {
                         errorMessageList.add(UtilProperties.getMessage(resource, "simpleMethod.error_show_service_name", UtilMisc.toMap("serviceName", serviceName, "methodName", simpleMethod.getMethodName()), locale));
                     }
                     methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), errorMessageList);
                 }
             } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                ServiceUtil.addErrors(UtilMisc.<String, String>getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()),
-                        UtilMisc.<String, String, Object>getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
-                // the old way, makes a mess of messages passed up the stack: methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errorMessage);
+                ServiceUtil.addErrors(UtilMisc.<String, String> getListFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageListName()), UtilMisc.<String, String, Object> getMapFromMap(methodContext.getEnvMap(), this.simpleMethod.getServiceErrorMessageMapName()), result);
+                // the old way, makes a mess of messages passed up the stack:
+                // methodContext.putEnv(simpleMethod.getServiceErrorMessageName(),
+                // errorMessage);
                 Debug.logError(new Exception(errorMessage), module);
             }
         }
-
         String successMessage = ServiceUtil.makeSuccessMessage(result, messagePrefixStr, messageSuffixStr, successPrefixStr, successSuffixStr);
         if (UtilValidate.isNotEmpty(successMessage)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -360,7 +318,6 @@ public class CallService extends MethodOperation {
                 methodContext.putEnv(simpleMethod.getServiceSuccessMessageName(), successMessage);
             }
         }
-
         String defaultMessageStr = defaultMessage.getMessage(methodContext.getLoader(), methodContext);
         if (UtilValidate.isEmpty(errorMessage) && UtilValidate.isEmpty(errorMessageList) && UtilValidate.isEmpty(successMessage) && UtilValidate.isNotEmpty(defaultMessageStr)) {
             if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -369,10 +326,8 @@ public class CallService extends MethodOperation {
                 methodContext.putEnv(simpleMethod.getServiceSuccessMessageName(), defaultMessageStr);
             }
         }
-
         // handle the result
         String responseCode = result.containsKey(ModelService.RESPONSE_MESSAGE) ? (String) result.get(ModelService.RESPONSE_MESSAGE) : successCode;
-
         if (errorCode.equals(responseCode)) {
             if (breakOnError) {
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -396,19 +351,34 @@ public class CallService extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        // TODO: something more than the empty tag
-        return "<call-service/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
     }
 
+    public String getServiceName() {
+        return this.serviceName;
+    }
+
+    @Override
+    public String rawString() {
+        // TODO: something more than the empty tag
+        return "<call-service/>";
+    }
+
+    public static final class CallServiceFactory implements Factory<CallService> {
+        public CallService createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallService(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-service";
+        }
+    }
+
     public static class ResultToFieldDef {
-        public String resultName;
-        public ContextAccessor<Map<String, Object>> mapAcsr;
         public ContextAccessor<Object> fieldAcsr;
+        public ContextAccessor<Map<String, Object>> mapAcsr;
+        public String resultName;
     }
 }

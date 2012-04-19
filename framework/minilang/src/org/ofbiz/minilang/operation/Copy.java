@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import org.ofbiz.base.util.UtilValidate;
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
 
 /**
  * Copies a field in the in-map to the out-map
@@ -38,7 +40,6 @@ public class Copy extends SimpleMapOperation {
         if (UtilValidate.isEmpty(this.toField)) {
             this.toField = this.fieldName;
         }
-
         // if anything but false it will be true
         replace = !"false".equals(element.getAttribute("replace"));
         // if anything but false it will be true
@@ -48,10 +49,8 @@ public class Copy extends SimpleMapOperation {
     @Override
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
         Object fieldValue = inMap.get(fieldName);
-
         if (fieldValue == null && !setIfNull)
             return;
-
         if (fieldValue instanceof java.lang.String) {
             if (((String) fieldValue).length() == 0) {
                 if (setIfNull && (replace || !results.containsKey(toField))) {
@@ -60,7 +59,6 @@ public class Copy extends SimpleMapOperation {
                 return;
             }
         }
-
         if (replace) {
             results.put(toField, fieldValue);
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapProcessor.Copy.exec] Copied \"" + fieldValue + "\" to field \"" + toField + "\"", module);
