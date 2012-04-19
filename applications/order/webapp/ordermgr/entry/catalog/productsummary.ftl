@@ -53,7 +53,11 @@ ${virtualJavaScript?if_exists}
 </script>
 <#if product?exists>
     <#-- variable setup -->
-    <#assign productUrl><@ofbizCatalogAltUrl productId=product.productId productCategoryId=categoryId/></#assign>
+    <#if backendPath?default("N") == "Y">
+        <#assign productUrl><@ofbizCatalogUrl productId=product.productId productCategoryId=categoryId/></#assign>
+    <#else>
+        <#assign productUrl><@ofbizCatalogAltUrl productId=product.productId productCategoryId=categoryId/></#assign>
+    </#if>
 
     <#if requestAttributes.productCategoryMember?exists>
         <#assign prodCatMem = requestAttributes.productCategoryMember>
