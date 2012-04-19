@@ -389,6 +389,7 @@ public class JackrabbitArticleHelper extends JackrabbitAbstractHelper implements
     private void setArticleContentObject(OfbizRepositoryMapping orm) throws ClassCastException {
         if (orm != null && orm instanceof JackrabbitArticle) {
             article = (JackrabbitArticle) orm;
+            return;
         }
 
         throw new ClassCastException("The content object for the path: " + orm.getPath() + " is not an article content object. This Helper can only handle content objects with the type: " + JackrabbitArticle.class.getName());
