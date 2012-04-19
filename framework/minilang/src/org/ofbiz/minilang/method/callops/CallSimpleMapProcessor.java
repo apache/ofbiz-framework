@@ -18,38 +18,33 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
-import org.ofbiz.minilang.operation.*;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.operation.MapProcessor;
+import org.w3c.dom.Element;
 
 /**
  * An event operation that calls a simple map processor inlined or from a separate file
  */
 public class CallSimpleMapProcessor extends MethodOperation {
-    public static final class CallSimpleMapProcessorFactory implements Factory<CallSimpleMapProcessor> {
-        public CallSimpleMapProcessor createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CallSimpleMapProcessor(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "call-map-processor";
-        }
-    }
-
-    String xmlResource;
-    String processorName;
+    ContextAccessor<List<Object>> errorListAcsr;
+    MapProcessor inlineMapProcessor = null;
     ContextAccessor<Map<String, Object>> inMapAcsr;
     ContextAccessor<Map<String, Object>> outMapAcsr;
-    ContextAccessor<List<Object>> errorListAcsr;
-
-    MapProcessor inlineMapProcessor = null;
+    String processorName;
+    String xmlResource;
 
     public CallSimpleMapProcessor(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -58,7 +53,6 @@ public class CallSimpleMapProcessor extends MethodOperation {
         inMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("in-map-name"));
         outMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("out-map-name"));
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-
         Element simpleMapProcessorElement = UtilXml.firstChildElement(element, "simple-map-processor");
         if (simpleMapProcessorElement != null) {
             inlineMapProcessor = new MapProcessor(simpleMapProcessorElement);
@@ -72,38 +66,37 @@ public class CallSimpleMapProcessor extends MethodOperation {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
-
         Map<String, Object> inMap = inMapAcsr.get(methodContext);
         if (inMap == null) {
             inMap = FastMap.newInstance();
             inMapAcsr.put(methodContext, inMap);
         }
-
         Map<String, Object> outMap = outMapAcsr.get(methodContext);
         if (outMap == null) {
             outMap = FastMap.newInstance();
             outMapAcsr.put(methodContext, outMap);
         }
-
         // run external map processor first
         if (UtilValidate.isNotEmpty(this.xmlResource) && UtilValidate.isNotEmpty(this.processorName)) {
             String xmlResource = methodContext.expandString(this.xmlResource);
             String processorName = methodContext.expandString(this.processorName);
             try {
-                org.ofbiz.minilang.SimpleMapProcessor.runSimpleMapProcessor(
-                    xmlResource, processorName, inMap, outMap, messages,
-                    methodContext.getLocale(), methodContext.getLoader());
+                org.ofbiz.minilang.SimpleMapProcessor.runSimpleMapProcessor(xmlResource, processorName, inMap, outMap, messages, methodContext.getLocale(), methodContext.getLoader());
             } catch (MiniLangException e) {
                 messages.add("Error running SimpleMapProcessor in XML file \"" + xmlResource + "\": " + e.toString());
             }
         }
-
         // run inlined map processor last so it can override the external map processor
         if (inlineMapProcessor != null) {
             inlineMapProcessor.exec(inMap, outMap, messages, methodContext.getLocale(), methodContext.getLoader());
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -111,9 +104,14 @@ public class CallSimpleMapProcessor extends MethodOperation {
         // TODO: something more than the empty tag
         return "<call-simple-map-processor/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class CallSimpleMapProcessorFactory implements Factory<CallSimpleMapProcessor> {
+        public CallSimpleMapProcessor createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallSimpleMapProcessor(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-map-processor";
+        }
     }
 }

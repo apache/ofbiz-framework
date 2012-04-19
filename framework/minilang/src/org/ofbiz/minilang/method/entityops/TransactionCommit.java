@@ -31,15 +31,6 @@ import org.w3c.dom.Element;
  * Commits a transaction if beganTransaction is true, otherwise does nothing.
  */
 public class TransactionCommit extends MethodOperation {
-    public static final class TransactionCommitFactory implements Factory<TransactionCommit> {
-        public TransactionCommit createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new TransactionCommit(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "transaction-commit";
-        }
-    }
 
     public static final String module = TransactionCommit.class.getName();
 
@@ -53,24 +44,26 @@ public class TransactionCommit extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         boolean beganTransaction = false;
-
         Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
         if (beganTransactionBoolean != null) {
             beganTransaction = beganTransactionBoolean.booleanValue();
         }
-
         try {
             TransactionUtil.commit(beganTransaction);
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Could not commit transaction in simple-method, returning error.", module);
-
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error committing a transaction: " + e.getMessage() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-
         beganTransactionAcsr.remove(methodContext);
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -78,9 +71,14 @@ public class TransactionCommit extends MethodOperation {
         // TODO: something more than the empty tag
         return "<transaction-commit/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class TransactionCommitFactory implements Factory<TransactionCommit> {
+        public TransactionCommit createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new TransactionCommit(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "transaction-commit";
+        }
     }
 }

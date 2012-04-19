@@ -18,52 +18,47 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.otherops;
 
-import java.util.*;
+import java.util.List;
 
-import org.w3c.dom.*;
 import javolution.util.FastList;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.FieldString;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.method.MethodString;
+import org.ofbiz.minilang.method.StringString;
+import org.w3c.dom.Element;
 
 /**
  * Calculates a result based on nested calcops.
  */
 public class Log extends MethodOperation {
-    public static final class LogFactory implements Factory<Log> {
-        public Log createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new Log(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "log";
-        }
-    }
 
     public static final String module = Log.class.getName();
 
     String levelStr;
     String message;
-    Object startLine;
     List<MethodString> methodStrings = null;
+    Object startLine;
 
     public Log(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.message = element.getAttribute("message");
         this.levelStr = element.getAttribute("level");
         this.startLine = element.getUserData("startLine");
-
         List<? extends Element> methodStringElements = UtilXml.childElementList(element);
         if (methodStringElements.size() > 0) {
             methodStrings = FastList.newInstance();
-
-            for (Element methodStringElement: methodStringElements) {
+            for (Element methodStringElement : methodStringElements) {
                 if ("string".equals(methodStringElement.getNodeName())) {
                     methodStrings.add(new StringString(methodStringElement, simpleMethod));
                 } else if ("field".equals(methodStringElement.getNodeName())) {
                     methodStrings.add(new FieldString(methodStringElement, simpleMethod));
                 } else {
-                    //whoops, invalid tag here, print warning
+                    // whoops, invalid tag here, print warning
                     Debug.logWarning("Found an unsupported tag under the log tag: " + methodStringElement.getNodeName() + "; ignoring", module);
                 }
             }
@@ -74,7 +69,6 @@ public class Log extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String levelStr = methodContext.expandString(this.levelStr);
         String message = methodContext.expandString(this.message);
-
         int level;
         Integer levelInt = Debug.getLevelFromString(levelStr);
         if (levelInt == null) {
@@ -83,12 +77,10 @@ public class Log extends MethodOperation {
         } else {
             level = levelInt.intValue();
         }
-
-        //bail out quick if the logging level isn't on, ie don't even create string
+        // bail out quick if the logging level isn't on, ie don't even create string
         if (!Debug.isOn(level)) {
             return true;
         }
-
         StringBuilder buf = new StringBuilder();
         buf.append("[");
         String methodLocation = this.simpleMethod.getFromLocation();
@@ -104,19 +96,23 @@ public class Log extends MethodOperation {
             buf.append(this.startLine);
         }
         buf.append("] ");
-
-        if (message != null) buf.append(message);
-
+        if (message != null)
+            buf.append(message);
         if (methodStrings != null) {
-            for (MethodString methodString: methodStrings) {
+            for (MethodString methodString : methodStrings) {
                 String strValue = methodString.getString(methodContext);
-                if (strValue != null) buf.append(strValue);
+                if (strValue != null)
+                    buf.append(strValue);
             }
         }
-
         Debug.log(level, null, buf.toString(), module);
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -124,9 +120,14 @@ public class Log extends MethodOperation {
         // TODO: add all attributes and other info
         return "<log level=\"" + this.levelStr + "\" message=\"" + this.message + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class LogFactory implements Factory<Log> {
+        public Log createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Log(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "log";
+        }
     }
 }

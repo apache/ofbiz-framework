@@ -34,42 +34,28 @@ import org.w3c.dom.Element;
  * Process sub-operations for each entry in the map
  */
 public class IterateMap extends MethodOperation {
-    public static final class IterateMapFactory implements Factory<IterateMap> {
-        public IterateMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new IterateMap(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "iterate-map";
-        }
-    }
 
     public static final String module = IterateMap.class.getName();
 
-    List<MethodOperation> subOps = FastList.newInstance();
-
     ContextAccessor<Object> keyAcsr;
-    ContextAccessor<Object> valueAcsr;
     ContextAccessor<Map<? extends Object, ? extends Object>> mapAcsr;
+    List<MethodOperation> subOps = FastList.newInstance();
+    ContextAccessor<Object> valueAcsr;
 
     public IterateMap(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key"), element.getAttribute("key-name"));
         this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value"), element.getAttribute("value-name"));
         this.mapAcsr = new ContextAccessor<Map<? extends Object, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
 
     @Override
     public boolean exec(MethodContext methodContext) {
-
-
         if (mapAcsr.isEmpty()) {
             Debug.logWarning("No map-name specified in iterate tag, doing nothing: " + rawString(), module);
             return true;
         }
-
         Object oldKey = keyAcsr.get(methodContext);
         Object oldValue = valueAcsr.get(methodContext);
         if (oldKey != null) {
@@ -78,18 +64,18 @@ public class IterateMap extends MethodOperation {
         if (oldValue != null) {
             Debug.logWarning("In iterate-map the value had a non-null value before entering the loop for the operation: " + this.rawString(), module);
         }
-
         Map<? extends Object, ? extends Object> theMap = mapAcsr.get(methodContext);
         if (theMap == null) {
-            if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", doing nothing: " + rawString(), module);
+            if (Debug.infoOn())
+                Debug.logInfo("Map not found with name " + mapAcsr + ", doing nothing: " + rawString(), module);
             return true;
         }
         if (theMap.size() == 0) {
-            if (Debug.verboseOn()) Debug.logVerbose("Map with name " + mapAcsr + " has zero entries, doing nothing: " + rawString(), module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Map with name " + mapAcsr + " has zero entries, doing nothing: " + rawString(), module);
             return true;
         }
-
-        for (Map.Entry<? extends Object, ? extends Object> theEntry: theMap.entrySet()) {
+        for (Map.Entry<? extends Object, ? extends Object> theEntry : theMap.entrySet()) {
             keyAcsr.put(methodContext, theEntry.getKey());
             valueAcsr.put(methodContext, theEntry.getValue());
 
@@ -98,8 +84,13 @@ public class IterateMap extends MethodOperation {
                 return false;
             }
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     public List<MethodOperation> getSubOps() {
@@ -110,9 +101,14 @@ public class IterateMap extends MethodOperation {
     public String rawString() {
         return "<iterate-map map-name=\"" + this.mapAcsr + "\" key=\"" + this.keyAcsr + "\" value=\"" + this.valueAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IterateMapFactory implements Factory<IterateMap> {
+        public IterateMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IterateMap(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "iterate-map";
+        }
     }
 }

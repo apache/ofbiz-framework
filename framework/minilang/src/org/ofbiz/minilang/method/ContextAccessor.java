@@ -25,14 +25,13 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 
 /**
- * Used to flexibly access Map values, supporting the "." (dot) syntax for
- * accessing sub-map values and the "[]" (square bracket) syntax for accessing
- * list elements. See individual Map operations for more information.
+ * Used to flexibly access Map values, supporting the "." (dot) syntax for accessing sub-map values and the "[]" (square bracket) syntax for accessing list elements. See individual Map operations for
+ * more information.
  */
 public class ContextAccessor<T> {
 
-    protected String name;
     protected FlexibleMapAccessor<T> fma;
+    protected String name;
 
     public ContextAccessor(String name) {
         init(name);
@@ -44,61 +43,6 @@ public class ContextAccessor<T> {
         } else {
             init(name);
         }
-    }
-
-    protected void init(String name) {
-        this.name = name;
-        this.fma = FlexibleMapAccessor.getInstance(name);
-    }
-
-    public boolean isEmpty() {
-        return this.fma.isEmpty();
-    }
-
-    /** Based on name get from Map or from List in Map */
-    public T get(MethodContext methodContext) {
-        return UtilGenerics.<T>cast(methodContext.getEnv(fma));
-    }
-
-    /** Based on name put in Map or from List in Map;
-     * If the brackets for a list are empty the value will be appended to the list,
-     * otherwise the value will be set in the position of the number in the brackets.
-     * If a "+" (plus sign) is included inside the square brackets before the index
-     * number the value will inserted/added at that point instead of set at the point.
-     */
-    public void put(MethodContext methodContext, T value) {
-        methodContext.putEnv(fma, value);
-    }
-
-    /** Based on name remove from Map or from List in Map */
-    public T remove(MethodContext methodContext) {
-        return UtilGenerics.<T>cast(methodContext.removeEnv(fma));
-    }
-
-    /** Based on name get from Map or from List in Map */
-    public T get(Map<String, ? extends Object> theMap, MethodContext methodContext) {
-        return fma.get(theMap);
-    }
-
-    /** Based on name put in Map or from List in Map;
-     * If the brackets for a list are empty the value will be appended to the list,
-     * otherwise the value will be set in the position of the number in the brackets.
-     * If a "+" (plus sign) is included inside the square brackets before the index
-     * number the value will inserted/added at that point instead of set at the point.
-     */
-    public void put(Map<String, Object> theMap, T value, MethodContext methodContext) {
-        fma.put(theMap, value);
-    }
-
-    /** Based on name remove from Map or from List in Map */
-    public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
-        return fma.remove(theMap);
-    }
-
-    /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
-    @Override
-    public int hashCode() {
-        return this.name.hashCode();
     }
 
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
@@ -117,6 +61,57 @@ public class ContextAccessor<T> {
             }
             return this.name.equals(str);
         }
+    }
+
+    /** Based on name get from Map or from List in Map */
+    public T get(Map<String, ? extends Object> theMap, MethodContext methodContext) {
+        return fma.get(theMap);
+    }
+
+    /** Based on name get from Map or from List in Map */
+    public T get(MethodContext methodContext) {
+        return UtilGenerics.<T> cast(methodContext.getEnv(fma));
+    }
+
+    /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
+
+    protected void init(String name) {
+        this.name = name;
+        this.fma = FlexibleMapAccessor.getInstance(name);
+    }
+
+    public boolean isEmpty() {
+        return this.fma.isEmpty();
+    }
+
+    /**
+     * Based on name put in Map or from List in Map; If the brackets for a list are empty the value will be appended to the list, otherwise the value will be set in the position of the number in the
+     * brackets. If a "+" (plus sign) is included inside the square brackets before the index number the value will inserted/added at that point instead of set at the point.
+     */
+    public void put(Map<String, Object> theMap, T value, MethodContext methodContext) {
+        fma.put(theMap, value);
+    }
+
+    /**
+     * Based on name put in Map or from List in Map; If the brackets for a list are empty the value will be appended to the list, otherwise the value will be set in the position of the number in the
+     * brackets. If a "+" (plus sign) is included inside the square brackets before the index number the value will inserted/added at that point instead of set at the point.
+     */
+    public void put(MethodContext methodContext, T value) {
+        methodContext.putEnv(fma, value);
+    }
+
+    /** Based on name remove from Map or from List in Map */
+    public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
+        return fma.remove(theMap);
+    }
+
+    /** Based on name remove from Map or from List in Map */
+    public T remove(MethodContext methodContext) {
+        return UtilGenerics.<T> cast(methodContext.removeEnv(fma));
     }
 
     /** To be used for a string representation of the accessor, returns the original name. */

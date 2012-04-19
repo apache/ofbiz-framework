@@ -23,24 +23,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.w3c.dom.*;
-
-import org.ofbiz.minilang.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.w3c.dom.Element;
 
 /**
  * A single operation, does the specified operation on the given field
  */
 public abstract class MethodOperation {
-    public interface Factory<M extends MethodOperation> {
-        M createMethodOperation(Element element, SimpleMethod simpleMethod);
-        String getName();
-    }
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    public @interface DeprecatedOperation {
-        String value();
-    }
 
     protected SimpleMethod simpleMethod;
 
@@ -48,15 +37,29 @@ public abstract class MethodOperation {
         this.simpleMethod = simpleMethod;
     }
 
+    /** Execute the operation; if false is returned then no further operations will be executed */
+    public abstract boolean exec(MethodContext methodContext);
+
+    /** Create an expanded string representation of the operation, is for the current context */
+    public abstract String expandedString(MethodContext methodContext);
+
     public SimpleMethod getSimpleMethod() {
         return this.simpleMethod;
     }
 
-    /** Execute the operation; if false is returned then no further operations will be executed */
-    public abstract boolean exec(MethodContext methodContext);
-
     /** Create a raw string representation of the operation, would be similar to original XML */
     public abstract String rawString();
-    /** Create an expanded string representation of the operation, is for the current context */
-    public abstract String expandedString(MethodContext methodContext);
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.TYPE)
+    public @interface DeprecatedOperation {
+        String value();
+    }
+
+    public interface Factory<M extends MethodOperation> {
+
+        M createMethodOperation(Element element, SimpleMethod simpleMethod);
+
+        String getName();
+    }
 }

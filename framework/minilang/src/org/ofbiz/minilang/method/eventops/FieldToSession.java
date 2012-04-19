@@ -32,20 +32,11 @@ import org.w3c.dom.Element;
  * Copies a map field to a Servlet session attribute
  */
 public class FieldToSession extends MethodOperation {
-    public static final class FieldToSessionFactory implements Factory<FieldToSession> {
-        public FieldToSession createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FieldToSession(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "field-to-session";
-        }
-    }
 
     public static final String module = FieldToSession.class.getName();
 
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     FlexibleServletAccessor<Object> sessionAcsr;
 
     public FieldToSession(Element element, SimpleMethod simpleMethod) {
@@ -77,10 +68,15 @@ public class FieldToSession extends MethodOperation {
                 Debug.logWarning("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr, module);
                 return true;
             }
-
             sessionAcsr.put(methodContext.getRequest().getSession(), fieldVal, methodContext.getEnvMap());
         }
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -88,9 +84,14 @@ public class FieldToSession extends MethodOperation {
         // TODO: add all attributes and other info
         return "<field-to-session field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class FieldToSessionFactory implements Factory<FieldToSession> {
+        public FieldToSession createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FieldToSession(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "field-to-session";
+        }
     }
 }

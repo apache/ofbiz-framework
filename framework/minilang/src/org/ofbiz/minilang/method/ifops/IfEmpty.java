@@ -18,36 +18,31 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
- * Iff the specified field is not empty process sub-operations
+ * If the specified field is not empty process sub-operations
  */
 public class IfEmpty extends MethodOperation {
-    public static final class IfEmptyFactory implements Factory<IfEmpty> {
-        public IfEmpty createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new IfEmpty(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "if-empty";
-        }
-    }
 
     public static final String module = IfEmpty.class.getName();
 
-    List<MethodOperation> subOps = FastList.newInstance();
     List<MethodOperation> elseSubOps = null;
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    List<MethodOperation> subOps = FastList.newInstance();
 
     public IfEmpty(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -58,9 +53,7 @@ public class IfEmpty extends MethodOperation {
             // NOTE: this is still supported, but is deprecated
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
-
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
@@ -73,15 +66,14 @@ public class IfEmpty extends MethodOperation {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         // return true;
-
         // only run subOps if element is empty/null
         boolean runSubOps = false;
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -89,9 +81,7 @@ public class IfEmpty extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         runSubOps = ObjectType.isEmpty(fieldVal);
-
         if (runSubOps) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
@@ -103,10 +93,17 @@ public class IfEmpty extends MethodOperation {
         }
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.subOps);
-        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
         return allSubOps;
     }
 
@@ -114,9 +111,14 @@ public class IfEmpty extends MethodOperation {
     public String rawString() {
         return "<if-empty field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IfEmptyFactory implements Factory<IfEmpty> {
+        public IfEmpty createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfEmpty(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-empty";
+        }
     }
 }

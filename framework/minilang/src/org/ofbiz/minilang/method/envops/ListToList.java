@@ -18,28 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.util.*;
+import java.util.List;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Copies an environment field to a list
  */
 public class ListToList extends MethodOperation {
-    public static final class ListToListFactory implements Factory<ListToList> {
-        public ListToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new ListToList(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "list-to-list";
-        }
-    }
 
     public static final String module = ListToList.class.getName();
 
@@ -56,20 +49,25 @@ public class ListToList extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         List<Object> fromList = listAcsr.get(methodContext);
         List<Object> toList = toListAcsr.get(methodContext);
-
         if (fromList == null) {
-            if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", not copying list", module);
+            if (Debug.infoOn())
+                Debug.logInfo("List not found with name " + listAcsr + ", not copying list", module);
             return true;
         }
-
         if (toList == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + toListAcsr + ", creating new list", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("List not found with name " + toListAcsr + ", creating new list", module);
             toList = FastList.newInstance();
             toListAcsr.put(methodContext, toList);
         }
-
         toList.addAll(fromList);
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -77,9 +75,14 @@ public class ListToList extends MethodOperation {
         // TODO: something more than the empty tag
         return "<list-to-list/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class ListToListFactory implements Factory<ListToList> {
+        public ListToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ListToList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "list-to-list";
+        }
     }
 }

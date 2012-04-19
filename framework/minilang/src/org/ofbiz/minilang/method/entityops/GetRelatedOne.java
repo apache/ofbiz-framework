@@ -31,22 +31,13 @@ import org.w3c.dom.Element;
  * Gets a list of related entity instance according to the specified relation-name
  */
 public class GetRelatedOne extends MethodOperation {
-    public static final class GetRelatedOneFactory implements Factory<GetRelatedOne> {
-        public GetRelatedOne createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new GetRelatedOne(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "get-related-one";
-        }
-    }
 
     public static final String module = GetRelatedOne.class.getName();
 
-    ContextAccessor<Object> valueAcsr;
-    ContextAccessor<GenericValue> toValueAcsr;
     String relationName;
+    ContextAccessor<GenericValue> toValueAcsr;
     String useCacheStr;
+    ContextAccessor<Object> valueAcsr;
 
     public GetRelatedOne(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -61,7 +52,6 @@ public class GetRelatedOne extends MethodOperation {
         String relationName = methodContext.expandString(this.relationName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
         boolean useCache = "true".equals(useCacheStr);
-
         Object valueObject = valueAcsr.get(methodContext);
         if (!(valueObject instanceof GenericValue)) {
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [env variable for value-name " + valueAcsr.toString() + " is not a GenericValue object; for the relation-name: " + relationName + "]";
@@ -89,17 +79,29 @@ public class GetRelatedOne extends MethodOperation {
         return true;
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public String getRelationName() {
         return this.relationName;
     }
+
     @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<get-related-one/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class GetRelatedOneFactory implements Factory<GetRelatedOne> {
+        public GetRelatedOne createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new GetRelatedOne(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "get-related-one";
+        }
     }
 }

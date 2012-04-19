@@ -39,49 +39,34 @@ import org.w3c.dom.Element;
  * Process sub-operations for each entry in the list
  */
 public class Iterate extends MethodOperation {
-    public static final class IterateFactory implements Factory<Iterate> {
-        public Iterate createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new Iterate(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "iterate";
-        }
-    }
 
     public static final String module = Iterate.class.getName();
 
-    protected List<MethodOperation> subOps = FastList.newInstance();
-
     protected ContextAccessor<Object> entryAcsr;
     protected ContextAccessor<Object> listAcsr;
+    protected List<MethodOperation> subOps = FastList.newInstance();
 
     public Iterate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
         this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
 
     @Override
     public boolean exec(MethodContext methodContext) {
-
         if (listAcsr.isEmpty()) {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing: " + rawString(), module);
             return true;
         }
-
         Object oldEntryValue = entryAcsr.get(methodContext);
         Object objList = listAcsr.get(methodContext);
         if (objList instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) objList;
-
             GenericValue theEntry;
             try {
                 while ((theEntry = eli.next()) != null) {
                     entryAcsr.put(methodContext, theEntry);
-
                     if (!SimpleMethod.runSubOps(subOps, methodContext)) {
                         // only return here if it returns false, otherwise just carry on
                         return false;
@@ -106,15 +91,13 @@ public class Iterate extends MethodOperation {
             }
         } else if (objList instanceof Collection<?>) {
             Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
-
             if (theCollection.size() == 0) {
-                if (Debug.verboseOn()) Debug.logVerbose("Collection with name " + listAcsr + " has zero entries, doing nothing: " + rawString(), module);
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Collection with name " + listAcsr + " has zero entries, doing nothing: " + rawString(), module);
                 return true;
             }
-
-            for (Object theEntry: theCollection) {
+            for (Object theEntry : theCollection) {
                 entryAcsr.put(methodContext, theEntry);
-
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {
                     // only return here if it returns false, otherwise just carry on
                     return false;
@@ -123,25 +106,31 @@ public class Iterate extends MethodOperation {
         } else if (objList instanceof Iterator<?>) {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
-                if (Debug.verboseOn()) Debug.logVerbose("List with name " + listAcsr + " has no more entries, doing nothing: " + rawString(), module);
+                if (Debug.verboseOn())
+                    Debug.logVerbose("List with name " + listAcsr + " has no more entries, doing nothing: " + rawString(), module);
                 return true;
             }
-
             while (theIterator.hasNext()) {
                 Object theEntry = theIterator.next();
                 entryAcsr.put(methodContext, theEntry);
-
                 if (!SimpleMethod.runSubOps(subOps, methodContext)) {
                     // only return here if it returns false, otherwise just carry on
                     return false;
                 }
             }
         } else {
-            if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
+            if (Debug.infoOn())
+                Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
             return true;
         }
         entryAcsr.put(methodContext, oldEntryValue);
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     public List<MethodOperation> getSubOps() {
@@ -153,9 +142,14 @@ public class Iterate extends MethodOperation {
         // TODO: something more than the empty tag
         return "<iterate list-name=\"" + this.listAcsr + "\" entry-name=\"" + this.entryAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IterateFactory implements Factory<Iterate> {
+        public Iterate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Iterate(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "iterate";
+        }
     }
 }

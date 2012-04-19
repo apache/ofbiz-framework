@@ -18,85 +18,41 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+
 import javolution.util.FastList;
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
+import org.w3c.dom.Element;
 
 /**
  * Implements generic combining conditions such as or, and, etc.
  */
 public class CombinedCondition implements Conditional {
-    public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
-        @Override
-        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new CombinedCondition(element, OR, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "or";
-        }
-    }
-
-    public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
-        @Override
-        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new CombinedCondition(element, XOR, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "xor";
-        }
-    }
-
-    public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
-        @Override
-        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new CombinedCondition(element, AND, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "and";
-        }
-    }
-
-    public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
-        @Override
-        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new CombinedCondition(element, NOT, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "not";
-        }
-    }
 
     public static final int OR = 1;
     public static final int XOR = 2;
     public static final int AND = 3;
     public static final int NOT = 4;
 
-    SimpleMethod simpleMethod;
     int conditionType;
+    SimpleMethod simpleMethod;
     List<Conditional> subConditions = FastList.newInstance();
 
     public CombinedCondition(Element element, int conditionType, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         this.conditionType = conditionType;
-        for (Element subElement: UtilXml.childElementList(element)) {
+        for (Element subElement : UtilXml.childElementList(element)) {
             subConditions.add(ConditionalFactory.makeConditional(subElement, simpleMethod));
         }
     }
 
     public boolean checkCondition(MethodContext methodContext) {
-        if (subConditions.size() == 0) return true;
-
+        if (subConditions.size() == 0)
+            return true;
         Iterator<Conditional> subCondIter = subConditions.iterator();
         switch (this.conditionType) {
             case OR:
@@ -144,23 +100,71 @@ public class CombinedCondition implements Conditional {
             subCond.prettyPrint(messageBuffer, methodContext);
             if (subCondIter.hasNext()) {
                 switch (this.conditionType) {
-                case OR:
-                    messageBuffer.append(" OR ");
-                    break;
-                case XOR:
-                    messageBuffer.append(" XOR ");
-                    break;
-                case AND:
-                    messageBuffer.append(" AND ");
-                    break;
-                case NOT:
-                    messageBuffer.append(" NOT ");
-                    break;
-                default:
-                    messageBuffer.append("?");
+                    case OR:
+                        messageBuffer.append(" OR ");
+                        break;
+                    case XOR:
+                        messageBuffer.append(" XOR ");
+                        break;
+                    case AND:
+                        messageBuffer.append(" AND ");
+                        break;
+                    case NOT:
+                        messageBuffer.append(" NOT ");
+                        break;
+                    default:
+                        messageBuffer.append("?");
                 }
             }
         }
         messageBuffer.append(")");
+    }
+
+    public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, AND, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "and";
+        }
+    }
+
+    public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, NOT, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "not";
+        }
+    }
+
+    public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, OR, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "or";
+        }
+    }
+
+    public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
+        @Override
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, XOR, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "xor";
+        }
     }
 }

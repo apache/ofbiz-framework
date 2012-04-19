@@ -30,15 +30,6 @@ import org.w3c.dom.Element;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class EnvToEnv extends MethodOperation {
-    public static final class EnvToEnvFactory implements Factory<EnvToEnv> {
-        public EnvToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new EnvToEnv(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "env-to-env";
-        }
-    }
 
     public static final String module = EnvToEnv.class.getName();
 
@@ -58,12 +49,23 @@ public class EnvToEnv extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        return "<env-to-env env-name=\"" + this.envAcsr + "\" to-env-name=\"" + this.toEnvAcsr + "\"/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
+    }
+
+    @Override
+    public String rawString() {
+        return "<env-to-env env-name=\"" + this.envAcsr + "\" to-env-name=\"" + this.toEnvAcsr + "\"/>";
+    }
+
+    public static final class EnvToEnvFactory implements Factory<EnvToEnv> {
+        public EnvToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EnvToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "env-to-env";
+        }
     }
 }

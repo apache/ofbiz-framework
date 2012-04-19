@@ -29,29 +29,10 @@ import org.w3c.dom.Element;
  * Gets a sequenced ID from the delegator and puts it in the env
  */
 public class SequencedIdToEnv extends MethodOperation {
-    public static final class SequencedIdToEnvFactory implements Factory<SequencedIdToEnv> {
-        public SequencedIdToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new SequencedIdToEnv(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "sequenced-id-to-env";
-        }
-    }
-    public static final class SequencedIdFactory implements Factory<SequencedIdToEnv> {
-        public SequencedIdToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new SequencedIdToEnv(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "sequenced-id";
-        }
-    }
-
-
-    String seqName;
     ContextAccessor<Object> envAcsr;
     boolean getLongOnly;
+    String seqName;
     long staggerMax = 1;
 
     public SequencedIdToEnv(Element element, SimpleMethod simpleMethod) {
@@ -72,7 +53,6 @@ public class SequencedIdToEnv extends MethodOperation {
             }
         }
     }
-
     @Override
     public boolean exec(MethodContext methodContext) {
         String seqName = methodContext.expandString(this.seqName);
@@ -85,13 +65,34 @@ public class SequencedIdToEnv extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<sequenced-id-to-env/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class SequencedIdFactory implements Factory<SequencedIdToEnv> {
+        public SequencedIdToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SequencedIdToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "sequenced-id";
+        }
+    }
+
+    public static final class SequencedIdToEnvFactory implements Factory<SequencedIdToEnv> {
+        public SequencedIdToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SequencedIdToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "sequenced-id-to-env";
+        }
     }
 }

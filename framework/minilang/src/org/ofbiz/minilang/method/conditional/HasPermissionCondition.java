@@ -30,27 +30,13 @@ import org.w3c.dom.Element;
  * Implements compare to a constant condition.
  */
 public class HasPermissionCondition implements Conditional {
-    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> {
-        @Override
-        public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new HasPermissionCondition(element, simpleMethod);
-        }
 
-        @Override
-        public String getName() {
-            return "if-has-permission";
-        }
-    }
-
-
-    SimpleMethod simpleMethod;
-
-    String permission;
     String action;
+    String permission;
+    SimpleMethod simpleMethod;
 
     public HasPermissionCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-
         this.permission = element.getAttribute("permission");
         this.action = element.getAttribute("action");
     }
@@ -58,8 +44,8 @@ public class HasPermissionCondition implements Conditional {
     public boolean checkCondition(MethodContext methodContext) {
         // only run subOps if element is empty/null
         boolean runSubOps = false;
-
-        // if no user is logged in, treat as if the user does not have permission: do not run subops
+        // if no user is logged in, treat as if the user does not have permission: do not
+        // run subops
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
             String permission = methodContext.expandString(this.permission);
@@ -79,7 +65,6 @@ public class HasPermissionCondition implements Conditional {
                 }
             }
         }
-
         return runSubOps;
     }
 
@@ -91,5 +76,17 @@ public class HasPermissionCondition implements Conditional {
             messageBuffer.append(this.action);
         }
         messageBuffer.append("]");
+    }
+
+    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> {
+        @Override
+        public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new HasPermissionCondition(element, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "if-has-permission";
+        }
     }
 }

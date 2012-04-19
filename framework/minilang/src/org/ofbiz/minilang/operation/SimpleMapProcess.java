@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Element;
 
 /**
  * A complete string process for a given field; contains multiple string operations
@@ -32,31 +36,29 @@ public class SimpleMapProcess {
 
     public static final String module = SimpleMapProcess.class.getName();
 
-    List<SimpleMapOperation> simpleMapOperations = FastList.newInstance();
     String field = "";
+    List<SimpleMapOperation> simpleMapOperations = FastList.newInstance();
 
     public SimpleMapProcess(Element simpleMapProcessElement) {
         this.field = simpleMapProcessElement.getAttribute("field");
         readOperations(simpleMapProcessElement);
     }
 
-    public String getFieldName() {
-        return field;
-    }
-
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        for (SimpleMapOperation simpleMapOperation: simpleMapOperations) {
+        for (SimpleMapOperation simpleMapOperation : simpleMapOperations) {
             simpleMapOperation.exec(inMap, results, messages, locale, loader);
         }
     }
 
+    public String getFieldName() {
+        return field;
+    }
+
     void readOperations(Element simpleMapProcessElement) {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMapProcessElement);
-
         if (UtilValidate.isNotEmpty(operationElements)) {
-            for (Element curOperElem: operationElements) {
+            for (Element curOperElem : operationElements) {
                 String nodeName = curOperElem.getNodeName();
-
                 if ("validate-method".equals(nodeName)) {
                     simpleMapOperations.add(new ValidateMethod(curOperElem, this));
                 } else if ("compare".equals(nodeName)) {

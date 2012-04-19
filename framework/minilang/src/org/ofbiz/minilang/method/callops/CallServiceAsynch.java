@@ -36,21 +36,12 @@ import org.w3c.dom.Element;
  * Calls a service using the given parameters
  */
 public class CallServiceAsynch extends MethodOperation {
-    public static final class CallServiceAsynchFactory implements Factory<CallServiceAsynch> {
-        public CallServiceAsynch createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CallServiceAsynch(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "call-service-asynch";
-        }
-    }
 
     public static final String module = CallServiceAsynch.class.getName();
 
-    protected String serviceName;
-    protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String includeUserLoginStr;
+    protected ContextAccessor<Map<String, Object>> inMapAcsr;
+    protected String serviceName;
 
     public CallServiceAsynch(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -63,7 +54,6 @@ public class CallServiceAsynch extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String serviceName = methodContext.expandString(this.serviceName);
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
-
         Map<String, Object> inMap = null;
         if (inMapAcsr.isEmpty()) {
             inMap = FastMap.newInstance();
@@ -74,7 +64,6 @@ public class CallServiceAsynch extends MethodOperation {
                 inMapAcsr.put(methodContext, inMap);
             }
         }
-
         // add UserLogin to context if expected
         if (includeUserLogin) {
             GenericValue userLogin = methodContext.getUserLogin();
@@ -83,20 +72,17 @@ public class CallServiceAsynch extends MethodOperation {
                 inMap.put("userLogin", userLogin);
             }
         }
-
         // always add Locale to context unless null
         Locale locale = methodContext.getLocale();
         if (locale != null) {
             inMap.put("locale", locale);
         }
-
         // invoke the service
         try {
             methodContext.getDispatcher().runAsync(serviceName, inMap);
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem invoking the " + serviceName + " service: " + e.getMessage() + "]";
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
@@ -106,8 +92,13 @@ public class CallServiceAsynch extends MethodOperation {
             }
             return false;
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     public String getServiceName() {
@@ -119,9 +110,14 @@ public class CallServiceAsynch extends MethodOperation {
         // TODO: something more than the empty tag
         return "<call-service-asynch/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class CallServiceAsynchFactory implements Factory<CallServiceAsynch> {
+        public CallServiceAsynch createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallServiceAsynch(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-service-asynch";
+        }
     }
 }

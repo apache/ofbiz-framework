@@ -18,14 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.*;
+import java.util.List;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Implements the else-if alternate execution element.
@@ -35,7 +36,7 @@ public class ElseIf {
     protected Conditional condition;
     protected List<MethodOperation> thenSubOps = FastList.newInstance();
 
-    public ElseIf (Element element, SimpleMethod simpleMethod) {
+    public ElseIf(Element element, SimpleMethod simpleMethod) {
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
@@ -44,12 +45,12 @@ public class ElseIf {
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
     }
 
-    public List<MethodOperation> getThenSubOps() {
-        return this.thenSubOps;
-    }
-
     public boolean checkCondition(MethodContext methodContext) {
         return condition.checkCondition(methodContext);
+    }
+
+    public List<MethodOperation> getThenSubOps() {
+        return this.thenSubOps;
     }
 
     public boolean runSubOps(MethodContext methodContext) {

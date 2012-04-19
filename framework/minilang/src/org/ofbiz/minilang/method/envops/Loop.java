@@ -22,39 +22,28 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-import org.w3c.dom.Element;
-
-import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Loop
  */
 public class Loop extends MethodOperation {
-    public static final class LoopFactory implements Factory<Loop> {
-        public Loop createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new Loop(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "loop";
-        }
-    }
 
     public static final String module = Loop.class.getName();
-    protected List<MethodOperation> subOps = FastList.newInstance();
-    protected ContextAccessor<Integer> fieldAcsr;
-    protected String countStr;
 
+    protected String countStr;
+    protected ContextAccessor<Integer> fieldAcsr;
+    protected List<MethodOperation> subOps = FastList.newInstance();
 
     public Loop(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.fieldAcsr = new ContextAccessor<Integer>(element.getAttribute("field"));
         this.countStr = element.getAttribute("count");
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }
 
@@ -71,12 +60,10 @@ public class Loop extends MethodOperation {
             Debug.logError(e, module);
             return false;
         }
-
         if (count < 0) {
             Debug.logWarning("Unable to execute loop operation because the count variable is negative: " + rawString(), module);
             return false;
         }
-
         for (int i = 0; i < count; i++) {
             fieldAcsr.put(methodContext, i);
             if (!SimpleMethod.runSubOps(subOps, methodContext)) {
@@ -84,8 +71,12 @@ public class Loop extends MethodOperation {
                 return false;
             }
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        return this.rawString();
     }
 
     public List<MethodOperation> getSubOps() {
@@ -97,8 +88,13 @@ public class Loop extends MethodOperation {
         return "<loop count=\"" + this.countStr + "\"/>";
     }
 
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        return this.rawString();
+    public static final class LoopFactory implements Factory<Loop> {
+        public Loop createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Loop(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "loop";
+        }
     }
 }

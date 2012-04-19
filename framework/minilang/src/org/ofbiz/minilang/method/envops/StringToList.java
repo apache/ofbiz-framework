@@ -18,37 +18,31 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
-import java.text.*;
-import java.util.*;
-
-import org.w3c.dom.*;
+import java.text.MessageFormat;
+import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.MessageString;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Appends the specified String to a List
  */
 public class StringToList extends MethodOperation {
-    public static final class StringToListFactory implements Factory<StringToList> {
-        public StringToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new StringToList(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "string-to-list";
-        }
-    }
 
     public static final String module = StringToList.class.getName();
 
-    String string;
-    ContextAccessor<List<Object>> listAcsr;
     ContextAccessor<List<? extends Object>> argListAcsr;
+    ContextAccessor<List<Object>> listAcsr;
     String messageFieldName;
+    String string;
 
     public StringToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -67,23 +61,27 @@ public class StringToList extends MethodOperation {
                 valueStr = MessageFormat.format(valueStr, argList.toArray());
             }
         }
-
         Object value;
         if (UtilValidate.isNotEmpty(this.messageFieldName)) {
             value = new MessageString(valueStr, this.messageFieldName, true);
         } else {
             value = valueStr;
         }
-
         List<Object> toList = listAcsr.get(methodContext);
         if (toList == null) {
-            if (Debug.verboseOn()) Debug.logVerbose("List not found with name " + listAcsr + ", creating new List", module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("List not found with name " + listAcsr + ", creating new List", module);
             toList = FastList.newInstance();
             listAcsr.put(methodContext, toList);
         }
         toList.add(value);
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -91,9 +89,14 @@ public class StringToList extends MethodOperation {
         // TODO: something more than the empty tag
         return "<string-to-list string=\"" + this.string + "\" list-name=\"" + this.listAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class StringToListFactory implements Factory<StringToList> {
+        public StringToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new StringToList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "string-to-list";
+        }
     }
 }

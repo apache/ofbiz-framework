@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import org.w3c.dom.*;
-import org.ofbiz.minilang.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.w3c.dom.Element;
 
 /**
  * A single String value, generally meant to be combined with others

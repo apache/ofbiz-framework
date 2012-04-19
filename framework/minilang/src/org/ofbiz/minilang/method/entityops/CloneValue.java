@@ -30,20 +30,11 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class CloneValue extends MethodOperation {
-    public static final class CloneValueFactory implements Factory<CloneValue> {
-        public CloneValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CloneValue(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "clone-value";
-        }
-    }
 
     public static final String module = CloneValue.class.getName();
 
-    ContextAccessor<GenericValue> valueAcsr;
     ContextAccessor<GenericValue> newValueAcsr;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public CloneValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -58,9 +49,14 @@ public class CloneValue extends MethodOperation {
             Debug.logWarning("In clone-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not copying", module);
             return true;
         }
-
         newValueAcsr.put(methodContext, GenericValue.create(value));
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -68,9 +64,14 @@ public class CloneValue extends MethodOperation {
         // TODO: something more than the empty tag
         return "<clone-value/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class CloneValueFactory implements Factory<CloneValue> {
+        public CloneValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CloneValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "clone-value";
+        }
     }
 }

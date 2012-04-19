@@ -33,28 +33,18 @@ import org.ofbiz.minilang.method.*;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class EnvToField extends MethodOperation {
-    public static final class EnvToFieldFactory implements Factory<EnvToField> {
-        public EnvToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new EnvToField(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "env-to-field";
-        }
-    }
 
     public static final String module = EnvToField.class.getName();
 
     ContextAccessor<Object> envAcsr;
-    ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, Object>> mapAcsr;
 
     public EnvToField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
-
         // set fieldAcsr to their defualt value of envAcsr if empty
         if (fieldAcsr.isEmpty()) {
             fieldAcsr = envAcsr;
@@ -64,17 +54,15 @@ public class EnvToField extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         Object envVar = envAcsr.get(methodContext);
-
         if (envVar == null) {
             Debug.logWarning("Environment field not found with name " + envAcsr + ", not copying env field", module);
             return true;
         }
-
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
-
             if (toMap == null) {
-                if (Debug.verboseOn()) Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
+                if (Debug.verboseOn())
+                    Debug.logVerbose("Map not found with name " + mapAcsr + ", creating new map", module);
                 toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
@@ -87,12 +75,23 @@ public class EnvToField extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        return "<env-to-field env-name=\"" + this.envAcsr + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
+    }
+
+    @Override
+    public String rawString() {
+        return "<env-to-field env-name=\"" + this.envAcsr + "\" field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
+    }
+
+    public static final class EnvToFieldFactory implements Factory<EnvToField> {
+        public EnvToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EnvToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "env-to-field";
+        }
     }
 }

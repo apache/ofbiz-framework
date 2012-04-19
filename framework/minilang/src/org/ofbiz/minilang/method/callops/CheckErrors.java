@@ -32,19 +32,9 @@ import org.w3c.dom.Element;
  * An event operation that checks a message list and may introduce a return code and stop the event
  */
 public class CheckErrors extends MethodOperation {
-    public static final class CheckErrorsFactory implements Factory<CheckErrors> {
-        public CheckErrors createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new CheckErrors(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "check-errors";
-        }
-    }
-
-    ContextAccessor<List<Object>> errorListAcsr;
     String errorCode;
-
+    ContextAccessor<List<Object>> errorListAcsr;
     FlexibleMessage errorPrefix;
     FlexibleMessage errorSuffix;
     FlexibleMessage messagePrefix;
@@ -53,10 +43,9 @@ public class CheckErrors extends MethodOperation {
     public CheckErrors(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         errorCode = element.getAttribute("error-code");
-        if (UtilValidate.isEmpty(errorCode)) errorCode = "error";
-
+        if (UtilValidate.isEmpty(errorCode))
+            errorCode = "error";
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "check.error.prefix");
         errorSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-suffix"), "check.error.suffix");
         messagePrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-prefix"), "check.message.prefix");
@@ -66,17 +55,13 @@ public class CheckErrors extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         List<Object> messages = errorListAcsr.get(methodContext);
-
         if (UtilValidate.isNotEmpty(messages)) {
             String errorCode = methodContext.expandString(this.errorCode);
-
             if (methodContext.getMethodType() == MethodContext.EVENT) {
-                /* The OLD way, now puts formatting control in the template...
-                String errMsg = errorPrefix.getMessage(methodContext.getLoader(), methodContext) +
-                    ServiceUtil.makeMessageList(messages, messagePrefix.getMessage(methodContext.getLoader(), methodContext),
-                            messageSuffix.getMessage(methodContext.getLoader(), methodContext)) +
-                            errorSuffix.getMessage(methodContext.getLoader(), methodContext);
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
+                /*
+                 * The OLD way, now puts formatting control in the template... String errMsg = errorPrefix.getMessage(methodContext.getLoader(), methodContext) + ServiceUtil.makeMessageList(messages,
+                 * messagePrefix.getMessage(methodContext.getLoader(), methodContext), messageSuffix.getMessage(methodContext.getLoader(), methodContext)) +
+                 * errorSuffix.getMessage(methodContext.getLoader(), methodContext); methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
                  */
                 methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), messages);
                 methodContext.putEnv(simpleMethod.getEventResponseCodeName(), errorCode);
@@ -89,8 +74,13 @@ public class CheckErrors extends MethodOperation {
                 return false;
             }
         }
-
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -98,9 +88,14 @@ public class CheckErrors extends MethodOperation {
         // TODO: something more than the empty tag
         return "<check-errors/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class CheckErrorsFactory implements Factory<CheckErrors> {
+        public CheckErrors createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CheckErrors(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "check-errors";
+        }
     }
 }

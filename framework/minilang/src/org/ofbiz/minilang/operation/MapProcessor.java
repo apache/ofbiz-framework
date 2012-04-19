@@ -18,52 +18,51 @@
  *******************************************************************************/
 package org.ofbiz.minilang.operation;
 
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javolution.util.FastList;
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
+
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.w3c.dom.Element;
 
 /**
  * Map Processor Main Class
  */
 public class MapProcessor {
 
-    String name;
     List<MakeInString> makeInStrings = FastList.newInstance();
+    String name;
     List<SimpleMapProcess> simpleMapProcesses = FastList.newInstance();
 
     public MapProcessor(Element simpleMapProcessorElement) {
         name = simpleMapProcessorElement.getAttribute("name");
-
-        for (Element makeInStringElement: UtilXml.childElementList(simpleMapProcessorElement, "make-in-string")) {
+        for (Element makeInStringElement : UtilXml.childElementList(simpleMapProcessorElement, "make-in-string")) {
             MakeInString makeInString = new MakeInString(makeInStringElement);
-
             makeInStrings.add(makeInString);
         }
-
-        for (Element simpleMapProcessElement: UtilXml.childElementList(simpleMapProcessorElement, "process")) {
+        for (Element simpleMapProcessElement : UtilXml.childElementList(simpleMapProcessorElement, "process")) {
             SimpleMapProcess strProc = new SimpleMapProcess(simpleMapProcessElement);
-
             simpleMapProcesses.add(strProc);
+        }
+    }
+
+    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
+        if (UtilValidate.isNotEmpty(makeInStrings)) {
+            for (MakeInString makeInString : makeInStrings) {
+                makeInString.exec(inMap, results, messages, locale, loader);
+            }
+        }
+        if (UtilValidate.isNotEmpty(simpleMapProcesses)) {
+            for (SimpleMapProcess simpleMapProcess : simpleMapProcesses) {
+                simpleMapProcess.exec(inMap, results, messages, locale, loader);
+            }
         }
     }
 
     public String getName() {
         return name;
-    }
-
-    public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        if (UtilValidate.isNotEmpty(makeInStrings)) {
-            for (MakeInString makeInString: makeInStrings) {
-                makeInString.exec(inMap, results, messages, locale, loader);
-            }
-        }
-
-        if (UtilValidate.isNotEmpty(simpleMapProcesses)) {
-            for (SimpleMapProcess simpleMapProcess: simpleMapProcesses) {
-                simpleMapProcess.exec(inMap, results, messages, locale, loader);
-            }
-        }
     }
 }

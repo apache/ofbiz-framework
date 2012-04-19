@@ -42,24 +42,14 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a primary key
  */
 public class EntityData extends MethodOperation {
-    public static final class EntityDataFactory implements Factory<EntityData> {
-        public EntityData createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new EntityData(element, simpleMethod);
-        }
-
-        public String getName() {
-            // FIXME: not in SimpleMethod
-            return "entity-data";
-        }
-    }
 
     public static final String module = EntityData.class.getName();
 
-    protected FlexibleStringExpander locationExdr;
     protected FlexibleStringExpander delegatorNameExdr;
-    protected FlexibleStringExpander timeoutExdr;
     protected ContextAccessor<List<Object>> errorListAcsr;
+    protected FlexibleStringExpander locationExdr;
     protected String mode;
+    protected FlexibleStringExpander timeoutExdr;
 
     public EntityData(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -67,7 +57,6 @@ public class EntityData extends MethodOperation {
         delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
         timeoutExdr = FlexibleStringExpander.getInstance(element.getAttribute("timeout"));
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-
         mode = element.getAttribute("mode");
         if (UtilValidate.isEmpty(mode)) {
             mode = "load";
@@ -81,15 +70,12 @@ public class EntityData extends MethodOperation {
             messages = FastList.newInstance();
             errorListAcsr.put(methodContext, messages);
         }
-
         String location = this.locationExdr.expandString(methodContext.getEnvMap());
         String delegatorName = this.delegatorNameExdr.expandString(methodContext.getEnvMap());
-
         Delegator delegator = methodContext.getDelegator();
         if (UtilValidate.isNotEmpty(delegatorName)) {
             delegator = DelegatorFactory.getDelegator(delegatorName);
         }
-
         URL dataUrl = null;
         try {
             dataUrl = FlexibleLocation.resolveLocation(location, methodContext.getLoader());
@@ -99,7 +85,6 @@ public class EntityData extends MethodOperation {
         if (dataUrl == null) {
             messages.add("Could not find Entity Data document in resource: " + location);
         }
-
         String timeout = this.timeoutExdr.expandString(methodContext.getEnvMap());
         int txTimeout = -1;
         if (UtilValidate.isNotEmpty(timeout)) {
@@ -109,14 +94,14 @@ public class EntityData extends MethodOperation {
                 Debug.logWarning("Timeout not formatted properly in entity-data operation, defaulting to container default", module);
             }
         }
-
         if ("assert".equals(mode)) {
-            // load the XML file, read in one element at a time and check it against the database
+            // load the XML file, read in one element at a time and check it against the
+            // database
             try {
                 EntityDataAssert.assertData(dataUrl, delegator, messages);
             } catch (Exception e) {
                 String xmlError = "Error checking/asserting XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
-                //Debug.logError(e, xmlError, module);
+                // Debug.logError(e, xmlError, module);
                 messages.add(xmlError);
             }
         } else {
@@ -139,14 +124,25 @@ public class EntityData extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        // TODO: something more than the empty tag
-        return "<entity-data/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
     }
-}
 
+    @Override
+    public String rawString() {
+        // TODO: something more than the empty tag
+        return "<entity-data/>";
+    }
+
+    public static final class EntityDataFactory implements Factory<EntityData> {
+        public EntityData createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityData(element, simpleMethod);
+        }
+
+        public String getName() {
+            // FIXME: not in SimpleMethod
+            return "entity-data";
+        }
+    }
+}

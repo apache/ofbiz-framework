@@ -35,28 +35,18 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Iff the validate method returns true with the specified field process sub-operations
+ * If the validate method returns true with the specified field process sub-operations
  */
 public class IfValidateMethod extends MethodOperation {
-    public static final class IfValidateMethodFactory implements Factory<IfValidateMethod> {
-        public IfValidateMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new IfValidateMethod(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "if-validate-method";
-        }
-    }
 
     public static final String module = IfValidateMethod.class.getName();
 
-    List<MethodOperation> subOps = FastList.newInstance();
-    List<MethodOperation> elseSubOps = null;
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<Object> fieldAcsr;
-    String methodName;
     String className;
+    List<MethodOperation> elseSubOps = null;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    String methodName;
+    List<MethodOperation> subOps = FastList.newInstance();
 
     public IfValidateMethod(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -65,9 +55,7 @@ public class IfValidateMethod extends MethodOperation {
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.methodName = element.getAttribute("method");
         this.className = element.getAttribute("class");
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
-
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
@@ -79,17 +67,15 @@ public class IfValidateMethod extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
-
         String methodName = methodContext.expandString(this.methodName);
         String className = methodContext.expandString(this.className);
-
         String fieldString = null;
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -97,7 +83,6 @@ public class IfValidateMethod extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         if (fieldVal != null) {
             try {
                 fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
@@ -105,13 +90,11 @@ public class IfValidateMethod extends MethodOperation {
                 Debug.logError(e, "Could not convert object to String, using empty String", module);
             }
         }
-
         // always use an empty string by default
-        if (fieldString == null) fieldString = "";
-
-        Class<?>[] paramTypes = new Class[] {String.class};
-        Object[] params = new Object[] {fieldString};
-
+        if (fieldString == null)
+            fieldString = "";
+        Class<?>[] paramTypes = new Class[] { String.class };
+        Object[] params = new Object[] { fieldString };
         Class<?> valClass;
         try {
             valClass = methodContext.getLoader().loadClass(className);
@@ -119,7 +102,6 @@ public class IfValidateMethod extends MethodOperation {
             Debug.logError("Could not find validation class: " + className, module);
             return false;
         }
-
         Method valMethod;
         try {
             valMethod = valClass.getMethod(methodName, paramTypes);
@@ -127,14 +109,12 @@ public class IfValidateMethod extends MethodOperation {
             Debug.logError("Could not find validation method: " + methodName + " of class " + className, module);
             return false;
         }
-
         Boolean resultBool = Boolean.FALSE;
         try {
             resultBool = (Boolean) valMethod.invoke(null, params);
         } catch (Exception e) {
             Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className + ", not processing sub-ops ", module);
         }
-
         if (resultBool.booleanValue()) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
@@ -146,10 +126,17 @@ public class IfValidateMethod extends MethodOperation {
         }
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.subOps);
-        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
         return allSubOps;
     }
 
@@ -158,9 +145,14 @@ public class IfValidateMethod extends MethodOperation {
         // TODO: add all attributes and other info
         return "<if-validate-method field-name=\"" + this.fieldAcsr + "\" map-name=\"" + this.mapAcsr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IfValidateMethodFactory implements Factory<IfValidateMethod> {
+        public IfValidateMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfValidateMethod(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-validate-method";
+        }
     }
 }

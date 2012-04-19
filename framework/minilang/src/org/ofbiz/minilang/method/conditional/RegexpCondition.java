@@ -38,36 +38,19 @@ import org.w3c.dom.Element;
  * Implements compare to a constant condition.
  */
 public class RegexpCondition implements Conditional {
-    public static final class RegexpConditionFactory extends ConditionalFactory<RegexpCondition> {
-        @Override
-        public RegexpCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new RegexpCondition(element, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "if-regexp";
-        }
-    }
-
 
     public static final String module = RegexpCondition.class.getName();
-
-    SimpleMethod simpleMethod;
-
     private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
-    List<?> subOps = FastList.newInstance();
     List<?> elseSubOps = null;
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    ContextAccessor<Object> fieldAcsr;
-
     FlexibleStringExpander exprExdr;
+    ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    SimpleMethod simpleMethod;
+    List<?> subOps = FastList.newInstance();
 
     public RegexpCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -75,25 +58,20 @@ public class RegexpCondition implements Conditional {
             // NOTE: this is still supported, but is deprecated
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
-
         this.exprExdr = FlexibleStringExpander.getInstance(element.getAttribute("expr"));
     }
 
     public boolean checkCondition(MethodContext methodContext) {
         String fieldString = getFieldString(methodContext);
-
         boolean matches = false;
         try {
             matches = compilerMatcher.get().matches(fieldString, methodContext.expandString(this.exprExdr));
         } catch (MalformedPatternException e) {
             Debug.logError(e, "Regular Expression [" + this.exprExdr + "] is mal-formed: " + e.toString(), module);
         }
-
         if (matches) {
-            //Debug.logInfo("The string [" + fieldString + "] matched the pattern expr [" + pattern.getPattern() + "]", module);
             return true;
         } else {
-            //Debug.logInfo("The string [" + fieldString + "] did NOT match the pattern expr [" + pattern.getPattern() + "]", module);
             return false;
         }
     }
@@ -101,11 +79,11 @@ public class RegexpCondition implements Conditional {
     protected String getFieldString(MethodContext methodContext) {
         String fieldString = null;
         Object fieldVal = null;
-
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -113,7 +91,6 @@ public class RegexpCondition implements Conditional {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-
         if (fieldVal != null) {
             try {
                 fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
@@ -122,8 +99,8 @@ public class RegexpCondition implements Conditional {
             }
         }
         // always use an empty string by default
-        if (fieldString == null) fieldString = "";
-
+        if (fieldString == null)
+            fieldString = "";
         return fieldString;
     }
 
@@ -140,5 +117,17 @@ public class RegexpCondition implements Conditional {
         messageBuffer.append("] matches ");
         messageBuffer.append(methodContext.expandString(this.exprExdr));
         messageBuffer.append("]");
+    }
+
+    public static final class RegexpConditionFactory extends ConditionalFactory<RegexpCondition> {
+        @Override
+        public RegexpCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new RegexpCondition(element, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "if-regexp";
+        }
     }
 }

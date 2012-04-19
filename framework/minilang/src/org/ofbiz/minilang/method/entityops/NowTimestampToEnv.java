@@ -18,33 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
-import org.w3c.dom.*;
-
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodOperation;
+import org.w3c.dom.Element;
 
 /**
  * Creates a java.sql.Timestamp with the current date/time in it and puts it in the env
  */
 public class NowTimestampToEnv extends MethodOperation {
-    public static final class NowTimestampToEnvFactory implements Factory<NowTimestampToEnv> {
-        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new NowTimestampToEnv(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "now-timestamp-to-env";
-        }
-    }
-    public static final class NowTimestampFactory implements Factory<NowTimestampToEnv> {
-        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new NowTimestampToEnv(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "now-timestamp";
-        }
-    }
 
     ContextAccessor<java.sql.Timestamp> envAcsr;
 
@@ -60,13 +43,34 @@ public class NowTimestampToEnv extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<now-timestamp-to-env/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class NowTimestampFactory implements Factory<NowTimestampToEnv> {
+        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowTimestampToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-timestamp";
+        }
+    }
+
+    public static final class NowTimestampToEnvFactory implements Factory<NowTimestampToEnv> {
+        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowTimestampToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-timestamp-to-env";
+        }
     }
 }

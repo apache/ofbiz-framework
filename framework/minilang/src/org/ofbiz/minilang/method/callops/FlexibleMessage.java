@@ -20,10 +20,12 @@ package org.ofbiz.minilang.method.callops;
 
 import java.io.Serializable;
 
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-
-import org.ofbiz.minilang.method.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.method.MethodContext;
+import org.w3c.dom.Element;
 
 /**
  * Simple class to wrap messages that come either from a straight string or a properties file
@@ -33,21 +35,19 @@ public class FlexibleMessage implements Serializable {
 
     public static final String module = FlexibleMessage.class.getName();
 
+    boolean isProperty = false;
     String message = null;
     String propertyResource = null;
-    boolean isProperty = false;
 
     public FlexibleMessage(Element element, String defaultProperty) {
         String resAttr = null;
         String propAttr = null;
         String elVal = null;
-
         if (element != null) {
             resAttr = element.getAttribute("resource");
             propAttr = element.getAttribute("property");
             elVal = UtilXml.elementValue(element);
         }
-
         if (UtilValidate.isNotEmpty(resAttr)) {
             propertyResource = resAttr;
             message = propAttr;
@@ -66,17 +66,10 @@ public class FlexibleMessage implements Serializable {
     public String getMessage(ClassLoader loader, MethodContext methodContext) {
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
-
-        // if (Debug.infoOn()) Debug.logInfo("[FlexibleMessage.getMessage] isProperty: " + isProperty + ", message: " + message + ", propertyResource: " + propertyResource, module);
         if (!isProperty && message != null) {
-            // if (Debug.infoOn()) Debug.logInfo("[FlexibleMessage.getMessage] Adding message: " + message, module);
             return message;
         } else if (isProperty && propertyResource != null && message != null) {
-            // URL propertyURL = UtilURL.fromResource(propertyResource, loader);
-            //String propMsg = UtilProperties.getPropertyValue(propertyResource, message);
             String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
-
-            // if (Debug.infoOn()) Debug.logInfo("[FlexibleMessage.getMessage] Got property message: " + propMsg, module);
             if (propMsg == null) {
                 return "In Simple Map Processing property message could not be found in resource [" + propertyResource + "] with name [" + message + "]. ";
             } else {

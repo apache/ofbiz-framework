@@ -31,15 +31,6 @@ import org.w3c.dom.Element;
  * Rolls back a transaction if beganTransaction is true, otherwise tries to do a setRollbackOnly.
  */
 public class TransactionRollback extends MethodOperation {
-    public static final class TransactionRollbackFactory implements Factory<TransactionRollback> {
-        public TransactionRollback createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new TransactionRollback(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "transaction-rollback";
-        }
-    }
 
     public static final String module = TransactionRollback.class.getName();
 
@@ -53,24 +44,26 @@ public class TransactionRollback extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         boolean beganTransaction = false;
-
         Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
         if (beganTransactionBoolean != null) {
             beganTransaction = beganTransactionBoolean.booleanValue();
         }
-
         try {
             TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.simpleMethod.getShortDescription() + "]", null);
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Could not rollback transaction in simple-method, returning error.", module);
-
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error rolling back a transaction: " + e.getMessage() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-
         beganTransactionAcsr.remove(methodContext);
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -78,9 +71,14 @@ public class TransactionRollback extends MethodOperation {
         // TODO: something more than the empty tag
         return "<transaction-rollback/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class TransactionRollbackFactory implements Factory<TransactionRollback> {
+        public TransactionRollback createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new TransactionRollback(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "transaction-rollback";
+        }
     }
 }

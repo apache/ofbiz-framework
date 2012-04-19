@@ -18,39 +18,28 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.*;
-import org.w3c.dom.*;
-import org.ofbiz.base.util.*;
-import org.ofbiz.minilang.*;
-import org.ofbiz.minilang.method.*;
+import java.util.Collection;
+import java.util.Map;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.ContextAccessor;
+import org.ofbiz.minilang.method.MethodContext;
+import org.w3c.dom.Element;
 
 /**
  * Implements compare to a constant condition.
  */
 public class EmptyCondition implements Conditional {
-    public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> {
-        @Override
-        public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new EmptyCondition(element, simpleMethod);
-        }
-
-        @Override
-        public String getName() {
-            return "if-empty";
-        }
-    }
-
 
     public static final String module = EmptyCondition.class.getName();
 
-    SimpleMethod simpleMethod;
-
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
+    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
+    SimpleMethod simpleMethod;
 
     public EmptyCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -64,31 +53,26 @@ public class EmptyCondition implements Conditional {
         // only run subOps if element is empty/null
         boolean runSubOps = false;
         Object fieldVal = getFieldVal(methodContext);
-
         if (fieldVal == null) {
             runSubOps = true;
         } else {
             if (fieldVal instanceof String) {
                 String fieldStr = (String) fieldVal;
-
                 if (fieldStr.length() == 0) {
                     runSubOps = true;
                 }
             } else if (fieldVal instanceof Collection<?>) {
                 Collection<?> fieldCol = (Collection<?>) fieldVal;
-
                 if (fieldCol.size() == 0) {
                     runSubOps = true;
                 }
             } else if (fieldVal instanceof Map<?, ?>) {
-                Map<?,?> fieldMap = (Map<?,?>) fieldVal;
-
+                Map<?, ?> fieldMap = (Map<?, ?>) fieldVal;
                 if (fieldMap.size() == 0) {
                     runSubOps = true;
                 }
             }
         }
-
         return runSubOps;
     }
 
@@ -97,7 +81,8 @@ public class EmptyCondition implements Conditional {
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
             if (fromMap == null) {
-                if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
+                if (Debug.infoOn())
+                    Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
             } else {
                 fieldVal = fieldAcsr.get(fromMap, methodContext);
             }
@@ -120,5 +105,17 @@ public class EmptyCondition implements Conditional {
             messageBuffer.append(getFieldVal(methodContext));
         }
         messageBuffer.append("]");
+    }
+
+    public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> {
+        @Override
+        public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new EmptyCondition(element, simpleMethod);
+        }
+
+        @Override
+        public String getName() {
+            return "if-empty";
+        }
     }
 }

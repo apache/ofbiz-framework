@@ -35,22 +35,13 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class FilterListByDate extends MethodOperation {
-    public static final class FilterListByDateFactory implements Factory<FilterListByDate> {
-        public FilterListByDate createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new FilterListByDate(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "filter-list-by-date";
-        }
-    }
-
+    String allSameStr;
+    String fromFieldName;
     ContextAccessor<List<GenericEntity>> listAcsr;
+    String thruFieldName;
     ContextAccessor<List<GenericEntity>> toListAcsr;
     ContextAccessor<Timestamp> validDateAcsr;
-    String fromFieldName;
-    String thruFieldName;
-    String allSameStr;
 
     public FilterListByDate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -60,18 +51,17 @@ public class FilterListByDate extends MethodOperation {
             toListAcsr = listAcsr;
         }
         validDateAcsr = new ContextAccessor<Timestamp>(element.getAttribute("valid-date"), element.getAttribute("valid-date-name"));
-
         fromFieldName = element.getAttribute("from-field-name");
-        if (UtilValidate.isEmpty(fromFieldName)) fromFieldName = "fromDate";
+        if (UtilValidate.isEmpty(fromFieldName))
+            fromFieldName = "fromDate";
         thruFieldName = element.getAttribute("thru-field-name");
-        if (UtilValidate.isEmpty(thruFieldName)) thruFieldName = "thruDate";
-
+        if (UtilValidate.isEmpty(thruFieldName))
+            thruFieldName = "thruDate";
         allSameStr = element.getAttribute("all-same");
     }
 
     @Override
     public boolean exec(MethodContext methodContext) {
-
         if (!validDateAcsr.isEmpty()) {
             toListAcsr.put(methodContext, EntityUtil.filterByDate(listAcsr.get(methodContext), validDateAcsr.get(methodContext), fromFieldName, thruFieldName, true));
         } else {
@@ -81,14 +71,24 @@ public class FilterListByDate extends MethodOperation {
     }
 
     @Override
-    public String rawString() {
-        // TODO: something more than the empty tag
-        return "<filter-list-by-date/>";
-    }
-    @Override
     public String expandedString(MethodContext methodContext) {
         // TODO: something more than a stub/dummy
         return this.rawString();
     }
-}
 
+    @Override
+    public String rawString() {
+        // TODO: something more than the empty tag
+        return "<filter-list-by-date/>";
+    }
+
+    public static final class FilterListByDateFactory implements Factory<FilterListByDate> {
+        public FilterListByDate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FilterListByDate(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "filter-list-by-date";
+        }
+    }
+}

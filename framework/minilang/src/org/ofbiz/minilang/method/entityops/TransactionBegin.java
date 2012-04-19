@@ -31,15 +31,6 @@ import org.w3c.dom.Element;
  * Begins a transaction if one is not already in place; if does begin one puts true in the began-transaction-name env variable, otherwise it returns false.
  */
 public class TransactionBegin extends MethodOperation {
-    public static final class TransactionBeginFactory implements Factory<TransactionBegin> {
-        public TransactionBegin createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new TransactionBegin(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "transaction-begin";
-        }
-    }
 
     public static final String module = TransactionBegin.class.getName();
 
@@ -57,14 +48,18 @@ public class TransactionBegin extends MethodOperation {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Could not begin transaction in simple-method, returning error.", module);
-
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error beginning a transaction: " + e.getMessage() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-
         beganTransactionAcsr.put(methodContext, beganTransaction);
         return true;
+    }
+
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
     }
 
     @Override
@@ -72,9 +67,14 @@ public class TransactionBegin extends MethodOperation {
         // TODO: something more than the empty tag
         return "<transaction-begin/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class TransactionBeginFactory implements Factory<TransactionBegin> {
+        public TransactionBegin createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new TransactionBegin(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "transaction-begin";
+        }
     }
 }

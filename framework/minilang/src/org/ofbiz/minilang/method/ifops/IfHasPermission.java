@@ -34,33 +34,20 @@ import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
- * Iff the user has the specified permission, process the sub-operations. Otherwise
- * process else operations if specified.
+ * If the user has the specified permission, process the sub-operations. Otherwise process else operations if specified.
  */
 public class IfHasPermission extends MethodOperation {
-    public static final class IfHasPermissionFactory implements Factory<IfHasPermission> {
-        public IfHasPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new IfHasPermission(element, simpleMethod);
-        }
 
-        public String getName() {
-            return "if-has-permission";
-        }
-    }
-
-    protected List<MethodOperation> subOps = FastList.newInstance();
-    protected List<MethodOperation> elseSubOps = null;
-
-    protected FlexibleStringExpander permissionExdr;
     protected FlexibleStringExpander actionExdr;
+    protected List<MethodOperation> elseSubOps = null;
+    protected FlexibleStringExpander permissionExdr;
+    protected List<MethodOperation> subOps = FastList.newInstance();
 
     public IfHasPermission(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.permissionExdr = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
         this.actionExdr = FlexibleStringExpander.getInstance(element.getAttribute("action"));
-
         SimpleMethod.readOperations(element, subOps, simpleMethod);
-
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
@@ -73,16 +60,13 @@ public class IfHasPermission extends MethodOperation {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         // return true;
-
         // only run subOps if element is empty/null
         boolean runSubOps = false;
-
         // if no user is logged in, treat as if the user does not have permission: do not run subops
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
             String permission = methodContext.expandString(permissionExdr);
             String action = methodContext.expandString(actionExdr);
-
             Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
             if (UtilValidate.isNotEmpty(action)) {
@@ -97,7 +81,6 @@ public class IfHasPermission extends MethodOperation {
                 }
             }
         }
-
         if (runSubOps) {
             return SimpleMethod.runSubOps(subOps, methodContext);
         } else {
@@ -109,10 +92,17 @@ public class IfHasPermission extends MethodOperation {
         }
     }
 
+    @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
     public List<MethodOperation> getAllSubOps() {
         List<MethodOperation> allSubOps = FastList.newInstance();
         allSubOps.addAll(this.subOps);
-        if (this.elseSubOps != null) allSubOps.addAll(this.elseSubOps);
+        if (this.elseSubOps != null)
+            allSubOps.addAll(this.elseSubOps);
         return allSubOps;
     }
 
@@ -120,9 +110,14 @@ public class IfHasPermission extends MethodOperation {
     public String rawString() {
         return "<if-has-permission permission=\"" + this.permissionExdr + "\" action=\"" + this.actionExdr + "\"/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class IfHasPermissionFactory implements Factory<IfHasPermission> {
+        public IfHasPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfHasPermission(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-has-permission";
+        }
     }
 }

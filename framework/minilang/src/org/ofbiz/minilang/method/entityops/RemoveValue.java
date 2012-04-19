@@ -31,20 +31,11 @@ import org.w3c.dom.Element;
  * Uses the delegator to remove the specified value object entity from the datasource
  */
 public class RemoveValue extends MethodOperation {
-    public static final class RemoveValueFactory implements Factory<RemoveValue> {
-        public RemoveValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new RemoveValue(element, simpleMethod);
-        }
-
-        public String getName() {
-            return "remove-value";
-        }
-    }
 
     public static final String module = RemoveValue.class.getName();
 
-    ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
+    ContextAccessor<GenericValue> valueAcsr;
 
     public RemoveValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
@@ -55,7 +46,6 @@ public class RemoveValue extends MethodOperation {
     @Override
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In remove-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing";
@@ -63,7 +53,6 @@ public class RemoveValue extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-
         try {
             methodContext.getDelegator().removeValue(value, doCacheClear);
         } catch (GenericEntityException e) {
@@ -76,13 +65,24 @@ public class RemoveValue extends MethodOperation {
     }
 
     @Override
+    public String expandedString(MethodContext methodContext) {
+        // TODO: something more than a stub/dummy
+        return this.rawString();
+    }
+
+    @Override
     public String rawString() {
         // TODO: something more than the empty tag
         return "<remove-value/>";
     }
-    @Override
-    public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+
+    public static final class RemoveValueFactory implements Factory<RemoveValue> {
+        public RemoveValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RemoveValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "remove-value";
+        }
     }
 }
