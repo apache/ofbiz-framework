@@ -6856,7 +6856,7 @@
     </property>
     <property key="AccountingInvoicesDueSoon">
         <value xml:lang="en">Invoices Due Soon</value>
-        <value xml:lang="fr">Factures à régler prochainementvend</value>
+        <value xml:lang="fr">Factures à régler prochainement</value>
         <value xml:lang="pt">Faturas devidas em breve</value>
         <value xml:lang="zh">即将到期的发票</value>
     </property>
