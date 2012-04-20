@@ -23,6 +23,7 @@ import java.util.List;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -36,7 +37,7 @@ public class While extends MethodOperation {
     Conditional condition;
     List<MethodOperation> thenSubOps = FastList.newInstance();
 
-    public While(Element element, SimpleMethod simpleMethod) {
+    public While(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
@@ -46,7 +47,7 @@ public class While extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true;
         // if a sub-op returns false return false and stop, otherwise drop though loop and
         // return true
@@ -77,7 +78,7 @@ public class While extends MethodOperation {
     }
 
     public static final class WhileFactory implements Factory<While> {
-        public While createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public While createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new While(element, simpleMethod);
         }
 

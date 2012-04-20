@@ -112,7 +112,7 @@ public class SimpleMethod {
         }
     }
 
-    protected static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) {
+    protected static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
         return new SimpleMethod(simpleMethodElement, simpleMethods, location);
     }
 
@@ -392,7 +392,7 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
-    public static void readOperations(Element simpleMethodElement, List<MethodOperation> methodOperations, SimpleMethod simpleMethod) {
+    public static void readOperations(Element simpleMethodElement, List<MethodOperation> methodOperations, SimpleMethod simpleMethod) throws MiniLangException {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
         if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem : operationElements) {
@@ -512,7 +512,7 @@ public class SimpleMethod {
     protected String userLoginName;
     protected boolean useTransaction = true;
 
-    public SimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> parentSimpleMethodsMap, String fromLocation) {
+    public SimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> parentSimpleMethodsMap, String fromLocation) throws MiniLangException {
         this.parentSimpleMethodsMap = parentSimpleMethodsMap;
         this.fromLocation = fromLocation;
         this.methodName = simpleMethodElement.getAttribute("method-name");
@@ -545,7 +545,7 @@ public class SimpleMethod {
     }
 
     /** Execute the Simple Method operations */
-    public String exec(MethodContext methodContext) {
+    public String exec(MethodContext methodContext) throws MiniLangException {
         // always put the null field object in as "null"
         methodContext.putEnv("null", GenericEntity.NULL_FIELD);
         methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);

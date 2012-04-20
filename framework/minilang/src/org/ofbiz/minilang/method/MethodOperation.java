@@ -23,6 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
 
@@ -31,14 +32,15 @@ import org.w3c.dom.Element;
  */
 public abstract class MethodOperation {
 
-    protected SimpleMethod simpleMethod;
+    protected final SimpleMethod simpleMethod;
 
-    public MethodOperation(Element element, SimpleMethod simpleMethod) {
+    protected MethodOperation(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
     }
 
-    /** Execute the operation; if false is returned then no further operations will be executed */
-    public abstract boolean exec(MethodContext methodContext);
+    /** Execute the operation. Returns false if no further operations should be executed. 
+     * @throws MiniLangException */
+    public abstract boolean exec(MethodContext methodContext) throws MiniLangException;
 
     /** Create an expanded string representation of the operation, is for the current context */
     public abstract String expandedString(MethodContext methodContext);
@@ -58,7 +60,7 @@ public abstract class MethodOperation {
 
     public interface Factory<M extends MethodOperation> {
 
-        M createMethodOperation(Element element, SimpleMethod simpleMethod);
+        M createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException;
 
         String getName();
     }

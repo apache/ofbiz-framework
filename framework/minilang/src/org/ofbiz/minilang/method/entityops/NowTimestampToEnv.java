@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -31,13 +32,13 @@ public class NowTimestampToEnv extends MethodOperation {
 
     ContextAccessor<java.sql.Timestamp> envAcsr;
 
-    public NowTimestampToEnv(Element element, SimpleMethod simpleMethod) {
+    public NowTimestampToEnv(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         envAcsr = new ContextAccessor<java.sql.Timestamp>(element.getAttribute("field"), element.getAttribute("env-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         envAcsr.put(methodContext, new java.sql.Timestamp(System.currentTimeMillis()));
         return true;
     }
@@ -55,7 +56,7 @@ public class NowTimestampToEnv extends MethodOperation {
     }
 
     public static final class NowTimestampFactory implements Factory<NowTimestampToEnv> {
-        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new NowTimestampToEnv(element, simpleMethod);
         }
 
@@ -65,7 +66,7 @@ public class NowTimestampToEnv extends MethodOperation {
     }
 
     public static final class NowTimestampToEnvFactory implements Factory<NowTimestampToEnv> {
-        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new NowTimestampToEnv(element, simpleMethod);
         }
 

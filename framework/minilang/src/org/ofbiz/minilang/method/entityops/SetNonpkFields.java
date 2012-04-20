@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,7 +40,7 @@ public class SetNonpkFields extends MethodOperation {
     String setIfNullStr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public SetNonpkFields(Element element, SimpleMethod simpleMethod) {
+    public SetNonpkFields(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
@@ -47,7 +48,7 @@ public class SetNonpkFields extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
         GenericValue value = valueAcsr.get(methodContext);
@@ -85,7 +86,7 @@ public class SetNonpkFields extends MethodOperation {
     }
 
     public static final class SetNonpkFieldsFactory implements Factory<SetNonpkFields> {
-        public SetNonpkFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public SetNonpkFields createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetNonpkFields(element, simpleMethod);
         }
 

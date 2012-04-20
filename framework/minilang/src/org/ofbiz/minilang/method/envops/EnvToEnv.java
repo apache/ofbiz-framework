@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -36,14 +37,14 @@ public class EnvToEnv extends MethodOperation {
     protected ContextAccessor<Object> envAcsr;
     protected ContextAccessor<Object> toEnvAcsr;
 
-    public EnvToEnv(Element element, SimpleMethod simpleMethod) {
+    public EnvToEnv(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
         toEnvAcsr = new ContextAccessor<Object>(element.getAttribute("to-env-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         toEnvAcsr.put(methodContext, envAcsr.get(methodContext));
         return true;
     }
@@ -60,7 +61,7 @@ public class EnvToEnv extends MethodOperation {
     }
 
     public static final class EnvToEnvFactory implements Factory<EnvToEnv> {
-        public EnvToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public EnvToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EnvToEnv(element, simpleMethod);
         }
 

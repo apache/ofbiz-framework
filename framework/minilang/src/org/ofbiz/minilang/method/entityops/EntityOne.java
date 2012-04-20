@@ -22,6 +22,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.finder.PrimaryKeyFinder;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -36,13 +37,13 @@ public class EntityOne extends MethodOperation {
 
     protected PrimaryKeyFinder finder;
 
-    public EntityOne(Element element, SimpleMethod simpleMethod) {
+    public EntityOne(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.finder = new PrimaryKeyFinder(element);
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
             Delegator delegator = methodContext.getDelegator();
             this.finder.runFind(methodContext.getEnvMap(), delegator);
@@ -78,7 +79,7 @@ public class EntityOne extends MethodOperation {
     }
 
     public static final class EntityOneFactory implements Factory<EntityOne> {
-        public EntityOne createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public EntityOne createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityOne(element, simpleMethod);
         }
 

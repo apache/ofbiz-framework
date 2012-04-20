@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleServletAccessor;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,7 +40,7 @@ public class FieldToRequest extends MethodOperation {
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     FlexibleServletAccessor<Object> requestAcsr;
 
-    public FieldToRequest(Element element, SimpleMethod simpleMethod) {
+    public FieldToRequest(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -48,7 +49,7 @@ public class FieldToRequest extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             Object fieldVal = null;
@@ -86,7 +87,7 @@ public class FieldToRequest extends MethodOperation {
     }
 
     public static final class FieldToRequestFactory implements Factory<FieldToRequest> {
-        public FieldToRequest createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FieldToRequest createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToRequest(element, simpleMethod);
         }
 

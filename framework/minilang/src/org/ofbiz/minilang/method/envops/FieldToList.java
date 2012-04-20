@@ -24,6 +24,7 @@ import java.util.Map;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -41,7 +42,7 @@ public class FieldToList extends MethodOperation {
     ContextAccessor<List<Object>> listAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
-    public FieldToList(Element element, SimpleMethod simpleMethod) {
+    public FieldToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -50,7 +51,7 @@ public class FieldToList extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
@@ -90,7 +91,7 @@ public class FieldToList extends MethodOperation {
     }
 
     public static final class FieldToListFactory implements Factory<FieldToList> {
-        public FieldToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FieldToList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToList(element, simpleMethod);
         }
 

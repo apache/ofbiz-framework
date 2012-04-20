@@ -46,7 +46,7 @@ public class CallSimpleMapProcessor extends MethodOperation {
     String processorName;
     String xmlResource;
 
-    public CallSimpleMapProcessor(Element element, SimpleMethod simpleMethod) {
+    public CallSimpleMapProcessor(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         xmlResource = element.getAttribute("xml-resource");
         processorName = element.getAttribute("processor-name");
@@ -60,7 +60,7 @@ public class CallSimpleMapProcessor extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
@@ -106,7 +106,7 @@ public class CallSimpleMapProcessor extends MethodOperation {
     }
 
     public static final class CallSimpleMapProcessorFactory implements Factory<CallSimpleMapProcessor> {
-        public CallSimpleMapProcessor createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallSimpleMapProcessor createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallSimpleMapProcessor(element, simpleMethod);
         }
 

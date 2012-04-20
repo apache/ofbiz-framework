@@ -25,6 +25,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -46,7 +47,7 @@ public class SetServiceFields extends MethodOperation {
     String serviceName;
     ContextAccessor<Map<String, Object>> toMapAcsr;
 
-    public SetServiceFields(Element element, SimpleMethod simpleMethod) {
+    public SetServiceFields(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
@@ -55,7 +56,7 @@ public class SetServiceFields extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
@@ -103,7 +104,7 @@ public class SetServiceFields extends MethodOperation {
     }
 
     public static final class SetServiceFieldsFactory implements Factory<SetServiceFields> {
-        public SetServiceFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public SetServiceFields createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetServiceFields(element, simpleMethod);
         }
 

@@ -31,6 +31,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -52,7 +53,7 @@ public class CallBsh extends MethodOperation {
     String inline = null;
     String resource = null;
 
-    public CallBsh(Element element, SimpleMethod simpleMethod) {
+    public CallBsh(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         inline = UtilXml.elementValue(element);
         resource = element.getAttribute("resource");
@@ -63,7 +64,7 @@ public class CallBsh extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
@@ -142,7 +143,7 @@ public class CallBsh extends MethodOperation {
     }
 
     public static final class CallBshFactory implements Factory<CallBsh> {
-        public CallBsh createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallBsh createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallBsh(element, simpleMethod);
         }
 

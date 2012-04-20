@@ -24,6 +24,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -39,7 +40,7 @@ public class MasterIf extends MethodOperation {
     List<MethodOperation> elseSubOps = null;
     List<MethodOperation> thenSubOps = FastList.newInstance();
 
-    public MasterIf(Element element, SimpleMethod simpleMethod) {
+    public MasterIf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
@@ -61,7 +62,7 @@ public class MasterIf extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         // return true;
@@ -113,7 +114,7 @@ public class MasterIf extends MethodOperation {
     }
 
     public static final class MasterIfFactory implements Factory<MasterIf> {
-        public MasterIf createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public MasterIf createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MasterIf(element, simpleMethod);
         }
 

@@ -24,6 +24,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -44,7 +45,7 @@ public class GetRelated extends MethodOperation {
     String useCacheStr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public GetRelated(Element element, SimpleMethod simpleMethod) {
+    public GetRelated(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         relationName = element.getAttribute("relation-name");
@@ -55,7 +56,7 @@ public class GetRelated extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String relationName = methodContext.expandString(this.relationName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
         boolean useCache = "true".equals(useCacheStr);
@@ -104,7 +105,7 @@ public class GetRelated extends MethodOperation {
     }
 
     public static final class GetRelatedFactory implements Factory<GetRelated> {
-        public GetRelated createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public GetRelated createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new GetRelated(element, simpleMethod);
         }
 

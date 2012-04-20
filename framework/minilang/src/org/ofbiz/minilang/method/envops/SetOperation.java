@@ -27,6 +27,7 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -49,7 +50,7 @@ public class SetOperation extends MethodOperation {
     protected String type;
     protected FlexibleStringExpander valueExdr;
 
-    public SetOperation(Element element, SimpleMethod simpleMethod) {
+    public SetOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.field = new ContextAccessor<Object>(element.getAttribute("field"));
         String fromFieldStr = element.getAttribute("from-field");
@@ -70,7 +71,7 @@ public class SetOperation extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object newValue = null;
         if (this.parsedScript != null) {
             try {
@@ -134,7 +135,7 @@ public class SetOperation extends MethodOperation {
     }
 
     public static final class SetOperationFactory implements Factory<SetOperation> {
-        public SetOperation createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public SetOperation createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetOperation(element, simpleMethod);
         }
 

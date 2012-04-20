@@ -26,6 +26,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -59,7 +60,7 @@ public class SetCalendar extends MethodOperation {
     protected FlexibleStringExpander valueExdr;
     protected FlexibleStringExpander yearsExdr;
 
-    public SetCalendar(Element element, SimpleMethod simpleMethod) {
+    public SetCalendar(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.field = new ContextAccessor<Timestamp>(element.getAttribute("field"));
         this.fromField = new ContextAccessor<Object>(element.getAttribute("from-field"));
@@ -86,7 +87,7 @@ public class SetCalendar extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object newValue = null;
         if (!this.fromField.isEmpty()) {
             newValue = this.fromField.get(methodContext);
@@ -200,7 +201,7 @@ public class SetCalendar extends MethodOperation {
     }
 
     public static final class SetCalendarFactory implements Factory<SetCalendar> {
-        public SetCalendar createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public SetCalendar createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetCalendar(element, simpleMethod);
         }
 

@@ -27,6 +27,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -45,7 +46,7 @@ public class ToString extends MethodOperation {
     ContextAccessor<Map<String, Object>> mapAcsr;
     Integer numericPadding;
 
-    public ToString(Element element, SimpleMethod simpleMethod) {
+    public ToString(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -80,7 +81,7 @@ public class ToString extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
             if (toMap == null) {
@@ -117,7 +118,7 @@ public class ToString extends MethodOperation {
     }
 
     public static final class ToStringFactory implements Factory<ToString> {
-        public ToString createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public ToString createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ToString(element, simpleMethod);
         }
 

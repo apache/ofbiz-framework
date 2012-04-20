@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,7 +40,7 @@ public class MakeNextSeqId extends MethodOperation {
     String seqFieldName;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public MakeNextSeqId(Element element, SimpleMethod simpleMethod) {
+    public MakeNextSeqId(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         seqFieldName = element.getAttribute("seq-field-name");
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
@@ -48,7 +49,7 @@ public class MakeNextSeqId extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String seqFieldName = methodContext.expandString(this.seqFieldName);
         String numericPaddingStr = methodContext.expandString(this.numericPaddingStr);
         String incrementByStr = methodContext.expandString(this.incrementByStr);
@@ -86,7 +87,7 @@ public class MakeNextSeqId extends MethodOperation {
     }
 
     public static final class MakeNextSeqIdFactory implements Factory<MakeNextSeqId> {
-        public MakeNextSeqId createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public MakeNextSeqId createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MakeNextSeqId(element, simpleMethod);
         }
 

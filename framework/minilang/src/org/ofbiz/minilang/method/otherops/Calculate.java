@@ -30,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -59,7 +60,7 @@ public class Calculate extends MethodOperation {
     String roundingModeString;
     String typeString;
 
-    public Calculate(Element element, SimpleMethod simpleMethod) {
+    public Calculate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -85,7 +86,7 @@ public class Calculate extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String typeString = methodContext.expandString(this.typeString);
         int type;
         if ("Double".equals(typeString)) {
@@ -324,7 +325,7 @@ public class Calculate extends MethodOperation {
     }
 
     public static final class CalculateFactory implements Factory<Calculate> {
-        public Calculate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public Calculate createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Calculate(element, simpleMethod);
         }
 

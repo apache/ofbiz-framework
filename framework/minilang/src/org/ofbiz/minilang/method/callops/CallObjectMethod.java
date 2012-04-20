@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.FieldObject;
@@ -120,7 +121,7 @@ public class CallObjectMethod extends MethodOperation {
     ContextAccessor<Object> retFieldAcsr;
     ContextAccessor<Map<String, Object>> retMapAcsr;
 
-    public CallObjectMethod(Element element, SimpleMethod simpleMethod) {
+    public CallObjectMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "obj-field" attribute, though the
         // old "obj-field-name" and "obj-map-name" pair is still supported
@@ -152,7 +153,7 @@ public class CallObjectMethod extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String methodName = methodContext.expandString(this.methodName);
         Object methodObject = null;
         if (!objMapAcsr.isEmpty()) {
@@ -192,7 +193,7 @@ public class CallObjectMethod extends MethodOperation {
     }
 
     public static final class CallObjectMethodFactory implements Factory<CallObjectMethod> {
-        public CallObjectMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallObjectMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallObjectMethod(element, simpleMethod);
         }
 

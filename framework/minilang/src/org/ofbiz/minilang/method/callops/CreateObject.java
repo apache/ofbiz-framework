@@ -29,6 +29,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.FieldObject;
@@ -51,7 +52,7 @@ public class CreateObject extends MethodOperation {
     /** A list of MethodObject objects to use as the method call parameters */
     List<MethodObject<?>> parameters;
 
-    public CreateObject(Element element, SimpleMethod simpleMethod) {
+    public CreateObject(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
         // the schema for this element now just has the "field" attribute, though the old
@@ -79,7 +80,7 @@ public class CreateObject extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String className = methodContext.expandString(this.className);
         Class<?> methodClass = null;
         try {
@@ -175,7 +176,7 @@ public class CreateObject extends MethodOperation {
     }
 
     public static final class CreateObjectFactory implements Factory<CreateObject> {
-        public CreateObject createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CreateObject createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CreateObject(element, simpleMethod);
         }
 

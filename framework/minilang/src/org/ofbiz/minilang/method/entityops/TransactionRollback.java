@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -36,13 +37,13 @@ public class TransactionRollback extends MethodOperation {
 
     ContextAccessor<Boolean> beganTransactionAcsr;
 
-    public TransactionRollback(Element element, SimpleMethod simpleMethod) {
+    public TransactionRollback(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean beganTransaction = false;
         Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
         if (beganTransactionBoolean != null) {
@@ -73,7 +74,7 @@ public class TransactionRollback extends MethodOperation {
     }
 
     public static final class TransactionRollbackFactory implements Factory<TransactionRollback> {
-        public TransactionRollback createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public TransactionRollback createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new TransactionRollback(element, simpleMethod);
         }
 

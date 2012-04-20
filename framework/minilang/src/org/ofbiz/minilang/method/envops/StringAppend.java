@@ -26,6 +26,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -46,7 +47,7 @@ public class StringAppend extends MethodOperation {
     String string;
     String suffix;
 
-    public StringAppend(Element element, SimpleMethod simpleMethod) {
+    public StringAppend(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         string = element.getAttribute("string");
         prefix = element.getAttribute("prefix");
@@ -88,7 +89,7 @@ public class StringAppend extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
             if (toMap == null) {
@@ -119,7 +120,7 @@ public class StringAppend extends MethodOperation {
     }
 
     public static final class StringAppendFactory implements Factory<StringAppend> {
-        public StringAppend createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public StringAppend createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StringAppend(element, simpleMethod);
         }
 

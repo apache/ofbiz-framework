@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -36,13 +37,13 @@ public class TransactionBegin extends MethodOperation {
 
     ContextAccessor<Boolean> beganTransactionAcsr;
 
-    public TransactionBegin(Element element, SimpleMethod simpleMethod) {
+    public TransactionBegin(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         beganTransactionAcsr = new ContextAccessor<Boolean>(element.getAttribute("began-transaction-name"), "beganTransaction");
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
@@ -69,7 +70,7 @@ public class TransactionBegin extends MethodOperation {
     }
 
     public static final class TransactionBeginFactory implements Factory<TransactionBegin> {
-        public TransactionBegin createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public TransactionBegin createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new TransactionBegin(element, simpleMethod);
         }
 

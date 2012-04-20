@@ -24,6 +24,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.FieldString;
 import org.ofbiz.minilang.method.MethodContext;
@@ -44,7 +45,7 @@ public class Log extends MethodOperation {
     List<MethodString> methodStrings = null;
     Object startLine;
 
-    public Log(Element element, SimpleMethod simpleMethod) {
+    public Log(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.message = element.getAttribute("message");
         this.levelStr = element.getAttribute("level");
@@ -66,7 +67,7 @@ public class Log extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String levelStr = methodContext.expandString(this.levelStr);
         String message = methodContext.expandString(this.message);
         int level;
@@ -122,7 +123,7 @@ public class Log extends MethodOperation {
     }
 
     public static final class LogFactory implements Factory<Log> {
-        public Log createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public Log createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Log(element, simpleMethod);
         }
 

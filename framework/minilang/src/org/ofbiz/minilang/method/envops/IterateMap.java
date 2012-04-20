@@ -24,6 +24,7 @@ import java.util.Map;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -42,7 +43,7 @@ public class IterateMap extends MethodOperation {
     List<MethodOperation> subOps = FastList.newInstance();
     ContextAccessor<Object> valueAcsr;
 
-    public IterateMap(Element element, SimpleMethod simpleMethod) {
+    public IterateMap(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key"), element.getAttribute("key-name"));
         this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value"), element.getAttribute("value-name"));
@@ -51,7 +52,7 @@ public class IterateMap extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (mapAcsr.isEmpty()) {
             Debug.logWarning("No map-name specified in iterate tag, doing nothing: " + rawString(), module);
             return true;
@@ -103,7 +104,7 @@ public class IterateMap extends MethodOperation {
     }
 
     public static final class IterateMapFactory implements Factory<IterateMap> {
-        public IterateMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IterateMap createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IterateMap(element, simpleMethod);
         }
 

@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleServletAccessor;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -78,7 +79,7 @@ public class CallService extends MethodOperation {
     /** Override the default transaction timeout, only works if we start the transaction */
     protected int transactionTimeout;
 
-    public CallService(Element element, SimpleMethod simpleMethod) {
+    public CallService(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
         inMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("in-map-name"));
@@ -158,7 +159,7 @@ public class CallService extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
         boolean breakOnError = !"false".equals(methodContext.expandString(breakOnErrorStr));
         String serviceName = methodContext.expandString(this.serviceName);
@@ -367,7 +368,7 @@ public class CallService extends MethodOperation {
     }
 
     public static final class CallServiceFactory implements Factory<CallService> {
-        public CallService createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallService createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallService(element, simpleMethod);
         }
 

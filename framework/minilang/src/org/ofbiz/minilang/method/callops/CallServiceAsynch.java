@@ -25,6 +25,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -43,7 +44,7 @@ public class CallServiceAsynch extends MethodOperation {
     protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String serviceName;
 
-    public CallServiceAsynch(Element element, SimpleMethod simpleMethod) {
+    public CallServiceAsynch(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
         inMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("in-map-name"));
@@ -51,7 +52,7 @@ public class CallServiceAsynch extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String serviceName = methodContext.expandString(this.serviceName);
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
         Map<String, Object> inMap = null;
@@ -112,7 +113,7 @@ public class CallServiceAsynch extends MethodOperation {
     }
 
     public static final class CallServiceAsynchFactory implements Factory<CallServiceAsynch> {
-        public CallServiceAsynch createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallServiceAsynch createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallServiceAsynch(element, simpleMethod);
         }
 

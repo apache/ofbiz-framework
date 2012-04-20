@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.entityops;
 
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -31,13 +32,13 @@ public class NowDateToEnv extends MethodOperation {
 
     ContextAccessor<java.sql.Date> envAcsr;
 
-    public NowDateToEnv(Element element, SimpleMethod simpleMethod) {
+    public NowDateToEnv(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         envAcsr = new ContextAccessor<java.sql.Date>(element.getAttribute("field"), element.getAttribute("env-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         envAcsr.put(methodContext, new java.sql.Date(System.currentTimeMillis()));
         return true;
     }
@@ -55,7 +56,7 @@ public class NowDateToEnv extends MethodOperation {
     }
 
     public static final class NowDateFactory implements Factory<NowDateToEnv> {
-        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new NowDateToEnv(element, simpleMethod);
         }
 
@@ -65,7 +66,7 @@ public class NowDateToEnv extends MethodOperation {
     }
 
     public static final class NowDateToEnvFactory implements Factory<NowDateToEnv> {
-        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new NowDateToEnv(element, simpleMethod);
         }
 

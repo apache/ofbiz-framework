@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -47,7 +48,7 @@ public class WebappPropertyToField extends MethodOperation {
     String property;
     String resource;
 
-    public WebappPropertyToField(Element element, SimpleMethod simpleMethod) {
+    public WebappPropertyToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         resource = element.getAttribute("resource");
         property = element.getAttribute("property");
@@ -58,7 +59,7 @@ public class WebappPropertyToField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
         String defaultVal = methodContext.expandString(this.defaultVal);
@@ -111,7 +112,7 @@ public class WebappPropertyToField extends MethodOperation {
     }
 
     public static final class WebappPropertyToFieldFactory implements Factory<WebappPropertyToField> {
-        public WebappPropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public WebappPropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new WebappPropertyToField(element, simpleMethod);
         }
 

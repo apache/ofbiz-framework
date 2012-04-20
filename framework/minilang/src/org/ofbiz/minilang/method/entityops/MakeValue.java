@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.Map;
 
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -36,7 +37,7 @@ public class MakeValue extends MethodOperation {
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public MakeValue(Element element, SimpleMethod simpleMethod) {
+    public MakeValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         entityName = element.getAttribute("entity-name");
@@ -44,7 +45,7 @@ public class MakeValue extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = methodContext.expandString(this.entityName);
         Map<String, ? extends Object> ctxMap = (mapAcsr.isEmpty() ? null : mapAcsr.get(methodContext));
         valueAcsr.put(methodContext, methodContext.getDelegator().makeValidValue(entityName, ctxMap));
@@ -68,7 +69,7 @@ public class MakeValue extends MethodOperation {
     }
 
     public static final class MakeValueFactory implements Factory<MakeValue> {
-        public MakeValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public MakeValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MakeValue(element, simpleMethod);
         }
 

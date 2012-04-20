@@ -25,6 +25,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -41,7 +42,7 @@ public class AddError extends MethodOperation {
     String message = null;
     String propertyResource = null;
 
-    public AddError(Element element, SimpleMethod simpleMethod) {
+    public AddError(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         Element failMessage = UtilXml.firstChildElement(element, "fail-message");
@@ -74,7 +75,7 @@ public class AddError extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
@@ -97,7 +98,7 @@ public class AddError extends MethodOperation {
     }
 
     public static final class AddErrorFactory implements Factory<AddError> {
-        public AddError createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public AddError createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new AddError(element, simpleMethod);
         }
 

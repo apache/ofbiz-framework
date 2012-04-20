@@ -24,6 +24,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleServletAccessor;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -42,7 +43,7 @@ public class RequestToField extends MethodOperation {
     ContextAccessor<Map<String, Object>> mapAcsr;
     FlexibleServletAccessor<Object> requestAcsr;
 
-    public RequestToField(Element element, SimpleMethod simpleMethod) {
+    public RequestToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
@@ -52,7 +53,7 @@ public class RequestToField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String defaultVal = methodContext.expandString(this.defaultVal);
         Object fieldVal = null;
         // only run this if it is in an EVENT context
@@ -99,7 +100,7 @@ public class RequestToField extends MethodOperation {
     }
 
     public static final class RequestToFieldFactory implements Factory<RequestToField> {
-        public RequestToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public RequestToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RequestToField(element, simpleMethod);
         }
 

@@ -29,6 +29,7 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -49,7 +50,7 @@ public class FindByPrimaryKey extends MethodOperation {
     String useCacheStr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public FindByPrimaryKey(Element element, SimpleMethod simpleMethod) {
+    public FindByPrimaryKey(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         entityName = element.getAttribute("entity-name");
@@ -60,7 +61,7 @@ public class FindByPrimaryKey extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = methodContext.expandString(this.entityName);
         String delegatorName = methodContext.expandString(this.delegatorName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
@@ -110,7 +111,7 @@ public class FindByPrimaryKey extends MethodOperation {
     }
 
     public static final class FindByPrimaryKeyFactory implements Factory<FindByPrimaryKey> {
-        public FindByPrimaryKey createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FindByPrimaryKey createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FindByPrimaryKey(element, simpleMethod);
         }
 

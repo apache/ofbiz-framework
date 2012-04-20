@@ -23,6 +23,7 @@ import java.util.List;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,14 +40,14 @@ public class StoreList extends MethodOperation {
     String doCacheClearStr;
     ContextAccessor<List<GenericValue>> listAcsr;
 
-    public StoreList(Element element, SimpleMethod simpleMethod) {
+    public StoreList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<List<GenericValue>>(element.getAttribute("list"), element.getAttribute("list-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
         List<GenericValue> values = listAcsr.get(methodContext);
         if (values == null) {
@@ -83,7 +84,7 @@ public class StoreList extends MethodOperation {
     }
 
     public static final class StoreListFactory implements Factory<StoreList> {
-        public StoreList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public StoreList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StoreList(element, simpleMethod);
         }
 

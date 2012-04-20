@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -37,14 +38,14 @@ public class RefreshValue extends MethodOperation {
     String doCacheClearStr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public RefreshValue(Element element, SimpleMethod simpleMethod) {
+    public RefreshValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
@@ -77,7 +78,7 @@ public class RefreshValue extends MethodOperation {
     }
 
     public static final class RefreshValueFactory implements Factory<RefreshValue> {
-        public RefreshValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public RefreshValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RefreshValue(element, simpleMethod);
         }
 

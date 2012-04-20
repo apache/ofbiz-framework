@@ -23,6 +23,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -43,7 +44,7 @@ public class FieldToField extends MethodOperation {
     ContextAccessor<Object> toFieldAcsr;
     ContextAccessor<Map<String, Object>> toMapAcsr;
 
-    public FieldToField(Element element, SimpleMethod simpleMethod) {
+    public FieldToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
@@ -59,7 +60,7 @@ public class FieldToField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
@@ -110,7 +111,7 @@ public class FieldToField extends MethodOperation {
     }
 
     public static final class FieldToFieldFactory implements Factory<FieldToField> {
-        public FieldToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FieldToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToField(element, simpleMethod);
         }
 

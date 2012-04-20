@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -38,14 +39,14 @@ public class FirstFromList extends MethodOperation {
     ContextAccessor<Object> entryAcsr;
     ContextAccessor<List<? extends Object>> listAcsr;
 
-    public FirstFromList(Element element, SimpleMethod simpleMethod) {
+    public FirstFromList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
         this.listAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (listAcsr.isEmpty()) {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing", module);
             return true;
@@ -71,7 +72,7 @@ public class FirstFromList extends MethodOperation {
     }
 
     public static final class FirstFromListFactory implements Factory<FirstFromList> {
-        public FirstFromList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FirstFromList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FirstFromList(element, simpleMethod);
         }
 

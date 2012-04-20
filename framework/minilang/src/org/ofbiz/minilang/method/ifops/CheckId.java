@@ -27,6 +27,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -47,7 +48,7 @@ public class CheckId extends MethodOperation {
     String message = null;
     String propertyResource = null;
 
-    public CheckId(Element element, SimpleMethod simpleMethod) {
+    public CheckId(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -85,7 +86,7 @@ public class CheckId extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean isValid = true;
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
@@ -128,7 +129,7 @@ public class CheckId extends MethodOperation {
     }
 
     public static final class CheckIdFactory implements Factory<CheckId> {
-        public CheckId createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CheckId createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CheckId(element, simpleMethod);
         }
 
