@@ -127,10 +127,17 @@ public class GroovyUtil {
                 } else {
                     scriptClass = parseClass(scriptUrl.openStream(), location);
                 }
-                if (Debug.verboseOn()) {
-                    Debug.logVerbose("Caching Groovy script at: " + location, module);
+                synchronized (parsedScripts) {
+                    Class<?> scriptClassCached = parsedScripts.get(location);
+                    if (scriptClassCached == null) {
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("Caching Groovy script at: " + location, module);
+                        }
+                        parsedScripts.put(location, scriptClass);
+                    } else {
+                        scriptClass = scriptClassCached;
+                    }
                 }
-                parsedScripts.put(location, scriptClass);
             }
             return scriptClass;
         } catch (Exception e) {
@@ -177,10 +184,18 @@ public class GroovyUtil {
             Class<?> scriptClass = parsedScripts.get(script);
             if (scriptClass == null) {
                 scriptClass = loadClass(script);
-                if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script: " + script, module);
-                parsedScripts.put(script, scriptClass);
+                synchronized (parsedScripts) {
+                    Class<?> scriptClassCached = parsedScripts.get(script);
+                    if (scriptClassCached == null) {
+                        if (Debug.verboseOn()) {
+                            Debug.logVerbose("Caching Groovy script: " + script, module);
+                        }
+                        parsedScripts.put(script, scriptClass);
+                    } else {
+                        scriptClass = scriptClassCached;
+                    }
+                }
             }
-
             return InvokerHelper.createScript(scriptClass, getBinding(context)).run();
         } catch (CompilationFailedException e) {
             String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
