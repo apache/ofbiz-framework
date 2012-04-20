@@ -644,7 +644,7 @@ public class InventoryServices {
                         Timestamp cancelDate = cancelItems.get(orderItemSeqId);
                         Timestamp currentCancelDate = orderItem.getTimestamp("autoCancelDate");
 
-                        Debug.logError("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, module);
+                        Debug.logInfo("OI: " + orderId + " SEQID: "+ orderItemSeqId + " cancelAll: " + cancelAll + " cancelDate: " + cancelDate, module);
                         if (backOrderedItems.containsKey(orderItemSeqId)) {
                             orderItem.set("estimatedShipDate", shipDate);
 
