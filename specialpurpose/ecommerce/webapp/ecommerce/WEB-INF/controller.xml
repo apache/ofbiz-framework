@@ -116,10 +116,10 @@ under the License.
         <security https="false" auth="false"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    <request-map uri="authview">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="main"/>
-    </request-map>
+<!--     <request-map uri="authview"> -->
+<!--         <security https="true" auth="true"/> -->
+<!--         <response name="success" type="view" value="main"/> -->
+<!--     </request-map> -->
 
     <request-map uri="main"><security https="false" auth="false"/><response name="success" type="view" value="main"/></request-map>
     <request-map uri="policies"><security https="false" auth="false"/><response name="success" type="view" value="policies"/></request-map>
