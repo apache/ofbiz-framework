@@ -3281,7 +3281,7 @@
     </property>
     <property key="OrderDistributor">
         <value xml:lang="cs">Dodavatel</value>
-        <value xml:lang="de">Lieferant</value>
+        <value xml:lang="de">Großhändler</value>
         <value xml:lang="en">Distributor</value>
         <value xml:lang="es">Distribuidor</value>
         <value xml:lang="fr">Distributeur</value>

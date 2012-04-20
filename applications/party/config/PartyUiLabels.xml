@@ -2360,7 +2360,7 @@
         <value xml:lang="zh_TW">瀏覽成員分區角色</value>
     </property>
     <property key="PageTitleViewVendorParty">
-        <value xml:lang="de">Lieferant Akteur Informationen anzeigen</value>
+        <value xml:lang="de">Verkäufer Akteur Informationen anzeigen</value>
         <value xml:lang="en">View Vendor Party Info</value>
         <value xml:lang="es">Ver información de vendedor</value>
         <value xml:lang="fr">Affichage info vendeur</value>
@@ -10933,7 +10933,7 @@
         <value xml:lang="zh_TW">按工項等級的價值</value>
     </property>
     <property key="PartyVendor">
-        <value xml:lang="de">Lieferant</value>
+        <value xml:lang="de">Verkäufer</value>
         <value xml:lang="en">Vendor</value>
         <value xml:lang="es">Proveedor</value>
         <value xml:lang="fr">Vendeur</value>
@@ -10949,7 +10949,7 @@
         <value xml:lang="zh_TW">供應商</value>
     </property>
     <property key="PartyVendorInformation">
-        <value xml:lang="de">Lieferant Informationen</value>
+        <value xml:lang="de">Verkäufer Informationen</value>
         <value xml:lang="en">Vendor Information</value>
         <value xml:lang="es">Información del vendedor</value>
         <value xml:lang="fr">Information sur le vendeur</value>

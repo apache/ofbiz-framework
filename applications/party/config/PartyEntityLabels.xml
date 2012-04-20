@@ -1761,7 +1761,7 @@
         <value xml:lang="zh_TW">密送</value>
     </property>
     <property key="RoleType.description.BILL_FROM_VENDOR">
-        <value xml:lang="de">Rechnung vom Lieferant</value>
+        <value xml:lang="de">Rechnung vom Verkäufer</value>
         <value xml:lang="en">Bill-From-Vendor</value>
         <value xml:lang="es">Proveedor que factura</value>
         <value xml:lang="fr">Fournisseur émetteur de facture</value>
@@ -2910,7 +2910,7 @@
         <value xml:lang="zh_TW">貨運登記員</value>
     </property>
     <property key="RoleType.description.SHIP_FROM_VENDOR">
-        <value xml:lang="de">Lieferung vom Lieferant</value>
+        <value xml:lang="de">Lieferung vom Verkäufer</value>
         <value xml:lang="en">Ship-From Vendor</value>
         <value xml:lang="es">Envío de proveedor</value>
         <value xml:lang="fr">Vendeur expéditeur</value>
@@ -3054,7 +3054,7 @@
         <value xml:lang="zh_TW">工會</value>
     </property>
     <property key="RoleType.description.VENDOR">
-        <value xml:lang="de">Lieferant</value>
+        <value xml:lang="de">Verkäufer</value>
         <value xml:lang="en">Vendor</value>
         <value xml:lang="es">Proveedor</value>
         <value xml:lang="fr">Vendeur</value>

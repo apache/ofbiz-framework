@@ -995,7 +995,7 @@
         <value xml:lang="zh_TW">應付賬戶管理應用程式</value>
     </property>
     <property key="AccountingApPageTitleEditVendor">
-        <value xml:lang="de">Lieferant bearbeiten</value>
+        <value xml:lang="de">Verkäufer bearbeiten</value>
         <value xml:lang="en">Edit Vendor</value>
         <value xml:lang="fr">Modifier le vendeur</value>
         <value xml:lang="hi_IN">विक्रेता को संपादित करें</value>
@@ -1006,7 +1006,7 @@
         <value xml:lang="zh_TW">編輯供應商</value>
     </property>
     <property key="AccountingApPageTitleFindVendorResults">
-        <value xml:lang="de">Ergebnis der Lieferantensuche</value>
+        <value xml:lang="de">Ergebnis der Verkäufersuche</value>
         <value xml:lang="en">Find Vendor Results</value>
         <value xml:lang="fr">Chercher des résultats de vendeurs</value>
         <value xml:lang="hi_IN">विक्रेता के परिणाम खोजें</value>
@@ -1017,7 +1017,7 @@
         <value xml:lang="zh_TW">查找供應商結果</value>
     </property>
     <property key="AccountingApPageTitleFindVendors">
-        <value xml:lang="de">Lieferanten suchen</value>
+        <value xml:lang="de">Verkäufer suchen</value>
         <value xml:lang="en">Find Vendors</value>
         <value xml:lang="fr">Chercher des vendeurs</value>
         <value xml:lang="hi_IN">विक्रेताओं को खोजें</value>
@@ -1028,7 +1028,7 @@
         <value xml:lang="zh_TW">查找供應商</value>
     </property>
     <property key="AccountingApPageTitleListVendors">
-        <value xml:lang="de">Lieferanten auflisten</value>
+        <value xml:lang="de">Verkäufer auflisten</value>
         <value xml:lang="en">List Vendors</value>
         <value xml:lang="fr">Liste des vendeurs</value>
         <value xml:lang="hi_IN">विक्रेताओं की सूची</value>
