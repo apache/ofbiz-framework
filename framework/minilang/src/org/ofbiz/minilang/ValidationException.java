@@ -18,21 +18,36 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import org.w3c.dom.Element;
+
 /**
- * Thrown to indicate a Mini-language error.
+ * Thrown to indicate that a Mini-language element is invalid. 
  */
 @SuppressWarnings("serial")
-public class MiniLangException extends org.ofbiz.base.util.GeneralException {
+public class ValidationException extends MiniLangException {
 
-    public MiniLangException() {
-        super();
-    }
+    private final SimpleMethod method;
+    private final Element element;
 
-    public MiniLangException(String str) {
+    public ValidationException(String str, SimpleMethod method, Element element) {
         super(str);
+        this.method = method;
+        this.element = element;
     }
 
-    public MiniLangException(String str, Throwable nested) {
-        super(str, nested);
+    @Override
+    public String getMessage() {
+        StringBuilder sb = new StringBuilder(super.getMessage());
+        if (method != null) {
+            sb.append(" Method = ").append(method.methodName).append(", File = ").append(method.getFromLocation());
+        }
+        if (element != null) {
+            sb.append(", Element = <").append(element.getTagName()).append(">");
+            Object lineNumber = element.getUserData("startLine");
+            if (lineNumber != null) {
+                sb.append(", Line ").append(lineNumber);
+            }
+        }
+        return sb.toString();
     }
 }

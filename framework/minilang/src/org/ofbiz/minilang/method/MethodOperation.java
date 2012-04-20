@@ -32,10 +32,14 @@ import org.w3c.dom.Element;
  */
 public abstract class MethodOperation {
 
+    private final Object lineNumber;
     protected final SimpleMethod simpleMethod;
+    private final String tagName;
 
     protected MethodOperation(Element element, SimpleMethod simpleMethod) {
+        this.lineNumber = element.getUserData("startLine");
         this.simpleMethod = simpleMethod;
+        this.tagName = element.getTagName().intern();
     }
 
     /** Execute the operation. Returns false if no further operations should be executed. 
@@ -45,8 +49,16 @@ public abstract class MethodOperation {
     /** Create an expanded string representation of the operation, is for the current context */
     public abstract String expandedString(MethodContext methodContext);
 
+    public String getLineNumber() {
+        return this.lineNumber == null ? "unknown" : this.lineNumber.toString();
+    }
+
     public SimpleMethod getSimpleMethod() {
         return this.simpleMethod;
+    }
+
+    public String getTagName() {
+        return this.tagName;
     }
 
     /** Create a raw string representation of the operation, would be similar to original XML */

@@ -18,21 +18,30 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import org.ofbiz.minilang.method.MethodOperation;
+
 /**
- * Thrown to indicate a Mini-language error.
+ * Thrown to indicate a Mini-language run-time error. 
  */
 @SuppressWarnings("serial")
-public class MiniLangException extends org.ofbiz.base.util.GeneralException {
+public class MiniLangRuntimeException extends MiniLangException {
 
-    public MiniLangException() {
-        super();
-    }
+    private final MethodOperation operation;
 
-    public MiniLangException(String str) {
+    public MiniLangRuntimeException(String str, MethodOperation operation) {
         super(str);
+        this.operation = operation;
     }
 
-    public MiniLangException(String str, Throwable nested) {
-        super(str, nested);
+    @Override
+    public String getMessage() {
+        StringBuilder sb = new StringBuilder(super.getMessage());
+        if (operation != null) {
+            SimpleMethod method = operation.getSimpleMethod();
+            sb.append(" Method = ").append(method.methodName).append(", File = ").append(method.getFromLocation());
+            sb.append(", Element = <").append(operation.getTagName()).append(">");
+            sb.append(", Line ").append(operation.getLineNumber());
+        }
+        return sb.toString();
     }
 }
