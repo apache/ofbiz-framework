@@ -18,8 +18,8 @@ under the License.
 -->
 <div class="screenlet">
   <h2>${uiLabelMap.PartyChangePassword}</h2>  
-  &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
-  &nbsp;<a href="javascript:document.getElementById('changepasswordform').submit()" class="button">${uiLabelMap.CommonSave}</a>
+  &nbsp;<a id="CommonGoBack1" href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a id="CommonSave1" href="javascript:document.getElementById('changepasswordform').submit()" class="button">${uiLabelMap.CommonSave}</a>
   <p/>   
   <div class="screenlet-body">
     <form id="changepasswordform" method="post" action="<@ofbizUrl>updatePassword/${donePage}</@ofbizUrl>">
@@ -43,7 +43,7 @@ under the License.
         <label>${uiLabelMap.CommonFieldsMarkedAreRequired}</label>
       </fieldset>
     </form>
-    <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="button">[${uiLabelMap.CommonGoBack}]</a>
+    <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">[${uiLabelMap.CommonGoBack}]</a>
     <a href="javascript:document.getElementById('changepasswordform').submit()" class="button">[${uiLabelMap.CommonSave}]</a>
   </div>
 </div>

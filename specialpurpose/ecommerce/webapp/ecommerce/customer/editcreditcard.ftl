@@ -19,7 +19,7 @@ under the License.
 
 <#if canNotView>
   <h3>${uiLabelMap.AccountingCardInfoNotBelongToYou}.</h3>
-<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
 <#else>
   <#if !creditCard?exists>
       <h2>${uiLabelMap.AccountingAddNewCreditCard}</h2>

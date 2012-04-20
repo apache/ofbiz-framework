@@ -24,7 +24,7 @@ under the License.
     &nbsp;<form id="editpersonform2" method="post" action="<@ofbizUrl>createPerson/${donePage}</@ofbizUrl>" name="editpersonform">
 </#if>
 <div>
-  &nbsp;<a href='<@ofbizUrl>authview/${donePage}</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href='<@ofbizUrl>${donePage}</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.editpersonform.submit()" class="button">${uiLabelMap.CommonSave}</a>
   <p/>    
   <input type="hidden" name="partyId" value="${person.partyId?if_exists}" />
@@ -174,5 +174,5 @@ under the License.
 </table>
 </div>
 </form>
-&nbsp;<a href='<@ofbizUrl>authview/${donePage}</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
+&nbsp;<a href='<@ofbizUrl>${donePage}</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
 &nbsp;<a id="editpersonform3" href="javascript:document.editpersonform.submit()" class="button">${uiLabelMap.CommonSave}</a>
