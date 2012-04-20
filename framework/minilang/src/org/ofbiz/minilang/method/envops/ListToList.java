@@ -23,6 +23,7 @@ import java.util.List;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,14 +40,14 @@ public class ListToList extends MethodOperation {
     ContextAccessor<List<Object>> listAcsr;
     ContextAccessor<List<Object>> toListAcsr;
 
-    public ListToList(Element element, SimpleMethod simpleMethod) {
+    public ListToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
         toListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> fromList = listAcsr.get(methodContext);
         List<Object> toList = toListAcsr.get(methodContext);
         if (fromList == null) {
@@ -77,7 +78,7 @@ public class ListToList extends MethodOperation {
     }
 
     public static final class ListToListFactory implements Factory<ListToList> {
-        public ListToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public ListToList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ListToList(element, simpleMethod);
         }
 

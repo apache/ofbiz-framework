@@ -26,6 +26,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -44,7 +45,7 @@ public class IfEmpty extends MethodOperation {
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     List<MethodOperation> subOps = FastList.newInstance();
 
-    public IfEmpty(Element element, SimpleMethod simpleMethod) {
+    public IfEmpty(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -62,7 +63,7 @@ public class IfEmpty extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         // return true;
@@ -113,7 +114,7 @@ public class IfEmpty extends MethodOperation {
     }
 
     public static final class IfEmptyFactory implements Factory<IfEmpty> {
-        public IfEmpty createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IfEmpty createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfEmpty(element, simpleMethod);
         }
 

@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,7 +40,7 @@ public class SetPkFields extends MethodOperation {
     String setIfNullStr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public SetPkFields(Element element, SimpleMethod simpleMethod) {
+    public SetPkFields(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
@@ -47,7 +48,7 @@ public class SetPkFields extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
         GenericValue value = valueAcsr.get(methodContext);
@@ -86,7 +87,7 @@ public class SetPkFields extends MethodOperation {
     }
 
     public static final class SetPkFieldsFactory implements Factory<SetPkFields> {
-        public SetPkFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public SetPkFields createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetPkFields(element, simpleMethod);
         }
 

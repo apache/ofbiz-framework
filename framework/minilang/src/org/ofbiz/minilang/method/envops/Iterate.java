@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -46,7 +47,7 @@ public class Iterate extends MethodOperation {
     protected ContextAccessor<Object> listAcsr;
     protected List<MethodOperation> subOps = FastList.newInstance();
 
-    public Iterate(Element element, SimpleMethod simpleMethod) {
+    public Iterate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
         this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
@@ -54,7 +55,7 @@ public class Iterate extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (listAcsr.isEmpty()) {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing: " + rawString(), module);
             return true;
@@ -144,7 +145,7 @@ public class Iterate extends MethodOperation {
     }
 
     public static final class IterateFactory implements Factory<Iterate> {
-        public Iterate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public Iterate createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Iterate(element, simpleMethod);
         }
 

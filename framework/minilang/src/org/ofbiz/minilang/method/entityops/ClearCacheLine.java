@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -37,14 +38,14 @@ public class ClearCacheLine extends MethodOperation {
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
-    public ClearCacheLine(Element element, SimpleMethod simpleMethod) {
+    public ClearCacheLine(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         entityName = element.getAttribute("entity-name");
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = methodContext.expandString(this.entityName);
 
         if (mapAcsr.isEmpty()) {
@@ -73,7 +74,7 @@ public class ClearCacheLine extends MethodOperation {
     }
 
     public static final class ClearCacheLineFactory implements Factory<ClearCacheLine> {
-        public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ClearCacheLine(element, simpleMethod);
         }
 

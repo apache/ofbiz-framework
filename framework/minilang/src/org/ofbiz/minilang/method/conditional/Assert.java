@@ -25,6 +25,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -43,7 +44,7 @@ public class Assert extends MethodOperation {
     protected ContextAccessor<List<Object>> errorListAcsr;
     protected FlexibleStringExpander titleExdr;
 
-    public Assert(Element element, SimpleMethod simpleMethod) {
+    public Assert(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
@@ -53,7 +54,7 @@ public class Assert extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
@@ -104,7 +105,7 @@ public class Assert extends MethodOperation {
     }
 
     public static final class AssertFactory implements Factory<Assert> {
-        public Assert createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public Assert createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Assert(element, simpleMethod);
         }
 

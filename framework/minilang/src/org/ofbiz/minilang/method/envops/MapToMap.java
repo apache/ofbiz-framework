@@ -23,6 +23,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,14 +40,14 @@ public class MapToMap extends MethodOperation {
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Map<String, Object>> toMapAcsr;
 
-    public MapToMap(Element element, SimpleMethod simpleMethod) {
+    public MapToMap(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
         toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map"), element.getAttribute("to-map-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Map<String, Object> fromMap = null;
         if (!mapAcsr.isEmpty()) {
             fromMap = mapAcsr.get(methodContext);
@@ -85,7 +86,7 @@ public class MapToMap extends MethodOperation {
     }
 
     public static final class MapToMapFactory implements Factory<MapToMap> {
-        public MapToMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public MapToMap createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new MapToMap(element, simpleMethod);
         }
 

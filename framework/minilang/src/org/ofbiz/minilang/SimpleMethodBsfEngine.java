@@ -89,8 +89,11 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
             Debug.logWarning("Found more than one simple-method in the file, running the [" + methodName + "] method, you should remove all but one method from this file", module);
         SimpleMethod simpleMethod = simpleMethods.get(methodName);
         MethodContext methodContext = new MethodContext(context, null, MethodContext.EVENT);
-        return simpleMethod.exec(methodContext);
-        // methodContext.getResults();
+        try {
+            return simpleMethod.exec(methodContext);
+        } catch (MiniLangException e) {
+            throw new BSFException(e.getMessage());
+        }
     }
 
     @Override

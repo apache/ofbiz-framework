@@ -24,6 +24,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -40,14 +41,14 @@ public class RequestParametersToList extends MethodOperation {
     ContextAccessor<List<String>> listAcsr;
     String requestName;
 
-    public RequestParametersToList(Element element, SimpleMethod simpleMethod) {
+    public RequestParametersToList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         requestName = element.getAttribute("request-name");
         listAcsr = new ContextAccessor<List<String>>(element.getAttribute("list-name"), requestName);
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<String> listVal = null;
         // only run this if it is in an EVENT context
         if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -85,7 +86,7 @@ public class RequestParametersToList extends MethodOperation {
     }
 
     public static final class RequestParametersToListFactory implements Factory<RequestParametersToList> {
-        public RequestParametersToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public RequestParametersToList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RequestParametersToList(element, simpleMethod);
         }
 

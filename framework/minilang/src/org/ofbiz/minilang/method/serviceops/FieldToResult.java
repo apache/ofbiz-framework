@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.serviceops;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -38,7 +39,7 @@ public class FieldToResult extends MethodOperation {
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> resultAcsr;
 
-    public FieldToResult(Element element, SimpleMethod simpleMethod) {
+    public FieldToResult(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -47,7 +48,7 @@ public class FieldToResult extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // only run this if it is in an SERVICE context
         if (methodContext.getMethodType() == MethodContext.SERVICE) {
             Object fieldVal = null;
@@ -84,7 +85,7 @@ public class FieldToResult extends MethodOperation {
     }
 
     public static final class FieldToResultFactory implements Factory<FieldToResult> {
-        public FieldToResult createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FieldToResult createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToResult(element, simpleMethod);
         }
 

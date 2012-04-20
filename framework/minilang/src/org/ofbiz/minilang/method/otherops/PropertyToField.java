@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.util.EntityUtilProperties;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -48,7 +49,7 @@ public class PropertyToField extends MethodOperation {
     String property;
     String resource;
 
-    public PropertyToField(Element element, SimpleMethod simpleMethod) {
+    public PropertyToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         resource = element.getAttribute("resource");
         property = element.getAttribute("property");
@@ -62,7 +63,7 @@ public class PropertyToField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
         String value = null;
@@ -112,7 +113,7 @@ public class PropertyToField extends MethodOperation {
     }
 
     public static final class PropertyToFieldFactory implements Factory<PropertyToField> {
-        public PropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public PropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new PropertyToField(element, simpleMethod);
         }
 

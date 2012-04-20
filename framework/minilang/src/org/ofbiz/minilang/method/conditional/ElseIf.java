@@ -23,6 +23,7 @@ import java.util.List;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -36,7 +37,7 @@ public class ElseIf {
     protected Conditional condition;
     protected List<MethodOperation> thenSubOps = FastList.newInstance();
 
-    public ElseIf(Element element, SimpleMethod simpleMethod) {
+    public ElseIf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);

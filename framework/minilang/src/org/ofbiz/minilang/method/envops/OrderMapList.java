@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapComparator;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -46,7 +47,7 @@ public class OrderMapList extends MethodOperation {
     protected MapComparator mc;
     protected List<FlexibleMapAccessor<String>> orderByAcsrList = FastList.newInstance();
 
-    public OrderMapList(Element element, SimpleMethod simpleMethod) {
+    public OrderMapList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<List<Map<Object, Object>>>(element.getAttribute("list"), element.getAttribute("list-name"));
         for (Element orderByElement : UtilXml.childElementList(element, "order-by")) {
@@ -57,7 +58,7 @@ public class OrderMapList extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Map<Object, Object>> orderList = listAcsr.get(methodContext);
         if (orderList == null) {
             if (Debug.infoOn())
@@ -80,7 +81,7 @@ public class OrderMapList extends MethodOperation {
     }
 
     public static final class OrderMapListFactory implements Factory<OrderMapList> {
-        public OrderMapList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public OrderMapList createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new OrderMapList(element, simpleMethod);
         }
 

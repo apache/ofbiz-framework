@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -38,7 +39,7 @@ public class FilterListByAnd extends MethodOperation {
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<List<GenericEntity>> toListAcsr;
 
-    public FilterListByAnd(Element element, SimpleMethod simpleMethod) {
+    public FilterListByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
         toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
@@ -49,7 +50,7 @@ public class FilterListByAnd extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Map<String, ? extends Object> theMap = null;
         if (!mapAcsr.isEmpty()) {
             theMap = mapAcsr.get(methodContext);
@@ -71,7 +72,7 @@ public class FilterListByAnd extends MethodOperation {
     }
 
     public static final class FilterListByAndFactory implements Factory<FilterListByAnd> {
-        public FilterListByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FilterListByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FilterListByAnd(element, simpleMethod);
         }
 

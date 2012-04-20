@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -40,7 +41,7 @@ public class CheckErrors extends MethodOperation {
     FlexibleMessage messagePrefix;
     FlexibleMessage messageSuffix;
 
-    public CheckErrors(Element element, SimpleMethod simpleMethod) {
+    public CheckErrors(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         errorCode = element.getAttribute("error-code");
         if (UtilValidate.isEmpty(errorCode))
@@ -53,7 +54,7 @@ public class CheckErrors extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (UtilValidate.isNotEmpty(messages)) {
             String errorCode = methodContext.expandString(this.errorCode);
@@ -90,7 +91,7 @@ public class CheckErrors extends MethodOperation {
     }
 
     public static final class CheckErrorsFactory implements Factory<CheckErrors> {
-        public CheckErrors createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CheckErrors createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CheckErrors(element, simpleMethod);
         }
 

@@ -27,6 +27,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -49,7 +50,7 @@ public class CheckPermission extends MethodOperation {
     PermissionInfo permissionInfo;
     String propertyResource = null;
 
-    public CheckPermission(Element element, SimpleMethod simpleMethod) {
+    public CheckPermission(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         permissionInfo = new PermissionInfo(element);
         this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
@@ -98,7 +99,7 @@ public class CheckPermission extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean hasPermission = false;
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
@@ -155,7 +156,7 @@ public class CheckPermission extends MethodOperation {
     }
 
     public static final class CheckPermissionFactory implements Factory<CheckPermission> {
-        public CheckPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CheckPermission createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CheckPermission(element, simpleMethod);
         }
 

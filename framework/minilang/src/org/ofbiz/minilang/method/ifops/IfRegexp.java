@@ -30,6 +30,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -50,7 +51,7 @@ public class IfRegexp extends MethodOperation {
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     List<MethodOperation> subOps = FastList.newInstance();
 
-    public IfRegexp(Element element, SimpleMethod simpleMethod) {
+    public IfRegexp(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -65,7 +66,7 @@ public class IfRegexp extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         String fieldString = null;
@@ -130,7 +131,7 @@ public class IfRegexp extends MethodOperation {
     }
 
     public static final class IfRegexpFactory implements Factory<IfRegexp> {
-        public IfRegexp createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IfRegexp createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfRegexp(element, simpleMethod);
         }
 

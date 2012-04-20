@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -35,13 +36,13 @@ public class SetCurrentUserLogin extends MethodOperation {
 
     ContextAccessor<GenericValue> valueAcsr;
 
-    public SetCurrentUserLogin(Element element, SimpleMethod simpleMethod) {
+    public SetCurrentUserLogin(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         GenericValue userLogin = valueAcsr.get(methodContext);
         if (userLogin == null) {
             Debug.logWarning("In SetCurrentUserLogin a value was not found with the specified valueName: " + valueAcsr + ", not setting", module);
@@ -64,7 +65,7 @@ public class SetCurrentUserLogin extends MethodOperation {
     }
 
     public static final class SetCurrentUserLoginFactory implements Factory<SetCurrentUserLogin> {
-        public SetCurrentUserLogin createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public SetCurrentUserLogin createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new SetCurrentUserLogin(element, simpleMethod);
         }
 

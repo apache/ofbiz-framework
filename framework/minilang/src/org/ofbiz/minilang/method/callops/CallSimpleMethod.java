@@ -38,14 +38,14 @@ public class CallSimpleMethod extends MethodOperation {
     String methodName;
     String xmlResource;
 
-    public CallSimpleMethod(Element element, SimpleMethod simpleMethod) {
+    public CallSimpleMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.methodName = element.getAttribute("method-name");
         this.xmlResource = element.getAttribute("xml-resource");
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (UtilValidate.isNotEmpty(this.methodName)) {
             String methodName = methodContext.expandString(this.methodName);
             String xmlResource = methodContext.expandString(this.xmlResource);
@@ -132,7 +132,7 @@ public class CallSimpleMethod extends MethodOperation {
     }
 
     public static final class CallSimpleMethodFactory implements Factory<CallSimpleMethod> {
-        public CallSimpleMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallSimpleMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallSimpleMethod(element, simpleMethod);
         }
 

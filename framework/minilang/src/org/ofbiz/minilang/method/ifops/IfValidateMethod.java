@@ -28,6 +28,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -48,7 +49,7 @@ public class IfValidateMethod extends MethodOperation {
     String methodName;
     List<MethodOperation> subOps = FastList.newInstance();
 
-    public IfValidateMethod(Element element, SimpleMethod simpleMethod) {
+    public IfValidateMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -64,7 +65,7 @@ public class IfValidateMethod extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         String methodName = methodContext.expandString(this.methodName);
@@ -147,7 +148,7 @@ public class IfValidateMethod extends MethodOperation {
     }
 
     public static final class IfValidateMethodFactory implements Factory<IfValidateMethod> {
-        public IfValidateMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IfValidateMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfValidateMethod(element, simpleMethod);
         }
 

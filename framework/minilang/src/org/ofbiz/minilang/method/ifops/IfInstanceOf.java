@@ -26,6 +26,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -42,7 +43,7 @@ public class IfInstanceOf extends MethodOperation {
     protected ContextAccessor<Map<String, ? extends Object>> mapAcsr = null;
     protected List<MethodOperation> subOps = FastList.newInstance();
 
-    public IfInstanceOf(Element element, SimpleMethod simpleMethod) {
+    public IfInstanceOf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -57,7 +58,7 @@ public class IfInstanceOf extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // only run subOps if element is instanceOf
         boolean runSubOps = false;
         Object fieldVal = null;
@@ -106,7 +107,7 @@ public class IfInstanceOf extends MethodOperation {
     }
 
     public static final class IfInstanceOfFactory implements Factory<IfInstanceOf> {
-        public IfInstanceOf createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IfInstanceOf createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfInstanceOf(element, simpleMethod);
         }
 

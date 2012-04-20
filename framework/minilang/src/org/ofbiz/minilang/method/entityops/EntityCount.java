@@ -34,6 +34,7 @@ import org.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionObject;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -52,7 +53,7 @@ public class EntityCount extends MethodOperation {
     protected Condition havingCondition;
     protected Condition whereCondition;
 
-    public EntityCount(Element element, SimpleMethod simpleMethod) {
+    public EntityCount(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.entityNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         this.delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
@@ -83,7 +84,7 @@ public class EntityCount extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
             Map<String, Object> context = methodContext.getEnvMap();
             Delegator delegator = methodContext.getDelegator();
@@ -141,7 +142,7 @@ public class EntityCount extends MethodOperation {
     }
 
     public static final class EntityCountFactory implements Factory<EntityCount> {
-        public EntityCount createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public EntityCount createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityCount(element, simpleMethod);
         }
 

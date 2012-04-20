@@ -55,7 +55,7 @@ public class CallScript extends MethodOperation {
     private String location;
     private String method;
 
-    public CallScript(Element element, SimpleMethod simpleMethod) {
+    public CallScript(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         String scriptLocation = element.getAttribute("location");
         this.location = getScriptLocation(scriptLocation);
@@ -64,7 +64,7 @@ public class CallScript extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String location = methodContext.expandString(this.location);
         String method = methodContext.expandString(this.method);
         List<Object> messages = errorListAcsr.get(methodContext);
@@ -99,7 +99,7 @@ public class CallScript extends MethodOperation {
     }
 
     public static final class CallScriptFactory implements Factory<CallScript> {
-        public CallScript createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallScript createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallScript(element, simpleMethod);
         }
 

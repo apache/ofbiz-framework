@@ -40,7 +40,7 @@ public class EnvToField extends MethodOperation {
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, Object>> mapAcsr;
 
-    public EnvToField(Element element, SimpleMethod simpleMethod) {
+    public EnvToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
@@ -52,7 +52,7 @@ public class EnvToField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object envVar = envAcsr.get(methodContext);
         if (envVar == null) {
             Debug.logWarning("Environment field not found with name " + envAcsr + ", not copying env field", module);
@@ -86,7 +86,7 @@ public class EnvToField extends MethodOperation {
     }
 
     public static final class EnvToFieldFactory implements Factory<EnvToField> {
-        public EnvToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public EnvToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EnvToField(element, simpleMethod);
         }
 

@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.entityops;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -38,7 +39,7 @@ public class RemoveRelated extends MethodOperation {
     String relationName;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public RemoveRelated(Element element, SimpleMethod simpleMethod) {
+    public RemoveRelated(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         relationName = element.getAttribute("relation-name");
@@ -46,7 +47,7 @@ public class RemoveRelated extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
         String relationName = methodContext.expandString(this.relationName);
         GenericValue value = valueAcsr.get(methodContext);
@@ -92,7 +93,7 @@ public class RemoveRelated extends MethodOperation {
     }
 
     public static final class RemoveRelatedFactory implements Factory<RemoveRelated> {
-        public RemoveRelated createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public RemoveRelated createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RemoveRelated(element, simpleMethod);
         }
 

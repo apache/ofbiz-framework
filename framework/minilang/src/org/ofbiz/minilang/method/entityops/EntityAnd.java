@@ -22,6 +22,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.finder.ByAndFinder;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -36,13 +37,13 @@ public class EntityAnd extends MethodOperation {
 
     protected ByAndFinder finder;
 
-    public EntityAnd(Element element, SimpleMethod simpleMethod) {
+    public EntityAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.finder = new ByAndFinder(element);
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         try {
             Delegator delegator = methodContext.getDelegator();
             this.finder.runFind(methodContext.getEnvMap(), delegator);
@@ -78,7 +79,7 @@ public class EntityAnd extends MethodOperation {
     }
 
     public static final class EntityAndFactory implements Factory<EntityAnd> {
-        public EntityAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public EntityAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityAnd(element, simpleMethod);
         }
 

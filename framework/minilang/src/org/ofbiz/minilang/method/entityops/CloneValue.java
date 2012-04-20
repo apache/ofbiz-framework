@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -36,14 +37,14 @@ public class CloneValue extends MethodOperation {
     ContextAccessor<GenericValue> newValueAcsr;
     ContextAccessor<GenericValue> valueAcsr;
 
-    public CloneValue(Element element, SimpleMethod simpleMethod) {
+    public CloneValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         newValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("new-value-field"), element.getAttribute("new-value-name"));
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             Debug.logWarning("In clone-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not copying", module);
@@ -66,7 +67,7 @@ public class CloneValue extends MethodOperation {
     }
 
     public static final class CloneValueFactory implements Factory<CloneValue> {
-        public CloneValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CloneValue createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CloneValue(element, simpleMethod);
         }
 

@@ -26,6 +26,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -43,7 +44,7 @@ public class IfHasPermission extends MethodOperation {
     protected FlexibleStringExpander permissionExdr;
     protected List<MethodOperation> subOps = FastList.newInstance();
 
-    public IfHasPermission(Element element, SimpleMethod simpleMethod) {
+    public IfHasPermission(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.permissionExdr = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
         this.actionExdr = FlexibleStringExpander.getInstance(element.getAttribute("action"));
@@ -56,7 +57,7 @@ public class IfHasPermission extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         // return true;
@@ -112,7 +113,7 @@ public class IfHasPermission extends MethodOperation {
     }
 
     public static final class IfHasPermissionFactory implements Factory<IfHasPermission> {
-        public IfHasPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IfHasPermission createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfHasPermission(element, simpleMethod);
         }
 

@@ -25,6 +25,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -43,7 +44,7 @@ public class FilterListByDate extends MethodOperation {
     ContextAccessor<List<GenericEntity>> toListAcsr;
     ContextAccessor<Timestamp> validDateAcsr;
 
-    public FilterListByDate(Element element, SimpleMethod simpleMethod) {
+    public FilterListByDate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
         toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
@@ -61,7 +62,7 @@ public class FilterListByDate extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (!validDateAcsr.isEmpty()) {
             toListAcsr.put(methodContext, EntityUtil.filterByDate(listAcsr.get(methodContext), validDateAcsr.get(methodContext), fromFieldName, thruFieldName, true));
         } else {
@@ -83,7 +84,7 @@ public class FilterListByDate extends MethodOperation {
     }
 
     public static final class FilterListByDateFactory implements Factory<FilterListByDate> {
-        public FilterListByDate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FilterListByDate createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FilterListByDate(element, simpleMethod);
         }
 

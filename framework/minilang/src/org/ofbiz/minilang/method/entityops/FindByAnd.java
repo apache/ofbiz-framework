@@ -27,6 +27,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -48,7 +49,7 @@ public class FindByAnd extends MethodOperation {
     String useCacheStr;
     String useIteratorStr;
 
-    public FindByAnd(Element element, SimpleMethod simpleMethod) {
+    public FindByAnd(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
         entityName = element.getAttribute("entity-name");
@@ -60,7 +61,7 @@ public class FindByAnd extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String entityName = methodContext.expandString(this.entityName);
         String delegatorName = methodContext.expandString(this.delegatorName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
@@ -121,7 +122,7 @@ public class FindByAnd extends MethodOperation {
     }
 
     public static final class FindByAndFactory implements Factory<FindByAnd> {
-        public FindByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FindByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FindByAnd(element, simpleMethod);
         }
 

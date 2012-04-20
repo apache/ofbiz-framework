@@ -27,6 +27,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.FieldObject;
@@ -50,7 +51,7 @@ public class CallClassMethod extends MethodOperation {
     ContextAccessor<Object> retFieldAcsr;
     ContextAccessor<Map<String, Object>> retMapAcsr;
 
-    public CallClassMethod(Element element, SimpleMethod simpleMethod) {
+    public CallClassMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
         methodName = element.getAttribute("method-name");
@@ -79,7 +80,7 @@ public class CallClassMethod extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String className = methodContext.expandString(this.className);
         String methodName = methodContext.expandString(this.methodName);
         Class<?> methodClass = null;
@@ -108,7 +109,7 @@ public class CallClassMethod extends MethodOperation {
     }
 
     public static final class CallClassMethodFactory implements Factory<CallClassMethod> {
-        public CallClassMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public CallClassMethod createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CallClassMethod(element, simpleMethod);
         }
 

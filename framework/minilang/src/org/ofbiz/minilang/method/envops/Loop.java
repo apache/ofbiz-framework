@@ -23,6 +23,7 @@ import java.util.List;
 import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -40,7 +41,7 @@ public class Loop extends MethodOperation {
     protected ContextAccessor<Integer> fieldAcsr;
     protected List<MethodOperation> subOps = FastList.newInstance();
 
-    public Loop(Element element, SimpleMethod simpleMethod) {
+    public Loop(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.fieldAcsr = new ContextAccessor<Integer>(element.getAttribute("field"));
         this.countStr = element.getAttribute("count");
@@ -48,7 +49,7 @@ public class Loop extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String countStrExp = methodContext.expandString(this.countStr);
         int count = 0;
         try {
@@ -89,7 +90,7 @@ public class Loop extends MethodOperation {
     }
 
     public static final class LoopFactory implements Factory<Loop> {
-        public Loop createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public Loop createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Loop(element, simpleMethod);
         }
 

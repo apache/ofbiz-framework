@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.envops;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -40,7 +41,7 @@ public class FieldToEnv extends MethodOperation {
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
-    public FieldToEnv(Element element, SimpleMethod simpleMethod) {
+    public FieldToEnv(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -56,7 +57,7 @@ public class FieldToEnv extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
@@ -90,7 +91,7 @@ public class FieldToEnv extends MethodOperation {
     }
 
     public static final class FieldToEnvFactory implements Factory<FieldToEnv> {
-        public FieldToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public FieldToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new FieldToEnv(element, simpleMethod);
         }
 

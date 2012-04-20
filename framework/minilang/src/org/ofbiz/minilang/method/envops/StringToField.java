@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.MessageString;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -48,7 +49,7 @@ public class StringToField extends MethodOperation {
     String messageFieldName;
     String string;
 
-    public StringToField(Element element, SimpleMethod simpleMethod) {
+    public StringToField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         string = element.getAttribute("string");
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
@@ -58,7 +59,7 @@ public class StringToField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String valueStr = methodContext.expandString(string);
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
@@ -100,7 +101,7 @@ public class StringToField extends MethodOperation {
     }
 
     public static final class StringToFieldFactory implements Factory<StringToField> {
-        public StringToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public StringToField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new StringToField(element, simpleMethod);
         }
 

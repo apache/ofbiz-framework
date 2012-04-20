@@ -23,6 +23,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -39,7 +40,7 @@ public class ClearField extends MethodOperation {
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, Object>> mapAcsr;
 
-    public ClearField(Element element, SimpleMethod simpleMethod) {
+    public ClearField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
@@ -47,7 +48,7 @@ public class ClearField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
             if (toMap == null) {
@@ -77,7 +78,7 @@ public class ClearField extends MethodOperation {
     }
 
     public static final class ClearFieldFactory implements Factory<ClearField> {
-        public ClearField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public ClearField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new ClearField(element, simpleMethod);
         }
 

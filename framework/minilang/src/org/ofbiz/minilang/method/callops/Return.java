@@ -19,6 +19,7 @@
 package org.ofbiz.minilang.method.callops;
 
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -31,7 +32,7 @@ public class Return extends MethodOperation {
 
     String responseCode;
 
-    public Return(Element element, SimpleMethod simpleMethod) {
+    public Return(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         responseCode = element.getAttribute("response-code");
         if (UtilValidate.isEmpty(responseCode))
@@ -39,7 +40,7 @@ public class Return extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         String responseCode = methodContext.expandString(this.responseCode);
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
@@ -65,7 +66,7 @@ public class Return extends MethodOperation {
     }
 
     public static final class ReturnFactory implements Factory<Return> {
-        public Return createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public Return createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new Return(element, simpleMethod);
         }
 

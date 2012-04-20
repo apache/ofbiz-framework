@@ -32,6 +32,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -51,7 +52,7 @@ public class EntityData extends MethodOperation {
     protected String mode;
     protected FlexibleStringExpander timeoutExdr;
 
-    public EntityData(Element element, SimpleMethod simpleMethod) {
+    public EntityData(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         locationExdr = FlexibleStringExpander.getInstance(element.getAttribute("location"));
         delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
@@ -64,7 +65,7 @@ public class EntityData extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         List<Object> messages = errorListAcsr.get(methodContext);
         if (messages == null) {
             messages = FastList.newInstance();
@@ -136,7 +137,7 @@ public class EntityData extends MethodOperation {
     }
 
     public static final class EntityDataFactory implements Factory<EntityData> {
-        public EntityData createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public EntityData createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EntityData(element, simpleMethod);
         }
 

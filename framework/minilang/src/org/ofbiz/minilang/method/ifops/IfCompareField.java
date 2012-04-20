@@ -25,6 +25,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -49,7 +50,7 @@ public class IfCompareField extends MethodOperation {
     protected ContextAccessor<Map<String, ? extends Object>> toMapAcsr;
     protected String type;
 
-    public IfCompareField(Element element, SimpleMethod simpleMethod) {
+    public IfCompareField(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
@@ -81,7 +82,7 @@ public class IfCompareField extends MethodOperation {
     }
 
     @Override
-    public boolean exec(MethodContext methodContext) {
+    public boolean exec(MethodContext methodContext) throws MiniLangException {
         // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         String operator = methodContext.expandString(this.operator);
@@ -164,7 +165,7 @@ public class IfCompareField extends MethodOperation {
     }
 
     public static final class IfCompareFieldFactory implements Factory<IfCompareField> {
-        public IfCompareField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+        public IfCompareField createMethodOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new IfCompareField(element, simpleMethod);
         }
 
