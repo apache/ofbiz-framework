@@ -116,7 +116,10 @@ public class GroovyUtil {
     }
     public static Class<?> getScriptClassFromLocation(String location, GroovyClassLoader groovyClassLoader) throws GeneralException {
         try {
-            Class<?> scriptClass = parsedScripts.get(location);
+            Class<?> scriptClass = null;
+            synchronized (parsedScripts) {
+                scriptClass = parsedScripts.get(location);
+            }
             if (scriptClass == null) {
                 URL scriptUrl = FlexibleLocation.resolveLocation(location);
                 if (scriptUrl == null) {
@@ -181,7 +184,10 @@ public class GroovyUtil {
 
     public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {
         try {
-            Class<?> scriptClass = parsedScripts.get(script);
+            Class<?> scriptClass = null;
+            synchronized (parsedScripts) {
+                parsedScripts.get(script);
+            }
             if (scriptClass == null) {
                 scriptClass = loadClass(script);
                 synchronized (parsedScripts) {
