@@ -271,15 +271,6 @@ function ConstructLookup(requestUrl, inputFieldId, dialogTarget, dialogOptionalT
                     return data;
                 },
                 success: function(data) {
-                    //search for <span style="message...> returned from server
-                    var matchFound = data.toString().match(AJAX_SERVER_REPLY_MSG_REGEXPATTERN);
-                    if (matchFound != null) {
-                        jQuery(event.target).parent().css({'display':'none'});
-                        jQuery("#" + lookupId).dialog('close');
-                        alert(matchFound[1].trim());
-                        return;
-                    }
-                    
                     jQuery("#" + lookupId).html(data);
                     
                     lookupFormAction = jQuery("#" + lookupId + " form:first").attr("action");
