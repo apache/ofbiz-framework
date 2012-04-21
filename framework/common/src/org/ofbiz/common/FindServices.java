@@ -76,6 +76,7 @@ public class FindServices {
         entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
         entityOperators.put("greaterThanEqualTo", EntityOperator.GREATER_THAN_EQUAL_TO);
         entityOperators.put("in", EntityOperator.IN);
+        entityOperators.put("not-in", EntityOperator.NOT_IN);
         entityOperators.put("lessThan", EntityOperator.LESS_THAN);
         entityOperators.put("lessThanEqualTo", EntityOperator.LESS_THAN_EQUAL_TO);
         entityOperators.put("like", EntityOperator.LIKE);
@@ -332,7 +333,7 @@ public class FindServices {
             fieldOp = EntityOperator.EQUALS;
         }
         Object fieldObject = fieldValue;
-        if (fieldOp != EntityOperator.IN || !(fieldValue instanceof Collection<?>)) {
+        if ((fieldOp != EntityOperator.IN && fieldOp != EntityOperator.NOT_IN ) || !(fieldValue instanceof Collection<?>)) {
             fieldObject = modelField.getModelEntity().convertFieldValue(modelField, fieldValue, delegator, context);
         }
         if (ignoreCase && fieldObject instanceof String) {
