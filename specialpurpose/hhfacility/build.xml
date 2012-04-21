@@ -40,8 +40,6 @@ under the License.
         <fileset dir="../../framework/service/lib" includes="*.jar"/>
         <fileset dir="../../framework/service/build/lib" includes="*.jar"/>
         <fileset dir="../../framework/entityext/build/lib" includes="*.jar"/>
-        <fileset dir="../../framework/guiapp/lib" includes="*.jar"/>
-        <fileset dir="../../framework/guiapp/build/lib" includes="*.jar"/>
         <fileset dir="../../framework/webapp/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/product/build/lib" includes="*.jar"/>

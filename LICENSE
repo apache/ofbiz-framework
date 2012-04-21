@@ -529,8 +529,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Mozilla Public License Version 1.1:
-ofbiz/trunk/framework/guiapp/lib/XuiCoreSwing-v3.2rc2b.jar
-ofbiz/trunk/framework/guiapp/lib/XuiOptional-v3.2rc2b.jar
+ofbiz/trunk/specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar
+ofbiz/trunk/specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar
 ofbiz/trunk/framework/webapp/lib/iText-2.1.7.jar
 =========================================================================
                           MOZILLA PUBLIC LICENSE
