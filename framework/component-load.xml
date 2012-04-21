@@ -36,7 +36,6 @@ under the License.
     <load-component component-location="bi"/>
     <load-component component-location="birt"/>
     <load-component component-location="webapp"/>
-    <load-component component-location="guiapp"/>
     <load-component component-location="widget"/>
     <load-component component-location="appserver"/>
     <load-component component-location="testtools"/>
