@@ -20,9 +20,6 @@
 //Define global variable to store last auto-completer request object (jqXHR).
 var LAST_AUTOCOMP_REF = null;
 
-//the regex pattern to filter out the message returned by server during an ajax call.
-var AJAX_SERVER_REPLY_MSG_REGEXPATTERN = /<span\s+class="message\s+.*">(.*)?<\/span>/;
-
 //default ajax request timeout in milliseconds
 var AJAX_REQUEST_TIMEOUT = 5000;
 
@@ -435,14 +432,6 @@ function ajaxAutoCompleter(areaCsvString, showDescription, defaultMinLength, def
                     success: function(data) {
                         // reset the autocomp field
                         autocomp = undefined;
-
-                        //search for <span style="message...> returned from server
-                        var matchFound = data.toString().match(AJAX_SERVER_REPLY_MSG_REGEXPATTERN);
-                        if (matchFound != null) {
-                            alert(matchFound[1].trim());
-                            response(null);
-                            return;
-                        }
 
                         jQuery("#" + div + "_auto").html(data);
 

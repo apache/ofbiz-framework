@@ -2430,9 +2430,10 @@ z-index:50000;
 position:absolute;
 }
 #wait-spinner-image {
-height:21px;
-width:56px;
-background-image:url(/tomahawk/images/spinner.gif);
+height:45px;
+width:45px;
+background-repeat: no-repeat;
+background-image:url(/images/spinner.gif);
 }
 .wait-spinner div {
     padding-top: 4px;

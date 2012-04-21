@@ -27,8 +27,9 @@ position:absolute;
 }
 
 #wait-spinner-image {
-height:21px;
-width:56px;
+height:45px;
+width:45px;
+background-repeat: no-repeat;
 background-image:url(/images/spinner.gif);
 }
 
@@ -676,10 +677,11 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 background: url(images/cal.gif) no-repeat !important;
 display: inline-block;
 border: none;
-vertical-align:center;
-margin-top:3px;
-margin-left: 6px;
-height:22px;
+vertical-align: middle;
+/*wt;begin/end*/
+margin: 2px 2px 2px 2px;
+height: 18px;
+width: 18px;
 }
 
 /* css for timepicker */

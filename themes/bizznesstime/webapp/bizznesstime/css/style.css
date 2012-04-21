@@ -1486,8 +1486,9 @@ z-index:50000;
 position:absolute;
 }
 #wait-spinner-image {
-height:21px;
-width:56px;
+height:45px;
+width:45px;
+background-repeat: no-repeat;
 background-image:url(/images/spinner.gif);
 }
 
