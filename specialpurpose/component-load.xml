@@ -38,6 +38,7 @@ under the License.
     <load-component component-location="ldap"/>
     <load-component component-location="webpos"/>
     <load-component component-location="example"/>
+    <load-component component-location="exampleext"/>
     <!-- The component below are not maintained by the community, or at least not very actively
         Still they are functional (or at least should be). 
         So if you need them simply uncomment and have a look also in the build file -->

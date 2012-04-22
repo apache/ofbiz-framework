@@ -59,15 +59,6 @@ under the License.
         location="webapp/example"
         base-permission="OFBTOOLS,EXAMPLE"
         mount-point="/example"/>
-
-    <webapp name="exampleext"
-        title="ExampleExt"
-        menu-name="secondary"
-        server="default-server"
-        location="webapp/exampleext"
-        base-permission="OFBTOOLS,EXAMPLE"
-        mount-point="/exampleext"/>
-
     <webapp name="birt"
         title="BIRT"
         server="default-server"

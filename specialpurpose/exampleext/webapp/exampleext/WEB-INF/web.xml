@@ -33,7 +33,7 @@ under the License.
     </context-param>
     <context-param>
         <param-name>mainDecoratorLocation</param-name>
-        <param-value>component://example/widget/exampleext/CommonScreens.xml</param-value>
+        <param-value>component://exampleext/widget/example/CommonScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
 
