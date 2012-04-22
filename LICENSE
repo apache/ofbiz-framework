@@ -457,7 +457,7 @@ ofbiz/trunk/framework/base/lib/antisamy-bin.1.2.jar
 ofbiz/trunk/framework/base/lib/bsh-engine-modified.jar
 ofbiz/trunk/framework/base/lib/freemarker-2.3.19.jar
 ofbiz/trunk/framework/base/lib/hamcrest-all-1.2.jar
-ofbiz/trunk/framework/base/lib/httpunit.jar
+ofbiz/trunk/framework/base/lib/httpunit-1.7.jar
 ofbiz/trunk/framework/base/lib/ical4j-1.0-rc2.jar
 ofbiz/trunk/lib/build/javacc/javacc.jar (5.0)
 ofbiz/trunk/framework/base/lib/javolution-5.4.3.jar
@@ -1008,7 +1008,7 @@ The following libraries distributed with Apache OFBiz are licensed under the
 Common Public License:
 ofbiz/trunk/specialpurpose/pos/lib/jcl.jar
 ofbiz/trunk/specialpurpose/pos/lib/jpos18-controls.jar
-ofbiz/trunk/framework/service/lib/wsdl4j-1.5.1.jar
+ofbiz/trunk/framework/service/lib/wsdl4j-1.6.2.jar
 ofbiz/trunk/framework/base/lib/junit-dep-4.10.jar
 =========================================================================
 Common Public License Version 1.0
