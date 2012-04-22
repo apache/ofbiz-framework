@@ -33,7 +33,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonExampleDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-form name="EditExampleExt" location="component://example/widget/exampleext/ExampleForms.xml"/>
+                        <include-form name="EditExampleExt" location="component://exampleext/widget/example/ExampleForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
