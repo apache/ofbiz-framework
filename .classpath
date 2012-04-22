@@ -219,6 +219,7 @@
     <classpathentry kind="src" path="specialpurpose/ebay/src"/>
     <classpathentry kind="src" path="specialpurpose/ebaystore/src"/>
     <classpathentry kind="src" path="specialpurpose/ecommerce/src"/>
+    <classpathentry kind="src" path="specialpurpose/example/src"/>
     <classpathentry kind="src" path="specialpurpose/googlebase/src"/>
     <classpathentry kind="src" path="specialpurpose/googlecheckout/src"/>
     <classpathentry kind="src" path="specialpurpose/hhfacility/src"/>
