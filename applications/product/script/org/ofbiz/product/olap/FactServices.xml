@@ -19,7 +19,7 @@
 -->
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
     <simple-method method-name="loadInventoryFact" short-description="">
         <entity-one entity-name="InventoryItem" value-field="inventory">
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
