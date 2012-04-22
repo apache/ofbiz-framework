@@ -89,5 +89,40 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CommonExampleGeoLocationDecorator">
+        <section>
+            <widgets>
+                <include-screen name="CommonExampleGeoLocationDecorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonExampleOsmGeoLocationDecorator">
+        <section>
+            <widgets>
+                <include-screen name="CommonExampleOsmGeoLocationDecorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonBirtDecorator">
+        <section>
+            <widgets>
+                <include-screen name="CommonBirtDecorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonExampleChartsDecorator">
+        <section>
+            <widgets>
+                <include-screen name="CommonExampleChartsDecorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CommonExampleJackrabbitDecorator">
+        <section>
+            <widgets>
+                <include-screen name="CommonExampleJackrabbitDecorator" location="component://example/widget/example/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
 
 </screens>
