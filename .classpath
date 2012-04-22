@@ -202,7 +202,6 @@
     <classpathentry kind="src" path="framework/datafile/src"/>
     <classpathentry excluding="org/ofbiz/entity/connection/XaPoolConnectionFactory.java" kind="src" path="framework/entity/src"/>
     <classpathentry kind="src" path="framework/entityext/src"/>
-    <classpathentry kind="src" path="framework/example/src"/>
     <classpathentry kind="src" path="framework/geronimo/src"/>
     <classpathentry kind="src" path="framework/jcr/src"/>
     <classpathentry kind="src" path="framework/jetty/src"/>
