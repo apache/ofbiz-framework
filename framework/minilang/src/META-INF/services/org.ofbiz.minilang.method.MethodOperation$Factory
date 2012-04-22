@@ -68,10 +68,6 @@ org.ofbiz.minilang.method.entityops.TransactionBegin$TransactionBeginFactory
 org.ofbiz.minilang.method.entityops.TransactionCommit$TransactionCommitFactory
 org.ofbiz.minilang.method.entityops.TransactionRollback$TransactionRollbackFactory
 org.ofbiz.minilang.method.envops.ClearField$ClearFieldFactory
-org.ofbiz.minilang.method.envops.EnvToEnv$EnvToEnvFactory
-org.ofbiz.minilang.method.envops.EnvToField$EnvToFieldFactory
-org.ofbiz.minilang.method.envops.FieldToEnv$FieldToEnvFactory
-org.ofbiz.minilang.method.envops.FieldToField$FieldToFieldFactory
 org.ofbiz.minilang.method.envops.FieldToList$FieldToListFactory
 org.ofbiz.minilang.method.envops.FirstFromList$FirstFromListFactory
 org.ofbiz.minilang.method.envops.Iterate$IterateFactory
