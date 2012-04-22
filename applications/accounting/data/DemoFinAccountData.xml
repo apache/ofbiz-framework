@@ -23,12 +23,12 @@ under the License.
             currencyUomId="USD" organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111100" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="SC_CHECKING" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <PaymentMethod paymentMethodId="SC_CHECKING" paymentMethodTypeId="COMPANY_CHECK"  partyId="Company" description="Checking Account at Standard Chartered Bank" glAccountId="111100" finAccountId="SC_CHECKING" fromDate="2009-04-01 00:00:00.000"/>
-    <EftAccount paymentMethodId="SC_CHECKING" bankName="Standard Chartered Bank" routingNumber="307075259" accountType="Checking" accountNumber="316253011064226" contactMechId="9000" />
+    <EftAccount paymentMethodId="SC_CHECKING" nameOnAccount="Company" bankName="Standard Chartered Bank" routingNumber="307075259" accountType="Checking" accountNumber="316253011064226" contactMechId="9000" />
     <FinAccount finAccountId="ABN_CHECKING" finAccountTypeId="BANK_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="ABN AMRO" finAccountCode="6577852521447" finAccountPin="1234" currencyUomId="USD" 
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="111100" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="ABN_CHECKING" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <PaymentMethod paymentMethodId="ABN_CHECKING" paymentMethodTypeId="COMPANY_CHECK"  partyId="Company" description="Checking Account at ABN AMRO Bank" glAccountId="111100" finAccountId="ABN_CHECKING" fromDate="2009-04-01 00:00:00.000"/>
-    <EftAccount paymentMethodId="ABN_CHECKING" bankName="ABN AMRO Bank" routingNumber="222371863" accountType="Checking" accountNumber="427253011064227" contactMechId="9000"/>
+    <EftAccount paymentMethodId="ABN_CHECKING" nameOnAccount="Company" bankName="ABN AMRO Bank" routingNumber="222371863" accountType="Checking" accountNumber="427253011064227" contactMechId="9000"/>
     <FinAccount finAccountId="AMEX_01" finAccountTypeId="CREDIT_CARD_ACCOUNT" statusId="FNACT_ACTIVE" finAccountName="Corporate AMEX " finAccountCode="378282246310005" finAccountPin="9876" currencyUomId="USD" 
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="231000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="AMEX_01" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
