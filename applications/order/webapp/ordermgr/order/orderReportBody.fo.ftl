@@ -47,7 +47,7 @@ under the License.
                     <#assign productId = orderItem.productId?if_exists>
                     <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                     <#assign itemAdjustment = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false)>
-                    <#assign internalImageUrl = Static["org.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId)?if_exists>
+                    <#assign internalImageUrl = Static["org.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId?if_exists)?if_exists>
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
