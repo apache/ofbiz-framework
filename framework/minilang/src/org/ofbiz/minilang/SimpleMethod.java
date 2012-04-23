@@ -466,17 +466,12 @@ public class SimpleMethod {
 
     /**
      * Execs the given operations returning true if all return true, or returning false and stopping if any return false.
+     * @throws MiniLangException 
      */
-    public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) {
+    public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) throws MiniLangException {
         for (MethodOperation methodOperation : methodOperations) {
-            try {
-                if (!methodOperation.exec(methodContext)) {
-                    return false;
-                }
-            } catch (Throwable t) {
-                String errMsg = "Error in simple-method operation [" + methodOperation.rawString() + "]: " + t.toString();
-                Debug.logError(t, errMsg, module);
-                throw new RuntimeException(errMsg);
+            if (!methodOperation.exec(methodContext)) {
+                return false;
             }
         }
         return true;
