@@ -460,7 +460,7 @@ public class ObjectType {
      * include: String, Boolean, Double, Float, Long, Integer, Date (java.sql.Date),
      * Time, Timestamp, TimeZone;
      * @param obj Object to convert
-     * @param type Name of type to convert to
+     * @param type Optional Java class name of type to convert to. A <code>null</code> or empty <code>String</code> will return the original object.
      * @param format Optional (can be null) format string for Date, Time, Timestamp
      * @param timeZone Optional (can be null) TimeZone for converting dates and times
      * @param locale Optional (can be null) Locale for formatting and parsing Double, Float, Long, Integer
@@ -471,7 +471,7 @@ public class ObjectType {
     @SourceMonitored
     @SuppressWarnings("unchecked")
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {
-        if (obj == null || type == null || "Object".equals(type) || "java.lang.Object".equals(type)) {
+        if (obj == null || UtilValidate.isEmpty(type) || "Object".equals(type) || "java.lang.Object".equals(type)) {
             return obj;
         }
         if ("PlainString".equals(type)) {
