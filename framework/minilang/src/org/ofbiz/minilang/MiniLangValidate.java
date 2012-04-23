@@ -92,7 +92,7 @@ public final class MiniLangValidate {
      */
     public static void constantAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
-            String attributeValue = element.getAttribute(name).trim();
+            String attributeValue = element.getAttribute(name);
             if (!MiniLangUtil.isConstantAttribute(attributeValue)) {
                 handleError("Constant attribute \"" + name + "\" cannot contain an expression.", method, element);
             }
@@ -109,7 +109,7 @@ public final class MiniLangValidate {
      */
     public static void constantPlusExpressionAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
-            String attributeValue = element.getAttribute(name).trim();
+            String attributeValue = element.getAttribute(name);
             if (!MiniLangUtil.isConstantPlusExpressionAttribute(attributeValue)) {
                 handleError("Constant+expr attribute \"" + name + "\" is missing a constant value (expression-only constants are not allowed).", method, element);
             }
@@ -145,7 +145,7 @@ public final class MiniLangValidate {
      */
     public static void expressionAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
-            String attributeValue = element.getAttribute(name).trim();
+            String attributeValue = element.getAttribute(name);
             if (attributeValue.length() > 0) {
                 if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
                     handleError("Expression attribute \"" + name + "\" enclosed in \"${}\" (remove enclosing ${}).", method, element);
@@ -212,7 +212,7 @@ public final class MiniLangValidate {
     public static void requireAnyAttribute(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         StringBuilder sb = new StringBuilder();
         for (String name : attributeNames) {
-            String attributeValue = element.getAttribute(name).trim();
+            String attributeValue = element.getAttribute(name);
             if (attributeValue.length() > 0) {
                 return;
             }
@@ -265,7 +265,7 @@ public final class MiniLangValidate {
      */
     public static void requiredAttributes(SimpleMethod method, Element element, String... attributeNames) throws ValidationException {
         for (String name : attributeNames) {
-            String attributeValue = element.getAttribute(name).trim();
+            String attributeValue = element.getAttribute(name);
             if (attributeValue.length() == 0) {
                 handleError("Required attribute \"" + name + "\" is missing.", method, element);
             }
