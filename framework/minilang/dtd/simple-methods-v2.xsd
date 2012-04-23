@@ -3568,6 +3568,20 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
+    <xs:element name="break" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Causes script execution to exit the nearest enclosing loop element.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="continue" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Causes script execution to return to the beginning of the nearest enclosing loop element.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
     <xs:element name="return" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
