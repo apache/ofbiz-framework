@@ -54,7 +54,7 @@ public class ElseIf {
         return this.thenSubOps;
     }
 
-    public boolean runSubOps(MethodContext methodContext) {
+    public boolean runSubOps(MethodContext methodContext) throws MiniLangException {
         return SimpleMethod.runSubOps(thenSubOps, methodContext);
     }
 }
