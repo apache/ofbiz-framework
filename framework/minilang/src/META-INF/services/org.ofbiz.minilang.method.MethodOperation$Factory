@@ -67,7 +67,9 @@ org.ofbiz.minilang.method.entityops.StoreValue$StoreValueFactory
 org.ofbiz.minilang.method.entityops.TransactionBegin$TransactionBeginFactory
 org.ofbiz.minilang.method.entityops.TransactionCommit$TransactionCommitFactory
 org.ofbiz.minilang.method.entityops.TransactionRollback$TransactionRollbackFactory
+org.ofbiz.minilang.method.envops.Break$BreakFactory
 org.ofbiz.minilang.method.envops.ClearField$ClearFieldFactory
+org.ofbiz.minilang.method.envops.Continue$ContinueFactory
 org.ofbiz.minilang.method.envops.FieldToList$FieldToListFactory
 org.ofbiz.minilang.method.envops.FirstFromList$FirstFromListFactory
 org.ofbiz.minilang.method.envops.Iterate$IterateFactory

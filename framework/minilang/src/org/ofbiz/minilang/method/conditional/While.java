@@ -27,6 +27,8 @@ import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.method.envops.Break.BreakElementException;
+import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
 
 /**
@@ -52,9 +54,20 @@ public class While extends MethodOperation {
         // if a sub-op returns false return false and stop, otherwise drop though loop and
         // return true
         while (condition.checkCondition(methodContext)) {
-            boolean runSubOpsResult = SimpleMethod.runSubOps(thenSubOps, methodContext);
-            if (!runSubOpsResult) {
-                return false;
+            try {
+                for (MethodOperation methodOperation : thenSubOps) {
+                    if (!methodOperation.exec(methodContext)) {
+                        return false;
+                    }
+                }
+            } catch (MiniLangException e) {
+                if (e instanceof BreakElementException) {
+                    break;
+                }
+                if (e instanceof ContinueElementException) {
+                    continue;
+                }
+                throw e;
             }
         }
         return true;

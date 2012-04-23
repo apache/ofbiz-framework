@@ -28,6 +28,8 @@ import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.method.envops.Break.BreakElementException;
+import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
 
 /**
@@ -67,9 +69,20 @@ public class Loop extends MethodOperation {
         }
         for (int i = 0; i < count; i++) {
             fieldAcsr.put(methodContext, i);
-            if (!SimpleMethod.runSubOps(subOps, methodContext)) {
-                // only return here if it returns false, otherwise just carry on
-                return false;
+            try {
+                for (MethodOperation methodOperation : subOps) {
+                    if (!methodOperation.exec(methodContext)) {
+                        return false;
+                    }
+                }
+            } catch (MiniLangException e) {
+                if (e instanceof BreakElementException) {
+                    break;
+                }
+                if (e instanceof ContinueElementException) {
+                    continue;
+                }
+                throw e;
             }
         }
         return true;
@@ -86,7 +99,7 @@ public class Loop extends MethodOperation {
 
     @Override
     public String rawString() {
-        return "<loop count=\"" + this.countStr + "\"/>";
+        return "<loop field=\"" + this.fieldAcsr + "\" count=\"" + this.countStr + "\"/>";
     }
 
     public static final class LoopFactory implements Factory<Loop> {
