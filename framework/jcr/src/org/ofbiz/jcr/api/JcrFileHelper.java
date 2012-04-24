@@ -6,7 +6,7 @@ import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 
 import org.apache.jackrabbit.ocm.exception.ObjectContentManagerException;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitHierarchyNode;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitHierarchyNode;
 
 public interface JcrFileHelper extends JcrHelper{
 

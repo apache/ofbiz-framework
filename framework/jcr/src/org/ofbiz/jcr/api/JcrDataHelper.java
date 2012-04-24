@@ -8,7 +8,7 @@ import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 
 import org.apache.jackrabbit.ocm.exception.ObjectContentManagerException;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitArticle;
 
 public interface JcrDataHelper extends JcrHelper{
 
@@ -70,6 +70,7 @@ public interface JcrDataHelper extends JcrHelper{
      * Update an existing content article object in the repository.
      *
      * @param updatedArticle
+     * @param partyThatChangedThisContent
      * @throws RepositoryException
      * @throws ObjectContentManagerException
      */
