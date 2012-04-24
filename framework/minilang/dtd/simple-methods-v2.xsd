@@ -1333,22 +1333,7 @@ under the License.
     <xs:element name="set" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                Move a value from one field to another field.
-                You can also take a value, just a string constant or a string
-                that is made up of a mixture of constant and flexible
-                string expansion variables using the ${} syntax, that will be
-                put in the field.
-
-                You can also specify a default value in the case that the
-                value evaluates to an empty string or the from-field is
-                null or empty. Then the default-value will be used.
-
-                Again you can use the flexible string expander here, the
-                ${} syntax and such. It can also do a type conversion,
-                so going from whatever type the source data is in,
-                which would be a string value or whatever the variable
-                type is for a from field, it can convert that to any of
-                these types before setting it in the target field.
+                Assigns a field from an expression or script, or from a constant value. Also supports a default value and type conversion.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -1359,62 +1344,57 @@ under the License.
         <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the field to copy value to.
+                    The name of the field to set. The target of the assignment.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required. Attribute type: expression.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="from-field">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the field to copy value from.
+                    An expression or script that returns an object or null. The source of the assignment.
+                    &lt;br/&gt;&lt;br/&gt;
+                    A script must be prefixed with the script language followed by a colon (&quot;:&quot;).
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required if the value attribute is empty. Attribute types: expression, script.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value">
             <xs:annotation>
                 <xs:documentation>
-                    Simple value to copy in field.
+                    A constant value, or a constant that includes an expression. The source of the assignment.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Required if the from-field attribute is empty. Attribute type: constant+expr.
+                    Defaults to java.lang.String data type.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="default-value">
             <xs:annotation>
                 <xs:documentation>
-                    Default value to copy in field if value evaluates to an empty string or the from-field is null or empty.
+                    A default value that is used if the from-field attribute evaluates to null or empty.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute types: constant+expr, expression. Expressions must be enclosed in ${}.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="type">
+        <xs:attribute type="xs:string" name="type">
             <xs:annotation>
                 <xs:documentation>
-                    Type to convert to. NewList will create a new List, NewMap will create a new Map.
+                    The Java data type to convert to. &quot;NewList&quot; will create a new List, &quot;NewMap&quot; will create a new java.util.Map.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant. Attribute must contain a valid Java class name.
                 </xs:documentation>
             </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="PlainString"/>
-                    <xs:enumeration value="String"/>
-                    <xs:enumeration value="BigDecimal"/>
-                    <xs:enumeration value="Double"/>
-                    <xs:enumeration value="Float"/>
-                    <xs:enumeration value="List"/>
-                    <xs:enumeration value="Long"/>
-                    <xs:enumeration value="Integer"/>
-                    <xs:enumeration value="Date"/>
-                    <xs:enumeration value="Time"/>
-                    <xs:enumeration value="Timestamp"/>
-                    <xs:enumeration value="Boolean"/>
-                    <xs:enumeration value="Object"/>
-                    <xs:enumeration value="NewList"/>
-                    <xs:enumeration value="NewMap"/>
-                </xs:restriction>
-            </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="set-if-null" default="false">
+        <xs:attribute name="set-if-null">
             <xs:annotation>
                 <xs:documentation>
-                    Specifies whether or not to set fields that are null or empty.
-                    Defaults to true.
+                    Controls if the target field can be set to null when the from-field attribute evaluates to null.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant. Defaults to &quot;false&quot;.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -1424,16 +1404,12 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="set-if-empty" default="true">
+        <xs:attribute name="set-if-empty">
             <xs:annotation>
                 <xs:documentation>
-                    If the source value, either from a value or from a field, is empty, and
-                    empty-string an empty list or a null value.
-                    In this case it's set to true.
-
-                    If you don't want to set, if you want it to
-                    leave the target field alone when the source is empty,
-                    then you need to set this to false.
+                    Controls if the target field can be set to an empty value. The meaning of &quot;empty&quot; depends on the Java data type.
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant. Defaults to &quot;true&quot;.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
