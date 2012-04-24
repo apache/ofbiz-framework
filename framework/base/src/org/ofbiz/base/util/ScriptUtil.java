@@ -98,7 +98,7 @@ public final class ScriptUtil {
                 if (shortNames.size() > 0) {
                     Debug.logInfo("  Engine has the following short names:", module);
                     for (String name : engine.getNames()) {
-                        writableScriptNames.add(name.concat(":"));
+                        writableScriptNames.add(name);
                         Debug.logInfo("    " + name, module);
                     }
                 }
