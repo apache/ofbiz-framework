@@ -45,7 +45,7 @@ import org.ofbiz.jcr.api.jackrabbit.JackrabbitArticleHelper;
 import org.ofbiz.jcr.loader.JCRFactory;
 import org.ofbiz.jcr.loader.JCRFactoryUtil;
 import org.ofbiz.jcr.loader.jackrabbit.JCRFactoryImpl;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitArticle;
 import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.testtools.OFBizTestCase;

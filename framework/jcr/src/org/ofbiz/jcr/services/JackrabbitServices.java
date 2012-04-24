@@ -13,7 +13,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.jcr.access.jackrabbit.JackrabbitRepositoryAccessor;
 import org.ofbiz.jcr.loader.JCRFactoryUtil;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitNews;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitNews;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 

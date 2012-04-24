@@ -18,10 +18,10 @@ import org.ofbiz.jcr.access.jackrabbit.ConstantsJackrabbit;
 import org.ofbiz.jcr.access.jackrabbit.JackrabbitRepositoryAccessor;
 import org.ofbiz.jcr.api.JcrFileHelper;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFile;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFolder;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitHierarchyNode;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitResource;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFile;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFolder;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitHierarchyNode;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitResource;
 import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 /**

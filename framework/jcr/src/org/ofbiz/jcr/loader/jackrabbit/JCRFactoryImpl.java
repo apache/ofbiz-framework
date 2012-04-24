@@ -48,14 +48,14 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.jcr.loader.JCRFactory;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFile;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFolder;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitHierarchyNode;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitLocalizedContent;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitNews;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitResource;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitUnstructured;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitArticle;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFile;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFolder;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitHierarchyNode;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitLocalizedContent;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitNews;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitResource;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitUnstructured;
 import org.w3c.dom.Element;
 
 public class JCRFactoryImpl implements JCRFactory {

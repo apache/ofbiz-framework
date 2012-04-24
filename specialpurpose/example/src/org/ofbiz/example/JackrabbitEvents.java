@@ -43,10 +43,10 @@ import org.ofbiz.jcr.api.JcrFileHelper;
 import org.ofbiz.jcr.api.jackrabbit.JackrabbitArticleHelper;
 import org.ofbiz.jcr.api.jackrabbit.JackrabbitFileHelper;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFile;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitFolder;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitHierarchyNode;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitArticle;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFile;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFolder;
+import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitHierarchyNode;
 import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 public class JackrabbitEvents {

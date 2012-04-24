@@ -21,7 +21,7 @@ import org.ofbiz.jcr.access.jackrabbit.ConstantsJackrabbit;
 import org.ofbiz.jcr.access.jackrabbit.JackrabbitRepositoryAccessor;
 import org.ofbiz.jcr.api.JcrDataHelper;
 import org.ofbiz.jcr.orm.OfbizRepositoryMapping;
-import org.ofbiz.jcr.orm.jackrabbit.JackrabbitArticle;
+import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitArticle;
 import org.ofbiz.jcr.util.jackrabbit.JackrabbitUtils;
 
 /**

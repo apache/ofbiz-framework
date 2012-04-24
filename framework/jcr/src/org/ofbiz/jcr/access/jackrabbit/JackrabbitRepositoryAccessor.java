@@ -28,6 +28,7 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
 
     private final Session session;
     private final ObjectContentManagerImpl ocm;
+    private final GenericValue userLogin;
 
     /**
      * Create a repository Access object based on the userLogin.
@@ -35,27 +36,18 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * @param userLogin
      */
     public JackrabbitRepositoryAccessor(GenericValue userLogin) {
+        this.userLogin = userLogin;
         // TODO pass the userLogin to the getSession() method and perform some
-        this(JCRFactoryUtil.getSession());
-    }
-
-    /**
-     * Create a repository Access object based on a JCR Session.
-     *
-     * @param userLogin
-     */
-    public JackrabbitRepositoryAccessor(Session session) {
-        this.session = session;
+        this.session = JCRFactoryUtil.getSession();
         this.ocm = new ObjectContentManagerImpl(session, JCRFactoryImpl.getMapper());
-
-        return;
     }
 
-    /**
-     * Returns the Jackrabbit session object.
+    /*
+     * (non-Javadoc)
      *
-     * @return
+     * @see org.ofbiz.jcr.access.JcrRepositoryAccessor#getSession()
      */
+    @Override
     public Session getSession() {
         return this.session;
     }
@@ -63,7 +55,7 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
     /*
      * (non-Javadoc)
      *
-     * @see org.ofbiz.jcr.orm.RepositoryAccess#closeAccess()
+     * @see org.ofbiz.jcr.access.JcrRepositoryAccessor#closeAccess()
      */
     @Override
     public void closeAccess() {
@@ -76,7 +68,8 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.orm.RepositoryAccess#getContentObject(java.lang.String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#getContentObject(java.lang
+     * .String)
      */
     @Override
     public OfbizRepositoryMapping getContentObject(String nodePath) throws PathNotFoundException {
@@ -88,8 +81,8 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.access.RepositoryAccess#getContentObject(java.lang.String,
-     * java.lang.String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#getContentObject(java.lang
+     * .String, java.lang.String)
      */
     @Override
     public OfbizRepositoryMapping getContentObject(String nodePath, String version) throws PathNotFoundException {
@@ -101,11 +94,13 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.orm.RepositoryAccess#storeContentObject(org.ofbiz.jcr.orm
-     * .OfbizRepositoryMapping)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#storeContentObject(org.ofbiz
+     * .jcr.orm.OfbizRepositoryMapping)
      */
     @Override
     public void storeContentObject(OfbizRepositoryMapping orm) throws ObjectContentManagerException, ItemExistsException {
+        orm.setPartyThatCreatedTheContent(this.getPartyId());
+
         ContentWriter contentWriter = new ContentWriterJackrabbit(this.ocm);
         contentWriter.storeContentObject(orm);
     }
@@ -114,37 +109,36 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.orm.RepositoryAccess#updateContentObject(org.ofbiz.jcr.
-     * orm.OfbizRepositoryMapping)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#updateContentObject(org.ofbiz
+     * .jcr.orm.OfbizRepositoryMapping)
      */
     @Override
     public void updateContentObject(OfbizRepositoryMapping orm) throws ObjectContentManagerException {
+        orm.setLastUpdatedParty(this.getPartyId());
+
         ContentWriter contentWriter = new ContentWriterJackrabbit(this.ocm);
         contentWriter.updateContentObject(orm);
-
-        return;
     }
 
     /*
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.orm.RepositoryAccess#removeContentObject(java.lang.String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#removeContentObject(java.lang
+     * .String)
      */
     @Override
     public void removeContentObject(String nodePath) throws ObjectContentManagerException {
         ContentWriter contentWriter = new ContentWriterJackrabbit(this.ocm);
         contentWriter.removeContentObject(nodePath);
-
-        return;
     }
 
     /*
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.orm.RepositoryAccess#removeContentObject(org.ofbiz.jcr.
-     * orm.OfbizRepositoryMapping)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#removeContentObject(org.ofbiz
+     * .jcr.orm.OfbizRepositoryMapping)
      */
     @Override
     public void removeContentObject(OfbizRepositoryMapping orm) throws ObjectContentManagerException {
@@ -155,7 +149,8 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.access.RepositoryAccess#getVersionList(java.lang.String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#getVersionList(java.lang.String
+     * )
      */
     @Override
     public List<String> getVersionList(String nodePath) {
@@ -167,7 +162,8 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.access.RepositoryAccess#getBaseVersion(java.lang.String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#getBaseVersion(java.lang.String
+     * )
      */
     @Override
     public String getBaseVersion(String nodePath) {
@@ -179,7 +175,8 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.access.RepositoryAccess#getRootVersion(java.lang.String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#getRootVersion(java.lang.String
+     * )
      */
     @Override
     public String getRootVersion(String nodePath) {
@@ -190,7 +187,7 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
     /*
      * (non-Javadoc)
      *
-     * @see org.ofbiz.jcr.orm.RepositoryAccess#getJsonFileTree()
+     * @see org.ofbiz.jcr.access.JcrRepositoryAccessor#getJsonDataTree()
      */
     @Override
     public JSONArray getJsonDataTree() throws RepositoryException {
@@ -201,7 +198,7 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
     /*
      * (non-Javadoc)
      *
-     * @see org.ofbiz.jcr.access.RepositoryAccess#getJsonFileTree()
+     * @see org.ofbiz.jcr.access.JcrRepositoryAccessor#getJsonFileTree()
      */
     @Override
     public JSONArray getJsonFileTree() throws RepositoryException {
@@ -213,8 +210,8 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      * (non-Javadoc)
      *
      * @see
-     * org.ofbiz.jcr.access.RepositoryAccess#queryForRepositoryData(java.lang
-     * .String)
+     * org.ofbiz.jcr.access.JcrRepositoryAccessor#queryForRepositoryData(java
+     * .lang.String)
      */
     @Override
     public QueryResult queryForRepositoryData(String query) throws RepositoryException {
@@ -237,5 +234,14 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
             Debug.logError(e, module);
             return false;
         }
+    }
+
+    /**
+     * Returns the party ID which created the accessor.
+     *
+     * @return
+     */
+    private String getPartyId() {
+        return this.userLogin.getString("partyId");
     }
 }
