@@ -95,7 +95,7 @@ fi
 # copy all lib files
 mkdir lib
 <#list classpathJars as jar>
-<#if (!jar.contains("j2eespec") && !jar.contains("catalina") && !jar.contains("mx4j") && !jar.contains("derby-") && !jar.contains("commons-el") && !jar.contains("avalon-framework") && !jar.contains("mail.jar"))>
+<#if (!jar.contains("j2eespec") && !jar.contains("catalina") && !jar.contains("mx4j") && !jar.contains("derby-") && !jar.contains("commons-el") && !jar.contains("avalon-framework") && !jar.contains("mail-1.4.jar"))>
 cp ${jar} ./lib
 </#if>
 </#list>

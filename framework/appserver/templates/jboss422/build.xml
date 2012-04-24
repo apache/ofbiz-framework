@@ -99,7 +99,7 @@
                 <exclude name="**/*bsh*.jar"/>
                 <exclude name="**/*bsf*.jar"/>
                 <exclude name="**/*antlr*.jar"/>
-                <exclude name="**/*mail.jar"/>
+                <exclude name="**/*mail*.jar"/>
                 <exclude name="**/*xerces*.jar"/>
                 <exclude name="**/*xalan*.jar"/>
             </fileset>
