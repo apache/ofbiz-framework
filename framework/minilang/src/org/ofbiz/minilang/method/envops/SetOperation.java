@@ -24,83 +24,140 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.ScriptUtil;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.Scriptlet;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * A general set operation to set a field from another field or from a value. Also supports a default-value, and type conversion.
+ * Assigns a field from an expression or script, or from a constant value. Also supports a default value and type conversion.
  */
-public class SetOperation extends MethodOperation {
+public final class SetOperation extends MethodOperation {
 
     public static final String module = SetOperation.class.getName();
 
-    protected FlexibleStringExpander defaultExdr;
-    protected ContextAccessor<Object> field;
-    protected ContextAccessor<Object> fromField;
-    protected Class<?> parsedScript = null;
-    protected boolean setIfEmpty; // default to true
-    protected boolean setIfNull; // default to false
-    protected String type;
-    protected FlexibleStringExpander valueExdr;
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        boolean elementModified = false;
+        // Correct deprecated default-value attribute
+        String defaultAttr = element.getAttribute("default-value");
+        if (defaultAttr.length() > 0) {
+            element.setAttribute("default", defaultAttr);
+            element.removeAttribute("default-value");
+            elementModified = true;
+        }
+        // Correct deprecated from-field attribute
+        String fromAttr = element.getAttribute("from-field");
+        if (fromAttr.length() > 0) {
+            element.setAttribute("from", fromAttr);
+            element.removeAttribute("from-field");
+            elementModified = true;
+        }
+        fromAttr = element.getAttribute("from").trim();
+        // Correct from attribute wrapped in ${}
+        if (fromAttr.startsWith("${") && fromAttr.endsWith("}")) {
+            fromAttr = fromAttr.substring(2, fromAttr.length() - 1);
+            if (!fromAttr.contains("${")) {
+                element.setAttribute("from", fromAttr);
+                elementModified = true;
+            }
+        }
+        // Correct value attribute expression that belongs in from attribute
+        String valueAttr = element.getAttribute("value").trim();
+        if (valueAttr.startsWith("${") && valueAttr.endsWith("}")) {
+            valueAttr = valueAttr.substring(2, valueAttr.length() - 1);
+            if (!valueAttr.contains("${")) {
+                element.setAttribute("from", valueAttr);
+                element.removeAttribute("value");
+                elementModified = true;
+            }
+        }
+        return elementModified;
+    }
+
+    private final FlexibleStringExpander defaultFse;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleMapAccessor<Object> fromFma;
+    private final Scriptlet scriptlet;
+    private final boolean setIfEmpty;
+    private final boolean setIfNull;
+    private final String type;
+    private final FlexibleStringExpander valueFse;
 
     public SetOperation(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        this.field = new ContextAccessor<Object>(element.getAttribute("field"));
-        String fromFieldStr = element.getAttribute("from-field");
-        if (fromFieldStr != null && fromFieldStr.startsWith("groovy:")) {
-            this.parsedScript = ScriptUtil.parseScript("groovy", fromFieldStr.replace("groovy:", ""));
+        if (MiniLangValidate.validationOn()) {
+            /*
+            MiniLangValidate.deprecatedAttribute(simpleMethod, element, "from-field", "replace with \"from\"");
+            MiniLangValidate.deprecatedAttribute(simpleMethod, element, "default-value", "replace with \"default\"");
+            */
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "from-field", "from", "value", "default-value", "default", "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
+            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        this.fromField = new ContextAccessor<Object>(fromFieldStr);
-        this.valueExdr = FlexibleStringExpander.getInstance(element.getAttribute("value"));
-        this.defaultExdr = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        String fromAttribute = element.getAttribute("from");
+        if (MiniLangUtil.containsScript(fromAttribute)) {
+            this.scriptlet = new Scriptlet(fromAttribute);
+            this.fromFma = FlexibleMapAccessor.getInstance(null);
+        } else {
+            this.scriptlet = null;
+            this.fromFma = FlexibleMapAccessor.getInstance(fromAttribute);
+        }
+        this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        this.defaultFse = FlexibleStringExpander.getInstance(element.getAttribute("default"));
         this.type = element.getAttribute("type");
-        // default to false, anything but true is false
-        this.setIfNull = "true".equals(element.getAttribute("set-if-null"));
-        // default to true, anything but false is true
-        this.setIfEmpty = !"false".equals(element.getAttribute("set-if-empty"));
-        if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
-            throw new IllegalArgumentException("Cannot specify a from-field [" + element.getAttribute("from-field") + "] and a value [" + element.getAttribute("value") + "] on the set action in a screen widget");
+        this.setIfNull = "true".equals(element.getAttribute("set-if-null")); // default to false, anything but true is false
+        this.setIfEmpty = !"false".equals(element.getAttribute("set-if-empty")); // default to true, anything but false is true
+        if (!this.fromFma.isEmpty() && !this.valueFse.isEmpty()) {
+            throw new IllegalArgumentException("Cannot include both a from attribute and a value attribute in a <set> element.");
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         Object newValue = null;
-        if (this.parsedScript != null) {
+        if (this.scriptlet != null) {
             try {
-                newValue = ScriptUtil.evaluate("groovy", null, this.parsedScript, methodContext.getEnvMap());
+                newValue = this.scriptlet.executeScript(methodContext.getEnvMap());
             } catch (Exception exc) {
-                Debug.logWarning(exc, "Error evaluating scriptlet [" + this + "]; error was: " + exc, module);
+                Debug.logWarning(exc, "Error evaluating scriptlet [" + this.scriptlet + "]: " + exc, module);
             }
-        } else if (!this.fromField.isEmpty()) {
-            newValue = this.fromField.get(methodContext);
+        } else if (!this.fromFma.isEmpty()) {
+            newValue = this.fromFma.get(methodContext.getEnvMap());
             if (Debug.verboseOn())
-                Debug.logVerbose("In screen getting value for field from [" + this.fromField.toString() + "]: " + newValue, module);
-        } else if (!this.valueExdr.isEmpty()) {
-            newValue = methodContext.expandString(this.valueExdr);
+                Debug.logVerbose("In screen getting value for field from [" + this.fromFma.toString() + "]: " + newValue, module);
+        } else if (!this.valueFse.isEmpty()) {
+            newValue = this.valueFse.expand(methodContext.getEnvMap());
         }
         // If newValue is still empty, use the default value
-        if (ObjectType.isEmpty(newValue) && !this.defaultExdr.isEmpty()) {
-            newValue = methodContext.expandString(this.defaultExdr);
+        if (ObjectType.isEmpty(newValue) && !this.defaultFse.isEmpty()) {
+            newValue = this.defaultFse.expand(methodContext.getEnvMap());
         }
         if (!setIfNull && newValue == null) {
             if (Debug.verboseOn())
-                Debug.logVerbose("Field value not found (null) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
+                Debug.logVerbose("Field value not found (null) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
             return true;
         }
         if (!setIfEmpty && ObjectType.isEmpty(newValue)) {
             if (Debug.verboseOn())
-                Debug.logVerbose("Field value not found (empty) with name [" + fromField + "] and value [" + valueExdr + "], and there was not default value, not setting field", module);
+                Debug.logVerbose("Field value not found (empty) with name [" + fromFma + "] and value [" + valueFse + "], and there was not default value, not setting field", module);
             return true;
         }
-        if (UtilValidate.isNotEmpty(this.type)) {
+        if (this.type.length() > 0) {
             if ("NewMap".equals(this.type)) {
                 newValue = FastMap.newInstance();
             } else if ("NewList".equals(this.type)) {
@@ -109,29 +166,52 @@ public class SetOperation extends MethodOperation {
                 try {
                     newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, methodContext.getTimeZone(), methodContext.getLocale(), true);
                 } catch (GeneralException e) {
-                    String errMsg = "Could not convert field value for the field: [" + this.field.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
+                    String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
+                    Debug.logWarning(e, errMsg, module);
                     methodContext.setErrorReturn(errMsg, simpleMethod);
                     return false;
                 }
             }
         }
         if (Debug.verboseOn())
-            Debug.logVerbose("In screen setting field [" + this.field.toString() + "] to value: " + newValue, module);
-        this.field.put(methodContext, newValue);
+            Debug.logVerbose("In screen setting field [" + this.fieldFma.toString() + "] to value: " + newValue, module);
+        this.fieldFma.put(methodContext.getEnvMap(), newValue);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<set field=\"" + this.field + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal()) + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField) + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
-                + (UtilValidate.isEmpty(this.type) ? "" : "\" type=\"" + this.type) + "\"/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<set ");
+        if (!this.fieldFma.isEmpty()) {
+            sb.append("field=\"").append(this.fieldFma).append("\" ");
+        }
+        if (!this.fromFma.isEmpty()) {
+            sb.append("from=\"").append(this.fromFma).append("\" ");
+        }
+        if (this.scriptlet != null) {
+            sb.append("from=\"").append(this.scriptlet).append("\" ");
+        }
+        if (!this.valueFse.isEmpty()) {
+            sb.append("value=\"").append(this.valueFse).append("\" ");
+        }
+        if (!this.defaultFse.isEmpty()) {
+            sb.append("default=\"").append(this.defaultFse).append("\" ");
+        }
+        if (this.type.length() > 0) {
+            sb.append("type=\"").append(this.type).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class SetOperationFactory implements Factory<SetOperation> {
