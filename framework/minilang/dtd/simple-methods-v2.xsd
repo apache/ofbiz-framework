@@ -1353,6 +1353,13 @@ under the License.
         <xs:attribute type="xs:string" name="from-field">
             <xs:annotation>
                 <xs:documentation>
+                    Deprecated - use &quot;from&quot;.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="from">
+            <xs:annotation>
+                <xs:documentation>
                     An expression or script that returns an object or null. The source of the assignment.
                     &lt;br/&gt;&lt;br/&gt;
                     A script must be prefixed with the script language followed by a colon (&quot;:&quot;).
@@ -1374,6 +1381,13 @@ under the License.
         <xs:attribute type="xs:string" name="default-value">
             <xs:annotation>
                 <xs:documentation>
+                    Deprecated - use &quot;default&quot;.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="default">
+            <xs:annotation>
+                <xs:documentation>
                     A default value that is used if the from-field attribute evaluates to null or empty.
                     &lt;br/&gt;&lt;br/&gt;
                     Optional. Attribute types: constant+expr, expression. Expressions must be enclosed in ${}.
@@ -1383,7 +1397,7 @@ under the License.
         <xs:attribute type="xs:string" name="type">
             <xs:annotation>
                 <xs:documentation>
-                    The Java data type to convert to. &quot;NewList&quot; will create a new List, &quot;NewMap&quot; will create a new java.util.Map.
+                    The Java data type to convert to. &quot;NewList&quot; will create a new java.util.List, &quot;NewMap&quot; will create a new java.util.Map.
                     &lt;br/&gt;&lt;br/&gt;
                     Optional. Attribute type: constant. Attribute must contain a valid Java class name.
                 </xs:documentation>
