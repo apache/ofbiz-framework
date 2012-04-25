@@ -77,6 +77,14 @@ public final class MiniLangUtil {
 
     public static boolean isConstantPlusExpressionAttribute(String attributeValue) {
         if (attributeValue.length() > 0) {
+            if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
+                // A lot of existing code uses concatenated expressions, and they can be difficult
+                // to convert to a single expression, so we will allow them for now.
+                String expression = attributeValue.substring(2, attributeValue.length() - 1);
+                if (!expression.contains("${")) {
+                    return true;
+                }
+            }
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(attributeValue);
             return FlexibleStringExpander.containsConstant(fse);
         }
