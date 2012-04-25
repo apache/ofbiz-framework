@@ -44,7 +44,7 @@ public class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     public static final String module = FlexibleMapAccessor.class.getName();
     protected static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
     @SuppressWarnings("unchecked")
-    protected static final FlexibleMapAccessor nullFma = new FlexibleMapAccessor(null);
+    protected static final FlexibleMapAccessor nullFma = new FlexibleMapAccessor("");
 
     protected final String original;
     protected final String bracketedOriginal;
@@ -102,7 +102,7 @@ public class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     }
 
     public boolean isEmpty() {
-         return this.original == null;
+         return this.original.length() == 0;
     }
 
     /** Given the name based information in this accessor, get the value from the passed in Map.
@@ -198,9 +198,6 @@ public class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
 
     @Override
     public String toString() {
-        if (this.isEmpty()) {
-            return super.toString();
-        }
         return this.original;
     }
 
