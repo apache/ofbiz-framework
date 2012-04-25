@@ -91,6 +91,11 @@ public final class MiniLangUtil {
         return true;
     }
 
+    public static boolean isDocumentAutoCorrected(Document document) {
+        String autoCorrected = (String) document.getUserData("autoCorrected");
+        return "true".equals(autoCorrected);
+    }
+
     public static void removeInvalidAttributes(Element element, String... validAttributeNames) {
         Set<String> validNames = new HashSet<String>();
         for (String name : validAttributeNames) {

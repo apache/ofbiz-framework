@@ -306,6 +306,14 @@ public class SimpleMethod {
             SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, xmlURL.toString());
             simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
+        if (MiniLangUtil.isDocumentAutoCorrected(document)) {
+            try {
+                UtilXml.writeXmlDocument(xmlURL.getFile(), document);
+                Debug.logInfo("Saved auto-corrected Mini-language file " + xmlURL, module);
+            } catch (Exception e) {
+                Debug.logWarning(e, "Error writing auto-corrected mini-language file " + xmlURL + ": ", module);
+            }
+        }
         return simpleMethods;
     }
 
