@@ -1372,7 +1372,7 @@
         </if-not-empty>
         <if-not-empty field="billingItemIndexList">
             <set field="billingItemIndexToSet" value="${groovy: import java.util.Set; new HashSet(billingItemIndexList);}"/>
-            <set field="billingItemIndexList" from-field="billingItemIndexToSet" type="List"/>
+            <set field="billingItemIndexList" from-field="billingItemIndexToSet" />
             <iterate entry="billingItemIndexMap" list="billingItemIndexList">
                 <set field="inputMap" type="NewMap"/>
                 <loop count="${billingItemListSize}" field="i">
