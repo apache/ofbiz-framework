@@ -760,18 +760,18 @@ public class ObjectType {
     public static boolean isEmpty(Object value) {
         if (value == null) return true;
 
-        if (value instanceof String) return UtilValidate.isEmpty((String) value);
-        if (value instanceof Collection) return UtilValidate.isEmpty((Collection<? extends Object>) value);
-        if (value instanceof Map) return UtilValidate.isEmpty((Map<? extends Object, ? extends Object>) value);
-        if (value instanceof CharSequence) return UtilValidate.isEmpty((CharSequence) value);
-        if (value instanceof IsEmpty) return UtilValidate.isEmpty((IsEmpty) value);
+        if (value instanceof String) return ((String) value).length() == 0;
+        if (value instanceof Collection) return ((Collection<? extends Object>) value).size() == 0;
+        if (value instanceof Map) return ((Map<? extends Object, ? extends Object>) value).size() == 0;
+        if (value instanceof CharSequence) return ((CharSequence) value).length() == 0;
+        if (value instanceof IsEmpty) return ((IsEmpty) value).isEmpty();
 
         // These types would flood the log
         // Number covers: BigDecimal, BigInteger, Byte, Double, Float, Integer, Long, Short
         if (value instanceof Boolean) return false;
         if (value instanceof Number) return false;
         if (value instanceof Character) return false;
-        if (value instanceof java.sql.Timestamp) return false;
+        if (value instanceof java.util.Date) return false;
 
         if (Debug.verboseOn()) {
             Debug.logVerbose("In ObjectType.isEmpty(Object value) returning false for " + value.getClass() + " Object.", module);
