@@ -47,6 +47,8 @@ public final class Now extends MethodOperation {
         if (MiniLangValidate.validationOn()) {
             MiniLangValidate.attributeNames(simpleMethod, element, "field", "type");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "type");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
