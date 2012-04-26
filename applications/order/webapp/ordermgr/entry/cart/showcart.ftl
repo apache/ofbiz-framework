@@ -78,14 +78,9 @@ under the License.
               <table border="0">
                 <tr>
                   <td align="right"><div>${uiLabelMap.ProductProductId} :</div></td>
-                  <td><input type="text" size="25" name="add_product_id" value="${productId?if_exists}"/>
+                  <td>
                     <span class='tabletext'>
-                      <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
-                      <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'<@ofbizUrl><#if orderType=="PURCHASE_ORDER">LookupSupplierProduct?partyId=${partyId?if_exists}<#else>LookupProduct</#if></@ofbizUrl>');">
-                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
-                      </a>
-                      <#-- FIXME Problem here: the input field is shared -->
-                      <#--if orderType=="PURCHASE_ORDER">                        
+                      <#if orderType=="PURCHASE_ORDER">                        
                         <#if partyId?has_content>                                               
                           <#assign fieldFormName="LookupSupplierProduct?partyId=${partyId}">
                         <#else>
@@ -94,7 +89,8 @@ under the License.
                       <#else>
                         <#assign fieldFormName="LookupProduct">
                       </#if>
-                      <@htmlTemplate.lookupField formName="quickaddform" name="add_product_id" id="add_product_id" fieldFormName="${fieldFormName}"/-->
+                      <@htmlTemplate.lookupField formName="quickaddform" name="add_product_id" id="add_product_id" fieldFormName="${fieldFormName}"/>
+                      <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                       <a href="javascript:quicklookupGiftCertificate()" class="buttontext">${uiLabelMap.OrderAddGiftCertificate}</a>
                       <#if "PURCHASE_ORDER" == shoppingCart.getOrderType()>
                         <a href="javascript:showQohAtp()" class="buttontext">${uiLabelMap.ProductAtpQoh}</a>
