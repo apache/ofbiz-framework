@@ -47,7 +47,9 @@ import org.apache.jackrabbit.spi.QNodeTypeDefinition;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.jcr.loader.JCRFactory;
+import org.ofbiz.jcr.loader.JCRJndi;
 import org.ofbiz.jcr.orm.jackrabbit.data.JackrabbitArticle;
 import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFile;
 import org.ofbiz.jcr.orm.jackrabbit.file.JackrabbitFolder;
@@ -71,7 +73,10 @@ public class JCRFactoryImpl implements JCRFactory {
 
     protected static Repository repository = null;
     protected Session session = null;
+
     protected static Mapper mapper = null;
+
+    private JCRJndi jndi;
 
     /*
      * (non-Javadoc)
@@ -79,13 +84,17 @@ public class JCRFactoryImpl implements JCRFactory {
      * @see org.ofbiz.jcr.JCRFactory#initialize(org.w3c.dom.Element)
      */
     @Override
-    public void initialize(Element configRootElement) throws RepositoryException {
+    public void initialize(Element configRootElement, Element factoryImplDefinition) throws RepositoryException {
+        homeDir = UtilXml.childElementAttribute(configRootElement, "home-dir", "path", "runtime/data/jcr/");
+        String factoryJndiName = factoryImplDefinition.getAttribute("jndi-name");
+
+        jndi = new JCRJndi(jackrabbitConfigFile, factoryJndiName, homeDir);
+
         Element childElement = UtilXml.firstChildElement(configRootElement, "jcr-credentials");
         CREDENTIALS_USERNAME = UtilXml.elementAttribute(childElement, "username", null);
         CREDENTIALS_PASSWORD = UtilXml.elementAttribute(childElement, "password", null).toCharArray();
 
         jackrabbitConfigFile = UtilXml.childElementAttribute(configRootElement, "config-file-path", "path", "framework/jcr/config/jackrabbit.xml");
-        homeDir = UtilXml.childElementAttribute(configRootElement, "home-dir", "path", "runtime/data/jcr/");
     }
 
     /*
@@ -113,6 +122,8 @@ public class JCRFactoryImpl implements JCRFactory {
         classes.add(JackrabbitArticle.class);
 
         mapper = new AnnotationMapperImpl(classes);
+
+        jndi.registerJcrToJndi();
     }
 
     /*
@@ -136,6 +147,8 @@ public class JCRFactoryImpl implements JCRFactory {
                 }
             }
         }
+
+        jndi.unbindRepository();
     }
 
     /*
@@ -186,7 +199,7 @@ public class JCRFactoryImpl implements JCRFactory {
     /*
      * Register some new node types
      */
-    protected void registerNodeTypes(Session session) throws InvalidNodeTypeDefException, javax.jcr.RepositoryException, IOException {
+    private void registerNodeTypes(Session session) throws InvalidNodeTypeDefException, javax.jcr.RepositoryException, IOException {
         InputStream xml = new FileInputStream(CUSTOM_NODE_TYPES);
 
         // HINT: throws InvalidNodeTypeDefException, IOException
