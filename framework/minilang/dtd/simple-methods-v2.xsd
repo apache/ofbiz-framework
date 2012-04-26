@@ -57,6 +57,22 @@ under the License.
         </xs:choice>
     </xs:group>
 
+    <xs:attribute name="field">
+        <xs:annotation>
+            <xs:documentation>
+                The name of the field to set. The target of the assignment.
+                &lt;br/&gt;&lt;br/&gt;
+                Required. Attribute type: expression.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:whiteSpace value="collapse" />
+                <xs:minLength value="1" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
     <xs:attributeGroup name="attlist.propertyInfoOptional">
         <xs:attribute type="xs:string" name="resource"/>
         <xs:attribute type="xs:string" name="property"/>
@@ -1341,15 +1357,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the field to set. The target of the assignment.
-                    &lt;br/&gt;&lt;br/&gt;
-                    Required. Attribute type: expression.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
+        <xs:attribute ref="field" use="required" />
         <xs:attribute type="xs:string" name="from-field">
             <xs:annotation>
                 <xs:documentation>
@@ -4416,43 +4424,52 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="now-timestamp" substitutionGroup="OtherOperations">
+    <xs:element name="now" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The now-timestamp tag creates a java.sql.Timestamp object with the current date and time in it and puts it in a field in the method environment.
+                Sets a field to the current system time.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.now-timestamp"/>
+            <xs:attribute ref="field" use="required" />
+            <xs:attribute name="type">
+                <xs:annotation>
+                    <xs:documentation>
+                        The field data type. Defaults to java.sql.Timestamp.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="java.sql.Timestamp"/>
+                        <xs:enumeration value="java.sql.Date" />
+                        <xs:enumeration value="java.sql.Time" />
+                        <xs:enumeration value="java.util.Date" />
+                        <xs:enumeration value="java.lang.Long" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.now-timestamp">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field the timestamp will be put in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
+    <xs:element name="now-timestamp" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Deprecated - use &lt;now&gt;.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute ref="field" use="required" />
+        </xs:complexType>
+    </xs:element>
     <xs:element name="now-date-to-env" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The now-date-to-env tag creates a java.sql.Date object with the current date in it and puts it in a field in the method environment.
+                Deprecated - use &lt;now&gt;.
             </xs:documentation>
-        </xs:annotation><xs:complexType>
-            <xs:attributeGroup ref="attlist.now-date-to-env"/>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute ref="field" use="required" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.now-date-to-env">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field the date will be put in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="property-to-field" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
