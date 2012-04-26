@@ -188,13 +188,10 @@ public class StringUtil {
         List<String> splitList = null;
         StringTokenizer st = null;
 
-        if (str == null)
-            return splitList;
+        if (str == null) return splitList;
 
-        if (delim != null)
-            st = new StringTokenizer(str, delim);
-        else
-            st = new StringTokenizer(str);
+        if (delim != null) st = new StringTokenizer(str, delim);
+        else               st = new StringTokenizer(str);
 
         if (st != null && st.hasMoreTokens()) {
             splitList = FastList.newInstance();
@@ -205,6 +202,31 @@ public class StringUtil {
         return splitList;
     }
 
+    /**
+     * Splits a String on a delimiter into a List of Strings.
+     * @param str the String to split
+     * @param delim the delimiter character(s) to join on (null will split on whitespace)
+     * @param limit see String.split() method
+     * @return a list of Strings
+     */
+    public static List<String> split(String str, String delim, int limit) {
+        List<String> splitList = null;
+        String[] st = null;
+
+        if (str == null) return splitList;
+
+        if (delim != null) st = Pattern.compile(delim).split(str, limit);
+        else               st = str.split("\\s");
+
+        
+        if (st != null && st.length > 0) {
+            splitList = FastList.newInstance();
+            for (int i=0; i < st.length; i++) splitList.add(st[i]);
+        }
+        
+        return splitList;
+    }
+    
     /**
      * Encloses each of a List of Strings in quotes.
      * @param list List of String(s) to quote.
@@ -228,13 +250,28 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str, String delim, boolean trim) {
+        return strToMap(str, delim, trim, null);
+        
+    }
+
+    /**
+     * Creates a Map from a name/value pair string
+     * @param str The string to decode and format
+     * @param delim the delimiter character(s) to join on (null will split on whitespace)
+     * @param trim Trim whitespace off fields
+     * @param pairsSeparator in case you use not encoded name/value pairs strings 
+     *        and want to replace "=" to avoid clashes with parameters values in a not encoded URL, default to "="
+     * @return a Map of name/value pairs
+     */
+    public static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
         if (str == null) return null;
         Map<String, String> decodedMap = FastMap.newInstance();
         List<String> elements = split(str, delim);
+        pairsSeparator = pairsSeparator == null ? "=" : pairsSeparator;
 
         for (String s: elements) {
-            List<String> e = split(s, "=");
 
+            List<String> e = split(s, pairsSeparator);
             if (e.size() != 2) {
                 continue;
             }
@@ -265,7 +302,7 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str, boolean trim) {
-        return strToMap(str, "|", trim);
+        return strToMap(str, null, trim);
     }
 
     /**
@@ -284,7 +321,7 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str) {
-        return strToMap(str, "|", false);
+        return strToMap(str, null, false);
     }
 
     
@@ -328,7 +365,7 @@ public class StringUtil {
         }
         return buf.toString();
     }
-
+    
     /**
      * Reads a String version of a Map (should contain only strings) and creates a new Map
      *
