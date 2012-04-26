@@ -14,10 +14,6 @@ public class JackrabbitHierarchyNode implements OfbizRepositoryMapping {
     private String version;
     @Field(jcrName = "jcr:created")
     private Calendar creationDate;
-    @Field
-    private String lastUpdatedParty;
-    @Field
-    private String partyThatCreatedTheContent;
 
     public String getPath() {
         return path;
@@ -44,22 +40,6 @@ public class JackrabbitHierarchyNode implements OfbizRepositoryMapping {
     @Override
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    public void setPartyThatCreatedTheContent(String partyId) {
-        this.partyThatCreatedTheContent = partyId;
-    }
-
-    public String getPartyThatCreatedTheContent() {
-        return this.partyThatCreatedTheContent;
-    }
-
-    public void setLastUpdatedParty(String partyId) {
-        this.lastUpdatedParty = partyId;
-    }
-
-    public String getLastUpdatedParty() {
-        return this.lastUpdatedParty;
     }
 
 }

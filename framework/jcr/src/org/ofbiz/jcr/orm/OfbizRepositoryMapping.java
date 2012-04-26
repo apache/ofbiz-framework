@@ -28,32 +28,4 @@ public interface OfbizRepositoryMapping {
      * @param version
      */
     public void setVersion(String version);
-
-    /**
-     * Set the party ID of the user which created the content
-     *
-     * @param partyId
-     */
-    public void setPartyThatCreatedTheContent(String partyId);
-
-    /**
-     * Returns the party ID of the user which created the content
-     *
-     * @return
-     */
-    public String getPartyThatCreatedTheContent();
-
-    /**
-     * Set the party ID of the user which modifies the content last
-     *
-     * @param partyId
-     */
-    public void setLastUpdatedParty(String partyId);
-
-    /**
-     * Returns the party ID of the user which modifies the content last
-     *
-     * @return
-     */
-    public String getLastUpdatedParty();
 }
