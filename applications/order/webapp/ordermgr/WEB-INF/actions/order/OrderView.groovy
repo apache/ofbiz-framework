@@ -250,6 +250,9 @@ if (orderHeader) {
                 }
             }
         }
+        // get purchase order item types
+        purchaseOrderItemTypeList = delegator.findByAndCache("OrderItemType", [parentTypeId : "PURCHASE_SPECIFIC"]);
+        context.purchaseOrderItemTypeList = purchaseOrderItemTypeList;
     }
 
     // see if an approved order with all items completed exists

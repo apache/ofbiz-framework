@@ -105,6 +105,19 @@ under the License.
                     </select>
                   </td>
                 </tr>
+                <#if orderHeader.orderTypeId == "PURCHASE_ORDER" && purchaseOrderItemTypeList?has_content>
+                <tr>
+                  <td class="label">${uiLabelMap.OrderOrderItemType}</td>
+                  <td>
+                    <select name="orderItemTypeId">
+                      <option value="">&nbsp;</option>
+                      <#list purchaseOrderItemTypeList as orderItemType>
+                        <option value="${orderItemType.orderItemTypeId}">${orderItemType.description}</option>
+                      </#list>
+                    </select>
+                  </td>
+                </tr>
+                </#if>
                 <tr>
                   <td class="label">${uiLabelMap.CommonComment}</td>
                   <td>
