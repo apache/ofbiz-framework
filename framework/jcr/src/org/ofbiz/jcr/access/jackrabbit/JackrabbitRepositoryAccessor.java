@@ -99,8 +99,6 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      */
     @Override
     public void storeContentObject(OfbizRepositoryMapping orm) throws ObjectContentManagerException, ItemExistsException {
-        orm.setPartyThatCreatedTheContent(this.getPartyId());
-
         ContentWriter contentWriter = new ContentWriterJackrabbit(this.ocm);
         contentWriter.storeContentObject(orm);
     }
@@ -114,8 +112,6 @@ public class JackrabbitRepositoryAccessor implements JcrRepositoryAccessor {
      */
     @Override
     public void updateContentObject(OfbizRepositoryMapping orm) throws ObjectContentManagerException {
-        orm.setLastUpdatedParty(this.getPartyId());
-
         ContentWriter contentWriter = new ContentWriterJackrabbit(this.ocm);
         contentWriter.updateContentObject(orm);
     }
