@@ -71,7 +71,7 @@ public class RepositoryLoader {
             String jndiName = curElement.getAttribute("jndi-name");
             if (UtilValidate.isNotEmpty(jndiName)) {
                 try {
-                    repos.put(name, (Repository) JNDIContextFactory.getInitialContext("localjndi").lookup(jndiName));
+                    repos.put(name, (Repository) JNDIContextFactory.getInitialContext("default").lookup(jndiName));
                 } catch (NamingException e) {
                     Debug.logError(e, module);
                 } catch (GenericConfigException e) {

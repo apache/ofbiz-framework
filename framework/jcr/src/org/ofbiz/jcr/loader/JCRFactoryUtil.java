@@ -28,7 +28,8 @@ public class JCRFactoryUtil {
 
     public static final String module = JCRFactoryUtil.class.getName();
 
-    private static JCRFactory jcrFactory = null;
+    private static JCRFactory jcrFactory;
+    private static String jcrFactoryName;
 
     /**
      *
@@ -43,7 +44,7 @@ public class JCRFactoryUtil {
                     ClassLoader loader = Thread.currentThread().getContextClassLoader();
                     Class<?> c;
                     try {
-                        c = loader.loadClass(JCRContainer.getFactoryClassName());
+                        c = loader.loadClass(jcrFactoryName);
                         jcrFactory = (JCRFactory) c.newInstance();
                     } catch (ClassNotFoundException e) {
                         Debug.logError(e, "Cannot get instance of the jcr implementation", module);
@@ -69,5 +70,9 @@ public class JCRFactoryUtil {
         }
 
         return session;
+    }
+
+    public static void setJcrFactoryClassName(String jcrFactoryClassName) {
+        jcrFactoryName = jcrFactoryClassName;
     }
 }

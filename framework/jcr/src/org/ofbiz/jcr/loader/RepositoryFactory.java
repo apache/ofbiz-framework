@@ -22,15 +22,15 @@ public class RepositoryFactory implements ObjectFactory {
         synchronized (cache) {
             Object instance = cache.get(obj);
             if (instance == null && obj instanceof Reference) {
-                Reference ref = (Reference) obj;
-                String repHomeDir = ref.get(JCRContainer.REP_HOME_DIR).getContent().toString();
+                Reference reference = (Reference) obj;
+                String repHomeDir = reference.get(JCRJndi.ADDR_TYPE_FOR_REPOSITORY_HOME_DIR).getContent().toString();
                 // check if the repository is already started, than use it
                 // otherwise create it
                 File lock = new File(repHomeDir);
                 if (lock.exists()) {
                     instance = JcrUtils.getRepository(lock.toURI().toString());
                 } else {
-                    instance = new TransientRepository(ref.get(JCRContainer.DEFAULT_JCR_CONFIG_PATH).getContent().toString(), repHomeDir);
+                    instance = new TransientRepository(reference.get(JCRContainer.DEFAULT_JCR_CONFIG_PATH).getContent().toString(), repHomeDir);
                 }
 
                 cache.put(obj, instance);

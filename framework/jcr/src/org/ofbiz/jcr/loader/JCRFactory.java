@@ -29,9 +29,10 @@ public interface JCRFactory {
     /**
      *
      * @param configRootElement
+     * @param factoryImplDefinition
      * @throws RepositoryException
      */
-    public void initialize(Element configRootElement) throws RepositoryException;
+    public void initialize(Element configRootElement, Element factoryImplDefinition) throws RepositoryException;
 
     /**
      *
