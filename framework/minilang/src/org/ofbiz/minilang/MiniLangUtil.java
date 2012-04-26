@@ -18,12 +18,23 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
+
+import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -92,8 +103,7 @@ public final class MiniLangUtil {
     }
 
     public static boolean isDocumentAutoCorrected(Document document) {
-        String autoCorrected = (String) document.getUserData("autoCorrected");
-        return "true".equals(autoCorrected);
+        return "true".equals(document.getUserData("autoCorrected"));
     }
 
     public static void removeInvalidAttributes(Element element, String... validAttributeNames) {
@@ -112,6 +122,45 @@ public final class MiniLangUtil {
         }
         if (elementModified) {
             flagDocumentAsCorrected(element);
+        }
+    }
+
+    public static void writeMiniLangDocument(URL xmlURL, Document document) {
+        URL styleSheetURL = null;
+        InputStream styleSheetInStream = null;
+        Transformer transformer = null;
+        try {
+            styleSheetURL = FlexibleLocation.resolveLocation("component://minilang/config/MiniLang.xslt");
+            styleSheetInStream = styleSheetURL.openStream();
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            transformer = transformerFactory.newTransformer(new StreamSource(styleSheetInStream));
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error reading minilang/config/MiniLang.xslt: ", module);
+            return;
+        } finally {
+            if (styleSheetInStream != null) {
+                try {
+                    styleSheetInStream.close();
+                } catch (IOException e) {
+                    Debug.logWarning(e, "Error closing minilang/config/MiniLang.xslt: ", module);
+                }
+            }
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(xmlURL.getFile());
+            UtilXml.transformDomDocument(transformer, document, fos);
+            Debug.logInfo("Saved Mini-language file " + xmlURL, module);
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error writing mini-language file " + xmlURL + ": ", module);
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    Debug.logWarning(e, "Error closing " + xmlURL + ": ", module);
+                }
+            }
         }
     }
 
