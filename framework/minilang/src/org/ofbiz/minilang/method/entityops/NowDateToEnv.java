@@ -28,7 +28,7 @@ import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Creates a <code>java.sql.Timestamp</code> object that is set to the current system time.
+ * Creates a <code>java.sql.Date</code> object that is set to the current system time.
  */
 public class NowDateToEnv extends MethodOperation {
 
