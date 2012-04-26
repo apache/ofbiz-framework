@@ -31,14 +31,15 @@ under the License.
 
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
-        <property name="port" value="1100"/>
+        <property name="host" value="0.0.0.0"/>
+        <property name="port" value="1099"/>
     </container>
 
     <!-- RMI Service Dispatcher -->
     <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
         <property name="bound-host" value="127.0.0.1"/>
-        <property name="bound-port" value="1100"/>
+        <property name="bound-port" value="1099"/>
         <property name="delegator-name" value="test"/>
         <property name="client-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLClientSocketFactory"/>
         <property name="server-factory" value="org.ofbiz.service.rmi.socket.ssl.SSLServerSocketFactory"/>
