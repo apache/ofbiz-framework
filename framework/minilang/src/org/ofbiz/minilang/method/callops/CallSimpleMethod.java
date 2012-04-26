@@ -18,117 +18,151 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.ValidationException;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * An operation that calls a simple method in the same, or from another, file
+ * Invokes a Mini-language simple method.
  */
-public class CallSimpleMethod extends MethodOperation {
+public final class CallSimpleMethod extends MethodOperation {
 
     public static final String module = CallSimpleMethod.class.getName();
 
-    String methodName;
-    String xmlResource;
+    private final String methodName;
+    private final String xmlResource;
+    private final String memoryModel;
+    private final List<ResultToField> resultToFieldList;
 
     public CallSimpleMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "method-name", "xml-resource", "memory-model");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "method-name");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "method-name", "xml-resource", "memory-model");
+            MiniLangValidate.childElements(simpleMethod, element, "result-to-field");
+        }
         this.methodName = element.getAttribute("method-name");
         this.xmlResource = element.getAttribute("xml-resource");
+        this.memoryModel = element.getAttribute("memory-model");
+        List<? extends Element> resultToFieldElements = UtilXml.childElementList(element, "result-to-field");
+        if (UtilValidate.isNotEmpty(resultToFieldElements)) {
+            if (!"function".equals(this.memoryModel)) {
+                MiniLangValidate.handleError("Inline memory model cannot include <result-to-field> elements.", simpleMethod, element);
+            }
+            List<ResultToField> resultToFieldList = new ArrayList<ResultToField>(resultToFieldElements.size());
+            for (Element resultToFieldElement : resultToFieldElements) {
+                resultToFieldList.add(new ResultToField(resultToFieldElement, simpleMethod));
+            }
+            this.resultToFieldList = resultToFieldList;
+        } else {
+            this.resultToFieldList = null;
+        }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (UtilValidate.isNotEmpty(this.methodName)) {
-            String methodName = methodContext.expandString(this.methodName);
-            String xmlResource = methodContext.expandString(this.xmlResource);
-            SimpleMethod simpleMethodToCall = null;
-            try {
-                simpleMethodToCall = getSimpleMethodToCall(methodContext.getLoader());
-            } catch (MiniLangException e) {
-                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error getting methods from resource: " + e.getMessage() + "]";
-                Debug.logError(e, errMsg, module);
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
-            }
-            if (simpleMethodToCall == null) {
-                String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process, could not find SimpleMethod " + methodName + " in XML document in resource: " + xmlResource;
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
-            }
-            String returnVal = simpleMethodToCall.exec(methodContext);
-            if (Debug.verboseOn())
-                Debug.logVerbose("Called inline simple-method named [" + methodName + "] in resource [" + xmlResource + "], returnVal is [" + returnVal + "]", module);
-            if (returnVal != null && returnVal.equals(simpleMethodToCall.getDefaultErrorCode())) {
-                // in this case just set the error code just in case it hasn't already
-                // been set, the error messages will already be in place...
-                if (methodContext.getMethodType() == MethodContext.EVENT) {
-                    methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-                } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                    methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-                }
-                return false;
-            }
-            // if the response code/message is error, if so show the error and return
-            // false
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                String responseCode = (String) methodContext.getEnv(simpleMethod.getEventResponseCodeName());
-                if (responseCode != null && responseCode.equals(simpleMethod.getDefaultErrorCode())) {
-                    Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + methodName + "] in resource [" + xmlResource + "], message is " + methodContext.getEnv(simpleMethod.getEventErrorMessageName()), module);
-                    return false;
-                }
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                String resonseMessage = (String) methodContext.getEnv(simpleMethod.getServiceResponseMessageName());
-                if (resonseMessage != null && resonseMessage.equals(simpleMethod.getDefaultErrorCode())) {
-                    Debug.logWarning("Got error [" + resonseMessage + "] calling inline simple-method named [" + methodName + "] in resource [" + xmlResource + "], message is " + methodContext.getEnv(simpleMethod.getServiceErrorMessageName()) + ", and the error message list is: "
-                            + methodContext.getEnv(simpleMethod.getServiceErrorMessageListName()), module);
-                    return false;
-                }
-            }
+        if (UtilValidate.isEmpty(this.methodName)) {
+            throw new MiniLangRuntimeException("method-name attribute is empty", this);
+        }
+        SimpleMethod simpleMethodToCall = null;
+        if (UtilValidate.isEmpty(this.xmlResource)) {
+            simpleMethodToCall = this.simpleMethod.getSimpleMethodInSameFile(methodName);
         } else {
-            String errMsg = "ERROR in call-simple-method: methodName was missing; not running simpleMethod";
-            Debug.logError(errMsg, module);
-            methodContext.setErrorReturn(errMsg, simpleMethod);
+            Map<String, SimpleMethod> simpleMethods = SimpleMethod.getSimpleMethods(this.xmlResource, methodContext.getLoader());
+            simpleMethodToCall = simpleMethods.get(this.methodName);
+        }
+        if (simpleMethodToCall == null) {
+            throw new MiniLangRuntimeException("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource, this);
+        }
+        MethodContext localContext = methodContext;
+        if ("function".equals(this.memoryModel)) {
+            Map<String, Object> localEnv = FastMap.newInstance();
+            localEnv.putAll(methodContext.getEnvMap());
+            localEnv.remove(this.simpleMethod.getEventResponseCodeName());
+            localEnv.remove(this.simpleMethod.getServiceResponseMessageName());
+            localContext = new MethodContext(localEnv, methodContext.getLoader(), methodContext.getMethodType());
+        }
+        String returnVal = simpleMethodToCall.exec(localContext);
+        if (Debug.verboseOn())
+            Debug.logVerbose("Called simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], returnVal is [" + returnVal + "]", module);
+        if (simpleMethodToCall.getDefaultErrorCode().equals(returnVal)) {
+            if (methodContext.getMethodType() == MethodContext.EVENT) {
+                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
+            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
+            }
             return false;
+        }
+        if (methodContext.getMethodType() == MethodContext.EVENT) {
+            // FIXME: This doesn't make sense. We are comparing the called method's response code with this method's
+            // response code. Since response codes are configurable per method, this code will fail.
+            String responseCode = (String) localContext.getEnv(this.simpleMethod.getEventResponseCodeName());
+            if (this.simpleMethod.getDefaultErrorCode().equals(responseCode)) {
+                Debug.logWarning("Got error [" + responseCode + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getEventErrorMessageName()), module);
+                return false;
+            }
+        } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+            // FIXME: This doesn't make sense. We are comparing the called method's response message with this method's
+            // response message. Since response messages are configurable per method, this code will fail.
+            String responseMessage = (String) localContext.getEnv(this.simpleMethod.getServiceResponseMessageName());
+            if (this.simpleMethod.getDefaultErrorCode().equals(responseMessage)) {
+                Debug.logWarning("Got error [" + responseMessage + "] calling inline simple-method named [" + this.methodName + "] in resource [" + this.xmlResource + "], message is " + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageName()) + ", and the error message list is: "
+                        + methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName()), module);
+                return false;
+            }
+        }
+        if ("function".equals(this.memoryModel) && this.resultToFieldList != null) {
+            Map<String, Object> results = localContext.getResults();
+            if (results != null) {
+                for (ResultToField resultToField : this.resultToFieldList) {
+                    resultToField.exec(methodContext.getEnvMap(), results);
+                }
+            }
         }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
-    }
-
-    public String getMethodName() {
-        return this.methodName;
-    }
-
-    public SimpleMethod getSimpleMethodToCall(ClassLoader loader) throws MiniLangException {
-        SimpleMethod simpleMethodToCall = null;
-        if (UtilValidate.isEmpty(xmlResource)) {
-            simpleMethodToCall = this.simpleMethod.getSimpleMethodInSameFile(methodName);
-        } else {
-            Map<String, SimpleMethod> simpleMethods = SimpleMethod.getSimpleMethods(xmlResource, loader);
-            simpleMethodToCall = simpleMethods.get(methodName);
-        }
-        return simpleMethodToCall;
-    }
-
-    public String getXmlResource() {
-        return this.xmlResource;
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<call-simple-method xml-resource=\"" + this.xmlResource + "\" method-name=\"" + this.methodName + "\" />";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<call-simple-method ");
+        if (this.methodName.length() > 0) {
+            sb.append("method-name=\"").append(this.methodName).append("\" ");
+        }
+        if (this.xmlResource.length() > 0) {
+            sb.append("xml-resource=\"").append(this.xmlResource).append("\" ");
+        }
+        if (this.memoryModel.length() > 0) {
+            sb.append("memory-model=\"").append(this.memoryModel).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class CallSimpleMethodFactory implements Factory<CallSimpleMethod> {
@@ -138,6 +172,35 @@ public class CallSimpleMethod extends MethodOperation {
 
         public String getName() {
             return "call-simple-method";
+        }
+    }
+
+    private final class ResultToField {
+
+        private final FlexibleMapAccessor<Object> fieldFma;
+        private final FlexibleMapAccessor<Object> resultNameFma;
+
+        private ResultToField(Element element, SimpleMethod simpleMethod) throws ValidationException {
+            if (MiniLangValidate.validationOn()) {
+                MiniLangValidate.attributeNames(simpleMethod, element, "result-name", "field");
+                MiniLangValidate.requiredAttributes(simpleMethod, element, "result-name");
+                MiniLangValidate.expressionAttributes(simpleMethod, element, "result-name", "field");
+                MiniLangValidate.noChildElements(simpleMethod, element);
+            }
+            this.resultNameFma = FlexibleMapAccessor.getInstance(element.getAttribute("result-name"));
+            String fieldAttribute = element.getAttribute("field");
+            if (fieldAttribute.length() == 0) {
+                this.fieldFma = this.resultNameFma;
+            } else {
+                this.fieldFma = FlexibleMapAccessor.getInstance(fieldAttribute);
+            }
+        }
+
+        private void exec(Map<String, Object> context, Map<String, Object> results) throws MiniLangException {
+            Object value = this.resultNameFma.get(results);
+            if (value != null) {
+                this.fieldFma.put(context, value);
+            }
         }
     }
 }
