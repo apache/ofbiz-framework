@@ -354,6 +354,7 @@ under the License.
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="overridePrice" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="orderItemTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="changeComments" type="String" mode="IN" optional="true"/>
         <attribute name="itemDesiredDeliveryDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="itemAttributesMap" type="Map" mode="IN" optional="true"/>
