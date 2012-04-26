@@ -623,7 +623,7 @@ public class ServerHitBin {
                 return;
             }
             String visitId = visit.getString("visitId");
-            visit = delegator.findOne("Visit", UtilMisc.toMap("visitId", visitId), true);
+            visit = delegator.findOne("Visit", UtilMisc.toMap("visitId", visitId), false);
             if (visit == null) {
                 // GenericValue stored in client session does not exist in database.
                 Debug.logInfo("The Visit GenericValue stored in the client session does not exist in the database, not storing server hit.", module);
