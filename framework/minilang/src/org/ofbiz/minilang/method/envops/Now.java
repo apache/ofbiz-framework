@@ -40,9 +40,8 @@ public final class Now extends MethodOperation {
 
     private final FlexibleMapAccessor<Object> fieldFma;
     private final String type;
-    private final Converter<Long, Object> converter;
+    private final Converter<Long, ? extends Object> converter;
 
-    @SuppressWarnings("unchecked")
     public Now(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
@@ -60,7 +59,7 @@ public final class Now extends MethodOperation {
             if (targetClass == null) {
                 targetClass = java.sql.Timestamp.class;
             }
-            this.converter = (Converter<Long, Object>) Converters.getConverter(Long.class, targetClass);
+            this.converter = Converters.getConverter(Long.class, targetClass);
         } catch (ClassNotFoundException e) {
             throw new ValidationException(e.getMessage(), simpleMethod, element);
         }
