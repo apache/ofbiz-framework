@@ -144,6 +144,25 @@ public final class CallSimpleMethod extends MethodOperation {
         return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
+    public String getMethodName() {
+        return this.methodName;
+    }
+
+    public SimpleMethod getSimpleMethodToCall(ClassLoader loader) throws MiniLangException {
+        SimpleMethod simpleMethodToCall = null;
+        if (UtilValidate.isEmpty(xmlResource)) {
+            simpleMethodToCall = this.simpleMethod.getSimpleMethodInSameFile(methodName);
+        } else {
+            Map<String, SimpleMethod> simpleMethods = SimpleMethod.getSimpleMethods(xmlResource, loader);
+            simpleMethodToCall = simpleMethods.get(methodName);
+        }
+        return simpleMethodToCall;
+    }
+
+    public String getXmlResource() {
+        return this.xmlResource;
+    }
+
     @Override
     public String rawString() {
         return toString();
