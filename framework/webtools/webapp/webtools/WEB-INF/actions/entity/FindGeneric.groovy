@@ -166,7 +166,7 @@ if ("true".equals(find)) {
             if (groupByFields || functionFields) {
                 fieldsToSelect = FastSet.newInstance();
 
-                for (ModelField groupByField : groupByFields) {
+                for (String groupByField : groupByFields) {
                     fieldsToSelect.add(groupByField);
                 }
 
