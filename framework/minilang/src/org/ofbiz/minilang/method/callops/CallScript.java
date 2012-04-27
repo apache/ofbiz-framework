@@ -38,6 +38,16 @@ public final class CallScript extends MethodOperation {
 
     public static final String module = CallScript.class.getName();
 
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        String errorListAttr = element.getAttribute("error-list-name");
+        if (errorListAttr.length() > 0) {
+            element.removeAttribute("error-list-name");
+            return true;
+        }
+        return false;
+    }
+    
     private final String location;
     private final String method;
     private final Scriptlet scriptlet;
@@ -50,6 +60,10 @@ public final class CallScript extends MethodOperation {
             MiniLangValidate.constantAttributes(simpleMethod, element, "location");
             MiniLangValidate.scriptAttributes(simpleMethod, element, "script");
             MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
         }
         String scriptAttribute = element.getAttribute("script");
         if (MiniLangUtil.containsScript(scriptAttribute)) {
