@@ -956,12 +956,12 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="memory-model">
+            <xs:attribute name="scope">
                 <xs:annotation>
                     <xs:documentation>
-                        The memory model to use. In an &quot;inline&quot; memory model, fields declared or modified in the called method
+                        The memory scope to use. In an &quot;inline&quot; memory scope, fields declared or modified in the called method
                         will be reflected back to the calling method - as if the called method was inline. In a &quot;function&quot; memory
-                        model, fields declared or modified in the called method are local to the called method - they are not
+                        scope, fields declared or modified in the called method are local to the called method - they are not
                         reflected back to the calling method.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: constant.
