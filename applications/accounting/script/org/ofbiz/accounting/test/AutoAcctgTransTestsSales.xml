@@ -152,7 +152,7 @@ under the License.
         <assert><not><if-empty field="accountsReceivableEntries"></if-empty></not></assert>
 
         <clear-field field="acctgTransEntryFilter"/>
-        <set field="acctgTransEntryFilter.glAccountId" value="400000"/>
+        <set field="acctgTransEntryFilter.glAccountId" value="401000"/>
         <filter-list-by-and list="acctgTransEntryList" to-list="salesAccountEntries" map="acctgTransEntryFilter"/>
         <assert><not><if-empty field="salesAccountEntries"></if-empty></not></assert>
 
