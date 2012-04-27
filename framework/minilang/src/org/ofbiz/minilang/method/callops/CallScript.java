@@ -48,6 +48,10 @@ public final class CallScript extends MethodOperation {
         return false;
     }
     
+    /*
+     * Developers - the location attribute is a constant for security reasons.
+     * Script invocations should always be hard-coded.
+     */
     private final String location;
     private final String method;
     private final Scriptlet scriptlet;
