@@ -854,31 +854,34 @@ under the License.
     <xs:element name="script" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Runs an external script (minilang, bsh, groovy) from the expanded location provided.               
+                Runs an external script or a short inline script (scriptlet).
                 Error messages go on the error list and are handled with the check-errors tag.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType mixed="true">
-            <xs:attributeGroup ref="attlist.script"/>
+            <xs:attribute type="xs:string" name="location">
+                <xs:annotation>
+                    <xs:documentation>
+                        The script location. The location attribute accepts the component:// file location
+                        protocol. Script functions/methods can be invoked by appending a hash (#) and the
+                        function/method name.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required if the script attribute is empty. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="script">
+                <xs:annotation>
+                    <xs:documentation>
+                        A short script (scriptlet). Can be used instead of a file.
+                        The script must be prefixed with the script language followed by a colon (&quot;:&quot;).
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required if the location attribute is empty. Attribute type: script.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.script">
-        <xs:attribute type="xs:string" name="location">
-            <xs:annotation>
-                <xs:documentation>
-                    Script location (component://...)
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment to check for error messages.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
@@ -921,8 +924,7 @@ under the License.
                 Calls another simple-method in the same context as the current one.
                 The called simple-method will have the same environment as the calling simple-method,
                 including all environment fields, and either the event or service objects
-                that the calling simple-method was called
-                with.
+                that the calling simple-method was called with.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -930,7 +932,7 @@ under the License.
                 <xs:element ref="result-to-field" minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>
-                            Used when memory-model=&quot;function&quot;. Copies the called method fields
+                            Used when scope=&quot;function&quot;. Copies the called method fields
                             to the calling method fields.
                         </xs:documentation>
                     </xs:annotation>

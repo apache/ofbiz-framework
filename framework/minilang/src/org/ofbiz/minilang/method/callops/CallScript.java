@@ -18,84 +18,101 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.List;
-import java.util.Map;
-
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.ScriptUtil;
+import org.ofbiz.base.util.Scriptlet;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
-public class CallScript extends MethodOperation {
+/**
+ * Executes a script.
+ */
+public final class CallScript extends MethodOperation {
 
     public static final String module = CallScript.class.getName();
 
-    private static String getScriptLocation(String combinedName) {
-        int pos = combinedName.lastIndexOf("#");
-        if (pos == -1) {
-            return combinedName;
-        }
-        return combinedName.substring(0, pos);
-    }
-
-    private static String getScriptMethodName(String combinedName) {
-        int pos = combinedName.lastIndexOf("#");
-        if (pos == -1) {
-            return null;
-        }
-        return combinedName.substring(pos + 1);
-    }
-
-    private ContextAccessor<List<Object>> errorListAcsr;
-    private String location;
-    private String method;
+    private final String location;
+    private final String method;
+    private final Scriptlet scriptlet;
 
     public CallScript(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        String scriptLocation = element.getAttribute("location");
-        this.location = getScriptLocation(scriptLocation);
-        this.method = getScriptMethodName(scriptLocation);
-        this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "location", "script");
+            MiniLangValidate.requireAnyAttribute(simpleMethod, element, "location", "script");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "location");
+            MiniLangValidate.scriptAttributes(simpleMethod, element, "script");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        String scriptAttribute = element.getAttribute("script");
+        if (MiniLangUtil.containsScript(scriptAttribute)) {
+            this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(scriptAttribute));
+            this.location = null;
+            this.method = null;
+        } else {
+            this.scriptlet = null;
+            String scriptLocation = element.getAttribute("location");
+            int pos = scriptLocation.lastIndexOf("#");
+            if (pos == -1) {
+                this.location = scriptLocation;
+                this.method = null;
+            } else {
+                this.location = scriptLocation.substring(0, pos);
+                this.method = scriptLocation.substring(pos + 1);
+            }
+        }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String location = methodContext.expandString(this.location);
-        String method = methodContext.expandString(this.method);
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
-        }
-        Map<String, Object> context = methodContext.getEnvMap();
-        if (location.endsWith(".xml")) {
+        if (this.scriptlet != null) {
             try {
-                SimpleMethod.runSimpleMethod(location, method, methodContext);
-            } catch (MiniLangException e) {
-                messages.add("Error running simple method at location [" + location + "]: " + e.getMessage());
+                this.scriptlet.executeScript(methodContext.getEnvMap());
+            } catch (Exception e) {
+                throw new MiniLangRuntimeException(e.getMessage(), this);
             }
-        } else {
-            ScriptUtil.executeScript(this.location, this.method, context);
+            return true;
         }
-        // update the method environment
-        methodContext.putAllEnv(context);
-        // always return true, error messages just go on the error list
+        if (location.endsWith(".xml")) {
+            SimpleMethod.runSimpleMethod(location, method, methodContext);
+        } else {
+            ScriptUtil.executeScript(this.location, this.method, methodContext.getEnvMap());
+        }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        return rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        return "<script/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<script ");
+        if (this.location != null && this.location.length() > 0) {
+            sb.append("location=\"").append(this.location);
+            if (this.method != null && this.method.length() > 0) {
+                sb.append("#").append(this.method);
+            }
+            sb.append("\" ");
+        }
+        if (this.scriptlet != null) {
+            sb.append("scriptlet=\"").append(this.scriptlet).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class CallScriptFactory implements Factory<CallScript> {
