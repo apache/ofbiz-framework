@@ -47,24 +47,24 @@ public final class CallSimpleMethod extends MethodOperation {
 
     private final String methodName;
     private final String xmlResource;
-    private final String memoryModel;
+    private final String scope;
     private final List<ResultToField> resultToFieldList;
 
     public CallSimpleMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
-            MiniLangValidate.attributeNames(simpleMethod, element, "method-name", "xml-resource", "memory-model");
+            MiniLangValidate.attributeNames(simpleMethod, element, "method-name", "xml-resource", "scope");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "method-name");
-            MiniLangValidate.constantAttributes(simpleMethod, element, "method-name", "xml-resource", "memory-model");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "method-name", "xml-resource", "scope");
             MiniLangValidate.childElements(simpleMethod, element, "result-to-field");
         }
         this.methodName = element.getAttribute("method-name");
         this.xmlResource = element.getAttribute("xml-resource");
-        this.memoryModel = element.getAttribute("memory-model");
+        this.scope = element.getAttribute("scope");
         List<? extends Element> resultToFieldElements = UtilXml.childElementList(element, "result-to-field");
         if (UtilValidate.isNotEmpty(resultToFieldElements)) {
-            if (!"function".equals(this.memoryModel)) {
-                MiniLangValidate.handleError("Inline memory model cannot include <result-to-field> elements.", simpleMethod, element);
+            if (!"function".equals(this.scope)) {
+                MiniLangValidate.handleError("Inline scope cannot include <result-to-field> elements.", simpleMethod, element);
             }
             List<ResultToField> resultToFieldList = new ArrayList<ResultToField>(resultToFieldElements.size());
             for (Element resultToFieldElement : resultToFieldElements) {
@@ -92,7 +92,7 @@ public final class CallSimpleMethod extends MethodOperation {
             throw new MiniLangRuntimeException("Could not find <simple-method name=\"" + this.methodName + "\"> in XML document " + this.xmlResource, this);
         }
         MethodContext localContext = methodContext;
-        if ("function".equals(this.memoryModel)) {
+        if ("function".equals(this.scope)) {
             Map<String, Object> localEnv = FastMap.newInstance();
             localEnv.putAll(methodContext.getEnvMap());
             localEnv.remove(this.simpleMethod.getEventResponseCodeName());
@@ -128,7 +128,7 @@ public final class CallSimpleMethod extends MethodOperation {
                 return false;
             }
         }
-        if ("function".equals(this.memoryModel) && this.resultToFieldList != null) {
+        if ("function".equals(this.scope) && this.resultToFieldList != null) {
             Map<String, Object> results = localContext.getResults();
             if (results != null) {
                 for (ResultToField resultToField : this.resultToFieldList) {
@@ -177,8 +177,8 @@ public final class CallSimpleMethod extends MethodOperation {
         if (this.xmlResource.length() > 0) {
             sb.append("xml-resource=\"").append(this.xmlResource).append("\" ");
         }
-        if (this.memoryModel.length() > 0) {
-            sb.append("memory-model=\"").append(this.memoryModel).append("\" ");
+        if (this.scope.length() > 0) {
+            sb.append("scope=\"").append(this.scope).append("\" ");
         }
         sb.append("/>");
         return sb.toString();
