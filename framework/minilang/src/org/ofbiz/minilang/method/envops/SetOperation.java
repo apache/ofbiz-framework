@@ -25,6 +25,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.Scriptlet;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
@@ -111,7 +112,7 @@ public final class SetOperation extends MethodOperation {
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         String fromAttribute = element.getAttribute("from");
         if (MiniLangUtil.containsScript(fromAttribute)) {
-            this.scriptlet = new Scriptlet(fromAttribute);
+            this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(fromAttribute));
             this.fromFma = FlexibleMapAccessor.getInstance(null);
         } else {
             this.scriptlet = null;
