@@ -509,11 +509,11 @@ public class CheckOutEvents {
         GenericValue productStore = null;
         try {
             productStore = delegator.findByPrimaryKeyCache("ProductStore", UtilMisc.toMap("productStoreId", cart.getProductStoreId()));
+            Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), module);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting ProductStore: " + e.toString(), module);
         }
 
-        Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), module);
         if (productStore != null && "N".equals(productStore.getString("reqShipAddrForDigItems"))) {
             Debug.logInfo("checkShipmentNeeded: cart.containOnlyDigitalGoods()=" + cart.containOnlyDigitalGoods(), module);
             // don't require shipping for all digital items
