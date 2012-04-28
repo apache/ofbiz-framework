@@ -185,7 +185,6 @@ public class ShoppingCartItem implements java.io.Serializable {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
-            product = null;
         }
 
         if (product == null) {
@@ -355,7 +354,6 @@ public class ShoppingCartItem implements java.io.Serializable {
                 parentProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", parentProductId));
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
-                parentProduct = null;
             }
         }
         return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice,
@@ -2524,7 +2522,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             GenericValue newAdjustment = GenericValue.create(adjustment);
                             BigDecimal adjAmount = newAdjustment.getBigDecimal("amount");
 
-                            // we use != becuase adjustments can be +/-
+                            // we use != because adjustments can be +/-
                             if (adjAmount != null && adjAmount.compareTo(BigDecimal.ZERO) != 0)
                                 newAdjustment.set("amount", adjAmount.divide(baseQuantity, generalRounding));
                             Debug.logInfo("Cloned adj: " + newAdjustment, module);
