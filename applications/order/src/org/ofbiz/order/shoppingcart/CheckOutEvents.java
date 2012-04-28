@@ -178,7 +178,7 @@ public class CheckOutEvents {
                 BigDecimal billingAccountAmt = null;
                 billingAccountAmt = determineBillingAccountAmount(billingAccountId, request.getParameter("billingAccountAmount"), dispatcher);
                 if ((billingAccountId != null) && !"_NA_".equals(billingAccountId) && (billingAccountAmt == null)) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), (cart != null ? cart.getLocale() : Locale.getDefault())));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidAmountSetForBillingAccount", UtilMisc.toMap("billingAccountId",billingAccountId), cart.getLocale()));
                     return "error";
                 }
                 selectedPaymentMethods.put("EXT_BILLACT", UtilMisc.<String, Object>toMap("amount", billingAccountAmt, "securityCode", null));
@@ -741,17 +741,17 @@ public class CheckOutEvents {
         }
 
         // set the customer info
-        if (mode != null && mode.equals("default")) {
+        if (mode.equals("default")) {
             cart.setDefaultCheckoutOptions(dispatcher);
         }
 
         // remove the empty ship groups
-        if (mode != null && mode.equals("removeEmptyShipGroups")) {
+        if (mode.equals("removeEmptyShipGroups")) {
             cart.cleanUpShipGroups();
         }
 
         // set the customer info
-        if (mode != null && mode.equals("cust")) {
+        if (mode.equals("cust")) {
             String partyId = (String) request.getAttribute("partyId");
             if (partyId != null) {
                 cart.setOrderPartyId(partyId);
@@ -776,24 +776,24 @@ public class CheckOutEvents {
             }
         }
 
-        if (mode != null && mode.equals("addpty")) {
+        if (mode.equals("addpty")) {
             cart.setAttribute("addpty", "Y");
         }
 
-        if (mode != null && mode.equals("term")) {
+        if (mode.equals("term")) {
            cart.setOrderTermSet(true);
         }
 
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
 
         // ====================================================================================
-        if (mode != null && (mode.equals("ship") || mode.equals("options"))) {
+        if (mode.equals("ship") || mode.equals("options")) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
             List<String> errorMessages = new ArrayList<String>();
             Map<String, Object> errorMaps = new HashMap<String, Object>();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 // set the shipping method
-                if (mode != null && mode.equals("ship")) {
+                if (mode.equals("ship")) {
                     shippingContactMechId = request.getParameter(shipGroupIndex + "_shipping_contact_mech_id");
                     if (shippingContactMechId == null) {
                         shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
@@ -807,7 +807,7 @@ public class CheckOutEvents {
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
                 // set the options
-                if (mode != null && mode.equals("options")) {
+                if (mode.equals("options")) {
                     shippingMethod = request.getParameter(shipGroupIndex + "_shipping_method");
                     if (UtilValidate.isEmpty(shippingMethod)) {
                         shippingMethod = request.getParameter("shipping_method");
@@ -871,7 +871,7 @@ public class CheckOutEvents {
         // boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
         // boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
 
-        if (mode != null && mode.equals("payment")) {
+        if (mode.equals("payment")) {
             Map<String, Object> callResult = ServiceUtil.returnSuccess();
             List<String> errorMessages = new ArrayList<String>();
             Map<String, Object> errorMaps = new HashMap<String, Object>();
