@@ -3560,42 +3560,25 @@ under the License.
     <xs:element name="check-errors" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                The message lists from invoking are not checked until the check-errors tag is used.
-                The named list is checked and if it contains any messages they are put in the servlet
-                request object and the specified error code is returned to the control servlet.
+                Halts script execution if the error message list contains any messages.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" ref="error-prefix"/>
-                <xs:element minOccurs="0" ref="error-suffix"/>
-                <xs:element minOccurs="0" ref="message-prefix"/>
-                <xs:element minOccurs="0" ref="message-suffix"/>
-            </xs:sequence>
-            <xs:attributeGroup ref="attlist.check-errors"/>
+            <xs:attribute type="xs:string" name="error-code">
+                <xs:annotation>
+                    <xs:documentation>
+                    The error code to return to the calling process. Defaults to "error".
+                    &lt;br/&gt;&lt;br/&gt;
+                    Optional. Attribute type: constant+expr
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.check-errors">
-        <xs:attribute type="xs:string" name="error-code" default="error">
-             <xs:annotation>
-                <xs:documentation>
-                    Defaults to "error".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment to check for error messages.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="add-error" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                Adds an error message with to the given error list from either an inline message or a message from a properties file.
+                Adds an error message to the error message list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
@@ -3603,19 +3586,8 @@ under the License.
                 <xs:element ref="fail-message"/>
                 <xs:element ref="fail-property"/>
             </xs:choice>
-            <xs:attributeGroup ref="attlist.add-error"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.add-error">
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment to check for error messages.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="break" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
@@ -5305,22 +5277,21 @@ under the License.
     <xs:element name="fail-message">
         <xs:annotation>
             <xs:documentation>
-                Used to specify an inline message. Has one attribute called 'message'.
+                Used to specify an error message.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.fail-message"/>
+            <xs:attribute type="xs:string" name="message" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The error message text.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant+expr
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.fail-message">
-        <xs:attribute type="xs:string" name="message" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Literal or flexible string using ${} syntax.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="fail-property">
         <xs:annotation>
             <xs:documentation>
@@ -5329,23 +5300,24 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.fail-property"/>
+            <xs:attribute type="xs:string" name="resource" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of a properties file on the classpath.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="property" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The property key.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.fail-property">
-        <xs:attribute type="xs:string" name="resource" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a properties file on the classpath.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="property" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the property in the properties file qualifed by 'resource'.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
 </xs:schema>

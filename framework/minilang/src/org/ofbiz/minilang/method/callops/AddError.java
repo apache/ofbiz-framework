@@ -22,78 +22,118 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Adds the fail-message or fail-property value to the error-list.
+ * Adds an error message to the error message list.
  */
-public class AddError extends MethodOperation {
+public final class AddError extends MethodOperation {
 
-    ContextAccessor<List<Object>> errorListAcsr;
-    boolean isProperty = false;
-    String message = null;
-    String propertyResource = null;
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        String errorListAttr = element.getAttribute("error-list-name");
+        if (errorListAttr.length() > 0) {
+            element.removeAttribute("error-list-name");
+            return true;
+        }
+        return false;
+    }
+    
+    private final FlexibleStringExpander messageFse;
+    private final String propertykey;
+    private final String propertyResource;
 
     public AddError(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        Element failMessage = UtilXml.firstChildElement(element, "fail-message");
-        Element failProperty = UtilXml.firstChildElement(element, "fail-property");
-        if (failMessage != null) {
-            this.message = failMessage.getAttribute("message");
-            this.isProperty = false;
-        } else if (failProperty != null) {
-            this.propertyResource = failProperty.getAttribute("resource");
-            this.message = failProperty.getAttribute("property");
-            this.isProperty = true;
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.childElements(simpleMethod, element, "fail-message", "fail-property");
+            MiniLangValidate.requireAnyChildElement(simpleMethod, element, "fail-message", "fail-property");
         }
-    }
-
-    public void addMessage(List<Object> messages, ClassLoader loader, MethodContext methodContext) {
-        String message = methodContext.expandString(this.message);
-        String propertyResource = methodContext.expandString(this.propertyResource);
-        if (!isProperty && message != null) {
-            messages.add(message);
-        } else if (isProperty && propertyResource != null && message != null) {
-            String propMsg = UtilProperties.getMessage(propertyResource, message, methodContext.getEnvMap(), methodContext.getLocale());
-            if (UtilValidate.isEmpty(propMsg)) {
-                messages.add("Simple Method error occurred, but no message was found, sorry.");
-            } else {
-                messages.add(methodContext.expandString(propMsg));
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
+        }
+        Element childElement = UtilXml.firstChildElement(element, "fail-message");
+        if (childElement != null) {
+            if (MiniLangValidate.validationOn()) {
+                MiniLangValidate.attributeNames(simpleMethod, childElement, "message");
+                MiniLangValidate.requiredAttributes(simpleMethod, childElement, "message");
+                MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, childElement, "message");
             }
+            this.messageFse = FlexibleStringExpander.getInstance(childElement.getAttribute("message"));
+            this.propertykey = null;
+            this.propertyResource = null;
         } else {
-            messages.add("Simple Method error occurred, but no message was found, sorry.");
+            childElement = UtilXml.firstChildElement(element, "fail-property");
+            if (childElement != null) {
+                if (MiniLangValidate.validationOn()) {
+                    MiniLangValidate.attributeNames(simpleMethod, childElement, "property", "resource");
+                    MiniLangValidate.requiredAttributes(simpleMethod, childElement, "property", "resource");
+                    MiniLangValidate.constantAttributes(simpleMethod, childElement, "property", "resource");
+                }
+                this.messageFse = FlexibleStringExpander.getInstance(null);
+                this.propertykey = childElement.getAttribute("property");
+                this.propertyResource = childElement.getAttribute("resource");
+            } else {
+                this.messageFse = FlexibleStringExpander.getInstance(null);
+                this.propertykey = null;
+                this.propertyResource = null;
+            }
         }
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
+        String message = null;
+        if (!this.messageFse.isEmpty()) {
+            message = this.messageFse.expandString(methodContext.getEnvMap());
+        } else if (this.propertyResource != null) {
+            message = UtilProperties.getMessage(this.propertyResource, this.propertykey, methodContext.getEnvMap(), methodContext.getLocale());
         }
-        this.addMessage(messages, methodContext.getLoader(), methodContext);
+        if (message != null) {
+            List<String> messages = null;
+            if (methodContext.getMethodType() == MethodContext.EVENT) {
+                messages = methodContext.getEnv(this.simpleMethod.getEventErrorMessageListName());
+                if (messages == null) {
+                    messages = FastList.newInstance();
+                    methodContext.putEnv(this.simpleMethod.getEventErrorMessageListName(), messages);
+                }
+            } else {
+                messages = methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName());
+                if (messages == null) {
+                    messages = FastList.newInstance();
+                    methodContext.putEnv(this.simpleMethod.getServiceErrorMessageListName(), messages);
+                }
+            }
+            messages.add(message);
+            // TODO: Remove this line after tests are fixed
+            Debug.logInfo("<add-error> message = " + message + ", location = " + this.simpleMethod.getLocationAndName() + ", line = " + this.getLineNumber(), this.getClass().getName());
+        }
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
+        return toString();
+    }
+
+    @Override
+    public String toString() {
         return "<add-error/>";
     }
 
