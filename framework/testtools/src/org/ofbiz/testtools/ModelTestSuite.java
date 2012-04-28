@@ -139,10 +139,7 @@ public class ModelTestSuite {
         } else if ("entity-xml-assert".equals(nodeName)) {
             // this is the old, deprecated name for the element, changed because it now does assert or load
             this.testList.add(new EntityXmlAssertTest(caseName, testElement));
-        } else if ("jython-test".equals(nodeName)) {
-            this.testList.add(new JythonTest(caseName, testElement));
         }
-
     }
 
     String getSuiteName() {

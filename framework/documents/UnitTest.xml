@@ -87,18 +87,7 @@
             </para>
         </section>
         <section>
-            <title>3. Jython</title>
-            <para>
-                Specific jython script's location which will be tested in a script-location attribute like this:
-                <programlisting>
-                    &lt;test-case case-name="service-tests"&gt;
-                        &lt;jython-test script-location="component://testtools/webapp/testtools/actions/ServiceEngineTests.py"/&gt;
-                    &lt;/test-case&gt;
-                </programlisting>
-            </para>
-        </section>
-        <section>
-            <title>4. Service</title>
+            <title>3. Service</title>
             <para>
                 Specific service's name which will be tested in a service-name attribute like this:
                 <programlisting>
@@ -109,7 +98,7 @@
             </para>
         </section>
         <section>
-            <title>5. Simple Method</title>
+            <title>4. Simple Method</title>
             <para>
                 Specific simple method's location and name which will be tested in a location and a name attribute respectively like this:
                 <programlisting>

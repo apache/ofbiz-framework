@@ -129,12 +129,4 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 
-    <xs:element name="jython-test" substitutionGroup="TestCaseTypes">
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.jython-test"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.jython-test">
-        <xs:attribute type="xs:string" name="script-location" use="required"/>
-    </xs:attributeGroup>
 </xs:schema>
