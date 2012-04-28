@@ -3560,16 +3560,16 @@ under the License.
     <xs:element name="check-errors" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                Halts script execution if the error message list contains any messages.
+                Halts script execution if errors were encountered in previous operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:attribute type="xs:string" name="error-code">
                 <xs:annotation>
                     <xs:documentation>
-                    The error code to return to the calling process. Defaults to "error".
-                    &lt;br/&gt;&lt;br/&gt;
-                    Optional. Attribute type: constant+expr
+                        The error code to return to the calling process. Defaults to "error".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant+expr
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -3578,14 +3578,23 @@ under the License.
     <xs:element name="add-error" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                Adds an error message to the error message list.
+                Adds an error message to an error message list.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice>
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
+                <xs:element ref="fail-message" />
+                <xs:element ref="fail-property" />
             </xs:choice>
+            <xs:attribute type="xs:string" name="error-list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the error message list. Defaults to "error_list".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="break" substitutionGroup="ControlOperations">
