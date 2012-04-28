@@ -28,21 +28,6 @@ context.productStore = productStore;
 context.createAllowPassword = "Y".equals(productStore.allowPassword);
 context.getUsername = !"Y".equals(productStore.usePrimaryEmailUsername);
 
-// load the geo names for selected countries and states/regions
-if (parameters.CUSTOMER_COUNTRY) {
-    geoValue = delegator.findByPrimaryKeyCache("Geo", [geoId : parameters.CUSTOMER_COUNTRY]);
-    if (geoValue) {
-        context.selectedCountryName = geoValue.geoName;
-    }
-}
-
-if (parameters.CUSTOMER_STATE) {
-    geoValue = delegator.findByPrimaryKeyCache("Geo", [geoId : parameters.CUSTOMER_STATE]);
-    if (geoValue) {
-        context.selectedStateName = geoValue.geoName;
-    }
-}
-
 previousParams = parameters._PREVIOUS_PARAMS_;
 if (previousParams) {
     previousParams = "?" + previousParams;
@@ -68,3 +53,6 @@ if (userInfoMap) {
     requestParameters.USERNAME = userInfoMap.preferredUsername;
     request.getSession().setAttribute("userInfoMap", userInfoMap);
 }
+
+donePage = "main;" + parameters.visit.sessionId
+context.donePage = donePage;

@@ -23,6 +23,7 @@ under the License.
      lastFocusedName = null;
      function setLastFocused(formElement) {
          lastFocusedName = formElement.name;
+         document.write.lastFocusedName;
      }
      function clickUsername() {
          if (document.getElementById('UNUSEEMAIL').checked) {
@@ -93,10 +94,10 @@ will generally always be reserved for the logo at the top of the page.
   </#if>
 </#macro>
 
-  &nbsp;<a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonCancel}</a>
   &nbsp;<a href="javascript:document.getElementById('newuserform').submit()" class="button">${uiLabelMap.CommonSave}</a>
 
-<form method="post" action="<@ofbizUrl>createcustomer${previousParams}</@ofbizUrl>" id="newuserform">
+<form method="post" action="<@ofbizUrl>createcustomer${previousParams}</@ofbizUrl>" id="newuserform" name="newuserform">
   
   
   <#----------------------------------------------------------------------
@@ -203,32 +204,29 @@ will generally always be reserved for the logo at the top of the page.
       <@fieldErrors fieldName="CUSTOMER_POSTAL_CODE"/>
       <input type="text" name="CUSTOMER_POSTAL_CODE" id="CUSTOMER_POSTAL_CODE" value="${requestParameters.CUSTOMER_POSTAL_CODE?if_exists}" />
     </div>
-
+  
     <div>
-      <label for="customerCountry">${uiLabelMap.CommonCountry}*</label>
-      <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
-      <select name="CUSTOMER_COUNTRY" onclick="hideShowUsaStates();" id="customerCountry">
-        <#if requestParameters.CUSTOMER_COUNTRY?exists>
-          <option value='${requestParameters.CUSTOMER_COUNTRY}'>${selectedCountryName?default(requestParameters.CUSTOMER_COUNTRY)}</option>
-        </#if>
-        ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-      </select>
-    </div>
-
+        <label for="customerCountry">${uiLabelMap.CommonCountry}*</label>
+        <@fieldErrors fieldName="CUSTOMER_COUNTRY"/>
+        <select name="CUSTOMER_COUNTRY" id="newuserform_countryGeoId">
+            ${screens.render("component://common/widget/CommonScreens.xml#countries")}        
+            <#assign defaultCountryGeoId = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "country.geo.id.default")>
+            <option selected="selected" value="${defaultCountryGeoId}">
+                <#assign countryGeo = delegator.findByPrimaryKey("Geo",Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId))>
+                ${countryGeo.get("geoName",locale)}
+            </option>
+        </select>
+    <div/>
+    
     <div>
-      <label for="customerState">${uiLabelMap.PartyState}*</label>
-      <@fieldErrors fieldName="CUSTOMER_STATE"/>
-      <select name="CUSTOMER_STATE" id="customerState">
-        <#if requestParameters.CUSTOMER_STATE?exists>
-          <option value='${requestParameters.CUSTOMER_STATE}'>${selectedStateName?default(requestParameters.CUSTOMER_STATE)}</option>
-        </#if>
-        <option value="">${uiLabelMap.PartyNoState}</option>
-        ${screens.render("component://common/widget/CommonScreens.xml#states")}
-      </select>
-    </div>
+        <label for="customerState">${uiLabelMap.PartyState}*</label>
+        <@fieldErrors fieldName="CUSTOMER_STATE"/>
+        <select name="CUSTOMER_STATE" id="newuserform_stateProvinceGeoId"></select>
+    <div/>
 
     <div>
       <label for="CUSTOMER_ADDRESS_ALLOW_SOL">${uiLabelMap.PartyAllowAddressSolicitation}</label>
+      <@fieldErrors fieldName="CUSTOMER_ADDRESS_ALLOW_SOL"/>
       <select name="CUSTOMER_ADDRESS_ALLOW_SOL" id="CUSTOMER_ADDRESS_ALLOW_SOL">
         <#if (((requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
         <#if (((requestParameters.CUSTOMER_ADDRESS_ALLOW_SOL)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
@@ -400,7 +398,7 @@ class name of "button". No other class names should be used to style
 button actions.
 ------------------------------------------------------------------------------->
 <div class="buttons">  
-  &nbsp;<a href="<@ofbizUrl>checkLogin/main</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
+  &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonCancel}</a>
   &nbsp;<a href="javascript:document.getElementById('newuserform').submit()" class="button">${uiLabelMap.CommonSave}</a>   
 </div>
 
