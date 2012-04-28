@@ -20,58 +20,58 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.List;
 
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * An event operation that checks a message list and may introduce a return code and stop the event
+ * Halts script execution if the error message list contains any messages.
  */
-public class CheckErrors extends MethodOperation {
+public final class CheckErrors extends MethodOperation {
 
-    String errorCode;
-    ContextAccessor<List<Object>> errorListAcsr;
-    FlexibleMessage errorPrefix;
-    FlexibleMessage errorSuffix;
-    FlexibleMessage messagePrefix;
-    FlexibleMessage messageSuffix;
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        String errorListAttr = element.getAttribute("error-list-name");
+        if (errorListAttr.length() > 0) {
+            element.removeAttribute("error-list-name");
+            return true;
+        }
+        return false;
+    }
+    
+    private final FlexibleStringExpander errorCodeFse;
 
     public CheckErrors(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        errorCode = element.getAttribute("error-code");
-        if (UtilValidate.isEmpty(errorCode))
-            errorCode = "error";
-        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "check.error.prefix");
-        errorSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-suffix"), "check.error.suffix");
-        messagePrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-prefix"), "check.message.prefix");
-        messageSuffix = new FlexibleMessage(UtilXml.firstChildElement(element, "message-suffix"), "check.message.suffix");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "error-code");
+            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "error-code");
+            MiniLangValidate.noChildElements(simpleMethod, element);
+        }
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
+        }
+        this.errorCodeFse = FlexibleStringExpander.getInstance(element.getAttribute("error-code"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (UtilValidate.isNotEmpty(messages)) {
-            String errorCode = methodContext.expandString(this.errorCode);
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                /*
-                 * The OLD way, now puts formatting control in the template... String errMsg = errorPrefix.getMessage(methodContext.getLoader(), methodContext) + ServiceUtil.makeMessageList(messages,
-                 * messagePrefix.getMessage(methodContext.getLoader(), methodContext), messageSuffix.getMessage(methodContext.getLoader(), methodContext)) +
-                 * errorSuffix.getMessage(methodContext.getLoader(), methodContext); methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                 */
-                methodContext.putEnv(simpleMethod.getEventErrorMessageListName(), messages);
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), errorCode);
+        if (methodContext.getMethodType() == MethodContext.EVENT) {
+            List<Object> messages = methodContext.getEnv(this.simpleMethod.getEventErrorMessageListName());
+            if (messages != null && messages.size() > 0) {
+                methodContext.putEnv(this.simpleMethod.getEventResponseCodeName(), getErrorCode(methodContext));
                 return false;
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), messages);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), errorCode);
-                return false;
-            } else {
+            }
+        } else {
+            List<Object> messages = methodContext.getEnv(this.simpleMethod.getServiceErrorMessageListName());
+            if (messages != null && messages.size() > 0) {
+                methodContext.putEnv(this.simpleMethod.getServiceResponseMessageName(), getErrorCode(methodContext));
                 return false;
             }
         }
@@ -80,14 +80,30 @@ public class CheckErrors extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
+    }
+
+    private String getErrorCode(MethodContext methodContext) {
+        String errorCode = this.errorCodeFse.expandString(methodContext.getEnvMap());
+        if (errorCode.length() == 0) {
+            errorCode = this.simpleMethod.getDefaultErrorCode();
+        }
+        return errorCode;
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<check-errors/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<check-errors ");
+        if (!this.errorCodeFse.isEmpty()) {
+            sb.append("error-code=\"").append(this.errorCodeFse).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class CheckErrorsFactory implements Factory<CheckErrors> {
