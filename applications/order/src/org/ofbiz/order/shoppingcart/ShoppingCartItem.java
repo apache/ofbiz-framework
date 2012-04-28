@@ -2503,7 +2503,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         int thisIndex = cart.items().indexOf(this);
         List<ShoppingCartItem> newItems = new ArrayList<ShoppingCartItem>();
 
-        if (baseQuantity.compareTo(BigDecimal.ONE) > 1) {
+        if (baseQuantity.compareTo(BigDecimal.ONE) > 0) {
             for (int i = 1; i < baseQuantity.intValue(); i++) {
                 // clone the item
                 ShoppingCartItem item = new ShoppingCartItem(this);
