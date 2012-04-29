@@ -4400,61 +4400,44 @@ under the License.
     <xs:element name="log" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The log tag logs a message used the OFBiz Debug class, which uses Log4J to log to the console, a file, or some other location.
-                The message is a concatenation of the message attribute and then all of the field and string sub-element values in the order they are specified.
+                Logs a message.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="field">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Inserts the value of the field into the message where specified.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="string">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Inserts the value of the inline string into the message where specified.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-            </xs:choice>
-            <xs:attributeGroup ref="attlist.log"/>
+            <xs:attribute name="level" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The logging/debug level to use.
+                        Must be one of the following: verbose | timing | info | important | warning | error | fatal | always.
+                        Defaults to "info".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="info" />
+                        <xs:enumeration value="verbose" />
+                        <xs:enumeration value="timing" />
+                        <xs:enumeration value="important" />
+                        <xs:enumeration value="warning" />
+                        <xs:enumeration value="error" />
+                        <xs:enumeration value="fatal" />
+                        <xs:enumeration value="always" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="message" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The message to log.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant+expr.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.log">
-        <xs:attribute name="level" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The logging/debug level to use.
-                    Must be one of the following: verbose | timing | info | important | warning | error | fatal | always.
-                    These are the standard OFBiz logging levels.
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="verbose"/>
-                    <xs:enumeration value="timing"/>
-                    <xs:enumeration value="info"/>
-                    <xs:enumeration value="important"/>
-                    <xs:enumeration value="warning"/>
-                    <xs:enumeration value="error"/>
-                    <xs:enumeration value="fatal"/>
-                    <xs:enumeration value="always"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="message">
-            <xs:annotation>
-                <xs:documentation>
-                    A shortcut for simple messages.
-                    If used along with field and/or string sub-elements the inline string in the message will come first.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="now" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
