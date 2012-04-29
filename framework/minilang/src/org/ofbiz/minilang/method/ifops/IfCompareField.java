@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class IfCompareField extends MethodOperation {
     protected String format;
     protected ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     protected String operator;
-    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> subOps;
     protected ContextAccessor<Object> toFieldAcsr;
     protected ContextAccessor<Map<String, ? extends Object>> toMapAcsr;
     protected String type;
@@ -73,11 +74,10 @@ public class IfCompareField extends MethodOperation {
         this.operator = element.getAttribute("operator");
         this.type = element.getAttribute("type");
         this.format = element.getAttribute("format");
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = FastList.newInstance();
-            SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
 

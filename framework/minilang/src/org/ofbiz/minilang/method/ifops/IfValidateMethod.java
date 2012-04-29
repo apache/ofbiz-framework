@@ -19,6 +19,7 @@
 package org.ofbiz.minilang.method.ifops;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ public class IfValidateMethod extends MethodOperation {
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String methodName;
-    List<MethodOperation> subOps = FastList.newInstance();
+    List<MethodOperation> subOps;
 
     public IfValidateMethod(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -56,11 +57,10 @@ public class IfValidateMethod extends MethodOperation {
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.methodName = element.getAttribute("method");
         this.className = element.getAttribute("class");
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = FastList.newInstance();
-            SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
 

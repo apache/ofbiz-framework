@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,7 @@ public class IfNotEmpty extends MethodOperation {
     protected List<MethodOperation> elseSubOps = null;
     protected ContextAccessor<Object> fieldAcsr;
     protected ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> subOps;
 
     public IfNotEmpty(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -54,11 +55,10 @@ public class IfNotEmpty extends MethodOperation {
             // NOTE: this is still supported, but is deprecated
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = FastList.newInstance();
-            SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
 

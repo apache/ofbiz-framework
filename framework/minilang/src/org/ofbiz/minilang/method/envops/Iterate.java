@@ -19,10 +19,9 @@
 package org.ofbiz.minilang.method.envops;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -47,13 +46,13 @@ public class Iterate extends MethodOperation {
 
     protected ContextAccessor<Object> entryAcsr;
     protected ContextAccessor<Object> listAcsr;
-    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> subOps;
 
     public Iterate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
         this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }
 
     @Override

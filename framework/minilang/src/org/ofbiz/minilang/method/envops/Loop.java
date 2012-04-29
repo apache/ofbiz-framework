@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
+import java.util.Collections;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.minilang.MiniLangException;
@@ -41,13 +40,13 @@ public class Loop extends MethodOperation {
 
     protected String countStr;
     protected ContextAccessor<Integer> fieldAcsr;
-    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> subOps;
 
     public Loop(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.fieldAcsr = new ContextAccessor<Integer>(element.getAttribute("field"));
         this.countStr = element.getAttribute("count");
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }
 
     @Override
