@@ -398,7 +398,7 @@ public class SimpleMethod {
 
     public static List<MethodOperation> readOperations(Element simpleMethodElement, SimpleMethod simpleMethod) throws MiniLangException {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
-        List<MethodOperation> methodOperations = new ArrayList<MethodOperation>(operationElements.size());
+        ArrayList<MethodOperation> methodOperations = new ArrayList<MethodOperation>(operationElements.size());
         if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem : operationElements) {
                 String nodeName = curOperElem.getNodeName();
@@ -421,6 +421,7 @@ public class SimpleMethod {
                 }
             }
         }
+        methodOperations.trimToSize();
         return methodOperations;
     }
 
