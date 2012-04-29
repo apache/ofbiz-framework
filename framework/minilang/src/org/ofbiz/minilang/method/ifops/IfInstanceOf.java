@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class IfInstanceOf extends MethodOperation {
     protected List<MethodOperation> elseSubOps = null;
     protected ContextAccessor<Object> fieldAcsr = null;
     protected ContextAccessor<Map<String, ? extends Object>> mapAcsr = null;
-    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> subOps;
 
     public IfInstanceOf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -49,11 +50,10 @@ public class IfInstanceOf extends MethodOperation {
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.className = element.getAttribute("class");
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = FastList.newInstance();
-            SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
 

@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import java.util.Collections;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
@@ -35,15 +34,14 @@ import org.w3c.dom.Element;
 public class ElseIf {
 
     protected Conditional condition;
-    protected List<MethodOperation> thenSubOps = FastList.newInstance();
+    protected List<MethodOperation> thenSubOps;
 
     public ElseIf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
-
         Element thenElement = UtilXml.firstChildElement(element, "then");
-        SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
+        this.thenSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(thenElement, simpleMethod));
     }
 
     public boolean checkCondition(MethodContext methodContext) {

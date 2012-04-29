@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.envops;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.minilang.MiniLangException;
@@ -42,7 +41,7 @@ public class IterateMap extends MethodOperation {
 
     ContextAccessor<Object> keyAcsr;
     ContextAccessor<Map<? extends Object, ? extends Object>> mapAcsr;
-    List<MethodOperation> subOps = FastList.newInstance();
+    List<MethodOperation> subOps;
     ContextAccessor<Object> valueAcsr;
 
     public IterateMap(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -50,7 +49,7 @@ public class IterateMap extends MethodOperation {
         this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key"), element.getAttribute("key-name"));
         this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value"), element.getAttribute("value-name"));
         this.mapAcsr = new ContextAccessor<Map<? extends Object, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }
 
     @Override

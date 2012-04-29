@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import java.util.Collections;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -38,7 +39,7 @@ public class MasterIf extends MethodOperation {
     Conditional condition;
     List<ElseIf> elseIfs = null;
     List<MethodOperation> elseSubOps = null;
-    List<MethodOperation> thenSubOps = FastList.newInstance();
+    List<MethodOperation> thenSubOps;
 
     public MasterIf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -46,7 +47,7 @@ public class MasterIf extends MethodOperation {
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
         Element thenElement = UtilXml.firstChildElement(element, "then");
-        SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
+        this.thenSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(thenElement, simpleMethod));
         List<? extends Element> elseIfElements = UtilXml.childElementList(element, "else-if");
         if (UtilValidate.isNotEmpty(elseIfElements)) {
             elseIfs = FastList.newInstance();
@@ -56,8 +57,7 @@ public class MasterIf extends MethodOperation {
         }
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = FastList.newInstance();
-            SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
 

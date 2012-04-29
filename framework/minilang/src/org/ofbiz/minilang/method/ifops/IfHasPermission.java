@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
+import java.util.Collections;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -42,17 +43,16 @@ public class IfHasPermission extends MethodOperation {
     protected FlexibleStringExpander actionExdr;
     protected List<MethodOperation> elseSubOps = null;
     protected FlexibleStringExpander permissionExdr;
-    protected List<MethodOperation> subOps = FastList.newInstance();
+    protected List<MethodOperation> subOps;
 
     public IfHasPermission(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         this.permissionExdr = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
         this.actionExdr = FlexibleStringExpander.getInstance(element.getAttribute("action"));
-        SimpleMethod.readOperations(element, subOps, simpleMethod);
+        this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
-            elseSubOps = FastList.newInstance();
-            SimpleMethod.readOperations(elseElement, elseSubOps, simpleMethod);
+            this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
 

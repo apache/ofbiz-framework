@@ -21,6 +21,7 @@ package org.ofbiz.minilang;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -395,8 +396,9 @@ public class SimpleMethod {
         return simpleMethods;
     }
 
-    public static void readOperations(Element simpleMethodElement, List<MethodOperation> methodOperations, SimpleMethod simpleMethod) throws MiniLangException {
+    public static List<MethodOperation> readOperations(Element simpleMethodElement, SimpleMethod simpleMethod) throws MiniLangException {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
+        List<MethodOperation> methodOperations = new ArrayList<MethodOperation>(operationElements.size());
         if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem : operationElements) {
                 String nodeName = curOperElem.getNodeName();
@@ -407,16 +409,19 @@ public class SimpleMethod {
                 } else if ("else".equals(nodeName)) {
                     // don't add anything, but don't complain either, this one is handled in the individual operations
                 } else {
-                    Debug.logWarning("Operation element \"" + nodeName + "\" no recognized", module);
+                    MiniLangValidate.handleError("Invalid element found", simpleMethod, curOperElem);
                 }
-                if (methodOp == null)
+                if (methodOp == null) {
                     continue;
+                }
                 methodOperations.add(methodOp);
                 DeprecatedOperation depOp = methodOp.getClass().getAnnotation(DeprecatedOperation.class);
-                if (depOp != null)
-                    Debug.logInfo("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value() + " operation; found use of this in [" + simpleMethod.getShortDescription() + "]: " + methodOp.rawString(), module);
+                if (depOp != null) {
+                    MiniLangValidate.handleError("The " + nodeName + " operation has been deprecated in favor of the " + depOp.value() + " operation", simpleMethod, curOperElem);
+                }
             }
         }
+        return methodOperations;
     }
 
     public static String runSimpleEvent(String xmlResource, String methodName, HttpServletRequest request, HttpServletResponse response) throws MiniLangException {
@@ -496,7 +501,7 @@ public class SimpleMethod {
     protected String localeName;
     protected boolean loginRequired = true;
     protected String methodName;
-    protected List<MethodOperation> methodOperations = FastList.newInstance();
+    protected List<MethodOperation> methodOperations;
     protected String parameterMapName;
     protected Map<String, SimpleMethod> parentSimpleMethodsMap;
     protected String securityName;
@@ -539,7 +544,7 @@ public class SimpleMethod {
         securityName = UtilXml.elementAttribute(simpleMethodElement, "security-name", "security");
         dispatcherName = UtilXml.elementAttribute(simpleMethodElement, "dispatcher-name", "dispatcher");
         userLoginName = UtilXml.elementAttribute(simpleMethodElement, "user-login-name", "userLogin");
-        readOperations(simpleMethodElement, this.methodOperations, this);
+        this.methodOperations = Collections.unmodifiableList(readOperations(simpleMethodElement, this));
     }
 
     /** Execute the Simple Method operations */
