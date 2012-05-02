@@ -74,7 +74,7 @@ public final class CallScript extends MethodOperation {
         if (inlineScript.length() == 0) {
             inlineScript = UtilXml.elementValue(element);
         }
-        if (MiniLangUtil.containsScript(inlineScript)) {
+        if (inlineScript != null && MiniLangUtil.containsScript(inlineScript)) {
             this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(inlineScript));
             this.location = null;
             this.method = null;
