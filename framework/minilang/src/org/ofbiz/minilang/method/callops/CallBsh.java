@@ -22,18 +22,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangUtil;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
@@ -42,34 +42,44 @@ import bsh.EvalError;
 import bsh.Interpreter;
 
 /**
- * Simple class to wrap messages that come either from a straight string or a properties file
+ * Executes a BSH script.
  */
-public class CallBsh extends MethodOperation {
+public final class CallBsh extends MethodOperation {
 
     public static final String module = CallBsh.class.getName();
-    public static final int bufferLength = 4096;
 
-    ContextAccessor<List<Object>> errorListAcsr;
-    String inline = null;
-    String resource = null;
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        boolean elementModified = false;
+        String errorListAttr = element.getAttribute("error-list-name");
+        if (errorListAttr.length() > 0) {
+            element.removeAttribute("error-list-name");
+            elementModified = true;
+        }
+        return elementModified;
+    }
+
+    private final String inline;
+    private final String resource;
 
     public CallBsh(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        inline = UtilXml.elementValue(element);
-        resource = element.getAttribute("resource");
-        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        if (UtilValidate.isNotEmpty(inline)) {
-            // pre-parse/compile inlined bsh, only accessed here
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.handleError("<call-bsh> element is deprecated (use <script>)", simpleMethod, element);
+            MiniLangValidate.attributeNames(simpleMethod, element, "resource");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "resource");
+            MiniLangValidate.noChildElements(simpleMethod, element);
         }
+        boolean elementModified = autoCorrect(element);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(element);
+        }
+        this.inline = StringUtil.convertOperatorSubstitutions(UtilXml.elementValue(element));
+        this.resource = element.getAttribute("resource");
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<Object> messages = errorListAcsr.get(methodContext);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
-        }
         Interpreter bsh = new Interpreter();
         bsh.setClassLoader(methodContext.getLoader());
         try {
@@ -78,12 +88,10 @@ public class CallBsh extends MethodOperation {
                 bsh.set(entry.getKey(), entry.getValue());
             }
             // run external, from resource, first if resource specified
-            if (UtilValidate.isNotEmpty(resource)) {
-                String resource = methodContext.expandString(this.resource);
-                InputStream is = methodContext.getLoader().getResourceAsStream(resource);
-
+            if (UtilValidate.isNotEmpty(this.resource)) {
+                InputStream is = methodContext.getLoader().getResourceAsStream(this.resource);
                 if (is == null) {
-                    messages.add("Could not find bsh resource: " + resource);
+                    addErrorMessage(methodContext, "Could not find bsh resource: " + this.resource);
                 } else {
                     BufferedReader reader = null;
                     try {
@@ -100,13 +108,13 @@ public class CallBsh extends MethodOperation {
                             methodContext.putAllEnv(UtilGenerics.<String, Object> checkMap(resourceResult));
                         }
                     } catch (IOException e) {
-                        messages.add("IO error loading bsh resource: " + e.getMessage());
+                        addErrorMessage(methodContext, "IO error loading bsh resource: " + e.getMessage());
                     } finally {
                         if (reader != null) {
                             try {
                                 reader.close();
                             } catch (IOException e) {
-                                messages.add("IO error closing BufferedReader: " + e.getMessage());
+                                addErrorMessage(methodContext, "IO error closing BufferedReader: " + e.getMessage());
                             }
                         }
                     }
@@ -124,7 +132,7 @@ public class CallBsh extends MethodOperation {
             }
         } catch (EvalError e) {
             Debug.logError(e, "BeanShell execution caused an error", module);
-            messages.add("BeanShell execution caused an error: " + e.getMessage());
+            addErrorMessage(methodContext, "BeanShell execution caused an error: " + e.getMessage());
         }
         // always return true, error messages just go on the error list
         return true;
@@ -132,14 +140,22 @@ public class CallBsh extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<call-bsh/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<set ");
+        if (this.resource.length() > 0) {
+            sb.append("resource=\"").append(this.resource).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class CallBshFactory implements Factory<CallBsh> {
