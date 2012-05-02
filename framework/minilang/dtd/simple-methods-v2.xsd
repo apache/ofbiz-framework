@@ -854,8 +854,8 @@ under the License.
     <xs:element name="script" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Runs an external script or a short inline script (scriptlet).
-                Error messages go on the error list and are handled with the check-errors tag.
+                Runs an external script or a short inline script (scriptlet). The scriptlet can be
+                included in the script attribute or in the element body.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType mixed="true">
@@ -885,39 +885,24 @@ under the License.
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Runs an external bsh script from the classpath if resource is specified and
-                then runs the inlined bsh script if any is specified.
-
-                The bsh context is the current simple-method environment including maps, lists
-                and special objects whose names are defined in the simple-method attributes.
-
-                The current env cannot be modified, but if a Map is returned by the bsh block
-                the entries in the map will be put into the current env.
-
-                Error messages go on the error list and are handled with the check-errors tag.
+                Executes a BSH script. The script can be contained in a Java resource, or a short
+                script can be included in the element body.
+                &lt;br/&gt;&lt;br/&gt;
+                Deprecated - replace with &lt;script&gt;.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType mixed="true">
-            <xs:attributeGroup ref="attlist.call-bsh"/>
+            <xs:attribute type="xs:string" name="resource">
+                <xs:annotation>
+                    <xs:documentation>
+                        A Java resource that contains the script.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required if the element body is empty. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.call-bsh">
-        <xs:attribute type="xs:string" name="resource">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of a properties file on the classpath.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment to check for error messages.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="call-simple-method" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
