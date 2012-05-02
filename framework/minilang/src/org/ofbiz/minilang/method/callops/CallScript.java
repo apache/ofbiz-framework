@@ -21,6 +21,7 @@ package org.ofbiz.minilang.method.callops;
 import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.Scriptlet;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
@@ -69,9 +70,12 @@ public final class CallScript extends MethodOperation {
         if (elementModified && MiniLangUtil.autoCorrectOn()) {
             MiniLangUtil.flagDocumentAsCorrected(element);
         }
-        String scriptAttribute = element.getAttribute("script");
-        if (MiniLangUtil.containsScript(scriptAttribute)) {
-            this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(scriptAttribute));
+        String inlineScript = element.getAttribute("script");
+        if (inlineScript.length() == 0) {
+            inlineScript = UtilXml.elementValue(element);
+        }
+        if (MiniLangUtil.containsScript(inlineScript)) {
+            this.scriptlet = new Scriptlet(StringUtil.convertOperatorSubstitutions(inlineScript));
             this.location = null;
             this.method = null;
         } else {
