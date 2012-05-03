@@ -52,7 +52,8 @@ public class HashCrypt {
                 messagedigest.update(password.getBytes());
                 byte[] digestBytes = messagedigest.digest();
                 char[] digestChars = Hex.encodeHex(digestBytes);
-                if (hashed.equals(new String(digestChars))) {
+                String checkCrypted = new String(digestChars);
+                if (hashed.equals(checkCrypted)) {
                     return true;
                 }
                 // This next block should be removed when all {prefix}oldFunnyHex are fixed.
@@ -68,7 +69,7 @@ public class HashCrypt {
                     k += 2;
                 }
                 if (hashed.equals(new String(digestChars))) {
-                    Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid", module);
+                    Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", module, hashType, checkCrypted);
                     return true;
                 }
                 return false;
