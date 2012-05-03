@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AcctgTransType.description.AMORTIZATION">
+        <value xml:lang="de">Amortisierung</value>
         <value xml:lang="en">Amortization</value>
         <value xml:lang="fr">Amortissements</value>
         <value xml:lang="hi_IN">परिशोधन</value>
@@ -33,6 +34,7 @@
         <value xml:lang="zh_TW">貸款攤還</value>
     </property>
     <property key="AcctgTransType.description.CAPITALIZATION">
+        <value xml:lang="de">Eigenkapital</value>
         <value xml:lang="en">Capitalization</value>
         <value xml:lang="fr">Capitalisations</value>
         <value xml:lang="hi_IN">कुल पूंजी</value>
@@ -46,6 +48,7 @@
         <value xml:lang="zh_TW">資本總額</value>
     </property>
     <property key="AcctgTransType.description.CREDIT_LINE">
+        <value xml:lang="de">Kreditlimit</value>
         <value xml:lang="en">Credit Line</value>
         <value xml:lang="fr">Ligne de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट सीमा</value>
@@ -59,7 +62,7 @@
         <value xml:lang="zh_TW">信用額度</value>
     </property>
     <property key="AcctgTransType.description.CREDIT_MEMO">
-        <value xml:lang="de">Zahlungsaufforderung</value>
+        <value xml:lang="de">Gutschrift</value>
         <value xml:lang="en">Credit Memo</value>
         <value xml:lang="fr">Note de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट मेमो</value>
@@ -101,6 +104,7 @@
         <value xml:lang="zh_TW">支付</value>
     </property>
     <property key="AcctgTransType.description.EXTERNAL_ACCTG_TRANS">
+        <value xml:lang="de">Extern</value>
         <value xml:lang="en">External</value>
         <value xml:lang="fr">Externe</value>
         <value xml:lang="hi_IN">बाहरी</value>
@@ -114,6 +118,7 @@
         <value xml:lang="zh_TW">外部</value>
     </property>
     <property key="AcctgTransType.description.INCOMING_PAYMENT">
+        <value xml:lang="de">Zahlungseingang</value>
         <value xml:lang="en">Incoming Payment</value>
         <value xml:lang="fr">Paiement à recevoir</value>
         <value xml:lang="hi_IN">आवक भुगतान</value>
@@ -124,6 +129,7 @@
         <value xml:lang="zh_TW">新收款</value>
     </property>
     <property key="AcctgTransType.description.INTERNAL_ACCTG_TRANS">
+        <value xml:lang="de">Intern</value>
         <value xml:lang="en">Internal</value>
         <value xml:lang="fr">Interne</value>
         <value xml:lang="hi_IN">आंतरिक</value>
@@ -137,6 +143,7 @@
         <value xml:lang="zh_TW">內部</value>
     </property>
     <property key="AcctgTransType.description.INVENTORY">
+        <value xml:lang="de">Bestand</value>
         <value xml:lang="en">Inventory</value>
         <value xml:lang="fr">Stock</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory)</value>
@@ -147,6 +154,7 @@
         <value xml:lang="zh_TW">庫存</value>
     </property>
     <property key="AcctgTransType.description.INVENTORY_RETURN">
+        <value xml:lang="de">Warenrückgabe</value>
         <value xml:lang="en">Inventory from Return</value>
         <value xml:lang="fr">Inventaire des retours</value>
         <value xml:lang="hi_IN">वस्तुसूची(Inventory) में वापसी से</value>
@@ -160,6 +168,7 @@
         <value xml:lang="zh_TW">退貨庫存</value>
     </property>
     <property key="AcctgTransType.description.ITEM_VARIANCE">
+        <value xml:lang="de">Bestandsabweichung</value>
         <value xml:lang="en">Item Variance</value>
         <value xml:lang="fr">Différence d'inventaire</value>
         <value xml:lang="hi_IN">मद विचरण</value>
@@ -173,6 +182,7 @@
         <value xml:lang="zh_TW">明細變量</value>
     </property>
     <property key="AcctgTransType.description.MANUFACTURING">
+        <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Manufacturing</value>
         <value xml:lang="fr">Production</value>
         <value xml:lang="hi_IN">विनिर्माण</value>
@@ -183,6 +193,7 @@
         <value xml:lang="zh_TW">生產</value>
     </property>
     <property key="AcctgTransType.description.NOTE">
+        <value xml:lang="de">Anmerkung</value>
         <value xml:lang="en">Note</value>
         <value xml:lang="fr">Note</value>
         <value xml:lang="hi_IN">टिप्पणी</value>
@@ -196,6 +207,7 @@
         <value xml:lang="zh_TW">票據</value>
     </property>
     <property key="AcctgTransType.description.OBLIGATION_ACCTG_TRA">
+        <value xml:lang="de">Obligation</value>
         <value xml:lang="en">Obligation</value>
         <value xml:lang="fr">Obligation</value>
         <value xml:lang="hi_IN">दायित्व</value>
@@ -209,6 +221,7 @@
         <value xml:lang="zh_TW">債務</value>
     </property>
     <property key="AcctgTransType.description.OTHER_INTERNAL">
+        <value xml:lang="de">Andere Interne</value>
         <value xml:lang="en">Other Internal</value>
         <value xml:lang="fr">Autre interne</value>
         <value xml:lang="hi_IN">अन्य आंतरिक</value>
@@ -222,6 +235,7 @@
         <value xml:lang="zh_TW">其他內部</value>
     </property>
     <property key="AcctgTransType.description.OTHER_OBLIGATION">
+        <value xml:lang="de">Andere Obligation</value>
         <value xml:lang="en">Other Obligation</value>
         <value xml:lang="fr">Autre obligation</value>
         <value xml:lang="hi_IN">अन्य दायित्व</value>
@@ -235,6 +249,7 @@
         <value xml:lang="zh_TW">其他債務</value>
     </property>
     <property key="AcctgTransType.description.OUTGOING_PAYMENT">
+        <value xml:lang="de">Ausgehende Zahlung</value>
         <value xml:lang="en">Outgoing Payment</value>
         <value xml:lang="fr">Paiement sortant</value>
         <value xml:lang="hi_IN">निर्गामी भुगतान</value>
@@ -245,6 +260,7 @@
         <value xml:lang="zh_TW">新付款</value>
     </property>
     <property key="AcctgTransType.description.PAYMENT_ACCTG_TRANS">
+        <value xml:lang="de">Zahlung</value>
         <value xml:lang="en">Payment</value>
         <value xml:lang="fr">Paiement</value>
         <value xml:lang="hi_IN">भुगतान</value>
@@ -258,6 +274,7 @@
         <value xml:lang="zh_TW">支付款</value>
     </property>
     <property key="AcctgTransType.description.PAYMENT_APPL">
+        <value xml:lang="de">Zahlung zugewiesen</value>
         <value xml:lang="en">Payment Applied</value>
         <value xml:lang="fr">Paiment effectué</value>
         <value xml:lang="hi_IN">भुगतान लागू</value>
@@ -268,6 +285,7 @@
         <value xml:lang="zh_TW">應用的支付款</value>
     </property>
     <property key="AcctgTransType.description.PERIOD_CLOSING">
+        <value xml:lang="de">Abschluss Zeitraum</value>
         <value xml:lang="en">Period Closing</value>
         <value xml:lang="fr">Clôture de période</value>
         <value xml:lang="hi_IN">अवधि समापन</value>
@@ -281,6 +299,7 @@
         <value xml:lang="zh_TW">一期結束</value>
     </property>
     <property key="AcctgTransType.description.PURCHASE_INVOICE">
+        <value xml:lang="de">Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoice</value>
         <value xml:lang="fr">Facture d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान</value>
@@ -305,6 +324,7 @@
         <value xml:lang="zh_TW">收據</value>
     </property>
     <property key="AcctgTransType.description.SALES">
+        <value xml:lang="de">Verkauf</value>
         <value xml:lang="en">Sales</value>
         <value xml:lang="fr">Ventes</value>
         <value xml:lang="hi_IN">बिक्री</value>
@@ -318,6 +338,7 @@
         <value xml:lang="zh_TW">銷售</value>
     </property>
     <property key="AcctgTransType.description.SALES_INVOICE">
+        <value xml:lang="de">Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice</value>
         <value xml:lang="fr">Facture de vente</value>
         <value xml:lang="hi_IN">बिक्री चालान</value>
@@ -328,6 +349,7 @@
         <value xml:lang="zh_TW">銷售發票</value>
     </property>
     <property key="AcctgTransType.description.SALES_SHIPMENT">
+        <value xml:lang="de">Warenausgang</value>
         <value xml:lang="en">Sales Shipment</value>
         <value xml:lang="fr">Facture d'expédition</value>
         <value xml:lang="hi_IN">बिक्री शिपमेंट</value>
@@ -338,6 +360,7 @@
         <value xml:lang="zh_TW">銷售送貨</value>
     </property>
     <property key="AcctgTransType.description.SHIPMENT_RECEIPT">
+        <value xml:lang="de">Wareneingang</value>
         <value xml:lang="en">Shipment Receipt</value>
         <value xml:lang="fr">Reçu d'expédition</value>
         <value xml:lang="hi_IN">शिपमेंट रसीद</value>
@@ -348,6 +371,7 @@
         <value xml:lang="zh_TW">送貨收據</value>
     </property>
     <property key="AcctgTransType.description.TAX_DUE">
+        <value xml:lang="de">Steuerschuld</value>
         <value xml:lang="en">Tax Due</value>
         <value xml:lang="fr">Impôts dûs</value>
         <value xml:lang="hi_IN">देय कर</value>
@@ -361,6 +385,7 @@
         <value xml:lang="zh_TW">到期應納稅款</value>
     </property>
     <property key="FinAccountTransType.description.ADJUSTMENT">
+        <value xml:lang="de">Anpassung</value>
         <value xml:lang="en">Adjustment</value>
         <value xml:lang="fr">Ajustement</value>
         <value xml:lang="hi_IN">समायोजन</value>
@@ -373,6 +398,7 @@
         <value xml:lang="zh_TW">調整</value>
     </property>
     <property key="FinAccountTransType.description.DEPOSIT">
+        <value xml:lang="de">Einlage</value>
         <value xml:lang="en">Deposit</value>
         <value xml:lang="fr">Dépôt</value>
         <value xml:lang="hi_IN">जमा</value>
@@ -385,6 +411,7 @@
         <value xml:lang="zh_TW">儲蓄</value>
     </property>
     <property key="FinAccountTransType.description.WITHDRAWAL">
+        <value xml:lang="de">Abhebung</value>
         <value xml:lang="en">Withdraw</value>
         <value xml:lang="fr">Retrait</value>
         <value xml:lang="hi_IN">निकालना</value>
@@ -514,6 +541,7 @@
         <value xml:lang="zh_TW">加油卡號碼3</value>
     </property>
     <property key="FixedAssetIdentType.description.MFG_SERIAL">
+        <value xml:lang="de">Seriennummer</value>
         <value xml:lang="en">Mfg Serial Number</value>
         <value xml:lang="fr">No de série (fabrication)</value>
         <value xml:lang="hi_IN">Mfg क्रम संख्या</value>
@@ -527,6 +555,7 @@
         <value xml:lang="zh_TW">生產商指定的序列號</value>
     </property>
     <property key="FixedAssetIdentType.description.TRACKING_LABEL">
+        <value xml:lang="de">Inventarnummer</value>
         <value xml:lang="en">Internal Tracking Label Number</value>
         <value xml:lang="fr">Numéro de traçage interne</value>
         <value xml:lang="hi_IN">आंतरिक ट्रैकिंग लेबल संख्या</value>
@@ -540,6 +569,7 @@
         <value xml:lang="zh_TW">內部追蹤標簽號碼</value>
     </property>
     <property key="FixedAssetIdentType.description.TRACKING_VENDOR">
+        <value xml:lang="de">Inventarnummer der Herstellers</value>
         <value xml:lang="en">Vendor Tracking/Inventory Number</value>
         <value xml:lang="fr">Traçage fournisseur/Numéro d'inventaire</value>
         <value xml:lang="hi_IN">विक्रेता ट्रैकिंग/सूची संख्या</value>
@@ -553,6 +583,7 @@
         <value xml:lang="zh_TW">廠商跟蹤/庫存號碼</value>
     </property>
     <property key="FixedAssetIdentType.description.VIN">
+        <value xml:lang="de">Fahrzeug-Identifizierungsnummer (FIN)</value>
         <value xml:lang="en">Vehicle Identification Number (VIN)</value>
         <value xml:lang="fr">Numéro d'Identification de Véhicule</value>
         <value xml:lang="hi_IN">वाहन पहचान संख्या (VIN)</value>
@@ -566,6 +597,7 @@
         <value xml:lang="zh_TW">車輛識別碼(VIN)</value>
     </property>
     <property key="FixedAssetProductType.description.FAPT_SALE">
+        <value xml:lang="de">Anlagenverkauf</value>
         <value xml:lang="en">Sale of Asset</value>
         <value xml:lang="fr">Vente d'actif</value>
         <value xml:lang="hi_IN">परिसंपत्ति की बिक्री</value>
@@ -579,6 +611,7 @@
         <value xml:lang="zh_TW">資產出售</value>
     </property>
     <property key="FixedAssetProductType.description.FAPT_USE">
+        <value xml:lang="de">Anlagennutzung</value>
         <value xml:lang="en">Use of Asset</value>
         <value xml:lang="fr">Utilisation d'actif</value>
         <value xml:lang="hi_IN">परिसंपत्ति का उपयोग</value>
@@ -592,6 +625,7 @@
         <value xml:lang="zh_TW">資產利用</value>
     </property>
     <property key="FixedAssetStdCostType.description.SETUP_COST">
+        <value xml:lang="de">Einrichtungskosten</value>
         <value xml:lang="en">Standard Setup Cost</value>
         <value xml:lang="fr">Coût standard d'installation</value>
         <value xml:lang="hi_IN">मानक स्थापना लागत</value>
@@ -605,6 +639,7 @@
         <value xml:lang="zh_TW">標准安裝費用</value>
     </property>
     <property key="FixedAssetStdCostType.description.USAGE_COST">
+        <value xml:lang="de">Nutzungskosten</value>
         <value xml:lang="en">Standard Usage Cost</value>
         <value xml:lang="fr">Coût standard d'utilisation</value>
         <value xml:lang="hi_IN">मानक उपयोग की लागत</value>
@@ -618,6 +653,7 @@
         <value xml:lang="zh_TW">標准使用費用</value>
     </property>
     <property key="FixedAssetType.description.COMPUTER_HARDWARE">
+        <value xml:lang="de">Computer Hardware</value>
         <value xml:lang="en">Computer Hardware</value>
         <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="hi_IN">कंप्यूटर हार्डवेयर</value>
@@ -628,6 +664,7 @@
         <value xml:lang="zh_TW">電腦硬體</value>
     </property>
     <property key="FixedAssetType.description.COMPUTER_SOFTWARE">
+        <value xml:lang="de">Computer Software</value>
         <value xml:lang="en">Computer Software</value>
         <value xml:lang="fr">Logiciel informatique</value>
         <value xml:lang="hi_IN">कंप्यूटर सॉफ्टवेयर</value>
@@ -638,6 +675,7 @@
         <value xml:lang="zh_TW">電腦軟件</value>
     </property>
     <property key="FixedAssetType.description.EQUIPMENT">
+        <value xml:lang="de">Austattung</value>
         <value xml:lang="en">Equipment</value>
         <value xml:lang="fr">Equipement</value>
         <value xml:lang="hi_IN">उपकरण</value>
@@ -651,6 +689,7 @@
         <value xml:lang="zh_TW">設備</value>
     </property>
     <property key="FixedAssetType.description.GROUP_EQUIPMENT">
+        <value xml:lang="de">Maschinengruppe, die für Arbeitspläne genutzt wird</value>
         <value xml:lang="en">Group of machines, used for task and routing definition</value>
         <value xml:lang="fr">Groupe de machines, utilisé pour la définition de tâches et de gamme de fabrication</value>
         <value xml:lang="hi_IN">मशीनों का समूह कार्य और परिभाषा अनुमार्गण के लिए प्रयोग किया जाता है</value>
@@ -664,6 +703,7 @@
         <value xml:lang="zh_TW">機器組，用于任務和程式定義</value>
     </property>
     <property key="FixedAssetType.description.OTHER_FIXED_ASSET">
+        <value xml:lang="de">Andere Anlagen</value>
         <value xml:lang="en">Other Fixed Asset</value>
         <value xml:lang="fr">Autre actif immobilisé</value>
         <value xml:lang="hi_IN">अन्य अचल संपत्ति</value>
@@ -677,6 +717,7 @@
         <value xml:lang="zh_TW">其他固定資產</value>
     </property>
     <property key="FixedAssetType.description.PRODUCTION_EQUIPMENT">
+        <value xml:lang="de">Anlage, die zur Arbeitsplanung genutzt wird</value>
         <value xml:lang="en">The fixed asset used in the operation-routing definition</value>
         <value xml:lang="fr">Actif immobilisé utilisé dans la définition de gammes et tâches</value>
         <value xml:lang="hi_IN">आपरेशन-परिभाषा अनुमार्गण में अचल संपत्ति का उपयोग</value>
@@ -690,6 +731,7 @@
         <value xml:lang="zh_TW">在作業程式定義中使用的固定資產</value>
     </property>
     <property key="FixedAssetType.description.PROPERTY">
+        <value xml:lang="de">Eigentum</value>
         <value xml:lang="en">Property</value>
         <value xml:lang="fr">Propriété</value>
         <value xml:lang="hi_IN">संपत्ति</value>
@@ -703,6 +745,7 @@
         <value xml:lang="zh_TW">財產</value>
     </property>
     <property key="FixedAssetType.description.REAL_ESTATE">
+        <value xml:lang="de">Immobilie</value>
         <value xml:lang="en">Real Estate</value>
         <value xml:lang="fr">Bien immobilier</value>
         <value xml:lang="hi_IN">रियल एस्टेट</value>
@@ -716,6 +759,7 @@
         <value xml:lang="zh_TW">房地產</value>
     </property>
     <property key="FixedAssetType.description.VEHICLE">
+        <value xml:lang="de">Fahrzeug</value>
         <value xml:lang="en">Vehicle</value>
         <value xml:lang="fr">Véhicule</value>
         <value xml:lang="hi_IN">वाहन</value>
@@ -729,6 +773,7 @@
         <value xml:lang="zh_TW">車輛</value>
     </property>
     <property key="GlAccountClass.description.ACCUM_AMORTIZATION">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Accumulated Amortization</value>
         <value xml:lang="fr">Amortissement cumulé</value>
         <value xml:lang="hi_IN">संचित परिशोधन</value>
@@ -742,6 +787,7 @@
         <value xml:lang="zh_TW">累積攤還</value>
     </property>
     <property key="GlAccountClass.description.ACCUM_DEPRECIATION">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Accumulated Depreciation</value>
         <value xml:lang="fr">Dépréciation cumulée</value>
         <value xml:lang="hi_IN">संचित मूल्यह्रास</value>
@@ -755,6 +801,7 @@
         <value xml:lang="zh_TW">累積折舊</value>
     </property>
     <property key="GlAccountClass.description.AMORTIZATION">
+        <value xml:lang="de">Abschreibung aud immaterielle Güter</value>
         <value xml:lang="en">Amortization</value>
         <value xml:lang="fr">Amortissement</value>
         <value xml:lang="hi_IN">ऋण परिशोधन</value>
@@ -768,6 +815,7 @@
         <value xml:lang="zh_TW">貸款攤還</value>
     </property>
     <property key="GlAccountClass.description.ASSET">
+        <value xml:lang="de">Aktiva</value>
         <value xml:lang="en">Asset</value>
         <value xml:lang="fr">Actif</value>
         <value xml:lang="hi_IN">परिसंपत्ति</value>
@@ -781,6 +829,7 @@
         <value xml:lang="zh_TW">資產</value>
     </property>
     <property key="GlAccountClass.description.CASH_EQUIVALENT">
+        <value xml:lang="de">Flüssige Mittel</value>
         <value xml:lang="en">Cash and Equivalent</value>
         <value xml:lang="fr">Caisse et équivalent</value>
         <value xml:lang="hi_IN">नकद और समतुल्य</value>
@@ -794,6 +843,7 @@
         <value xml:lang="zh_TW">現金和現金等價物</value>
     </property>
     <property key="GlAccountClass.description.CASH_EXPENSE">
+        <value xml:lang="de">Aufwendung</value>
         <value xml:lang="en">Cash Expense</value>
         <value xml:lang="fr">Décaissement</value>
         <value xml:lang="hi_IN">नकद व्यय</value>
@@ -807,6 +857,7 @@
         <value xml:lang="zh_TW">現金支出</value>
     </property>
     <property key="GlAccountClass.description.CASH_INCOME">
+        <value xml:lang="de">Ertrag</value>
         <value xml:lang="en">Cash Income</value>
         <value xml:lang="fr">Encaissement</value>
         <value xml:lang="hi_IN">नकद आय</value>
@@ -820,6 +871,7 @@
         <value xml:lang="zh_TW">現金收入</value>
     </property>
     <property key="GlAccountClass.description.COGS_EXPENSE">
+        <value xml:lang="de">Wareneinsatz</value>
         <value xml:lang="en">Cost of Goods Sold Expense</value>
         <value xml:lang="fr">Coût direct des marchandises vendues</value>
         <value xml:lang="hi_IN">बेचे हुए माल के व्यय की लागत</value>
@@ -833,6 +885,7 @@
         <value xml:lang="zh_TW">已售貨物費用支出</value>
     </property>
     <property key="GlAccountClass.description.CREDIT">
+        <value xml:lang="de">Haben</value>
         <value xml:lang="en">Credit</value>
         <value xml:lang="fr">Crédit</value>
         <value xml:lang="hi_IN">जमा</value>
@@ -846,6 +899,7 @@
         <value xml:lang="zh_TW">貸方</value>
     </property>
     <property key="GlAccountClass.description.CURRENT_ASSET">
+        <value xml:lang="de">Umlaufvermögen</value>
         <value xml:lang="en">Current Asset</value>
         <value xml:lang="fr">Actif à court terme</value>
         <value xml:lang="hi_IN">वर्तमान परिसंपत्ति</value>
@@ -859,6 +913,7 @@
         <value xml:lang="zh_TW">流動資產</value>
     </property>
     <property key="GlAccountClass.description.CURRENT_LIABILITY">
+        <value xml:lang="de">kurzfristige Verbindlichkeiten</value>
         <value xml:lang="en">Current Liability</value>
         <value xml:lang="fr">Dette à court terme</value>
         <value xml:lang="hi_IN">चालू दायित्व</value>
@@ -872,6 +927,7 @@
         <value xml:lang="zh_TW">流動負債</value>
     </property>
     <property key="GlAccountClass.description.DEBIT">
+        <value xml:lang="de">Soll</value>
         <value xml:lang="en">Debit</value>
         <value xml:lang="fr">Débit</value>
         <value xml:lang="hi_IN">नामे</value>
@@ -899,6 +955,7 @@
         <value xml:lang="zh_TW">折舊</value>
     </property>
     <property key="GlAccountClass.description.DISTRIBUTION">
+        <value xml:lang="de">Ausschüttung</value>
         <value xml:lang="en">Equity Distribution</value>
         <value xml:lang="fr">Capitaux propres distribués</value>
         <value xml:lang="hi_IN">इक्विटी वितरण</value>
@@ -912,6 +969,7 @@
         <value xml:lang="zh_TW">權益分配</value>
     </property>
     <property key="GlAccountClass.description.DIVIDEND">
+        <value xml:lang="de">Dividenden</value>
         <value xml:lang="en">Dividends</value>
         <value xml:lang="fr">Dividendes</value>
         <value xml:lang="hi_IN">लाभांश</value>
@@ -925,6 +983,7 @@
         <value xml:lang="zh_TW">股息</value>
     </property>
     <property key="GlAccountClass.description.EQUITY">
+        <value xml:lang="de">Eigenkapital</value>
         <value xml:lang="en">Equity</value>
         <value xml:lang="fr">Capitaux propres</value>
         <value xml:lang="hi_IN">इक्विटी</value>
@@ -938,6 +997,7 @@
         <value xml:lang="zh_TW">權益</value>
     </property>
     <property key="GlAccountClass.description.EXPENSE">
+        <value xml:lang="de">Aufwand</value>
         <value xml:lang="en">Expense</value>
         <value xml:lang="fr">Charges</value>
         <value xml:lang="hi_IN">व्यय</value>
@@ -951,6 +1011,7 @@
         <value xml:lang="zh_TW">支出</value>
     </property>
     <property key="GlAccountClass.description.INCOME">
+        <value xml:lang="de">Ertrag</value>
         <value xml:lang="en">Income</value>
         <value xml:lang="fr">Revenus</value>
         <value xml:lang="hi_IN">आय</value>
@@ -964,6 +1025,7 @@
         <value xml:lang="zh_TW">收入</value>
     </property>
     <property key="GlAccountClass.description.INTEREST_EXPENSE">
+        <value xml:lang="de">Zinsaufwand</value>
         <value xml:lang="en">Interest Expense</value>
         <value xml:lang="fr">Charges financières</value>
         <value xml:lang="hi_IN">ब्याज व्यय</value>
@@ -977,6 +1039,7 @@
         <value xml:lang="zh_TW">利息支出</value>
     </property>
     <property key="GlAccountClass.description.INVENTORY_ADJUST">
+        <value xml:lang="de">Inventurdifferenz</value>
         <value xml:lang="en">Inventory Adjustment</value>
         <value xml:lang="fr">Ajustement d'inventaire</value>
         <value xml:lang="hi_IN">सूची समायोजन</value>
@@ -990,6 +1053,7 @@
         <value xml:lang="zh_TW">庫存調整</value>
     </property>
     <property key="GlAccountClass.description.INVENTORY_ASSET">
+        <value xml:lang="de">Vorräte</value>
         <value xml:lang="en">Inventory Asset</value>
         <value xml:lang="fr">Actif en stock</value>
         <value xml:lang="hi_IN">सूची परिसंपत्ति</value>
@@ -1000,6 +1064,7 @@
         <value xml:lang="zh_TW">存貨資產</value>
     </property>
     <property key="GlAccountClass.description.LIABILITY">
+        <value xml:lang="de">Verbindlichkeiten</value>
         <value xml:lang="en">Liability</value>
         <value xml:lang="fr">Dette</value>
         <value xml:lang="hi_IN">दायित्व</value>
@@ -1013,6 +1078,7 @@
         <value xml:lang="zh_TW">負債</value>
     </property>
     <property key="GlAccountClass.description.LONGTERM_ASSET">
+        <value xml:lang="de">Anlagevermögen</value>
         <value xml:lang="en">Long Term Asset</value>
         <value xml:lang="fr">Actif à long terme</value>
         <value xml:lang="hi_IN">दीर्घकालिक परिसंपत्ति</value>
@@ -1026,6 +1092,7 @@
         <value xml:lang="zh_TW">長期資產</value>
     </property>
     <property key="GlAccountClass.description.LONGTERM_LIABILITY">
+        <value xml:lang="de">Langfristige Verbindlichkeiten</value>
         <value xml:lang="en">Long Term Liability</value>
         <value xml:lang="fr">Dette à long terme</value>
         <value xml:lang="hi_IN">दीर्घकालिक दायित्व</value>
@@ -1039,6 +1106,7 @@
         <value xml:lang="zh_TW">長期負債</value>
     </property>
     <property key="GlAccountClass.description.NON_CASH_EXPENSE">
+        <value xml:lang="de">Zahlungsunwirksame Aufwendungen</value>
         <value xml:lang="en">Non-Cash Expense</value>
         <value xml:lang="fr">Charge non décaissée</value>
         <value xml:lang="hi_IN">गैर नकद व्यय</value>
@@ -1051,6 +1119,7 @@
         <value xml:lang="zh_TW">非現金支出</value>
     </property>
     <property key="GlAccountClass.description.NON_CASH_INCOME">
+        <value xml:lang="de">Zahlungsunwirksame Erträge</value>
         <value xml:lang="en">Non-Cash Income</value>
         <value xml:lang="fr">Revenu non décaissé</value>
         <value xml:lang="hi_IN">गैर नकद आय</value>
@@ -1075,6 +1144,7 @@
         <value xml:lang="zh_TW">非過帳</value>
     </property>
     <property key="GlAccountClass.description.OWNERS_EQUITY">
+        <value xml:lang="de">Eigenkapital</value>
         <value xml:lang="en">Owners Equity</value>
         <value xml:lang="fr">Capitaux propres</value>
         <value xml:lang="hi_IN">स्वामी की इक्विटी</value>
@@ -1100,6 +1170,7 @@
         <value xml:lang="zh_TW">資源</value>
     </property>
     <property key="GlAccountClass.description.RETAINED_EARNINGS">
+        <value xml:lang="de">Einbehaltene Gewinne</value>
         <value xml:lang="en">Retained Earnings</value>
         <value xml:lang="fr">Report à nouveau</value>
         <value xml:lang="hi_IN">प्रतिधारित कमाई</value>
@@ -1112,6 +1183,7 @@
         <value xml:lang="zh_TW">保留盈余</value>
     </property>
     <property key="GlAccountClass.description.RETURN_OF_CAPITAL">
+        <value xml:lang="de">Kapitalrückzahlung</value>
         <value xml:lang="en">Return of Capital</value>
         <value xml:lang="fr">Revenu du capital</value>
         <value xml:lang="hi_IN">वापसी पूंजी</value>
@@ -1124,6 +1196,7 @@
         <value xml:lang="zh_TW">資本回報率</value>
     </property>
     <property key="GlAccountClass.description.REVENUE">
+        <value xml:lang="de">Ertrag</value>
         <value xml:lang="en">Revenue</value>
         <value xml:lang="fr">Revenu</value>
         <value xml:lang="hi_IN">राजस्व</value>
@@ -1136,6 +1209,7 @@
         <value xml:lang="zh_TW">收益</value>
     </property>
     <property key="GlAccountClass.description.SGA_EXPENSE">
+        <value xml:lang="de">Vertriebsgemeinkosten</value>
         <value xml:lang="en">Selling, General, and Administrative Expense</value>
         <value xml:lang="fr">Frais généraux</value>
         <value xml:lang="hi_IN">बिक्री, जनरल, और प्रशासनिक व्यय</value>
@@ -1148,6 +1222,7 @@
         <value xml:lang="zh_TW">銷售費用、一般費用和管理費用</value>
     </property>
     <property key="GlAccountType.description.ACCOUNTS_PAYABLE">
+        <value xml:lang="de">Verbindlichkeiten</value>
         <value xml:lang="en">Accounts Payable</value>
         <value xml:lang="fr">Comptes fournisseurs</value>
         <value xml:lang="hi_IN">देय लेखा</value>
@@ -1160,6 +1235,7 @@
         <value xml:lang="zh_TW">應付賬款</value>
     </property>
     <property key="GlAccountType.description.ACCOUNTS_RECEIVABLE">
+        <value xml:lang="de">Forderungen</value>
         <value xml:lang="en">Accounts Receivable</value>
         <value xml:lang="fr">Comptes clients</value>
         <value xml:lang="hi_IN">प्राप्य लेखा</value>
@@ -1172,6 +1248,7 @@
         <value xml:lang="zh_TW">應收賬款</value>
     </property>
     <property key="GlAccountType.description.ACCTPAY_WRITEOFF">
+        <value xml:lang="de">Abschreibung von Verbindlichkeiten</value>
         <value xml:lang="en">Accounts Payables Write Off</value>
         <value xml:lang="hi_IN">देय लेखा राइट ऑफ</value>
         <value xml:lang="it">Conti debiti ammortizzati</value>
@@ -1180,6 +1257,7 @@
         <value xml:lang="zh_TW">登出應付賬款</value>
     </property>
     <property key="GlAccountType.description.ACCTRECV_WRITEOFF">
+        <value xml:lang="de">Abschreibung von Forderungen</value>
         <value xml:lang="en">Accounts Receivables Write Off</value>
         <value xml:lang="hi_IN">प्राप्य लेखा राइट ऑफ</value>
         <value xml:lang="it">Conto crediti ammortizzati</value>
@@ -1188,6 +1266,7 @@
         <value xml:lang="zh_TW">登出應收賬款</value>
     </property>
     <property key="GlAccountType.description.BALANCE_ACCOUNT">
+        <value xml:lang="de">Saldo</value>
         <value xml:lang="en">Balance</value>
         <value xml:lang="fr">Solde du compte</value>
         <value xml:lang="hi_IN">शेष</value>
@@ -1200,6 +1279,7 @@
         <value xml:lang="zh_TW">收支差額</value>
     </property>
     <property key="GlAccountType.description.BANK_STLMNT_ACCOUNT">
+        <value xml:lang="de">Bankenausgleich</value>
         <value xml:lang="en">Bank Settlement</value>
         <value xml:lang="fr">Réglement bancaire</value>
         <value xml:lang="hi_IN">बैंक समाधान</value>
@@ -1212,6 +1292,7 @@
         <value xml:lang="zh_TW">銀行結算</value>
     </property>
     <property key="GlAccountType.description.COGS_ACCOUNT">
+        <value xml:lang="de">Wareneinsatz</value>
         <value xml:lang="en">Cost of Goods Sold</value>
         <value xml:lang="fr">Coût des marchandises vendues</value>
         <value xml:lang="hi_IN">बेचे हुए माल का मूल्य</value>
@@ -1275,6 +1356,7 @@
         <value xml:lang="zh_TW">信用卡</value>
     </property>
     <property key="GlAccountType.description.CURRENT_ASSET">
+        <value xml:lang="de">Umlaufvermögen</value>
         <value xml:lang="en">Current Asset</value>
         <value xml:lang="fr">Actif courant</value>
         <value xml:lang="hi_IN">वर्तमान परिसंपत्ति</value>
@@ -1287,6 +1369,7 @@
         <value xml:lang="zh_TW">流動資產</value>
     </property>
     <property key="GlAccountType.description.CURRENT_LIABILITY">
+        <value xml:lang="de">kurzfristige Verbindlichkeiten</value>
         <value xml:lang="en">Current Liability</value>
         <value xml:lang="fr">Dette courante</value>
         <value xml:lang="hi_IN">चालू दायित्व</value>
@@ -1299,6 +1382,7 @@
         <value xml:lang="zh_TW">流動負債</value>
     </property>
     <property key="GlAccountType.description.CUSTOMER_ACCOUNT">
+        <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
         <value xml:lang="fr">Client</value>
         <value xml:lang="hi_IN">ग्राहक</value>
@@ -1368,6 +1452,7 @@
         <value xml:lang="zh_TW">支出</value>
     </property>
     <property key="GlAccountType.description.FIXED_ASSET">
+        <value xml:lang="de">Anlagen</value>
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="fr">Actifs immobilisés</value>
         <value xml:lang="hi_IN">अचल संपत्ति</value>
@@ -1380,6 +1465,7 @@
         <value xml:lang="zh_TW">固定資產</value>
     </property>
     <property key="GlAccountType.description.FIXED_ASSET_MAINT">
+        <value xml:lang="de">Instandhaltung</value>
         <value xml:lang="en">Fixed Asset Maintenance</value>
         <value xml:lang="fr">Maintenance des immobilisations</value>
         <value xml:lang="hi_IN">अचल संपत्ति रखरखाव</value>
@@ -1389,6 +1475,7 @@
         <value xml:lang="zh_TW">固定資產維護</value>
     </property>
     <property key="GlAccountType.description.FX_GAIN_ACCOUNT">
+        <value xml:lang="de">Währungsgewinne</value>
         <value xml:lang="en">Foreign Exchange Gain</value>
         <value xml:lang="hi_IN">विदेशी मुद्रा लाभ</value>
         <value xml:lang="it">Profitti da cambio di valuta</value>
@@ -1397,6 +1484,7 @@
         <value xml:lang="zh_TW">外匯交易盈利</value>
     </property>
     <property key="GlAccountType.description.FX_GAIN_LOSS_ACCT">
+        <value xml:lang="de">Währungs-gewinne/verluste</value>
         <value xml:lang="en">Foreign Exchange Gain/Loss</value>
         <value xml:lang="hi_IN">विदेशी मुद्रा लाभ/घाटाः</value>
         <value xml:lang="it">Profitti/perdite da cambio di valuta</value>
@@ -1405,6 +1493,7 @@
         <value xml:lang="zh_TW">外匯交易盈利/損失</value>
     </property>
     <property key="GlAccountType.description.FX_LOSS_ACCOUNT">
+        <value xml:lang="de">Währungsverluste</value>
         <value xml:lang="en">Foreign Exchange Loss</value>
         <value xml:lang="hi_IN">विदेशी मुद्रा घाटाः</value>
         <value xml:lang="it">Perdite da cambio di valuta</value>
@@ -1413,6 +1502,7 @@
         <value xml:lang="zh_TW">外匯交易損失</value>
     </property>
     <property key="GlAccountType.description.INCOME">
+        <value xml:lang="de">Ertrag</value>
         <value xml:lang="en">Income</value>
         <value xml:lang="fr">Revenu</value>
         <value xml:lang="hi_IN">आय</value>
@@ -1759,6 +1849,7 @@
         <value xml:lang="zh_TW">在制品盤存</value>
     </property>
     <property key="GlAccountType.description.WRITEOFF">
+        <value xml:lang="de">Abschreibung</value>
         <value xml:lang="en">Write Off</value>
         <value xml:lang="hi_IN">राइट ऑफ</value>
         <value xml:lang="it">Perdite</value>
@@ -1767,6 +1858,7 @@
         <value xml:lang="zh_TW">登出</value>
     </property>
     <property key="GlFiscalType.description.ACTUAL">
+        <value xml:lang="de">Ist</value>
         <value xml:lang="en">Actual</value>
         <value xml:lang="fr">Réel</value>
         <value xml:lang="hi_IN">वास्तविक</value>
@@ -1779,6 +1871,7 @@
         <value xml:lang="zh_TW">現貨</value>
     </property>
     <property key="GlFiscalType.description.BUDGET">
+        <value xml:lang="de">Budget</value>
         <value xml:lang="en">Budget</value>
         <value xml:lang="fr">Budgétaire</value>
         <value xml:lang="hi_IN">बजट</value>
@@ -1791,6 +1884,7 @@
         <value xml:lang="zh_TW">預算</value>
     </property>
     <property key="GlFiscalType.description.FORECAST">
+        <value xml:lang="de">Prognose</value>
         <value xml:lang="en">Forecast</value>
         <value xml:lang="fr">Prévisionnel</value>
         <value xml:lang="hi_IN">पूर्वानुमान</value>
@@ -1803,6 +1897,7 @@
         <value xml:lang="zh_TW">預測</value>
     </property>
     <property key="GlFiscalType.description.PLAN">
+        <value xml:lang="de">Plan</value>
         <value xml:lang="en">Plan</value>
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="hi_IN">योजना</value>
@@ -1815,6 +1910,7 @@
         <value xml:lang="zh_TW">計劃</value>
     </property>
     <property key="GlFiscalType.description.SCENARIO">
+        <value xml:lang="de">Szenario</value>
         <value xml:lang="en">Scenario</value>
         <value xml:lang="fr">Scénario</value>
         <value xml:lang="hi_IN">परिदृश्य</value>
@@ -1827,6 +1923,7 @@
         <value xml:lang="zh_TW">情景</value>
     </property>
     <property key="GlResourceType.description.DELIVERED_GOODS">
+        <value xml:lang="de">Ausgelieferte Ware</value>
         <value xml:lang="en">Delivered Goods</value>
         <value xml:lang="fr">Produits livrés</value>
         <value xml:lang="hi_IN">वितरित सामग्री</value>
@@ -1840,6 +1937,7 @@
         <value xml:lang="zh_TW">已交付的貨物</value>
     </property>
     <property key="GlResourceType.description.FINISHED_GOODS">
+        <value xml:lang="de">Fertigerzeugnisse</value>
         <value xml:lang="en">Finished Goods</value>
         <value xml:lang="fr">Produits finis</value>
         <value xml:lang="hi_IN">संपूर्ण माल</value>
@@ -1853,6 +1951,7 @@
         <value xml:lang="zh_TW">制成品</value>
     </property>
     <property key="GlResourceType.description.LABOR">
+        <value xml:lang="de">Arbeit</value>
         <value xml:lang="en">Labor</value>
         <value xml:lang="fr">Personnel</value>
         <value xml:lang="hi_IN">परिश्रम</value>
@@ -1866,6 +1965,7 @@
         <value xml:lang="zh_TW">勞務</value>
     </property>
     <property key="GlResourceType.description.MONEY">
+        <value xml:lang="de">Geld</value>
         <value xml:lang="en">Money</value>
         <value xml:lang="fr">Finance</value>
         <value xml:lang="hi_IN">धन</value>
@@ -1879,6 +1979,7 @@
         <value xml:lang="zh_TW">貨幣</value>
     </property>
     <property key="GlResourceType.description.RAW_MATERIALS">
+        <value xml:lang="de">Rohstoffe</value>
         <value xml:lang="en">Raw Materials</value>
         <value xml:lang="fr">Matières premières</value>
         <value xml:lang="hi_IN">कच्चे माल</value>
@@ -1892,6 +1993,7 @@
         <value xml:lang="zh_TW">原料</value>
     </property>
     <property key="GlResourceType.description.SERVICES">
+        <value xml:lang="de">Dienstleistungen</value>
         <value xml:lang="en">Services</value>
         <value xml:lang="fr">Services</value>
         <value xml:lang="hi_IN">सेवाएँ</value>
@@ -1905,6 +2007,7 @@
         <value xml:lang="zh_TW">服務</value>
     </property>
     <property key="InvoiceItemType.description.COMM_INV_ADJ">
+        <value xml:lang="de">Provisionsanpassung</value>
         <value xml:lang="en">Commission Invoice Adjustment</value>
         <value xml:lang="fr">Ajustement sur commission</value>
         <value xml:lang="hi_IN">दलाली चालान समायोजन</value>
@@ -1914,6 +2017,7 @@
         <value xml:lang="zh_TW">佣金發票調整</value>
     </property>
     <property key="InvoiceItemType.description.COMM_INV_ITEM">
+        <value xml:lang="de">Provisions-Rechnungsposition</value>
         <value xml:lang="en">Commission Invoice Line Item</value>
         <value xml:lang="fr">Ajustement sur ligne de commission</value>
         <value xml:lang="hi_IN">दलाली चालान लाइन आइटम</value>
@@ -1923,6 +2027,7 @@
         <value xml:lang="zh_TW">佣金發票行明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_ADD_FEATURE_ADJ">
+        <value xml:lang="de">Retoure Zusatz-Merkmal</value>
         <value xml:lang="en">Return Additional Feature</value>
         <value xml:lang="fr">Retour d'option supplémentaire</value>
         <value xml:lang="hi_IN">रिटर्न अडिशनल फ़ीचर</value>
@@ -1935,6 +2040,7 @@
         <value xml:lang="zh_TW">退貨的附加特征</value>
     </property>
     <property key="InvoiceItemType.description.CRT_DISCOUNT_ADJ">
+        <value xml:lang="de">Retourennachlass</value>
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="fr">Remise sur retour</value>
         <value xml:lang="hi_IN">रिटर्न डिस्काउंट</value>
@@ -1947,6 +2053,7 @@
         <value xml:lang="zh_TW">退貨的折扣</value>
     </property>
     <property key="InvoiceItemType.description.CRT_DPROD_ITEM">
+        <value xml:lang="de">Retoure Digitales Produkt</value>
         <value xml:lang="en">Return Digital Good Item</value>
         <value xml:lang="fr">Retour de produit digital</value>
         <value xml:lang="hi_IN">रिटर्न डिजिटल सामग्री मद </value>
@@ -1959,6 +2066,7 @@
         <value xml:lang="zh_TW">退貨的數字產品明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_FDPROD_ITEM">
+        <value xml:lang="de">Retoure Fertigprodukt/Digitales Produkt</value>
         <value xml:lang="en">Return Finished/Digital Good Item</value>
         <value xml:lang="fr">Retour de produit fini/ digital</value>
         <value xml:lang="hi_IN">रिटर्न संपूर्ण/डिजिटल सामग्री मद </value>
@@ -1971,6 +2079,7 @@
         <value xml:lang="zh_TW">退貨的制成品/數字產品明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_FEE_ADJ">
+        <value xml:lang="de">Retourengebühr</value>
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="fr">Frais de retour</value>
         <value xml:lang="hi_IN">रिटर्न शुल्क</value>
@@ -1983,6 +2092,7 @@
         <value xml:lang="zh_TW">退貨費用</value>
     </property>
     <property key="InvoiceItemType.description.CRT_FPROD_ITEM">
+        <value xml:lang="de">Retoure Fertigprodukt</value>
         <value xml:lang="en">Return Finished Good Item</value>
         <value xml:lang="fr">Retour de produit fini</value>
         <value xml:lang="hi_IN">रिटर्न संपूर्ण माल मद</value>
@@ -1995,6 +2105,7 @@
         <value xml:lang="zh_TW">退貨的制成品明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_MAN_ADJ">
+        <value xml:lang="de">Retoure manuelle Anpassung</value>
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="fr">Ajustement manuel sur retour</value>
         <value xml:lang="hi_IN">रिटर्न मैनुअल समायोजन</value>
@@ -2007,6 +2118,7 @@
         <value xml:lang="zh_TW">退貨的手冊調整</value>
     </property>
     <property key="InvoiceItemType.description.CRT_MISC_ADJ">
+        <value xml:lang="de">Retoure sonstige Gebühren</value>
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="fr">Frais divers sur retour</value>
         <value xml:lang="hi_IN">रिटर्न विविध प्रभार</value>
@@ -2019,6 +2131,7 @@
         <value xml:lang="zh_TW">退貨的雜費</value>
     </property>
     <property key="InvoiceItemType.description.CRT_MKTG_PKG_ADJ">
+        <value xml:lang="de">Retoure Marketingpaket Anpassung</value>
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="fr">Ajustement sur retour de package</value>
         <value xml:lang="hi_IN">रिटर्न विपणन पैकेज समायोजन</value>
@@ -2031,6 +2144,7 @@
         <value xml:lang="zh_TW">退貨的行銷包裝調整</value>
     </property>
     <property key="InvoiceItemType.description.CRT_PROD_FEATR_ITEM">
+        <value xml:lang="de">Retoure Produktmerkmal</value>
         <value xml:lang="en">Return Product-Feature Item</value>
         <value xml:lang="fr">Retour d'option de produit</value>
         <value xml:lang="hi_IN">रिटर्न उत्पाद फ़ीचर मद</value>
@@ -2043,6 +2157,7 @@
         <value xml:lang="zh_TW">退貨的產品特征明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_PROD_ITEM">
+        <value xml:lang="de">Produkt-Retoure</value>
         <value xml:lang="en">Return Product Item</value>
         <value xml:lang="fr">Retour de produit</value>
         <value xml:lang="hi_IN">रिटर्न उत्पाद मद</value>
@@ -2055,6 +2170,7 @@
         <value xml:lang="zh_TW">退貨的產品明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_PROMOTION_ADJ">
+        <value xml:lang="de">Retoure Aktion</value>
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="fr">Retour de promotion</value>
         <value xml:lang="hi_IN">रिटर्न संवर्धन</value>
@@ -2067,6 +2183,7 @@
         <value xml:lang="zh_TW">退貨的促銷</value>
     </property>
     <property key="InvoiceItemType.description.CRT_REPLACE_ADJ">
+        <value xml:lang="de">Retoure Ersatz</value>
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="fr">Retour de produit de remplacement</value>
         <value xml:lang="hi_IN">रिटर्न प्रतिस्थापन</value>
@@ -2079,6 +2196,7 @@
         <value xml:lang="zh_TW">換貨退回</value>
     </property>
     <property key="InvoiceItemType.description.CRT_SALES_TAX_ADJ">
+        <value xml:lang="de">Retoure MwSt.</value>
         <value xml:lang="en">Return Sales Tax</value>
         <value xml:lang="fr">Remboursement de TVA</value>
         <value xml:lang="hi_IN">रिटर्न बिक्री टैक्स</value>
@@ -2091,6 +2209,7 @@
         <value xml:lang="zh_TW">退貨的營業稅</value>
     </property>
     <property key="InvoiceItemType.description.CRT_SHIPPING_ADJ">
+        <value xml:lang="de">Retoure Versandkosten</value>
         <value xml:lang="en">Return Shipping and Handling</value>
         <value xml:lang="fr">Retour de frais d'expédition</value>
         <value xml:lang="hi_IN">रिटर्न शिपिंग और हैंडलिंग</value>
@@ -2103,6 +2222,7 @@
         <value xml:lang="zh_TW">退貨的裝運費</value>
     </property>
     <property key="InvoiceItemType.description.CRT_SPROD_ITEM">
+        <value xml:lang="de">Retoure Service-Produkt</value>
         <value xml:lang="en">Return Service Product Item</value>
         <value xml:lang="fr">Retour de service</value>
         <value xml:lang="hi_IN">रिटर्न सेवा उत्पाद मद</value>
@@ -2115,6 +2235,7 @@
         <value xml:lang="zh_TW">退貨的服務產品明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_SURCHARGE_ADJ">
+        <value xml:lang="de">Retoure Zuschlag</value>
         <value xml:lang="en">Return Surcharge</value>
         <value xml:lang="fr">Retour de surcoût exceptionnel</value>
         <value xml:lang="hi_IN">रिटर्न अधिभार</value>
@@ -2127,6 +2248,7 @@
         <value xml:lang="zh_TW">退貨的附加費</value>
     </property>
     <property key="InvoiceItemType.description.CRT_TE_ITEM">
+        <value xml:lang="de">Retoure Zeiteintrag</value>
         <value xml:lang="en">Return Time-Entry Item</value>
         <value xml:lang="fr">Retour de prestation horaire</value>
         <value xml:lang="hi_IN">रिटर्न समय-प्रवेश मद</value>
@@ -2139,6 +2261,7 @@
         <value xml:lang="zh_TW">退預約明細</value>
     </property>
     <property key="InvoiceItemType.description.CRT_WARRANTY_ADJ">
+        <value xml:lang="de">Retoure Garantie</value>
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="fr">Retour de garantie</value>
         <value xml:lang="hi_IN">रिटर्न वारंटी</value>
@@ -2151,6 +2274,7 @@
         <value xml:lang="zh_TW">退貨的保証條款</value>
     </property>
     <property key="InvoiceItemType.description.CRT_WE_ITEM">
+        <value xml:lang="de">Retoure Arbeitseinsatz</value>
         <value xml:lang="en">Return Work-Effort Item</value>
         <value xml:lang="fr">Retour de prestation</value>
         <value xml:lang="hi_IN">रिटर्न कार्य-प्रयास मद</value>
@@ -2163,6 +2287,7 @@
         <value xml:lang="zh_TW">退貨的人工服務明細</value>
     </property>
     <property key="InvoiceItemType.description.FEE">
+        <value xml:lang="de">Gebühr</value>
         <value xml:lang="en">Invoice Fee</value>
         <value xml:lang="fr">Frais de facturation</value>
         <value xml:lang="hi_IN">चालान शुल्क</value>
@@ -2175,6 +2300,7 @@
         <value xml:lang="zh_TW">發票費用</value>
     </property>
     <property key="InvoiceItemType.description.INVOICE_ADJ">
+        <value xml:lang="de">Rechnungsanpassung</value>
         <value xml:lang="en">Invoice Adjustment</value>
         <value xml:lang="fr">Régularisation de facture</value>
         <value xml:lang="hi_IN">चालान समायोजन</value>
@@ -2187,6 +2313,7 @@
         <value xml:lang="zh_TW">發票調整</value>
     </property>
     <property key="InvoiceItemType.description.INVOICE_ITM_ADJ">
+        <value xml:lang="de">Positionsanpassung</value>
         <value xml:lang="en">Invoice Item Adjustment</value>
         <value xml:lang="fr">Régularisation de ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद समायोजन</value>
@@ -2199,6 +2326,7 @@
         <value xml:lang="zh_TW">發票明細調整</value>
     </property>
     <property key="InvoiceItemType.description.INV_ADD_FEATURE">
+        <value xml:lang="de">Zusätzliches Merkmal</value>
         <value xml:lang="en">Invoice Additional Feature</value>
         <value xml:lang="fr">Facturation d'option supplémentaire</value>
         <value xml:lang="hi_IN">चालान अतिरिक्त सुविधा</value>
@@ -2211,6 +2339,7 @@
         <value xml:lang="zh_TW">發票中的附加特征</value>
     </property>
     <property key="InvoiceItemType.description.INV_DISCOUNT_ADJ">
+        <value xml:lang="de">Rechnungsrabatt</value>
         <value xml:lang="en">Invoice Discount</value>
         <value xml:lang="fr">Remise sur facture</value>
         <value xml:lang="hi_IN">चालान डिस्काउंट</value>
@@ -2223,6 +2352,7 @@
         <value xml:lang="zh_TW">發票打折</value>
     </property>
     <property key="InvoiceItemType.description.INV_DPROD_ITEM">
+        <value xml:lang="de">Digitales Produkt</value>
         <value xml:lang="en">Invoice Digital Good Item</value>
         <value xml:lang="fr">Facturation de service digital</value>
         <value xml:lang="hi_IN">चालान डिजिटल सामग्री मद</value>
@@ -2235,6 +2365,7 @@
         <value xml:lang="zh_TW">發票的數字產品明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_FDPROD_ITEM">
+        <value xml:lang="de">Fertigprodukt/Digitales Produkt</value>
         <value xml:lang="en">Invoice Finished/Digital Good Item</value>
         <value xml:lang="fr">Facturation produit fini/ digital</value>
         <value xml:lang="hi_IN">चालान तैयार/डिजिटल सामग्री मद</value>
@@ -2247,6 +2378,7 @@
         <value xml:lang="zh_TW">發票的制成品/數字產品明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_FPROD_ITEM">
+        <value xml:lang="de">Rechnung Fertigprodukt</value>
         <value xml:lang="en">Invoice Finished Good Item</value>
         <value xml:lang="fr">Facturation produit fini</value>
         <value xml:lang="hi_IN">चालान संपूर्ण सामग्री मद</value>
@@ -2259,6 +2391,7 @@
         <value xml:lang="zh_TW">發票的制成品明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_INTRST_CHRG">
+        <value xml:lang="de">Zinsgebühren</value>
         <value xml:lang="en">Invoice Interest Charge</value>
         <value xml:lang="hi_IN">चालान ब्याज मूल्य</value>
         <value xml:lang="it">Interesse ricaricato fattura</value>
@@ -2267,6 +2400,7 @@
         <value xml:lang="zh_TW">發票中的利息費</value>
     </property>
     <property key="InvoiceItemType.description.INV_MISC_CHARGE">
+        <value xml:lang="de">Sonstige Gebühren</value>
         <value xml:lang="en">Invoice Miscellaneous Charges</value>
         <value xml:lang="fr">Facturation charges diverses</value>
         <value xml:lang="hi_IN">चालान विविध प्रभार</value>
@@ -2279,6 +2413,7 @@
         <value xml:lang="zh_TW">發票中的雜費</value>
     </property>
     <property key="InvoiceItemType.description.INV_PROD_FEATR_ITEM">
+        <value xml:lang="de">Produkt-Merkmal</value>
         <value xml:lang="en">Invoice Product-Feature Item</value>
         <value xml:lang="fr">Facturation d'option de produit</value>
         <value xml:lang="hi_IN">चालान उत्पाद फ़ीचर मद</value>
@@ -2291,6 +2426,7 @@
         <value xml:lang="zh_TW">發票的產品特征明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_PROD_ITEM">
+        <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Invoice Product Item</value>
         <value xml:lang="fr">Facturation de produit</value>
         <value xml:lang="hi_IN">चालान उत्पाद मद</value>
@@ -2303,6 +2439,7 @@
         <value xml:lang="zh_TW">發票的產品明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_PROMOTION_ADJ">
+        <value xml:lang="de">Promotion</value>
         <value xml:lang="en">Invoice Promotion</value>
         <value xml:lang="fr">Remise promotionnelle sur facture</value>
         <value xml:lang="hi_IN">चालान संवर्धन</value>
@@ -2315,6 +2452,7 @@
         <value xml:lang="zh_TW">發票中的促銷</value>
     </property>
     <property key="InvoiceItemType.description.INV_SALES_TAX">
+        <value xml:lang="de">MwSt.</value>
         <value xml:lang="en">Invoice Sales Tax</value>
         <value xml:lang="fr">Taxes sur vente facturées</value>
         <value xml:lang="hi_IN">चालान बिक्री टैक्स</value>
@@ -2327,6 +2465,7 @@
         <value xml:lang="zh_TW">發票中的營業稅</value>
     </property>
     <property key="InvoiceItemType.description.INV_SHIPPING_CHARGES">
+        <value xml:lang="de">Versandkosten</value>
         <value xml:lang="en">Invoice Shipping and Handling</value>
         <value xml:lang="fr">Frais d'expédition facturés</value>
         <value xml:lang="hi_IN">चालान शिपिंग और हैंडलिंग</value>
@@ -2339,6 +2478,7 @@
         <value xml:lang="zh_TW">發票中的裝運費</value>
     </property>
     <property key="InvoiceItemType.description.INV_SPROD_ITEM">
+        <value xml:lang="de">Service-Produkt</value>
         <value xml:lang="en">Invoice Service Product Item</value>
         <value xml:lang="fr">Facturation de service/ produit</value>
         <value xml:lang="hi_IN">चालान सेवा उत्पाद मद</value>
@@ -2351,6 +2491,7 @@
         <value xml:lang="zh_TW">發票的服務產品明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_SURCHARGE_ADJ">
+        <value xml:lang="de">Zuschlag</value>
         <value xml:lang="en">Invoice Surcharge</value>
         <value xml:lang="fr">Facturation de surcoût</value>
         <value xml:lang="hi_IN">चालान अधिभार</value>
@@ -2363,6 +2504,7 @@
         <value xml:lang="zh_TW">發票中的附加費</value>
     </property>
     <property key="InvoiceItemType.description.INV_TE_ITEM">
+        <value xml:lang="de">Zeiteintrag</value>
         <value xml:lang="en">Invoice Time-Entry Item</value>
         <value xml:lang="fr">Facturation de prestation horaire</value>
         <value xml:lang="hi_IN">चालान समय-प्रवेश मद</value>
@@ -2375,6 +2517,7 @@
         <value xml:lang="zh_TW">發票的預約明細</value>
     </property>
     <property key="InvoiceItemType.description.INV_WARRANTY_ADJ">
+        <value xml:lang="de">Garantie</value>
         <value xml:lang="en">Invoice Warranty</value>
         <value xml:lang="fr">Facturation de garantie</value>
         <value xml:lang="hi_IN">चालान वारंटी</value>
@@ -2387,6 +2530,7 @@
         <value xml:lang="zh_TW">發票中的保証條款</value>
     </property>
     <property key="InvoiceItemType.description.INV_WE_ITEM">
+        <value xml:lang="de">Arbeitseinsatz</value>
         <value xml:lang="en">Invoice Work-Effort Item</value>
         <value xml:lang="fr">Facturation de prestation</value>
         <value xml:lang="hi_IN">चालान कार्य-प्रयास मद</value>
@@ -2399,6 +2543,7 @@
         <value xml:lang="zh_TW">發票的人工服務明細</value>
     </property>
     <property key="InvoiceItemType.description.ITM_ADD_FEATURE">
+        <value xml:lang="de">Zusätzliches Merkmal</value>
         <value xml:lang="en">Invoice Item Additional Feature</value>
         <value xml:lang="fr">Facturation d'options additionnelles</value>
         <value xml:lang="hi_IN">चालान मद अतिरिक्त फ़ीचर</value>
@@ -2411,6 +2556,7 @@
         <value xml:lang="zh_TW">發票明細的附加特征</value>
     </property>
     <property key="InvoiceItemType.description.ITM_DISCOUNT_ADJ">
+        <value xml:lang="de">Positionsrabatt</value>
         <value xml:lang="en">Invoice Item Discount</value>
         <value xml:lang="fr">Remise sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद डिस्काउंट</value>
@@ -2423,6 +2569,7 @@
         <value xml:lang="zh_TW">發票明細的打折</value>
     </property>
     <property key="InvoiceItemType.description.ITM_FEE">
+        <value xml:lang="de">Rechnungsposition Gebühr</value>
         <value xml:lang="en">Invoice Item Fee</value>
         <value xml:lang="fr">Frais sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद शुल्क</value>
@@ -2435,6 +2582,7 @@
         <value xml:lang="zh_TW">發票明細的費用</value>
     </property>
     <property key="InvoiceItemType.description.ITM_MISC_CHARGE">
+        <value xml:lang="de">Rechnungsposition zusätzliche Gebühren</value>
         <value xml:lang="en">Invoice Item Miscellaneous Charges</value>
         <value xml:lang="fr">Frais divers sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद विविध व्यय</value>
@@ -2447,6 +2595,7 @@
         <value xml:lang="zh_TW">發票明細的雜費</value>
     </property>
     <property key="InvoiceItemType.description.ITM_PROMOTION_ADJ">
+        <value xml:lang="de">Rechnungsposition Aktion</value>
         <value xml:lang="en">Invoice Item Promotion</value>
         <value xml:lang="fr">Promotion sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद संवर्धन</value>
@@ -2459,6 +2608,7 @@
         <value xml:lang="zh_TW">發票明細的促銷</value>
     </property>
     <property key="InvoiceItemType.description.ITM_REPLACE_ADJ">
+        <value xml:lang="de">Rechnungsposition Ersatzartikel</value>
         <value xml:lang="en">Invoice Item Replacement</value>
         <value xml:lang="fr">Echange sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद प्रतिस्थापन</value>
@@ -2471,6 +2621,7 @@
         <value xml:lang="zh_TW">換貨發票明細</value>
     </property>
     <property key="InvoiceItemType.description.ITM_SALES_TAX">
+        <value xml:lang="de">Rechnungsposition MwSt.</value>
         <value xml:lang="en">Invoice Item Sales Tax</value>
         <value xml:lang="fr">Ligne de TVA</value>
         <value xml:lang="hi_IN">चालान मद बिक्री टैक्स</value>
@@ -2483,6 +2634,7 @@
         <value xml:lang="zh_TW">發票明細的營業稅</value>
     </property>
     <property key="InvoiceItemType.description.ITM_SHIPPING_CHARGES">
+        <value xml:lang="de">Rechnungsposition Versandkosten</value>
         <value xml:lang="en">Invoice Item Shipping and Handling</value>
         <value xml:lang="fr">Frais d'expédition sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद शिपिंग और हैंडलिंग</value>
@@ -2495,6 +2647,7 @@
         <value xml:lang="zh_TW">發票明細的裝運費</value>
     </property>
     <property key="InvoiceItemType.description.ITM_SURCHARGE_ADJ">
+        <value xml:lang="de">Rechnungsposition Zuschlag</value>
         <value xml:lang="en">Invoice Item Surcharge</value>
         <value xml:lang="fr">Surcoût sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद अधिभार</value>
@@ -2507,6 +2660,7 @@
         <value xml:lang="zh_TW">發票明細的附加費</value>
     </property>
     <property key="InvoiceItemType.description.ITM_WARRANTY_ADJ">
+        <value xml:lang="de">Rechnungsposition Garantie</value>
         <value xml:lang="en">Invoice Item Warranty</value>
         <value xml:lang="fr">Garantie sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद वारंटी</value>
@@ -2519,6 +2673,7 @@
         <value xml:lang="zh_TW">發票明細的保証條款</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL">
+        <value xml:lang="de">Gehalt</value>
         <value xml:lang="en">Payrol</value>
         <value xml:lang="hi_IN">वेतन</value>
         <value xml:lang="it">Paghe</value>
@@ -2527,6 +2682,7 @@
         <value xml:lang="zh_TW">工資單</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_ADV_PAY">
+        <value xml:lang="de">Vorauszahlung</value>
         <value xml:lang="en">Advance Pay</value>
         <value xml:lang="hi_IN">अग्रिम वेतन</value>
         <value xml:lang="it">Paghe avanzate</value>
@@ -2535,6 +2691,7 @@
         <value xml:lang="zh_TW">預付工資</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_BONUS">
+        <value xml:lang="de">Bonus</value>
         <value xml:lang="en">Bonus</value>
         <value xml:lang="hi_IN">बोनस</value>
         <value xml:lang="it">Premio</value>
@@ -2543,6 +2700,7 @@
         <value xml:lang="zh_TW">獎金</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_COMMISSION">
+        <value xml:lang="de">Provision</value>
         <value xml:lang="en">Commission</value>
         <value xml:lang="hi_IN">दलाली</value>
         <value xml:lang="it">Provvigione</value>
@@ -2575,6 +2733,7 @@
         <value xml:lang="zh_TW">401K退休金計劃</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_DD_CHAR_DONAT">
+        <value xml:lang="de">Gemeinnützige Spende</value>
         <value xml:lang="en">Charity Donation</value>
         <value xml:lang="hi_IN">धर्मार्थ दान</value>
         <value xml:lang="it">Donazione carità</value>
@@ -2660,6 +2819,7 @@
         <value xml:lang="zh_TW">收入和工時</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_HRLY_RATE">
+        <value xml:lang="de">Stundensatz</value>
         <value xml:lang="en">Hourly Rate</value>
         <value xml:lang="hi_IN">घंटा दर</value>
         <value xml:lang="it">Percentuale oraria</value>
@@ -2707,6 +2867,7 @@
         <value xml:lang="zh_TW">工資周期調整工資</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_SALARY">
+        <value xml:lang="de">Gehalt</value>
         <value xml:lang="en">Salary</value>
         <value xml:lang="fr">Salaire</value>
         <value xml:lang="hi_IN">वेतन</value>
@@ -2716,6 +2877,7 @@
         <value xml:lang="zh_TW">薪水</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_SALARY_SICK">
+        <value xml:lang="de">Krankengeld</value>
         <value xml:lang="en">Sick Salary</value>
         <value xml:lang="hi_IN">बीमारी वेतन</value>
         <value xml:lang="it">Salario per la malattia</value>
@@ -2724,6 +2886,7 @@
         <value xml:lang="zh_TW">病假工資</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_SALARY_VAC">
+        <value xml:lang="de">Urlaubsgeld</value>
         <value xml:lang="en">Vacation Salary</value>
         <value xml:lang="hi_IN">अवकाश वेतन</value>
         <value xml:lang="it">Salario per le ferie</value>
@@ -2739,6 +2902,7 @@
         <value xml:lang="zh_TW">社會保障雇員</value>
     </property>
     <property key="InvoiceItemType.description.PAYROL_TAXES">
+        <value xml:lang="de">Steuern</value>
         <value xml:lang="en">Taxes</value>
         <value xml:lang="hi_IN">करों</value>
         <value xml:lang="it">Tasse sulle paghe</value>
@@ -2770,6 +2934,7 @@
         <value xml:lang="zh_TW">醫療保障雇員</value>
     </property>
     <property key="InvoiceItemType.description.PINVOICE_ADJ">
+        <value xml:lang="de">Rechnungsanpassung</value>
         <value xml:lang="en">Invoice Adjustment</value>
         <value xml:lang="fr">Régularisation de facture</value>
         <value xml:lang="hi_IN">चालान समायोजन</value>
@@ -2782,6 +2947,7 @@
         <value xml:lang="zh_TW">發票調整</value>
     </property>
     <property key="InvoiceItemType.description.PINVOICE_ITM_ADJ">
+        <value xml:lang="de">Positionsanpassung</value>
         <value xml:lang="en">Invoice Item Adjustment</value>
         <value xml:lang="fr">Régularisation de ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद समायोजन</value>
@@ -2794,6 +2960,7 @@
         <value xml:lang="zh_TW">發票明細調整</value>
     </property>
     <property key="InvoiceItemType.description.PINV_ADD_FEATURE">
+        <value xml:lang="de">Zusätzliches Merkmal</value>
         <value xml:lang="en">Invoice Additional Feature</value>
         <value xml:lang="fr">Facturation d'option supplémentaire</value>
         <value xml:lang="hi_IN">चालान अतिरिक्त फ़ीचर</value>
@@ -2806,6 +2973,7 @@
         <value xml:lang="zh_TW">發票中的附加特征</value>
     </property>
     <property key="InvoiceItemType.description.PINV_DISCOUNT_ADJ">
+        <value xml:lang="de">Rechnungsrabatt</value>
         <value xml:lang="en">Invoice Discount</value>
         <value xml:lang="fr">Remise sur facture</value>
         <value xml:lang="hi_IN">चालान डिस्काउंट</value>
@@ -2818,6 +2986,7 @@
         <value xml:lang="zh_TW">發票折扣</value>
     </property>
     <property key="InvoiceItemType.description.PINV_DPROD_ITEM">
+        <value xml:lang="de">Digitales Produkt</value>
         <value xml:lang="en">Invoice Digital Good Item</value>
         <value xml:lang="fr">Facturation de service digital</value>
         <value xml:lang="hi_IN">चालान डिजिटल सामग्री मद</value>
@@ -2830,6 +2999,7 @@
         <value xml:lang="zh_TW">發票的數字產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_FDPROD_ITEM">
+        <value xml:lang="de">Fertigprodukt/Digitales Produkt</value>
         <value xml:lang="en">Invoice Finished/Digital Good Item</value>
         <value xml:lang="fr">Facturation de service digital</value>
         <value xml:lang="hi_IN">चालान तैयार/डिजिटल सामग्री मद</value>
@@ -2842,6 +3012,7 @@
         <value xml:lang="zh_TW">發票的制成品/數字產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_FPROD_ITEM">
+        <value xml:lang="de">Rechnung Fertigprodukt</value>
         <value xml:lang="en">Invoice Finished Good Item</value>
         <value xml:lang="fr">Facturation produit fini</value>
         <value xml:lang="hi_IN">चालान संपूर्ण सामग्री मद</value>
@@ -2854,6 +3025,7 @@
         <value xml:lang="zh_TW">發票的制成品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_FXASTPRD_ITEM">
+        <value xml:lang="de">Anlagegut</value>
         <value xml:lang="en">Invoice Fixed Asset Product Item</value>
         <value xml:lang="fr">Facturation d'immobilisation</value>
         <value xml:lang="hi_IN">चालान अचल संपत्ति उत्पाद मद</value>
@@ -2866,6 +3038,7 @@
         <value xml:lang="zh_TW">發票的固定資產產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_INVPRD_ITEM">
+        <value xml:lang="de">Ware</value>
         <value xml:lang="en">Invoice Inventory Product Item</value>
         <value xml:lang="fr">Facturation de produit d'inventaire</value>
         <value xml:lang="hi_IN">चालान वस्तुसूची उत्पाद मद</value>
@@ -2878,6 +3051,7 @@
         <value xml:lang="zh_TW">發票的庫存產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_MISC_CHARGE">
+        <value xml:lang="de">Sonstige Gebühren</value>
         <value xml:lang="en">Invoice Miscellaneous Charges</value>
         <value xml:lang="fr">Facturation de charges diverses</value>
         <value xml:lang="hi_IN">चालान विविध प्रभार</value>
@@ -2890,6 +3064,7 @@
         <value xml:lang="zh_TW">發票中的雜費</value>
     </property>
     <property key="InvoiceItemType.description.PINV_PROD_FEATR_ITEM">
+        <value xml:lang="de">Produktmerkmal</value>
         <value xml:lang="en">Invoice Product-Feature Item</value>
         <value xml:lang="fr">Facturation d'option de produit</value>
         <value xml:lang="hi_IN">चालान उत्पाद फ़ीचर मद</value>
@@ -2902,6 +3077,7 @@
         <value xml:lang="zh_TW">發票的產品特征明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_PROD_ITEM">
+        <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Invoice Product Item</value>
         <value xml:lang="fr">Facturation de produit</value>
         <value xml:lang="hi_IN">चालान उत्पाद मद</value>
@@ -2914,6 +3090,7 @@
         <value xml:lang="zh_TW">發票的產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_PROMOTION_ADJ">
+        <value xml:lang="de">Promotion</value>
         <value xml:lang="en">Invoice Promotion</value>
         <value xml:lang="fr">Promotion sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान संवर्धन</value>
@@ -2926,6 +3103,7 @@
         <value xml:lang="zh_TW">發票促銷</value>
     </property>
     <property key="InvoiceItemType.description.PINV_SALES_TAX">
+        <value xml:lang="de">MwSt.</value>
         <value xml:lang="en">Invoice Sales Tax</value>
         <value xml:lang="fr">Taxes sur vente facturées</value>
         <value xml:lang="hi_IN">चालान बिक्री टैक्स</value>
@@ -2938,6 +3116,7 @@
         <value xml:lang="zh_TW">發票中的營業稅</value>
     </property>
     <property key="InvoiceItemType.description.PINV_SHIP_CHARGES">
+        <value xml:lang="de">Versandkosten</value>
         <value xml:lang="en">Invoice Shipping and Handling</value>
         <value xml:lang="fr">Frais d'expédition facturés</value>
         <value xml:lang="hi_IN">चालान शिपिंग और हैंडलिंग</value>
@@ -2950,6 +3129,7 @@
         <value xml:lang="zh_TW">發票中的裝運費</value>
     </property>
     <property key="InvoiceItemType.description.PINV_SPROD_ITEM">
+        <value xml:lang="de">Service-Produkt</value>
         <value xml:lang="en">Invoice Service Product Item</value>
         <value xml:lang="fr">Facturation de service/ produit</value>
         <value xml:lang="hi_IN">चालान सेवा उत्पाद मद</value>
@@ -2962,6 +3142,7 @@
         <value xml:lang="zh_TW">發票的服務產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_SUPLPRD_ITEM">
+        <value xml:lang="de">Hilfs- und Betriebsstoffe</value>
         <value xml:lang="en">Invoice Supplies (to Expense) Product Item</value>
         <value xml:lang="fr">Facturation de fournitures associés au produit</value>
         <value xml:lang="hi_IN">चालान आपूर्ति (खर्च करने के लिए) उत्पाद मद</value>
@@ -2974,6 +3155,7 @@
         <value xml:lang="zh_TW">發票的低值易耗產品明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_SURCHARGE_ADJ">
+        <value xml:lang="de">Zuschlag</value>
         <value xml:lang="en">Invoice Surcharge</value>
         <value xml:lang="fr">Facturation de surcoût</value>
         <value xml:lang="hi_IN">चालान अधिभार</value>
@@ -2986,6 +3168,7 @@
         <value xml:lang="zh_TW">發票中的附加費</value>
     </property>
     <property key="InvoiceItemType.description.PINV_TE_ITEM">
+        <value xml:lang="de">Zeiteintrag</value>
         <value xml:lang="en">Invoice Time-Entry Item</value>
         <value xml:lang="fr">Facturation de prestation horaire</value>
         <value xml:lang="hi_IN">चालान समय-प्रवेश मद</value>
@@ -2998,6 +3181,7 @@
         <value xml:lang="zh_TW">發票的預約明細</value>
     </property>
     <property key="InvoiceItemType.description.PINV_WARRANTY_ADJ">
+        <value xml:lang="de">Garantie</value>
         <value xml:lang="en">Invoice Warranty</value>
         <value xml:lang="fr">Facturation de garantie</value>
         <value xml:lang="hi_IN">चालान वारंटी</value>
@@ -3010,6 +3194,7 @@
         <value xml:lang="zh_TW">發票中的保証條款</value>
     </property>
     <property key="InvoiceItemType.description.PINV_WE_ITEM">
+        <value xml:lang="de">Arbeitseinsatz</value>
         <value xml:lang="en">Invoice Work-Effort Item</value>
         <value xml:lang="fr">Facturation de prestation</value>
         <value xml:lang="hi_IN">चालान कार्य-प्रयास मद</value>
@@ -3022,6 +3207,7 @@
         <value xml:lang="zh_TW">發票的人工服務明細</value>
     </property>
     <property key="InvoiceItemType.description.PITM_ADD_FEATURE">
+        <value xml:lang="de">Zusätzliches Merkmal</value>
         <value xml:lang="en">Invoice Item Additional Feature</value>
         <value xml:lang="fr">Facturation d'options additionnelles</value>
         <value xml:lang="hi_IN">चालान मद अतिरिक्त फ़ीचर</value>
@@ -3034,6 +3220,7 @@
         <value xml:lang="zh_TW">發票明細的附加特征</value>
     </property>
     <property key="InvoiceItemType.description.PITM_DISCOUNT_ADJ">
+        <value xml:lang="de">Positionsrabatt</value>
         <value xml:lang="en">Invoice Item Discount</value>
         <value xml:lang="fr">Remise sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद डिस्काउंट</value>
@@ -3046,6 +3233,7 @@
         <value xml:lang="zh_TW">發票明細的打折</value>
     </property>
     <property key="InvoiceItemType.description.PITM_FEE">
+        <value xml:lang="de">Rechnungsposition Gebühr</value>
         <value xml:lang="en">Invoice Item Fee</value>
         <value xml:lang="fr">Frais sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद शुल्क</value>
@@ -3058,6 +3246,7 @@
         <value xml:lang="zh_TW">發票明細的費用</value>
     </property>
     <property key="InvoiceItemType.description.PITM_MISC_CHARGE">
+        <value xml:lang="de">Rechnungsposition zusätzliche Gebühren</value>
         <value xml:lang="en">Invoice Item Miscellaneous Charges</value>
         <value xml:lang="fr">Frais divers sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद विविध व्यय</value>
@@ -3070,6 +3259,7 @@
         <value xml:lang="zh_TW">發票明細的雜費</value>
     </property>
     <property key="InvoiceItemType.description.PITM_PROMOTION_ADJ">
+        <value xml:lang="de">Rechnungsposition Aktion</value>
         <value xml:lang="en">Invoice Item Promotion</value>
         <value xml:lang="fr">Remise promotionnelle sur facture</value>
         <value xml:lang="hi_IN">चालान मद संवर्धन</value>
@@ -3082,6 +3272,7 @@
         <value xml:lang="zh_TW">發票明細的促銷</value>
     </property>
     <property key="InvoiceItemType.description.PITM_REPLACE_ADJ">
+        <value xml:lang="de">Rechnungsposition Ersatzartikel</value>
         <value xml:lang="en">Invoice Item Replacement</value>
         <value xml:lang="fr">Echange sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद प्रतिस्थापन</value>
@@ -3094,6 +3285,7 @@
         <value xml:lang="zh_TW">換貨發票明細</value>
     </property>
     <property key="InvoiceItemType.description.PITM_SALES_TAX">
+        <value xml:lang="de">Rechnungsposition MwSt.</value>
         <value xml:lang="en">Invoice Item Sales Tax</value>
         <value xml:lang="fr">ligne de TVA</value>
         <value xml:lang="hi_IN">चालान मद बिक्री टैक्स</value>
@@ -3106,6 +3298,7 @@
         <value xml:lang="zh_TW">發票明細的營業稅</value>
     </property>
     <property key="InvoiceItemType.description.PITM_SHIP_CHARGES">
+        <value xml:lang="de">Rechnungsposition Versandkosten</value>
         <value xml:lang="en">Invoice Item Shipping and Handling</value>
         <value xml:lang="fr">Frais d'expédition facturés</value>
         <value xml:lang="hi_IN">चालान मद शिपिंग और हैंडलिंग</value>
@@ -3118,6 +3311,7 @@
         <value xml:lang="zh_TW">發票明細的裝運費</value>
     </property>
     <property key="InvoiceItemType.description.PITM_SURCHARGE_ADJ">
+        <value xml:lang="de">Rechnungsposition Zuschlag</value>
         <value xml:lang="en">Invoice Item Surcharge</value>
         <value xml:lang="fr">Surcoût sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद अधिभार</value>
@@ -3130,6 +3324,7 @@
         <value xml:lang="zh_TW">發票明細的附加費</value>
     </property>
     <property key="InvoiceItemType.description.PITM_WARRANTY_ADJ">
+        <value xml:lang="de">Rechnungsposition Garantie</value>
         <value xml:lang="en">Invoice Item Warranty</value>
         <value xml:lang="fr">Garantie sur ligne de facturation</value>
         <value xml:lang="hi_IN">चालान मद वारंटी</value>
@@ -3142,6 +3337,7 @@
         <value xml:lang="zh_TW">發票明細的保証條款</value>
     </property>
     <property key="InvoiceItemType.description.P_FEE">
+        <value xml:lang="de">Gebühr</value>
         <value xml:lang="en">Invoice Fee</value>
         <value xml:lang="fr">Frais sur facturation</value>
         <value xml:lang="hi_IN">चालान शुल्क</value>
@@ -3154,6 +3350,7 @@
         <value xml:lang="zh_TW">發票費用</value>
     </property>
     <property key="InvoiceItemType.description.SRT_ADD_FEATURE_ADJ">
+        <value xml:lang="de">Retoure Zusatz-Merkmal</value>
         <value xml:lang="en">Return Additional Feature</value>
         <value xml:lang="fr">Retour Option supplémentaire</value>
         <value xml:lang="hi_IN">रिटर्न अडिशनल फ़ीचर</value>
@@ -3163,6 +3360,7 @@
         <value xml:lang="zh_TW">退貨附加特性</value>
     </property>
     <property key="InvoiceItemType.description.SRT_DISCOUNT_ADJ">
+        <value xml:lang="de">Retourennachlass</value>
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="fr">Retour Remise</value>
         <value xml:lang="hi_IN">रिटर्न डिस्काउंट</value>
@@ -3172,6 +3370,7 @@
         <value xml:lang="zh_TW">退貨折扣</value>
     </property>
     <property key="InvoiceItemType.description.SRT_DPROD_ITEM">
+        <value xml:lang="de">Retoure Digitales Produkt</value>
         <value xml:lang="en">Return Digital Good Item</value>
         <value xml:lang="fr">Retour Produit numérique</value>
         <value xml:lang="hi_IN">रिटर्न डिजिटल सामग्री मद</value>
@@ -3181,6 +3380,7 @@
         <value xml:lang="zh_TW">數字商品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FDPROD_ITEM">
+        <value xml:lang="de">Retoure Fertigprodukt/Digitales Produkt</value>
         <value xml:lang="en">Return Finished/Digital Good Item</value>
         <value xml:lang="fr">Retour Produit/Marchandise numérique</value>
         <value xml:lang="hi_IN">रिटर्न तैयार/डिजिटल सामग्री मद</value>
@@ -3190,6 +3390,7 @@
         <value xml:lang="zh_TW">成品/數字商品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FEE_ADJ">
+        <value xml:lang="de">Retourengebühr</value>
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="fr">Retour Frais</value>
         <value xml:lang="hi_IN">लौटें शुल्क</value>
@@ -3199,6 +3400,7 @@
         <value xml:lang="zh_TW">退貨手續費</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FPROD_ITEM">
+        <value xml:lang="de">Retoure Fertigprodukt</value>
         <value xml:lang="en">Return Finished Good Item</value>
         <value xml:lang="fr">Retour Produit</value>
         <value xml:lang="hi_IN">रिटर्न संपूर्ण सामग्री मद</value>
@@ -3208,6 +3410,7 @@
         <value xml:lang="zh_TW">成品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_MAN_ADJ">
+        <value xml:lang="de">Retoure manuelle Anpassung</value>
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="fr">Retour Ajustement manuel</value>
         <value xml:lang="hi_IN">रिटर्न मैनुअल समायोजन</value>
@@ -3217,6 +3420,7 @@
         <value xml:lang="zh_TW">人工調整退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_MISC_ADJ">
+        <value xml:lang="de">Retoure sonstige Gebühren</value>
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="fr">Retour Charges diverses</value>
         <value xml:lang="hi_IN">रिटर्न विविध व्यय</value>
@@ -3226,6 +3430,7 @@
         <value xml:lang="zh_TW">退貨其他費用</value>
     </property>
     <property key="InvoiceItemType.description.SRT_MKTG_PKG_ADJ">
+        <value xml:lang="de">Retoure Marketingpaket Anpassung</value>
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="fr">Retour Ajustement paquet marketing</value>
         <value xml:lang="hi_IN">रिटर्न विपणन पैकेज समायोजन</value>
@@ -3235,6 +3440,7 @@
         <value xml:lang="zh_TW">調整市場促銷包退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_PROD_FEATR_ITEM">
+        <value xml:lang="de">Retoure Produktmerkmal</value>
         <value xml:lang="en">Return Product-Feature Item</value>
         <value xml:lang="fr">Retour Caractéristique produit</value>
         <value xml:lang="hi_IN">रिटर्न उत्पाद फ़ीचर मद</value>
@@ -3244,6 +3450,7 @@
         <value xml:lang="zh_TW">特色產品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_PROD_ITEM">
+        <value xml:lang="de">Produkt-Retoure</value>
         <value xml:lang="en">Return Product Item</value>
         <value xml:lang="fr">Retour Produit</value>
         <value xml:lang="hi_IN">रिटर्न उत्पाद मद</value>
@@ -3253,6 +3460,7 @@
         <value xml:lang="zh_TW">產品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_PROMOTION_ADJ">
+        <value xml:lang="de">Retoure Aktion</value>
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="fr">Retour Promotion</value>
         <value xml:lang="hi_IN">रिटर्न संवर्धन</value>
@@ -3262,6 +3470,7 @@
         <value xml:lang="zh_TW">促銷退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_REPLACE_ADJ">
+        <value xml:lang="de">Retoure Ersatz</value>
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="fr">Retour Remplacement</value>
         <value xml:lang="hi_IN">रिटर्न प्रतिस्थापन</value>
@@ -3271,6 +3480,7 @@
         <value xml:lang="zh_TW">換或退回</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SALES_TAX_ADJ">
+        <value xml:lang="de">Retoure MwSt.</value>
         <value xml:lang="en">Return Sales Tax</value>
         <value xml:lang="fr">Retour TVA</value>
         <value xml:lang="hi_IN">रिटर्न बिक्री टैक्स</value>
@@ -3280,6 +3490,7 @@
         <value xml:lang="zh_TW">退營業稅</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SHIPPING_ADJ">
+        <value xml:lang="de">Retoure Versandkosten</value>
         <value xml:lang="en">Return Shipping and Handling</value>
         <value xml:lang="fr">Retour Emballage et expédition</value>
         <value xml:lang="hi_IN">रिटर्न शिपिंग और हैंडलिंग</value>
@@ -3289,6 +3500,7 @@
         <value xml:lang="zh_TW">運輸和安裝退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SPROD_ITEM">
+        <value xml:lang="de">Retoure Service-Produkt</value>
         <value xml:lang="en">Return Service Product Item</value>
         <value xml:lang="fr">Retour Service</value>
         <value xml:lang="hi_IN">रिटर्न सेवा उत्पाद मद</value>
@@ -3298,6 +3510,7 @@
         <value xml:lang="zh_TW">服務產品退貨</value>
     </property>
     <property key="InvoiceItemType.description.SRT_SURCHARGE_ADJ">
+        <value xml:lang="de">Retoure Zuschlag</value>
         <value xml:lang="en">Return Surcharge</value>
         <value xml:lang="fr">Retour Supplément</value>
         <value xml:lang="hi_IN">रिटर्न अधिभार</value>
@@ -3307,6 +3520,7 @@
         <value xml:lang="zh_TW">退附加費</value>
     </property>
     <property key="InvoiceItemType.description.SRT_TE_ITEM">
+        <value xml:lang="de">Retoure Zeiteintrag</value>
         <value xml:lang="en">Return Time-Entry Item</value>
         <value xml:lang="fr">Retour Honoraire</value>
         <value xml:lang="hi_IN">रिटर्न समय-प्रवेश मद</value>
@@ -3316,6 +3530,7 @@
         <value xml:lang="zh_TW">退預約</value>
     </property>
     <property key="InvoiceItemType.description.SRT_WARRANTY_ADJ">
+        <value xml:lang="de">Retoure Garantie</value>
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="fr">Retour garantie</value>
         <value xml:lang="hi_IN">रिटर्न वारंटी</value>
@@ -3325,6 +3540,7 @@
         <value xml:lang="zh_TW">退保修</value>
     </property>
     <property key="InvoiceItemType.description.SRT_WE_ITEM">
+        <value xml:lang="de">Retoure Arbeitseinsatz</value>
         <value xml:lang="en">Return Work-Effort Item</value>
         <value xml:lang="fr">Retour de tâche</value>
         <value xml:lang="hi_IN">रिटर्न कार्य-प्रयास मद</value>
@@ -3373,6 +3589,7 @@
         <value xml:lang="zh_TW">利息</value>
     </property>
     <property key="InvoiceType.description.PAYROL_INVOICE">
+        <value xml:lang="de">Gehalt</value>
         <value xml:lang="en">Payrol</value>
         <value xml:lang="fr">Salaire</value>
         <value xml:lang="hi_IN">वेतन</value>
@@ -3396,6 +3613,7 @@
         <value xml:lang="zh_TW">購貨發票</value>
     </property>
     <property key="InvoiceType.description.PURC_RTN_INVOICE">
+        <value xml:lang="de">Einkaufs-Retoure</value>
         <value xml:lang="en">Purchase Return</value>
         <value xml:lang="fr">Avoir fournisseur</value>
         <value xml:lang="it">Reso acquisto</value>
@@ -3404,6 +3622,7 @@
         <value xml:lang="zh_TW">購物退貨</value>
     </property>
     <property key="InvoiceType.description.PUR_INV_TEMPLATE">
+        <value xml:lang="de">Vorlage Einkaufsrechnung</value>
         <value xml:lang="en">Purchase Invoice Template</value>
         <value xml:lang="fr">Modèle de facture d'achat</value>
         <value xml:lang="hi_IN">खरीद चालान खाका</value>
@@ -3427,6 +3646,7 @@
         <value xml:lang="zh_TW">銷售發票</value>
     </property>
     <property key="InvoiceType.description.SALES_INV_TEMPLATE">
+        <value xml:lang="de">Vorlage Verkaufsrechnung</value>
         <value xml:lang="en">Sales Invoice Template</value>
         <value xml:lang="fr">Modèle de facture de vente</value>
         <value xml:lang="hi_IN">बिक्री चालान खाका</value>
@@ -3436,6 +3656,7 @@
         <value xml:lang="zh_TW">銷售發票範本</value>
     </property>
     <property key="InvoiceType.description.TEMPLATE">
+        <value xml:lang="de">Rechnungsvorlage</value>
         <value xml:lang="en">Invoice Template</value>
         <value xml:lang="fr">Modèle de facture</value>
         <value xml:lang="hi_IN">चालान खाका</value>
@@ -3445,6 +3666,7 @@
         <value xml:lang="zh_TW">發票範本</value>
     </property>
     <property key="PaymentMethodType.description.CASH">
+        <value xml:lang="de">Bargeld</value>
         <value xml:lang="en">Cash</value>
         <value xml:lang="fr">Espèces</value>
         <value xml:lang="hi_IN">नकद</value>
@@ -3605,6 +3827,7 @@
         <value xml:lang="zh_TW">RBS WorldPay</value>
     </property>
     <property key="PaymentMethodType.description.FIN_ACCOUNT">
+        <value xml:lang="de">Finanzkonto</value>
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="hi_IN">वित्तीय खाता</value>
         <value xml:lang="it">Conto finanziario</value>
@@ -3804,6 +4027,7 @@
         <value xml:lang="zh_TW">工資稅完稅</value>
     </property>
     <property key="PaymentType.description.PAYROL_PAYMENT">
+        <value xml:lang="de">Lohnzahlung</value>
         <value xml:lang="en">Payrol Payment</value>
         <value xml:lang="hi_IN">वेतन भुगतान</value>
         <value xml:lang="it">Pagamento paghe</value>
@@ -3826,7 +4050,7 @@
         <value xml:lang="zh_TW">工資支票</value>
     </property>
     <property key="PaymentType.description.POS_PAID_IN">
-        <value xml:lang="de">Kassenauszahlung</value>
+        <value xml:lang="de">Kasseneinzahlung</value>
         <value xml:lang="en">POS Paid In</value>
         <value xml:lang="fr">Reçu en caisse</value>
         <value xml:lang="hi_IN">Pos भुगतान किया</value>
@@ -3920,30 +4144,37 @@
         <value xml:lang="zh_TW">供應商預付款</value>
     </property>
     <property key="RateType.description.AVERAGE_PAY_RATE">
+        <value xml:lang="de">Normaler Satz</value>
         <value xml:lang="en">Average Pay Rate</value>
         <value xml:lang="fr">Prix moyen</value>
     </property>
     <property key="RateType.description.DISCOUNTED">
+        <value xml:lang="de">Ermäßigter Satz</value>
         <value xml:lang="en">Discounted Rate</value>
         <value xml:lang="fr">Réduit</value>
     </property>
     <property key="RateType.description.HIGH_PAY_RATE">
+        <value xml:lang="de">Höchster Satz</value>
         <value xml:lang="en">Highest Pay Rate</value>
         <value xml:lang="fr">Prix haut</value>
     </property>
     <property key="RateType.description.LOW_PAY_RATE">
+        <value xml:lang="de">Günstigster Satz</value>
         <value xml:lang="en">Lowest Pay Rate</value>
         <value xml:lang="fr">Prix bas</value>
     </property>
     <property key="RateType.description.OVERTIME">
+        <value xml:lang="de">Satz für Überstunden</value>
         <value xml:lang="en">Overtime Rate</value>
         <value xml:lang="fr">Majoré</value>
     </property>
     <property key="RateType.description.STANDARD">
+        <value xml:lang="de">Standard-Satz</value>
         <value xml:lang="en">Standard Rate</value>
         <value xml:lang="fr">Standard</value>
     </property>
     <property key="TaxAuthorityAssocType.description.COLLECT_AGENT">
+        <value xml:lang="de">Inkassobevollmächtigter</value>
         <value xml:lang="en">Collection Agent</value>
         <value xml:lang="fr">Agent percepteur</value>
         <value xml:lang="hi_IN">वसूली एजेंट</value>
@@ -3956,6 +4187,7 @@
         <value xml:lang="zh_TW">托收代理人</value>
     </property>
     <property key="TaxAuthorityAssocType.description.EXEMPT_INHER">
+        <value xml:lang="de">Übernommene Steuerbefreiung</value>
         <value xml:lang="en">Exemption Inheritance</value>
         <value xml:lang="fr">Exemption transférée</value>
         <value xml:lang="it">Esenzione Ereditaria</value>
@@ -3967,6 +4199,7 @@
         <value xml:lang="zh_TW">遺產稅豁免</value>
     </property>
     <property key="TaxAuthorityRateType.description.EXPORT_TAX">
+        <value xml:lang="de">Ausfuhrsteuer</value>
         <value xml:lang="en">Export Tax</value>
         <value xml:lang="fr">Taxes à l'exportation</value>
         <value xml:lang="hi_IN">निर्यात कर</value>
@@ -3979,6 +4212,7 @@
         <value xml:lang="zh_TW">出口稅</value>
     </property>
     <property key="TaxAuthorityRateType.description.IMPORT_TAX">
+        <value xml:lang="de">Einfuhrzoll</value>
         <value xml:lang="en">Import Tax</value>
         <value xml:lang="fr">Taxes à l'importation</value>
         <value xml:lang="hi_IN">आयात कर</value>
@@ -3991,6 +4225,7 @@
         <value xml:lang="zh_TW">進口稅</value>
     </property>
     <property key="TaxAuthorityRateType.description.INCOME_TAX">
+        <value xml:lang="de">Einkommenssteuer</value>
         <value xml:lang="en">Income Tax</value>
         <value xml:lang="fr">Impôt sur le revenu</value>
         <value xml:lang="hi_IN">आयकर</value>
@@ -4003,7 +4238,7 @@
         <value xml:lang="zh_TW">所得稅</value>
     </property>
     <property key="TaxAuthorityRateType.description.SALES_TAX">
-        <value xml:lang="de">Verkaufssteuer</value>
+        <value xml:lang="de">MwSt.</value>
         <value xml:lang="en">Sales Tax</value>
         <value xml:lang="es">Impuesto de ventas</value>
         <value xml:lang="fr">TVA</value>
