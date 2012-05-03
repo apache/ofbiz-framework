@@ -18,34 +18,37 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import org.w3c.dom.Element;
 
 /**
- * Thrown to indicate a Mini-language run-time error. 
+ * A single Mini-language element. This class is the superclass for all <code>Element</code> models.
  */
-@SuppressWarnings("serial")
-public class MiniLangRuntimeException extends MiniLangException {
+public class MiniLangElement {
 
-    private final MiniLangElement element;
+    private final Object lineNumber;
+    protected final SimpleMethod simpleMethod;
+    private final String tagName;
 
-    public MiniLangRuntimeException(String str, MiniLangElement element) {
-        super(str);
-        this.element = element;
+    public MiniLangElement(Element element, SimpleMethod simpleMethod) {
+        this.lineNumber = element.getUserData("startLine");
+        this.simpleMethod = simpleMethod;
+        this.tagName = element.getTagName().intern();
     }
 
-    public MiniLangRuntimeException(Throwable nested, MiniLangElement element) {
-        super(nested);
-        this.element = element;
+    public String getLineNumber() {
+        return this.lineNumber == null ? "unknown" : this.lineNumber.toString();
+    }
+
+    public SimpleMethod getSimpleMethod() {
+        return this.simpleMethod;
+    }
+
+    public String getTagName() {
+        return this.tagName;
     }
 
     @Override
-    public String getMessage() {
-        StringBuilder sb = new StringBuilder(super.getMessage());
-        if (this.element != null) {
-            SimpleMethod method = this.element.getSimpleMethod();
-            sb.append(" Method = ").append(method.methodName).append(", File = ").append(method.getFromLocation());
-            sb.append(", Element = <").append(this.element.getTagName()).append(">");
-            sb.append(", Line ").append(this.element.getLineNumber());
-        }
-        return sb.toString();
+    public String toString() {
+        return "<".concat(this.tagName).concat(">");
     }
 }
