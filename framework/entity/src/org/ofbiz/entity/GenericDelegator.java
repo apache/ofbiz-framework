@@ -104,9 +104,6 @@ public class GenericDelegator implements Delegator {
 
     protected Cache cache = null;
 
-    /** keeps a list of field key sets used in the by and cache, a Set (of Sets of fieldNames) for each entityName */
-    protected Map<?,?> andCacheFieldSets = FastMap.newInstance();
-
     protected DistributedCacheClear distributedCacheClear = null;
     protected boolean enableJMS = true;
     protected EntityEcaHandler<?> entityEcaHandler = null;
@@ -2770,7 +2767,6 @@ public class GenericDelegator implements Delegator {
         newDelegator.delegatorBaseName = this.delegatorBaseName;
         newDelegator.delegatorInfo = this.delegatorInfo;
         newDelegator.cache = this.cache;
-        newDelegator.andCacheFieldSets = this.andCacheFieldSets;
         newDelegator.distributedCacheClear = this.distributedCacheClear;
         newDelegator.originalDelegatorName = getOriginalDelegatorName();
         newDelegator.entityEcaHandler = this.entityEcaHandler;
