@@ -62,12 +62,12 @@ public class HashCrypt {
         }
     }
 
-    private static boolean doCompareTypePrefix(String crypted, String defaultCrypt, byte[] value) {
+    private static boolean doCompareTypePrefix(String crypted, String defaultCrypt, byte[] bytes) {
         int typeEnd = crypted.indexOf("}");
         String hashType = crypted.substring(1, typeEnd);
         String hashed = crypted.substring(typeEnd + 1);
         MessageDigest messagedigest = getMessageDigest(hashType);
-        messagedigest.update(value);
+        messagedigest.update(bytes);
         byte[] digestBytes = messagedigest.digest();
         char[] digestChars = Hex.encodeHex(digestBytes);
         String checkCrypted = new String(digestChars);
@@ -93,20 +93,20 @@ public class HashCrypt {
         return false;
     }
 
-    private static boolean doComparePosix(String crypted, String defaultCrypt, byte[] value) {
+    private static boolean doComparePosix(String crypted, String defaultCrypt, byte[] bytes) {
         int typeEnd = crypted.indexOf("$", 1);
         int saltEnd = crypted.indexOf("$", typeEnd + 1);
         String hashType = crypted.substring(1, typeEnd);
         String salt = crypted.substring(typeEnd + 1, saltEnd);
         String hashed = crypted.substring(saltEnd + 1);
-        return hashed.equals(getCrypted(hashType, salt, value));
+        return hashed.equals(getCryptedBytes(hashType, salt, bytes));
     }
 
-    private static boolean doCompareBare(String crypted, String defaultCrypt, byte[] value) {
+    private static boolean doCompareBare(String crypted, String defaultCrypt, byte[] bytes) {
         String hashType = defaultCrypt;
         String hashed = crypted;
         MessageDigest messagedigest = getMessageDigest(hashType);
-        messagedigest.update(value);
+        messagedigest.update(bytes);
         char[] digestChars = Hex.encodeHex(messagedigest.digest());
         return hashed.equals(new String(digestChars));
     }
@@ -119,11 +119,11 @@ public class HashCrypt {
     public static String cryptPassword(String hashType, String salt, String password) {
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
-        sb.append(getCrypted(hashType, salt, password.getBytes(UTF8)));
+        sb.append(getCryptedBytes(hashType, salt, password.getBytes(UTF8)));
         return sb.toString();
     }
 
-    private static String getCrypted(String hashType, String salt, byte[] bytes) {
+    private static String getCryptedBytes(String hashType, String salt, byte[] bytes) {
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
             messagedigest.update(salt.getBytes(UTF8));
