@@ -111,12 +111,13 @@ public class HashCrypt {
         return hashed.equals(new String(digestChars));
     }
 
-    public static String cryptPassword(String hashType, String password) {
-        int saltLength = new Random().nextInt(15) + 1;
-        return cryptPassword(hashType, RandomStringUtils.random(saltLength, CRYPT_CHAR_SET), password);
-    }
-
     public static String cryptPassword(String hashType, String salt, String password) {
+        if (hashType == null) {
+            hashType = "SHA";
+        }
+        if (salt == null) {
+            salt = RandomStringUtils.random(new Random().nextInt(15) + 1, CRYPT_CHAR_SET);
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
         sb.append(getCryptedBytes(hashType, salt, password.getBytes(UTF8)));
