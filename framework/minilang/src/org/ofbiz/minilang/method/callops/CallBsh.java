@@ -131,7 +131,7 @@ public final class CallBsh extends MethodOperation {
                 methodContext.putAllEnv(UtilGenerics.<String, Object> checkMap(inlineResult));
             }
         } catch (EvalError e) {
-            Debug.logError(e, "BeanShell execution caused an error", module);
+            Debug.logWarning(e, "BeanShell execution caused an error", module);
             addErrorMessage(methodContext, "BeanShell execution caused an error: " + e.getMessage());
         }
         // always return true, error messages just go on the error list

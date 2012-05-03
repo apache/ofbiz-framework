@@ -18,44 +18,34 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
 
 /**
- * A type of MethodObject that represents a String constant value to be used as an Object
+ * Specifies a <code>java.lang.String</code> to be passed as an argument to a method call.
  */
-public class StringObject extends MethodObject<String> {
+public final class StringObject extends MethodObject<String> {
 
-    String cdataValue;
-    String value;
+    private final FlexibleStringExpander cdataValueFse;
+    private final FlexibleStringExpander valueFse;
 
     public StringObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        value = element.getAttribute("value");
-        cdataValue = UtilXml.elementValue(element);
+        this.cdataValueFse = FlexibleStringExpander.getInstance(UtilXml.elementValue(element));
+        this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
     }
 
     @Override
     public String getObject(MethodContext methodContext) {
-        String value = methodContext.expandString(this.value);
-        String cdataValue = methodContext.expandString(this.cdataValue);
-        boolean valueExists = UtilValidate.isNotEmpty(value);
-        boolean cdataValueExists = UtilValidate.isNotEmpty(cdataValue);
-        if (valueExists && cdataValueExists) {
-            return value + cdataValue;
-        } else {
-            if (valueExists) {
-                return value;
-            } else {
-                return cdataValue;
-            }
-        }
+        String value = this.valueFse.expandString(methodContext.getEnvMap());
+        String cdataValue = this.cdataValueFse.expandString(methodContext.getEnvMap());
+        return value.concat(cdataValue);
     }
 
     @Override
-    public Class<String> getTypeClass(ClassLoader loader) {
+    public Class<String> getTypeClass(MethodContext methodContext) throws ClassNotFoundException {
         return java.lang.String.class;
     }
 
