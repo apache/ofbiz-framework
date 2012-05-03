@@ -26,6 +26,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 
+import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
@@ -33,16 +34,11 @@ import org.w3c.dom.Element;
 /**
  * A single operation, does the specified operation on the given field
  */
-public abstract class MethodOperation {
+public abstract class MethodOperation extends MiniLangElement {
 
-    private final Object lineNumber;
-    protected final SimpleMethod simpleMethod;
-    private final String tagName;
 
     protected MethodOperation(Element element, SimpleMethod simpleMethod) {
-        this.lineNumber = element.getUserData("startLine");
-        this.simpleMethod = simpleMethod;
-        this.tagName = element.getTagName().intern();
+        super(element, simpleMethod);
     }
 
     public void addErrorMessage(MethodContext methodContext, String message) {
@@ -70,18 +66,6 @@ public abstract class MethodOperation {
 
     /** Create an expanded string representation of the operation, is for the current context */
     public abstract String expandedString(MethodContext methodContext);
-
-    public String getLineNumber() {
-        return this.lineNumber == null ? "unknown" : this.lineNumber.toString();
-    }
-
-    public SimpleMethod getSimpleMethod() {
-        return this.simpleMethod;
-    }
-
-    public String getTagName() {
-        return this.tagName;
-    }
 
     /** Create a raw string representation of the operation, would be similar to original XML */
     public abstract String rawString();

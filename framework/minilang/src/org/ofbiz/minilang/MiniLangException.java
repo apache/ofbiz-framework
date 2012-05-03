@@ -35,4 +35,8 @@ public class MiniLangException extends org.ofbiz.base.util.GeneralException {
     public MiniLangException(String str, Throwable nested) {
         super(str, nested);
     }
+
+    public MiniLangException(Throwable nested) {
+        super(nested);
+    }
 }
