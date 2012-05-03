@@ -2644,10 +2644,10 @@ public class GenericDelegator implements Delegator {
                     keyName = modelView.getAliasedEntity(modelView.getAlias(field.getName()).getEntityAlias(), modelReader).getEntityName();
                 }
 
-                String encHex = (String) entity.get(field.getName());
-                if (UtilValidate.isNotEmpty(encHex)) {
+                String encValue = (String) entity.get(field.getName());
+                if (UtilValidate.isNotEmpty(encValue)) {
                     try {
-                        entity.dangerousSetNoCheckButFast(field, crypto.decrypt(keyName, encHex));
+                        entity.dangerousSetNoCheckButFast(field, crypto.decrypt(keyName, encValue));
                     } catch (EntityCryptoException e) {
                         // not fatal -- allow returning of the encrypted value
                         Debug.logWarning(e, "Problem decrypting field [" + entityName + " / " + field.getName() + "]", module);
