@@ -22,6 +22,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
         if (args[0].equals("-crypt")) {
             System.out.println(HashCrypt.cryptPassword(args[1], args[2]));
+        } else if (args[0].equals("-digest")) {
+            @SuppressWarnings("deprecation")
+            String digest = HashCrypt.getDigestHash(args[1]);
+            System.out.println(digest);
         }
     }
 }
