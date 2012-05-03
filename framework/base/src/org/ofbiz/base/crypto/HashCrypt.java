@@ -30,6 +30,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.StringUtil;
+import static org.ofbiz.base.util.UtilIO.UTF8;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
@@ -79,7 +80,7 @@ public class HashCrypt {
                 String hashType = crypted.substring(1, typeEnd);
                 String salt = crypted.substring(typeEnd + 1, saltEnd);
                 String hashed = crypted.substring(saltEnd + 1);
-                return hashed.equals(getCrypted(hashType, salt, password));
+                return hashed.equals(getCrypted(hashType, salt, password.getBytes(UTF8)));
             } else {
                 String hashType = defaultCrypt;
                 String hashed = crypted;
@@ -102,19 +103,17 @@ public class HashCrypt {
     public static String cryptPassword(String hashType, String salt, String password) {
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
-        sb.append(getCrypted(hashType, salt, password));
+        sb.append(getCrypted(hashType, salt, password.getBytes(UTF8)));
         return sb.toString();
     }
 
-    private static String getCrypted(String hashType, String salt, String password) {
+    private static String getCrypted(String hashType, String salt, byte[] bytes) {
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            messagedigest.update(salt.getBytes("UTF-8"));
-            messagedigest.update(password.getBytes("UTF-8"));
+            messagedigest.update(salt.getBytes(UTF8));
+            messagedigest.update(bytes);
             return Base64.encodeBase64URLSafeString(messagedigest.digest()).replace('+', '.');
         } catch (NoSuchAlgorithmException e) {
-            throw new GeneralRuntimeException("Error while comparing password", e);
-        } catch (UnsupportedEncodingException e) {
             throw new GeneralRuntimeException("Error while comparing password", e);
         }
     }
