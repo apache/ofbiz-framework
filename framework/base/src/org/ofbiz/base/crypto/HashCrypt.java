@@ -52,51 +52,63 @@ public class HashCrypt {
 
     public static boolean comparePassword(String crypted, String defaultCrypt, String password) {
         if (crypted.startsWith("{")) {
-            int typeEnd = crypted.indexOf("}");
-            String hashType = crypted.substring(1, typeEnd);
-            String hashed = crypted.substring(typeEnd + 1);
-            MessageDigest messagedigest = getMessageDigest(hashType);
             // FIXME: should have been getBytes("UTF-8") originally
-            messagedigest.update(password.getBytes());
-            byte[] digestBytes = messagedigest.digest();
-            char[] digestChars = Hex.encodeHex(digestBytes);
-            String checkCrypted = new String(digestChars);
-            if (hashed.equals(checkCrypted)) {
-                return true;
-            }
-            // This next block should be removed when all {prefix}oldFunnyHex are fixed.
-            int k = 0;
-            digestChars = new char[digestBytes.length * 2];
-            for (int l = 0; l < digestBytes.length; l++) {
-                int i1 = digestBytes[l];
-
-                if (i1 < 0) {
-                    i1 = 127 + i1 * -1;
-                }
-                StringUtil.encodeInt(i1, k, digestChars);
-                k += 2;
-            }
-            if (hashed.equals(new String(digestChars))) {
-                Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", module, hashType, checkCrypted);
-                return true;
-            }
-            return false;
+            return doCompareTypePrefix(crypted, defaultCrypt, password.getBytes());
         } else if (crypted.startsWith("$")) {
-            int typeEnd = crypted.indexOf("$", 1);
-            int saltEnd = crypted.indexOf("$", typeEnd + 1);
-            String hashType = crypted.substring(1, typeEnd);
-            String salt = crypted.substring(typeEnd + 1, saltEnd);
-            String hashed = crypted.substring(saltEnd + 1);
-            return hashed.equals(getCrypted(hashType, salt, password.getBytes(UTF8)));
+            return doComparePosix(crypted, defaultCrypt, password.getBytes(UTF8));
         } else {
-            String hashType = defaultCrypt;
-            String hashed = crypted;
-            MessageDigest messagedigest = getMessageDigest(hashType);
             // FIXME: should have been getBytes("UTF-8") originally
-            messagedigest.update(password.getBytes());
-            char[] digestChars = Hex.encodeHex(messagedigest.digest());
-            return hashed.equals(new String(digestChars));
+            return doCompareBare(crypted, defaultCrypt, password.getBytes());
         }
+    }
+
+    private static boolean doCompareTypePrefix(String crypted, String defaultCrypt, byte[] value) {
+        int typeEnd = crypted.indexOf("}");
+        String hashType = crypted.substring(1, typeEnd);
+        String hashed = crypted.substring(typeEnd + 1);
+        MessageDigest messagedigest = getMessageDigest(hashType);
+        messagedigest.update(value);
+        byte[] digestBytes = messagedigest.digest();
+        char[] digestChars = Hex.encodeHex(digestBytes);
+        String checkCrypted = new String(digestChars);
+        if (hashed.equals(checkCrypted)) {
+            return true;
+        }
+        // This next block should be removed when all {prefix}oldFunnyHex are fixed.
+        int k = 0;
+        digestChars = new char[digestBytes.length * 2];
+        for (int l = 0; l < digestBytes.length; l++) {
+            int i1 = digestBytes[l];
+
+            if (i1 < 0) {
+                i1 = 127 + i1 * -1;
+            }
+            StringUtil.encodeInt(i1, k, digestChars);
+            k += 2;
+        }
+        if (hashed.equals(new String(digestChars))) {
+            Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", module, hashType, checkCrypted);
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean doComparePosix(String crypted, String defaultCrypt, byte[] value) {
+        int typeEnd = crypted.indexOf("$", 1);
+        int saltEnd = crypted.indexOf("$", typeEnd + 1);
+        String hashType = crypted.substring(1, typeEnd);
+        String salt = crypted.substring(typeEnd + 1, saltEnd);
+        String hashed = crypted.substring(saltEnd + 1);
+        return hashed.equals(getCrypted(hashType, salt, value));
+    }
+
+    private static boolean doCompareBare(String crypted, String defaultCrypt, byte[] value) {
+        String hashType = defaultCrypt;
+        String hashed = crypted;
+        MessageDigest messagedigest = getMessageDigest(hashType);
+        messagedigest.update(value);
+        char[] digestChars = Hex.encodeHex(messagedigest.digest());
+        return hashed.equals(new String(digestChars));
     }
 
     public static String cryptPassword(String hashType, String password) {
