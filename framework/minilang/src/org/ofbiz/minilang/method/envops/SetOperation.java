@@ -169,7 +169,7 @@ public final class SetOperation extends MethodOperation {
                 } catch (GeneralException e) {
                     String errMsg = "Could not convert field value for the field: [" + this.fieldFma.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
                     Debug.logWarning(e, errMsg, module);
-                    methodContext.setErrorReturn(errMsg, simpleMethod);
+                    addErrorMessage(methodContext, errMsg);
                     return false;
                 }
             }
