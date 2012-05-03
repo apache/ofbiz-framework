@@ -18,72 +18,44 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method;
 
-import java.util.Map;
-
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
 
 /**
- * A type of MethodObject that represents an Object value in a certain location
+ * Specifies an environment field to be passed as an argument to a method call.
  */
-public class FieldObject<T> extends MethodObject<T> {
+public final class FieldObject<T> extends MethodObject<T> {
 
-    public static final String module = FieldObject.class.getName();
-
-    ContextAccessor<T> fieldAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    String type;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final String type;
 
     public FieldObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
-        fieldAcsr = new ContextAccessor<T>(element.getAttribute("field"), element.getAttribute("field-name"));
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        type = element.getAttribute("type");
-        if (UtilValidate.isEmpty(type)) {
-            type = "String";
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        String typeAttribute = element.getAttribute("type");
+        if (typeAttribute.isEmpty()) {
+            this.type = "java.lang.String";
+        } else {
+            this.type = typeAttribute;
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public T getObject(MethodContext methodContext) {
-        T fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                Debug.logWarning("Map not found with name " + mapAcsr + ", not getting Object value, returning null.", module);
-                return null;
-            }
-            fieldVal = fieldAcsr.get(fromMap, methodContext);
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-        if (fieldVal == null) {
-            if (Debug.infoOn())
-                Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting Object value, returning null.", module);
-            return null;
-        }
-        return fieldVal;
+        return (T) this.fieldFma.get(methodContext.getEnvMap());
     }
 
     @Override
-    public Class<T> getTypeClass(ClassLoader loader) {
-        try {
-            return UtilGenerics.cast(ObjectType.loadClass(type, loader));
-        } catch (ClassNotFoundException e) {
-            Debug.logError(e, "Could not find class for type: " + type, module);
-            return null;
-        }
+    public Class<T> getTypeClass(MethodContext methodContext) throws ClassNotFoundException {
+        return UtilGenerics.cast(ObjectType.loadClass(this.type, methodContext.getLoader()));
     }
 
-    /** Get the name for the type of the object */
     @Override
     public String getTypeName() {
-        return type;
+        return this.type;
     }
 }

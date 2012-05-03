@@ -117,45 +117,44 @@ under the License.
     <xs:element name="field">
         <xs:annotation>
             <xs:documentation>
-                Used to specify a field to be passed as an argument to the method call.
-                The field can be in a map in the environment or if no map-name is specified
-                then the field will come directly from the environment.
-
-                With the "." Syntax, the map-name is typically no longer necessary because
-                you can do map-name.field-name in the field-name attribute, but those are still there for legacy purposes.
+                Specifies an environment field to be passed as an argument to a method call.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.field"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field to use.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="type">
+                <xs:annotation>
+                    <xs:documentation>
+                        The Java class of the argument. Defaults to java.lang.String.
+                        If this is a method call or object creation and the type in the method signature being called is for a parent class or interface,
+                        then it should be the type in that parent class or interface and not the type of the object being
+                        passed in.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.field">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation><xs:documentation>Name of the field to put value in.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="type">
-            <xs:annotation>
-                <xs:documentation>
-                    Type of the value put in the field.
-                    If this is a method call or object creation and the type in the method signature being called is for a parent class or interface,
-                    then it should be the type in that parent class or interface and not the type of the object being passed in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="string">
         <xs:annotation>
             <xs:documentation>
-                String of type java.lang.String. Inserts the value of the inline string where specified.
+                Specifies a java.lang.String to be passed as an argument to a method call.
+                The String can be contained in the value attribute or in the element body. 
             </xs:documentation>
         </xs:annotation>
-        <xs:complexType mixed="true">
-            <xs:attributeGroup ref="attlist.string"/>
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="value" />
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.string">
-        <xs:attribute type="xs:string" name="value"/>
-    </xs:attributeGroup>
     <xs:element name="simple-methods">
         <xs:annotation>
             <xs:documentation>
@@ -164,13 +163,7 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="simple-method">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Opening tag of a simple-method definition.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element maxOccurs="unbounded" ref="simple-method"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -885,10 +878,10 @@ under the License.
     <xs:element name="call-bsh" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Executes a BSH script. The script can be contained in a Java resource, or a short
-                script can be included in the element body.
+                Executes a BSH script. Deprecated - replace with &lt;script&gt;.
                 &lt;br/&gt;&lt;br/&gt;
-                Deprecated - replace with &lt;script&gt;.
+                The script can be contained in a Java resource, or a short
+                script can be included in the element body.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType mixed="true">
@@ -967,110 +960,78 @@ under the License.
     <xs:element name="call-object-method" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Calls a method on an existing object that exists in a field in the environment or in a map in the environment.
-
+                Calls a method on an existing Java object. Deprecated - replace with &lt;script&gt;.
+                &lt;br/&gt;&lt;br/&gt;
                 The string and field sub-elements are passed to the method as arguments in the order they are specified.
-                If the sub-elements do not match the method arguments an error will be returned.
-
-                The return value will be put in the named field if an value is returned and
-                if a field and optionally a map name are specified.
+                If the method returns a value, the value will be put in the named field.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="string">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify an inline String argument to the method call.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="field"/>
+                <xs:element ref="string" />
+                <xs:element ref="field" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.call-object-method"/>
+            <xs:attribute type="xs:string" name="obj-field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field the object is in that has the method to be called.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="method-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the method to call on the given object.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="ret-field">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to put the result in.
+                        If not specified any return value will be ignored.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.call-object-method">
-        <xs:attribute type="xs:string" name="obj-field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the field the object is in that has the method to be called.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="method-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method to call on the given object.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="ret-field">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the field to put the result in.
-                    If not specified any return value will be ignored.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="call-class-method" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Calls a static method on a class.
-
+                Calls a static method on a Java class. Deprecated - replace with &lt;script&gt;.
+                &lt;br/&gt;&lt;br/&gt;
                 The string and field sub-elements are passed to the method as arguments in the order they are specified.
-                If the sub-elements do not match the method arguments an error will be returned.
-
-                The return value will be put in the named field if an value is returned and if a
-                field and optionally a map name are specified.
+                If the method returns a value, the value will be put in the named field.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
-                <xs:element ref="string">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify an inline String argument to the method call.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="field">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Used to specify a field to be passed as an argument to the constructor method.
-                            The field can be in a map in the environment or if no map-name is specified then
-                            the field will come directly from the environment.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:element ref="string"/>
+                <xs:element ref="field"/>
             </xs:choice>
-            <xs:attributeGroup ref="attlist.call-class-method"/>
+            <xs:attribute type="xs:string" name="class-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the class to call the static method on.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="method-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the static method to call on the given class.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="ret-field">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field to put the result in. If not specified any return value will be ignored.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.call-class-method">
-        <xs:attribute type="xs:string" name="class-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the class to call the static method on.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="method-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the static method to call on the given class.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="ret-field">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the field to put the result in. If not specified any return value will be ignored.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="create-object" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>

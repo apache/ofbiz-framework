@@ -21,9 +21,11 @@ package org.ofbiz.minilang;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.transform.Transformer;
@@ -35,7 +37,11 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.minilang.method.MethodObject;
+import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -70,6 +76,36 @@ public final class MiniLangUtil {
 
     public static boolean autoCorrectOn() {
         return "true".equals(UtilProperties.getPropertyValue("minilang.properties", "autocorrect"));
+    }
+
+    public static void callMethod(MethodOperation operation, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?> methodClass, Object methodObject, String methodName, FlexibleMapAccessor<Object> retFieldFma) throws MiniLangRuntimeException {
+        Object[] args = null;
+        Class<?>[] parameterTypes = null;
+        if (parameters != null) {
+            args = new Object[parameters.size()];
+            parameterTypes = new Class<?>[parameters.size()];
+            int i = 0;
+            for (MethodObject<?> methodObjectDef : parameters) {
+                args[i] = methodObjectDef.getObject(methodContext);
+                Class<?> typeClass = null;
+                try {
+                    typeClass = methodObjectDef.getTypeClass(methodContext);
+                } catch (ClassNotFoundException e) {
+                    throw new MiniLangRuntimeException(e, operation);
+                }
+                parameterTypes[i] = typeClass;
+                i++;
+            }
+        }
+        try {
+            Method method = methodClass.getMethod(methodName, parameterTypes);
+            Object retValue = method.invoke(methodObject, args);
+            if (!retFieldFma.isEmpty()) {
+                retFieldFma.put(methodContext.getEnvMap(), retValue);
+            }
+        } catch (Exception e) {
+            throw new MiniLangRuntimeException(e, operation);
+        }
     }
 
     public static void flagDocumentAsCorrected(Element element) {

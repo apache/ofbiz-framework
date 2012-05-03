@@ -99,8 +99,10 @@ public class CreateObject extends MethodOperation {
             int i = 0;
             for (MethodObject<?> methodObjectDef : parameters) {
                 args[i] = methodObjectDef.getObject(methodContext);
-                Class<?> typeClass = methodObjectDef.getTypeClass(methodContext.getLoader());
-                if (typeClass == null) {
+                Class<?> typeClass = null;
+                try {
+                    typeClass = methodObjectDef.getTypeClass(methodContext);
+                } catch (ClassNotFoundException e) {
                     String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Parameter type not found with name " + methodObjectDef.getTypeName() + "]";
                     Debug.logError(errMsg, module);
                     methodContext.setErrorReturn(errMsg, simpleMethod);
