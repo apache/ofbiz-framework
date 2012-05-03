@@ -75,18 +75,7 @@ public class HashCrypt {
             return true;
         }
         // This next block should be removed when all {prefix}oldFunnyHex are fixed.
-        int k = 0;
-        digestChars = new char[digestBytes.length * 2];
-        for (int l = 0; l < digestBytes.length; l++) {
-            int i1 = digestBytes[l];
-
-            if (i1 < 0) {
-                i1 = 127 + i1 * -1;
-            }
-            StringUtil.encodeInt(i1, k, digestChars);
-            k += 2;
-        }
-        if (hashed.equals(new String(digestChars))) {
+        if (hashed.equals(oldFunnyHex(digestBytes))) {
             Debug.logWarning("Warning: detected oldFunnyHex password prefixed with a hashType; this is not valid, please update the value in the database with ({%s}%s)", module, hashType, checkCrypted);
             return true;
         }
@@ -227,24 +216,26 @@ public class HashCrypt {
             byte strBytes[] = str.getBytes();
 
             messagedigest.update(strBytes);
-            byte digestBytes[] = messagedigest.digest();
-            int k = 0;
-            char digestChars[] = new char[digestBytes.length * 2];
-
-            for (int l = 0; l < digestBytes.length; l++) {
-                int i1 = digestBytes[l];
-
-                if (i1 < 0) {
-                    i1 = 127 + i1 * -1;
-                }
-                StringUtil.encodeInt(i1, k, digestChars);
-                k += 2;
-            }
-
-            return new String(digestChars, 0, digestChars.length);
+            return oldFunnyHex(messagedigest.digest());
         } catch (Exception e) {
             Debug.logError(e, "Error while computing hash of type " + hashType, module);
         }
         return str;
+    }
+
+    // This next block should be removed when all {prefix}oldFunnyHex are fixed.
+    private static String oldFunnyHex(byte[] bytes) {
+        int k = 0;
+        char[] digestChars = new char[bytes.length * 2];
+        for (int l = 0; l < bytes.length; l++) {
+            int i1 = bytes[l];
+
+            if (i1 < 0) {
+                i1 = 127 + i1 * -1;
+            }
+            StringUtil.encodeInt(i1, k, digestChars);
+            k += 2;
+        }
+        return new String(digestChars);
     }
 }
