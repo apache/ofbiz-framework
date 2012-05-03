@@ -126,34 +126,32 @@ public final class UtilObject {
         return size;
     }
 
-    /** Deserialize a byte array back to an object */
+    /** Deserialize a byte array back to an object; if there is an error, it is logged, and null is returned. */
     public static Object getObject(byte[] bytes) {
         Object obj = null;
         try {
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            try {
-                ObjectInputStream ois = new ObjectInputStream(bis, Thread.currentThread().getContextClassLoader());
-                try {
-                    obj = ois.readObject();
-                } catch (ClassNotFoundException e) {
-                    Debug.logError(e, module);
-                } catch (IOException e) {
-                    Debug.logError(e, module);
-                } finally {
-                    ois.close();
-                }
-            } catch (IOException e) {
-                Debug.logError(e, module);
-            } finally {
-                bis.close();
-            }
+            obj = getObjectException(bytes);
+        } catch (ClassNotFoundException e) {
+            Debug.logError(e, module);
         } catch (IOException e) {
-            // How could this ever happen?  BAIS.close() is listed as
-            // throwing the exception, but I don't understand why this
-            // is.
             Debug.logError(e, module);
         }
         return obj;
+    }
+
+    /** Deserialize a byte array back to an object */
+    public static Object getObjectException(byte[] bytes) throws ClassNotFoundException, IOException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        try {
+            ObjectInputStream ois = new ObjectInputStream(bis, Thread.currentThread().getContextClassLoader());
+            try {
+                return ois.readObject();
+            } finally {
+                ois.close();
+            }
+        } finally {
+            bis.close();
+        }
     }
 
     public static boolean equalsHelper(Object o1, Object o2) {
