@@ -180,6 +180,24 @@ public class HashCrypt {
         }
     }
 
+    public static String digestHash64(String hashType, byte[] bytes) {
+        if (hashType == null) {
+            hashType = "SHA";
+        }
+        try {
+            MessageDigest messagedigest = MessageDigest.getInstance(hashType);
+            messagedigest.update(bytes);
+            byte[] digestBytes = messagedigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("{").append(hashType).append("}");
+            sb.append(Base64.encodeBase64URLSafeString(digestBytes).replace('+', '.'));
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
+        }
+    }
+
     /**
      * @deprecated use cryptPassword
      */
