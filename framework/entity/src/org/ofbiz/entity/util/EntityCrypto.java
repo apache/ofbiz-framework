@@ -60,7 +60,7 @@ public class EntityCrypto {
                 if (size == 0) {
                     for (int i = 0; i < 20; i++) {
                         String randomName = this.getRandomString();
-                        this.getKeyFromStore(randomName, false);
+                        this.createKey(randomName);
                     }
                 }
             } catch (GenericEntityException e) {
@@ -72,7 +72,11 @@ public class EntityCrypto {
     /** Encrypts an Object into an encrypted hex encoded String */
     public String encrypt(String keyName, Object obj) throws EntityCryptoException {
         try {
-            byte[] encryptedBytes = DesCrypt.encrypt(this.getKey(keyName, false), UtilObject.getBytes(obj));
+            SecretKey key = this.findKey(keyName, false);
+            if (key == null) {
+                key = this.createKey(keyName);
+            }
+            byte[] encryptedBytes = DesCrypt.encrypt(key, UtilObject.getBytes(obj));
             String hexString = StringUtil.toHexString(encryptedBytes);
             return hexString;
         } catch (GeneralException e) {
@@ -85,7 +89,7 @@ public class EntityCrypto {
         Object decryptedObj = null;
         byte[] encryptedBytes = StringUtil.fromHexString(encryptedString);
         try {
-            SecretKey decryptKey = this.getKey(keyName, false);
+            SecretKey decryptKey = this.findKey(keyName, false);
             byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
 
             decryptedObj = UtilObject.getObject(decryptedBytes);
@@ -93,7 +97,7 @@ public class EntityCrypto {
             try {
                 // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
                 Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
-                SecretKey decryptKey = this.getKey(keyName, true);
+                SecretKey decryptKey = this.findKey(keyName, true);
                 byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
                 decryptedObj = UtilObject.getObject(decryptedBytes);
                 //Debug.logInfo("Old/funny variety succeeded: Decrypted value [" + encryptedString + "]", module);
@@ -107,19 +111,17 @@ public class EntityCrypto {
         return decryptedObj;
     }
 
-    protected SecretKey getKey(String name, boolean useOldFunnyKeyHash) throws EntityCryptoException {
-        String keyMapName = name + useOldFunnyKeyHash;
-        SecretKey key = keyMap.get(keyMapName);
-        if (key == null) {
-            synchronized(this) {
-                key = this.getKeyFromStore(name, useOldFunnyKeyHash);
-                keyMap.put(keyMapName, key);
+    protected SecretKey findKey(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
+        String keyMapName = originalKeyName + useOldFunnyKeyHash;
+        synchronized (keyMap) {
+            if (keyMap.containsKey(keyMapName)) {
+                return keyMap.get(keyMapName);
             }
         }
-        return key;
-    }
-
-    protected SecretKey getKeyFromStore(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
+        // it's ok to run the bulk of this method unlocked or
+        // unprotected; since the same result will occur even if
+        // multiple threads request the same key, there is no
+        // need to protected this block of code.
         String hashedKeyName = useOldFunnyKeyHash? HashCrypt.digestHashOldFunnyHex(null, originalKeyName) : HashCrypt.digestHash("SHA", null, originalKeyName);
 
         GenericValue keyValue = null;
@@ -129,35 +131,47 @@ public class EntityCrypto {
             throw new EntityCryptoException(e);
         }
         if (keyValue == null || keyValue.get("keyText") == null) {
-            SecretKey key = null;
-            try {
-                key = DesCrypt.generateKey();
-            } catch (NoSuchAlgorithmException e) {
-                throw new EntityCryptoException(e);
-            }
-            final GenericValue newValue = delegator.makeValue("EntityKeyStore");
-            newValue.set("keyText", StringUtil.toHexString(key.getEncoded()));
-            newValue.set("keyName", hashedKeyName);
-
-            try {
-                TransactionUtil.doNewTransaction(new Callable<Void>() {
-                    public Void call() throws Exception {
-                        delegator.create(newValue);
-                        return null;
-                    }
-                }, "storing encrypted key", 0, true);
-            } catch (GenericEntityException e) {
-                throw new EntityCryptoException(e);
+            return null;
+        }
+        try {
+            byte[] keyBytes = StringUtil.fromHexString(keyValue.getString("keyText"));
+            SecretKey key = DesCrypt.getDesKey(keyBytes);
+            synchronized (keyMap) {
+                keyMap.put(keyMapName, key);
             }
             return key;
-        } else {
-            byte[] keyBytes = StringUtil.fromHexString(keyValue.getString("keyText"));
-            try {
-                return DesCrypt.getDesKey(keyBytes);
-            } catch (GeneralException e) {
-                throw new EntityCryptoException(e);
-            }
+        } catch (GeneralException e) {
+            throw new EntityCryptoException(e);
         }
+    }
+
+    protected SecretKey createKey(String originalKeyName) throws EntityCryptoException {
+        String hashedKeyName = HashCrypt.getDigestHash(originalKeyName);
+        SecretKey key = null;
+        try {
+            key = DesCrypt.generateKey();
+        } catch (NoSuchAlgorithmException e) {
+            throw new EntityCryptoException(e);
+        }
+        final GenericValue newValue = delegator.makeValue("EntityKeyStore");
+        newValue.set("keyText", StringUtil.toHexString(key.getEncoded()));
+        newValue.set("keyName", hashedKeyName);
+
+        try {
+            TransactionUtil.doNewTransaction(new Callable<Void>() {
+                public Void call() throws Exception {
+                    delegator.create(newValue);
+                    return null;
+                }
+            }, "storing encrypted key", 0, true);
+        } catch (GenericEntityException e) {
+            throw new EntityCryptoException(e);
+        }
+        String keyMapName = originalKeyName + false;
+        synchronized (keyMap) {
+            keyMap.put(keyMapName, key);
+        }
+        return key;
     }
 
     protected String getRandomString() {
