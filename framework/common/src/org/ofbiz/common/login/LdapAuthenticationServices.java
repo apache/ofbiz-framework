@@ -103,7 +103,7 @@ public class LdapAuthenticationServices {
             }
             if (!samePassword) {
                 Debug.logVerbose("Starting password synchronization", module);
-                userLogin.set("currentPassword", useEncryption ? HashCrypt.cryptPassword(LoginServices.getHashType(), null, password) : password, false);
+                userLogin.set("currentPassword", useEncryption ? HashCrypt.cryptUTF8(LoginServices.getHashType(), null, password) : password, false);
                 Transaction parentTx = null;
                 boolean beganTransaction = false;
                 try {

@@ -100,7 +100,27 @@ public class HashCrypt {
         return hashed.equals(new String(digestChars));
     }
 
+    /*
+     * @deprecated use cryptBytes(hashType, salt, password); eventually, use
+     * cryptUTF8(hashType, salt, password) after all existing installs are
+     * salt-based.  If the call-site of cryptPassword is just used to create a *new*
+     * value, then you can switch to cryptUTF8 directly.
+     */
+    @Deprecated
     public static String cryptPassword(String hashType, String salt, String password) {
+        // FIXME: should have been getBytes("UTF-8") originally
+        return password != null ? cryptBytes(hashType, salt, password.getBytes()) : null;
+    }
+
+    public static String cryptUTF8(String hashType, String salt, String value) {
+        return value != null ? cryptBytes(hashType, salt, value.getBytes(UTF8)) : null;
+    }
+
+    public static String cryptValue(String hashType, String salt, String value) {
+        return value != null ? cryptBytes(hashType, salt, value.getBytes()) : null;
+    }
+
+    public static String cryptBytes(String hashType, String salt, byte[] bytes) {
         if (hashType == null) {
             hashType = "SHA";
         }
@@ -109,7 +129,7 @@ public class HashCrypt {
         }
         StringBuilder sb = new StringBuilder();
         sb.append("$").append(hashType).append("$").append(salt).append("$");
-        sb.append(getCryptedBytes(hashType, salt, password.getBytes(UTF8)));
+        sb.append(getCryptedBytes(hashType, salt, bytes));
         return sb.toString();
     }
 
