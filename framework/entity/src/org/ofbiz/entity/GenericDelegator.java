@@ -211,6 +211,7 @@ public class GenericDelegator implements Delegator {
         this.setDelegatorNames(delegatorFullName);
         this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorBaseName);
 
+        String kekText;
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
             Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
@@ -220,6 +221,14 @@ public class GenericDelegator implements Delegator {
             } else if ("Y".equals(tenant.getString("disabled"))) {
                 throw new GenericEntityException("No Tenant record found for delegator [" + this.delegatorFullName + "] with tenantId [" + this.delegatorTenantId + "]");
             }
+            GenericValue kekValue = baseDelegator.findOne("TenantKeyEncryptingKey", true, "tenantId", getDelegatorTenantId());
+            if (kekValue != null) {
+                kekText = kekValue.getString("keyText");
+            } else {
+                kekText = this.delegatorInfo.kekText;
+            }
+        } else {
+            kekText = this.delegatorInfo.kekText;
         }
 
         this.modelReader = ModelReader.getModelReader(delegatorBaseName);
@@ -249,7 +258,7 @@ public class GenericDelegator implements Delegator {
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or something
 
         // setup the crypto class; this also after the delegator is in the cache otherwise we get infinite recursion
-        this.crypto = new EntityCrypto(this);
+        this.crypto = new EntityCrypto(this, kekText);
     }
 
     private void initializeOneGenericHelper(String groupName) {
