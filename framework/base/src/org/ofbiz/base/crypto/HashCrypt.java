@@ -145,24 +145,45 @@ public class HashCrypt {
     }
 
     /**
-     * @deprecated use cryptPassword
+     * @deprecated use digestHash("SHA", null, str)
      */
     @Deprecated
     public static String getDigestHash(String str) {
-        return getDigestHash(str, "SHA");
+        return digestHash("SHA", null, str);
     }
 
     /**
-     * @deprecated use cryptPassword
+     * @deprecated use digestHash(hashType, null, str))
      */
     @Deprecated
     public static String getDigestHash(String str, String hashType) {
+        return digestHash(hashType, null, str);
+    }
+
+    /**
+     * @deprecated use digestHash(hashType, code, str);
+     */
+    @Deprecated
+    public static String getDigestHash(String str, String code, String hashType) {
+        return digestHash(hashType, code, str);
+    }
+
+    public static String digestHash(String hashType, String code, String str) {
         if (str == null) return null;
+        byte[] codeBytes;
+        try {
+            if (code == null) codeBytes = str.getBytes();
+            else codeBytes = str.getBytes(code);
+        } catch (UnsupportedEncodingException e) {
+            throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
+        }
+        return digestHash(hashType, codeBytes);
+    }
+
+    public static String digestHash(String hashType, byte[] bytes) {
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            byte[] strBytes = str.getBytes();
-
-            messagedigest.update(strBytes);
+            messagedigest.update(bytes);
             byte[] digestBytes = messagedigest.digest();
             char[] digestChars = Hex.encodeHex(digestBytes);
 
@@ -170,32 +191,7 @@ public class HashCrypt {
             sb.append("{").append(hashType).append("}");
             sb.append(digestChars, 0, digestChars.length);
             return sb.toString();
-        } catch (Exception e) {
-            throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
-        }
-    }
-
-    /**
-     * @deprecated use cryptPassword
-     */
-    @Deprecated
-    public static String getDigestHash(String str, String code, String hashType) {
-        if (str == null) return null;
-        try {
-            byte codeBytes[] = null;
-
-            if (code == null) codeBytes = str.getBytes();
-            else codeBytes = str.getBytes(code);
-            MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-
-            messagedigest.update(codeBytes);
-            byte digestBytes[] = messagedigest.digest();
-            char[] digestChars = Hex.encodeHex(digestBytes);
-            StringBuilder sb = new StringBuilder();
-            sb.append("{").append(hashType).append("}");
-            sb.append(digestChars, 0, digestChars.length);
-            return sb.toString();
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException e) {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
         }
     }
@@ -243,15 +239,19 @@ public class HashCrypt {
     }
 
     /**
-     * @deprecated no replacement, logic moved into comparePassword
+     * @deprecated use digestHashOldFunnyHex(hashType, str)
      */
     @Deprecated
     public static String getDigestHashOldFunnyHexEncode(String str, String hashType) {
+        return digestHashOldFunnyHex(hashType, str);
+    }
+
+    public static String digestHashOldFunnyHex(String hashType, String str) {
         if (UtilValidate.isEmpty(hashType)) hashType = "SHA";
         if (str == null) return null;
         try {
             MessageDigest messagedigest = MessageDigest.getInstance(hashType);
-            byte strBytes[] = str.getBytes();
+            byte[] strBytes = str.getBytes();
 
             messagedigest.update(strBytes);
             return oldFunnyHex(messagedigest.digest());
