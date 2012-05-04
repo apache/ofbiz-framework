@@ -24,6 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.crypto.SecretKey;
 import javax.transaction.Transaction;
@@ -46,7 +48,7 @@ public final class EntityCrypto {
     public static final String module = EntityCrypto.class.getName();
 
     protected final Delegator delegator;
-    protected final Map<String, SecretKey> keyMap = new HashMap<String, SecretKey>();
+    protected final ConcurrentMap<String, SecretKey> keyMap = new ConcurrentHashMap<String, SecretKey>();
 
     public EntityCrypto(Delegator delegator) {
         this.delegator = delegator;
@@ -73,7 +75,27 @@ public final class EntityCrypto {
         try {
             SecretKey key = this.findKey(keyName, false);
             if (key == null) {
-                key = this.createKey(keyName);
+                EntityCryptoException caught = null;
+                try {
+                    this.createKey(keyName);
+                } catch (EntityCryptoException e) {
+                    // either a database read error, or a duplicate key insert
+                    // if the latter, try to fetch the value created by the
+                    // other thread.
+                    caught = e;
+                } finally {
+                    try {
+                        key = this.findKey(keyName, false);
+                    } catch (EntityCryptoException e) {
+                        // this is bad, couldn't lookup the value, some bad juju
+                        // is occuring; rethrow the original exception if available
+                        throw caught != null ? caught : e;
+                    }
+                    if (key == null) {
+                        // this is also bad, couldn't find any key
+                        throw caught != null ? caught : new EntityCryptoException("could not lookup key (" + keyName + ") after creation");
+                    }
+                }
             }
             byte[] encryptedBytes = DesCrypt.encrypt(key, UtilObject.getBytes(obj));
             String hexString = StringUtil.toHexString(encryptedBytes);
@@ -122,10 +144,8 @@ public final class EntityCrypto {
 
     protected SecretKey findKey(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
         String keyMapName = originalKeyName + useOldFunnyKeyHash;
-        synchronized (keyMap) {
-            if (keyMap.containsKey(keyMapName)) {
-                return keyMap.get(keyMapName);
-            }
+        if (keyMap.containsKey(keyMapName)) {
+            return keyMap.get(keyMapName);
         }
         // it's ok to run the bulk of this method unlocked or
         // unprotected; since the same result will occur even if
@@ -145,16 +165,19 @@ public final class EntityCrypto {
         try {
             byte[] keyBytes = StringUtil.fromHexString(keyValue.getString("keyText"));
             SecretKey key = DesCrypt.getDesKey(keyBytes);
-            synchronized (keyMap) {
-                keyMap.put(keyMapName, key);
-            }
-            return key;
+            keyMap.putIfAbsent(keyMapName, key);
+            // Do not remove the next line, it's there to handle the
+            // case of multiple threads trying to find the same key
+            // both threads will do the findOne call, only one will
+            // succeed at the putIfAbsent, but both will then fetch
+            // the same value with the following get().
+            return keyMap.get(keyMapName);
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
     }
 
-    protected SecretKey createKey(String originalKeyName) throws EntityCryptoException {
+    protected void createKey(String originalKeyName) throws EntityCryptoException {
         String hashedKeyName = HashCrypt.getDigestHash(originalKeyName);
         SecretKey key = null;
         try {
@@ -176,11 +199,6 @@ public final class EntityCrypto {
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
         }
-        String keyMapName = originalKeyName + false;
-        synchronized (keyMap) {
-            keyMap.put(keyMapName, key);
-        }
-        return key;
     }
 
     protected String getRandomString() {
