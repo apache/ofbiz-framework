@@ -81,34 +81,37 @@ public final class EntityCrypto {
                     }
                 }
             }
-            byte[] encryptedBytes = DesCrypt.encrypt(key, UtilObject.getBytes(obj));
-            String hexString = StringUtil.toHexString(encryptedBytes);
-            return hexString;
+            return StringUtil.toHexString(DesCrypt.encrypt(key, UtilObject.getBytes(obj)));
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
     }
 
+    // NOTE: this is definitely for debugging purposes only, do not uncomment in production server for security reasons:
+    // if you uncomment this, then change the real decrypt method to _decrypt.
+    /*
+    public Object decrypt(String keyName, String encryptedString) throws EntityCryptoException {
+        Object result = _decrypt(keyName, encryptedString);
+        Debug.logInfo("Decrypted value [%s] to result: %s", module, encryptedString, decryptedObj);
+        return result;
+    }
+    */
+
     /** Decrypts a hex encoded String into an Object */
     public Object decrypt(String keyName, String encryptedString) throws EntityCryptoException {
-        Object decryptedObj = null;
         byte[] encryptedBytes = StringUtil.fromHexString(encryptedString);
         try {
-            decryptedObj = doDecrypt(keyName, encryptedBytes, false);
+            return doDecrypt(keyName, encryptedBytes, false);
         } catch (GeneralException e) {
             try {
                 // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
                 Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
-                decryptedObj = doDecrypt(keyName, encryptedBytes, false);
-                //Debug.logInfo("Old/funny variety succeeded: Decrypted value [" + encryptedString + "]", module);
+                return doDecrypt(keyName, encryptedBytes, false);
             } catch (GeneralException e1) {
                 // NOTE: this throws the original exception back, not the new one if it fails using the other approach
                 throw new EntityCryptoException(e);
             }
         }
-
-        // NOTE: this is definitely for debugging purposes only, do not uncomment in production server for security reasons: Debug.logInfo("Decrypted value [" + encryptedString + "] to result: " + decryptedObj, module);
-        return decryptedObj;
     }
 
     protected Object doDecrypt(String keyName, byte[] encryptedBytes, boolean useOldFunnyKeyHash) throws GeneralException {
