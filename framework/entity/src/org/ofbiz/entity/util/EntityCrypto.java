@@ -52,22 +52,6 @@ public final class EntityCrypto {
 
     public EntityCrypto(Delegator delegator) {
         this.delegator = delegator;
-
-        // check the key table and make sure there
-        // make sure there are some dummy keys
-        synchronized(EntityCrypto.class) {
-            try {
-                long size = delegator.findCountByCondition("EntityKeyStore", null, null, null);
-                if (size == 0) {
-                    for (int i = 0; i < 20; i++) {
-                        String randomName = this.getRandomString();
-                        this.createKey(randomName);
-                    }
-                }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-            }
-        }
     }
 
     /** Encrypts an Object into an encrypted hex encoded String */
@@ -199,12 +183,5 @@ public final class EntityCrypto {
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
         }
-    }
-
-    protected String getRandomString() {
-        Random rand = new Random();
-        byte[] randomBytes = new byte[24];
-        rand.nextBytes(randomBytes);
-        return StringUtil.toHexString(randomBytes);
     }
 }
