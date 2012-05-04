@@ -41,17 +41,15 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
-public class EntityCrypto {
+public final class EntityCrypto {
 
     public static final String module = EntityCrypto.class.getName();
 
-    protected Delegator delegator = null;
-    protected Map<String, SecretKey> keyMap = null;
+    protected final Delegator delegator;
+    protected final Map<String, SecretKey> keyMap = new HashMap<String, SecretKey>();
 
-    protected EntityCrypto() { }
     public EntityCrypto(Delegator delegator) {
         this.delegator = delegator;
-        this.keyMap = new HashMap<String, SecretKey>();
 
         // check the key table and make sure there
         // make sure there are some dummy keys
