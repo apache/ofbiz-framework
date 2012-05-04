@@ -1290,7 +1290,11 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
             ModelField field = this.getModelEntity().getField(curKey);
             if (field.getEncrypt() && curValue instanceof String) {
                 String encryptField = (String) curValue;
-                curValue = HashCrypt.getDigestHash(encryptField);
+                // the encryptField may not actually be UTF8, it could be any
+                // random encoding; just treat it as a series of raw bytes.
+                // This won't give the same output as the value stored in the
+                // database, but should be good enough for printing
+                curValue = HashCrypt.cryptBytes(null, null, encryptField.getBytes());
             }
             theString.append('[');
             theString.append(curKey);

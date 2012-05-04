@@ -1053,7 +1053,7 @@ public class ContactMechServices {
         synchronized(ContactMechServices.class) {
             while (true) {
                 Long random = secureRandom.nextLong();
-                verifyHash = HashCrypt.getDigestHash(Long.toString(random), "MD5");
+                verifyHash = HashCrypt.digestHash("MD5", Long.toString(random).getBytes());
                 List<GenericValue> emailAddVerifications = null;
                 try {
                     emailAddVerifications = delegator.findByAnd("EmailAddressVerification", UtilMisc.toMap("verifyHash", verifyHash));

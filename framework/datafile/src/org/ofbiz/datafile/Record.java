@@ -269,7 +269,7 @@ public class Record implements Serializable {
     else if (fieldType.equals("java.lang.String") || fieldType.equals("String"))
         if (field.format.equals("EncryptedString")) {
         String hashType = LoginServices.getHashType();
-        set(name, HashCrypt.getDigestHash(value, hashType));
+        set(name, HashCrypt.digestHash(hashType, value.getBytes()));
         } else {
         set(name, value);
         }
