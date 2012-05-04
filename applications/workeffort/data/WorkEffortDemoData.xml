@@ -29,7 +29,7 @@ under the License.
 
     <Party partyId="WorkEffortUser" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="WorkEffortUser" firstName="WorkEffort" lastName="User" />
-    <UserLogin userLoginId="WorkEffortUser" partyId="WorkEffortUser" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" />
+    <UserLogin userLoginId="WorkEffortUser" partyId="WorkEffortUser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" />
     <UserLoginSecurityGroup groupId="WORKEFFORT_USER" userLoginId="WorkEffortUser" fromDate="2011-01-01 00:00:00.0" />
 
     <!-- Publish the staff meeting calendar event in iCalendar format -->
