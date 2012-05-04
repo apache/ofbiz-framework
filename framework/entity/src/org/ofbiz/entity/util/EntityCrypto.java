@@ -38,6 +38,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilObject;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -53,10 +54,16 @@ public final class EntityCrypto {
     protected final ConcurrentMap<String, SecretKey> keyMap = new ConcurrentHashMap<String, SecretKey>();
     protected final StorageHandler[] handlers;
 
-    public EntityCrypto(Delegator delegator) {
+    public EntityCrypto(Delegator delegator, String kekText) throws EntityCryptoException {
         this.delegator = delegator;
+        SecretKey kek;
+        try {
+            kek = UtilValidate.isNotEmpty(kekText) ? DesCrypt.getDesKey(Base64.decodeBase64(kekText)) : null;
+        } catch (GeneralException e) {
+            throw new EntityCryptoException(e);
+        }
         handlers = new StorageHandler[] {
-            // new SaltedBase64StorageHandler(),
+            // new SaltedBase64StorageHandler(kek),
             NormalHashStorageHandler,
             OldFunnyHashStorageHandler,
         };
@@ -252,6 +259,12 @@ public final class EntityCrypto {
     };
 
     protected static final class SaltedBase64StorageHandler extends StorageHandler {
+        private final SecretKey kek;
+
+        protected SaltedBase64StorageHandler(SecretKey kek) {
+            this.kek = kek;
+        }
+
         protected String getHashedKeyName(String originalKeyName) {
             return HashCrypt.digestHash64("SHA", originalKeyName.getBytes());
         }
@@ -260,13 +273,19 @@ public final class EntityCrypto {
             return "{salted-base64}";
         }
 
-        protected byte[] decodeKeyBytes(String keyText) {
+        protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
             byte[] keyBytes = Base64.decodeBase64(keyText);
+            if (kek != null) {
+                keyBytes = DesCrypt.decrypt(kek, keyBytes);
+            }
             return keyBytes;
         }
 
-        protected String encodeKey(SecretKey key) {
+        protected String encodeKey(SecretKey key) throws GeneralException {
             byte[] keyBytes = key.getEncoded();
+            if (kek != null) {
+                keyBytes = DesCrypt.encrypt(kek, keyBytes);
+            }
             return Base64.encodeBase64String(keyBytes);
         }
 

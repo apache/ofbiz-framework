@@ -105,6 +105,20 @@ under the License.
             <key-map field-name="tenantId"/>
         </relation>
     </entity>
+    <entity entity-name="TenantKeyEncryptingKey" package-name="org.ofbiz.entity.tenant">
+        <description>
+            There should be one record for each tenant and each group-map for the active delegator.
+            The jdbc fields will override the datasource -> inline-jdbc values for the per-tenant delegator.
+        </description>
+        <field name="tenantId" type="id-ne"/>
+        <field name="keyName" type="id-vlong-ne"></field>
+        <field name="keyText" type="long-varchar"></field>
+        <prim-key field="tenantId"/>
+        <prim-key field="keyName"/>
+        <relation type="one" fk-name="TNTDTSRC_TNT" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
+        </relation>
+    </entity>
     <!-- may be no reason for this entity, user is authenticated inside the tenant and this would only be useful to 
     get a list of tenants per user
     <entity entity-name="TenantUserLogin" package-name="org.ofbiz.entity.tenant">

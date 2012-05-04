@@ -42,6 +42,7 @@ public class DelegatorInfo extends NamedInfo {
     public String sequencedIdPrefix;
     public String defaultGroupName;
     public Map<String, String> groupMap = new HashMap<String, String>();
+    public String kekText;
 
     public DelegatorInfo(Element element) {
         super(element);
@@ -69,5 +70,6 @@ public class DelegatorInfo extends NamedInfo {
         for (Element groupMapElement: UtilXml.childElementList(element, "group-map")) {
             groupMap.put(groupMapElement.getAttribute("group-name"), groupMapElement.getAttribute("datasource-name"));
         }
+        this.kekText = element.getAttribute("key-encrypting-key");
     }
 }

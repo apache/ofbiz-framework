@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.crypto;
 
+import org.apache.commons.codec.binary.Base64;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         if (args[0].equals("-crypt")) {
@@ -26,6 +28,8 @@ public class Main {
             @SuppressWarnings("deprecation")
             String digest = HashCrypt.getDigestHash(args[1]);
             System.out.println(digest);
+        } else if (args[0].equals("-kek")) {
+            System.out.println(Base64.encodeBase64String(DesCrypt.generateKey().getEncoded()));
         }
     }
 }
