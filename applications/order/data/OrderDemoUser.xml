@@ -19,12 +19,12 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="DemoRepAll" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="DemoRepStore" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="DemoCustCompany" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="DemoCustAgent" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
+    <UserLogin userLoginId="DemoBuyer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="DemoRepAll" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="DemoRepStore" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="DemoCustCompany" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="DemoCustAgent" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="DemoCustomer" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
+    <UserLogin userLoginId="supplier" partyId="externaluser" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" passwordHint=""/>
     <UserLoginSecurityGroup groupId="ORDERSUPPLIER_LTD" userLoginId="supplier" fromDate="2001-01-01 12:00:00.0"/>
 </entity-engine-xml>

@@ -30,7 +30,7 @@ under the License.
     <PartyRole partyId="accountingadmin" roleTypeId="ACCOUNTANT"/>
     <PartyRole partyId="accountingadmin" roleTypeId="EMPLOYEE"/>
     <PartyRole partyId="accountingadmin" roleTypeId="_NA_"/>
-    <UserLogin userLoginId="accountingadmin" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" partyId="accountingadmin" passwordHint=""/>
+    <UserLogin userLoginId="accountingadmin" currentPassword="{SHA}47b56994cbc2b6d10aa1be30f70165adb305a41a" partyId="accountingadmin" passwordHint=""/>
     <UserLoginSecurityGroup groupId="ACCTG_FUNCTNL_ADMIN" userLoginId="accountingadmin" fromDate="2001-01-01 12:00:00.0"/>    
 
     <PartyRelationship partyIdFrom="Company" partyIdTo="accountingadmin" partyRelationshipTypeId="EMPLOYMENT" roleTypeIdFrom="INTERNAL_ORGANIZATIO" roleTypeIdTo="EMPLOYEE" fromDate="2001-01-01 12:00:00.0"/>
