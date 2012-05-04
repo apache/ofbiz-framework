@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
-import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -39,6 +38,7 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -53,50 +53,22 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.MethodOperation.DeprecatedOperation;
-import org.ofbiz.minilang.method.callops.CallService;
-import org.ofbiz.minilang.method.callops.CallServiceAsynch;
-import org.ofbiz.minilang.method.callops.CallSimpleMethod;
-import org.ofbiz.minilang.method.callops.SetServiceFields;
-import org.ofbiz.minilang.method.conditional.MasterIf;
-import org.ofbiz.minilang.method.conditional.While;
-import org.ofbiz.minilang.method.entityops.EntityAnd;
-import org.ofbiz.minilang.method.entityops.EntityCondition;
-import org.ofbiz.minilang.method.entityops.EntityCount;
-import org.ofbiz.minilang.method.entityops.EntityOne;
-import org.ofbiz.minilang.method.entityops.FindByAnd;
-import org.ofbiz.minilang.method.entityops.FindByPrimaryKey;
-import org.ofbiz.minilang.method.entityops.GetRelated;
-import org.ofbiz.minilang.method.entityops.GetRelatedOne;
-import org.ofbiz.minilang.method.entityops.MakeValue;
-import org.ofbiz.minilang.method.envops.Iterate;
-import org.ofbiz.minilang.method.envops.IterateMap;
-import org.ofbiz.minilang.method.envops.Loop;
-import org.ofbiz.minilang.method.ifops.IfCompare;
-import org.ofbiz.minilang.method.ifops.IfCompareField;
-import org.ofbiz.minilang.method.ifops.IfEmpty;
-import org.ofbiz.minilang.method.ifops.IfHasPermission;
-import org.ofbiz.minilang.method.ifops.IfInstanceOf;
-import org.ofbiz.minilang.method.ifops.IfNotEmpty;
-import org.ofbiz.minilang.method.ifops.IfRegexp;
-import org.ofbiz.minilang.method.ifops.IfValidateMethod;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * SimpleMethod Mini Language Core Object
+ * Contains a block of Mini-language code.
  */
-public class SimpleMethod {
+public final class SimpleMethod {
 
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
-    // never read locally: private static final Method simpleMethodExecMethod;
-    private static final Method methodOperationExecMethod;
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
-    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
-    protected static UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
-    protected static UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = UtilCache.createUtilCache("minilang.SimpleMethodsURL", 0, 0);
+    private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
+    private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
+    private static final UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = UtilCache.createUtilCache("minilang.SimpleMethodsURL", 0, 0);
 
     static {
         Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
@@ -106,207 +78,46 @@ public class SimpleMethod {
             mapFactories.put(factory.getName(), factory);
         }
         methodOperationFactories = Collections.unmodifiableMap(mapFactories);
-        try {
-            methodOperationExecMethod = MethodOperation.class.getDeclaredMethod("exec", MethodContext.class);
-        } catch (NoSuchMethodException e) {
-            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
+    }
+
+    private static void compileAllSimpleMethods(Element rootElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
+        for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
+            SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, location);
+            if (simpleMethods.containsKey(simpleMethod.getMethodName())) {
+                MiniLangValidate.handleError("Duplicate method name found", simpleMethod, simpleMethodElement);
+            }
+            simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
     }
 
-    protected static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
+    private static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
         return new SimpleMethod(simpleMethodElement, simpleMethods, location);
     }
 
-    protected static void findEntityNamesUsed(List<MethodOperation> methodOperations, Set<String> allEntityNames, Set<String> simpleMethodsVisited) throws MiniLangException {
-        for (MethodOperation methodOperation : methodOperations) {
-            if (methodOperation instanceof FindByPrimaryKey) {
-                String entName = ((FindByPrimaryKey) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof FindByAnd) {
-                String entName = ((FindByAnd) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof EntityOne) {
-                String entName = ((EntityOne) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof EntityAnd) {
-                String entName = ((EntityAnd) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof EntityCondition) {
-                String entName = ((EntityCondition) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof EntityCount) {
-                String entName = ((EntityCount) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof MakeValue) {
-                String entName = ((MakeValue) methodOperation).getEntityName();
-                if (UtilValidate.isNotEmpty(entName))
-                    allEntityNames.add(entName);
-            } else if (methodOperation instanceof GetRelated) {
-                String relationName = ((GetRelated) methodOperation).getRelationName();
-                if (UtilValidate.isNotEmpty(relationName))
-                    allEntityNames.add(relationName);
-            } else if (methodOperation instanceof GetRelatedOne) {
-                String relationName = ((GetRelatedOne) methodOperation).getRelationName();
-                if (UtilValidate.isNotEmpty(relationName))
-                    allEntityNames.add(relationName);
-            } else if (methodOperation instanceof CallSimpleMethod) {
-                CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
-                try {
-                    SimpleMethod calledMethod = csm.getSimpleMethodToCall(null);
-                    if (calledMethod == null) {
-                        Debug.logWarning("Could not find simple-method [" + csm.getMethodName() + "] in [" + csm.getXmlResource() + "] from the SimpleMethod [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]", module);
-                    } else {
-                        if (!simpleMethodsVisited.contains(calledMethod.getLocationAndName())) {
-                            simpleMethodsVisited.add(calledMethod.getLocationAndName());
-                            findEntityNamesUsed(calledMethod.methodOperations, allEntityNames, simpleMethodsVisited);
-                        }
-                    }
-                } catch (MiniLangException e) {
-                    Debug.logWarning("Error getting simple-method info in the [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]: " + e.toString(), module);
-                }
-            } else if (methodOperation instanceof Iterate) {
-                findEntityNamesUsed(((Iterate) methodOperation).getSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IterateMap) {
-                findEntityNamesUsed(((IterateMap) methodOperation).getSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof Loop) {
-                findEntityNamesUsed(((Loop) methodOperation).getSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof MasterIf) {
-                findEntityNamesUsed(((MasterIf) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof While) {
-                findEntityNamesUsed(((While) methodOperation).getThenSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfValidateMethod) {
-                findEntityNamesUsed(((IfValidateMethod) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfInstanceOf) {
-                findEntityNamesUsed(((IfInstanceOf) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompare) {
-                findEntityNamesUsed(((IfCompare) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompareField) {
-                findEntityNamesUsed(((IfCompareField) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfRegexp) {
-                findEntityNamesUsed(((IfRegexp) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfEmpty) {
-                findEntityNamesUsed(((IfEmpty) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfNotEmpty) {
-                findEntityNamesUsed(((IfNotEmpty) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfHasPermission) {
-                findEntityNamesUsed(((IfHasPermission) methodOperation).getAllSubOps(), allEntityNames, simpleMethodsVisited);
-            }
-        }
-    }
-
-    protected static void findServiceNamesCalled(List<MethodOperation> methodOperations, Set<String> allServiceNames, Set<String> simpleMethodsVisited) throws MiniLangException {
-        for (MethodOperation methodOperation : methodOperations) {
-            if (methodOperation instanceof CallService) {
-                String svcName = ((CallService) methodOperation).getServiceName();
-                if (UtilValidate.isNotEmpty(svcName))
-                    allServiceNames.add(svcName);
-            } else if (methodOperation instanceof CallServiceAsynch) {
-                String svcName = ((CallServiceAsynch) methodOperation).getServiceName();
-                if (UtilValidate.isNotEmpty(svcName))
-                    allServiceNames.add(svcName);
-            } else if (methodOperation instanceof SetServiceFields) {
-                String svcName = ((SetServiceFields) methodOperation).getServiceName();
-                if (UtilValidate.isNotEmpty(svcName))
-                    allServiceNames.add(svcName);
-            } else if (methodOperation instanceof CallSimpleMethod) {
-                CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
-                try {
-                    SimpleMethod calledMethod = csm.getSimpleMethodToCall(methodOperations.getClass().getClassLoader());
-                    if (calledMethod == null) {
-                        Debug.logWarning("Could not find simple-method [" + csm.getMethodName() + "] in [" + csm.getXmlResource() + "] from the SimpleMethod [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]", module);
-                    } else {
-                        if (!simpleMethodsVisited.contains(calledMethod.getLocationAndName())) {
-                            simpleMethodsVisited.add(calledMethod.getLocationAndName());
-                            findServiceNamesCalled(calledMethod.methodOperations, allServiceNames, simpleMethodsVisited);
-                        }
-                    }
-                } catch (MiniLangException e) {
-                    Debug.logWarning("Error getting simple-method info in the [" + csm.getSimpleMethod().getMethodName() + "] in [" + csm.getSimpleMethod().getFromLocation() + "]: " + e.toString(), module);
-                }
-            } else if (methodOperation instanceof Iterate) {
-                findServiceNamesCalled(((Iterate) methodOperation).getSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IterateMap) {
-                findServiceNamesCalled(((IterateMap) methodOperation).getSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof Loop) {
-                findServiceNamesCalled(((Loop) methodOperation).getSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof MasterIf) {
-                findServiceNamesCalled(((MasterIf) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof While) {
-                findServiceNamesCalled(((While) methodOperation).getThenSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfValidateMethod) {
-                findServiceNamesCalled(((IfValidateMethod) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfInstanceOf) {
-                findServiceNamesCalled(((IfInstanceOf) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompare) {
-                findServiceNamesCalled(((IfCompare) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfCompareField) {
-                findServiceNamesCalled(((IfCompareField) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfRegexp) {
-                findServiceNamesCalled(((IfRegexp) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfEmpty) {
-                findServiceNamesCalled(((IfEmpty) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfNotEmpty) {
-                findServiceNamesCalled(((IfNotEmpty) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            } else if (methodOperation instanceof IfHasPermission) {
-                findServiceNamesCalled(((IfHasPermission) methodOperation).getAllSubOps(), allServiceNames, simpleMethodsVisited);
-            }
-        }
-    }
-
-    protected static Map<String, SimpleMethod> getAllDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
+    private static Map<String, SimpleMethod> getAllDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
         if (UtilValidate.isEmpty(fromLocation)) {
             fromLocation = "<location not known>";
         }
         Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
         Document document = null;
         try {
-            if (content != null) {
-                document = UtilXml.readXmlDocument(content, true, true);
-            }
-        } catch (java.io.IOException e) {
-            throw new MiniLangException("Could not read XML content", e);
-        } catch (org.xml.sax.SAXException e) {
-            throw new MiniLangException("Could not parse direct XML content", e);
-        } catch (javax.xml.parsers.ParserConfigurationException e) {
-            throw new MiniLangException("XML parser not setup correctly", e);
+            document = UtilXml.readXmlDocument(content, true, true);
+        } catch (Exception e) {
+            throw new MiniLangException("Could not read SimpleMethod XML document [" + name + "]: ", e);
         }
-        if (document == null) {
-            throw new MiniLangException("Could not load SimpleMethod XML document: " + name);
-        }
-        Element rootElement = document.getDocumentElement();
-        for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
-            SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, fromLocation);
-            simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
-        }
+        compileAllSimpleMethods(document.getDocumentElement(), simpleMethods, fromLocation);
         return simpleMethods;
     }
 
-    protected static Map<String, SimpleMethod> getAllSimpleMethods(URL xmlURL) throws MiniLangException {
+    private static Map<String, SimpleMethod> getAllSimpleMethods(URL xmlURL) throws MiniLangException {
         Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(xmlURL, true, true);
-        } catch (java.io.IOException e) {
-            throw new MiniLangException("Could not read XML file", e);
-        } catch (org.xml.sax.SAXException e) {
-            throw new MiniLangException("Could not parse XML file", e);
-        } catch (javax.xml.parsers.ParserConfigurationException e) {
-            throw new MiniLangException("XML parser not setup correctly", e);
+        } catch (Exception e) {
+            throw new MiniLangException("Could not read SimpleMethod XML document [" + xmlURL + "]: ", e);
         }
-        if (document == null) {
-            throw new MiniLangException("Could not find SimpleMethod XML document: " + xmlURL.toString());
-        }
-        Element rootElement = document.getDocumentElement();
-        for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
-            SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, xmlURL.toString());
-            simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
-        }
+        compileAllSimpleMethods(document.getDocumentElement(), simpleMethods, xmlURL.toString());
         if (MiniLangUtil.isDocumentAutoCorrected(document)) {
             MiniLangUtil.writeMiniLangDocument(xmlURL, document);
         }
@@ -314,58 +125,49 @@ public class SimpleMethod {
     }
 
     public static Map<String, SimpleMethod> getDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
+        Assert.notNull("name", name, "content", content);
         Map<String, SimpleMethod> simpleMethods = simpleMethodsDirectCache.get(name);
         if (simpleMethods == null) {
-            synchronized (SimpleMethod.class) {
-                simpleMethods = simpleMethodsDirectCache.get(name);
-                if (simpleMethods == null) {
-                    simpleMethods = getAllDirectSimpleMethods(name, content, fromLocation);
-                    simpleMethodsDirectCache.put(name, simpleMethods);
-                }
-            }
+            simpleMethods = getAllDirectSimpleMethods(name, content, fromLocation);
+            simpleMethodsDirectCache.putIfAbsent(name, simpleMethods);
+            simpleMethods = simpleMethodsDirectCache.get(name);
         }
         return simpleMethods;
     }
 
     public static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
+        Assert.notNull("xmlResource", xmlResource);
         Map<String, SimpleMethod> simpleMethods = simpleMethodsResourceCache.get(xmlResource);
         if (simpleMethods == null) {
-            synchronized (SimpleMethod.class) {
-                simpleMethods = simpleMethodsResourceCache.get(xmlResource);
-                if (simpleMethods == null) {
-                    // URL xmlURL = UtilURL.fromResource(xmlResource, loader);
-                    URL xmlURL = null;
-                    try {
-                        xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
-                    } catch (MalformedURLException e) {
-                        throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
-                    }
-                    if (xmlURL == null) {
-                        throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource);
-                    }
-                    simpleMethods = getAllSimpleMethods(xmlURL);
-                    simpleMethodsResourceCache.put(xmlResource, simpleMethods);
-                }
+            URL xmlURL = null;
+            try {
+                xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
+            } catch (MalformedURLException e) {
+                throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
             }
+            if (xmlURL == null) {
+                throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource);
+            }
+            simpleMethods = getAllSimpleMethods(xmlURL);
+            simpleMethodsResourceCache.putIfAbsent(xmlResource, simpleMethods);
+            simpleMethods = simpleMethodsResourceCache.get(xmlResource);
         }
         return simpleMethods;
     }
 
     public static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
+        Assert.notNull("xmlURL", xmlURL);
         Map<String, SimpleMethod> simpleMethods = simpleMethodsURLCache.get(xmlURL);
         if (simpleMethods == null) {
-            synchronized (SimpleMethod.class) {
-                simpleMethods = simpleMethodsURLCache.get(xmlURL);
-                if (simpleMethods == null) {
-                    simpleMethods = getAllSimpleMethods(xmlURL);
-                    simpleMethodsURLCache.put(xmlURL, simpleMethods);
-                }
-            }
+            simpleMethods = getAllSimpleMethods(xmlURL);
+            simpleMethodsURLCache.putIfAbsent(xmlURL, simpleMethods);
+            simpleMethods = simpleMethodsURLCache.get(xmlURL);
         }
         return simpleMethods;
     }
 
     public static List<SimpleMethod> getSimpleMethodsList(String xmlResource, ClassLoader loader) throws MiniLangException {
+        Assert.notNull("xmlResource", xmlResource);
         List<SimpleMethod> simpleMethods = FastList.newInstance();
         // Let the standard Map returning method take care of caching and compilation
         Map<String, SimpleMethod> simpleMethodMap = SimpleMethod.getSimpleMethods(xmlResource, loader);
@@ -374,20 +176,13 @@ public class SimpleMethod {
         try {
             xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
         } catch (MalformedURLException e) {
-            throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
+            throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + ": ", e);
         }
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(xmlURL, true, true);
-        } catch (java.io.IOException e) {
-            throw new MiniLangException("Could not read XML file", e);
-        } catch (org.xml.sax.SAXException e) {
-            throw new MiniLangException("Could not parse XML file", e);
-        } catch (javax.xml.parsers.ParserConfigurationException e) {
-            throw new MiniLangException("XML parser not setup correctly", e);
-        }
-        if (document == null) {
-            throw new MiniLangException("Could not find SimpleMethod XML document: " + xmlURL.toString());
+        } catch (Exception e) {
+            throw new MiniLangException("Could not read SimpleMethod XML document [" + xmlURL + "]: ", e);
         }
         Element rootElement = document.getDocumentElement();
         for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
@@ -397,6 +192,7 @@ public class SimpleMethod {
     }
 
     public static List<MethodOperation> readOperations(Element simpleMethodElement, SimpleMethod simpleMethod) throws MiniLangException {
+        Assert.notNull("simpleMethodElement", simpleMethodElement, "simpleMethod", simpleMethod);
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
         ArrayList<MethodOperation> methodOperations = new ArrayList<MethodOperation>(operationElements.size());
         if (UtilValidate.isNotEmpty(operationElements)) {
@@ -438,6 +234,7 @@ public class SimpleMethod {
     }
 
     public static String runSimpleMethod(String xmlResource, String methodName, MethodContext methodContext) throws MiniLangException {
+        Assert.notNull("methodName", methodName, "methodContext", methodContext);
         Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, methodContext.getLoader());
         SimpleMethod simpleMethod = simpleMethods.get(methodName);
         if (simpleMethod == null) {
@@ -447,6 +244,7 @@ public class SimpleMethod {
     }
 
     public static String runSimpleMethod(URL xmlURL, String methodName, MethodContext methodContext) throws MiniLangException {
+        Assert.notNull("methodName", methodName, "methodContext", methodContext);
         Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlURL);
         SimpleMethod simpleMethod = simpleMethods.get(methodName);
         if (simpleMethod == null) {
@@ -478,6 +276,7 @@ public class SimpleMethod {
      * @throws MiniLangException 
      */
     public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) throws MiniLangException {
+        Assert.notNull("methodOperations", methodOperations, "methodContext", methodContext);
         for (MethodOperation methodOperation : methodOperations) {
             if (!methodOperation.exec(methodContext)) {
                 return false;
@@ -486,37 +285,43 @@ public class SimpleMethod {
         return true;
     }
 
-    protected String defaultErrorCode;
-    protected String defaultSuccessCode;
-    protected String delegatorName;
-    protected String dispatcherName;
-    protected String eventErrorMessageListName;
-    protected String eventErrorMessageName;
-    protected String eventEventMessageListName;
-    protected String eventEventMessageName;
-    protected String eventRequestName;
-    protected String eventResponseCodeName;
-    protected String eventResponseName;
-    protected String eventSessionName;
-    protected String fromLocation;
-    protected String localeName;
-    protected boolean loginRequired = true;
-    protected String methodName;
-    protected List<MethodOperation> methodOperations;
-    protected String parameterMapName;
-    protected Map<String, SimpleMethod> parentSimpleMethodsMap;
-    protected String securityName;
-    protected String serviceErrorMessageListName;
-    protected String serviceErrorMessageMapName;
-    protected String serviceErrorMessageName;
-    protected String serviceResponseMessageName;
-    protected String serviceSuccessMessageListName;
-    protected String serviceSuccessMessageName;
-    protected String shortDescription;
-    protected String userLoginName;
-    protected boolean useTransaction = true;
+    private final String defaultErrorCode;
+    private final String defaultSuccessCode;
+    private final String delegatorName;
+    private final String dispatcherName;
+    private final String eventErrorMessageListName;
+    private final String eventErrorMessageName;
+    private final String eventEventMessageListName;
+    private final String eventEventMessageName;
+    private final String eventRequestName;
+    private final String eventResponseCodeName;
+    private final String eventResponseName;
+    private final String eventSessionName;
+    private final String fromLocation;
+    private final String localeName;
+    private final boolean loginRequired;
+    private final String methodName;
+    private final List<MethodOperation> methodOperations;
+    private final String parameterMapName;
+    private final Map<String, SimpleMethod> parentSimpleMethodsMap;
+    private final String securityName;
+    private final String serviceErrorMessageListName;
+    private final String serviceErrorMessageMapName;
+    private final String serviceErrorMessageName;
+    private final String serviceResponseMessageName;
+    private final String serviceSuccessMessageListName;
+    private final String serviceSuccessMessageName;
+    private final String shortDescription;
+    private final String userLoginName;
+    private final boolean useTransaction;
 
     public SimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> parentSimpleMethodsMap, String fromLocation) throws MiniLangException {
+        if (MiniLangValidate.validationOn()) {
+            String locationMsg = " File = ".concat(fromLocation);
+            if (simpleMethodElement.getAttribute("method-name").isEmpty()) {
+                MiniLangValidate.handleError("Element must include the \"method-name\" attribute.".concat(locationMsg), null, simpleMethodElement);
+            }
+        }
         this.parentSimpleMethodsMap = parentSimpleMethodsMap;
         this.fromLocation = fromLocation;
         this.methodName = simpleMethodElement.getAttribute("method-name");
@@ -614,7 +419,7 @@ public class SimpleMethod {
             String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_running", locale) + ": " + t.getMessage();
             Debug.logError(errMsg, module);
             finished = false;
-            errorMsg += errMsg + "<br/>";
+            errorMsg += errMsg;
         }
         String returnValue = null;
         String response = null;
@@ -717,7 +522,7 @@ public class SimpleMethod {
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to commit transaction, could not process method: " + e.getMessage();
                 Debug.logWarning(e, errMsg, module);
-                errorMsg += errMsg + "<br/>";
+                errorMsg += errMsg;
             }
         } else {
             // rollback here passing beganTransaction to either rollback, or set rollback only
@@ -726,7 +531,7 @@ public class SimpleMethod {
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to rollback transaction, could not process method: " + e.getMessage();
                 Debug.logWarning(e, errMsg, module);
-                errorMsg += errMsg + "<br/>";
+                errorMsg += errMsg;
             }
         }
         return returnValue;
@@ -735,14 +540,14 @@ public class SimpleMethod {
     public Set<String> getAllEntityNamesUsed() throws MiniLangException {
         Set<String> allEntityNames = FastSet.newInstance();
         Set<String> simpleMethodsVisited = FastSet.newInstance();
-        findEntityNamesUsed(this.methodOperations, allEntityNames, simpleMethodsVisited);
+        MiniLangUtil.findEntityNamesUsed(this.methodOperations, allEntityNames, simpleMethodsVisited);
         return allEntityNames;
     }
 
     public Set<String> getAllServiceNamesCalled() throws MiniLangException {
         Set<String> allServiceNames = FastSet.newInstance();
         Set<String> simpleMethodsVisited = FastSet.newInstance();
-        findServiceNamesCalled(this.methodOperations, allServiceNames, simpleMethodsVisited);
+        MiniLangUtil.findServiceNamesCalled(this.methodOperations, allServiceNames, simpleMethodsVisited);
         return allServiceNames;
     }
 
@@ -805,6 +610,10 @@ public class SimpleMethod {
 
     public String getMethodName() {
         return this.methodName;
+    }
+
+    public List<MethodOperation> getMethodOperations() {
+        return this.methodOperations;
     }
 
     public String getParameterMapName() {

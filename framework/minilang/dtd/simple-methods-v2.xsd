@@ -170,204 +170,263 @@ under the License.
     <xs:element name="simple-method">
         <xs:annotation>
             <xs:documentation>
+                Contains a block of Mini-language code.
+                &lt;br/&gt;&lt;br/&gt;
                 A simple method can be called in either an event context from the Control
                 Servlet (or another event) or in a service context through the Service
                 Engine, or any other component that has access to a service dispatcher.
-
-                The field-to-request and field-to-session elements will be IGNORED when
-                called in a service context. So, they are ONLY used when called in an event context.
-
-                The field-to-result elements will be ignored in an event context, ie only used in a service.
-
-                The parameter-map-name env entry will contain the HttpRequest parameters for
-                running in an event context and and the input context when running in a service.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-            <xs:attributeGroup ref="attlist.simple-method"/>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+            <xs:attribute type="xs:string" name="method-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        A name (preferably a legal Java identifier) for this method.
+                        This name must be unique for the XML file it is in as it will be used to reference this method externally.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="short-description">
+                <xs:annotation>
+                    <xs:documentation>
+                        A short description of the method - used for documentation.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="login-required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Require a user login to run this method. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="use-transaction">
+                <xs:annotation>
+                    <xs:documentation>
+                        Create a transaction if none exists for this thread. Defaults to "true".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-error-code">
+                <xs:annotation>
+                    <xs:documentation>
+                        The default error return code. Defauts to "error".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-success-code">
+                <xs:annotation>
+                    <xs:documentation>
+                        The default success return code. Defauts to "success".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="parameter-map-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the parameters map. Defaults to "parameters".
+                        &lt;br/&gt;&lt;br/&gt;
+                        When the simple method is invoked as an event, the parameters map contains the request parameters.
+                        When the simple method is invoked as a service, the parameters map contains the service IN attributes.
+                        The parameters map should not be modified, but modification is permitted for backward compatibility.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="event-request-object-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the javax.servlet.ServletRequest object. Defaults to "request".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as an event, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="event-response-object-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the javax.servlet.ServletResponse object. Defaults to "response".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as an event, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="event-response-code-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the event response code. Defaults to "_response_code_".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as an event, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="event-error-message-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the event error message. Defaults to "_error_message_".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as an event, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="event-event-message-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the event message. Defaults to "_event_message_".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as an event, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-response-message-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the service response message. Defaults to "responseMessage".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as a service, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-error-message-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the service error message. Defaults to "errorMessage".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as a service, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-error-message-list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the service error message list. Defaults to "errorMessageList".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as a service, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-error-message-map-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the service error message map. Defaults to "errorMessageMap".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as a service, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-success-message-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the service success message. Defaults to "successMessage".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as a service, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="service-success-message-list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the service success message list. Defaults to "successMessageList".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Used when the simple method is invoked as a service, it is ignored otherwise.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="locale-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the java.util.Locale object. Defaults to "locale".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="delegator-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the org.ofbiz.entity.Delegator object. Defaults to "delegator".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="security-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the org.ofbiz.security.Security object. Defaults to "security".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="dispatcher-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the org.ofbiz.service.LocalDispatcher object. Defaults to "dispatcher".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="user-login-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field containing the UserLogin GenericValue. Defaults to "userLogin".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.simple-method">
-        <xs:attribute type="xs:string" name="method-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    A name (preferably a legal Java identifier) for this method.
-                    This name must be unique for the XML file it is in as it will be used to reference this method externally.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="short-description" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    A short description of the method for certain system error messages.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute name="login-required" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Is a logged in user (UserLogin object, or login.username and login.password Strings) required to run this method?
-                    "true" or "false" (defauts to "true")
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute name="use-transaction" default="true">
-            <xs:annotation>
-                <xs:documentation>
-                    Create a transaction if none exists for this thread?
-                    "true" or "false" (defauts to "true")
-                </xs:documentation>
-            </xs:annotation>
-            <xs:simpleType>
-                <xs:restriction base="xs:token">
-                    <xs:enumeration value="true"/>
-                    <xs:enumeration value="false"/>
-                </xs:restriction>
-            </xs:simpleType>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default-error-code" default="error">
-            <xs:annotation>
-                <xs:documentation>
-                    The default error return code. (defauts to "error")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="default-success-code" default="success">
-            <xs:annotation>
-                <xs:documentation>
-                    The default success return code.  (defauts to "success")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="parameter-map-name" default="parameters">
-            <xs:annotation>
-                <xs:documentation>
-                    As event: copy of request parameters.
-                    As service: incoming context.
-                    (defauts to "parameters")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="event-request-object-name" default="request">
-            <xs:annotation>
-                <xs:documentation>
-                    As event only (defauts to "request")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="event-response-object-name" default="response">
-            <xs:annotation>
-                <xs:documentation>
-                    As event only (defauts to "response")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="event-response-code-name" default="_response_code_">
-            <xs:annotation>
-                <xs:documentation>
-                    As event only (defauts to "_response_code")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="event-error-message-name" default="_error_message_">
-            <xs:annotation>
-                <xs:documentation>
-                    As event only (defauts to "_error_message_")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="event-event-message-name" default="_event_message_">
-            <xs:annotation>
-                <xs:documentation>
-                    As event only (defauts to "_event_message_")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-response-message-name" default="responseMessage">
-            <xs:annotation>
-                <xs:documentation>
-                    As service only (defauts to "responseMessage")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-error-message-name" default="errorMessage">
-            <xs:annotation>
-                <xs:documentation>
-                    As service only (defauts to "errorMessage")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-error-message-list-name" default="errorMessageList">
-            <xs:annotation>
-                <xs:documentation>
-                    As service only (defauts to "errorMessageList")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-error-message-map-name" default="errorMessageMap">
-            <xs:annotation>
-                <xs:documentation>
-                    As service only (defauts to "errorMessageMap")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-success-message-name" default="successMessage">
-            <xs:annotation>
-                <xs:documentation>
-                    As service only (defauts to "successMessage")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="service-success-message-list-name" default="successMessageList">
-            <xs:annotation>
-                <xs:documentation>
-                    As service only (defauts to "successMessageList")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="locale-name" default="locale">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of locale variable (defauts to "locale")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="delegator-name" default="delegator">
-            <xs:annotation>
-                <xs:documentation>
-                    A GenericDelegator object to use in the method (defauts to "delegator")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="security-name" default="security">
-            <xs:annotation>
-                <xs:documentation>
-                    A Security object to use in the method (defauts to "security")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="dispatcher-name" default="dispatcher">
-            <xs:annotation>
-                <xs:documentation>
-                    A LocalDispatcher object to use in the method (defauts to "dispatcher")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="user-login-name" default="userLogin">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of user login variable (defauts to "userLogin")
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="call-map-processor" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
