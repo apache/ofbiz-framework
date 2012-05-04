@@ -22,6 +22,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.Callable;
 
 import javax.crypto.SecretKey;
 import javax.transaction.Transaction;
@@ -134,59 +135,20 @@ public class EntityCrypto {
             } catch (NoSuchAlgorithmException e) {
                 throw new EntityCryptoException(e);
             }
-            GenericValue newValue = delegator.makeValue("EntityKeyStore");
+            final GenericValue newValue = delegator.makeValue("EntityKeyStore");
             newValue.set("keyText", StringUtil.toHexString(key.getEncoded()));
             newValue.set("keyName", hashedKeyName);
 
-            Transaction parentTransaction = null;
-            boolean beganTrans = false;
             try {
-                beganTrans = TransactionUtil.begin();
-            } catch (GenericTransactionException e) {
-                throw new EntityCryptoException(e);
-            }
-
-            if (!beganTrans) {
-                try {
-                    parentTransaction = TransactionUtil.suspend();
-                } catch (GenericTransactionException e) {
-                    throw new EntityCryptoException(e);
-                }
-
-                // now start a new transaction
-                try {
-                    beganTrans = TransactionUtil.begin();
-                } catch (GenericTransactionException e) {
-                    throw new EntityCryptoException(e);
-                }
-            }
-
-            try {
-                delegator.create(newValue);
-            } catch (GenericEntityException e) {
-                try {
-                    TransactionUtil.rollback(beganTrans, "Error creating encrypted value", e);
-                } catch (GenericTransactionException e1) {
-                    Debug.logError(e1, "Could not rollback transaction", module);
-                }
-                throw new EntityCryptoException(e);
-            } finally {
-                try {
-                    TransactionUtil.commit(beganTrans);
-                } catch (GenericTransactionException e) {
-                    throw new EntityCryptoException(e);
-                }
-                // resume the parent transaction
-                if (parentTransaction != null) {
-                    try {
-                        TransactionUtil.resume(parentTransaction);
-                    } catch (GenericTransactionException e) {
-                        throw new EntityCryptoException(e);
+                TransactionUtil.doNewTransaction(new Callable<Void>() {
+                    public Void call() throws Exception {
+                        delegator.create(newValue);
+                        return null;
                     }
-                }
+                }, "storing encrypted key", 0, true);
+            } catch (GenericEntityException e) {
+                throw new EntityCryptoException(e);
             }
-
-
             return key;
         } else {
             byte[] keyBytes = StringUtil.fromHexString(keyValue.getString("keyText"));
