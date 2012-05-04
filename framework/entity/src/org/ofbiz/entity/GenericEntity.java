@@ -1288,7 +1288,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         for (String curKey: new TreeSet<String>(fields.keySet())) {
             Object curValue = fields.get(curKey);
             ModelField field = this.getModelEntity().getField(curKey);
-            if (field.getEncrypt()) {
+            if (field.getEncrypt() && curValue instanceof String) {
                 String encryptField = (String) curValue;
                 curValue = HashCrypt.getDigestHash(encryptField);
             }
