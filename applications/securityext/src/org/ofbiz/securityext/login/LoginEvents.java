@@ -212,7 +212,7 @@ public class LoginEvents {
             if (useEncryption) {
                 // password encrypted, can't send, generate new password and email to user
                 passwordToSend = RandomStringUtils.randomAlphanumeric(Integer.parseInt(UtilProperties.getPropertyValue("security", "password.length.min", "5")));
-                supposedUserLogin.set("currentPassword", HashCrypt.cryptPassword(LoginServices.getHashType(), null, passwordToSend));
+                supposedUserLogin.set("currentPassword", HashCrypt.cryptUTF8(LoginServices.getHashType(), null, passwordToSend));
                 supposedUserLogin.set("passwordHint", "Auto-Generated Password");
                 if ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.email_password.require_password_change"))){
                     supposedUserLogin.set("requirePasswordChange", "Y");
