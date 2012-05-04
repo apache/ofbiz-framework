@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
-
 /**
  * Thrown to indicate a Mini-language run-time error. 
  */
@@ -42,7 +41,7 @@ public class MiniLangRuntimeException extends MiniLangException {
         StringBuilder sb = new StringBuilder(super.getMessage());
         if (this.element != null) {
             SimpleMethod method = this.element.getSimpleMethod();
-            sb.append(" Method = ").append(method.methodName).append(", File = ").append(method.getFromLocation());
+            sb.append(" Method = ").append(method.getMethodName()).append(", File = ").append(method.getFromLocation());
             sb.append(", Element = <").append(this.element.getTagName()).append(">");
             sb.append(", Line ").append(this.element.getLineNumber());
         }

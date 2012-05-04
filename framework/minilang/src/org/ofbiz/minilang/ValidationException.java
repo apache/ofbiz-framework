@@ -39,7 +39,7 @@ public class ValidationException extends MiniLangException {
     public String getMessage() {
         StringBuilder sb = new StringBuilder(super.getMessage());
         if (method != null) {
-            sb.append(" Method = ").append(method.methodName).append(", File = ").append(method.getFromLocation());
+            sb.append(" Method = ").append(method.getMethodName()).append(", File = ").append(method.getFromLocation());
         }
         if (element != null) {
             sb.append(", Element = <").append(element.getTagName()).append(">");
