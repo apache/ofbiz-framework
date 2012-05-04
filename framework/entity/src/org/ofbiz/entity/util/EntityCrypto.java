@@ -49,19 +49,24 @@ public final class EntityCrypto {
 
     protected final Delegator delegator;
     protected final ConcurrentMap<String, SecretKey> keyMap = new ConcurrentHashMap<String, SecretKey>();
+    protected final StorageHandler[] handlers;
 
     public EntityCrypto(Delegator delegator) {
         this.delegator = delegator;
+        handlers = new StorageHandler[] {
+            NormalHashStorageHandler,
+            OldFunnyHashStorageHandler,
+        };
     }
 
     /** Encrypts an Object into an encrypted hex encoded String */
     public String encrypt(String keyName, Object obj) throws EntityCryptoException {
         try {
-            SecretKey key = this.findKey(keyName, false);
+            SecretKey key = this.findKey(keyName, handlers[0]);
             if (key == null) {
                 EntityCryptoException caught = null;
                 try {
-                    this.createKey(keyName);
+                    this.createKey(keyName, handlers[0]);
                 } catch (EntityCryptoException e) {
                     // either a database read error, or a duplicate key insert
                     // if the latter, try to fetch the value created by the
@@ -69,7 +74,7 @@ public final class EntityCrypto {
                     caught = e;
                 } finally {
                     try {
-                        key = this.findKey(keyName, false);
+                        key = this.findKey(keyName, handlers[0]);
                     } catch (EntityCryptoException e) {
                         // this is bad, couldn't lookup the value, some bad juju
                         // is occuring; rethrow the original exception if available
@@ -81,7 +86,7 @@ public final class EntityCrypto {
                     }
                 }
             }
-            return StringUtil.toHexString(DesCrypt.encrypt(key, UtilObject.getBytes(obj)));
+            return handlers[0].encryptValue(key, UtilObject.getBytes(obj));
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
@@ -99,27 +104,29 @@ public final class EntityCrypto {
 
     /** Decrypts a hex encoded String into an Object */
     public Object decrypt(String keyName, String encryptedString) throws EntityCryptoException {
-        byte[] encryptedBytes = StringUtil.fromHexString(encryptedString);
         try {
-            return doDecrypt(keyName, encryptedBytes, false);
+            return doDecrypt(keyName, encryptedString, handlers[0]);
         } catch (GeneralException e) {
-            try {
-                // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
-                Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
-                return doDecrypt(keyName, encryptedBytes, false);
-            } catch (GeneralException e1) {
-                // NOTE: this throws the original exception back, not the new one if it fails using the other approach
-                throw new EntityCryptoException(e);
+            Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
+            for (int i = 1; i < handlers.length; i++) {
+                try {
+                    // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
+                    return doDecrypt(keyName, encryptedString, handlers[i]);
+                } catch (GeneralException e1) {
+                    // NOTE: this throws the original exception back, not the new one if it fails using the other approach
+                    //throw new EntityCryptoException(e);
+                }
             }
+            throw new EntityCryptoException(e);
         }
     }
 
-    protected Object doDecrypt(String keyName, byte[] encryptedBytes, boolean useOldFunnyKeyHash) throws GeneralException {
-        SecretKey key = this.findKey(keyName, false);
+    protected Object doDecrypt(String keyName, String encryptedString, StorageHandler handler) throws GeneralException {
+        SecretKey key = this.findKey(keyName, handler);
         if (key == null) {
             throw new EntityCryptoException("key(" + keyName + ") not found in database");
         }
-        byte[] decryptedBytes = DesCrypt.decrypt(key, encryptedBytes);
+        byte[] decryptedBytes = handler.decryptValue(key, encryptedString);
         try {
             return UtilObject.getObjectException(decryptedBytes);
         } catch (ClassNotFoundException e) {
@@ -129,8 +136,9 @@ public final class EntityCrypto {
         }
     }
 
-    protected SecretKey findKey(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
-        String keyMapName = originalKeyName + useOldFunnyKeyHash;
+    protected SecretKey findKey(String originalKeyName, StorageHandler handler) throws EntityCryptoException {
+        String hashedKeyName = handler.getHashedKeyName(originalKeyName);
+        String keyMapName = handler.getKeyMapPrefix(hashedKeyName) + hashedKeyName;
         if (keyMap.containsKey(keyMapName)) {
             return keyMap.get(keyMapName);
         }
@@ -138,7 +146,6 @@ public final class EntityCrypto {
         // unprotected; since the same result will occur even if
         // multiple threads request the same key, there is no
         // need to protected this block of code.
-        String hashedKeyName = useOldFunnyKeyHash? HashCrypt.digestHashOldFunnyHex(null, originalKeyName) : HashCrypt.digestHash("SHA", null, originalKeyName);
 
         GenericValue keyValue = null;
         try {
@@ -150,7 +157,7 @@ public final class EntityCrypto {
             return null;
         }
         try {
-            byte[] keyBytes = StringUtil.fromHexString(keyValue.getString("keyText"));
+            byte[] keyBytes = handler.decodeKeyBytes(keyValue.getString("keyText"));
             SecretKey key = DesCrypt.getDesKey(keyBytes);
             keyMap.putIfAbsent(keyMapName, key);
             // Do not remove the next line, it's there to handle the
@@ -164,8 +171,8 @@ public final class EntityCrypto {
         }
     }
 
-    protected void createKey(String originalKeyName) throws EntityCryptoException {
-        String hashedKeyName = HashCrypt.getDigestHash(originalKeyName);
+    protected void createKey(String originalKeyName, StorageHandler handler) throws EntityCryptoException {
+        String hashedKeyName = handler.getHashedKeyName(originalKeyName);
         SecretKey key = null;
         try {
             key = DesCrypt.generateKey();
@@ -173,7 +180,11 @@ public final class EntityCrypto {
             throw new EntityCryptoException(e);
         }
         final GenericValue newValue = delegator.makeValue("EntityKeyStore");
-        newValue.set("keyText", StringUtil.toHexString(key.getEncoded()));
+        try {
+            newValue.set("keyText", handler.encodeKey(key));
+        } catch (GeneralException e) {
+            throw new EntityCryptoException(e);
+        }
         newValue.set("keyName", hashedKeyName);
 
         try {
@@ -187,4 +198,53 @@ public final class EntityCrypto {
             throw new EntityCryptoException(e);
         }
     }
+
+    protected abstract static class StorageHandler {
+        protected abstract String getHashedKeyName(String originalKeyName);
+        protected abstract String getKeyMapPrefix(String hashedKeyName);
+
+        protected abstract byte[] decodeKeyBytes(String keyText) throws GeneralException;
+        protected abstract String encodeKey(SecretKey key) throws GeneralException;
+
+        protected abstract byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException;
+        protected abstract String encryptValue(SecretKey key, byte[] objBytes) throws GeneralException;
+    }
+
+    protected static abstract class LegacyStorageHandler extends StorageHandler {
+        protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
+            return StringUtil.fromHexString(keyText);
+        }
+
+        protected String encodeKey(SecretKey key) {
+            return StringUtil.toHexString(key.getEncoded());
+        }
+
+        protected byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException {
+            return DesCrypt.decrypt(key, StringUtil.fromHexString(encryptedString));
+        }
+
+        protected String encryptValue(SecretKey key, byte[] objBytes) throws GeneralException {
+            return StringUtil.toHexString(DesCrypt.encrypt(key, objBytes));
+        }
+    };
+
+    protected static final StorageHandler OldFunnyHashStorageHandler = new LegacyStorageHandler() {
+        protected String getHashedKeyName(String originalKeyName) {
+            return HashCrypt.digestHashOldFunnyHex(null, originalKeyName);
+        }
+
+        protected String getKeyMapPrefix(String hashedKeyName) {
+            return "{funny-hash}";
+        }
+    };
+
+    protected static final StorageHandler NormalHashStorageHandler = new LegacyStorageHandler() {
+        protected String getHashedKeyName(String originalKeyName) {
+            return HashCrypt.digestHash("SHA", originalKeyName.getBytes());
+        }
+
+        protected String getKeyMapPrefix(String hashedKeyName) {
+            return "{normal-hash}";
+        }
+    };
 }
