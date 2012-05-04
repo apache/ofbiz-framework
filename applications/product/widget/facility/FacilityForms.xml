@@ -229,7 +229,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;inventoryItemId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(inventoryItemId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy: String prev = (String) previousItem.get('inventoryItemId');return new Boolean(!(prev!=null &amp;&amp; prev.equals(inventoryItemId)));}" type="Boolean"/>
         </row-actions>
 
         <field name="inventoryItemId" widget-style="buttontext" position="1" use-when="showPosition1">
@@ -293,7 +293,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="showPosition1" value="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}" type="Boolean"/>
+            <set field="showPosition1" value="${groovy:String prev = (String) previousItem.get('productId'); return new Boolean(!(prev!=null &amp;&amp; prev.equals(productId)));}" type="Boolean"/>
         </row-actions>
 
         <field name="productId" position="1" use-when="showPosition1" widget-style="buttontext">
