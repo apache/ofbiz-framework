@@ -30,6 +30,8 @@ import java.util.concurrent.ConcurrentMap;
 import javax.crypto.SecretKey;
 import javax.transaction.Transaction;
 
+import org.apache.commons.codec.binary.Base64;
+
 import org.ofbiz.base.crypto.DesCrypt;
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
@@ -54,6 +56,7 @@ public final class EntityCrypto {
     public EntityCrypto(Delegator delegator) {
         this.delegator = delegator;
         handlers = new StorageHandler[] {
+            // new SaltedBase64StorageHandler(),
             NormalHashStorageHandler,
             OldFunnyHashStorageHandler,
         };
@@ -245,6 +248,47 @@ public final class EntityCrypto {
 
         protected String getKeyMapPrefix(String hashedKeyName) {
             return "{normal-hash}";
+        }
+    };
+
+    protected static final class SaltedBase64StorageHandler extends StorageHandler {
+        protected String getHashedKeyName(String originalKeyName) {
+            return HashCrypt.digestHash64("SHA", originalKeyName.getBytes());
+        }
+
+        protected String getKeyMapPrefix(String hashedKeyName) {
+            return "{salted-base64}";
+        }
+
+        protected byte[] decodeKeyBytes(String keyText) {
+            byte[] keyBytes = Base64.decodeBase64(keyText);
+            return keyBytes;
+        }
+
+        protected String encodeKey(SecretKey key) {
+            byte[] keyBytes = key.getEncoded();
+            return Base64.encodeBase64String(keyBytes);
+        }
+
+        protected byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException {
+            byte[] allBytes = DesCrypt.decrypt(key, Base64.decodeBase64(encryptedString));
+            int length = allBytes[0];
+            byte[] objBytes = new byte[allBytes.length - 1 - length];
+            System.arraycopy(allBytes, 1 + length, objBytes, 0, objBytes.length);
+            return objBytes;
+        }
+
+        protected String encryptValue(SecretKey key, byte[] objBytes) throws GeneralException {
+            Random random = new Random();
+            // random length 5-16
+            byte[] saltBytes = new byte[5 + random.nextInt(11)];
+            random.nextBytes(saltBytes);
+            byte[] allBytes = new byte[1 + saltBytes.length + objBytes.length];
+            allBytes[0] = (byte) saltBytes.length;
+            System.arraycopy(saltBytes, 0, allBytes, 1, saltBytes.length);
+            System.arraycopy(objBytes, 0, allBytes, 1 + saltBytes.length, objBytes.length);
+            String result = Base64.encodeBase64String(DesCrypt.encrypt(key, allBytes));
+            return result;
         }
     };
 }
