@@ -108,6 +108,9 @@ public class EntityCrypto {
 
     protected Object doDecrypt(String keyName, byte[] encryptedBytes, boolean useOldFunnyKeyHash) throws GeneralException {
         SecretKey key = this.findKey(keyName, false);
+        if (key == null) {
+            throw new EntityCryptoException("key(" + keyName + ") not found in database");
+        }
         byte[] decryptedBytes = DesCrypt.decrypt(key, encryptedBytes);
         return UtilObject.getObject(decryptedBytes);
     }
