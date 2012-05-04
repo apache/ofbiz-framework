@@ -209,6 +209,7 @@ public class GenericDelegator implements Delegator {
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
         //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorFullName + "\".", module);
         this.setDelegatorNames(delegatorFullName);
+        this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(delegatorBaseName);
 
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
@@ -361,9 +362,6 @@ public class GenericDelegator implements Delegator {
     }
 
     protected DelegatorInfo getDelegatorInfo() {
-        if (this.delegatorInfo == null) {
-            this.delegatorInfo = EntityConfigUtil.getDelegatorInfo(this.delegatorBaseName);
-        }
         return this.delegatorInfo;
     }
 
