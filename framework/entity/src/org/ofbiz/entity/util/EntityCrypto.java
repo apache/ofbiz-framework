@@ -89,17 +89,12 @@ public class EntityCrypto {
         Object decryptedObj = null;
         byte[] encryptedBytes = StringUtil.fromHexString(encryptedString);
         try {
-            SecretKey decryptKey = this.findKey(keyName, false);
-            byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
-
-            decryptedObj = UtilObject.getObject(decryptedBytes);
+            decryptedObj = doDecrypt(keyName, encryptedBytes, false);
         } catch (GeneralException e) {
             try {
                 // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
                 Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
-                SecretKey decryptKey = this.findKey(keyName, true);
-                byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
-                decryptedObj = UtilObject.getObject(decryptedBytes);
+                decryptedObj = doDecrypt(keyName, encryptedBytes, false);
                 //Debug.logInfo("Old/funny variety succeeded: Decrypted value [" + encryptedString + "]", module);
             } catch (GeneralException e1) {
                 // NOTE: this throws the original exception back, not the new one if it fails using the other approach
@@ -109,6 +104,12 @@ public class EntityCrypto {
 
         // NOTE: this is definitely for debugging purposes only, do not uncomment in production server for security reasons: Debug.logInfo("Decrypted value [" + encryptedString + "] to result: " + decryptedObj, module);
         return decryptedObj;
+    }
+
+    protected Object doDecrypt(String keyName, byte[] encryptedBytes, boolean useOldFunnyKeyHash) throws GeneralException {
+        SecretKey decryptKey = this.findKey(keyName, false);
+        byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
+        return UtilObject.getObject(decryptedBytes);
     }
 
     protected SecretKey findKey(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
