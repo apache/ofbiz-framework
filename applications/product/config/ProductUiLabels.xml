@@ -45,11 +45,6 @@
         <value xml:lang="vi">Kiểu trang web phân tích</value>
         <value xml:lang="zh_TW">網站分析型態</value>
     </property>
-    <property key="CatalogWebAnalyticsType">
-        <value xml:lang="de">Web Analytik Typ</value>
-        <value xml:lang="en">Web Analytics Type</value>
-        <value xml:lang="vi">Kiểu trang web phân tích</value>
-    </property>
     <property key="CreateNewProductFeatureType">
         <value xml:lang="de">Neuen Merkmaltyp erstellen</value>
         <value xml:lang="en">Create New Product Feature Type</value>
