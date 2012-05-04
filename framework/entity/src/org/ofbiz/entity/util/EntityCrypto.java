@@ -18,6 +18,7 @@
  */
 package org.ofbiz.entity.util;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
@@ -112,7 +113,13 @@ public class EntityCrypto {
             throw new EntityCryptoException("key(" + keyName + ") not found in database");
         }
         byte[] decryptedBytes = DesCrypt.decrypt(key, encryptedBytes);
-        return UtilObject.getObject(decryptedBytes);
+        try {
+            return UtilObject.getObjectException(decryptedBytes);
+        } catch (ClassNotFoundException e) {
+            throw new GeneralException(e);
+        } catch (IOException e) {
+            throw new GeneralException(e);
+        }
     }
 
     protected SecretKey findKey(String originalKeyName, boolean useOldFunnyKeyHash) throws EntityCryptoException {
