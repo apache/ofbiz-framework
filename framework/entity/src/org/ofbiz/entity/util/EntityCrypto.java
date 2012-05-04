@@ -107,8 +107,8 @@ public class EntityCrypto {
     }
 
     protected Object doDecrypt(String keyName, byte[] encryptedBytes, boolean useOldFunnyKeyHash) throws GeneralException {
-        SecretKey decryptKey = this.findKey(keyName, false);
-        byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
+        SecretKey key = this.findKey(keyName, false);
+        byte[] decryptedBytes = DesCrypt.decrypt(key, encryptedBytes);
         return UtilObject.getObject(decryptedBytes);
     }
 
