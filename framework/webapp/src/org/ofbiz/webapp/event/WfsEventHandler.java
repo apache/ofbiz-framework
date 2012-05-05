@@ -109,7 +109,7 @@ public class WfsEventHandler implements EventHandler {
             // run simple method script to get a list of entities
             Document simpleDoc = UtilXml.readXmlDocument(xmlScript);
             Element simpleElem = simpleDoc.getDocumentElement();
-            SimpleMethod meth = new SimpleMethod(simpleElem, null, null);
+            SimpleMethod meth = new SimpleMethod(simpleElem, null);
             MethodContext methodContext = new MethodContext(request, response, null);
             meth.exec(methodContext); //Need to check return string
             List<GenericValue> entityList = UtilGenerics.cast(request.getAttribute("entityList"));
