@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.util.test;
 
-
-import org.ofbiz.base.test.GenericTestCaseBase;
-import org.ofbiz.base.util.UtilProperties;
-import java.nio.charset.Charset;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.Properties;
+
+import org.ofbiz.base.test.GenericTestCaseBase;
+import org.ofbiz.base.util.UtilProperties;
 
 public class UtilPropertiesTests extends GenericTestCaseBase {
 
@@ -66,7 +66,7 @@ public class UtilPropertiesTests extends GenericTestCaseBase {
     }
 
     private Properties xmlToProperties(String separator) throws IOException {
-        String xmlData = new String("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        String xmlData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<resource xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                 "          xsi:noNamespaceSchemaLocation=\"http://ofbiz.apache.org/dtds/ofbiz-properties.xsd\">\n" +
                 "    <property key=\"PropertyKey\">\n" +
@@ -74,7 +74,7 @@ public class UtilPropertiesTests extends GenericTestCaseBase {
                 language + separator + country +
                 "\">Key Value</value>\n" +
                 "    </property>\n" +
-                "</resource>");
+                "</resource>";
         InputStream in = new ByteArrayInputStream(new String(xmlData.getBytes(), Charset.forName("UTF-8")).getBytes());
         return UtilProperties.xmlToProperties(in, locale, null);
     }
