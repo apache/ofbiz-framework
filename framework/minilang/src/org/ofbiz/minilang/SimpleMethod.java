@@ -69,7 +69,6 @@ public final class SimpleMethod {
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
     private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
     private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
-    private static final UtilCache<URL, Map<String, SimpleMethod>> simpleMethodsURLCache = UtilCache.createUtilCache("minilang.SimpleMethodsURL", 0, 0);
 
     static {
         Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
@@ -95,16 +94,12 @@ public final class SimpleMethod {
 
     private static void compileAllSimpleMethods(Element rootElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
         for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
-            SimpleMethod simpleMethod = compileSimpleMethod(simpleMethodElement, simpleMethods, location);
+            SimpleMethod simpleMethod = new SimpleMethod(simpleMethodElement, location);
             if (simpleMethods.containsKey(simpleMethod.getMethodName())) {
                 MiniLangValidate.handleError("Duplicate method name found", simpleMethod, simpleMethodElement);
             }
             simpleMethods.put(simpleMethod.getMethodName(), simpleMethod);
         }
-    }
-
-    private static SimpleMethod compileSimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
-        return new SimpleMethod(simpleMethodElement, simpleMethods, location);
     }
 
     private static Map<String, SimpleMethod> getAllDirectSimpleMethods(String name, String content, String fromLocation) throws MiniLangException {
@@ -148,33 +143,40 @@ public final class SimpleMethod {
         return simpleMethods;
     }
 
-    public static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
-        Assert.notNull("xmlResource", xmlResource);
-        Map<String, SimpleMethod> simpleMethods = simpleMethodsResourceCache.get(xmlResource);
-        if (simpleMethods == null) {
-            URL xmlURL = null;
-            try {
-                xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
-            } catch (MalformedURLException e) {
-                throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
-            }
-            if (xmlURL == null) {
-                throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource);
-            }
-            simpleMethods = getAllSimpleMethods(xmlURL);
-            simpleMethodsResourceCache.putIfAbsent(xmlResource, simpleMethods);
-            simpleMethods = simpleMethodsResourceCache.get(xmlResource);
-        }
-        return simpleMethods;
+    public static SimpleMethod getSimpleMethod(String xmlResource, String methodName, ClassLoader loader) throws MiniLangException {
+        Assert.notNull("methodName", methodName);
+        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, loader);
+        return simpleMethods.get(methodName);
     }
 
-    public static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
+    public static SimpleMethod getSimpleMethod(URL xmlUrl, String methodName) throws MiniLangException {
+        Assert.notNull("methodName", methodName);
+        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlUrl);
+        return simpleMethods.get(methodName);
+    }
+
+    private static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
+        Assert.notNull("xmlResource", xmlResource);
+        URL xmlURL = null;
+        try {
+            xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
+        } catch (MalformedURLException e) {
+            throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + "; error was: " + e.toString(), e);
+        }
+        if (xmlURL == null) {
+            throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource);
+        }
+        return getSimpleMethods(xmlURL);
+    }
+
+    private static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
         Assert.notNull("xmlURL", xmlURL);
-        Map<String, SimpleMethod> simpleMethods = simpleMethodsURLCache.get(xmlURL);
+        String cacheKey = xmlURL.toString();
+        Map<String, SimpleMethod> simpleMethods = simpleMethodsResourceCache.get(cacheKey);
         if (simpleMethods == null) {
             simpleMethods = getAllSimpleMethods(xmlURL);
-            simpleMethodsURLCache.putIfAbsent(xmlURL, simpleMethods);
-            simpleMethods = simpleMethodsURLCache.get(xmlURL);
+            simpleMethodsResourceCache.putIfAbsent(cacheKey, simpleMethods);
+            simpleMethods = simpleMethodsResourceCache.get(cacheKey);
         }
         return simpleMethods;
     }
@@ -183,7 +185,7 @@ public final class SimpleMethod {
         Assert.notNull("xmlResource", xmlResource);
         List<SimpleMethod> simpleMethods = FastList.newInstance();
         // Let the standard Map returning method take care of caching and compilation
-        Map<String, SimpleMethod> simpleMethodMap = SimpleMethod.getSimpleMethods(xmlResource, loader);
+        Map<String, SimpleMethod> simpleMethodMap = getSimpleMethods(xmlResource, loader);
         // Load and traverse the document again to get a correctly ordered list of methods
         URL xmlURL = null;
         try {
@@ -247,9 +249,8 @@ public final class SimpleMethod {
     }
 
     public static String runSimpleMethod(String xmlResource, String methodName, MethodContext methodContext) throws MiniLangException {
-        Assert.notNull("methodName", methodName, "methodContext", methodContext);
-        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, methodContext.getLoader());
-        SimpleMethod simpleMethod = simpleMethods.get(methodName);
+        Assert.notNull("methodContext", methodContext);
+        SimpleMethod simpleMethod = getSimpleMethod(xmlResource, methodName, methodContext.getLoader());
         if (simpleMethod == null) {
             throw new MiniLangException("Could not find SimpleMethod " + methodName + " in XML document in resource: " + xmlResource);
         }
@@ -257,9 +258,7 @@ public final class SimpleMethod {
     }
 
     public static String runSimpleMethod(URL xmlURL, String methodName, MethodContext methodContext) throws MiniLangException {
-        Assert.notNull("methodName", methodName, "methodContext", methodContext);
-        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlURL);
-        SimpleMethod simpleMethod = simpleMethods.get(methodName);
+        SimpleMethod simpleMethod = getSimpleMethod(xmlURL, methodName);
         if (simpleMethod == null) {
             throw new MiniLangException("Could not find SimpleMethod " + methodName + " in XML document from URL: " + xmlURL.toString());
         }
@@ -312,7 +311,6 @@ public final class SimpleMethod {
     private final boolean loginRequired;
     private final String methodName;
     private final List<MethodOperation> methodOperations;
-    private final Map<String, SimpleMethod> parentSimpleMethodsMap;
     private final String serviceErrorMessageListName;
     private final String serviceErrorMessageMapName;
     private final String serviceErrorMessageName;
@@ -322,7 +320,7 @@ public final class SimpleMethod {
     private final String shortDescription;
     private final boolean useTransaction;
 
-    public SimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> parentSimpleMethodsMap, String fromLocation) throws MiniLangException {
+    public SimpleMethod(Element simpleMethodElement, String fromLocation) throws MiniLangException {
         if (MiniLangValidate.validationOn()) {
             String locationMsg = " File = ".concat(fromLocation);
             if (simpleMethodElement.getAttribute("method-name").isEmpty()) {
@@ -330,7 +328,7 @@ public final class SimpleMethod {
             }
             for (int i = 0; i < DEPRECATED_ATTRIBUTES.length; i++) {
                 if (!simpleMethodElement.getAttribute(DEPRECATED_ATTRIBUTES[i]).isEmpty()) {
-                    MiniLangValidate.handleError("Attribute \"" + DEPRECATED_ATTRIBUTES[i] + "\" is deprecated (no replacement)", null, simpleMethodElement);
+                    MiniLangValidate.handleError("Attribute \"" + DEPRECATED_ATTRIBUTES[i] + "\" is deprecated (no replacement)." + locationMsg, null, simpleMethodElement);
                 }
             }
         }
@@ -338,7 +336,6 @@ public final class SimpleMethod {
         if (elementModified && MiniLangUtil.autoCorrectOn()) {
             MiniLangUtil.flagDocumentAsCorrected(simpleMethodElement);
         }
-        this.parentSimpleMethodsMap = parentSimpleMethodsMap;
         this.fromLocation = fromLocation;
         methodName = simpleMethodElement.getAttribute("method-name");
         shortDescription = simpleMethodElement.getAttribute("short-description");
@@ -661,12 +658,6 @@ public final class SimpleMethod {
 
     public String getShortDescription() {
         return this.shortDescription + " [" + this.fromLocation + "#" + this.methodName + "]";
-    }
-
-    public SimpleMethod getSimpleMethodInSameFile(String simpleMethodName) {
-        if (parentSimpleMethodsMap == null)
-            return null;
-        return parentSimpleMethodsMap.get(simpleMethodName);
     }
 
     public String getUserLoginEnvName() {
