@@ -25,12 +25,15 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.envops.Break.BreakElementException;
@@ -40,35 +43,41 @@ import org.w3c.dom.Element;
 /**
  * Process sub-operations for each entry in the list
  */
-public class Iterate extends MethodOperation {
+public final class Iterate extends MethodOperation {
 
     public static final String module = Iterate.class.getName();
 
-    protected ContextAccessor<Object> entryAcsr;
-    protected ContextAccessor<Object> listAcsr;
-    protected List<MethodOperation> subOps;
+    private final FlexibleMapAccessor<Object> entryFma;
+    private final FlexibleMapAccessor<Object> listFma;
+    private final List<MethodOperation> subOps;
 
     public Iterate(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
-        this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "entry", "list");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "entry", "list");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "entry", "list");
+        }
+        this.entryFma = FlexibleMapAccessor.getInstance(element.getAttribute("entry"));
+        this.listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
         this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (listAcsr.isEmpty()) {
-            Debug.logWarning("No list-name specified in iterate tag, doing nothing: " + rawString(), module);
+        if (listFma.isEmpty()) {
+            if (Debug.verboseOn())
+                Debug.logVerbose("Collection not found, doing nothing: " + this, module);
             return true;
         }
-        Object oldEntryValue = entryAcsr.get(methodContext);
-        Object objList = listAcsr.get(methodContext);
+        Object oldEntryValue = entryFma.get(methodContext.getEnvMap());
+        Object objList = listFma.get(methodContext.getEnvMap());
         if (objList instanceof EntityListIterator) {
             EntityListIterator eli = (EntityListIterator) objList;
             GenericValue theEntry;
             try {
                 while ((theEntry = eli.next()) != null) {
-                    entryAcsr.put(methodContext, theEntry);
+                    entryFma.put(methodContext.getEnvMap(), theEntry);
                     try {
                         for (MethodOperation methodOperation : subOps) {
                             if (!methodOperation.exec(methodContext)) {
@@ -86,31 +95,21 @@ public class Iterate extends MethodOperation {
                     }
                 }
             } finally {
-                // close the iterator
                 try {
                     eli.close();
                 } catch (GenericEntityException e) {
-                    Debug.logError(e, module);
-                    String errMsg = "ERROR: Error closing entityListIterator in " + simpleMethod.getShortDescription() + " [" + e.getMessage() + "]: " + rawString();
-                    if (methodContext.getMethodType() == MethodContext.EVENT) {
-                        methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
-                        methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-                    } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                        methodContext.putEnv(simpleMethod.getServiceErrorMessageName(), errMsg);
-                        methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-                    }
-                    return false;
+                    throw new MiniLangRuntimeException("Error closing entityListIterator: " + e.getMessage(), this);
                 }
             }
         } else if (objList instanceof Collection<?>) {
             Collection<Object> theCollection = UtilGenerics.checkCollection(objList);
             if (theCollection.size() == 0) {
                 if (Debug.verboseOn())
-                    Debug.logVerbose("Collection with name " + listAcsr + " has zero entries, doing nothing: " + rawString(), module);
+                    Debug.logVerbose("Collection has zero entries, doing nothing: " + this, module);
                 return true;
             }
             for (Object theEntry : theCollection) {
-                entryAcsr.put(methodContext, theEntry);
+                entryFma.put(methodContext.getEnvMap(), theEntry);
                 try {
                     for (MethodOperation methodOperation : subOps) {
                         if (!methodOperation.exec(methodContext)) {
@@ -131,12 +130,12 @@ public class Iterate extends MethodOperation {
             Iterator<Object> theIterator = UtilGenerics.cast(objList);
             if (!theIterator.hasNext()) {
                 if (Debug.verboseOn())
-                    Debug.logVerbose("List with name " + listAcsr + " has no more entries, doing nothing: " + rawString(), module);
+                    Debug.logVerbose("Iterator has zero entries, doing nothing: " + this, module);
                 return true;
             }
             while (theIterator.hasNext()) {
                 Object theEntry = theIterator.next();
-                entryAcsr.put(methodContext, theEntry);
+                entryFma.put(methodContext.getEnvMap(), theEntry);
                 try {
                     for (MethodOperation methodOperation : subOps) {
                         if (!methodOperation.exec(methodContext)) {
@@ -154,18 +153,17 @@ public class Iterate extends MethodOperation {
                 }
             }
         } else {
-            if (Debug.infoOn())
-                Debug.logInfo("List not found with name " + listAcsr + ", doing nothing: " + rawString(), module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Cannot iterate over a " + objList.getClass().getName() + ", doing nothing: " + this, module);
             return true;
         }
-        entryAcsr.put(methodContext, oldEntryValue);
+        entryFma.put(methodContext.getEnvMap(), oldEntryValue);
         return true;
     }
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     public List<MethodOperation> getSubOps() {
@@ -174,8 +172,20 @@ public class Iterate extends MethodOperation {
 
     @Override
     public String rawString() {
-        // TODO: something more than the empty tag
-        return "<iterate list-name=\"" + this.listAcsr + "\" entry-name=\"" + this.entryAcsr + "\"/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<iterate ");
+        if (!this.entryFma.isEmpty()) {
+            sb.append("entry=\"").append(this.entryFma).append("\" ");
+        }
+        if (!this.listFma.isEmpty()) {
+            sb.append("list=\"").append(this.listFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class IterateFactory implements Factory<Iterate> {

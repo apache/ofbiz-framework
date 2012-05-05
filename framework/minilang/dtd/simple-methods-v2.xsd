@@ -3409,34 +3409,32 @@ under the License.
     <xs:element name="iterate" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                The operations contained by the iterate tag will be executed for each of the entries in the list,
-                and will make the current entry available in the method environment by the entry-name specified.
-                This tag can contain any of the simple-method operations, including the conditional/if operations.
-
-                Any simple-method operation can be nested under the iterate tag.
+                The operations contained in the iterate element will be executed for each of the entries in the list,
+                and will make the current entry available in the environment by the name specified.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-            <xs:attributeGroup ref="attlist.iterate"/>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+            <xs:attribute type="xs:string" name="entry" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field that will contain each entry in the list.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field that contains the list to iterate over.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.iterate">
-        <xs:attribute type="xs:string" name="entry" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that will contain each entry as we iterate through the list.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the list to iterate over.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="iterate-map" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
