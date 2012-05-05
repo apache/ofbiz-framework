@@ -91,7 +91,7 @@ public final class CallBsh extends MethodOperation {
             if (UtilValidate.isNotEmpty(this.resource)) {
                 InputStream is = methodContext.getLoader().getResourceAsStream(this.resource);
                 if (is == null) {
-                    addErrorMessage(methodContext, "Could not find bsh resource: " + this.resource);
+                    this.simpleMethod.addErrorMessage(methodContext, "Could not find bsh resource: " + this.resource);
                 } else {
                     BufferedReader reader = null;
                     try {
@@ -108,13 +108,13 @@ public final class CallBsh extends MethodOperation {
                             methodContext.putAllEnv(UtilGenerics.<String, Object> checkMap(resourceResult));
                         }
                     } catch (IOException e) {
-                        addErrorMessage(methodContext, "IO error loading bsh resource: " + e.getMessage());
+                        this.simpleMethod.addErrorMessage(methodContext, "IO error loading bsh resource: " + e.getMessage());
                     } finally {
                         if (reader != null) {
                             try {
                                 reader.close();
                             } catch (IOException e) {
-                                addErrorMessage(methodContext, "IO error closing BufferedReader: " + e.getMessage());
+                                this.simpleMethod.addErrorMessage(methodContext, "IO error closing BufferedReader: " + e.getMessage());
                             }
                         }
                     }
@@ -132,7 +132,7 @@ public final class CallBsh extends MethodOperation {
             }
         } catch (EvalError e) {
             Debug.logWarning(e, "BeanShell execution caused an error", module);
-            addErrorMessage(methodContext, "BeanShell execution caused an error: " + e.getMessage());
+            this.simpleMethod.addErrorMessage(methodContext, "BeanShell execution caused an error: " + e.getMessage());
         }
         // always return true, error messages just go on the error list
         return true;
