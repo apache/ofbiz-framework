@@ -30,7 +30,7 @@ rm -f $OFBIZ_LOG
 #automatic IP address for linux
 #IPADDR=`/sbin/ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}'`
 #RMIIF="-Djava.rmi.server.hostname=$IPADDR"
-MEMIF="-Xms128M -Xmx512M -XX:MaxPermSize=512m"
+MEMIF="-Xms512M -Xmx640M -XX:MaxPermSize=512m"
 #JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=33333 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
 #MISC="-Duser.language=en"
 VMARGS="$MEMIF $MISC $JMX $DEBUG $RMIIF"
@@ -49,5 +49,5 @@ fi
 #BUILD_ID=dontKillMe
 
 # start ofbiz
-#$JAVA $VMARGS -jar ofbiz.jar $* >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
-exec "$JAVA" $VMARGS -jar ofbiz.jar "$@"
+$JAVA $VMARGS -jar ofbiz.jar $* >>$OFBIZ_LOG 2>>$OFBIZ_LOG&
+#exec "$JAVA" $VMARGS -jar ofbiz.jar "$@"
