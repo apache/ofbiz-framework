@@ -246,19 +246,6 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="parameter-map-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field containing the parameters map. Defaults to "parameters".
-                        &lt;br/&gt;&lt;br/&gt;
-                        When the simple method is invoked as an event, the parameters map contains the request parameters.
-                        When the simple method is invoked as a service, the parameters map contains the service IN attributes.
-                        The parameters map should not be modified, but modification is permitted for backward compatibility.
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
             <xs:attribute type="xs:string" name="event-request-object-name">
                 <xs:annotation>
                     <xs:documentation>
@@ -380,51 +367,6 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="locale-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field containing the java.util.Locale object. Defaults to "locale".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="delegator-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field containing the org.ofbiz.entity.Delegator object. Defaults to "delegator".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="security-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field containing the org.ofbiz.security.Security object. Defaults to "security".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="dispatcher-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field containing the org.ofbiz.service.LocalDispatcher object. Defaults to "dispatcher".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="user-login-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the field containing the UserLogin GenericValue. Defaults to "userLogin".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="call-map-processor" substitutionGroup="CallOperations">
@@ -500,34 +442,41 @@ under the License.
     <xs:element name="set-service-fields" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Take all the incoming files for this service, or all the incoming service attributes,
-                and look for fields with the same name in the incoming map and copy those onto the outgoing map.
+                Copies elements from a source map that match a service's IN attributes to a target map.
+                If the target map does not exist, one will be created.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.set-service-fields"/>
+            <xs:attribute type="xs:string" name="service-name" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the service to get the IN attributes from.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant+expr.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The map to copy the matching IN attributes from.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="to-map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The map to copy the matching IN attributes to.
+                        If the map does not exist, one will be created.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.set-service-fields">
-        <xs:attribute type="xs:string" name="service-name" use="required">
-            <xs:annotation><xs:documentation>Name of the service to get all the incoming attributes (parameters) from.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map" use="required">
-            <xs:annotation><xs:documentation>Incoming map to copy fields from.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="to-map" use="required">
-            <xs:annotation><xs:documentation>Map to copy to fields to.</xs:documentation></xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a list in the method environment that the error messages will be added to.
-                    Will be created if it does not exist.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="call-service" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
