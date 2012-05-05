@@ -60,15 +60,6 @@ public final class SetOperation extends MethodOperation {
             element.removeAttribute("from-field");
             elementModified = true;
         }
-        fromAttr = element.getAttribute("from").trim();
-        // Correct from attribute wrapped in ${}
-        if (fromAttr.startsWith("${") && fromAttr.endsWith("}")) {
-            fromAttr = fromAttr.substring(2, fromAttr.length() - 1);
-            if (!fromAttr.contains("${")) {
-                element.setAttribute("from", fromAttr);
-                elementModified = true;
-            }
-        }
         // Correct value attribute expression that belongs in from attribute
         String valueAttr = element.getAttribute("value").trim();
         if (valueAttr.startsWith("${") && valueAttr.endsWith("}")) {
@@ -103,6 +94,7 @@ public final class SetOperation extends MethodOperation {
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
             MiniLangValidate.constantAttributes(simpleMethod, element, "type", "set-if-null", "set-if-empty");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field", "from-field", "from");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         boolean elementModified = autoCorrect(element);

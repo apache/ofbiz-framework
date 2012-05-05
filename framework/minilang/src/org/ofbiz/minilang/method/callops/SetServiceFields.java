@@ -65,6 +65,7 @@ public final class SetServiceFields extends MethodOperation {
             MiniLangValidate.attributeNames(simpleMethod, element, "service-name", "map", "to-map");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "service-name", "map", "to-map");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "service-name");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "map", "to-map");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         boolean elementModified = autoCorrect(element);

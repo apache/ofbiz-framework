@@ -148,7 +148,7 @@ public final class MiniLangValidate {
             String attributeValue = element.getAttribute(name);
             if (attributeValue.length() > 0) {
                 if (attributeValue.startsWith("${") && attributeValue.endsWith("}")) {
-                    handleError("Expression attribute \"" + name + "\" enclosed in \"${}\" (remove enclosing ${}).", method, element);
+                    attributeValue = attributeValue.substring(2, attributeValue.length() - 1);
                 }
                 if (MiniLangUtil.containsScript(attributeValue)) {
                     handleError("Expression attribute \"" + name + "\" cannot contain a script (remove script).", method, element);
