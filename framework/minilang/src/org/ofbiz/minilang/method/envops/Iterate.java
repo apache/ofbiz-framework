@@ -111,9 +111,20 @@ public class Iterate extends MethodOperation {
             }
             for (Object theEntry : theCollection) {
                 entryAcsr.put(methodContext, theEntry);
-                if (!SimpleMethod.runSubOps(subOps, methodContext)) {
-                    // only return here if it returns false, otherwise just carry on
-                    return false;
+                try {
+                    for (MethodOperation methodOperation : subOps) {
+                        if (!methodOperation.exec(methodContext)) {
+                            return false;
+                        }
+                    }
+                } catch (MiniLangException e) {
+                    if (e instanceof BreakElementException) {
+                        break;
+                    }
+                    if (e instanceof ContinueElementException) {
+                        continue;
+                    }
+                    throw e;
                 }
             }
         } else if (objList instanceof Iterator<?>) {
@@ -126,9 +137,20 @@ public class Iterate extends MethodOperation {
             while (theIterator.hasNext()) {
                 Object theEntry = theIterator.next();
                 entryAcsr.put(methodContext, theEntry);
-                if (!SimpleMethod.runSubOps(subOps, methodContext)) {
-                    // only return here if it returns false, otherwise just carry on
-                    return false;
+                try {
+                    for (MethodOperation methodOperation : subOps) {
+                        if (!methodOperation.exec(methodContext)) {
+                            return false;
+                        }
+                    }
+                } catch (MiniLangException e) {
+                    if (e instanceof BreakElementException) {
+                        break;
+                    }
+                    if (e instanceof ContinueElementException) {
+                        continue;
+                    }
+                    throw e;
                 }
             }
         } else {
