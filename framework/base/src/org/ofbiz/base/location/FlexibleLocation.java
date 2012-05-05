@@ -20,39 +20,66 @@ package org.ofbiz.base.location;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Map.Entry;
 
-import javolution.util.FastMap;
-
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
 /**
- * A special location resolver that uses Strings like URLs, but with more options
+ * A special location resolver that uses Strings like URLs, but with more options.
  *
  */
 
-public class FlexibleLocation {
+public final class FlexibleLocation {
 
-    protected static Map<String, LocationResolver> locationResolvers = FastMap.newInstance();
-
-    protected static Map<String, String> defaultResolvers = FastMap.newInstance();
-
-    protected static String standardUrlResolverName = StandardUrlLocationResolver.class.getName();
-    protected static String classpathResolverName = ClasspathLocationResolver.class.getName();
-    protected static String ofbizHomeResolverName = OFBizHomeLocationResolver.class.getName();
-    protected static String componentResolverName = ComponentLocationResolver.class.getName();
+    public static final String module = FlexibleLocation.class.getName();
+    private static final Map<String, LocationResolver> locationResolvers;
 
     static {
-        defaultResolvers.put("http", standardUrlResolverName);
-        defaultResolvers.put("https", standardUrlResolverName);
-        defaultResolvers.put("ftp", standardUrlResolverName);
-        defaultResolvers.put("jar", standardUrlResolverName);
-        defaultResolvers.put("file", standardUrlResolverName);
+        Map<String, LocationResolver> resolverMap = new HashMap<String, LocationResolver>(8);
+        LocationResolver standardUrlResolver = new StandardUrlLocationResolver();
+        resolverMap.put("http", standardUrlResolver);
+        resolverMap.put("https", standardUrlResolver);
+        resolverMap.put("ftp", standardUrlResolver);
+        resolverMap.put("jar", standardUrlResolver);
+        resolverMap.put("file", standardUrlResolver);
+        resolverMap.put("classpath", new ClasspathLocationResolver());
+        resolverMap.put("ofbizhome", new OFBizHomeLocationResolver());
+        resolverMap.put("component", new ComponentLocationResolver());
+        try {
+            Properties properties = UtilProperties.getProperties("locationresolvers.properties");
+            if (properties != null) {
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                for (Entry<Object, Object> entry : properties.entrySet()) {
+                    String locationType = (String) entry.getKey();
+                    String locationResolverName = (String) entry.getValue();
+                    Class<?> lClass = classLoader.loadClass(locationResolverName);
+                    resolverMap.put(locationType, (LocationResolver) lClass.newInstance());
+                }
+            }
+        } catch (Throwable e) {
+            Debug.logWarning(e, "Error while loading resolvers from locationresolvers.properties: ", module);
+        }
+        locationResolvers = Collections.unmodifiableMap(resolverMap);
+    }
 
-        defaultResolvers.put("classpath", classpathResolverName);
-        defaultResolvers.put("ofbizhome", ofbizHomeResolverName);
-        defaultResolvers.put("component", componentResolverName);
+    /**
+     * Find the location type descriptor for the passed location String;
+     *   generally is all text before the first ":" character.
+     *   If no type descriptor is found, defaults to "classpath".
+     */
+    private static String getLocationType(String location) {
+        int colonIndex = location.indexOf(":");
+        if (colonIndex > 0) {
+            return location.substring(0, colonIndex);
+        } else {
+            return "classpath";
+        }
     }
 
     /**
@@ -78,52 +105,7 @@ public class FlexibleLocation {
             return null;
         }
         String locationType = getLocationType(location);
-
         LocationResolver resolver = locationResolvers.get(locationType);
-        if (resolver == null) {
-            synchronized (FlexibleLocation.class) {
-                resolver = locationResolvers.get(locationType);
-                if (resolver == null) {
-                    String locationResolverName = UtilProperties.getPropertyValue("locationresolvers", locationType);
-                    if (UtilValidate.isEmpty(locationResolverName)) {
-                        // try one of the defaults
-                        locationResolverName = defaultResolvers.get(locationType);
-                    }
-
-                    if (UtilValidate.isEmpty(locationResolverName)) {
-                        // still nothing, give up
-                        throw new MalformedURLException("Could not find a LocationResolver class name for the location type: " + locationType);
-                    }
-
-                    // now create a new instance of the class...
-                    try {
-                        Class<?> lClass = null;
-
-                        try {
-                            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                            lClass = classLoader.loadClass(locationResolverName);
-                        } catch (ClassNotFoundException e) {
-                            throw new MalformedURLException("Error loading Location Resolver class \"" + locationResolverName + "\": " + e.toString());
-                        }
-
-                        try {
-                            resolver = (LocationResolver) lClass.newInstance();
-                        } catch (IllegalAccessException e) {
-                            throw new MalformedURLException("Error loading Location Resolver class \"" + locationResolverName + "\": " + e.toString());
-                        } catch (InstantiationException e) {
-                            throw new MalformedURLException("Error loading Location Resolver class \"" + locationResolverName + "\": " + e.toString());
-                        }
-                    } catch (SecurityException e) {
-                        throw new MalformedURLException("Error loading Location Resolver class \"" + locationResolverName + "\": " + e.toString());
-                    }
-
-                    if (resolver != null) {
-                        locationResolvers.put(locationType, resolver);
-                    }
-                }
-            }
-        }
-
         if (resolver != null) {
             if (loader != null && resolver instanceof ClasspathLocationResolver) {
                 ClasspathLocationResolver cplResolver = (ClasspathLocationResolver) resolver;
@@ -136,31 +118,11 @@ public class FlexibleLocation {
         }
     }
 
-    /**
-     * Find the location type descriptor for the passed location String;
-     *   generally is all text before the first ":" character.
-     *   If no type descriptor is found, defaults to "classpath".
-     */
-    public static String getLocationType(String location) {
-        if (UtilValidate.isEmpty(location)) {
-            return null;
-        }
-
-        int colonIndex = location.indexOf(":");
-        if (colonIndex > 0) {
-            return location.substring(0, colonIndex);
-        } else {
-            return "classpath";
-        }
-    }
-
     public static String stripLocationType(String location) {
         if (UtilValidate.isEmpty(location)) {
             return "";
         }
-
         StringBuilder strippedSoFar = new StringBuilder(location);
-
         // first take care of the colon and everything before it
         int colonIndex = strippedSoFar.indexOf(":");
         if (colonIndex == 0) {
@@ -168,12 +130,12 @@ public class FlexibleLocation {
         } else if (colonIndex > 0) {
             strippedSoFar.delete(0, colonIndex + 1);
         }
-
         // now remove any extra forward slashes, ie as long as the first two are forward slashes remove the first one
         while (strippedSoFar.charAt(0) == '/' && strippedSoFar.charAt(1) == '/') {
             strippedSoFar.deleteCharAt(0);
         }
-
         return strippedSoFar.toString();
     }
+
+    private FlexibleLocation() {}
 }
