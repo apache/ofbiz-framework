@@ -65,6 +65,7 @@ public final class SimpleMethod {
 
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
+    private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
     private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
     private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
@@ -78,6 +79,18 @@ public final class SimpleMethod {
             mapFactories.put(factory.getName(), factory);
         }
         methodOperationFactories = Collections.unmodifiableMap(mapFactories);
+    }
+
+    // This method is needed only during the v1 to v2 transition
+    private static boolean autoCorrect(Element element) {
+        boolean elementModified = false;
+        for (int i = 0; i < DEPRECATED_ATTRIBUTES.length; i++) {
+            if (!element.getAttribute(DEPRECATED_ATTRIBUTES[i]).isEmpty()) {
+                element.removeAttribute(DEPRECATED_ATTRIBUTES[i]);
+                elementModified = true;
+            }
+        }
+        return elementModified;
     }
 
     private static void compileAllSimpleMethods(Element rootElement, Map<String, SimpleMethod> simpleMethods, String location) throws MiniLangException {
@@ -287,8 +300,6 @@ public final class SimpleMethod {
 
     private final String defaultErrorCode;
     private final String defaultSuccessCode;
-    private final String delegatorName;
-    private final String dispatcherName;
     private final String eventErrorMessageListName;
     private final String eventErrorMessageName;
     private final String eventEventMessageListName;
@@ -298,13 +309,10 @@ public final class SimpleMethod {
     private final String eventResponseName;
     private final String eventSessionName;
     private final String fromLocation;
-    private final String localeName;
     private final boolean loginRequired;
     private final String methodName;
     private final List<MethodOperation> methodOperations;
-    private final String parameterMapName;
     private final Map<String, SimpleMethod> parentSimpleMethodsMap;
-    private final String securityName;
     private final String serviceErrorMessageListName;
     private final String serviceErrorMessageMapName;
     private final String serviceErrorMessageName;
@@ -312,7 +320,6 @@ public final class SimpleMethod {
     private final String serviceSuccessMessageListName;
     private final String serviceSuccessMessageName;
     private final String shortDescription;
-    private final String userLoginName;
     private final boolean useTransaction;
 
     public SimpleMethod(Element simpleMethodElement, Map<String, SimpleMethod> parentSimpleMethodsMap, String fromLocation) throws MiniLangException {
@@ -321,6 +328,15 @@ public final class SimpleMethod {
             if (simpleMethodElement.getAttribute("method-name").isEmpty()) {
                 MiniLangValidate.handleError("Element must include the \"method-name\" attribute.".concat(locationMsg), null, simpleMethodElement);
             }
+            for (int i = 0; i < DEPRECATED_ATTRIBUTES.length; i++) {
+                if (!simpleMethodElement.getAttribute(DEPRECATED_ATTRIBUTES[i]).isEmpty()) {
+                    MiniLangValidate.handleError("Attribute \"" + DEPRECATED_ATTRIBUTES[i] + "\" is deprecated (no replacement)", null, simpleMethodElement);
+                }
+            }
+        }
+        boolean elementModified = autoCorrect(simpleMethodElement);
+        if (elementModified && MiniLangUtil.autoCorrectOn()) {
+            MiniLangUtil.flagDocumentAsCorrected(simpleMethodElement);
         }
         this.parentSimpleMethodsMap = parentSimpleMethodsMap;
         this.fromLocation = fromLocation;
@@ -328,7 +344,6 @@ public final class SimpleMethod {
         shortDescription = simpleMethodElement.getAttribute("short-description");
         defaultErrorCode = UtilXml.elementAttribute(simpleMethodElement, "default-error-code", "error");
         defaultSuccessCode = UtilXml.elementAttribute(simpleMethodElement, "default-success-code", "success");
-        parameterMapName = UtilXml.elementAttribute(simpleMethodElement, "parameter-map-name", "parameters");
         eventRequestName = UtilXml.elementAttribute(simpleMethodElement, "event-request-object-name", "request");
         eventSessionName = UtilXml.elementAttribute(simpleMethodElement, "event-session-object-name", "session");
         eventResponseName = UtilXml.elementAttribute(simpleMethodElement, "event-response-object-name", "response");
@@ -345,11 +360,6 @@ public final class SimpleMethod {
         serviceSuccessMessageListName = UtilXml.elementAttribute(simpleMethodElement, "service-success-message-list-name", "successMessageList");
         loginRequired = !"false".equals(simpleMethodElement.getAttribute("login-required"));
         useTransaction = !"false".equals(simpleMethodElement.getAttribute("use-transaction"));
-        localeName = UtilXml.elementAttribute(simpleMethodElement, "locale-name", "locale");
-        delegatorName = UtilXml.elementAttribute(simpleMethodElement, "delegator-name", "delegator");
-        securityName = UtilXml.elementAttribute(simpleMethodElement, "security-name", "security");
-        dispatcherName = UtilXml.elementAttribute(simpleMethodElement, "dispatcher-name", "dispatcher");
-        userLoginName = UtilXml.elementAttribute(simpleMethodElement, "user-login-name", "userLogin");
         methodOperations = Collections.unmodifiableList(readOperations(simpleMethodElement, this));
     }
 
@@ -374,26 +384,8 @@ public final class SimpleMethod {
 
     /** Execute the Simple Method operations */
     public String exec(MethodContext methodContext) throws MiniLangException {
-        // always put the null field object in as "null"
-        methodContext.putEnv("null", GenericEntity.NULL_FIELD);
-        methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);
-        methodContext.putEnv(delegatorName, methodContext.getDelegator());
-        methodContext.putEnv(securityName, methodContext.getSecurity());
-        methodContext.putEnv(dispatcherName, methodContext.getDispatcher());
-        methodContext.putEnv(localeName, methodContext.getLocale());
-        methodContext.putEnv(parameterMapName, methodContext.getParameters());
-        if (methodContext.getMethodType() == MethodContext.EVENT) {
-            methodContext.putEnv(eventRequestName, methodContext.getRequest());
-            methodContext.putEnv(eventSessionName, methodContext.getRequest().getSession());
-            methodContext.putEnv(eventResponseName, methodContext.getResponse());
-        }
-        methodContext.putEnv("methodName", this.getMethodName());
-        methodContext.putEnv("methodShortDescription", this.getShortDescription());
-        GenericValue userLogin = methodContext.getUserLogin();
         Locale locale = methodContext.getLocale();
-        if (userLogin != null) {
-            methodContext.putEnv(userLoginName, userLogin);
-        }
+        GenericValue userLogin = methodContext.getUserLogin();
         if (loginRequired) {
             if (userLogin == null) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object> toMap("shortDescription", shortDescription);
@@ -401,6 +393,24 @@ public final class SimpleMethod {
                 return returnError(methodContext, errMsg);
             }
         }
+        if (userLogin != null) {
+            methodContext.putEnv(getUserLoginEnvName(), userLogin);
+        }
+        // always put the null field object in as "null"
+        methodContext.putEnv("null", GenericEntity.NULL_FIELD);
+        methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);
+        methodContext.putEnv(getDelegatorEnvName(), methodContext.getDelegator());
+        methodContext.putEnv(getSecurityEnvName(), methodContext.getSecurity());
+        methodContext.putEnv(getDispatcherEnvName(), methodContext.getDispatcher());
+        methodContext.putEnv("locale", locale);
+        methodContext.putEnv(getParameterMapName(), methodContext.getParameters());
+        if (methodContext.getMethodType() == MethodContext.EVENT) {
+            methodContext.putEnv(eventRequestName, methodContext.getRequest());
+            methodContext.putEnv(eventSessionName, methodContext.getRequest().getSession());
+            methodContext.putEnv(eventResponseName, methodContext.getResponse());
+        }
+        methodContext.putEnv("methodName", this.getMethodName());
+        methodContext.putEnv("methodShortDescription", this.getShortDescription());
         // if using transaction, try to start here
         boolean beganTransaction = false;
         if (useTransaction) {
@@ -560,11 +570,11 @@ public final class SimpleMethod {
     }
 
     public String getDelegatorEnvName() {
-        return this.delegatorName;
+        return "delegator";
     }
 
     public String getDispatcherEnvName() {
-        return this.dispatcherName;
+        return "dispatcher";
     }
 
     public String getEventErrorMessageListName() {
@@ -617,11 +627,11 @@ public final class SimpleMethod {
     }
 
     public String getParameterMapName() {
-        return this.parameterMapName;
+        return "parameters";
     }
 
     public String getSecurityEnvName() {
-        return this.securityName;
+        return "security";
     }
 
     public String getServiceErrorMessageListName() {
@@ -659,7 +669,7 @@ public final class SimpleMethod {
     }
 
     public String getUserLoginEnvName() {
-        return this.userLoginName;
+        return "userLogin";
     }
 
     public boolean getUseTransaction() {
