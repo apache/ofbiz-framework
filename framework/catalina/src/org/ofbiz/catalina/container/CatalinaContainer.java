@@ -20,6 +20,7 @@ package org.ofbiz.catalina.container;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -77,8 +78,8 @@ import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerConfig.Container.Property;
 import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
@@ -619,17 +620,26 @@ public class CatalinaContainer implements Container {
             mount = mount.substring(0, mount.length() - 2);
         }
 
+        final String webXmlFilePath = new StringBuilder().append("file:///").append(location).append("/WEB-INF/web.xml").toString();
 
-        final String webXmlFilePath = new StringBuilder().append(location)
-            .append(File.separatorChar).append("WEB-INF")
-            .append(File.separatorChar).append("web.xml").toString();
-        boolean appIsDistributable = false;
+        URL webXmlUrl;
         try {
-            appIsDistributable = FileUtil.containsString(webXmlFilePath, "<distributable/>");
-        } catch (IOException e) {
-            Debug.logWarning(String.format("Failed to read web.xml [%s].", webXmlFilePath), module);
-            appIsDistributable = false;
+            webXmlUrl = FlexibleLocation.resolveLocation(webXmlFilePath);
+        } catch (MalformedURLException e) {
+            throw new ContainerException(e);
         }
+        Document webXmlDoc = null;
+        try {
+            webXmlDoc = UtilXml.readXmlDocument(webXmlUrl);
+        } catch (SAXException se) {
+            throw new ContainerException(se);
+        } catch (ParserConfigurationException pce) {
+            throw new ContainerException(pce);
+        } catch (IOException ioe) {
+            throw new ContainerException(ioe);
+        }
+
+        boolean appIsDistributable = webXmlDoc.getElementsByTagName("distributable").getLength() > 0 ? true : false;
         final boolean contextIsDistributable = distribute && appIsDistributable;
 
         // configure persistent sessions
