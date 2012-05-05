@@ -19,15 +19,12 @@
 
 package org.ofbiz.shipment.thirdparty.fedex;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -58,7 +55,6 @@ import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.shipment.shipment.ShipmentServices;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
  * Fedex Shipment Services
@@ -364,24 +360,12 @@ public class FedexServices {
             try {
                 fDXSubscriptionReplyDocument = UtilXml.readXmlDocument(fDXSubscriptionReplyString, false);
                 Debug.logInfo("Fedex response for FDXSubscriptionRequest:" + fDXSubscriptionReplyString, module);
-            } catch (SAXException se) {
-                String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + se.toString();
-                Debug.logError(se, errorMessage, module);
+            } catch (Exception e) {
+                String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + e.toString();
+                Debug.logError(e, errorMessage, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentFedexSubscriptionTemplateParsingError",
-                        UtilMisc.toMap("errorString", se.toString()), locale));
-            } catch (ParserConfigurationException pce) {
-                String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + pce.toString();
-                Debug.logError(pce, errorMessage, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentFedexSubscriptionTemplateParsingError",
-                        UtilMisc.toMap("errorString", pce.toString()), locale));
-            } catch (IOException ioe) {
-                String errorMessage = "Error parsing the FDXSubscriptionRequest response: " + ioe.toString();
-                Debug.logError(ioe, errorMessage, module);
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "FacilityShipmentFedexSubscriptionTemplateParsingError",
-                        UtilMisc.toMap("errorString", ioe.toString()), locale));
+                        UtilMisc.toMap("errorString", e.toString()), locale));
             }
 
             Element fedexSubscriptionReplyElement = fDXSubscriptionReplyDocument.getDocumentElement();
@@ -996,17 +980,9 @@ public class FedexServices {
         Document fdxShipReplyDocument = null;
         try {
             fdxShipReplyDocument = UtilXml.readXmlDocument(fDXShipReplyString, false);
-        } catch (SAXException se) {
-            String errorMessage = "Error parsing the FDXShipReply: " + se.toString();
-            Debug.logError(se, errorMessage, module);
-            // TODO: Cancel the package
-        } catch (ParserConfigurationException pe) {
-            String errorMessage = "Error parsing the FDXShipReply: " + pe.toString();
-            Debug.logError(pe, errorMessage, module);
-            // TODO Cancel the package
-        } catch (IOException ioe) {
-            String errorMessage = "Error parsing the FDXShipReply: " + ioe.toString();
-            Debug.logError(ioe, errorMessage, module);
+        } catch (Exception e) {
+            String errorMessage = "Error parsing the FDXShipReply: " + e.toString();
+            Debug.logError(e, errorMessage, module);
             // TODO Cancel the package
         }
 

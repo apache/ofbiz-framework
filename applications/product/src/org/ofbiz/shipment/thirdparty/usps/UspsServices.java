@@ -32,7 +32,6 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import javolution.util.FastList;
@@ -67,7 +66,6 @@ import org.ofbiz.shipment.shipment.ShipmentServices;
 import org.ofbiz.shipment.shipment.ShipmentWorker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
  * USPS Webtools API Services
@@ -1757,18 +1755,8 @@ public class UspsServices {
         Document responseDocument = null;
         try {
             responseDocument = UtilXml.readXmlDocument(responseString, false);
-        } catch (SAXException se) {
-            throw new UspsRequestException(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsResponseError",
-                    UtilMisc.toMap("errorString", se.getMessage()), locale));
-        } catch (ParserConfigurationException pce) {
-            throw new UspsRequestException(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsResponseError",
-                    UtilMisc.toMap("errorString", pce.getMessage()), locale));
-        } catch (IOException xmlReadException) {
-            throw new UspsRequestException(UtilProperties.getMessage(resourceError, 
-                    "FacilityShipmentUspsResponseError",
-                    UtilMisc.toMap("errorString", xmlReadException.getMessage()), locale));
+        } catch (Exception e) {
+            throw new UspsRequestException(UtilProperties.getMessage(resourceError, "FacilityShipmentUspsResponseError", UtilMisc.toMap("errorString", e.getMessage()), locale));
         }
 
         // If a top-level error document is returned, throw exception
