@@ -22,9 +22,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.minilang.MiniLangElement;
 import org.ofbiz.minilang.MiniLangException;
@@ -39,25 +36,6 @@ public abstract class MethodOperation extends MiniLangElement {
 
     protected MethodOperation(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-    }
-
-    public void addErrorMessage(MethodContext methodContext, String message) {
-        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? this.simpleMethod.getEventErrorMessageListName() : this.simpleMethod.getServiceErrorMessageListName();
-        addMessage(methodContext, messageListName, message);
-    }
-
-    public void addMessage(MethodContext methodContext, String message) {
-        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? this.simpleMethod.getEventEventMessageListName() : this.simpleMethod.getServiceSuccessMessageListName();
-        addMessage(methodContext, messageListName, message);
-    }
-
-    private void addMessage(MethodContext methodContext, String messageListName, String message) {
-        List<String> messages = methodContext.getEnv(messageListName);
-        if (messages == null) {
-            messages = FastList.newInstance();
-            methodContext.putEnv(messageListName, messages);
-        }
-        messages.add(message);
     }
 
     /** Execute the operation. Returns false if no further operations should be executed. 

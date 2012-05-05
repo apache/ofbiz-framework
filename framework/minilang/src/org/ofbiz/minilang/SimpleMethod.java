@@ -324,8 +324,8 @@ public final class SimpleMethod {
         }
         this.parentSimpleMethodsMap = parentSimpleMethodsMap;
         this.fromLocation = fromLocation;
-        this.methodName = simpleMethodElement.getAttribute("method-name");
-        this.shortDescription = simpleMethodElement.getAttribute("short-description");
+        methodName = simpleMethodElement.getAttribute("method-name");
+        shortDescription = simpleMethodElement.getAttribute("short-description");
         defaultErrorCode = UtilXml.elementAttribute(simpleMethodElement, "default-error-code", "error");
         defaultSuccessCode = UtilXml.elementAttribute(simpleMethodElement, "default-success-code", "success");
         parameterMapName = UtilXml.elementAttribute(simpleMethodElement, "parameter-map-name", "parameters");
@@ -350,7 +350,26 @@ public final class SimpleMethod {
         securityName = UtilXml.elementAttribute(simpleMethodElement, "security-name", "security");
         dispatcherName = UtilXml.elementAttribute(simpleMethodElement, "dispatcher-name", "dispatcher");
         userLoginName = UtilXml.elementAttribute(simpleMethodElement, "user-login-name", "userLogin");
-        this.methodOperations = Collections.unmodifiableList(readOperations(simpleMethodElement, this));
+        methodOperations = Collections.unmodifiableList(readOperations(simpleMethodElement, this));
+    }
+
+    public void addErrorMessage(MethodContext methodContext, String message) {
+        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? getEventErrorMessageListName() : getServiceErrorMessageListName();
+        addMessage(methodContext, messageListName, message);
+    }
+
+    public void addMessage(MethodContext methodContext, String message) {
+        String messageListName = methodContext.getMethodType() == MethodContext.EVENT ? getEventEventMessageListName() : getServiceSuccessMessageListName();
+        addMessage(methodContext, messageListName, message);
+    }
+
+    private void addMessage(MethodContext methodContext, String messageListName, String message) {
+        List<String> messages = methodContext.getEnv(messageListName);
+        if (messages == null) {
+            messages = FastList.newInstance();
+            methodContext.putEnv(messageListName, messages);
+        }
+        messages.add(message);
     }
 
     /** Execute the Simple Method operations */
@@ -379,15 +398,7 @@ public final class SimpleMethod {
             if (userLogin == null) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object> toMap("shortDescription", shortDescription);
                 String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.must_logged_process", messageMap, locale) + ".";
-
-                if (methodContext.getMethodType() == MethodContext.EVENT) {
-                    methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return defaultErrorCode;
-                } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                    methodContext.putResult(ModelService.ERROR_MESSAGE, errMsg);
-                    methodContext.putResult(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-                    return null;
-                }
+                return returnError(methodContext, errMsg);
             }
         }
         // if using transaction, try to start here
@@ -397,16 +408,8 @@ public final class SimpleMethod {
                 beganTransaction = TransactionUtil.begin();
             } catch (GenericTransactionException e) {
                 String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_begin_transaction", locale) + ": " + e.getMessage();
-                Debug.logWarning(errMsg, module);
-                Debug.logWarning(e, module);
-                if (methodContext.getMethodType() == MethodContext.EVENT) {
-                    methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errMsg);
-                    return defaultErrorCode;
-                } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                    methodContext.putResult(ModelService.ERROR_MESSAGE, errMsg);
-                    methodContext.putResult(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
-                    return null;
-                }
+                Debug.logWarning(e, errMsg, module);
+                return returnError(methodContext, errMsg);
             }
         }
         // declare errorMsg here just in case transaction ops fail
@@ -417,7 +420,7 @@ public final class SimpleMethod {
         } catch (Throwable t) {
             // make SURE nothing gets thrown through
             String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_running", locale) + ": " + t.getMessage();
-            Debug.logError(errMsg, module);
+            Debug.logWarning(t, errMsg, module);
             finished = false;
             errorMsg += errMsg;
         }
@@ -462,7 +465,7 @@ public final class SimpleMethod {
                 response = null;
             }
             returnValue = response;
-        } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
+        } else {
             boolean forceError = false;
             String tempErrorMsg = (String) methodContext.getEnv(serviceErrorMessageName);
             if (errorMsg.length() > 0 || UtilValidate.isNotEmpty(tempErrorMsg)) {
@@ -506,9 +509,6 @@ public final class SimpleMethod {
             }
             methodContext.putResult(ModelService.RESPONSE_MESSAGE, response);
             returnValue = null;
-        } else {
-            response = defaultSuccessCode;
-            returnValue = defaultSuccessCode;
         }
         // decide whether or not to commit based on the response message, ie only rollback if error is returned and not finished
         boolean doCommit = true;
@@ -664,5 +664,15 @@ public final class SimpleMethod {
 
     public boolean getUseTransaction() {
         return this.useTransaction;
+    }
+
+    private String returnError(MethodContext methodContext, String errorMsg) {
+        if (methodContext.getMethodType() == MethodContext.EVENT) {
+            methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
+        } else {
+            methodContext.putResult(ModelService.ERROR_MESSAGE, errorMsg);
+            methodContext.putResult(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
+        }
+        return defaultErrorCode;
     }
 }
