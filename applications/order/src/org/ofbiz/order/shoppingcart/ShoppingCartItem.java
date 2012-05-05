@@ -138,7 +138,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private Locale locale = null;
     private Timestamp shipBeforeDate = null;
     private Timestamp shipAfterDate = null;
-    private Timestamp EstimatedShipDate = null;
+    private Timestamp estimatedShipDate = null;
     private Timestamp cancelBackOrderDate = null;
 
     private Map<String, String> contactMechIdsMap = FastMap.newInstance();
@@ -1533,12 +1533,12 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Sets the date to EstimatedShipDate */
     public void setEstimatedShipDate(Timestamp date) {
-        this.EstimatedShipDate = date;
+        this.estimatedShipDate = date;
     }
 
     /** Returns the date to EstimatedShipDate */
     public Timestamp getEstimatedShipDate() {
-        return this.EstimatedShipDate;
+        return this.estimatedShipDate;
     }
 
     /** Sets the item type. */
