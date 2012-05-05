@@ -47,31 +47,12 @@ public final class SetServiceFields extends MethodOperation {
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
-        boolean elementModified = false;
         String errorListAttr = element.getAttribute("error-list-name");
         if (!errorListAttr.isEmpty()) {
             element.removeAttribute("error-list-name");
-            elementModified = true;
+            return true;
         }
-        // Correct map attribute wrapped in ${}
-        String mapAttr = element.getAttribute("map").trim();
-        if (mapAttr.startsWith("${") && mapAttr.endsWith("}")) {
-            mapAttr = mapAttr.substring(2, mapAttr.length() - 1);
-            if (!mapAttr.contains("${")) {
-                element.setAttribute("map", mapAttr);
-                elementModified = true;
-            }
-        }
-        // Correct to-map attribute wrapped in ${}
-        String toMapAttr = element.getAttribute("to-map").trim();
-        if (toMapAttr.startsWith("${") && toMapAttr.endsWith("}")) {
-            toMapAttr = toMapAttr.substring(2, toMapAttr.length() - 1);
-            if (!toMapAttr.contains("${")) {
-                element.setAttribute("to-map", toMapAttr);
-                elementModified = true;
-            }
-        }
-        return elementModified;
+        return false;
     }
 
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
@@ -84,7 +65,6 @@ public final class SetServiceFields extends MethodOperation {
             MiniLangValidate.attributeNames(simpleMethod, element, "service-name", "map", "to-map");
             MiniLangValidate.requiredAttributes(simpleMethod, element, "service-name", "map", "to-map");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "service-name");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "map", "to-map");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         boolean elementModified = autoCorrect(element);
