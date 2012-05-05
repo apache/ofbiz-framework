@@ -631,15 +631,11 @@ public class CatalinaContainer implements Container {
         Document webXmlDoc = null;
         try {
             webXmlDoc = UtilXml.readXmlDocument(webXmlUrl);
-        } catch (SAXException se) {
-            throw new ContainerException(se);
-        } catch (ParserConfigurationException pce) {
-            throw new ContainerException(pce);
-        } catch (IOException ioe) {
-            throw new ContainerException(ioe);
+        } catch (Exception e) {
+            throw new ContainerException(e);
         }
 
-        boolean appIsDistributable = webXmlDoc.getElementsByTagName("distributable").getLength() > 0 ? true : false;
+        boolean appIsDistributable = webXmlDoc.getElementsByTagName("distributable").getLength() > 0;
         final boolean contextIsDistributable = distribute && appIsDistributable;
 
         // configure persistent sessions
