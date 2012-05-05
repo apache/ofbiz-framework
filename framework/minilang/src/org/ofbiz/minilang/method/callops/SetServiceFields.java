@@ -47,12 +47,31 @@ public final class SetServiceFields extends MethodOperation {
 
     // This method is needed only during the v1 to v2 transition
     private static boolean autoCorrect(Element element) {
+        boolean elementModified = false;
         String errorListAttr = element.getAttribute("error-list-name");
         if (!errorListAttr.isEmpty()) {
             element.removeAttribute("error-list-name");
-            return true;
+            elementModified = true;
         }
-        return false;
+        // Correct map attribute wrapped in ${}
+        String mapAttr = element.getAttribute("map").trim();
+        if (mapAttr.startsWith("${") && mapAttr.endsWith("}")) {
+            mapAttr = mapAttr.substring(2, mapAttr.length() - 1);
+            if (!mapAttr.contains("${")) {
+                element.setAttribute("map", mapAttr);
+                elementModified = true;
+            }
+        }
+        // Correct to-map attribute wrapped in ${}
+        String toMapAttr = element.getAttribute("to-map").trim();
+        if (toMapAttr.startsWith("${") && toMapAttr.endsWith("}")) {
+            toMapAttr = toMapAttr.substring(2, toMapAttr.length() - 1);
+            if (!toMapAttr.contains("${")) {
+                element.setAttribute("to-map", toMapAttr);
+                elementModified = true;
+            }
+        }
+        return elementModified;
     }
 
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
