@@ -133,7 +133,7 @@ public final class SetServiceFields extends MethodOperation {
         if (!this.mapFma.isEmpty()) {
             sb.append("map=\"").append(this.mapFma).append("\" ");
         }
-        if (this.toMapFma != null) {
+        if (!this.toMapFma.isEmpty()) {
             sb.append("to-map=\"").append(this.toMapFma).append("\" ");
         }
         sb.append("/>");
