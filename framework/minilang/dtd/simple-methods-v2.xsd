@@ -3415,19 +3415,19 @@ under the License.
         </xs:annotation>
         <xs:complexType>
             <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
-            <xs:attribute type="xs:string" name="entry" use="required">
+            <xs:attribute type="xs:string" name="list" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the environment field that will contain each entry in the list.
+                        The name of the environment field that contains the list to iterate over.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="list" use="required">
+            <xs:attribute type="xs:string" name="entry" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the environment field that contains the list to iterate over.
+                        The name of the environment field that will contain each entry in the list.
                         &lt;br/&gt;&lt;br/&gt;
                         Required. Attribute type: expression.
                     </xs:documentation>
@@ -3438,77 +3438,84 @@ under the License.
     <xs:element name="iterate-map" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                The operations contained by the iterate-map tag will be executed for each of the entries in the map.
-                It will run all of the operations underneath the iterate-map-element for each of the entries in the given map,
-                setting the key for that entry and the key name variable, and the value for that entry and the value variable.
-
-                This tag can contain any of the simple-method operations, including the conditional/if operations.
-
-                Any simple-method operation can be nested under the iterate-map tag.
+                The operations contained in the iterate-map element will be executed for each of the entries in the list,
+                and will make the current entry key/value pair available in the environment by the names specified.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-            <xs:attributeGroup ref="attlist.iterate-map"/>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+            <xs:attribute type="xs:string" name="map" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field that contains the map to iterate over.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="key" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field that will contain the map entry key.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="value" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field that will contain the map entry value.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.iterate-map">
-        <xs:attribute type="xs:string" name="key" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the variable to put the key.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="value" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the variable to put the value in.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the map to use.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="loop" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
-                Loop, rather than iterating over some sort of a structure,
-                will simply loop a certain number of times. The
-                number of times to loop is specified in the count attribute,
-                and it will put the current count in the field attribute,
-                or in the variable named by the field attribute. So if you
-                want to loop ten times you say count=ten, and
-                field=count for example. First time through count will
-                be zero; last time through count will be nine.
+                The operations contained in the loop element will be executed repeatedly until the specified count is reached.
+                The current count value is available in the environment by the name specified.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations"/>
-            <xs:attributeGroup ref="attlist.loop"/>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+            <xs:attribute type="xs:string" name="count" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The number of times to loop.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute types: constant, expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="field">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the environment field that will contain the current count.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: expression.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.loop">
-        <xs:attribute type="xs:string" name="count" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Number of times to loop.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field" use="optional">
-            <xs:annotation>
-                <xs:documentation>
-                    Current count is put in the field attribute.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
+    <xs:element name="while" substitutionGroup="ControlOperations">
+        <xs:annotation>
+            <xs:documentation>
+                The operations contained in the while element will be executed as long as its condition element
+                evaluates to true.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="condition" />
+                <xs:element ref="then" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="check-errors" substitutionGroup="ControlOperations">
         <xs:annotation>
             <xs:documentation>
@@ -3676,34 +3683,6 @@ under the License.
                             The else element can be used to contain operations that will run if the condition evaluates to false, and if no else-ifsub-conditions evaluate to true.
                             It can contain any simple-method operation.
                             The else tag must be placed as the last tag under the if tag.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="while" substitutionGroup="IfOtherOperations">
-        <xs:annotation>
-            <xs:documentation>
-                While loop operation, uses the same condition element as the if operation.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="condition">
-                    <xs:annotation>
-                        <xs:documentation>
-                            A simple element with no attributes that contains the condition that will be evaluated to determine which sub-operations to execute.
-                            To combine the other if operations documented below the and, or, xor, and notelements can be used.
-                            The and, or, and xor elements can contain as many general if operations and modifier/combination elements (ie and, or, xor, and not).
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
-                <xs:element ref="then">
-                    <xs:annotation>
-                        <xs:documentation>
-                            The then element is used to contain operations that will run if the condition evaluate to true.
-                            A then tag must be included, but can be empty.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
