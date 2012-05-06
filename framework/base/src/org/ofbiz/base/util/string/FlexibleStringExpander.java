@@ -30,7 +30,14 @@ import javax.el.PropertyNotFoundException;
 
 import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.base.lang.SourceMonitored;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.ScriptUtil;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilFormatOut;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 
 /** Expands String values that contain Unified Expression Language (JSR 245)
@@ -430,9 +437,12 @@ public abstract class FlexibleStringExpander implements Serializable, IsEmpty {
         Object obj = get(context, timeZone, locale);
         StringBuilder buffer = new StringBuilder(this.hint);
         try {
-            if (obj instanceof String && UtilValidate.isEmpty(obj)) {
-            } else if (obj != null) {
-                buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+            if (obj != null) {
+                if (obj instanceof String) {
+                    buffer.append(obj);
+                } else {
+                    buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+                }
             }
         } catch (Exception e) {
             buffer.append(obj);
