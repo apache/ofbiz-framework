@@ -53,7 +53,6 @@ import javax.xml.transform.stream.StreamSource;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
 import org.ofbiz.base.util.Debug;
@@ -529,22 +528,12 @@ public class EmailServices {
                     baos.close();
 
                     // store in the list of maps for sendmail....
-                    bodyParts.add(UtilMisc.<String, Object>toMap("content", baos.toByteArray(), "type", "application/pdf", "filename", attachmentName));
-                } catch (GeneralException ge) {
-                    Debug.logError(ge, "Error rendering PDF attachment for email: " + ge.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", ge.toString()), locale));
-                } catch (IOException ie) {
-                    Debug.logError(ie, "Error rendering PDF attachment for email: " + ie.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", ie.toString()), locale));
-                } catch (FOPException fe) {
-                    Debug.logError(fe, "Error rendering PDF attachment for email: " + fe.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", fe.toString()), locale));
-                } catch (SAXException se) {
-                    Debug.logError(se, "Error rendering PDF attachment for email: " + se.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", se.toString()), locale));
-                } catch (ParserConfigurationException pe) {
-                    Debug.logError(pe, "Error rendering PDF attachment for email: " + pe.toString(), module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError", UtilMisc.toMap("errorString", pe.toString()), locale));
+                    bodyParts.add(UtilMisc.<String, Object> toMap("content", baos.toByteArray(), "type", "application/pdf", "filename",
+                            attachmentName));
+                } catch (Exception e) {
+                    Debug.logError(e, "Error rendering PDF attachment for email: " + e.toString(), module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonEmailSendRenderingScreenPdfError",
+                            UtilMisc.toMap("errorString", e.toString()), locale));
                 }
                 
                 serviceContext.put("bodyParts", bodyParts);
