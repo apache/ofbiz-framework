@@ -58,6 +58,18 @@ public final class MiniLangValidate {
     }
 
     /**
+     * Returns <code>attributeValue</code> if it is not empty, else returns <code>defaultValue</code>.
+     * No <code>null</code> checks are performed.
+     * 
+     * @param attributeValue
+     * @param defaultValue
+     * @return
+     */
+    public static String checkAttribute(String attributeValue, String defaultValue) {
+        return attributeValue.isEmpty() ? defaultValue : attributeValue;
+    }
+
+    /**
      * Tests <code>element</code> for invalid child elements.
      * 
      * @param method The <code>&lt;simple-method&gt;</code> that contains <code>element</code> 
