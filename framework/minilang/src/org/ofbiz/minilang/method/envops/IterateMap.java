@@ -23,9 +23,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.envops.Break.BreakElementException;
@@ -35,51 +38,57 @@ import org.w3c.dom.Element;
 /**
  * Process sub-operations for each entry in the map
  */
-public class IterateMap extends MethodOperation {
+public final class IterateMap extends MethodOperation {
 
     public static final String module = IterateMap.class.getName();
 
-    ContextAccessor<Object> keyAcsr;
-    ContextAccessor<Map<? extends Object, ? extends Object>> mapAcsr;
-    List<MethodOperation> subOps;
-    ContextAccessor<Object> valueAcsr;
+    private final FlexibleMapAccessor<Object> keyFma;
+    private final FlexibleMapAccessor<Map<? extends Object, ? extends Object>> mapFma;
+    private final List<MethodOperation> subOps;
+    private final FlexibleMapAccessor<Object> valueFma;
 
     public IterateMap(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key"), element.getAttribute("key-name"));
-        this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value"), element.getAttribute("value-name"));
-        this.mapAcsr = new ContextAccessor<Map<? extends Object, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "key", "map", "value");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "key", "map", "value");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "key", "map", "value");
+        }
+        this.keyFma = FlexibleMapAccessor.getInstance(element.getAttribute("key"));
+        this.mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
+        this.valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value"));
         this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        if (mapAcsr.isEmpty()) {
-            Debug.logWarning("No map-name specified in iterate tag, doing nothing: " + rawString(), module);
-            return true;
+        if (mapFma.isEmpty()) {
+            throw new MiniLangRuntimeException("No map specified.", this);
         }
-        Object oldKey = keyAcsr.get(methodContext);
-        Object oldValue = valueAcsr.get(methodContext);
+        Object oldKey = keyFma.get(methodContext.getEnvMap());
+        Object oldValue = valueFma.get(methodContext.getEnvMap());
         if (oldKey != null) {
-            Debug.logWarning("In iterate-map the key had a non-null value before entering the loop for the operation: " + this.rawString(), module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("In iterate-map the key had a non-null value before entering the loop for the operation: " + this, module);
         }
         if (oldValue != null) {
-            Debug.logWarning("In iterate-map the value had a non-null value before entering the loop for the operation: " + this.rawString(), module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("In iterate-map the value had a non-null value before entering the loop for the operation: " + this, module);
         }
-        Map<? extends Object, ? extends Object> theMap = mapAcsr.get(methodContext);
+        Map<? extends Object, ? extends Object> theMap = mapFma.get(methodContext.getEnvMap());
         if (theMap == null) {
-            if (Debug.infoOn())
-                Debug.logInfo("Map not found with name " + mapAcsr + ", doing nothing: " + rawString(), module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Map not found with name " + mapFma + ", doing nothing: " + this, module);
             return true;
         }
         if (theMap.size() == 0) {
             if (Debug.verboseOn())
-                Debug.logVerbose("Map with name " + mapAcsr + " has zero entries, doing nothing: " + rawString(), module);
+                Debug.logVerbose("Map with name " + mapFma + " has zero entries, doing nothing: " + this, module);
             return true;
         }
         for (Map.Entry<? extends Object, ? extends Object> theEntry : theMap.entrySet()) {
-            keyAcsr.put(methodContext, theEntry.getKey());
-            valueAcsr.put(methodContext, theEntry.getValue());
+            keyFma.put(methodContext.getEnvMap(), theEntry.getKey());
+            valueFma.put(methodContext.getEnvMap(), theEntry.getValue());
             try {
                 for (MethodOperation methodOperation : subOps) {
                     if (!methodOperation.exec(methodContext)) {
@@ -101,8 +110,7 @@ public class IterateMap extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        // TODO: something more than a stub/dummy
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     public List<MethodOperation> getSubOps() {
@@ -111,7 +119,23 @@ public class IterateMap extends MethodOperation {
 
     @Override
     public String rawString() {
-        return "<iterate-map map-name=\"" + this.mapAcsr + "\" key=\"" + this.keyAcsr + "\" value=\"" + this.valueAcsr + "\"/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<iterate-map ");
+        if (!this.mapFma.isEmpty()) {
+            sb.append("map=\"").append(this.mapFma).append("\" ");
+        }
+        if (!this.keyFma.isEmpty()) {
+            sb.append("key=\"").append(this.keyFma).append("\" ");
+        }
+        if (!this.valueFma.isEmpty()) {
+            sb.append("value=\"").append(this.valueFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class IterateMapFactory implements Factory<IterateMap> {

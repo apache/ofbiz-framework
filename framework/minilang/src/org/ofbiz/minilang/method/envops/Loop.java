@@ -21,10 +21,12 @@ package org.ofbiz.minilang.method.envops;
 import java.util.Collections;
 import java.util.List;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.minilang.method.envops.Break.BreakElementException;
@@ -34,40 +36,40 @@ import org.w3c.dom.Element;
 /**
  * Loop
  */
-public class Loop extends MethodOperation {
+public final class Loop extends MethodOperation {
 
     public static final String module = Loop.class.getName();
 
-    protected String countStr;
-    protected ContextAccessor<Integer> fieldAcsr;
-    protected List<MethodOperation> subOps;
+    private final FlexibleStringExpander countFse;
+    private final FlexibleMapAccessor<Integer> fieldFma;
+    private final List<MethodOperation> subOps;
 
     public Loop(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        this.fieldAcsr = new ContextAccessor<Integer>(element.getAttribute("field"));
-        this.countStr = element.getAttribute("count");
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "count", "field");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "count");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "count", "field");
+        }
+        this.countFse = FlexibleStringExpander.getInstance(element.getAttribute("count"));
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        String countStrExp = methodContext.expandString(this.countStr);
+        String countStr = this.countFse.expandString(methodContext.getEnvMap());
         int count = 0;
         try {
-            Double ctDbl = Double.valueOf(countStrExp);
-            if (ctDbl != null) {
-                count = ctDbl.intValue();
-            }
+            count = Double.valueOf(countStr).intValue();
         } catch (NumberFormatException e) {
-            Debug.logError(e, module);
-            return false;
+            throw new MiniLangRuntimeException("Error while converting \"" + countStr + "\" to a number: " + e.getMessage(), this);
         }
         if (count < 0) {
-            Debug.logWarning("Unable to execute loop operation because the count variable is negative: " + rawString(), module);
-            return false;
+            throw new MiniLangRuntimeException("Unable to execute loop operation because the count is negative: " + countStr, this);
         }
         for (int i = 0; i < count; i++) {
-            fieldAcsr.put(methodContext, i);
+            this.fieldFma.put(methodContext.getEnvMap(), i);
             try {
                 for (MethodOperation methodOperation : subOps) {
                     if (!methodOperation.exec(methodContext)) {
@@ -89,7 +91,7 @@ public class Loop extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        return this.rawString();
+        return FlexibleStringExpander.expandString(toString(), methodContext.getEnvMap());
     }
 
     public List<MethodOperation> getSubOps() {
@@ -98,7 +100,20 @@ public class Loop extends MethodOperation {
 
     @Override
     public String rawString() {
-        return "<loop field=\"" + this.fieldAcsr + "\" count=\"" + this.countStr + "\"/>";
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("<loop ");
+        if (!this.countFse.isEmpty()) {
+            sb.append("count=\"").append(this.countFse).append("\" ");
+        }
+        if (!this.fieldFma.isEmpty()) {
+            sb.append("field=\"").append(this.fieldFma).append("\" ");
+        }
+        sb.append("/>");
+        return sb.toString();
     }
 
     public static final class LoopFactory implements Factory<Loop> {

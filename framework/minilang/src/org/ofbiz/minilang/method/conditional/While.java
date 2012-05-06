@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -33,13 +34,17 @@ import org.w3c.dom.Element;
 /**
  * Continually processes sub-ops while the condition remains true
  */
-public class While extends MethodOperation {
+public final class While extends MethodOperation {
 
-    Conditional condition;
-    List<MethodOperation> thenSubOps;
+    private final Conditional condition;
+    private final List<MethodOperation> thenSubOps;
 
     public While(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.childElements(simpleMethod, element, "condition", "then");
+            MiniLangValidate.requiredChildElements(simpleMethod, element, "condition", "then");
+        }
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
@@ -49,9 +54,6 @@ public class While extends MethodOperation {
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        // if conditions fails, always return true;
-        // if a sub-op returns false return false and stop, otherwise drop though loop and
-        // return true
         while (condition.checkCondition(methodContext)) {
             try {
                 for (MethodOperation methodOperation : thenSubOps) {
