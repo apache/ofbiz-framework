@@ -3592,37 +3592,32 @@ under the License.
     <xs:element name="assert" substitutionGroup="IfOtherOperations">
         <xs:annotation>
             <xs:documentation>
-                Each condition under the assert element will be checked and if it fails an error will be added to the given error list.
-                Note that while the definitions for the if-* operations are used, the tags should be empty because of the differing semantics.
-
-                This is mainly used for testing, and for writing simple-methods that are meant to be used as part of a test suite.
-
-                This is mostly useful for testing because the messages are targeted at a programmer, and not really at an end user.
+                Adds an error to the error list for each condition that evaluates to false.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:group maxOccurs="unbounded" ref="IfConditions"/>
-            <xs:attributeGroup ref="attlist.assert"/>
+            <xs:group maxOccurs="unbounded" ref="IfConditions" />
+            <xs:attribute type="xs:string" name="title">
+                <xs:annotation>
+                    <xs:documentation>
+                        The title of the assert operation. The title is used in automated test reports.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="error-list-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the list in the method environment to check for error messages.
+                        Defaults to "error_list".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.assert">
-        <xs:attribute type="xs:string" name="title">
-            <xs:annotation>
-                <xs:documentation>
-                    Each assert operation have a title that can be used in the report for the testing.
-                    These can be used in the normal code.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment to check for error messages.
-                    Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
 
     <!--
         Operations that conditionally execute blocks within them; they mimic the

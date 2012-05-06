@@ -18,57 +18,64 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**
- * Operation used to check each sub-condition independently and for each one that fails (does not evaluate to true), adds an error to the error message list.
+ * Adds an error to the error list for each condition that evaluates to false.
  */
-public class Assert extends MethodOperation {
+public final class Assert extends MethodOperation {
 
     public static final String module = Assert.class.getName();
 
-    /** List of Conditional objects */
-    protected List<Conditional> conditionalList = FastList.newInstance();
-    protected ContextAccessor<List<Object>> errorListAcsr;
-    protected FlexibleStringExpander titleExdr;
+    private final List<Conditional> conditionalList;
+    private final FlexibleMapAccessor<List<Object>> errorListFma;
+    private final FlexibleStringExpander titleExdr;
 
     public Assert(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
-        errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
-        for (Element conditionalElement : UtilXml.childElementList(element)) {
-            this.conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "title", "error-list-name");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "title", "error-list-name");
         }
+        errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
+        titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
+        List<? extends Element> childElements = UtilXml.childElementList(element);
+        if (MiniLangValidate.validationOn() && childElements.isEmpty()) {
+            MiniLangValidate.handleError("No conditional elements.", simpleMethod, element);
+        }
+        List<Conditional> conditionalList = new ArrayList<Conditional>(childElements.size());
+        for (Element conditionalElement : UtilXml.childElementList(element)) {
+            conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
+        }
+        this.conditionalList = Collections.unmodifiableList(conditionalList);
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
-        List<Object> messages = errorListAcsr.get(methodContext);
+        List<Object> messages = errorListFma.get(methodContext.getEnvMap());
         if (messages == null) {
             messages = FastList.newInstance();
-            errorListAcsr.put(methodContext, messages);
+            errorListFma.put(methodContext.getEnvMap(), messages);
         }
-        String title = this.titleExdr.expandString(methodContext.getEnvMap());
-        // check each conditional and if fails generate a message to add to the error list
+        String title = titleExdr.expandString(methodContext.getEnvMap());
         for (Conditional condition : conditionalList) {
-            boolean conditionTrue = condition.checkCondition(methodContext);
-            if (!conditionTrue) {
-                // pretty print condition
-                StringBuilder messageBuffer = new StringBuilder();
-                messageBuffer.append("Assertion ");
-                if (UtilValidate.isNotEmpty(title)) {
+            if (!condition.checkCondition(methodContext)) {
+                StringBuilder messageBuffer = new StringBuilder("Assertion ");
+                if (!title.isEmpty()) {
                     messageBuffer.append("[");
                     messageBuffer.append(title);
                     messageBuffer.append("] ");
@@ -83,10 +90,9 @@ public class Assert extends MethodOperation {
 
     @Override
     public String expandedString(MethodContext methodContext) {
-        String title = this.titleExdr.expandString(methodContext.getEnvMap());
-        StringBuilder messageBuf = new StringBuilder();
-        messageBuf.append("<assert");
-        if (UtilValidate.isNotEmpty(title)) {
+        String title = titleExdr.expandString(methodContext.getEnvMap());
+        StringBuilder messageBuf = new StringBuilder("<assert");
+        if (!title.isEmpty()) {
             messageBuf.append(" title=\"");
             messageBuf.append(title);
             messageBuf.append("\"");
