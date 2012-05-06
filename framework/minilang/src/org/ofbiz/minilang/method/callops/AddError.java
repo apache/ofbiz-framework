@@ -24,6 +24,7 @@ import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
@@ -37,7 +38,7 @@ import org.w3c.dom.Element;
  */
 public final class AddError extends MethodOperation {
 
-    private final String listName;
+    private final FlexibleMapAccessor<List<String>> errorListFma;
     private final FlexibleStringExpander messageFse;
     private final String propertykey;
     private final String propertyResource;
@@ -45,17 +46,12 @@ public final class AddError extends MethodOperation {
     public AddError(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
         if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "error-list-name");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "error-list-name");
             MiniLangValidate.childElements(simpleMethod, element, "fail-message", "fail-property");
             MiniLangValidate.requireAnyChildElement(simpleMethod, element, "fail-message", "fail-property");
         }
-        MiniLangValidate.attributeNames(simpleMethod, element, "error-list-name");
-        MiniLangValidate.constantAttributes(simpleMethod, element, "error-list-name");
-        String listNameAttribute = element.getAttribute("error-list-name");
-        if (listNameAttribute.length() == 0) {
-            this.listName = "error_list";
-        } else {
-            this.listName = listNameAttribute;
-        }
+        errorListFma = FlexibleMapAccessor.getInstance(MiniLangValidate.checkAttribute(element.getAttribute("error-list-name"), "error_list"));
         Element childElement = UtilXml.firstChildElement(element, "fail-message");
         if (childElement != null) {
             if (MiniLangValidate.validationOn()) {
@@ -94,11 +90,11 @@ public final class AddError extends MethodOperation {
             message = UtilProperties.getMessage(this.propertyResource, this.propertykey, methodContext.getEnvMap(), methodContext.getLocale());
         }
         if (message != null) {
-            List<String> messages = methodContext.getEnv(this.listName);
+            List<String> messages = errorListFma.get(methodContext.getEnvMap());
             if (messages == null) {
                 messages = FastList.newInstance();
             }
-            methodContext.putEnv(this.listName, messages);
+            errorListFma.put(methodContext.getEnvMap(), messages);
             messages.add(message);
         }
         return true;
@@ -116,7 +112,19 @@ public final class AddError extends MethodOperation {
 
     @Override
     public String toString() {
-        return "<add-error/>";
+        StringBuilder sb = new StringBuilder("<add-error ");
+        if (!"error_list".equals(this.errorListFma.getOriginalName())) {
+            sb.append("error-list-name=\"").append(this.errorListFma).append("\"");
+        }
+        sb.append(">");
+        if (!this.messageFse.isEmpty()) {
+            sb.append("<fail-message message=\"").append(this.messageFse).append("\" />");
+        }
+        if (this.propertykey != null) {
+            sb.append("<fail-property property=\"").append(this.propertykey).append(" resource=\"").append(this.propertyResource).append("\" />");
+        }
+        sb.append("</add-error>");
+        return sb.toString();
     }
 
     public static final class AddErrorFactory implements Factory<AddError> {
