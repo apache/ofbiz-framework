@@ -563,17 +563,19 @@ public class ObjectType {
             Debug.logWarning("The specified type [" + type + "] is not a valid class or a known special type, may see more errors later because of this: " + e.getMessage(), module);
         }
 
-        // some default behavior for null values, results in a bit cleaner operation
-        if ("is-null".equals(operator) && value1 == null) {
-            return Boolean.TRUE;
-        } else if ("is-not-null".equals(operator) && value1 == null) {
-            return Boolean.FALSE;
-        } else if ("is-empty".equals(operator) && value1 == null) {
-            return Boolean.TRUE;
-        } else if ("is-not-empty".equals(operator) && value1 == null) {
-            return Boolean.FALSE;
-        } else if ("contains".equals(operator) && value1 == null) {
-            return Boolean.FALSE;
+        if (value1 == null) {
+            // some default behavior for null values, results in a bit cleaner operation
+            if ("is-null".equals(operator)) {
+                return Boolean.TRUE;
+            } else if ("is-not-null".equals(operator)) {
+                return Boolean.FALSE;
+            } else if ("is-empty".equals(operator)) {
+                return Boolean.TRUE;
+            } else if ("is-not-empty".equals(operator)) {
+                return Boolean.FALSE;
+            } else if ("contains".equals(operator)) {
+                return Boolean.FALSE;
+            }
         }
 
         int result = 0;
