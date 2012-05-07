@@ -17,6 +17,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign idkey = Static["org.ofbiz.common.Captcha"].ID_KEY>
+<#assign idkey = requestAttributes.ID_KEY?if_exists>
 
 <input  type="hidden" value="${idkey?if_exists}" name="captchaCode"/>

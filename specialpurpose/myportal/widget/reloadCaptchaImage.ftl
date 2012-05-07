@@ -19,6 +19,6 @@ under the License.
 
 <#-- For add Captcha Capture -->
 <#assign fileName = Static["org.ofbiz.common.Captcha"].getCodeCaptcha(request,response)>
-<#assign fileName = Static["org.ofbiz.common.Captcha"].CAPTCHA_FILE_NAME>
+<#assign fileName = requestAttributes.captchaFileName?if_exists>
 
 <img  src="<@ofbizContentUrl>/tempfiles/captcha/${fileName?if_exists}</@ofbizContentUrl>" alt="" />
