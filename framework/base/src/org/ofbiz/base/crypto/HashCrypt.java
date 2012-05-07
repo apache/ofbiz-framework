@@ -96,8 +96,7 @@ public class HashCrypt {
         String hashed = crypted;
         MessageDigest messagedigest = getMessageDigest(hashType);
         messagedigest.update(bytes);
-        char[] digestChars = Hex.encodeHex(messagedigest.digest());
-        return hashed.equals(new String(digestChars));
+        return hashed.equals(oldFunnyHex(messagedigest.digest()));
     }
 
     /*
