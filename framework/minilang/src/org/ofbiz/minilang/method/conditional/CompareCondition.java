@@ -64,6 +64,7 @@ public final class CompareCondition extends MiniLangElement implements Condition
         this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
     }
 
+    @Override
     public boolean checkCondition(MethodContext methodContext) throws MiniLangRuntimeException {
         Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         if (fieldVal == null) {

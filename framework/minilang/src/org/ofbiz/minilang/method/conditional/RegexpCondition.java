@@ -18,110 +18,77 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.List;
-import java.util.Map;
-
-import javolution.util.FastList;
-
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.ofbiz.base.util.CompilerMatcher;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
 /**
  * Implements compare to a constant condition.
  */
-public class RegexpCondition implements Conditional {
+public class RegexpCondition extends MiniLangElement implements Conditional {
 
     public static final String module = RegexpCondition.class.getName();
     private transient static ThreadLocal<CompilerMatcher> compilerMatcher = CompilerMatcher.getThreadLocal();
 
-    List<?> elseSubOps = null;
-    FlexibleStringExpander exprExdr;
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    SimpleMethod simpleMethod;
-    List<?> subOps = FastList.newInstance();
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleStringExpander exprFse;
 
-    public RegexpCondition(Element element, SimpleMethod simpleMethod) {
-        this.simpleMethod = simpleMethod;
-        // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
-        if (this.fieldAcsr.isEmpty()) {
-            // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+    public RegexpCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+        super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "expr");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "expr");
+            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "expr");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
         }
-        this.exprExdr = FlexibleStringExpander.getInstance(element.getAttribute("expr"));
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        this.exprFse = FlexibleStringExpander.getInstance(element.getAttribute("expr"));
     }
 
-    public boolean checkCondition(MethodContext methodContext) {
-        String fieldString = getFieldString(methodContext);
-        boolean matches = false;
-        try {
-            matches = compilerMatcher.get().matches(fieldString, methodContext.expandString(this.exprExdr));
-        } catch (MalformedPatternException e) {
-            Debug.logError(e, "Regular Expression [" + this.exprExdr + "] is mal-formed: " + e.toString(), module);
-        }
-        if (matches) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected String getFieldString(MethodContext methodContext) {
-        String fieldString = null;
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                if (Debug.infoOn())
-                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
-            } else {
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            }
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-        if (fieldVal != null) {
+    @Override
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
+        Object fieldVal = fieldFma.get(methodContext.getEnvMap());
+        if (fieldVal == null) {
+            fieldVal = "";
+        } else if (!(fieldVal instanceof String)) {
             try {
-                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
+                fieldVal = ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
             } catch (GeneralException e) {
-                Debug.logError(e, "Could not convert object to String, using empty String", module);
+                throw new MiniLangRuntimeException(e, this);
             }
         }
-        // always use an empty string by default
-        if (fieldString == null)
-            fieldString = "";
-        return fieldString;
+        String regExp = exprFse.expandString(methodContext.getEnvMap());
+        try {
+            return compilerMatcher.get().matches((String) fieldVal, regExp);
+        } catch (MalformedPatternException e) {
+            throw new MiniLangRuntimeException(e, this);
+        }
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("regexp[");
         messageBuffer.append("[");
-        if (!this.mapAcsr.isEmpty()) {
-            messageBuffer.append(this.mapAcsr);
-            messageBuffer.append(".");
-        }
-        messageBuffer.append(this.fieldAcsr);
+        messageBuffer.append(this.fieldFma);
         messageBuffer.append("=");
-        messageBuffer.append(getFieldString(methodContext));
+        messageBuffer.append(fieldFma.get(methodContext.getEnvMap()));
         messageBuffer.append("] matches ");
-        messageBuffer.append(methodContext.expandString(this.exprExdr));
+        messageBuffer.append(exprFse.expandString(methodContext.getEnvMap()));
         messageBuffer.append("]");
     }
 
     public static final class RegexpConditionFactory extends ConditionalFactory<RegexpCondition> {
         @Override
-        public RegexpCondition createCondition(Element element, SimpleMethod simpleMethod) {
+        public RegexpCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new RegexpCondition(element, simpleMethod);
         }
 

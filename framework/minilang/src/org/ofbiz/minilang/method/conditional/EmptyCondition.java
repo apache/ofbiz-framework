@@ -46,7 +46,8 @@ public final class EmptyCondition extends MiniLangElement implements Conditional
         this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
     }
 
-    public boolean checkCondition(MethodContext methodContext) {
+    @Override
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
         return UtilValidate.isEmpty(fieldFma.get(methodContext.getEnvMap()));
     }
 

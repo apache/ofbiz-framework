@@ -19,92 +19,64 @@
 package org.ofbiz.minilang.method.conditional;
 
 import java.lang.reflect.Method;
-import java.util.Map;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
 /**
  * Implements validate method condition.
  */
-public class ValidateMethodCondition implements Conditional {
+public final class ValidateMethodCondition extends MiniLangElement implements Conditional {
 
     public static final String module = ValidateMethodCondition.class.getName();
+    private static final Class<?>[] paramTypes = new Class<?>[] { String.class };
 
-    String className;
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    String methodName;
+    private final String className;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final String methodName;
 
-    public ValidateMethodCondition(Element element) {
-        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+    public ValidateMethodCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+        super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "method", "class");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "method");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "method", "class");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+        }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
         this.methodName = element.getAttribute("method");
-        this.className = element.getAttribute("class");
+        this.className = MiniLangValidate.checkAttribute(element.getAttribute("class"), "org.ofbiz.base.util.UtilValidate");
     }
 
-    public boolean checkCondition(MethodContext methodContext) {
-        String methodName = methodContext.expandString(this.methodName);
-        String className = methodContext.expandString(this.className);
-        String fieldString = getFieldString(methodContext);
-        Class<?>[] paramTypes = new Class<?>[] { String.class };
-        Object[] params = new Object[] { fieldString };
-        Class<?> valClass;
-        try {
-            valClass = methodContext.getLoader().loadClass(className);
-        } catch (ClassNotFoundException cnfe) {
-            Debug.logError("Could not find validation class: " + className, module);
-            return false;
-        }
-        Method valMethod;
-        try {
-            valMethod = valClass.getMethod(methodName, paramTypes);
-        } catch (NoSuchMethodException cnfe) {
-            Debug.logError("Could not find validation method: " + methodName + " of class " + className, module);
-            return false;
-        }
-        Boolean resultBool = Boolean.FALSE;
-        try {
-            resultBool = (Boolean) valMethod.invoke(null, params);
-        } catch (Exception e) {
-            Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className + ", not processing sub-ops ", module);
-        }
-        if (resultBool != null)
-            return resultBool.booleanValue();
-        return false;
-    }
-
-    protected String getFieldString(MethodContext methodContext) {
-        String fieldString = null;
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                if (Debug.infoOn())
-                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
-            } else {
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            }
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-        if (fieldVal != null) {
+    @Override
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
+        Object fieldVal = fieldFma.get(methodContext.getEnvMap());
+        if (fieldVal == null) {
+            fieldVal = "";
+        } else if (!(fieldVal instanceof String)) {
             try {
-                fieldString = (String) ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
+                fieldVal = ObjectType.simpleTypeConvert(fieldVal, "String", null, methodContext.getTimeZone(), methodContext.getLocale(), true);
             } catch (GeneralException e) {
-                Debug.logError(e, "Could not convert object to String, using empty String", module);
+                throw new MiniLangRuntimeException(e, this);
             }
         }
-        // always use an empty string by default
-        if (fieldString == null)
-            fieldString = "";
-        return fieldString;
+        Object[] params = new Object[] { fieldVal };
+        try {
+            Class<?> valClass = methodContext.getLoader().loadClass(className);
+            Method valMethod = valClass.getMethod(methodName, paramTypes);
+            Boolean resultBool = (Boolean) valMethod.invoke(null, params);
+            return resultBool.booleanValue();
+        } catch (Exception e) {
+            throw new MiniLangRuntimeException(e, this);
+        }
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
@@ -116,22 +88,18 @@ public class ValidateMethodCondition implements Conditional {
         messageBuffer.append(".");
         messageBuffer.append(methodName);
         messageBuffer.append("(");
-        if (!this.mapAcsr.isEmpty()) {
-            messageBuffer.append(this.mapAcsr);
-            messageBuffer.append(".");
-        }
-        messageBuffer.append(this.fieldAcsr);
+        messageBuffer.append(this.fieldFma);
         if (methodContext != null) {
             messageBuffer.append("=");
-            messageBuffer.append(getFieldString(methodContext));
+            messageBuffer.append(fieldFma.get(methodContext.getEnvMap()));
         }
         messageBuffer.append(")]");
     }
 
     public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> {
         @Override
-        public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) {
-            return new ValidateMethodCondition(element);
+        public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+            return new ValidateMethodCondition(element, simpleMethod);
         }
 
         @Override
