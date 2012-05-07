@@ -94,7 +94,7 @@ public final class SetOperation extends MethodOperation {
             MiniLangValidate.requireAnyAttribute(simpleMethod, element, "from-field", "from", "value");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value");
             MiniLangValidate.constantAttributes(simpleMethod, element, "type", "set-if-null", "set-if-empty");
-            MiniLangValidate.expressionAttributes(simpleMethod, element, "field", "from-field", "from");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         boolean elementModified = autoCorrect(element);
