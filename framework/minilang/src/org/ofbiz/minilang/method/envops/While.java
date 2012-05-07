@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.minilang.method.conditional;
+package org.ofbiz.minilang.method.envops;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +27,8 @@ import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
+import org.ofbiz.minilang.method.conditional.Conditional;
+import org.ofbiz.minilang.method.conditional.ConditionalFactory;
 import org.ofbiz.minilang.method.envops.Break.BreakElementException;
 import org.ofbiz.minilang.method.envops.Continue.ContinueElementException;
 import org.w3c.dom.Element;
