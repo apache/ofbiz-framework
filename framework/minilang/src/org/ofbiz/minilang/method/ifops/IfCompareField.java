@@ -27,6 +27,7 @@ import javolution.util.FastList;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
@@ -72,7 +73,7 @@ public class IfCompareField extends MethodOperation {
         // would make it impossible to compare from a map field to an
         // environment field
         this.operator = element.getAttribute("operator");
-        this.type = element.getAttribute("type");
+        this.type = MiniLangValidate.checkAttribute(element.getAttribute("type"), "PlainString");
         this.format = element.getAttribute("format");
         this.subOps = Collections.unmodifiableList(SimpleMethod.readOperations(element, simpleMethod));
         Element elseElement = UtilXml.firstChildElement(element, "else");

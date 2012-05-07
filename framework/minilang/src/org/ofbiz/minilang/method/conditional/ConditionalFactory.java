@@ -26,6 +26,7 @@ import java.util.ServiceLoader;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.w3c.dom.Element;
 
@@ -47,7 +48,7 @@ public abstract class ConditionalFactory<C extends Conditional> {
         conditionalFactories = Collections.unmodifiableMap(factories);
     }
 
-    public static Conditional makeConditional(Element element, SimpleMethod simpleMethod) {
+    public static Conditional makeConditional(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         String tagName = element.getTagName();
         ConditionalFactory<?> factory = conditionalFactories.get(tagName);
         if (factory != null) {
@@ -58,7 +59,7 @@ public abstract class ConditionalFactory<C extends Conditional> {
         }
     }
 
-    public abstract C createCondition(Element element, SimpleMethod simpleMethod);
+    public abstract C createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException;
 
     public abstract String getName();
 }
