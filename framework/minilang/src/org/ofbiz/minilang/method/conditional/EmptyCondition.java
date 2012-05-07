@@ -18,98 +18,49 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
-import java.util.Collection;
-import java.util.Map;
-
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
 /**
  * Implements compare to a constant condition.
  */
-public class EmptyCondition implements Conditional {
+public final class EmptyCondition extends MiniLangElement implements Conditional {
 
     public static final String module = EmptyCondition.class.getName();
 
-    ContextAccessor<Object> fieldAcsr;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    SimpleMethod simpleMethod;
+    private final FlexibleMapAccessor<Object> fieldFma;
 
-    public EmptyCondition(Element element, SimpleMethod simpleMethod) {
-        this.simpleMethod = simpleMethod;
-        // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
-        if (this.fieldAcsr.isEmpty()) {
-            // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+    public EmptyCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+        super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
         }
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
     }
 
     public boolean checkCondition(MethodContext methodContext) {
-        // only run subOps if element is empty/null
-        boolean runSubOps = false;
-        Object fieldVal = getFieldVal(methodContext);
-        if (fieldVal == null) {
-            runSubOps = true;
-        } else {
-            if (fieldVal instanceof String) {
-                String fieldStr = (String) fieldVal;
-                if (fieldStr.length() == 0) {
-                    runSubOps = true;
-                }
-            } else if (fieldVal instanceof Collection<?>) {
-                Collection<?> fieldCol = (Collection<?>) fieldVal;
-                if (fieldCol.size() == 0) {
-                    runSubOps = true;
-                }
-            } else if (fieldVal instanceof Map<?, ?>) {
-                Map<?, ?> fieldMap = (Map<?, ?>) fieldVal;
-                if (fieldMap.size() == 0) {
-                    runSubOps = true;
-                }
-            }
-        }
-        return runSubOps;
-    }
-
-    protected Object getFieldVal(MethodContext methodContext) {
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                if (Debug.infoOn())
-                    Debug.logInfo("Map not found with name " + mapAcsr + ", running operations", module);
-            } else {
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            }
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-        return fieldVal;
+        return UtilValidate.isEmpty(fieldFma.get(methodContext.getEnvMap()));
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("empty[");
-        if (!this.mapAcsr.isEmpty()) {
-            messageBuffer.append(this.mapAcsr);
-            messageBuffer.append(".");
-        }
-        messageBuffer.append(this.fieldAcsr);
-        if (methodContext != null) {
-            messageBuffer.append("=");
-            messageBuffer.append(getFieldVal(methodContext));
-        }
+        messageBuffer.append(fieldFma);
+        messageBuffer.append("=");
+        messageBuffer.append(fieldFma.get(methodContext.getEnvMap()));
         messageBuffer.append("]");
     }
 
     public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> {
         @Override
-        public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) {
+        public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new EmptyCondition(element, simpleMethod);
         }
 

@@ -18,14 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
@@ -34,29 +35,38 @@ import org.w3c.dom.Element;
 /**
  * Represents the top-level element and only mounted operation for the more flexible if structure.
  */
-public class MasterIf extends MethodOperation {
+public final class MasterIf extends MethodOperation {
 
-    Conditional condition;
-    List<ElseIf> elseIfs = null;
-    List<MethodOperation> elseSubOps = null;
-    List<MethodOperation> thenSubOps;
+    private final Conditional condition;
+    private final List<ElseIf> elseIfs;
+    private final List<MethodOperation> elseSubOps;
+    private final List<MethodOperation> thenSubOps;
 
     public MasterIf(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.childElements(simpleMethod, element, "condition", "then", "else-if", "else");
+            MiniLangValidate.requiredChildElements(simpleMethod, element, "condition", "then");
+        }
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
         Element thenElement = UtilXml.firstChildElement(element, "then");
         this.thenSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(thenElement, simpleMethod));
         List<? extends Element> elseIfElements = UtilXml.childElementList(element, "else-if");
-        if (UtilValidate.isNotEmpty(elseIfElements)) {
-            elseIfs = FastList.newInstance();
+        if (elseIfElements.isEmpty()) {
+            this.elseIfs = null;
+        } else {
+            List<ElseIf> elseIfs = new ArrayList<ElseIf>(elseIfElements.size());
             for (Element elseIfElement : elseIfElements) {
                 elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
             }
+            this.elseIfs = Collections.unmodifiableList(elseIfs);
         }
         Element elseElement = UtilXml.firstChildElement(element, "else");
-        if (elseElement != null) {
+        if (elseElement == null) {
+            this.elseSubOps = null;
+        } else {
             this.elseSubOps = Collections.unmodifiableList(SimpleMethod.readOperations(elseElement, simpleMethod));
         }
     }
@@ -72,7 +82,7 @@ public class MasterIf extends MethodOperation {
             return SimpleMethod.runSubOps(thenSubOps, methodContext);
         } else {
             // try the else-ifs
-            if (UtilValidate.isNotEmpty(elseIfs)) {
+            if (elseIfs != null) {
                 for (ElseIf elseIf : elseIfs) {
                     if (elseIf.checkCondition(methodContext)) {
                         return elseIf.runSubOps(methodContext);

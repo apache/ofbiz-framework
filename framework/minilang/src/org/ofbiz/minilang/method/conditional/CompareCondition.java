@@ -19,111 +19,75 @@
 package org.ofbiz.minilang.method.conditional;
 
 import java.util.List;
-import java.util.Map;
 
 import javolution.util.FastList;
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangRuntimeException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.operation.BaseCompare;
 import org.w3c.dom.Element;
 
 /**
  * Implements compare to a constant condition.
  */
-public class CompareCondition implements Conditional {
+public final class CompareCondition extends MiniLangElement implements Conditional {
 
     public static final String module = CompareCondition.class.getName();
 
-    ContextAccessor<Object> fieldAcsr;
-    String format;
-    ContextAccessor<Map<String, ? extends Object>> mapAcsr;
-    String operator;
-    SimpleMethod simpleMethod;
-    String type;
-    String value;
+    private final FlexibleMapAccessor<Object> fieldFma;
+    private final FlexibleStringExpander formatFse;
+    private final String operator;
+    private final String type;
+    private final FlexibleStringExpander valueFse;
 
-    public CompareCondition(Element element, SimpleMethod simpleMethod) {
-        this.simpleMethod = simpleMethod;
-        // NOTE: this is still supported, but is deprecated
-        this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
-        if (this.fieldAcsr.isEmpty()) {
-            // NOTE: this is still supported, but is deprecated
-            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+    public CompareCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+        super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "field", "format", "operator", "type", "value");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "field", "operator", "value");
+            MiniLangValidate.constantAttributes(simpleMethod, element, "operator", "type");
+            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "value", "format");
+            MiniLangValidate.expressionAttributes(simpleMethod, element, "field");
+            MiniLangValidate.noChildElements(simpleMethod, element);
         }
-        this.value = element.getAttribute("value");
+        this.fieldFma = FlexibleMapAccessor.getInstance(element.getAttribute("field"));
+        this.formatFse = FlexibleStringExpander.getInstance(element.getAttribute("format"));
         this.operator = element.getAttribute("operator");
-        this.type = element.getAttribute("type");
-        this.format = element.getAttribute("format");
+        this.type = MiniLangValidate.checkAttribute(element.getAttribute("type"), "PlainString");
+        this.valueFse = FlexibleStringExpander.getInstance(element.getAttribute("value"));
     }
 
-    public boolean checkCondition(MethodContext methodContext) {
-        String value = methodContext.expandString(this.value);
-        String operator = methodContext.expandString(this.operator);
-        String type = methodContext.expandString(this.type);
-        String format = methodContext.expandString(this.format);
-        Object fieldVal = getFieldVal(methodContext);
-        List<Object> messages = FastList.newInstance();
-        Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, methodContext.getLoader(), true);
-        if (messages.size() > 0) {
-            messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
-            if (methodContext.getMethodType() == MethodContext.EVENT) {
-                StringBuilder fullString = new StringBuilder();
-
-                for (Object message : messages) {
-                    fullString.append(message);
-                }
-                Debug.logWarning(fullString.toString(), module);
-                methodContext.putEnv(simpleMethod.getEventErrorMessageName(), fullString.toString());
-                methodContext.putEnv(simpleMethod.getEventResponseCodeName(), simpleMethod.getDefaultErrorCode());
-            } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
-                methodContext.putEnv(simpleMethod.getServiceErrorMessageListName(), messages);
-                methodContext.putEnv(simpleMethod.getServiceResponseMessageName(), simpleMethod.getDefaultErrorCode());
-            }
-            return false;
-        }
-        if (resultBool != null)
-            return resultBool.booleanValue();
-        return false;
-    }
-
-    protected Object getFieldVal(MethodContext methodContext) {
-        Object fieldVal = null;
-        if (!mapAcsr.isEmpty()) {
-            Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
-            if (fromMap == null) {
-                if (Debug.infoOn())
-                    Debug.logInfo("Map not found with name " + mapAcsr + ", using empty string for comparison", module);
-            } else {
-                fieldVal = fieldAcsr.get(fromMap, methodContext);
-            }
-        } else {
-            // no map name, try the env
-            fieldVal = fieldAcsr.get(methodContext);
-        }
-        // always use an empty string by default
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangRuntimeException {
+        Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         if (fieldVal == null) {
             fieldVal = "";
         }
-        return fieldVal;
+        String value = valueFse.expandString(methodContext.getEnvMap());
+        String format = formatFse.expandString(methodContext.getEnvMap());
+        List<Object> errorMessages = FastList.newInstance();
+        Boolean resultBool = ObjectType.doRealCompare(fieldVal, value, operator, type, format, errorMessages, methodContext.getLocale(), methodContext.getLoader(), true);
+        if (errorMessages.size() > 0 || resultBool == null) {
+            for (Object obj : errorMessages) {
+                simpleMethod.addErrorMessage(methodContext, (String) obj);
+            }
+            return false;
+        }
+        return resultBool.booleanValue();
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
-        String value = methodContext.expandString(this.value);
-        String operator = methodContext.expandString(this.operator);
-        String type = methodContext.expandString(this.type);
-        String format = methodContext.expandString(this.format);
-        Object fieldVal = getFieldVal(methodContext);
+        String value = valueFse.expandString(methodContext.getEnvMap());
+        String format = formatFse.expandString(methodContext.getEnvMap());
+        Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         messageBuffer.append("[");
-        if (!this.mapAcsr.isEmpty()) {
-            messageBuffer.append(this.mapAcsr);
-            messageBuffer.append(".");
-        }
-        messageBuffer.append(this.fieldAcsr);
+        messageBuffer.append(this.fieldFma);
         messageBuffer.append("=");
         messageBuffer.append(fieldVal);
         messageBuffer.append("] ");
@@ -140,7 +104,7 @@ public class CompareCondition implements Conditional {
 
     public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> {
         @Override
-        public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) {
+        public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new CompareCondition(element, simpleMethod);
         }
 

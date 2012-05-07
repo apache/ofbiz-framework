@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.method.MethodContext;
 
 /**
@@ -25,7 +26,7 @@ import org.ofbiz.minilang.method.MethodContext;
  */
 public interface Conditional {
 
-    public boolean checkCondition(MethodContext methodContext);
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangException;
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext);
 }

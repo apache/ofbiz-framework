@@ -19,7 +19,11 @@
 package org.ofbiz.minilang.method.conditional;
 
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.minilang.MiniLangElement;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.security.Security;
@@ -29,58 +33,55 @@ import org.w3c.dom.Element;
 /**
  * Implements compare to a constant condition.
  */
-public class HasPermissionCondition implements Conditional {
+public final class HasPermissionCondition extends MiniLangElement implements Conditional {
 
-    String action;
-    String permission;
-    SimpleMethod simpleMethod;
+    private final FlexibleStringExpander actionFse;
+    private final FlexibleStringExpander permissionFse;
 
-    public HasPermissionCondition(Element element, SimpleMethod simpleMethod) {
-        this.simpleMethod = simpleMethod;
-        this.permission = element.getAttribute("permission");
-        this.action = element.getAttribute("action");
+    public HasPermissionCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
+        super(element, simpleMethod);
+        if (MiniLangValidate.validationOn()) {
+            MiniLangValidate.attributeNames(simpleMethod, element, "permission", "action");
+            MiniLangValidate.requiredAttributes(simpleMethod, element, "permission");
+            MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "permission", "action");
+        }
+        this.permissionFse = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
+        this.actionFse = FlexibleStringExpander.getInstance(element.getAttribute("action"));
     }
 
     public boolean checkCondition(MethodContext methodContext) {
-        // only run subOps if element is empty/null
-        boolean runSubOps = false;
-        // if no user is logged in, treat as if the user does not have permission: do not
-        // run subops
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
-            String permission = methodContext.expandString(this.permission);
-            String action = methodContext.expandString(this.action);
-
-            Authorization authz = methodContext.getAuthz();
-            Security security = methodContext.getSecurity();
-            if (UtilValidate.isNotEmpty(action)) {
-                // run hasEntityPermission
+            String permission = permissionFse.expandString(methodContext.getEnvMap());
+            String action = actionFse.expandString(methodContext.getEnvMap());
+            if (!action.isEmpty()) {
+                Security security = methodContext.getSecurity();
                 if (security.hasEntityPermission(permission, action, userLogin)) {
-                    runSubOps = true;
+                    return true;
                 }
             } else {
-                // run hasPermission
+                Authorization authz = methodContext.getAuthz();
                 if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap())) {
-                    runSubOps = true;
+                    return true;
                 }
             }
         }
-        return runSubOps;
+        return false;
     }
 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         messageBuffer.append("has-permission[");
-        messageBuffer.append(this.permission);
-        if (UtilValidate.isNotEmpty(this.action)) {
+        messageBuffer.append(this.permissionFse);
+        if (UtilValidate.isNotEmpty(this.actionFse)) {
             messageBuffer.append(":");
-            messageBuffer.append(this.action);
+            messageBuffer.append(this.actionFse);
         }
         messageBuffer.append("]");
     }
 
     public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> {
         @Override
-        public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) {
+        public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) throws MiniLangException {
             return new HasPermissionCondition(element, simpleMethod);
         }
 
