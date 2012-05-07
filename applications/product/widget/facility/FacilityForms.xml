@@ -559,9 +559,7 @@ under the License.
     <form name="FindPhysicalInventory" type="single" target="FindFacilityPhysicalInventory" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId"><hidden/></field>
-        <field name="productId" title="${uiLabelMap.ProductProductId}">
-            <text/>
-        </field>
+        <field name="productId" position="1"><lookup target-form-name="LookupProduct"/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}">
             <text/>
         </field>
