@@ -67,6 +67,7 @@ org.ofbiz.minilang.method.entityops.TransactionBegin$TransactionBeginFactory
 org.ofbiz.minilang.method.entityops.TransactionCommit$TransactionCommitFactory
 org.ofbiz.minilang.method.entityops.TransactionRollback$TransactionRollbackFactory
 org.ofbiz.minilang.method.envops.Break$BreakFactory
+org.ofbiz.minilang.method.envops.CheckId$CheckIdFactory
 org.ofbiz.minilang.method.envops.ClearField$ClearFieldFactory
 org.ofbiz.minilang.method.envops.Continue$ContinueFactory
 org.ofbiz.minilang.method.envops.FieldToList$FieldToListFactory
@@ -90,7 +91,6 @@ org.ofbiz.minilang.method.eventops.RequestParametersToList$RequestParametersToLi
 org.ofbiz.minilang.method.eventops.RequestToField$RequestToFieldFactory
 org.ofbiz.minilang.method.eventops.SessionToField$SessionToFieldFactory
 org.ofbiz.minilang.method.eventops.WebappPropertyToField$WebappPropertyToFieldFactory
-org.ofbiz.minilang.method.ifops.CheckId$CheckIdFactory
 org.ofbiz.minilang.method.ifops.CheckPermission$CheckPermissionFactory
 org.ofbiz.minilang.method.ifops.IfCompare$IfCompareFactory
 org.ofbiz.minilang.method.ifops.IfCompareField$IfCompareFieldFactory

@@ -66,7 +66,6 @@ public final class CompareFieldCondition extends MiniLangElement implements Cond
             MiniLangValidate.constantAttributes(simpleMethod, element, "operator", "type");
             MiniLangValidate.constantPlusExpressionAttributes(simpleMethod, element, "format");
             MiniLangValidate.expressionAttributes(simpleMethod, element, "field", "to-field");
-            MiniLangValidate.noChildElements(simpleMethod, element);
         }
         boolean elementModified = autoCorrect(element);
         if (elementModified && MiniLangUtil.autoCorrectOn()) {
@@ -79,7 +78,8 @@ public final class CompareFieldCondition extends MiniLangElement implements Cond
         this.type = MiniLangValidate.checkAttribute(element.getAttribute("type"), "PlainString");
     }
 
-    public boolean checkCondition(MethodContext methodContext) {
+    @Override
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
         Object fieldVal = fieldFma.get(methodContext.getEnvMap());
         Object toFieldVal = toFieldFma.get(methodContext.getEnvMap());
         String format = formatFse.expandString(methodContext.getEnvMap());

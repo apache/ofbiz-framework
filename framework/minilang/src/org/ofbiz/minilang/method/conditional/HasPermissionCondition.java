@@ -49,7 +49,8 @@ public final class HasPermissionCondition extends MiniLangElement implements Con
         this.actionFse = FlexibleStringExpander.getInstance(element.getAttribute("action"));
     }
 
-    public boolean checkCondition(MethodContext methodContext) {
+    @Override
+    public boolean checkCondition(MethodContext methodContext) throws MiniLangException {
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
             String permission = permissionFse.expandString(methodContext.getEnvMap());

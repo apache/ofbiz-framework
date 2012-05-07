@@ -73,10 +73,21 @@ under the License.
         </xs:simpleType>
     </xs:attribute>
 
+    <xs:attribute type="xs:string" name="error-list-name">
+        <xs:annotation>
+            <xs:documentation>
+                The name of the error message list. Defaults to "error_list".
+                &lt;br/&gt;&lt;br/&gt;
+                Optional. Attribute type: constant
+            </xs:documentation>
+        </xs:annotation>
+    </xs:attribute>
+
     <xs:attributeGroup name="attlist.propertyInfoOptional">
         <xs:attribute type="xs:string" name="resource"/>
         <xs:attribute type="xs:string" name="property"/>
     </xs:attributeGroup>
+
     <xs:attributeGroup name="attlist.optionalJavaType">
         <xs:attribute type="xs:string" name="type">
             <xs:annotation>
@@ -88,6 +99,7 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
+
     <xs:attributeGroup name="attlist.typeDefaultString">
         <xs:attribute name="type" default="String">
             <xs:simpleType>
@@ -108,6 +120,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
     </xs:attributeGroup>
+
     <xs:attributeGroup name="attlist.operatorRequired">
         <xs:attribute name="operator" use="required">
             <xs:simpleType>
@@ -3556,15 +3569,7 @@ under the License.
                 <xs:element ref="fail-message" />
                 <xs:element ref="fail-property" />
             </xs:choice>
-            <xs:attribute type="xs:string" name="error-list-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the error message list. Defaults to "error_list".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
+            <xs:attribute ref="error-list-name"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="break" substitutionGroup="ControlOperations">
@@ -3617,16 +3622,7 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="error-list-name">
-                <xs:annotation>
-                    <xs:documentation>
-                        The name of the list in the method environment to check for error messages.
-                        Defaults to "error_list".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Optional. Attribute type: constant
-                    </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
+            <xs:attribute ref="error-list-name"/>
         </xs:complexType>
     </xs:element>
 
@@ -3797,57 +3793,45 @@ under the License.
             <xs:documentation>
                 The operations contained by the if-validate-method tag will only be executed if the validate method returns true.
                 If-validate-method calls a static Java method that takes a String and returns a boolean.
-                This tag can contain any of the simple-method operations, including the conditional/if operations.
+                This tag can contain any of the simple-method operations, including
+                the conditional/if operations.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Any simple-method operation can be nested under an if-* tag.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:group>
-                <xs:element minOccurs="0" ref="else">
-                    <xs:annotation>
-                        <xs:documentation>
-                            The else tag can be used to contain operations that will run if the condition fails,
-                            or in other words if the operations under the if tag do not run.
-
-                            It can contain any simple-method operation.
-                            The else tag must be placed as the last tag under the if-* tag.
-                        </xs:documentation>
-                    </xs:annotation>
-                </xs:element>
+                <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+                <xs:element minOccurs="0" ref="else" />
             </xs:sequence>
-            <xs:attributeGroup ref="attlist.if-validate-method"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field (variable) that will be validated.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: expression
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="method" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the method that will be called to validate the field.
+                        It must be a static method that takes a single String parameter and return a boolean.
+                        &lt;br/&gt;&lt;br/&gt;
+                        Required. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="class">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the class that contains the validation method. Defaults to "org.ofbiz.base.util.UtilValidate".
+                        &lt;br/&gt;&lt;br/&gt;
+                        Optional. Attribute type: constant
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the field (variable) that will be validated.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="method" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method that will be called to validate the field.
-                    It must be a static method that takes a single String parameter and return a boolean.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the class that contains the validation method. If not specified defaults to "org.ofbiz.base.util.UtilValidate".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <xs:element name="if-instance-of" substitutionGroup="IfBasicOperations">
         <xs:annotation>
             <xs:documentation>
@@ -4225,39 +4209,32 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="check-id" substitutionGroup="IfOtherOperations">
+    <xs:element name="check-id" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
-                <![CDATA[The check-id tag checks to see if the ID value in the given field is a valid ID string.
+                The check-id tag checks to see if the ID value in the given field is a valid database ID string.
+                An invalid ID field will add an error message to the error message list.
+                &lt;br/&gt;&lt;br/&gt;
                 Valid IDs can be any sequence of characters or digits but must not containt the following characters:
-                space [ ], doublequote ["], single quote ['], ampersand [&], question mark [?], less-than sign [<], greater-than sign [>].]]>
+                space [ ], double quote [&quot;], single quote ['], ampersand [&amp;], question
+                mark [?], less-than sign [&lt;], greater-than sign [&gt;].
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:choice minOccurs="0">
-                <xs:element ref="fail-message"/>
-                <xs:element ref="fail-property"/>
+                <xs:element ref="fail-message" />
+                <xs:element ref="fail-property" />
             </xs:choice>
-            <xs:attributeGroup ref="attlist.check-id"/>
+            <xs:attribute type="xs:string" name="field" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the field that contains the ID value to check.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute ref="error-list-name"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.check-id">
-        <xs:attribute type="xs:string" name="field" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the field that contains the ID value to check.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="error-list-name" default="error_list">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of a list in the method environment that the error messages will be added to.
-                    Will be created if does not exist. Defaults to "error_list".
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-    </xs:attributeGroup>
     <!-- the "Other" Operations -->
     <xs:element name="log" substitutionGroup="OtherOperations">
         <xs:annotation>
