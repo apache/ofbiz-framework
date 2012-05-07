@@ -38,12 +38,13 @@ import org.ofbiz.base.util.UtilDateTime;
 
 public class Captcha {
 
-    public static String ID_KEY = null;
-    public static String CAPTCHA_FILE_NAME = null;
-    public static String CAPTCHA_FILE_PATH = null;
+    public static final String CAPTCHA_FILE_PATH = System.getProperty("ofbiz.home") + File.separator + "runtime" + File.separator + "tempfiles" + File.separator + "captcha" + File.separator;
 
-    public static String getCodeCaptcha(HttpServletRequest request,HttpServletResponse response) {
-        if (CAPTCHA_FILE_PATH != null) deleteFile();
+    public static String getCodeCaptcha(HttpServletRequest request, HttpServletResponse response) {
+        File test = new File(CAPTCHA_FILE_PATH);
+        if (!test.exists()) {
+            test.mkdir();
+        }
         StringBuilder finalString = new StringBuilder();
         String elegibleChars = "ABCDEFGHJKLMPQRSTUVWXYabcdefhjkmnpqrstuvwxy23456789";
         int charsToPrint = 6;
@@ -55,20 +56,15 @@ public class Captcha {
             char characterToShow = chars[randomIndex];
             finalString.append(characterToShow);
         }
-        ID_KEY = finalString.toString();
-        if (createImageCaptcha (request,response)) return "success";
-        return "error";
-    }
+        String idKey = finalString.toString();
 
-    public static boolean createImageCaptcha (HttpServletRequest request,HttpServletResponse response) {
         try {
-            //It is possible to pass the font size, image width and height with the request as well
+            // It is possible to pass the font size, image width and height with the request as well
             Color backgroundColor = Color.gray;
             Color borderColor = Color.DARK_GRAY;
             Color textColor = Color.ORANGE;
             Color circleColor = new Color(160, 160, 160);
             Font textFont = new Font("Arial", Font.PLAIN, paramInt(request, "fontSize", 22));
-            int charsToPrint = 6;
             int width = paramInt(request, "width", 149);
             int height = paramInt(request, "height", 40);
             int circlesToDraw = 6;
@@ -97,7 +93,7 @@ public class Captcha {
             int fontHeight = fontMetrics.getHeight();
 
             //We are not using certain characters, which might confuse users
-            String characterToShow = ID_KEY;
+            String characterToShow = idKey;
             float spaceForLetters = -horizMargin * 2 + width;
             float spacePerChar = spaceForLetters / (charsToPrint - 1.0f);
 
@@ -134,40 +130,16 @@ public class Captcha {
             g.setColor(borderColor);
             g.drawRect(0, 0, width - 1, height - 1);
             g.dispose();
-            Captcha.writeImage(bufferedImage, request);
+
+            String captchaFileName = UtilDateTime.nowAsString().concat(".jpg");
+            request.setAttribute("captchaFileName", "/tempfiles/captcha/" + captchaFileName);
+            request.setAttribute("ID_KEY", idKey);
+            ImageIO.write(bufferedImage, "jpg", new File(CAPTCHA_FILE_PATH + captchaFileName));
 
         } catch (Exception ioe) {
-            return false;
+            return "error";
         }
-        //Adding this because we called response.getOutputStream() above. This will prevent and illegal state exception being thrown
-        return true;
-    }
-
-    public static void writeImage(BufferedImage image, HttpServletRequest request)
-    {
-        try {
-            String FILE_PATH = File.separator + "runtime" + File.separator + "tempfiles" + File.separator + "captcha" + File.separator;
-            String URL_FILE_PATH = "/tempfiles/captcha/";
-            CAPTCHA_FILE_PATH = new File(".").getCanonicalPath();
-            CAPTCHA_FILE_PATH += FILE_PATH;
-            File test = new File(CAPTCHA_FILE_PATH);
-            if (!test.exists()) {
-                test.mkdir();
-            }
-            CAPTCHA_FILE_NAME = UtilDateTime.nowAsString().concat(".jpg");
-            request.setAttribute("captchaFileName", URL_FILE_PATH + CAPTCHA_FILE_NAME);
-            request.setAttribute("ID_KEY", ID_KEY);
-            ImageIO.write(image, "jpg", new File(CAPTCHA_FILE_PATH + CAPTCHA_FILE_NAME));
-        } catch (IOException e) {
-            return;
-        }
-    }
-
-    public static void deleteFile() {
-        if (CAPTCHA_FILE_PATH != null) {
-               File file = new File(CAPTCHA_FILE_PATH);
-               file.delete();
-        }
+        return "success";
     }
 
     public static String paramString(HttpServletRequest request, String paramName,

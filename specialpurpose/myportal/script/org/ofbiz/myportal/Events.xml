@@ -137,6 +137,5 @@ under the License.
             </else>
         </if-compare>
         <check-errors error-list-name="error_list" error-code="resultPage"/>
-        <call-class-method class-name="org.ofbiz.common.Captcha" method-name="deleteFile"/>
     </simple-method>
 </simple-methods>
