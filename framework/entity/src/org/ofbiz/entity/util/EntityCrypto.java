@@ -63,7 +63,7 @@ public final class EntityCrypto {
             throw new EntityCryptoException(e);
         }
         handlers = new StorageHandler[] {
-            // new SaltedBase64StorageHandler(kek),
+            new SaltedBase64StorageHandler(kek),
             NormalHashStorageHandler,
             OldFunnyHashStorageHandler,
         };
