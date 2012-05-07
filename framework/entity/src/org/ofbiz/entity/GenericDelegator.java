@@ -223,7 +223,7 @@ public class GenericDelegator implements Delegator {
             }
             GenericValue kekValue = baseDelegator.findOne("TenantKeyEncryptingKey", true, "tenantId", getDelegatorTenantId());
             if (kekValue != null) {
-                kekText = kekValue.getString("keyText");
+                kekText = kekValue.getString("kekText");
             } else {
                 kekText = this.delegatorInfo.kekText;
             }
