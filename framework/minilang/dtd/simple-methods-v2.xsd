@@ -3605,7 +3605,7 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="assert" substitutionGroup="IfOtherOperations">
+    <xs:element name="assert" substitutionGroup="EnvOperations">
         <xs:annotation>
             <xs:documentation>
                 Adds an error to the error list for each condition that evaluates to false.

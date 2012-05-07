@@ -28,9 +28,7 @@ org.ofbiz.minilang.method.callops.CheckErrors$CheckErrorsFactory
 org.ofbiz.minilang.method.callops.CreateObject$CreateObjectFactory
 org.ofbiz.minilang.method.callops.Return$ReturnFactory
 org.ofbiz.minilang.method.callops.SetServiceFields$SetServiceFieldsFactory
-org.ofbiz.minilang.method.conditional.Assert$AssertFactory
 org.ofbiz.minilang.method.conditional.MasterIf$MasterIfFactory
-org.ofbiz.minilang.method.conditional.While$WhileFactory
 org.ofbiz.minilang.method.entityops.ClearCacheLine$ClearCacheLineFactory
 org.ofbiz.minilang.method.entityops.ClearEntityCaches$ClearEntityCachesFactory
 org.ofbiz.minilang.method.entityops.CloneValue$CloneValueFactory
@@ -66,6 +64,7 @@ org.ofbiz.minilang.method.entityops.StoreValue$StoreValueFactory
 org.ofbiz.minilang.method.entityops.TransactionBegin$TransactionBeginFactory
 org.ofbiz.minilang.method.entityops.TransactionCommit$TransactionCommitFactory
 org.ofbiz.minilang.method.entityops.TransactionRollback$TransactionRollbackFactory
+org.ofbiz.minilang.method.envops.Assert$AssertFactory
 org.ofbiz.minilang.method.envops.Break$BreakFactory
 org.ofbiz.minilang.method.envops.CheckId$CheckIdFactory
 org.ofbiz.minilang.method.envops.ClearField$ClearFieldFactory
@@ -85,6 +84,7 @@ org.ofbiz.minilang.method.envops.StringAppend$StringAppendFactory
 org.ofbiz.minilang.method.envops.StringToField$StringToFieldFactory
 org.ofbiz.minilang.method.envops.StringToList$StringToListFactory
 org.ofbiz.minilang.method.envops.ToString$ToStringFactory
+org.ofbiz.minilang.method.envops.While$WhileFactory
 org.ofbiz.minilang.method.eventops.FieldToRequest$FieldToRequestFactory
 org.ofbiz.minilang.method.eventops.FieldToSession$FieldToSessionFactory
 org.ofbiz.minilang.method.eventops.RequestParametersToList$RequestParametersToListFactory
