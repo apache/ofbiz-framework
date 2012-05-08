@@ -101,6 +101,10 @@ under the License.
                 <set field="labelTitleProperty" value="ProductPromotions"/>
                 <set field="userEntered" from-field="parameters.userEntered"/>
                 <set field="activeOnly" from-field="parameters.activeOnly" default-value="true"/>
+                
+                <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>                
+                
                 <entity-condition entity-name="ProductStorePromoAndAppl" list="productStorePromoAndAppls" filter-by-date="${activeOnly}">
                     <condition-list combine="and">
                         <condition-expr field-name="userEntered" from-field="userEntered" ignore-if-empty="true"/>
