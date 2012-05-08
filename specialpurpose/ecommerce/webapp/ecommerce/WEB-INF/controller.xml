@@ -244,7 +244,7 @@ under the License.
     <request-map uri="additem">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCart"/>
-        <response name="success" type="view-last" value="showcart"/>
+        <response name="success" type="view-last" value="showcart" save-last-view="true"/>
         <response name="survey" type="view" value="survey"/>
         <response name="product" type="view" value="product"/>
         <response name="viewcart" type="request-redirect" value="showcart"/>
