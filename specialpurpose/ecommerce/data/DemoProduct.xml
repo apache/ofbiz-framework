@@ -129,8 +129,8 @@ under the License.
     <ProductStoreEmailSetting productStoreId="9000" emailType="UNSUB_CONT_LIST_NOTI" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListUnsubscribeEmail" subject="Unsubscribe Contact List" fromAddress="ofbiztest@example.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="CONT_EMAIL_TEMPLATE" bodyScreenLocation="component://ecommerce/widget/EmailContactListScreens.xml#ContactListEmailTemplate"/>
 
-    <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="--  enter here your analytic script code --"/>
-    <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="--  enter here your analytic script code --"/>
+    <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="GOOGLE_ANALYTICS" webAnalyticsCode="//--  enter here your analytic script code --"/>
+    <WebAnalyticsConfig webSiteId="WebStore" webAnalyticsTypeId="BING_ANALYTICS" webAnalyticsCode="//--  enter here your analytic script code --"/>
 
     <ProductStoreFacility productStoreId="9000" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
