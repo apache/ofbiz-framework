@@ -1229,6 +1229,21 @@ under the License.
     </target>
 
     <!-- ================================================================== -->
+    <!-- kek helper                                                         -->
+    <!-- ================================================================== -->
+
+    <target name="gen-kek" 
+            description="Generate a new key-encrypting-key for use in entityengine.xml">
+        <java classname="org.ofbiz.base.crypto.Main" fork="false">
+            <arg value="-kek"/>
+            <classpath>
+                <path location="framework/base/build/lib/ofbiz-base.jar"/>
+                <path location="framework/base/lib/commons/commons-codec-1.4.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- ================================================================== -->
     <!-- Old tasks.                                                         -->
     <!-- ================================================================== -->
     <target name="run">
