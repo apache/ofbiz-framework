@@ -62,12 +62,12 @@ public class JpCacheIncludeTransform implements TemplateTransformModel {
             }
 
             public void close() throws IOException {
-                Debug.log("Checking for cached content (" + contextName + "." + include + ")", module);
+                Debug.logInfo("Checking for cached content (" + contextName + "." + include + ")", module);
                 String content = (String) pageCache.get(contextName + "." + include);
                 if (content == null) {
                     content =  wrapper.get(include);
                     pageCache.put(contextName + "." + include, content, expireTime);
-                    Debug.log("No content found; cached result for - " + expireTime, module);
+                    Debug.logInfo("No content found; cached result for - " + expireTime, module);
                 }
                 if (content != null) {
                     writer.write(content);
@@ -78,13 +78,13 @@ public class JpCacheIncludeTransform implements TemplateTransformModel {
 
     public long getExpireTime(Map args) {
         Object o = args.get("expireTime");
-        Debug.log("ExpireTime Object - " + o, module);
+        Debug.logInfo("ExpireTime Object - " + o, module);
         long expireTime = 0;
         if (o != null) {
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
                 String ets = s.getAsString();
-                Debug.log("ExpireTime String - " + ets, module);
+                Debug.logInfo("ExpireTime String - " + ets, module);
                 try {
                     expireTime = Long.parseLong(ets);
                 } catch (Exception e) {
@@ -97,13 +97,13 @@ public class JpCacheIncludeTransform implements TemplateTransformModel {
 
     public String getInclude(Map args) {
         Object o = args.get("include");
-        Debug.log("Include Object - " + o, module);
+        Debug.logInfo("Include Object - " + o, module);
         String include = null;
         if (o != null) {
             if (o instanceof SimpleScalar) {
                 SimpleScalar s = (SimpleScalar) o;
                 include = s.getAsString();
-                Debug.log("Include String - " + include, module);
+                Debug.logInfo("Include String - " + include, module);
             }
         }
         return include;

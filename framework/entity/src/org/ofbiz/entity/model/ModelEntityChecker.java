@@ -210,7 +210,7 @@ public class ModelEntityChecker {
                         try {
                             relatedEntity = reader.getModelEntity(relation.getRelEntityName());
                         } catch (GenericEntityException e) {
-                            Debug.log("Entity referred to in relation is not defined: " + relation.getRelEntityName());
+                            Debug.logInfo("Entity referred to in relation is not defined: " + relation.getRelEntityName(), module);
                         }
                         if (relatedEntity != null) {
                             //if relation is of type one, make sure keyMaps
@@ -505,7 +505,7 @@ public class ModelEntityChecker {
     public static void initReservedWords(TreeSet<String> reservedWords) {
         //create extensive list of reserved words
         int asize = rwArray.length;
-        Debug.log("[initReservedWords] array length=" + asize);
+        Debug.logInfo("[initReservedWords] array length=" + asize, module);
         for (int i = 0; i < asize; i++) {
             reservedWords.add(rwArray[i]);
         }

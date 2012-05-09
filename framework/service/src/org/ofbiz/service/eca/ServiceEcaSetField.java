@@ -63,7 +63,7 @@ public class ServiceEcaSetField {
                     if (UtilValidate.isNotEmpty(s)) {
                         value = s;
                     }
-                    Debug.log("Expanded String: " + s, module);
+                    Debug.logInfo("Expanded String: " + s, module);
                 }
             }
             // TODO: rewrite using the ContextAccessor.java see hack below to be able to use maps for email notifications

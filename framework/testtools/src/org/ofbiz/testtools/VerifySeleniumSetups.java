@@ -92,7 +92,7 @@ public class VerifySeleniumSetups {
                 if (contentLength == -1) {
                     request.setAttribute("_ERROR_MESSAGE_", "can not conect to the internet");
                 }
-                Debug.log("file size. "+contentLength,module);
+                Debug.logInfo("file size. "+contentLength,module);
                 if (file.exists()) {
                     if (contentLength == file.length()) {
                         lib = true;
@@ -145,12 +145,12 @@ public class VerifySeleniumSetups {
             URLConnection connection = url.openConnection();
             contentLength = connection.getContentLength();
             InputStream stream = connection.getInputStream();
-            Debug.log("getContentLength is :"+contentLength);
+            Debug.logInfo("getContentLength is :"+contentLength, module);
 
             in = new BufferedInputStream(stream);
 
             long totalBytes = in.available();
-            Debug.log("totalBytes is : "+totalBytes);
+            Debug.logInfo("totalBytes is : "+totalBytes, module);
 
             byte[] b = new byte[1024];
 
@@ -158,12 +158,12 @@ public class VerifySeleniumSetups {
             out = new BufferedOutputStream(file);
 
             int r;
-            Debug.log("currentValue is : "+currentValue+" bytes");
+            Debug.logInfo("currentValue is : "+currentValue+" bytes", module);
             while ((r = in.read(b,0,b.length)) != -1) {
                 out.write(b,0,r);
                 bytesRead += r;
                 currentValue = (int)(bytesRead * 100 / contentLength);
-                // Debug.log("loading.. :"+bytesRead);
+                // Debug.logInfo("loading.. :"+bytesRead);
             }
             out.flush();
         } catch (IOException ex) {

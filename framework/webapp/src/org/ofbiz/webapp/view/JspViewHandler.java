@@ -54,8 +54,8 @@ public class JspViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException("Null or empty source");
         }
 
-        //Debug.log("Requested Page : " + page, module);
-        //Debug.log("Physical Path  : " + context.getRealPath(page));
+        //Debug.logInfo("Requested Page : " + page, module);
+        //Debug.logInfo("Physical Path  : " + context.getRealPath(page));
 
         // tell the ContextFilter we are forwarding
         request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);

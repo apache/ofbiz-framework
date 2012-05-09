@@ -83,7 +83,7 @@ public class ServiceStreamHandler implements EventHandler {
             outputError(out, e, "Exception thrown in runSync()");
             throw new EventHandlerException(e.getMessage(), e);
         }
-        Debug.log("Received respone: " + resp, module);
+        Debug.logInfo("Received respone: " + resp, module);
         if (ServiceUtil.isError(resp)) {
             outputError(out, null, ServiceUtil.getErrorMessage(resp));
             throw new EventHandlerException(ServiceUtil.getErrorMessage(resp));

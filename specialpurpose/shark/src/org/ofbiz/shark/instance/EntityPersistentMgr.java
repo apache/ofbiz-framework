@@ -176,7 +176,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public boolean restore(ProcessVariablePersistenceInterface processVariablePersistenceInterface, SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: ProcessVariablePersistenceInterface ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: ProcessVariablePersistenceInterface ::", module);
         if (processVariablePersistenceInterface == null) {
             return false;
         }
@@ -190,7 +190,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public boolean restore(ActivityVariablePersistenceInterface activityVariablePersistenceInterface, SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: ActivityVariablePersistenceInterface ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: ActivityVariablePersistenceInterface ::", module);
         if (activityVariablePersistenceInterface == null) {
             return false;
         }
@@ -205,7 +205,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
 
     public void deleteProcessMgr(String mgrName, SharkTransaction trans) throws PersistenceException {
-        if (Debug.infoOn()) Debug.log(":: deleteProcessMgr ::", module);
+        if (Debug.infoOn()) Debug.logInfo(":: deleteProcessMgr ::", module);
         try {
             ((ProcessMgr) restoreProcessMgr(mgrName, trans)).remove();
         } catch (GenericEntityException e) {
@@ -216,7 +216,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     public void deleteProcess(String processId, boolean admin, SharkTransaction trans) throws PersistenceException {
         Delegator delegator = SharkContainer.getDelegator();
         if (admin) {
-            if (Debug.infoOn()) Debug.log(":: deleteProcess ::", module);
+            if (Debug.infoOn()) Debug.logInfo(":: deleteProcess ::", module);
             Process process = (Process) this.restoreProcess(processId, trans);
             List activities = this.getAllActivitiesForProcess(processId, trans);
             if (activities != null) {
@@ -242,7 +242,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public void deleteActivity(String activityId, SharkTransaction trans) throws PersistenceException {
-        if (Debug.infoOn()) Debug.log(":: deleteActivity ::", module);
+        if (Debug.infoOn()) Debug.logInfo(":: deleteActivity ::", module);
         Activity activity = (Activity) this.restoreActivity(activityId, trans);
         List assignments = this.getAllAssignmentsForActivity(activityId, trans);
         if (assignments != null) {
@@ -265,7 +265,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public void deleteResource(String userName, SharkTransaction trans) throws PersistenceException {
-        if (Debug.infoOn()) Debug.log(":: deleteResource ::", module);
+        if (Debug.infoOn()) Debug.logInfo(":: deleteResource ::", module);
         try {
             ((Resource) restoreResource(userName, trans)).remove();
         } catch (GenericEntityException e) {
@@ -274,7 +274,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public void deleteAssignment(String activityId, String userName, SharkTransaction trans) throws PersistenceException {
-        if (Debug.infoOn()) Debug.log(":: deleteAssignment ::", module);
+        if (Debug.infoOn()) Debug.logInfo(":: deleteAssignment ::", module);
         try {
             ((Assignment) restoreAssignment(activityId, userName, trans)).remove();
         } catch (GenericEntityException e) {
@@ -283,7 +283,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public void deleteAndJoinEntries(String procId, String asDefId, String aDefId, SharkTransaction trans) throws PersistenceException {
-        if (Debug.infoOn()) Debug.log(":: deleteAndJoinEntries ::", module);
+        if (Debug.infoOn()) Debug.logInfo(":: deleteAndJoinEntries ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         try {
             delegator.removeByAnd(org.ofbiz.shark.SharkConstants.WfAndJoin, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.processId, procId,
@@ -352,7 +352,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllProcessMgrs(SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllProcessMgrs ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllProcessMgrs ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -382,7 +382,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllResources(SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllResources ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllResources ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -402,7 +402,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllAssignments(SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllAssignments ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllAssignments ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -421,7 +421,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         return createdList;
     }
     public List getAllActivities(SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllActivities ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllActivities ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -441,12 +441,12 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllProcessesForMgr(String mgrName, SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllProcessesForMgr ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllProcessesForMgr ::", module);
         return this.getProcessesForMgr(mgrName, null, trans);
     }
 
     public List getProcessesForMgr(String mgrName, String state, SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getProcessesForMgr ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getProcessesForMgr ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -681,7 +681,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllVariablesForProcess(String processId, SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllVariablesForProcess ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllVariablesForProcess ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -701,13 +701,13 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } else {
             Debug.logInfo("Lookup list empty", module);
         }
-        if (Debug.verboseOn()) Debug.log("Returning list : " + createdList.size(), module);
+        if (Debug.verboseOn()) Debug.logInfo("Returning list : " + createdList.size(), module);
         return createdList;
     }
 
     public List getAllVariablesForActivity(String activityId, SharkTransaction trans) throws PersistenceException {
 
-        if (Debug.verboseOn()) Debug.log(":: getAllVariablesForActivity ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllVariablesForActivity ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;
@@ -781,7 +781,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     public List getAllIdsForProcessesWithExpiriedDeadlines(long l, SharkTransaction trans) throws PersistenceException {
-        if (Debug.infoOn()) Debug.log(":: getAllIdsForProcessesWithExpiriedDeadlines ::", module);
+        if (Debug.infoOn()) Debug.logInfo(":: getAllIdsForProcessesWithExpiriedDeadlines ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List processIds = new ArrayList();
 
@@ -1003,7 +1003,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         return returnList;
     }
     public List getAllProcesses(SharkTransaction trans) throws PersistenceException {
-        if (Debug.verboseOn()) Debug.log(":: getAllProcesses ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAllProcesses ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createdList = new ArrayList();
         List lookupList = null;

@@ -56,7 +56,7 @@ public class EntityEcaSetField {
                     if (UtilValidate.isNotEmpty(s)) {
                         value = s;
                     }
-                    Debug.log("Expanded String: " + s, module);
+                    Debug.logInfo("Expanded String: " + s, module);
                 }
             }
 

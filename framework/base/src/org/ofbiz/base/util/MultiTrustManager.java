@@ -83,7 +83,7 @@ public class MultiTrustManager implements X509TrustManager {
                         for (Certificate cert: chain) {
                             if (cert instanceof X509Certificate) {
                                 if (Debug.verboseOn())
-                                    Debug.log("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                    Debug.logInfo("Read certificate (chain) : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
                                 issuers.add((X509Certificate) cert);
                             }
                         }
@@ -91,7 +91,7 @@ public class MultiTrustManager implements X509TrustManager {
                         Certificate cert = store.getCertificate(alias);
                         if (cert != null && cert instanceof X509Certificate) {
                             if (Debug.verboseOn())
-                                Debug.log("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
+                                Debug.logInfo("Read certificate : " + ((X509Certificate) cert).getSubjectX500Principal().getName(), module);
                             issuers.add((X509Certificate) cert);
                         }
                     }
@@ -111,10 +111,10 @@ public class MultiTrustManager implements X509TrustManager {
                 for (X509Certificate issuer: issuers) {
                     for (X509Certificate c: cert) {
                         if (Debug.verboseOn())
-                            Debug.log("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), module);
+                            Debug.logInfo("--- Checking cert: " + issuer.getSubjectX500Principal() + " vs " + c.getSubjectX500Principal(), module);
                         if (issuer.equals(c)) {
                             if (Debug.verboseOn())
-                                Debug.log("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
+                                Debug.logInfo("--- Found trusted cert: " + issuer.getSerialNumber().toString(16) + " : " + issuer.getSubjectX500Principal(), module);
                             return true;
                         }
                     }

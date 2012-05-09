@@ -246,27 +246,27 @@ public class EntityDataServices {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String[] header = readEntityHeader(file, delimiter, reader);
 
-        //Debug.log("Opened data file [" + file.getName() + "] now running...", module);
+        //Debug.logInfo("Opened data file [" + file.getName() + "] now running...", module);
         GeneralException exception = null;
         String line = null;
         int lineNumber = 1;
         while ((line = reader.readLine()) != null) {
             // process the record
             String fields[] = line.split(delimiter);
-            //Debug.log("Split record", module);
+            //Debug.logInfo("Split record", module);
             if (fields.length < 1) {
                 exception = new GeneralException("Illegal number of fields [" + file.getName() + " / " + lineNumber);
                 break;
             }
 
             GenericValue newValue = makeGenericValue(delegator, entityName, header, fields);
-            //Debug.log("Made value object", module);
+            //Debug.logInfo("Made value object", module);
             newValue = delegator.createOrStore(newValue);
-            //Debug.log("Stored record", module);
+            //Debug.logInfo("Stored record", module);
 
             if (lineNumber % 500 == 0 || lineNumber == 1) {
-                Debug.log("Records Stored [" + file.getName() + "]: " + lineNumber, module);
-                //Debug.log("Last record : " + newValue, module);
+                Debug.logInfo("Records Stored [" + file.getName() + "]: " + lineNumber, module);
+                //Debug.logInfo("Last record : " + newValue, module);
             }
 
             lineNumber++;

@@ -244,7 +244,7 @@ public class PersistedServiceJob extends GenericServiceJob {
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, "ERROR: Unable to re-schedule job [" + getJobId() + "] to re-run : " + job, module);
                 }
-                Debug.log("Persisted Job [" + getJobId() + "] Failed Re-Scheduling : " + next, module);
+                Debug.logInfo("Persisted Job [" + getJobId() + "] Failed Re-Scheduling : " + next, module);
             } else {
                 Debug.logWarning("Persisted Job [" + getJobId() + "] Failed - Max Retry Hit; not re-scheduling", module);
             }

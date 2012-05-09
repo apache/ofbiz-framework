@@ -236,7 +236,7 @@ public class SOAPEventHandler implements EventHandler {
         // setup the response
             Debug.logVerbose("[EventHandler] : Setting up response message", module);
             String xmlResults = SoapSerializer.serialize(serviceResults);
-            //Debug.log("xmlResults ==================" + xmlResults, module);
+            //Debug.logInfo("xmlResults ==================" + xmlResults, module);
             XMLStreamReader reader = XMLInputFactory.newInstance().createXMLStreamReader(new StringReader(xmlResults));
             StAXOMBuilder resultsBuilder = new StAXOMBuilder(reader);
             OMElement resultSer = resultsBuilder.getDocumentElement();
@@ -260,7 +260,7 @@ public class SOAPEventHandler implements EventHandler {
             // log the response message
             if (Debug.verboseOn()) {
                 try {
-                    Debug.log("Response Message:\n" + resEnv + "\n", module);
+                    Debug.logInfo("Response Message:\n" + resEnv + "\n", module);
                 } catch (Throwable t) {
                 }
             }
@@ -309,7 +309,7 @@ public class SOAPEventHandler implements EventHandler {
             // log the response message
             if (Debug.verboseOn()) {
                 try {
-                    Debug.log("Response Message:\n" + resEnv + "\n", module);
+                    Debug.logInfo("Response Message:\n" + resEnv + "\n", module);
                 } catch (Throwable t) {
                 }
             }

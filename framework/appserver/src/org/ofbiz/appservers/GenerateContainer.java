@@ -227,7 +227,7 @@ public class GenerateContainer implements Container {
                 //                    }
                 //                }
 
-                //Debug.log("Using Data : " + dataMap, module);
+                //Debug.logInfo("Using Data : " + dataMap, module);
                 for (int i = 0; i < files.length; i++) {
                     if (!(files[i].isDirectory() || files[i].isHidden() || files[i].getName().equalsIgnoreCase("geronimo-web.xml"))) {
                         parseTemplate(files[i], dataMap);
@@ -362,7 +362,7 @@ public class GenerateContainer implements Container {
                 }
             }
         } else {
-            //Debug.log("Using Data : " + dataMap, module);
+            //Debug.logInfo("Using Data : " + dataMap, module);
             for (int i = 0; i < files.length; i++) {
                 if (!files[i].isDirectory() && !files[i].isHidden()) {
                     parseTemplate(files[i], dataMap);
@@ -452,7 +452,7 @@ public class GenerateContainer implements Container {
     }
 
     private void parseTemplate(File templateFile, Map<String, Object> dataMap) throws ContainerException {
-        Debug.log("Parsing template : " + templateFile.getAbsolutePath(), module);
+        Debug.logInfo("Parsing template : " + templateFile.getAbsolutePath(), module);
         Reader reader = null;
         try {
             reader = new InputStreamReader(new FileInputStream(templateFile));

@@ -119,7 +119,7 @@ public class GenerateGeronimoDeployment {
 
                         // Copy file contents from source to destination
                         dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
-                        Debug.log("Created jar file : " + newJarName + " in WASCE or Geronimo repository", module);
+                        Debug.logInfo("Created jar file : " + newJarName + " in WASCE or Geronimo repository", module);
 
                         // Close the channels
                         srcChannel.close();
@@ -142,7 +142,7 @@ public class GenerateGeronimoDeployment {
     }
 
     private void parseTemplate(File templateFile, ComponentConfig.WebappInfo webApp) {
-        Debug.log("Parsing template : " + templateFile.getAbsolutePath() + " for web app " + webApp.getName(), module);
+        Debug.logInfo("Parsing template : " + templateFile.getAbsolutePath() + " for web app " + webApp.getName(), module);
 
         Map<String, Object> dataMap= new HashMap<String, Object>();
         dataMap.put("webApp", webApp);

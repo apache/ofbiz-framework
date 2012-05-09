@@ -44,7 +44,7 @@ public class SSLImpl extends JSSEImplementation {
     public SSLImpl() throws ClassNotFoundException {
         super();
         this.allow =  new TrustManager[] { new AllowTrustManager() };
-        Debug.log("SSLImpl loaded; using custom ServerSocketFactory", module);
+        Debug.logInfo("SSLImpl loaded; using custom ServerSocketFactory", module);
     }
 
     @Override
