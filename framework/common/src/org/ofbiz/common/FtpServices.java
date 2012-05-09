@@ -105,7 +105,7 @@ public class FtpServices {
                 ftp.logout();
             }
         } catch (IOException ioe) {
-            Debug.log(ioe, "[putFile] caught exception: " + ioe.getMessage(), module);
+            Debug.logInfo(ioe, "[putFile] caught exception: " + ioe.getMessage(), module);
             errorList.add(UtilProperties.getMessage(resource, "CommonFtpProblemWithTransfer", UtilMisc.toMap("errorString", ioe.getMessage()), locale));
         } finally {
             if (ftp.isConnected()) {

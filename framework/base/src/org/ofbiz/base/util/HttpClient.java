@@ -344,7 +344,7 @@ public class HttpClient {
         try {
             if (Debug.verboseOn() || debug) {
                 try {
-                    Debug.log("ContentEncoding: " + con.getContentEncoding() + "; ContentType: " +
+                    Debug.logInfo("ContentEncoding: " + con.getContentEncoding() + "; ContentType: " +
                             con.getContentType() + " or: " + URLConnection.guessContentTypeFromStream(in), module);
                 } catch (IOException ioe) {
                     Debug.logWarning(ioe, "Caught exception printing content debugging information", module);
@@ -361,7 +361,7 @@ public class HttpClient {
                 }
             }
 
-            if (Debug.verboseOn() || debug) Debug.log("Content-Type: " + contentType, module);
+            if (Debug.verboseOn() || debug) Debug.logInfo("Content-Type: " + contentType, module);
 
             if (contentType != null) {
                 contentType = contentType.toUpperCase();
@@ -374,15 +374,15 @@ public class HttpClient {
                 }
 
                 if (charset != null) charset = charset.trim();
-                if (Debug.verboseOn() || debug) Debug.log("Getting text from HttpClient with charset: " + charset, module);
+                if (Debug.verboseOn() || debug) Debug.logInfo("Getting text from HttpClient with charset: " + charset, module);
             }
 
             BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in) : new InputStreamReader(in, charset));
             String line = "";
 
-            if (Debug.verboseOn() || debug) Debug.log("---- HttpClient Response Content ----", module);
+            if (Debug.verboseOn() || debug) Debug.logInfo("---- HttpClient Response Content ----", module);
             while ((line = post.readLine()) != null) {
-                if (Debug.verboseOn() || debug) Debug.log("[HttpClient] : " + line, module);
+                if (Debug.verboseOn() || debug) Debug.logInfo("[HttpClient] : " + line, module);
                 buf.append(line);
                 if (lineFeed) {
                     buf.append("\n");
@@ -432,11 +432,11 @@ public class HttpClient {
             } else {
                 con = URLConnector.openConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             }
-            if (Debug.verboseOn() || debug) Debug.log("Connection opened to : " + requestUrl.toExternalForm(), module);
+            if (Debug.verboseOn() || debug) Debug.logInfo("Connection opened to : " + requestUrl.toExternalForm(), module);
 
             if ((con instanceof HttpURLConnection)) {
                 ((HttpURLConnection) con).setInstanceFollowRedirects(followRedirects);
-                if (Debug.verboseOn() || debug) Debug.log("Connection is of type HttpURLConnection, more specifically: " + con.getClass().getName(), module);
+                if (Debug.verboseOn() || debug) Debug.logInfo("Connection is of type HttpURLConnection, more specifically: " + con.getClass().getName(), module);
             }
 
             // set the content type
@@ -462,7 +462,7 @@ public class HttpClient {
             if (basicAuthUsername != null) {
                 String basicAuthString = "Basic " + Base64.base64Encode(basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword));
                 con.setRequestProperty("Authorization", basicAuthString);
-                if (Debug.verboseOn() || debug) Debug.log("Header - Authorization: " + basicAuthString, module);
+                if (Debug.verboseOn() || debug) Debug.logInfo("Header - Authorization: " + basicAuthString, module);
             }
 
             if (UtilValidate.isNotEmpty(headers)) {
@@ -470,27 +470,27 @@ public class HttpClient {
                     String headerName = entry.getKey();
                     String headerValue = entry.getValue();
                     con.setRequestProperty(headerName, headerValue);
-                    if (Debug.verboseOn() || debug) Debug.log("Header - " + headerName + ": " + headerValue, module);
+                    if (Debug.verboseOn() || debug) Debug.logInfo("Header - " + headerName + ": " + headerValue, module);
                 }
             }
 
             if (method.equalsIgnoreCase("post")) {
                 OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream(), this.streamCharset != null ? this.streamCharset : "UTF-8");
-                if (Debug.verboseOn() || debug) Debug.log("Opened output stream", module);
+                if (Debug.verboseOn() || debug) Debug.logInfo("Opened output stream", module);
 
                 if (arguments != null) {
                     out.write(arguments);
-                    if (Debug.verboseOn() || debug) Debug.log("Wrote arguements (parameters) : " + arguments, module);
+                    if (Debug.verboseOn() || debug) Debug.logInfo("Wrote arguements (parameters) : " + arguments, module);
                 }
 
                 out.flush();
                 out.close();
-                if (Debug.verboseOn() || debug) Debug.log("Flushed and closed buffer", module);
+                if (Debug.verboseOn() || debug) Debug.logInfo("Flushed and closed buffer", module);
             }
 
             if (Debug.verboseOn() || debug) {
                 Map<String, List<String>> headerFields = con.getHeaderFields();
-                Debug.log("Header Fields : " + headerFields, module);
+                Debug.logInfo("Header Fields : " + headerFields, module);
             }
 
             in = con.getInputStream();

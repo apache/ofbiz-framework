@@ -80,7 +80,7 @@ public class UtilURL {
         if (url == null) url = fromOfbizHomePath(resourceName);
         if (url == null) url = fromUrlString(resourceName);
 
-        //Debug.log("[fromResource] got URL " + (url == null ? "[NotFound]" : url.toExternalForm()) + " from resourceName " + resourceName);
+        //Debug.logInfo("[fromResource] got URL " + (url == null ? "[NotFound]" : url.toExternalForm()) + " from resourceName " + resourceName);
         return url;
     }
 

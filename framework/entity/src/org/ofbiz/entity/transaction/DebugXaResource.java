@@ -55,7 +55,7 @@ public class DebugXaResource extends GenericXaResource {
     }
 
     public void log() {
-        Debug.log("Xid : " + xid, module);
-        Debug.log(ex, module);
+        Debug.logInfo("Xid : " + xid, module);
+        Debug.logInfo(ex, module);
     }
 }

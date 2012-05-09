@@ -324,7 +324,7 @@ public class CommonServices {
         set.add(delegator.getModelEntity("RoleType"));
 
         for (ModelEntity modelEntity: set) {
-            Debug.log(modelEntity.getEntityName(), module);
+            Debug.logInfo(modelEntity.getEntityName(), module);
         }
         return ServiceUtil.returnSuccess();
     }
@@ -366,10 +366,10 @@ public class CommonServices {
             if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
                 TransactionUtil.logRunningTx();
             } else {
-                Debug.log("No running transaction to display.", module);
+                Debug.logInfo("No running transaction to display.", module);
             }
         } else {
-            Debug.log("Debug resources is disabled.", module);
+            Debug.logInfo("Debug resources is disabled.", module);
         }
 
         return ServiceUtil.returnSuccess();
@@ -458,7 +458,7 @@ public class CommonServices {
 
         for (String str: listOfStrings) {
             String v = mapOfStrings.get(str);
-            Debug.log("SimpleMapListTest: " + str + " -> " + v, module);
+            Debug.logInfo("SimpleMapListTest: " + str + " -> " + v, module);
         }
 
         return ServiceUtil.returnSuccess();
@@ -469,17 +469,17 @@ public class CommonServices {
         MimeMessage message = wrapper.getMessage();
         try {
             if (message.getAllRecipients() != null) {
-               Debug.log("To: " + UtilMisc.toListArray(message.getAllRecipients()), module);
+               Debug.logInfo("To: " + UtilMisc.toListArray(message.getAllRecipients()), module);
             }
             if (message.getFrom() != null) {
-               Debug.log("From: " + UtilMisc.toListArray(message.getFrom()), module);
+               Debug.logInfo("From: " + UtilMisc.toListArray(message.getFrom()), module);
             }
-            Debug.log("Subject: " + message.getSubject(), module);
+            Debug.logInfo("Subject: " + message.getSubject(), module);
             if (message.getSentDate() != null) {
-                Debug.log("Sent: " + message.getSentDate().toString(), module);
+                Debug.logInfo("Sent: " + message.getSentDate().toString(), module);
             }
             if (message.getReceivedDate() != null) {
-                Debug.log("Received: " + message.getReceivedDate().toString(), module);
+                Debug.logInfo("Received: " + message.getReceivedDate().toString(), module);
             }
         } catch (Exception e) {
             Debug.logError(e, module);
@@ -497,7 +497,7 @@ public class CommonServices {
 
         try {
             while ((line = reader.readLine()) != null) {
-                Debug.log("Read line: " + line, module);
+                Debug.logInfo("Read line: " + line, module);
                 writer.write(line);
             }
         } catch (IOException e) {

@@ -151,23 +151,23 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
         processHistory.addAll(getCreateProcessEvents(processId));
         processHistory.addAll(getProcessDataEvents(processId));
         processHistory.addAll(getProcessStateEvents(processId));
-        if (Debug.verboseOn()) Debug.log(":: restoreProcessHistory :: " + processHistory.size(), module);
+        if (Debug.verboseOn()) Debug.logInfo(":: restoreProcessHistory :: " + processHistory.size(), module);
         return processHistory;
     }
 
     public List restoreActivityHistory(String processId, String activityId, SharkTransaction trans) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: restoreActivityHistory ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: restoreActivityHistory ::", module);
         List activityHistory = new ArrayList();
         activityHistory.addAll(getAssignmentEvents(processId, activityId));
         activityHistory.addAll(getActivityDataEvents(processId, activityId));
         activityHistory.addAll(getActivityStateEvents(processId, activityId));
-        if (Debug.verboseOn()) Debug.log(":: restoreActivityHistory :: " + activityHistory.size(), module);
+        if (Debug.verboseOn()) Debug.logInfo(":: restoreActivityHistory :: " + activityHistory.size(), module);
         return activityHistory;
     }
 
     // process history
     private List getCreateProcessEvents(String processId) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: getCreateProcessEvents ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getCreateProcessEvents ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List createProcessEvents = new ArrayList();
         List lookupList = null;
@@ -190,7 +190,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     }
 
     private List getProcessStateEvents(String processId) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: getProcessStateEvents ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getProcessStateEvents ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List stateEvents = new ArrayList();
         List lookupList = null;
@@ -213,7 +213,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     }
 
     private List getProcessDataEvents(String processId) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: getProcessDataEvents ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getProcessDataEvents ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List dataEvents = new ArrayList();
         List lookupList = null;
@@ -237,7 +237,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
 
     // activity history
     private List getAssignmentEvents(String processId, String activityId) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: getAssignmentEvents ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getAssignmentEvents ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List assignmentEvents = new ArrayList();
         List lookupList = null;
@@ -260,7 +260,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     }
 
     private List getActivityStateEvents(String processId, String activityId) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: getActivityStateEvents ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getActivityStateEvents ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List stateEvents = new ArrayList();
         List lookupList = null;
@@ -283,7 +283,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
     }
 
     private List getActivityDataEvents(String processId, String activityId) throws EventAuditException {
-        if (Debug.verboseOn()) Debug.log(":: getActivityDataEvents ::", module);
+        if (Debug.verboseOn()) Debug.logInfo(":: getActivityDataEvents ::", module);
         Delegator delegator = SharkContainer.getDelegator();
         List dataEvents = new ArrayList();
         List lookupList = null;

@@ -358,7 +358,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         
         // override the default resource file
         String defResourceName = StringUtil.internString(extendEntityElement.getAttribute("default-resource-name"));
-        //Debug.log("Extended entity - " + extendEntityElement.getAttribute("entity-name") + " new resource name : " + defResourceName, module);
+        //Debug.logInfo("Extended entity - " + extendEntityElement.getAttribute("entity-name") + " new resource name : " + defResourceName, module);
         if (UtilValidate.isNotEmpty(defResourceName)) {
             this.setDefaultResourceName(defResourceName);
         }

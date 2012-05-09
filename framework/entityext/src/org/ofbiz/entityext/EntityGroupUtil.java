@@ -103,7 +103,7 @@ public class EntityGroupUtil {
 
                 if (matchesAlways || (matchesInclude && !matchesExclude)) {
                     // make sure this log message is not checked in uncommented:
-                    //Debug.log("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", module);
+                    //Debug.logInfo("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", module);
                     entityModelToUseList.add(modelEntity);
                 }
             }

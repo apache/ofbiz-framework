@@ -528,7 +528,7 @@ public class RequestHandler {
 
         // if the request has the save-last-view attribute set, save it now before the view can be rendered or other chain done so that the _LAST* session attributes will represent the previous request
         if (nextRequestResponse.saveLastView) {
-            // Debug.log("======save last view: " + session.getAttribute("_LAST_VIEW_NAME_"));
+            // Debug.logInfo("======save last view: " + session.getAttribute("_LAST_VIEW_NAME_"));
             String lastViewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
             // Do not save the view if the last view is the same as the current view and saveCurrentView is false
             if (!(!nextRequestResponse.saveCurrentView && "view".equals(nextRequestResponse.type) && nextRequestResponse.value.equals(lastViewName))) {
@@ -783,13 +783,13 @@ public class RequestHandler {
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
 
         if ("SAVED".equals(saveName)) {
-            //Debug.log("======save current view: " + view);
+            //Debug.logInfo("======save current view: " + view);
             req.getSession().setAttribute("_SAVED_VIEW_NAME_", view);
             req.getSession().setAttribute("_SAVED_VIEW_PARAMS_", paramMap);
         }
 
         if ("HOME".equals(saveName)) {
-            //Debug.log("======save home view: " + view);
+            //Debug.logInfo("======save home view: " + view);
             req.getSession().setAttribute("_HOME_VIEW_NAME_", view);
             req.getSession().setAttribute("_HOME_VIEW_PARAMS_", paramMap);
             // clear other saved views

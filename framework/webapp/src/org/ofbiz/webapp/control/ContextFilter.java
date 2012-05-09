@@ -206,7 +206,7 @@ public class ContextFilter implements Filter {
             allowList.add("/");  // No path is allowed.
             allowList.add("");   // No path is allowed.
 
-            if (debug) Debug.log("[Domain]: " + httpRequest.getServerName() + " [Request]: " + httpRequest.getRequestURI(), module);
+            if (debug) Debug.logInfo("[Domain]: " + httpRequest.getServerName() + " [Request]: " + httpRequest.getRequestURI(), module);
 
             requestPath = httpRequest.getServletPath();
             if (requestPath == null) requestPath = "";

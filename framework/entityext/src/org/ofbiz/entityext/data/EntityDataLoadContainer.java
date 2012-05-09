@@ -125,7 +125,7 @@ public class EntityDataLoadContainer implements Container {
                     argumentName = argument;
                     argumentVal = "";
                 }
-                Debug.log("Install Argument - " + argumentName + " = " + argumentVal, module);
+                Debug.logInfo("Install Argument - " + argumentName + " = " + argumentVal, module);
 
                 if ("readers".equalsIgnoreCase(argumentName)) {
                     this.readers = argumentVal;
@@ -172,21 +172,21 @@ public class EntityDataLoadContainer implements Container {
                         createConstraints = true;
                     }
                 } else if ("help".equalsIgnoreCase(argumentName)) {
-                    Debug.log("--------------------------------------", module);
-                    Debug.log("java -jar ofbiz.jar -install [options]", module);
-                    Debug.log("-component=[name] .... only load from a specific component");
-                    Debug.log("-delegator=[name] .... use the defined delegator (default-no-eca", module);
-                    Debug.log("-group=[name] ........ override the entity group (org.ofbiz)", module);
-                    Debug.log("-file=[path] ......... load a single file from location, several files separated by commas.", module);
-                    Debug.log("-createfks ........... create dummy (placeholder) FKs", module);
-                    Debug.log("-maintainTxs ......... maintain timestamps in data file", module);
-                    Debug.log("-inserts ............. use mostly inserts option", module);
-                    Debug.log("-repair-columns ........... repair column sizes", module);
-                    Debug.log("-drop-pks ............ drop primary keys", module);
-                    Debug.log("-create-pks .......... create primary keys", module);
-                    Debug.log("-drop-constraints..... drop indexes and foreign keys before loading", module);
-                    Debug.log("-create-constraints... create indexes and foreign keys after loading (default is true w/ drop-constraints)", module);
-                    Debug.log("-help ................ display this information", module);
+                    Debug.logInfo("--------------------------------------", module);
+                    Debug.logInfo("java -jar ofbiz.jar -install [options]", module);
+                    Debug.logInfo("-component=[name] .... only load from a specific component", module);
+                    Debug.logInfo("-delegator=[name] .... use the defined delegator (default-no-eca", module);
+                    Debug.logInfo("-group=[name] ........ override the entity group (org.ofbiz)", module);
+                    Debug.logInfo("-file=[path] ......... load a single file from location, several files separated by commas.", module);
+                    Debug.logInfo("-createfks ........... create dummy (placeholder) FKs", module);
+                    Debug.logInfo("-maintainTxs ......... maintain timestamps in data file", module);
+                    Debug.logInfo("-inserts ............. use mostly inserts option", module);
+                    Debug.logInfo("-repair-columns ........... repair column sizes", module);
+                    Debug.logInfo("-drop-pks ............ drop primary keys", module);
+                    Debug.logInfo("-create-pks .......... create primary keys", module);
+                    Debug.logInfo("-drop-constraints..... drop indexes and foreign keys before loading", module);
+                    Debug.logInfo("-create-constraints... create indexes and foreign keys after loading (default is true w/ drop-constraints)", module);
+                    Debug.logInfo("-help ................ display this information", module);
                     System.exit(1);
                 }
 

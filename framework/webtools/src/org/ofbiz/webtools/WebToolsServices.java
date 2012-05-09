@@ -285,11 +285,11 @@ public class WebToolsServices {
                         }
                         // pause in between files
                         if (pauseLong > 0) {
-                            Debug.log("Pausing for [" + pauseLong + "] seconds - " + UtilDateTime.nowTimestamp());
+                            Debug.logInfo("Pausing for [" + pauseLong + "] seconds - " + UtilDateTime.nowTimestamp(), module);
                             try {
                                 Thread.sleep((pauseLong * 1000));
                             } catch (InterruptedException ie) {
-                                Debug.log("Pause finished - " + UtilDateTime.nowTimestamp());
+                                Debug.logInfo("Pause finished - " + UtilDateTime.nowTimestamp(), module);
                             }
                         }
                     }
