@@ -557,7 +557,7 @@
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
-        <field name="deleteButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteButton" widget-style="smallSubmit"  use-when="${thruDate==null || (thruDate &gt; nowTimestamp)}"><submit button-type="button"/></field>
     </form>
     <form name="AddWorkEffortPartyAssign" target="createWorkEffortPartyAssign" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
