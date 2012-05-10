@@ -3390,8 +3390,7 @@
         <value xml:lang="vi">Nếu trang mạng cho phép người dụng nhập vào đánh giá sản phẩm, phần này sẽ kiểm soát xem đánh giá đó có phải được phê duyệt trước, hay nó có thể hiển thị ngay lên trang web.</value>
     </property>
     <property key="FieldDescription.ProductStore.isDemoStore">
-        <value xml:lang="en">If Yes, any orders created will not be sent, credit card charges will not be made, etc.
-        </value>
+        <value xml:lang="en">If Yes, any orders created will not be sent, credit card charges will not be made, etc.</value>
     </property>
     <property key="FieldDescription.ProductStore.isImmediatelyFulfilled">
         <value xml:lang="en">If Yes, the order will be immediately fulfilled through system-generated processes in ofbiz (e.g. for POS sales).  If no, it will be held for manual review.</value>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+       <title>OFBiz:MFG: Werkplan taken aanmaken en vinden</title>
+        <para>
+        Dit scherm biedt de mogelijkheid om werkplan taken aan te maken en te vinden.
+        </para>
+        <section>
+            <title>Werkplan taak aanmaken</title>
+            <para>
+            Klik op de knop 'Nieuwe werkplan taak' om een nieuwe taak voor een werkplan aan te maken.
+            </para>
+        </section>
+        <section>
+            <title>Werkplan taak zoeken en vinden</title>
+            <para>
+            Vul de parameters in en klik op de 'zoek' knop. Worden resultaten gevonden, dan worden deze getoond in de sectie onder het zoek deel.
+            </para>
+        </section>
+</section>
