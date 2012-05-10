@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0" 
+    xmlns:xl="http://www.w3.org/1999/xlink" 
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+    xmlns="http://docbook.org/ns/docbook">
+       <title>OFBiz:MFG: Tonen production run</title>
+        <para>
+        Dit scherm toont de productierun. Via dit scherm kun je:
+        </para>
+        <itemizedlist>
+                <listitem><para>Basisgegevens van de productierun wijzigen</para></listitem>
+                <listitem><para>Taken aanmaken - klik op 'Taken'</para></listitem>
+                <listitem><para>Materialen toevoegen - klik op 'Materialen'</para></listitem>
+                <listitem><para>Productiemiddelen koppelen - klik op 'Productiemiddelen'</para></listitem>
+                <listitem><para>De gekoppelde (afhankelijke) productieruns bekijken - klik op 'Associaties'</para></listitem>
+                <listitem><para>De gekoppelde content document bekijken - klik op 'Content'</para></listitem>
+                <listitem><para>De werkelijke kosten van de productierun bekijken - klik op 'Kosten'</para></listitem>
+                
+            </itemizedlist>
+        
+        <section>
+            <title>Gegevens productierun</title>
+            <para>
+            Deze sectie toont de basisgegevens van de productie run. In deze sectie kun je volgende acties uitvoeren:
+            </para>
+            <itemizedlist>
+                <listitem><para>Annuleren - om de taak te annuleren</para></listitem>
+                <listitem><para>Quick close - om de taak af te sluiten</para></listitem>
+                <listitem><para>Quick complete - 0m de taak als uitgevoerd aan te merken</para></listitem>
+                <listitem><para>Bevestigen - om de taak te bevestigen</para></listitem>
+                <listitem><para>Agenderen -om de taak te agenderen in de kalender</para></listitem>
+                <listitem><para>Afdrukken - om een pdf van de productierun aan te maken</para></listitem>
+            </itemizedlist>
+        </section>
+        <section>
+            <title>Orderregels</title>
+            <para>
+            Deze sectie toont de gekoppelde orderregels
+            </para>
+        </section>
+        <section>
+            <title>Taken</title>
+            <para>
+            Deze sectie toont de gekoppelde taken
+            </para>
+        </section>
+        <section>
+            <title>Materialen</title>
+            <para>
+            Deze sectie toont de benodigde materialen voor de productierun
+            </para>
+        </section>
+        <section>
+            <title>Productiemiddelen</title>
+            <para>
+            Deze sectie toont de benodigde productiemiddelen voor de productierun
+            </para>
+        </section>
+        <section>
+            <title>Notities</title>
+            <para>
+            Deze sectie toont de gekoppelde notities inzake de productierun
+            </para>
+        </section>
+</section>

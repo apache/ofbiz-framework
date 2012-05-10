@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<entity-engine-xml>
+    <!-- This is the mapping for the help screens in locale EN -->
+    <DataResource dataResourceId="HELP_MFG" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="OFBiz:MFG Overview" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="HELP_MFG" contentTypeId="DOCUMENT" contentName="OFBiz:MFG (Manufacturing)" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="HELP_MFG" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc contentId="HELP_ROOT" contentIdTo="HELP_MFG" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <!-- the main menu -->
+    <DataResource dataResourceId="MFG_Main" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_main.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_Main" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_Main" contentTypeId="DOCUMENT" contentName="Main" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_Main" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_main" contentId="HELP_MFG" contentIdTo="MFG_Main" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRuns" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_findProductionRun.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRuns" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRuns" contentTypeId="DOCUMENT" contentName="Production Runs" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRuns" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_FindProductionRun" contentId="HELP_MFG" contentIdTo="MFG_ProdRuns" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_Routes" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_FindRouting.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_Routes" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_Routes" contentTypeId="DOCUMENT" contentName="Routings" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_Routes" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_FindRouting" contentId="HELP_MFG" contentIdTo="MFG_Routes" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_RouteTasks" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_FindRoutingTask.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_RouteTasks" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_RouteTasks" contentTypeId="DOCUMENT" contentName="Routing Tasks" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_RouteTasks" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_FindRoutingTask" contentId="HELP_MFG" contentIdTo="MFG_RouteTasks" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_Cals" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_FindCalendar.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_Cals" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_Cals" contentTypeId="DOCUMENT" contentName="Calendars" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_Cals" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_FindCalendar" contentId="HELP_MFG" contentIdTo="MFG_Cals" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_CostCalcs" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditCostCalcs.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_CostCalcs" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_CostCalcs" contentTypeId="DOCUMENT" contentName="Cost Components" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_CostCalcs" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditCostCalcs" contentId="HELP_MFG" contentIdTo="MFG_CostCalcs" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_BOMs" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_FindBom.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_BOMs" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_BOMs" contentTypeId="DOCUMENT" contentName="Bill of Materials" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_BOMs" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_FindBom" contentId="HELP_MFG" contentIdTo="MFG_BOMs" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_MRPs" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_FindInventoryEventPlan.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_MRPs" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_MRPs" contentTypeId="DOCUMENT" contentName="Materials Resource Plans" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_MRPs" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_FindInventoryEventPlan" contentId="HELP_MFG" contentIdTo="MFG_MRPs" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ShipPlans" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_WorkWithShipmentPlans.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ShipPlans" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ShipPlans" contentTypeId="DOCUMENT" contentName="Shipment Plans" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ShipPlans" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_WorkWithShipmentPlans" contentId="HELP_MFG" contentIdTo="MFG_ShipPlans" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_Reports" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ManufacturingReports.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_Reports" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_Reports" contentTypeId="DOCUMENT" contentName="Reports" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_Reports" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ManufacturingReports" contentId="HELP_MFG" contentIdTo="MFG_Reports" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <!-- Regarding Bill of Materials -->
+    <DataResource dataResourceId="MFG_eBOM" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditProductBom.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eBOM" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eBOM" contentTypeId="DOCUMENT" contentName="Edit BoM" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eBOM" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditProductBom" contentId="MFG_BOMs" contentIdTo="MFG_eBOM" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_sBOM" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_BomSimulation.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_sBOM" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_sBOM" contentTypeId="DOCUMENT" contentName="Simulate BoM" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_sBOM" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_BomSimulation" contentId="MFG_BOMs" contentIdTo="MFG_sBOM" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eMFGRules" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditProductManufacturingRules.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eMFGRules" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eMFGRules" contentTypeId="DOCUMENT" contentName="Edit manufacturing rules" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eMFGRules" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditProductManufacturingRules" contentId="MFG_BOMs" contentIdTo="MFG_eMFGRules" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+
+    <!-- Regarding MRP -->
+    <DataResource dataResourceId="MFG_rMRP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_RunMRP.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_rMRP" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_rMRP" contentTypeId="DOCUMENT" contentName="Run MRP" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_rMRP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_RunMrp" contentId="MFG_MRPs" contentIdTo="MFG_rMRP" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <!-- Regarding Routing and Routing Tasks -->
+    <DataResource dataResourceId="MFG_eRoute" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRouting.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eRoute" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eRoute" contentTypeId="DOCUMENT" contentName="Edit route" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eRoute" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRouting" contentId="MFG_Routes" contentIdTo="MFG_eRoute" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eRouteTA" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRoutingTaskAssoc.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eRouteTA" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eRouteTA" contentTypeId="DOCUMENT" contentName="Edit route associated task(s)" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eRouteTA" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRoutingTaskAssoc" contentId="MFG_eRoute" contentIdTo="MFG_eRouteTA" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eRoutePL" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRoutingProductLink.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eRoutePL" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eRoutePL" contentTypeId="DOCUMENT" contentName="Edit route associated product(s)" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eRoutePL" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRoutingProductLink" contentId="MFG_eRoute" contentIdTo="MFG_eRoutePL" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eRouteTask" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRoutingTask.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eRouteTask" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eRouteTask" contentTypeId="DOCUMENT" contentName="Edit routing task" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eRouteTask" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRoutingTask" contentId="MFG_RouteTasks" contentIdTo="MFG_eRouteTask" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eRouteTC" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRoutingTaskCost.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eRouteTC" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eRouteTC" contentTypeId="DOCUMENT" contentName="Edit routing task cost" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eRouteTC" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRoutingTaskCost" contentId="MFG_eRouteTask" contentIdTo="MFG_eRouteTC" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_RouteTaskP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ListRoutingTaskProducts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_RouteTaskP" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_RouteTaskP" contentTypeId="DOCUMENT" contentName="List routing task products" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_RouteTaskP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ListRoutingTaskProducts" contentId="MFG_eRouteTask" contentIdTo="MFG_RouteTaskP" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+
+    <DataResource dataResourceId="MFG_RouteTaskA" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRoutingTaskFixedAssets.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_RouteTaskA" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_RouteTaskA" contentTypeId="DOCUMENT" contentName="Routing task assets" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_RouteTaskA" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRoutingTaskFixedAssets" contentId="MFG_eRouteTask" contentIdTo="MFG_RouteTaskA" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eRouteTaskP" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditRoutingTaskProduct.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eRouteTaskP" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eRouteTaskP" contentTypeId="DOCUMENT" contentName="Edit routing task product" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eRouteTaskP" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditRoutingTaskProduct" contentId="MFG_RouteTaskP" contentIdTo="MFG_eRouteTaskP" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+
+    <!-- Regarding Production Runs -->
+    <DataResource dataResourceId="MFG_sProdRun" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ShowProductionRun.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_sProdRun" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_sProdRun" contentTypeId="DOCUMENT" contentName="Show production run" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_sProdRun" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ShowProductionRun" contentId="MFG_ProdRuns" contentIdTo="MFG_sProdRun" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eProdRun" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditProductionRun.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eProdRun" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eProdRun" contentTypeId="DOCUMENT" contentName="Edit production run" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eProdRun" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditProductionRun" contentId="MFG_sProdRun" contentIdTo="MFG_eProdRun" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRunT" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ProductionRunTasks.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRunT" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRunT" contentTypeId="DOCUMENT" contentName="Production run tasks" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRunT" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ProductionRunTasks" contentId="MFG_sProdRun" contentIdTo="MFG_ProdRunT" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRunC" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ProductionRunComponents.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRunC" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRunC" contentTypeId="DOCUMENT" contentName="Production run components" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRunC" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ProductionRunComponents" contentId="MFG_sProdRun" contentIdTo="MFG_ProdRunC" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRunAt" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ProductionRunFixedAssets.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRunAt" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRunAt" contentTypeId="DOCUMENT" contentName="Production run fixed assets" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRunAt" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ProductionRunFixedAssets" contentId="MFG_sProdRun" contentIdTo="MFG_ProdRunAt" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRunAc" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ProductionRunAssocs.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRunAc" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRunAc" contentTypeId="DOCUMENT" contentName="Production run associations" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRunAc" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ProductionRunAssocs" contentId="MFG_sProdRun" contentIdTo="MFG_ProdRunAc" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRunC" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ProductionRunContent.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRunC" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRunC" contentTypeId="DOCUMENT" contentName="Production run content" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRunC" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ProductionRunContent" contentId="MFG_sProdRun" contentIdTo="MFG_ProdRunC" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_ProdRunE" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ProductionRunCosts.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_ProdRunE" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_ProdRunE" contentTypeId="DOCUMENT" contentName="Production run costs" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_ProdRunE" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ProductionRunCosts" contentId="MFG_sProdRun" contentIdTo="MFG_ProdRunE" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <!-- Regarding Calendars -->
+    <DataResource dataResourceId="MFG_CalWks" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_ListCalendarWeek.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_CalWks" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_CalWks" contentTypeId="DOCUMENT" contentName="Calendar weeks" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_CalWks" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_ListCalendarWeek" contentId="MFG_Cals" contentIdTo="MFG_CalWks" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eCal" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditCalendar.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eCal" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eCal" contentTypeId="DOCUMENT" contentName="Edit calendar" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eCal" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditCalendar" contentId="MFG_Cals" contentIdTo="MFG_eCal" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eCalED" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditCalendarExceptionDay.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eCalED" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eCalED" contentTypeId="DOCUMENT" contentName="Edit calendar exception day" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eCalED" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditCalendarExceptionDay" contentId="MFG_eCal" contentIdTo="MFG_eCalED" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eCalEW" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditCalendarExceptionWeek.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eCalEW" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eCalEW" contentTypeId="DOCUMENT" contentName="Edit calendar exception Week" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eCalEW" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditCalendarExceptionWeek" contentId="MFG_eCal" contentIdTo="MFG_eCalEW" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+    <DataResource dataResourceId="MFG_eCalWk" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
+        objectInfo="applications/manufacturing/data/helpdata/EN/Help_MFG_EditCalendarWeek.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        dataResourceName="MFG_eCalWk" mimeTypeId="text/xml" isPublic="Y" />
+    <Content contentId="MFG_eCalWk" contentTypeId="DOCUMENT" contentName="Edit Calendar week" templateDataResourceId="HELP_TEMPL" 
+        dataResourceId="MFG_eCalWk" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>
+    <ContentAssoc mapKey="MANUFACTURING_EditCalendarWeek" contentId="MFG_CalWks" contentIdTo="MFG_eCalWk" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
+    
+</entity-engine-xml>

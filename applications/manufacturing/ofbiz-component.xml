@@ -35,6 +35,8 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingSecurityData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingHelpData_EN.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/ManufacturingHelpData_NL.xml"/>
     <!--<entity-resource type="data" reader-name="seed-initial" loader="main" location="data/ManufacturingScheduledServices.xml"/>-->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ManufacturingExampleData.xml"/>
 
