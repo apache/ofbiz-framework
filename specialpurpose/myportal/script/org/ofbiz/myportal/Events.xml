@@ -46,10 +46,10 @@ under the License.
         <now-timestamp field="nowStamp"/>
         <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
         <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
-        <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="parameters.captcha"/>
-        <call-object-method obj-field="parameters.captchaCode" method-name="toLowerCase" ret-field="parameters.captchaCode"/>
+        <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="submittedCaptcha"/>
+        <script>groovy: context.actualCaptcha = request.getSession().getAttribute("_CAPTCHA_CODE_")?.toLowerCase()</script>
         <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
-            <if-compare field="parameters.captcha" value="${parameters.captchaCode}" operator="equals">
+            <if-compare-field operator="equals" field="submittedCaptcha" to-field="actualCaptcha">
 
                 <!-- Create user login and Person -->
                 <find-by-primary-key entity-name="UserLogin" map="userLoginContext" value-field="existingUserLogin"/>
@@ -131,7 +131,7 @@ under the License.
                 <else>
                     <property-to-field field="errorMessage" resource="MyPortalUiLabels" property="MyPortalCaptchaMissingError"/><field-to-list field="errorMessage" list="error_list"/>
                 </else>
-            </if-compare>
+            </if-compare-field>
             <else>
                 <property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMatchError"/><field-to-list field="errorMessage" list="error_list"/>
             </else>

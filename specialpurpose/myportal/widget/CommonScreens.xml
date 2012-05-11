@@ -198,18 +198,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <screen name="reloadCaptchaImage">
-        <section>
-            <actions>
-                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
-            </actions>
-            <widgets>
-                <platform-specific><html><html-template location="component://myportal/widget/reloadCaptchaImage.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
-	
+
     <screen name="EmployeeDecorator">
         <section>
             <widgets>
@@ -222,16 +211,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="reloadCaptchaCode">
-        <section>
-            <actions>
-                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
-            </actions>
-            <widgets>
-                <platform-specific><html><html-template location="component://myportal/widget/reloadCaptchaCode.ftl"/></html></platform-specific>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CommonOpportunityDecorator">
         <section>
             <actions>
