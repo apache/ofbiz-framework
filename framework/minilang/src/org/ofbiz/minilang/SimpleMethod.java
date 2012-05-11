@@ -61,7 +61,7 @@ import org.w3c.dom.Element;
 /**
  * Contains a block of Mini-language code.
  */
-public final class SimpleMethod {
+public final class SimpleMethod extends MiniLangElement {
 
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
@@ -321,6 +321,7 @@ public final class SimpleMethod {
     private final boolean useTransaction;
 
     public SimpleMethod(Element simpleMethodElement, String fromLocation) throws MiniLangException {
+        super(simpleMethodElement, null);
         if (MiniLangValidate.validationOn()) {
             String locationMsg = " File = ".concat(fromLocation);
             if (simpleMethodElement.getAttribute("method-name").isEmpty()) {
@@ -381,12 +382,18 @@ public final class SimpleMethod {
 
     /** Execute the Simple Method operations */
     public String exec(MethodContext methodContext) throws MiniLangException {
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "Begin simple-method. Script is running as " + (methodContext.getMethodType() == MethodContext.EVENT ? "an event." : "a service."));
+        }
         Locale locale = methodContext.getLocale();
         GenericValue userLogin = methodContext.getUserLogin();
         if (loginRequired) {
             if (userLogin == null) {
                 Map<String, Object> messageMap = UtilMisc.<String, Object> toMap("shortDescription", shortDescription);
                 String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.must_logged_process", messageMap, locale) + ".";
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "\"login-required\" attribute set to \"true\" but UserLogin GenericValue was not found, returning error message:", errMsg);
+                }
                 return returnError(methodContext, errMsg);
             }
         }
@@ -412,11 +419,16 @@ public final class SimpleMethod {
         // if using transaction, try to start here
         boolean beganTransaction = false;
         if (useTransaction) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "\"use-transaction\" attribute set to \"true\", beginning transaction.");
+            }
             try {
                 beganTransaction = TransactionUtil.begin();
             } catch (GenericTransactionException e) {
                 String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_begin_transaction", locale) + ": " + e.getMessage();
-                Debug.logWarning(e, errMsg, module);
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "An exception was thrown while beginning a transaction, returning error message:", errMsg);
+                }
                 return returnError(methodContext, errMsg);
             }
         }
@@ -424,13 +436,21 @@ public final class SimpleMethod {
         String errorMsg = "";
         boolean finished = false;
         try {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Begin running sub-elements.");
+            }
             finished = runSubOps(methodOperations, methodContext);
         } catch (Throwable t) {
             // make SURE nothing gets thrown through
             String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_running", locale) + ": " + t.getMessage();
-            Debug.logWarning(t, errMsg, module);
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "An exception was thrown while running sub-elements, error message was:", errMsg);
+            }
             finished = false;
             errorMsg += errMsg;
+        }
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "End running sub-elements.");
         }
         String returnValue = null;
         String response = null;
@@ -524,23 +544,36 @@ public final class SimpleMethod {
             doCommit = false;
         }
         if (doCommit) {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Begin commit transaction.");
+            }
             // commit here passing beganTransaction to perform it properly
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to commit transaction, could not process method: " + e.getMessage();
-                Debug.logWarning(e, errMsg, module);
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "An exception was thrown while committing a transaction, returning error message:", errMsg);
+                }
                 errorMsg += errMsg;
             }
         } else {
+            if (methodContext.isTraceOn()) {
+                outputTraceMessage(methodContext, "Begin roll back transaction.");
+            }
             // rollback here passing beganTransaction to either rollback, or set rollback only
             try {
                 TransactionUtil.rollback(beganTransaction, "Error in simple-method [" + this.getShortDescription() + "]: " + summaryErrorStringBuffer, null);
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to rollback transaction, could not process method: " + e.getMessage();
-                Debug.logWarning(e, errMsg, module);
+                if (methodContext.isTraceOn()) {
+                    outputTraceMessage(methodContext, "An exception was thrown while rolling back a transaction, returning error message:", errMsg);
+                }
                 errorMsg += errMsg;
             }
+        }
+        if (methodContext.isTraceOn()) {
+            outputTraceMessage(methodContext, "End simple-method.");
         }
         return returnValue;
     }
@@ -604,6 +637,10 @@ public final class SimpleMethod {
         return this.eventSessionName;
     }
 
+    public String getFileName() {
+        return this.fromLocation.substring(this.fromLocation.lastIndexOf("/") + 1);
+    }
+
     public String getFromLocation() {
         return this.fromLocation;
     }
@@ -658,6 +695,11 @@ public final class SimpleMethod {
 
     public String getShortDescription() {
         return this.shortDescription + " [" + this.fromLocation + "#" + this.methodName + "]";
+    }
+
+    @Override
+    public SimpleMethod getSimpleMethod() {
+        return this;
     }
 
     public String getUserLoginEnvName() {

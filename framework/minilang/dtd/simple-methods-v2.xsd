@@ -137,6 +137,30 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
 
+    <xs:attribute name="level">
+        <xs:annotation>
+            <xs:documentation>
+                The logging/debug level to use.
+                Must be one of the following: verbose | timing | info | important | warning | error | fatal | always.
+                Defaults to "info".
+                &lt;br/&gt;&lt;br/&gt;
+                Required. Attribute type: constant.
+                </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+            <xs:restriction base="xs:token">
+                <xs:enumeration value="info" />
+                <xs:enumeration value="verbose" />
+                <xs:enumeration value="timing" />
+                <xs:enumeration value="important" />
+                <xs:enumeration value="warning" />
+                <xs:enumeration value="error" />
+                <xs:enumeration value="fatal" />
+                <xs:enumeration value="always" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
   <!-- ELEMENTS start here -->
     <xs:element name="field">
         <xs:annotation>
@@ -3550,12 +3574,14 @@ under the License.
             <xs:attribute type="xs:string" name="error-code">
                 <xs:annotation>
                     <xs:documentation>
-                        The error code to return to the calling process. Defaults to "error".
+                        The error code to return to the calling process.
+                        Defaults to value of the containing simple-method "default-error-code" attribute.
                         &lt;br/&gt;&lt;br/&gt;
                         Optional. Attribute type: constant+expr
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute ref="error-list-name"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="add-error" substitutionGroup="ControlOperations">
@@ -4242,29 +4268,7 @@ under the License.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:attribute name="level" use="required">
-                <xs:annotation>
-                    <xs:documentation>
-                        The logging/debug level to use.
-                        Must be one of the following: verbose | timing | info | important | warning | error | fatal | always.
-                        Defaults to "info".
-                        &lt;br/&gt;&lt;br/&gt;
-                        Required. Attribute type: constant.
-                    </xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="info" />
-                        <xs:enumeration value="verbose" />
-                        <xs:enumeration value="timing" />
-                        <xs:enumeration value="important" />
-                        <xs:enumeration value="warning" />
-                        <xs:enumeration value="error" />
-                        <xs:enumeration value="fatal" />
-                        <xs:enumeration value="always" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
+            <xs:attribute ref="level" use="required"/>
             <xs:attribute type="xs:string" name="message" use="required">
                 <xs:annotation>
                     <xs:documentation>
@@ -4274,6 +4278,17 @@ under the License.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="trace" substitutionGroup="OtherOperations">
+        <xs:annotation>
+            <xs:documentation>
+                Logs detailed information on the internal state of its sub-elements, using the specified log level.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:group minOccurs="0" maxOccurs="unbounded" ref="AllOperations" />
+            <xs:attribute ref="level" use="required"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="now" substitutionGroup="OtherOperations">

@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.minilang;
 
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
 /**
  * A single Mini-language element. This class is the superclass for all <code>Element</code> models.
  */
 public class MiniLangElement {
+
+    public static final String module = MiniLangElement.class.getName();
 
     private final Object lineNumber;
     protected final SimpleMethod simpleMethod;
@@ -45,6 +49,19 @@ public class MiniLangElement {
 
     public String getTagName() {
         return this.tagName;
+    }
+
+    public void outputTraceMessage(MethodContext methodContext, String... messages) {
+        String lineSep = System.getProperty("line.separator");
+        StringBuilder buf = new StringBuilder(getSimpleMethod().getFileName());
+        buf.append(", Line ").append(getLineNumber()).append(" <").append(getTagName()).append("> element: ");
+        for (int i = 0; i < messages.length; i++) {
+            buf.append(messages[i]);
+            if (i < messages.length - 1 && messages.length > 1) {
+                buf.append(lineSep);
+            }
+        }
+        Debug.log(methodContext.getTraceLogLevel(), null, buf.toString(), module);
     }
 
     @Override
