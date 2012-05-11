@@ -1309,7 +1309,6 @@ under the License.
     </request-map>
     <request-map uri="AnonContactus">
         <security https="true" auth="false"/>
-        <event type="java" invoke="getCodeCaptcha" path="org.ofbiz.common.Captcha"/>
         <response name="success" type="view" value="AnonContactus"/>
     </request-map>
     <request-map uri="contactsubmit">
@@ -1322,7 +1321,6 @@ under the License.
         <security https="true" auth="false"/>
         <event type="simple" invoke="createAnonContact" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/CustomerEvents.xml"/>
         <response name="success" type="request-redirect" value="main"/>
-        <response name="confirm" type="request" value="AnonContactus"/>
         <response name="error" type="request" value="AnonContactus"/>
     </request-map>
 
