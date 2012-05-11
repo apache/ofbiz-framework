@@ -201,6 +201,13 @@ under the License.
         <response name="success" type="view" value="main"/>
     </request-map>
 
+    <!-- Common captcha image request, the captcha code is stored in the session using _CAPTCHA_CODE_ as the key -->
+    <request-map uri="captcha.jpg">
+        <security https="false" auth="false"/>
+        <event type="java" path="org.ofbiz.common.CommonEvents" invoke="getCaptcha"/>
+        <response name="success" type="none"/>
+    </request-map>
+
     <!-- Lookup requests -->
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
     <request-map uri="LookupGeoName"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeoName"/></request-map>
