@@ -33,11 +33,10 @@ import org.w3c.dom.Element;
 public final class Log extends MethodOperation {
 
     public static final String module = Log.class.getName();
-    private static final String[] LEVEL_ARRAY = {"always", "verbose", "timing", "info", "important", "warning", "error", "fatal", "notify"};
+    public static final String[] LEVEL_ARRAY = {"always", "verbose", "timing", "info", "important", "warning", "error", "fatal", "notify"};
 
     private final int level;
     private final FlexibleStringExpander messageFse;
-    private final Object startLine;
 
     public Log(Element element, SimpleMethod simpleMethod) throws MiniLangException {
         super(element, simpleMethod);
@@ -60,7 +59,6 @@ public final class Log extends MethodOperation {
         } else {
             this.level = levelInt.intValue();
         }
-        this.startLine = element.getUserData("startLine");
     }
 
     @Override
@@ -76,10 +74,8 @@ public final class Log extends MethodOperation {
             buf.append(methodLocation);
             buf.append("#");
             buf.append(this.simpleMethod.getMethodName());
-            if (this.startLine != null) {
-                buf.append(" line ");
-                buf.append(this.startLine);
-            }
+            buf.append(" line ");
+            buf.append(getLineNumber());
             buf.append("] ");
             buf.append(message);
             Debug.log(this.level, null, buf.toString(), module);
