@@ -26,7 +26,7 @@ help() {
 $0 [options]
 
 mergefromtrunk.sh merge \$rev		Apply revision \$rev from trunk.
-mergefromtrunk.sh test			Run test suite(clean-all, run-install, run-tests).
+mergefromtrunk.sh test			Run test suite(clean-all, load-demo, run-tests).
 mergefromtrunk.sh commit		Commit current fix to svn.
 mergefromtrunk.sh abort			Abort current merge session.
 
